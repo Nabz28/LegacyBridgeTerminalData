@@ -1,0 +1,48 @@
+{
+  "category": "Consumption",
+  "category_slug": "id_consumption",
+  "section": "National Accounts",
+  "source_file": "Indonesia_Consumption.xlsx",
+  "ric_count": 3,
+  "rics": [
+    {
+      "ric": "aIDGPCP/C",
+      "description": "FCE, Priv",
+      "frequency": "P3M",
+      "subcategory": "Private",
+      "units": "IDR billions, constant prices",
+      "meaning": "Final Consumption Expenditure, Private — household + NPISH (non-profit institutions) consumption in constant prices.",
+      "how_to_use": "Tracks household + non-profit final consumption. Slightly broader than household-only consumption (aIDCPCED/CA).",
+      "related_series": [
+        "aIDCPCED/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGPCG",
+      "description": "Final Consumption Expenditure, General Government, Current Prices, Consumption, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Government",
+      "units": "IDR billions, current prices",
+      "meaning": "Final Consumption Expenditure, General Government, Current Prices — nominal government consumption.",
+      "how_to_use": "Use real version for cycle analysis; nominal for fiscal arithmetic.",
+      "related_series": [
+        "aIDCNGOVR/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCNGOVR/C",
+      "description": "GOVERNMENT SPENDING (CONSTANT)",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "IDR billions, constant prices",
+      "meaning": "Government Spending (Constant Prices) — government final consumption expenditure in real terms. Same concept as aIDCGCED/CA.",
+      "how_to_use": "Cross-check series. Use either for government-spending volume tracking.",
+      "related_series": [
+        "aIDCGCED/CA"
+      ],
+      "notes": ""
+    }
+  ]
+}

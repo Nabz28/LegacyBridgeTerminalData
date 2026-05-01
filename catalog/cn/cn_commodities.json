@@ -1,0 +1,567 @@
+{
+  "category": "Other Commodities",
+  "category_slug": "cn_commodities",
+  "section": "Commodities",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T17_13 (commodities).xlsx",
+  "ric_count": 38,
+  "rics": [
+    {
+      "ric": "aCNCNYHVM",
+      "description": "Coal stock",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Coal stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZDUCQ",
+        "aCNCNVOGRQ",
+        "aCNCNUZNIQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDRJWM",
+      "description": "Import, steel standard fastener",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "China Imports: steel standard fastener. Detailed import series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level import data. Major Chinese imports: integrated circuits, crude oil, iron ore, soybeans, copper, machinery. Track monthly YoY changes for cycle signal.",
+      "related_series": [
+        "aCNCIMPB/A",
+        "aCNCIMPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNNNOOP",
+      "description": "China (Mainland), SCHEMA MS|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA MS|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNVVOOP",
+        "aCNBBOOP",
+        "aCNZZOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBBOOP",
+      "description": "China (Mainland), SCHEMA TH|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA TH|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNVVOOP",
+        "aCNNNOOP",
+        "aCNLLOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNVVOOP",
+      "description": "China (Mainland), SCHEMA VN|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA VN|TEST SERIES, Volume, Other Commodities, Daily, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNNNOOP",
+        "aCNBBOOP",
+        "aCNKKOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNZZOOP",
+      "description": "China (Mainland), SCHEMA|MS|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA|MS|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNLLOOP",
+        "aCNKKOOP",
+        "aCNJJOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNJJOOP",
+      "description": "China (Mainland), SCHEMA|PH|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA|PH|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNZZOOP",
+        "aCNLLOOP",
+        "aCNKKOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNLLOOP",
+      "description": "China (Mainland), SCHEMA|TH|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA|TH|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNZZOOP",
+        "aCNKKOOP",
+        "aCNJJOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNKKOOP",
+      "description": "China (Mainland), SCHEMA|VN|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), SCHEMA|VN|TESTING, Volume, Other Commodities, Weekly, Commercial Data Discovery & Application Co., Ltd., China. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNZZOOP",
+        "aCNLLOOP",
+        "aCNJJOOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFYPPQ",
+      "description": "Agricultural NPK chemical fertilizer (purified) stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Agricultural NPK chemical fertilizer (purified) stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNNVFXQ",
+        "aCNCNZDUCQ",
+        "aCNCNYHVM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUUUXM",
+      "description": "Air pollution control equipment output, Anhui Province",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Air pollution control equipment output, Anhui Province. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZHKLM",
+        "aCNCNCHPTM",
+        "aCNCNTBZCM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTBZCM",
+      "description": "Air pollution control equipment output, Beijing Municipality",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Air pollution control equipment output, Beijing Municipality. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZHKLM",
+        "aCNCNUUUXM",
+        "aCNCNCHPTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZHKLM",
+      "description": "Air pollution control equipment output, Fujian Province[e]",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Air pollution control equipment output, Fujian Province[e]. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNUUUXM",
+        "aCNCNTBZCM",
+        "aCNCNCHPTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCHPTM",
+      "description": "Air pollution control equipment output, Hubei Province",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Air pollution control equipment output, Hubei Province. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZHKLM",
+        "aCNCNUUUXM",
+        "aCNCNTBZCM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGJSDQ",
+      "description": "Alumina inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Alumina inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNYBHCQ",
+      "description": "Car inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Car inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ",
+        "aCNCNQDESQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQDESQ",
+      "description": "Cement inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Cement inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZFZQ",
+      "description": "Crude steel sales",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Crude steel sales. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNVOGRQ",
+        "aCNCNDRJWM",
+        "aCNCNBTANQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVOGRQ",
+      "description": "Crude steel stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Crude steel stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZFZQ",
+        "aCNCNBTANQ",
+        "aCNCNZDUCQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDXPQ",
+      "description": "Ethylene inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Ethylene inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZDUCQ",
+      "description": "Excavator stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Excavator stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYHVM",
+        "aCNCNVOGRQ",
+        "aCNCNUZNIQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMKVEQ",
+      "description": "Generator set (power generation equipment) inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Generator set (power generation equipment) inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZHKLM",
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPBKQ",
+      "description": "Liquor (65 degrees, commodity quantity) stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Liquor (65 degrees, commodity quantity) stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZDUCQ",
+        "aCNCNYHVM",
+        "aCNCNVOGRQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDGLTM",
+      "description": "Metal fastener production",
+      "frequency": "P1M",
+      "subcategory": "Industrial Output",
+      "units": "Tonnes / Units",
+      "meaning": "China industrial output: Metal fastener production. Industrial-sector production data for specific products or sub-sectors.",
+      "how_to_use": "Track for sector-cycle dynamics. China is the world's largest producer of steel, cement, copper, aluminum, and many other industrial commodities. Sustained production declines signal industrial-sector deceleration; sustained increases reflect capacity expansion or commodity-cycle peaks.",
+      "related_series": [
+        "aCNCNRTHCM",
+        "aCNCNDUJM",
+        "aCNCNDRJWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDUJM",
+      "description": "Metal smelting equipment output, Henan Province",
+      "frequency": "P1M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Metal smelting equipment output, Henan Province. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZHKLM",
+        "aCNCNUUUXM",
+        "aCNCNCHPTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEDKAQ",
+      "description": "New energy vehicle inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: New energy vehicle inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVAFLQ",
+      "description": "Paint inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Paint inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNQDESQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNVFXQ",
+      "description": "Phosphate fertilizer (purified) stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Phosphate fertilizer (purified) stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNFYPPQ",
+        "aCNCNZDUCQ",
+        "aCNCNYHVM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNRTHCM",
+      "description": "Refined copper (electrolytic copper) production",
+      "frequency": "P1M",
+      "subcategory": "Industrial Output",
+      "units": "Tonnes / Units",
+      "meaning": "China industrial output: Refined copper (electrolytic copper) production. Industrial-sector production data for specific products or sub-sectors.",
+      "how_to_use": "Track for sector-cycle dynamics. China is the world's largest producer of steel, cement, copper, aluminum, and many other industrial commodities. Sustained production declines signal industrial-sector deceleration; sustained increases reflect capacity expansion or commodity-cycle peaks.",
+      "related_series": [
+        "aCNCNUZNIQ",
+        "aCNCNDGLTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUZNIQ",
+      "description": "Refined edible vegetable oil stocks",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Refined edible vegetable oil stocks. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNRTHCM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVSODQ",
+      "description": "Rubber tire casing inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Rubber tire casing inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVAFLQ",
+        "aCNCNQDESQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEYNQ",
+      "description": "Soda ash inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Soda ash inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBSAOQ",
+      "description": "Soft drink inventory",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Soft drink inventory. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNYBHCQ",
+        "aCNCNVSODQ",
+        "aCNCNVAFLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBTANQ",
+      "description": "Steel stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Steel stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNVOGRQ",
+        "aCNCNZFZQ",
+        "aCNCNZDUCQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNSKEXQ",
+      "description": "Synthetic ammonia stock",
+      "frequency": "P3M",
+      "subcategory": "Commodity Inventory",
+      "units": "Volume / Tonnes",
+      "meaning": "China commodity inventory/stock: Synthetic ammonia stock. Inventory data tracking stockpiles of industrial commodities, raw materials, or finished goods.",
+      "how_to_use": "Inventory cycles drive industrial-sector demand patterns. Rising stocks alongside falling production signal weakening demand; falling stocks with stable production signal supply tightening. Major stockpiles tracked: steel, copper, cement, coal — these are commodity-cycle indicators globally.",
+      "related_series": [
+        "aCNCNZDUCQ",
+        "aCNCNYHVM",
+        "aCNCNVOGRQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZTMSM",
+      "description": "大气污染防治设备产量_累计同比增速_云南省",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 大气污染防治设备产量_累计同比增速_云南省. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZVANM",
+      "description": "大气污染防治设备产量_累计同比增速_甘肃省",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 大气污染防治设备产量_累计同比增速_甘肃省. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCOOP",
+      "description": "China (Mainland), COVID CASES|TEST SERIES, Volume, Other Commodities, Daily, Worldometer",
+      "frequency": "",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: China (Mainland), COVID CASES|TEST SERIES, Volume, Other Commodities, Daily, Worldometer. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNVVOOP",
+        "aCNNNOOP",
+        "aCNBBOOP"
+      ],
+      "notes": ""
+    }
+  ]
+}

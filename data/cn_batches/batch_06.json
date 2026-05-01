@@ -1,0 +1,758 @@
+{
+  "batch_id": 6,
+  "name": "Stocks, Bonds & Funds — Bond Market",
+  "topic": "China bond market — issuance, depository, redemption, yields, panda bonds, MTN, ABS",
+  "ric_count": 125,
+  "rics": [
+    {
+      "ric": "aCNHSCBGNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Commercial Banks - China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSCBANA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Commercial Banks - Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSCCENA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Credit Cooperatives - Enterprise Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFIGNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFICNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - Commercial Bank Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFIANA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFIENA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - Enterprise Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFILNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - Local Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSFIPNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Foreign Investors - Policy Bank Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSIILNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Insurance Insitutions - Local Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSIBGNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Inter-bank Market - China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSIFINA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Inter-bank Market - Foreign Investors",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSOMGNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Other Markets - China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSOMANA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Other Markets - Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSSCANA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Securities Companies - Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSTCGNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Total - China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSTCANA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Total - Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHSTCLNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Holding Structure: Total - Local Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNISCGBCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Issuance: China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNISCGBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Issuance: China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNISGABNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Issuance: Government-backed Agency Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPPCBBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bond Principal Payment: Central Bank Bills",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDCBBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Central Bank Bills",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDCGBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: China Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDCMBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Commercial Bank Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDCASNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Credit Asset Backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDETBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Enterprise Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDGABNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Government-backed Agency Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDLGBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Local Government Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDNFBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Non-bank Financial Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDOTHNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Others",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDPBBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Policy Bank Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDTOTNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Total, Current Prices, Stocks, Bonds & Funds, Monthly, China Central Depository & Clearing Co., Ltd.",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBDTOTNP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository Outstanding: Total, Volume, Stocks, Bonds & Funds, Monthly, China Central Depository & Clearing Co., Ltd.",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSCBCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Central Bank Bills - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSCGCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: China Government Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSCMCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Commercial Bank Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSCACNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Credit Asset Backed Securities - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSETCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Enterprise Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSFICNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Foreign Investors - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSGACNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Government-backed Agency Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSLGCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Local Government Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSNFCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Non-bank Financial Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSOTCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Others - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSPBCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Policy Bank Bonds - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSPBOCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Policy Bank Bonds - Outright Repo",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBSTOCNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "CIBM Bond Settlement: Total - Cash Bond",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNOVBISNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Overview:  Bond Issuance",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNOVBISCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Overview:  Bond Issuance",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNOVSTRNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Overview:  Bond Settlement - Tri-party Repo",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNOVBDONA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Overview:  Bonds Depository Outstanding",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNOVIMINP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Overview:  Inter-bank Market Investors",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNCJSM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese insurance companies, original insurance premium income, ABC Life",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNZTOKM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese insurance companies, original insurance premium income, Love life",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNGIFUM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese personal insurance companies, policyholders new payments, China Ping An Life Insurance",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNHCFYM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese personal insurance companies, policyholders new payments, Safe Pension",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNAEYBM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese property insurance companies, premium income, China Coal Property",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNJKLPM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese property insurance companies, premium income, China Ping An Property",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNOVJXM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Chinese property insurance companies, premium income, Taikang Online",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNSXEEM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "New foreign insurance company policyholders pay for new investment, AIA",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNGUFAM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "New foreign insurance company policyholders pay for new investment, Safe & Sound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNMGTBA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Margin trading balance amount",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNGBOND",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Government Benchmarks, Bid",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCNUOLDM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Basic medical insurance fund expenditure",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNZKKTM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, Jilin Province",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNOWWPM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, bank loans",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNZJVTM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, domestic loans, Guizhou Province",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNNWZEM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, domestic loans, Hubei Province",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNZIVVM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, personal mortgage loans, Heilongjiang Province",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNLGEDM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, personal mortgage loans, Shanghai Municipality",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNDHJXM",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Real estate enterprises, funds actually put in place, self-raised funds, Jiangsu Province",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNSHRPRCF",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "SHANGHAI SE COMPOSITE INDEX - CLOSE",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNNEICEQP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Listed Companies on National Equities Exchange and Quotations",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNNEIAEQP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Number of Times NEEQ Listed Companies Issued Shares, Incl Additional Shares",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNNEFREQA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Total Funds Raised on National Equities Exchange and Quotations",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNNEIVEP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Total Issued Shares on National Equities Exchange and Quotations, Annual, National Equities Exchange and Quotations(NEEQ) & Cninfo, China",
+      "frequency": "P1Y"
+    },
+    {
+      "ric": "aCNNEIVEQP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Total Issued Shares on National Equities Exchange and Quotations, Monthly, National Equities Exchange and Quotations(NEEQ) & Cninfo, China",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABCCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Credit Cooperatives",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABDFA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Depository Financial Institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABFBA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Foreign Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABIVA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Foreign Investor",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABFCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Funds Companies",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABFIA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Funds Institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABIIA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Insurance financial institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABJCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Joint-Stock Commercial Banks,",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABNAA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Nominee Account (Domestic)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABNFA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Non-financial Institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABIFA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Other Depository Financial Institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABOFA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Other financial institutions",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABOTA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Others",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABPBA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Policy Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABRCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Rural Commercial Banks and Coorperative Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABSCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Securities Companies",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABCBA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - State-owned Commercial Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABTOA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Total",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABUCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Urban Commercial Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCABVSA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Asset-backed Securities - Village and Small Town Banks",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBCCMPCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository: Commercial Papers",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBCFIBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository: Financial Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBCMTNCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository: Medium-term Notes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBCSCNNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository: SME Collective Notes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBCSCBCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Depository: Short-term Securities Companies Financing Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNIPABSCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Interest Paid: Asset-backed Securities",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNIPCMPCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Interest Paid: Commercial Papers",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNIPCCBCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Interest Paid: Corporate Credit Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNIPCCBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Interest Paid: Corporate Credit Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNIPPDBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Interest Paid: Panda bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIABSNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Asset-backed Securities, Current Prices, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIABSNP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Asset-backed Securities, Volume, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBICCBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Corporate Credit Bonds, Current Prices, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBICCBCP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Corporate Credit Bonds, Volume, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIGRNNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Green Notes, Current Prices, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIGRNCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Green Notes, Current Prices, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIGRNCP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Green Notes, Volume, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIGRNNP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Green Notes, Volume, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIMTNCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Medium-term Notes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBINFICP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Non-bank financial institution bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIPDBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Panda bonds, Current Prices, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBIPDBNP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Panda bonds, Volume, Stocks, Bonds & Funds, Monthly, Shanghai Clearing House",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBISCBNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Short-term Securities Companies Financing Bonds",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBISDNCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Standardized Notes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBITOTNP",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Issuance: Total",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNBRTOTNA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Bonds Redemption: Total",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCCPCCA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Commercial Papers - Credit Cooperatives",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNHCCPDFA",
+      "slug": "cn_stocks_bonds_and_funds",
+      "description": "Commercial Papers - Depository Financial Institutions",
+      "frequency": "P1M"
+    }
+  ]
+}

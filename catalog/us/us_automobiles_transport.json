@@ -1,0 +1,567 @@
+{
+  "category": "Automobiles & Transport",
+  "category_slug": "us_automobiles_transport",
+  "section": "Industry Sector",
+  "source_file": "US_Automobiles & Transport.xlsx",
+  "ric_count": 40,
+  "rics": [
+    {
+      "ric": "aUSCARSOA",
+      "description": "All Car Sales - Acutal",
+      "frequency": "P1M",
+      "subcategory": "Vehicle Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total Car Sales — passenger cars only (excludes light trucks). The shrinking part of the auto market.",
+      "how_to_use": "Cars dropped from ~50% to ~25% of light-vehicle sales since 2010. EV adoption is reshaping the car segment specifically (Tesla, Rivian, Lucid). Truck SAAR (aUSVHLS − aUSCARSOA) is the larger and more cyclical segment.",
+      "related_series": [
+        "aUSVHLS",
+        "aUSPCARRVO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSATSOA",
+      "description": "All Truck Sales",
+      "frequency": "P1M",
+      "subcategory": "Vehicle Sales",
+      "units": "Million units, SAAR",
+      "meaning": "All truck sales (light + heavy).",
+      "how_to_use": "Trucks = ~75% of light-vehicle sales now (CUV + pickup mix shift).",
+      "related_series": [
+        "aUSCARSOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAUIMCNO/A",
+      "description": "Motor Vehicles, Auto unit imports, Canada",
+      "frequency": "P1M",
+      "subcategory": "Auto Imports",
+      "units": "Thousand units",
+      "meaning": "Auto unit imports from Canada — passenger vehicles imported from Canadian plants. Canada is integrated with US auto manufacturing under USMCA.",
+      "how_to_use": "Track for USMCA trade flows. Canadian plants produce primarily for US export (Honda Alliston, Toyota Cambridge, GM Oshawa). Tariff threats (2018, 2025) directly impact this series.",
+      "related_series": [
+        "aUSDCAR",
+        "aUSICAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCAR",
+      "description": "Motor Vehicles, Car sales, domestic passenger",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Domestic passenger car sales — cars assembled in US/Canada/Mexico (USMCA). Excludes vehicles imported from Asia or Europe.",
+      "how_to_use": "Track domestic vs imported share for trade-policy implications. Tariff regime changes show up here first. Domestic share has fallen as Asian OEMs shifted to US assembly (Toyota, Honda, Hyundai, Kia all have major US plants).",
+      "related_series": [
+        "aUSICAR",
+        "aUSNCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDVEHCAR/A",
+      "description": "Motor Vehicles, Car sales, domestic passenger",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Thousand units",
+      "meaning": "Domestic passenger car sales — annual aggregate of cars assembled in USMCA region. Companion to aUSDCAR at lower frequency.",
+      "how_to_use": "Use for long-term-trend analysis of domestic-vs-imported auto mix. Domestic car share has fallen as Asian OEMs shifted to US assembly (Toyota, Honda, Hyundai, Kia all have major US plants).",
+      "related_series": [
+        "aUSDCAR",
+        "aUSICAR",
+        "aUSNCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPMV/A",
+      "description": "Motor Vehicles, Car sales, imported passenger",
+      "frequency": "P1M",
+      "subcategory": "Auto Imports",
+      "units": "Thousand units",
+      "meaning": "Imported passenger car sales (annual) — vehicles imported from outside USMCA region. Companion to aUSICAR at lower frequency. Mostly European luxury and Japanese/Korean supplements.",
+      "how_to_use": "Sensitive to tariff policy and currency moves. Watch USDJPY and EURUSD for currency-pass-through. Section-232 tariff threats specifically target this category.",
+      "related_series": [
+        "aUSICAR",
+        "aUSDCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSICAR",
+      "description": "Motor Vehicles, Car sales, imported passenger",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Imported passenger car sales — vehicles imported from outside USMCA region. Mostly European (German luxury, UK premium) plus some Korean and Japanese supplements to US production.",
+      "how_to_use": "Sensitive to tariff policy and currency moves. EU tariff changes (proposed 2018-19, 2025) directly hit this series. Watch USDJPY and EURUSD for currency-pass-through to import-vehicle prices.",
+      "related_series": [
+        "aUSDCAR",
+        "aUSNCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCAR",
+      "description": "Motor Vehicles, Car sales, total",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total car sales (passenger sedans, hatchbacks, sports cars — excluding light trucks/SUVs). Has structurally declined post-2010 as US shifted to SUV/CUV preference.",
+      "how_to_use": "Cars are now ~25% of light-vehicle sales (was 50% in 2010). Track separately from trucks for demand-mix signal. EVs are mostly classified as cars in this data; rapid EV growth partially offsets ICE-car decline.",
+      "related_series": [
+        "aUSNCAR/A",
+        "aUSCARSOA",
+        "aUSTKLSAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCAR/A",
+      "description": "Motor Vehicles, Car sales, total",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Thousand units",
+      "meaning": "Total car sales (annual) — sum of domestic + imported passenger cars. Companion to aUSNCAR at lower frequency.",
+      "how_to_use": "Annual frequency cleaner for trend analysis. Cars now ~25% of US light-vehicle market (was 50% in 2010). EVs included as cars in this data; track separately for EV-specific share.",
+      "related_series": [
+        "aUSNCAR",
+        "aUSCARSOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCARRVO/A",
+      "description": "Motor Vehicles, Domestic auto unit inventory",
+      "frequency": "P1M",
+      "subcategory": "Auto Inventory",
+      "units": "Million units",
+      "meaning": "Domestic auto unit inventory — outstanding stock of unsold vehicles at dealer + manufacturer level. Days-supply ratio (inventory/daily sales rate) is the cleaner stress signal.",
+      "how_to_use": "Pre-COVID norm ~60-90 days supply for cars, ~80-100 for trucks. 2022 supply shock saw <30 days; rebuilding now toward normal. Watch for inventory build above 100 days as a sign of demand softening.",
+      "related_series": [
+        "aUSDAPRODP",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCARRVP",
+      "description": "Motor Vehicles, Domestic auto unit inventory, inventory level (Ward's)",
+      "frequency": "P1M",
+      "subcategory": "Auto Inventory",
+      "units": "Million units",
+      "meaning": "Domestic auto unit inventory levels — alternative measure to aUSPCARRVO/A. Same underlying inventory concept at different frequency/release.",
+      "how_to_use": "Cross-check against aUSPCARRVO/A. Days-supply ratio (inventory/daily sales) is the meaningful stress signal — under 30 days = tight, over 100 = loose. Watch alongside production for the inventory-build-or-draw signal.",
+      "related_series": [
+        "aUSPCARRVO/A",
+        "aUSDAPRODP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDAPRODP",
+      "description": "Motor Vehicles, Domestic auto unit production",
+      "frequency": "P1M",
+      "subcategory": "Auto Production",
+      "units": "Million units",
+      "meaning": "Domestic auto unit production — vehicles assembled in US plants. Companion to sales for the supply-side picture.",
+      "how_to_use": "Inventories = production minus sales over time. Track for supply-discipline signal: when production exceeds sales, inventories build and OEM incentives rise. Chip-shortage 2021-22 caused production crater while demand persisted, driving used-car prices and CPI.",
+      "related_series": [
+        "aUSPCARRVO/A",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTSALE/CA",
+      "description": "Motor Vehicles, Total light trucks sales",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total light truck sales (SUVs + pickups + minivans). ~75% of US light-vehicle market. Higher-margin segment for OEMs.",
+      "how_to_use": "Pickup truck demand correlates with construction and small-business activity (most pickups go to commercial buyers). Pickup-vs-SUV split useful for B2B vs consumer breakdown. Larger segment sees biggest dealer-incentive moves.",
+      "related_series": [
+        "aUSTKLSAP",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTKLSAP",
+      "description": "Motor Vehicles, Total light trucks sales",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total light truck sales (alternative source) — same conceptual measure as aUSTSALE/CA at different release vintage.",
+      "how_to_use": "Cross-check against aUSTSALE/CA. Use whichever has fresher data. Light truck mix is the structural story of US auto market: from 30% of mix in 1990 to 75% today.",
+      "related_series": [
+        "aUSTSALE/CA",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDVEHLCV/A",
+      "description": "Motor Vehicles, Total light vehicle sales",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total light vehicle sales (annualized) — companion series to aUSVHLS at quarterly/annual frequency. Same conceptual measure for long-time-series comparison.",
+      "how_to_use": "Cross-check against aUSVHLS. Use the higher-frequency series for monthly tracking. Long-term trend has shifted from cars (sedan-dominated 1990s) to trucks/SUVs (~75% of mix today).",
+      "related_series": [
+        "aUSVHLS",
+        "aUSTLVS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVHLS",
+      "description": "Motor Vehicles, Total light vehicle sales",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total light-vehicle sales (cars + light trucks) at seasonally-adjusted annual rate. Released monthly (Wards Auto / Autodata).",
+      "how_to_use": "The headline US auto-sales print. Pre-COVID norm ~17M SAAR; supply-chain shock dropped to 13M in 2021-22; recovering toward 16M. Major demand input to GDP (consumer durables) and to inflation (used-car CPI is auto-sales-volume driven).",
+      "related_series": [
+        "aUSDVEHLCV/A",
+        "aUSTLVS",
+        "aUSNCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTKHSALO/A",
+      "description": "Motor Vehicles, Truck Sales, Heavy trucks sales",
+      "frequency": "P1M",
+      "subcategory": "Vehicle Sales",
+      "units": "Thousand units",
+      "meaning": "Heavy truck sales.",
+      "how_to_use": "Class 8 trucks — freight-cycle indicator. Order books lead by 6-9 months.",
+      "related_series": [
+        "aUSTKHSAO/A",
+        "aUSTKHSAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTKHSAO/A",
+      "description": "Motor Vehicles, Truck Sales, Heavy trucks sales",
+      "frequency": "P1M",
+      "subcategory": "Heavy Trucks",
+      "units": "Thousand units",
+      "meaning": "Heavy truck (Class 8) sales — semi-tractors, cement mixers, dump trucks. Sold mostly to fleet operators and trucking companies. ~250-450k units/year.",
+      "how_to_use": "Pure cyclical indicator: trucking demand → fleet replacement → orders. Sustained drops below 350k SAAR have preceded freight recessions. ATA's truck tonnage index is the demand-side companion.",
+      "related_series": [
+        "aUSTKHSALO/A",
+        "aUSTKHSAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTKHSAP",
+      "description": "Motor Vehicles, Truck Sales, Heavy trucks sales",
+      "frequency": "P1M",
+      "subcategory": "Heavy Trucks",
+      "units": "Thousand units",
+      "meaning": "Heavy truck (Class 8) sales — alternative source. Cross-check with aUSTKHSAO/A. Pure cyclical indicator: trucking demand → fleet replacement → orders.",
+      "how_to_use": "Use whichever is fresher. Sustained drops below 350k SAAR have preceded freight recessions. ATA's truck tonnage index is the demand-side companion.",
+      "related_series": [
+        "aUSTKHSAO/A",
+        "aUSTKHSALO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMVEHTRKL",
+      "description": "Motor Vehicles, Truck sales, domestic light",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Thousand units",
+      "meaning": "Domestic light truck sales — companion to aUSDTRUCK/A. Captures pickups + SUVs assembled in US/Canada/Mexico under USMCA.",
+      "how_to_use": "Watch for nearshoring effects. Production has shifted from Mexico for some models, expanding US assembly. Track alongside aUSMVTSIMPL for full domestic-vs-imported truck mix.",
+      "related_series": [
+        "aUSDTRUCK/A",
+        "aUSMVTSIMPL/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTRUCK/A",
+      "description": "Motor Vehicles, Truck sales, domestic light",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Million units",
+      "meaning": "Domestic light truck sales (annual aggregate) — companion to monthly truck sales at lower frequency. USMCA-region production.",
+      "how_to_use": "Use for long-term-trend analysis. Domestic-vs-imported share key for trade-policy implications. Pickup trucks dominate this category.",
+      "related_series": [
+        "aUSMVEHTRKL",
+        "aUSTSALE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMVTSIMPL/A",
+      "description": "Motor Vehicles, Truck sales, imported light",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Thousand units",
+      "meaning": "Imported light truck sales (annual) — non-USMCA-sourced light trucks. Mostly Asian and European origin.",
+      "how_to_use": "Smaller share than imported cars because tariffs on imported pickups (25%, 'chicken tax') have historically protected US pickup makers. Subject to tariff-policy risk.",
+      "related_series": [
+        "aUSTSLSIMPL",
+        "aUSDTRUCK/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTSLSIMPL",
+      "description": "Motor Vehicles, Truck sales, imported light",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Thousand units",
+      "meaning": "Imported light truck sales (alternate source) — same conceptual measure as aUSMVTSIMPL/A.",
+      "how_to_use": "Cross-check series. Use whichever is fresher. Tariff-protected category historically.",
+      "related_series": [
+        "aUSMVTSIMPL/A",
+        "aUSDTRUCK/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSRAMDAO",
+      "description": "AUTODATA RETAIL SALES OF NEW CARS: DOMESTIC (AR)",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Autodata Retail Sales of New Cars: Domestic (Annualized Rate) — Autodata Corp's measure of domestic-only car sales (USMCA-assembled passenger cars only).",
+      "how_to_use": "Track for domestic-vs-import retail mix. Autodata is a primary source automakers report through; J.D. Power and Wards aggregate their data.",
+      "related_series": [
+        "aUSDCAAO",
+        "aUSDCAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTLVS",
+      "description": "Motor Vehicles, Total light vehicle sales (Autodata Corp.)",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Total light vehicle sales (Autodata Corp) — alternative provider's measure of the same total light-vehicle sales. Useful for cross-check when source data revisions diverge.",
+      "how_to_use": "Autodata is the source most automakers report through. Compare against Wards Auto-sourced series to see methodology differences. Major divergences are usually corrected within 1-2 months.",
+      "related_series": [
+        "aUSVHLS",
+        "aUSDVEHLCV/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCAAO",
+      "description": "United States, REUTERS POLL: DOMESTIC CAR SALES - ACTUAL, Volume, Automobiles & Transport, Monthly, Reuters",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Reuters Poll: Domestic Car Sales — Actual — Reuters survey-based estimate of monthly domestic car sales, used pre-release as forecast benchmark.",
+      "how_to_use": "Used by markets to anchor expectations before official release. Comparison vs actual print drives short-term auto-sector trades.",
+      "related_series": [
+        "aUSDCAR",
+        "aUSSRAMDAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTRAO",
+      "description": "United States, REUTERS POLL: DOMESTIC TRUCK SALES - ACTUAL, Volume, Automobiles & Transport, Monthly, Reuters",
+      "frequency": "P1M",
+      "subcategory": "Truck Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Reuters Poll: Domestic Truck Sales — Actual — Reuters poll-based estimate. Markets use as forecast benchmark before official monthly release.",
+      "how_to_use": "Survey-anchored estimate. Comparison vs actual print drives auto-sector reaction. Domestic truck sales matter for domestic-OEM share (Ford F-150, Chevy Silverado, Ram).",
+      "related_series": [
+        "aUSMVEHTRKL",
+        "aUSVEHAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVEHAO",
+      "description": "United States, REUTERS POLL: TOTAL VEHICLE SALES - ACTUAL, Volume, Automobiles & Transport, Monthly, Reuters",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Million units, SAAR",
+      "meaning": "Reuters Poll: Total Vehicle Sales — Actual — Reuters total-vehicle-sales survey estimate, anchor for monthly release expectations.",
+      "how_to_use": "Most-watched of the Reuters auto polls. Comparison vs actual print drives broad auto-sector trades. ~17M SAAR = healthy; <14M = stressed.",
+      "related_series": [
+        "aUSVHLS",
+        "aUSDCAAO",
+        "aUSDTRAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACAV",
+      "description": "Air Cargo Traffic, Available Ton Miles",
+      "frequency": "P1M",
+      "subcategory": "Air Cargo",
+      "units": "Ton-miles",
+      "meaning": "Air cargo available ton miles.",
+      "how_to_use": "Cargo capacity. Spread to revenue ton-miles = utilization (load factor).",
+      "related_series": [
+        "aUSACRFRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACRFRM",
+      "description": "Air Cargo Traffic, Revenue Freight Ton Miles",
+      "frequency": "P1M",
+      "subcategory": "Air Cargo",
+      "units": "Ton-miles",
+      "meaning": "Air cargo traffic, revenue freight ton-miles — total air freight activity at US airports. BTS monthly release.",
+      "how_to_use": "Cyclical: tracks goods trade and e-commerce demand. Spiked 2020-21 during pandemic e-commerce surge. Watch alongside trucking and rail freight for full freight-cycle picture.",
+      "related_series": [
+        "aUSACTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSSMILP",
+      "description": "Air Passenger Traffic, Available Seat Miles",
+      "frequency": "P1M",
+      "subcategory": "Air Passenger",
+      "units": "Seat-miles",
+      "meaning": "Available seat miles — capacity.",
+      "how_to_use": "Industry capacity. Pairs with passenger miles for load factor.",
+      "related_series": [
+        "aUSAIRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPTRAH",
+      "description": "Air Passenger Traffic, Revenue Aircraft Hours (Airborne)",
+      "frequency": "P1M",
+      "subcategory": "Air Travel",
+      "units": "Aircraft hours",
+      "meaning": "Air passenger traffic, revenue aircraft hours (airborne). BTS monthly. Captures fleet-utilization for passenger flights.",
+      "how_to_use": "Tracks passenger-flight activity. Recovered fully from COVID by 2024. Watch for capacity discipline post-recovery (airlines avoiding overcapacity).",
+      "related_series": [
+        "aUSPTRAMF",
+        "aUSPTRDEP",
+        "aUSPTRPEP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPTRAMF",
+      "description": "Air Passenger Traffic, Revenue Aircraft Miles Flown",
+      "frequency": "P1M",
+      "subcategory": "Air Travel",
+      "units": "Aircraft miles",
+      "meaning": "Air passenger traffic, revenue aircraft miles flown — total miles flown by passenger aircraft. Companion to aircraft-hours.",
+      "how_to_use": "Tracks long-haul vs short-haul mix. Long-haul international has lagged domestic in COVID recovery. Watch alongside aircraft-hours for trip-length signal.",
+      "related_series": [
+        "aUSPTRAH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPTRDEP",
+      "description": "Air Passenger Traffic, Revenue Departures Performed",
+      "frequency": "P1M",
+      "subcategory": "Air Travel",
+      "units": "Departures",
+      "meaning": "Air passenger traffic, revenue departures performed — number of passenger flights operated.",
+      "how_to_use": "Tracks total flight count. Combined with passenger enplanements gives load-factor implications. Departure count is more frequency-driven; enplanements more demand-driven.",
+      "related_series": [
+        "aUSPTRAH",
+        "aUSPTRPEP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPTRPEP",
+      "description": "Air Passenger Traffic, Revenue Passenger Enplanements",
+      "frequency": "P1M",
+      "subcategory": "Air Travel",
+      "units": "Passengers",
+      "meaning": "Air passenger traffic, revenue passenger enplanements — total passengers boarding flights. The 'how many people flew' number.",
+      "how_to_use": "Cyclical with leisure + business travel demand. TSA security throughput is the high-frequency complement. Watch for peak-summer-travel season trends and post-COVID business-travel recovery.",
+      "related_series": [
+        "aUSPTRDEP",
+        "aUSACTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAIRP",
+      "description": "Air Passenger Traffic, Revenue Passenger Miles, U.S. carriers",
+      "frequency": "P1M",
+      "subcategory": "Air Passenger",
+      "units": "Passenger-miles",
+      "meaning": "Revenue passenger miles, US carriers.",
+      "how_to_use": "Combines headcount with stage length. The headline air-travel demand metric.",
+      "related_series": [
+        "aUSBSSMILP",
+        "aUSPTRPEP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACTOT",
+      "description": "Air Passenger Traffic, Total Revenue Ton Miles",
+      "frequency": "P1M",
+      "subcategory": "Air Total",
+      "units": "Ton-miles",
+      "meaning": "Air passenger traffic, total revenue ton-miles — combined passenger + cargo ton-miles. Captures total revenue-generating activity.",
+      "how_to_use": "Aggregate aviation activity gauge. Watch for overall airline industry health. Decompose into passenger vs cargo for source of growth/weakness.",
+      "related_series": [
+        "aUSPTRPEP",
+        "aUSACRFRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRANSF/A",
+      "description": "Overall, Transportation Services Index, Freight",
+      "frequency": "P1M",
+      "subcategory": "Trans Services",
+      "units": "Index",
+      "meaning": "Transportation Services Index — Freight component.",
+      "how_to_use": "BTS combined freight gauge: trucking, rail, water, pipeline, air freight. Leads industrial production.",
+      "related_series": [
+        "aUSTRANS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRANSP/A",
+      "description": "Overall, Transportation Services Index, Passenger",
+      "frequency": "P1M",
+      "subcategory": "Transportation",
+      "units": "Index",
+      "meaning": "Transportation Services Index, passenger — BTS composite of passenger transportation activity (air, rail, transit). Released monthly.",
+      "how_to_use": "Real-time passenger-transportation pulse. Combined with freight-side TSI gives total-transportation cycle gauge. Useful as a coincident-economy indicator.",
+      "related_series": [
+        "aUSPTRPEP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRANS/A",
+      "description": "Overall, Transportation Services Index, Total",
+      "frequency": "P1M",
+      "subcategory": "Trans Services",
+      "units": "Index",
+      "meaning": "Transportation Services Index — Total.",
+      "how_to_use": "BTS combined transport activity (passenger + freight). Leading indicator.",
+      "related_series": [
+        "aUSTRANSF/A",
+        "aUSTRANSP/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

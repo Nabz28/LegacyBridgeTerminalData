@@ -1,0 +1,428 @@
+{
+  "category": "Financial & Flow of Funds Accounts",
+  "category_slug": "us_financial_flow_of_funds_accounts",
+  "section": "Money & Finance",
+  "source_file": "US_Financial & Flow of Funds Accounts.xlsx",
+  "ric_count": 33,
+  "rics": [
+    {
+      "ric": "aUS66OLLBA",
+      "description": "Brokers & dealers loans to nonfinancial corporate business",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Brokers & dealers, loans to nonfinancial corporate business. Quarterly Z.1.",
+      "how_to_use": "Margin/securities-financing channel of corporate debt. Surges in crises (e.g., 2008 hedge fund deleveraging).",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS73PCDLA",
+      "description": "Commercial banks holding of direct commercial paper",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Commercial banks holding of direct commercial paper.",
+      "how_to_use": "Bank participation in CP market. Watch as a money-market liquidity gauge.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS16IENN",
+      "description": "Equipment holdings, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Household Sector",
+      "units": "USD billions",
+      "meaning": "Equipment holdings, NPISH (non-profits serving households).",
+      "how_to_use": "Niche line; small fraction of NPISH balance sheet.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS31FGDSB/A",
+      "description": "Federal government debt securities, liability",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "USD millions",
+      "meaning": "Federal government debt securities, liability — Z.1 flows.",
+      "how_to_use": "Quarterly issuance flow. Cross-check against Treasury auction data.",
+      "related_series": [
+        "aUS31FGDSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS31FGDSA",
+      "description": "Federal government debt securities, liability",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "USD millions",
+      "meaning": "Federal government debt securities, liability — Flow of Funds Z.1 measure of total federal debt held outside Treasury (treasury securities held by the public + non-Treasury federal liabilities).",
+      "how_to_use": "Most-comprehensive federal-debt measure in Z.1 framework. Cross-check against Treasury Direct figures (aUSPDEBTA, aUSFEDETOS). The Z.1 includes some categories that Treasury direct excludes (FHLB, GNMA pools).",
+      "related_series": [
+        "aUSPDEBTA",
+        "aUSFEDETOS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS31HCFLB/A",
+      "description": "Federal government, Retiree healthcare fund, chg at annual rate",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "USD millions",
+      "meaning": "Federal retiree healthcare fund, change at annual rate.",
+      "how_to_use": "Niche. Small flow line.",
+      "related_series": [
+        "aUS31HCFLA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS31HCFLA",
+      "description": "Federal government, retiree healthcare fund",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "USD millions",
+      "meaning": "Federal retiree healthcare fund balance.",
+      "how_to_use": "Stock counterpart.",
+      "related_series": [
+        "aUS31HCFLB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFFLNPO",
+      "description": "Flow of Funds Balance Sheet, Household and nonprofit organizations, Net worth",
+      "frequency": "P3M",
+      "subcategory": "Household Wealth",
+      "units": "USD billions",
+      "meaning": "Household and NPO net worth — total household wealth (Z.1 B.101).",
+      "how_to_use": "The headline 'household wealth' number. Crashed 2008, hit ~$160T+ in 2024. Wealth-effect driver for consumption.",
+      "related_series": [
+        "aUSDEBTDF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDEBTDF/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic financial sectors",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Domestic financial sectors debt outstanding (Z.1).",
+      "how_to_use": "Total leverage in financial intermediaries. Plateaued post-2008 as banks deleveraged; nonbank finance grew.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS31CM1DB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, federal government",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Federal government nonfinancial debt outstanding (Z.1).",
+      "how_to_use": "Component of total domestic nonfinancial debt — federal share.",
+      "related_series": [
+        "aUSDEBTDN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS14CM3DB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, business total",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Domestic nonfinancial business debt total (Z.1).",
+      "how_to_use": "Sum of corporate + noncorporate. Watch debt/GDP for leverage cycle.",
+      "related_series": [
+        "aUS10CM3DB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS10CM3DB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, business, corporate",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Corporate business debt outstanding (Z.1).",
+      "how_to_use": "Corporate leverage gauge. Includes loans + bonds. Hit 50%+ of GDP — historically high.",
+      "related_series": [
+        "aUS14CM3DB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15CM1DB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, households total",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Household debt total (Z.1).",
+      "how_to_use": "Mortgage + consumer credit + auto + student. ~$20T total. Debt service ratio is lower than 2008 peak.",
+      "related_series": [
+        "aUS15CCTDB/A",
+        "aUS15MGHDB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15CCTDB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, households, consumer credit",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Household consumer credit (revolving + non-revolving auto/student).",
+      "how_to_use": "Front-end delinquencies elevated; flagging stress in subprime credit card / auto.",
+      "related_series": [
+        "aUS15CM1DB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15MGHDB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, households, home mortgages",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Household home mortgages.",
+      "how_to_use": "Largest household debt category. Delinquencies low but housing market frozen at high mortgage rates.",
+      "related_series": [
+        "aUS15CM1DB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS21CM1DB/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, nonfederal, state and local government",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "State and local government debt outstanding (Z.1).",
+      "how_to_use": "Munis. ~$3T total. Watch general obligation vs revenue bond mix.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDEBTDN/A",
+      "description": "Flow of Funds Debt Outstanding, Domestic nonfinancial sectors, total",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Total domestic nonfinancial debt (Z.1) — government + business + household.",
+      "how_to_use": "Master leverage gauge. >300% of GDP currently. The denominator (GDP) growth determines sustainability.",
+      "related_series": [
+        "aUS31CM1DB/A",
+        "aUS14CM3DB/A",
+        "aUS15CM1DB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDEBTF/A",
+      "description": "Flow of Funds Debt Outstanding, Foreign",
+      "frequency": "P3M",
+      "subcategory": "Foreign Holdings",
+      "units": "USD billions",
+      "meaning": "Flow of Funds Debt Outstanding, Foreign — debt instruments held by foreign sectors. Includes Treasury holdings (TIC data) plus corporate and agency debt.",
+      "how_to_use": "Tracks foreign claims on US debt — the financing side of US current-account deficits. Slowing foreign demand has been a Treasury concern post-2022 as China and Japan reduced Treasury holdings; partial offset from Europe.",
+      "related_series": [
+        "aUSCURAC/A",
+        "aUSPDEBTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXZLFFRA",
+      "description": "Flow of Funds Instruments, Federal funds and security repo, Effective federal funds rate (percent)",
+      "frequency": "P3M",
+      "subcategory": "Money Markets",
+      "units": "USD millions",
+      "meaning": "Flow of Funds: Federal funds and security repos — total fed-funds + repo lending volumes in the financial system. Z.1 quarterly.",
+      "how_to_use": "Tracks unsecured (fed funds) + secured (repo) interbank lending volumes. Repo dominates post-2008 (~$5T+ daily); fed funds is small (~$100B). Stress signals: spikes in repo rates relative to IORB indicate funding pressure.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSRRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLGCMBAA",
+      "description": "Flow of Funds Summaries, Domestic Nonfinancial Sector, CREDIT MARKET DEBT - PRIVATE DOMESTIC NONFIN (FOF ASSET)",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Domestic Nonfinancial Sector — credit market debt, private domestic.",
+      "how_to_use": "Private credit excludes federal. Cleaner cycle gauge than total.",
+      "related_series": [
+        "aUSDEBTDN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS19MGHLA",
+      "description": "Home mortgages, private domestic nonfinancial, not state & local",
+      "frequency": "P3M",
+      "subcategory": "Home Mortgages",
+      "units": "USD billions",
+      "meaning": "Home mortgages, private domestic nonfinancial — total household mortgage debt outstanding. The largest household liability category.",
+      "how_to_use": "Tracks ~$13T household mortgage book. Growth slows sharply in housing-rate-shock periods (2022-23). Pair with mortgage-origination flows and home-price appreciation for the housing-finance cycle.",
+      "related_series": [
+        "aUSMOVTOTA",
+        "aUSHPI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15OLLHA",
+      "description": "Household sector loans to nonfinancial corporate business",
+      "frequency": "P3M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD millions",
+      "meaning": "Household sector loans to nonfinancial corporate business.",
+      "how_to_use": "Niche; tracks direct lending channel.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS11RESTA",
+      "description": "Nonfinancial Noncorporate Business, Assets, real estate",
+      "frequency": "P3M",
+      "subcategory": "Business Sector",
+      "units": "USD millions",
+      "meaning": "Nonfinancial noncorporate business — real estate assets.",
+      "how_to_use": "CRE held outside corporate structures (sole prop, partnerships).",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS11CHNIA",
+      "description": "Nonfinancial noncorporate business, net increase in liabilities",
+      "frequency": "P3M",
+      "subcategory": "Business Sector",
+      "units": "USD millions",
+      "meaning": "Nonfinancial noncorporate business, net increase in liabilities.",
+      "how_to_use": "Smaller-business borrowing flow.",
+      "related_series": [
+        "aUS11CHNLA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS11CHNLA",
+      "description": "Nonfinancial noncorporate business, net lending",
+      "frequency": "P3M",
+      "subcategory": "Business Sector",
+      "units": "USD millions",
+      "meaning": "Nonfinancial noncorporate business, net lending position.",
+      "how_to_use": "Net financial position of small/private businesses.",
+      "related_series": [
+        "aUS11CHNIA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS54PCCLA",
+      "description": "Policy & contract claims, life insurance",
+      "frequency": "P3M",
+      "subcategory": "Insurance",
+      "units": "USD billions",
+      "meaning": "Policy and contract claims, life insurance — life-insurance company liabilities to policyholders. Reflects expected future claim payouts.",
+      "how_to_use": "Stable balance-sheet item. Useful for tracking life-insurance industry size. Major investor in long-duration assets (Treasuries, corporates, mortgages) — track for institutional fixed-income demand patterns.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS54PCCLB/A",
+      "description": "Policy & contract claims, life insurance, chg at annual rate",
+      "frequency": "P3M",
+      "subcategory": "Insurance",
+      "units": "USD millions",
+      "meaning": "Policy and contract claims, life insurance, change at annual rate.",
+      "how_to_use": "Annualized flow.",
+      "related_series": [
+        "aUS54PCCLA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS10XXAA",
+      "description": "Total assets",
+      "frequency": "P1Y",
+      "subcategory": "Household Wealth",
+      "units": "USD billions",
+      "meaning": "Total assets, all sectors — Flow of Funds Z.1 measure of total assets in the US economy. Aggregate balance-sheet wealth.",
+      "how_to_use": "Tracks total economy balance sheet. Used in wealth-effect calculations (consumption sensitivity to wealth changes). Most analytically useful at the household-sector subset level (separate Z.1 series).",
+      "related_series": [
+        "aUSHHWLTH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS14SGTAA",
+      "description": "Treasury securities - nonfinancial business",
+      "frequency": "P3M",
+      "subcategory": "Treasury Holdings",
+      "units": "USD millions",
+      "meaning": "Treasury securities held by nonfinancial business.",
+      "how_to_use": "Corporate Treasury holdings — cash management. Surged with corporate cash piles post-2010.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCIOAA",
+      "description": "Foreign Net Treasury International Capital Flows - Actual, USD",
+      "frequency": "P1M",
+      "subcategory": "TIC Flows",
+      "units": "USD millions",
+      "meaning": "Foreign net Treasury international capital flows — actual.",
+      "how_to_use": "TIC data: foreign demand for US debt. Big swings move long-end yields.",
+      "related_series": [
+        "aUSNCISAA",
+        "aUSFBTAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCISAA",
+      "description": "Net L-T Flows,Incl.Swaps",
+      "frequency": "P1M",
+      "subcategory": "TIC Flows",
+      "units": "USD millions",
+      "meaning": "Net long-term flows including swaps.",
+      "how_to_use": "Cleaner foreign demand signal stripping out short-term flows.",
+      "related_series": [
+        "aUSNCIOAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCIAA",
+      "description": "Net purchases (net long-term capital inflows), total, Financial & Flow of Funds Accounts, Monthly, U.S. Department of the Treasury",
+      "frequency": "P1M",
+      "subcategory": "TIC Flows",
+      "units": "USD millions",
+      "meaning": "Net purchases (net long-term capital inflows), total.",
+      "how_to_use": "Headline TIC flow. Moves from policy regime shifts (e.g., China reducing UST holdings).",
+      "related_series": [
+        "aUSFBTAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFBTAA",
+      "description": "Net purchases of U.S. treasury bonds & notes, total net foreign purchases, Financial & Flow of Funds Accounts, Monthly, U.S. Department of the Treasury",
+      "frequency": "P1M",
+      "subcategory": "TIC Flows",
+      "units": "USD millions",
+      "meaning": "Net foreign purchases of US Treasury bonds and notes.",
+      "how_to_use": "Most-watched TIC line. Persistent net buying needed to fund deficit.",
+      "related_series": [
+        "aUSNCIAA"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,1347 @@
+{
+  "category": "GDP/GVA by Industry",
+  "category_slug": "us_gdp_gva_by_industry",
+  "section": "National Accounts",
+  "source_file": "US_GDP GVA By Industry.xlsx",
+  "ric_count": 89,
+  "rics": [
+    {
+      "ric": "aUSNHMQT2",
+      "description": "Compensation of employees (unit labor cost)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "Level of US unit labor costs (compensation per unit of output).",
+      "how_to_use": "Cleanest labor-cost-driven inflation signal. ULC growth > productivity growth = wage-push inflation. Watch the 4-quarter change.",
+      "related_series": [
+        "aUSULCNF/A",
+        "aUSNYCAIE",
+        "aUSN9N8AC",
+        "aUSN6C040"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPCNFB/A",
+      "description": "Corporate Business, Gross value added of nonfinancial corporate business",
+      "frequency": "P3M",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Corporate Business, Gross value added of nonfinancial corporate business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOBCPA",
+        "aUSNOB5OW",
+        "aUSNSKKXF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN0Z3IK",
+      "description": "Corporate business, profits after tax",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of a US federal tax receipt category.",
+      "how_to_use": "Sub-component of federal receipts. Individual income (~50%), payroll (~35%), corporate (~10%), other (~5%). Watch the composition over time as economic regime shifts.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUS1D034",
+        "aUSNWARP4",
+        "aUSN6C5FW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN6C5FW",
+      "description": "Corporate business, profits before tax",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of a US federal tax receipt category.",
+      "how_to_use": "Sub-component of federal receipts. Individual income (~50%), payroll (~35%), corporate (~10%), other (~5%). Watch the composition over time as economic regime shifts.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSNWARP4",
+        "aUSN0Z3IK",
+        "aUS1D034"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS1D034",
+      "description": "Corporate business, undistributed profits after tax",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of a US federal tax receipt category.",
+      "how_to_use": "Sub-component of federal receipts. Individual income (~50%), payroll (~35%), corporate (~10%), other (~5%). Watch the composition over time as economic regime shifts.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSN0Z3IK",
+        "aUSNWARP4",
+        "aUSNJ6T2R"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNJOGTY",
+      "description": "Corporate profits with iva & ccadj (unit profits from cur prod)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Corporate profits with iva & ccadj (unit profits from cur prod).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOB0AE",
+        "aUSN6BUPI",
+        "aUSNJ6T2R"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN1RIIZ/C",
+      "description": "GVA price index, GDP",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, GDP.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNXORVP/C",
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNXORVP/C",
+      "description": "GVA price index, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, NPISH.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDIFMC/C",
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN99JQN/C",
+      "description": "GVA price index, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNIRCCH/C",
+        "aUSNG085D/C",
+        "aUSNAAHDT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNAAHDT/C",
+      "description": "GVA price index, business, nonfarm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, business, nonfarm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTVYBL/C",
+        "aUSNIRCCH/C",
+        "aUSNG085D/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNKWNM9/C",
+      "description": "GVA price index, federal government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, federal government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN5XLHU/C",
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN2RVRL/C",
+      "description": "GVA price index, general government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, general government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C",
+        "aUSNRNMQK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRQJZ0/C",
+      "description": "GVA price index, general government, gross housing value added",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, general government, gross housing value added.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRNMQK/C",
+        "aUSNHEI8X",
+        "aUSN5XLHU/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSQLJL/C",
+      "description": "GVA price index, general government, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, general government, state & local.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN04IFE/C",
+        "aUSNUBE4Q/C",
+        "aUSNPDZ74/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFK011/C",
+      "description": "GVA price index, households",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, households.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNLCDJO/C",
+        "aUSNC0NXR/C",
+        "aUSNARBF8/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNC0NXR/C",
+      "description": "GVA price index, households & institutions",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: GVA price index, households & institutions.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNARBF8/C",
+        "aUSNLCDJO/C",
+        "aUSNFK011/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNLVB8H",
+      "description": "GVA, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Gva, Npish.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNXORVP/C",
+        "aUSNDIFMC/C",
+        "aUSN9EUN5/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN6FDVH",
+      "description": "GVA, business, farm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "GVA, business, farm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNWARP4",
+        "aUSNTVYBL/C",
+        "aUSNSZOCY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNR6EYD",
+      "description": "GVA, corporate business current transfers (net)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, corporate business current transfers (net).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSZOCY",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNJ6UR9",
+      "description": "GVA, corporate, net operating surplus",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, corporate, net operating surplus.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN4J12T",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN17P6D",
+      "description": "GVA, corporate, taxes on production & imports less subsidies",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSNOB0AE",
+        "aUSN3LO08",
+        "aUSNVUNMV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN0MJFN",
+      "description": "GVA, general government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "GVA, general government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN3W5NL",
+      "description": "GVA, households",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "GVA, households.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNS96Y5/C",
+        "aUSNRLBC1/C",
+        "aUSNLCDJO/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRH74O",
+      "description": "GVA, nonfinancial corporate, consumption of fixed capital",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, consumption of fixed capital.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDTO0H",
+        "aUSN2IVFP",
+        "aUSN6C040"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDTO0H",
+      "description": "GVA, nonfinancial corporate, consumption of fixed capital",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, consumption of fixed capital.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDTO0H",
+        "aUSN2IVFP",
+        "aUSN6C040"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNIJFWP",
+      "description": "GVA, nonfinancial corporate, corporate profits with IVA & ccadj",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, corporate profits with IVA & ccadj.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNJ6T2R",
+        "aUSNWARP4",
+        "aUSNJOGTY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNLTDEV",
+      "description": "GVA, nonfinancial corporate, net dividends",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, net dividends.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCMXA",
+        "aUSNWARP4",
+        "aUSNVUNMV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNAIFMT",
+      "description": "GVA, nonfinancial corporate, net interest & misc payments",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, net interest & misc payments.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCMXA",
+        "aUSNWARP4",
+        "aUSNVUNMV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN4J12T",
+      "description": "GVA, nonfinancial corporate, net operating surplus",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, net operating surplus.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNJ6UR9",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN1F6CZ",
+      "description": "GVA, nonfinancial corporate, net value added",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, net value added.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCMXA",
+        "aUSNOBCPA",
+        "aUSNOB5OW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNYCMXA",
+      "description": "GVA, nonfinancial corporate, net value added",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, net value added.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCMXA",
+        "aUSNOBCPA",
+        "aUSNOB5OW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSHMW7",
+      "description": "GVA, nonfinancial corporate, supplements to wages & salaries",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, supplements to wages & salaries.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNAIHBB",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNVUNMV",
+      "description": "GVA, nonfinancial corporate, taxes on corporate income",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of a US federal tax receipt category.",
+      "how_to_use": "Sub-component of federal receipts. Individual income (~50%), payroll (~35%), corporate (~10%), other (~5%). Watch the composition over time as economic regime shifts.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSNOB0AE",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNJ6T2R",
+      "description": "GVA, nonfinancial corporate, undistributed profits with IVA & ccadj",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, undistributed profits with IVA & ccadj.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNIJFWP",
+        "aUSNWARP4",
+        "aUSNJOGTY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNAIHBB",
+      "description": "GVA, nonfinancial corporate, wages & salaries",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "GVA, nonfinancial corporate, wages & salaries.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSHMW7",
+        "aUSNYCMXA",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSKKXF",
+      "description": "Gross value added of corporate business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Gross value added of corporate business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOBCPA",
+        "aUSNOB5OW",
+        "aUSGDPCNFB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOBCPA",
+      "description": "Gross value added, nonfinancial corporate business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Gross value added, nonfinancial corporate business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOB5OW",
+        "aUSGDPCNFB/A",
+        "aUSNSKKXF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSZOCY",
+      "description": "Net value added, Domestic corporate business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Net value added, Domestic corporate business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSKKXF",
+        "aUSNOBCPA",
+        "aUSNOB5OW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN0AI4C",
+      "description": "Net value added, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Net value added, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSZOCY",
+        "aUSNSKKXF",
+        "aUSNOBCPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN31MBG",
+      "description": "Net value added, business, farm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Net value added, business, farm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSZOCY",
+        "aUSNSKKXF",
+        "aUSNOBCPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNB16IK",
+      "description": "Net value added, business, nonfarm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Net value added, business, nonfarm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN2OEGX/C",
+        "aUSNSZOCY",
+        "aUSNSKKXF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHS9E6",
+      "description": "Net value added, general government, federal",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Net value added, general government, federal.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN71HWV/C",
+        "aUSN5XLHU/C",
+        "aUSNUBE4Q/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNO9U4U",
+      "description": "Net value added, general government, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Net value added, general government, state & local.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSN04IFE/C",
+        "aUSNSQLJL/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN2IVFP",
+      "description": "Nonfinancial corporate business, capital consumption adjustment",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Nonfinancial corporate business, capital consumption adjustment.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRH74O",
+        "aUSNDTO0H",
+        "aUSNWARP4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNWARP4",
+      "description": "Nonfinancial corporate business, profits before tax",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Level of a US federal tax receipt category.",
+      "how_to_use": "Sub-component of federal receipts. Individual income (~50%), payroll (~35%), corporate (~10%), other (~5%). Watch the composition over time as economic regime shifts.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSN6C5FW",
+        "aUSNOBCPA",
+        "aUSNOB5OW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDIFMC/C",
+      "description": "Price index of net value added, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, NPISH.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRQJZ0/C",
+        "aUSNRNMQK/C",
+        "aUSNLCDJO/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNIRCCH/C",
+      "description": "Price index of net value added, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNG085D/C",
+        "aUSNRQJZ0/C",
+        "aUSNRNMQK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNG085D/C",
+      "description": "Price index of net value added, business, farm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, business, farm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNIRCCH/C",
+        "aUSNRQJZ0/C",
+        "aUSNRNMQK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRNMQK/C",
+      "description": "Price index of net value added, general government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, general government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRQJZ0/C",
+        "aUSN5XLHU/C",
+        "aUSN04IFE/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN5XLHU/C",
+      "description": "Price index of net value added, general government, federal",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, general government, federal.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRQJZ0/C",
+        "aUSNRNMQK/C",
+        "aUSN71HWV/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN04IFE/C",
+      "description": "Price index of net value added, general government, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, general government, state & local.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNSQLJL/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNLCDJO/C",
+      "description": "Price index of net value added, households",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, households.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNARBF8/C",
+        "aUSNS96Y5/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNARBF8/C",
+      "description": "Price index of net value added, households & institutions",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Price index of net value added, households & institutions.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNLCDJO/C",
+        "aUSNS96Y5/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOB5OW",
+      "description": "Price per unit of real gross value added of nonfinancial corporate business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Price per unit of real gross value added of nonfinancial corporate business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOBCPA",
+        "aUSGDPCNFB/A",
+        "aUSNSKKXF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN1RIIY/C",
+      "description": "Real GVA quantity index, GDP",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, GDP.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNTVYBL/C",
+        "aUSNS96Y5/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNA0ONM/C",
+      "description": "Real GVA quantity index, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTVYBL/C",
+        "aUSNCHD8H/C",
+        "aUSN2OEGX/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN1VIIP/C",
+      "description": "Real GVA quantity index, business, farm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, business, farm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTVYBL/C",
+        "aUSNCHD8H/C",
+        "aUSNA0ONM/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNTVYBL/C",
+      "description": "Real GVA quantity index, business, nonfarm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, business, nonfarm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN2OEGX/C",
+        "aUSNCHD8H/C",
+        "aUSNAAHDT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNF1GFK/C",
+      "description": "Real GVA quantity index, general government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, general government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNQF885/C",
+        "aUSNPDZ74/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQF885/C",
+      "description": "Real GVA quantity index, general government GVA",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, general government GVA.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNPDZ74/C",
+        "aUSNLDNMK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNPDZ74/C",
+      "description": "Real GVA quantity index, general government, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real GVA quantity index, general government, state & local.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNSQLJL/C",
+        "aUSN04IFE/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSND4ENV/C",
+      "description": "Real GVA, GDP, residual",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, GDP, residual.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN9EUN5/C",
+      "description": "Real GVA, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real Gva, Npish.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNXORVP/C",
+        "aUSNLVB8H",
+        "aUSNDIFMC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNPXVA9/C",
+      "description": "Real GVA, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNWARP4",
+        "aUSNTVYBL/C",
+        "aUSNSZOCY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNGK4V5",
+      "description": "Real GVA, business (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Real GVA, business (%yoy).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNWARP4",
+        "aUSNTVYBL/C",
+        "aUSNSZOCY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNGYVWK/C",
+      "description": "Real GVA, business, farm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, business, farm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNWARP4",
+        "aUSNTVYBL/C",
+        "aUSNSZOCY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNAE6UU/C",
+      "description": "Real GVA, business, nonfarm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, business, nonfarm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTVYBL/C",
+        "aUSNB16IK",
+        "aUSNAAHDT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN658F7/C",
+      "description": "Real GVA, general government, federal",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Real GVA, general government, federal.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNHS9E6",
+        "aUSN71HWV/C",
+        "aUSN5XLHU/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHEI8X",
+      "description": "Real GVA, general government, gross housing value added (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Real GVA, general government, gross housing value added (%yoy).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRQJZ0/C",
+        "aUSNUBE4Q/C",
+        "aUSNRNMQK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNKTXR2",
+      "description": "Real GVA, general government, state & local (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Real GVA, general government, state & local (%yoy).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNSQLJL/C",
+        "aUSNPDZ74/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRLBC1/C",
+      "description": "Real GVA, households",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, households.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNS96Y5/C",
+        "aUSNLCDJO/C",
+        "aUSNFK011/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN7M928/C",
+      "description": "Real GVA, households & institutions",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Real GVA, households & institutions.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNC0NXR/C",
+        "aUSNARBF8/C",
+        "aUSNS96Y5/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN85IE8",
+      "description": "Real GVA, households (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Real GVA, households (%yoy).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNS96Y5/C",
+        "aUSNRLBC1/C",
+        "aUSNLCDJO/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN08R59/C",
+      "description": "Real net value added quantity index, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, NPISH.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNS96Y5/C",
+        "aUSNLDNMK/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCHD8H/C",
+      "description": "Real net value added quantity index, business",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, business.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN2OEGX/C",
+        "aUSNUBE4Q/C",
+        "aUSNS96Y5/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN2OEGX/C",
+      "description": "Real net value added quantity index, business, nonfarm",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, business, nonfarm.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNCHD8H/C",
+        "aUSNUBE4Q/C",
+        "aUSNTVYBL/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNLDNMK/C",
+      "description": "Real net value added quantity index, general government",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, general government.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSN71HWV/C",
+        "aUSNRQJZ0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN71HWV/C",
+      "description": "Real net value added quantity index, general government, federal",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, general government, federal.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNLDNMK/C",
+        "aUSN5XLHU/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNUBE4Q/C",
+      "description": "Real net value added quantity index, general government, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, general government, state & local.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN04IFE/C",
+        "aUSNPDZ74/C",
+        "aUSNO9U4U"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNS96Y5/C",
+      "description": "Real net value added quantity index, households",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Index",
+      "meaning": "Index reading: Real net value added quantity index, households.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNUBE4Q/C",
+        "aUSNLDNMK/C",
+        "aUSNLCDJO/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOB0AE",
+      "description": "Taxes on corporate income (unit profits from current production)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "%",
+      "meaning": "Taxes on corporate income (unit profits from current production).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNVUNMV",
+        "aUSNJOGTY",
+        "aUSN3LO08"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNYCAIE",
+      "description": "Unit nonlabor cost",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "Unit nonlabor cost.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN9N8AC",
+        "aUSN6C040",
+        "aUSN3LO08"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN6C040",
+      "description": "Unit nonlabor cost, consumption of fixed capital",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "Unit nonlabor cost, consumption of fixed capital.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRH74O",
+        "aUSNDTO0H",
+        "aUSNYCAIE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN9N8AC",
+      "description": "Unit nonlabor cost, net interest & miscellaneous payments",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "Unit nonlabor cost, net interest & miscellaneous payments.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCAIE",
+        "aUSNAIFMT",
+        "aUSN6C040"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN3LO08",
+      "description": "Unit nonlabor cost, taxes on production & import less subsidies",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "Unit nonlabor cost, taxes on production & import less subsidies.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN17P6D",
+        "aUSNYCAIE",
+        "aUSNOB0AE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDR/C",
+      "description": "Value Added, Constant Prices, GDP/GVA by Industry, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Value Added, constant prices.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSGDP",
+        "aUSRVCNSTD/CA",
+        "aUSNYCMXA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRVCNSTD/CA",
+      "description": "Value Added, Construction",
+      "frequency": "P3M",
+      "subcategory": "Construction",
+      "units": "",
+      "meaning": "Value Added, Construction.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNYCMXA",
+        "aUSNUBE4Q/C",
+        "aUSNSZOCY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDP",
+      "description": "Value Added, Current Prices, GDP/GVA by Industry, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "",
+      "meaning": "Value Added, current prices.",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSGDR/C",
+        "aUSRVCNSTD/CA",
+        "aUSNYCMXA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN6BUPI",
+      "description": "profits after tax with via & ccadj (unit profits from cur prod)",
+      "frequency": "P1Y",
+      "subcategory": "Industry GVA",
+      "units": "Units",
+      "meaning": "profits after tax with via & ccadj (unit profits from cur prod).",
+      "how_to_use": "Sub-component or variant within GDP/GVA by Industry. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNJOGTY",
+        "aUSNOB0AE",
+        "aUSNJ6T2R"
+      ],
+      "notes": ""
+    }
+  ]
+}

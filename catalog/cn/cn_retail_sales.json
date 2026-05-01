@@ -1,0 +1,366 @@
+{
+  "category": "Retail Sales",
+  "category_slug": "cn_retail_sales",
+  "section": "Consumer Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T17_40 (consumer sector - retail sales).xlsx",
+  "ric_count": 27,
+  "rics": [
+    {
+      "ric": "aCNTSTOST1",
+      "description": "CEINET TEST SERIES",
+      "frequency": "",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: CEINET TEST SERIES. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNTSTTT7A",
+        "aCNTSTTST1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTSTTST1",
+      "description": "CEINET TEST SERIES",
+      "frequency": "",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: CEINET TEST SERIES. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNTSTTT7A",
+        "aCNTSTTST1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTSTTT7A",
+      "description": "CEINET TEST SERIES",
+      "frequency": "P1M",
+      "subcategory": "Test Series",
+      "units": "—",
+      "meaning": "Test series — not for production use: CEINET TEST SERIES. These are schema-test or vendor-internal placeholder series that occasionally appear in Refinitiv exports and should be excluded from analytical work.",
+      "how_to_use": "Reference data only. Skip in any analytical workflow — these series do not represent real macroeconomic data and may contain dummy values, schema-validation patterns, or vendor-internal test markers.",
+      "related_series": [
+        "aCNTSTTT7A",
+        "aCNTSTTST1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLYAP",
+      "description": "China (Mainland), RETAIL SALES: CONSUMER GOODS (CMLV) (%YOY)(INITIAL), Volume, Retail Sales, Monthly, National Bureau of Statistics of China",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "China Retail Sales: Consumer Goods, Initial Release YoY — Reuters poll-anchored 'actual' release for surprise-vs-consensus tracking.",
+      "how_to_use": "Markets compare to Reuters consensus poll. Surprise drives Hong Kong + China A-share sentiment.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLSCI",
+      "description": "Retail Sales, By Area, City",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, By Area, City. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLSCIG",
+      "description": "Retail Sales, By Area, City, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, By Area, City, Chg Y/Y. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLS",
+      "description": "Retail Sales, Consumer goods",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "CNY billions",
+      "meaning": "Retail Sales, Consumer Goods — level. Total retail trade (above-designated-size) value of goods sold.",
+      "how_to_use": "Use YoY (aCNRSLAR) for trend. Level useful for analytical baseline. Retail sales are a narrower measure than US-style retail since they exclude services.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLAR",
+      "description": "Retail Sales, Consumer goods, Chg Y/Y, National Bureau of Statistics of China",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "Retail Sales of Consumer Goods, year-over-year change — headline retail print released monthly by NBS ~15th of each month with the broad activity bundle.",
+      "how_to_use": "THE China consumer-spending gauge. Pre-2018 ~9-10% YoY; post-COVID ~3-5% (sustained sub-5% reflects consumption weakness). Sub-3% YoY is recession-territory. Pair with consumer confidence (aCNCONCF) and online retail sales (aCNRSONLNR).",
+      "related_series": [
+        "aCNRSLS",
+        "aCNRSLSY",
+        "aCNRSONLNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWRTFBTL",
+      "description": "Retail Sales, Food, beverage, tobacco and liquors",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Food, beverage, tobacco and liquors. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLSCOMD",
+      "description": "Retail Sales, Goods, enterprises above designated size, income",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Goods, enterprises above designated size, income. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGOFDR",
+      "description": "Retail Sales, Grain, oil and food, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Sub-Sectors",
+      "units": "Percent, YoY",
+      "meaning": "Retail Sales: Grain, Oil and Food — staple-food retail-sales growth.",
+      "how_to_use": "Stable category. Tracks population + per-capita food spending. Useful as baseline for non-staples (durables, etc.) interpretation.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSONLNA",
+      "description": "Retail Sales, National online retail sales",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, National online retail sales. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSONLNR",
+      "description": "Retail Sales, National online retail sales, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Online Retail",
+      "units": "Percent, YoY",
+      "meaning": "National Online Retail Sales, YoY — pace of e-commerce sales growth. Tracks Alibaba (Taobao/Tmall), JD, Pinduoduo, Douyin commerce activity.",
+      "how_to_use": "Online share of total retail ~25-28% (vs ~16% US). Growth has slowed to single-digit YoY post-2022 as the e-commerce category matured. Tracks China's digital-economy share of GDP.",
+      "related_series": [
+        "aCNRSLAR",
+        "aCNRSONLNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGPRPA",
+      "description": "Retail Sales, Petroleum and related products",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Petroleum and related products. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGPRCA",
+      "description": "Retail Sales, Petroleum and related products",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Petroleum and related products. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGPRPR",
+      "description": "Retail Sales, Petroleum and related products, growth rate, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Petroleum and related products, growth rate, Chg Y/Y. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRETUOCA",
+      "description": "Retail Sales, Total, Consumer goods",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Total, Consumer goods. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLSDCG",
+      "description": "Retail Sales, consumer goods",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, consumer goods. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGFBER",
+      "description": "Wholesale and Retail Trade, Beverage, growth rate, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Wholesale and Retail Trade, Beverage, growth rate, Chg Y/Y. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSGFTLR",
+      "description": "Wholesale and Retail Trade, Tobacco and liquor, growth rate, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Sub-Sectors",
+      "units": "Percent, YoY",
+      "meaning": "Wholesale and Retail Trade: Tobacco and Liquor, growth rate — alcohol + tobacco sales. Cyclical with disposable income; baijiu (Chinese liquor) is a major category.",
+      "how_to_use": "Watch for premium-baijiu sales as a luxury-consumption indicator. Sustained drops in this category signal middle-class spending pullback. Anti-corruption campaigns historically depressed this category.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRSLSY",
+      "description": "Retail Sales, Consumer goods, Chg Y/Y, National Bureau of Statistics of China/LSEG",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "Retail Sales of Consumer Goods, YoY — alternative release.",
+      "how_to_use": "Cross-check against the primary release. Use whichever has fresher data; methodology and timing differences across releases are typically minor and resolved on revision.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETE/CA",
+      "description": "Retail Sales, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETF/C",
+      "description": "Retail Sales, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETPE/A",
+      "description": "Retail Sales, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized, Chg P/P. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETPF",
+      "description": "Retail Sales, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized, Chg P/P. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETYE/A",
+      "description": "Retail Sales, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized, Chg Y/Y. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCRETYF",
+      "description": "Retail Sales, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "China Retail Sales: Retail Sales, Standardized, Chg Y/Y. Retail-sector statistic — sub-category, regional, or alternative aggregation.",
+      "how_to_use": "Use alongside headline retail sales YoY (aCNRSLAR). Retail sales are the main consumer-spending proxy in Chinese macro data.",
+      "related_series": [
+        "aCNRSLAR"
+      ],
+      "notes": ""
+    }
+  ]
+}

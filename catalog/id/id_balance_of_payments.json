@@ -1,0 +1,491 @@
+{
+  "category": "Balance of Payments",
+  "category_slug": "id_balance_of_payments",
+  "section": "External Sector",
+  "source_file": "Indonesia_Balance of Payments.xlsx",
+  "ric_count": 34,
+  "rics": [
+    {
+      "ric": "aIDCBRRA",
+      "description": "7-Day Reverse Repo",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "7-Day Reverse Repo Rate (release vintage in BoP file) — same as aIDRREP7. Released alongside BoP statistics in some BI publications.",
+      "how_to_use": "Cross-check against the primary policy-rate series (aIDBIR, aIDRREP7).",
+      "related_series": [
+        "aIDBIR",
+        "aIDRREP7"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCAFBALA",
+      "description": "BOP, capital & financial balance",
+      "frequency": "P3M",
+      "subcategory": "Capital + Financial",
+      "units": "USD billions",
+      "meaning": "BoP Capital and Financial Balance — combined capital account + financial account. Mirror of current account balance under accounting identity.",
+      "how_to_use": "Should be roughly equal magnitude (opposite sign) to current account. Decompose into capital + financial for source-of-funding analysis.",
+      "related_series": [
+        "aIDBPFIACA",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCURAGEXP",
+      "description": "BOP: EXPORTS OF GOODS (FOB)",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "BoP: Exports of Goods (FOB) — current-account goods exports on FOB basis. Same conceptual measure as aIDCEXBA.",
+      "how_to_use": "Cross-check against aIDCEXBA. FOB basis (Free on Board, ex-shipping) aligns with international trade-statistics standard.",
+      "related_series": [
+        "aIDCEXBA",
+        "aIDEXPBGA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCAA",
+      "description": "Balance of Payments, Current Account, % of GDP",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP",
+      "meaning": "Current Account Balance as a percentage of GDP — the headline external-balance gauge. Released quarterly by Bank Indonesia. Combines goods balance, services balance, primary income, and secondary income.",
+      "how_to_use": "Indonesia's current account ranges from -3% to +1% of GDP across the commodity cycle. Sustained deficits beyond -3% have historically preceded IDR stress (1998 crisis, 2013 taper tantrum). Currently near balance. Watch the goods balance (largest component) for the cyclical driver — commodity export prices dominate.",
+      "related_series": [
+        "aIDCCURB/A",
+        "aIDCBOPA",
+        "aIDXRUSD",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBOPAA",
+      "description": "Balance of Payments, Overall balance",
+      "frequency": "P3M",
+      "subcategory": "BoP Total",
+      "units": "USD billions",
+      "meaning": "Balance of Payments: Overall Balance — sum of current account + capital account + financial account + errors and omissions. Reflects net FX reserve change in a given quarter.",
+      "how_to_use": "When overall balance is positive, BI accumulates reserves; negative, BI draws down reserves to defend IDR. Should match the change in FX reserves over the same period (with some discrepancies for valuation effects). Persistent negative overall balance flags external-financing stress.",
+      "related_series": [
+        "aIDCAA",
+        "aIDBPFIACA",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPBALAA",
+      "description": "Balance, Overall balance",
+      "frequency": "P3M",
+      "subcategory": "BoP Total",
+      "units": "USD billions",
+      "meaning": "Balance, Overall Balance — alternative release of overall BoP balance. Same conceptual measure as aIDBOPAA.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data. Should equal change in FX reserves (with valuation adjustments).",
+      "related_series": [
+        "aIDBOPAA",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCURAC",
+      "description": "Current Account, Balance",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance — alternative release of CA balance level (companion to aIDCURAAB and aIDCCURB/A).",
+      "how_to_use": "Cross-check against the standardized series. Use whichever has fresher data.",
+      "related_series": [
+        "aIDCURAAB",
+        "aIDCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPCGDPR",
+      "description": "Current Account, Balance, Current account balance to GDP, % of GDP",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP",
+      "meaning": "Current Account Balance to GDP — same conceptual measure as aIDCAA in alternative release. The headline external-balance gauge.",
+      "how_to_use": "Cross-check against aIDCAA. Use either for tracking external-vulnerability cycle.",
+      "related_series": [
+        "aIDCAA",
+        "aIDCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEXPBGA",
+      "description": "Current Account, Goods, Exports, FOB",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account: Goods, Exports (FOB) — same as aIDCURAGEXP at different release vintage.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data; methodology and timing differences are typically minor.",
+      "related_series": [
+        "aIDCURAGEXP",
+        "aIDCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCURAGIMP",
+      "description": "Current Account, Goods, Imports, FOB",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account: Goods, Imports (FOB) — current-account goods imports on FOB basis. Same as aIDCIMBA.",
+      "how_to_use": "Cross-check against aIDCIMBA. FOB framing aligns with international trade-statistics conventions; CIF (cost-insurance-freight) differences are minor.",
+      "related_series": [
+        "aIDCIMBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCUGTBAL",
+      "description": "Current Account, Goods, Trade balance",
+      "frequency": "P3M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Current Account: Goods Trade Balance — net goods balance (exports minus imports) on CA basis. Same as aIDCBOPA.",
+      "how_to_use": "Cross-check against aIDCBOPA. The CA-basis goods balance is the source of Indonesia's external surplus; persistent commodity-export driver.",
+      "related_series": [
+        "aIDCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPSRVNA",
+      "description": "Current Account, Services, Net",
+      "frequency": "P3M",
+      "subcategory": "Services",
+      "units": "USD billions",
+      "meaning": "Current Account: Services Net — services balance. Indonesia runs a persistent services deficit (~$15-20B/year) driven by transport (freight + tourism outflows) and business services.",
+      "how_to_use": "Tourism is the largest single services sub-account (Bali, etc.) — recovered post-COVID but pre-pandemic peak still elusive. Travel deficit (Indonesians traveling abroad spending more than foreign visitors) widens with IDR strength. Services trade development is a long-term competitiveness goal.",
+      "related_series": [
+        "aIDCBOPA",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPEROMA",
+      "description": "Errors and Omissions",
+      "frequency": "P3M",
+      "subcategory": "Errors and Omissions",
+      "units": "USD billions",
+      "meaning": "Errors and Omissions — residual in the BoP that balances current account + capital + financial accounts. Captures unrecorded transactions, valuation effects, timing differences.",
+      "how_to_use": "Persistent large negative E&O suggests unrecorded capital outflows (potentially capital flight). Indonesia's E&O ranges $-3B to $+3B per quarter; sustained large negative readings prompt BI investigation.",
+      "related_series": [
+        "aIDBPFIACA",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPFIACA",
+      "description": "Financial Account, Balance",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account Balance — net total of FDI + portfolio + other investment flows. The funding side of the BoP that finances current account deficits.",
+      "how_to_use": "Should be roughly equal in magnitude (opposite sign) to current account by accounting identity. When financial account inflows fall short of current account deficit, FX reserves draw down to fill the gap — direct pressure on IDR. Decompose to identify whether stress is FDI (structural) or portfolio (cyclical).",
+      "related_series": [
+        "aIDBPDRIVA",
+        "aIDBPPRIVA",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPDRIVA",
+      "description": "Financial Account, Direct Investment, Balance, Net",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account: Direct Investment, Net — net FDI inflows minus outflows. Indonesia is structurally a net FDI recipient.",
+      "how_to_use": "Net FDI inflows ~$15-25B/year. Key sources: Singapore (largest, often pass-through), China, Japan, US. Sectors: minerals (smelters), manufacturing, finance. FDI is the most stable component of the financial account — sudden FDI slowdowns signal investor-confidence loss (e.g., resource nationalism shifts, regulatory unpredictability).",
+      "related_series": [
+        "aIDBPFIACA",
+        "aIDBPPRIVA",
+        "aIDCGFCYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPOTIVA",
+      "description": "Financial Account, Other Investment, Balance, Net",
+      "frequency": "P3M",
+      "subcategory": "Other Investment",
+      "units": "USD billions",
+      "meaning": "Financial Account: Other Investment, Net — non-FDI, non-portfolio cross-border flows. Includes loans, trade credits, currency/deposits.",
+      "how_to_use": "Captures interbank lending, syndicated loans, and commercial credit flows. Volatile; smooths out in annual aggregates. Watch alongside FDI and portfolio flows for total financial-account composition.",
+      "related_series": [
+        "aIDBPFIACA",
+        "aIDBPDRIVA",
+        "aIDBPPRIVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBPPRIVA",
+      "description": "Financial Account, Portfolio Investment, Balance, Net",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account: Portfolio Investment, Net — net flows in equities and debt securities. The 'hot money' component most sensitive to global risk sentiment and rate differentials.",
+      "how_to_use": "Highly volatile quarterly. Foreign investors hold ~14% of SBN (gov bonds) and ~25-30% of JCI free-float — large outflows during EM stress (2013 taper tantrum, 2018 Powell tightening, 2022 USD strength). Sustained portfolio outflows alongside IDR weakness signal rising EM stress.",
+      "related_series": [
+        "aIDBPDRIVA",
+        "aIDBPFIACA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURB/A",
+      "description": "Current Account Balance, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, level — quarterly absolute current account balance in USD. Sums goods + services + primary income + secondary income (transfers).",
+      "how_to_use": "Track in USD terms for cross-country comparison. Indonesia runs current account deficits in commodity downcycles (-$30B/year in 2013-14) and small surpluses in upcycles (+$10B in 2022). The goods surplus (~$30-50B/year on commodities) is offset by services deficits (tourism, transport) and primary income deficits (FDI dividend repatriation).",
+      "related_series": [
+        "aIDCAA",
+        "aIDCBOPA",
+        "aIDBPSRVNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURPB/A",
+      "description": "Current Account Balance, quarter on quarter, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, QoQ absolute change — change in CA balance vs prior quarter.",
+      "how_to_use": "Track for sequential momentum. Sharp QoQ deteriorations signal commodity-cycle peaks or sudden import surges.",
+      "related_series": [
+        "aIDCCURB/A",
+        "aIDCCURYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURYB/A",
+      "description": "Current Account Balance, year on year, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, year-over-year absolute change — change in CA level vs same quarter year ago.",
+      "how_to_use": "Cleaner annual trend signal. Sustained YoY deterioration (>$5B) flags external-vulnerability buildup.",
+      "related_series": [
+        "aIDCCURB/A",
+        "aIDCCURPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDOBPCKL/A",
+      "description": "BOP Current account as a % of GDP, SA",
+      "frequency": "",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP, SA",
+      "meaning": "BoP Current Account as % of GDP, seasonally adjusted — same as aIDCAA in SA framing.",
+      "how_to_use": "SA version smooths quarterly seasonality. Use for trend analysis. Cross-check against aIDCAA.",
+      "related_series": [
+        "aIDCAA",
+        "aIDBPCGDPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFDIRTOA",
+      "description": "FDI",
+      "frequency": "P3M",
+      "subcategory": "FDI",
+      "units": "USD billions",
+      "meaning": "Foreign Direct Investment — net FDI inflows. Same as aIDBPDRIVA in different framing.",
+      "how_to_use": "Cross-check against aIDBPDRIVA. Indonesia is a structural net FDI recipient.",
+      "related_series": [
+        "aIDBPDRIVA",
+        "aIDFDIYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURQ/A",
+      "description": "Current Account Balance as a percentage of GDP, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP",
+      "meaning": "Current Account Balance as % of GDP (standardized) — companion to aIDCAA in alternative framing.",
+      "how_to_use": "Cross-check against aIDCAA. Use either for external-vulnerability tracking.",
+      "related_series": [
+        "aIDCAA",
+        "aIDBPCGDPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURPQ/A",
+      "description": "Current Account Balance as a percentage of GDP, quarter on quarter, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP, QoQ",
+      "meaning": "Current Account Balance as % of GDP, QoQ change — sequential deterioration/improvement of CA/GDP ratio.",
+      "how_to_use": "Useful for tracking CA-cycle inflections at quarterly frequency. Indonesia CA/GDP swings 1-2pp through commodity cycles.",
+      "related_series": [
+        "aIDCAA",
+        "aIDCCURQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCURYQ/A",
+      "description": "Current Account Balance as a percentage of GDP, year on year, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP, YoY",
+      "meaning": "Current Account Balance as % of GDP, YoY change — change in CA/GDP ratio vs same quarter year ago.",
+      "how_to_use": "Smoothed external-balance trend. Compare to BI's quarterly CA forecasts.",
+      "related_series": [
+        "aIDCAA",
+        "aIDCCURYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXBPA",
+      "description": "Exports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Percent, MoM",
+      "meaning": "Goods Exports (BoP basis), MoM percent change — month-over-month export-momentum signal.",
+      "how_to_use": "Volatile (commodity prices, shipping timing). Smooth with 3-month average for trend.",
+      "related_series": [
+        "aIDCEXBA",
+        "aIDCEXBYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXBYA",
+      "description": "Exports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Percent, YoY",
+      "meaning": "Goods Exports (BoP basis), YoY percent change — annual export-growth pace.",
+      "how_to_use": "Cleaner trend than MoM. Indonesia's commodity-export cycles drive 30-50pp YoY swings (e.g., 2021-22 boom).",
+      "related_series": [
+        "aIDCEXBA",
+        "aIDCEXBPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXBA",
+      "description": "Exports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "USD billions",
+      "meaning": "Goods Exports on BoP basis — total merchandise exports. Dominated by coal, palm oil, nickel, oil/gas, processed nickel products (post-2020 export-ban-driven downstream), manufactures, rubber.",
+      "how_to_use": "Most-watched single export driver: coal prices (Newcastle benchmark) — Indonesia is the world's largest thermal coal exporter. Palm oil follows malaysian/indonesian futures. Nickel surged post-2020 with EV battery demand and downstream value-add policies. China demand share (~25% of exports) — track Chinese steel and EV production for leading signal.",
+      "related_series": [
+        "aIDCBOPA",
+        "aIDCIMBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBOPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible (goods) Trade Balance on Balance of Payments basis — exports of goods minus imports of goods. Indonesia's primary external surplus driver, dominated by commodity exports.",
+      "how_to_use": "Released monthly by BPS (~3-week lag) — most-watched Indonesia external print. Persistent surplus on commodity exports (coal, palm oil, nickel). Falls when commodity prices weaken or when capital goods imports surge (infrastructure cycle). Track 3-month moving average for cleaner signal.",
+      "related_series": [
+        "aIDCEXBA",
+        "aIDCIMBA",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBOPPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible Trade Balance (BoP basis), MoM absolute change — month-over-month change in goods trade balance.",
+      "how_to_use": "Useful for tracking trade-balance momentum. Sharp MoM swings (>$2B) usually reflect commodity-price shifts or one-off shipment timing. Smooth with 3-month average.",
+      "related_series": [
+        "aIDCBOPA",
+        "aIDCBOPYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBOPYA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible Trade Balance (BoP basis), YoY absolute change — change in goods trade balance vs same month a year ago.",
+      "how_to_use": "Cleaner trend signal than MoM. Use to identify trade-cycle inflection points. Sustained YoY deterioration alongside IDR weakness flags external stress.",
+      "related_series": [
+        "aIDCBOPA",
+        "aIDCBOPPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMBPA",
+      "description": "Imports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Percent, MoM",
+      "meaning": "Goods Imports (BoP basis), MoM percent change — high-frequency import-demand pulse.",
+      "how_to_use": "Volatile. Smooth with 3-month average. Spikes around Lebaran-Eid period.",
+      "related_series": [
+        "aIDCIMBA",
+        "aIDCIMBYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMBYA",
+      "description": "Imports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Percent, YoY",
+      "meaning": "Goods Imports (BoP basis), YoY percent change — annual import-growth pace.",
+      "how_to_use": "Pro-cyclical with domestic demand and capital investment. Falls during IDR-weakness episodes.",
+      "related_series": [
+        "aIDCIMBA",
+        "aIDCIMBPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMBA",
+      "description": "Imports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "USD billions",
+      "meaning": "Goods Imports on BoP basis — total merchandise imports. Largest categories: capital goods (machinery, transport equipment), raw materials (chemicals, base metals), oil/gas products (Indonesia is a net oil importer), consumer goods.",
+      "how_to_use": "Cyclical with domestic investment (capital goods imports lead GFCF) and oil prices (oil products import bill). Track non-oil-and-gas imports for cleaner signal of underlying demand. Sustained import surges relative to exports flag widening trade deficit.",
+      "related_series": [
+        "aIDCBOPA",
+        "aIDCEXBA"
+      ],
+      "notes": ""
+    }
+  ]
+}

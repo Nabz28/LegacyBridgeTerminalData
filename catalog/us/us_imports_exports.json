@@ -1,0 +1,1399 @@
+{
+  "category": "Imports & Exports",
+  "category_slug": "us_imports_exports",
+  "section": "External Sector",
+  "source_file": "US_Imports&Exports.xlsx",
+  "ric_count": 87,
+  "rics": [
+    {
+      "ric": "aUSEXPAUTO/A",
+      "description": "Exports, Autos and parts",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIMPAUTO/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPCAP/CA",
+      "description": "Exports, Capital goods (except automotive vehicles)",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIMPCAP/A",
+        "aUSEX2TEQB/A",
+        "aUSEX2SEMB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX2CACB/A",
+      "description": "Exports, Capital goods, Civilian aircraft",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEXPCAP/CA",
+        "aUSEX2TEQB/A",
+        "aUSEX2SEMB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX2EAPB/A",
+      "description": "Exports, Capital goods, Electric apparatus",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIM2EAPB/A",
+        "aUSEXPCAP/CA",
+        "aUSEX2TEQB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX2OIMB/A",
+      "description": "Exports, Capital goods, Industrial machines, other",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEXPOGDS/CA",
+        "aUSEXPCAP/CA",
+        "aUSEX2TEQB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX2SEMB/A",
+      "description": "Exports, Capital goods, Semiconductors",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEXPCAP/CA",
+        "aUSEX2TEQB/A",
+        "aUSEX2OIMB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX2TEQB/A",
+      "description": "Exports, Capital goods, Telecommunications equipment",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "Persons",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIM2TEQB/A",
+        "aUSEXPCAP/CA",
+        "aUSEX2SEMB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPCN",
+      "description": "Exports, China",
+      "frequency": "P1M",
+      "subcategory": "By Country",
+      "units": "",
+      "meaning": "Level of US exports (China).",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALCN",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPCGS/CA",
+      "description": "Exports, Consumer goods total",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX4MDPB/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX4MDPB/A",
+      "description": "Exports, Consumer goods, Pharmaceutical preparations",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIM4MDPB/A",
+        "aUSEXPCGS/CA",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPEU",
+      "description": "Exports, European Union",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALEU",
+        "aUSIMPEU",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPFB/CA",
+      "description": "Exports, Foods & feeds & beverages",
+      "frequency": "P1M",
+      "subcategory": "Food/Ag",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIMPFB/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUEX/A",
+      "description": "Exports, Goods and services",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBALAB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXP/A",
+      "description": "Exports, Goods, total, BOP basis",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXP",
+      "description": "Exports, Goods, total, BOP basis",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPGGDT/A",
+      "description": "Exports, Goods, total, census basis",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPIND/CA",
+      "description": "Exports, Industrial supplies",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX1PLCB/A",
+        "aUSEX1OPPB/A",
+        "aUSEX1IOCB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX1IOCB/A",
+      "description": "Exports, Industrial supplies and materials, Chemicals-organic",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX1PLCB/A",
+        "aUSEX1OPPB/A",
+        "aUSEX1FUEB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX1FUEB/A",
+      "description": "Exports, Industrial supplies and materials, Fuel oil",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX1PLCB/A",
+        "aUSEX1OPPB/A",
+        "aUSEX1IOCB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX1OPPB/A",
+      "description": "Exports, Industrial supplies and materials, Petroleum products, other",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSIM1OPPB/A",
+        "aUSEX1PLCB/A",
+        "aUSEX1IOCB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEX1PLCB/A",
+      "description": "Exports, Industrial supplies and materials, Plastic materials",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX1OPPB/A",
+        "aUSEX1IOCB/A",
+        "aUSEX1FUEB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPJP",
+      "description": "Exports, Japan",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US exports (Japan).",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALJP",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPNAM",
+      "description": "Exports, North America",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALNA",
+        "aUSIMPNAM",
+        "aUSTBALSCAM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPOGDS/CA",
+      "description": "Exports, Other goods",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSEX2OIMB/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUSEX/A",
+      "description": "Exports, Services, Current Prices, Imports & Exports, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Services Exports",
+      "units": "",
+      "meaning": "Level of the US export price index.",
+      "how_to_use": "Reflects US producer pricing power abroad. Combined with import prices gives terms-of-trade signal.",
+      "related_series": [
+        "aUSEXPP",
+        "aUSIMPSRV/A",
+        "aUSTBALGDS/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPCBAA",
+      "description": "Exports, Total, census basis",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGBARBA",
+      "description": "Goods Trade Balance (R)",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD millions",
+      "meaning": "Goods Trade Balance (revised) — second estimate after the full report. More accurate than the advance.",
+      "how_to_use": "Use the advance for surprise; the revised for trend. Goods trade deficit dominates US current account.",
+      "related_series": [
+        "aUSGBALBA",
+        "aUSCURAC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPAUTO/A",
+      "description": "Imports, Autos and parts",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEXPAUTO/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPCAP/A",
+      "description": "Imports, Capital goods (except automotive vehicles)",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Persons",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEXPCAP/CA",
+        "aUSIM2TEQB/A",
+        "aUSIM2EAPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM2CAPB/A",
+      "description": "Imports, Capital goods, Computer accessories",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Persons",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM2COMB/A",
+        "aUSIMPCAP/A",
+        "aUSIM2TEQB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM2COMB/A",
+      "description": "Imports, Capital goods, Computers",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Persons",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIMPCAP/A",
+        "aUSIM2TEQB/A",
+        "aUSIM2EAPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM2EAPB/A",
+      "description": "Imports, Capital goods, Electric apparatus",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Persons",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEX2EAPB/A",
+        "aUSIMPCAP/A",
+        "aUSIM2TEQB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM2TEQB/A",
+      "description": "Imports, Capital goods, Telecommunications equipment",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "Persons",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEX2TEQB/A",
+        "aUSIMPCAP/A",
+        "aUSIM2EAPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPCN",
+      "description": "Imports, China",
+      "frequency": "P1M",
+      "subcategory": "By Country",
+      "units": "",
+      "meaning": "Level of US imports (China).",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALCN",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPCGS/CA",
+      "description": "Imports, Consumer goods total",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM4MDPB/A",
+        "aUSIM4CPTB/A",
+        "aUSIM4AHCB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM4AHCB/A",
+      "description": "Imports, Consumer goods, Apparel, household goods - cotton",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM4CPTB/A",
+        "aUSIMPCGS/CA",
+        "aUSIM4MDPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM4CPTB/A",
+      "description": "Imports, Consumer goods, Other household goods",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM4AHCB/A",
+        "aUSIMPOGDS/CA",
+        "aUSIMPCGS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM4MDPB/A",
+      "description": "Imports, Consumer goods, Pharmaceutical preparations",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEX4MDPB/A",
+        "aUSIMPCGS/CA",
+        "aUSIM4CPTB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPEU",
+      "description": "Imports, European Union",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALEU",
+        "aUSEXPEU",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPFB/A",
+      "description": "Imports, Foods & feeds & beverages",
+      "frequency": "P1M",
+      "subcategory": "Food/Ag",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEXPFB/CA",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUIM/CA",
+      "description": "Imports, Goods and services",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBALAB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMP/A",
+      "description": "Imports, Goods, total, BOP basis",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPGGDT/A",
+      "description": "Imports, Goods, total, census basis",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPIND/CA",
+      "description": "Imports, Industrial supplies",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM1OPPB/A",
+        "aUSIM1FUEB/A",
+        "aUSIM1CRUB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM1CRUB/A",
+      "description": "Imports, Industrial supplies and materials, Crude oil",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM1OPPB/A",
+        "aUSIM1FUEB/A",
+        "aUSIMPIND/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM1FUEB/A",
+      "description": "Imports, Industrial supplies and materials, Fuel oil",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM1OPPB/A",
+        "aUSIM1CRUB/A",
+        "aUSIMPIND/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIM1OPPB/A",
+      "description": "Imports, Industrial supplies and materials, Petroleum products, other",
+      "frequency": "P1M",
+      "subcategory": "Industrial Supplies",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSEX1OPPB/A",
+        "aUSIM1FUEB/A",
+        "aUSIM1CRUB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPJP",
+      "description": "Imports, Japan",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports (Japan).",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALJP",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPNAM",
+      "description": "Imports, North America",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALNA",
+        "aUSEXPNAM",
+        "aUSTBALSCAM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPOGDS/CA",
+      "description": "Imports, Other goods",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSIM4CPTB/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPSRV/A",
+      "description": "Imports, Services, Current Prices, Imports & Exports, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Services Imports",
+      "units": "",
+      "meaning": "Level of the US import price index.",
+      "how_to_use": "Direct CPI input. Watch import prices ex-petroleum for cleaner underlying signal. Pair with USD trade-weighted to isolate FX vs underlying global price drivers.",
+      "related_series": [
+        "aUSIMPP",
+        "aUSCUSEX/A",
+        "aUSTBALGDS/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPTBLA",
+      "description": "Imports, Total, BOP basis",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPCEBA",
+      "description": "Imports, Total, census basis",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSTBALGDS/A",
+        "aUSTBALBOP/A",
+        "aUSTBAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCASA",
+      "description": "Trade Balance, Australia",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (Australia).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCBEA",
+      "description": "Trade Balance, Belgium",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALCA",
+      "description": "Trade Balance, Canada",
+      "frequency": "P1M",
+      "subcategory": "By Country",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (Canada).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALCN",
+      "description": "Trade Balance, China",
+      "frequency": "P1M",
+      "subcategory": "By Country",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (China).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALWEU",
+      "description": "Trade Balance, Europe",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBALEU",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALEU",
+      "description": "Trade Balance, European Union",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCGMA",
+      "description": "Trade Balance, Germany",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (Germany).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALAB",
+      "description": "Trade Balance, Goods and services",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBAL/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCHKA",
+      "description": "Trade Balance, Hong Kong",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALJP",
+      "description": "Trade Balance, Japan",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (Japan).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALMX",
+      "description": "Trade Balance, Mexico",
+      "frequency": "P1M",
+      "subcategory": "By Country",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (Mexico).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCNLA",
+      "description": "Trade Balance, Netherlands",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALNA",
+      "description": "Trade Balance, North America",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBALSCAM",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALOPEC",
+      "description": "Trade Balance, OPEC",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCSAA",
+      "description": "Trade Balance, Saudi Arabia",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALSCAM",
+      "description": "Trade Balance, South/Central America",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance (south region).",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBALNA",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBAL/A",
+      "description": "Trade Balance, Total, Goods and services",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALUSD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALGDS/A",
+      "description": "Trade Balance, Total, Goods, BOP basis, Current Prices, Imports & Exports, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBAL",
+        "aUSTBALBOP/A",
+        "aUSIMPSRV/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBAL",
+      "description": "Trade Balance, Total, Goods, BOP basis, Current Prices, Imports & Exports, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBAL",
+        "aUSTBALBOP/A",
+        "aUSIMPSRV/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALBOP/A",
+      "description": "Trade Balance, Total, Goods, BOP basis, Imports & Exports, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBALGDS/A",
+        "aUSTBAL",
+        "aUSVSBALNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVSBALNA",
+      "description": "Trade Balance, Total, Goods, census basis",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVISGD1B/A",
+        "aUSTBALUSD/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALUSD/A",
+      "description": "Trade Balance, Total, Goods, total, census basis",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVISGD1B/A",
+      "description": "Trade Balance, Total, Goods, total, census basis, advanced",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSTBALUSD/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTBALSVCS/A",
+      "description": "Trade Balance, Total, Services",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "USD millions",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSTBAL/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBTPCTCA",
+      "description": "Trade Balance, United Arab Emirates",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSVSBALNA",
+        "aUSVISGD1B/A",
+        "aUSTBALWEU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXPPB/A",
+      "description": "Merchandise Exports, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSCIMPPB/A",
+        "aUSCEXPYB/A",
+        "aUSCEXPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXPYB/A",
+      "description": "Merchandise Exports, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSCIMPYB/A",
+        "aUSCEXPPB/A",
+        "aUSCEXPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXPB/A",
+      "description": "Merchandise Exports, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "Index",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSCEXPYB/A",
+        "aUSCEXPPB/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMPPB/A",
+      "description": "Merchandise Imports, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSCIMPYB/A",
+        "aUSCIMPB/A",
+        "aUSCEXPPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMPYB/A",
+      "description": "Merchandise Imports, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSCIMPPB/A",
+        "aUSCIMPB/A",
+        "aUSCEXPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMPB/A",
+      "description": "Merchandise Imports, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "Index",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSCIMPYB/A",
+        "aUSCIMPPB/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVISB/A",
+      "description": "Visible Trade Balance, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "Index",
+      "meaning": "Level of the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCVISYB/A",
+        "aUSCVISPB/A",
+        "aUSVSBALNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVISPB/A",
+      "description": "Visible Trade Balance, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCVISYB/A",
+        "aUSCVISB/A",
+        "aUSTBALGDS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVISYB/A",
+      "description": "Visible Trade Balance, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Component",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in the US trade balance.",
+      "how_to_use": "Goods deficit dominates; services surplus partially offsets. Energy, autos, electronics, agricultural goods are the swing items. Advance Goods Trade Balance (released ~3 days before full report) often moves USD.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCVISPB/A",
+        "aUSCVISB/A",
+        "aUSVSBALNA"
+      ],
+      "notes": ""
+    }
+  ]
+}

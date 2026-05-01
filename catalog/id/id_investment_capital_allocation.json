@@ -1,0 +1,35 @@
+{
+  "category": "Investment / Capital Formation",
+  "category_slug": "id_investment_capital_allocation",
+  "section": "National Accounts",
+  "source_file": "Indonesia_Investment & Capital Allocation.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDGCINV",
+      "description": "GCF, CII",
+      "frequency": "P3M",
+      "subcategory": "GCF",
+      "units": "IDR billions",
+      "meaning": "Gross Capital Formation, Capital Investment Index — total investment level (GFCF + inventories).",
+      "how_to_use": "Use GFCF (aIDCGFCD/CA) for the cleaner investment-cycle signal. GCF includes inventories which add volatility.",
+      "related_series": [
+        "aIDCGFCD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGFIT/C",
+      "description": "GFCF, Current Prices, Investment / Capital Formation, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "GFCF",
+      "units": "IDR billions, current prices",
+      "meaning": "GFCF (Current Prices) — gross fixed capital formation in nominal terms.",
+      "how_to_use": "Use constant-prices version (aIDGFCFR/C) for real cycle. Nominal version useful in fiscal arithmetic.",
+      "related_series": [
+        "aIDGFCFR/C"
+      ],
+      "notes": ""
+    }
+  ]
+}

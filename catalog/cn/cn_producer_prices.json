@@ -1,0 +1,884 @@
+{
+  "category": "Producer Prices",
+  "category_slug": "cn_producer_prices",
+  "section": "Prices",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T17_22 (151) (PRICES - PRODUCER PRICES).xlsx",
+  "ric_count": 57,
+  "rics": [
+    {
+      "ric": "aCNWGAGA",
+      "description": "Wholesale Prices Of Agricultural Products, Garlic",
+      "frequency": "P1M",
+      "subcategory": "Wholesale Agri Prices — Garlic",
+      "units": "Index or CNY/kg, MoM or YoY",
+      "meaning": "Monthly wholesale price of garlic at China's major agricultural markets, published by NBS as part of the agricultural goods price monitoring system. Garlic is a volatile commodity subject to weather-driven planting cycles and speculative hoarding, making it a well-known source of food-price noise in CPI.",
+      "how_to_use": "Garlic prices in China are notoriously cyclical — sharp spikes follow planting mismatches or cold-storage dynamics, feeding briefly into food CPI before reverting. Use as a leading indicator of food-price volatility within the broader CPI basket; sustained garlic deflation signals downstream food-processing margin relief for condiment and seasoning manufacturers.",
+      "related_series": [
+        "aCNWPAGA",
+        "aCNWGAPA",
+        "aCNCCPIYE/A",
+        "aCNPPIFDMAN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWPAGA",
+      "description": "Wholesale Prices Of Agricultural Products, Ginger",
+      "frequency": "P1M",
+      "subcategory": "Wholesale Agri Prices — Ginger",
+      "units": "Index or CNY/kg, MoM or YoY",
+      "meaning": "Monthly wholesale price of ginger at Chinese agricultural wholesale markets, tracked by NBS as part of the 'garlic-ginger-onion' (姜蒜葱) trio of high-volatility condiment crops. Ginger prices are driven by Shandong province production cycles, cold-storage inventory, and export demand.",
+      "how_to_use": "Ginger is among the most volatile food commodities in China, with annual price swings of 50–200% not uncommon due to multi-year planting cycles. Spikes feed into fresh vegetable and condiment sub-components of food CPI; watch alongside aCNWGAGA and aCNWPAOA to assess whether a food-price shock is broad-based or isolated to condiment crops.",
+      "related_series": [
+        "aCNWGAGA",
+        "aCNWPAOA",
+        "aCNWGAPA",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWPAOA",
+      "description": "Wholesale Prices Of Agricultural Products, Onion",
+      "frequency": "P1M",
+      "subcategory": "Wholesale Agri Prices — Onion",
+      "units": "Index or CNY/kg, MoM or YoY",
+      "meaning": "Monthly wholesale price of onion at Chinese agricultural markets, published by NBS. Along with garlic and ginger, onion is part of the essential condiment crop group that frequently shows amplified price volatility relative to broader food prices.",
+      "how_to_use": "Onion prices move with seasonal harvest cycles and cold-storage drawdowns; a simultaneous surge across garlic, ginger and onion prices usually signals a supply-side planting shortfall rather than demand strength, and should be discounted when assessing underlying food inflation. Use as a cross-check against the NBS fresh vegetable sub-index within food CPI.",
+      "related_series": [
+        "aCNWGAGA",
+        "aCNWPAGA",
+        "aCNWGAPA",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWGAPA",
+      "description": "Wholesale Prices Of Agricultural Products, Pork",
+      "frequency": "P1M",
+      "subcategory": "Wholesale Agri Prices — Pork",
+      "units": "Index or CNY/kg, MoM or YoY",
+      "meaning": "Monthly wholesale pork price at Chinese agricultural markets, published by NBS. Pork is the single most important protein in the Chinese diet and the dominant driver of food CPI, commanding roughly 8–10% of the total CPI basket weight historically.",
+      "how_to_use": "The 'pig cycle' is a core China macro driver: African Swine Fever in 2019–2020 caused an unprecedented hog inventory collapse, driving food CPI to +20% YoY. Herd rebuilding and subsequent oversupply have been deflationary since 2022. Track aCNWGAPA as a leading indicator of food CPI directional shifts — pork price turns tend to lead headline CPI by 1–2 months given its large basket weight.",
+      "related_series": [
+        "aCNCCPIYE/A",
+        "aCNWGAGA",
+        "aCNPPIFDMAN",
+        "aCNPPIAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPI",
+      "description": "Producer Prices",
+      "frequency": "P1M",
+      "subcategory": "PPI Headline",
+      "units": "Index",
+      "meaning": "Producer Prices — index level for industrial producer prices. Tracks ex-factory prices of industrial products.",
+      "how_to_use": "Use YoY (aCNPPIAR) for trend signal. The level captures cumulative price-level changes useful for nominal-real GDP arithmetic in industry.",
+      "related_series": [
+        "aCNPPIAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPROPFAF",
+      "description": "Producer Prices",
+      "frequency": "P1M",
+      "subcategory": "PPI Headline (NBS Producer Prices)",
+      "units": "Percent, YoY",
+      "meaning": "China's headline Producer Price Index measuring factory-gate price change across the full industrial sector, published monthly by NBS alongside CPI around the 10th of each month. This is the broadest gauge of upstream inflationary or deflationary pressure emanating from Chinese manufacturing.",
+      "how_to_use": "China PPI entered a prolonged deflation cycle in late 2022, driven by industrial overcapacity across steel, chemicals, EVs and solar panels combined with property-sector collapse squeezing construction materials demand. Persistent negative PPI compresses manufacturer margins and reduces nominal revenues even when volumes hold; watch for divergence with aCNCCPIYE/A — sustained CPI positive / PPI negative signals a services-led inflation regime with industrial deflation intact.",
+      "related_series": [
+        "aCNPPIAR",
+        "aCNPPIPG",
+        "aCNPPIRM",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPXPAUMF",
+      "description": "Producer Prices, Automobile manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Automobile Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's automobile manufacturing sector, published monthly by NBS. Covers factory-gate prices across passenger vehicles, commercial vehicles and related assembly operations, capturing the intense pricing dynamics of China's world-leading EV market.",
+      "how_to_use": "China's EV price wars since 2023 — ignited by BYD and matched by over 50 competitors — have driven auto manufacturing PPI deeply negative, compressing margins industry-wide. Watch for whether price cuts stabilise as weaker players exit; negative PPI here feeds into corporate earnings pressure for Geely, SAIC, Li Auto and foreign JV partners. Compare with aCNPPITEM (transportation equipment) and aCNPPIEMEM (electric machinery) to triangulate EV supply-chain pricing.",
+      "related_series": [
+        "aCNPPITEM",
+        "aCNPPIEMEM",
+        "aCNPPICCEM",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIBM",
+      "description": "Producer Prices, Beverage manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Beverage Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's beverage manufacturing sector, published monthly by NBS. Covers factory-gate prices for alcoholic beverages (including baijiu), soft drinks, juices and bottled water, reflecting both input cost trends and the pricing power of branded consumer staples.",
+      "how_to_use": "Beverage PPI typically exhibits more resilience than industrial PPI because branded products (Kweichow Moutai, Yanjing beer) retain pricing power even in deflationary environments. A divergence where beverage PPI stays positive while broader manufacturing PPI is negative signals consumer-staples margin defence; compare with aCNPPIFDMAN to assess whether the broader food and beverage chain is passing through or absorbing input cost deflation.",
+      "related_series": [
+        "aCNPPIFDMAN",
+        "aCNPPIAT",
+        "aCNPROPFAF",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPROPMJR",
+      "description": "Producer Prices, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "PPI Headline — MoM Change",
+      "units": "Percent, MoM",
+      "meaning": "China's headline Producer Price Index measured on a month-over-month basis, published by NBS alongside the YoY print around the 10th of each month. The MoM reading eliminates base effects and provides a more timely read on whether deflationary impulses are accelerating or fading.",
+      "how_to_use": "During prolonged YoY deflation cycles, the MoM series is critical for detecting turning points: sequential monthly declines confirm deepening deflation, while a return to flat or positive MoM can precede a YoY trough even while the annual print remains negative. Watch particularly after stimulus measures — commodity price reflation from infrastructure spending typically shows in MoM PPI before the YoY base effect turns. Pair with aCNPROPFAF (YoY) for the full picture.",
+      "related_series": [
+        "aCNPROPFAF",
+        "aCNPPIAR",
+        "aCNPPIPG",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIAR",
+      "description": "Producer Prices, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "PPI Headline",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index, year-over-year — pace of factory-gate price change. Released monthly by NBS alongside CPI.",
+      "how_to_use": "China PPI in deflation since late 2022 (negative YoY for 20+ consecutive months by 2024). Reflects industrial overcapacity, weak property-sector demand for steel/cement, falling commodity-input costs. PPI deflation transmits into corporate margins and global tradable-goods inflation. Watch alongside CPI — divergence (CPI positive, PPI negative) signals services-led inflation regime.",
+      "related_series": [
+        "aCNPPI",
+        "aCNCCPIYE/A",
+        "aCNPPICG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPICL",
+      "description": "Producer Prices, Clothing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Clothing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's clothing and apparel manufacturing sector, published monthly by NBS. Covers factory-gate prices for garments, knitwear and apparel accessories, reflecting both cotton/polyester input costs and the intense competitive pricing in China's fragmented garment industry.",
+      "how_to_use": "Clothing PPI is sensitive to cotton price cycles and export demand; weakness in global apparel orders (particularly from US and EU buyers) pushes factory-gate prices lower as Chinese manufacturers compete on price to maintain volume. Compare with aCNPPITEXT (textile industry upstream) — rising textile PPI alongside flat/falling clothing PPI signals margin squeeze for garment makers. Relevant for assessing Listed company margins of ANTA, Li Ning and garment exporters.",
+      "related_series": [
+        "aCNPPITEXT",
+        "aCNPPIAT",
+        "aCNPROPFAF",
+        "aCNPPIMN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPICWD",
+      "description": "Producer Prices, Coal mining, washing and dressing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Coal Mining & Washing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's coal mining, washing and dressing sector, published monthly by NBS. Tracks factory-gate price changes for thermal and coking coal at the mine level, reflecting domestic supply-demand balance and global seaborne coal price trends.",
+      "how_to_use": "Coal PPI is highly cyclical: the 2021–2022 energy crisis drove this index to record highs (+70% YoY at peak), followed by sharp deflation through 2023–2024 as supply normalised and property-driven coking coal demand collapsed. Track alongside power generation data and steel output — coking coal PPI is a leading indicator of steel sector profitability, while thermal coal PPI feeds into electricity costs for downstream manufacturers. A sustained rebound signals energy cost inflation re-entering the industrial chain.",
+      "related_series": [
+        "aCNPPIPNG",
+        "aCNPPIEPHP",
+        "aCNPPISPF",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPICCEM",
+      "description": "Producer Prices, Computers, communication & other electronic equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI — Computers, Comms & Electronics",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's computers, communication and other electronic equipment manufacturing sector, published monthly by NBS. Covers factory-gate prices for smartphones, PCs, networking equipment and consumer electronics, reflecting both global semiconductor cycle dynamics and domestic competition.",
+      "how_to_use": "Electronics PPI is structurally deflationary due to rapid technology cycles and intense domestic competition — the 2023 semiconductor down-cycle pushed this index sharply negative. Recovery in the semiconductor cycle (memory price rebound, AI chip demand) tends to stabilise or lift electronics PPI. This sector is central to China's export competitiveness; falling PPI here improves China's share in global electronics trade. Watch alongside aCNPPIEMEM and aCNPXPAUMF for the broader technology-hardware supply chain.",
+      "related_series": [
+        "aCNPPIEMEM",
+        "aCNPXPAUMF",
+        "aCNPPISPE",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPICG",
+      "description": "Producer Prices, Consumer goods",
+      "frequency": "P1M",
+      "subcategory": "PPI Sub-Index",
+      "units": "Index",
+      "meaning": "PPI Consumer Goods — factory-gate prices for consumer-oriented industrial products.",
+      "how_to_use": "Pre-CPI inflation indicator (1-3 month lead). Rising consumer-goods PPI signals upcoming retail price increases; sustained deflation here was a leading signal of broader China disinflation.",
+      "related_series": [
+        "aCNPPIAR",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIAT",
+      "description": "Producer Prices, Daily-use articles",
+      "frequency": "P1M",
+      "subcategory": "PPI — Daily-Use Articles",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for daily-use articles (consumer non-durables and household goods) manufacturing in China, published monthly by NBS. Covers factory-gate prices for personal care products, household cleaning items, stationery and other mass-market consumer goods.",
+      "how_to_use": "Daily-use article PPI is a useful proxy for consumer goods deflation pressure downstream of commodity inputs; persistent negative prints signal retailers and e-commerce platforms are absorbing upstream cost relief rather than passing it to consumers, pressuring branded consumer staples margins. Compare with broader CPI goods components to assess whether factory-gate deflation is transmitting to retail prices or being absorbed as margin.",
+      "related_series": [
+        "aCNPPIBM",
+        "aCNPPICL",
+        "aCNPPIFFMAN",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIDG",
+      "description": "Producer Prices, Durable consumer goods",
+      "frequency": "P1M",
+      "subcategory": "PPI Sub-Index",
+      "units": "Index",
+      "meaning": "PPI Durable Consumer Goods — factory prices for consumer durables (autos, appliances, electronics).",
+      "how_to_use": "Tracks durables-sector pricing. China durables PPI has been in deflation 2022+ as overcapacity (especially in EVs, solar) pressures prices.",
+      "related_series": [
+        "aCNPPICG",
+        "aCNPPIEMEM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIEPHP",
+      "description": "Producer Prices, Electric & heating power",
+      "frequency": "P1M",
+      "subcategory": "PPI — Electric & Heating Power",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's electricity generation, transmission and heating power supply sector, published monthly by NBS. Tracks factory-gate electricity and district heating prices charged to industrial consumers, reflecting power sector cost structures and administered tariff adjustments.",
+      "how_to_use": "China's industrial electricity prices are partially regulated; PPI moves here reflect both underlying coal/LNG fuel cost pass-through and government tariff reforms. Falling electricity PPI reduces a critical fixed cost for energy-intensive industries (aluminium, chemicals, steel), potentially offsetting overcapacity-driven pressure on those sectors' own PPI. Watch for reform signals — China's ongoing power market liberalisation can cause step-change PPI moves independent of fuel costs. Pair with aCNPPICWD (coal) to assess fuel-to-power price transmission.",
+      "related_series": [
+        "aCNPPICWD",
+        "aCNPPIPNG",
+        "aCNPPINSPF",
+        "aCNPPICPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIEMEM",
+      "description": "Producer Prices, Electric machinery & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI — Electric Machinery & Equipment",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's electrical machinery and equipment manufacturing sector, published monthly by NBS. Encompasses motors, generators, transformers, batteries and power electronics — a sector at the intersection of the traditional power grid and the new energy revolution (EVs, energy storage, solar inverters).",
+      "how_to_use": "Electric machinery PPI has been pressured by overcapacity in lithium battery manufacturing (CATL, BYD, CALB) and solar inverters, where capacity additions far outpaced demand growth. Persistent deflation here compresses margins for battery makers and squeezes profitability of the EV supply chain beyond just the vehicle OEMs. A recovery in aCNPPIEMEM would be an early signal of supply-side rebalancing in China's new-energy manufacturing.",
+      "related_series": [
+        "aCNPXPAUMF",
+        "aCNPPICCEM",
+        "aCNPPISPE",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIEX",
+      "description": "Producer Prices, Excavation",
+      "frequency": "P1M",
+      "subcategory": "PPI — Excavation / Mining",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's excavation and related mining support activities, published monthly by NBS. Covers factory-gate price changes for construction excavation services, quarrying and related civil engineering operations, closely linked to infrastructure investment and real estate construction activity.",
+      "how_to_use": "Excavation PPI is a direct barometer of China's construction cycle; the sustained collapse in real estate starts since 2021 has kept excavation PPI deeply negative as overcapacity in construction equipment and services persists. Infrastructure FAI (Fixed Asset Investment) stimulus can provide partial offsets, but the residential construction drag has dominated. Watch alongside non-metal mineral product PPI (cement, glass) for a comprehensive read on construction-sector deflation.",
+      "related_series": [
+        "aCNPPINMP",
+        "aCNPPIFMMD",
+        "aCNPPINMMD",
+        "aCNPXPMSAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIFMMD",
+      "description": "Producer Prices, Ferrous metals mining and dressing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Ferrous Metals Mining & Dressing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's ferrous metals (primarily iron ore and iron) mining and dressing sector, published monthly by NBS. Tracks the domestic mine-level price of iron ore and iron concentrates, though China's dependence on Australian and Brazilian seaborne imports means global ore prices dominate this series.",
+      "how_to_use": "Chinese domestic iron ore PPI moves largely in line with global seaborne iron ore benchmark prices (62% Fe CFR Qingdao). A sharp decline signals falling blast-furnace margins for steelmakers — watch alongside aCNPPISPF (ferrous smelting) to assess the full iron-to-steel price chain. Sustained weakness here reinforces the steel sector overcapacity and property-demand collapse narrative; recovery would require either Chinese stimulus or global demand reacceleration.",
+      "related_series": [
+        "aCNPPISPF",
+        "aCNPPIMETP",
+        "aCNPPIEX",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIFD",
+      "description": "Producer Prices, Food",
+      "frequency": "P1M",
+      "subcategory": "PPI Sub-Index",
+      "units": "Index",
+      "meaning": "PPI Food — food-products factory-gate prices.",
+      "how_to_use": "Tracks food-manufacturer pricing. Less cyclical than CPI food (which captures retail-level prices including agricultural fluctuations). Useful for tracking food-CPI pass-through.",
+      "related_series": [
+        "aCNPPIAR",
+        "aCNPPIBM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIFDMAN",
+      "description": "Producer Prices, Food manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Food Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's food manufacturing sector, published monthly by NBS. Covers factory-gate prices for processed foods including grain products, edible oils, sugar refining, dairy, meat processing and condiments — the processed-food layer between raw agricultural prices and retail CPI.",
+      "how_to_use": "Food manufacturing PPI acts as a transmission mechanism between agricultural wholesale prices (pork, grain, edible oils) and consumer food CPI. When raw material prices fall (as in the 2022–2024 pork and grain deflation cycle), food manufacturers may absorb the benefit as margin rather than passing it to consumers — watch divergence between food CPI and food manufacturing PPI as a signal of margin behaviour. Relevant for analysing China Mengniu, WH Group, COFCO International earnings.",
+      "related_series": [
+        "aCNWGAPA",
+        "aCNPPIBM",
+        "aCNCCPIYE/A",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIFFMAN",
+      "description": "Producer Prices, Furniture manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Furniture Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's furniture manufacturing sector, published monthly by NBS. Covers factory-gate prices for wood, metal and composite furniture, a sector closely tied to real estate completion cycles and consumer home-renovation spending.",
+      "how_to_use": "Furniture PPI is a reliable coincident indicator of the real estate down-cycle: as housing completions and home-purchase transactions collapsed from 2021, furniture orders fell sharply and factory-gate pricing turned negative. The sector is also highly exposed to export demand (China supplies ~35% of global furniture imports), so watch for shifts in US and EU trade policy or consumer spending. Pair with aCNPPITIMB (timber/wood products) to assess input cost versus output price dynamics for furniture manufacturers.",
+      "related_series": [
+        "aCNPPITIMB",
+        "aCNPPINMP",
+        "aCNPPIAT",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIHI",
+      "description": "Producer Prices, Heavy industry",
+      "frequency": "",
+      "subcategory": "PPI — Heavy Industry",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's heavy industry aggregate, published by NBS. Covers factory-gate prices across capital-intensive sectors including metals, chemicals, mining, energy and machinery — representing the upstream industrial complex most exposed to commodity price cycles and infrastructure demand.",
+      "how_to_use": "Heavy industry PPI is the core driver of headline PPI deflation since 2022, as overcapacity across steel, chemicals and coal brought prices sharply lower. This aggregate masks significant divergence: energy-related PPI can spike on geopolitical shocks while steel/chemicals remain depressed. Compare aCNPPIHI against aCNPPILI (light industry) to diagnose whether deflation is concentrated in investment-goods sectors (heavy) or spreading to consumer-goods sectors (light) — a broader spread signals more serious demand weakness.",
+      "related_series": [
+        "aCNPPILI",
+        "aCNPPIPG",
+        "aCNPPISPF",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPILI",
+      "description": "Producer Prices, Light industry",
+      "frequency": "",
+      "subcategory": "PPI — Light Industry",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's light industry aggregate, published by NBS. Covers factory-gate prices for consumer-oriented manufacturing sectors such as food processing, textiles, clothing, paper, furniture and daily-use goods — the consumer-facing downstream layer of Chinese industry.",
+      "how_to_use": "Light industry PPI typically shows less volatility than heavy industry PPI because consumer goods demand is more stable than investment goods. When light industry PPI turns negative despite stable consumer spending, it signals either intense domestic competition and overcapacity in consumer goods or deflationary pass-through from falling commodity inputs. Compare with aCNCCPIYE/A: persistent CPI-PPI divergence (CPI positive, light industry PPI negative) may indicate retail margins are widening at the expense of manufacturers.",
+      "related_series": [
+        "aCNPPIHI",
+        "aCNPPIFDMAN",
+        "aCNPPITEXT",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIMN",
+      "description": "Producer Prices, Manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's overall manufacturing sector, published monthly by NBS. Covers factory-gate prices across the full spectrum of manufacturing industries, serving as a cleaner read on industrial pricing pressure than the headline PPI (which includes mining and utilities).",
+      "how_to_use": "Manufacturing PPI entered a deep deflation cycle in 2022–2024 driven by a combination of post-COVID capacity glut, property demand collapse, and aggressive EV/solar/battery production ramp-up exceeding demand. Compare against aCNPPIPG (producer goods) and aCNPPIRM (raw materials) to identify which layer of the manufacturing chain is experiencing the sharpest deflation; narrowing gaps between these sub-indices can signal early-stage reflation.",
+      "related_series": [
+        "aCNPROPFAF",
+        "aCNPPIPG",
+        "aCNPPIRM",
+        "aCNPPIHI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIMETP",
+      "description": "Producer Prices, Metal products",
+      "frequency": "P1M",
+      "subcategory": "PPI — Metal Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's metal products sector (fabricated metals: structural steel, fasteners, pipes, wire, springs, stamped parts), published monthly by NBS. Represents the downstream processing layer between crude steel smelting and end-use in construction and machinery.",
+      "how_to_use": "Metal products PPI typically lags steel smelting PPI (aCNPPISPF) by 1–2 months as price changes transmit through the value chain. Persistent deflation in metal products despite stable or rising steel prices signals demand destruction in construction and machinery sectors — the metal products industry is a key bellwether for fixed-asset investment activity. Relevant for steel distribution companies and engineering-to-order manufacturers.",
+      "related_series": [
+        "aCNPPISPF",
+        "aCNPPIFMMD",
+        "aCNPPISPE",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPXPMMEF",
+      "description": "Producer Prices, Metal products, machinery & equipment repair",
+      "frequency": "P1M",
+      "subcategory": "PPI — Metal Products, Machinery & Equipment Repair",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's metal products, machinery and equipment repair services sector, published monthly by NBS. Captures maintenance, overhaul and repair pricing for industrial machinery — a services-adjacent component within the manufacturing PPI framework.",
+      "how_to_use": "This sector's PPI reflects aftermarket demand for industrial machinery; in a capex downturn, manufacturers extend equipment life rather than replacing it, potentially sustaining repair service pricing even while new equipment PPI falls. Compare against aCNPPISPE (special equipment manufacturing) — when new equipment PPI falls sharply but repair PPI holds firm, it indicates companies are deferring capex while maintaining utilisation, a key signal of investment cycle contraction.",
+      "related_series": [
+        "aCNPPISPE",
+        "aCNPPIMETP",
+        "aCNPXPMSAF",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPXPMSAF",
+      "description": "Producer Prices, Mining support activity",
+      "frequency": "P1M",
+      "subcategory": "PPI — Mining Support Activity",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's mining support activities sector, published monthly by NBS. Covers contractor and service pricing for drilling, well servicing, mine ventilation, surveying and other outsourced mining operations — a derived demand sector tracking mine investment activity.",
+      "how_to_use": "Mining support activity PPI is a leading indicator of capital investment in China's resource extraction industries; when major miners (coal, iron ore, copper) expand production capacity, support service pricing rises ahead of actual commodity output increases. During industry down-cycles (falling coal and metals PPI since 2023), mining support activity PPI deflates as operators cut development spending. Use in conjunction with aCNPPICWD and aCNPPIFMMD to assess the upstream investment cycle in Chinese mining.",
+      "related_series": [
+        "aCNPPICWD",
+        "aCNPPIFMMD",
+        "aCNPPINFMMD",
+        "aCNPXPOTMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPINFMMD",
+      "description": "Producer Prices, Non-ferrous metals mining and dressing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Non-Ferrous Metals Mining & Dressing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's non-ferrous metals mining and dressing sector, published monthly by NBS. Covers domestic mine-level pricing for copper, aluminium ore (bauxite), lead, zinc, lithium, nickel and other base and battery metals critical to the energy transition.",
+      "how_to_use": "Non-ferrous metals mining PPI is increasingly important as a proxy for battery-metal supply economics: lithium carbonate's 2022 spike to CNY 600,000/tonne followed by 2023–2024 crash to CNY 80,000/tonne is captured here. A sustained recovery in this index would signal lithium/cobalt/nickel supply-side tightening — a positive catalyst for China's battery supply chain. Cross-reference with aCNPPINSPF (non-ferrous smelting) for the full mining-to-metal price chain.",
+      "related_series": [
+        "aCNPPINSPF",
+        "aCNPPIFMMD",
+        "aCNPPIRM",
+        "aCNPXPMSAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPINMP",
+      "description": "Producer Prices, Non-metal mineral products",
+      "frequency": "P1M",
+      "subcategory": "PPI — Non-Metal Mineral Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's non-metallic mineral products manufacturing sector, published monthly by NBS. Primarily covers cement, flat glass, ceramics, refractory materials and construction stone — the sector most directly tied to real estate and infrastructure construction activity.",
+      "how_to_use": "Cement and glass PPI is the most direct pricing barometer of China's construction sector collapse since 2021. Cement prices fell 25–35% from 2021 peaks as property starts halved, creating severe overcapacity — this sector is a leading indicator for whether stimulus infrastructure projects are actually absorbing excess capacity. A sustained PPI recovery in non-metal mineral products would signal genuine construction sector stabilisation ahead of official property data.",
+      "related_series": [
+        "aCNPPIFFMAN",
+        "aCNPPINMMD",
+        "aCNPPIEX",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPINMMD",
+      "description": "Producer Prices, Non-metal minerals mining and dressing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Non-Metal Minerals Mining & Dressing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's non-metallic minerals mining and dressing sector, published monthly by NBS. Covers quarrying of limestone, gypsum, granite, quartz and other construction stones and industrial minerals, representing the raw material input to the non-metal mineral products manufacturing sector.",
+      "how_to_use": "Non-metal minerals mining PPI provides an early upstream signal for construction cost trends: rising prices here may precede movements in cement and glass PPI (aCNPPINMP) by 1–2 months. Deflation in this series reflects the cascading effect of property construction collapse — reduced quarrying volumes create overcapacity in the extractive sector. Use as an early-cycle indicator of infrastructure spending actually mobilising in the field (versus fiscal announcements).",
+      "related_series": [
+        "aCNPPINMP",
+        "aCNPPIEX",
+        "aCNPPIFMMD",
+        "aCNPXPMSAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPXPOTMF",
+      "description": "Producer Prices, Other Mining",
+      "frequency": "",
+      "subcategory": "PPI — Other Mining",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's other mining sector (excluding coal, oil/gas, ferrous and non-ferrous metals), published by NBS. Covers extraction of chemicals minerals, salt, radioactive minerals and other specialty mining activities not captured in the major mining sub-indices.",
+      "how_to_use": "This residual mining category provides a useful cross-check on chemical minerals pricing (phosphate, potash, fluorite) which feed into chemical feedstock costs. Phosphate mining pricing is particularly relevant given China's role as the world's dominant phosphate producer and its export controls on phosphate fertilisers; sudden PPI moves here can signal supply constraint imposition or relaxation with global agricultural implications.",
+      "related_series": [
+        "aCNPXPMSAF",
+        "aCNPPINMMD",
+        "aCNPPICPM",
+        "aCNPPIFMMD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIPNG",
+      "description": "Producer Prices, Petroleum and natural gas extraction",
+      "frequency": "P1M",
+      "subcategory": "PPI — Petroleum & Natural Gas Extraction",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's petroleum and natural gas extraction sector, published monthly by NBS. Tracks domestic wellhead price changes for crude oil and natural gas, closely correlated with global oil prices (Brent/WTI) given China's status as the world's largest crude oil importer.",
+      "how_to_use": "Oil and gas extraction PPI is a primary transmitter of global commodity price shocks into China's industrial price system: oil price spikes in 2021–2022 drove this index above +50% YoY, while the 2023 oil price correction contributed significantly to overall PPI deflation. Track alongside aCNPPIPNF (petroleum processing/refining) to assess the upstream-to-refining price spread; a widening spread indicates refinery margin expansion. Relevant for CNOOC, CNOOC Gas, Sinopec upstream division analysis.",
+      "related_series": [
+        "aCNPPIPNF",
+        "aCNPPICWD",
+        "aCNPPIEPHP",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIPNF",
+      "description": "Producer Prices, Petroleum processing, coking and nuclear fuels processing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Petroleum Processing, Coking & Nuclear Fuels",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's petroleum processing, coking and nuclear fuel processing sector, published monthly by NBS. Covers factory-gate prices for refined petroleum products (gasoline, diesel, jet fuel, naphtha), coke and coal tar — the mid-stream refining layer between crude oil extraction and end-use consumers.",
+      "how_to_use": "This series is the most globally-linked component of China's PPI: refined product prices track Brent with a 1–2 month lag through China's managed pricing mechanism (NDRC adjusts domestic fuel prices every 10 working days). Persistent deflation in petroleum processing PPI reduces input costs for road transport, chemicals and plastics industries. Compare aCNPPIPNG (upstream crude) and aCNPPIPNF (refining output) to estimate crack spreads — the profitability signal for Sinopec, PetroChina refining divisions.",
+      "related_series": [
+        "aCNPPIPNG",
+        "aCNPPICPM",
+        "aCNPPIPP",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIPP",
+      "description": "Producer Prices, Plastic products",
+      "frequency": "",
+      "subcategory": "PPI — Plastic Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's plastic products manufacturing sector, published by NBS. Covers factory-gate prices for packaging, pipes, profiles, films, fibres and other fabricated plastic goods — an important input into food packaging, construction, automotive and electronics manufacturing.",
+      "how_to_use": "Plastic products PPI reflects both petrochemical feedstock costs (naphtha/ethylene from aCNPPIPNF) and end-market demand conditions. China's massive overcapacity in polyolefin and PVC production has kept this sector in deflation alongside petrochemical PPI. Falling plastic products PPI benefits downstream manufacturers (electronics, automotive, FMCG) but compresses margins for chemical companies like Sinopec, Wanhua Chemical and Rongsheng Petrochemical.",
+      "related_series": [
+        "aCNPXPRPPF",
+        "aCNPPIPNF",
+        "aCNPPICPM",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIPG",
+      "description": "Producer Prices, Producer goods",
+      "frequency": "P1M",
+      "subcategory": "PPI — Producer Goods",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index sub-aggregate for producer (investment) goods in China, published monthly by NBS. Covers factory-gate prices for intermediate and capital goods — raw materials, processing materials and investment equipment — as distinct from consumer goods. This is the dominant component of headline PPI given China's manufacturing-heavy economic structure.",
+      "how_to_use": "Producer goods PPI accounts for the majority of headline PPI deflation since 2022, driven by steel, coal, chemicals and construction materials. As a leading indicator of corporate capex economics: falling producer goods prices reduce the cost of investment and can stimulate fixed-asset investment if demand conditions are present, but in a balance-sheet-constrained economy (debt-heavy property developers, cautious SOEs) the deflation signal dominates. Compare aCNPPIPG vs aCNPPIRM to trace whether deflation is deepest in primary commodities or spreading into processed industrial goods.",
+      "related_series": [
+        "aCNPPIRM",
+        "aCNPROPFAF",
+        "aCNPPIMN",
+        "aCNPPIHI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPICPM",
+      "description": "Producer Prices, Raw chemical materials & products",
+      "frequency": "P1M",
+      "subcategory": "PPI — Raw Chemical Materials & Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's raw chemical materials and products sector, published monthly by NBS. Covers factory-gate prices for basic organic and inorganic chemicals, fertilisers, synthetic fibres, agrochemicals, pigments and specialty chemicals — one of China's largest and most globally significant industrial sectors.",
+      "how_to_use": "Chemical PPI is a key transmission channel for oil price shocks into broad industry: naphtha-derived chemicals amplify oil price moves. China now controls 40–50% of global capacity in many basic chemicals, making domestic oversupply a structural deflationary force independent of global feedstock prices. The 2022–2024 chemicals PPI deflation cycle has squeezed listed chemical companies severely; watch for capacity rationalisation or export quota restrictions from Beijing that could signal a supply-side policy response to persistent deflation.",
+      "related_series": [
+        "aCNPPIPNF",
+        "aCNPPIPP",
+        "aCNPXPRPPF",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIRM",
+      "description": "Producer Prices, Raw materials",
+      "frequency": "P1M",
+      "subcategory": "PPI — Raw Materials",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index sub-aggregate for raw materials in China, published monthly by NBS. Covers the first-stage processing of primary commodities including ferrous and non-ferrous metals, chemicals raw materials, wood and building materials — the upstream feedstock layer for manufacturing.",
+      "how_to_use": "Raw materials PPI is the first link in the industrial price chain and typically leads downstream manufacturing and consumer goods PPI by 1–3 months. During commodity super-cycles (2021) this index spiked before being transmitted downstream; during the 2022–2024 deflation cycle it fell first and deepest. A genuine PPI recovery in China will show here first — watch for month-on-month stabilisation in aCNPPIRM as the earliest signal of industrial reflation, particularly if driven by infrastructure stimulus commodity demand.",
+      "related_series": [
+        "aCNPPIPG",
+        "aCNPROPFAF",
+        "aCNPPISPF",
+        "aCNPPICPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPXPRPPF",
+      "description": "Producer Prices, Rubber & plastic products",
+      "frequency": "P1M",
+      "subcategory": "PPI — Rubber & Plastic Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's rubber and plastic products sector combined, published monthly by NBS. Covers factory-gate prices for tyres, rubber hose, seals, industrial rubber goods alongside plastic packaging and construction products — a broad intermediate materials sector.",
+      "how_to_use": "The rubber component is sensitive to natural rubber prices (concentrated in Hainan province and imported from Southeast Asia) while the plastics component tracks petrochemical feedstock costs. China's auto sector recovery is a key demand driver for rubber products (tyres, belts, seals); EV adoption adds complexity as EV tyres carry different rubber specifications. Compare with aCNPPIPP (plastics standalone) and aCNPPIRUBB (rubber standalone) if available to decompose relative sector dynamics.",
+      "related_series": [
+        "aCNPPIPP",
+        "aCNPPIRUBB",
+        "aCNPPICPM",
+        "aCNPXPAUMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPIRUBB",
+      "description": "Producer Prices, Rubber products",
+      "frequency": "",
+      "subcategory": "PPI — Rubber Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's rubber products manufacturing sector, published by NBS. Covers factory-gate prices for tyres, rubber belts, rubber hoses, footwear and industrial rubber components, with natural rubber and synthetic rubber (styrene-butadiene) as the primary raw material inputs.",
+      "how_to_use": "Rubber products PPI is primarily driven by natural rubber prices from Thailand, Indonesia and Malaysia, compounded by synthetic rubber costs from petrochemical feedstocks. China accounts for roughly one-third of global tyre production, making this a globally significant price-setting sector. Auto production recovery (particularly EV ramp-up requiring higher-performance tyres) is the main demand driver; track against aCNPXPAUMF and aCNPXPRPPF to assess automotive supply-chain pricing cohesion.",
+      "related_series": [
+        "aCNPXPRPPF",
+        "aCNPPIPP",
+        "aCNPXPAUMF",
+        "aCNPPICPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPISPF",
+      "description": "Producer Prices, Smelting and pressing of ferrous metals",
+      "frequency": "P1M",
+      "subcategory": "PPI — Smelting & Pressing of Ferrous Metals",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's ferrous metals smelting and pressing sector (steel), published monthly by NBS. Tracks factory-gate prices for crude steel, hot-rolled and cold-rolled coil, rebar, wire rod, plate and other steel products — China's most strategically important industrial commodity, representing 55–60% of global steel output.",
+      "how_to_use": "Steel PPI is the single largest driver of China's headline PPI deflation since 2022: rebar prices fell from CNY 6,000/tonne in 2021 to below CNY 3,500/tonne by 2024 as property construction collapsed and capacity remained unchanged at ~1 billion tonnes/year. Watch for signs of capacity discipline (MIIT production caps, merger activity among major mills like Baowu, HBIS). Recovery would require either property demand recovery or export surge — the latter increasingly constrained by global anti-dumping tariffs.",
+      "related_series": [
+        "aCNPPIFMMD",
+        "aCNPPIMETP",
+        "aCNPPIRM",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPINSPF",
+      "description": "Producer Prices, Smelting and pressing of non-ferrous metals",
+      "frequency": "P1M",
+      "subcategory": "PPI — Smelting & Pressing of Non-Ferrous Metals",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's non-ferrous metals smelting and pressing sector, published monthly by NBS. Covers factory-gate prices for aluminium, copper, lead, zinc, nickel, tin and rare earth metals smelting products — critical inputs for the electrical, electronics, automotive and aerospace industries.",
+      "how_to_use": "Non-ferrous metals PPI is increasingly central to China's new-energy narrative: aluminium prices feed into EV body structures, copper into EV wiring and grid infrastructure, lithium/cobalt/nickel into battery cathodes. China dominates global aluminium smelting (60% of world capacity), where persistent energy cost deflation (aCNPPIEPHP) has widened aluminium smelter margins even as metal prices fell. Watch this series as a leading indicator of energy-transition commodity economics — a recovery signals demand from EVs, grid and solar outpacing capacity additions.",
+      "related_series": [
+        "aCNPPINFMMD",
+        "aCNPPIEPHP",
+        "aCNPPIEMEM",
+        "aCNPPIRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPISPE",
+      "description": "Producer Prices, Special-purpose equipment manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Special-Purpose Equipment Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's special-purpose equipment manufacturing sector, published monthly by NBS. Covers factory-gate prices for mining machinery, metallurgical equipment, construction machinery, agricultural machinery, textile machinery and other industry-specific capital goods.",
+      "how_to_use": "Special-purpose equipment PPI tracks the capital goods investment cycle for China's heavy industries; as upstream industries (coal, steel, chemicals) deferred capex amid falling PPI and shrinking margins, orders for specialised machinery fell. China's policy push for equipment renewal subsidies (设备以旧换新) in 2024 was designed to stimulate this sector. Watch alongside aCNPPISPF and aCNPPICPM — when upstream PPI begins recovering, special-purpose equipment orders typically rebound 6–9 months later as capacity expansion resumes.",
+      "related_series": [
+        "aCNPXPMMEF",
+        "aCNPPIEMEM",
+        "aCNPPISPF",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPITEXT",
+      "description": "Producer Prices, Textile industry",
+      "frequency": "P1M",
+      "subcategory": "PPI — Textile Industry",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's textile industry, published monthly by NBS. Covers factory-gate prices for yarn, woven fabrics, knitted fabrics, non-woven materials and textile intermediate goods — representing the upstream processing stage between raw fibre inputs (cotton, polyester) and garment/clothing manufacturing.",
+      "how_to_use": "Textile PPI is driven by cotton prices (both domestic Xinjiang cotton and global ICE cotton futures) and synthetic fibre costs (polyester from petroleum). China's textile sector is highly export-dependent; weakening global apparel demand compresses factory-gate pricing even when input costs rise. Compare aCNPPITEXT against aCNPPICL (clothing) — rising textile PPI alongside flat clothing PPI indicates garment manufacturers are absorbing input cost inflation, squeezing margins. Relevant for Shenzhou International, Luthai Textile analysis.",
+      "related_series": [
+        "aCNPPICL",
+        "aCNPPICPM",
+        "aCNPROPFAF",
+        "aCNPPIMN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPITIMB",
+      "description": "Producer Prices, Timber processing, wood, bamboo, cane, palm fibre and straw products",
+      "frequency": "P1M",
+      "subcategory": "PPI — Timber & Wood Products",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's timber processing, wood, bamboo, cane, palm fibre and straw products manufacturing sector, published monthly by NBS. Covers factory-gate prices for lumber, plywood, fiberboard, particle board, bamboo products and other wood-based construction and furniture materials.",
+      "how_to_use": "Timber PPI is directly linked to China's real estate and furniture cycles: as housing starts collapsed from 2021, demand for construction timber and furniture wood panels fell sharply. China is a major importer of timber from Russia, New Zealand and Southeast Asia; Russian timber imports surged post-2022 sanctions, adding supply pressure. Compare aCNPPITIMB with aCNPPIFFMAN (furniture) to assess input-output price dynamics for wood-based furniture manufacturers and construction material suppliers.",
+      "related_series": [
+        "aCNPPIFFMAN",
+        "aCNPPINMP",
+        "aCNPPINMMD",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPITEM",
+      "description": "Producer Prices, Transportation equipment manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI — Transportation Equipment Manufacturing",
+      "units": "Percent, YoY",
+      "meaning": "Producer Price Index for China's transportation equipment manufacturing sector, published monthly by NBS. Covers factory-gate prices for automobiles, motorcycles, ships, railway rolling stock and aerospace equipment — the broadest transportation manufacturing aggregate.",
+      "how_to_use": "Transportation equipment PPI captures the combined pricing dynamics of China's auto sector (dominated by EV price wars) and its shipbuilding boom. While EV price cuts have pushed passenger vehicle pricing deeply negative, China's shipbuilding sector has seen rising order backlogs and pricing power since 2023 due to global fleet renewal demand. The net PPI for this aggregate reflects auto-vs-shipbuilding composition; use aCNPXPAUMF for pure auto sector price signal. Relevant for assessing SAIC, Geely, COSCO Shipping, China Shipbuilding Industry.",
+      "related_series": [
+        "aCNPXPAUMF",
+        "aCNPPIEMEM",
+        "aCNPPISPF",
+        "aCNPROPFAF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPPRFP",
+      "description": "Purchasing Prices, Raw materials, fuels and power",
+      "frequency": "P1M",
+      "subcategory": "Purchasing Prices — Raw Materials, Fuels & Power",
+      "units": "Percent, YoY",
+      "meaning": "China's Purchasing Price Index (PPI-input) for raw materials, fuels and power, published monthly by NBS. This measures prices paid by manufacturers for their key inputs — the cost-side complement to the output-focused PPI — and is the Chinese equivalent of US PPI input or EU import price indices for industrial materials.",
+      "how_to_use": "The purchasing price index leads the output PPI by 1–3 months: a sharper decline in purchasing prices relative to output PPI signals margin expansion (manufacturers benefit from cheaper inputs before price competition erodes output pricing). Conversely, input price spikes with lagging output PPI signal margin compression — the 2021 commodity super-cycle saw purchasing prices surge while downstream manufacturers struggled to pass through costs. This spread is the single best NBS-sourced measure of China's manufacturing margin cycle.",
+      "related_series": [
+        "aCNPROPFAF",
+        "aCNPPIRM",
+        "aCNPPIPG",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPAQM1",
+      "description": "农业生产资料价格指数(上年同期＝100)_农用手工工具_当期_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 农业生产资料价格指数(上年同期＝100)_农用手工工具_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNLAHM",
+      "description": "农业生产资料价格指数(上年同期＝100)_农用机油_当期_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 农业生产资料价格指数(上年同期＝100)_农用机油_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNAMBJQ",
+      "description": "农产品生产价格同比涨跌幅,活家禽(毛重),当期,全国",
+      "frequency": "P3M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 农产品生产价格同比涨跌幅,活家禽(毛重),当期,全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNONSIQ",
+      "description": "农产品生产价格同比涨跌幅,活羊(毛重),当期,全国",
+      "frequency": "P3M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 农产品生产价格同比涨跌幅,活羊(毛重),当期,全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFJCQ",
+      "description": "农产品生产价格同比涨跌幅,玉米,当期,全国",
+      "frequency": "P3M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 农产品生产价格同比涨跌幅,玉米,当期,全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGPIT",
+      "description": "Corporate goods price index",
+      "frequency": "P1M",
+      "subcategory": "Corporate Goods",
+      "units": "Index",
+      "meaning": "Corporate Goods Price Index — total factory-gate prices including goods + services for corporate buyers. Alternative measure to PPI; published by PBoC.",
+      "how_to_use": "PBoC-sourced version of PPI for monetary-policy analysis. Includes services unlike NBS PPI which is goods-only.",
+      "related_series": [
+        "aCNPPI",
+        "aCNPPIAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGPIA",
+      "description": "Corporate goods price index, agricultural products",
+      "frequency": "P1M",
+      "subcategory": "CGPI — Agricultural Products",
+      "units": "Percent, YoY",
+      "meaning": "Corporate Goods Price Index (企业商品价格指数) for agricultural products, published monthly by the People's Bank of China (PBoC). CGPI is the PBoC's alternative price benchmark covering wholesale transaction prices across agricultural, mineral and industrial goods — distinct from the NBS PPI in methodology and institutional publisher.",
+      "how_to_use": "The PBoC CGPI agricultural index provides an independent cross-check on NBS wholesale agricultural price data; divergences between CGPI agricultural and NBS food CPI can signal timing differences in price transmission from farm-gate to retail. As a PBoC publication, it directly informs monetary policy analysis — PBoC references CGPI data in quarterly monetary policy reports, so unusual movements may foreshadow policy commentary. Pair with aCNWGAPA (pork wholesale) for the most CPI-relevant CGPI component.",
+      "related_series": [
+        "aCNCGPIE",
+        "aCNCGPIM",
+        "aCNWGAPA",
+        "aCNCCPIYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGPIE",
+      "description": "Corporate goods price index, coal, oil & electricity",
+      "frequency": "P1M",
+      "subcategory": "CGPI — Coal, Oil & Electricity",
+      "units": "Percent, YoY",
+      "meaning": "Corporate Goods Price Index for coal, oil and electricity wholesale prices, published monthly by the People's Bank of China. Covers wholesale transaction prices of energy commodities at the corporate level, providing the PBoC's perspective on energy price dynamics feeding into industrial production costs.",
+      "how_to_use": "CGPI energy (coal, oil, electricity) is particularly useful for monetary policy analysis because the PBoC watches these prices as a leading indicator of industrial cost push inflation versus demand-pull. A spike in aCNCGPIE while aCNPROPFAF (output PPI) remains flat indicates upstream cost pressures not yet passed through — a signal the PBoC may monitor for potential medium-term CPI risks. Compare against NBS equivalents (aCNPPICWD, aCNPPIPNG, aCNPPIEPHP) to assess NBS/PBoC data consistency.",
+      "related_series": [
+        "aCNCGPIA",
+        "aCNCGPIM",
+        "aCNPPICWD",
+        "aCNPPIPNG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGPIM",
+      "description": "Corporate goods price index, mining products",
+      "frequency": "P1M",
+      "subcategory": "CGPI — Mining Products",
+      "units": "Percent, YoY",
+      "meaning": "Corporate Goods Price Index for mining products wholesale prices, published monthly by the People's Bank of China. Covers wholesale transaction prices of ferrous and non-ferrous metal ores, coal, and other mined commodities at the corporate trading level, reflecting PBoC's commodity price monitoring framework.",
+      "how_to_use": "CGPI mining products provides the PBoC's internal reading on upstream commodity deflation — a sustained negative reading reinforces the deflationary environment that justified PBoC rate cuts and reserve requirement reductions since 2023. Cross-reference against NBS equivalents (aCNPPIFMMD, aCNPPINFMMD, aCNPPICWD) to assess whether PBoC and NBS price surveys are aligned; persistent divergence may indicate differences in survey scope (corporate transaction prices vs. mine-gate list prices).",
+      "related_series": [
+        "aCNCGPIA",
+        "aCNCGPIE",
+        "aCNPPIFMMD",
+        "aCNPPINFMMD"
+      ],
+      "notes": ""
+    }
+  ]
+}

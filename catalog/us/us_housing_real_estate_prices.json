@@ -1,0 +1,1045 @@
+{
+  "category": "Housing & Real Estate Prices",
+  "category_slug": "us_housing_real_estate_prices",
+  "section": "Prices",
+  "source_file": "US_Housing & Real Estate Prices.xlsx",
+  "ric_count": 66,
+  "rics": [
+    {
+      "ric": "aUSHESALEMD",
+      "description": "Existing-Home Sales, Single-Family and Condos, median price",
+      "frequency": "P1M",
+      "subcategory": "Median Price",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHNSALEMD",
+        "aUSHNSALEAV",
+        "aUSSHPNAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPIMAR",
+      "description": "FHFA House Price Index- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "FHFA HPI",
+      "units": "%, MoM",
+      "meaning": "FHFA HPI MoM change.",
+      "how_to_use": "Annualize for comparison: 0.4% MoM ≈ 5% YoY. Volatile single months; 3-month MA cleaner.",
+      "related_series": [
+        "aUSHPIYAR",
+        "aUSHPRICESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPIYAR",
+      "description": "FHFA House Price Index- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "FHFA HPI",
+      "units": "%, YoY",
+      "meaning": "FHFA House Price Index YoY change. Federal Housing Finance Agency — covers conforming-loan-only properties (≤$766k limit in most areas).",
+      "how_to_use": "Cleaner than Case-Shiller in distress periods (excludes jumbo, all-cash). Different sample = different reads sometimes. Watch alongside Case-Shiller; if they diverge, jumbo segment is moving differently from conforming.",
+      "related_series": [
+        "aUSHPIMAR",
+        "aUSHPRICESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPIDAR",
+      "description": "House Prices, FHFA House Price Index",
+      "frequency": "P1M",
+      "subcategory": "FHFA",
+      "units": "Index",
+      "meaning": "Index reading: House Prices, FHFA House Price Index.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICESP/A",
+        "aUSSHPNAR",
+        "aUSHPRICWSC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICENC",
+      "description": "House Prices, FHFA, East North Central",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, East North Central.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWNC",
+        "aUSHPRICWSC",
+        "aUSHPRICESC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICESC",
+      "description": "House Prices, FHFA, East South Central",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, East South Central.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICMA",
+      "description": "House Prices, FHFA, Middle Atlantic",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, Middle Atlantic.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICSA",
+        "aUSHPRICWSC",
+        "aUSHPRICWNC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICM",
+      "description": "House Prices, FHFA, Mountain",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, Mountain.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICNE",
+      "description": "House Prices, FHFA, New England",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, New England.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICPA",
+      "description": "House Prices, FHFA, Pacific",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, Pacific.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICSA",
+      "description": "House Prices, FHFA, South Atlantic",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, South Atlantic.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICMA",
+        "aUSHPRICESC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICEN",
+      "description": "House Prices, FHFA, USA",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, USA.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICWSC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICET/A",
+      "description": "House Prices, FHFA, USA (Purchase-Only)",
+      "frequency": "P1M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, USA (Purchase-Only).",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPPURMF/C",
+        "aUSHPRICWSC",
+        "aUSHPRICWNC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPPURMF/C",
+      "description": "House Prices, FHFA, USA (Purchase-Only)",
+      "frequency": "P1M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, USA (Purchase-Only).",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPPURMF/C",
+        "aUSHPRICWSC",
+        "aUSHPRICWNC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICWNC",
+      "description": "House Prices, FHFA, West North Central",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, West North Central.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICENC",
+        "aUSHPRICWSC",
+        "aUSHPRICESC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICWSC",
+      "description": "House Prices, FHFA, West South Central",
+      "frequency": "P3M",
+      "subcategory": "FHFA",
+      "units": "",
+      "meaning": "House Prices, FHFA, West South Central.",
+      "how_to_use": "Sub-component or variant within Housing & Real Estate Prices. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHPRICESC",
+        "aUSHPRICWNC",
+        "aUSHPRICSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSATL/C",
+      "description": "House Prices, S&P Case-Shiller, Atlanta",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSATL/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSATL/CA",
+      "description": "House Prices, S&P Case-Shiller, Atlanta",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSATL/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSBOST/C",
+      "description": "House Prices, S&P Case-Shiller, Boston",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSBOST/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSBOST/CA",
+      "description": "House Prices, S&P Case-Shiller, Boston",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSBOST/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCHAR/C",
+      "description": "House Prices, S&P Case-Shiller, Charlotte",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCHAR/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCHAR/CA",
+      "description": "House Prices, S&P Case-Shiller, Charlotte",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCHAR/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCHGO/CA",
+      "description": "House Prices, S&P Case-Shiller, Chicago",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCHGO/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCHGO/C",
+      "description": "House Prices, S&P Case-Shiller, Chicago",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCHGO/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCLVL/CA",
+      "description": "House Prices, S&P Case-Shiller, Cleveland",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCLVL/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCLVL/C",
+      "description": "House Prices, S&P Case-Shiller, Cleveland",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCLVL/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCM10/CA",
+      "description": "House Prices, S&P Case-Shiller, Composite-10",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "Index",
+      "meaning": "S&P/Case-Shiller 10-City Composite — narrower than the 20-city. Subset of largest metros.",
+      "how_to_use": "Use 20-city for the more representative US-wide read. 10-city better for trend momentum since it uses the most-active metros.",
+      "related_series": [
+        "aUSHPRICESP",
+        "aUSHPIYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCM10/C",
+      "description": "House Prices, S&P Case-Shiller, Composite-10",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSCM10/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICESP",
+      "description": "House Prices, S&P Case-Shiller, Composite-20",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "Index",
+      "meaning": "S&P/Case-Shiller US National Home Price Index, 20-City Composite. Repeat-sales methodology — only sales of the same home. Released ~last Tuesday of each month, lagged ~2 months.",
+      "how_to_use": "Most-watched US home price gauge alongside FHFA HPI. Better for trend than for level. Use with FHFA for cross-check (FHFA covers conforming-loan-only properties; Case-Shiller covers full market).",
+      "related_series": [
+        "aUSHPCSCM10/CA",
+        "aUSHPIYAR",
+        "aUSHAI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSCM20/CA",
+      "description": "House Prices, S&P Case-Shiller, Composite-20",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A",
+        "aUSHPCSCM20/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSHPNAR",
+      "description": "House Prices, S&P Case-Shiller, Composite-20, Chg P/P, Housing & Real Estate Prices, Monthly, Standard & Poor's",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPRICESP/A",
+        "aUSHPRICESP",
+        "aUSHPCSCM20/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPRICESP/A",
+      "description": "House Prices, S&P Case-Shiller, Composite-20, Chg P/P, Price Index, Housing & Real Estate Prices, Monthly, Standard & Poor's",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPNAR",
+        "aUSHPRICESP",
+        "aUSHPCSCM20/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDALL/CA",
+      "description": "House Prices, S&P Case-Shiller, Dallas",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDALL/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDALL/C",
+      "description": "House Prices, S&P Case-Shiller, Dallas",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDALL/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDENV/C",
+      "description": "House Prices, S&P Case-Shiller, Denver",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDENV/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDENV/CA",
+      "description": "House Prices, S&P Case-Shiller, Denver",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDENV/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDRIT/C",
+      "description": "House Prices, S&P Case-Shiller, Detroit",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDRIT/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDRIT/CA",
+      "description": "House Prices, S&P Case-Shiller, Detroit",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDRIT/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSVEGA/C",
+      "description": "House Prices, S&P Case-Shiller, Las Vegas",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSVEGA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSVEGA/CA",
+      "description": "House Prices, S&P Case-Shiller, Las Vegas",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSVEGA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSANGE/C",
+      "description": "House Prices, S&P Case-Shiller, Los Angeles",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSANGE/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSANGE/CA",
+      "description": "House Prices, S&P Case-Shiller, Los Angeles",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSANGE/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSMAMI/C",
+      "description": "House Prices, S&P Case-Shiller, Miami",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSMAMI/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSMAMI/CA",
+      "description": "House Prices, S&P Case-Shiller, Miami",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSMAMI/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSMPLS/CA",
+      "description": "House Prices, S&P Case-Shiller, Minneapolis",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSMPLS/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSMPLS/C",
+      "description": "House Prices, S&P Case-Shiller, Minneapolis",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSMPLS/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCSHPME/A",
+      "description": "House Prices, S&P Case-Shiller, National",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices (national region).",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSCSHPMF",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCSHPMF",
+      "description": "House Prices, S&P Case-Shiller, National",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices (national region).",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSCSHPMF",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSNYC/CA",
+      "description": "House Prices, S&P Case-Shiller, New York",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A",
+        "aUSHPRICESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSNYC/C",
+      "description": "House Prices, S&P Case-Shiller, New York",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A",
+        "aUSHPRICESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSPHNX/CA",
+      "description": "House Prices, S&P Case-Shiller, Phoenix",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSPHNX/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSPHNX/C",
+      "description": "House Prices, S&P Case-Shiller, Phoenix",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSPHNX/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSPRLD/C",
+      "description": "House Prices, S&P Case-Shiller, Portland",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSPRLD/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSPRLD/CA",
+      "description": "House Prices, S&P Case-Shiller, Portland",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSPRLD/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDIGO/C",
+      "description": "House Prices, S&P Case-Shiller, San Diego",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDIGO/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSDIGO/CA",
+      "description": "House Prices, S&P Case-Shiller, San Diego",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSDIGO/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSSFCO/C",
+      "description": "House Prices, S&P Case-Shiller, San Francisco",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSSFCO/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSSFCO/CA",
+      "description": "House Prices, S&P Case-Shiller, San Francisco",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSSFCO/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSSEA/C",
+      "description": "House Prices, S&P Case-Shiller, Seattle",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSSEA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSSEA/CA",
+      "description": "House Prices, S&P Case-Shiller, Seattle",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSSEA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSTMPA/C",
+      "description": "House Prices, S&P Case-Shiller, Tampa",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSTMPA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSTMPA/CA",
+      "description": "House Prices, S&P Case-Shiller, Tampa",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSTMPA/CA",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSWASH/CA",
+      "description": "House Prices, S&P Case-Shiller, Washington",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSWASH/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHPCSWASH/C",
+      "description": "House Prices, S&P Case-Shiller, Washington",
+      "frequency": "P1M",
+      "subcategory": "Case-Shiller",
+      "units": "",
+      "meaning": "Level of Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSHPCSWASH/C",
+        "aUSSHPNAR",
+        "aUSHPRICESP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSALEAV",
+      "description": "New Home Sales, Sales price, average",
+      "frequency": "P1M",
+      "subcategory": "New Home Prices",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales.",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSHNSALEMD",
+        "aUSHESALEMD",
+        "aUSSHPNAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSALEMD",
+      "description": "New Home Sales, Sales price, median",
+      "frequency": "P1M",
+      "subcategory": "Median Price",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales.",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSHESALEMD",
+        "aUSHNSALEAV",
+        "aUSSHPNAR"
+      ],
+      "notes": ""
+    }
+  ]
+}

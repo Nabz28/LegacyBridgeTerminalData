@@ -1,0 +1,129 @@
+{
+  "category": "Interest Rates",
+  "category_slug": "id_interest_rates",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_Interest Rates.xlsx",
+  "ric_count": 8,
+  "rics": [
+    {
+      "ric": "aIDONINTR",
+      "description": "JIBOR - OVERNIGHT",
+      "frequency": "P1M",
+      "subcategory": "Money Market",
+      "units": "Percent",
+      "meaning": "JIBOR Overnight (Jakarta Interbank Offered Rate) — the unsecured interbank borrowing rate at overnight tenor. Submitted daily by 18 contributor banks; published by BI at 10:00 WIB.",
+      "how_to_use": "Most-watched short-term money market gauge. Trades within the BI corridor (DF rate floor, LF rate ceiling). Spikes during quarter-end and Lebanon (Eid) liquidity squeezes — BI typically smooths via repo operations. Monthly average tracks the policy rate closely; persistent deviation signals corridor stress.",
+      "related_series": [
+        "aIDBIR",
+        "aIDRINTO",
+        "aIDRREPO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRREP7",
+      "description": "Policy Rates, 7-day Reverse Repo Rate, Daily, Bank Indonesia",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "BI 7-Day Reverse Repo Rate, daily — the operational policy rate used to implement BI's monetary policy stance. Same level as the Main Policy Rate; this series captures the Reuters-sourced daily snapshot.",
+      "how_to_use": "Daily-frequency series useful for tracking the date a rate change takes effect. RDG decisions are typically announced at 14:00 WIB and the new rate becomes effective the same day. Markets hedge ahead of meetings via 1M and 3M JIBOR — if JIBOR moves more than this rate, expect a near-term cut/hike.",
+      "related_series": [
+        "aIDBIR",
+        "aIDRREP7DR",
+        "aIDONINTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRREP7DR",
+      "description": "Policy Rates, 7-day Reverse Repo Rate, Monthly, Bank Indonesia",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "BI 7-Day Reverse Repo Rate, monthly average — smoothed monthly version of the policy rate, useful for monthly-data comparisons (against CPI YoY, GDP, etc.).",
+      "how_to_use": "Use the daily series (aIDRREP7) for high-frequency tracking; this monthly-averaged version pairs cleanly with monthly macro releases (M2, IDR fixings, FX reserves). The end-of-month value matches BI's headline policy stance.",
+      "related_series": [
+        "aIDRREP7",
+        "aIDBIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRINTO",
+      "description": "Policy Rates, Bank Indonesia Deposits Facility",
+      "frequency": "P1M",
+      "subcategory": "Policy Corridor",
+      "units": "Percent",
+      "meaning": "Bank Indonesia Deposits Facility (DF) Rate — the floor of BI's interest rate corridor. Banks place excess reserves with BI overnight at this rate. Set 100 bps below the BI 7-Day Reverse Repo Rate (the policy rate).",
+      "how_to_use": "Defines the lower bound for short-term rates. JIBOR overnight (aIDONINTR) trades within the DF-LF corridor. When system liquidity is abundant, JIBOR drifts toward the DF rate; when tight, toward the LF rate. Spread vs policy rate (typically -100 bps) signals BI's corridor structure.",
+      "related_series": [
+        "aIDBIR",
+        "aIDRREPO",
+        "aIDONINTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRREPO",
+      "description": "Policy Rates, Bank Indonesia Lending Facility",
+      "frequency": "P1M",
+      "subcategory": "Policy Corridor",
+      "units": "Percent",
+      "meaning": "Bank Indonesia Lending Facility (LF) Rate — the ceiling of BI's interest rate corridor. Banks borrow overnight from BI at this rate when short of reserves. Set 100 bps above the BI 7-Day Reverse Repo Rate.",
+      "how_to_use": "Defines the upper bound for short-term rates. Active in liquidity-stress episodes (e.g., 2020 COVID, 2022 EM stress) when JIBOR pushes toward the LF rate. Sustained borrowing at LF signals system-wide liquidity shortfall — BI typically responds with reserve requirement cuts or term repo operations.",
+      "related_series": [
+        "aIDBIR",
+        "aIDRINTO",
+        "aIDONINTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBIR",
+      "description": "Policy Rates, Bank of Indonesia Main Policy Rate, now 7-day Reverse Repo Rate, Daily, Bank Indonesia",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Bank Indonesia (BI) Main Policy Rate — currently the BI 7-Day Reverse Repo Rate (BI7DRRR), which replaced the BI Rate as the official policy rate in August 2016. This is THE benchmark interest rate set by the Board of Governors at the monthly Bank Indonesia Monetary Policy Committee (RDG) meeting (third Wednesday of each month).",
+      "how_to_use": "The single most-watched Indonesia rate. Compare against the inflation target band (1.5-3.5% since 2024). BI's mandate combines inflation targeting with rupiah stability and growth — hike cycles often start to defend the IDR rather than fight inflation. Surprise vs consensus drives IDR, JCI, and SBN bond yields immediately. Track real rate (BI rate minus CPI YoY) — Indonesia traditionally runs positive real rates of 100-300 bps.",
+      "related_series": [
+        "aIDPRATE",
+        "aIDRINTO",
+        "aIDRREPO",
+        "aIDXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPRATE",
+      "description": "Policy Rates, Bank of Indonesia Main Policy Rate, now 7-day Reverse Repo Rate, Monthly, Bank Indonesia",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Bank Indonesia Main Policy Rate — alternative release of the BI 7-Day Reverse Repo Rate at daily/snapshot frequency. Same conceptual rate as aIDBIR.",
+      "how_to_use": "Cross-check against aIDBIR for the latest setting. BI has held this rate in a 3.50-6.50% band over the post-2016 cycle; recent peak was 6.25% (April 2024 hike to defend IDR amid US dollar strength). Monthly RDG meeting decisions move IDR and SBN yields more than any other domestic data event.",
+      "related_series": [
+        "aIDBIR",
+        "aIDRREP7",
+        "aIDRINTO",
+        "aIDRREPO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBIRAR",
+      "description": "Foreign exchange reserves - BMO",
+      "frequency": "P1M",
+      "subcategory": "Reserves Cross-Reference",
+      "units": "USD billions",
+      "meaning": "Foreign Exchange Reserves (BMO release) — same conceptual measure as aIDCRESA in alternative classification. Cross-listed in interest-rates dataset.",
+      "how_to_use": "Cross-check against aIDCRESA. The reserves level is critical for understanding BI's IDR-defense capacity.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDFXRES"
+      ],
+      "notes": ""
+    }
+  ]
+}

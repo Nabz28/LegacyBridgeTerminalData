@@ -1,0 +1,426 @@
+{
+  "category": "Population",
+  "category_slug": "us_population",
+  "section": "Consumer Sector",
+  "source_file": "US_Population.xlsx",
+  "ric_count": 32,
+  "rics": [
+    {
+      "ric": "aUSGPYDPOP",
+      "description": "Disposable Personal Income, Population",
+      "frequency": "P1M",
+      "subcategory": "Population",
+      "units": "Persons",
+      "meaning": "Disposable personal income — population component.",
+      "how_to_use": "Used as denominator for per-capita real disposable income — core consumer spending power gauge.",
+      "related_series": [
+        "aUSPOPTO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPC169P",
+      "description": "CIVILIAN NONINSTITUTIONAL POPULATION - 16 TO 19 YEARS",
+      "frequency": "P1M",
+      "subcategory": "Working-Age Population",
+      "units": "Thousands",
+      "meaning": "Civilian noninstitutional population, 16-19 years (teen workforce).",
+      "how_to_use": "Teen labor force participation has structural decline since 2000 (more in school). Use for labor-supply modeling.",
+      "related_series": [
+        "aUSPOPTO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPC65T9P",
+      "description": "CIVILIAN NONINSTITUTIONAL POPULATION - 65 TO 69 YEARS",
+      "frequency": "P1M",
+      "subcategory": "Aging Cohorts",
+      "units": "Thousands",
+      "meaning": "Civilian noninstitutional population, 65-69 years.",
+      "how_to_use": "Boomer wave. Drives Medicare enrollment growth + labor force participation patterns.",
+      "related_series": [
+        "aUSPC70T4P",
+        "aUSPC75AOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPC70T4P",
+      "description": "CIVILIAN NONINSTITUTIONAL POPULATION - 70 TO 74 YEARS",
+      "frequency": "P1M",
+      "subcategory": "Demographics",
+      "units": "Thousand persons",
+      "meaning": "Civilian noninstitutional population, age 70-74 — household-survey reference population for the 70-74 age cohort.",
+      "how_to_use": "Key demographic for retirement-spending and Medicare projections. The leading edge of the boomer wave passed through this bracket 2016-2021. Track alongside Social Security beneficiary count for fiscal projections.",
+      "related_series": [
+        "aUSPOP",
+        "aUSXGBSOCA",
+        "aUSXGBMEDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPC75AOP",
+      "description": "CIVILIAN NONINSTITUTIONAL POPULATION - 75 YEARS & OVER",
+      "frequency": "P1M",
+      "subcategory": "Aging Cohorts",
+      "units": "Thousands",
+      "meaning": "Civilian noninstitutional population, 75 years & over.",
+      "how_to_use": "Long-term care + Medicare-heavy cohort. Fastest-growing age group.",
+      "related_series": [
+        "aUSPC70T4P"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZGVCOP",
+      "description": "IFDI, Governance, Corporate Governance, Average Share of Independent Directors on the Board",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "%",
+      "meaning": "IFDI corporate governance — Independent directors share.",
+      "how_to_use": "Niche US Islamic finance metric.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZGVSHP",
+      "description": "IFDI, Governance, Other Governance, Scholars with SSB Memberships",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Number",
+      "meaning": "IFDI scholars with SSB (Shariah Supervisory Board) memberships.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPGEDP",
+      "description": "IFDI, Knowledge, Education, Institutions Offering Islamic Finance Degrees",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Number",
+      "meaning": "IFDI institutions offering Islamic finance degrees in US.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZKGRHP",
+      "description": "IFDI, Knowledge, Research, Peer Reviewed & Journal Articles on Islamic Finance",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Number",
+      "meaning": "IFDI peer-reviewed research articles on Islamic finance.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDEATH",
+      "description": "Weekly deaths, All ages",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, all ages — CDC NCHS provisional.",
+      "how_to_use": "Excess mortality vs 2015-19 baseline is the cleanest pandemic + aging signal. Lagged 1-2 weeks.",
+      "related_series": [
+        "aUSDTHAL",
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTH14",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, 0-14 years, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, 0-14 years — vs 2015-19 weekly average.",
+      "how_to_use": "Stable baseline; deviations signal pediatric public-health events (RSV waves, etc).",
+      "related_series": [
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTH64",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, 15-64 years, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, 15-64 years — vs 2015-19 average.",
+      "how_to_use": "Working-age excess mortality. Pandemic, opioid, and mental-health driven.",
+      "related_series": [
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTH74",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, 65-74 years, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, 65-74 years — vs baseline.",
+      "how_to_use": "Most COVID-impacted cohort during pandemic.",
+      "related_series": [
+        "aUSDTHEX",
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTH84",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, 75-84 years, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, 75-84 years — vs baseline.",
+      "how_to_use": "Heavy COVID excess mortality.",
+      "related_series": [
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTHAL",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, All ages, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, all ages — vs 2015-19 baseline.",
+      "how_to_use": "Lead pandemic / public-health signal. Returned to ~baseline post-2023.",
+      "related_series": [
+        "aUSDEATH",
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTH85",
+      "description": "Weekly deaths, Compared to average of the same week in years 2015-2019, over 85 years, %",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, 85+ years — vs baseline.",
+      "how_to_use": "Highest mortality cohort. Care facility outbreaks visible here first.",
+      "related_series": [
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTHEX",
+      "description": "Weekly deaths, Excess deaths compared to average of the same week in years 2015-2019, All ages",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "EXCESS deaths vs 2015-19 weekly average — all causes, all ages.",
+      "how_to_use": "The single cleanest mortality cycle indicator. Captures pandemic deaths whether labeled COVID or not.",
+      "related_series": [
+        "aUSDTHAL",
+        "aUSDEATH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDTHCV",
+      "description": "Weekly deaths, COVID-19 related",
+      "frequency": "P1M",
+      "subcategory": "Mortality",
+      "units": "Deaths",
+      "meaning": "Weekly deaths, COVID-19 related.",
+      "how_to_use": "Direct COVID mortality. Underestimates true COVID mortality (some go unrecorded). Use with excess deaths for comparison.",
+      "related_series": [
+        "aUSDTHEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOP18Y",
+      "description": "Population, 15 to 19 years",
+      "frequency": "P1Y",
+      "subcategory": "Age Cohorts",
+      "units": "Persons",
+      "meaning": "Population, 15-19 years.",
+      "how_to_use": "High-school cohort. Tracks education / labor-supply pipeline.",
+      "related_series": [
+        "aUSPOP24Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOP24Y",
+      "description": "Population, 20 to 24 years",
+      "frequency": "P1Y",
+      "subcategory": "Age Cohorts",
+      "units": "Persons",
+      "meaning": "Population, 20-24 years (early-career).",
+      "how_to_use": "Entry-level workforce + college-age. Recent stagnation = labor-supply headwind.",
+      "related_series": [
+        "aUSPOP18Y",
+        "aUSPOP39Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOP39Y",
+      "description": "Population, 35 to 39 years",
+      "frequency": "P1Y",
+      "subcategory": "Age Cohorts",
+      "units": "Persons",
+      "meaning": "Population, 35-39 years (peak earnings, family formation).",
+      "how_to_use": "Drives housing / family-services demand. Millennials hitting peak.",
+      "related_series": [
+        "aUSPOP44Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOP44Y",
+      "description": "Population, 40 to 44 years",
+      "frequency": "P1Y",
+      "subcategory": "Age Cohorts",
+      "units": "Persons",
+      "meaning": "Population, 40-44 years.",
+      "how_to_use": "Peak-earnings cohort. Drives discretionary spending / capital-formation demand.",
+      "related_series": [
+        "aUSPOP39Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOP64Y",
+      "description": "Population, 60 to 64 years",
+      "frequency": "P1Y",
+      "subcategory": "Age Cohorts",
+      "units": "Persons",
+      "meaning": "Population, 60-64 years (pre-retirement).",
+      "how_to_use": "Drives 401k withdrawal patterns + early retirement decisions.",
+      "related_series": [
+        "aUSPOP39Y",
+        "aUSPC65T9P"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOPTO",
+      "description": "Population, all ages",
+      "frequency": "P1Y",
+      "subcategory": "Total Population",
+      "units": "Persons",
+      "meaning": "Total US population, all ages.",
+      "how_to_use": "Base for per-capita calculations. Growth slowing — 0.5%/yr now vs 1%+ historically.",
+      "related_series": [
+        "aUSGPYDPOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCVKS",
+      "description": "Coronavirus (COVID-19), Total cases, Kansas",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Cases",
+      "meaning": "COVID-19 total cases, Kansas (state).",
+      "how_to_use": "Historic pandemic series — case reporting wound down 2023.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCVMD",
+      "description": "Coronavirus (COVID-19), Total cases, Maryland",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Cases",
+      "meaning": "COVID-19 total cases, Maryland.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCVMS",
+      "description": "Coronavirus (COVID-19), Total cases, Mississippi",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Cases",
+      "meaning": "COVID-19 total cases, Mississippi.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCVND",
+      "description": "Coronavirus (COVID-19), Total cases, North Dakota",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Cases",
+      "meaning": "COVID-19 total cases, North Dakota.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCVND",
+      "description": "Coronavirus (COVID-19), Total deaths, North Dakota",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Deaths",
+      "meaning": "COVID-19 total deaths, North Dakota.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCVOH",
+      "description": "Coronavirus (COVID-19), Total deaths, Ohio",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Deaths",
+      "meaning": "COVID-19 total deaths, Ohio.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCVPA",
+      "description": "Coronavirus (COVID-19), Total deaths, Pennsylvania",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Deaths",
+      "meaning": "COVID-19 total deaths, Pennsylvania.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDCVTN",
+      "description": "Coronavirus (COVID-19), Total deaths, Tennessee",
+      "frequency": "P1M",
+      "subcategory": "COVID Historic",
+      "units": "Deaths",
+      "meaning": "COVID-19 total deaths, Tennessee.",
+      "how_to_use": "Historic.",
+      "related_series": [
+        "aUSDTHCV"
+      ],
+      "notes": ""
+    }
+  ]
+}

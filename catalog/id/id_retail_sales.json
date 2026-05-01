@@ -1,0 +1,36 @@
+{
+  "category": "Retail Sales",
+  "category_slug": "id_retail_sales",
+  "section": "Consumer Sector",
+  "source_file": "Indonsia_Retail Sales.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDRSLSAR",
+      "description": "Retail Sales, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "Retail Sales, year-over-year change — Bank Indonesia's monthly Retail Sales Survey result. Released ~6 weeks after month-end.",
+      "how_to_use": "Most-watched Indonesia retail-demand gauge. Recent YoY ~3-5%. Surges around Lebaran-Eid month. Decompose by category (food, clothing, automotive, fuel) for cyclical-mix signal. Pair with consumer confidence (aIDCONCF) for triangulated read.",
+      "related_series": [
+        "aIDRSLSM",
+        "aIDCONCF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRSLSM",
+      "description": "Retail Sales, Total (Rebased)",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Index",
+      "meaning": "Retail Sales Total Index (rebased) — BI Retail Sales Survey level. Tracks aggregate sales across major retailers.",
+      "how_to_use": "Use the YoY series (aIDRSLSAR) for trend; level for analytical baseline. Indonesia retail surveys are broad (food + non-food combined) — narrower than US-style retail-control concepts.",
+      "related_series": [
+        "aIDRSLSAR"
+      ],
+      "notes": ""
+    }
+  ]
+}

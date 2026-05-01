@@ -1,0 +1,125 @@
+{
+  "category": "Government Accounts",
+  "category_slug": "id_government_accounts",
+  "section": "Government Sector",
+  "source_file": "Indonesia_Government Accounts.xlsx",
+  "ric_count": 8,
+  "rics": [
+    {
+      "ric": "aIDGOVBALA",
+      "description": "Central Government Operations, Deficit/surplus",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Central Government Operations: deficit/surplus — the headline fiscal balance for Indonesia. Released monthly by the Ministry of Finance (Kemenkeu) as part of the APBN (state budget) realization report.",
+      "how_to_use": "Indonesia ran budget surpluses in commodity-boom years (2005-2008) and persistent deficits since. Constitutional cap: deficit ≤3% of GDP (per the State Finance Law) — temporarily lifted to 6.4% in 2020-2022 for COVID response. Recent target ~2.3-2.7% deficit/GDP. Surprises drive SBN bond yields and IDR.",
+      "related_series": [
+        "aIDCGOVA",
+        "aIDCGREV",
+        "aIDEXPDT",
+        "aIDPDEBTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEXPDT",
+      "description": "Government expenditures, total",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Government Expenditures, total — central government spending. Major lines: subsidies (energy, food), interest payments, salaries, capital spending, social spending, transfers to regional governments (DAU/DAK).",
+      "how_to_use": "Energy subsidy line is the most volatile — surges with oil prices and IDR weakness (when fuel is sold below cost). Interest payments now ~16% of expenditure (rising rapidly with debt buildup). Capital spending discipline is a sovereign-credit strength.",
+      "related_series": [
+        "aIDCGREV",
+        "aIDGOVBALA",
+        "aIDGEXP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGREV",
+      "description": "Government revenues, total",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Government Revenues, total — central government tax + non-tax receipts. Major components: income tax (~25%), VAT (~30%), customs/excise (~15%), non-tax revenue (oil/gas, SOE dividends, ~20%).",
+      "how_to_use": "Cyclical with GDP and commodity prices (oil/gas non-tax revenue). Tax-to-GDP ratio ~10-11% — low by global standards (vs 15-20% for most EM). Indonesia's tax base broadening is a long-running fiscal narrative. Surge in revenues vs target drives IDR positive (lower issuance need).",
+      "related_series": [
+        "aIDEXPDT",
+        "aIDGOVBALA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGOVA",
+      "description": "Central government Deficit/Surplus, Standardized (based on source annual data)",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Central Government Deficit/Surplus, standardized — OECD-comparable framing of the central government fiscal balance. Published as part of the Ministry of Finance's monthly APBN realization.",
+      "how_to_use": "Same conceptual measure as aIDGOVBALA in standardized framing. Use for cross-country fiscal comparisons. Indonesia's deficit/GDP has been disciplined relative to most EM peers — supportive of investment-grade credit ratings (Indonesia rated BBB by S&P/Fitch, Baa2 by Moody's).",
+      "related_series": [
+        "aIDGOVBALA",
+        "aIDCGREV",
+        "aIDEXPDT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGEXP",
+      "description": "Central government expenditures",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Central government expenditures — alternate framing of the headline expenditure series. Same concept as aIDEXPDT.",
+      "how_to_use": "Cross-check against aIDEXPDT. Use either for level tracking; expenditure growth and composition shifts (subsidy vs capex vs salary) drive medium-term fiscal trajectory.",
+      "related_series": [
+        "aIDEXPDT",
+        "aIDCGREV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDEF",
+      "description": "Government expenditures, balanced budget",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Government Expenditures, Balanced Budget — fiscal-balance framing. Indonesia's fiscal-rule basis pre-COVID was 'balanced budget over the cycle' with 3% deficit cap.",
+      "how_to_use": "Use aIDGOVBALA/aIDCGOVA for the headline deficit/surplus. This series provides a complementary view from balanced-budget framework.",
+      "related_series": [
+        "aIDGOVBALA",
+        "aIDCGOVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGOVEXA",
+      "description": "Government expenditures, current total",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Government Expenditures, Current Total — current-spending portion of expenditures (excludes capex). Includes salaries, subsidies, transfers, interest.",
+      "how_to_use": "Current spending dominates Indonesia government expenditure (~85%). Capex share has stagnated despite infrastructure rhetoric. Watch capex share for fiscal-quality signal.",
+      "related_series": [
+        "aIDEXPDT",
+        "aIDGOVBALA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGFINSD",
+      "description": "Government financing, surplus/deficit",
+      "frequency": "P1Y",
+      "subcategory": "Fiscal",
+      "units": "IDR billions",
+      "meaning": "Government Financing, Surplus/Deficit — financing side of the fiscal balance (how the deficit gets funded: domestic/external borrowing, asset sales, etc.).",
+      "how_to_use": "Should mirror the fiscal balance with opposite sign. Decomposition into domestic SBN issuance + external borrowing + drawdowns of cash buffer informs SBN supply outlook.",
+      "related_series": [
+        "aIDGOVBALA",
+        "aIDPDEBTA"
+      ],
+      "notes": ""
+    }
+  ]
+}

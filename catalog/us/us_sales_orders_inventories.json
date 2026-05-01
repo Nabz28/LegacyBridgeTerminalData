@@ -1,0 +1,1207 @@
+{
+  "category": "Sales, Orders & Inventories",
+  "category_slug": "us_sales_orders_inventories",
+  "section": "Industry Sector",
+  "source_file": "US_Sales, Orders & Inventories.xlsx",
+  "ric_count": 76,
+  "rics": [
+    {
+      "ric": "aUSRSLXAR",
+      "description": "Foreign exchange reserves - BMO, Sales, Orders & Inventories, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A",
+        "aUSNOMFG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLIDXNOR/C",
+      "description": "Leading Index, Manufacturers new orders, consumer goods and materials",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Index",
+      "meaning": "Index of the Conference Board Leading Economic Index (LEI).",
+      "how_to_use": "Composite of 10 leading indicators. Sustained 6-month declines historically signal recession with 6-12 month lead. Was a false positive in 2022-23 (predicted recession that didn't arrive). Use alongside yield curve, not in isolation.",
+      "related_series": [
+        "aUSCLEAD/A",
+        "aUSNONDGXA/A",
+        "aUSMNONDCAP/A",
+        "aUSMNODCG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCIMNOCP/CA",
+      "description": "Mfrs' New Orders, non defense capital goods excluding aircraft (mil chain 1982 $)",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Persons",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSSHCAPXB/A",
+        "aUSMNONDCAP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBINVAR",
+      "description": "Business inventories- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWINVAR",
+        "aUSWINSAR",
+        "aUSRTRNOR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNAR",
+      "description": "Durable goods- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Sales/Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Durable goods , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDCGAR",
+        "aUSDGXTAR",
+        "aUSDGRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNDAR",
+      "description": "Durables ex-defense- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Capital Goods",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Durables ex-defense , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSDGXTAR",
+        "aUSDGRAR",
+        "aUSDGNTAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGXTAR",
+      "description": "Durables ex-transpt R- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Sales/Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Durables ex-transpt R , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSDGRAR",
+        "aUSDGNTAR",
+        "aUSDGNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFORDAR",
+      "description": "Factory orders- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSWINVAR",
+        "aUSWINSAR",
+        "aUSNDXAAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIASWB/A",
+      "description": "Inventories, Merchant wholesale trade, Advance",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSIARXMVB",
+        "aUSAWINA",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIARXMVB",
+      "description": "Inventories, Retail Trade, Excluding motor vehicle and parts dealers, Advance",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWSLSAUTO/A",
+        "aUSWINVAUTO/A",
+        "aUSIASWB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGXT",
+      "description": "Manufacturers Inventories, Durable goods excluding transportation",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSDGXT/A",
+        "aUSMDGXT/A",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGXT/A",
+      "description": "Manufacturers Inventories, Durable goods excluding transportation",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSDGXT/A",
+        "aUSMDGXT/A",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFINVDG/A",
+      "description": "Manufacturers Inventories, Durable goods total, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSDGSH/A",
+        "aUSDGNO/A",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVM/A",
+      "description": "Manufacturers Inventories, Total manufacturing, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A",
+        "aUSNOMFG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMNODCG/A",
+      "description": "Manufacturers New Orders, Defense capital goods",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Persons",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSMNONDCAP/A",
+        "aUSSHCAPXB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMDGXD/A",
+      "description": "Manufacturers New Orders, Durable goods excluding defense",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSMDGXT/A",
+        "aUSSHCAPXB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMDGXT/A",
+      "description": "Manufacturers New Orders, Durable goods excluding transportation",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSMDGXD/A",
+        "aUSDGXT/A",
+        "aUSDGXT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNO/A",
+      "description": "Manufacturers New Orders, Durable goods total, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSMFINVDG/A",
+        "aUSDGSH/A",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOCEQ/A",
+      "description": "Manufacturers New Orders, Durable goods, communication equipment",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNOTE/A",
+        "aUSDGNOEAC/A",
+        "aUSMFINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOCEP/A",
+      "description": "Manufacturers New Orders, Durable goods, computer & electronic products",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNOCRP/A",
+        "aUSSH332NB/A",
+        "aUSMFINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOCRP/A",
+      "description": "Manufacturers New Orders, Durable goods, computers and related products",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNOCEP/A",
+        "aUSSH332NB/A",
+        "aUSMFINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOEAC/A",
+      "description": "Manufacturers New Orders, Durable goods, electrical equipment, appliances and components",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNOTE/A",
+        "aUSDGNOCEQ/A",
+        "aUSMFINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOMACH",
+      "description": "Manufacturers New Orders, Durable goods, machinery",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSMFINVDG/A",
+        "aUSMDGXT/A",
+        "aUSMDGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOMVP/A",
+      "description": "Manufacturers New Orders, Durable goods, motor vehicles & parts",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSWSLSAUTO/A",
+        "aUSWINVAUTO/A",
+        "aUSMFINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOPM/A",
+      "description": "Manufacturers New Orders, Durable goods, primary metals",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSMFINVDG/A",
+        "aUSMDGXT/A",
+        "aUSMDGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNOTE/A",
+      "description": "Manufacturers New Orders, Durable goods, transportation equipment",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "USD millions",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSMDGXT/A",
+        "aUSDGNOEAC/A",
+        "aUSDGNOCEQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMNONDCAP/A",
+      "description": "Manufacturers New Orders, Nondefense capital goods",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Persons",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSSHCAPXB/A",
+        "aUSMNODCG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNONDGXA/A",
+      "description": "Manufacturers New Orders, Nondefense capital goods excluding aircraft",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Persons",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSSHCAPXB/A",
+        "aUSMNONDCAP/A",
+        "aUSBCIMNOCP/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCAPNO/A",
+      "description": "Manufacturers New Orders, Total capital goods",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "Persons",
+      "meaning": "Level of US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSMNONDCAP/A",
+        "aUSMNODCG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOMFGXD/A",
+      "description": "Manufacturers New Orders, Total manufacturing excluding defense, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXT/A",
+        "aUSNOMFG/A",
+        "aUSMFGSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFXTRAR",
+      "description": "Manufacturers New Orders, Total manufacturing excluding transportation, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNOMFGXT/A",
+        "aUSMFGUFOXT/A",
+        "aUSNOMFGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOMFGXT/A",
+      "description": "Manufacturers New Orders, Total manufacturing excluding transportation, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXD/A",
+        "aUSNOMFG/A",
+        "aUSMFGSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOMFG/A",
+      "description": "Manufacturers New Orders, Total manufacturing, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A",
+        "aUSMFGSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGSHXD/A",
+      "description": "Manufacturers Shipments, Durable goods ex defense",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "USD millions",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSSHCAPXB/A",
+        "aUSSH332NB/A",
+        "aUSNDSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGSHXT/A",
+      "description": "Manufacturers Shipments, Durable goods ex transportation",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "USD millions",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSSH332NB/A",
+        "aUSNDSH/A",
+        "aUSMDGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGSH/A",
+      "description": "Manufacturers Shipments, Durable goods total, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSMFINVDG/A",
+        "aUSDGNO/A",
+        "aUSMFGSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSH332NB/A",
+      "description": "Manufacturers Shipments, Durable goods, fabricated metal products",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "USD millions",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNDSH/A",
+        "aUSDGSHXT/A",
+        "aUSDGSHXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSHCAPXB/A",
+      "description": "Manufacturers Shipments, Nondefense capital goods excluding aircraft",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "Persons",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNONDGXA/A",
+        "aUSMNONDCAP/A",
+        "aUSCAPSH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDSH/A",
+      "description": "Manufacturers Shipments, Nondurable goods, total",
+      "frequency": "P1M",
+      "subcategory": "Nondurables",
+      "units": "USD millions",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSSHCAPXB/A",
+        "aUSSH332NB/A",
+        "aUSDGSHXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCAPSH/A",
+      "description": "Manufacturers Shipments, Total capital goods",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "Persons",
+      "meaning": "Level of US factory shipments.",
+      "how_to_use": "Realized output (vs new orders = forward demand). Shipments-to-orders ratio reveals whether the order book is converting to revenue.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSSHCAPXB/A",
+        "aUSSH332NB/A",
+        "aUSNONDGXA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFGSH/A",
+      "description": "Manufacturers Shipments, Total manufacturing, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Shipments",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A",
+        "aUSNOMFG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGUFO/A",
+      "description": "Manufacturers Unfilled Orders, Durable goods total",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Manufacturers Unfilled Orders, Durable goods total.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSMFINVDG/A",
+        "aUSMDGXT/A",
+        "aUSMDGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFGUFO/A",
+      "description": "Manufacturers Unfilled Orders, Total manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Manufacturers Unfilled Orders, Total manufacturing.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSMFGUFOXT/A",
+        "aUSMFGUFOXD/A",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFGUFOXD/A",
+      "description": "Manufacturers Unfilled Orders, Total manufacturing excluding defense",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Manufacturers Unfilled Orders, Total manufacturing excluding defense.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOMFGXD/A",
+        "aUSMFGUFOXT/A",
+        "aUSNONDGXA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFGUFOXT/A",
+      "description": "Manufacturers Unfilled Orders, Total manufacturing excluding transportation",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Manufacturers Unfilled Orders, Total manufacturing excluding transportation.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOMFGXT/A",
+        "aUSMFGUFOXD/A",
+        "aUSFXTRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDCGAR",
+      "description": "New Orders - Nondef Cap Goods- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSNONDGXA/A",
+        "aUSNDXAAR",
+        "aUSMNONDCAP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNTAR",
+      "description": "New Orders, Manufacturing ,Durables, excluding Transpo- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNRAR",
+        "aUSDGRAR",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGNRAR",
+      "description": "New Orders, Manufacturing, Durables, Excluding Defense- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNTAR",
+        "aUSDGRAR",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGRAR",
+      "description": "New Orders, Manufacturing, Durables- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Factory Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US factory orders.",
+      "how_to_use": "Census manufacturing & trade survey. Durable goods orders (especially core capex = ex aircraft + defense) leads business investment. Watch the core capex sub-aggregate for capex cycle.",
+      "related_series": [
+        "aUSDGOR/A",
+        "aUSDGNTAR",
+        "aUSDGNRAR",
+        "aUSNOMFGXT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDXAAR",
+      "description": "Nondef cap ex-air R- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Sales/Orders",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Nondef cap ex-air R , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDCGAR",
+        "aUSWINVAR",
+        "aUSWINSAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVT/A",
+      "description": "Overall, Total business inventories",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSISBUSF",
+        "aUSISBUSE/A",
+        "aUSBSINVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSINVA",
+      "description": "Overall, Total business inventories",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSISBUSF",
+        "aUSISBUSE/A",
+        "aUSBSINVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSISBUSE/A",
+      "description": "Overall, Total business inventories/sales ratio, Price Index, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "Index",
+      "meaning": "Index of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSISBUSF",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSISBUSF",
+      "description": "Overall, Total business inventories/sales ratio, Sales, Orders & Inventories, Monthly, U.S. Census Bureau",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "Ratio",
+      "meaning": "Ratio expression of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSISBUSE/A",
+        "aUSNOMFGXT/A",
+        "aUSNOMFGXD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSLS/A",
+      "description": "Overall, Total business sales",
+      "frequency": "P1M",
+      "subcategory": "Sales/Orders",
+      "units": "",
+      "meaning": "Overall, Total business sales.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSISBUSF",
+        "aUSISBUSE/A",
+        "aUSBUSSALA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBUSSALA",
+      "description": "Overall, Total business sales",
+      "frequency": "P1M",
+      "subcategory": "Sales/Orders",
+      "units": "",
+      "meaning": "Overall, Total business sales.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSISBUSF",
+        "aUSISBUSE/A",
+        "aUSBUSSALA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSARINQA",
+      "description": "Retail Inventories Ex-Auto Adv, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSRINRQA",
+        "aUSINRETB/A",
+        "aUSINRETA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRINRQA",
+      "description": "Retail Inventories Ex-Auto Rev, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSARINQA",
+        "aUSINRETB/A",
+        "aUSINRETA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINRETA",
+      "description": "Retail Inventories, Total retail",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSRINRQA",
+        "aUSINRETB/A",
+        "aUSIARXMVB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINRETB/A",
+      "description": "Retail Inventories, Total retail",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSRINRQA",
+        "aUSINRETB/A",
+        "aUSIARXMVB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRTNOPI",
+      "description": "Retail trade corporations, all other nonoperating income (expense)",
+      "frequency": "P3M",
+      "subcategory": "Retail",
+      "units": "",
+      "meaning": "Retail trade corporations, all other nonoperating income (expense).",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRTRNOR",
+        "aUSIARXMVB",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRTRNOR",
+      "description": "Retail trade corporations, net income retained in business",
+      "frequency": "P3M",
+      "subcategory": "Retail",
+      "units": "",
+      "meaning": "Retail trade corporations, net income retained in business.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRTNOPI",
+        "aUSIARXMVB",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINV/A",
+      "description": "Wholesale Inventories",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWSITSR/A",
+        "aUSWINVND/A",
+        "aUSWINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINSWA",
+      "description": "Wholesale Inventories",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWSITSR/A",
+        "aUSWINVND/A",
+        "aUSWINVDG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAWINA",
+      "description": "Wholesale Inventories Advance, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSIASWB/A",
+        "aUSWSITSR/A",
+        "aUSWINVND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINVDG/A",
+      "description": "Wholesale Inventories, Durable goods total",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWINVND/A",
+        "aUSWINVAUTO/A",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINVAUTO/A",
+      "description": "Wholesale Inventories, Durable goods, motor vehicle, parts and supplies",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWSLSAUTO/A",
+        "aUSDGNOMVP/A",
+        "aUSWINVND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINVND/A",
+      "description": "Wholesale Inventories, Nondurable goods total",
+      "frequency": "P1M",
+      "subcategory": "Nondurables",
+      "units": "",
+      "meaning": "Level of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWSLSND/A",
+        "aUSWINVDG/A",
+        "aUSWINVAUTO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSITSR/A",
+      "description": "Wholesale Inventories/Sales Ratio",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "Ratio",
+      "meaning": "Ratio expression of a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSISBUSF",
+        "aUSISBUSE/A",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSLS/A",
+      "description": "Wholesale Trade",
+      "frequency": "P1M",
+      "subcategory": "Wholesale",
+      "units": "",
+      "meaning": "Wholesale Trade.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSLSND/A",
+        "aUSWSLSDG/A",
+        "aUSWSLSAUTO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSWTOTA",
+      "description": "Wholesale Trade",
+      "frequency": "P1M",
+      "subcategory": "Wholesale",
+      "units": "",
+      "meaning": "Wholesale Trade.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSLSND/A",
+        "aUSWSLSDG/A",
+        "aUSWSLSAUTO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSLSDG/A",
+      "description": "Wholesale Trade, Durable goods total",
+      "frequency": "P1M",
+      "subcategory": "Wholesale",
+      "units": "",
+      "meaning": "Wholesale Trade, Durable goods total.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSLSND/A",
+        "aUSWSLSAUTO/A",
+        "aUSWINVND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSLSAUTO/A",
+      "description": "Wholesale Trade, Durable goods, motor vehicle and motor vehicle parts and supplies",
+      "frequency": "P1M",
+      "subcategory": "Wholesale",
+      "units": "",
+      "meaning": "Wholesale Trade, Durable goods, motor vehicle and motor vehicle parts and supplies.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWINVAUTO/A",
+        "aUSDGNOMVP/A",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSLSND/A",
+      "description": "Wholesale Trade, Nondurable goods total",
+      "frequency": "P1M",
+      "subcategory": "Nondurables",
+      "units": "",
+      "meaning": "Wholesale Trade, Nondurable goods total.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSLSDG/A",
+        "aUSWSLSAUTO/A",
+        "aUSWINVND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINVAR",
+      "description": "Wholesale inventories- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Inventories",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in a US business inventory measure.",
+      "how_to_use": "Inventory-to-sales ratio is the cycle gauge — rising = excess (margin pressure ahead); falling = shortage (pricing power). Watch alongside ISM customer-inventories sub-index.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSWINSAR",
+        "aUSBINVAR",
+        "aUSWSLSND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWINSAR",
+      "description": "Wholesale sales- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Wholesale",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Wholesale sales , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Sales, Orders & Inventories. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWINVAR",
+        "aUSWSLSND/A",
+        "aUSWSLSDG/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

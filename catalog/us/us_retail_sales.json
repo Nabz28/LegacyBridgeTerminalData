@@ -1,0 +1,499 @@
+{
+  "category": "Retail Sales",
+  "category_slug": "us_retail_sales",
+  "section": "Consumer Sector",
+  "source_file": "US_Retail Sales.xlsx",
+  "ric_count": 37,
+  "rics": [
+    {
+      "ric": "aUSCRETF/C",
+      "description": "Retail Sales, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Headline Retail Sales",
+      "units": "Index, standardized",
+      "meaning": "Retail sales, standardized — broad measure of consumer goods spending at retail outlets. Captures ~1/3 of consumer expenditure (goods only; services tracked elsewhere).",
+      "how_to_use": "Watch the 'control group' (ex autos, gasoline, building materials, food services) — that feeds directly into PCE goods. Volatile month-to-month; smooth with 3M average. Real retail sales (deflated by CPI) is a better cyclical gauge than nominal.",
+      "related_series": [
+        "aUSCRETPE/A",
+        "aUSCRETPF",
+        "aUSCRETYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRETE/CA",
+      "description": "Retail Sales, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "USD millions",
+      "meaning": "Retail Sales, standardized — OECD-comparable framing of total US retail sales. Conceptually similar to aUSRSLSFS/A but with international harmonization.",
+      "how_to_use": "Use for cross-country retail comparisons. Domestic analysts use aUSRSLSFS/A or aUSRLCOA. The standardization mostly affects category mapping (e.g., what counts as 'food retail').",
+      "related_series": [
+        "aUSRSLSFS/A",
+        "aUSRLCOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRETPE/A",
+      "description": "Retail Sales, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Headline RS",
+      "units": "%, MoM",
+      "meaning": "Retail sales standardized MoM change.",
+      "how_to_use": "Monthly retail-sales print MoM. Big surprise vs consensus moves USD/equities.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSCRETPF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRETPF",
+      "description": "Retail Sales, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, MoM",
+      "meaning": "Retail Sales, standardized, MoM percent change — month-over-month growth rate of standardized retail sales total.",
+      "how_to_use": "Monthly retail-sales pulse. Decompose into volatile categories (autos, gas) vs control group for cleaner consumer-demand read. >0.5% MoM hot, <0% cool. Watch for revisions: prior month often revised by ±0.2pp.",
+      "related_series": [
+        "aUSCRETYF",
+        "aUSRSLSFS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRETYE/A",
+      "description": "Retail Sales, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Headline RS",
+      "units": "%, YoY",
+      "meaning": "Retail sales YoY change.",
+      "how_to_use": "Trend signal. >5% YoY healthy; sub-2% signals weak consumer.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSCRETYF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRETYF",
+      "description": "Retail Sales, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "Retail Sales, standardized, YoY percent change — year-over-year growth rate. Smoother than MoM, better for trend identification.",
+      "how_to_use": ">5% YoY growth = healthy consumer; <2% = weak; negative = recession territory. Strip out auto/gas YoY share for the underlying consumer-demand signal. Compare to PCE (broader consumption measure) and consumer credit growth.",
+      "related_series": [
+        "aUSCRETPF",
+        "aUSRSLSFS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRBSIY",
+      "description": "Chain Store Sales, Johnson Redbook Index, yoy% index",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, YoY",
+      "meaning": "Johnson Redbook chain-store sales index, YoY — weekly chain-store sales tracker covering ~9,000 stores across major retailers (Walmart, Target, dollar stores, etc.).",
+      "how_to_use": "Highest-frequency retail signal — released Tuesdays for the prior week. Volatile but useful for spotting demand shifts before official monthly retail report. Holiday-season weeks (Black Friday, December) are most-watched.",
+      "related_series": [
+        "aUSRBSIM",
+        "aUSRSLSFS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRBSIM",
+      "description": "Chain Store Sales, Johnson Redbook Index, mom% index, Suspended",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Percent, MoM",
+      "meaning": "Johnson Redbook chain-store sales, MoM — month-over-month change in weekly Redbook tracker. Rolled-up monthly aggregate.",
+      "how_to_use": "Pair with YoY for trend. Diverges from official retail-sales report when sample mix shifts (Redbook over-weights big-box and discount). Useful for early monthly-print directional signal.",
+      "related_series": [
+        "aUSRBSIY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLYQA",
+      "description": "Retail Sales YoY - Acutal, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Headline RS",
+      "units": "%, YoY",
+      "meaning": "Retail sales YoY actual.",
+      "how_to_use": "Same concept as aUSCRETYE/A.",
+      "related_series": [
+        "aUSCRETYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSBMAT/A",
+      "description": "Retail Sales, Building materials, garden equipment and supplies dealers",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "USD millions",
+      "meaning": "Retail Sales: building materials, garden equipment, supplies dealers — Home Depot/Lowe's/local-hardware-store sales. ~7% of total retail.",
+      "how_to_use": "Highly cyclical with housing — driven by remodeling and DIY activity. Falls in housing-affordability stress (2022-23) when home transactions slow. Watch alongside existing home sales (most remodeling follows home-purchase by 6-12 months).",
+      "related_series": [
+        "aUSRSLSHF/A",
+        "aUSEXHSAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSCL/A",
+      "description": "Retail Sales, Clothing and clothing accessories stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, clothing and accessories.",
+      "how_to_use": "Discretionary signal. First to soften when consumers pull back.",
+      "related_series": [
+        "aUSRSLSHF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSDPS/A",
+      "description": "Retail Sales, Department stores (excluding leased departments)",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, department stores.",
+      "how_to_use": "Long-term decline category — losing share to e-commerce + general merchandise.",
+      "related_series": [
+        "aUSRSLSGM/A",
+        "aUSRSLSNSR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSEC",
+      "description": "Retail Sales, E-commerce",
+      "frequency": "P3M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, e-commerce. Quarterly Census release.",
+      "how_to_use": "Online share tracking. ~16% of retail and rising. Use the share, not absolute level.",
+      "related_series": [
+        "aUSRSLSNSR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSAPP/A",
+      "description": "Retail Sales, Electronics and appliance stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, electronics and appliance stores.",
+      "how_to_use": "Big-ticket discretionary; cycles with housing and credit availability.",
+      "related_series": [
+        "aUSRSLSHF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSFB/A",
+      "description": "Retail Sales, Food and beverage stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, food and beverage stores (grocery).",
+      "how_to_use": "Staple category; least cyclical. Reflects food-at-home inflation.",
+      "related_series": [
+        "aUSRSLSGRS/A",
+        "aUSRSLSFSDP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSFSDP/A",
+      "description": "Retail Sales, Food services and drinking places",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, food services and drinking places (restaurants/bars).",
+      "how_to_use": "Discretionary services proxy. Watch for divergence from grocery — substitution gauge.",
+      "related_series": [
+        "aUSRSLSFB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSHF/A",
+      "description": "Retail Sales, Furniture and home furnishings stores",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "USD millions",
+      "meaning": "Retail Sales: furniture and home furnishings stores — sofas, rugs, lamps, decor. Strongly housing-cycle driven (people buy furniture when they move).",
+      "how_to_use": "Leading indicator for housing-related consumption. Falls 6-12 months after housing-transaction declines. Currently weak post-2022 housing slowdown. Watch alongside aUSRSLSBMAT/A for full housing-related-retail picture.",
+      "related_series": [
+        "aUSRSLSBMAT/A",
+        "aUSEXHSAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSGAS/A",
+      "description": "Retail Sales, Gasoline stations",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, gasoline stations.",
+      "how_to_use": "Mostly tracks gasoline price changes (volume is fairly steady). Strip out for ex-gasoline core retail.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSGM/A",
+      "description": "Retail Sales, General merchandise stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, general merchandise stores (Walmart/Target/Costco etc).",
+      "how_to_use": "Broad consumer staples + discretionary mix. Healthier in down markets.",
+      "related_series": [
+        "aUSRSLSDPS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSGRS/A",
+      "description": "Retail Sales, Grocery stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, grocery stores.",
+      "how_to_use": "Sub-component of food and beverage stores. Most price-sensitive consumer category.",
+      "related_series": [
+        "aUSRSLSFB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSHPC/A",
+      "description": "Retail Sales, Health and personal care stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, health and personal care stores (drugstores).",
+      "how_to_use": "Steady; less cyclical.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSMISC/A",
+      "description": "Retail Sales, Miscellaneous stores retailers",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, miscellaneous store retailers.",
+      "how_to_use": "Catch-all category.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSMV/A",
+      "description": "Retail Sales, Motor vehicle and parts dealers",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, motor vehicle and parts dealers.",
+      "how_to_use": "Largest retail category. Most rate-sensitive (auto financing).",
+      "related_series": [
+        "aUSCARSOA",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSNSR/A",
+      "description": "Retail Sales, Nonstore retailers",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, nonstore retailers (e-commerce + mail order).",
+      "how_to_use": "E-commerce primary measure. ~17% of retail and rising.",
+      "related_series": [
+        "aUSRSLSEC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSSLG/A",
+      "description": "Retail Sales, Sporting goods, hobby, musical instrument, and book stores",
+      "frequency": "P1M",
+      "subcategory": "By Category",
+      "units": "USD millions",
+      "meaning": "Retail sales, sporting goods, hobby, instruments, books.",
+      "how_to_use": "Discretionary; cyclical.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRLCOA",
+      "description": "Retail Sales, Total excluding bldg material & motor vehicle & parts & gasoline station & food svc, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "USD millions, SA",
+      "meaning": "Retail Sales Control Group — total retail sales excluding autos, gas stations, building materials and food services. The cleanest signal of underlying consumer goods demand and the version that feeds directly into the BEA's GDP retail-control adjustment.",
+      "how_to_use": "The most analytically useful retail series. Smoother than headline because it strips out the most volatile categories. Use as a real-time GDP nowcast input — control group growth maps almost 1:1 to goods PCE in the quarterly accounts.",
+      "related_series": [
+        "aUSRSLSFS/A",
+        "aUSPCE2AR",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSRXBDFB/A",
+      "description": "Retail Sales, Total excluding bldg material, autos, gasoline station & food services",
+      "frequency": "P1M",
+      "subcategory": "Control Group",
+      "units": "USD millions",
+      "meaning": "Retail sales ex bldg material, autos, gas, food services — alternate.",
+      "how_to_use": "Cross-check with aUSRLCOA.",
+      "related_series": [
+        "aUSRLCOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLS/A",
+      "description": "Retail Sales, Total excluding food services",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "USD millions",
+      "meaning": "Retail sales, total ex food services.",
+      "how_to_use": "Goods-only retail. Pair with food services for full headline.",
+      "related_series": [
+        "aUSRSLSFS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRETTOXA",
+      "description": "Retail Sales, Total excluding food services",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "USD millions",
+      "meaning": "Retail sales total ex food services — alternate.",
+      "how_to_use": "Cross-check.",
+      "related_series": [
+        "aUSRSLS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSXMV",
+      "description": "Retail Sales, Total excluding food services and motor vehicle and parts dealers",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "USD millions",
+      "meaning": "Retail sales ex food services and motor vehicle/parts.",
+      "how_to_use": "Strips two biggest categories. Reveals everything-else trends.",
+      "related_series": [
+        "aUSRSLSXMV/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLGA",
+      "description": "Retail Sales, Total excluding motor vehicle dealers and gasoline station, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "%, MoM",
+      "meaning": "Retail sales ex motor vehicle and gas, MoM.",
+      "how_to_use": "Strips two volatile categories.",
+      "related_series": [
+        "aUSRSLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSFS/A",
+      "description": "Retail Sales, Total including food services",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "USD millions, SA",
+      "meaning": "Retail Sales Total including Food Services — the broadest US retail aggregate from the Census Monthly Retail Trade Survey. Captures all retail trade (general merch, autos, gas, building materials, etc.) plus restaurant/bar sales.",
+      "how_to_use": "The headline retail print released around the 15th of each month with two-month lag. Compare MoM and YoY changes vs consensus. Volatile categories (autos, gas) often drive surprises — switch to the 'control group' (aUSRLCOA) to see underlying consumer demand.",
+      "related_series": [
+        "aUSRLCOA",
+        "aUSPCE2AR",
+        "aUSPCEMAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLS",
+      "description": "Retail Sales, Total including food services",
+      "frequency": "P1M",
+      "subcategory": "Headline RS",
+      "units": "USD millions",
+      "meaning": "Retail sales total including food services — alternate.",
+      "how_to_use": "Cross-check.",
+      "related_series": [
+        "aUSRSLSFS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLAR",
+      "description": "Retail Sales, Total including food services, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Headline RS",
+      "units": "%, MoM",
+      "meaning": "Retail sales total inc food services MoM.",
+      "how_to_use": "Headline MoM print. Market-moving release.",
+      "related_series": [
+        "aUSCRETPE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLSXMV/A",
+      "description": "Retail Sales, Total including food services, excluding motor vehicle and parts",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "USD millions",
+      "meaning": "Retail sales ex motor vehicle and parts.",
+      "how_to_use": "Headline excluding autos.",
+      "related_series": [
+        "aUSRSLSXMV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSLAAR",
+      "description": "Retail Sales, Total including food services, excluding motor vehicle and parts, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "%, MoM",
+      "meaning": "Retail sales ex motor vehicle and parts, MoM.",
+      "how_to_use": "Headline ex-autos MoM.",
+      "related_series": [
+        "aUSRSLGA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSRAFSXA",
+      "description": "Retail Sales, Total including food services, excluding motor vehicles and parts dealers",
+      "frequency": "P1M",
+      "subcategory": "Aggregates",
+      "units": "USD millions",
+      "meaning": "Retail sales ex motor vehicles/parts dealers, total.",
+      "how_to_use": "Same concept as aUSRSLSXMV/A.",
+      "related_series": [
+        "aUSRSLSXMV/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

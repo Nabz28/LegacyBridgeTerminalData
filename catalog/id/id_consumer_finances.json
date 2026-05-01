@@ -1,0 +1,37 @@
+{
+  "category": "Consumer Finance",
+  "category_slug": "id_consumer_finances",
+  "section": "Consumer Sector",
+  "source_file": "Indonesia_Consumer Finances.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDCRDCONAA",
+      "description": "Commercial banks. outstanding credits to individuals, in rupiah",
+      "frequency": "P1M",
+      "subcategory": "Household Credit",
+      "units": "IDR billions",
+      "meaning": "Outstanding credits of commercial banks to individuals (in rupiah) — total household debt at banks. Includes mortgages, vehicle loans, multipurpose loans, credit cards.",
+      "how_to_use": "Indonesia's household debt is low by international standards (~17% of GDP vs 50-100% for DM). Mortgages dominate (~40% of household credit), followed by multipurpose loans, vehicle loans, credit cards. Household-credit-to-GDP rising signals deepening financial inclusion — generally positive but watch for excess.",
+      "related_series": [
+        "aIDLOBHH",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDLOBHH",
+      "description": "Outstanding credits of commercial banks, housing",
+      "frequency": "P1M",
+      "subcategory": "Mortgages",
+      "units": "IDR billions",
+      "meaning": "Outstanding Housing Credits at commercial banks — KPR (Kredit Pemilikan Rumah) mortgages. The largest single household credit category.",
+      "how_to_use": "Indonesia mortgage market is small but growing — mortgage-to-GDP ~3% (vs 30-60% for DM). Highly rate-sensitive: surge in BI cuts drives KPR demand. OJK macroprudential tools include mortgage LTV caps (currently 80-90% for first home, lower for second/third).",
+      "related_series": [
+        "aIDCRDCONAA",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    }
+  ]
+}

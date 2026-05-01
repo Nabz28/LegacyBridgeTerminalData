@@ -1,0 +1,22 @@
+{
+  "category": "Cyclical & Activity Indices",
+  "category_slug": "id_cyclical_activity_indices",
+  "section": "Surveys & Forecasts",
+  "source_file": "INDONESIA_Cyclical & Activity Indices.xlsx",
+  "ric_count": 1,
+  "rics": [
+    {
+      "ric": "aIDCLEAD",
+      "description": "Composite leading indicators, Trend restored",
+      "frequency": "P1M",
+      "subcategory": "Composite Leading",
+      "units": "Index",
+      "meaning": "Composite Leading Indicators (Trend Restored) — OECD-compiled forward-looking activity index. Combines yield curve, industrial inputs, surveys, asset prices.",
+      "how_to_use": "OECD CLI for Indonesia leads activity by 6-9 months. Sustained sub-100 readings precede slowdowns. Use alongside Manufacturing PMI for triangulated cycle read.",
+      "related_series": [
+        "aIDCINDG/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

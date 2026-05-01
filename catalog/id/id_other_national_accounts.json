@@ -1,0 +1,23 @@
+{
+  "category": "Other National Accounts",
+  "category_slug": "id_other_national_accounts",
+  "section": "National Accounts",
+  "source_file": "Indonesia_Other National Accounts.xlsx",
+  "ric_count": 1,
+  "rics": [
+    {
+      "ric": "aIDOAPPPGR",
+      "description": "PPP for GDP",
+      "frequency": "P1Y",
+      "subcategory": "PPP",
+      "units": "IDR per USD",
+      "meaning": "PPP for GDP — purchasing power parity conversion factor. Number of IDR with the same purchasing power as 1 USD in the US economy.",
+      "how_to_use": "Currently ~Rp 4,500 per USD (vs market exchange rate ~Rp 16,000/USD). Large gap reflects Indonesia's lower price level — a $1 in Indonesia buys ~3.5x what $1 buys in the US for typical goods.",
+      "related_series": [
+        "aIDXRUSD",
+        "aIDOCFPP/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

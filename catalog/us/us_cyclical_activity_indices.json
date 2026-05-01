@@ -1,0 +1,492 @@
+{
+  "category": "Cyclical & Activity Indices",
+  "category_slug": "us_cyclical_activity_indices",
+  "section": "Surveys & Forecasts",
+  "source_file": "US Cyclical & Activity Indices.xlsx",
+  "ric_count": 35,
+  "rics": [
+    {
+      "ric": "aUSCBBKCOR",
+      "description": "Brave-Butters-Kelley Indexes, Coincident Index",
+      "frequency": "P1M",
+      "subcategory": "BBK Index",
+      "units": "Index",
+      "meaning": "Brave-Butters-Kelley Coincident Index — current economic activity. Real-time GDP-tracking proxy.",
+      "how_to_use": "Tracks GDP contemporaneously. Decelerations precede recession by 0-3 months. Use BBK Leading for forward read, BBK Coincident for current state.",
+      "related_series": [
+        "aUSCBBKLER",
+        "aUSCBBKGPR",
+        "aUSCFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKLER",
+      "description": "Brave-Butters-Kelley Indexes, Leading Index",
+      "frequency": "P1M",
+      "subcategory": "BBK Index",
+      "units": "Index",
+      "meaning": "Brave-Butters-Kelley Leading Index — a forward-looking activity gauge constructed from a panel of macro indicators. Federal Reserve Bank of Chicago.",
+      "how_to_use": "Negative readings precede recessions with ~6-12mo lead. Less widely-tracked than the Conference Board LEI but methodologically rigorous. Pair with the BBK Coincident for full picture.",
+      "related_series": [
+        "aUSCBBKCOR",
+        "aUSCBBKGPR",
+        "aUSCLEAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKGPR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth (Annualized), %",
+      "frequency": "P1M",
+      "subcategory": "BBK Index",
+      "units": "%, annualized",
+      "meaning": "BBK Monthly GDP Growth rate, annualized. Monthly nowcast of GDP — the BBK team's translation of activity data into a GDP-equivalent rate.",
+      "how_to_use": "Compare to Atlanta Fed's GDPNow and NY Fed's Nowcast for consensus on current-quarter GDP. Useful between BEA releases for tracking cycle.",
+      "related_series": [
+        "aUSCFNA",
+        "aUSNYWER",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKCYR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, Cycle component, %",
+      "frequency": "P1M",
+      "subcategory": "Activity Decomposition",
+      "units": "Percent, annualized",
+      "meaning": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, cyclical component — the cyclical-fluctuation portion of the BBK monthly GDP estimate (factor model).",
+      "how_to_use": "Decomposes BBK GDP into trend + cyclical + irregular. The cyclical component is the meaningful business-cycle signal — strips out trend growth and noise. Negative readings precede recessions; positive readings = expansion phase.",
+      "related_series": [
+        "aUSCBBKGPR",
+        "aUSCBBKCGR",
+        "aUSCBBKCLR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKCGR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, Cycle component, Lagging, %",
+      "frequency": "P1M",
+      "subcategory": "Activity Decomposition",
+      "units": "Percent, annualized",
+      "meaning": "BBK Indexes, Monthly GDP Growth, cyclical-trend component — the trend portion of the cyclical decomposition. Underlying potential-growth pace.",
+      "how_to_use": "Smoother than the cyclical component. Tracks 'trend' GDP growth — currently ~1.8-2.0% reflecting demographic + productivity drivers. Sustained drops below 1.5% suggest secular-stagnation concerns.",
+      "related_series": [
+        "aUSCBBKCYR",
+        "aUSCBBKGPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKCLR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, Cycle component, Leading, %",
+      "frequency": "P1M",
+      "subcategory": "Activity Decomposition",
+      "units": "Percent, annualized",
+      "meaning": "BBK Indexes, Monthly GDP Growth, cyclical-cycle component — the pure business-cycle deviation from trend. Negative = below-trend, positive = above-trend.",
+      "how_to_use": "Useful for output-gap estimation. Sustained negative readings = recession-territory output gap. Pair with CBO output gap estimates for triangulated read.",
+      "related_series": [
+        "aUSCBBKCYR",
+        "aUSCBBKCGR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKIRR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, Irregular component, %",
+      "frequency": "P1M",
+      "subcategory": "Activity Decomposition",
+      "units": "Percent",
+      "meaning": "BBK Indexes, Monthly GDP Growth, irregular component — the residual noise in the BBK decomposition. Captures one-off shocks not explained by trend or cycle.",
+      "how_to_use": "Spikes during major shocks (2020 COVID, 2008 financial crisis). Used to remove temporary distortions before reading the cyclical signal. Markets typically ignore the irregular component — focus on cyclical.",
+      "related_series": [
+        "aUSCBBKCYR",
+        "aUSCBBKGPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBBKTRR",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth, Trend component, %",
+      "frequency": "P1M",
+      "subcategory": "BBK Indexes",
+      "units": "%",
+      "meaning": "BBK GDP growth, trend component.",
+      "how_to_use": "Slow-moving trend. Useful for productivity/labor-supply growth read.",
+      "related_series": [
+        "aUSCBBKGPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCFNA",
+      "description": "Chicago Fed CFMMI, National Activity Index",
+      "frequency": "P1M",
+      "subcategory": "Activity Index",
+      "units": "Index",
+      "meaning": "Chicago Fed National Activity Index (CFNAI) — weighted average of 85 monthly indicators (production, employment, sales, consumption). Composite real-time activity gauge.",
+      "how_to_use": "Above 0 = above trend; sustained -0.7 (3-mo avg) signals recession. Most-watched composite activity indicator alongside Conference Board LEI. Released monthly on a 1-month lag.",
+      "related_series": [
+        "aUSCBBKGPR",
+        "aUSNYWER",
+        "aUSCLEAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCFNAAR",
+      "description": "Chicago Fed National Activity Index - Actual, Index, USD",
+      "frequency": "P1M",
+      "subcategory": "Activity Index",
+      "units": "Index",
+      "meaning": "Chicago Fed National Activity Index — alternative release of the same CFNAI data. Captures real-time activity from 85 monthly indicators.",
+      "how_to_use": "Cross-check against aUSCFNA. Both are the same CFNAI but at different release vintages. Above-zero = above-trend growth; sustained -0.7 (3-mo MA) signals recession.",
+      "related_series": [
+        "aUSCFNA",
+        "aUSNYWER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNYWER",
+      "description": "New York Fed, Weekly Economic Index",
+      "frequency": "P1M",
+      "subcategory": "Activity Index",
+      "units": "%",
+      "meaning": "NY Fed Weekly Economic Index — weekly real GDP-equivalent growth rate. Highest-frequency real-economy gauge.",
+      "how_to_use": "Updated every Tuesday based on 10 weekly indicators. Translates to a quarterly GDP nowcast equivalent. Useful for tracking the cycle between BEA quarterly releases.",
+      "related_series": [
+        "aUSCFNA",
+        "aUSCBBKGPR",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSKCFSIR",
+      "description": "Kansas Fed, Financial Stress Index",
+      "frequency": "P1M",
+      "subcategory": "Financial Stress",
+      "units": "Index",
+      "meaning": "Kansas City Fed Financial Stress Index.",
+      "how_to_use": "Composite financial-conditions gauge. Spikes during 2008, March 2020, March 2023 (regional bank stress).",
+      "related_series": [
+        "aUSSFSIR",
+        "aUSSTLFR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSKCLMCAR",
+      "description": "Labour Market n.i.e, Kansas City Fed Labor Market Conditions Indicator, Level of Activity",
+      "frequency": "P1M",
+      "subcategory": "Labor Activity",
+      "units": "Standardized index",
+      "meaning": "Kansas City Fed Labor Market Conditions Index — composite of 24 labor-market indicators (claims, NFP, hours, wages, JOLTS, household survey). Available in level and momentum forms.",
+      "how_to_use": "Higher-frequency labor-market gauge than the BLS monthly print alone. Sustained negative readings precede labor-market deterioration. Pair with Sahm Rule (aUSRSAHMN/A) and CB ETI (aUSEMPTR) for triangulated cycle call.",
+      "related_series": [
+        "aUSKCLMCMR",
+        "aUSEMPTR",
+        "aUSRSAHMN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSKCLMCMR",
+      "description": "Labour Market n.i.e, Kansas City Fed Labor Market Conditions Indicator, Momentum",
+      "frequency": "P1M",
+      "subcategory": "Labor Activity",
+      "units": "Standardized index",
+      "meaning": "KC Fed Labor Market Conditions Index — momentum component (vs level component aUSKCLMCAR). Captures rate-of-change in labor-market conditions.",
+      "how_to_use": "Leading indicator: momentum turns before levels. Negative momentum + positive level = labor market is good but cooling. Watch for sustained negative-momentum readings as recession-leading signal.",
+      "related_series": [
+        "aUSKCLMCAR",
+        "aUSEMPTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSFSIR",
+      "description": "Federal Reserve Bank of St. Louis, St. Louis Financial Stress Index",
+      "frequency": "P1M",
+      "subcategory": "Financial Stress",
+      "units": "Index",
+      "meaning": "St. Louis Fed Financial Stress Index — composite of 18 weekly financial-market indicators (yields, spreads, vol). Z-score format; zero = normal stress.",
+      "how_to_use": "Real-time financial-conditions gauge. Spikes during crises (2008 ~6, 2020 ~5, 2023 SVB ~1). Sustained readings >2 indicate market stress beyond normal volatility — Fed often acts when sustained.",
+      "related_series": [
+        "aUSSTLFR",
+        "aUSKCFSIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSTLFR",
+      "description": "Federal Reserve Bank of St. Louis, St. Louis Financial Stress Index",
+      "frequency": "P1M",
+      "subcategory": "Financial Stress",
+      "units": "Index",
+      "meaning": "St. Louis Financial Stress Index — alternative release. Same conceptual measure as aUSSFSIR.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data. Useful for confirming stress regimes — both must agree for confident signal.",
+      "related_series": [
+        "aUSSFSIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSFSIR.1D",
+      "description": "Federal Reserve Bank of St. Louis, St. Louis Financial Stress Index",
+      "frequency": "P1M",
+      "subcategory": "Financial Stress",
+      "units": "Index",
+      "meaning": "St. Louis Fed FSI — daily.",
+      "how_to_use": "Highest-frequency stress read.",
+      "related_series": [
+        "aUSSFSIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNPIRTR/C",
+      "description": "NCREIF: TIMBERLAND INDEX RETURNS",
+      "frequency": "P3M",
+      "subcategory": "Real Assets",
+      "units": "%, return",
+      "meaning": "NCREIF Timberland Index returns.",
+      "how_to_use": "Niche real-asset class. Low correlation to stocks/bonds; institutional allocator interest.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPRPER",
+      "description": "Standard & Poors, 500 Composite, Cyclically Adjusted Price Earnings Ratio P/E10 or CAPE (Shiller)",
+      "frequency": "P1M",
+      "subcategory": "Equity Valuation",
+      "units": "Ratio",
+      "meaning": "S&P 500 Cyclically Adjusted P/E (Shiller CAPE / P/E10).",
+      "how_to_use": "Long-run valuation gauge: price / 10-yr inflation-adjusted earnings. >30 historically signals lower forward returns.",
+      "related_series": [
+        "aUSSPCOM",
+        "aUSSPDIVY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPREPS",
+      "description": "Standard & Poors, 500 Composite, Index, 12 Month As Reported Earnings per Share (top down)",
+      "frequency": "P1M",
+      "subcategory": "Equity Earnings",
+      "units": "USD",
+      "meaning": "S&P 500 12-month trailing as-reported EPS (top-down).",
+      "how_to_use": "Earnings denominator for P/E. Compare against operating EPS for accounting-quality drift.",
+      "related_series": [
+        "aUSSPCOM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPMDPS",
+      "description": "Standard & Poors, 500 Composite, Index, 12 Month Cash Dividends per Share (top down)",
+      "frequency": "P1M",
+      "subcategory": "Equity",
+      "units": "USD per share",
+      "meaning": "S&P 500 trailing 12-month dividends per share (index basis) — total cash dividends paid by S&P 500 constituents over the last four quarters, scaled to the index. Updated continuously by S&P Dow Jones Indices.",
+      "how_to_use": "Smoother and more cyclical than EPS — companies cut dividends only in extreme stress. Pair with the dividend yield (aUSSPDIVY) for a valuation cross-check, and with EPS to compute the payout ratio. Slow-moving baseline for total-return decomposition.",
+      "related_series": [
+        "aUSSPCOM",
+        "aUSSPDIVY",
+        "aUSSPREPS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPDIVY",
+      "description": "Standard & Poors, 500 Composite, Index, Dividend Yield",
+      "frequency": "P1M",
+      "subcategory": "Equity Yield",
+      "units": "%",
+      "meaning": "S&P 500 dividend yield — index dividends / price.",
+      "how_to_use": "Low yields (sub-2%) reflect post-2010 buyback preference. Compare to 10Y Treasury for equity risk premium.",
+      "related_series": [
+        "aUSSPMDPS",
+        "aUSSPRPER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPCOM",
+      "description": "Standard & Poors, 500 Composite, Index",
+      "frequency": "P1M",
+      "subcategory": "Equity Index",
+      "units": "Index",
+      "meaning": "S&P 500 Composite Index level.",
+      "how_to_use": "Headline US equity benchmark. Cap-weighted; ~7 megacaps drive much of recent return.",
+      "related_series": [
+        "aUSSPRPER",
+        "aUSSPDIVY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCOINDIF/A",
+      "description": "Coincident Index",
+      "frequency": "P1M",
+      "subcategory": "Conf Board CEI",
+      "units": "Index",
+      "meaning": "Conference Board Coincident Economic Index — current-state composite (employment, income, output, sales).",
+      "how_to_use": "Tracks GDP contemporaneously. Use the LEI/CEI ratio: when LEI growth is below CEI growth for an extended period, recession risk rises.",
+      "related_series": [
+        "aUSCLEAD/A",
+        "aUSLAG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCOMILNB/A",
+      "description": "Commercial and industrial loans outstanding",
+      "frequency": "P1M",
+      "subcategory": "Credit Aggregates",
+      "units": "USD billions",
+      "meaning": "Commercial and industrial loans outstanding.",
+      "how_to_use": "Business-lending cycle gauge. Slows ahead of recessions; SLOOS tightening leads by 1-2 quarters.",
+      "related_series": [
+        "aUSBCACIB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCIISPI/C",
+      "description": "Index of stock prices, 500 common stocks",
+      "frequency": "P1M",
+      "subcategory": "Equity Index",
+      "units": "Index",
+      "meaning": "Index of stock prices, 500 common stocks — embedded in BCI.",
+      "how_to_use": "Component of leading economic indicators.",
+      "related_series": [
+        "aUSSPCOM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPIQA",
+      "description": "Labour Market n.i.e, Employment Trends - Acutal",
+      "frequency": "P1M",
+      "subcategory": "Labor Activity",
+      "units": "Index",
+      "meaning": "Employment Trends Index — Conference Board, actual.",
+      "how_to_use": "Labor-market composite. Companion to NFP/UR.",
+      "related_series": [
+        "aUSEMPTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPTR",
+      "description": "Labour Market n.i.e, The Conference Board Employment Trends Index (ETI)",
+      "frequency": "P1M",
+      "subcategory": "Activity",
+      "units": "Index, 2016=100",
+      "meaning": "Conference Board Employment Trends Index (ETI) — composite of eight labor-market indicators (claims, NFIB hiring plans, jobs hard-to-get, temp employment, hours, ratio of involuntary part-timers, JOLTS hires, employment in manufacturing). Released monthly.",
+      "how_to_use": "Leads NFP turning points by 2-3 months — historically an excellent labor-market inflection caller. Sustained declines flag rising recession risk before payrolls weaken. Pair with the Sahm Rule for a triangulated read.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSUNTOTR",
+        "aUSCLEAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLAG/A",
+      "description": "Lagging Index",
+      "frequency": "P1M",
+      "subcategory": "Conf Board Lagging",
+      "units": "Index",
+      "meaning": "Conference Board Lagging Economic Index — confirmatory, not predictive. Inflation, ULC, prime rate, ratio of consumer credit to income.",
+      "how_to_use": "Use to confirm cycle turns AFTER the fact. CEI/LAG ratio is itself a leading indicator: lagging components reflect built-up imbalances.",
+      "related_series": [
+        "aUSCLEAD/A",
+        "aUSCOINDIF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCILCI/A",
+      "description": "Leading Credit Index",
+      "frequency": "P1M",
+      "subcategory": "Credit Aggregates",
+      "units": "Index",
+      "meaning": "Leading Credit Index — component of LEI.",
+      "how_to_use": "Credit-spread-based forward signal.",
+      "related_series": [
+        "aUSCLEAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCLEAD/A",
+      "description": "Leading Index",
+      "frequency": "P1M",
+      "subcategory": "Conf Board LEI",
+      "units": "Index",
+      "meaning": "Conference Board Leading Economic Index (LEI) — composite of 10 leading indicators (yield curve, claims, permits, S&P 500, ISM new orders, etc.).",
+      "how_to_use": "Sustained 6-month declines historically signal recession with 6-12 month lead. False-positive in 2022-23 (predicted recession that didn't materialize as Fed soft-landed). Use alongside yield curve, not in isolation.",
+      "related_series": [
+        "aUSCOINDIF/A",
+        "aUSLAG/A",
+        "aUSCFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLIDXIR10",
+      "description": "Leading Index, Interest rate spread, 10-year Treasury bonds less federal funds",
+      "frequency": "P1M",
+      "subcategory": "Yield Curve",
+      "units": "Percentage points",
+      "meaning": "10Y Treasury minus fed funds rate — recession-warning yield-curve spread.",
+      "how_to_use": "Inverted curve (negative spread) has preceded every US recession since 1970. Watch slope dynamics, not just sign.",
+      "related_series": [
+        "aUSFEDFUND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLI500CH/C",
+      "description": "Leading Index, Stock prices, 500 common stocks",
+      "frequency": "P1M",
+      "subcategory": "Equity Index",
+      "units": "Index",
+      "meaning": "Stock prices, 500 common stocks — LEI component.",
+      "how_to_use": "Embedded equity proxy in LEI.",
+      "related_series": [
+        "aUSSPCOM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLEADAR",
+      "description": "Leading index chg- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Activity Indexes",
+      "units": "%, MoM",
+      "meaning": "Leading index change MoM, actual.",
+      "how_to_use": "Most market-moving LEI series at release. -0.3% MoM consensus is the threshold for hawk/dove read.",
+      "related_series": [
+        "aUSCLEAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSTOPUKR/C",
+      "description": "United Kingdom, stock prices",
+      "frequency": "P1M",
+      "subcategory": "Foreign Equities",
+      "units": "Index",
+      "meaning": "UK stock prices — included for cross-country reference.",
+      "how_to_use": "Niche; reference series.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

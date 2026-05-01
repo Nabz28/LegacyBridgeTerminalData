@@ -1,0 +1,49 @@
+{
+  "category": "Wages & Earnings",
+  "category_slug": "id_wages_earnings",
+  "section": "Labor Market",
+  "source_file": "Indonesia_Wages & Earnings.xlsx",
+  "ric_count": 3,
+  "rics": [
+    {
+      "ric": "aIDAWMAOTA",
+      "description": "Average Monthly Wages, Average",
+      "frequency": "P6M",
+      "subcategory": "Wages",
+      "units": "IDR thousands per month",
+      "meaning": "Average Monthly Wages — average net wage of formal-sector employees, published by BPS in the Sakernas (National Labor Force Survey).",
+      "how_to_use": "Indonesia minimum wages are set provincially (UMP) and revised annually. Average monthly wages run well above minimum (urban formal sector ~Rp 3-4 million; minimum wage range Rp 2-5 million by province). Watch annual UMP decisions in late-Q4 for next year's labor-cost trajectory.",
+      "related_series": [
+        "aIDAWMAOTR",
+        "aIDMNAVWGMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDAWMAOTR",
+      "description": "Average Monthly Wages, Average, Chg Y/Y",
+      "frequency": "P6M",
+      "subcategory": "Wages",
+      "units": "Percent, YoY",
+      "meaning": "Average Monthly Wages, year-over-year change — wage growth rate.",
+      "how_to_use": "Indonesia wage growth typically runs 5-8% YoY (well above CPI inflation 2-3%, real wage growth ~3-5%). Sharp acceleration signals minimum-wage hikes; deceleration signals labor-market slack.",
+      "related_series": [
+        "aIDAWMAOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDMNAVWGMF",
+      "description": "Monthly average wage, manufacturing",
+      "frequency": "P6M",
+      "subcategory": "Wages",
+      "units": "IDR thousands per month",
+      "meaning": "Monthly Average Wage — Manufacturing — average wage in the manufacturing sector specifically.",
+      "how_to_use": "Track manufacturing wages for unit-labor-cost trends. Indonesia competes with Vietnam, Bangladesh, India on labor-cost competitiveness in light manufacturing — sustained wage growth above productivity growth signals erosion.",
+      "related_series": [
+        "aIDAWMAOTA"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "category": "Energy & Environment",
+  "category_slug": "us_energy_environment",
+  "section": "Industry Sector",
+  "source_file": "US_Energy & Environment.xlsx",
+  "ric_count": 14,
+  "rics": [
+    {
+      "ric": "aUSELSATOP",
+      "description": "Electricity sales, all sectors",
+      "frequency": "P1M",
+      "subcategory": "Electricity",
+      "units": "Million kWh",
+      "meaning": "Total electricity sales across all sectors (residential, commercial, industrial, transportation).",
+      "how_to_use": "Real-economy demand gauge. Industrial sales lead manufacturing cycles; residential is weather-driven. Adjust for cooling/heating-degree-days for cycle signal.",
+      "related_series": [
+        "aUSWEAICDD",
+        "aUSWEAIHDD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWEAICDD",
+      "description": "Weather impact, cooling degree-days",
+      "frequency": "P1M",
+      "subcategory": "Weather",
+      "units": "Degree-days",
+      "meaning": "Cooling degree-days — sum of (daily mean temperature − 65°F) when above 65°F. Higher = more AC demand.",
+      "how_to_use": "Use to weather-adjust electricity, gas, and natgas storage data. Hot summer = high CDD = high electricity demand.",
+      "related_series": [
+        "aUSWEAIHDD",
+        "aUSELSATOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWEAIHDD",
+      "description": "Weather impact, heating degree-days",
+      "frequency": "P1M",
+      "subcategory": "Weather",
+      "units": "Degree-days",
+      "meaning": "Heating degree-days — sum of (65°F − daily mean) when below 65°F. Higher = more heating demand.",
+      "how_to_use": "Critical for natgas demand modeling — winter HDD drives storage drawdowns. Use 5-year normal as baseline.",
+      "related_series": [
+        "aUSWEAICDD",
+        "aUSNGGWDRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWIPRINP",
+      "description": "Weather Impact, Precipitation (inch)",
+      "frequency": "P1M",
+      "subcategory": "Weather",
+      "units": "Inches",
+      "meaning": "Total precipitation in inches.",
+      "how_to_use": "Agricultural/hydro power input. Pair with crop progress reports for harvest forecasting.",
+      "related_series": [
+        "aUSWIPRMMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWIPRMMP",
+      "description": "Weather Impact, Precipitation (mm)",
+      "frequency": "P1M",
+      "subcategory": "Weather",
+      "units": "Millimeters",
+      "meaning": "Total precipitation in millimeters — same data, metric units.",
+      "how_to_use": "Use whichever unit your model expects.",
+      "related_series": [
+        "aUSWIPRINP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSCBBR",
+      "description": "SEMICONDUCTOR EQUIPMENT MANUFACTURERS - BOOK/BILL RATIO",
+      "frequency": "P1M",
+      "subcategory": "Semiconductors",
+      "units": "Ratio",
+      "meaning": "Semiconductor equipment book-to-bill ratio — orders / shipments. Above 1.0 = orders outpace shipments (expanding).",
+      "how_to_use": "Leads semi capex cycle by 1-2 quarters. Watch for sustained sub-1.0 prints as recession warning.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRSCO",
+      "description": "Crude oil proved reserves",
+      "frequency": "P1Y",
+      "subcategory": "Oil Reserves",
+      "units": "Million barrels",
+      "meaning": "US proved crude oil reserves — annual.",
+      "how_to_use": "Reserve replacement ratio (additions vs production) is the long-run sustainability gauge. Surged with shale; growth slowing as best Permian acreage drilled.",
+      "related_series": [
+        "aUSEXPFMGP",
+        "aUSIMCOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPFMGP",
+      "description": "Exports of finished motor gasoline",
+      "frequency": "P1M",
+      "subcategory": "Petroleum Trade",
+      "units": "Thousand barrels",
+      "meaning": "Exports of finished motor gasoline.",
+      "how_to_use": "US is now a net products exporter despite being a net crude importer until ~2019 — refinery capacity exceeds domestic demand.",
+      "related_series": [
+        "aUSIMCOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMCOP",
+      "description": "IMPORTS - CRUDE OIL",
+      "frequency": "P1M",
+      "subcategory": "Petroleum Trade",
+      "units": "Thousand barrels",
+      "meaning": "US crude oil imports.",
+      "how_to_use": "Halved post-shale (2008-2020) but stable since. Source mix matters: Canada heavy crude is irreplaceable in Gulf Coast refineries.",
+      "related_series": [
+        "aUSEXPFMGP",
+        "aUSRSCO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNGGWDRP",
+      "description": "NATURAL GAS - GROSS WITHDRAWALS (CUBIC FEET)",
+      "frequency": "P1M",
+      "subcategory": "Natural Gas",
+      "units": "Million cubic feet",
+      "meaning": "Gross natural gas withdrawals — total production from wells.",
+      "how_to_use": "US is world's largest natgas producer. Watch alongside Henry Hub prices and LNG export terminal utilization.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINCOXRP",
+      "description": "STOCKS - CRUDE OIL EXCLUDING STRATEGIC PETROLEUM RESERVES",
+      "frequency": "P1M",
+      "subcategory": "Oil Inventories",
+      "units": "Thousand barrels",
+      "meaning": "Crude oil stocks excluding Strategic Petroleum Reserve.",
+      "how_to_use": "Most-watched oil inventory series. Weekly EIA report moves prices; surprises vs API/consensus drive intraday action.",
+      "related_series": [
+        "aUSINCOP",
+        "aUSINSPRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINCOP",
+      "description": "STOCKS - CRUDE OIL INCL STRATEGIC PETROLEUM RESERVES",
+      "frequency": "P1M",
+      "subcategory": "Oil Inventories",
+      "units": "Thousand barrels",
+      "meaning": "Crude oil stocks including SPR.",
+      "how_to_use": "Less useful than ex-SPR — SPR moves are policy-driven, not market-driven.",
+      "related_series": [
+        "aUSINCOXRP",
+        "aUSINSPRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINPPP",
+      "description": "STOCKS - PETROLEUM & PRODUCTS INCL STRATEGIC PETROLEUM RESERVES",
+      "frequency": "P1M",
+      "subcategory": "Oil Inventories",
+      "units": "Thousand barrels",
+      "meaning": "Total petroleum and products stocks (crude + gasoline + distillates etc).",
+      "how_to_use": "Aggregate liquidity gauge. Big draws during driving season (gasoline) and winter (distillates).",
+      "related_series": [
+        "aUSINCOXRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINSPRP",
+      "description": "STOCKS - STRATEGIC PETROLEUM RESERVE",
+      "frequency": "P1M",
+      "subcategory": "SPR",
+      "units": "Thousand barrels",
+      "meaning": "Strategic Petroleum Reserve level.",
+      "how_to_use": "Drained 200M+ bbl in 2022 (Russia/Ukraine response). Refilling has been slow. Below ~350M bbl is historically low.",
+      "related_series": [
+        "aUSINCOP"
+      ],
+      "notes": ""
+    }
+  ]
+}

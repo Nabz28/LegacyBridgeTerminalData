@@ -1,0 +1,351 @@
+{
+  "category": "Money Supply",
+  "category_slug": "cn_money_supply",
+  "section": "Money & Finance",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T19_37 (MONEY & FINANCE - MONEY SUPPLY).xlsx",
+  "ric_count": 24,
+  "rics": [
+    {
+      "ric": "aCNMONRESA",
+      "description": "Monetary Authority, Liabilities, Reserve money",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "Monetary Authority liabilities: reserve money (储备货币) — monthly, PBoC Monetary Authority Survey. Reserve money = currency in circulation (M0) + commercial bank reserves held at the PBoC (required + excess reserves) + deposits of other financial corporations. This is the monetary base (M0 base) — the high-powered money from which the banking system creates M2 via the credit/money multiplier. Stock in CNY billions.",
+      "how_to_use": "Reserve money is the foundation of China's monetary system. PBoC RRR cuts directly affect how much of reserve money can be transformed into loans (by reducing required reserves and freeing excess reserves for lending). The money multiplier (M2 / reserve money) reflects financial intermediation efficiency — it rises when banks lend aggressively and falls when they hoard liquidity. Cross with M2 (aCNM2GRTY) to compute the multiplier. A rising reserve money without commensurate M2 growth signals hoarding (low multiplier) — consistent with Japan-style liquidity trap dynamics. PBoC excess reserve rate (aCNCNJUESQ) cross-checks this.",
+      "related_series": [
+        "aCNM2GRTY",
+        "aCNMAASTTOT",
+        "aCNMONDECA",
+        "aCNCRR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM0GRTY",
+      "description": "Money supply M0, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M0, YoY change — currency-in-circulation growth.",
+      "how_to_use": "Slow-moving. Useful for spotting Lunar New Year cash-demand spikes (Q1) and digital-payment adoption trends (declining M0 growth).",
+      "related_series": [
+        "aCNM0",
+        "aCNM1GRTY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM1GRTY",
+      "description": "Money supply M1, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M1, YoY change — narrow-money growth pace. Most cyclical Chinese liquidity indicator.",
+      "how_to_use": "Sub-zero readings are rare and signal economic stress; recent dip into negative territory (mid-2024) flagged the property-led demand weakness. M1-M2 spread (M1 minus M2 growth) indicates corporate vs household liquidity dynamics.",
+      "related_series": [
+        "aCNM1",
+        "aCNM2GRTY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM2GRTY",
+      "description": "Money supply M2, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "M2 Money Supply, year-over-year change — the headline China money-growth gauge.",
+      "how_to_use": "PBoC's main implicit policy target. Above 10% historically signals expansionary stance; below 8% signals tight (rare pre-2024). Markets compare to nominal GDP growth — when M2 growth falls below nominal GDP, monetary support is contracting.",
+      "related_series": [
+        "aCNM2",
+        "aCNCMS2YB/A",
+        "aCNMSM2AR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNMSM2AR",
+      "description": "Money supply M2, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M2, YoY change — alternative release. Reuters poll-anchored 'actual'.",
+      "how_to_use": "Cross-check series; markets compare to consensus poll for surprise-driving headlines.",
+      "related_series": [
+        "aCNM2GRTY",
+        "aCNM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM0",
+      "description": "Money supply, M0",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "CNY billions",
+      "meaning": "Money Supply M0 — currency in circulation outside the banking system. ~CNY 12 trillion. Smallest aggregate.",
+      "how_to_use": "Track digital-payment adoption proxy: Chinese consumers shifted to mobile payments (Alipay, WeChat Pay) at scale post-2015. M0 growth has slowed accordingly. Useful for tracking cash-in-circulation trends and Lunar New Year demand spikes.",
+      "related_series": [
+        "aCNM0GRTY",
+        "aCNM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM1",
+      "description": "Money supply, M1",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "CNY billions",
+      "meaning": "Money Supply M1 — narrow money: currency in circulation + corporate demand deposits. Excludes household deposits (which are in M2 only).",
+      "how_to_use": "Leading indicator for activity. M1 growth surges before economic acceleration; sustained sub-zero M1 YoY (rare, observed 2024) signals corporate-cash hoarding and weak investment. M1-M2 spread is a closely-watched cycle gauge.",
+      "related_series": [
+        "aCNM1GRTY",
+        "aCNM2",
+        "aCNMSUP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM2",
+      "description": "Money supply, M2",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "CNY billions",
+      "meaning": "Money Supply M2 — the broadest commonly-tracked Chinese monetary aggregate. Includes M1 + household and corporate time deposits + foreign-currency deposits at banks. PBoC publishes monthly around the 10th-15th.",
+      "how_to_use": "China's M2 growth is the single most-watched liquidity gauge. Pre-2018 typically 11-15% YoY; post-2018 ~8-12%; 2024 dropped to ~6.5% (lowest on record), reflecting weak credit demand. PBoC sets implicit M2 targets aligned with nominal GDP growth.",
+      "related_series": [
+        "aCNM2GRTY",
+        "aCNCMS2YB/A",
+        "aCNM1",
+        "aCNM0"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNMSUP",
+      "description": "Money supply, corporate demand deposits",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money supply, corporate demand deposits. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTIMDEP",
+      "description": "Money supply, corporate time deposits",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money supply, corporate time deposits. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSAVDEP",
+      "description": "Money supply, personal deposits",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money supply, personal deposits. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNQUASIM",
+      "description": "Money supply, quasi money",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money supply, quasi money. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNM2A",
+      "description": "Monetary Authority, Monetary Financial Institutions, Money Supply, (M2)",
+      "frequency": "P1Y",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Monetary Authority, Monetary Financial Institutions, Money Supply, (M2). PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS0B/A",
+      "description": "Money Supply M0, Standardized",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M0, Standardized. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS0PB/A",
+      "description": "Money Supply M0, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M0, Standardized, Chg P/P. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS0YB/A",
+      "description": "Money Supply M0, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M0, Standardized, Chg Y/Y. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS1B/A",
+      "description": "Money Supply M1, Standardized",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M1, Standardized. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS1PB/A",
+      "description": "Money Supply M1, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M1, Standardized, Chg P/P. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS1YB/A",
+      "description": "Money Supply M1, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M1, Standardized, Chg Y/Y. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS2PB/A",
+      "description": "Money Supply M2, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M2, % month on month, Standardized, Chg P/P. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS2YB/A",
+      "description": "Money Supply M2, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M2, YoY change (standardized) — same conceptual measure as aCNM2GRTY in OECD-comparable framing.",
+      "how_to_use": "Cross-check against the primary release. Use whichever has fresher data; methodology and timing differences across releases are typically minor and resolved on revision.",
+      "related_series": [
+        "aCNM2GRTY",
+        "aCNM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCMS2B/A",
+      "description": "Money Supply M2, Standardized",
+      "frequency": "P1M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Money Supply M2, Standardized. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRREQRR",
+      "description": "Reserve Requirement Ratio, Rural Cdt Cooper & Oth Sm Fin",
+      "frequency": "P6M",
+      "subcategory": "PBoC Balance Sheet",
+      "units": "CNY billions",
+      "meaning": "China Monetary Authority (PBoC): Reserve Requirement Ratio, Rural Cdt Cooper & Oth Sm Fin. PBoC balance-sheet item.",
+      "how_to_use": "Track PBoC balance-sheet expansion for monetary-stance signals. Major PBoC tools: open market operations, MLF (Medium-term Lending Facility), SLF (Standing Lending Facility), PSL (Pledged Supplementary Lending), RRR.",
+      "related_series": [
+        "aCNMAASTTOT",
+        "aCNMALIBTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRESRER",
+      "description": "Reserve Requirement Ratio, Small Banks",
+      "frequency": "P6M",
+      "subcategory": "Reserve Requirement",
+      "units": "Percent",
+      "meaning": "Reserve Requirement Ratio, Small Banks — same conceptual measure as aCNRRR00 in money-supply dataset.",
+      "how_to_use": "Cross-check against aCNRRR00. Small-bank RRR is set 50-100bps below big-bank RRR for SME-targeted easing.",
+      "related_series": [
+        "aCNRRR00",
+        "aCNCRR"
+      ],
+      "notes": ""
+    }
+  ]
+}

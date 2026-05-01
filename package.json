@@ -1,0 +1,14 @@
+{
+  "name": "refinitiv-macro-terminal",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Bloomberg-style static terminal for Refinitiv macro data (US, Indonesia, China) plus US Reuters Polls",
+  "scripts": {
+    "serve": "node scripts/serve.js 4173",
+    "ingest:us": "python scripts/extract_observations.py --country us && python scripts/extract_rics.py --country us",
+    "ingest:id": "python scripts/extract_observations.py --country id && python scripts/extract_rics.py --country id",
+    "ingest:cn": "python scripts/extract_observations.py --country cn && python scripts/extract_rics.py --country cn",
+    "ingest:polls": "python scripts/extract_polls.py && python scripts/_split_polls_categories.py",
+    "graph": "python scripts/build_graph.py --country us && python scripts/build_graph.py --country id && python scripts/build_graph.py --country cn"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "category": "Foreign Transactions",
+  "category_slug": "us_foreign_transactions",
+  "section": "National Accounts",
+  "source_file": "US_Foreign Transactions.xlsx",
+  "ric_count": 8,
+  "rics": [
+    {
+      "ric": "aUSNSH47W",
+      "description": "Balance on current account, NIPAs",
+      "frequency": "P1Y",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Balance on current account in NIPA terms — net of trade in goods, services, primary income (investment income), and secondary income (transfers).",
+      "how_to_use": "Differs slightly from BEA's headline current account due to NIPA accounting conventions. Persistent current-account deficits funded by capital inflows; reversal of inflows is a tail risk.",
+      "related_series": [
+        "aUSNS7V3L",
+        "aUSN4RIKM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN4RIKM",
+      "description": "Current receipts from rest of world",
+      "frequency": "P1Y",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Total current receipts from rest of world — exports of goods/services + income receipts + transfers from abroad.",
+      "how_to_use": "Pair with current payments to compute the current-account balance. Strong dollar typically compresses receipts in USD terms (J-curve dynamics).",
+      "related_series": [
+        "aUSNSH47W",
+        "aUSN7DXQY",
+        "aUSNYV66Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN7DXQY",
+      "description": "Exports of goods, durable",
+      "frequency": "P1Y",
+      "subcategory": "Goods Trade",
+      "units": "USD billions",
+      "meaning": "Exports of durable goods (capital equipment, autos, industrial supplies, consumer durables).",
+      "how_to_use": "More cyclical than nondurables — leads the global capex cycle. Pair against ISM new export orders and global PMI for forward signal.",
+      "related_series": [
+        "aUSNYV66Y",
+        "aUSNZJZTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNYV66Y",
+      "description": "Exports of goods, nondurable",
+      "frequency": "P1Y",
+      "subcategory": "Goods Trade",
+      "units": "USD billions",
+      "meaning": "Exports of nondurable goods (food, energy, chemicals, agricultural products).",
+      "how_to_use": "Less cyclical, more commodity-sensitive. Energy exports (US is a net exporter post-shale) drive much of the recent trend; strip them out for non-energy reads.",
+      "related_series": [
+        "aUSN7DXQY",
+        "aUSN4VL9L"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPCC/CA",
+      "description": "GDP, Per capita",
+      "frequency": "P3M",
+      "subcategory": "GDP Per Capita",
+      "units": "USD",
+      "meaning": "GDP per capita — total nominal GDP divided by population. Quarterly.",
+      "how_to_use": "Long-run living-standards gauge. Use real (inflation-adjusted) per capita for cross-country comparison. The level matters less than the YoY growth rate.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSGDPEQZ/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNZJZTM",
+      "description": "Imports, goods, durable",
+      "frequency": "P1Y",
+      "subcategory": "Goods Trade",
+      "units": "USD billions",
+      "meaning": "Imports of durable goods. Larger than exports — the durables trade deficit is structural.",
+      "how_to_use": "Cycles with US capex and consumer durables demand. Watch share from China (with tariff overlay) for trade-policy effects.",
+      "related_series": [
+        "aUSN7DXQY",
+        "aUSN4VL9L"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN4VL9L",
+      "description": "Imports, goods, nondurable",
+      "frequency": "P1Y",
+      "subcategory": "Goods Trade",
+      "units": "USD billions",
+      "meaning": "Imports of nondurable goods (food, beverages, energy, consumer staples).",
+      "how_to_use": "Steadier than durables imports. Energy imports collapsed post-shale; what remains is mostly consumer staples.",
+      "related_series": [
+        "aUSNYV66Y",
+        "aUSNZJZTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNS7V3L",
+      "description": "Net lending or borrowing, NIPAs",
+      "frequency": "P1Y",
+      "subcategory": "Net External Position",
+      "units": "USD billions",
+      "meaning": "Net lending or borrowing position vs rest of world (NIPA basis). Mirror of current-account balance with a few NIPA adjustments.",
+      "how_to_use": "Positive = US is net lender (saving > investment), negative = net borrower. Persistent negatives need capital inflow to fund.",
+      "related_series": [
+        "aUSNSH47W",
+        "aUSN4RIKM"
+      ],
+      "notes": ""
+    }
+  ]
+}

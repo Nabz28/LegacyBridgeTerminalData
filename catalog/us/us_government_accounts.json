@@ -1,0 +1,407 @@
+{
+  "category": "Government Accounts",
+  "category_slug": "us_government_accounts",
+  "section": "Government Sector",
+  "source_file": "US_Government Accounts.xlsx",
+  "ric_count": 29,
+  "rics": [
+    {
+      "ric": "aUSGDEFAA",
+      "description": "Federal Budget",
+      "frequency": "P1M",
+      "subcategory": "Federal Deficit",
+      "units": "USD billions",
+      "meaning": "Federal budget deficit (or surplus) — outlays minus receipts on a unified-budget basis. Released monthly by Treasury's Monthly Treasury Statement, fiscal year basis (Oct-Sep).",
+      "how_to_use": "The headline fiscal print. Cyclical: widens in recessions (auto stabilizers), narrows in expansions. Recent run rate ~$1.5-2T deficit annually post-COVID, structurally elevated relative to pre-2020. Watch primary deficit (excl interest) for underlying fiscal stance.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSFOUTL",
+        "aUSGDEF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDEF",
+      "description": "Federal Government total surplus or deficit",
+      "frequency": "P1M",
+      "subcategory": "Federal Deficit",
+      "units": "USD billions",
+      "meaning": "Federal government total surplus or deficit — annual/fiscal-year aggregate, complementary to the monthly aUSGDEFAA series. Same conceptual measure at lower frequency.",
+      "how_to_use": "Use the monthly series (aUSGDEFAA) for high-frequency tracking; use this annual aggregate for historical comparison. Compare to GDP for the deficit-to-GDP ratio, the standard sustainability metric (~5-7% in recent years).",
+      "related_series": [
+        "aUSGDEFAA",
+        "aUSFEDREC",
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBJUSA",
+      "description": "Federal outlays, administration of justice",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: administration of justice — DOJ, FBI, federal courts, immigration enforcement, prisons. ~$70B annually.",
+      "how_to_use": "Discretionary spending. Watch for immigration-enforcement appropriations (DHS budget surge under Trump 2017+ and 2025+). Smaller share of total but politically watched.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBAGA",
+      "description": "Federal outlays, agriculture",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — agriculture (farm subsidies, USDA).",
+      "how_to_use": "Highly variable: farm bill cycle and price-support programs swing the line item.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBCHCA",
+      "description": "Federal outlays, commerce and housing credit",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — commerce and housing credit.",
+      "how_to_use": "Includes Fannie/Freddie support, SBA. Surged in COVID (PPP loans).",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBDEVA",
+      "description": "Federal outlays, community and regional development",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: community and regional development — HUD community-development block grants, EDA programs, rural development. ~$40B annually.",
+      "how_to_use": "Small discretionary category. Includes urban-renewal grants and rural infrastructure funding. Watch for major program changes (CDBG zeroed in some Trump budgets, restored in others).",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBETSA",
+      "description": "Federal outlays, education, training, empl & social serv",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — education, training, employment & social services.",
+      "how_to_use": "Department of Education + DOL. Student-loan-related outlays move this materially.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBEGYA",
+      "description": "Federal outlays, energy",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — energy (DOE).",
+      "how_to_use": "~1% of outlays. Includes nuclear weapons stewardship via NNSA.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBGENA",
+      "description": "Federal outlays, general government",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: general government — Treasury, GSA, OPM, central agencies. The 'overhead' of running the federal government.",
+      "how_to_use": "Stable around $30-40B. Useful for tracking federal-workforce size; rises when Congress funds federal pay raises.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBSCIA",
+      "description": "Federal outlays, general science, space and technology",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: general science, space and technology — NASA, NSF, basic research. ~$45B annually.",
+      "how_to_use": "Includes NASA (~$25B). NSF and DOE basic research split the rest. Track for science-policy debates and Mars-mission/Artemis funding.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBHLTA",
+      "description": "Federal outlays, health",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: health (excluding Medicare) — Medicaid, NIH, CDC, CHIP, public health. ~$700B annually combined.",
+      "how_to_use": "Medicaid is the dominant component (~$600B federal share, with state matches adding more). Growth driven by ACA expansion, demographic aging, and per-enrollee medical-cost inflation. ACA Medicaid expansion in 41 states drove sustained growth post-2014.",
+      "related_series": [
+        "aUSXGBMEDA",
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBINCA",
+      "description": "Federal outlays, income security",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — income security (unemployment, SNAP, housing assistance).",
+      "how_to_use": "Counter-cyclical: spikes in recessions. The COVID UI surge dominated 2020-21.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBINTA",
+      "description": "Federal outlays, interest",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: net interest — interest paid on federal debt minus interest received. Fastest-growing major category as debt level meets higher rates.",
+      "how_to_use": "Has crossed $1T annually post-2024, exceeding defense outlays. Trajectory determined by both debt growth (deficits) and average rate on debt (refinancing higher-coupon debt). Major fiscal sustainability concern; CBO projects net interest reaching 4% of GDP by 2034.",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSGBND10"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBDIPA",
+      "description": "Federal outlays, international affairs",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: international affairs — State Department, USAID, foreign aid, embassies. ~$70B annually.",
+      "how_to_use": "~1% of federal budget. Includes military aid (Israel, Ukraine, Egypt, Jordan), economic aid, multilateral commitments. Variable: surges during major foreign aid (Ukraine 2022-25) or pandemic response.",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSXGBDEFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBMEDA",
+      "description": "Federal outlays, medicare",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: Medicare — health insurance for 65+ population (~65M beneficiaries). Second-largest federal outlay, ~$1T and growing fastest among major categories due to aging + medical-cost inflation.",
+      "how_to_use": "Hospital Insurance (Part A) trust fund projected insolvent ~2031. Total Medicare growth ~6%/year vs ~4% economic growth — structural fiscal stress. Watch alongside Medicaid (state-level partner program) for total federal health-care fiscal exposure.",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSXGBSOCA",
+        "aUSXGBHLTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBDEFA",
+      "description": "Federal outlays, national defense",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: national defense — DOD plus military assistance, atomic energy defense activities. ~$850B annually, ~13% of total federal outlays.",
+      "how_to_use": "Has fallen from ~5% of GDP in 2010 to ~3% in 2024 as percent of GDP, even as nominal level rose. Discretionary spending (subject to annual appropriations) — the largest target for budget negotiations. Geopolitical events (Ukraine, Middle East) have driven supplemental requests.",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSXGBINTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBNATA",
+      "description": "Federal outlays, natural resources and environment",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: natural resources and environment — EPA, Interior, USFS, USGS. ~$45B annually.",
+      "how_to_use": "Includes federal lands management (BLM, USFS), national parks, EPA enforcement. Watch for environmental-policy shifts; major budget changes often tied to administration changes.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBSOCA",
+      "description": "Federal outlays, social security",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal outlays: Social Security — retirement and survivor benefits to ~67M beneficiaries. Largest single federal outlay category, ~$1.4T annually and growing with demographics.",
+      "how_to_use": "Mandatory spending — paid by formula not appropriations. Trust Fund projected to be insolvent by ~2034 absent legislation; would trigger automatic ~20% benefit cut. Track demographic profile (boomer retirement wave continues through 2034).",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSXGBMEDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFOUTL",
+      "description": "Federal outlays, total",
+      "frequency": "P1M",
+      "subcategory": "Federal Outlays",
+      "units": "USD billions",
+      "meaning": "Federal government outlays (total) — Social Security, Medicare/Medicaid, defense, interest on debt, all other discretionary + mandatory programs. Released monthly by Treasury.",
+      "how_to_use": "Mandatory + interest now ~75% of outlays — limited room for discretionary cuts. Net interest outlays passing $1T annually, growing fastest. Track interest-as-share-of-revenues for fiscal-sustainability stress signal (now ~20%, doubled vs 2010s).",
+      "related_series": [
+        "aUSGDEFAA",
+        "aUSFEDREC",
+        "aUSXGBINTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBTRNA",
+      "description": "Federal outlays, transportation",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — transportation (DOT, FAA, highway trust fund).",
+      "how_to_use": "Infrastructure spending tracked here. IIJA boost showing through.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXGBOFFA",
+      "description": "Federal outlays, undistributed offsetting receipts",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Undistributed offsetting receipts — negative line (mineral leases, employer share of pension contributions).",
+      "how_to_use": "Treated as negative outlay in budget accounting. Don't include in 'spending share' analysis.",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFEDREC",
+      "description": "Federal receipts, total",
+      "frequency": "P1M",
+      "subcategory": "Federal Receipts",
+      "units": "USD billions",
+      "meaning": "Federal government receipts (revenues) — individual income taxes, corporate income taxes, payroll taxes, customs duties, excise taxes. Released monthly by Treasury.",
+      "how_to_use": "Individual income tax is ~50%, payroll tax ~35%, corporate ~10%. Cyclical: rises with GDP and labor income. April spike from individual tax filings; December peak from corporate quarterly estimated payments. Tariff-policy changes show up in customs duties (small share).",
+      "related_series": [
+        "aUSGDEFAA",
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOGBDOVA",
+      "description": "GOVERNMENT BUDGET OUTLAYS FOR VETERANS BENEFITS",
+      "frequency": "P1M",
+      "subcategory": "Outlays by Function",
+      "units": "USD millions",
+      "meaning": "Federal outlays — veterans benefits.",
+      "how_to_use": "Growing line as post-9/11 cohort ages and benefits expand (PACT Act).",
+      "related_series": [
+        "aUSFOUTL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCGOVA",
+      "description": "Central government Deficit/Surplus, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Central Government",
+      "units": "USD billions",
+      "meaning": "Central government deficit/surplus, standardized — OECD-comparable framing of US federal budget balance. Includes only central-government level (excludes state and local).",
+      "how_to_use": "Use for cross-country fiscal-position comparisons. US-domestic analysts use unified-budget aUSGDEFAA. The central-government framing aligns with IMF Article IV and OECD reporting.",
+      "related_series": [
+        "aUSGDEFAA",
+        "aUSCGOVPA",
+        "aUSCGOVYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCGOVPA",
+      "description": "Central government Deficit/Surplus, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Central Govt Balance",
+      "units": "USD millions",
+      "meaning": "Central government balance MoM absolute change.",
+      "how_to_use": "Use YoY for trend.",
+      "related_series": [
+        "aUSCGOVA",
+        "aUSCGOVYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCGOVYA",
+      "description": "Central government Deficit/Surplus, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Central Govt Balance",
+      "units": "USD millions",
+      "meaning": "Central government balance YoY absolute change.",
+      "how_to_use": "Cleaner trend; strips monthly tax-timing noise.",
+      "related_series": [
+        "aUSCGOVA",
+        "aUSCGOVPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFYONET",
+      "description": "Federal net outlays",
+      "frequency": "P1Y",
+      "subcategory": "Federal Net Outlays",
+      "units": "USD billions",
+      "meaning": "Federal net outlays — outlays minus offsetting receipts (user fees, royalties on federal lands, mineral leases). The 'net spending' figure used in budget arithmetic.",
+      "how_to_use": "Smaller than gross outlays by ~$200B (offsetting receipts). Use for budget-arithmetic consistency; gross outlays (aUSFOUTL) is the more commonly cited measure.",
+      "related_series": [
+        "aUSFOUTL",
+        "aUSGDEFAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFYFRCT",
+      "description": "Federal receipts",
+      "frequency": "P1Y",
+      "subcategory": "Federal Receipts",
+      "units": "USD billions",
+      "meaning": "Federal receipts (alternative framing) — companion to aUSFEDREC at potentially different release vintage.",
+      "how_to_use": "Cross-check series. Use whichever is fresher. The OMB and Treasury release the same data with slight timing differences.",
+      "related_series": [
+        "aUSFEDREC",
+        "aUSGDEFAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGBPGDP",
+      "description": "Federal surplus/deficit as percent of GDP",
+      "frequency": "P1Y",
+      "subcategory": "Federal Budget",
+      "units": "% of GDP",
+      "meaning": "Federal surplus/deficit as % of GDP — the standard fiscal-stance gauge.",
+      "how_to_use": ">5% deficit during expansion is highly unusual and signals limited fiscal room for the next recession. Compare to historical norm (~2-3% during expansions). Fiscal projections (CBO baseline) suggest persistence above 5%.",
+      "related_series": [
+        "aUSGDEF",
+        "aUSFEDETOS"
+      ],
+      "notes": ""
+    }
+  ]
+}

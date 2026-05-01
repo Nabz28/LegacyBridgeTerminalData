@@ -1,0 +1,37 @@
+{
+  "category": "Foreign Transactions",
+  "category_slug": "id_foreign_transactions",
+  "section": "National Accounts",
+  "source_file": "Indonesia_Foreign Transactions.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDEAEXP",
+      "description": "Exps, Gds & Svs",
+      "frequency": "P3M",
+      "subcategory": "Exports",
+      "units": "USD billions",
+      "meaning": "Exports of Goods and Services — alternative framing of export aggregate. Released alongside foreign-transaction statistics.",
+      "how_to_use": "Cross-check against aIDCEXBA (BoP) and aIDCEXPB/A (BPS monthly trade). Methodology differences are minor.",
+      "related_series": [
+        "aIDCEXPB/A",
+        "aIDCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEAIMP",
+      "description": "Imp, Gds & Svs",
+      "frequency": "P3M",
+      "subcategory": "Imports",
+      "units": "USD billions",
+      "meaning": "Imports of Goods and Services — alternative framing of import aggregate.",
+      "how_to_use": "Cross-check against aIDCIMBA (BoP) and aIDCIMPB/A (BPS monthly trade).",
+      "related_series": [
+        "aIDCIMPB/A",
+        "aIDCIMBA"
+      ],
+      "notes": ""
+    }
+  ]
+}

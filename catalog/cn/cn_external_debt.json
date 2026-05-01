@@ -1,0 +1,286 @@
+{
+  "category": "External Debt",
+  "category_slug": "cn_external_debt",
+  "section": "External Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T17_47 (external debt).xlsx",
+  "ric_count": 19,
+  "rics": [
+    {
+      "ric": "aCNCNBPLBM",
+      "description": "China bond debt yield, 1-day",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: China bond debt yield, 1-day. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNUCCBM",
+        "aCNCNSHNMM",
+        "aCNCNJOLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNSHNMM",
+      "description": "Treasury bond yield, 1-year",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Treasury bond yield, 1-year. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNJHJGM",
+        "aCNCNUCCBM",
+        "aCNCNJOLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJHJGM",
+      "description": "Treasury bond yield, 10-year",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Treasury bond yield, 10-year. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNSHNMM",
+        "aCNCNUCCBM",
+        "aCNCNJOLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNDEBTF",
+      "description": "External Debt",
+      "frequency": "P1Y",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt — alternative release of total external debt level.",
+      "how_to_use": "Cross-check against aCNCEXTA. SAFE quarterly publication is the authoritative source for China external-debt statistics.",
+      "related_series": [
+        "aCNCEXTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCJXM1",
+      "description": "Interbank bond buyout repo transaction volume, Financial company debt",
+      "frequency": "P3M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond buyout repo transaction volume, Financial company debt. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNURSHM",
+        "aCNCNJZMGM",
+        "aCNCNDZPQM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNURSHM",
+      "description": "Interbank bond buyout repo transaction volume, Subordinated debt",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond buyout repo transaction volume, Subordinated debt. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNCJXM1",
+        "aCNCNJZMGM",
+        "aCNCNDLBXM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJZMGM",
+      "description": "Interbank bond buyout repo weighted average interest rate, Foreign financial institutions",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond buyout repo weighted average interest rate, Foreign financial institutions. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNDLBXM",
+        "aCNCNDZPQM",
+        "aCNCNCJXM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDLBXM",
+      "description": "Interbank bond forward transaction weighted average interest rate, Joint-stock commercial bank",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond forward transaction weighted average interest rate, Joint-stock commercial bank. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNJZMGM",
+        "aCNCNURSHM",
+        "aCNCNCJXM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDZPQM",
+      "description": "Interbank bond pledged repo balance, Foreign financial institutions",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond pledged repo balance, Foreign financial institutions. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNJZMGM",
+        "aCNCNCKBBM",
+        "aCNCNCJXM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCKBBM",
+      "description": "Interbank bond yield to maturity, Foreign local government RMB bonds",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond yield to maturity, Foreign local government RMB bonds. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNUCCBM",
+        "aCNCNJOLM",
+        "aCNCNJZMGM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUCCBM",
+      "description": "Interbank bond yield to maturity, Interbank deposit receipt",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond yield to maturity, Interbank deposit receipt. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNJOLM",
+        "aCNCNCKBBM",
+        "aCNCNURSHM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJOLM",
+      "description": "Interbank bond yield to maturity, Mixed capital debt",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Interbank bond yield to maturity, Mixed capital debt. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCNUCCBM",
+        "aCNCNCKBBM",
+        "aCNCNURSHM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGVXPA",
+      "description": "Government External Debt, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Government External Debt, % quarter on quarter, Standardized, Chg P/P. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCGVXYA",
+        "aCNCGVXA",
+        "aCNCEXTPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGVXYA",
+      "description": "Government External Debt, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Government External Debt, % year on year, Standardized, Chg Y/Y. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCGVXPA",
+        "aCNCGVXA",
+        "aCNCEXTYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGVXA",
+      "description": "Government External Debt, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Government External Debt — central + local-government foreign-currency debt + non-resident-held CGBs (Chinese Government Bonds). Largest component is foreign holdings of onshore RMB CGBs.",
+      "how_to_use": "Foreign CGB holdings indicator. Bond Connect and CIBM Direct allow foreign investors to hold onshore CGBs; foreign holdings ~5% of total CGBs outstanding. Sharp inflows/outflows correlate with USD-CNY moves.",
+      "related_series": [
+        "aCNCEXTA",
+        "aCNCGVXYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXTPA",
+      "description": "Total External Debt, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Total External Debt, % quarter on quarter, Standardized, Chg P/P. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [
+        "aCNCGVXPA",
+        "aCNCGVXYA",
+        "aCNCGVXA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXTYA",
+      "description": "Total External Debt, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "Percent, YoY",
+      "meaning": "Total External Debt, YoY change — pace of external-debt accumulation.",
+      "how_to_use": "Track for external-vulnerability buildup. China's external debt growth slowed sharply post-2022 with USD strength + capital-control tightening. Watch alongside FDI for net foreign claims direction.",
+      "related_series": [
+        "aCNCEXTA",
+        "aCNCEXTPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXTA",
+      "description": "Total External Debt, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Total External Debt — debt owed to non-residents (FX + RMB-denominated debt held by foreigners). ~$2.5 trillion (2024). Published quarterly by SAFE.",
+      "how_to_use": "China external debt is moderate at ~14% of GDP (vs 30% for India, 50%+ for many EM peers). Composition: ~60% short-term (mostly trade credits + interbank), ~40% long-term (sovereign + corporate bonds). Foreign holdings of CGBs are ~$200 billion.",
+      "related_series": [
+        "aCNCEXTYA",
+        "aCNCGVXA",
+        "aCNDEBTF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNXLLTM",
+      "description": "Corporate credit bond issuance, Current Period",
+      "frequency": "P1M",
+      "subcategory": "Bond Market",
+      "units": "CNY billions / Number",
+      "meaning": "China Bond Market: Corporate credit bond issuance, Current Period. ChinaBond and Shanghai Clearing House bond-market activity statistics.",
+      "how_to_use": "China's bond market includes CGBs, policy-bank bonds, financial bonds, corporate credit bonds, MTNs, ABS, panda bonds (foreign issuers in CNY). Foreign access via Bond Connect and CIBM Direct.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

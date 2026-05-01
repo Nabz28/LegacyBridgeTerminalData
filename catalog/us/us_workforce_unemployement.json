@@ -1,0 +1,1129 @@
+{
+  "category": "Workforce & Unemployment",
+  "category_slug": "us_workforce_unemployement",
+  "section": "Labor Market",
+  "source_file": "US_Workforce & Unemployement.xlsx",
+  "ric_count": 74,
+  "rics": [
+    {
+      "ric": "aUSLFC/A",
+      "description": "Activity, Labour Force, Civilian labor force, total, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Activity, Labour Force, Civilian labor force, total, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUNRAR",
+        "aUSUEMP/A",
+        "aUSUEMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLFNOTO/A",
+      "description": "Activity, Labour Force, Not in Labor Force",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Activity, Labour Force, Not in Labor Force.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSLFC/A",
+        "aUSWANTJP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNTOTR",
+      "description": "CIVILIAN UNEMPLOYMENT RATE",
+      "frequency": "P1M",
+      "subcategory": "Unemployment Rate",
+      "units": "%",
+      "meaning": "Civilian Unemployment Rate (U-3) — share of the civilian labor force without a job and actively searching. From the BLS HOUSEHOLD survey, released alongside NFP.",
+      "how_to_use": "Pair with NFP — different surveys (establishment vs household) so divergence is informative. Watch labor force participation alongside: a falling UR driven by people leaving the workforce is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSLABFRE/A",
+        "aUSEMPR/A",
+        "aUSRSAHMN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMF9MBO/A",
+      "description": "Employed 3mma, total nonfarm",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed 3mma, total nonfarm.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEM1TQ4O/A",
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWIMDO/A",
+      "description": "Employed production workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed production workers, durable goods.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNO/A",
+        "aUSEWIMNP",
+        "aUSEWIMDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWIMNO/A",
+      "description": "Employed production workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed production workers, nondurable goods.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNP",
+        "aUSEWIMDO/A",
+        "aUSEWIMDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFPO/A",
+      "description": "Employed, US postal service",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, US postal service.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXP",
+        "aUSEMGFXO/A",
+        "aUSEMGFPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFPP",
+      "description": "Employed, US postal service",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, US postal service.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXP",
+        "aUSEMGFXO/A",
+        "aUSEMGFPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFDP",
+      "description": "Employed, department of defense",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, department of defense.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUNRAR",
+        "aUSUEMP/A",
+        "aUSUEMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFP",
+      "description": "Employed, federal",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, federal.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXP",
+        "aUSEMGFXO/A",
+        "aUSEMGFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFO/A",
+      "description": "Employed, federal",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, federal.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXP",
+        "aUSEMGFXO/A",
+        "aUSEMGFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFXP",
+      "description": "Employed, federal, except US postal service",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, federal, except US postal service.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXO/A",
+        "aUSEMGFPP",
+        "aUSEMGFPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGFXO/A",
+      "description": "Employed, federal, except US postal service",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, federal, except US postal service.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGFXO/A",
+        "aUSEMGFPP",
+        "aUSEMGFPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM1X8WO/A",
+      "description": "Employed, goods, producing",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, goods, producing.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A",
+        "aUSEWIMNP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMWQF0O/A",
+      "description": "Employed, manufacturing",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, manufacturing.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSMFPAO",
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM3366P",
+      "description": "Employed, ship & boat building",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, ship & boat building.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGMY3O/A",
+        "aUSEM8CXVO/A",
+        "aUSEWIMNO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM8CXVO/A",
+      "description": "Employed, ship & boat building",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, ship & boat building.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMGMY3O/A",
+        "aUSEM8CXVO/A",
+        "aUSEWIMNO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMGMY3O/A",
+      "description": "Employed, ship building & repairing",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, ship building & repairing.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEM8CXVO/A",
+        "aUSEM3366P",
+        "aUSEWIMNO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM1TQ4O/A",
+      "description": "Employed, total nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, total nonfarm.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMF9MBO/A",
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM25JMO/A",
+      "description": "Employed, total private",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Employed, total private.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A",
+        "aUSEMWQF0O/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLABFRE/A",
+      "description": "Employment, Rate, Civilian participation, total",
+      "frequency": "P1M",
+      "subcategory": "Participation",
+      "units": "%",
+      "meaning": "Civilian Labor Force Participation Rate — share of the working-age population either employed or actively looking. Master labor-supply gauge.",
+      "how_to_use": "Structural decline post-2008 from ~66% to ~62% (boomer retirements + slow recovery). Prime-age (25-54) participation is the cleaner cyclical signal. Sub-62% headline means UR may understate slack.",
+      "related_series": [
+        "aUSEMPR/A",
+        "aUSUNTOTR",
+        "aUSNFARM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLBFBAQ",
+      "description": "Labor Force Partic",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Labor Force Partic.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJP",
+        "aUSUNRAR",
+        "aUSUEMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMFPAO",
+      "description": "Manufacturing payrolls - Actual, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Period-over-period absolute change in: Manufacturing payrolls , Absolute change.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMWQF0O/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWIMDP",
+      "description": "Producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Producion workers, durable goods.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNP",
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWIMNP",
+      "description": "Production workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Production workers, nondurable goods.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWIMNO/A",
+        "aUSEWIMDO/A",
+        "aUSEWIMDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLFNOTP",
+      "description": "Unemployment, By Reason, Not in Labor Force",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, By Reason, Not in Labor Force.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJP",
+        "aUSLFNDSJP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWANTJP",
+      "description": "Unemployment, By Reason, Not in Labor Force, But Want a Job",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, By Reason, Not in Labor Force, But Want a Job.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSLFNOTP",
+        "aUSLFNDSJP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLFNDSJP",
+      "description": "Unemployment, By Reason, Not in Labor Force, Searched for work and available - discouragement",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, By Reason, Not in Labor Force, Searched for work and available - discouragement.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJP",
+        "aUSLFNOTP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNR/A",
+      "description": "Unemployment, Rate",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%",
+      "meaning": "Unemployment, Rate.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJP",
+        "aUSURPO/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSURPO/A",
+      "description": "Unemployment, Rate, Part-time workers",
+      "frequency": "P1M",
+      "subcategory": "Part/Full-time",
+      "units": "%",
+      "meaning": "Unemployment, Rate, Part-time workers.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSUNRJOBLI/A",
+        "aUSUNR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNDPT/A",
+      "description": "Unemployment, Rate, Special (U-6)",
+      "frequency": "P1M",
+      "subcategory": "U6 Variants",
+      "units": "%",
+      "meaning": "Unemployment, Rate, Special (U-6).",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSURPO/A",
+        "aUSUNTOTR",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUDEPQA",
+      "description": "Unemployment, U6 Underemployment",
+      "frequency": "P1M",
+      "subcategory": "U6 Variants",
+      "units": "",
+      "meaning": "Unemployment, U6 Underemployment.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJP",
+        "aUSURPO/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUEMP/A",
+      "description": "Unemployment, Volume, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, Volume, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUEMP",
+        "aUSUNRAR",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUEMP",
+      "description": "Unemployment, Volume, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, Volume, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUEMP",
+        "aUSUNRAR",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNRAR",
+      "description": "Unemployment, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, Workforce & Unemployment, Monthly, Bureau of Labor Statistics, U.S. Department of Labor.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUEMP/A",
+        "aUSUEMP",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMFPO/A",
+      "description": "Employment, Labour Force Survey, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Employment, Labour Force Survey, % quarter on quarter, Standardized, Chg P/P.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMFYO/A",
+        "aUSCEMFO/A",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMFYO/A",
+      "description": "Employment, Labour Force Survey, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Employment, Labour Force Survey, % year on year, Standardized, Chg Y/Y.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMFPO/A",
+        "aUSCEMFO/A",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACPP",
+      "description": "Job Vacancies, % month on month, Standardized, Chg P/P, Bureau of Labor Statistics, U.S. Department of Labor/LSEG",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Job Vacancies, % month on month, Standardized, Chg P/P, Bureau of Labor Statistics, U.S. Department of Labor/LSEG.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACYP",
+        "aUSCVACP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACYP",
+      "description": "Job Vacancies, % year on year, Standardized, Chg Y/Y, Bureau of Labor Statistics, U.S. Department of Labor/LSEG",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Job Vacancies, % year on year, Standardized, Chg Y/Y, Bureau of Labor Statistics, U.S. Department of Labor/LSEG.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACPP",
+        "aUSCVACP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACP",
+      "description": "Job Vacancies, Standardized, Bureau of Labor Statistics, U.S. Department of Labor/LSEG",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "Index",
+      "meaning": "Job Vacancies, Standardized, Bureau of Labor Statistics, U.S. Department of Labor/LSEG — standardized for cross-country comparison.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACYP",
+        "aUSCVACPP",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPPO/A",
+      "description": "Unemployment Level, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Unemployment Level, % month on month, Standardized, Chg P/P.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPPP",
+        "aUSCUNPYP",
+        "aUSCUNPYO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPPP",
+      "description": "Unemployment Level, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Unemployment Level, % month on month, Standardized, Chg P/P.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPPP",
+        "aUSCUNPYP",
+        "aUSCUNPYO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPYP",
+      "description": "Unemployment Level, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Unemployment Level, % year on year, Standardized, Chg Y/Y.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPYO",
+        "aUSCUNPYQ/A",
+        "aUSCUNPPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPYO",
+      "description": "Unemployment Level, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Unemployment Level, % year on year, Standardized, Chg Y/Y.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPYO",
+        "aUSCUNPYQ/A",
+        "aUSCUNPPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPP",
+      "description": "Unemployment Level, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "Index",
+      "meaning": "Unemployment Level.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPYP",
+        "aUSCUNPYO",
+        "aUSCUNPPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPO",
+      "description": "Unemployment Level, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "Index",
+      "meaning": "Unemployment Level.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCUNPYP",
+        "aUSCUNPYO",
+        "aUSCUNPPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPQ/A",
+      "description": "Unemployment rate, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%",
+      "meaning": "Level of the US civilian unemployment rate.",
+      "how_to_use": "From the BLS household survey, released alongside NFP. Pair with participation rate: a falling unemployment rate driven by exits (not hires) is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSURPO/A",
+        "aUSUNRJOBLI/A",
+        "aUSUNR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPPQ/A",
+      "description": "Unemployment rate, month on month, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the US civilian unemployment rate.",
+      "how_to_use": "From the BLS household survey, released alongside NFP. Pair with participation rate: a falling unemployment rate driven by exits (not hires) is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSURPO/A",
+        "aUSUNRJOBLI/A",
+        "aUSUNRAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUNPYQ/A",
+      "description": "Unemployment rate, year on year, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in the US civilian unemployment rate.",
+      "how_to_use": "From the BLS household survey, released alongside NFP. Pair with participation rate: a falling unemployment rate driven by exits (not hires) is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSURPO/A",
+        "aUSUNRJOBLI/A",
+        "aUSUNR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMFO/A",
+      "description": "Employment, Labour Force Survey, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Labor Force",
+      "units": "Index",
+      "meaning": "Employment, Labour Force Survey.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMFYO/A",
+        "aUSCEMFPO/A",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCHALPA",
+      "description": "Industry n.i.e., Unemployment, Challenger Layoffs",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Industry n.i.e., Unemployment, Challenger Layoffs.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUEMPL",
+        "aUSWANTJP",
+        "aUSURPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUEMPL",
+      "description": "Labour Market n.i.e, Unemployment, Announced job layoffs - Tally (Challenger, Gray & Christmas)",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Unemployment, Announced job layoffs - Tally (Challenger, Gray & Christmas).",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCHALPA",
+        "aUSFDLMCIR",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFDLMCIR",
+      "description": "Labour Market n.i.e, Federal Reserve Labor Market Conditions",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "",
+      "meaning": "Federal Reserve Labor Market Conditions.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSUEMPL",
+        "aUSLFNOTO/A",
+        "aUSLFC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACPO/A",
+      "description": "Job Vacancies, % month on month, Standardized, Chg P/P, Main Economic Indicators, copyright OECD/Refinitiv",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Job Vacancies, % month on month, Standardized, Chg P/P, Main Economic Indicators, copyright OECD/Refinitiv.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACYO/A",
+        "aUSCVACO/A",
+        "aUSCVACPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACYO/A",
+      "description": "Job Vacancies, % year on year, Standardized, Chg Y/Y, Main Economic Indicators, copyright OECD/Refinitiv",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Job Vacancies, % year on year, Standardized, Chg Y/Y, Main Economic Indicators, copyright OECD/Refinitiv.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACPO/A",
+        "aUSCVACO/A",
+        "aUSCVACYP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCVACO/A",
+      "description": "Job Vacancies, Standardized, Main Economic Indicators, copyright OECD/Refinitiv",
+      "frequency": "P1M",
+      "subcategory": "Labor Force",
+      "units": "Index",
+      "meaning": "Job Vacancies, Standardized, Main Economic Indicators, copyright OECD/Refinitiv — standardized for cross-country comparison.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCVACYO/A",
+        "aUSCVACPO/A",
+        "aUSCVACYP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOCFNUND",
+      "description": "Unemployment rate with non-accelerating inflation rate",
+      "frequency": "P1Y",
+      "subcategory": "Labor Force",
+      "units": "%",
+      "meaning": "Level of the US civilian unemployment rate.",
+      "how_to_use": "From the BLS household survey, released alongside NFP. Pair with participation rate: a falling unemployment rate driven by exits (not hires) is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSWANTJP",
+        "aUSURPO/A",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLIDXAWIC/A",
+      "description": "Leading Index, Average weekly initial claims",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Index",
+      "meaning": "Index of US initial jobless claims.",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSJOBAVG/A",
+        "aUSUNCLP",
+        "aUSJOBCC4W/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACUAP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, Arkansas",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, Arkansas.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAYUOP",
+        "aUSAOUIP",
+        "aUSAIUCP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAIUCP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, California",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, California.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAYUOP",
+        "aUSAOUIP",
+        "aUSACUMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAOUIP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, Indiana",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, Indiana.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAYUOP",
+        "aUSAIUCP",
+        "aUSACUMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACUIP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, Iowa",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, Iowa.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAYUOP",
+        "aUSAOUIP",
+        "aUSAIUCP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACUMP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, Michigan",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, Michigan.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAYUOP",
+        "aUSAOUIP",
+        "aUSAIUCP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAYUOP",
+      "description": "Jobless Claims, By State, Advance insured unemployment, Oklahoma",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "",
+      "meaning": "Jobless Claims, By State, Advance insured unemployment, Oklahoma.",
+      "how_to_use": "Sub-component or variant within Workforce & Unemployment. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAOUIP",
+        "aUSAIUCP",
+        "aUSACUMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBAO",
+      "description": "Jobless Claims, Initial",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims.",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSUNCLP",
+        "aUSJOBC/A",
+        "aUSJOBAVG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBCC/A",
+      "description": "Jobless Claims, National, Continued",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Continuing Claims (insured unemployment), national. Workers who filed initially and remain unemployed receiving benefits, lagged one week vs initial claims.",
+      "how_to_use": "More structural than initial claims — captures DURATION of unemployment. Rising continuing claims while initial claims stable = harder to find new jobs (a worse signal than rising initial claims). Caps at 26 weeks in most states.",
+      "related_series": [
+        "aUSJOBC/A",
+        "aUSJOBCC4W/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBCC4W/A",
+      "description": "Jobless Claims, National, Continued, four week moving average",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Continuing Claims 4-week moving average — smoother trend.",
+      "how_to_use": "Use this for cycle reads; the weekly continuing-claims series has too much noise from holiday weeks and individual states. Crossing 1.9M is historically a recession signal.",
+      "related_series": [
+        "aUSJOBCC/A",
+        "aUSJOBC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBC/A",
+      "description": "Jobless Claims, National, Initial",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Initial Jobless Claims, national. Weekly Department of Labor release every Thursday — the highest-frequency US labor data.",
+      "how_to_use": "Watch the 4-week moving average for trend (weekly is too noisy). Sustained moves above ~250k signal labor-market deterioration; below 200k = very tight. First labor data to react to layoffs.",
+      "related_series": [
+        "aUSJOBCC/A",
+        "aUSJOBCC4W/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNCLP",
+      "description": "Jobless Claims, National, Initial",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims (national region).",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSUNCLP",
+        "aUSJOBAVG/A",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBAVG/A",
+      "description": "Jobless Claims, National, Initial, four week moving average",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims (national region).",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSJOBCC4W/A",
+        "aUSUNCLP",
+        "aUSJOBC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNPEP",
+      "description": "Jobless Claims, National, Pandemic Emergency Unemployment Compensation",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims (national region).",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSUNPUP",
+        "aUSUNIPP",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNPUP",
+      "description": "Jobless Claims, National, Pandemic Unemployment Assistance",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims (national region).",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSUNIPP",
+        "aUSUNPEP",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNIPP",
+      "description": "Jobless Claims, National, Pandemic Unemployment Assistance",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "Thousands",
+      "meaning": "Level of US initial jobless claims (national region).",
+      "how_to_use": "Highest-frequency US labor data — weekly Thursday release. Watch the 4-week moving average for trend. Sustained moves above ~250k signal labor-market deterioration.",
+      "related_series": [
+        "aUSLIDXAWIC/A",
+        "aUSUNIPP",
+        "aUSUNPEP",
+        "aUSUNRJOBLI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUNRJOBLI/A",
+      "description": "Jobless Claims, National, Unemployment rate, insured",
+      "frequency": "P1M",
+      "subcategory": "Jobless Claims",
+      "units": "%",
+      "meaning": "Level of the US civilian unemployment rate (national region).",
+      "how_to_use": "From the BLS household survey, released alongside NFP. Pair with participation rate: a falling unemployment rate driven by exits (not hires) is weak. Crossing the Sahm Rule threshold (3-mo avg up 0.5pp from trailing-12m low) historically signals recession.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSUNPUP",
+        "aUSUNPEP",
+        "aUSUNIPP"
+      ],
+      "notes": ""
+    }
+  ]
+}

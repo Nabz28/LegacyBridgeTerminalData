@@ -1,0 +1,95 @@
+{
+  "category": "Other Prices",
+  "category_slug": "us_other_prices",
+  "section": "Prices",
+  "source_file": "US_Other Prices.xlsx",
+  "ric_count": 6,
+  "rics": [
+    {
+      "ric": "aUSPCEAR",
+      "description": "PCE price index- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "PCE Headline",
+      "units": "%, MoM",
+      "meaning": "Headline PCE price index, month-over-month change. Released with BEA Personal Income & Outlays.",
+      "how_to_use": "Sister series to core PCE (aUSPCEMAR) — headline includes food and energy. The 6m annualized rate is what FOMC speakers reference. Spread to core tells you how much the headline number is being moved by energy/food.",
+      "related_series": [
+        "aUSPCEMAR",
+        "aUSPCEYAR",
+        "aUSCPI",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEBM10Y",
+      "description": "10Y Government bond yield as % per annum",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "%, p.a.",
+      "meaning": "10-year US government bond yield. The benchmark long-rate for global risk pricing.",
+      "how_to_use": "Single most-watched US bond price. Decompose into real yield (TIPS) + breakeven inflation. The 2s10s spread is the classic recession signal. Tracks Fed expectations + term premium.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSTRCN20"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEPDAPG",
+      "description": "Energy Prices, Diesel, average retail price per gallon, all areas",
+      "frequency": "P1M",
+      "subcategory": "Energy Retail Prices",
+      "units": "USD/gallon",
+      "meaning": "Average US retail diesel price, all areas. Weekly EIA series, monthly here.",
+      "how_to_use": "Truck/freight cost proxy. Diesel diverges from gasoline due to refinery yield mix and global maritime demand (low-sulfur regs). Spike in diesel relative to gasoline often precedes goods CPI moves.",
+      "related_series": [
+        "aUSEPGAPG",
+        "aUSGSPRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEPGAPG",
+      "description": "Energy Prices, Gasoline Regular, Average Retail Price per Gallon, All Areas",
+      "frequency": "P1M",
+      "subcategory": "Energy Retail Prices",
+      "units": "USD/gallon",
+      "meaning": "Average US retail regular gasoline price, all areas. Weekly EIA, monthly here.",
+      "how_to_use": "Most consumer-visible price — moves consumer confidence almost in real time. Heavy contributor to headline CPI (~3-4% weight). Use 4-week change for sentiment read.",
+      "related_series": [
+        "aUSGSPRA",
+        "aUSEPDAPG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGSPRA",
+      "description": "Energy Prices, Gasoline Regular, Average Retail Price, All Areas",
+      "frequency": "P1M",
+      "subcategory": "Energy Retail Prices",
+      "units": "USD/gallon",
+      "meaning": "Average retail price for regular gasoline, all US areas — alternate series matching aUSEPGAPG.",
+      "how_to_use": "Use whichever has cleaner data. The MoM change feeds directly into the energy component of headline CPI.",
+      "related_series": [
+        "aUSEPGAPG",
+        "aUSEPDAPG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEPHAPG",
+      "description": "Energy Prices, Heating oil, average price per gallon, residential consumers, methobrk oct19",
+      "frequency": "P1M",
+      "subcategory": "Energy Retail Prices",
+      "units": "USD/gallon",
+      "meaning": "Average residential heating oil retail price, all US areas. Highly seasonal — concentrated in Northeast.",
+      "how_to_use": "Winter heating-cost gauge. Less macro-relevant than gasoline (much smaller share of budgets) but politically sensitive in cold-weather years.",
+      "related_series": [
+        "aUSEPDAPG",
+        "aUSEPGAPG"
+      ],
+      "notes": ""
+    }
+  ]
+}

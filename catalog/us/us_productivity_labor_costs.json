@@ -1,0 +1,376 @@
+{
+  "category": "Productivity & Labor Costs",
+  "category_slug": "us_productivity_labor_costs",
+  "section": "Industry Sector",
+  "source_file": "US_Productivity & Labor Costs.xlsx",
+  "ric_count": 27,
+  "rics": [
+    {
+      "ric": "aUSHCNFARM/A",
+      "description": "Earnings, Hourly, Hourly compensation, nonfarm business",
+      "frequency": "P3M",
+      "subcategory": "Compensation",
+      "units": "Index",
+      "meaning": "Hourly compensation, nonfarm business sector. Includes wages + benefits.",
+      "how_to_use": "Pair with productivity to compute unit labor costs (= compensation / productivity). Rising hourly comp without productivity gains = inflationary.",
+      "related_series": [
+        "aUSEHRRHCNF/A",
+        "aUSULCNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEHRRHCNF/A",
+      "description": "Earnings, Hourly, Real hourly compensation, business, nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Compensation",
+      "units": "Index",
+      "meaning": "REAL hourly compensation, nonfarm business — inflation-adjusted.",
+      "how_to_use": "True purchasing-power gauge. Stagnant for decades; recent surge largely deflation rather than nominal growth.",
+      "related_series": [
+        "aUSHCNFARM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPBQA",
+      "description": "Labour Cost, Employment Benefits QQ - Acutal, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Labor Costs",
+      "units": "%, QoQ",
+      "meaning": "Employment benefits cost change QoQ.",
+      "how_to_use": "Benefits inflation (mostly health insurance, retirement) is stickier than wages.",
+      "related_series": [
+        "aUSEMPCIW/A",
+        "aUSEMPWAQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPWAQ",
+      "description": "Labour Cost, Employment Wages QQ, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Labor Costs",
+      "units": "%, QoQ",
+      "meaning": "Employment wages QoQ change.",
+      "how_to_use": "Cleaner wage signal than aggregate compensation. Pair with ECI total.",
+      "related_series": [
+        "aUSEMPCAR",
+        "aUSECWNS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCIW/A",
+      "description": "Labour Cost, Employment cost index, benefit costs",
+      "frequency": "P3M",
+      "subcategory": "ECI",
+      "units": "Index",
+      "meaning": "Employment Cost Index, benefit costs component.",
+      "how_to_use": "Health insurance + retirement contributions. Not as sticky as wage component but harder to reduce.",
+      "related_series": [
+        "aUSEMPCI/A",
+        "aUSEMPBQA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCI/A",
+      "description": "Labour Cost, Employment cost index, total compensation",
+      "frequency": "P3M",
+      "subcategory": "ECI",
+      "units": "Index",
+      "meaning": "Employment Cost Index, total compensation — wages + benefits.",
+      "how_to_use": "Fed's preferred wage gauge: includes benefits, controls for industry/occupation mix. Quarterly. >4% YoY is too high for 2% inflation target.",
+      "related_series": [
+        "aUSEMPCAR",
+        "aUSEMPCIW/A",
+        "aUSECWNS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCAR",
+      "description": "Labour Cost, Employment cost index, total compensation, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "ECI",
+      "units": "%, QoQ",
+      "meaning": "ECI total compensation QoQ change.",
+      "how_to_use": "Most market-relevant ECI series. Released on Fed black-out weeks; cleanest wage signal.",
+      "related_series": [
+        "aUSEMPCI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCIP/A",
+      "description": "Labour Cost, Employment cost index, total compensation, private ind, service-producing",
+      "frequency": "P3M",
+      "subcategory": "Labor Cost",
+      "units": "Index",
+      "meaning": "Employment Cost Index, total compensation (alternate framing) — companion series to aUSEMPCI/A. Quarterly BLS release.",
+      "how_to_use": "Cross-check against aUSEMPCI/A. ECI is the Fed's preferred wage-pressure gauge over AHE because it controls for compositional shifts. Released Tue of NFP week — Fed pays close attention.",
+      "related_series": [
+        "aUSEMPCI/A",
+        "aUSEMPCAR",
+        "aUSECWNS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSECWNS/A",
+      "description": "Labour Cost, Employment cost index, wages and salaries",
+      "frequency": "P3M",
+      "subcategory": "ECI",
+      "units": "Index",
+      "meaning": "ECI wages and salaries — strips out benefits.",
+      "how_to_use": "Pure wage gauge. AHE (in employment_hours) is monthly/noisier; ECI is quarterly/cleaner.",
+      "related_series": [
+        "aUSEMPCI/A",
+        "aUSEMPCIB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCIB/A",
+      "description": "Labour Cost, Employment cost index, wages and salaries, private industry",
+      "frequency": "P3M",
+      "subcategory": "ECI",
+      "units": "Index",
+      "meaning": "ECI wages and salaries, private industry.",
+      "how_to_use": "Strip out government wages (which lag and are policy-driven).",
+      "related_series": [
+        "aUSECWNS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLCPAPG",
+      "description": "Labour Cost, Total-prelim",
+      "frequency": "P3M",
+      "subcategory": "Labor Costs",
+      "units": "Index",
+      "meaning": "Total labor costs — preliminary release.",
+      "how_to_use": "Watch the revisions; preliminary often gets revised meaningfully.",
+      "related_series": [
+        "aUSULC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSULC/A",
+      "description": "Labour Cost, Unit, business",
+      "frequency": "P3M",
+      "subcategory": "Unit Labor Costs",
+      "units": "Index",
+      "meaning": "Unit Labor Costs, business sector. ULC = compensation / productivity.",
+      "how_to_use": "Most useful labor-cost-driven inflation signal. ULC growth > productivity growth = wage-push inflation. Watch the 4-quarter change.",
+      "related_series": [
+        "aUSLCOSTE/CA",
+        "aUSULCNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLCOSTE/CA",
+      "description": "Labour Cost, Unit, business, index",
+      "frequency": "P3M",
+      "subcategory": "Unit Labor Costs",
+      "units": "Index",
+      "meaning": "Unit labor costs, business sector (index form) — labor cost per unit of output. Productivity-adjusted wage measure.",
+      "how_to_use": "ULC = compensation per hour ÷ output per hour. Sustained ULC growth above ~2% inconsistent with 2% inflation absent productivity gains. The Fed's go-to wage-inflation gauge alongside ECI.",
+      "related_series": [
+        "aUSULCNF/A",
+        "aUSPRODPH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLCRAPG",
+      "description": "Labour Cost, Unit, business, nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Unit Labor Costs",
+      "units": "Percent change",
+      "meaning": "Unit labor cost growth, business nonfarm — pace of unit-labor-cost change. Productivity-adjusted wage-pressure indicator.",
+      "how_to_use": "Annualized growth rate. Above 4% sustained = wage-driven inflation pressure; below 2% = wage costs not inflationary. The Fed cites this in monetary-policy decisions.",
+      "related_series": [
+        "aUSULCNF/A",
+        "aUSLCOSTE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSULCNF/A",
+      "description": "Labour Cost, Unit, business, nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Unit Labor Costs",
+      "units": "Index",
+      "meaning": "Unit Labor Costs, nonfarm business.",
+      "how_to_use": "Cleanest ULC measure (nonfarm strips out volatile farm sector). The Fed inflation hawks watch this directly.",
+      "related_series": [
+        "aUSULC/A",
+        "aUSLCRAPG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSULCNBSE/CA",
+      "description": "Labour Cost, Unit, business, nonfarm, index",
+      "frequency": "P3M",
+      "subcategory": "Unit Labor Costs",
+      "units": "Index",
+      "meaning": "Unit labor costs, business nonfarm sector (index form) — same as aUSULCNF/A but in standardized index format for international comparison.",
+      "how_to_use": "Cleanest international-comparison ULC measure. Use for cross-country competitiveness analysis. Domestic analysts use aUSULCNF/A.",
+      "related_series": [
+        "aUSULCNF/A",
+        "aUSLCRAPG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRODNFRM/A",
+      "description": "Labour Productivity, Hours of all persons, business, nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Hours of all persons, nonfarm business — total hours worked.",
+      "how_to_use": "Denominator for productivity. Pair with output for productivity computation.",
+      "related_series": [
+        "aUSOUTNF/A",
+        "aUSPRODPH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPHOPBUS/A",
+      "description": "Labour Productivity, Output per hour of all persons, business, Productivity & Labor Costs, Quarterly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output per hour, business sector — productivity.",
+      "how_to_use": "Headline productivity gauge. Trend ~1.5%/yr; 2010s averaged below trend; AI may lift trend forward.",
+      "related_series": [
+        "aUSPRODPH/A",
+        "aUSPRODVTQ/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRODPH/A",
+      "description": "Labour Productivity, Output per hour of all persons, business, Volume Index, Productivity & Labor Costs, Quarterly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output per hour of all persons, business sector — broad productivity gauge. The headline productivity number cited in BLS releases.",
+      "how_to_use": "Trend ~1.5%/year; 2010s averaged sub-trend; 2024-25 showing recovery toward 2%. Most economically meaningful productivity measure. Trend matters more than quarterly: smooth with 4Q averages.",
+      "related_series": [
+        "aUSPRODVTQ/CA",
+        "aUSPHOPBUS/A",
+        "aUSOUTNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRODVTQ/CA",
+      "description": "Labour Productivity, Output per hour of all persons, business, index",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Percent, QoQ",
+      "meaning": "Output per hour of all persons, business sector, QoQ change — quarterly productivity-growth pace.",
+      "how_to_use": "Highly volatile quarterly. Smooth with 4Q averages for trend. The Fed cares about trend productivity for its implications for wage-inflation tolerance: high productivity allows higher wage growth without inflation.",
+      "related_series": [
+        "aUSPRODPH/A",
+        "aUSPHOPBUS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPHOPMFG/A",
+      "description": "Labour Productivity, Output per hour of all persons, manufacturing",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output per hour, manufacturing.",
+      "how_to_use": "Manufacturing productivity has historically grown faster than services. Slowed materially since 2010.",
+      "related_series": [
+        "aUSPRODPH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRORAPG",
+      "description": "Labour Productivity, Output per hour of all persons, nonfarm business",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output per hour, nonfarm business — preliminary.",
+      "how_to_use": "Watch the revisions.",
+      "related_series": [
+        "aUSOUTNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOUTNF/A",
+      "description": "Labour Productivity, Output per hour of all persons, nonfarm business",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output per hour, nonfarm business.",
+      "how_to_use": "Strips out volatile farm sector. Fed's preferred productivity gauge.",
+      "related_series": [
+        "aUSPRORAPG",
+        "aUSULCNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBUPRNF/A",
+      "description": "Labour Productivity, Output, business, nonfarm",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Output, nonfarm business — total output.",
+      "how_to_use": "Numerator for nonfarm productivity. Output growth ≈ productivity growth + hours growth.",
+      "related_series": [
+        "aUSOUTNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPROPAPG",
+      "description": "Labour Productivity, Total-prelim",
+      "frequency": "P3M",
+      "subcategory": "Productivity",
+      "units": "Index",
+      "meaning": "Total productivity — preliminary.",
+      "how_to_use": "Watch revisions.",
+      "related_series": [
+        "aUSPHOPBUS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFPRAR",
+      "description": "Foreign exchange reserves - BMO, Productivity & Labor Costs, Quarterly, Reuters",
+      "frequency": "",
+      "subcategory": "Misc",
+      "units": "",
+      "meaning": "Series mislabeled in source as 'foreign exchange reserves' — actually nonfarm productivity/labor costs related.",
+      "how_to_use": "Cross-section / drill-down series; verify source before using.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLCTSAR",
+      "description": "Foreign exchange reserves - BMO, Productivity & Labor Costs, Quarterly, Reuters",
+      "frequency": "",
+      "subcategory": "Misc",
+      "units": "",
+      "meaning": "Series mislabeled in source as 'foreign exchange reserves' — actually labor costs related.",
+      "how_to_use": "Cross-section / drill-down series; verify source before using.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

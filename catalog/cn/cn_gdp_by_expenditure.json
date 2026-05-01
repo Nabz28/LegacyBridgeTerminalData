@@ -1,0 +1,320 @@
+{
+  "category": "GDP by Expenditure",
+  "category_slug": "cn_gdp_by_expenditure",
+  "section": "National Accounts",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T17_06 (NATIONAL ACCOUNTS - GDP by EXPENDITURE).xlsx",
+  "ric_count": 22,
+  "rics": [
+    {
+      "ric": "aCNGDP",
+      "description": "GDP, Current Prices, GDP by Expenditure, Quarterly, LSEG/National Bureau of Statistics of China",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions, current prices",
+      "meaning": "GDP at Current Prices — nominal GDP level. China's nominal GDP ~CNY 130 trillion (~$18 trillion USD) in 2024 — second-largest economy globally after US.",
+      "how_to_use": "Use for nominal-GDP arithmetic (debt/GDP, deficit/GDP). Real-vs-nominal gap = GDP deflator — Chinese deflator turned negative 2023-24 (deflation), key macro story.",
+      "related_series": [
+        "aCNGDPC/C",
+        "aCNGDPV/C",
+        "aCNCGDPYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPAAR",
+      "description": "Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: Chg P/P. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGYDYAC",
+      "description": "Chg Y/Y, Constant Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: Chg Y/Y, Constant Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPAR",
+      "description": "Chg Y/Y, GDP by Expenditure, Quarterly, National Bureau of Statistics of China",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: Chg Y/Y, GDP by Expenditure, Quarterly, National Bureau of Statistics of China. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPGR/CA",
+      "description": "GDP, Growth rate, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP Growth Rate, QoQ (seasonally adjusted) — sequential growth at quarterly frequency.",
+      "how_to_use": "China only published QoQ-SA from 2011 onwards. Useful for identifying inflection points in real-time. Annualize by ×4 for international comparison.",
+      "related_series": [
+        "aCNCGDPPD/A",
+        "aCNGDPAAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPY/C",
+      "description": "GDP, Growth rate, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "GDP Growth Rate, YoY — alternative release of GDP year-over-year growth (Refinitiv/NBS). Same conceptual measure as aCNCGDPYD/A.",
+      "how_to_use": "Cross-check against the primary release. Use whichever has fresher data; methodology and timing differences across releases are typically minor and resolved on revision.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPGRYTD/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPGRYTD/C",
+      "description": "GDP, Growth rate, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY YTD",
+      "meaning": "GDP Growth Rate, Year-to-Date YoY — cumulative YTD growth, the official format China publishes for monthly data.",
+      "how_to_use": "China publishes most data in YTD-cumulative form (a non-Western convention). Convert to single-month/single-quarter by differencing consecutive YTD values. Used in NBS's Monthly Activity Indicators release.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPY/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDHD/CA",
+      "description": "GDP per capita, Constant prices, Standardized (based on annual data)",
+      "frequency": "P3M",
+      "subcategory": "GDP per capita",
+      "units": "Index, constant prices",
+      "meaning": "GDP per capita, constant prices — real income per person. China crossed the World Bank 'high income' threshold in PPP terms but remains in 'upper middle income' at market exchange rates.",
+      "how_to_use": "China per-capita GDP ~$13,000 (current USD, 2024) — at the threshold of the 'middle-income trap' debate. Sustained 4-5% per-capita real growth needed to reach high-income status by 2035 (CCP target).",
+      "related_series": [
+        "aCNCGDHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDHA",
+      "description": "GDP per capita, Current prices, Standardized (based on annual data)",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP per capita, Current prices, Standardized (based on annual data). Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPPD/A",
+      "description": "GDP, % quarter on quarter, Standardized, Chg P/P, Constant Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "Real GDP Growth, quarter-over-quarter change in constant prices, seasonally adjusted — sequential momentum gauge.",
+      "how_to_use": "Use for sequential momentum. China QoQ less commonly cited than YoY but useful for identifying turning points. Multiply QoQ by 4 for annualized rate (US-style). Recent QoQ ~1.0-1.5%.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPGR/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPPA",
+      "description": "GDP, % quarter on quarter, Standardized, Chg P/P, Current Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP, % quarter on quarter, Standardized, Chg P/P, Current Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPYD/A",
+      "description": "GDP, % year on year, Standardized, Chg Y/Y, Constant Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "Real GDP Growth, year-over-year change in constant prices — the headline China GDP print. Released quarterly by the National Bureau of Statistics (NBS) ~3 weeks after quarter-end (e.g., Q1 published ~April 18-20).",
+      "how_to_use": "THE most-watched China growth number. Annual official target typically 'around 5%'. China hit ~6%+ pre-2018, slowed to 5%-ish post-2020. Sustained sub-4% prints raise hard-landing concerns; >6% would be a re-acceleration story. Markets often question NBS data accuracy — cross-check with industrial production, trade, and the Li Keqiang index (electricity + rail freight + bank loans).",
+      "related_series": [
+        "aCNCGDPPD/A",
+        "aCNGDPY/C",
+        "aCNCPCED/CA",
+        "aCNCGFCD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPYA",
+      "description": "GDP, % year on year, Standardized, Chg Y/Y, Current Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "Nominal GDP, YoY change in current prices — captures real growth + GDP deflator inflation.",
+      "how_to_use": "Use for fiscal arithmetic. Recent nominal YoY 4-5% (vs real 5%+) reflects deflator-deflation. Persistent nominal-below-real growth = deflation regime — uniquely concerning for China since 2023.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPD/CA",
+      "description": "GDP, Standardized, Constant Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions, constant prices",
+      "meaning": "GDP at Constant Prices, quarterly (Standardized) — companion to aCNGDPC/C.",
+      "how_to_use": "Cross-check against aCNGDPC/C. Constant-price GDP captures real-output level.",
+      "related_series": [
+        "aCNGDPC/C",
+        "aCNCGDPYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGDPA",
+      "description": "GDP, Standardized, Current Prices, GDP by Expenditure, Quarterly, National Bureau of Statistics of China/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions, current prices",
+      "meaning": "GDP at Current Prices, quarterly (Standardized) — companion to aCNGDP.",
+      "how_to_use": "Cross-check against aCNGDP. Current-price (nominal) GDP is used in fiscal arithmetic.",
+      "related_series": [
+        "aCNGDP",
+        "aCNCGDPYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPV/C",
+      "description": "GDP, Constant Prices, GDP by Expenditure, Annual, Refinitiv/National Bureau of Statistics of China",
+      "frequency": "P1Y",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP, Constant Prices, GDP by Expenditure, Annual, Refinitiv/National Bureau of Statistics of China. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDPC/C",
+      "description": "GDP, Constant Prices, GDP by Expenditure, Quarterly, Refinitiv/National Bureau of Statistics of China",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions, constant prices",
+      "meaning": "GDP at Constant Prices, quarterly — real GDP level.",
+      "how_to_use": "Use for real-level comparisons. NBS publishes constant-price GDP using rolling base years (current 2020 base). YoY growth rate (aCNCGDPYD/A) is the meaningful signal.",
+      "related_series": [
+        "aCNGDP",
+        "aCNGDPV/C",
+        "aCNCGDPD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXND/CA",
+      "description": "Exports - Goods & Services, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "CNY billions, constant prices",
+      "meaning": "Exports of Goods and Services (constant prices) — volume measure of external demand. China is the world's largest goods exporter (~$3.5 trillion annually).",
+      "how_to_use": "Tracks global goods demand for Chinese manufactures. Sensitive to USD strength (negative for China exports) and US/EU growth. Major Chinese export categories: electronics, machinery, chemicals, autos (rapidly growing — EVs).",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNCEXPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIMND/CA",
+      "description": "Imports - Goods & Services, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "CNY billions, constant prices",
+      "meaning": "Imports of Goods and Services (constant prices) — volume measure of import demand.",
+      "how_to_use": "Pro-cyclical with industrial activity (raw materials, capital goods) and consumption. Falls during property-led slowdowns. Watch oil + iron ore + soybean imports as the largest sub-categories.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNCIMPB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCPCED/CA",
+      "description": "Consumer Spending, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "Consumption",
+      "units": "CNY billions, constant prices",
+      "meaning": "Consumer Spending (Household Final Consumption) — constant-price level. ~38-40% of China GDP — historically low for an economy at China's stage of development; rebalancing toward consumption-led growth is a long-running policy theme.",
+      "how_to_use": "China's consumption share is ~10-15pp lower than peers — a function of high household savings rate, low wages-to-GDP, and underdeveloped social safety net. Track for 'rebalancing' signal — sustained increases would mark a structural shift away from investment-led growth.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNRSLSAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGCED/CA",
+      "description": "Government Consumption, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "Government",
+      "units": "CNY billions, constant prices",
+      "meaning": "Government Consumption — central + local government final consumption (salaries, goods/services). ~16% of GDP.",
+      "how_to_use": "Track for fiscal-stance signals. Surges signal counter-cyclical fiscal support (e.g., 2020 COVID response). Local-government weakness post-2022 (LGFV stress) is a key macro theme.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNCGEXP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGFCD/CA",
+      "description": "Gross Fixed Capital Investment, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "CNY billions, constant prices",
+      "meaning": "Gross Fixed Capital Formation — investment level in real terms. ~42% of GDP, the world's highest investment share for a major economy. Driven by infrastructure (state-led), property, manufacturing capex.",
+      "how_to_use": "Cycle-sensitive. Property sector ~20% of GFCF historically; deleveraging since 2021 (Three Red Lines) made GFCF a major drag on growth 2022-2024. Watch fixed-asset-investment monthly release (FAI) for higher-frequency signal.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNFAII"
+      ],
+      "notes": ""
+    }
+  ]
+}

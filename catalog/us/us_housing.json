@@ -1,0 +1,990 @@
+{
+  "category": "Housing & Construction",
+  "category_slug": "us_housing",
+  "section": "Industry Sector",
+  "source_file": "US_Housing.xlsx",
+  "ric_count": 64,
+  "rics": [
+    {
+      "ric": "aUSEHSPAR",
+      "description": "Exist. home sales- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Existing Home Sales",
+      "units": "%, MoM",
+      "meaning": "Existing Home Sales month-over-month change. NAR monthly. Captures ~5x the volume of new home sales.",
+      "how_to_use": "Most heavily-rate-sensitive housing series — most existing buyers have a low locked-in mortgage rate to give up. Months-supply is the tight/loose gauge. Above 6 months supply = buyer's market; below 4 = seller's market.",
+      "related_series": [
+        "aUSHNSAO",
+        "aUSPHSALE/A",
+        "aUSMBAMLR",
+        "aUSHAI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHESALEC/A",
+      "description": "Existing-Home Sales, Condos, total",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTERM/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, Midwest",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales (midwest region).",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTERN/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, Northeast",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales (northeast region).",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTERS/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, South",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales (south region).",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERN/A",
+        "aUSHSTERM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTERW/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, West",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales (west region).",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A",
+        "aUSHSTERM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHESALESC",
+      "description": "Existing-Home Sales, Single-Family and Condos, months supply of homes on market",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHESALES/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, total",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEHSAO",
+      "description": "Existing-Home Sales, Single-Family and Condos, total",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHESALEU/A",
+      "description": "Existing-Home Sales, Single-Family and Condos, units available for sale (inventory)",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Units",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHESALESF/A",
+      "description": "Existing-Home Sales, Single-Family, total",
+      "frequency": "P1M",
+      "subcategory": "Single-Family",
+      "units": "Million units, SAAR",
+      "meaning": "Level of US existing home sales.",
+      "how_to_use": "NAR monthly. ~5x larger than new home sales. Heavily rate-sensitive (most buyers have a low rate to give up). Months-supply is the tight/loose gauge.",
+      "related_series": [
+        "aUSEHSL/A",
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPHSALE/A",
+      "description": "Pending Home Sales, United States",
+      "frequency": "P1M",
+      "subcategory": "Pending Home Sales",
+      "units": "Index",
+      "meaning": "NAR Pending Home Sales Index — homes under contract but not yet closed. Leads existing home sales by 1-2 months.",
+      "how_to_use": "Best forward-looking measure of existing home market. Released monthly. Volatility in mortgage rates causes contracts to be fall through; a falling pending → existing sales transmission below 90% rate is a stress signal.",
+      "related_series": [
+        "aUSEHSPAR",
+        "aUSMACP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNARAE",
+      "description": "Pending Home Sales, United States",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "Units",
+      "meaning": "Pending Home Sales, United States.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNCHAR",
+        "aUSNARAE",
+        "aUSTCONSR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCHAR",
+      "description": "Pending sales change- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Pending sales change , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSTCNSAR",
+        "aUSPHSALE/A",
+        "aUSNARAE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCREIFNI",
+      "description": "NCREIF, National Index, TR calculation",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "Index",
+      "meaning": "Index reading: NCREIF, National Index, TR calculation.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVACOFFR",
+      "description": "VACANCY RATE - OFFICE BUILDINGS (SQ. FT.)",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "%",
+      "meaning": "Vacancy Rate - Office Buildings (sq. Ft.).",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSVACRSCR",
+        "aUSHVOWN",
+        "aUSBPERMNS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSVACRSCR",
+      "description": "VACANCY RATE - RETAIL SHOPPING CENTERS (SQ. FT.)",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "%",
+      "meaning": "Vacancy Rate - Retail Shopping Centers (sq. Ft.).",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSVACOFFR",
+        "aUSHVOWN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSHPAR",
+      "description": "CaseShiller 20- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in Case-Shiller US home prices.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPQAR",
+        "aUSTCNSAR",
+        "aUSNCHAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSHPQAR",
+      "description": "CaseShiller 20- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "%, YoY",
+      "meaning": "Year-over-year change in Case-Shiller home prices — most-watched US home-price gauge.",
+      "how_to_use": "Repeat-sales index, lagged ~2 months. National + 20-city composite. Better for trend than for level. Pair with FHFA HPI for cross-check.",
+      "related_series": [
+        "aUSCSXR/A",
+        "aUSSHPAR",
+        "aUSTCNSAR",
+        "aUSNCHAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMIT/A",
+      "description": "Building Permits",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPRAR",
+        "aUSBPPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMIT",
+      "description": "Building Permits",
+      "frequency": "P1M",
+      "subcategory": "Construction Activity",
+      "units": "Thousands of units, SAAR",
+      "meaning": "Building permits authorized for privately-owned new housing units. The leading indicator of housing supply; a permit issued today translates to a start in 1-3 months.",
+      "how_to_use": "Most forward-looking of the major housing series. Drop in permits → drop in starts → drop in residential investment in GDP 1-2 quarters out. Highly rate-sensitive: track alongside 30Y mortgage rate and the spread between mortgage rates and 10Y Treasury.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSBPERMIT1/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMIT1/A",
+      "description": "Building Permits, 1 unit",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Units",
+      "meaning": "Level of US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPRAR",
+        "aUSBPPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMMW/A",
+      "description": "Building Permits, By region, Midwest",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits (midwest region).",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPERMW/A",
+        "aUSBPERMST/A",
+        "aUSBPERMNE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMNE/A",
+      "description": "Building Permits, By region, Northeast",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits (northeast region).",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPERMW/A",
+        "aUSBPERMST/A",
+        "aUSBPERMMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMST/A",
+      "description": "Building Permits, By region, South",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits (south region).",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPERMW/A",
+        "aUSBPERMNE/A",
+        "aUSBPERMMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMW/A",
+      "description": "Building Permits, By region, West",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits (west region).",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPERMST/A",
+        "aUSBPERMNE/A",
+        "aUSBPERMMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPRAR",
+      "description": "Building Permits- Actual",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPPAR",
+        "aUSVACOFFR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPPAR",
+      "description": "Building Permits- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPRAR",
+        "aUSBPEAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPRPAR",
+      "description": "Building Permits- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPRAR",
+        "aUSBPEAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPEAO",
+      "description": "Building permits: number - Actual",
+      "frequency": "P1M",
+      "subcategory": "Permits",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US building permits.",
+      "how_to_use": "Most forward-looking US housing series — a permit issued today translates to a start in 1-3 months. Drop in permits feeds residential investment in GDP 1-2 quarters out. Highly rate-sensitive.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSBPRPAR",
+        "aUSBPRAR",
+        "aUSBPPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPERMNS",
+      "description": "Buildings Approved, Housing authorized, not started",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "",
+      "meaning": "Buildings Approved, Housing authorized, not started.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSVACOFFR",
+        "aUSHUNITST/A",
+        "aUSHUNITST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTCONS/A",
+      "description": "Construction Spending",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSTCONSR/A",
+        "aUSTCONSP/A",
+        "aUSTCNSAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCONS/A",
+      "description": "Construction Spending, Private",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Private.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRCONS/A",
+        "aUSNRCONS/A",
+        "aUSTCONSR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRCONS/A",
+      "description": "Construction Spending, Private, nonresidential",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Private, nonresidential.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRCONS/A",
+        "aUSPCONS/A",
+        "aUSICNNRSB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRCONS/A",
+      "description": "Construction Spending, Private, residential",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Private, residential.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRCONS/A",
+        "aUSTCONSR/A",
+        "aUSPCONS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTCONSP/A",
+      "description": "Construction Spending, Public",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Public.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSTCONSR/A",
+        "aUSTCONS/A",
+        "aUSTCNSAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTCONSR/A",
+      "description": "Construction Spending, Residential",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Residential.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRCONS/A",
+        "aUSNRCONS/A",
+        "aUSICNNRSB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSICNNRSB/A",
+      "description": "Construction Spending, Total, nonresidential",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "",
+      "meaning": "Construction Spending, Total, nonresidential.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNRCONS/A",
+        "aUSTCONSR/A",
+        "aUSTCONSP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTCNSAR",
+      "description": "Construction spending- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Pending Sales",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Construction spending , Chg P/P.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSTCONSR/A",
+        "aUSTCONSP/A",
+        "aUSTCONS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHOWN",
+      "description": "Homeownership Rate",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "%",
+      "meaning": "Homeownership Rate.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHCOMP/A",
+      "description": "Housing Completions",
+      "frequency": "P1M",
+      "subcategory": "Completions",
+      "units": "",
+      "meaning": "Housing Completions.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHCOM",
+        "aUSHUNITST/A",
+        "aUSHUNITST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHCOM",
+      "description": "Housing Completions",
+      "frequency": "P1M",
+      "subcategory": "Completions",
+      "units": "",
+      "meaning": "Housing Completions.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHCOM",
+        "aUSHUNITST/A",
+        "aUSHUNITST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTART/A",
+      "description": "Housing Starts",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts.",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTMAR",
+        "aUSHSTARWST/A",
+        "aUSHSTARTNE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTART",
+      "description": "Housing Starts",
+      "frequency": "P1M",
+      "subcategory": "Construction Activity",
+      "units": "Thousands of units, SAAR",
+      "meaning": "Housing starts — new privately-owned residential construction projects begun, seasonally adjusted at annual rate. Lagging within the housing cycle (permits lead, starts follow, completions lag further).",
+      "how_to_use": "Pair with building permits (leading) and new home sales (demand-side). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022. Persistent declines in starts feed through to construction employment and lumber/cement demand.",
+      "related_series": [
+        "aUSBPERMIT",
+        "aUSHSTART1/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTAO",
+      "description": "Housing Starts",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts.",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTMAR",
+        "aUSHSTARWST/A",
+        "aUSHSTARTNE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTART1/A",
+      "description": "Housing Starts, 1 unit",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Units",
+      "meaning": "Level of US housing starts.",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTMAR",
+        "aUSHSTARWST/A",
+        "aUSHSTARTNE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTARTMW/A",
+      "description": "Housing Starts, Midwest region",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts (midwest region).",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTARWST/A",
+        "aUSHSTARTNE/A",
+        "aUSHSTARSTH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTARTNE/A",
+      "description": "Housing Starts, North East region",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts.",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTARWST/A",
+        "aUSHSTARTMW/A",
+        "aUSHSTARSTH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTARSTH/A",
+      "description": "Housing Starts, South region",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts (south region).",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTARWST/A",
+        "aUSHSTARTNE/A",
+        "aUSHSTARTMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTARWST/A",
+      "description": "Housing Starts, West region",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US housing starts (west region).",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSHSTARTNE/A",
+        "aUSHSTARTMW/A",
+        "aUSHSTARSTH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHSTMAR",
+      "description": "Housing Starts- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Starts",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in US housing starts.",
+      "how_to_use": "Census new-residential-construction starts. Lagging within housing cycle (permits lead, starts follow, completions lag). Single-family vs multi-family split matters: multi-family is more rate-sensitive and has been the swing factor post-2022.",
+      "related_series": [
+        "aUSHSTART",
+        "aUSTCNSAR",
+        "aUSSHPQAR",
+        "aUSSHPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHUNITST",
+      "description": "Housing Units Under Construction",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "Units",
+      "meaning": "Housing Units Under Construction.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHUNITST/A",
+        "aUSTCONSR/A",
+        "aUSTCONSP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHUNITST/A",
+      "description": "Housing Units Under Construction",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "Units",
+      "meaning": "Housing Units Under Construction.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHUNITST/A",
+        "aUSTCONSR/A",
+        "aUSTCONSP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSAO",
+      "description": "New Home Sales",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "New Home Sales — Census monthly count of new single-family homes sold. Released ~25th of each month.",
+      "how_to_use": "Smaller than existing sales (~1/8) but more cyclical. Builder pricing power gauge. Watch alongside months-supply (a function of new sales pace + inventory) for builder-incentive intensity.",
+      "related_series": [
+        "aUSHNSALES/A",
+        "aUSHSTART",
+        "aUSEHSPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSALES/A",
+      "description": "New Home Sales",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "New Home Sales (alternate series) — monthly Census/HUD report of newly built single-family homes sold, measured at contract signing rather than closing. More volatile than existing home sales because of the much smaller sample size (~70k annual transactions vs ~5M existing).",
+      "how_to_use": "Cross-check against the primary new home sales series and against existing home sales. Watch the months-supply ratio for a clean inventory signal — under 4 months is tight, over 7 months is a buyers' market. Builder pricing power and incentives follow months-supply directly.",
+      "related_series": [
+        "aUSHNSAO",
+        "aUSHSTPS",
+        "aUSEXHSAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSALEU",
+      "description": "New Home Sales",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales.",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSPHSALE/A",
+        "aUSNHSALWST/A",
+        "aUSNHSALSTH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHSALEMW/A",
+      "description": "New Home Sales, Midwest region",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales (midwest region).",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSNHSALWST/A",
+        "aUSNHSALSTH/A",
+        "aUSNHSALENE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHSALENE/A",
+      "description": "New Home Sales, North East region",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales.",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSNHSALWST/A",
+        "aUSNHSALSTH/A",
+        "aUSNHSALEMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHSALEMS/A",
+      "description": "New Home Sales, Ratio of houses for sale to houses sold (months supply)",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Ratio",
+      "meaning": "Ratio expression of US new home sales.",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSHESALESC",
+        "aUSHNSPAR",
+        "aUSPHSALE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHSALSTH/A",
+      "description": "New Home Sales, South region",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales (south region).",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSNHSALWST/A",
+        "aUSNHSALENE/A",
+        "aUSNHSALEMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNHSALWST/A",
+      "description": "New Home Sales, West region",
+      "frequency": "P1M",
+      "subcategory": "New Home Sales",
+      "units": "Thousand units, SAAR",
+      "meaning": "Level of US new home sales (west region).",
+      "how_to_use": "Census monthly. Smaller than existing sales but more cyclical. Builder pricing power gauge.",
+      "related_series": [
+        "aUSNHSL/A",
+        "aUSNHSALSTH/A",
+        "aUSNHSALENE/A",
+        "aUSNHSALEMW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHNSPAR",
+      "description": "Sales of New One Family Houses- Actual",
+      "frequency": "P1M",
+      "subcategory": "Housing Activity",
+      "units": "",
+      "meaning": "Sales of New One Family Houses.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHSTERW/A",
+        "aUSHSTERS/A",
+        "aUSHSTERN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHVOWN",
+      "description": "Vacancy rates, homeowner",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "%",
+      "meaning": "Vacancy rates, homeowner.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSVACRSCR",
+        "aUSVACOFFR",
+        "aUSHOWN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOBVT/A",
+      "description": "Vacant total",
+      "frequency": "P3M",
+      "subcategory": "Housing Activity",
+      "units": "",
+      "meaning": "Vacant total.",
+      "how_to_use": "Sub-component or variant within Housing & Construction. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

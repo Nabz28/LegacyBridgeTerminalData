@@ -1,0 +1,637 @@
+{
+  "category": "Balance of Payments",
+  "category_slug": "us_balance_of_payments",
+  "section": "External Sector",
+  "source_file": "US_Balance of Payments.xlsx",
+  "ric_count": 45,
+  "rics": [
+    {
+      "ric": "aUSCAPAC/A",
+      "description": "Balance, Capital Account",
+      "frequency": "P3M",
+      "subcategory": "Capital Account",
+      "units": "USD millions",
+      "meaning": "Capital account balance.",
+      "how_to_use": "Tiny line — debt forgiveness, capital transfers. Mostly rounding error.",
+      "related_series": [
+        "aUSCAFBAL/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURAC",
+      "description": "Balance, Current Account",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD millions",
+      "meaning": "US Current Account balance — total. Sum of trade in goods + services, primary income (investment income), and secondary income (transfers). BEA quarterly.",
+      "how_to_use": "Persistently negative ~$200-300B/quarter. Funded by capital inflows (financial account = mirror image, BoP identity). >5% of GDP deficit historically signals stress; current ~3% is sustainable for a reserve currency.",
+      "related_series": [
+        "aUSGBALBA",
+        "aUSGBARBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGS/A",
+      "description": "Balance, Goods",
+      "frequency": "P3M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions, SAAR",
+      "meaning": "Goods trade balance (exports of goods minus imports of goods) on a balance-of-payments basis. The largest component of the US current account deficit, persistently negative for ~50 years.",
+      "how_to_use": "Watch monthly trade-balance prints (Census/BEA International Trade Report) for the high-frequency read. Petroleum component swings with oil prices; non-petroleum is the structural import dependence on consumer goods + capital goods. Tariff regime changes show up here first.",
+      "related_series": [
+        "aUSCURAC/A",
+        "aUSCEXBA",
+        "aUSCIMBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUBAL/A",
+      "description": "Balance, Goods and Services",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD millions",
+      "meaning": "Goods and services balance.",
+      "how_to_use": "Trade balance excluding income flows. Goods deficit + services surplus.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCUSERV/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBALFAT/A",
+      "description": "Balance, Net Lending or Borrowing from Financial Account Transactions",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Net Lending/Borrowing from Financial Account — accounting mirror of the current account. Equal in magnitude (and opposite in sign) to the CA balance by construction.",
+      "how_to_use": "Useful for cross-check on CA data; if they don't match exactly, the residual is 'statistical discrepancy'. Big discrepancies (>$50B) suggest measurement error in trade or financial data.",
+      "related_series": [
+        "aUSCURAC/A",
+        "aUSFINACF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUIV/A",
+      "description": "Balance, Primary Income",
+      "frequency": "P3M",
+      "subcategory": "Primary Income",
+      "units": "USD millions",
+      "meaning": "Primary income balance — net investment income from abroad.",
+      "how_to_use": "US owns large foreign assets — earns income. Declining surplus as foreign holdings of US grow.",
+      "related_series": [
+        "aUSCURACTRN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACTRN/A",
+      "description": "Balance, Secondary Income",
+      "frequency": "P3M",
+      "subcategory": "Secondary Income",
+      "units": "USD billions",
+      "meaning": "Current Account: secondary income balance — net transfers including remittances, foreign aid, government grants. Consistently negative for the US (large remittance outflows + foreign aid > inflows).",
+      "how_to_use": "Small relative to goods/services balance (-$150B vs -$1T goods). Useful for understanding why total CA differs from trade balance. Less market-relevant — analysts focus on goods/services and primary income.",
+      "related_series": [
+        "aUSCURAC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUSERV/A",
+      "description": "Balance, Services",
+      "frequency": "P3M",
+      "subcategory": "Services Trade",
+      "units": "USD millions",
+      "meaning": "Services balance.",
+      "how_to_use": "Persistent surplus. Financial, IP licensing, travel, business services.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCURACEXS/A",
+        "aUSCURACIMS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURAAB",
+      "description": "Current Account",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account, Balance — the broad external balance combining goods, services, primary income, and secondary income flows. Same construct as aUSCURAC/A but at a different frequency/release.",
+      "how_to_use": "Cross-check against aUSCURAC/A. The US has run a persistent CA deficit since the early 1980s; financed by capital inflows. Useful for reading external imbalances when paired with the trade balance and FDI flows.",
+      "related_series": [
+        "aUSCURAC/A",
+        "aUSGS/A",
+        "aUSFINACF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURAC/A",
+      "description": "Current Account, Balance",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions, SAAR",
+      "meaning": "US Current Account balance — the broadest external balance, summing the goods balance, services balance, primary income (investment income on foreign assets), and secondary income (transfers). Released quarterly by BEA.",
+      "how_to_use": "Persistently negative ($800B-$1T deficit annually post-2020). Compare to GDP — sustained deficits >5% of GDP have historically preceded currency stress, but the dollar's reserve status has insulated the US. Watch alongside the financial account (mirror image by accounting identity).",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCURACEXG/A",
+        "aUSCURACIMG/A",
+        "aUSFINACF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACCGS/A",
+      "description": "Current Account, Exports of Goods and Services and Income Receipts",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account: total exports of goods, services, and primary income — the inflows side of the broader CA. Sums goods exports + services exports + primary-income receipts.",
+      "how_to_use": "Total credit side of the CA. Compare against aUSCURACDGS/A (debits) to see net flows. Useful for understanding why goods deficit is offset by services + primary-income surpluses.",
+      "related_series": [
+        "aUSCURACDGS/A",
+        "aUSCURACEXG/A",
+        "aUSCURACEXS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACEXG/A",
+      "description": "Current Account, Exports, Goods",
+      "frequency": "P3M",
+      "subcategory": "Goods Exports",
+      "units": "USD billions",
+      "meaning": "Current Account: goods exports — same as aUSCEXBA in the broader CA framing. The largest export category; the services surplus is what offsets goods deficits in the broader CA.",
+      "how_to_use": "Track YoY growth as a global-demand proxy. Volume vs price decomposition useful: nominal export growth of 5% with import-price inflation of 3% means real export volume growth of ~2%.",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSCURACEXS/A",
+        "aUSCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACEXS/A",
+      "description": "Current Account, Exports, Services",
+      "frequency": "P3M",
+      "subcategory": "Services Exports",
+      "units": "USD billions",
+      "meaning": "Current Account: services exports — financial services, intellectual-property royalties, business services, travel and transport. The persistent US surplus driver that partially offsets goods deficits.",
+      "how_to_use": "Travel is the most cyclical (tourism). IP royalties are the most structural (US tech and pharma dominance). Services balance has been ~$200-300B surplus pre-COVID; declined during pandemic; recovering since.",
+      "related_series": [
+        "aUSCURACIMS/A",
+        "aUSCURACEXG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACDGS/A",
+      "description": "Current Account, Imports of Goods and Services and Income Payments",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account: total imports of goods, services, and primary income — the outflows side of the broader CA. Sums goods imports + services imports + primary-income payments.",
+      "how_to_use": "Total debit side of the CA. Larger than CCGS/A in any deficit year. Decompose to find where the deficit comes from: goods (largest), services (small surplus offsetting), or primary income (becoming smaller surplus as foreign claims on US grow).",
+      "related_series": [
+        "aUSCURACCGS/A",
+        "aUSCURACIMG/A",
+        "aUSCURACIMS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACIMG/A",
+      "description": "Current Account, Imports, Goods",
+      "frequency": "P3M",
+      "subcategory": "Goods Imports",
+      "units": "USD billions",
+      "meaning": "Current Account: goods imports — same as aUSCIMBA in the broader CA framing. Largest import category, driven by consumer + capital goods.",
+      "how_to_use": "Cyclical with consumer demand. Watch tariff impacts: post-2018 imports from China fell while imports from Vietnam, Mexico rose (trade diversion, not reduction). Structural shift to nearshoring is visible in bilateral data.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSCURACIMS/A",
+        "aUSCIMBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCURACIMS/A",
+      "description": "Current Account, Imports, Services",
+      "frequency": "P3M",
+      "subcategory": "Services Imports",
+      "units": "USD billions",
+      "meaning": "Current Account: services imports — US payments to foreigners for travel, transport, business services, royalties. Smaller than services exports — US is a net services exporter.",
+      "how_to_use": "Travel imports (US residents traveling abroad) is the largest and most cyclical component. Watch for outbound tourism surges as a sign of strong household balance sheets.",
+      "related_series": [
+        "aUSCURACEXS/A",
+        "aUSCURACIMG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFINACF/A",
+      "description": "Financial Account, Net US Incurrence of Liabilities Excluding Financial Derivatives",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account: net US incurrence of liabilities — foreign claims on US (capital inflows). The accounting mirror of the current account: the US runs CA deficits financed by selling assets (Treasuries, equities, real estate) to foreigners.",
+      "how_to_use": "When inflows slow, dollar weakens or Treasury yields rise. Foreign Treasury holdings (TIC data, separate series) are the most-watched component. Recent shifts: official-sector Asian buying down, private-sector European buying up.",
+      "related_series": [
+        "aUSCURAC/A",
+        "aUSBALFAT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S. Total",
+      "frequency": "P3M",
+      "subcategory": "FDI Inflows",
+      "units": "USD millions",
+      "meaning": "Foreign direct investment IN the US — total.",
+      "how_to_use": "Inward FDI. ~$5T cumulative stock. UK, Japan, Netherlands largest sources.",
+      "related_series": [
+        "aUSIVDAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFAUA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S., Australia",
+      "frequency": "P3M",
+      "subcategory": "Inward FDI",
+      "units": "USD billions",
+      "meaning": "Foreign direct investment in US from Australia — cumulative stock. Smaller bilateral relationship; mostly mining, financial services, real estate.",
+      "how_to_use": "Track for AUD-USD investment flows. Australian super funds (largest pension pool) have grown US allocations significantly post-2010. Less cyclical than European or Asian inward FDI.",
+      "related_series": [
+        "aUSIVDFA",
+        "aUSIVDAAUA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFCNA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S., Canada",
+      "frequency": "P3M",
+      "subcategory": "Inward FDI",
+      "units": "USD billions",
+      "meaning": "Foreign direct investment in US from Canada — cumulative stock. Major bilateral; Canadian banks (TD, RBC, BMO), pension funds (CPP, OTPP, CDPQ), energy infrastructure, retail.",
+      "how_to_use": "Largest inward FDI source historically due to North American economic integration. Canadian pension funds are major US infrastructure and real-estate investors. Track alongside outward FDI to Canada (aUSIVDACNA) for the bilateral.",
+      "related_series": [
+        "aUSIVDFA",
+        "aUSIVDACNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFBDA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S., Germany",
+      "frequency": "P3M",
+      "subcategory": "Inward FDI",
+      "units": "USD billions",
+      "meaning": "Foreign direct investment in US from Germany — cumulative stock. Top-5 source, dominated by auto manufacturing (BMW, Mercedes, VW), chemicals, and industrial machinery.",
+      "how_to_use": "Watch for reshoring/IRA-driven investments: German auto and chemicals firms have announced major US plants 2022-25 in response to Inflation Reduction Act subsidies and tariff risk.",
+      "related_series": [
+        "aUSIVDFCNA",
+        "aUSIVDFJPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFJPA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S., Japan",
+      "frequency": "P3M",
+      "subcategory": "Inward FDI",
+      "units": "USD billions",
+      "meaning": "Foreign direct investment in US from Japan — cumulative stock. Top-3 source: auto manufacturing (Toyota, Honda, Nissan, Subaru), financial services, real estate.",
+      "how_to_use": "Major bilateral — Japan invested heavily in US auto manufacturing post-1980s to circumvent voluntary export restraints. Now Japanese OEMs produce ~60% of their US sales domestically. Track yen carry-trade and Japan corporate buybacks for inflow flows.",
+      "related_series": [
+        "aUSIVDFA",
+        "aUSIVDFBDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDFUKA",
+      "description": "Investment, Capital, Foreign direct investment in the U.S., United Kingdom",
+      "frequency": "P3M",
+      "subcategory": "FDI Inflows",
+      "units": "USD millions",
+      "meaning": "FDI in US from UK.",
+      "how_to_use": "Largest single bilateral source. Financial + media + pharma.",
+      "related_series": [
+        "aUSIVDFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDAAUA",
+      "description": "Investment, Capital, U.S. direct investment abroad, Australia",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US direct investment in Australia — cumulative stock. Smaller bilateral; mostly mining (energy + minerals), financial services, retail.",
+      "how_to_use": "Resource-sector heavy. Track for commodity-cycle exposure: US miners (Newmont, Freeport) have major AU operations. Less cyclical than European destinations because of mining-asset stickiness.",
+      "related_series": [
+        "aUSIVDAA",
+        "aUSIVDFAUA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDACNA",
+      "description": "Investment, Capital, U.S. direct investment abroad, Canada",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US direct investment in Canada — cumulative stock. Major bilateral due to integrated North American manufacturing. Auto + energy + financial services dominated.",
+      "how_to_use": "Auto OEMs (Big 3) have deep Canadian operations under USMCA. Energy: pipelines (Enbridge, TC Energy), oil sands (ExxonMobil, ConocoPhillips). Track for tariff/USMCA renegotiation impact.",
+      "related_series": [
+        "aUSIVDAA",
+        "aUSIVDFCNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDABDA",
+      "description": "Investment, Capital, U.S. direct investment abroad, Germany",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US direct investment in Germany — cumulative stock. Large bilateral; auto components (manufacturing supply chains for VW, BMW, Mercedes), chemicals, business services.",
+      "how_to_use": "Pharmaceutical and tech-services heavy. Track for tax-driven repatriation effects. Germany's chemicals sector deeply integrated with US: BASF, Bayer, Henkel are major US operators; Dow, DuPont, ExxonMobil have major German sites.",
+      "related_series": [
+        "aUSIVDAA",
+        "aUSIVDFBDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDAMXA",
+      "description": "Investment, Capital, U.S. direct investment abroad, Mexico",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US direct investment in Mexico — cumulative stock. Heavy in manufacturing under USMCA — autos, electronics, appliances. Has accelerated post-2018 with nearshoring trend.",
+      "how_to_use": "A canary for nearshoring/friend-shoring policy effects. Auto OEMs and electronics manufacturers have been moving production from China to Mexico since 2018. Compare growth rate to direct investment in China for the rebalancing signal.",
+      "related_series": [
+        "aUSIVDAA",
+        "aUSIVDAUKA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDAUKA",
+      "description": "Investment, Capital, U.S. direct investment abroad, United Kingdom",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US direct investment in UK — cumulative stock. Largest single European bilateral. Financial services + business services + manufacturing. ~$900B+ position.",
+      "how_to_use": "London is the European HQ for many US multinationals (JPM, Goldman, Citi, BAML, McKinsey). Track for Brexit effects (some flows shifted to Frankfurt, Paris, Dublin) and for tax-policy changes (UK corporate tax raised 2023).",
+      "related_series": [
+        "aUSIVDAA",
+        "aUSIVDFUKA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIVDAA",
+      "description": "Investment, Capital, U.S. direct investment abroad, total",
+      "frequency": "P3M",
+      "subcategory": "Outward FDI",
+      "units": "USD billions",
+      "meaning": "US Direct Investment Abroad (outward FDI position) — cumulative stock of US-owned subsidiaries and majority stakes in foreign companies. ~$6T position, larger than inward FDI.",
+      "how_to_use": "Track as a long-term indicator of US corporate global footprint. UK, Netherlands, Luxembourg, Canada, Ireland are top destinations (often as holding-company hubs). Used to gauge dollar repatriation potential under tax-policy changes.",
+      "related_series": [
+        "aUSIVDFBDA",
+        "aUSIVDAUKA",
+        "aUSIVDAMXA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCAFBAL/A",
+      "description": "United States, CAPITAL AND FINANCIAL ACCOUNT BALANCE, Current Prices, Balance of Payments, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "",
+      "subcategory": "Capital + Financial",
+      "units": "USD millions",
+      "meaning": "Capital and financial account balance, current prices.",
+      "how_to_use": "BoP capital + financial accounts combined.",
+      "related_series": [
+        "aUSCAPAC/A",
+        "aUSBALFAT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURQ/A",
+      "description": "Current Account Balance as a percentage of GDP, Standardized",
+      "frequency": "P3M",
+      "subcategory": "CA % GDP",
+      "units": "%",
+      "meaning": "Current account balance as % of GDP, standardized.",
+      "how_to_use": "Sustainability gauge. ~3% deficit normal for reserve currency. >5% historical warning.",
+      "related_series": [
+        "aUSCURAC",
+        "aUSCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURPQ/A",
+      "description": "Current Account Balance as a percentage of GDP, quarter on quarter, Standardized",
+      "frequency": "P3M",
+      "subcategory": "CA % GDP",
+      "units": "pp",
+      "meaning": "CA % GDP, QoQ standardized change.",
+      "how_to_use": "Quarterly variability.",
+      "related_series": [
+        "aUSCCURQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURYQ/A",
+      "description": "Current Account Balance as a percentage of GDP, year on year, Standardized",
+      "frequency": "P3M",
+      "subcategory": "CA % GDP",
+      "units": "pp",
+      "meaning": "CA % GDP, YoY standardized change.",
+      "how_to_use": "Trend signal.",
+      "related_series": [
+        "aUSCCURQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURB/A",
+      "description": "Current Account Balance, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current account balance, standardized.",
+      "how_to_use": "OECD-comparable framing.",
+      "related_series": [
+        "aUSCURAC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURPB/A",
+      "description": "Current Account Balance, quarter on quarter, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "CA balance, QoQ absolute change.",
+      "how_to_use": "Quarterly delta.",
+      "related_series": [
+        "aUSCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCCURYB/A",
+      "description": "Current Account Balance, year on year, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "CA balance, YoY absolute change.",
+      "how_to_use": "Annual delta.",
+      "related_series": [
+        "aUSCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXBPA",
+      "description": "Exports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "%, MoM",
+      "meaning": "Exports of goods, BoP basis, standardized MoM%.",
+      "how_to_use": "Goods-export growth signal.",
+      "related_series": [
+        "aUSCEXBYA",
+        "aUSCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXBYA",
+      "description": "Exports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "%, YoY",
+      "meaning": "Exports of goods, BoP basis, YoY%.",
+      "how_to_use": "Trend goods-export growth.",
+      "related_series": [
+        "aUSCEXBPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXBA",
+      "description": "Exports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "USD billions",
+      "meaning": "US goods exports on BoP basis — total value of merchandise sold abroad. Driven by capital goods, industrial supplies, autos, agricultural, and consumer goods.",
+      "how_to_use": "Pair with aUSCIMBA (imports) to get the trade balance. Sensitive to global growth (export volumes) and the dollar (price competitiveness). Falls early in global slowdowns — a leading global-cycle indicator.",
+      "related_series": [
+        "aUSCIMBA",
+        "aUSGS/A",
+        "aUSCURACEXG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMBPA",
+      "description": "Imports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "%, MoM",
+      "meaning": "Imports of goods, BoP basis, standardized MoM%.",
+      "how_to_use": "Goods-import growth.",
+      "related_series": [
+        "aUSCIMBYA",
+        "aUSCIMBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMBYA",
+      "description": "Imports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "%, YoY",
+      "meaning": "Imports of goods, BoP basis, YoY%.",
+      "how_to_use": "Trend goods-import growth.",
+      "related_series": [
+        "aUSCIMBPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMBA",
+      "description": "Imports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Goods Imports",
+      "units": "USD billions",
+      "meaning": "US goods imports on BoP basis — total value of foreign merchandise purchased. Dominated by consumer goods, capital goods, industrial supplies, autos, and petroleum.",
+      "how_to_use": "Cyclical with US consumption — falls in recessions when goods demand slows. Petroleum imports have shrunk dramatically post-shale (US is now near-balanced in energy). Consumer goods imports track retail sales closely.",
+      "related_series": [
+        "aUSCEXBA",
+        "aUSGS/A",
+        "aUSCURACIMG/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBOPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible (goods-only) trade balance on BoP basis — same conceptual measure as aUSGS/A in different framing. Goods exports minus goods imports excluding services.",
+      "how_to_use": "The 'big number' in monthly trade reports. Markets parse the petroleum vs non-petroleum split to gauge structural vs cyclical movement. China and Mexico are the largest bilateral deficits; tariff policy moves these first.",
+      "related_series": [
+        "aUSGS/A",
+        "aUSCURAC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBOPPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible trade balance, MoM absolute change.",
+      "how_to_use": "Monthly trade-deficit delta.",
+      "related_series": [
+        "aUSCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBOPYA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible trade balance, YoY absolute change.",
+      "how_to_use": "Annual trade-deficit delta.",
+      "related_series": [
+        "aUSCBOPA"
+      ],
+      "notes": ""
+    }
+  ]
+}

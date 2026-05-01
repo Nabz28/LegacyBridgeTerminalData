@@ -1,0 +1,773 @@
+{
+  "category": "Energy & Environment",
+  "category_slug": "cn_energy_environment",
+  "section": "Industry Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T18_54 (INDUSTRY SECTOR - ENERGY & ENVIRONMENT).xlsx",
+  "ric_count": 50,
+  "rics": [
+    {
+      "ric": "aCNCNQIKWP",
+      "description": "INTER-PROVC MID&L-T DIRECT ELECTRICITY TRADING- LIAONING(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Inter-provincial mid- and long-term direct electricity trading volume, Liaoning Province. Monthly series published by SEEC / NEA (National Energy Administration). Measures contracted electricity volumes traded directly between generators and large consumers across provincial boundaries.",
+      "how_to_use": "Direct electricity trading (DET) is China's market-based power sector reform mechanism, bypassing regulated utility pricing. Liaoning's inter-provincial DET volumes reflect Northeast China's surplus hydro and coal power exports to deficit regions. Rising volumes indicate progress in marketization and grid interconnection. Pair with thermal/hydro utilization hours (aCNAUHTHRA, aCNAUHHYDA) to assess supply-demand balance.",
+      "related_series": [
+        "aCNCNNFEKP",
+        "aCNCNFUBZP",
+        "aCNAUHTHRA",
+        "aCNAUHHYDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNFEKP",
+      "description": "INTER-PROVC MID&L-T DIRECT ELECTRICITY TRADING- NATIONWIDE(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Inter-provincial mid- and long-term direct electricity trading volume, nationwide total. Monthly series published by NEA / SEEC. Aggregates all DET volumes across all provincial grids.",
+      "how_to_use": "The national DET aggregate is a leading indicator of China's power market liberalization progress. The proportion of electricity sold via DET vs regulated utility tariffs measures how fast China is transitioning to market-based energy pricing. Rising DET share reduces cross-subsidy distortions and is a prerequisite for effective carbon pricing through the national ETS. Use with aCNCNXJAZR (DET ratio to consumption) and aCNCESTCUM (industrial electricity consumption).",
+      "related_series": [
+        "aCNCNQIKWP",
+        "aCNCNFUBZP",
+        "aCNCNXJAZR",
+        "aCNCESTCUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFUBZP",
+      "description": "INTER-PROVC MID&L-T DIRECT ELECTRICITY TRADING- XINJIANG(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Inter-provincial mid- and long-term direct electricity trading volume, Xinjiang. Monthly series published by NEA. Tracks DET volumes for Xinjiang's grid — a major renewable energy surplus region.",
+      "how_to_use": "Xinjiang is China's largest renewable energy base (wind + solar), but its remote location creates severe curtailment problems. Inter-provincial DET from Xinjiang to eastern load centers (via ultra-high-voltage transmission lines) directly measures curtailment reduction. Rising Xinjiang DET exports are bullish for renewable capacity utilization and the net-zero-by-2060 pathway. Track alongside Xinjiang wind/solar output and UHV line utilization data.",
+      "related_series": [
+        "aCNCNQIKWP",
+        "aCNCNNFEKP",
+        "aCNCNKIMF",
+        "aCNCNIABLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKZJPR",
+      "description": "MID&L-T DIRECT ELECTRICITY TRADING RATIO TO CNSMPT- HENAN(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Mid- and long-term direct electricity trading as a ratio to total consumption, Henan Province. Monthly series published by NEA. Measures market liberalization depth in Henan's power sector.",
+      "how_to_use": "Henan is a large industrial province and power consumer. The DET ratio shows what share of Henan's electricity is priced through market mechanisms. A rising ratio means more industrial consumers face market electricity prices — improving efficiency signals but also exposing them to price volatility. Critical context for China's carbon neutrality push: market prices that reflect carbon costs drive energy efficiency investment.",
+      "related_series": [
+        "aCNCNKZFLR",
+        "aCNCNXJAZR",
+        "aCNCNCNQOR",
+        "aCNCESTCUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKZFLR",
+      "description": "MID&L-T DIRECT ELECTRICITY TRADING RATIO TO CNSMPT- WEST INNER MONGOLIA GRID(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Mid- and long-term direct electricity trading ratio to consumption, West Inner Mongolia Grid. Monthly series published by NEA. Tracks market depth in Inner Mongolia's western grid — a major coal and wind power hub.",
+      "how_to_use": "Inner Mongolia (West Grid) is China's largest coal-power and wind-power province. The DET ratio here determines whether wind curtailment is being addressed through market mechanisms or administrative command. High DET ratios + rising wind utilization hours indicate effective market-based dispatch. Relevant for assessing China's wind industry economics and carbon emission trajectory.",
+      "related_series": [
+        "aCNCNKZJPR",
+        "aCNCNXJAZR",
+        "aCNCNCNQOR",
+        "aCNAUHTHRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEVNUP",
+      "description": "MID&L-T DIRECT ELECTRICITY TRADING- NATIONWIDE(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Mid- and long-term direct electricity trading volume, nationwide total (CMLV basis). Monthly series from NEA. Similar to aCNCNNFEKP but may use a different accounting basis (cumulative volume less variation).",
+      "how_to_use": "Use alongside aCNCNNFEKP to cross-check national DET volumes and identify measurement methodology differences. DET volume growth is a key reform KPI — the government targets full market pricing by 2025-2030. Rising volumes signal reform progress and reduce the need for costly government price subsidies. Essential for assessing whether China's power sector is ready for a robust carbon market.",
+      "related_series": [
+        "aCNCNNFEKP",
+        "aCNCNXJAZR",
+        "aCNCNCNQOR",
+        "aCNCESTCUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNXJAZR",
+      "description": "MID&L-T DIRECT ELECY TRADING RATIO TO CNSMPT- NATIONWIDE(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Mid- and long-term direct electricity trading as a ratio to total consumption, nationwide. Monthly series published by NEA. The headline power market liberalization depth indicator.",
+      "how_to_use": "The national DET/consumption ratio is the primary measure of China's electricity market reform progress. By 2023, this ratio exceeded 60% nationally — a major milestone. Full marketization is a precondition for effective carbon pricing (national ETS). A rising ratio also signals more accurate price signals for investment in renewables vs coal. Cross-reference with carbon credit prices (national ETS) and coal power generation margins.",
+      "related_series": [
+        "aCNCNCNQOR",
+        "aCNCNKZJPR",
+        "aCNCNKZFLR",
+        "aCNCNNFEKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCNQOR",
+      "description": "MID&L-T DIRECT ELECY TRADING RATIO TO CNSMPT- STATE GRID(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Mid- and long-term direct electricity trading ratio to consumption, State Grid Corporation area. Monthly series published by NEA. Covers the State Grid's service territory (most of China excluding Southern Grid provinces).",
+      "how_to_use": "State Grid controls ~75% of China's grid. The DET ratio within State Grid territory is the dominant driver of the national ratio. State Grid's progress in power market reform directly determines the pace of electricity price liberalization and ultimately carbon neutrality. Use to separate State Grid vs Southern Grid reform speeds and identify jurisdictional heterogeneity.",
+      "related_series": [
+        "aCNCNXJAZR",
+        "aCNCNKZJPR",
+        "aCNCNNFEKP",
+        "aCNCNEVNUP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHMZJP",
+      "description": "PROVC MID&L-T DIRECT ELECTRICITY TRADING- GUANGXI(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Provincial mid- and long-term direct electricity trading volume, Guangxi. Monthly series published by NEA. Tracks DET within Guangxi's provincial grid — a hydro-rich Southern Grid province.",
+      "how_to_use": "Guangxi has significant hydropower capacity (Hongshui River cascade). DET volumes here reflect intra-provincial market trading between hydro generators and industrial consumers (aluminium smelters are major Guangxi power consumers). Strong hydro years flood the market with cheap electricity, boosting DET volumes and benefiting energy-intensive industry. Pair with Yunnan/Guangxi hydro output and aluminium production data.",
+      "related_series": [
+        "aCNCNYXGMP",
+        "aCNCNSUZHP",
+        "aCNCNKIMF",
+        "aCNAUHHYDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNYXGMP",
+      "description": "PROVC MID&L-T DIRECT ELECTRICITY TRADING- NATIONWIDE(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Provincial mid- and long-term direct electricity trading volume, nationwide (provincial-level aggregate). Monthly series published by NEA. Sums all intra- provincial DET volumes across China.",
+      "how_to_use": "The provincial DET aggregate complements inter-provincial DET (aCNCNNFEKP) to give a full picture of China's direct electricity trading market. Intra-provincial trading liberalization often precedes inter-provincial. High provincial DET volumes indicate that local generators and consumers are successfully contracting directly — reducing utility middlemen and improving efficiency.",
+      "related_series": [
+        "aCNCNNFEKP",
+        "aCNCNHMZJP",
+        "aCNCNSUZHP",
+        "aCNCNXJAZR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNSUZHP",
+      "description": "PROVC MID&L-T DIRECT ELECY TRADING- WEST INNER MONGOLIA(CMLV)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Provincial mid- and long-term direct electricity trading volume, West Inner Mongolia. Monthly series published by NEA. Measures intra-provincial DET in the resource-rich western Inner Mongolia grid zone.",
+      "how_to_use": "West Inner Mongolia has extraordinary wind and solar resources. Provincial DET here is the mechanism through which renewable generators sell power directly to industrial users (data centers, green hydrogen producers, mining operations). Rising volumes signal progress in integrating variable renewable energy into the industrial supply chain — a key enabler of China's green hydrogen strategy.",
+      "related_series": [
+        "aCNCNKZFLR",
+        "aCNCNYXGMP",
+        "aCNCNHMZJP",
+        "aCNCNFUBZP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKIMF",
+      "description": "Power generation capacity, hydropower, Yunnan Province",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Power generation capacity, hydropower, Yunnan Province. Annual series from NEA / NBS. Measures installed hydropower capacity (GW) in Yunnan.",
+      "how_to_use": "Yunnan is China's largest hydropower province (Jinsha, Lancang, Nu River cascades). Installed capacity expansion tracks the pace of China's renewable build-out — hydro remains the backbone of clean power alongside wind and solar. However, Yunnan hydro is subject to drought risk: the 2021-22 drought caused severe power shortages. Pair with precipitation data, reservoir levels, and aCNAUHHYDA (hydro utilization hours) to assess generation reliability.",
+      "related_series": [
+        "aCNAUHHYDA",
+        "aCNCNIABLM",
+        "aCNCNHMZJP",
+        "aCNCNNSVYM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNRSMSM",
+      "description": "发电新增设备容量_风电_累计_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 发电新增设备容量_风电_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMGVP",
+      "description": "City public steam (electric) car standard operation",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "City public steam (electric) car standard operation volume. Annual NBS urban transport statistic measuring the scale of city bus and tram operations (vehicle-km or equivalent standard operation units).",
+      "how_to_use": "Public transit ridership and capacity are urban mobility indicators tied to urbanization quality. China has the world's largest urban bus fleet; rapid electrification (NEV buses) is underway. Rising operation volumes reflect expanding urban populations and transport infrastructure. Declining volumes may signal private car competition or post-COVID modal shift. Use with aCNCNQQBR (rural car ownership) to gauge urban vs rural mobility dynamics.",
+      "related_series": [
+        "aCNCNZHYBM",
+        "aCNCNEVEK",
+        "aCNCNGBWH",
+        "aCNCNOUET"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVCEXM",
+      "description": "6000千瓦及以上电厂发电装机容量_期末_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 6000千瓦及以上电厂发电装机容量_期末_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNICOCM",
+      "description": "6000千瓦及以上电厂发电装机容量_核电_期末_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 6000千瓦及以上电厂发电装机容量_核电_期末_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCPYXM",
+      "description": "6000千瓦及以上电厂发电装机容量_水电_期末_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 6000千瓦及以上电厂发电装机容量_水电_期末_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBUIPM",
+      "description": "6000千瓦及以上电厂发电装机容量_火电_期末_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 6000千瓦及以上电厂发电装机容量_火电_期末_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVASRM",
+      "description": "6000千瓦及以上电厂发电装机容量_风电_期末_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 6000千瓦及以上电厂发电装机容量_风电_期末_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJIOM1",
+      "description": "Added capacity of 220 kV & above substation equipment",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Added capacity of 220 kV and above substation equipment, nationwide. Monthly series published by NEA / State Grid. Measures new high-voltage substation transformer capacity commissioned in the period.",
+      "how_to_use": "Grid infrastructure investment is a leading indicator of China's power sector capacity expansion. 220kV+ substation additions track the build-out of the transmission backbone needed to carry renewable energy from western generation bases to eastern load centers. Acceleration in substation additions precedes renewable capacity commissioning by 12-18 months. Use as a leading indicator for renewable energy investment cycles.",
+      "related_series": [
+        "aCNCNBFFTM",
+        "aCNCNIABLM",
+        "aCNCNNSVYM",
+        "aCNCNKIMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBFFTM",
+      "description": "Added line length of 220 kV & above",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Added line length of 220 kV and above transmission lines, nationwide. Monthly series published by NEA. Measures new high-voltage transmission line length commissioned.",
+      "how_to_use": "Transmission line expansion is the physical infrastructure backbone of China's energy transition. Long-distance ultra-high-voltage (UHV) DC lines transport renewable power from Xinjiang, Inner Mongolia, and Yunnan to Beijing, Shanghai, and Guangdong. Faster line addition correlates with reduced renewable curtailment and improved grid integration. Pair with aCNCNJIOM1 (substation capacity) for a comprehensive grid investment picture.",
+      "related_series": [
+        "aCNCNJIOM1",
+        "aCNCNFUBZP",
+        "aCNCNKIMF",
+        "aCNCNIABLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNAUHHYDA",
+      "description": "Average Utilization Hours of Power Generation Equipment, Hydraulic",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Average utilization hours of power generation equipment, hydraulic (hydropower). Monthly series published by NEA. Measures capacity utilization of hydropower plants in hours per year (annualized from monthly data).",
+      "how_to_use": "Hydro utilization hours are a real-time indicator of rainfall and reservoir levels — China's 'precipitation gauge.' Low hydro utilization forces thermal (coal) backup, raising coal consumption and emissions. High utilization indicates abundant hydro and lower carbon intensity of the power grid. The 2021-22 Sichuan/Yunnan drought drove hydro utilization to multi-year lows, causing manufacturing shutdowns and power rationing. Pair with rainfall anomalies and La Nina/El Nino cycle data.",
+      "related_series": [
+        "aCNAUHTHRA",
+        "aCNCNKIMF",
+        "aCNCNIABLM",
+        "aCNCESTCUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNAUHTHRA",
+      "description": "Average Utilization Hours of Power Generation Equipment, Thermal",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Average utilization hours of power generation equipment, thermal (coal + gas + oil). Monthly series published by NEA. The headline coal-power capacity utilization indicator.",
+      "how_to_use": "Thermal utilization hours are the key coal demand and industrial activity gauge. Rising hours signal strong power demand growth (industrial expansion) and/or renewable shortfalls requiring coal backup. Declining hours indicate either demand weakness or renewable displacement of coal — the latter is the net-zero signal. Target for carbon neutrality: thermal utilization hours declining alongside rising renewable hours. Cross-reference with aCNCESTCUM (secondary industry electricity consumption) and coal production data.",
+      "related_series": [
+        "aCNAUHHYDA",
+        "aCNCESTCUM",
+        "aCNCNNSVYM",
+        "aCNCNIABLM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCESICUM",
+      "description": "Electricity consumption, Secondary Industry",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Electricity consumption, Secondary Industry. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNNGSACTR",
+        "aCNNGSACTP",
+        "aCNNGSACCR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNIABLM",
+      "description": "New production capacity, power generation capacity, hydropower",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "New production capacity — power generation, hydropower. Monthly series published by NEA. Measures newly commissioned hydropower capacity (GW) during the period.",
+      "how_to_use": "Newly added hydro capacity is a pipeline-to-operating indicator for China's clean energy build-out. Hydro additions are lumpy (large dam projects take 10+ years to build). Key projects: Baihetan (16 GW, fully commissioned 2022), Wudongde. Future mega-projects on the Nu River and lower Jinsha are in planning. Pair with aCNCNKIMF (Yunnan capacity) and aCNAUHHYDA (utilization) to track hydro's net-zero contribution.",
+      "related_series": [
+        "aCNCNNSVYM",
+        "aCNCNKIMF",
+        "aCNAUHHYDA",
+        "aCNCNJIOM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNSVYM",
+      "description": "New production capacity, power generation capacity, thermal power",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "New production capacity — power generation, thermal power. Monthly series published by NEA. Measures newly commissioned thermal (coal + gas) generation capacity (GW).",
+      "how_to_use": "China continues to commission new coal-fired power plants (as 'flexibility reserves' to back up intermittent renewables) even as it leads the world in renewable build-out. New thermal additions signal the pace of coal lock-in vs transition. Post-2021 power shortages triggered a surge in new coal approvals. Watch for divergence: thermal additions rising while utilization falls — indicating overcapacity and stranded asset risk in the coal-power fleet.",
+      "related_series": [
+        "aCNCNIABLM",
+        "aCNAUHTHRA",
+        "aCNCNKIMF",
+        "aCNCNBFFTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCENRM",
+      "description": "发电新增设备容量_水电_累计_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 发电新增设备容量_水电_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNRUNM",
+      "description": "Bauxite base reserves",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Bauxite base reserves, nationwide. Frequency not specified (likely annual or periodic). Published by MNR (Ministry of Natural Resources). Measures China's proven bauxite mineral reserve base.",
+      "how_to_use": "Bauxite is the primary raw material for aluminium — a critical industrial metal for EVs, aerospace, and construction. China has limited domestic bauxite reserves relative to its consumption and relies heavily on imports (Guinea, Australia). Reserve data informs energy security and supply-chain resilience strategy. Changes in reserve estimates reflect new exploration, reclassification, and depletion. Use with aluminium production and import data.",
+      "related_series": [
+        "aCNCNKOOO",
+        "aCNCNOHEG",
+        "aCNT2SPSRNF",
+        "aCNCNLZVJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNLZVJ",
+      "description": "Diesel consumption (physical quantity), railway, marine, aerospace & other transportation equipment",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Diesel consumption (physical quantity) — railway, marine, aerospace, and other transportation equipment. Annual NBS energy balance statistic for the transport fuel sub-sector.",
+      "how_to_use": "Transport-sector diesel consumption is a proxy for freight activity and logistics intensity. China is electrifying its rail network (high-speed rail and heavy-freight rail electrification) but marine and aviation remain heavily fossil-fuel dependent. Declining diesel in rail tracks electrification progress; marine diesel trends reflect export shipping volumes. Cross-reference with export growth and freight ton-km data.",
+      "related_series": [
+        "aCNNGSACTP",
+        "aCNCNMGVP",
+        "aCNCESTCUM",
+        "aCNCNQBJS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQBJS",
+      "description": "Domestic gas supply of municipal LPG, Weinan city",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Domestic gas supply of municipal LPG (liquefied petroleum gas), Weinan city (Shaanxi Province). Annual NBS urban gas supply statistic at city level.",
+      "how_to_use": "Municipal LPG supply tracks residential energy use in a mid-tier Shaanxi city. Weinan's LPG data is interesting given Shaanxi's proximity to the Ordos Basin natural gas fields — LPG is the incumbent residential fuel where pipeline gas has not yet reached. Declining LPG + rising pipeline natural gas (aCNCNNIRY) signals the coal/LPG-to-gas switching transition in city-level distribution.",
+      "related_series": [
+        "aCNCNNIRY",
+        "aCNNGSACTP",
+        "aCNNGSACCR",
+        "aCNCNLZVJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNIRY",
+      "description": "Domestic gas supply of municipal LPG, Zaozhuang city",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Domestic gas supply of municipal LPG, Zaozhuang city (Shandong Province). Annual NBS urban gas supply statistic at city level.",
+      "how_to_use": "Zaozhuang (Shandong) is a former coal-mining city in transition. LPG supply data here contrasts with broader natural gas (pipeline and LNG) penetration into Shandong's city gas networks. Shandong is China's largest province by many industrial metrics and a key test case for the 'coal-to-gas' residential heating switch. Cross-reference with aCNNGSACTP for national gas demand context.",
+      "related_series": [
+        "aCNCNQBJS",
+        "aCNNGSACTP",
+        "aCNNGSACCP",
+        "aCNNGSACCR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKOOO",
+      "description": "Kaolin foundation reserves, Shaanxi Province",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Kaolin foundation reserves, Shaanxi Province. Frequency not specified (likely annual or periodic). Published by MNR. Measures proven kaolin (china clay) mineral reserves.",
+      "how_to_use": "Kaolin is used in paper coating, ceramics, and increasingly as a precursor for advanced materials (alumina, zeolites). Shaanxi's kaolin reserves contribute to China's ceramics and materials industry supply chain. Reserve changes track exploration activity and resource depletion rates. Use as a supply-side indicator for the domestic ceramics and advanced materials sectors.",
+      "related_series": [
+        "aCNCNRUNM",
+        "aCNCNOHEG",
+        "aCNCNNUKD",
+        "aCNCNGBWH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNUKD",
+      "description": "Land area, Dongzhi County",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Land area, Dongzhi County (Chizhou city, Anhui Province). Annual NBS geographic statistic at county level measuring total administrative land area.",
+      "how_to_use": "Land area data establishes the geographic denominator for per-capita and per-km2 calculations (population density, road density, economic output per km2). Dongzhi (Anhui) is in the Yangtze Economic Belt zone; land-use efficiency metrics are relevant to industrial park development and rural land reform policies.",
+      "related_series": [
+        "aCNCNGBWH",
+        "aCNCNMVSC",
+        "aCNCNKFCR",
+        "aCNCNEVEK"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGBWH",
+      "description": "Land area, Jining District",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Land area, Jining District (Wulanchabu city, Inner Mongolia). Annual NBS geographic statistic at district level.",
+      "how_to_use": "Jining District is the seat of Wulanchabu — a city on the Beijing-Hohhot axis with growing data-center clusters (low-cost power + cool climate). Land area provides the baseline for economic density calculations. Inner Mongolia's development model of land-intensive resource extraction transitioning to data-intensive services is visible in spatial economic data.",
+      "related_series": [
+        "aCNCNNUKD",
+        "aCNCNMVSC",
+        "aCNCNOAWM",
+        "aCNCNNMVM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMVSC",
+      "description": "Land area, Qujiang District",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Land area, Qujiang District (Shaoguan city, Guangdong Province). Annual NBS geographic statistic at district level.",
+      "how_to_use": "Qujiang District sits in northern Guangdong near the Nanling Mountains. Land area data here is primarily useful for per-capita economic calculations. Guangdong's spatial economy is highly uneven — the Pearl River Delta accounts for 80%+ of provincial GDP on a fraction of the land. Northern Guangdong districts like Qujiang represent the province's rural-development challenge.",
+      "related_series": [
+        "aCNCNNUKD",
+        "aCNCNGBWH",
+        "aCNCNKFCR",
+        "aCNCNFLCP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKFCR",
+      "description": "Nature reserve area, Shandong Province",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Nature reserve area, Shandong Province. Annual NBS / MEE (Ministry of Ecology and Environment) environmental statistic measuring total protected area (km2).",
+      "how_to_use": "Protected area expansion is a key metric for China's Ecological Civilization goals and its commitments under the Kunming-Montreal Global Biodiversity Framework (target: 30% of land and sea under protection by 2030). Shandong's nature reserve data tracks whether industrial growth is balanced with environmental conservation. Rising protected areas can restrict mining and industrial development in some zones.",
+      "related_series": [
+        "aCNCNGETJ",
+        "aCNCNHTOY",
+        "aCNCNNUKD",
+        "aCNCNEVEK"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHTOY",
+      "description": "Number of people affected by natural disasters, Chongqing Municipality",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Number of people affected by natural disasters, Chongqing Municipality. Annual NBS / Ministry of Emergency Management statistic measuring disaster-affected population.",
+      "how_to_use": "Chongqing is highly prone to flooding (Yangtze River) and geological hazards (landslides). Rising affected-population counts signal climate-change intensification of extreme weather — a direct fiscal cost (disaster relief, infrastructure repair) and longer-term migration catalyst. Climate adaptation spending is an increasingly important component of China's fiscal policy.",
+      "related_series": [
+        "aCNCNKFCR",
+        "aCNCNNMVM",
+        "aCNCNEVEK",
+        "aCNCNNOAU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNMVM",
+      "description": "Number of towns, Santai County",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Number of towns (zhen), Santai County (Mianyang city, Sichuan Province). Annual NBS administrative geography statistic at county level.",
+      "how_to_use": "Town (zhen) count changes reflect the pace of administrative reclassification from rural villages to urbanized towns — a dimension of China's urbanization measurement. Rapid increases in town counts can artificially inflate urbanization rates (the 'urbanization by reclassification' phenomenon). Useful for methodological cross-checking of official urbanization statistics.",
+      "related_series": [
+        "aCNCNGBWH",
+        "aCNCNFLCP",
+        "aCNCNOAWM",
+        "aCNPOPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOHEG",
+      "description": "Pyrite base reserves, Sichuan Province",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Pyrite base reserves, Sichuan Province. Frequency not specified (likely annual). Published by MNR. Measures proven pyrite (iron sulfide) mineral reserves used in sulfuric acid production.",
+      "how_to_use": "Pyrite is the main feedstock for China's sulfuric acid industry, which supplies phosphate fertilizer production. Sichuan's pyrite reserves underpin fertilizer supply security — critical for food security in a country importing modest but growing amounts of food. Reserve depletion could raise sulfuric acid production costs and fertilizer prices domestically.",
+      "related_series": [
+        "aCNCNRUNM",
+        "aCNCNKOOO",
+        "aCNCNNUKD",
+        "aCNCNGBWH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEVEK",
+      "description": "Road area per capita, county",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Road area per capita, county-level cities. Annual NBS urban infrastructure statistic measuring paved road surface per resident (m2/person).",
+      "how_to_use": "Road area per capita is a quality-of-urban-infrastructure indicator for county-level cities — China's third-tier administrative layer where the bulk of infrastructure investment was concentrated during 2000-2020. Rising road area per capita reflects urbanization infrastructure build-out; very high levels may indicate over-investment relative to population (ghost-city risk). Pair with population density (aCNCNFLCP) and economic output data.",
+      "related_series": [
+        "aCNCNMGVP",
+        "aCNCNNMVM",
+        "aCNCNGBWH",
+        "aCNCNOUET"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCCDK",
+      "description": "Street offices, Boli County",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Street offices (jiedao banshichu), Boli County (Qitaihe city, Heilongjiang Province). Annual NBS administrative geography statistic counting urban sub-district offices.",
+      "how_to_use": "Street office counts track sub-district administrative granularity — a proxy for urbanization pace and governance capacity in former industrial cities. Boli County (Heilongjiang coal area) has been depopulating; declining street office counts signal administrative consolidation following population loss. Use as a governance indicator for resource-dependent northeast cities under restructuring.",
+      "related_series": [
+        "aCNCNBFGM",
+        "aCNCNNMVM",
+        "aCNCNGBWH",
+        "aCNCNOAWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBFGM",
+      "description": "Street offices, Guoyang County",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Street offices, Guoyang County (Bozhou city, Anhui Province). Annual NBS administrative geography statistic.",
+      "how_to_use": "Guoyang (Anhui) is a major coal-producing county. Street office count changes track urban administrative footprint expansion. Bozhou Prefecture is noted for traditional Chinese medicine (herb market). Administrative geography data provides context for local government capacity and service delivery in transition economies.",
+      "related_series": [
+        "aCNCNCCDK",
+        "aCNCNNMVM",
+        "aCNCNDHGG",
+        "aCNCNEWKJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDNV1",
+      "description": "Total public library, Urban area, Weifang city",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Total public libraries, urban area, Weifang city (Shandong Province). Annual NBS cultural infrastructure statistic at city level.",
+      "how_to_use": "Public library count is a proxy for cultural infrastructure investment and literacy support — part of China's 'cultural confidence' and social-modernization agenda. Weifang is a mid-sized Shandong manufacturing city (kites, chemical industry). Library expansion here reflects local government spending priorities and the government's push to improve cultural access in non-first-tier cities.",
+      "related_series": [
+        "aCNCNGETJ",
+        "aCNCNEVEK",
+        "aCNCNSYYO",
+        "aCNCNVKHO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNOAU",
+      "description": "Total urban water supply, Huaibei City",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Total urban water supply, Huaibei City (Anhui Province). Frequency not specified (likely annual). NBS urban utilities statistic measuring water supply volume to urban residents and industry.",
+      "how_to_use": "Urban water supply is an infrastructure utilization indicator combining population served and per-capita consumption. Huaibei is a coal city in northern Anhui facing water scarcity (North China plain water stress). Declining supply may signal conservation success or economic/population contraction. Rising supply tracks urbanization and industrial growth. Cross-reference with South-to-North Water Diversion project delivery volumes.",
+      "related_series": [
+        "aCNCNOUET",
+        "aCNCNGETJ",
+        "aCNCNHTOY",
+        "aCNCNEVEK"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOUET",
+      "description": "Urban drainage pipe length, Fuzhou city",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Urban drainage pipe length, Fuzhou city (Fujian Province). Annual NBS urban infrastructure statistic measuring total drainage network length (km).",
+      "how_to_use": "Drainage infrastructure is a climate adaptation investment indicator. Fuzhou (Fujian coast) is highly exposed to typhoons and urban flooding. Expanding drainage networks reduce flood damage — a direct resilience investment. China's 'sponge city' program (urban water management) targets drainage capacity upgrades in flood-prone coastal cities. Use with aCNCNHTOY for disaster risk vs infrastructure investment comparison.",
+      "related_series": [
+        "aCNCNNOAU",
+        "aCNCNGETJ",
+        "aCNCNEVEK",
+        "aCNCNHTOY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNNGSACTP",
+      "description": "Natural Gas Apparent Consumption",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Natural gas apparent consumption, monthly total. Published by NBS / NEA. Calculated as: production + net imports - stock change. The headline domestic natural gas demand indicator.",
+      "how_to_use": "Natural gas is China's fastest-growing fossil fuel and the key transition fuel in the path to carbon neutrality. Apparent consumption growth ~10-15% YoY pre-pandemic reflects: (1) coal-to-gas switching in power generation and heating, (2) industrial feedstock demand, (3) city gas residential growth. China is the world's largest LNG importer (alongside Japan). Pair with LNG import prices, Russian pipeline gas volumes, and aCNNGSACCR (YoY growth rate) for demand trend analysis.",
+      "related_series": [
+        "aCNNGSACTR",
+        "aCNNGSACCP",
+        "aCNNGSACCR",
+        "aCNCNQBJS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNNGSACTR",
+      "description": "Natural Gas Apparent Consumption, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Natural gas apparent consumption, year-over-year change (%). Monthly series from NBS / NEA. The growth rate of natural gas demand.",
+      "how_to_use": "The YoY growth rate cuts seasonal noise from the level series and directly measures demand acceleration/deceleration. Growth exceeding 10% signals strong coal-to-gas switching and industrial demand; near-zero or negative growth (as in 2022 COVID lockdowns) signals demand destruction. This series feeds directly into global LNG spot price forecasts — China's demand swings are the biggest marginal driver of global LNG markets.",
+      "related_series": [
+        "aCNNGSACTP",
+        "aCNNGSACCP",
+        "aCNNGSACCR",
+        "aCNCNNIRY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNNGSACCP",
+      "description": "Natural Gas Apparent Consumption, Cumulative",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Natural gas apparent consumption, cumulative year-to-date. Monthly series from NBS / NEA. Running total from January of each year.",
+      "how_to_use": "Cumulative consumption smooths monthly volatility and enables full-year demand forecasting. By mid-year, the cumulative series provides reliable annualized demand projections that LNG traders and pipeline operators use for forward planning. Compare current-year cumulative with prior-year to gauge annual demand trajectory. Pair with aCNNGSACCR (cumulative YoY growth) for trend-in-trend analysis.",
+      "related_series": [
+        "aCNNGSACTP",
+        "aCNNGSACTR",
+        "aCNNGSACCR",
+        "aCNCNQBJS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNNGSACCR",
+      "description": "Natural Gas Apparent Consumption, Cumulative, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Natural gas apparent consumption, cumulative year-to-date, year-over-year change (%). Monthly series from NBS / NEA. Cumulative growth rate.",
+      "how_to_use": "The cumulative YoY growth rate is the cleanest single indicator of China's annual gas demand trajectory. It removes month-to-month volatility (weather, maintenance cycles) and provides a stable signal for full-year demand. A key input for LNG contract negotiations and for assessing China's progress on its natural gas share target (>10% of primary energy mix by 2030, vs ~8% currently). Track with LNG spot price (JKM) for market impact analysis.",
+      "related_series": [
+        "aCNNGSACTP",
+        "aCNNGSACTR",
+        "aCNNGSACCP",
+        "aCNCNNIRY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMNBAM",
+      "description": "International reserves",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "International reserves, China. Monthly series from SAFE (State Administration of Foreign Exchange) / PBoC. Measures total official reserve assets (USD bn) including foreign currency, gold, IMF SDRs, and reserve position.",
+      "how_to_use": "China holds the world's largest foreign exchange reserves (~$3.2T as of 2024). Reserve levels are a key macro-stability anchor: they back the CNY peg corridor, fund PBOC FX intervention, and underpin China's external creditor position. Monthly changes reflect: (1) valuation effects (USD/EUR/gold price moves), (2) net intervention, (3) interest income. Declining reserves signal capital outflow pressure or intervention to defend CNY. Cross-reference with BoP financial account and CNY spot rate.",
+      "related_series": [
+        "aCNNGSACTP",
+        "aCNCNQIKWP",
+        "aCNCNNFEKP",
+        "aCNCESTCUM"
+      ],
+      "notes": ""
+    }
+  ]
+}

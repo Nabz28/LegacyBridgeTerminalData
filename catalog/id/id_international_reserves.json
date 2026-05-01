@@ -1,0 +1,219 @@
+{
+  "category": "International Reserves",
+  "category_slug": "id_international_reserves",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_International Reserves.xlsx",
+  "ric_count": 15,
+  "rics": [
+    {
+      "ric": "aIDCRCUPAA",
+      "description": "Foreign currency reserves, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "Percent, MoM",
+      "meaning": "Foreign Currency Reserves, MoM change — month-over-month change in FX reserves.",
+      "how_to_use": "Sharp negative MoM (>3% drawdown) signals heavy FX intervention. Pair with IDR/USD performance for intervention-intensity signal.",
+      "related_series": [
+        "aIDCRCUCPA",
+        "aIDFXRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRCUYWA",
+      "description": "Foreign currency reserves, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "Percent, YoY",
+      "meaning": "Foreign Currency Reserves, YoY change — annual pace of FX reserves accumulation/depletion.",
+      "how_to_use": "Tracks structural reserve position. Surges during commodity-export booms (BI accumulates); depletion during EM-stress episodes.",
+      "related_series": [
+        "aIDCRCUCPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRCUCPA",
+      "description": "Foreign currency reserves, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD billions",
+      "meaning": "Foreign Currency Reserves (Standardized) — companion to aIDFXRES at standardized framing. The FX-only component of total reserves.",
+      "how_to_use": "Use for cross-country comparisons. Indonesia FX reserves cover ~6 months of imports — comfortable per IMF adequacy metrics.",
+      "related_series": [
+        "aIDFXRES",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRESPA",
+      "description": "Official international reserves, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "Percent, MoM",
+      "meaning": "Official International Reserves, MoM change — month-over-month change in total reserves (FX + gold + IMF position + SDRs).",
+      "how_to_use": "Highest-frequency reserves trend signal. Most-watched data point each first Friday when BI releases.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDCRESYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRESYA",
+      "description": "Official international reserves, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "Percent, YoY",
+      "meaning": "Official International Reserves, YoY change — annual pace of total reserves accumulation.",
+      "how_to_use": "Smooths out monthly volatility. Indonesia reserves typically grow 3-7% pa during normal cycles; depletion in EM-stress years (-5 to -15%).",
+      "related_series": [
+        "aIDCRESA",
+        "aIDCRESPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRESA",
+      "description": "Official international reserves, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD billions",
+      "meaning": "Official International Reserves — total foreign exchange reserves held by Bank Indonesia. Includes FX assets, gold, IMF position, and SDRs. Published monthly (typically first Friday) by BI.",
+      "how_to_use": "Critical for IDR defense. Recent levels ~$140-150B, providing ~6 months of import cover (vs IMF safe minimum of 3 months). Sharp drawdowns (>$5B in a month) signal heavy FX intervention to defend IDR — historically marks IDR weakness peaks. Build-ups during commodity surpluses absorbed via BI's FX purchases.",
+      "related_series": [
+        "aIDFXRES",
+        "aIDXRUSD",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFXRAA",
+      "description": "Reserves",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD billions",
+      "meaning": "Reserves — alternative release of total international reserves. Same as aIDCRESA at different vintage.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data; methodology and timing differences are typically minor.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDFXRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFXRES",
+      "description": "Reserves, Foreign currency reserves",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD billions",
+      "meaning": "Foreign currency reserves — the FX-only component of total international reserves (excludes gold, IMF position, SDRs). The most actively-managed portion of BI reserves.",
+      "how_to_use": "~95% of total reserves. Composition: ~60% USD, ~20% EUR, ~10% JPY/CNY (BI does not publish exact split). Drawn down for FX intervention; replenished via commodity-export FX accumulation. Pair with monthly IDR/USD performance for intervention intensity signal.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDRESGLD",
+        "aIDRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDREIN",
+      "description": "Reserves, International",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD billions",
+      "meaning": "Reserves, International — alternative release of total international reserves.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data; methodology differences across releases are typically minor and resolved on revision.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDFXRAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRVSFX",
+      "description": "Reserves, Reserve in foreign exchange, currency and deposits",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Reserves: Foreign Exchange, Currency and Deposits — the FX cash + bank deposits component of reserves. Most-liquid portion, used for daily FX operations and short-term IDR defense.",
+      "how_to_use": "Subset of aIDFXRES (which also includes securities held in custody). The currency/deposits portion is the immediately-deployable defense buffer. Tracks BI's day-to-day FX intervention capacity.",
+      "related_series": [
+        "aIDFXRES",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRESOA",
+      "description": "Reserves, Reserve others",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Reserves: Reserve Others — non-FX, non-gold, non-IMF residual reserve assets. Small.",
+      "how_to_use": "Niche. Captures other-claims items not classified into FX/gold/SDR/IMF position.",
+      "related_series": [
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRESVFUND",
+      "description": "Reserves, Reserve position in the fund",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Reserves: Reserve Position in the Fund — Indonesia's reserve tranche position at the IMF. Funds Indonesia can withdraw on demand without conditions.",
+      "how_to_use": "Niche. Used in BoP accounting; rarely activated. Small relative to FX reserves (~$1B vs ~$140B FX).",
+      "related_series": [
+        "aIDRESSDR",
+        "aIDCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRES",
+      "description": "Reserves, Reserve total",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Reserves: Reserve Total — same conceptual measure as aIDCRESA (total international reserves) at potentially different release vintage.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data. The standardized aIDCRESA aligns with IMF SDDS reporting standards.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDFXRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRESGLD",
+      "description": "Reserves, Reserve, gold",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Gold reserves component of international reserves. Bank Indonesia holds ~78 metric tons of gold (small relative to reserve-currency central banks).",
+      "how_to_use": "Slow-moving. Stock unchanged for years; valuation moves with gold price (USD per troy ounce). Larger central banks (China, India, Russia) have been net gold buyers post-2020; BI has been broadly neutral. Useful for tracking total-reserve composition trends but not actively managed.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRESSDR",
+      "description": "Reserves, Reserve, holdings of SDRs",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Reserves: SDR Holdings — Special Drawing Rights at the IMF. Reserve asset created by IMF; valued by basket of major currencies (USD, EUR, CNY, JPY, GBP).",
+      "how_to_use": "Boosted in August 2021 IMF general SDR allocation ($650B globally; Indonesia received ~$6.3B). Stable since. Useful for tracking IMF reserve operations but not actively managed.",
+      "related_series": [
+        "aIDCRESA",
+        "aIDRESVFUND"
+      ],
+      "notes": ""
+    }
+  ]
+}

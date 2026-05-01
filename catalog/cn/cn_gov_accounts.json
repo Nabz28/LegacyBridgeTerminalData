@@ -1,0 +1,128 @@
+{
+  "category": "Government Accounts",
+  "category_slug": "cn_gov_accounts",
+  "section": "Government Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T18_29 (Government Sector - Gov.Accounts).xlsx",
+  "ric_count": 8,
+  "rics": [
+    {
+      "ric": "aCHGOVBALA",
+      "description": "Central Government Balance",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "China Government Finance: Central Government Balance. Fiscal aggregate or sub-aggregate from MoF.",
+      "how_to_use": "Track for fiscal-stance signals. China's official deficit (~3% of GDP) understates true fiscal stance — augmented deficit (including LGFVs, special bonds) typically 8-12% of GDP. Watch government fund revenue separately for land-sale revenue impact.",
+      "related_series": [
+        "aCNGDEF",
+        "aCNCGREV",
+        "aCNCGEXP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGEXP",
+      "description": "General Government, Expenditure, Budgetary",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "General Government Expenditure (Budgetary) — central + local government spending. Major lines: education, social security, healthcare, infrastructure, defense, agriculture support, public administration.",
+      "how_to_use": "Pro-cyclical fiscal stance shifted to counter-cyclical 2018+. Watch the 'special-purpose bond quota' set in March each year — this drives infrastructure spending. Front-loading bond issuance to Q1-Q2 signals counter-cyclical fiscal push.",
+      "related_series": [
+        "aCNCGREV",
+        "aCNGDEF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGGREVG",
+      "description": "General Government, Revenue, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "Percent, YoY",
+      "meaning": "General Government Revenue, YoY — pace of revenue growth.",
+      "how_to_use": "Cyclical with GDP. Watch land-sales-revenue separately reported by MoF — its YoY changes far more cyclical than total revenue.",
+      "related_series": [
+        "aCNCGREV",
+        "aCNGDEF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGDEF",
+      "description": "Public Finances, General Government, Deficit/surplus",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "General Government Deficit/Surplus — China's official budget balance. Released monthly by the Ministry of Finance.",
+      "how_to_use": "Official deficit understates true fiscal stance — excludes local-government financing vehicles (LGFVs), special bonds, and other off-budget items. Augmented fiscal deficit (IMF measure) typically 8-12% of GDP vs official ~3%. Watch the official-vs-augmented gap.",
+      "related_series": [
+        "aCNCGOVA",
+        "aCNCGREV",
+        "aCNCGEXP",
+        "aCNPDEBTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGREV",
+      "description": "Public Finances, General Government, Revenue",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "General Government Revenue — central + local tax + non-tax receipts. Major sources: VAT (~40%), corporate income tax (~25%), individual income tax (~7%), customs (~3%), state-owned-enterprise dividends (~7%).",
+      "how_to_use": "Tax-to-GDP ~16% — moderate. Land sales (counted separately as 'government fund revenue', ~CNY 8 trillion historical peak) are critical to local-government finances; collapsed 2022-24 with property downturn — major fiscal stress point.",
+      "related_series": [
+        "aCNCGEXP",
+        "aCNGDEF",
+        "aCNGGREVG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGOVA",
+      "description": "Central government Deficit/Surplus, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "Central Government Deficit/Surplus (Standardized) — central-only fiscal balance (excludes local governments). The 'on-budget' deficit subject to the 3%-of-GDP cap.",
+      "how_to_use": "Used in central-government budget arithmetic. Local-government deficits run ~4-6% of GDP separately, financed via LGFV bonds and special-purpose bonds. The total 'general government' framework is the meaningful sustainability measure.",
+      "related_series": [
+        "aCNGDEF",
+        "aCNCGEXP",
+        "aCNCGREV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGOVPA",
+      "description": "Central government Deficit/Surplus, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "China Government Finance: Central government Deficit/Surplus, month on month, Standardized, Absolute change. Fiscal aggregate or sub-aggregate from MoF.",
+      "how_to_use": "Track for fiscal-stance signals. China's official deficit (~3% of GDP) understates true fiscal stance — augmented deficit (including LGFVs, special bonds) typically 8-12% of GDP. Watch government fund revenue separately for land-sale revenue impact.",
+      "related_series": [
+        "aCNGDEF",
+        "aCNCGREV",
+        "aCNCGEXP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCGOVYA",
+      "description": "Central government Deficit/Surplus, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Fiscal",
+      "units": "CNY billions",
+      "meaning": "China Government Finance: Central government Deficit/Surplus, year on year, Standardized, Absolute change. Fiscal aggregate or sub-aggregate from MoF.",
+      "how_to_use": "Track for fiscal-stance signals. China's official deficit (~3% of GDP) understates true fiscal stance — augmented deficit (including LGFVs, special bonds) typically 8-12% of GDP. Watch government fund revenue separately for land-sale revenue impact.",
+      "related_series": [
+        "aCNGDEF",
+        "aCNCGREV",
+        "aCNCGEXP"
+      ],
+      "notes": ""
+    }
+  ]
+}

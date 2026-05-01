@@ -1,0 +1,96 @@
+{
+  "category": "Corporate Accounts & Actions",
+  "category_slug": "us_corporate_accounts_actions",
+  "section": "Industry Sector",
+  "source_file": "US_Corporate Accounts & Actions.xlsx",
+  "ric_count": 6,
+  "rics": [
+    {
+      "ric": "aUSMPATX",
+      "description": "Manufacturing corporations, after-tax profits",
+      "frequency": "P3M",
+      "subcategory": "Mfg Profits",
+      "units": "USD millions",
+      "meaning": "Manufacturing corporations after-tax profits — Census Quarterly Financial Report (QFR). Covers all manufacturing.",
+      "how_to_use": "Pair with industrial production and ISM Manufacturing for the full mfg cycle picture. Profit margins (profits/sales) here lead capex decisions. Look at YoY change rather than level.",
+      "related_series": [
+        "aUSMPDMF",
+        "aUSMPNDMF",
+        "aUSCPICNFB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMPDMF",
+      "description": "Manufacturing corporations, after-tax profits, all durable manufacturing",
+      "frequency": "P3M",
+      "subcategory": "Mfg Profits",
+      "units": "USD millions",
+      "meaning": "After-tax profits for durable-goods manufacturing (autos, machinery, electronics, fab metals). QFR.",
+      "how_to_use": "Durables are the cyclical heart of mfg — leads the broader cycle. Pair with new orders for durable goods to gauge order-book to bottom-line transmission.",
+      "related_series": [
+        "aUSMPATX",
+        "aUSMPNDMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMPNDMF",
+      "description": "Manufacturing corporations, after-tax profits, all nondurable manufacturing",
+      "frequency": "P3M",
+      "subcategory": "Mfg Profits",
+      "units": "USD millions",
+      "meaning": "After-tax profits for nondurable-goods manufacturing (food, chemicals, petroleum, textiles, paper). QFR.",
+      "how_to_use": "Less cyclical than durables; more sensitive to commodity input costs. Petroleum sub-component swings the headline — strip it out for trend.",
+      "related_series": [
+        "aUSMPATX",
+        "aUSMPDMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRPROFITA",
+      "description": "Retail trade corporations, income (or loss) after income taxes",
+      "frequency": "P3M",
+      "subcategory": "Retail Profits",
+      "units": "USD millions",
+      "meaning": "Retail trade corporations, after-tax income or loss. QFR.",
+      "how_to_use": "Cross-check with retail sales: persistent retail sales growth without profit growth implies margin compression (most likely from labor/rent). Useful for sector valuation context.",
+      "related_series": [
+        "aUSRTOPIN",
+        "aUSRTSRNOPR",
+        "aUSCRETF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRTOPIN",
+      "description": "Retail trade corporations, income (or loss) from operations",
+      "frequency": "P3M",
+      "subcategory": "Retail Profits",
+      "units": "USD millions",
+      "meaning": "Retail trade corporations, income or loss from operations (pre-tax operating income).",
+      "how_to_use": "Pre-tax operating proxy for the retail sector — strips out tax effects and one-offs. Use the after-tax line for valuation, this for operational health.",
+      "related_series": [
+        "aUSRPROFITA",
+        "aUSRTSRNOPR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRTSRNOPR",
+      "description": "Retail trade corporations, net sales, receipts and operating revenues",
+      "frequency": "P3M",
+      "subcategory": "Retail Sales (QFR)",
+      "units": "USD millions",
+      "meaning": "Retail trade corporations, net sales, receipts and operating revenues. The top line of QFR retail.",
+      "how_to_use": "Differs from BLS retail sales: QFR is corporation-level (excludes sole proprietors), quarterly, more volatile. Use BLS retail sales for the headline; this for sector earnings context.",
+      "related_series": [
+        "aUSCRETF/C",
+        "aUSRPROFITA",
+        "aUSRTOPIN"
+      ],
+      "notes": ""
+    }
+  ]
+}

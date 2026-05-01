@@ -1,0 +1,499 @@
+{
+  "category": "Wages & Earnings",
+  "category_slug": "us_wages_earnings",
+  "section": "Labor Market",
+  "source_file": "US_Wages & Earnings.xlsx",
+  "ric_count": 35,
+  "rics": [
+    {
+      "ric": "aUSAHVEA",
+      "description": "Average Earnings YY, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "Percent, YoY",
+      "meaning": "Average Hourly Earnings, year-over-year change — the headline wage-inflation gauge from the BLS establishment survey, released with NFP. Captures pay growth across all private nonfarm employees.",
+      "how_to_use": "Markets watch this for Fed implications: AHE growth above ~4% is incompatible with 2% inflation absent a productivity miracle. Less reliable than ECI (aUSEMPCI/A) at turning points because it's sensitive to compositional shifts (when low-wage hospitality jobs are cut, the average mechanically rises).",
+      "related_series": [
+        "aUSEARNH/A",
+        "aUSEMPCI/A",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAVGEAR",
+      "description": "Average earnings- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "Percent, MoM",
+      "meaning": "Average hourly earnings month-over-month change — monthly wage-growth pulse from BLS establishment survey, released with NFP.",
+      "how_to_use": "Monthly wage-momentum read. >0.4% MoM hot (sustained ~5% YoY pace), <0.2% cool (sustained ~2.5% YoY). Highly volatile month-to-month due to compositional shifts and timing — smooth with 3-month moving average for cleaner signal.",
+      "related_series": [
+        "aUSEARNH/A",
+        "aUSAHVEA",
+        "aUSEMPCI/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWRIMDA",
+      "description": "Average hourly earnings, Producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Wages by Sector",
+      "units": "USD/hour",
+      "meaning": "Average hourly earnings, production workers, durable goods.",
+      "how_to_use": "Manufacturing wages, durables. Less sensitive to services wage spirals.",
+      "related_series": [
+        "aUSWAGMANA",
+        "aUSWRIMNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWAGMANA",
+      "description": "Average hourly earnings, Producion workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average hourly earnings, production workers, total manufacturing — narrower than headline AHE. Captures shop-floor manufacturing wage levels (excludes supervisory/administrative).",
+      "how_to_use": "Track for industrial-sector wage pressure separately from services. Manufacturing wages matter for unit labor costs and for international competitiveness. Watch alongside non-manufacturing services wages (aUSEARNHS/A) for broad wage pressure picture.",
+      "related_series": [
+        "aUSWRIMNA",
+        "aUSWRIMDB/A",
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWRIMNA",
+      "description": "Average hourly earnings, Producion workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average hourly earnings, production workers, nondurable manufacturing — wages at food, chemicals, paper, plastics, textiles plants. Less cyclical than durables wages.",
+      "how_to_use": "Less cyclical than durables (aUSWRIMDB/A) because nondurable demand (food, consumer staples) is more stable. Use for tracking wage pressure in stable-demand manufacturing. Diverges from durables in recessions — durables wage growth slows faster.",
+      "related_series": [
+        "aUSWRIMDB/A",
+        "aUSWAGMANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNHC/A",
+      "description": "Average hourly earnings, construction",
+      "frequency": "P1M",
+      "subcategory": "Wages by Sector",
+      "units": "USD/hour",
+      "meaning": "AHE all employees, construction.",
+      "how_to_use": "Construction wages — key for housing affordability and infrastructure cost models.",
+      "related_series": [
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWRIMDB/A",
+      "description": "Average hourly earnings, manufacturing, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average hourly earnings, manufacturing, durable goods, all employees — wages in autos, machinery, electronics, metals, transportation equipment. Broader (all-employees) than production-only series.",
+      "how_to_use": "Most cyclical wage measure — durable manufacturing has the most volatile demand. Watch as a leading wage indicator: durables wages turn before headline. Useful proxy for skilled-trades wage pressure.",
+      "related_series": [
+        "aUSWAGMANA",
+        "aUSWRIMNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMDA",
+      "description": "Average producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Hours",
+      "units": "Hours per week",
+      "meaning": "Average weekly hours, production workers, durable goods manufacturing — hours-per-worker measure. Pro-cyclical: rises in booms (overtime), falls in slowdowns (hours cuts before layoffs).",
+      "how_to_use": "Leading labor-market indicator: hours cuts come before layoffs. Sustained drop below 40 hours/week historically signals manufacturing recession. Combined with manufacturing employment, gives total labor input for productivity calculations.",
+      "related_series": [
+        "aUSWKIMNA",
+        "aUSWKIMA",
+        "aUSWAGMANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMA",
+      "description": "Average producion workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Hours",
+      "units": "Hours per week",
+      "meaning": "Average weekly hours, production workers, total manufacturing — combined durable + nondurable. Pro-cyclical: rises in booms, falls in slowdowns.",
+      "how_to_use": "Manufacturing-hours cuts precede manufacturing-employment cuts by 1-3 months. Watch for sub-40-hour readings as recession-leading indicators. Combined with aUSWKIMDA (durables) for cyclical sub-segment read.",
+      "related_series": [
+        "aUSWKIMDA",
+        "aUSWKIMNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMNA",
+      "description": "Average producion workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Hours",
+      "units": "Hours per week",
+      "meaning": "Average weekly hours, production workers, nondurable manufacturing — hours in food, chemicals, paper, plastics, textiles. Less cyclical than durables.",
+      "how_to_use": "More stable than durable-goods hours. Useful as a baseline for stripping out cyclical demand effects. Sustained drops here (rare) would signal broad-based manufacturing-recession risk.",
+      "related_series": [
+        "aUSWKIMA",
+        "aUSWKIMDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKNDURB/A",
+      "description": "Average weekly earnings, nonfarm , durable goods",
+      "frequency": "P1M",
+      "subcategory": "Weekly Earnings",
+      "units": "USD/week",
+      "meaning": "Average weekly earnings, nonfarm durable goods.",
+      "how_to_use": "Take-home pay proxy. Hours × hourly wage.",
+      "related_series": [
+        "aUSWKNMANB/A",
+        "aUSEARN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKNMANB/A",
+      "description": "Average weekly earnings, nonfarm, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per week",
+      "meaning": "Average weekly earnings, nonfarm manufacturing — hours × hourly wage for manufacturing workers. Take-home pay proxy for industrial-sector labor.",
+      "how_to_use": "Combines wage and hours signals. Watch alongside services weekly earnings (aUSWEIPB/A) for pay-growth-by-sector picture. Manufacturing weekly wages have grown slower than services since 2010 — structural shift.",
+      "related_series": [
+        "aUSEARN",
+        "aUSWAGMANA",
+        "aUSWKIMA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWAGESD/CA",
+      "description": "Earnings, Average Hourly, AVG HOURLY REAL EARNINGS OF ALL EMPLOYEES - TOTAL PRIVATE",
+      "frequency": "P1M",
+      "subcategory": "Real Wages",
+      "units": "USD/hour",
+      "meaning": "Real average hourly earnings, all employees, total private.",
+      "how_to_use": "Inflation-adjusted wages. Stagnant for years; 2022-23 had negative real wage growth.",
+      "related_series": [
+        "aUSEARN/CA",
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNHG/A",
+      "description": "Earnings, Average Hourly, Nonfarm goods producing industries",
+      "frequency": "P1M",
+      "subcategory": "Wages by Sector",
+      "units": "USD/hour",
+      "meaning": "AHE, nonfarm goods-producing industries.",
+      "how_to_use": "Goods-producing wage gauge. Cycles with manufacturing/construction.",
+      "related_series": [
+        "aUSEARNHS/A",
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNH/A",
+      "description": "Earnings, Average Hourly, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average Hourly Earnings of all private nonfarm employees — level (not change). The headline wage series released alongside NFP each month from the BLS establishment survey. Around $35/hour in recent prints.",
+      "how_to_use": "The level itself is rarely traded; markets focus on the YoY change (aUSAHVEA) as a wage-inflation gauge. Use the level for compositional adjustments and to track real wages (deflate by CPI). Production and nonsupervisory wages (separate series) are a cleaner signal of low-wage worker bargaining power.",
+      "related_series": [
+        "aUSAHVEA",
+        "aUSNFARM/A",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWAGMANB/A",
+      "description": "Earnings, Average Hourly, Nonfarm payrolls, all employees, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average hourly earnings, nonfarm manufacturing, all employees — broader (all-employees) than production-only series. Includes supervisory + admin.",
+      "how_to_use": "More inclusive than production-only AHE. Tracks total compensation pressure in manufacturing. Use for unit-labor-cost calculations alongside productivity (aUSPHOPBUS/A).",
+      "related_series": [
+        "aUSWAGMANA",
+        "aUSEARNHM/A",
+        "aUSULCNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNHS/A",
+      "description": "Earnings, Average Hourly, Nonfarm service-producing industries",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average Hourly Earnings, services-providing nonfarm — wages in healthcare, leisure, professional services, retail, finance, education. ~85% of the workforce.",
+      "how_to_use": "Drives core services CPI inflation — services-sector wage growth above ~4% sustains 2-3% core services inflation. The Fed's most-cited wage-pressure measure. Decompose by sub-sector: leisure/hospitality wages spiked 2021-22 then normalized; healthcare wages still rising structurally.",
+      "related_series": [
+        "aUSEARNH/A",
+        "aUSWAGMANA",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEAHNPVT/A",
+      "description": "Earnings, Average Hourly, Nonfarm, all private employees",
+      "frequency": "P1M",
+      "subcategory": "AHE",
+      "units": "USD/hour",
+      "meaning": "AHE all private employees — alternate series.",
+      "how_to_use": "Cross-check with aUSEARNH/A.",
+      "related_series": [
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWAGESB/A",
+      "description": "Earnings, Average Hourly, Nonfarm, all private employees, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "AHE",
+      "units": "%, YoY",
+      "meaning": "AHE all private employees YoY change.",
+      "how_to_use": "Wage inflation. >4% YoY too hot for 2% inflation; <3% suggests easing.",
+      "related_series": [
+        "aUSEARNH/A",
+        "aUSAHVEA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNHM/A",
+      "description": "Earnings, Average Hourly, Nonfarm, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per hour",
+      "meaning": "Average Hourly Earnings, nonfarm, manufacturing (all employees) — same conceptual measure as aUSWAGMANB/A. Cross-check series.",
+      "how_to_use": "Cross-check against aUSWAGMANA. Use whichever has fresher data. The 'all-employees' framing has been the BLS standard since 2006 reform.",
+      "related_series": [
+        "aUSWAGMANA",
+        "aUSWAGMANB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARN/CA",
+      "description": "Earnings, Average Hourly, Real average, total private",
+      "frequency": "P1M",
+      "subcategory": "Real Wages",
+      "units": "USD/hour",
+      "meaning": "Real AHE, total private.",
+      "how_to_use": "Inflation-adjusted; the wage-gain that actually buys things.",
+      "related_series": [
+        "aUSWAGESD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARN",
+      "description": "Earnings, Average Weekly, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per week",
+      "meaning": "Average Weekly Earnings, total private nonfarm — hourly wage × hours worked per week. Pre-tax weekly take-home gauge.",
+      "how_to_use": "More cyclical than hourly wages because hours worked are pro-cyclical (overtime cut in slowdowns, expanded in booms). Better predictor of consumer spending than hourly wage alone. Watch for divergence: when hours fall while hourly wage rises, total income may flatten.",
+      "related_series": [
+        "aUSEARNH/A",
+        "aUSEARNW/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNW/A",
+      "description": "Earnings, Average Weekly, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per week",
+      "meaning": "Average Weekly Earnings, nonfarm payroll, total private — annual aggregate companion to aUSEARN at lower frequency.",
+      "how_to_use": "Long-time-series wages tracking. Use aUSEARN for monthly tracking. Real version (deflated by CPI, aUSEARNW/CA) is the most analytically useful for household-income trend.",
+      "related_series": [
+        "aUSEARN",
+        "aUSEARNW/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWEIPB/A",
+      "description": "Earnings, Average Weekly, Nonfarm payrolls, all employees, total private",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per week",
+      "meaning": "Average Weekly Earnings, nonfarm, all employees (private) — broader than production-only weekly earnings. Includes supervisory + admin staff.",
+      "how_to_use": "More inclusive than aUSEARN (production-only). Use for total private-sector wage-pressure tracking. Diverges from production weekly earnings when supervisory-vs-production hiring mix shifts.",
+      "related_series": [
+        "aUSEARN",
+        "aUSEAHNPVT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNW/CA",
+      "description": "Earnings, Average Weekly, Real average, total private",
+      "frequency": "P1M",
+      "subcategory": "Real Wages",
+      "units": "USD per week",
+      "meaning": "Real average weekly earnings — average weekly earnings deflated by CPI. Best take-home-pay-after-inflation gauge for tracking household real-income trends.",
+      "how_to_use": "The single best 'how is the typical worker doing' indicator. Negative real wage growth (2021-22) drives consumer-confidence collapses; recovery (2024+) supports spending. Track alongside real disposable personal income (DPI) for full household-cash-flow picture.",
+      "related_series": [
+        "aUSEARN",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEAWNPVT/CA",
+      "description": "Earnings, Average Weekly, Total Private",
+      "frequency": "P1M",
+      "subcategory": "Wages",
+      "units": "USD per week",
+      "meaning": "Average Weekly Earnings, total private, alternative source — companion series to aUSWEIPB/A.",
+      "how_to_use": "Cross-check series. Use whichever is fresher. Useful for revisions tracking.",
+      "related_series": [
+        "aUSWEIPB/A",
+        "aUSEARN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNAR",
+      "description": "Earnings, Total Private, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "AHE",
+      "units": "%, MoM",
+      "meaning": "Total private earnings MoM change.",
+      "how_to_use": "Monthly wage momentum.",
+      "related_series": [
+        "aUSAHVEA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMDH/C",
+      "description": "Payroll index, Producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Payroll index, production workers durable goods.",
+      "how_to_use": "Production-worker payroll proxy.",
+      "related_series": [
+        "aUSWKIMNH/C",
+        "aUSWKIMH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMNH/C",
+      "description": "Payroll index, Producion workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Payroll index, production workers nondurable goods.",
+      "how_to_use": "Nondurables version.",
+      "related_series": [
+        "aUSWKIMDH/C",
+        "aUSWKIMH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMH/C",
+      "description": "Payroll index, production workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Payroll index, production workers, manufacturing.",
+      "how_to_use": "Total mfg payroll index.",
+      "related_series": [
+        "aUSWKIMDH/C",
+        "aUSWKIMNH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSREVPPA",
+      "description": "Payrolls Benchmark NSA",
+      "frequency": "P1Y",
+      "subcategory": "Revisions",
+      "units": "Thousands",
+      "meaning": "Payrolls benchmark NSA — annual benchmark revision.",
+      "how_to_use": "BLS preliminary payroll benchmark; signals direction of QCEW-based annual revision (typically large in 2024-25).",
+      "related_series": [
+        "aUSREVOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSREVOA",
+      "description": "Payrolls Benchmark SA",
+      "frequency": "P1Y",
+      "subcategory": "Revisions",
+      "units": "Thousands",
+      "meaning": "Payrolls benchmark, seasonally adjusted.",
+      "how_to_use": "SA version. Big negative revisions (e.g., -800k in 2024) reset NFP narrative.",
+      "related_series": [
+        "aUSREVPPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMDG/CA",
+      "description": "Weekly payroll index, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Weekly payroll index, durable goods.",
+      "how_to_use": "Hourly × weekly hours payroll proxy.",
+      "related_series": [
+        "aUSWKIMG/CA",
+        "aUSWKIMNG/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMG/CA",
+      "description": "Weekly payroll index, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Weekly payroll index, manufacturing.",
+      "how_to_use": "Total mfg weekly payroll proxy.",
+      "related_series": [
+        "aUSWKIMDG/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWKIMNG/CA",
+      "description": "Weekly payroll index, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Payroll Index",
+      "units": "Index",
+      "meaning": "Weekly payroll index, nondurable goods.",
+      "how_to_use": "Nondurables version.",
+      "related_series": [
+        "aUSWKIMDG/CA"
+      ],
+      "notes": ""
+    }
+  ]
+}

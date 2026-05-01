@@ -1,0 +1,93 @@
+{
+  "category": "Other Industries",
+  "category_slug": "us_other_industries",
+  "section": "Industry Sector",
+  "source_file": "US_Other Industries.xlsx",
+  "ric_count": 6,
+  "rics": [
+    {
+      "ric": "aUSTTOPAS/A",
+      "description": "Total Tourism-Related Output, Passenger air transportation",
+      "frequency": "P1Y",
+      "subcategory": "Tourism",
+      "units": "USD millions",
+      "meaning": "Total tourism-related output for passenger air transportation. BEA Travel & Tourism Satellite Accounts, annual.",
+      "how_to_use": "Long-run tourism trend gauge. Combine with monthly TSA throughput for high-frequency cross-check. Sensitive to fuel costs and consumer discretionary.",
+      "related_series": [
+        "aUSTOAIRT/A",
+        "aUSTRTTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSTIND/A",
+      "description": "Total sales of tourism Industries total",
+      "frequency": "P3M",
+      "subcategory": "Tourism",
+      "units": "USD millions",
+      "meaning": "Total tourism industry sales — quarterly aggregate of all tourism-related sectors.",
+      "how_to_use": "Headline tourism cycle gauge. Watch alongside leisure & hospitality payrolls (in employment_hours) and consumer confidence for the broader services consumer view.",
+      "related_series": [
+        "aUSTOAIRT/A",
+        "aUSTOTRACC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTOAIRT/A",
+      "description": "Total sales of tourism Industries, passenger air transportation",
+      "frequency": "P3M",
+      "subcategory": "Tourism",
+      "units": "USD millions",
+      "meaning": "Total sales of passenger air transportation within tourism industries — quarterly.",
+      "how_to_use": "Most cyclical tourism sub-line. Compare against airline industry revenues (BTS) and the TSA throughput series for a real-time cross-check.",
+      "related_series": [
+        "aUSSTIND/A",
+        "aUSTRTTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTOTRACC/A",
+      "description": "Total sales of tourism Industries, traveler accommodations",
+      "frequency": "P3M",
+      "subcategory": "Tourism",
+      "units": "USD millions",
+      "meaning": "Total sales of traveler accommodations (hotels, motels, B&Bs) within tourism industries — quarterly.",
+      "how_to_use": "Pair with RevPAR and occupancy rate from STR/CBRE for sector-level depth. Sensitive to business travel cycles, not just leisure.",
+      "related_series": [
+        "aUSSTIND/A",
+        "aUSTOAIRT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRTTP",
+      "description": "TSA Checkpoint Traveler Throughput",
+      "frequency": "P1M",
+      "subcategory": "Travel Activity",
+      "units": "Persons",
+      "meaning": "TSA airport security checkpoint throughput — count of passengers screened. Daily; aggregated monthly here.",
+      "how_to_use": "Highest-frequency travel demand indicator. Use as a real-time cross-check on tourism / leisure consumer spend. Compare YoY to control for seasonality.",
+      "related_series": [
+        "aUSTRTH/A",
+        "aUSTOAIRT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRTH/A",
+      "description": "TSA Checkpoint Traveler Throughput",
+      "frequency": "P1M",
+      "subcategory": "Travel Activity",
+      "units": "Persons",
+      "meaning": "TSA Checkpoint Traveler Throughput — same as aUSTRTTP, alternate series with adjustments.",
+      "how_to_use": "Use whichever has cleaner recent prints. Watch the YoY % change for trend; the level is heavily seasonal.",
+      "related_series": [
+        "aUSTRTTP",
+        "aUSSTIND/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "category": "Exchange Rates & Operations",
+  "category_slug": "us_exchange_rate_operations",
+  "section": "Money & Finance",
+  "source_file": "US_Exchange Rate & Operations.xlsx",
+  "ric_count": 15,
+  "rics": [
+    {
+      "ric": "aUSBISNXBR",
+      "description": "BIS, Nominal Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "BIS EER",
+      "units": "Index",
+      "meaning": "BIS Nominal Broad Effective Exchange Rate Index — comprehensive USD strength gauge against ~60 trading partners. Bank for International Settlements.",
+      "how_to_use": "Broader than Fed TWI; methodologically different weights. Use as cross-check on Fed series. BIS series has the longest cross-country history.",
+      "related_series": [
+        "aUSCXTWF/C",
+        "aUSBISRXBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBISNXNR",
+      "description": "BIS, Nominal Narrow Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "BIS Effective Rates",
+      "units": "Index",
+      "meaning": "Nominal Narrow Effective Exchange Rate Index — narrower basket (~26 advanced economies).",
+      "how_to_use": "Cleaner read on G10 USD positioning. Less noise from EM volatility.",
+      "related_series": [
+        "aUSBISNXBR",
+        "aUSBISRXNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBISRXBR",
+      "description": "BIS, Real Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "BIS Effective Rates",
+      "units": "Index",
+      "meaning": "Real (CPI-adjusted) Broad Effective Exchange Rate. Captures real competitiveness.",
+      "how_to_use": "True purchasing power gauge. Rising real EER = US loses real competitiveness even if nominal rate flat.",
+      "related_series": [
+        "aUSBISNXBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBISRXNR",
+      "description": "BIS, Real Narrow Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "BIS Effective Rates",
+      "units": "Index",
+      "meaning": "Real Narrow Effective Exchange Rate.",
+      "how_to_use": "Use alongside the broad index. Narrow vs broad gap = EM vs DM USD strength.",
+      "related_series": [
+        "aUSBISNXNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSXRUSD",
+      "description": "US $ TO EURO NOON NY (EP)",
+      "frequency": "P1M",
+      "subcategory": "Bilateral Rates",
+      "units": "USD/EUR",
+      "meaning": "USD/EUR exchange rate — noon NY fixing. The most-traded FX pair globally.",
+      "how_to_use": "Largest weight in trade-weighted USD (~25%). EUR strength typically reflects relative ECB-Fed policy stance + relative growth. EUR is a low-beta currency in risk-off (counterintuitively).",
+      "related_series": [
+        "aUSCXTWF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCORP/A",
+      "description": "Corporate Paper, Commercial",
+      "frequency": "P1M",
+      "subcategory": "Money Markets",
+      "units": "Index/Yield",
+      "meaning": "Commercial Paper rate — short-term corporate borrowing.",
+      "how_to_use": "Front-end credit gauge. Spread to T-bills (CP-bill spread) widens in stress.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUS0CWMCRF/C",
+      "description": "Federal Reserve, Price-adjusted Trade Weighted Exchange Real Index Major Currencies",
+      "frequency": "P1M",
+      "subcategory": "Fed TWI",
+      "units": "Index",
+      "meaning": "Fed Trade Weighted Real Index — Major Currencies.",
+      "how_to_use": "Fed's own real USD index. Diverges slightly from BIS due to weighting methodology.",
+      "related_series": [
+        "aUSCWMCRF/C",
+        "aUSBISRXBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCWMCRF/C",
+      "description": "Federal Reserve, Real Advanced Foreign Economies Dollar Index",
+      "frequency": "P1M",
+      "subcategory": "Fed TWI",
+      "units": "Index",
+      "meaning": "Fed Real Advanced Foreign Economies Dollar Index.",
+      "how_to_use": "Newer Fed index focused on AE trading partners — successor to the Major Currencies index.",
+      "related_series": [
+        "aUS0CWMCRF/C",
+        "aUSCXTRF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTWPF",
+      "description": "Trade Weighted nominal exchange rate, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "%, MoM",
+      "meaning": "Trade-weighted nominal USD MoM % change, standardized.",
+      "how_to_use": "High-frequency USD strength signal. Watch alongside DXY.",
+      "related_series": [
+        "aUSCXTWYF",
+        "aUSCXTWF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTWYF",
+      "description": "Trade Weighted nominal exchange rate, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "%, YoY",
+      "meaning": "Trade-weighted nominal USD YoY % change. The most market-relevant USD strength gauge for cycle-cycle comparisons.",
+      "how_to_use": ">5% YoY USD strength is historically a drag on US multinational EPS (S&P 500 derives ~40% of revenue overseas). Triggers translation hedging activity in corporate treasury.",
+      "related_series": [
+        "aUSCXTWF/C",
+        "aUSCXTRF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTWF/C",
+      "description": "Trade Weighted nominal exchange rate, Standardized",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "Index",
+      "meaning": "Trade-weighted nominal US dollar index, standardized — Fed's broad USD strength gauge against major + emerging trading partners. Refinitiv/LSEG version.",
+      "how_to_use": "Rising = stronger USD = headwind for US exporters and EM debt service. Sub-components: USD vs DM (G10) vs USD vs EM. ~50% weight is EUR/CNY/JPY/MXN/CAD combined.",
+      "related_series": [
+        "aUSCXTWYF",
+        "aUSCXTRF/C",
+        "aUSBISNXBR",
+        "aUSXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTRPF",
+      "description": "Trade Weighted real exchange rate, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "%, MoM",
+      "meaning": "Trade-weighted REAL USD MoM % change.",
+      "how_to_use": "Strips inflation differentials. Cleaner competitiveness signal than nominal.",
+      "related_series": [
+        "aUSCXTRYF",
+        "aUSCXTRF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTRYF",
+      "description": "Trade Weighted real exchange rate, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "%, YoY",
+      "meaning": "Trade-weighted real USD YoY % change.",
+      "how_to_use": "Best annual USD competitiveness measure for trade modeling.",
+      "related_series": [
+        "aUSCXTRPF",
+        "aUSCXTRF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXTRF/C",
+      "description": "Trade Weighted real exchange rate, Standardized",
+      "frequency": "P1M",
+      "subcategory": "USD Trade-Weighted",
+      "units": "Index",
+      "meaning": "Trade-weighted REAL USD index (CPI-adjusted) — strips inflation differentials. The cleaner competitiveness signal.",
+      "how_to_use": "Diverges from nominal USD when inflation differs across trading partners. Real USD up while nominal flat = US loses real competitiveness even with stable nominal rate.",
+      "related_series": [
+        "aUSCXTWF/C",
+        "aUSBISRXBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOCFPP/A",
+      "description": "Purchasing power parity, National currency per USD",
+      "frequency": "",
+      "subcategory": "PPP",
+      "units": "USD",
+      "meaning": "Purchasing power parity — units of national currency per USD. For US, this is base = 1.0.",
+      "how_to_use": "Useful only for cross-country GDP comparisons. Not market-tradable.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

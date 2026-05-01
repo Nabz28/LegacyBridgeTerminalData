@@ -1,0 +1,914 @@
+{
+  "category": "Investment / Capital Formation",
+  "category_slug": "us_investment_capital_formation",
+  "section": "National Accounts",
+  "source_file": "US_Investment & Capital Formation.xlsx",
+  "ric_count": 59,
+  "rics": [
+    {
+      "ric": "aUSGOVFE/CA",
+      "description": "Consumption Expenditures, Federal, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Consumption Expenditures, Federal, Chg P/P.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGFQF/C",
+        "aUSNSGFCA",
+        "aUSNQKG6C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNB0UCI",
+      "description": "Contribution to % chg, priv fixed invest, non-residential, commercial & health care",
+      "frequency": "P1Y",
+      "subcategory": "Residential",
+      "units": "",
+      "meaning": "Contribution to % chg, priv fixed invest, non-residential, commercial & health care.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNWYPEH",
+        "aUSNZHMR3",
+        "aUSNYK0DH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNWYPEH",
+      "description": "Contribution to % chg, priv fixed invest, residential",
+      "frequency": "P1Y",
+      "subcategory": "Residential",
+      "units": "",
+      "meaning": "Contribution to % chg, priv fixed invest, residential.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNB0UCI",
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS52519",
+      "description": "Fixed investment, nonresidential intellectual property, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Intellectual Property",
+      "units": "Persons",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNSGFQF/C",
+        "aUSNSGFCA",
+        "aUSNSCDQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNYK0DH",
+      "description": "Government enterprise gross fixed investment",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNQKG6C",
+        "aUSNBCESK",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQKG6C",
+      "description": "Government enterprise gross fixed investment, federal",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNYK0DH",
+        "aUSNBCESK",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNBCESK",
+      "description": "Government enterprise gross fixed investment, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNYK0DH",
+        "aUSNQKG6C",
+        "aUSINVGISLT/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS52540",
+      "description": "Government gross investment, equipment, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Equipment",
+      "units": "Persons",
+      "meaning": "Government gross investment, equipment, Investment / Capital Formation.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGFQF/C",
+        "aUSNSGFCA",
+        "aUSINVGISLT/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS52547",
+      "description": "Government gross investment, intellectual property",
+      "frequency": "P1Y",
+      "subcategory": "Intellectual Property",
+      "units": "",
+      "meaning": "Government gross investment, intellectual property.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS52551",
+        "aUSNYK0DH",
+        "aUSNQKG6C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS52551",
+      "description": "Government investment, net intellectual property, fed, defense",
+      "frequency": "P1Y",
+      "subcategory": "Intellectual Property",
+      "units": "",
+      "meaning": "Government investment, net intellectual property, fed, defense.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS52547",
+        "aUSINVAGINO/CA",
+        "aUSINVAGINO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAGIND/CA",
+      "description": "Gross Government Investment, Federal, national defense total, Constant Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, Federal, national defense total, constant prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVAGINO/CA",
+        "aUSINVAGIND/A",
+        "aUSINVAGINO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAGIND/A",
+      "description": "Gross Government Investment, Federal, national defense total, Current Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, Federal, national defense total, current prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVAGINO/A",
+        "aUSINVAGIND/CA",
+        "aUSINVAGINO/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAGINO/CA",
+      "description": "Gross Government Investment, Federal, nondefense total, Constant Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, Federal, nondefense total, constant prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVAGINO/A",
+        "aUSINVAGIND/CA",
+        "aUSINVGISLT/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAGINO/A",
+      "description": "Gross Government Investment, Federal, nondefense total, Current Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, Federal, nondefense total, current prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVAGINO/CA",
+        "aUSINVAGIND/A",
+        "aUSINVGISLT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVGISLT/CA",
+      "description": "Gross Government Investment, State and local total, Constant Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, State and local total, constant prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVGISLT/A",
+        "aUSINVAGINO/CA",
+        "aUSINVAGIND/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVGISLT/A",
+      "description": "Gross Government Investment, State and local total, Current Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross Government Investment, State and local total, current prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVGISLT/CA",
+        "aUSINVAGINO/A",
+        "aUSINVAGIND/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNRAC6N",
+      "description": "Gross domestic capital account transactions & net lending, neaps",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Gross domestic capital account transactions & net lending, neaps.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN75SAS",
+        "aUSINVGISLT/CA",
+        "aUSINVGISLT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN75SAS",
+      "description": "Gross domestic investment",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Gross domestic investment.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNZBUDG",
+        "aUSNYK0DH",
+        "aUSNRAC6N"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQATRJ",
+      "description": "Gross private saving",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Gross private saving.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNZ4A3Z",
+        "aUSNTB17Z",
+        "aUSNQ8P36"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNZ4A3Z",
+      "description": "Gross saving",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Gross saving.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTB17Z",
+        "aUSNQATRJ",
+        "aUSN14Z5B"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNTB17Z",
+      "description": "Gross saving as % of gross national income",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Gross saving as % of gross national income.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN14Z5B",
+        "aUSNZ4A3Z",
+        "aUSNQATRJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN87S5C",
+      "description": "Net domestic fixed investment",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNZBUDG",
+        "aUSNYK0DH",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNZBUDG",
+      "description": "Net domestic investment",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net domestic investment.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN87S5C",
+        "aUSN75SAS",
+        "aUSN6G9HY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN6G9HY",
+      "description": "Net domestic investment, private",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net domestic investment, private.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNZBUDG",
+        "aUSNI0B4H",
+        "aUSN87S5C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSCDCA",
+      "description": "Net fixed assets, consumer durable goods, Current Prices, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Net fixed assets, consumer durable goods, current prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSCDQF/C",
+        "aUSNSGFCA",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSCDQF/C",
+      "description": "Net fixed assets, consumer durable goods, Volume Index, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Index",
+      "meaning": "Index reading: Net fixed assets, consumer durable goods, Volume Index, Investment / Capital Formation.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSCDCA",
+        "aUSNSGFQF/C",
+        "aUSNSGFCA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSGOCA",
+      "description": "Net government fixed assets",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net government fixed assets.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGSCA",
+        "aUSNSGFQF/C",
+        "aUSNSGFCA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSGFCA",
+      "description": "Net government fixed assets, federal, Current Prices, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Persons",
+      "meaning": "Net government fixed assets, federal, current prices.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGFQF/C",
+        "aUSNSCDCA",
+        "aUSINVAGINO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSGFQF/C",
+      "description": "Net government fixed assets, federal, Volume Index, Investment / Capital Formation, Annual, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Index",
+      "meaning": "Index reading: Net government fixed assets, federal, Volume Index, Investment / Capital Formation.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGFCA",
+        "aUSNSCDQF/C",
+        "aUSNSCDCA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSGSCA",
+      "description": "Net government fixed assets, state & local",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net government fixed assets, state & local.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNBCESK",
+        "aUSNSGOCA",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSRECA",
+      "description": "Net private fixed assets, residential",
+      "frequency": "P1Y",
+      "subcategory": "Residential",
+      "units": "",
+      "meaning": "Net private fixed assets, residential.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A",
+        "aUSINVPFIPS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN20QHE",
+      "description": "Net private saving",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net private saving.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNQATRJ",
+        "aUSNQ8P36",
+        "aUSNZHMR3"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQ8P36",
+      "description": "Net private saving, households & institutions",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net private saving, households & institutions.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNQATRJ",
+        "aUSN20QHE",
+        "aUSNZHMR3"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNK5IC2",
+      "description": "Net saving",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net saving.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNZ4A3Z",
+        "aUSNTB17Z",
+        "aUSNQATRJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN14Z5B",
+      "description": "Net saving as % of gross national income",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Net saving as % of gross national income.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNTB17Z",
+        "aUSNZ4A3Z",
+        "aUSNQATRJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIE/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, industrial equipment",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIE/CA",
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIC/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, information proc, computers and periperhal",
+      "frequency": "P3M",
+      "subcategory": "Residential",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIPS/A",
+        "aUSINVPFIIS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIP/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, information proc, other",
+      "frequency": "P3M",
+      "subcategory": "Residential",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIP/CA",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIPS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIS/CA",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, information proc, software, Constant Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Intellectual Property",
+      "units": "Persons",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIS/A",
+        "aUSINVAPFIO/CA",
+        "aUSINVAPFIO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIS/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, information proc, software, Current Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Intellectual Property",
+      "units": "Persons",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIS/CA",
+        "aUSINVAPFIO/A",
+        "aUSINVAPFIO/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIPS/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, information processing eqp and software total",
+      "frequency": "P3M",
+      "subcategory": "Intellectual Property",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIIS/CA",
+        "aUSINVPFIIS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAPFIO/CA",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, other, Constant Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Residential",
+      "units": "Persons",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIS/CA",
+        "aUSINVAPFIO/A",
+        "aUSINVPFIIS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVAPFIO/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, other, Current Prices, Investment / Capital Formation, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Residential",
+      "units": "Persons",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIS/A",
+        "aUSINVAPFIO/CA",
+        "aUSINVPFIIS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFITE/A",
+      "description": "Private Fixed Investment, Nonresidential, Eq & sw, transportation equipment",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFITE/CA",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIIP/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIE/CA",
+      "description": "Private Fixed Investment, Nonresidential, Industrial equipment & software",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIIE/A",
+        "aUSINVPFITE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIPS/CA",
+      "description": "Private Fixed Investment, Nonresidential, Information processing equipment & software",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIPS/A",
+        "aUSINVPFIIP/CA",
+        "aUSINVPFIIS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFIIP/CA",
+      "description": "Private Fixed Investment, Nonresidential, Other information processing equipment",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIPS/A",
+        "aUSINVPFIIP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINVPFITE/CA",
+      "description": "Private Fixed Investment, Nonresidential, Transportation equipment",
+      "frequency": "P3M",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFITE/A",
+        "aUSINVPFIPS/CA",
+        "aUSINVPFIIP/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNZHMR3",
+      "description": "Private fixed invest, nonresident, net structures",
+      "frequency": "P1Y",
+      "subcategory": "Structures",
+      "units": "",
+      "meaning": "Private fixed invest, nonresident, net structures.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNI0B4H",
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS52517",
+      "description": "Private fixed investment, nonresident, equipment",
+      "frequency": "P1Y",
+      "subcategory": "Equipment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A",
+        "aUSINVPFIPS/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNI0B4H",
+      "description": "Private fixed investment, nonresident, structures",
+      "frequency": "P1Y",
+      "subcategory": "Structures",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNZHMR3",
+        "aUSINVPFITE/CA",
+        "aUSINVPFITE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNKO0R0/C",
+      "description": "Quantity index real, federal, military facilities",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "Index",
+      "meaning": "Index reading: Quantity index real, federal, military facilities.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNSGFQF/C",
+        "aUSNSGFCA",
+        "aUSNSCDQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS56127",
+      "description": "Real Private fixed investment, other (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Private Fixed",
+      "units": "%, YoY",
+      "meaning": "Year-over-year change in private fixed investment — the capex cycle of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSINVPFIIP/CA",
+        "aUSINVPFIIP/A",
+        "aUSINVAPFIO/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSND0VAY",
+      "description": "Real, non-residential, other equipment, construction mach (%yoy)",
+      "frequency": "P1Y",
+      "subcategory": "Equipment",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Real, non-residential, other equipment, construction mach (%yoy).",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS56127",
+        "aUSINVPFIIP/CA",
+        "aUSNKO0R0/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNIERF5",
+      "description": "Structures, federal, net purchases of used structures",
+      "frequency": "P1Y",
+      "subcategory": "Structures",
+      "units": "",
+      "meaning": "Structures, federal, net purchases of used structures.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSN1KDLN",
+        "aUSNZHMR3",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN1KDLN",
+      "description": "Structures, federal, non-defense, net purchases of used structures",
+      "frequency": "P1Y",
+      "subcategory": "Structures",
+      "units": "",
+      "meaning": "Structures, federal, non-defense, net purchases of used structures.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNIERF5",
+        "aUSNZHMR3",
+        "aUSNSGFQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15IREN",
+      "description": "Real estate holdings, NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Real estate holdings, NPISH.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS15IREB",
+        "aUS15IREH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15IREH",
+      "description": "Real estate holdings, households",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Real estate holdings, households.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS15IREB",
+        "aUS15IREN",
+        "aUSNQ8P36"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15IREB",
+      "description": "Real estate holdings, households & NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Real estate holdings, households & NPISH.",
+      "how_to_use": "Sub-component or variant within Investment / Capital Formation. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUS15IREN",
+        "aUS15IREH",
+        "aUSNQ8P36"
+      ],
+      "notes": ""
+    }
+  ]
+}

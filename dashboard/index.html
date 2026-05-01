@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refinitiv Macro Terminal</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{
+  --bg:#0e1116;
+  --bg-elev:#161a22;
+  --bg-elev-2:#1d222c;
+  --border:#252b36;
+  --border-strong:#323847;
+  --text:#e6e8ec;
+  --text-dim:#9aa3b2;
+  --text-faint:#6b7280;
+  --accent:#ff8a00;
+  --accent-dim:#a85700;
+  --positive:#22c55e;
+  --negative:#ef4444;
+  --series-1:#ff8a00;
+  --series-2:#22c55e;
+  --series-3:#3b82f6;
+  --series-4:#a855f7;
+  --series-5:#eab308;
+  --mono:'JetBrains Mono','Fira Code','Consolas',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  font-size:13px;
+  background:var(--bg);
+  color:var(--text);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  grid-template-columns:1fr;
+  overflow:hidden;
+}
+
+/* ====== TOP BAR ====== */
+.topbar{
+  display:flex;align-items:center;gap:14px;
+  padding:8px 16px;background:var(--bg-elev);border-bottom:1px solid var(--border);
+  font-family:var(--mono);font-size:12px;
+}
+.brand{
+  display:flex;align-items:center;gap:8px;
+  color:var(--accent);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding-right:16px;border-right:1px solid var(--border);
+}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.search-wrap{flex:1;position:relative;max-width:560px}
+.search{
+  width:100%;padding:7px 12px;background:var(--bg);border:1px solid var(--border-strong);
+  color:var(--text);font-family:var(--mono);font-size:12px;border-radius:3px;outline:none;
+}
+.search:focus{border-color:var(--accent)}
+.search::placeholder{color:var(--text-faint)}
+.search-results{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;max-height:480px;overflow-y:auto;
+  background:var(--bg-elev-2);border:1px solid var(--border-strong);border-radius:3px;
+  z-index:200;display:none;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  min-width:600px;
+}
+.search-results.open{display:block}
+.search-status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;background:rgba(255,138,0,.08);border-bottom:1px solid var(--accent-dim);
+  font-family:var(--mono);font-size:11px;color:var(--text-dim);
+  position:sticky;top:0;z-index:1;
+}
+.search-status-query strong{color:var(--accent);font-weight:600}
+.search-status-count{color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;font-size:10px}
+.search-result{
+  display:grid;grid-template-columns:170px minmax(0,1fr) 60px;gap:12px;padding:7px 12px;cursor:pointer;
+  border-bottom:1px solid var(--border);font-size:12px;align-items:center;
+}
+.search-result:last-child{border-bottom:0}
+.search-result:hover,.search-result.active{background:var(--bg-elev)}
+.search-result .ric{font-family:var(--mono);color:var(--accent);font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.search-result .desc{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.search-result .freq{color:var(--text-dim);font-family:var(--mono);text-align:right;font-size:11px}
+.search-result-hit{color:var(--text-faint);font-size:10px;font-style:italic;letter-spacing:.3px}
+.search-result mark, .search-result .ric mark{
+  background:rgba(255,138,0,.35);color:#fff;padding:0 1px;border-radius:2px;font-weight:700;
+}
+.search-empty{padding:18px 14px;color:var(--text-faint);text-align:center;font-size:11px}
+
+.topbar-meta{display:flex;align-items:center;gap:14px;color:var(--text-dim);font-size:11px}
+.topbar-meta .label{color:var(--text-faint);text-transform:uppercase;letter-spacing:1px}
+.topbar-meta .value{color:var(--text);font-weight:600}
+.topbar-link{color:var(--text-dim);text-decoration:none;padding:5px 10px;border:1px solid var(--border-strong);border-radius:3px;font-size:11px;background:transparent;cursor:pointer;font-family:inherit;font-weight:600;letter-spacing:.5px}
+.topbar-link:hover{color:var(--accent);border-color:var(--accent-dim)}
+.topbar-link.active{color:#facc15;border-color:#facc15;background:rgba(250,204,21,.08)}
+.topbar-link:disabled{opacity:.4;cursor:not-allowed}
+.topbar-link:disabled:hover{color:var(--text-dim);border-color:var(--border-strong);background:transparent}
+.polls-section-header{
+  font-family:var(--mono);font-size:10px;color:#facc15;letter-spacing:1.5px;
+  padding:8px 14px 4px;text-transform:uppercase;border-bottom:1px solid var(--border);
+  margin-top:6px;background:rgba(250,204,21,.04);
+}
+.cat-row.poll-section .cat-label{color:#facc15}
+.ric-item.poll-indicator{cursor:pointer;background:rgba(250,204,21,.03)}
+.ric-item.poll-indicator:hover{background:rgba(250,204,21,.10)}
+.poll-stat-row{
+  display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;
+  border-bottom:1px solid var(--border);
+}
+.poll-stat-row:hover{background:rgba(250,204,21,.06)}
+.poll-stat-tick{font-size:14px;width:14px;text-align:center}
+.poll-stat-name{flex:1;color:var(--text);font-size:11px}
+.poll-stat-ric{color:var(--text-faint);font-size:10px;font-family:var(--mono)}
+.country-picker{
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  padding:4px 10px 4px 8px;border:1px solid var(--border-strong);border-radius:3px;
+  font-family:var(--mono);font-size:11px;color:var(--text-dim);cursor:pointer;
+  background:transparent;
+}
+.country-picker:hover:not(:has(select:disabled)){border-color:var(--accent-dim);color:var(--text)}
+.country-picker-flag{
+  display:inline-block;min-width:22px;padding:1px 4px;border-radius:2px;
+  background:var(--accent-dim);color:var(--accent);font-weight:700;font-size:10px;
+  text-align:center;letter-spacing:1px;
+}
+.country-select{
+  background:transparent;border:none;color:inherit;font-family:inherit;font-size:11px;
+  cursor:pointer;padding:0 4px;outline:none;font-weight:600;letter-spacing:.5px;
+  appearance:none;-webkit-appearance:none;
+}
+.country-select:disabled{cursor:default;opacity:.6}
+.country-select option{background:var(--bg-elev);color:var(--text)}
+
+/* ====== MAIN GRID ====== */
+.main{
+  display:grid;
+  grid-template-columns:260px minmax(380px,1fr) 300px;
+  height:100%;min-height:0;overflow:hidden;
+}
+@media (max-width:1100px){
+  .main{grid-template-columns:220px minmax(320px,1fr) 260px}
+}
+
+/* ====== LEFT SIDEBAR (categories + watchlist) ====== */
+.sidebar{
+  background:var(--bg-elev);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;min-height:0;
+}
+.sidebar-tabs{display:flex;border-bottom:1px solid var(--border)}
+.sidebar-tab{
+  flex:1;padding:10px;background:none;border:0;color:var(--text-dim);
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;
+  cursor:pointer;border-bottom:2px solid transparent;
+}
+.sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.sidebar-tab:hover{color:var(--text)}
+.sidebar-pane{flex:1;overflow-y:auto;padding:6px 0}
+.sidebar-pane.hidden{display:none}
+
+.cat-search{padding:8px 12px;border-bottom:1px solid var(--border)}
+.cat-search input{
+  width:100%;padding:5px 8px;background:var(--bg);border:1px solid var(--border-strong);
+  color:var(--text);font-family:var(--mono);font-size:11px;border-radius:3px;outline:none;
+}
+.cat-search input:focus{border-color:var(--accent)}
+
+.cat-group{border-bottom:1px solid var(--border)}
+.cat-header{
+  display:flex;align-items:center;gap:6px;padding:8px 12px;cursor:pointer;
+  font-size:12px;color:var(--text);user-select:none;
+}
+.cat-header:hover{background:var(--bg-elev-2)}
+.cat-header .chev{width:10px;color:var(--text-faint);font-family:var(--mono);font-size:10px;transition:transform .15s}
+.cat-group.open .chev{transform:rotate(90deg)}
+.cat-header .count{margin-left:auto;color:var(--text-faint);font-family:var(--mono);font-size:10px}
+.cat-rics{display:none;background:var(--bg)}
+.cat-group.open .cat-rics{display:block}
+.ric-item{
+  display:grid;grid-template-columns:1fr auto;gap:8px;padding:5px 12px 5px 28px;cursor:pointer;
+  font-size:11px;align-items:center;border-left:2px solid transparent;
+}
+.ric-item:hover{background:var(--bg-elev-2)}
+.ric-item.active{background:var(--bg-elev-2);border-left-color:var(--accent)}
+.ric-item .code{font-family:var(--mono);color:var(--accent);font-size:11px}
+.ric-item .desc{color:var(--text-dim);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;grid-column:1 / -1;line-height:1.3}
+.ric-item .star{color:var(--text-faint);cursor:pointer;font-size:11px;padding:0 4px}
+.ric-item .star.on{color:var(--accent)}
+
+.watchlist-empty{padding:24px 12px;text-align:center;color:var(--text-faint);font-size:11px;line-height:1.5}
+
+/* ====== CENTER (chart) ====== */
+.center{
+  display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--bg);
+}
+.chart-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  padding:14px 18px;border-bottom:1px solid var(--border);background:var(--bg-elev);
+}
+.chart-title-block .ric{font-family:var(--mono);color:var(--accent);font-size:13px;font-weight:700;letter-spacing:1px}
+.chart-title-block .desc{font-size:15px;font-weight:600;color:var(--text);margin-top:2px}
+.chart-title-block .sub{font-size:11px;color:var(--text-dim);margin-top:3px;font-family:var(--mono)}
+.chart-actions{display:flex;gap:6px;align-items:center}
+.chart-btn{
+  background:var(--bg);border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:5px 10px;font-family:var(--mono);font-size:11px;border-radius:3px;cursor:pointer;
+}
+.chart-btn:hover{color:var(--text);border-color:var(--accent-dim)}
+.chart-btn.active{color:var(--accent);border-color:var(--accent-dim);background:var(--bg-elev-2)}
+.chart-btn:disabled{opacity:.35;cursor:not-allowed}
+.chart-btn:disabled:hover{color:var(--text-dim);border-color:var(--border-strong)}
+.chart-actions-sep{
+  display:inline-block;width:1px;height:18px;background:var(--border-strong);margin:0 4px;
+}
+.chart-iconbtn{letter-spacing:.5px;font-weight:600}
+.chart-iconbtn-danger:hover:not(:disabled){color:var(--negative);border-color:var(--negative)}
+
+.chart-controls{
+  display:flex;align-items:center;gap:14px;
+  padding:8px 18px;border-bottom:1px solid var(--border);background:var(--bg-elev);
+  font-family:var(--mono);font-size:11px;color:var(--text-dim);
+}
+.range-btns{display:flex;gap:2px}
+.range-btn{
+  background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:3px 8px;font-family:var(--mono);font-size:10px;cursor:pointer;border-radius:2px;
+}
+.range-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--text)}
+.range-btn:hover{color:var(--text)}
+.forecast-key{display:inline-flex;align-items:center;gap:6px;margin-left:14px;color:var(--text-faint);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.forecast-key-line{display:inline-block;width:18px;height:0;border-top:1.5px dashed var(--text-dim)}
+
+.chart-stage{
+  flex:1;position:relative;padding:18px;min-height:0;
+  display:flex;flex-direction:column;
+}
+.chart-wrap{flex:1;position:relative;min-height:0}
+.chart-empty{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;color:var(--text-faint);text-align:center;padding:40px;
+}
+.chart-empty .big{font-family:var(--mono);font-size:18px;color:var(--text-dim);letter-spacing:1px}
+.chart-empty .hint{font-size:12px;line-height:1.6;max-width:360px}
+
+.legend{display:flex;flex-wrap:wrap;gap:12px 18px;padding:10px 18px;border-top:1px solid var(--border);background:var(--bg-elev);font-family:var(--mono);font-size:11px}
+.legend-item{display:flex;align-items:center;gap:6px;color:var(--text-dim);cursor:pointer}
+.legend-item .swatch{width:10px;height:10px;border-radius:1px}
+.legend-item .label{color:var(--text)}
+.legend-item .last{color:var(--text-dim);font-size:10px;margin-left:6px}
+.legend-item.muted{opacity:.4}
+.legend-item .x{color:var(--text-faint);padding:0 4px;font-size:14px;line-height:1}
+.legend-item .x:hover{color:var(--negative)}
+
+/* ====== RIGHT PANEL (metadata + skill) ====== */
+.meta{
+  background:var(--bg-elev);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;min-height:0;overflow-y:auto;
+}
+.meta-section{padding:14px 16px;border-bottom:1px solid var(--border)}
+.meta-section:last-child{border-bottom:0}
+.meta-label{font-family:var(--mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.meta-value{font-size:13px;color:var(--text);line-height:1.4}
+.meta-value.mono{font-family:var(--mono)}
+.meta-value.dim{color:var(--text-dim);font-size:12px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.meta-section h3{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:8px;font-weight:600}
+.meta-section p{font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px}
+.meta-section p.empty{color:var(--text-faint);font-style:italic}
+.meta-section .related{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.meta-section .related a{
+  font-family:var(--mono);font-size:11px;padding:2px 7px;
+  background:var(--bg-elev-2);border:1px solid var(--border-strong);border-radius:2px;
+  color:var(--accent);text-decoration:none;cursor:pointer;
+}
+.meta-section .related a:hover{border-color:var(--accent-dim)}
+
+.meta-empty{padding:60px 24px;text-align:center;color:var(--text-faint);font-size:12px;line-height:1.6}
+
+/* ====== MINI-MAP (right panel) ====== */
+.mini-map{height:260px;background:#0b0e13;border:1px solid var(--border);border-radius:4px;margin-top:6px;position:relative;overflow:hidden}
+.mini-map canvas{border-radius:4px;background:#0b0e13}
+.meta-map-section{padding-bottom:18px}
+.meta-map-hint{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;margin-top:6px;text-align:center}
+
+/* ====== FULLSCREEN MAP OVERLAY ====== */
+.map-overlay{position:fixed;inset:0;background:#0b0e13;z-index:100;display:flex;flex-direction:column}
+.map-overlay.hidden{display:none}
+.map-overlay-head{display:flex;align-items:center;gap:16px;padding:10px 16px;background:var(--bg-elev);border-bottom:1px solid var(--border)}
+.map-overlay-title{font-family:var(--mono);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.5px;flex-shrink:0}
+
+.map-mode-toggle{display:inline-flex;background:var(--bg);border:1px solid var(--border-strong);border-radius:4px;overflow:hidden;flex-shrink:0}
+.map-mode-btn{background:transparent;border:0;color:var(--text-dim);padding:5px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.7px;cursor:pointer;font-weight:600}
+.map-mode-btn:hover{color:var(--text)}
+.map-mode-btn.active{background:var(--accent-dim);color:var(--text)}
+
+.map-overlay-tools{display:inline-flex;gap:6px;flex-shrink:0}
+.map-tool-btn{
+  background:var(--bg);border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:5px 10px;font-family:var(--mono);font-size:10px;letter-spacing:.7px;
+  cursor:pointer;font-weight:600;border-radius:3px;text-transform:uppercase;
+}
+.map-tool-btn:hover{color:var(--text);border-color:var(--text-dim)}
+.map-tool-btn.active{background:var(--accent-dim);color:var(--text);border-color:var(--accent)}
+
+.map-overlay-hint{flex:1;font-family:var(--mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;text-align:right;padding-right:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.map-iconbtn{background:var(--bg);border:1px solid var(--border-strong);color:var(--text-dim);width:32px;height:32px;font-size:18px;line-height:1;border-radius:4px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.map-iconbtn:hover{color:var(--accent);border-color:var(--accent-dim);background:var(--bg-elev-2)}
+
+.map-overlay-body-wrap{flex:1;background:#0b0e13;min-height:0;position:relative}
+.map-overlay-body{position:absolute;inset:0;background:#0b0e13}
+.map-overlay-body canvas{display:block;background:#0b0e13}
+
+/* Custom zoom controls (top-right of map area) */
+.map-zoom-controls{position:absolute;top:14px;right:14px;display:flex;flex-direction:column;gap:4px;z-index:5}
+.map-zoom-btn{
+  width:32px;height:32px;
+  background:var(--bg-elev);
+  border:1px solid var(--border-strong);
+  color:var(--text-dim);
+  border-radius:4px;cursor:pointer;
+  font-size:16px;line-height:1;
+  font-family:inherit;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .12s ease;
+}
+.map-zoom-btn:hover{color:var(--accent);border-color:var(--accent-dim);background:var(--bg-elev-2)}
+
+/* Map legend (bottom-left) */
+.map-legend{position:absolute;bottom:14px;left:14px;display:flex;gap:18px;background:rgba(22,26,34,.88);padding:8px 14px;border-radius:4px;border:1px solid var(--border);z-index:5;font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.5px;text-transform:uppercase;backdrop-filter:blur(4px)}
+.map-legend-item{display:inline-flex;align-items:center;gap:6px}
+.leg-line{display:inline-block;width:22px;height:0;border-top:1.5px solid var(--text-dim)}
+.leg-line.solid{border-top-style:solid;border-top-color:#cbd5e1}
+.leg-line.dashed{border-top-style:dashed;border-top-color:#94a3b8;opacity:.6}
+.leg-arrow{display:inline-block;width:0;height:0;border-left:7px solid #cbd5e1;border-top:4px solid transparent;border-bottom:4px solid transparent}
+
+/* Placeholder when graph not yet loaded */
+.map-placeholder{padding:24px;color:var(--text-faint);font-size:12px;text-align:center}
+
+/* Stage labels along the top of the condensed map */
+.map-stage-header{
+  position:absolute;top:8px;left:0;right:0;
+  display:flex;justify-content:space-around;align-items:center;
+  pointer-events:none;
+  z-index:3;
+  padding:0 70px;  /* leave room for zoom controls (right) and a little margin (left) */
+}
+.map-stage-label{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  color:var(--text-faint);letter-spacing:1.5px;text-transform:uppercase;
+  background:rgba(11,14,19,.6);padding:4px 10px;border-radius:3px;
+  border:1px solid var(--border);
+}
+
+/* Node-click popup */
+.map-node-popup{
+  position:absolute;z-index:8;
+  background:var(--bg-elev-2);
+  border:1px solid var(--border-strong);
+  border-radius:6px;
+  padding:0;
+  min-width:220px;max-width:300px;
+  box-shadow:0 8px 28px rgba(0,0,0,.55);
+  font-family:'Segoe UI',system-ui,sans-serif;
+  pointer-events:auto;
+  transform:translate(-50%, calc(-100% - 14px));
+}
+.map-node-popup.hidden{display:none}
+.map-node-popup-arrow{
+  position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+  width:0;height:0;
+  border-left:7px solid transparent;border-right:7px solid transparent;
+  border-top:8px solid var(--border-strong);
+}
+.map-node-popup-arrow::after{
+  content:'';position:absolute;left:-6px;top:-9px;
+  border-left:6px solid transparent;border-right:6px solid transparent;
+  border-top:7px solid var(--bg-elev-2);
+}
+.map-node-popup-content{padding:10px 12px}
+.map-node-popup-ric{font-family:var(--mono);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px}
+.map-node-popup-label{font-size:13px;color:var(--text);font-weight:600;margin-top:3px;line-height:1.3}
+.map-node-popup-meta{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:5px;text-transform:uppercase;letter-spacing:.6px}
+.map-node-popup-actions{display:flex;gap:6px;margin-top:10px}
+.map-node-popup-cta{
+  flex:1;
+  background:var(--accent-dim);border:1px solid var(--accent);color:var(--text);
+  padding:6px 10px;font-size:11px;font-family:'Segoe UI',sans-serif;font-weight:600;
+  letter-spacing:.5px;border-radius:3px;cursor:pointer;text-transform:uppercase;
+}
+.map-node-popup-cta:hover{background:var(--accent);color:#0e1116}
+.map-node-popup-trace{
+  flex:1;
+  background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:6px 10px;font-size:11px;font-family:'Segoe UI',sans-serif;font-weight:600;
+  letter-spacing:.5px;border-radius:3px;cursor:pointer;text-transform:uppercase;
+}
+.map-node-popup-trace:hover{color:var(--accent);border-color:var(--accent-dim)}
+.map-node-popup-dismiss{
+  background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:6px 10px;font-size:11px;font-family:'Segoe UI',sans-serif;font-weight:500;
+  border-radius:3px;cursor:pointer;
+}
+.map-node-popup-dismiss:hover{color:var(--text);border-color:var(--text-dim)}
+
+/* Path-trace banner */
+.map-trace-banner{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  background:var(--bg-elev-2);border:1px solid var(--accent-dim);border-radius:4px;
+  padding:8px 14px;font-family:var(--mono);font-size:11px;color:var(--text);
+  display:flex;align-items:center;gap:14px;z-index:6;letter-spacing:.5px;
+  max-width:80%;box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.map-trace-banner.hidden{display:none}
+.map-trace-banner-content{flex:1}
+.map-trace-banner .accent{color:var(--accent);font-weight:700}
+.map-trace-banner .lag{font-family:var(--mono);background:var(--accent-dim);color:var(--text);padding:2px 6px;border-radius:2px;margin-left:6px}
+.map-trace-banner-close{
+  background:transparent;border:0;color:var(--text-dim);font-size:18px;line-height:1;cursor:pointer;
+  width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+}
+.map-trace-banner-close:hover{color:var(--accent)}
+.map-focus-hint{color:var(--accent) !important}
+
+/* ====== STATUS BAR ====== */
+.status{
+  display:flex;align-items:center;gap:18px;padding:5px 16px;
+  background:var(--bg-elev);border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;
+}
+.status .item{display:flex;align-items:center;gap:6px}
+.status .item .dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint)}
+.status .item.ok .dot{background:var(--positive)}
+.status .item.warn .dot{background:var(--accent)}
+.status .item.err .dot{background:var(--negative)}
+.status .spacer{flex:1}
+
+/* scrollbars */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-faint)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> Refinitiv Macro</div>
+  <div class="search-wrap">
+    <input id="globalSearch" class="search" type="text" placeholder="Type a RIC code or keyword (e.g. CPI, NFP, GDP)..." autocomplete="off" spellcheck="false">
+    <div id="searchResults" class="search-results"></div>
+  </div>
+  <div class="topbar-meta">
+    <span><span class="label">Series:</span> <span class="value" id="statSeriesCount">—</span></span>
+    <span><span class="label">Categories:</span> <span class="value" id="statCatCount">—</span></span>
+    <span><span class="label">Updated:</span> <span class="value" id="statUpdated">—</span></span>
+  </div>
+  <label class="country-picker" title="Switch country — reloads all data, graphs, and the map">
+    <span class="country-picker-flag" id="countryFlag">US</span>
+    <select id="countrySelect" class="country-select" disabled>
+      <option value="us">United States</option>
+    </select>
+  </label>
+  <button class="topbar-link polls-toggle" id="pollsToggle" title="Show Reuters Economic Indicator Polls (Median consensus, distribution, and forecaster surprise) — US only">📊 Polls</button>
+  <button class="topbar-link" id="mapToggle" title="Open the macro influence map">⊕ Map</button>
+</div>
+
+<div class="main">
+
+  <aside class="sidebar">
+    <div class="sidebar-tabs">
+      <button class="sidebar-tab active" data-pane="categories">Categories</button>
+      <button class="sidebar-tab" data-pane="watchlist">Watchlist</button>
+    </div>
+    <div class="sidebar-pane" id="paneCategories">
+      <div class="cat-search">
+        <input id="catFilter" type="text" placeholder="Filter categories..." autocomplete="off" spellcheck="false">
+      </div>
+      <div id="catTree"></div>
+    </div>
+    <div class="sidebar-pane hidden" id="paneWatchlist">
+      <div id="watchlistItems"></div>
+      <div class="watchlist-empty" id="watchlistEmpty">
+        No saved series yet.<br>Click ☆ next to a RIC to add it here.
+      </div>
+    </div>
+  </aside>
+
+  <section class="center">
+    <div class="chart-header">
+      <div class="chart-title-block">
+        <div class="ric" id="hRic">—</div>
+        <div class="desc" id="hDesc">Select a series to begin</div>
+        <div class="sub" id="hSub"></div>
+      </div>
+      <div class="chart-actions">
+        <button class="chart-btn active" data-type="line">Line</button>
+        <button class="chart-btn" data-type="area">Area</button>
+        <button class="chart-btn" data-type="bar">Bar</button>
+        <span class="chart-actions-sep" aria-hidden="true"></span>
+        <button class="chart-btn chart-iconbtn" id="exportCsvBtn" title="Download chart data as CSV" disabled>CSV</button>
+        <button class="chart-btn chart-iconbtn" id="exportPngBtn" title="Download chart as PNG (paper-friendly: white background, black labels)" disabled>PNG</button>
+        <button class="chart-btn chart-iconbtn chart-iconbtn-danger" id="clearAllBtn" title="Remove all overlay series" disabled>Clear All</button>
+      </div>
+    </div>
+    <div class="chart-controls">
+      <div class="range-btns" id="rangeBtns">
+        <button class="range-btn" data-range="1Y">1Y</button>
+        <button class="range-btn" data-range="3Y">3Y</button>
+        <button class="range-btn active" data-range="5Y">5Y</button>
+        <button class="range-btn" data-range="10Y">10Y</button>
+        <button class="range-btn" data-range="MAX">MAX</button>
+      </div>
+      <span class="forecast-key" title="Observations after today render with a dashed segment">
+        <span class="forecast-key-line"></span> dashed = forecast
+      </span>
+      <span style="margin-left:auto" id="chartStatus">Ready</span>
+    </div>
+    <div class="chart-stage">
+      <div class="chart-wrap">
+        <canvas id="mainChart"></canvas>
+        <div class="chart-empty" id="chartEmpty">
+          <div class="big">NO SERIES LOADED</div>
+          <div class="hint">Search for a RIC or browse categories on the left to chart a time series.<br>Add multiple series to overlay.</div>
+        </div>
+      </div>
+    </div>
+    <div class="legend" id="legend" style="display:none"></div>
+  </section>
+
+  <aside class="meta">
+    <div id="metaContent">
+      <div class="meta-empty">
+        Series metadata and skill notes appear here.<br><br>
+        Click a RIC to load.
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<div class="status">
+  <div class="item" id="statusCatalog"><span class="dot"></span><span>Catalog: not loaded</span></div>
+  <div class="item" id="statusDb"><span class="dot"></span><span>Database: not loaded</span></div>
+  <div class="item" id="statusGraph"><span class="dot"></span><span>Graph: not loaded</span></div>
+  <div class="spacer"></div>
+  <div class="item"><span>v0.1 · MVP</span></div>
+</div>
+
+<div class="map-overlay hidden" id="mapOverlay">
+  <div class="map-overlay-head">
+    <div class="map-overlay-title">MACRO MAP</div>
+    <div class="map-mode-toggle">
+      <button class="map-mode-btn active" id="mapModeCondensed" data-mode="condensed">Condensed</button>
+      <button class="map-mode-btn" id="mapModeFull" data-mode="full">Full</button>
+      <button class="map-mode-btn" id="mapModeInsane" data-mode="insane">Insane</button>
+    </div>
+    <div class="map-overlay-tools">
+      <button class="map-tool-btn" id="mapToolForecast" title="Color forecast nodes by error vs realized actual">Forecast Errors</button>
+    </div>
+    <div class="map-overlay-hint" id="mapHint">~160 series · click any node to chart it · drag to pan · scroll to zoom</div>
+    <button class="map-iconbtn" id="mapBack" style="display:none" title="Back to clusters">‹</button>
+    <button class="map-iconbtn" id="mapClose" title="Close (Esc)">×</button>
+  </div>
+  <div class="map-overlay-body-wrap">
+    <div class="map-overlay-body" id="mapFull"></div>
+    <div class="map-stage-header" id="mapStageHeader" style="display:none"></div>
+    <div class="map-zoom-controls">
+      <button class="map-zoom-btn" id="mapZoomIn" title="Zoom in">+</button>
+      <button class="map-zoom-btn" id="mapZoomOut" title="Zoom out">−</button>
+      <button class="map-zoom-btn" id="mapZoomFit" title="Fit to screen">⊡</button>
+    </div>
+    <div class="map-legend">
+      <span class="map-legend-item"><span class="leg-line solid"></span>Hand-authored</span>
+      <span class="map-legend-item"><span class="leg-line dashed"></span>Auto-inferred</span>
+      <span class="map-legend-item"><span class="leg-arrow"></span>Drives / leads</span>
+      <span class="map-legend-item map-focus-hint" id="mapFocusHint" style="display:none">· click empty space to clear focus</span>
+    </div>
+
+    <!-- Node-click popup with "Go to Variable" CTA -->
+    <div class="map-node-popup hidden" id="mapNodePopup">
+      <div class="map-node-popup-arrow"></div>
+      <div class="map-node-popup-content">
+        <div class="map-node-popup-ric" id="mapNodePopupRic">—</div>
+        <div class="map-node-popup-label" id="mapNodePopupLabel">—</div>
+        <div class="map-node-popup-meta" id="mapNodePopupMeta"></div>
+        <div class="map-node-popup-actions">
+          <button class="map-node-popup-cta" id="mapNodePopupGo">Go to Variable →</button>
+          <button class="map-node-popup-trace" id="mapNodePopupTrace" title="Trace causal path from this node">Trace path →</button>
+          <button class="map-node-popup-dismiss" id="mapNodePopupDismiss">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Path-trace banner (shows when picking destination + when path is found) -->
+    <div class="map-trace-banner hidden" id="mapTraceBanner">
+      <div class="map-trace-banner-content" id="mapTraceContent"></div>
+      <button class="map-trace-banner-close" id="mapTraceCancel" title="Cancel">×</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/catalog-loader.js"></script>
+<script src="js/chart-engine.js"></script>
+<script src="js/macro-map.js"></script>
+<script src="js/ui-terminal.js"></script>
+</body>
+</html>

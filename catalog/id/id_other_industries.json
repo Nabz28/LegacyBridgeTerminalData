@@ -1,0 +1,36 @@
+{
+  "category": "Other Industries",
+  "category_slug": "id_other_industries",
+  "section": "Industry Sector",
+  "source_file": "Indonesia_Other Industries.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDFRGART",
+      "description": "Arrivals, Foreign tourist",
+      "frequency": "P1M",
+      "subcategory": "Tourism",
+      "units": "Persons, thousands",
+      "meaning": "Foreign Tourist Arrivals — international visitor arrivals to Indonesia. Bali dominates (40-50% of arrivals); Jakarta and Batam also significant.",
+      "how_to_use": "Pre-COVID peak ~16M/year (2019); collapsed to ~4M (2020-21); recovered to ~12M (2024). Tourism is ~5% of GDP. Watch for service-deficit narrowing as arrivals normalize.",
+      "related_series": [
+        "aIDTOURARR",
+        "aIDBPSRVNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDTOURARR",
+      "description": "Foreign tourist arrivals through 3 airports & Batam island",
+      "frequency": "P1M",
+      "subcategory": "Tourism",
+      "units": "Persons",
+      "meaning": "Foreign Tourist Arrivals through 3 Airports & Batam Island — high-frequency tourism gauge from major entry points (Soekarno-Hatta Jakarta, Ngurah Rai Bali, Kualanamu Medan, Batam).",
+      "how_to_use": "Higher-frequency than total arrivals (aIDFRGART). Monthly. Useful for spotting recovery momentum or shocks (volcano eruptions, terrorism, geopolitics).",
+      "related_series": [
+        "aIDFRGART"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,1526 @@
+{
+  "category": "Producer Prices",
+  "category_slug": "us_producer_prices",
+  "section": "Prices",
+  "source_file": "US_Producer Prices.xlsx",
+  "ric_count": 100,
+  "rics": [
+    {
+      "ric": "aUSPCIHSLF/C",
+      "description": "PPI,  hides, skins, leather & related products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPICCIF/C",
+        "aUSPCIPOWF/C",
+        "aUSPCHDSKF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIPAMF/C",
+      "description": "PPI, Agricultural machinery & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIMEQF/C",
+        "aUSPPIMAEF/C",
+        "aUSPPIEMQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPAPF/C",
+      "description": "PPI, Asphalt felts & coatings",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCQVDWF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICERF/C",
+      "description": "PPI, Cereal & bakery products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCDPF/C",
+        "aUSPPIRUBF/C",
+        "aUSPPINMPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICHEF/C",
+      "description": "PPI, Chicken eggs",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPC23XCF/C",
+      "description": "PPI, Cigarettes",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPCLF/C",
+      "description": "PPI, Coal",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICCIF/C",
+      "description": "PPI, Concrete ingredients & related products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIPOWF/C",
+        "aUSPCIPCPF/C",
+        "aUSPCIHSLF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPCPF/C",
+      "description": "PPI, Concrete products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPICCIF/C",
+        "aUSPSFCDPF/C",
+        "aUSPPIRUBF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPSFCDPF/C",
+      "description": "PPI, Dairy products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIRUBF/C",
+        "aUSPPINMPF/C",
+        "aUSPPIMETF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIEMQF/C",
+      "description": "PPI, Electrical machinery & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIPAMF/C",
+        "aUSPPIMEQF/C",
+        "aUSPPIMAEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPN32UXF/C",
+      "description": "PPI, Farm machinery & equipment manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIPAMF/C",
+        "aUSPPIMEQF/C",
+        "aUSPPIMAEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCVYWDF/C",
+      "description": "PPI, Fats & oils, inedible",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIHHOF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCD2JOF/C",
+      "description": "PPI, Fertilizer materials",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIXFE",
+        "aUSPPICMXE",
+        "aUSPCIPTTF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIMTIF/C",
+      "description": "PPI, Finished steel mill products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIMTEF/C",
+        "aUSPCIPSMF/C",
+        "aUSPCIMTLF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIMTEF/C",
+      "description": "PPI, Finished steel mill products except fabricated wire",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIMTIF/C",
+        "aUSPCIPSMF/C",
+        "aUSPCIMTLF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPFCF/C",
+      "description": "PPI, Floor coverings",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPFWF/C",
+      "description": "PPI, Footwear",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFRVF/C",
+      "description": "PPI, Fruits & melons, vegetables & nuts",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCPRF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIMAEF/C",
+      "description": "PPI, General purpose machinery & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIPAMF/C",
+        "aUSPPIMEQF/C",
+        "aUSPPIEMQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIGRNF/C",
+      "description": "PPI, Grains",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIHHOF/C",
+      "description": "PPI, Hay, hayseeds & oilseeds",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCHDSKF/C",
+      "description": "PPI, Hides & skins, including cattle",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIHSLF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPHFF/C",
+      "description": "PPI, Household furniture",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFURF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPICF/C",
+      "description": "PPI, Industrial chemicals",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSWPINCMF/C",
+        "aUSPPICHMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIISTF/C",
+      "description": "PPI, Iron & steel",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIPSMF/C",
+        "aUSPCIMTLF/C",
+        "aUSPCIMTIF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPLEF/C",
+      "description": "PPI, Leather",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIHSLF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPILBRF/C",
+      "description": "PPI, Lumber",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPILUMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCMNHEF/C",
+      "description": "PPI, Meats",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIMPFF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIMPFF/C",
+      "description": "PPI, Meats, poultry & fish",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPISLPF/C",
+        "aUSPPIPRPF/C",
+        "aUSPCMNHEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPCTF/C",
+      "description": "PPI, Metal containers",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPINMPF/C",
+        "aUSPPINFMF/C",
+        "aUSPPIMETF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPMLF/C",
+      "description": "PPI, Millwork",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPFRF/C",
+      "description": "PPI, Mixed fertilizers",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIMVHF/C",
+      "description": "PPI, Motor vehicles & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIPAMF/C",
+        "aUSPPIMEQF/C",
+        "aUSPPIMAEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPINFMF/C",
+      "description": "PPI, Nonferrous metals",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIMETF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPPMF/C",
+      "description": "PPI, Paint materials",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIXFE",
+        "aUSPPICMXE",
+        "aUSPCIPTTF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPPF/C",
+      "description": "PPI, Paper",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIPPDF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPPDF/C",
+      "description": "PPI, Paperboard",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPP14PCF/C",
+      "description": "PPI, Passenger cars",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPFXF/C",
+      "description": "PPI, Plumbing fixtures & fittings",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCO23OF/C",
+      "description": "PPI, Pneumatic tires",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIWWWF/C",
+        "aUSPCIPTTF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCQVDWF/C",
+      "description": "PPI, Prepared asphalt & tar roofing & siding products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCDPF/C",
+        "aUSPPIRUBF/C",
+        "aUSPPINMPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPPAF/C",
+      "description": "PPI, Prepared paint",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCQVDWF/C",
+        "aUSPCIPPMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPSFCPRF/C",
+      "description": "PPI, Processed fruits & vegetables",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFRVF/C",
+        "aUSPPIXFE",
+        "aUSPPIPRPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIPRPF/C",
+      "description": "PPI, Processed poultry",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCPRF/C",
+        "aUSPPIXFE",
+        "aUSPPISLPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIPAFF/C",
+      "description": "PPI, Raw cotton",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPMKF/C",
+      "description": "PPI, Raw milk",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPISLLF/C",
+      "description": "PPI, Slaughter livestock",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPISLPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPISLPF/C",
+      "description": "PPI, Slaughter poultry",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPISLLF/C",
+        "aUSPPIPRPF/C",
+        "aUSPPIMPFF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPSOF/C",
+      "description": "PPI, Soaps & detergents",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPSFCSDF/C",
+      "description": "PPI, Soft drinks",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPN3ZQIF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPN3ZQIF/C",
+      "description": "PPI, Soft drinks manufacturing",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCSDF/C",
+        "aUSPNLLLLF",
+        "aUSPN32UXF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPSMF/C",
+      "description": "PPI, Steel mill products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIMTLF/C",
+        "aUSPCIMTIF/C",
+        "aUSPCIMTEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIMTLF/C",
+      "description": "PPI, Steel mill products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIMTLF/C",
+        "aUSPCIMTIF/C",
+        "aUSPCIMTEF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPISGCF/C",
+      "description": "PPI, Sugar & confectionery",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIRENF/C",
+      "description": "PPI, Synthetic rubber",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIRUBF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIWWWF/C",
+      "description": "PPI, Tires",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCO23OF/C",
+        "aUSPCIPTTF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPTTF/C",
+      "description": "PPI, Tires, tubes, tread & repair materials",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIXFE",
+        "aUSPPICMXE",
+        "aUSPCO23OF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPWPF/C",
+      "description": "PPI, Woodpulp",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFURF/C",
+      "description": "PPI, furniture & household durables",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPCIPHFF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPILUMF/C",
+      "description": "PPI, lumber & wood products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCDPF/C",
+        "aUSPPIRUBF/C",
+        "aUSPPINMPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIMEQF/C",
+      "description": "PPI, machinery & equipment",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIPAMF/C",
+        "aUSPPIMAEF/C",
+        "aUSPPIEMQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIMETF/C",
+      "description": "PPI, metals & metal products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPINMPF/C",
+        "aUSPPINFMF/C",
+        "aUSPSFCDPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPINMPF/C",
+      "description": "PPI, nonmetallic mineral products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCDPF/C",
+        "aUSPPIRUBF/C",
+        "aUSPPIMETF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIRUBF/C",
+      "description": "PPI, rubber & plastic products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPSFCDPF/C",
+        "aUSPPIRENF/C",
+        "aUSPPINMPF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWPCOMMF/C",
+      "description": "Producer Prices, Commodities",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSWPINCMF/C",
+        "aUSPROPRCF",
+        "aUSPROPMFR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPROPRCF",
+      "description": "Producer Prices, Final demand",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index for Final Demand — average prices received by domestic producers for output sold to final consumers, businesses, government, and exporters.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPROPMFR",
+        "aUSPFDOETF",
+        "aUSPFDOETE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDEMDE/A",
+      "description": "Producer Prices, Final demand",
+      "frequency": "P1M",
+      "subcategory": "PPI Final Demand",
+      "units": "Index",
+      "meaning": "Producer Price Index, Final Demand — index level. Measures average prices received by domestic producers for output sold to final demand (consumers, businesses, government, exports).",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Watch core PPI (ex food/energy) for signal — final-demand services PPI feeds directly into core PCE via the BEA's mapping. Spike in PPI without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDAR",
+        "aUSPFDEAR",
+        "aUSPFDOENF",
+        "aUSCPI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDGLFE/A",
+      "description": "Producer Prices, Final demand goods less foods and energy",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index for Final Demand — average prices received by domestic producers for output sold to final consumers, businesses, government, and exporters.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPFDOETF",
+        "aUSPFDOETE",
+        "aUSPFDOENF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDOENF",
+      "description": "Producer Prices, Final demand less foods and energy",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index for Final Demand — average prices received by domestic producers for output sold to final consumers, businesses, government, and exporters.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPFDOETF",
+        "aUSPFDOETE",
+        "aUSPFDGLFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDOETE",
+      "description": "Producer Prices, Final demand less foods, energy, and trade services",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index for Final Demand — average prices received by domestic producers for output sold to final consumers, businesses, government, and exporters.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPFDOETF",
+        "aUSPFDOENF",
+        "aUSPFDGLFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDOETF",
+      "description": "Producer Prices, Final demand less foods, energy, and trade services",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index for Final Demand — average prices received by domestic producers for output sold to final consumers, businesses, government, and exporters.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPFDOETF",
+        "aUSPFDOENF",
+        "aUSPFDGLFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDEAR",
+      "description": "Producer Prices, Final demand, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in PPI Final Demand — short-term producer-price pulse.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPROPRCF",
+        "aUSPROPMFR",
+        "aUSPFDOETF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPROPMFR",
+      "description": "Producer Prices, Final demand, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in PPI Final Demand — short-term producer-price pulse.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPROPRCF",
+        "aUSPROPMFR",
+        "aUSPFDOETF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPFDAR",
+      "description": "Producer Prices, Final demand, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Final Demand",
+      "units": "%, YoY",
+      "meaning": "Year-over-year change in PPI Final Demand — leading goods-inflation signal that feeds CPI 1-3 months out.",
+      "how_to_use": "Leads CPI by 1-3 months for goods inflation. Final-demand services PPI feeds directly into core PCE via the BEA's mapping. PPI spikes without CPI follow-through implies margin compression on producers.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPROPRCF",
+        "aUSPROPMFR",
+        "aUSPFDOETF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFE",
+      "description": "Producer Prices, Finished consumer energy goods",
+      "frequency": "P1M",
+      "subcategory": "Goods",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE",
+        "aUSPPIFC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFC",
+      "description": "Producer Prices, Finished consumer foods",
+      "frequency": "P1M",
+      "subcategory": "Food",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE",
+        "aUSPPIFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIF",
+      "description": "Producer Prices, Finished goods",
+      "frequency": "P1M",
+      "subcategory": "Goods",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE",
+        "aUSPPIFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIF/A",
+      "description": "Producer Prices, Finished goods",
+      "frequency": "P1M",
+      "subcategory": "Goods",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE",
+        "aUSPPIFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFXFE",
+      "description": "Producer Prices, Finished goods less foods and energy",
+      "frequency": "P1M",
+      "subcategory": "Goods",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFE",
+        "aUSPFDGLFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFXFE/A",
+      "description": "Producer Prices, Finished goods less foods and energy",
+      "frequency": "P1M",
+      "subcategory": "Goods",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFXFE/A",
+        "aUSPPIFE",
+        "aUSPFDGLFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWPINCMF/C",
+      "description": "Producer Prices, Industrial commodities",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSWPCOMMF/C",
+        "aUSPROPRCF",
+        "aUSPROPMFR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCIPOWF/C",
+      "description": "Producer Prices, Power, fuels & related products",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFRMF/C",
+        "aUSPPICHMF/C",
+        "aUSWPINCMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIXFE",
+      "description": "Producer Prices, Processed materials less foods and energy",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPICMXE",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICMXE",
+      "description": "Producer Prices, Unprocessed nonfood materials less energy",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIXFE",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICHMF/C",
+      "description": "Producer Prices, chemicals & allied products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIFRMF/C",
+        "aUSPCIPOWF/C",
+        "aUSWPINCMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPICMQF/C",
+      "description": "Producer Prices, construction machinery & equipm",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPNLLLLF",
+        "aUSWPINCMF/C",
+        "aUSWPCOMMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIFRMF/C",
+      "description": "Producer Prices, farm products",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPICHMF/C",
+        "aUSPCIPOWF/C",
+        "aUSWPINCMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPNLLLLF",
+      "description": "United States, PPI: MACHINERY MANUFACTURING, Price Index, Producer Prices, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Index of the Producer Price Index (PPI).",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR",
+        "aUSPPICMQF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIPF",
+      "description": "Producer Prices, PPI, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "MoM Change",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in PPI.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSCPPIPE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIPE/A",
+      "description": "Producer Prices, PPI, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "MoM Change",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in PPI.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSCPPIPE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIYF",
+      "description": "Producer Prices, PPI, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "YoY Change",
+      "units": "%, YoY",
+      "meaning": "Year-over-year change in PPI — early signal of pipeline inflation pressures.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSCPPIYE/A",
+        "aUSCPPIPF",
+        "aUSCPPIPE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIYE/A",
+      "description": "Producer Prices, PPI, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "YoY Change",
+      "units": "%, YoY",
+      "meaning": "Year-over-year change in PPI — early signal of pipeline inflation pressures.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSCPPIYE/A",
+        "aUSCPPIPF",
+        "aUSCPPIPE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIE/CA",
+      "description": "Producer Prices, PPI, Standardized",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSWPINCMF/C",
+        "aUSWPCOMMF/C",
+        "aUSPROPRCF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPIF/C",
+      "description": "Producer Prices, PPI, Standardized",
+      "frequency": "P1M",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSWPINCMF/C",
+        "aUSWPCOMMF/C",
+        "aUSPROPRCF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSQPIEN1F/C",
+      "description": "PPI, Energy",
+      "frequency": "P3M",
+      "subcategory": "Energy",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIXFE",
+        "aUSPPIFXFE/A",
+        "aUSPPIFXFE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOPIEN1F/C",
+      "description": "Total PPI Energy",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSQPIEN1F/C",
+        "aUSPPIXFE",
+        "aUSPPIFXFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIAR",
+      "description": "Foreign exchange reserves - BMO, Producer Prices, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR",
+        "aUSPNLLLLF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIYAR",
+      "description": "Foreign exchange reserves - BMO, Producer Prices, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR",
+        "aUSPNLLLLF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPIXAR",
+      "description": "Foreign exchange reserves - BMO, Producer Prices, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "PPI Component",
+      "units": "Index",
+      "meaning": "Level of the Producer Price Index — the BLS measure of average prices received by domestic producers.",
+      "how_to_use": "Leads CPI for goods inflation. Watch core PPI (ex food/energy/trade) for the cleanest underlying signal. Final-demand services PPI is the input to core PCE.",
+      "related_series": [
+        "aUSPFDEMDE/A",
+        "aUSPPIYAR",
+        "aUSPPIXAR",
+        "aUSPNLLLLF"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "category": "Industrial Production & Utilization",
+  "category_slug": "id_industrial_production_utilization",
+  "section": "Industry Sector",
+  "source_file": "Indonesia_Industrial Production & Utilization.xlsx",
+  "ric_count": 14,
+  "rics": [
+    {
+      "ric": "aIDPDBMT/C",
+      "description": "Production, Basic metals",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Basic Metals — output from Indonesia's metals processing industry. Includes nickel processing (smelters), copper (Freeport), aluminum (Inalum).",
+      "how_to_use": "Surged post-2020 with Indonesia's nickel-export ban driving downstream smelter buildout (Morowali, Weda Bay). Tracks global stainless steel and EV battery demand. Major growth narrative for the next decade.",
+      "related_series": [
+        "aIDPDCHEMP/C",
+        "aIDVADMIN/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDCHEMP/C",
+      "description": "Production, Chemicals & chemical products",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Chemicals and Chemical Products — chemicals-sector output. Includes petrochemicals, fertilizers, industrial chemicals.",
+      "how_to_use": "Cyclical with global oil prices (petrochemical feedstocks) and agricultural cycles (fertilizers). Pertamina, Pupuk Indonesia (state fertilizer holding) are major operators.",
+      "related_series": [
+        "aIDPDBMT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDEMEQ",
+      "description": "Production, Electrical equipments",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index",
+      "meaning": "Production: Electrical Equipments — electrical-machinery manufacturing.",
+      "how_to_use": "Tracks electrification investment and grid expansion. PLN's transmission/distribution buildout drives demand for transformers, switchgear, cables.",
+      "related_series": [
+        "aIDPDMNEQ/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDMNEQ/C",
+      "description": "Production, Machinery and equipment n.e.c",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Machinery and Equipment NEC — capital-goods manufacturing. Tracks Indonesia's industrial-deepening cycle.",
+      "how_to_use": "Indonesia's machinery production share is small — most capital goods are imported. Surges signal local-content policy success.",
+      "related_series": [
+        "aIDPDEMEQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDIPFOODH/C",
+      "description": "Production, Manufacture of food products",
+      "frequency": "P1M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Manufacture of Food Products — food-and-beverage manufacturing output. Indonesia's largest single manufacturing sub-sector.",
+      "how_to_use": "Stable, consumer-staple-driven. Tracks population growth and middle-class expansion. Major listed players: Indofood, Mayora, Wilmar.",
+      "related_series": [
+        "aIDVADGM/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDIPMANIDX",
+      "description": "Production, Manufacturing, Monthly, Statistics Indonesia",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "Index",
+      "meaning": "Manufacturing Production Index — BPS monthly manufacturing-only output. Subset of broader industrial production.",
+      "how_to_use": "Use for manufacturing-cycle tracking. Compare to S&P Global PMI manufacturing for cross-validation — when both move in same direction, signal is robust.",
+      "related_series": [
+        "aIDCINDG/A",
+        "aIDIPMANQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDIPMANQ",
+      "description": "Production, Manufacturing, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Manufacturing",
+      "units": "Index",
+      "meaning": "Manufacturing Production, Quarterly — BPS quarterly manufacturing output. Aggregates monthly data.",
+      "how_to_use": "Use quarterly for GDP-component analysis (manufacturing GVA derives from this). Compare to manufacturing GVA (aIDVADGM/C) for cross-validation.",
+      "related_series": [
+        "aIDIPMANIDX",
+        "aIDVADGM/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDMVTR/C",
+      "description": "Production, Motor vehicles, trailers, semitrailers",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Motor Vehicles, Trailers, Semitrailers — Indonesia's auto manufacturing output. Indonesia hosts ~1.4M unit/year auto production capacity.",
+      "how_to_use": "Toyota, Daihatsu, Honda, Mitsubishi dominate (Japanese OEMs control ~95% of market). Auto exports to ASEAN, Middle East. Track for auto-sector cycle and ASEAN trade dynamics.",
+      "related_series": [
+        "aIDPDMNEQ/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDRPP/C",
+      "description": "Production, Rubber & plastics products",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Rubber and Plastics Products — rubber + plastics-products manufacturing. Indonesia is a major natural rubber producer.",
+      "how_to_use": "Tracks consumer-goods (packaging, household plastics) and industrial (auto rubber components, hoses) demand. Watch alongside auto-industry cycle.",
+      "related_series": [
+        "aIDPDMVTR/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDTEXTP/C",
+      "description": "Production, Textiles",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Textiles — textile-manufacturing output. Historically a major Indonesia export sector; now competing with Vietnam, Bangladesh.",
+      "how_to_use": "Sensitive to global apparel demand and IDR competitiveness. Indonesia textile sector has lost share to lower-wage Asia — sustained declines reflect this structural shift.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPDWODXFR/C",
+      "description": "Production, Wood & wood products except furniture",
+      "frequency": "P3M",
+      "subcategory": "Sub-Sectors",
+      "units": "Index, constant prices",
+      "meaning": "Production: Wood and Wood Products (excl. Furniture) — wood-products manufacturing. Indonesia is a major plywood exporter; pulp & paper output also significant.",
+      "how_to_use": "Tracks global construction (plywood demand) and pulp-paper cycles. Concerns about deforestation and sustainable forestry (palm oil also implicated) drive ESG-policy attention.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCINDYG/CA",
+      "description": "Industrial Production Index, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Industrial Production",
+      "units": "Percent, YoY",
+      "meaning": "Industrial Production Index, year-over-year change — pace of manufacturing output growth.",
+      "how_to_use": "Track trend; recent post-COVID recovery has shown 4-6% YoY. Sharp drops below zero signal manufacturing recession. Decompose by sector (food, chemicals, textiles, transport equipment) for source-of-weakness analysis.",
+      "related_series": [
+        "aIDCINDG/A",
+        "aIDVADGM/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCINDG/A",
+      "description": "Industrial Production Index, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Industrial Production",
+      "units": "Index",
+      "meaning": "Industrial Production Index, standardized — manufacturing output index. Published monthly by BPS with ~6-week lag.",
+      "how_to_use": "Indonesia's industrial production tracking is less developed than DM peers — markets watch S&P Global Manufacturing PMI more closely. Use IPI for retrospective sector-mix analysis. Volatile due to small manufacturer sample.",
+      "related_series": [
+        "aIDCINDYG/CA",
+        "aIDIPMANIDX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCINDPG/A",
+      "description": "Industrial Production Index, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Industrial Production",
+      "units": "Index, MoM",
+      "meaning": "Industrial Production Index, MoM change — month-over-month industrial-output momentum.",
+      "how_to_use": "Volatile. Smooth with 3-month average for trend. Use YoY (aIDCINDYG/CA) for cyclical signal.",
+      "related_series": [
+        "aIDCINDG/A",
+        "aIDCINDYG/CA"
+      ],
+      "notes": ""
+    }
+  ]
+}

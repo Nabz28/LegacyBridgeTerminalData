@@ -1,0 +1,252 @@
+{
+  "category": "Interest Rates",
+  "category_slug": "us_interest_rates",
+  "section": "Money & Finance",
+  "source_file": "US_Interest Rates.xlsx",
+  "ric_count": 17,
+  "rics": [
+    {
+      "ric": "aUSFEDAW",
+      "description": "Policy Rates, Fed Funds Eff Rate",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "%",
+      "meaning": "Fed Funds Effective Rate — weekly average. Sister of aUSFEDFUND with weekly granularity.",
+      "how_to_use": "Use the daily effective rate for trading; this for averaged trend.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSFEDFUNDT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDISWPCRM",
+      "description": "Discount Window Primary Credit Rate",
+      "frequency": "P1M",
+      "subcategory": "Fed Operations",
+      "units": "%",
+      "meaning": "Discount Window Primary Credit Rate — what banks pay for short-term Fed liquidity through the discount window. Set 0.50pp ABOVE the upper bound of fed funds target.",
+      "how_to_use": "Stigma rate; rarely used. Heavily used during March 2023 banking stress (SVB / FRB). Bank Term Funding Program (BTFP) was the 2023-24 alternative facility before it expired.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSFEDFUNDT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFEDFUND",
+      "description": "Fed Funds Effective Rate",
+      "frequency": "P1M",
+      "subcategory": "Fed Funds",
+      "units": "%",
+      "meaning": "Federal Funds Effective Rate — the volume-weighted median rate at which depository institutions lend reserves to each other overnight. Set by market activity within the FOMC's target range. The Fed's primary policy lever.",
+      "how_to_use": "Anchor for the entire US yield curve. Compare to (a) Fed Funds Target range, (b) market-implied path from Fed Funds futures (CME FedWatch), (c) SOFR. Real fed funds = nominal − expected inflation; positive and rising = restrictive policy.",
+      "related_series": [
+        "aUSFEDFUNDT",
+        "aUSIORAR",
+        "aUSRRPAR",
+        "aUSPRIME"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIORAR",
+      "description": "Fed Int On Excess Reserves",
+      "frequency": "P1M",
+      "subcategory": "Fed Operations",
+      "units": "%",
+      "meaning": "Interest on Reserve Balances (IORB, formerly IOER) — the rate the Fed pays banks on reserves held at the Fed. Floor of the fed funds corridor for banks.",
+      "how_to_use": "Banks won't lend in fed funds market below IORB (would just park reserves at Fed instead). Set 5-15bp below the upper bound of fed funds target range. ~$3T of bank reserves earn this rate.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSRRPAR",
+        "aUSFEDFUNDT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDISWPCR",
+      "description": "Policy Rates, Discount Window Primary Credit Rate",
+      "frequency": "P3M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Discount Window Primary Credit Rate — Fed's emergency lending rate to depository institutions. Primary credit is set ~50bps above top of fed funds target range.",
+      "how_to_use": "Used in stress periods (SVB Mar 2023 saw $150B borrowing). Above-market rate by design — penalty rate for using emergency facility. Watch alongside Bank Term Funding Program (BTFP) usage for full Fed-emergency-lending picture.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSDISWSACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDISWSACR",
+      "description": "Policy Rates, Discount Window Seasonal Credit Rate",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Discount Window Seasonal Credit Rate — Fed lending rate for small banks with seasonal funding needs (agricultural areas, resort areas). Rarely used.",
+      "how_to_use": "Niche facility — relevant only for small community banks with predictable seasonal liquidity gaps. Less than $1B in typical usage. Track only for completeness.",
+      "related_series": [
+        "aUSDISWPCR",
+        "aUSFEDFUND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDISWSCCR",
+      "description": "Policy Rates, Discount Window Secondary Credit Rate",
+      "frequency": "P3M",
+      "subcategory": "Discount Window",
+      "units": "%",
+      "meaning": "Discount Window secondary credit rate — for less-sound banks. 0.50pp above primary.",
+      "how_to_use": "Higher-stigma rate. Use is rare and typically signals stress at the borrower.",
+      "related_series": [
+        "aUSDISWPCR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFEDFUNDT",
+      "description": "Policy Rates, Fed Funds Target Rate, Daily, Federal Reserve, United States",
+      "frequency": "P1M",
+      "subcategory": "Fed Funds",
+      "units": "%",
+      "meaning": "Fed Funds Target Rate — the policy-set range (technically a range; we report the midpoint). What the FOMC actually decides at each meeting.",
+      "how_to_use": "Effective rate (aUSFEDFUND) trades within this range. Watch FOMC meeting decisions vs Fed Funds futures (CME FedWatch) for surprise risk. The dot plot shows individual FOMC members' projections of where this should be.",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSIORAR",
+        "aUSDISWPCRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRRPAR",
+      "description": "Policy Rates, Fed Overnight Repo",
+      "frequency": "P1M",
+      "subcategory": "Fed Operations",
+      "units": "%",
+      "meaning": "Overnight Reverse Repo Rate (ON RRP) — sister rate to IORB but for non-bank money funds. Floor of the corridor for money market funds, GSEs, primary dealers.",
+      "how_to_use": "Set 10bp below IORB. RRP usage drops as Fed shrinks balance sheet via QT — fewer excess reserves chasing yield. RRP balances peaked ~$2.5T in 2022 and drained to <$200B in 2024.",
+      "related_series": [
+        "aUSIORAR",
+        "aUSFEDFUND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMBK",
+      "description": "Prime Rates, Major Banks, Daily, Federal Reserve, United States",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending Rates",
+      "units": "%",
+      "meaning": "Prime rate at major banks — daily.",
+      "how_to_use": "Anchored at fed funds target + 3.0pp historically. Not market-determined; admin-set by banks.",
+      "related_series": [
+        "aUSPRIME",
+        "aUSMBKAVG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMBKAVG",
+      "description": "Prime Rates, Major Banks, Monthly, Federal Reserve, United States",
+      "frequency": "P1M",
+      "subcategory": "Prime Rate",
+      "units": "Percent",
+      "meaning": "Prime rate, major banks (monthly Fed average) — the rate large banks charge their best corporate customers. Conventionally set at fed funds top + 300bps.",
+      "how_to_use": "Floor for credit-card APRs (typically prime + margin) and small-business lending. Currently fed funds + 300bps; revised by major banks within 24 hours of FOMC moves. Tracks fed-funds path closely.",
+      "related_series": [
+        "aUSPRIMEN",
+        "aUSFEDFUND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRIME",
+      "description": "Prime rate charged by banks",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending",
+      "units": "%",
+      "meaning": "Bank Prime Rate — admin-set lending rate for top-tier corporate borrowers, anchored at fed funds + 3.0pp. Reference rate for HELOCs, credit cards, and many small business loans.",
+      "how_to_use": "Not market-determined — banks set it together. Moves in lockstep with fed funds target. Used as the variable-rate index for many household loans (HELOCs, small business loans).",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSCRCDACR",
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFEDFUNDP",
+      "description": "Policy Rates, Fed Funds Target Rate, Monthly, LSEG",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "%",
+      "meaning": "Fed Funds Target Rate — monthly average. LSEG-sourced.",
+      "how_to_use": "Use whichever (aUSFEDFUNDT vs aUSFEDFUNDP) has fresher data.",
+      "related_series": [
+        "aUSFEDFUNDT",
+        "aUSFEDFUND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMBAMLR",
+      "description": "Mortgage Lending Rates, FRM 30-Year Contract Rate (MBA Sourced)",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Rate",
+      "units": "%",
+      "meaning": "30-Year Fixed Mortgage Contract Rate — MBA weekly survey. The household-relevant US borrowing cost.",
+      "how_to_use": "Spread to 10Y Treasury (typically 150-200bp; widens during housing/MBS stress) is the closely-watched MBS-spread gauge. Drives housing affordability and turnover. Each 100bp increase reduces purchasing power ~10%.",
+      "related_series": [
+        "aUSEBM10Y",
+        "aUSFEDFUND",
+        "aUSMACI/A",
+        "aUSHAI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFOMCA",
+      "description": "Policy Rates, Fed Funds Target Rate, Daily, Reuters",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Fed Funds Target Rate, daily — the actual FOMC-set policy-rate target (top end of range since Dec 2008). Released Reuters daily snapshot.",
+      "how_to_use": "The policy-rate decision itself. Markets watch FOMC meeting outcomes (8 per year) for changes. Currently 4.25-4.50% (Nov 2025); peak 5.25-5.50% (Jul 2023-Sep 2024); zero-bound 0-0.25% (2008-15, 2020-22).",
+      "related_series": [
+        "aUSFEDFUND",
+        "aUSFTRG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFFTRR",
+      "description": "Policy Rates, Fed Funds Target Rate, Announcement Date",
+      "frequency": "P1M",
+      "subcategory": "Policy Decisions",
+      "units": "%",
+      "meaning": "Fed Funds Target Rate — at FOMC announcement dates.",
+      "how_to_use": "Snapshot at each FOMC meeting (8/year). Useful for plotting policy rate trajectory by decision.",
+      "related_series": [
+        "aUSFEDFUNDT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGAR",
+      "description": "Mortgage Lending Rates, MBA 30-Yr Mortgage Rate",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Rate",
+      "units": "Percent",
+      "meaning": "MBA 30-Year Mortgage Rate — weekly survey of 30-year fixed-rate conforming mortgage average. Released Wednesdays by Mortgage Bankers Association.",
+      "how_to_use": "The most-watched mortgage rate. Higher-frequency than Freddie Mac PMMS (also weekly but Thursday). Spreads over 10Y Treasury (~250-300bps) have widened post-2022 as MBS prepayment expectations shifted. Falls drive refinance applications (track MBA refi index).",
+      "related_series": [
+        "aUSGBND10",
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,1021 @@
+{
+  "category": "Balance of Payments",
+  "category_slug": "cn_balance_of_payments",
+  "section": "External Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T17_375 (EXTERNAL SECTOR - BALANCE OF PAYMENTS).xlsx",
+  "ric_count": 73,
+  "rics": [
+    {
+      "ric": "aCNCEXBPA",
+      "description": "Exports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Exports",
+      "units": "USD millions / Volume",
+      "meaning": "China Exports: Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P. Detailed export series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level export data. China is the world's largest goods exporter. Key categories: electronics, machinery, autos (rapidly growing — EVs), chemicals, textiles, steel.",
+      "related_series": [
+        "aCNCEXPB/A",
+        "aCNCEXPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXBYA",
+      "description": "Exports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Exports",
+      "units": "USD millions / Volume",
+      "meaning": "China Exports: Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y. Detailed export series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level export data. China is the world's largest goods exporter. Key categories: electronics, machinery, autos (rapidly growing — EVs), chemicals, textiles, steel.",
+      "related_series": [
+        "aCNCEXPB/A",
+        "aCNCEXPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCEXBA",
+      "description": "Exports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Goods Exports",
+      "units": "USD billions",
+      "meaning": "Goods Exports on BoP basis (standardized) — quarterly merchandise exports level.",
+      "how_to_use": "Cross-check against monthly customs (aCNCEXPB/A). BoP basis differs slightly due to coverage and timing methodology.",
+      "related_series": [
+        "aCNCEXPB/A",
+        "aCNCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIMBPA",
+      "description": "Imports of Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "China Imports: Goods, Balance of Payments Basis, % month on month, Standardized, Chg P/P. Detailed import series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level import data. Major Chinese imports: integrated circuits, crude oil, iron ore, soybeans, copper, machinery. Track monthly YoY changes for cycle signal.",
+      "related_series": [
+        "aCNCIMPB/A",
+        "aCNCIMPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIMBYA",
+      "description": "Imports of Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "China Imports: Goods, Balance of Payments Basis, % year on year, Standardized, Chg Y/Y. Detailed import series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level import data. Major Chinese imports: integrated circuits, crude oil, iron ore, soybeans, copper, machinery. Track monthly YoY changes for cycle signal.",
+      "related_series": [
+        "aCNCIMPB/A",
+        "aCNCIMPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIMBA",
+      "description": "Imports of Goods, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "China Imports: Goods, Balance of Payments Basis, Standardized. Detailed import series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level import data. Major Chinese imports: integrated circuits, crude oil, iron ore, soybeans, copper, machinery. Track monthly YoY changes for cycle signal.",
+      "related_series": [
+        "aCNCIMPB/A",
+        "aCNCIMPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCBOPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible Trade Balance (BoP basis), standardized — quarterly goods trade balance. Largest CA component.",
+      "how_to_use": "Annual surplus ~$700B (world's largest goods surplus). Cross-check against monthly customs data (aCNCEXPB/A minus aCNCIMPB/A).",
+      "related_series": [
+        "aCNCEXBA",
+        "aCNCIMBA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCBOPPA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, month on month, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible Trade Balance, QoQ absolute change — quarter-over-quarter momentum.",
+      "how_to_use": "Track quarterly direction. Cross-check against the YoY change (aCNCBOPYA) for cleaner trend.",
+      "related_series": [
+        "aCNCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCBOPYA",
+      "description": "Visible Trade Balance, Balance of Payments Basis, year on year, Standardized, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD billions",
+      "meaning": "Visible Trade Balance, YoY absolute change — year-over-year goods balance change.",
+      "how_to_use": "Smooths quarterly noise. Track for goods-trade cycle direction; pair with monthly customs data.",
+      "related_series": [
+        "aCNCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNFDINETA",
+      "description": "Outward Investment, Net FDI",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Outward Investment, Net FDI. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNFDOUNFA",
+      "description": "Outward Investment, Non-financial sectors",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Outward Investment, Non-financial sectors. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNFDOUNNA",
+      "description": "Outward Investment, Non-financial sectors",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Outward Investment, Non-financial sectors. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNLIQ",
+      "description": "Business investment climate index, information transmission, software & information technology services",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Business investment climate index, information transmission, software & information technology services. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTPST",
+      "description": "Stock Fund Raising A, Share",
+      "frequency": "",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Stock Fund Raising A, Share. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKRIR",
+      "description": "Stock market capitalization, A shares",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Stock market capitalization, A shares. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURQ/A",
+      "description": "Current Account Balance as a percentage of GDP, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP",
+      "meaning": "Current Account Balance as % of GDP, standardized — the headline external-balance ratio. China's CA/GDP fell from ~10% (2007) to ~2% post-2014 reflecting growth rebalancing.",
+      "how_to_use": "China CA/GDP currently ~2% — moderate surplus. Sustained moves toward deficit (as in late 2010s) would indicate weakening external position. The yuan's structural appreciation drivers depend on this.",
+      "related_series": [
+        "aCNCCURB/A",
+        "aCNCCURYQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURPQ/A",
+      "description": "Current Account Balance as a percentage of GDP, quarter on quarter, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP, QoQ",
+      "meaning": "Current Account % of GDP, QoQ change — sequential momentum of CA-to-GDP ratio.",
+      "how_to_use": "Track quarterly inflection points. Use the level series (aCNCCURQ/A) for cross-country comparison.",
+      "related_series": [
+        "aCNCCURQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURYQ/A",
+      "description": "Current Account Balance as a percentage of GDP, year on year, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "Percent of GDP, YoY",
+      "meaning": "Current Account % of GDP, YoY change — annual change in CA-to-GDP ratio.",
+      "how_to_use": "Smooths quarterly variability. Use for CA/GDP trend; China CA/GDP swings 1-2pp through commodity cycles.",
+      "related_series": [
+        "aCNCCURQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCAPAC",
+      "description": "Capital Account, Balance, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "Capital Account",
+      "units": "USD billions",
+      "meaning": "Capital Account Balance, Annual — annual aggregate of capital-account flows.",
+      "how_to_use": "Annual frequency aggregate. Capital account is small relative to current and financial accounts in China.",
+      "related_series": [
+        "aCNBPMAPAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBPMAPAA",
+      "description": "Capital Account, Balance, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "Capital Account",
+      "units": "USD billions",
+      "meaning": "Capital Account Balance — quarterly capital-account balance (small in China; dominated by transfers).",
+      "how_to_use": "Tiny relative to current and financial accounts. Mostly captures bilateral aid, debt forgiveness, intangible asset transfers. Not market-moving.",
+      "related_series": [
+        "aCNCAFIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFAB",
+      "description": "Capital and Financial Account, Balance, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Capital and Financial Account, Balance, Annual, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCAFIN",
+      "description": "Capital and Financial Account, Balance, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "Capital + Financial",
+      "units": "USD billions",
+      "meaning": "Capital and Financial Account Balance — combined capital + financial accounts. Mirror of current account balance.",
+      "how_to_use": "Should equal -CA balance (with errors and omissions). Useful for total-financing-side cross-check.",
+      "related_series": [
+        "aCNBOPFANA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACY",
+      "description": "Current Account, Balance, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Balance, Annual, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACUSD",
+      "description": "Current Account, Balance, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Balance, Quarterly, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACDB",
+      "description": "Current Account, Debit",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Debit. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACGS",
+      "description": "Current Account, Goods and Services, Net",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods and Services, Net. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACRUS",
+      "description": "Current Account, Goods, Credit",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods, Credit. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGSDRUSD",
+      "description": "Current Account, Goods, Debit",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods, Debit. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGS",
+      "description": "Current Account, Goods, Net, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods, Net, Annual, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGSUSD",
+      "description": "Current Account, Goods, Net, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods, Net, Quarterly, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCOMPEMP",
+      "description": "Current Account, Primary Income, Net",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Primary Income, Net. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACCT",
+      "description": "Current Account, Secondary Income, Net",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Secondary Income, Net. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCURACS",
+      "description": "Current Account, Services, Net",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Services, Net. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBOPFANA",
+      "description": "Financial Account, Balance",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account, Balance — net flows of FDI + portfolio investment + other investment + reserves. Mirror of current account.",
+      "how_to_use": "Decompose: FDI flows (typically inflows but recent declines), portfolio (volatile, Stock Connect / Bond Connect dependent), other investment (loans, trade credits). 2024 saw weak FDI inflows — major macro concern.",
+      "related_series": [
+        "aCNBOPSENA",
+        "aCNBPNRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBPNRESA",
+      "description": "Financial Account, Balance, Non-reserve",
+      "frequency": "P3M",
+      "subcategory": "Financial Account",
+      "units": "USD billions",
+      "meaning": "Financial Account, Non-Reserve Balance — financial account excluding reserves changes. The 'private capital flow' measure.",
+      "how_to_use": "Cleaner private-capital signal than total financial account. Sustained negative non-reserve balances mean private capital is leaving — pressure for reserves to fill the gap.",
+      "related_series": [
+        "aCNBOPFANA",
+        "aCNBPRESVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNFADIBALQ",
+      "description": "Financial Account, Direct Investment, Balance",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Financial Account, Direct Investment, Balance. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBOPOTNA",
+      "description": "Financial Account, Other Investment, Balance",
+      "frequency": "P3M",
+      "subcategory": "Other Investment",
+      "units": "USD billions",
+      "meaning": "Financial Account: Other Investment Balance — non-FDI, non-portfolio cross-border flows (loans, trade credits, currency/deposits).",
+      "how_to_use": "Often the residual that absorbs unmeasured capital flows. Persistent large net-outflow balances indicate capital flight pressure.",
+      "related_series": [
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBOPSENA",
+      "description": "Financial Account, Portfolio Investment, Balance",
+      "frequency": "P3M",
+      "subcategory": "Portfolio Investment",
+      "units": "USD billions",
+      "meaning": "Financial Account: Portfolio Investment Balance — net flows of equity + bond portfolio investment. Highly volatile; Stock Connect / Bond Connect channels matter.",
+      "how_to_use": "Sensitive to global risk sentiment and US-China rate spread. 2022-23 saw heavy outflows; 2024+ stabilizing. Watch alongside Bond Connect monthly statistics.",
+      "related_series": [
+        "aCNBOPFANA",
+        "aCNBOPOTNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNREGBM",
+      "description": "Gold reserve, Current Prices, Balance of Payments, Monthly, State Administration of Foreign Exchange, China",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Gold reserve, Current Prices, Balance of Payments, Monthly, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTCNCA",
+      "description": "International Service Trade, Construction services, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Construction services, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTCNDA",
+      "description": "International Service Trade, Construction services, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Construction services, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTCNNA",
+      "description": "International Service Trade, Construction services, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Construction services, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTFNCA",
+      "description": "International Service Trade, Financial services, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Financial services, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTFNDA",
+      "description": "International Service Trade, Financial services, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Financial services, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTFNNA",
+      "description": "International Service Trade, Financial services, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Financial services, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTGVCA",
+      "description": "International Service Trade, Government services, n.i.e, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Government services, n.i.e, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTGVDA",
+      "description": "International Service Trade, Government services, n.i.e, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Government services, n.i.e, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTGVNA",
+      "description": "International Service Trade, Government services, n.i.e, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Government services, n.i.e, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTOBCA",
+      "description": "International Service Trade, Other business services, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Other business services, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTOBDA",
+      "description": "International Service Trade, Other business services, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Other business services, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTOBNA",
+      "description": "International Service Trade, Other business services, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Other business services, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTRCA",
+      "description": "International Service Trade, Transportation, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Transportation, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTRDA",
+      "description": "International Service Trade, Transportation, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Transportation, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTRNA",
+      "description": "International Service Trade, Transportation, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Transportation, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTLCA",
+      "description": "International Service Trade, Travel, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Travel, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTLDA",
+      "description": "International Service Trade, Travel, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Travel, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTLNA",
+      "description": "International Service Trade, Travel, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, Travel, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTCRDA",
+      "description": "International Service Trade, credit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, credit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTDBTA",
+      "description": "International Service Trade, debit",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, debit. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNISTTOTA",
+      "description": "International Service Trade, net",
+      "frequency": "P1M",
+      "subcategory": "Service Trade",
+      "units": "USD millions",
+      "meaning": "China International Service Trade: International Service Trade, net. Services exports/imports — travel, transport, insurance, financial services, IP royalties.",
+      "how_to_use": "China runs a structural services-trade deficit (~$200B/year), driven by tourism (Chinese outbound > inbound) and IP royalty payments. Tourism deficit narrowed during COVID (2020-22) but is reverting as travel resumes.",
+      "related_series": [
+        "aCNCBOPA",
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRAB",
+      "description": "Reserve Assets, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Annual, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRAFXCH",
+      "description": "Reserve Assets, Foreign exchange, Annual, State Administration of Foreign Exchange, China",
+      "frequency": "P1Y",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Foreign exchange, Annual, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBPMREXA",
+      "description": "Reserve Assets, Foreign exchange, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Foreign exchange, Quarterly, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBPFREXA",
+      "description": "Reserve Assets, Foreign exchange, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Foreign exchange, Quarterly, State Administration of Foreign Exchange, China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBPRESVA",
+      "description": "Reserve Assets, Quarterly, State Administration of Foreign Exchange, China",
+      "frequency": "P3M",
+      "subcategory": "Reserve Assets",
+      "units": "USD billions",
+      "meaning": "Reserve Assets Change — quarterly change in official reserves on BoP basis.",
+      "how_to_use": "Should reconcile with monthly reserves data (aCNCRESA difference). When CA + non-reserve financial account is negative and reserves draw down, BI is intervening to defend CNY.",
+      "related_series": [
+        "aCNBPNRESA",
+        "aCNCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRESIMFIRA",
+      "description": "Reserve Assets, Reserve position in IMF",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Reserve position in IMF. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNRVSSDRA",
+      "description": "Reserve Assets, Special drawing rights",
+      "frequency": "P3M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Reserve Assets, Special drawing rights. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURB/A",
+      "description": "Current Account Balance, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, level — quarterly absolute current account. Publishes ~3 months after quarter-end by SAFE.",
+      "how_to_use": "China runs persistent CA surpluses (~$300-400B/year recently). Surplus driven by goods trade (~$700B annually) offset by services deficit (~$200B, mostly tourism + IP royalties) and primary income deficit (~$50-100B).",
+      "related_series": [
+        "aCNCAA",
+        "aCNCCURYB/A",
+        "aCNCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURPB/A",
+      "description": "Current Account Balance, quarter on quarter, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, QoQ absolute change — quarter-over-quarter momentum.",
+      "how_to_use": "Track for sequential changes. Quarterly volatility from commodity-price swings and seasonal trade patterns.",
+      "related_series": [
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCCURYB/A",
+      "description": "Current Account Balance, year on year, Standardized, Absolute change",
+      "frequency": "P3M",
+      "subcategory": "Current Account",
+      "units": "USD billions",
+      "meaning": "Current Account Balance, YoY absolute change — year-over-year change in CA level.",
+      "how_to_use": "Cleaner trend gauge than QoQ. Track for annual current-account balance changes vs same quarter year ago.",
+      "related_series": [
+        "aCNCCURB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCTGRMBA",
+      "description": "Current Account, Goods, Net, RMB settlement of cross-border trade in goods",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Current Account, Goods, Net, RMB settlement of cross-border trade in goods. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPYBFM",
+      "description": "Gold reserve, Volume, Balance of Payments, Monthly, The People's Bank of China",
+      "frequency": "P1M",
+      "subcategory": "International Investment Position",
+      "units": "USD millions",
+      "meaning": "China International Investment Position: Gold reserve, Volume, Balance of Payments, Monthly, The People's Bank of China. SAFE quarterly statistics on China's external assets/liabilities.",
+      "how_to_use": "China is a net external creditor (net IIP positive ~$3 trillion). Reserve assets ($3.2T) dominate external assets; FDI liabilities (~$3T) dominate liabilities. Net direct investment position has been deteriorating as outbound FDI slows and inbound FDI weakens.",
+      "related_series": [
+        "aCNCRESA",
+        "aCNBOPFANA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNWCSEM",
+      "description": "社会融资规模增量_非金融企业境内股票融资_当期_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 社会融资规模增量_非金融企业境内股票融资_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

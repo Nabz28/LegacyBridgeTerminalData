@@ -1,0 +1,69 @@
+{
+  "category": "Consumption",
+  "category_slug": "cn_consumption",
+  "section": "National Accounts",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T16_59 (NATIONAL ACCOUNTS - CONSUMPTION).xlsx",
+  "ric_count": 4,
+  "rics": [
+    {
+      "ric": "aCNGPCPGDP/C",
+      "description": "Final Consumption Expenditure, Contribution to Real GDP Percentage Change, %",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Final Consumption Expenditure, Contribution to Real GDP Percentage Change, %. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNGPCG",
+        "aCNGPC",
+        "aCNCNPEU/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGPCG",
+      "description": "Final Consumption Expenditure, General Government",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Final Consumption Expenditure, General Government. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNGPCPGDP/C",
+        "aCNGPC",
+        "aCNCNPEU/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNGPC",
+      "description": "Final Consumption Expenditure, Households",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Final Consumption Expenditure, Households. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNCNPEU/C",
+        "aCNGPCPGDP/C",
+        "aCNGPCG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPEU/C",
+      "description": "Final Consumption Expenditure, Households, Urban",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Final Consumption Expenditure, Households, Urban. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNGPC",
+        "aCNGPCPGDP/C",
+        "aCNGPCG"
+      ],
+      "notes": ""
+    }
+  ]
+}

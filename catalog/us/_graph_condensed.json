@@ -1,0 +1,3856 @@
+{
+  "generated_at": "2026-04-30T16:15:27.802280+00:00",
+  "stats": {
+    "node_count": 161,
+    "edge_count": 170,
+    "region_count": 12,
+    "skipped_rics": 0,
+    "skipped_edges": 0
+  },
+  "regions": [
+    {
+      "id": "leading",
+      "label": "LEADING & SENTIMENT",
+      "color": "#eab308",
+      "cx": -3600,
+      "cy": -1900,
+      "ric_count": 20
+    },
+    {
+      "id": "labor",
+      "label": "LABOR MARKET",
+      "color": "#22c55e",
+      "cx": -1200,
+      "cy": -1900,
+      "ric_count": 11
+    },
+    {
+      "id": "inflation",
+      "label": "INFLATION",
+      "color": "#ff8a00",
+      "cx": 1200,
+      "cy": -1900,
+      "ric_count": 18
+    },
+    {
+      "id": "fed_money",
+      "label": "FED & MONEY",
+      "color": "#ec4899",
+      "cx": 3600,
+      "cy": -1900,
+      "ric_count": 12
+    },
+    {
+      "id": "external",
+      "label": "EXTERNAL & FX",
+      "color": "#fb923c",
+      "cx": -3600,
+      "cy": 0,
+      "ric_count": 9
+    },
+    {
+      "id": "demand",
+      "label": "DEMAND & CONSUMER",
+      "color": "#0ea5e9",
+      "cx": -1200,
+      "cy": 0,
+      "ric_count": 14
+    },
+    {
+      "id": "wages",
+      "label": "WAGES & PRODUCTIVITY",
+      "color": "#15803d",
+      "cx": 1200,
+      "cy": 0,
+      "ric_count": 10
+    },
+    {
+      "id": "rates_eq",
+      "label": "RATES & EQUITIES",
+      "color": "#a855f7",
+      "cx": 3600,
+      "cy": 0,
+      "ric_count": 9
+    },
+    {
+      "id": "energy",
+      "label": "ENERGY",
+      "color": "#dc2626",
+      "cx": -3600,
+      "cy": 1900,
+      "ric_count": 9
+    },
+    {
+      "id": "housing",
+      "label": "HOUSING",
+      "color": "#a855f7",
+      "cx": -1200,
+      "cy": 1900,
+      "ric_count": 16
+    },
+    {
+      "id": "credit",
+      "label": "CREDIT & BANKING",
+      "color": "#06b6d4",
+      "cx": 1200,
+      "cy": 1900,
+      "ric_count": 13
+    },
+    {
+      "id": "aggregate",
+      "label": "AGGREGATE & FISCAL",
+      "color": "#7c3aed",
+      "cx": 3600,
+      "cy": 1900,
+      "ric_count": 20
+    }
+  ],
+  "clusters": [
+    {
+      "id": "inflation",
+      "color": "#ff8a00",
+      "ric_count": 18
+    },
+    {
+      "id": "employment",
+      "color": "#22c55e",
+      "ric_count": 5
+    },
+    {
+      "id": "unemployment",
+      "color": "#16a34a",
+      "ric_count": 7
+    },
+    {
+      "id": "wages",
+      "color": "#15803d",
+      "ric_count": 10
+    },
+    {
+      "id": "gdp",
+      "color": "#3b82f6",
+      "ric_count": 9
+    },
+    {
+      "id": "consumption",
+      "color": "#0ea5e9",
+      "ric_count": 10
+    },
+    {
+      "id": "investment",
+      "color": "#0284c7",
+      "ric_count": 1
+    },
+    {
+      "id": "government",
+      "color": "#7c3aed",
+      "ric_count": 8
+    },
+    {
+      "id": "housing_act",
+      "color": "#a855f7",
+      "ric_count": 7
+    },
+    {
+      "id": "housing_px",
+      "color": "#9333ea",
+      "ric_count": 5
+    },
+    {
+      "id": "surveys",
+      "color": "#eab308",
+      "ric_count": 13
+    },
+    {
+      "id": "fed",
+      "color": "#ec4899",
+      "ric_count": 6
+    },
+    {
+      "id": "treasury",
+      "color": "#f43f5e",
+      "ric_count": 7
+    },
+    {
+      "id": "bank_lending",
+      "color": "#06b6d4",
+      "ric_count": 9
+    },
+    {
+      "id": "money",
+      "color": "#0891b2",
+      "ric_count": 6
+    },
+    {
+      "id": "consumer_credit",
+      "color": "#0e7490",
+      "ric_count": 4
+    },
+    {
+      "id": "mortgage",
+      "color": "#c026d3",
+      "ric_count": 4
+    },
+    {
+      "id": "equity",
+      "color": "#84cc16",
+      "ric_count": 5
+    },
+    {
+      "id": "trade",
+      "color": "#f97316",
+      "ric_count": 3
+    },
+    {
+      "id": "fx",
+      "color": "#fb923c",
+      "ric_count": 6
+    },
+    {
+      "id": "energy",
+      "color": "#dc2626",
+      "ric_count": 9
+    },
+    {
+      "id": "auto",
+      "color": "#7e22ce",
+      "ric_count": 4
+    },
+    {
+      "id": "bankruptcies",
+      "color": "#b91c1c",
+      "ric_count": 1
+    },
+    {
+      "id": "forecasts",
+      "color": "#94a3b8",
+      "ric_count": 4
+    }
+  ],
+  "nodes": [
+    {
+      "id": "aUSCSIUM",
+      "label": "UMich Sentiment",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, Consumer Sentiment Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3530.7005913373728,
+      "y": -1931.060263899282
+    },
+    {
+      "id": "aUSCONCFEX",
+      "label": "UMich Expectations",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, Consumer Expectations Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 2,
+      "region": "leading",
+      "x": -3764.145648105454,
+      "y": -1719.925994476573
+    },
+    {
+      "id": "aUSCONCF/A",
+      "label": "Conf Board Confidence",
+      "description": "Conference Board, Consumer confidence",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3617.588712744958,
+      "y": -2114.278995443173
+    },
+    {
+      "id": "aUSCONCE/A",
+      "label": "CB Expectations",
+      "description": "Conference Board, Consumer confidence, expectations",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3473.5751112094163,
+      "y": -1752.298484756876
+    },
+    {
+      "id": "aUSCONCFP/A",
+      "label": "CB Present Situation",
+      "description": "Conference Board, Consumer confidence, present situation",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 2,
+      "region": "leading",
+      "x": -3845.4450293184736,
+      "y": -2000.4940520117661
+    },
+    {
+      "id": "aUSNPMI/A",
+      "label": "ISM Mfg PMI",
+      "description": "ISM Manufacturing, PMI total",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_business_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3408.5096305676448,
+      "y": -2033.9175586836166
+    },
+    {
+      "id": "aUSNMFGPMI",
+      "label": "ISM Services PMI",
+      "description": "ISM Non-manufacturing, NMI/PMI",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_business_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3669.7138058590353,
+      "y": -1633.2628755419926
+    },
+    {
+      "id": "aUSPFEDB/A",
+      "label": "Philly Fed Mfg",
+      "description": "Philadelphia Fed, General business activity",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_business_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3731.9175840851995,
+      "y": -2110.7815166117302
+    },
+    {
+      "id": "aUSCLEAD/A",
+      "label": "CB Leading Index",
+      "description": "Leading Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 1,
+      "region": "leading",
+      "x": -3464.4790943221196,
+      "y": -1844.9335312153307
+    },
+    {
+      "id": "aUSCOINDIF/A",
+      "label": "CB Coincident Index",
+      "description": "Coincident Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "leading",
+      "x": -3691.873702647433,
+      "y": -1794.8430189410801
+    },
+    {
+      "id": "aUSLAG/A",
+      "label": "CB Lagging Index",
+      "description": "Lagging Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 3,
+      "region": "leading",
+      "x": -3525.3233656072744,
+      "y": -2075.461271098457
+    },
+    {
+      "id": "aUSCFNA",
+      "label": "Chicago Fed CFNAI",
+      "description": "Chicago Fed CFMMI, National Activity Index",
+      "frequency": "P1M",
+      "cluster": "gdp",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 1,
+      "region": "leading",
+      "x": -3535.479561598534,
+      "y": -1605.394817650458
+    },
+    {
+      "id": "aUSNYWER",
+      "label": "NY Fed Weekly",
+      "description": "New York Fed, Weekly Economic Index",
+      "frequency": "P1M",
+      "cluster": "gdp",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "leading",
+      "x": -3624.2021016802264,
+      "y": -1909.8803314992222
+    },
+    {
+      "id": "aUSCBBKLER",
+      "label": "BBK Leading",
+      "description": "Brave-Butters-Kelley Indexes, Leading Index",
+      "frequency": "P1M",
+      "cluster": "gdp",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 3,
+      "region": "leading",
+      "x": -3379.5493108460846,
+      "y": -1909.9928820337461
+    },
+    {
+      "id": "aUSCBBKCOR",
+      "label": "BBK Coincident",
+      "description": "Brave-Butters-Kelley Indexes, Coincident Index",
+      "frequency": "P1M",
+      "cluster": "gdp",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 3,
+      "region": "leading",
+      "x": -3719.9294759819,
+      "y": -1920.0983447282715
+    },
+    {
+      "id": "aUSCBBKGPR",
+      "label": "BBK Monthly GDP",
+      "description": "Brave-Butters-Kelley Indexes, Monthly GDP Growth (Annualized), %",
+      "frequency": "P1M",
+      "cluster": "gdp",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "leading",
+      "x": -3664.4577187824966,
+      "y": -2026.7674112611871
+    },
+    {
+      "id": "aUSEMPTR",
+      "label": "CB Employment Trends",
+      "description": "Labour Market n.i.e, The Conference Board Employment Trends Index (ETI)",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "leading",
+      "x": -3332.967412147666,
+      "y": -1762.699229607784
+    },
+    {
+      "id": "aUSIBDECOP",
+      "label": "RCM/TIPP Optimism",
+      "description": "RCM/TIPP, Economic Optimism Index",
+      "frequency": "P1M",
+      "cluster": "surveys",
+      "category_slug": "us_consumer_surveys",
+      "importance": 3,
+      "region": "leading",
+      "x": -3849.5667263993814,
+      "y": -1824.4311401642717
+    },
+    {
+      "id": "aUSHMKT/A",
+      "label": "NAHB Builder Index",
+      "description": "NAHB/Wells Fargo Housing Market Index",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_business_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3427.989041981488,
+      "y": -2153.8181614149325
+    },
+    {
+      "id": "aUSRSAHMN/A",
+      "label": "Sahm Rule",
+      "description": "Real-Time Sahm Rule Recession Indicator",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_other_surveys",
+      "importance": 1,
+      "region": "leading",
+      "x": -3579.14377996525,
+      "y": -1766.3731706880167
+    },
+    {
+      "id": "aUSNFARM/A",
+      "label": "Nonfarm Payrolls",
+      "description": "Employment, Nonfarm payroll, total",
+      "frequency": "P1M",
+      "cluster": "employment",
+      "category_slug": "us_employment_hours",
+      "importance": 1,
+      "region": "labor",
+      "x": -1158.6931174790154,
+      "y": -1879.6672935178706
+    },
+    {
+      "id": "aUSEMPADP/A",
+      "label": "ADP Payrolls",
+      "description": "Labour Market n.i.e, ADP total nonfarm private employment (estimate)",
+      "frequency": "P1M",
+      "cluster": "employment",
+      "category_slug": "us_employment_hours",
+      "importance": 2,
+      "region": "labor",
+      "x": -1307.666574393887,
+      "y": -1733.1776823758066
+    },
+    {
+      "id": "aUSNFARMP/A",
+      "label": "Private Payrolls",
+      "description": "Employment, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "cluster": "employment",
+      "category_slug": "us_employment_hours",
+      "importance": 2,
+      "region": "labor",
+      "x": -1224.0766844975433,
+      "y": -2034.8905254275553
+    },
+    {
+      "id": "aUSUNTOTR",
+      "label": "Unemployment Rate",
+      "description": "CIVILIAN UNEMPLOYMENT RATE",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_workforce_unemployement",
+      "importance": 1,
+      "region": "labor",
+      "x": -1117.839745489394,
+      "y": -1737.285945583741
+    },
+    {
+      "id": "aUSLABFRE/A",
+      "label": "Labor Participation",
+      "description": "Employment, Rate, Civilian participation, total",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_workforce_unemployement",
+      "importance": 1,
+      "region": "labor",
+      "x": -1256.223086050951,
+      "y": -1897.1051319432813
+    },
+    {
+      "id": "aUSEMPR/A",
+      "label": "Emp-Pop Ratio",
+      "description": "Employment, Rate, Civilian Employment-Population ratio, total",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_employment_hours",
+      "importance": 2,
+      "region": "labor",
+      "x": -1050.3309303578778,
+      "y": -1956.0320755328166
+    },
+    {
+      "id": "aUSJOBC/A",
+      "label": "Initial Claims",
+      "description": "Jobless Claims, National, Initial",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_workforce_unemployement",
+      "importance": 1,
+      "region": "labor",
+      "x": -1234.9651569993785,
+      "y": -1806.594737001972
+    },
+    {
+      "id": "aUSJOBCC/A",
+      "label": "Continuing Claims",
+      "description": "Jobless Claims, National, Continued",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_workforce_unemployement",
+      "importance": 2,
+      "region": "labor",
+      "x": -1304.51636544246,
+      "y": -1993.3907506900557
+    },
+    {
+      "id": "aUSJOBCC4W/A",
+      "label": "Continuing Claims 4w",
+      "description": "Jobless Claims, National, Continued, four week moving average",
+      "frequency": "P1M",
+      "cluster": "unemployment",
+      "category_slug": "us_workforce_unemployement",
+      "importance": 3,
+      "region": "labor",
+      "x": -1057.2936226127947,
+      "y": -1846.2214067485152
+    },
+    {
+      "id": "aUSJOLTAO",
+      "label": "JOLTS Openings",
+      "description": "Labour Market n.i.e, JOLTS Job Openings",
+      "frequency": "P1M",
+      "cluster": "employment",
+      "category_slug": "us_employment_hours",
+      "importance": 1,
+      "region": "labor",
+      "x": -1356.4265745420885,
+      "y": -1899.3280552370616
+    },
+    {
+      "id": "aUSJBQUITO/A",
+      "label": "JOLTS Quits",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Quits",
+      "frequency": "P1M",
+      "cluster": "employment",
+      "category_slug": "us_employment_hours",
+      "importance": 2,
+      "region": "labor",
+      "x": -1146.5199740484925,
+      "y": -2067.7661799625207
+    },
+    {
+      "id": "aUSEARNH/A",
+      "label": "AHE Level",
+      "description": "Earnings, Average Hourly, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "cluster": "wages",
+      "category_slug": "us_wages_earnings",
+      "importance": 1,
+      "region": "wages",
+      "x": 1382.146152703786,
+      "y": -24.49058645672488
+    },
+    {
+      "id": "aUSAHVEA",
+      "label": "AHE YoY",
+      "description": "Average Earnings YY, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "wages",
+      "category_slug": "us_wages_earnings",
+      "importance": 1,
+      "region": "wages",
+      "x": 1100.7638712329713,
+      "y": 167.94109468278742
+    },
+    {
+      "id": "aUSWAGESB/A",
+      "label": "AHE Private YoY",
+      "description": "Earnings, Average Hourly, Nonfarm, all private employees, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "wages",
+      "category_slug": "us_wages_earnings",
+      "importance": 1,
+      "region": "wages",
+      "x": 1194.6684653145198,
+      "y": -195.512597799095
+    },
+    {
+      "id": "aUSEARN/CA",
+      "label": "Real AHE",
+      "description": "Earnings, Average Hourly, Real average, total private",
+      "frequency": "P1M",
+      "cluster": "wages",
+      "category_slug": "us_wages_earnings",
+      "importance": 2,
+      "region": "wages",
+      "x": 1253.475626144424,
+      "y": 134.94118257880987
+    },
+    {
+      "id": "aUSEMPCI/A",
+      "label": "ECI Total Comp",
+      "description": "Labour Cost, Employment cost index, total compensation",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 1,
+      "region": "wages",
+      "x": 1061.0455830897668,
+      "y": -92.33493200761554
+    },
+    {
+      "id": "aUSEMPCAR",
+      "label": "ECI QoQ",
+      "description": "Labour Cost, Employment cost index, total compensation, Chg P/P",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 1,
+      "region": "wages",
+      "x": 1273.1204957995938,
+      "y": -95.8127048577949
+    },
+    {
+      "id": "aUSECWNS/A",
+      "label": "ECI Wages & Salaries",
+      "description": "Labour Cost, Employment cost index, wages and salaries",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 2,
+      "region": "wages",
+      "x": 1164.905080508212,
+      "y": 48.599173555484434
+    },
+    {
+      "id": "aUSULCNF/A",
+      "label": "Unit Labor Costs",
+      "description": "Labour Cost, Unit, business, nonfarm",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 2,
+      "region": "wages",
+      "x": 1172.8152919551026,
+      "y": -48.973408848064416
+    },
+    {
+      "id": "aUSOUTNF/A",
+      "label": "Productivity Nonfarm",
+      "description": "Labour Productivity, Output per hour of all persons, nonfarm business",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 2,
+      "region": "wages",
+      "x": 1342.898865917318,
+      "y": 84.74870712101989
+    },
+    {
+      "id": "aUSPHOPBUS/A",
+      "label": "Productivity Business",
+      "description": "Labour Productivity, Output per hour of all persons, business, Productivity & Labor Costs, Quarterly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P3M",
+      "cluster": "wages",
+      "category_slug": "us_productivity_labor_costs",
+      "importance": 2,
+      "region": "wages",
+      "x": 1014.7188504389397,
+      "y": 45.1058476606471
+    },
+    {
+      "id": "aUSCRETF/C",
+      "label": "Retail Sales Total",
+      "description": "Retail Sales, Standardized",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_retail_sales",
+      "importance": 1,
+      "region": "demand",
+      "x": -1087.7592623480355,
+      "y": 6.582011243025903
+    },
+    {
+      "id": "aUSCRETPE/A",
+      "label": "Retail Sales MoM",
+      "description": "Retail Sales, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_retail_sales",
+      "importance": 1,
+      "region": "demand",
+      "x": -1340.5707832936332,
+      "y": 113.27521648686165
+    },
+    {
+      "id": "aUSCRETYE/A",
+      "label": "Retail Sales YoY",
+      "description": "Retail Sales, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_retail_sales",
+      "importance": 2,
+      "region": "demand",
+      "x": -1221.3522833128393,
+      "y": -193.12429630738097
+    },
+    {
+      "id": "aUSRSLSFS/A",
+      "label": "Retail inc Food Svc",
+      "description": "Retail Sales, Total including food services",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_retail_sales",
+      "importance": 2,
+      "region": "demand",
+      "x": -1049.5150644545736,
+      "y": 165.59497007999937
+    },
+    {
+      "id": "aUSRLCOA",
+      "label": "Retail Control Group",
+      "description": "Retail Sales, Total excluding bldg material & motor vehicle & parts & gasoline station & food svc, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_retail_sales",
+      "importance": 1,
+      "region": "demand",
+      "x": -1368.0387547343998,
+      "y": 2.8491590979026347
+    },
+    {
+      "id": "aUSGPC/CA",
+      "label": "Real PCE Level",
+      "description": "Personal Consumption Expenditure, Constant Prices, Consumption, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_consumptions",
+      "importance": 1,
+      "region": "demand",
+      "x": -1167.774728725638,
+      "y": -73.26164493660525
+    },
+    {
+      "id": "aUSGPCSAR",
+      "label": "Real PCE MoM",
+      "description": "Consumption adjusted- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_consumptions",
+      "importance": 1,
+      "region": "demand",
+      "x": -1253.4419074757527,
+      "y": 151.84421936594737
+    },
+    {
+      "id": "aUSGPYD",
+      "label": "Real DPI",
+      "description": "Disposable Personal Income, Constant Prices, Incomes & Savings, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_income_savings",
+      "importance": 1,
+      "region": "demand",
+      "x": -1287.4990539822786,
+      "y": -51.67766004709401
+    },
+    {
+      "id": "aUSGPYD/A",
+      "label": "Nominal DPI",
+      "description": "Disposable Personal Income, Current Prices, Incomes & Savings, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "cluster": "consumption",
+      "category_slug": "us_income_savings",
+      "importance": 2,
+      "region": "demand",
+      "x": -1139.3265377950383,
+      "y": 54.667322744824084
+    },
+    {
+      "id": "aUSNS06L2",
+      "label": "Saving Rate",
+      "description": "Personal saving as % of disposable personal income",
+      "frequency": "P1Y",
+      "cluster": "consumption",
+      "category_slug": "us_income_savings",
+      "importance": 1,
+      "region": "demand",
+      "x": -1239.8418464889373,
+      "y": 46.50255369636246
+    },
+    {
+      "id": "aUSVHLS",
+      "label": "Light Vehicle Sales",
+      "description": "Motor Vehicles, Total light vehicle sales",
+      "frequency": "P1M",
+      "cluster": "auto",
+      "category_slug": "us_automobiles_transport",
+      "importance": 1,
+      "region": "demand",
+      "x": -1120.143224325456,
+      "y": -152.55772869095742
+    },
+    {
+      "id": "aUSCARSOA",
+      "label": "Total Car Sales",
+      "description": "All Car Sales - Acutal",
+      "frequency": "P1M",
+      "cluster": "auto",
+      "category_slug": "us_automobiles_transport",
+      "importance": 2,
+      "region": "demand",
+      "x": -1155.6464652855461,
+      "y": 166.68699844506105
+    },
+    {
+      "id": "aUSPCARRVO/A",
+      "label": "Auto Inventory Days",
+      "description": "Motor Vehicles, Domestic auto unit inventory",
+      "frequency": "P1M",
+      "cluster": "auto",
+      "category_slug": "us_automobiles_transport",
+      "importance": 2,
+      "region": "demand",
+      "x": -1313.462736571033,
+      "y": -146.60239932254407
+    },
+    {
+      "id": "aUSDAPRODP",
+      "label": "Auto Production",
+      "description": "Motor Vehicles, Domestic auto unit production",
+      "frequency": "P1M",
+      "cluster": "auto",
+      "category_slug": "us_automobiles_transport",
+      "importance": 3,
+      "region": "demand",
+      "x": -1041.1019163481317,
+      "y": -101.50608086569356
+    },
+    {
+      "id": "aUSCPIYYR",
+      "label": "Headline CPI YoY",
+      "description": "CPI, All items, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1228.2276432207725,
+      "y": -1911.062530311429
+    },
+    {
+      "id": "aUSCPI",
+      "label": "Headline CPI Level",
+      "description": "CPI, All items",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1090.3835667021644,
+      "y": -1680.285314987848
+    },
+    {
+      "id": "aUSCPFYAR",
+      "label": "Core CPI YoY",
+      "description": "Core CPI- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1237.7230040291317,
+      "y": -2030.8108140594939
+    },
+    {
+      "id": "aUSCPIXFE/A",
+      "label": "Core CPI Level",
+      "description": "CPI, All items less food and energy",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1365.3620730352873,
+      "y": -1717.9678547400888
+    },
+    {
+      "id": "aUSPCEMAR",
+      "label": "Core PCE MoM",
+      "description": "Core PCE price index- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1098.2894718349232,
+      "y": -1961.7462637615106
+    },
+    {
+      "id": "aUSPCE2AR",
+      "label": "Core PCE YoY",
+      "description": "Core PCE Price Index- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumptions",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1399.0176948589049,
+      "y": -2023.778161351855
+    },
+    {
+      "id": "aUSPCEYAR",
+      "label": "Headline PCE YoY",
+      "description": "PCE Price Index- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumptions",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1152.5425618184718,
+      "y": -1778.0976326311359
+    },
+    {
+      "id": "aUSPCEAR",
+      "label": "Headline PCE MoM",
+      "description": "PCE price index- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_other_prices",
+      "importance": 2,
+      "region": "inflation",
+      "x": 1100.877651814042,
+      "y": -2068.5434915883698
+    },
+    {
+      "id": "aUSPFDAR",
+      "label": "PPI Final Demand YoY",
+      "description": "Producer Prices, Final demand, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_producer_prices",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1356.3232979532354,
+      "y": -1914.0843872448997
+    },
+    {
+      "id": "aUSPFDEAR",
+      "label": "PPI Final Demand MoM",
+      "description": "Producer Prices, Final demand, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_producer_prices",
+      "importance": 2,
+      "region": "inflation",
+      "x": 985.7203708145622,
+      "y": -1883.9123501680695
+    },
+    {
+      "id": "aUSPFDGAR",
+      "label": "Core PPI YoY",
+      "description": "Producer Prices, Final demand less foods and energy, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_prices_inflation",
+      "importance": 2,
+      "region": "inflation",
+      "x": 1350.6738673862603,
+      "y": -2148.6074700726763
+    },
+    {
+      "id": "aUSPFDEMDE/A",
+      "label": "PPI Level",
+      "description": "Producer Prices, Final demand",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_producer_prices",
+      "importance": 2,
+      "region": "inflation",
+      "x": 1233.4967946216875,
+      "y": -1645.5006976991417
+    },
+    {
+      "id": "aUSIMPP",
+      "label": "Import Prices",
+      "description": "Import Prices, All commodities",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_import_export_price_indices",
+      "importance": 2,
+      "region": "inflation",
+      "x": 1013.9253776976254,
+      "y": -2014.4072332293867
+    },
+    {
+      "id": "aUSIMPAR",
+      "label": "Import Prices MoM",
+      "description": "Import prices- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_import_export_price_indices",
+      "importance": 3,
+      "region": "inflation",
+      "x": 1330.738145965584,
+      "y": -1841.3790324752135
+    },
+    {
+      "id": "aUSEXPP",
+      "label": "Export Prices",
+      "description": "Export Prices, All commodities",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_import_export_price_indices",
+      "importance": 3,
+      "region": "inflation",
+      "x": 1148.7631770463895,
+      "y": -1892.3853954839183
+    },
+    {
+      "id": "aUSEXPAR",
+      "label": "Export Prices MoM",
+      "description": "Export prices- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_import_export_price_indices",
+      "importance": 3,
+      "region": "inflation",
+      "x": 1174.846325310247,
+      "y": -2164.4407441930402
+    },
+    {
+      "id": "aUSINFEXM1Y",
+      "label": "UMich 1Y Inf Exp",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, 1 Year Inflation Expectations (median)",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1278.7777245737855,
+      "y": -1746.331897112558
+    },
+    {
+      "id": "aUSINFEXM5Y",
+      "label": "UMich 5Y Inf Exp",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, 5 Year Inflation Expectations (median)",
+      "frequency": "P1M",
+      "cluster": "inflation",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "inflation",
+      "x": 1022.9109071542092,
+      "y": -1785.8798521655265
+    },
+    {
+      "id": "aUSFEDFUND",
+      "label": "Fed Funds Eff",
+      "description": "Fed Funds Effective Rate",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 1,
+      "region": "fed_money",
+      "x": 3728.0350543137165,
+      "y": -1931.0713618740308
+    },
+    {
+      "id": "aUSFEDFUNDT",
+      "label": "Fed Funds Target",
+      "description": "Policy Rates, Fed Funds Target Rate, Daily, Federal Reserve, United States",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 1,
+      "region": "fed_money",
+      "x": 3548.406171581493,
+      "y": -1826.8968244931127
+    },
+    {
+      "id": "aUSIORAR",
+      "label": "IORB",
+      "description": "Fed Int On Excess Reserves",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3605.281255728506,
+      "y": -2104.418042247596
+    },
+    {
+      "id": "aUSRRPAR",
+      "label": "ON RRP",
+      "description": "Policy Rates, Fed Overnight Repo",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3611.654252704563,
+      "y": -1888.6732599219638
+    },
+    {
+      "id": "aUSDISWPCRM",
+      "label": "Discount Window",
+      "description": "Discount Window Primary Credit Rate",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 3,
+      "region": "fed_money",
+      "x": 3461.172904517566,
+      "y": -1935.672794463274
+    },
+    {
+      "id": "aUSPRIME",
+      "label": "Bank Prime Rate",
+      "description": "Prime rate charged by banks",
+      "frequency": "P1M",
+      "cluster": "fed",
+      "category_slug": "us_interest_rates",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3750.0210418706943,
+      "y": -2063.5589335389022
+    },
+    {
+      "id": "aUSCMS2B/A",
+      "label": "M2 Level",
+      "description": "Money Supply M2, Standardized",
+      "frequency": "P1M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 1,
+      "region": "fed_money",
+      "x": 3542.9689646843453,
+      "y": -1734.2091457031527
+    },
+    {
+      "id": "aUSCMS2YB/A",
+      "label": "M2 YoY",
+      "description": "Money Supply M2, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 1,
+      "region": "fed_money",
+      "x": 3501.626243162061,
+      "y": -2005.5175911943816
+    },
+    {
+      "id": "aUSCMS1B/A",
+      "label": "M1 Level",
+      "description": "Money Supply M1, Standardized",
+      "frequency": "P1M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3695.1538439439546,
+      "y": -1825.3112840716751
+    },
+    {
+      "id": "aUSCMS0B/A",
+      "label": "M0 / Base",
+      "description": "Money Supply M0, Standardized",
+      "frequency": "P1M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3448.675267991143,
+      "y": -1832.4254603485167
+    },
+    {
+      "id": "aUSMAAAAAA",
+      "label": "Monetary Base H.3",
+      "description": "H3 - Monetary base",
+      "frequency": "P1M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3614.097813776949,
+      "y": -1987.6398018142822
+    },
+    {
+      "id": "aUSMEMSVE/A",
+      "label": "M2 Velocity",
+      "description": "Velocity of M2 Money Stock",
+      "frequency": "P3M",
+      "cluster": "money",
+      "category_slug": "us_money_supply",
+      "importance": 2,
+      "region": "fed_money",
+      "x": 3697.8563275650276,
+      "y": -1723.032069340155
+    },
+    {
+      "id": "aUSEBM10Y",
+      "label": "10Y Treasury Yield",
+      "description": "10Y Government bond yield as % per annum",
+      "frequency": "P1M",
+      "cluster": "treasury",
+      "category_slug": "us_other_prices",
+      "importance": 1,
+      "region": "rates_eq",
+      "x": 3740.6116857648312,
+      "y": 23.602195040743194
+    },
+    {
+      "id": "aUSGBOND",
+      "label": "20Y Treasury Yield",
+      "description": "TREASURY YIELD ADJUSTED TO CONSTANT MATURITY - 20 YEAR",
+      "frequency": "P1M",
+      "cluster": "treasury",
+      "category_slug": "us_stocks_bonds_funds",
+      "importance": 2,
+      "region": "rates_eq",
+      "x": 3538.163799519285,
+      "y": 61.67315866285801
+    },
+    {
+      "id": "aUSLIDXIR10",
+      "label": "10Y - FF Spread",
+      "description": "Leading Index, Interest rate spread, 10-year Treasury bonds less federal funds",
+      "frequency": "P1M",
+      "cluster": "treasury",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 1,
+      "region": "rates_eq",
+      "x": 3618.1403419708413,
+      "y": -163.37889613822125
+    },
+    {
+      "id": "aUSCRCDACR",
+      "label": "Credit Card APR",
+      "description": "Consumer credit, terms of credit - comm bks interest, credit card, all account",
+      "frequency": "P3M",
+      "cluster": "consumer_credit",
+      "category_slug": "us_consumer_finance",
+      "importance": 1,
+      "region": "rates_eq",
+      "x": 3706.9934233319036,
+      "y": 161.0039652121284
+    },
+    {
+      "id": "aUSSPCOM",
+      "label": "S&P 500",
+      "description": "Standard & Poors, 500 Composite, Index",
+      "frequency": "P1M",
+      "cluster": "equity",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 1,
+      "region": "rates_eq",
+      "x": 3463.498167218813,
+      "y": -9.821537680587124
+    },
+    {
+      "id": "aUSSPRPER",
+      "label": "S&P 500 CAPE",
+      "description": "Standard & Poors, 500 Composite, Cyclically Adjusted Price Earnings Ratio P/E10 or CAPE (Shiller)",
+      "frequency": "P1M",
+      "cluster": "equity",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 1,
+      "region": "rates_eq",
+      "x": 3694.2376091085284,
+      "y": -108.38219740395813
+    },
+    {
+      "id": "aUSSPDIVY",
+      "label": "S&P Dividend Yield",
+      "description": "Standard & Poors, 500 Composite, Index, Dividend Yield",
+      "frequency": "P1M",
+      "cluster": "equity",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "rates_eq",
+      "x": 3571.093170402199,
+      "y": 152.2845473711731
+    },
+    {
+      "id": "aUSSPREPS",
+      "label": "S&P 500 EPS",
+      "description": "Standard & Poors, 500 Composite, Index, 12 Month As Reported Earnings per Share (top down)",
+      "frequency": "P1M",
+      "cluster": "equity",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 2,
+      "region": "rates_eq",
+      "x": 3509.743622355865,
+      "y": -114.50885225710188
+    },
+    {
+      "id": "aUSSPMDPS",
+      "label": "S&P 500 Dividends",
+      "description": "Standard & Poors, 500 Composite, Index, 12 Month Cash Dividends per Share (top down)",
+      "frequency": "P1M",
+      "cluster": "equity",
+      "category_slug": "us_cyclical_activity_indices",
+      "importance": 3,
+      "region": "rates_eq",
+      "x": 3634.0556544107376,
+      "y": -10.243386157635843
+    },
+    {
+      "id": "aUSCXTWF/C",
+      "label": "USD Trade-Weighted",
+      "description": "Trade Weighted nominal exchange rate, Standardized",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 1,
+      "region": "external",
+      "x": -3455.385317969844,
+      "y": 28.11791193202879
+    },
+    {
+      "id": "aUSCXTWYF",
+      "label": "USD TWI YoY",
+      "description": "Trade Weighted nominal exchange rate, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 2,
+      "region": "external",
+      "x": -3719.842726063539,
+      "y": 119.31949971571164
+    },
+    {
+      "id": "aUSCXTRF/C",
+      "label": "USD Real TWI",
+      "description": "Trade Weighted real exchange rate, Standardized",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 2,
+      "region": "external",
+      "x": -3583.841062641686,
+      "y": -140.303766949155
+    },
+    {
+      "id": "aUSBISNXBR",
+      "label": "BIS Nominal EER",
+      "description": "BIS, Nominal Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 2,
+      "region": "external",
+      "x": -3558.9187887565245,
+      "y": 147.40636847427382
+    },
+    {
+      "id": "aUSBISRXBR",
+      "label": "BIS Real EER",
+      "description": "BIS, Real Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 2,
+      "region": "external",
+      "x": -3753.6594562892224,
+      "y": -8.499779929252162
+    },
+    {
+      "id": "aUSXRUSD",
+      "label": "EUR/USD",
+      "description": "US $ TO EURO NOON NY (EP)",
+      "frequency": "P1M",
+      "cluster": "fx",
+      "category_slug": "us_exchange_rate_operations",
+      "importance": 1,
+      "region": "external",
+      "x": -3467.223617156378,
+      "y": -132.72044037275
+    },
+    {
+      "id": "aUSCURAC",
+      "label": "Current Account",
+      "description": "Balance, Current Account",
+      "frequency": "P3M",
+      "cluster": "trade",
+      "category_slug": "us_balance_of_payments",
+      "importance": 1,
+      "region": "external",
+      "x": -3639.2796078876886,
+      "y": 92.60407323609998
+    },
+    {
+      "id": "aUSGBALBA",
+      "label": "Trade Balance",
+      "description": "Adv Goods Trade Balance",
+      "frequency": "P1M",
+      "cluster": "trade",
+      "category_slug": "us_import_export_price_indices",
+      "importance": 1,
+      "region": "external",
+      "x": -3664.858908277825,
+      "y": -67.63117427093052
+    },
+    {
+      "id": "aUSGBARBA",
+      "label": "Trade Balance (R)",
+      "description": "Goods Trade Balance (R)",
+      "frequency": "P1M",
+      "cluster": "trade",
+      "category_slug": "us_imports_exports",
+      "importance": 2,
+      "region": "external",
+      "x": -3538.1096378879647,
+      "y": 17.03803335077481
+    },
+    {
+      "id": "aUSEPGAPG",
+      "label": "Retail Gasoline",
+      "description": "Energy Prices, Gasoline Regular, Average Retail Price per Gallon, All Areas",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_other_prices",
+      "importance": 1,
+      "region": "energy",
+      "x": -3509.3178501923885,
+      "y": 1899.5710351858668
+    },
+    {
+      "id": "aUSEPDAPG",
+      "label": "Retail Diesel",
+      "description": "Energy Prices, Diesel, average retail price per gallon, all areas",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_other_prices",
+      "importance": 2,
+      "region": "energy",
+      "x": -3730.57479425514,
+      "y": 1994.112104161164
+    },
+    {
+      "id": "aUSEPHAPG",
+      "label": "Retail Heating Oil",
+      "description": "Energy Prices, Heating oil, average price per gallon, residential consumers, methobrk oct19",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_other_prices",
+      "importance": 3,
+      "region": "energy",
+      "x": -3594.0054289992627,
+      "y": 1731.4061831776708
+    },
+    {
+      "id": "aUSEIACS",
+      "label": "Crude Oil Stocks",
+      "description": "Stock Levels, EIA, Total Crude Oil excluding SPR",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 1,
+      "region": "energy",
+      "x": -3599.5922587007913,
+      "y": 1956.958834875473
+    },
+    {
+      "id": "aUSEIAGS",
+      "label": "Gasoline Stocks",
+      "description": "Stock Levels, EIA, Gasoline",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 2,
+      "region": "energy",
+      "x": -3704.569871856244,
+      "y": 1887.6966486191486
+    },
+    {
+      "id": "aUSEIADS",
+      "label": "Distillate Stocks",
+      "description": "Stock Levels, EIA, Total Distillate",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 2,
+      "region": "energy",
+      "x": -3486.8836341896254,
+      "y": 1785.1221378281275
+    },
+    {
+      "id": "aUSEIAHOS",
+      "label": "SPR Stocks",
+      "description": "Stock Levels, EIA, Strategic Petroleum Reserve",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 2,
+      "region": "energy",
+      "x": -3643.747409683996,
+      "y": 2086.9245064401402
+    },
+    {
+      "id": "aUSEIAPRU",
+      "label": "Refinery Util",
+      "description": "Production, EIA, Refinery Capacity Utilization",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 2,
+      "region": "energy",
+      "x": -3718.4665732302324,
+      "y": 1751.1001713569758
+    },
+    {
+      "id": "aUSSCCO",
+      "label": "Cushing Stocks",
+      "description": "Stock Levels, EIA, Cushing, Oklahoma Crude Oil excluding SPR",
+      "frequency": "P1M",
+      "cluster": "energy",
+      "category_slug": "us_commodity_fundamentals",
+      "importance": 2,
+      "region": "energy",
+      "x": -3445.417289523769,
+      "y": 2014.937826957098
+    },
+    {
+      "id": "aUSHSTART",
+      "label": "Housing Starts",
+      "description": "Housing Starts",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 1,
+      "region": "housing",
+      "x": -1081.0289499227438,
+      "y": 1958.8667378451653
+    },
+    {
+      "id": "aUSBPERMIT",
+      "label": "Building Permits",
+      "description": "Building Permits",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 1,
+      "region": "housing",
+      "x": -1321.0371721111892,
+      "y": 2082.533312031903
+    },
+    {
+      "id": "aUSHNSAO",
+      "label": "New Home Sales",
+      "description": "New Home Sales",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 1,
+      "region": "housing",
+      "x": -1213.630696837252,
+      "y": 1856.8505050600725
+    },
+    {
+      "id": "aUSHNSALES/A",
+      "label": "New Home Sales (alt)",
+      "description": "New Home Sales",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 2,
+      "region": "housing",
+      "x": -1063.5412448027093,
+      "y": 2064.345782341524
+    },
+    {
+      "id": "aUSEHSPAR",
+      "label": "Existing Home Sales",
+      "description": "Exist. home sales- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 1,
+      "region": "housing",
+      "x": -1295.5418919968572,
+      "y": 1863.5970559275129
+    },
+    {
+      "id": "aUSPHSALE/A",
+      "label": "Pending Home Sales",
+      "description": "Pending Home Sales, United States",
+      "frequency": "P1M",
+      "cluster": "housing_act",
+      "category_slug": "us_housing",
+      "importance": 2,
+      "region": "housing",
+      "x": -1050.6252087387961,
+      "y": 1752.888372924739
+    },
+    {
+      "id": "aUSHPRICESP",
+      "label": "Case-Shiller 20",
+      "description": "House Prices, S&P Case-Shiller, Composite-20",
+      "frequency": "P1M",
+      "cluster": "housing_px",
+      "category_slug": "us_housing_real_estate_prices",
+      "importance": 1,
+      "region": "housing",
+      "x": -1221.6635519152533,
+      "y": 2071.842046021702
+    },
+    {
+      "id": "aUSHPCSCM10/CA",
+      "label": "Case-Shiller 10",
+      "description": "House Prices, S&P Case-Shiller, Composite-10",
+      "frequency": "P1M",
+      "cluster": "housing_px",
+      "category_slug": "us_housing_real_estate_prices",
+      "importance": 2,
+      "region": "housing",
+      "x": -1282.1507102868227,
+      "y": 1740.8569162285394
+    },
+    {
+      "id": "aUSHPIYAR",
+      "label": "FHFA HPI YoY",
+      "description": "FHFA House Price Index- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "cluster": "housing_px",
+      "category_slug": "us_housing_real_estate_prices",
+      "importance": 1,
+      "region": "housing",
+      "x": -1156.2485134274527,
+      "y": 1916.7874289915542
+    },
+    {
+      "id": "aUSHPIMAR",
+      "label": "FHFA HPI MoM",
+      "description": "FHFA House Price Index- Actual, Chg P/P",
+      "frequency": "P1M",
+      "cluster": "housing_px",
+      "category_slug": "us_housing_real_estate_prices",
+      "importance": 2,
+      "region": "housing",
+      "x": -1389.587480024393,
+      "y": 1969.9901212954828
+    },
+    {
+      "id": "aUSHAI",
+      "label": "Affordability Index",
+      "description": "National, Housing Affordability Index, composite",
+      "frequency": "P1M",
+      "cluster": "housing_px",
+      "category_slug": "us_consumer_surveys",
+      "importance": 1,
+      "region": "housing",
+      "x": -1158.1431707655793,
+      "y": 1781.0120487412617
+    },
+    {
+      "id": "aUSMBAMLR",
+      "label": "30Y Mortgage Rate",
+      "description": "Mortgage Lending Rates, FRM 30-Year Contract Rate (MBA Sourced)",
+      "frequency": "P1M",
+      "cluster": "mortgage",
+      "category_slug": "us_interest_rates",
+      "importance": 1,
+      "region": "housing",
+      "x": -1194.4543183729438,
+      "y": 1988.8970402615555
+    },
+    {
+      "id": "aUSMACI/A",
+      "label": "MBA Mortgage Apps",
+      "description": "Mortgage applications, market composite index",
+      "frequency": "P1M",
+      "cluster": "mortgage",
+      "category_slug": "us_domestic_finance",
+      "importance": 1,
+      "region": "housing",
+      "x": -1347.4340723684907,
+      "y": 1802.67718382316
+    },
+    {
+      "id": "aUSMACP/A",
+      "label": "MBA Purchase Index",
+      "description": "Mortgage applications, market composite index, purchase",
+      "frequency": "P1M",
+      "cluster": "mortgage",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "housing",
+      "x": -1067.5526143316674,
+      "y": 1855.3918273318386
+    },
+    {
+      "id": "aUSMACRI/A",
+      "label": "MBA Refi Index",
+      "description": "Mortgage applications, market composite index, refinancing",
+      "frequency": "P1M",
+      "cluster": "mortgage",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "housing",
+      "x": -1281.384022135389,
+      "y": 1957.3152791618836
+    },
+    {
+      "id": "aUSTCONS/A",
+      "label": "Construction Spend",
+      "description": "Construction Spending",
+      "frequency": "P1M",
+      "cluster": "investment",
+      "category_slug": "us_housing",
+      "importance": 2,
+      "region": "housing",
+      "x": -1150.8759834433874,
+      "y": 1686.6199790231544
+    },
+    {
+      "id": "aUSCRDOUTA",
+      "label": "Consumer Credit",
+      "description": "Consumer credit outstanding",
+      "frequency": "P1M",
+      "cluster": "consumer_credit",
+      "category_slug": "us_consumer_finance",
+      "importance": 1,
+      "region": "credit",
+      "x": 1277.981185260085,
+      "y": 2038.9845967065078
+    },
+    {
+      "id": "aUSCREDITIR/A",
+      "label": "Revolving Credit",
+      "description": "Consumer installment credit, revolving",
+      "frequency": "P1M",
+      "cluster": "consumer_credit",
+      "category_slug": "us_consumer_finance",
+      "importance": 1,
+      "region": "credit",
+      "x": 1063.4763197486463,
+      "y": 2031.0961714646226
+    },
+    {
+      "id": "aUSCREDITIN/A",
+      "label": "Non-Revolving Credit",
+      "description": "Consumer installment credit, nonrevolving",
+      "frequency": "P1M",
+      "cluster": "consumer_credit",
+      "category_slug": "us_consumer_finance",
+      "importance": 2,
+      "region": "credit",
+      "x": 1234.6946819939822,
+      "y": 1849.5843664656895
+    },
+    {
+      "id": "aUSBCACIB/A",
+      "label": "C&I Loans",
+      "description": "Assets and liab of cml banks, commercial & industrial",
+      "frequency": "P1M",
+      "cluster": "bank_lending",
+      "category_slug": "us_banking",
+      "importance": 1,
+      "region": "credit",
+      "x": 1285.5907824971384,
+      "y": 1943.4992153113722
+    },
+    {
+      "id": "aUSBCALCB",
+      "label": "Consumer Loans Banks",
+      "description": "Assets and liab of cml banks, consumer",
+      "frequency": "P1M",
+      "cluster": "bank_lending",
+      "category_slug": "us_banking",
+      "importance": 2,
+      "region": "credit",
+      "x": 1034.406465530117,
+      "y": 1923.0140747317337
+    },
+    {
+      "id": "aUSBCAREB/A",
+      "label": "Real Estate Loans",
+      "description": "Assets and liab of cml banks, real estate",
+      "frequency": "P1M",
+      "cluster": "bank_lending",
+      "category_slug": "us_banking",
+      "importance": 1,
+      "region": "credit",
+      "x": 1373.5331384896149,
+      "y": 1817.221833751958
+    },
+    {
+      "id": "aUSBCLALQ/A",
+      "label": "Bank Charge-offs",
+      "description": "Charge-Off rates, all banks, total loans and leases",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "credit",
+      "x": 1169.7861769587064,
+      "y": 2069.2626803051185
+    },
+    {
+      "id": "aUSBCLCOCQ/A",
+      "label": "Card Charge-offs",
+      "description": "Charge-Off Rates, all banks, consumer loans, credit cards",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 1,
+      "region": "credit",
+      "x": 1155.4308130964662,
+      "y": 1705.5827540494192
+    },
+    {
+      "id": "aUSBDLALQ/A",
+      "label": "Bank Delinquencies",
+      "description": "Delinquency rates, all banks, total loans and leases",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "credit",
+      "x": 1397.4807762647804,
+      "y": 1951.928152058708
+    },
+    {
+      "id": "aUSBDLCOCQ/A",
+      "label": "Card Delinquencies",
+      "description": "Delinquency rates, all banks, consumer loans, credit cards",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 1,
+      "region": "credit",
+      "x": 1127.5796569395052,
+      "y": 1872.8947377871996
+    },
+    {
+      "id": "aUSBCLRECQ/A",
+      "label": "CRE Charge-offs",
+      "description": "Charge-Off Rates, all banks, real estate loans, commercial",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "credit",
+      "x": 1276.0281830941237,
+      "y": 1748.8041842906723
+    },
+    {
+      "id": "aUSBDLRECQ/A",
+      "label": "CRE Delinquencies",
+      "description": "Delinquency rates, all banks, Real estate loans, commercial",
+      "frequency": "P3M",
+      "cluster": "bank_lending",
+      "category_slug": "us_domestic_finance",
+      "importance": 2,
+      "region": "credit",
+      "x": 1188.2523035189959,
+      "y": 1974.545722573428
+    },
+    {
+      "id": "aUSBNRQP",
+      "label": "Bankruptcies",
+      "description": "Bankruptcy filings (3 months ending), total",
+      "frequency": "P3M",
+      "cluster": "bankruptcies",
+      "category_slug": "us_banking",
+      "importance": 2,
+      "region": "credit",
+      "x": 1049.2999285612873,
+      "y": 1806.6498847925684
+    },
+    {
+      "id": "aUSCGDPPD/A",
+      "label": "Real GDP QoQ",
+      "description": "GDP, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "cluster": "gdp",
+      "category_slug": "us_gdp_by_expenditure",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3595.0324078489975,
+      "y": 1832.9282752597783
+    },
+    {
+      "id": "aUSGDPEQZ/CA",
+      "label": "Real GDP YoY",
+      "description": "United States, GDP - ANNUAL % CHANGE IN REAL TERMS, Constant Prices, GDP by Expenditure, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "cluster": "gdp",
+      "category_slug": "us_gdp_by_expenditure",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3379.2831689545237,
+      "y": 2042.288721125743
+    },
+    {
+      "id": "aUSAGDPF",
+      "label": "GDP Consensus",
+      "description": "REUTERS POLL: GDP (FINAL) - ACTUAL REPORTED (%QOQ, AR)",
+      "frequency": "P3M",
+      "cluster": "gdp",
+      "category_slug": "us_gdp_by_expenditure",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3625.200599463378,
+      "y": 1617.726307304624
+    },
+    {
+      "id": "aUSGDPCC/CA",
+      "label": "GDP Per Capita",
+      "description": "GDP, Per capita",
+      "frequency": "P3M",
+      "cluster": "gdp",
+      "category_slug": "us_foreign_transactions",
+      "importance": 3,
+      "region": "aggregate",
+      "x": 3695.216961358408,
+      "y": 2017.4183650641667
+    },
+    {
+      "id": "aUSGDEF",
+      "label": "Federal Deficit",
+      "description": "Federal Government total surplus or deficit",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3457.391720853429,
+      "y": 1890.476780660125
+    },
+    {
+      "id": "aUSGBPGDP",
+      "label": "Deficit % GDP",
+      "description": "Federal surplus/deficit as percent of GDP",
+      "frequency": "P1Y",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3760.969380981162,
+      "y": 1753.7024606098196
+    },
+    {
+      "id": "aUSFOUTL",
+      "label": "Federal Outlays",
+      "description": "Federal outlays, total",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3594.0632071926084,
+      "y": 2042.6183660822574
+    },
+    {
+      "id": "aUSFEDREC",
+      "label": "Federal Receipts",
+      "description": "Federal receipts, total",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3523.004124043401,
+      "y": 1758.8662172799395
+    },
+    {
+      "id": "aUSXGBINTA",
+      "label": "Net Interest",
+      "description": "Federal outlays, interest",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3827.26526657012,
+      "y": 1955.6332872141338
+    },
+    {
+      "id": "aUSXGBSOCA",
+      "label": "Social Security",
+      "description": "Federal outlays, social security",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3333.2298223360676,
+      "y": 1941.4136918330437
+    },
+    {
+      "id": "aUSXGBMEDA",
+      "label": "Medicare",
+      "description": "Federal outlays, medicare",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3687.107836933549,
+      "y": 1715.251540960595
+    },
+    {
+      "id": "aUSXGBDEFA",
+      "label": "Defense Outlays",
+      "description": "Federal outlays, national defense",
+      "frequency": "P1M",
+      "cluster": "government",
+      "category_slug": "us_government_accounts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3717.9401105714633,
+      "y": 2164.1007680651587
+    },
+    {
+      "id": "aUSFEDETOS",
+      "label": "Federal Debt",
+      "description": "Federal debt, total amount outstanding",
+      "frequency": "P1M",
+      "cluster": "treasury",
+      "category_slug": "us_government_debt_borrowing",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3429.9619963736577,
+      "y": 1776.6180129411675
+    },
+    {
+      "id": "aUSPDEBTA",
+      "label": "Public Debt",
+      "description": "Public Debt Outstanding",
+      "frequency": "P3M",
+      "cluster": "treasury",
+      "category_slug": "us_government_debt_borrowing",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3827.792255124288,
+      "y": 1818.2474359457863
+    },
+    {
+      "id": "aUSPDBTR",
+      "label": "Public Debt % GDP",
+      "description": "GROSS PUBLIC DEBT AS % OF GDP",
+      "frequency": "P3M",
+      "cluster": "treasury",
+      "category_slug": "us_government_debt_borrowing",
+      "importance": 1,
+      "region": "aggregate",
+      "x": 3468.5481923356215,
+      "y": 2097.94610660366
+    },
+    {
+      "id": "aUSSECMKTA",
+      "label": "Treasury Marketable",
+      "description": "Treasury securities outstanding, total marketable",
+      "frequency": "P1M",
+      "cluster": "treasury",
+      "category_slug": "us_government_debt_borrowing",
+      "importance": 3,
+      "region": "aggregate",
+      "x": 3500.480419947822,
+      "y": 1627.6357338615542
+    },
+    {
+      "id": "aUSFCBOUT",
+      "label": "CBO Outlays Forecast",
+      "description": "Economic Forecasts, CBO, Budget projection, outlays",
+      "frequency": "P1Y",
+      "cluster": "forecasts",
+      "category_slug": "us_macro_forecasts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3821.8419115627007,
+      "y": 2072.8019759627296
+    },
+    {
+      "id": "aUSFCBREV",
+      "label": "CBO Receipts Forecast",
+      "description": "Economic Forecasts, CBO, Budget projection, revenues",
+      "frequency": "P1Y",
+      "cluster": "forecasts",
+      "category_slug": "us_macro_forecasts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3498.4175299429667,
+      "y": 1980.6520375327386
+    },
+    {
+      "id": "aUSFCCUFHR",
+      "label": "Fed SEP UR",
+      "description": "Economic Forecasts, Federal Reserve, Central Tendency, Unemployment rate projection, 1st year from posted quarter, High",
+      "frequency": "P3M",
+      "cluster": "forecasts",
+      "category_slug": "us_macro_forecasts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3725.745329973314,
+      "y": 1871.7808626230521
+    },
+    {
+      "id": "aUSFCCCFHR",
+      "label": "Fed SEP Core PCE",
+      "description": "Economic Forecasts, Federal Reserve, Central Tendency, Core PCE inflation projection, 1st year from posted quarter, High",
+      "frequency": "P3M",
+      "cluster": "forecasts",
+      "category_slug": "us_macro_forecasts",
+      "importance": 2,
+      "region": "aggregate",
+      "x": 3605.1518223286657,
+      "y": 1931.609765884388
+    }
+  ],
+  "edges": [
+    {
+      "source": "aUSCPFYAR",
+      "target": "aUSCPIYYR",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Core CPI is a component of Headline CPI"
+    },
+    {
+      "source": "aUSCPIXFE/A",
+      "target": "aUSCPI",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Core CPI level is a sub-aggregate of Headline CPI"
+    },
+    {
+      "source": "aUSCPI",
+      "target": "aUSCPIYYR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "CPI level changes drive YoY mechanically"
+    },
+    {
+      "source": "aUSCPIXFE/A",
+      "target": "aUSCPFYAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Core CPI level drives Core CPI YoY"
+    },
+    {
+      "source": "aUSPCEMAR",
+      "target": "aUSPCE2AR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "MoM Core PCE accumulates into YoY"
+    },
+    {
+      "source": "aUSPCEAR",
+      "target": "aUSPCEYAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "MoM headline PCE accumulates into YoY"
+    },
+    {
+      "source": "aUSCPFYAR",
+      "target": "aUSPCE2AR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Core CPI and Core PCE — different baskets, similar trend"
+    },
+    {
+      "source": "aUSCPIYYR",
+      "target": "aUSPCEYAR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Headline CPI and PCE — companion series"
+    },
+    {
+      "source": "aUSPFDAR",
+      "target": "aUSCPIYYR",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "PPI Final Demand leads goods CPI"
+    },
+    {
+      "source": "aUSPFDGAR",
+      "target": "aUSCPFYAR",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Core PPI leads core CPI"
+    },
+    {
+      "source": "aUSPFDEMDE/A",
+      "target": "aUSPFDAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "PPI level drives YoY"
+    },
+    {
+      "source": "aUSPFDEAR",
+      "target": "aUSPFDAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "PPI MoM feeds YoY"
+    },
+    {
+      "source": "aUSIMPP",
+      "target": "aUSCPIYYR",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Import prices pass through to goods CPI"
+    },
+    {
+      "source": "aUSIMPAR",
+      "target": "aUSIMPP",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "MoM feeds level"
+    },
+    {
+      "source": "aUSEXPP",
+      "target": "aUSEXPAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Export price level vs MoM"
+    },
+    {
+      "source": "aUSEARNH/A",
+      "target": "aUSCPIXFE/A",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "AHE feeds core CPI services"
+    },
+    {
+      "source": "aUSAHVEA",
+      "target": "aUSCPFYAR",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "AHE YoY drives core CPI YoY"
+    },
+    {
+      "source": "aUSWAGESB/A",
+      "target": "aUSPCE2AR",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "AHE pass-through to core PCE"
+    },
+    {
+      "source": "aUSEMPCI/A",
+      "target": "aUSPCEMAR",
+      "type": "drives",
+      "lag_months": [
+        6,
+        9
+      ],
+      "confidence": "hand",
+      "note": "ECI feeds core PCE"
+    },
+    {
+      "source": "aUSEMPCAR",
+      "target": "aUSEMPCI/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "QoQ feeds level"
+    },
+    {
+      "source": "aUSECWNS/A",
+      "target": "aUSEMPCI/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Wages-and-salaries is a component of total ECI"
+    },
+    {
+      "source": "aUSULCNF/A",
+      "target": "aUSPCE2AR",
+      "type": "drives",
+      "lag_months": [
+        6,
+        9
+      ],
+      "confidence": "hand",
+      "note": "ULC feeds core PCE"
+    },
+    {
+      "source": "aUSOUTNF/A",
+      "target": "aUSULCNF/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Productivity reduces ULC"
+    },
+    {
+      "source": "aUSPHOPBUS/A",
+      "target": "aUSULCNF/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Business productivity reduces ULC"
+    },
+    {
+      "source": "aUSEARN/CA",
+      "target": "aUSEARNH/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Real AHE = nominal AHE deflated"
+    },
+    {
+      "source": "aUSEPGAPG",
+      "target": "aUSCPIYYR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Gasoline directly enters CPI energy"
+    },
+    {
+      "source": "aUSEPDAPG",
+      "target": "aUSCPIYYR",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Diesel feeds goods CPI via freight"
+    },
+    {
+      "source": "aUSEPHAPG",
+      "target": "aUSCPIYYR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        2
+      ],
+      "confidence": "hand",
+      "note": "Heating oil enters CPI energy"
+    },
+    {
+      "source": "aUSCPIYYR",
+      "target": "aUSINFEXM1Y",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Realized inflation lifts 1Y expectations"
+    },
+    {
+      "source": "aUSINFEXM1Y",
+      "target": "aUSCSIUM",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Inflation expectations weigh on sentiment"
+    },
+    {
+      "source": "aUSEMPADP/A",
+      "target": "aUSNFARM/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "ADP and NFP both measure private payrolls"
+    },
+    {
+      "source": "aUSNFARMP/A",
+      "target": "aUSNFARM/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Private payrolls is a sub-aggregate of total NFP"
+    },
+    {
+      "source": "aUSNFARM/A",
+      "target": "aUSUNTOTR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "NFP and UR companion releases"
+    },
+    {
+      "source": "aUSUNTOTR",
+      "target": "aUSRSAHMN/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Sahm rule computed from UR"
+    },
+    {
+      "source": "aUSLABFRE/A",
+      "target": "aUSUNTOTR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Participation affects UR (composition)"
+    },
+    {
+      "source": "aUSEMPR/A",
+      "target": "aUSUNTOTR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "E/P is the structural employment gauge"
+    },
+    {
+      "source": "aUSJOBC/A",
+      "target": "aUSUNTOTR",
+      "type": "leads",
+      "lag_months": [
+        1,
+        2
+      ],
+      "confidence": "hand",
+      "note": "Initial claims lead UR"
+    },
+    {
+      "source": "aUSJOBC/A",
+      "target": "aUSJOBCC/A",
+      "type": "leads",
+      "lag_months": [
+        1,
+        4
+      ],
+      "confidence": "hand",
+      "note": "Initial feed continuing claims pool"
+    },
+    {
+      "source": "aUSJOBCC4W/A",
+      "target": "aUSJOBCC/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "4w MA of continuing claims"
+    },
+    {
+      "source": "aUSJOLTAO",
+      "target": "aUSNFARM/A",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Job openings lead NFP"
+    },
+    {
+      "source": "aUSJBQUITO/A",
+      "target": "aUSEARNH/A",
+      "type": "leads",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Quits lead wage growth"
+    },
+    {
+      "source": "aUSJOLTAO",
+      "target": "aUSJBQUITO/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Openings vs quits = labor tightness"
+    },
+    {
+      "source": "aUSCGDPPD/A",
+      "target": "aUSGDPEQZ/CA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "QoQ-AR vs YoY of real GDP"
+    },
+    {
+      "source": "aUSAGDPF",
+      "target": "aUSCGDPPD/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Reuters poll vs actual"
+    },
+    {
+      "source": "aUSGDPCC/CA",
+      "target": "aUSCGDPPD/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "GDP per capita = GDP / population"
+    },
+    {
+      "source": "aUSCFNA",
+      "target": "aUSCGDPPD/A",
+      "type": "leads",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "CFNAI nowcasts GDP"
+    },
+    {
+      "source": "aUSNYWER",
+      "target": "aUSCGDPPD/A",
+      "type": "leads",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "NY Fed Weekly leads GDP"
+    },
+    {
+      "source": "aUSCBBKLER",
+      "target": "aUSCBBKCOR",
+      "type": "leads",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "BBK Leading leads BBK Coincident"
+    },
+    {
+      "source": "aUSCBBKGPR",
+      "target": "aUSCGDPPD/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "BBK monthly GDP growth nowcasts"
+    },
+    {
+      "source": "aUSNPMI/A",
+      "target": "aUSCGDPPD/A",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "ISM Mfg leads GDP turning points"
+    },
+    {
+      "source": "aUSNMFGPMI",
+      "target": "aUSCGDPPD/A",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "ISM Services leads GDP"
+    },
+    {
+      "source": "aUSPFEDB/A",
+      "target": "aUSNPMI/A",
+      "type": "leads",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Philly Fed leads ISM Mfg"
+    },
+    {
+      "source": "aUSCLEAD/A",
+      "target": "aUSCGDPPD/A",
+      "type": "leads",
+      "lag_months": [
+        3,
+        12
+      ],
+      "confidence": "hand",
+      "note": "LEI leads GDP turning points"
+    },
+    {
+      "source": "aUSCOINDIF/A",
+      "target": "aUSCGDPPD/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "CEI tracks GDP contemporaneously"
+    },
+    {
+      "source": "aUSEMPTR",
+      "target": "aUSNFARM/A",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "ETI leads NFP turning points"
+    },
+    {
+      "source": "aUSGPYD",
+      "target": "aUSGPC/CA",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Real DPI drives real PCE"
+    },
+    {
+      "source": "aUSGPYD/A",
+      "target": "aUSGPYD",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Nominal vs real DPI"
+    },
+    {
+      "source": "aUSGPC/CA",
+      "target": "aUSGPCSAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "PCE level drives MoM"
+    },
+    {
+      "source": "aUSNS06L2",
+      "target": "aUSGPC/CA",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Saving rate residual: low savings = higher PCE"
+    },
+    {
+      "source": "aUSCSIUM",
+      "target": "aUSCRETF/C",
+      "type": "leads",
+      "lag_months": [
+        1,
+        2
+      ],
+      "confidence": "hand",
+      "note": "UMich sentiment leads retail"
+    },
+    {
+      "source": "aUSCONCF/A",
+      "target": "aUSCRETF/C",
+      "type": "leads",
+      "lag_months": [
+        1,
+        2
+      ],
+      "confidence": "hand",
+      "note": "CB confidence leads retail"
+    },
+    {
+      "source": "aUSCONCE/A",
+      "target": "aUSCONCF/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Expectations sub-index"
+    },
+    {
+      "source": "aUSCONCFP/A",
+      "target": "aUSCONCF/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Present situation sub-index"
+    },
+    {
+      "source": "aUSCONCFEX",
+      "target": "aUSCSIUM",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "UMich expectations sub-index"
+    },
+    {
+      "source": "aUSCRETPE/A",
+      "target": "aUSCRETF/C",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "MoM derived from level"
+    },
+    {
+      "source": "aUSCRETYE/A",
+      "target": "aUSCRETF/C",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "YoY derived from level"
+    },
+    {
+      "source": "aUSRSLSFS/A",
+      "target": "aUSCRETF/C",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Inc food svc — broader retail"
+    },
+    {
+      "source": "aUSRLCOA",
+      "target": "aUSCRETF/C",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Control group is a sub-aggregate"
+    },
+    {
+      "source": "aUSCRETF/C",
+      "target": "aUSGPC/CA",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Retail feeds goods PCE"
+    },
+    {
+      "source": "aUSGPC/CA",
+      "target": "aUSCGDPPD/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "PCE = ~70% of GDP"
+    },
+    {
+      "source": "aUSCRDOUTA",
+      "target": "aUSCRETF/C",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Consumer credit fuels spending"
+    },
+    {
+      "source": "aUSCREDITIR/A",
+      "target": "aUSCRDOUTA",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Revolving = component"
+    },
+    {
+      "source": "aUSCREDITIN/A",
+      "target": "aUSCRDOUTA",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Non-revolving = component"
+    },
+    {
+      "source": "aUSCRCDACR",
+      "target": "aUSCREDITIR/A",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Higher card APR slows revolving credit"
+    },
+    {
+      "source": "aUSBCLCOCQ/A",
+      "target": "aUSCRCDACR",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Charge-offs lift APRs"
+    },
+    {
+      "source": "aUSCARSOA",
+      "target": "aUSVHLS",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Cars are a component of light vehicles"
+    },
+    {
+      "source": "aUSDAPRODP",
+      "target": "aUSPCARRVO/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Production vs sales = inventory"
+    },
+    {
+      "source": "aUSVHLS",
+      "target": "aUSPCARRVO/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Sales pace sets days-supply"
+    },
+    {
+      "source": "aUSBPERMIT",
+      "target": "aUSHSTART",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Permits precede starts"
+    },
+    {
+      "source": "aUSHSTART",
+      "target": "aUSHNSAO",
+      "type": "leads",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Starts feed new home sales"
+    },
+    {
+      "source": "aUSHMKT/A",
+      "target": "aUSBPERMIT",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "NAHB sentiment leads permits"
+    },
+    {
+      "source": "aUSHMKT/A",
+      "target": "aUSHSTART",
+      "type": "leads",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "NAHB sentiment leads starts"
+    },
+    {
+      "source": "aUSHNSALES/A",
+      "target": "aUSHNSAO",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Two new-home-sales sources"
+    },
+    {
+      "source": "aUSMBAMLR",
+      "target": "aUSBPERMIT",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Mortgage rate dampens permits"
+    },
+    {
+      "source": "aUSMBAMLR",
+      "target": "aUSEHSPAR",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Mortgage rate gates existing sales"
+    },
+    {
+      "source": "aUSMBAMLR",
+      "target": "aUSMACI/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Mortgage rate moves apps"
+    },
+    {
+      "source": "aUSMACP/A",
+      "target": "aUSMACI/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Purchase = component of composite"
+    },
+    {
+      "source": "aUSMACRI/A",
+      "target": "aUSMACI/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Refi = component of composite"
+    },
+    {
+      "source": "aUSMACP/A",
+      "target": "aUSEHSPAR",
+      "type": "leads",
+      "lag_months": [
+        1,
+        2
+      ],
+      "confidence": "hand",
+      "note": "Purchase apps lead existing sales"
+    },
+    {
+      "source": "aUSPHSALE/A",
+      "target": "aUSEHSPAR",
+      "type": "leads",
+      "lag_months": [
+        1,
+        2
+      ],
+      "confidence": "hand",
+      "note": "Pending leads existing closings"
+    },
+    {
+      "source": "aUSHPRICESP",
+      "target": "aUSHPCSCM10/CA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Case-Shiller 20 vs 10"
+    },
+    {
+      "source": "aUSHPIMAR",
+      "target": "aUSHPIYAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "FHFA HPI MoM accumulates into YoY"
+    },
+    {
+      "source": "aUSHAI",
+      "target": "aUSEHSPAR",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Affordability gates existing sales"
+    },
+    {
+      "source": "aUSHPIYAR",
+      "target": "aUSHAI",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Higher home prices reduce affordability"
+    },
+    {
+      "source": "aUSMBAMLR",
+      "target": "aUSHAI",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Mortgage rate is the second affordability driver"
+    },
+    {
+      "source": "aUSHPRICESP",
+      "target": "aUSHPIYAR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Case-Shiller and FHFA — competing US HPI"
+    },
+    {
+      "source": "aUSHSTART",
+      "target": "aUSTCONS/A",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Starts feed residential construction"
+    },
+    {
+      "source": "aUSTCONS/A",
+      "target": "aUSCGDPPD/A",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Construction feeds GDP investment"
+    },
+    {
+      "source": "aUSPCEMAR",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Core PCE — Fed's official inflation target"
+    },
+    {
+      "source": "aUSPCE2AR",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Core PCE YoY drives reaction"
+    },
+    {
+      "source": "aUSCPIYYR",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Headline CPI feeds reaction"
+    },
+    {
+      "source": "aUSCPFYAR",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Core CPI watched alongside core PCE"
+    },
+    {
+      "source": "aUSUNTOTR",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "UR feeds dual-mandate reaction"
+    },
+    {
+      "source": "aUSNFARM/A",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Payroll strength affects Fed reads"
+    },
+    {
+      "source": "aUSFEDFUNDT",
+      "target": "aUSFEDFUND",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "FOMC target sets corridor"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSIORAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "IORB = corridor floor for banks"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSRRPAR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "ON RRP = floor for non-banks"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSDISWPCRM",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Discount window = above corridor upper"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSPRIME",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Prime = fed funds + 3.0pp admin"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSEBM10Y",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Fed funds anchors 10Y via expected path"
+    },
+    {
+      "source": "aUSEBM10Y",
+      "target": "aUSGBOND",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "10Y and 20Y move together"
+    },
+    {
+      "source": "aUSEBM10Y",
+      "target": "aUSLIDXIR10",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "10Y - FF = curve slope"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSLIDXIR10",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Fed funds is short-end of spread"
+    },
+    {
+      "source": "aUSEBM10Y",
+      "target": "aUSMBAMLR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "10Y drives mortgage rate"
+    },
+    {
+      "source": "aUSPRIME",
+      "target": "aUSCRCDACR",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Prime drives card APR"
+    },
+    {
+      "source": "aUSLIDXIR10",
+      "target": "aUSCLEAD/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Yield curve is a component of LEI"
+    },
+    {
+      "source": "aUSCMS2YB/A",
+      "target": "aUSCMS2B/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "M2 YoY computed from level"
+    },
+    {
+      "source": "aUSCMS1B/A",
+      "target": "aUSCMS2B/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "M1 sub-aggregate of M2"
+    },
+    {
+      "source": "aUSCMS0B/A",
+      "target": "aUSCMS1B/A",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Monetary base is M0 within M1"
+    },
+    {
+      "source": "aUSMAAAAAA",
+      "target": "aUSCMS0B/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Two monetary base series"
+    },
+    {
+      "source": "aUSMEMSVE/A",
+      "target": "aUSCMS2B/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Velocity = nominal GDP / M2"
+    },
+    {
+      "source": "aUSCMS2YB/A",
+      "target": "aUSCPIYYR",
+      "type": "leads",
+      "lag_months": [
+        12,
+        18
+      ],
+      "confidence": "hand",
+      "note": "M2 growth precedes inflation (monetarist)"
+    },
+    {
+      "source": "aUSGDEF",
+      "target": "aUSFEDETOS",
+      "type": "drives",
+      "lag_months": [
+        3,
+        12
+      ],
+      "confidence": "hand",
+      "note": "Persistent deficit grows debt"
+    },
+    {
+      "source": "aUSGDEF",
+      "target": "aUSGBPGDP",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Same series, different framing"
+    },
+    {
+      "source": "aUSFOUTL",
+      "target": "aUSGDEF",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Outlays - receipts = deficit"
+    },
+    {
+      "source": "aUSFEDREC",
+      "target": "aUSGDEF",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Receipts vs outlays = deficit"
+    },
+    {
+      "source": "aUSXGBINTA",
+      "target": "aUSFOUTL",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Net interest = component of outlays"
+    },
+    {
+      "source": "aUSXGBSOCA",
+      "target": "aUSFOUTL",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "SS = component of outlays"
+    },
+    {
+      "source": "aUSXGBMEDA",
+      "target": "aUSFOUTL",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Medicare = component of outlays"
+    },
+    {
+      "source": "aUSXGBDEFA",
+      "target": "aUSFOUTL",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Defense = component of outlays"
+    },
+    {
+      "source": "aUSEBM10Y",
+      "target": "aUSXGBINTA",
+      "type": "drives",
+      "lag_months": [
+        3,
+        12
+      ],
+      "confidence": "hand",
+      "note": "10Y drives net interest as Treasuries roll"
+    },
+    {
+      "source": "aUSFEDETOS",
+      "target": "aUSPDEBTA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Gross vs public debt"
+    },
+    {
+      "source": "aUSPDBTR",
+      "target": "aUSFEDETOS",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Debt/GDP = sustainability framing"
+    },
+    {
+      "source": "aUSFEDETOS",
+      "target": "aUSSECMKTA",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Marketable Treasuries = component"
+    },
+    {
+      "source": "aUSBCACIB/A",
+      "target": "aUSCGDPPD/A",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "C&I credit fuels business"
+    },
+    {
+      "source": "aUSBCAREB/A",
+      "target": "aUSTCONS/A",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "RE loans fund construction"
+    },
+    {
+      "source": "aUSBCALCB",
+      "target": "aUSCRDOUTA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Bank consumer loans overlap with G.19"
+    },
+    {
+      "source": "aUSBCLALQ/A",
+      "target": "aUSBDLALQ/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Charge-offs trail delinquencies"
+    },
+    {
+      "source": "aUSBDLCOCQ/A",
+      "target": "aUSBCLCOCQ/A",
+      "type": "leads",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Card delinquencies precede charge-offs"
+    },
+    {
+      "source": "aUSBDLRECQ/A",
+      "target": "aUSBCLRECQ/A",
+      "type": "leads",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "CRE delinquencies precede charge-offs"
+    },
+    {
+      "source": "aUSBDLCOCQ/A",
+      "target": "aUSCRCDACR",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Card delinquencies drive APR up"
+    },
+    {
+      "source": "aUSBNRQP",
+      "target": "aUSBCLALQ/A",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Bankruptcies co-move with charge-offs"
+    },
+    {
+      "source": "aUSSPCOM",
+      "target": "aUSCONCF/A",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Equity wealth boosts confidence"
+    },
+    {
+      "source": "aUSSPCOM",
+      "target": "aUSCSIUM",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Equity wealth boosts UMich sentiment"
+    },
+    {
+      "source": "aUSSPRPER",
+      "target": "aUSSPCOM",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "P/E10 = price/10y earnings"
+    },
+    {
+      "source": "aUSSPREPS",
+      "target": "aUSSPRPER",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "EPS denominator of P/E10"
+    },
+    {
+      "source": "aUSSPDIVY",
+      "target": "aUSSPCOM",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Yield = dividends/price"
+    },
+    {
+      "source": "aUSSPMDPS",
+      "target": "aUSSPDIVY",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "Dividend level vs yield"
+    },
+    {
+      "source": "aUSEBM10Y",
+      "target": "aUSSPRPER",
+      "type": "drives",
+      "lag_months": [
+        3,
+        6
+      ],
+      "confidence": "hand",
+      "note": "Higher long rates compress P/E"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSSPCOM",
+      "type": "drives",
+      "lag_months": [
+        3,
+        12
+      ],
+      "confidence": "hand",
+      "note": "Fed tightening pressures equities"
+    },
+    {
+      "source": "aUSCXTWF/C",
+      "target": "aUSCXTWYF",
+      "type": "drives",
+      "lag_months": [
+        0,
+        0
+      ],
+      "confidence": "hand",
+      "note": "TWI level vs YoY"
+    },
+    {
+      "source": "aUSCXTWF/C",
+      "target": "aUSCXTRF/C",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Nominal vs real TWI"
+    },
+    {
+      "source": "aUSBISNXBR",
+      "target": "aUSCXTWF/C",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "BIS EER vs Fed TWI"
+    },
+    {
+      "source": "aUSBISRXBR",
+      "target": "aUSBISNXBR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Real vs nominal BIS EER"
+    },
+    {
+      "source": "aUSXRUSD",
+      "target": "aUSCXTWF/C",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "EUR/USD is largest weight in TWI"
+    },
+    {
+      "source": "aUSCXTWF/C",
+      "target": "aUSIMPP",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Strong USD lowers import prices"
+    },
+    {
+      "source": "aUSCXTWF/C",
+      "target": "aUSEXPP",
+      "type": "drives",
+      "lag_months": [
+        1,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Strong USD compresses USD-denom exports"
+    },
+    {
+      "source": "aUSFEDFUND",
+      "target": "aUSCXTWF/C",
+      "type": "drives",
+      "lag_months": [
+        0,
+        3
+      ],
+      "confidence": "hand",
+      "note": "Higher US rates support USD"
+    },
+    {
+      "source": "aUSCURAC",
+      "target": "aUSGBALBA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Goods trade is largest CA component"
+    },
+    {
+      "source": "aUSGBARBA",
+      "target": "aUSGBALBA",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Two goods-trade-balance series"
+    },
+    {
+      "source": "aUSEPGAPG",
+      "target": "aUSEPDAPG",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Gasoline and diesel co-move (crude-driven)"
+    },
+    {
+      "source": "aUSEIACS",
+      "target": "aUSEPGAPG",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Tight crude inventory lifts gasoline"
+    },
+    {
+      "source": "aUSSCCO",
+      "target": "aUSEIACS",
+      "type": "part_of",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Cushing is part of total US crude ex-SPR"
+    },
+    {
+      "source": "aUSEIAGS",
+      "target": "aUSEPGAPG",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Gasoline inventory lifts retail price"
+    },
+    {
+      "source": "aUSEIAPRU",
+      "target": "aUSEIAGS",
+      "type": "drives",
+      "lag_months": [
+        0,
+        1
+      ],
+      "confidence": "hand",
+      "note": "Refinery util sets gasoline production"
+    },
+    {
+      "source": "aUSEIAHOS",
+      "target": "aUSEIACS",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "SPR vs commercial crude"
+    },
+    {
+      "source": "aUSFCBOUT",
+      "target": "aUSFOUTL",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "CBO outlays vs actual"
+    },
+    {
+      "source": "aUSFCBREV",
+      "target": "aUSFEDREC",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "CBO revenue vs actual"
+    },
+    {
+      "source": "aUSFCCUFHR",
+      "target": "aUSUNTOTR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Fed SEP UR vs actual"
+    },
+    {
+      "source": "aUSFCCCFHR",
+      "target": "aUSPCE2AR",
+      "type": "related",
+      "lag_months": null,
+      "confidence": "hand",
+      "note": "Fed SEP core PCE vs actual"
+    }
+  ]
+}

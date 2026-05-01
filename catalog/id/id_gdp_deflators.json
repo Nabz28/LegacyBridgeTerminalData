@@ -1,0 +1,65 @@
+{
+  "category": "GDP Deflators",
+  "category_slug": "id_gdp_deflators",
+  "section": "National Accounts",
+  "source_file": "Indonesia_GDP Deflators.xlsx",
+  "ric_count": 4,
+  "rics": [
+    {
+      "ric": "aIDGDPDEF/A",
+      "description": "Implicit Price Deflator",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Implicit Price Deflator — alternative framing of the GDP price deflator. Computed as (Nominal GDP / Real GDP) × 100.",
+      "how_to_use": "Cross-check against aIDCIPDE/CA. Use for trend tracking — broadest measure of inflation in the Indonesian economy.",
+      "related_series": [
+        "aIDCIPDE/CA",
+        "aIDCIPDYE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIPDPE/A",
+      "description": "GDP Price Deflator, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Percent, QoQ",
+      "meaning": "GDP Price Deflator, QoQ percent change — sequential broadest-inflation measure.",
+      "how_to_use": "Volatile quarterly due to commodity-price-induced terms-of-trade shifts. Use YoY (aIDCIPDYE/A) for trend.",
+      "related_series": [
+        "aIDCIPDYE/A",
+        "aIDCIPDE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIPDYE/A",
+      "description": "GDP Price Deflator, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Percent, YoY",
+      "meaning": "GDP Price Deflator, year-over-year change — annual broadest-inflation rate.",
+      "how_to_use": "Indonesia GDP deflator inflation typically 3-5% YoY (vs CPI 2-3%). Persistent gap reflects commodity-price pass-through to producer prices and capital-goods inflation. Track for understanding nominal-real GDP gap.",
+      "related_series": [
+        "aIDCIPDE/CA",
+        "aIDCIPDPE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIPDE/CA",
+      "description": "GDP Price Deflator, Standardized",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "GDP Price Deflator — broadest measure of inflation in the Indonesian economy. Computed as (Nominal GDP / Real GDP) × 100. Captures price changes across all final goods and services in GDP.",
+      "how_to_use": "Broader than CPI (which covers consumer goods only). Includes capital goods, government services, exports. When deflator inflation runs above CPI, suggests broader cost pressures (capex, infrastructure). BI does not target deflator but watches for divergence.",
+      "related_series": [
+        "aIDCIPDYE/A",
+        "aIDGDPDEF/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

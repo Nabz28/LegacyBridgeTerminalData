@@ -1,0 +1,62 @@
+{
+  "category": "Automobiles & Transport",
+  "category_slug": "id_automobiles_transport",
+  "section": "Industry Sector",
+  "source_file": "Indonesia_Automobiles & Transport.xlsx",
+  "ric_count": 4,
+  "rics": [
+    {
+      "ric": "aIDCARYAR",
+      "description": "Domestic Vehicle Sales - Cars- Actual, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Percent, YoY",
+      "meaning": "Domestic Vehicle Sales, Cars — YoY change. Reuters poll-anchored 'actual' release tracking GAIKINDO car sales data.",
+      "how_to_use": "Indonesia car market ~800k units/year. Toyota, Daihatsu, Honda dominate. Watch for YoY swings >20% as cycle inflection signal.",
+      "related_series": [
+        "aIDDVEHCAR",
+        "aIDMBKYAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDDVEHMOT",
+      "description": "Domestic sales of motorcycles",
+      "frequency": "P1M",
+      "subcategory": "Motorcycle Sales",
+      "units": "Thousand units",
+      "meaning": "Domestic Sales of Motorcycles — Indonesia is the world's third-largest motorcycle market behind India and China. ~5-6M units/year sold.",
+      "how_to_use": "Honda + Yamaha dominate (~95% combined market share). Tracks middle-class Indonesian household formation closely. Surges during commodity-export booms (rural-area income gains).",
+      "related_series": [
+        "aIDMBKYAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDDVEHCAR",
+      "description": "Motor Vehicles, Domestic Sales, Cars",
+      "frequency": "P1M",
+      "subcategory": "Auto Sales",
+      "units": "Thousand units",
+      "meaning": "Motor Vehicles, Domestic Sales of Cars — passenger car sales level (excludes commercial vehicles, motorcycles).",
+      "how_to_use": "Pre-2014 peak ~1.2M units; current ~800k. 'Middle-income trap' in autos — sustained mid-2010s stagnation reflects post-commodity-supercycle structural slowdown. Watch EV transition (Wuling, Hyundai launching local production).",
+      "related_series": [
+        "aIDCARYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDMBKYAP",
+      "description": "Motor Vehicles, Motorcycles, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Motorcycle Sales",
+      "units": "Percent, YoY",
+      "meaning": "Motor Vehicles, Motorcycles — YoY change in motorcycle sales.",
+      "how_to_use": "Motorcycle YoY is one of the best high-frequency consumer-spending gauges for Indonesia. Tracks rural and small-business income closely. Honda/Yamaha report monthly to AISI (Indonesian Motorcycle Industry Association).",
+      "related_series": [
+        "aIDDVEHMOT"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "category": "International Investment Position",
+  "category_slug": "id_international_investment_position",
+  "section": "External Sector",
+  "source_file": "Indonesia_International Investment Position.xlsx",
+  "ric_count": 6,
+  "rics": [
+    {
+      "ric": "aIDCONSAFI",
+      "description": "Approved foreign investment",
+      "frequency": "P1Y",
+      "subcategory": "FDI",
+      "units": "USD billions",
+      "meaning": "Approved Foreign Investment — investment commitments approved by BKPM (Investment Coordinating Board). Quarterly release.",
+      "how_to_use": "Approval ≠ realization. BKPM also publishes 'realization' data — typically realization runs 70-90% of approvals over 1-2 year window. Surge in approvals leads BoP FDI flows by 2-4 quarters.",
+      "related_series": [
+        "aIDBPDRIVA",
+        "aIDCGFCYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONFRGAF",
+      "description": "FDI, From Africa",
+      "frequency": "P1Y",
+      "subcategory": "FDI by Country",
+      "units": "USD millions",
+      "meaning": "FDI inflows from Africa — minor FDI source. Mostly South Africa-routed mining-sector investments.",
+      "how_to_use": "Niche bilateral. Track for niche commodity-sector flows. Most African investment flows to Indonesia run through South African mining majors with Indonesian operations.",
+      "related_series": [
+        "aIDCONFRGSG",
+        "aIDCONSAFI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONFRGJP",
+      "description": "FDI, From Japan",
+      "frequency": "P1Y",
+      "subcategory": "FDI by Country",
+      "units": "USD billions",
+      "meaning": "FDI inflows from Japan — long-standing major FDI source. Japanese OEMs (Toyota, Honda, Mitsubishi) and trading houses (Mitsui, Marubeni, Sumitomo) dominate.",
+      "how_to_use": "~10-15% of Indonesia FDI. Concentrated in autos, manufacturing, mining. Stable bilateral relationship. Monitor for major project announcements (e.g., new auto plants, gas field developments).",
+      "related_series": [
+        "aIDCONFRGSG",
+        "aIDCONFRGUS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONFRGSG",
+      "description": "FDI, From Singapore",
+      "frequency": "P1Y",
+      "subcategory": "FDI by Country",
+      "units": "USD billions",
+      "meaning": "FDI inflows from Singapore — largest single FDI source. Often pass-through capital from ultimate owners in HK, China, US, and other jurisdictions routing through Singapore for tax/legal reasons.",
+      "how_to_use": "Singapore consistently #1 FDI source (~30-40% of total). Flow swings driven by major M&A deals + new investment commitments. Track for total FDI cycle direction; less reliable for ultimate-owner attribution.",
+      "related_series": [
+        "aIDCONFRGJP",
+        "aIDCONFRGUS",
+        "aIDCONSAFI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONFRGUS",
+      "description": "FDI, From USA",
+      "frequency": "P1Y",
+      "subcategory": "FDI by Country",
+      "units": "USD billions",
+      "meaning": "FDI inflows from USA — US corporate investment in Indonesia. Smaller than Singapore/Japan FDI flows.",
+      "how_to_use": "Concentrated in oil/gas (ExxonMobil, Chevron historically), mining (Freeport), digital (data centers, internet platforms). Recent surge in semiconductor/AI infrastructure investment. Track for geopolitical-tilt signal — Indonesia values balance between US/China FDI sources.",
+      "related_series": [
+        "aIDCONFRGSG",
+        "aIDCONFRGJP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONFRGUK",
+      "description": "FDI, From United Kingdom",
+      "frequency": "P1Y",
+      "subcategory": "FDI by Country",
+      "units": "USD millions",
+      "meaning": "FDI inflows from United Kingdom — UK corporate investment in Indonesia. Concentrated in oil/gas (BP), banking (HSBC, Standard Chartered), retail.",
+      "how_to_use": "Tracks UK-Indonesia bilateral. Brexit effects re-routing some flows. Watch for trade-deal negotiations.",
+      "related_series": [
+        "aIDCONFRGSG"
+      ],
+      "notes": ""
+    }
+  ]
+}

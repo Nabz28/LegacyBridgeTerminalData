@@ -1,0 +1,24 @@
+{
+  "category": "Other Surveys",
+  "category_slug": "us_other_surveys",
+  "section": "Surveys & Forecasts",
+  "source_file": "US_Other Surveys.xlsx",
+  "ric_count": 1,
+  "rics": [
+    {
+      "ric": "aUSRSAHMN/A",
+      "description": "Real-Time Sahm Rule Recession Indicator",
+      "frequency": "P1M",
+      "subcategory": "Recession Indicator",
+      "units": "Percentage points",
+      "meaning": "Real-Time Sahm Rule indicator: 3-month moving average of the unemployment rate, minus its trailing-12-month low. Triggers (signals recession) when ≥ 0.5pp.",
+      "how_to_use": "Among the cleanest historical recession signals — has fired at the start of every US recession since 1970. A trigger doesn't make a recession inevitable, but flagging it warrants caution. Watch alongside NFP, claims, and yield curve.",
+      "related_series": [
+        "aUSUNTOTR",
+        "aUSNFARM/A",
+        "aUSLIDXAWIC/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

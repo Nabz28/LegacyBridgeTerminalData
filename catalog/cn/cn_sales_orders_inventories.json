@@ -1,0 +1,754 @@
+{
+  "category": "Sales, Orders & Inventories",
+  "category_slug": "cn_sales_orders_inventories",
+  "section": "Industry Sector",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T19_06 (INDUSTRY SECTOR - SALES, ORDERS, & INVENTORIES).xlsx",
+  "ric_count": 48,
+  "rics": [
+    {
+      "ric": "aCNCNYUFM1",
+      "description": "Import, processing center",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "Import value via processing trade centers (bonded zones/processing centers). Monthly series from GACC (General Administration of Customs). Tracks imports channeled through China's processing trade regime.",
+      "how_to_use": "Processing trade imports (materials imported for assembly/re-export) are a key structural component of China's trade. Their share of total imports has declined as China moves up the value chain (from ~50% in the 1990s to ~20% now). Falling processing trade imports signal structural transformation — fewer low-value assembly operations. Rising processing trade can indicate export order recovery. Cross-reference with total exports and manufacturing PMI new export orders.",
+      "related_series": [
+        "aCNT2SPSRCW",
+        "aCNT2SPSRFM",
+        "aCNT2SPSRNF",
+        "aCNCNZHYBM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOZFOM",
+      "description": "Foreign insurance property insurance company's original insurance premium income, French Union",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Foreign property insurance company original insurance premium income — French Union Insurance. Monthly series from CBIRC (China Banking and Insurance Regulatory Commission). Tracks premium revenue of a foreign-invested property insurer.",
+      "how_to_use": "Premium income from foreign insurers in China tracks the penetration and growth of foreign financial services in a highly regulated, gradually liberalizing market. China's property insurance market is dominated by PICC, Ping An, and China Life P&C; foreign players have <5% market share. French Union premium trends reflect appetite for specialty risks (marine, aviation, trade credit) where foreign expertise has a competitive edge.",
+      "related_series": [
+        "aCNCNURXM1",
+        "aCNCNTOJUM",
+        "aCNCNOOTHM",
+        "aCNCNRBUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNURXM1",
+      "description": "Foreign insurance property insurance company's original insurance premium income, Fubon property",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Foreign property insurance company original premium income — Fubon Property Insurance (Taiwan-invested insurer in mainland China). Monthly series from CBIRC.",
+      "how_to_use": "Fubon Property's premium income in mainland China tracks cross-strait financial services integration. Taiwan-invested insurers serve both the Taiwanese corporate community in China (manufacturing supply chains) and domestic Chinese clients. Fubon's growth reflects the Taiwan investment presence in China and cross-strait economic linkages — sensitive to bilateral political developments.",
+      "related_series": [
+        "aCNCNOZFOM",
+        "aCNCNTOJUM",
+        "aCNCNOOTHM",
+        "aCNCNRBUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTOJUM",
+      "description": "Foreign insurance property insurance company's original insurance premium income, History property",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Foreign property insurance company original premium income — History Property Insurance. Monthly series from CBIRC.",
+      "how_to_use": "A smaller foreign-invested property insurer's premium income. Use in aggregate with other foreign insurer series (aCNCNOZFOM, aCNCNRBUM) to construct a composite foreign property insurance market share indicator. The aggregate trend of foreign insurer premiums captures the pace of financial market opening under CBIRC's licensing regime and reflects foreign corporate demand for non-life insurance coverage in China.",
+      "related_series": [
+        "aCNCNOZFOM",
+        "aCNCNURXM1",
+        "aCNCNOOTHM",
+        "aCNCNGWFJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOOTHM",
+      "description": "Foreign insurance property insurance company's original insurance premium income, Meiya",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Foreign property insurance company original premium income — Meiya Insurance. Monthly series from CBIRC.",
+      "how_to_use": "Meiya Insurance (美亚财险 AIG-affiliated) is one of the largest foreign property insurers in China. Its premium income is a bellwether for foreign insurer performance. AIG has a long history in China (pre-1949 roots); Meiya's growth tracks the expansion of international trade, expatriate services, and liability insurance in China. Declining premiums may signal foreign corporate retreat or market competition from domestic players.",
+      "related_series": [
+        "aCNCNOZFOM",
+        "aCNCNURXM1",
+        "aCNCNRBUM",
+        "aCNCNGWFJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNRBUM",
+      "description": "Foreign insurance property insurance company's original insurance premium income, Sumitomo Mitsui Marine Fire Insurance",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Foreign property insurance company original premium income — Sumitomo Mitsui Marine Fire Insurance (Japan). Monthly series from CBIRC.",
+      "how_to_use": "Japan is China's largest foreign investor by historical stock. Sumitomo Mitsui Marine's China premium income tracks Japanese corporate presence and risk appetite in China — including manufacturing supply-chain insurance. Sharp declines could signal Japanese corporate withdrawal from China (de-risking). Use alongside Japan FDI into China data and bilateral trade volumes.",
+      "related_series": [
+        "aCNCNOOTHM",
+        "aCNCNURXM1",
+        "aCNCNOZFOM",
+        "aCNCNTOJUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCKYLQ",
+      "description": "Insurance companies, enterprise annuity investment management business contribution amount, Safe Pension",
+      "frequency": "P3M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance companies — enterprise annuity investment management business contribution amount, Safe Pension (太平养老). Quarterly series from CBIRC / Ministry of Human Resources and Social Security (MoHRSS). Measures employer contributions managed by Safe Pension.",
+      "how_to_use": "Enterprise annuities (second-pillar pensions) are underdeveloped in China — covering only ~30M workers vs the ~700M+ formal-sector workforce. Contribution volumes track the growth of supplementary pension savings, critical given China's aging demographic and the first-pillar public pension's fiscal pressures (projected deficit by 2035). Rising contributions signal corporate willingness to invest in employee retention and pension security.",
+      "related_series": [
+        "aCNCNNMMPQ",
+        "aCNCNRZXGQ",
+        "aCNCNQBHHM",
+        "aCNPOPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNNMMPQ",
+      "description": "Insurance companies, enterprise annuity investment management business contribution amount, Yangtze River Pension",
+      "frequency": "P3M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance companies — enterprise annuity investment management business contribution amount, Yangtze River Pension (长江养老). Quarterly series from CBIRC / MoHRSS.",
+      "how_to_use": "Yangtze River Pension is a major enterprise annuity manager. Contribution growth here tracks pension savings accumulation in the Yangtze River Economic Belt — China's most populous economic corridor. Aggregate enterprise annuity contributions (aCNCNCKYLQ + aCNCNNMMPQ + aCNCNRZXGQ) give a read on China's pension savings adequacy vs the looming elderly care funding gap.",
+      "related_series": [
+        "aCNCNCKYLQ",
+        "aCNCNRZXGQ",
+        "aCNCNQBHHM",
+        "aCNCNBHEI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDQNI",
+      "description": "Insurance companies, liabilities, Anbang Assets",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance companies — total liabilities, Anbang Assets Management. Frequency not specified (likely annual). From CBIRC. Measures the liability side of Anbang's insurance/asset management balance sheet.",
+      "how_to_use": "Anbang Insurance was seized by the government in 2018 following its aggressive global acquisition spree and domestic mis-selling of high-yield wealth management products. Its liability data tracks the resolution of one of China's most prominent insurance sector bailouts. Rising liabilities post-seizure would signal ongoing policy cost; declining liabilities reflect successful wind-down. Relevant for assessing systemic risk management in China's insurance sector.",
+      "related_series": [
+        "aCNCNKJBP",
+        "aCNCNPDZM",
+        "aCNCNOZFOM",
+        "aCNCNGWFJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNRZXGQ",
+      "description": "Insurance companies, pension security & other entrusted management assets balance, National Life Pension",
+      "frequency": "P3M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance companies — pension security and other entrusted management assets balance, National Life Pension (国寿养老). Quarterly series from CBIRC / MoHRSS. Measures AUM of China Life's pension management arm.",
+      "how_to_use": "National Life Pension (China Life subsidiary) is the largest enterprise annuity manager. Its AUM balance tracks the accumulation of second-pillar pension assets — a critical buffer for China's aging demographics. Rising AUM is positive for institutional equity and bond market demand (pension managers are long-term investors). China's pension fund AUM is still small relative to GDP vs developed markets — significant growth runway.",
+      "related_series": [
+        "aCNCNCKYLQ",
+        "aCNCNNMMPQ",
+        "aCNCNQBHHM",
+        "aCNPOPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPDZM",
+      "description": "Insurance net profit, Junkang Life Insurance Co., Ltd.",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance net profit — Junkang Life Insurance Co., Ltd. Annual series from CBIRC. Measures bottom-line profitability of Junkang Life.",
+      "how_to_use": "Insurance sector profitability is a financial cycle indicator. China's life insurers face dual pressures: low interest rates compress investment returns on policy reserves, while claim costs rise with aging. Junkang Life (a smaller insurer) net profit tracks whether sector-wide margin pressures are affecting smaller players disproportionately. Sector-wide insurance profits also track investment portfolio returns (equities, bonds, real estate).",
+      "related_series": [
+        "aCNCNKJBP",
+        "aCNCNKPYC",
+        "aCNCNDQNI",
+        "aCNCNGWFJ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKJBP",
+      "description": "Insurance net profit, Sunshine Property Insurance Co.",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Insurance net profit — Sunshine Property Insurance Co. Annual series from CBIRC. Measures net profit of a mid-sized domestic property-casualty insurer.",
+      "how_to_use": "Sunshine P&C profit is a corporate earnings proxy for China's non-life insurance cycle. P&C profitability depends on: combined ratios (claims + expenses vs premiums), catastrophe losses (floods, typhoons — rising with climate change), and investment returns. Use with premium income data and catastrophe loss statistics to construct a full-cycle insurance sector picture.",
+      "related_series": [
+        "aCNCNPDZM",
+        "aCNCNGWFJ",
+        "aCNCNOOTHM",
+        "aCNCNRBUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKPYC",
+      "description": "Peronal insurance companies, original insurance premium income, China Merchants Cigna Life Insurance Co., Ltd.",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Personal insurance companies — original insurance premium income, China Merchants Cigna Life Insurance Co., Ltd. Annual series from CBIRC.",
+      "how_to_use": "China Merchants Cigna is a sino-foreign JV life insurer (China Merchants Bank + Cigna). Its premium income tracks: (1) bancassurance channel productivity (CMBCM branch network), (2) demand for health and life insurance in an aging society, (3) foreign insurer strategy success in China. China's health insurance market is the fastest-growing globally; Cigna's China JV premium growth is a bellwether for foreign health insurer opportunity.",
+      "related_series": [
+        "aCNCNPDZM",
+        "aCNCNKJBP",
+        "aCNCNQBHHM",
+        "aCNCNCKYLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQBHHM",
+      "description": "Basic medical insurance participation",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Basic medical insurance participation (人数). Monthly series from NHC / NBS. Measures total enrollment in China's basic medical insurance schemes (urban employee BMI + urban-rural resident BMI).",
+      "how_to_use": "Basic medical insurance enrollment is the coverage indicator for China's universal healthcare system. China achieved near-universal coverage (~1.36B enrollees) by 2015 through the urban-rural resident scheme expansion. Monthly changes reflect: demographic shifts (population decline reduces absolute enrollment), migrant worker enrollment improvements (hukou reform), and administrative consolidation. Coverage quality (not just quantity) is the policy frontier; pair with per-capita reimbursement rate data.",
+      "related_series": [
+        "aCNCNBHEI",
+        "aCNCNKPYC",
+        "aCNCNRZXGQ",
+        "aCNPOPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSTLAR",
+      "description": "Enterprise Profits - Industrial Enterprise (%yoy)",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Enterprise Profits - Industrial Enterprise (%yoy). Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNPFYAR",
+        "aCNTPRMTOR",
+        "aCNTPRMTOA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNPFYAR",
+      "description": "Industrial Total  Profits (CMLV) (%yoy), Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Industrial total profits, cumulative year-to-date, year-over-year change (%). Monthly series from NBS. Cumulative growth rate of industrial profits.",
+      "how_to_use": "The cumulative YoY growth rate of industrial profits smooths base-effect volatility in the monthly series. It is the key input for full-year corporate earnings forecasting. A cumulative rate recovering from deep negatives (as in 2023) signals the beginning of an earnings cycle upturn. The PPI deflation context is crucial: nominal profit growth understates real profit recovery if prices are falling. Decompose into revenue growth vs margin recovery.",
+      "related_series": [
+        "aCNCNSTLAR",
+        "aCNINVPNG",
+        "aCNINVPNF",
+        "aCNT2SPSRNF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNINVPNG",
+      "description": "Inventories, Finished Goods, Petroleum & natural gas extraction",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Inventories, finished goods — petroleum and natural gas extraction sector. Monthly series from NBS industrial enterprise survey.",
+      "how_to_use": "Oil and gas sector finished goods inventories track the supply-demand balance in China's upstream energy industry. Rising inventories signal production outpacing refinery offtake (potential crude price pressure domestically) or export restrictions. Declining inventories indicate strong refinery throughput. Pair with crude oil import data and refinery utilization rates for a full picture of China's oil supply chain.",
+      "related_series": [
+        "aCNINVPNF",
+        "aCNNGSACTP",
+        "aCNCNSTLAR",
+        "aCNT2SPSRCW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNINVPNF",
+      "description": "Inventories, Finished Goods, Petroleum processing, coking & nuclear fuels processing",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Inventories, finished goods — petroleum processing, coking, and nuclear fuels processing sector. Monthly series from NBS industrial enterprise survey.",
+      "how_to_use": "Refined petroleum product inventories (gasoline, diesel, jet fuel, coke) are critical demand-supply indicators. High coke inventories signal steel sector slowdown (property crisis impact); high diesel inventories signal logistics and construction weakness. Gasoline inventory swings reflect passenger vehicle demand and EV substitution (rising EV penetration structurally reduces gasoline demand). Use with aCNCNLZVJ (transport diesel) for cross-sector verification.",
+      "related_series": [
+        "aCNINVPNG",
+        "aCNCNLZVJ",
+        "aCNNGSACTP",
+        "aCNT2SPSRCW"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNROGS",
+      "description": "Online retail trade",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Online retail trade, total transaction value. Annual series from NBS / MOFCOM (Ministry of Commerce). Measures total e-commerce retail sales value.",
+      "how_to_use": "China has the world's largest e-commerce market (~$2T+ annually) with online retail penetration ~28% of total retail — the highest globally. Online retail growth has been the key driver of total retail resilience even as offline retail stagnates. The annual series captures full-year platform sales (Alibaba, JD, PDD, TikTok Shop). Structural drivers: mobile commerce, livestreaming shopping, rural e-commerce expansion. Cross-reference with aCNWRTCOS (cosmetics sub-category) and aCNCNZHYBM (auto retail).",
+      "related_series": [
+        "aCNWRTCOS",
+        "aCNCNZHYBM",
+        "aCNWRTCOSGR",
+        "aCNCNODEEM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGWFJ",
+      "description": "Property insurance companies, original premium income, special risk insurance",
+      "frequency": "P1Y",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Property insurance companies — original premium income, special risk insurance. Annual series from CBIRC. Covers specialty lines including nuclear, aviation, satellite, and other non-standard risks.",
+      "how_to_use": "Special risk (特殊风险) insurance premium growth tracks China's development of advanced industrial risks — nuclear power expansion (China has the world's largest nuclear build program), commercial aerospace (Long March rockets, Shenzhou spacecraft), and offshore energy. Rising premiums signal China's ascent in advanced technology with associated insurance needs. Use with nuclear power generation capacity data and aerospace program budgets.",
+      "related_series": [
+        "aCNCNKJBP",
+        "aCNCNPDZM",
+        "aCNCNOOTHM",
+        "aCNCNOZFOM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWRTCOS",
+      "description": "Retail Sales, Cosmetics",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "Retail sales, cosmetics, total value. Monthly series from NBS. Measures consumer spending on cosmetics through enterprises above designated size (annual revenue >CNY 5M).",
+      "how_to_use": "Cosmetics retail is a premium consumption indicator — sensitive to consumer confidence and income growth. China is the world's second-largest cosmetics market. The rise of domestic brands ('guochao' — national trend) has challenged L'Oreal, Estee Lauder, and LVMH in China. Rapid growth in cosmetics retail signals premiumization of consumption; contraction (as in 2022-23) reflects the 'consumption downgrade' narrative. Pair with aCNWRTCOSGR (YoY growth) for trend monitoring.",
+      "related_series": [
+        "aCNWRTCOSGR",
+        "aCNCNROGS",
+        "aCNCNZHYBM",
+        "aCNCNSTLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWRTCOSGR",
+      "description": "Retail Sales, Cosmetics, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "Retail sales, cosmetics, year-over-year change (%). Monthly series from NBS. Growth rate of cosmetics consumer spending.",
+      "how_to_use": "The cosmetics YoY growth rate is a high-frequency consumer sentiment gauge. It leads broader retail sales recovery/deterioration by 1-2 months (cosmetics are discretionary but low-ticket vs durables). Deep negative readings in 2022 (lockdowns) reversed to strong positive in 2023 (revenge spending), then moderated into 2024 (consumer caution). Use as a leading indicator for consumer confidence and luxury/beauty sector equity positioning.",
+      "related_series": [
+        "aCNWRTCOS",
+        "aCNCNROGS",
+        "aCNCNZHYBM",
+        "aCNCNSTLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNZHYBM",
+      "description": "Retail sales of enterprises above designated size, car",
+      "frequency": "P1M",
+      "subcategory": "Retail Sales",
+      "units": "Various",
+      "meaning": "Retail sales of enterprises above designated size — passenger cars. Monthly series from NBS / CAAM (China Association of Automobile Manufacturers). Measures auto retail sales value.",
+      "how_to_use": "Auto retail is the single largest category of China's consumer goods retail and the bellwether of the consumption cycle. China is the world's largest auto market (~25M passenger cars/year). EV penetration has surged to ~35% of new car sales (2024). Monitor for: (1) NEV vs ICE split (structural shift), (2) price war impact on revenue growth vs unit sales growth, (3) export boom (China became world's #1 auto exporter in 2023). Use with aCNCNROGS and aCNWRTCOSGR for consumption cycle context.",
+      "related_series": [
+        "aCNWRTCOS",
+        "aCNCNROGS",
+        "aCNCNQQBR",
+        "aCNCNSTLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNT2SPSRCW",
+      "description": "Sales Revenue, Coal mining, washing & dressing",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Sales revenue — coal mining, washing, and dressing sector. Monthly series from NBS industrial enterprise survey. Measures total revenue of the coal mining sub-sector.",
+      "how_to_use": "Coal mining revenue tracks both coal price and volume — the two determinants of China's most critical energy sector's financial health. Post-2021 coal price spike massively boosted mining revenues; subsequent normalization has pressured profitability. Shanxi and Inner Mongolia government fiscal revenues are directly tied to coal-sector revenues via royalties and taxes. Declining revenue signals fiscal stress in coal-dependent provinces and potential LGFV stress.",
+      "related_series": [
+        "aCNT2SPSRFM",
+        "aCNT2SPSRNF",
+        "aCNINVPNF",
+        "aCNCNSTLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNT2SPSRFM",
+      "description": "Sales Revenue, Ferrous metals mining & dressing",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Sales revenue — ferrous metals mining and dressing sector. Monthly series from NBS industrial enterprise survey. Measures total revenue of iron ore and ferrous metals mining.",
+      "how_to_use": "Ferrous metals (iron ore, steel) revenue is one of the most direct proxies for China's construction and manufacturing cycle. The property sector crisis (2021-) has been devastating for ferrous metals demand — steel demand for real estate dropped ~40% from peak. Revenue here tracks the magnitude of the industrial steel-demand contraction. Export of cheap Chinese steel to global markets is creating trade tensions. Pair with aCNINVPNF for full metals sector picture.",
+      "related_series": [
+        "aCNT2SPSRCW",
+        "aCNT2SPSRNF",
+        "aCNCNSTLAR",
+        "aCNCNINVPNG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNT2SPSRNF",
+      "description": "Sales Revenue, Non-ferrous metals mining & dressing",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "Sales revenue — non-ferrous metals mining and dressing sector. Monthly series from NBS industrial enterprise survey. Covers copper, aluminium, lead, zinc, nickel, lithium, rare earths, and other non-ferrous metal mining.",
+      "how_to_use": "Non-ferrous metals revenue is the critical clean-energy transition indicator: copper (power cables, EVs), lithium (batteries), cobalt (batteries), rare earths (magnets for EVs and wind turbines). China dominates global production and refining of most critical minerals. Lithium mining revenue boom (2022-23) followed by bust (2024) directly impacted this series. Rising non-ferrous revenue driven by lithium/copper tracks the green transition supply chain.",
+      "related_series": [
+        "aCNT2SPSRFM",
+        "aCNT2SPSRCW",
+        "aCNCNSTLAR",
+        "aCNCNRUNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSSTSH",
+      "description": "Sales, Volume, Coated steel sheet",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Coated steel sheet. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSPLSTC",
+        "aCNSLSHTHST",
+        "aCNSLSCTHST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSCTHST",
+      "description": "Sales, Volume, Cold rolled thin steel sheet",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Cold rolled thin steel sheet. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSHTHST",
+        "aCNSLSSTSH",
+        "aCNSLSROLST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSCRUDE",
+      "description": "Sales, Volume, Crude oil",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Crude oil. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSCSTC",
+        "aCNSLSWESP",
+        "aCNSLSTHSTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSCSTC",
+      "description": "Sales, Volume, Crude steel",
+      "frequency": "P3M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Crude steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSWESP",
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSFUELC",
+      "description": "Sales, Volume, Fuel oil",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Fuel oil. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSWESP",
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSHTHST",
+      "description": "Sales, Volume, Hot rolled thin steel sheet",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Hot rolled thin steel sheet. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSCTHST",
+        "aCNSLSSTSH",
+        "aCNSLSROLST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSLSSTC",
+      "description": "Sales, Volume, Large section steel",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Large section steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSMNSST",
+        "aCNSLSWESP",
+        "aCNSLSTHSTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSLUBRC",
+      "description": "Sales, Volume, Lubricant oil",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Lubricant oil. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSWESP",
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSMNSST",
+      "description": "Sales, Volume, Medium & small section steel",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Medium & small section steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSMNTST",
+        "aCNSLSLSSTC",
+        "aCNSLSWESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSMNTST",
+      "description": "Sales, Volume, Medium tick wide strip steel",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Medium tick wide strip steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSMNSST",
+        "aCNSLSWESP",
+        "aCNSLSTHSTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSPLSTC",
+      "description": "Sales, Volume, Plated steel sheet",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Plated steel sheet. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSSTSH",
+        "aCNSLSHTHST",
+        "aCNSLSCTHST"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSRAILC",
+      "description": "Sales, Volume, Railway steel",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Railway steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSWESP",
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSROLST",
+      "description": "Sales, Volume, Rolled steel",
+      "frequency": "P3M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Rolled steel. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSHTHST",
+        "aCNSLSCTHST",
+        "aCNSLSWESP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSSSTP",
+      "description": "Sales, Volume, Seamless steel pipe",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Seamless steel pipe. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSWESP",
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSTHSTP",
+      "description": "Sales, Volume, Thick steel plate",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Thick steel plate. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSPLSTC",
+        "aCNSLSWESP",
+        "aCNSLSSTSH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSLSWESP",
+      "description": "Sales, Volume, Welded steel pipe",
+      "frequency": "",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Sales, Volume, Welded steel pipe. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSLSTHSTP",
+        "aCNSLSSTSH",
+        "aCNSLSSSTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNT2SPSRTE",
+      "description": "Turnover/Sales, Product Sales Rate",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Turnover/Sales, Product Sales Rate. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNSRVTOTR",
+        "aCNTPRMTOR",
+        "aCNTPRMTOA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNSRVTOTR",
+      "description": "Turnover/Sales, Product Sales Revenue, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Turnover/Sales, Product Sales Revenue, Chg Y/Y. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNT2SPSRTE",
+        "aCNTPRMTOR",
+        "aCNTPRMTOA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTPRMTOR",
+      "description": "Turnover/Sales, Profits, Growth rate, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Turnover/Sales, Profits, Growth rate, Chg Y/Y. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNTPRMTOA/A",
+        "aCNT2SPSRTE",
+        "aCNSTLAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTPRMTOA/A",
+      "description": "Turnover/Sales, Profits, Sales, Orders & Inventories, Monthly, National Bureau of Statistics of China",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Turnover/Sales, Profits, Sales, Orders & Inventories, Monthly, National Bureau of Statistics of China. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNTPRMTOR",
+        "aCNT2SPSRTE",
+        "aCNSRVTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWRTGAR",
+      "description": "Wholesale and Retail Trade, Garments",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Wholesale and Retail Trade, Garments. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNWRTGARGR",
+        "aCNCNROGS",
+        "aCNWRTCOSGR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNWRTGARGR",
+      "description": "Wholesale and Retail Trade, Garments, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Wholesale and Retail Trade, Garments, Chg Y/Y. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNWRTGAR",
+        "aCNCNROGS",
+        "aCNWRTCOSGR"
+      ],
+      "notes": ""
+    }
+  ]
+}

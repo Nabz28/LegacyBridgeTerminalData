@@ -1,0 +1,815 @@
+{
+  "batch_id": 5,
+  "name": "Labor, Durables, Agri",
+  "ric_count": 101,
+  "rics": [
+    {
+      "ric": "USJOLT=ECI",
+      "description": "JOLTS Job Openings — Actual",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Actual",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=M",
+      "description": "JOLTS Job Openings — Median Consensus",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Median Consensus",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=F",
+      "description": "JOLTS Job Openings — SmartEconomics Forecast",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=P",
+      "description": "JOLTS Job Openings — Predicted Surprise",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Predicted Surprise",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=E",
+      "description": "JOLTS Job Openings — Mean Forecast",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Mean Forecast",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=O",
+      "description": "JOLTS Job Openings — Mode Forecast",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Mode Forecast",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=L",
+      "description": "JOLTS Job Openings — Min Forecast",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Min Forecast",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=H",
+      "description": "JOLTS Job Openings — Max Forecast",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Max Forecast",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=T",
+      "description": "JOLTS Job Openings — Forecast Standard Deviation",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSJOLT=C",
+      "description": "JOLTS Job Openings — Number of Forecasters",
+      "indicator": "JOLTS Job Openings",
+      "statistic": "Number of Forecasters",
+      "units": "Person",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USDGN=ECI",
+      "description": "Durable Goods — Actual",
+      "indicator": "Durable Goods",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=M",
+      "description": "Durable Goods — Median Consensus",
+      "indicator": "Durable Goods",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=F",
+      "description": "Durable Goods — SmartEconomics Forecast",
+      "indicator": "Durable Goods",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=P",
+      "description": "Durable Goods — Predicted Surprise",
+      "indicator": "Durable Goods",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=E",
+      "description": "Durable Goods — Mean Forecast",
+      "indicator": "Durable Goods",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=O",
+      "description": "Durable Goods — Mode Forecast",
+      "indicator": "Durable Goods",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=L",
+      "description": "Durable Goods — Min Forecast",
+      "indicator": "Durable Goods",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=H",
+      "description": "Durable Goods — Max Forecast",
+      "indicator": "Durable Goods",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=T",
+      "description": "Durable Goods — Forecast Standard Deviation",
+      "indicator": "Durable Goods",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGN=C",
+      "description": "Durable Goods — Number of Forecasters",
+      "indicator": "Durable Goods",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USDGND=ECI",
+      "description": "Durables Ex-Defense MM — Actual",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGND=M",
+      "description": "Durables Ex-Defense MM — Median Consensus",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=F",
+      "description": "Durables Ex-Defense MM — SmartEconomics Forecast",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=P",
+      "description": "Durables Ex-Defense MM — Predicted Surprise",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=E",
+      "description": "Durables Ex-Defense MM — Mean Forecast",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=O",
+      "description": "Durables Ex-Defense MM — Mode Forecast",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1Y"
+    },
+    {
+      "ric": "pUSDGND=L",
+      "description": "Durables Ex-Defense MM — Min Forecast",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=H",
+      "description": "Durables Ex-Defense MM — Max Forecast",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=T",
+      "description": "Durables Ex-Defense MM — Forecast Standard Deviation",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSDGND=C",
+      "description": "Durables Ex-Defense MM — Number of Forecasters",
+      "indicator": "Durables Ex-Defense MM",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "USDGXT=ECI",
+      "description": "Durables Ex-Transport — Actual",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=M",
+      "description": "Durables Ex-Transport — Median Consensus",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=F",
+      "description": "Durables Ex-Transport — SmartEconomics Forecast",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=P",
+      "description": "Durables Ex-Transport — Predicted Surprise",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=E",
+      "description": "Durables Ex-Transport — Mean Forecast",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=O",
+      "description": "Durables Ex-Transport — Mode Forecast",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=L",
+      "description": "Durables Ex-Transport — Min Forecast",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=H",
+      "description": "Durables Ex-Transport — Max Forecast",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=T",
+      "description": "Durables Ex-Transport — Forecast Standard Deviation",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSDGXT=C",
+      "description": "Durables Ex-Transport — Number of Forecasters",
+      "indicator": "Durables Ex-Transport",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USNDXA=ECI",
+      "description": "Nondefe Cap Ex-Air — Actual",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=M",
+      "description": "Nondefe Cap Ex-Air — Median Consensus",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=F",
+      "description": "Nondefe Cap Ex-Air — SmartEconomics Forecast",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=P",
+      "description": "Nondefe Cap Ex-Air — Predicted Surprise",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=E",
+      "description": "Nondefe Cap Ex-Air — Mean Forecast",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=O",
+      "description": "Nondefe Cap Ex-Air — Mode Forecast",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=L",
+      "description": "Nondefe Cap Ex-Air — Min Forecast",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=H",
+      "description": "Nondefe Cap Ex-Air — Max Forecast",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=T",
+      "description": "Nondefe Cap Ex-Air — Forecast Standard Deviation",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNDXA=C",
+      "description": "Nondefe Cap Ex-Air — Number of Forecasters",
+      "indicator": "Nondefe Cap Ex-Air",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USNDCG=ECI",
+      "description": "Nondef Cap Ex-Air R MM — Actual",
+      "indicator": "Nondef Cap Ex-Air R MM",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USFORD=ECI",
+      "description": "Factory Orders MM — Actual",
+      "indicator": "Factory Orders MM",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=M",
+      "description": "Factory Orders MM — Median Consensus",
+      "indicator": "Factory Orders MM",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=F",
+      "description": "Factory Orders MM — SmartEconomics Forecast",
+      "indicator": "Factory Orders MM",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=P",
+      "description": "Factory Orders MM — Predicted Surprise",
+      "indicator": "Factory Orders MM",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=E",
+      "description": "Factory Orders MM — Mean Forecast",
+      "indicator": "Factory Orders MM",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=O",
+      "description": "Factory Orders MM — Mode Forecast",
+      "indicator": "Factory Orders MM",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=L",
+      "description": "Factory Orders MM — Min Forecast",
+      "indicator": "Factory Orders MM",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=H",
+      "description": "Factory Orders MM — Max Forecast",
+      "indicator": "Factory Orders MM",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=T",
+      "description": "Factory Orders MM — Forecast Standard Deviation",
+      "indicator": "Factory Orders MM",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFORD=C",
+      "description": "Factory Orders MM — Number of Forecasters",
+      "indicator": "Factory Orders MM",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USBOS=ECI",
+      "description": "Bean Oil Stocks — Actual",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Actual",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=M",
+      "description": "Bean Oil Stocks — Median Consensus",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Median Consensus",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=F",
+      "description": "Bean Oil Stocks — SmartEconomics Forecast",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=P",
+      "description": "Bean Oil Stocks — Predicted Surprise",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Predicted Surprise",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=E",
+      "description": "Bean Oil Stocks — Mean Forecast",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Mean Forecast",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=O",
+      "description": "Bean Oil Stocks — Mode Forecast",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Mode Forecast",
+      "units": "Pound",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSBOS=L",
+      "description": "Bean Oil Stocks — Min Forecast",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Min Forecast",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=H",
+      "description": "Bean Oil Stocks — Max Forecast",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Max Forecast",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=T",
+      "description": "Bean Oil Stocks — Forecast Standard Deviation",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSBOS=C",
+      "description": "Bean Oil Stocks — Number of Forecasters",
+      "indicator": "Bean Oil Stocks",
+      "statistic": "Number of Forecasters",
+      "units": "Pound",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USNSC=ECI",
+      "description": "NOPA-Soy Crush — Actual",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Actual",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=M",
+      "description": "NOPA-Soy Crush — Median Consensus",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Median Consensus",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=F",
+      "description": "NOPA-Soy Crush — SmartEconomics Forecast",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=P",
+      "description": "NOPA-Soy Crush — Predicted Surprise",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Predicted Surprise",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=E",
+      "description": "NOPA-Soy Crush — Mean Forecast",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Mean Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=O",
+      "description": "NOPA-Soy Crush — Mode Forecast",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Mode Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSNSC=L",
+      "description": "NOPA-Soy Crush — Min Forecast",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Min Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=H",
+      "description": "NOPA-Soy Crush — Max Forecast",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Max Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=T",
+      "description": "NOPA-Soy Crush — Forecast Standard Deviation",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNSC=C",
+      "description": "NOPA-Soy Crush — Number of Forecasters",
+      "indicator": "NOPA-Soy Crush",
+      "statistic": "Number of Forecasters",
+      "units": "Bushel (56lb)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USSSQ=ECI",
+      "description": "Qtrly Grain Stocks-Soy — Actual",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Actual",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=M",
+      "description": "Qtrly Grain Stocks-Soy — Median Consensus",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Median Consensus",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=F",
+      "description": "Qtrly Grain Stocks-Soy — SmartEconomics Forecast",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=P",
+      "description": "Qtrly Grain Stocks-Soy — Predicted Surprise",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Predicted Surprise",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=E",
+      "description": "Qtrly Grain Stocks-Soy — Mean Forecast",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Mean Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=O",
+      "description": "Qtrly Grain Stocks-Soy — Mode Forecast",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Mode Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=L",
+      "description": "Qtrly Grain Stocks-Soy — Min Forecast",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Min Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=H",
+      "description": "Qtrly Grain Stocks-Soy — Max Forecast",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Max Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=T",
+      "description": "Qtrly Grain Stocks-Soy — Forecast Standard Deviation",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSSSQ=C",
+      "description": "Qtrly Grain Stocks-Soy — Number of Forecasters",
+      "indicator": "Qtrly Grain Stocks-Soy",
+      "statistic": "Number of Forecasters",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "USWSQ=ECI",
+      "description": "Qtrly Grain Stocks-Wheat — Actual",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Actual",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=M",
+      "description": "Qtrly Grain Stocks-Wheat — Median Consensus",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Median Consensus",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=F",
+      "description": "Qtrly Grain Stocks-Wheat — SmartEconomics Forecast",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=P",
+      "description": "Qtrly Grain Stocks-Wheat — Predicted Surprise",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Predicted Surprise",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=E",
+      "description": "Qtrly Grain Stocks-Wheat — Mean Forecast",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Mean Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=O",
+      "description": "Qtrly Grain Stocks-Wheat — Mode Forecast",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Mode Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=L",
+      "description": "Qtrly Grain Stocks-Wheat — Min Forecast",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Min Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=H",
+      "description": "Qtrly Grain Stocks-Wheat — Max Forecast",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Max Forecast",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=T",
+      "description": "Qtrly Grain Stocks-Wheat — Forecast Standard Deviation",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSWSQ=C",
+      "description": "Qtrly Grain Stocks-Wheat — Number of Forecasters",
+      "indicator": "Qtrly Grain Stocks-Wheat",
+      "statistic": "Number of Forecasters",
+      "units": "Bushel (56lb)",
+      "frequency": "P3M"
+    }
+  ]
+}

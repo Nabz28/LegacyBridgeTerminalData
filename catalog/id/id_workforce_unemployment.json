@@ -1,0 +1,136 @@
+{
+  "category": "Workforce & Unemployment",
+  "category_slug": "id_workforce_unemployment",
+  "section": "Labor Market",
+  "source_file": "Indonesia_Workforce & Unemployment.xlsx",
+  "ric_count": 9,
+  "rics": [
+    {
+      "ric": "aIDLFTOT",
+      "description": "Activity, Labour Force",
+      "frequency": "P1Y",
+      "subcategory": "Labor Force",
+      "units": "Persons, thousands",
+      "meaning": "Total Labour Force — employed + unemployed. People aged 15+ either working or actively seeking work. From BPS Sakernas.",
+      "how_to_use": "Indonesia labor force ~143M (2024), growing ~1-1.5% annually with demographic expansion. Labor-force participation rate ~70% (men) and ~55% (women) — female participation gap is a major reform priority.",
+      "related_series": [
+        "aIDCEMFO/A",
+        "aIDUNR",
+        "aIDUEMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDUEMP",
+      "description": "Unemployment",
+      "frequency": "P1Y",
+      "subcategory": "Unemployment",
+      "units": "Persons, thousands",
+      "meaning": "Unemployment — total unemployed persons. Same conceptual measure as aIDWKUNTTP.",
+      "how_to_use": "Cross-check series. Indonesia open unemployment ~7.5M (2024). Pair with the rate (aIDUNR) for cycle interpretation.",
+      "related_series": [
+        "aIDUNR",
+        "aIDLFTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDUNHTOTR",
+      "description": "Unemployment, Open unemployment rate, %",
+      "frequency": "P6M",
+      "subcategory": "Unemployment",
+      "units": "Percent",
+      "meaning": "Open Unemployment Rate — official BPS unemployment rate. Same conceptual measure as aIDUNR with possible vintage difference.",
+      "how_to_use": "Cross-check series. Use whichever is fresher. Indonesia structural rate ~5%; cyclical bottom around 4.5%; recession peak ~7% (2020).",
+      "related_series": [
+        "aIDUNR",
+        "aIDCUNPQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDUNR",
+      "description": "Unemployment, Rate",
+      "frequency": "P1Y",
+      "subcategory": "Unemployment",
+      "units": "Percent",
+      "meaning": "Unemployment Rate — share of the labor force without jobs but actively seeking work. Published twice a year by BPS via the Sakernas (National Labor Force Survey), with February and August reference periods.",
+      "how_to_use": "Indonesia structural unemployment rate around 5-6%. Spiked to 7.1% in August 2020 (COVID) then declined. Underemployment (workers on <35hr/week) is much higher (~25%) — formal unemployment understates labor-market slack. Watch youth unemployment (15-24 yo) which runs 3x the headline rate (~17%).",
+      "related_series": [
+        "aIDCUNPQ/A",
+        "aIDUNHTOTR",
+        "aIDLFTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEMFO/A",
+      "description": "Employment, Labour Force Survey, Standardized (based on source annual data)",
+      "frequency": "P3M",
+      "subcategory": "Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment, Labour Force Survey (Standardized) — total employed from BPS Sakernas. Reference labor-market level for productivity calculations.",
+      "how_to_use": "Indonesia total employment ~135M (2024). Use alongside GDP to compute output-per-worker (productivity). Productivity growth ~2-3% pa — positive but below DM rates.",
+      "related_series": [
+        "aIDEMPLMT",
+        "aIDLFTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCUNPPP",
+      "description": "Unemployment Level, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Unemployment",
+      "units": "Percent, MoM",
+      "meaning": "Unemployment Level, month-over-month change — but Sakernas is biannual so MoM is interpolated.",
+      "how_to_use": "Use the level (aIDCUNPP) and YoY (aIDCUNPYP) for primary analysis. MoM has limited signal value given the underlying biannual data.",
+      "related_series": [
+        "aIDCUNPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCUNPYP",
+      "description": "Unemployment Level, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Unemployment",
+      "units": "Percent, YoY",
+      "meaning": "Unemployment Level, year-over-year change — pace of unemployment increase or decrease.",
+      "how_to_use": "Track for cyclical labor-market dynamics. Sharp YoY rises (>10%) signal recession-like conditions. Indonesia rarely shows such moves outside crisis (1998, 2020).",
+      "related_series": [
+        "aIDCUNPP",
+        "aIDUNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCUNPP",
+      "description": "Unemployment Level, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Unemployment",
+      "units": "Persons, thousands",
+      "meaning": "Unemployment Level (Standardized) — total unemployed persons in standardized framing.",
+      "how_to_use": "Cross-check against aIDUEMP/aIDWKUNTTP. The standardized version aligns with ILO methodology.",
+      "related_series": [
+        "aIDUEMP",
+        "aIDUNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCUNPQ/A",
+      "description": "Unemployment rate, Standardized (based on source annual data)",
+      "frequency": "P1M",
+      "subcategory": "Unemployment",
+      "units": "Percent",
+      "meaning": "Unemployment Rate, standardized (annual) — OECD-comparable framing of the BPS unemployment rate. Used for cross-country comparisons.",
+      "how_to_use": "Use the headline aIDUNR series for domestic analysis; this standardized version aligns with ILO methodology for international benchmarking. Indonesia's rate has been falling structurally from ~10% (2005) to ~5% (2024) as the labor market absorbs young workers.",
+      "related_series": [
+        "aIDUNR",
+        "aIDUNHTOTR"
+      ],
+      "notes": ""
+    }
+  ]
+}

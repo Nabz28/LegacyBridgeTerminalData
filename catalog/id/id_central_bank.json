@@ -1,0 +1,38 @@
+{
+  "category": "Central Banking",
+  "category_slug": "id_central_bank",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_Central Bank.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDASSTOT",
+      "description": "Central Bank, Assets, total",
+      "frequency": "P1Y",
+      "subcategory": "Bank Indonesia",
+      "units": "IDR billions",
+      "meaning": "Bank Indonesia: total assets — the central bank balance sheet asset side. Includes FX reserves (largest component, ~80%), claims on government, claims on banks, and other domestic assets.",
+      "how_to_use": "Tracks BI's monetary expansion. FX assets dominate — moves with reserve accumulation/intervention. Domestic asset growth (claims on government, claims on banks) reflects unconventional easing or liquidity provision. 2020 COVID saw unprecedented BI bond purchases under burden-sharing arrangements.",
+      "related_series": [
+        "aIDLIABT",
+        "aIDCRESA",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDLIABT",
+      "description": "Central Bank, Liabilities, total",
+      "frequency": "",
+      "subcategory": "Bank Indonesia",
+      "units": "IDR billions",
+      "meaning": "Bank Indonesia: total liabilities — currency in circulation, bank reserve deposits, government deposits, BI Certificates (SBI), and BI bills (SDBI).",
+      "how_to_use": "Mirror of total assets by accounting identity. Currency in circulation is the largest stable component; bank reserves at BI absorb daily liquidity fluctuations. SBI/SDBI issuance is BI's main sterilization tool — rising stock indicates BI absorbing excess system liquidity.",
+      "related_series": [
+        "aIDASSTOT",
+        "aIDM2"
+      ],
+      "notes": ""
+    }
+  ]
+}

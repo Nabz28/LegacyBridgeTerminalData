@@ -1,0 +1,195 @@
+{
+  "category": "Money Supply",
+  "category_slug": "id_money_supply",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_Money Supply.xlsx",
+  "ric_count": 13,
+  "rics": [
+    {
+      "ric": "aIDM1",
+      "description": "Money supply M1 (METHOD BREAK JAN 2011)",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply M1 (method break Jan 2011) — narrow money level. Methodology revised in 2011 to align with international standards.",
+      "how_to_use": "Pre/post-2011 series not directly comparable due to methodology break. Use post-2011 data for trend analysis. M1 = currency in circulation + demand deposits at banks.",
+      "related_series": [
+        "aIDCMS1B/A",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDM2",
+      "description": "Money supply M2",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply M2 — broad money level published by Bank Indonesia. Includes M1 (currency + demand deposits) plus quasi-money (time deposits, savings deposits, foreign currency deposits at banks).",
+      "how_to_use": "Track YoY growth (aIDM2AR) for cyclical signal. Foreign currency deposit share — when it rises sharply, indicates IDR mistrust (dollarization). Recent share ~15-18% of M2; spikes during IDR weakness episodes.",
+      "related_series": [
+        "aIDM2AR",
+        "aIDCMS2YB/A",
+        "aIDM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDM2AR",
+      "description": "Money supply M2, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M2, YoY change — alternative release of broad money growth rate.",
+      "how_to_use": "Cross-check against aIDCMS2YB/A. The headline M2 growth gauge for monetary-policy analysis.",
+      "related_series": [
+        "aIDCMS2YB/A",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDMSC",
+      "description": "Money supply currency",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply Currency — currency in circulation outside the banking system. Subset of M1.",
+      "how_to_use": "Tracks public's cash demand. Indonesia is still cash-heavy (digital payment adoption growing rapidly post-2020). Lebaran-Eid drives the largest annual cash spike.",
+      "related_series": [
+        "aIDM1",
+        "aIDCMS1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS0B/A",
+      "description": "Money Supply M0, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply M0 (Monetary Base) — currency in circulation plus banks' reserve deposits at Bank Indonesia. Direct BI liability that expands with reserve creation.",
+      "how_to_use": "Distinct from M1/M2 — captures BI balance-sheet expansion. Useful for tracking unconventional easing periods (2020-22 BI bond purchases). Compare to M2 for the bank-lending multiplier (currently ~6x).",
+      "related_series": [
+        "aIDCMS0YB/A",
+        "aIDM2",
+        "aIDASSTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS0PB/A",
+      "description": "Money Supply M0, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, MoM",
+      "meaning": "Money Supply M0, month-over-month change — high-frequency monetary-base pulse.",
+      "how_to_use": "Volatile. Smooth with 3-month average for trend. Spikes around Lebaran-Eid as currency demand surges (cash withdrawals for holiday).",
+      "related_series": [
+        "aIDCMS0YB/A",
+        "aIDCMS0B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS0YB/A",
+      "description": "Money Supply M0, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M0, year-over-year change — pace of monetary base expansion.",
+      "how_to_use": "M0 growth signals BI's stance. Surges 2020-22 reflected COVID-era unconventional easing (burden-sharing with Treasury). Track for unconventional policy signals.",
+      "related_series": [
+        "aIDCMS0B/A",
+        "aIDCMS2YB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS1B/A",
+      "description": "Money Supply M1, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply M1 (Standardized) — narrow money level (currency + demand deposits). Most-liquid money aggregate.",
+      "how_to_use": "Use level for analytical baseline; YoY (aIDCMS1YB/A) for cyclical signal. M1 leads economic activity by 2-4 months.",
+      "related_series": [
+        "aIDCMS1YB/A",
+        "aIDCMS1PB/A",
+        "aIDM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS1PB/A",
+      "description": "Money Supply M1, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, MoM",
+      "meaning": "Money Supply M1, MoM percent change — high-frequency narrow-money pulse.",
+      "how_to_use": "Volatile (Lebaran cash demand drives big swings). Smooth with 3-month average. Use YoY for trend.",
+      "related_series": [
+        "aIDCMS1YB/A",
+        "aIDCMS1B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS1YB/A",
+      "description": "Money Supply M1, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M1, year-over-year change — narrow money (currency in circulation + demand deposits at banks). The most-liquid money aggregate.",
+      "how_to_use": "M1 growth leads economic activity by 2-4 months because it captures transaction demand. M1 acceleration ahead of GDP suggests upcoming activity pickup. Pair with M2 — divergence (M1 up, M2 flat) signals shift from time deposits to demand (lower interest rates, weaker savings incentive).",
+      "related_series": [
+        "aIDCMS2YB/A",
+        "aIDM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS2PB/A",
+      "description": "Money Supply M2, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, MoM",
+      "meaning": "Money Supply M2, month-over-month change — high-frequency broad-money pulse.",
+      "how_to_use": "Volatile. Smooth with 3-month average. Sustained MoM contraction (rare) signals tight liquidity.",
+      "related_series": [
+        "aIDCMS2YB/A",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS2YB/A",
+      "description": "Money Supply M2, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, YoY",
+      "meaning": "Money Supply M2, year-over-year change — broad money including currency, demand deposits, time/savings deposits, and money market mutual funds. The headline Indonesia liquidity gauge published monthly by Bank Indonesia.",
+      "how_to_use": "Indonesia M2 typically grows 6-10% YoY in normal cycles. Sustained sub-5% signals tight liquidity (often during BI hike cycles); >12% suggests aggressive easing or external inflows (commodity boom). Pair with credit growth — when M2 rises faster than credit, banks are accumulating liquid assets (gov bonds) rather than lending.",
+      "related_series": [
+        "aIDM2",
+        "aIDM2AR",
+        "aIDCMS1YB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCMS2B/A",
+      "description": "Money Supply M2, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "IDR billions",
+      "meaning": "Money Supply M2 (Standardized) — broad money level. Companion to aIDM2 in standardized framing.",
+      "how_to_use": "Cross-check against aIDM2. Use YoY (aIDCMS2YB/A) for the cyclical signal.",
+      "related_series": [
+        "aIDM2",
+        "aIDCMS2YB/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

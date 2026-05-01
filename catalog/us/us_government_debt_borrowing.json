@@ -1,0 +1,138 @@
+{
+  "category": "Government Debt & Borrowing",
+  "category_slug": "us_government_debt_borrowing",
+  "section": "Government Sector",
+  "source_file": "US_Government Debt & Borrowing.xlsx",
+  "ric_count": 9,
+  "rics": [
+    {
+      "ric": "aUSFEDETOS",
+      "description": "Federal debt, total amount outstanding",
+      "frequency": "P1M",
+      "subcategory": "Federal Debt",
+      "units": "USD billions",
+      "meaning": "Federal debt total amount outstanding — Treasury's gross debt position including all marketable securities (bills, notes, bonds, TIPS, FRNs) and nonmarketable issuances (savings bonds, intragovernmental).",
+      "how_to_use": "Tracks the running tally of Treasury issuance. The marketable-debt subset (~$27T) is what funds the actual federal deficit; nonmarketable debt is mostly Trust Fund holdings. Issuance pattern (bills vs notes/bonds) signals Treasury's term-structure strategy.",
+      "related_series": [
+        "aUSPDEBTA",
+        "aUSSECTRNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPDEBTA",
+      "description": "Public Debt Outstanding",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "USD billions",
+      "meaning": "Public debt outstanding — total Treasury debt held by both the public and intragovernmental accounts (Trust Funds). The 'gross debt' measure mentioned in headlines around the debt ceiling.",
+      "how_to_use": "~$36T in 2025. The 'debt held by the public' subset (~$28T) is the more economically meaningful measure since intragovernmental debt is a Treasury IOU to itself. Watch debt-ceiling negotiations — extraordinary measures kick in when ceiling is hit.",
+      "related_series": [
+        "aUSFEDETOS",
+        "aUSPDBTR",
+        "aUSGDEFAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPDBTR",
+      "description": "GROSS PUBLIC DEBT AS % OF GDP",
+      "frequency": "P3M",
+      "subcategory": "Federal Debt",
+      "units": "% of GDP",
+      "meaning": "Gross public debt as a percentage of GDP — the standard sustainability gauge using gross (not net of intragovernmental) debt. Higher than debt-held-by-public/GDP by ~25-30 percentage points.",
+      "how_to_use": "CBO projects debt/GDP rising to 120-130% by 2034 absent policy change. Threshold concerns vary: most economists view 100-120% as 'manageable for reserve currency issuer'; >150% historically associated with fiscal crisis. Watch debt-service/GDP ratio for nearer-term signal.",
+      "related_series": [
+        "aUSPDEBTA",
+        "aUSXGBINTA",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECMNSA",
+      "description": "Treasury securities outstanding (public debt)",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Total Treasury securities outstanding (public debt). Sum of bills, notes, bonds, plus nonmarketable.",
+      "how_to_use": "Supply pipeline for Treasury auctions. Acceleration in growth implies more issuance, pressure on term premium.",
+      "related_series": [
+        "aUSSECMKBA",
+        "aUSSECMKNA",
+        "aUSSCMKBNA",
+        "aUSSECMKTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECMKBA",
+      "description": "Treasury securities outstanding, bills",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Treasury bills outstanding — short-term debt (≤1Y). The bulk of refinancing risk sits here.",
+      "how_to_use": "Heavy bill issuance keeps front-end yields elevated and TGA management active. Watch as % of total marketable debt — rising share signals fiscal stress.",
+      "related_series": [
+        "aUSSECMNSA",
+        "aUSSECMKTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSCMKBNA",
+      "description": "Treasury securities outstanding, bonds",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Treasury bonds outstanding — long-term coupon debt (>10Y). Mostly 20Y and 30Y bonds.",
+      "how_to_use": "Long-end supply impacts term premium. Bond issuance schedule announced in quarterly refunding. Demand monitored via primary dealer takedowns and indirect bidder share.",
+      "related_series": [
+        "aUSSECMKNA",
+        "aUSSECMKTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECNGSA",
+      "description": "Treasury securities outstanding, nonmarketable, government account series",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Nonmarketable Treasury securities held in government account series (Social Security, federal pensions, etc).",
+      "how_to_use": "Doesn't trade in markets; subtract from gross debt to get marketable supply. Mainly accounting interest.",
+      "related_series": [
+        "aUSSECMNSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECMKNA",
+      "description": "Treasury securities outstanding, notes",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Treasury notes outstanding — coupon debt (2Y to 10Y maturity).",
+      "how_to_use": "Belly of the curve — the most common duration target for asset managers. Watch 10Y note auction stats for global demand signal.",
+      "related_series": [
+        "aUSSCMKBNA",
+        "aUSSECMKTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECMKTA",
+      "description": "Treasury securities outstanding, total marketable",
+      "frequency": "P1M",
+      "subcategory": "Treasury Outstanding",
+      "units": "USD millions",
+      "meaning": "Total marketable Treasury securities — bills + notes + bonds + TIPS + FRNs. The free-float bond supply (excluding non-marketable issues like savings bonds).",
+      "how_to_use": "Compare against M2 to see Treasury vs broad money balance. Bills (≤1Y) currently ~20% of marketable supply — historically high; signals refinancing stress. Issuance schedule announced quarterly in Refunding Statement.",
+      "related_series": [
+        "aUSFEDETOS",
+        "aUSPDEBTA"
+      ],
+      "notes": ""
+    }
+  ]
+}

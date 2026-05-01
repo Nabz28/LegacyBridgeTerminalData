@@ -1,0 +1,639 @@
+{
+  "category": "Consumer Surveys",
+  "category_slug": "us_consumer_surveys",
+  "section": "Surveys & Forecasts",
+  "source_file": "US_Consumer Surveys.xlsx",
+  "ric_count": 46,
+  "rics": [
+    {
+      "ric": "aUSCCIPSOR",
+      "description": "LSEG / Ipsos Primary Consumer Sentiment Index (PCSI)",
+      "frequency": "P1M",
+      "subcategory": "LSEG/Ipsos",
+      "units": "Index",
+      "meaning": "LSEG/Ipsos Primary Consumer Sentiment Index.",
+      "how_to_use": "Alternative consumer sentiment gauge. Less market-watched than UMich/CB.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOCS005Q/A",
+      "description": "Composite consumer confidence indicator",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "Composite Consumer Confidence Indicator (OECD-standardized) — averages multiple confidence gauges into one international-comparison number.",
+      "how_to_use": "Use for cross-country comparisons. US-domestic analysts use UMich (aUSCSIUM) and Conference Board (aUSCONCF/A) directly. OECD composite smooths divergences between national surveys.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSCONCF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHAI",
+      "description": "National, Housing Affordability Index, composite",
+      "frequency": "P1M",
+      "subcategory": "Housing Affordability",
+      "units": "Index",
+      "meaning": "National Housing Affordability Index — composite. NAR.",
+      "how_to_use": "100 = median family can afford median home. Below 100 = affordability stress. Hit ~95 in 2023 — record low.",
+      "related_series": [
+        "aUSHOIMED"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHOIMED",
+      "description": "National, Housing Affordability Index, median family income",
+      "frequency": "P1M",
+      "subcategory": "Affordability",
+      "units": "USD",
+      "meaning": "National Housing Affordability Index — median family income input. The denominator that scales the affordability calculation.",
+      "how_to_use": "Used to compute aUSHAI (affordability index = 100 means median family can afford median home). Tracks median family income trend; rises with NFP wages and demographic shifts.",
+      "related_series": [
+        "aUSHAI",
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMSNPAH",
+      "description": "Foreign exchange reserves - BMO, Volume Index, Consumer Surveys, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "Misc Surveys",
+      "units": "Index",
+      "meaning": "Mislabeled volume index — Reuters consumer surveys.",
+      "how_to_use": "Cross-check raw source before using.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMSNEAH",
+      "description": "Foreign exchange reserves - BMO, Volume Index, Consumer Surveys, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "Misc Surveys",
+      "units": "Index",
+      "meaning": "Mislabeled volume index — Reuters consumer surveys.",
+      "how_to_use": "Cross-check raw source.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMSNAH",
+      "description": "Foreign exchange reserves - BMO, Volume Index, Consumer Surveys, Monthly, Reuters",
+      "frequency": "",
+      "subcategory": "Misc Surveys",
+      "units": "Index",
+      "meaning": "Mislabeled volume index — Reuters consumer surveys.",
+      "how_to_use": "Cross-check raw source.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIPSOAR",
+      "description": "Reuters poll: TR US IPSOS - Actual",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "Reuters/Ipsos US Consumer Index — alternative consumer-mood gauge. Smaller-sample monthly survey by Ipsos.",
+      "how_to_use": "Tertiary cross-check vs UMich and Conference Board. Less market-moving on release. Useful when major confidence gauges diverge — provides third opinion.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSCONCF/A",
+        "aUSIBDECOP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIBDECOP",
+      "description": "RCM/TIPP, Economic Optimism Index",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "RCM/TIPP Economic Optimism Index — monthly investor and consumer optimism gauge published by Investor's Business Daily and TechnoMetrica. Combines six-month outlook, personal financial outlook, and confidence in federal economic policies.",
+      "how_to_use": "Smaller-sample alternative to UMich and Conference Board surveys. Use as a tertiary cross-check — when all three confidence gauges move in the same direction, the signal is robust; divergences are usually noise.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSCONCF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCIACEBC",
+      "description": "Average consumer expectations, business & economic conditions",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "Conference Board: average consumer expectations for business and economic conditions — composite expectations gauge from CB survey.",
+      "how_to_use": "Captures the forward-looking aggregate of CB consumer survey. More predictive than CB Present Situation. Pair with CB Expectations sub-index for full forward-look picture.",
+      "related_series": [
+        "aUSCONCE/A",
+        "aUSCONCFEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCF/A",
+      "description": "Conference Board, Consumer confidence",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index (1985=100)",
+      "meaning": "Conference Board Consumer Confidence Index — survey of ~3,000 US households on present situation and future expectations. Released last Tuesday of each month.",
+      "how_to_use": "Pair with UMich sentiment — they sometimes diverge (CB more labor-market sensitive, UMich more inflation/wealth sensitive). The Expectations sub-index leads recessions: a >20pt YoY drop is a historical warning. Less market-moving on release than NFP/CPI.",
+      "related_series": [
+        "aUSCONCE/A",
+        "aUSCONCFP/A",
+        "aUSCSIUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCE/A",
+      "description": "Conference Board, Consumer confidence, expectations",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index",
+      "meaning": "Conference Board Consumer Confidence — Expectations sub-index. The forward-looking component, sub-80 typically signals recession.",
+      "how_to_use": "More predictive than the headline. >20pt YoY drop is recession-warning. Historically the cleaner of the two CB sub-indices for cycle calls.",
+      "related_series": [
+        "aUSCONCF/A",
+        "aUSCONCFP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCFP/A",
+      "description": "Conference Board, Consumer confidence, present situation",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index",
+      "meaning": "Conference Board Consumer Confidence — Present Situation sub-index. Current-conditions assessment.",
+      "how_to_use": "Lags Expectations in turning points. Stays elevated longer at cycle peaks. Use the spread (Present − Expectations) as a recession-risk signal: when Present is high but Expectations falling fast, the cycle is rolling over.",
+      "related_series": [
+        "aUSCONCF/A",
+        "aUSCONCE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFBUSCB/A",
+      "description": "Conference Board, Future business conditions, better",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future business conditions, % of respondents saying 'better'. Bullish-expectations percentage.",
+      "how_to_use": "Forward-looking optimism share. Pair with 'worse' (aUSFBUSCW/A) for the diffusion (better − worse) used in net-confidence calculations. Falling 'better' share is recession-leading.",
+      "related_series": [
+        "aUSFBUSCS/A",
+        "aUSFBUSCW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFBUSCS/A",
+      "description": "Conference Board, Future business conditions, same",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future business conditions, % saying 'same'. Neutral/ambivalent percentage.",
+      "how_to_use": "Track for indecision share — typically the largest bucket. Stable at ~50-60% in normal times. Spikes during turning-point ambiguity.",
+      "related_series": [
+        "aUSFBUSCB/A",
+        "aUSFBUSCW/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFBUSCW/A",
+      "description": "Conference Board, Future business conditions, worse",
+      "frequency": "P1M",
+      "subcategory": "Conference Board",
+      "units": "%",
+      "meaning": "CB future business conditions, % saying 'worse'.",
+      "how_to_use": "Bearish-expectations percentage. Sustained rises signal recession risk.",
+      "related_series": [
+        "aUSFBUSCB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFUEMPFJ/A",
+      "description": "Conference Board, Future employment, fewer jobs",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future employment, % expecting fewer jobs. Bearish labor-outlook percentage.",
+      "how_to_use": "Rises sharply ahead of recessions — one of CB's most reliable recession-leading sub-indices. Sustained >25% has preceded every recession since the survey began.",
+      "related_series": [
+        "aUSFUEMPMJ/A",
+        "aUSCONEMS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFUEMPMJ/A",
+      "description": "Conference Board, Future employment, more jobs",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future employment, % expecting more jobs. Bullish labor-outlook percentage.",
+      "how_to_use": "Falling 'more jobs' share is recession-leading. Compute (more − fewer) for the labor-expectations diffusion — historically a reliable cycle signal.",
+      "related_series": [
+        "aUSFUEMPFJ/A",
+        "aUSCONEMS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONEMS/A",
+      "description": "Conference Board, Future employment, same",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future employment, % expecting same number of jobs. Stability/uncertainty percentage.",
+      "how_to_use": "Largest bucket typically. Useful for tracking expectations volatility — when this share falls, respondents are taking strong views (bullish or bearish).",
+      "related_series": [
+        "aUSFUEMPFJ/A",
+        "aUSFUEMPMJ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFUIDECR/A",
+      "description": "Conference Board, Future income, decrease",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future income, % expecting decrease. Pessimistic income-outlook share.",
+      "how_to_use": "Income-expectations are the cleanest predictor of consumption. Rising 'decrease' share precedes consumption slowdowns. Track alongside real wage growth (aUSEARNW/CA).",
+      "related_series": [
+        "aUSCONFUIR/A",
+        "aUSCONFUIS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONFUIR/A",
+      "description": "Conference Board, Future income, increase",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future income, % expecting increase. Optimistic income-outlook share.",
+      "how_to_use": "Falling income-optimism share is consumption-leading. The (increase − decrease) diffusion is the meaningful signal for forward consumption.",
+      "related_series": [
+        "aUSFUIDECR/A",
+        "aUSCONFUIS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONFUIS/A",
+      "description": "Conference Board, Future income, same",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: future income, % expecting same. Stability share — neutral income outlook.",
+      "how_to_use": "Largest bucket typically. Useful for tracking respondent confidence in projections.",
+      "related_series": [
+        "aUSFUIDECR/A",
+        "aUSCONFUIR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBCLM",
+      "description": "Conference Board, Plans to buy car within six months, yes",
+      "frequency": "P1M",
+      "subcategory": "Buying Plans",
+      "units": "Percent",
+      "meaning": "Conference Board: plans to buy car within 6 months. Forward-looking auto-demand indicator from household survey.",
+      "how_to_use": "Leads auto sales by 1-3 months. Sustained drops below 4% historically signal slowing auto demand. Pair with aUSMAPPL6 (appliances) for big-ticket-durables outlook.",
+      "related_series": [
+        "aUSMAPPL6",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMAPPL6",
+      "description": "Conference Board, Plans to buy major appliances within six months",
+      "frequency": "P1M",
+      "subcategory": "Buying Plans",
+      "units": "Percent",
+      "meaning": "Conference Board: plans to buy major appliances within 6 months. Forward-looking durable-goods demand indicator.",
+      "how_to_use": "Big-ticket appliance demand follows housing-purchase activity. Falls when housing slows. Useful as a cross-check for retail sales of furniture/appliances (aUSRSLSHF/A).",
+      "related_series": [
+        "aUSCBCLM",
+        "aUSRSLSHF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPBCBAD/A",
+      "description": "Conference Board, Present business conditions, bad",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: present business conditions, % saying 'bad'. Pessimistic share for current-state assessment.",
+      "how_to_use": "Tracks present-conditions worry. Stays low in expansions; rises sharply at recession onset. (Good − bad) diffusion is the headline 'present situation' input.",
+      "related_series": [
+        "aUSPBCGUD/A",
+        "aUSPBCNOR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPBCGUD/A",
+      "description": "Conference Board, Present business conditions, good",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: present business conditions, % saying 'good'. Optimistic share for current state.",
+      "how_to_use": "Stays elevated in expansions, drops sharply at recession onset. The (good − bad) diffusion is the CB Present Situation input. Falling 'good' share with rising 'bad' is a turning-point signal.",
+      "related_series": [
+        "aUSPBCBAD/A",
+        "aUSPBCNOR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPBCNOR/A",
+      "description": "Conference Board, Present business conditions, normal",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: present business conditions, % saying 'normal'. Neutral share — middle of the distribution.",
+      "how_to_use": "Largest bucket. Tracks 'how typical' respondents see conditions. Movements between 'normal' and 'good'/'bad' show inflection-point dynamics.",
+      "related_series": [
+        "aUSPBCGUD/A",
+        "aUSPBCBAD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPEMPHG/A",
+      "description": "Conference Board, Present employment, jobs hard to get",
+      "frequency": "P1M",
+      "subcategory": "Labor Outlook",
+      "units": "%",
+      "meaning": "CB present employment, % saying jobs hard to get.",
+      "how_to_use": "Cleanest household-survey labor read. Rising = labor market loosening.",
+      "related_series": [
+        "aUSPEMPJOP/A",
+        "aUSPEMPNSP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPEMPNSP/A",
+      "description": "Conference Board, Present employment, jobs not so plentiful",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: present employment, % saying 'jobs not so plentiful'. Middle-position labor-market view.",
+      "how_to_use": "Tracks ambiguity in labor-market perception. Pair with 'jobs plentiful' and 'jobs hard to get' for full Conference Board labor differential calculation.",
+      "related_series": [
+        "aUSPEMPJOP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPEMPJOP/A",
+      "description": "Conference Board, Present employment, jobs plentiful",
+      "frequency": "P1M",
+      "subcategory": "CB Sub-Index",
+      "units": "Percent",
+      "meaning": "Conference Board: present employment, % saying 'jobs plentiful'. Bullish labor-market view.",
+      "how_to_use": "Used in 'labor-market differential' calculation: (jobs plentiful − jobs hard to get). One of the most predictive labor-market indicators — leads the unemployment rate by 1-2 months.",
+      "related_series": [
+        "aUSPEMPNSP/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCAQ/C",
+      "description": "Consumer confidence",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "Consumer confidence (standardized) — OECD-comparable consumer confidence framing. Aggregates multiple US confidence series.",
+      "how_to_use": "Use for cross-country comparisons. Domestic analysts use UMich/Conference Board directly. The standardization aligns with OECD methodology.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSCONCF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMERAPH",
+      "description": "Consumer Expectations Index",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "Consumer Expectations Index (UMich).",
+      "how_to_use": "UMich forward-looking sub-index. Most market-relevant of UMich subseries.",
+      "related_series": [
+        "aUSUMSRAPH",
+        "aUSCONCFEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMSRAPH",
+      "description": "Consumer Sentiment Index",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "Consumer Sentiment Index (UMich) headline.",
+      "how_to_use": "UMich headline sentiment. More inflation-sensitive than Conference Board.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSUMERAPH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMCRAPH",
+      "description": "Current Conditions Index",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich Current Economic Conditions Index — present-state component of UMich monthly sentiment survey. Reflects current finances and buying-conditions assessments.",
+      "how_to_use": "Pair with UMich Expectations (aUSCONCFEX) for the headline sentiment. Current Conditions tends to lag Expectations at turning points; the gap (Conditions − Expectations) is a useful cycle indicator.",
+      "related_series": [
+        "aUSCONCFEX",
+        "aUSCSIUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMCPAPH",
+      "description": "Current Conditions Index-prelim",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich Current Economic Conditions — preliminary release (mid-month). Final release follows 2 weeks later.",
+      "how_to_use": "Markets trade the preliminary release. ~80% of months see no revision; large revisions (>3 points) signal late-month news (gas-price moves, geopolitical events).",
+      "related_series": [
+        "aUSUMCRAPH",
+        "aUSCONCFEX"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUM1PAPR",
+      "description": "Total-prelim, Consumer Surveys, Monthly, University of Michigan Surveys of Consumers",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich total preliminary headline.",
+      "how_to_use": "Mid-month headline preliminary release.",
+      "related_series": [
+        "aUSUMSRAPH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMEPAPH",
+      "description": "Total-prelim, Volume Index, Consumer Surveys, Monthly, University of Michigan Surveys of Consumers",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich preliminary expectations sub-index.",
+      "how_to_use": "Mid-month forward-looking preliminary.",
+      "related_series": [
+        "aUSUMERAPH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUMSPAPH",
+      "description": "Total-prelim, Volume Index, Consumer Surveys, Monthly, University of Michigan Surveys of Consumers",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich preliminary sentiment sub-index.",
+      "how_to_use": "Mid-month sentiment preliminary.",
+      "related_series": [
+        "aUSUMSRAPH"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUM1FRA",
+      "description": "U Mich 1Yr Inf Final",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "%",
+      "meaning": "UMich 1-year inflation expectation, final.",
+      "how_to_use": "Most-watched short-term inflation gauge. Fed monitors closely.",
+      "related_series": [
+        "aUSUM5FRA",
+        "aUSINFEXM1Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUM5FRA",
+      "description": "U Mich 5-Yr Inf Final, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "%",
+      "meaning": "UMich 5-year inflation expectation, final.",
+      "how_to_use": "Long-term anchor. Sub-3% = anchored; spikes signal Fed credibility risk.",
+      "related_series": [
+        "aUSUM1FRA",
+        "aUSINFEXM5Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUM5PRA",
+      "description": "U Mich 5-Yr Inf Prelim, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "Percent",
+      "meaning": "UMich 5-10 year median inflation expectations, preliminary release. Same conceptual measure as aUSINFEXM5Y at preliminary frequency.",
+      "how_to_use": "Markets watch the preliminary release for any change in long-term anchored expectations. Sustained moves above 3.5% in this preliminary print historically draw Fed attention; revisions in the final release can move markets if direction reverses.",
+      "related_series": [
+        "aUSINFEXM5Y",
+        "aUSINFEXM1Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINFEXM1Y",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, 1 Year Inflation Expectations (median)",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "Percent",
+      "meaning": "University of Michigan 1-year-ahead median inflation expectation — household survey response to 'how much do you expect prices to go up over the next 12 months?' One of the Fed's most-watched short-horizon expectations measures.",
+      "how_to_use": "Spikes when gasoline prices move (households over-weight what they see at the pump). The Fed cares about whether expectations stay 'anchored' — sustained moves above 4-5% raise concerns about a wage-price spiral. Cross-check against TIPS breakevens and NY Fed SCE.",
+      "related_series": [
+        "aUSINFEXM5Y",
+        "aUSCPIYYR",
+        "aUSCSIUM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSINFEXM5Y",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, 5 Year Inflation Expectations (median)",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "Percent",
+      "meaning": "University of Michigan 5-10 year median inflation expectation — household long-horizon expectation. The Fed's primary anchored-expectations gauge from the household side.",
+      "how_to_use": "More stable than the 1Y series — typically pinned in a 2.5-3.5% band. Sustained moves above 3.5% are taken seriously by the FOMC; Powell has cited this series specifically in press conferences. Compare to 5Y5Y forward TIPS breakevens for a market-vs-survey read.",
+      "related_series": [
+        "aUSINFEXM1Y",
+        "aUSCPIYYR",
+        "aUSPCEYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCFEX",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, Consumer Expectations Index",
+      "frequency": "P1M",
+      "subcategory": "UMich Sentiment",
+      "units": "Index",
+      "meaning": "UMich Consumer Expectations sub-index — forward-looking component of UMich sentiment.",
+      "how_to_use": "Pair with Conf Board Expectations (aUSCONCE/A). When both are falling together, recession risk is meaningful. UMich expectations weighed heavily by inflation; CB expectations weighed by labor market.",
+      "related_series": [
+        "aUSCSIUM",
+        "aUSCONCE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCSIUM",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, Consumer Sentiment Index",
+      "frequency": "P1M",
+      "subcategory": "UMich Sentiment",
+      "units": "Index",
+      "meaning": "University of Michigan Consumer Sentiment Index — headline. More inflation-sensitive than Conference Board. Twice-monthly release: preliminary mid-month, final end of month.",
+      "how_to_use": "The 1Y and 5-10Y inflation expectations sub-questions are Fed-monitored. UMich sentiment correlated with retail spending leads by 1-2 months. UMich + Conf Board divergences usually resolve toward UMich within 2-3 months.",
+      "related_series": [
+        "aUSCONCF/A",
+        "aUSCONCFEX",
+        "aUSINFEXM1Y"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONCFP",
+      "description": "University of Michigan Consumer Sentiment, University of Michigan, Current Conditions Index",
+      "frequency": "P1M",
+      "subcategory": "UMich",
+      "units": "Index",
+      "meaning": "UMich Current Conditions Index — alternate.",
+      "how_to_use": "Cross-check with aUSUMCRAPH.",
+      "related_series": [
+        "aUSUMCRAPH"
+      ],
+      "notes": ""
+    }
+  ]
+}

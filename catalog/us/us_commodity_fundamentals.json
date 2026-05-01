@@ -1,0 +1,662 @@
+{
+  "category": "Commodity Fundamentals",
+  "category_slug": "us_commodity_fundamentals",
+  "section": "Commodities",
+  "source_file": "US_Commodity Fundamentals.xlsx",
+  "ric_count": 49,
+  "rics": [
+    {
+      "ric": "aUSAPICA",
+      "description": "API Cushing number",
+      "frequency": "P1M",
+      "subcategory": "API Crude",
+      "units": "Thousand barrels",
+      "meaning": "API Cushing crude oil number — industry-source weekly stocks at Cushing OK.",
+      "how_to_use": "Released Tuesday evening before Wednesday's EIA report. Often moves prices on the prior-day Asia/Europe overnight session.",
+      "related_series": [
+        "aUSSCCO",
+        "aUSOICCA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIAIA",
+      "description": "API weekly crude imports",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "API weekly crude oil imports — industry source for US crude imports, released Tuesday evening. Cross-check against EIA's official Wednesday release.",
+      "how_to_use": "Useful for forward-looking trade — API can drive overnight oil price moves before EIA confirms next morning. API methodology is voluntary reporting from refiners; EIA samples the full set, so discrepancies are usually resolved within 2-4 weeks of revisions.",
+      "related_series": [
+        "aUSEIACI",
+        "aUSOIACA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIARA",
+      "description": "API weekly crude runs",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "API weekly crude oil runs (refinery throughput) — same conceptual measure as aUSEIACR but industry-sourced. Total crude processed in US refineries per day.",
+      "how_to_use": "Drives demand for crude. Pair with utilization for tight-vs-loose signal. Hurricane season (Aug-Oct) on Gulf Coast can drop runs by 1-2mb/d for 2-3 weeks; major maintenance windows in spring and fall similarly reduce throughput.",
+      "related_series": [
+        "aUSEIACR",
+        "aUSOIRUA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIACA",
+      "description": "API weekly crude stocks",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "API weekly crude oil stocks (industry inventory) — total US commercial crude inventory excluding SPR. Industry-sourced; released Tuesday evenings, one day before EIA.",
+      "how_to_use": "Cross-check with EIA's official numbers. API often differs by 1-2 million barrels — a draw vs build divergence drives short-term oil-price moves. Markets initially trade API release; EIA next morning often confirms or reverses.",
+      "related_series": [
+        "aUSOIARA",
+        "aUSOIAIA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIADA",
+      "description": "API weekly dist. stocks",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "API weekly distillate (diesel + heating oil) inventories — total US distillate stocks. Q4 inventory builds for winter heating; Q2 builds for trucking demand.",
+      "how_to_use": "More volatile than gasoline because two demand drivers: trucking (year-round, GDP-correlated) and heating (Q4-Q1, weather-correlated). Tight distillate stocks 2022-23 drove distillate crack spreads to record highs.",
+      "related_series": [
+        "aUSOIAHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIAGA",
+      "description": "API weekly gasoline stock",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "API weekly gasoline inventories — total US gasoline stocks. Driving-season seasonality: drawdowns May-Aug as Memorial Day to Labor Day demand peaks.",
+      "how_to_use": "Cross-check with EIA gasoline stocks. Below 220M barrels = tight; above 245M = loose for the typical year. Inventories swing crack spreads (gasoline vs crude price differential).",
+      "related_series": [
+        "aUSOIACA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIAHA",
+      "description": "API weekly heating oil",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "API weekly heating oil inventories — subset of distillate stocks (~25-30% of distillate). Q4 demand-driven for Northeast heating.",
+      "how_to_use": "Cross-check vs EIA heating oil stocks. Track heating-degree days (HDD) for demand pulse. Mild winters depress demand and build inventories; cold snaps drive draws and price spikes.",
+      "related_series": [
+        "aUSOIADA",
+        "aUSEIADP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIAPA",
+      "description": "API weekly product imports",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "API weekly product imports — refined product imports (gasoline, diesel, heating oil, jet fuel). Track for product-vs-crude import mix.",
+      "how_to_use": "US imports refined products mainly from Caribbean refineries (Trinidad, Curacao) and Europe. Falls when domestic refineries run higher; rises during US refinery outages.",
+      "related_series": [
+        "aUSEIAPI",
+        "aUSOIPIA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aTESTAPI",
+      "description": "TEST SERIES",
+      "frequency": "P1M",
+      "subcategory": "Test",
+      "units": "",
+      "meaning": "Test series — placeholder.",
+      "how_to_use": "Not for use.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSESECOP",
+      "description": "United States, EMISSIONS - CARBON DIOXIDE, Volume, Commodity Fundamentals, Annual, British Petroleum",
+      "frequency": "P1Y",
+      "subcategory": "Emissions",
+      "units": "Million metric tons",
+      "meaning": "US carbon dioxide emissions, total.",
+      "how_to_use": "Annual EIA. Tracks US progress on emissions reductions. Has trended down post-2007.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIACI",
+      "description": "Imports, EIA, Crude Oil",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "EIA crude oil imports — official measure. Halved post-shale (2007 ~10mb/d → 2024 ~6mb/d) as US production rose from ~5mb/d to ~13mb/d.",
+      "how_to_use": "Cross-check with API (aUSOIAIA). Track Saudi/OPEC+ vs Canadian share for geopolitical exposure: Canada is now the dominant US crude supplier (~60% of imports). Pipeline disruptions (Keystone, Enbridge) drive short-term spikes.",
+      "related_series": [
+        "aUSOIAIA",
+        "aUSCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPI",
+      "description": "Imports, EIA, Petroleum Products",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "EIA weekly petroleum products imports — official EIA measure of refined-products imports. Cross-check against API.",
+      "how_to_use": "Track for US refining-deficit signals: when product imports are persistently elevated, US refineries can't meet domestic demand. Used in trade-balance and consumer-fuel-price analyses.",
+      "related_series": [
+        "aUSOIAPA",
+        "aUSOIPIA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIPIA",
+      "description": "Imports, Petroleum Products, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "Imports, petroleum products, absolute change — week-over-week change in product imports.",
+      "how_to_use": "Volatility signal. Spikes during refinery outages or supply disruptions (Colonial Pipeline 2021, Hurricane Harvey 2017). Smooths to ~2-3 million bpd in normal weeks.",
+      "related_series": [
+        "aUSEIAPI",
+        "aUSOIAPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNGIFA",
+      "description": "Nat Gas-EIA Implied Flow",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Bcf",
+      "meaning": "Natural Gas Implied Flow (EIA) — backed-out demand calculated from production minus storage change. Captures total domestic + export demand for nat gas.",
+      "how_to_use": "Important for nat-gas storage and pricing. LNG exports have surged post-2016 (Sabine Pass, Cameron, Calcasieu Pass) — implied demand now includes ~14 Bcf/d of LNG exports. Track for cold-snap demand spikes (heating) and cooling-degree-day demand (electricity for AC).",
+      "related_series": [
+        "aUSNG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOICRA",
+      "description": "Production, Crude Oil Inputs into Refineries, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "Crude oil inputs into refineries, absolute change (weekly) — pace of refinery throughput change.",
+      "how_to_use": "Captures refinery activity changes. Maintenance turnarounds (spring + fall) drop runs by 1-2 mb/d temporarily; hurricanes (Aug-Oct Gulf Coast) similar magnitude. Watch for unscheduled drops as supply-disruption signal.",
+      "related_series": [
+        "aUSEIACR",
+        "aUSOIRUA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIDOA",
+      "description": "Production, Distillate, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "Distillate production, absolute change (weekly) — pace of diesel + heating oil output change.",
+      "how_to_use": "Track for distillate-supply tightness signals. Elevated demand + flat production = tightening market. Diesel demand correlates with trucking/freight (real-economy proxy).",
+      "related_series": [
+        "aUSEIADP",
+        "aUSOIDOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCOAL",
+      "description": "Production, EIA, Coal, Total U.S.",
+      "frequency": "P1M",
+      "subcategory": "Coal",
+      "units": "Thousand short tons",
+      "meaning": "EIA coal production, total US.",
+      "how_to_use": "Long-term decline. Down >50% from 2008 peak. Replaced by gas + renewables.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIACR",
+      "description": "Production, EIA, Crude Oil Inputs into Refineries",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "EIA weekly crude oil inputs into refineries — refinery throughput. Largest single use of US crude. Demand pulse for crude-oil markets.",
+      "how_to_use": "Tracks domestic crude demand at the refinery gate. Seasonal: peaks in summer driving season, troughs in fall maintenance turnarounds. Compare to refinery capacity utilization for slack-vs-tightness signal. Cross-check against API weekly numbers (aUSOIARA).",
+      "related_series": [
+        "aUSOIARA",
+        "aUSEIADP",
+        "aUSOIRUA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIADP",
+      "description": "Production, EIA, Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "EIA weekly distillate fuel oil production — diesel + heating oil output from US refineries. Released in EIA Weekly Petroleum Status Report each Wednesday.",
+      "how_to_use": "Diesel demand is freight-driven (trucking + rail), a real-economy proxy. Heating oil demand is winter-weather-driven (Northeast US). Tight diesel supply in 2022 drove crack spreads to record highs — track distillate inventories alongside.",
+      "related_series": [
+        "aUSOIDOA",
+        "aUSEIACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAGP",
+      "description": "Production, EIA, Gasoline",
+      "frequency": "P1M",
+      "subcategory": "Refining",
+      "units": "Thousand barrels/day",
+      "meaning": "EIA gasoline production.",
+      "how_to_use": "Gasoline output — pairs with stocks for refining-margin analysis.",
+      "related_series": [
+        "aUSEIAGS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPRU",
+      "description": "Production, EIA, Refinery Capacity Utilization",
+      "frequency": "P1M",
+      "subcategory": "Refining",
+      "units": "%",
+      "meaning": "EIA Refinery Capacity Utilization. 85-95% normal range.",
+      "how_to_use": "Drops sharply during hurricane season (Gulf shut-ins) and spring/fall maintenance (turnarounds). Pair refinery inputs with crude imports + crude production for fundamental balance. Below 85% = excess capacity, weak crack spreads.",
+      "related_series": [
+        "aUSEIACS",
+        "aUSEIAGS",
+        "aUSEIADS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIGOA",
+      "description": "Production, Gasoline, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "Gasoline production, absolute change (weekly) — pace of gasoline output change. Tracks driving-season supply response.",
+      "how_to_use": "Refineries shift product slate seasonally — more gasoline in summer, more distillate in winter. Watch for unusual divergences from seasonal pattern.",
+      "related_series": [
+        "aUSEIACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOIRUA",
+      "description": "Production, Refinery Capacity Utilization, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "%, weekly change",
+      "meaning": "Refinery capacity utilization, weekly absolute change — pace of refinery slack tightening or loosening. EIA Weekly Petroleum Status Report.",
+      "how_to_use": "Refinery utilization ~85-95% in normal operation. Hurricanes (Gulf Coast) and maintenance turnarounds drive temporary drops. Sustained sub-85% suggests demand softness or capacity loss; sustained 95%+ flags capacity constraint and crack-spread expansion.",
+      "related_series": [
+        "aUSEIACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOICCA",
+      "description": "Stock Levels, Cushing, Oklahoma Crude Oil excluding SPR, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Cushing Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Cushing OK crude oil stocks ex-SPR, absolute change WoW.",
+      "how_to_use": "WTI futures-deliverable supply. Below 25M bbl = tank tops empty risk.",
+      "related_series": [
+        "aUSSCCO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILHA",
+      "description": "Stock Levels, Distillate over 500 ppm sulfur, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "Stock levels, distillate over 500ppm sulfur, absolute change — high-sulfur distillate inventory pace of change.",
+      "how_to_use": "Smaller specialty market. Track for bunker fuel and non-road diesel supply dynamics. Mainstream ULSD inventory (aUSOILDA) is the meaningful market gauge.",
+      "related_series": [
+        "aUSEIADS500"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOICIA",
+      "description": "Stock Levels, EIA Weekly Crude Imports",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels/day",
+      "meaning": "EIA weekly crude oil imports stock levels — companion to import flow (aUSEIACI). Tracks aggregate US-bound crude inventory.",
+      "how_to_use": "Use the flow series (aUSEIACI) for high-frequency tracking. Levels reflect logistics pipeline (in-transit cargoes plus port stocks).",
+      "related_series": [
+        "aUSEIACI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSCCO",
+      "description": "Stock Levels, EIA, Cushing, Oklahoma Crude Oil excluding SPR",
+      "frequency": "P1M",
+      "subcategory": "Crude Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Cushing OK crude oil stocks ex-SPR — WTI futures delivery point. The most-watched single inventory location.",
+      "how_to_use": "Below 25M bbl = tank tops empty risk; above 80M = oversupply. WTI-Brent spread widens (WTI discount) when Cushing is full; narrows when low.",
+      "related_series": [
+        "aUSEIACS",
+        "aUSEIAHOS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIADS500",
+      "description": "Stock Levels, EIA, Distillate over 500 ppm sulfur",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA weekly distillate stocks (>500ppm sulfur) — non-ULSD high-sulfur distillate. Used in non-road/marine fuel and some heating applications.",
+      "how_to_use": "Smaller pool than ULSD (the dominant US diesel grade). Track for non-road fuel market dynamics. Mostly relevant to specialty-fuel markets and bunker-fuel applications.",
+      "related_series": [
+        "aUSOILHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAGS",
+      "description": "Stock Levels, EIA, Gasoline",
+      "frequency": "P1M",
+      "subcategory": "Gasoline Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Total US Gasoline Stocks. Released weekly with EIA petroleum status report.",
+      "how_to_use": "Builds during winter (low driving demand), draws during summer (peak driving). Below 5-year range = bullish gasoline cracks. Pre-Memorial Day stock builds often signal weak demand or oversupply.",
+      "related_series": [
+        "aUSEIACS",
+        "aUSEPGAPG",
+        "aUSEIAPRU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADD1",
+      "description": "Stock Levels, EIA, PADD 1 Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 1 (East Coast) — distillate inventories in PADD 1 (Northeast US). Heating-oil-heavy due to NE residential heating demand.",
+      "how_to_use": "Most weather-sensitive PADD for distillate. Cold winter draws drive product imports from Europe. PADD 1 supply matters for Northeast heating-oil prices and fuel-oil markets.",
+      "related_series": [
+        "aUSEIAPADDA",
+        "aUSOILHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADDA",
+      "description": "Stock Levels, EIA, PADD 1A Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 1A (New England) — sub-region of PADD 1. Highest heating-oil exposure (Maine through Connecticut).",
+      "how_to_use": "Most weather-driven inventory in US. Mild winters → builds; cold snaps → severe draws. Heating-oil dealer inventory turnover is key real-time indicator.",
+      "related_series": [
+        "aUSEIAPADDB",
+        "aUSEIAPADD1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADDB",
+      "description": "Stock Levels, EIA, PADD 1B Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 1B (Mid-Atlantic) — NY, NJ, PA, DE, MD region. Mix of heating and trucking demand.",
+      "how_to_use": "More commercial/trucking-driven than PADD 1A. Pipeline-supplied (Colonial Pipeline). Watch for major pipeline disruptions impacting Mid-Atlantic supply.",
+      "related_series": [
+        "aUSEIAPADDA",
+        "aUSEIAPADDC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADDC",
+      "description": "Stock Levels, EIA, PADD 1C Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 1C (Lower Atlantic) — VA through FL. Less heating exposure than upper PADD 1; more trucking/agricultural demand.",
+      "how_to_use": "Pipeline + local refinery supplied. Hurricane-season disruptions (Aug-Oct) can sharply tighten regional supply.",
+      "related_series": [
+        "aUSEIAPADDB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADD2",
+      "description": "Stock Levels, EIA, PADD 2 Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 2 (Midwest) — Midwest US distillate inventory. Trucking/agriculture-heavy demand profile.",
+      "how_to_use": "Pipeline-supplied from Gulf Coast. Watch for tightness during ag-harvest periods (Sep-Nov) when farm diesel demand surges.",
+      "related_series": [
+        "aUSEIAPADD1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADD3",
+      "description": "Stock Levels, EIA, PADD 3 Distillate",
+      "frequency": "P1M",
+      "subcategory": "PADD Stocks",
+      "units": "Thousand barrels",
+      "meaning": "PADD 3 (Gulf Coast) distillate stocks.",
+      "how_to_use": "Largest refining region. Gulf Coast crack spreads pricing reference.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADD4",
+      "description": "Stock Levels, EIA, PADD 4 Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 4 (Rocky Mountains) — small-volume PADD with limited refining capacity. Mostly truck/rail-supplied.",
+      "how_to_use": "Smallest PADD by distillate inventory. Local supply tightness can drive regional price spikes (Western Slope CO, MT, WY). Less liquid market than coastal PADDs.",
+      "related_series": [
+        "aUSEIAPADD5"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAPADD5",
+      "description": "Stock Levels, EIA, PADD 5 Distillate",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "EIA distillate stocks, PADD 5 (West Coast) — West Coast US distillate inventory. CARB-spec fuel requirements complicate cross-PADD product transfers.",
+      "how_to_use": "Insulated from other PADDs by quality requirements. CARB diesel standards mean West Coast inventory is functionally separate market. Watch for CA-specific supply/demand events.",
+      "related_series": [
+        "aUSEIAPADD4"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAREF",
+      "description": "Stock Levels, EIA, Reformulated Gasoline",
+      "frequency": "P1M",
+      "subcategory": "Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Reformulated gasoline stocks.",
+      "how_to_use": "RBOB grade — summer-spec gasoline. Tightens approaching summer driving.",
+      "related_series": [
+        "aUSEIAGS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIAHOS",
+      "description": "Stock Levels, EIA, Strategic Petroleum Reserve",
+      "frequency": "P1M",
+      "subcategory": "SPR",
+      "units": "Thousand barrels",
+      "meaning": "Strategic Petroleum Reserve stocks. Drained ~200M bbl in 2022 (Russia/Ukraine response under Biden admin). Refilling has been slow.",
+      "how_to_use": "Below 350M bbl is historically low. Refill pace (target $67-72/bbl) tested by oil price moves. SPR can release ~1M bbl/day for sustained periods.",
+      "related_series": [
+        "aUSEIACS",
+        "aUSSCCO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIACS",
+      "description": "Stock Levels, EIA, Total Crude Oil excluding SPR",
+      "frequency": "P1M",
+      "subcategory": "Crude Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Total US Crude Oil Stocks excluding SPR — EIA weekly Wednesday release. The single most market-watched US oil-inventory series.",
+      "how_to_use": "Big surprises vs API/consensus drive WTI intraday by 2-5%. Cushing-specific stocks (aUSSCCO) matter most for WTI futures (delivery point). Below 25M bbl Cushing = tank-tops empty risk; above 80M = oversupply pressure.",
+      "related_series": [
+        "aUSSCCO",
+        "aUSEIAGS",
+        "aUSEIAHOS",
+        "aUSEIAPRU"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEIADS",
+      "description": "Stock Levels, EIA, Total Distillate",
+      "frequency": "P1M",
+      "subcategory": "Distillate Stocks",
+      "units": "Thousand barrels",
+      "meaning": "Total US Distillate Stocks (diesel + heating oil). Industrial + freight + winter heating demand.",
+      "how_to_use": "Winter heating-oil cushion gauge — heavily watched in Q4. Distillate cracks often diverge from gasoline cracks based on freight cycle (diesel) vs travel cycle (gasoline).",
+      "related_series": [
+        "aUSEIACS",
+        "aUSEPDAPG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILGA",
+      "description": "Stock Levels, Gasoline, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "Gasoline stock levels, absolute change (weekly) — pace of gasoline-inventory change.",
+      "how_to_use": "Negative readings (draws) common in summer driving season; positive (builds) in winter. Below seasonal norm = tight market = price-supportive. Pair with refining margins for crack-spread direction.",
+      "related_series": [
+        "aUSOIAGA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILNA",
+      "description": "Stock Levels, Natural Gas in Underground Storage, Lower 48 States, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Natural Gas",
+      "units": "Bcf",
+      "meaning": "Natural gas in underground storage, Lower 48, absolute change.",
+      "how_to_use": "Weekly NG storage change. Inverse of demand minus production.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILRA",
+      "description": "Stock Levels, Reformulated Gasoline, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "Reformulated gasoline (RFG) stock levels, absolute change — RFG is used in major metro areas (CA, NY, NJ, etc.) for clean-air requirements.",
+      "how_to_use": "Smaller stock pool than conventional gasoline. Track for regional supply tightness in metro markets. Subject to specific summer-blend mandates (RVP rules) that drive seasonal shifts.",
+      "related_series": [
+        "aUSOILGA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILCA",
+      "description": "Stock Levels, Total Crude Oil excluding SPR, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "Total Crude Oil stock levels (excluding SPR), absolute change — week-over-week change in commercial crude inventory.",
+      "how_to_use": "Build vs draw is the key oil-price-driving signal. Builds = bearish (oversupply); draws = bullish (tightness). Winter: typically builds; spring: typically draws. Seasonality matters.",
+      "related_series": [
+        "aUSOIACA",
+        "aUSEIAC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOILDA",
+      "description": "Stock Levels, Total Distillate, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Million barrels",
+      "meaning": "Total Distillate stock levels, absolute change — week-over-week change in diesel + heating oil inventory.",
+      "how_to_use": "Build/draw signal for distillate market. Trucking-demand-driven year-round + heating-demand seasonal Q4. Watch for tight readings as diesel-crack-spread expansion signal.",
+      "related_series": [
+        "aUSOIADA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSETHES",
+      "description": "Weekly U.S. Ending Stocks of Fuel Ethanol, Commodity Fundamentals, Weekly, EIA - Energy Information Administration, United States",
+      "frequency": "P1M",
+      "subcategory": "Ethanol",
+      "units": "Thousand barrels",
+      "meaning": "US ending stocks of fuel ethanol — weekly.",
+      "how_to_use": "Ethanol blendstock. Tied to gasoline demand and corn prices.",
+      "related_series": [
+        "aUSWPETHES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWPETHES",
+      "description": "Weekly U.S. Oxygenate Plant Production of Fuel Ethanol, Commodity Fundamentals, Weekly, EIA - Energy Information Administration, United States",
+      "frequency": "P1M",
+      "subcategory": "Energy",
+      "units": "Thousand barrels",
+      "meaning": "Weekly US oxygenate plant production of fuel ethanol — domestic ethanol production for gasoline blending (E10, E15, E85).",
+      "how_to_use": "RFS (Renewable Fuel Standard) mandates drive ~13B gallons/year. Corn-price-sensitive on input side. Track for ag-policy implications: corn demand for ethanol affects food prices.",
+      "related_series": [
+        "aUSEIACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOESNA",
+      "description": "Soybeanoil Exp Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Ag Trade",
+      "units": "Thousand metric tons",
+      "meaning": "Soybean oil export sales, net.",
+      "how_to_use": "Weekly USDA Export Sales report. Drives soyoil futures.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

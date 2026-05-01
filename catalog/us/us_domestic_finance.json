@@ -1,0 +1,585 @@
+{
+  "category": "Domestic Finance",
+  "category_slug": "us_domestic_finance",
+  "section": "Money & Finance",
+  "source_file": "US_Domestic Finance.xlsx",
+  "ric_count": 41,
+  "rics": [
+    {
+      "ric": "aUSBNQB11P",
+      "description": "BANKRUPTCY FILINGS, BUSINESS, CHAPTER 11 (QUARTERLY FILINGS)",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings",
+      "meaning": "Chapter 11 business bankruptcy filings, quarterly.",
+      "how_to_use": "Reorganization filings. Big-cap Ch.11 cases (large notional debt) more market-relevant than counts.",
+      "related_series": [
+        "aUSBNQ11P",
+        "aUSBFILB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBNQ11P",
+      "description": "BANKRUPTCY FILINGS, TOTAL CHAPTER 11 (QUARTERLY FILINGS)",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Quarterly filings",
+      "meaning": "Total Chapter 11 bankruptcy filings — corporate reorganizations under federal bankruptcy code. Companies filing here aim to restructure debt while continuing operations (vs Ch 7 liquidation).",
+      "how_to_use": "Cyclical late-cycle stress signal — peaks 6-12 months after recession start. Major filings (Hertz 2020, JCPenney 2020, SVB 2023) drive headline numbers but small-business filings give cleaner cycle signal. Pre-2008 norm ~3,000/quarter; post-2010 ~2,000/quarter.",
+      "related_series": [
+        "aUSBFILB",
+        "aUSBFILNB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBFILB",
+      "description": "Bankruptcy filings (12 months ending), business, total",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings, 12-month rolling",
+      "meaning": "Total business bankruptcy filings, rolling 12-month — Chapter 7 (liquidation) + Chapter 11 (reorg) + Chapter 13 + Chapter 12 (farm). Smoother than quarterly; better for cycle reads.",
+      "how_to_use": "12-month rolling smooths volatility. Track YoY change for cycle signal: rising YoY indicates corporate stress accumulating. SBA-loan defaults flow into this stat with 6-9 month lag.",
+      "related_series": [
+        "aUSBFILNB",
+        "aUSBNQ11P"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBFILNB",
+      "description": "Bankruptcy filings (12 months ending), non-business, total",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings, 12-month rolling",
+      "meaning": "Total non-business (consumer/personal) bankruptcy filings, rolling 12-month — Chapter 7 + Chapter 13 personal filings. Larger volume than business filings (~400-500K/year vs ~25K/year).",
+      "how_to_use": "Consumer-stress gauge. Spiked 2003-05 (record 2M filings before reform), fell post-2005 BAPCPA reform, low post-2010. Watch alongside credit-card delinquencies — bankruptcies lag delinquencies by 6-12 months.",
+      "related_series": [
+        "aUSBFILB",
+        "aUSCRDDLQA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLAGQ/A",
+      "description": "Charge-Off Rates, all banks, agricultural loans",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Charge-off rate, all banks, agricultural loans — share of ag loans deemed uncollectible. Quarterly FDIC release. Small loan book (~$80B) but cyclically sensitive to commodity prices.",
+      "how_to_use": "Track for ag-cycle stress. Spikes when crop prices fall sharply (1986 farm crisis, 2015-16 commodity downturn). Currently low. Combined with ag-real-estate values, signals farm-sector financial health.",
+      "related_series": [
+        "aUSBCLALQ/A",
+        "aUSBDLAGQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLCAIQ/A",
+      "description": "Charge-Off Rates, all banks, commercial and industrial loans",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank charge-off rate, C&I loans.",
+      "how_to_use": "Business credit-loss gauge. Rises ~6-12 months after recession start.",
+      "related_series": [
+        "aUSBDLCAIQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLCOQ/A",
+      "description": "Charge-Off Rates, all banks, consumer loans, all",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank charge-off rate, total consumer loans.",
+      "how_to_use": "Consumer credit losses — leading sign of household stress.",
+      "related_series": [
+        "aUSBCLCOCQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLCOCQ/A",
+      "description": "Charge-Off Rates, all banks, consumer loans, credit cards",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank Charge-off Rate, credit cards. Most pro-cyclical loan category.",
+      "how_to_use": "Crossing 4% historically signals recession-like consumer stress. Currently elevated, especially subprime. Card delinquencies (aUSBDLCOCQ/A) lead charge-offs by 3-6 months.",
+      "related_series": [
+        "aUSBDLCOCQ/A",
+        "aUSCRCDACR",
+        "aUSCREDITIR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLCOOQ/A",
+      "description": "Charge-Off Rates, all banks, consumer loans, other",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Charge-off rate, all banks, consumer loans (other) — auto loans + personal loans + other non-card consumer credit. Excludes credit cards (separate series) and mortgages.",
+      "how_to_use": "Auto-loan-driven mostly. Subprime auto charge-offs are the leading edge — rising ahead of broader consumer stress. Track alongside auto-loan-90+-day delinquencies (NY Fed) for triangulated read.",
+      "related_series": [
+        "aUSBCLALQ/A",
+        "aUSBDLCOOQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLEASQ/A",
+      "description": "Charge-Off Rates, all banks, leases",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Charge-off rate, all banks, leases — equipment leasing exposures. Smaller portfolio than C&I loans (~$120B at large banks).",
+      "how_to_use": "Cyclical with capex cycles. Equipment leases (cars, trucks, machinery) charge off in slowdowns when small businesses fail. Watch alongside C&I charge-offs for full business-credit quality picture.",
+      "related_series": [
+        "aUSBCLCAIQ/A",
+        "aUSBDLEASQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLREQ/A",
+      "description": "Charge-Off Rates, all banks, real estate loans, all",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank charge-off rate, real estate.",
+      "how_to_use": "Combined residential + CRE charge-offs. CRE-led elevation now.",
+      "related_series": [
+        "aUSBCLRECQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLRECQ/A",
+      "description": "Charge-Off Rates, all banks, real estate loans, commercial",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank Charge-off Rate, CRE (commercial real estate). Heavy office/retail CRE losses post-COVID.",
+      "how_to_use": "Bank stress concentrated here for regional banks (large banks have less CRE exposure). Office is the worst sub-sector; multifamily improving; industrial healthy. Watch alongside CMBS spreads.",
+      "related_series": [
+        "aUSBDLRECQ/A",
+        "aUSBCAREB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLRERQ/A",
+      "description": "Charge-Off Rates, all banks, real estate loans, residential",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Bank charge-off rate, residential real estate.",
+      "how_to_use": "Mortgage charge-offs — historically low (mortgage credit standards strict post-2008).",
+      "related_series": [
+        "aUSBCLREQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCLALQ/A",
+      "description": "Charge-Off rates, all banks, total loans and leases",
+      "frequency": "P3M",
+      "subcategory": "Charge-offs",
+      "units": "%",
+      "meaning": "Total Bank Charge-off Rate, all loans and leases. Aggregate bank-credit-loss gauge from FDIC quarterly.",
+      "how_to_use": "Counter-cyclical: rises ~6-12 months after recession start. Currently elevated but well below 2008 levels. Card + CRE driving recent increase; mortgage charge-offs remain very low (mortgage credit standards strict post-GFC).",
+      "related_series": [
+        "aUSBCLCOCQ/A",
+        "aUSBCLRECQ/A",
+        "aUSBDLALQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLRECQ/A",
+      "description": "Delinquency rates, all banks, Real estate loans, commercial",
+      "frequency": "P3M",
+      "subcategory": "Delinquencies",
+      "units": "%",
+      "meaning": "CRE 30-day delinquency rate. Office sector driving elevation post-2022.",
+      "how_to_use": "Watch alongside CMBS spreads + special-servicing transfers. CRE loan defaults are slow-moving (loans don't reset until refinancing); the wave of 2024-26 maturities is the test.",
+      "related_series": [
+        "aUSBCLRECQ/A",
+        "aUSBCAREB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLAGQ/A",
+      "description": "Delinquency rates, all banks, agricultural loans",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, agricultural loans — share of ag loans 30+ days past due. Leading indicator for charge-offs (charge-offs follow delinquencies by 6-12 months).",
+      "how_to_use": "Watch for ag-cycle stress. Sustained rise above 2% historically signals farm-credit downturn. Crop prices (corn, soybean, wheat) drive farmer cash flow — track alongside USDA crop forecasts.",
+      "related_series": [
+        "aUSBCLAGQ/A",
+        "aUSBDLALQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLCAIQ/A",
+      "description": "Delinquency rates, all banks, commercial and industrial loans",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, commercial and industrial loans — share of C&I loans 30+ days past due. Leading indicator of corporate-credit cycle.",
+      "how_to_use": "Pre-recession warning: rising delinquencies precede rising charge-offs by 6-12 months. Currently elevated but below 2008 peak. SLOOS lending standards typically lead delinquencies by 1-2 quarters.",
+      "related_series": [
+        "aUSBCLCAIQ/A",
+        "aUSBCLALQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLCOQ/A",
+      "description": "Delinquency rates, all banks, consumer loans, all",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, consumer loans (all) — share of consumer loans 30+ days past due. Comprehensive consumer-credit-stress gauge.",
+      "how_to_use": "Pre-2008 norm ~3-3.5%; 2008-09 peaked ~5%; post-recovery ~2%. Currently rising from 2022 lows as student-loan resumption + auto-loan stress feed through. Watch alongside subcategory delinquency rates for stress source.",
+      "related_series": [
+        "aUSBCLALQ/A",
+        "aUSBDLREQ/A",
+        "aUSBDLEASQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLCOCQ/A",
+      "description": "Delinquency rates, all banks, consumer loans, credit cards",
+      "frequency": "P3M",
+      "subcategory": "Delinquencies",
+      "units": "%",
+      "meaning": "Credit card 30-day delinquency rate. Most pro-cyclical loan category.",
+      "how_to_use": "Crossing 3% historically signals recession risk; now ~3.2% in 2024. Subprime card delinquencies are running much higher (~7%+). Watch alongside disposable income growth — delinquencies rise when real DPI growth turns negative.",
+      "related_series": [
+        "aUSBCLCOCQ/A",
+        "aUSCREDITIR/A",
+        "aUSCRCDACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLCOOQ/A",
+      "description": "Delinquency rates, all banks, consumer loans, other",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, consumer loans (other) — auto + personal loans + other non-card consumer credit. Excludes credit cards (separate series) and mortgages.",
+      "how_to_use": "Auto-loan-driven mostly. Subprime auto delinquencies are the leading edge — rising ahead of broader consumer stress. Track alongside aUSBCLCOOQ/A (charge-offs) for the full credit-cycle.",
+      "related_series": [
+        "aUSBCLCOOQ/A",
+        "aUSBDLCOQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLEASQ/A",
+      "description": "Delinquency rates, all banks, leases",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, leases — equipment lease delinquencies. Smaller portfolio than C&I loans (~$120B at large banks).",
+      "how_to_use": "Cyclical with capex cycles. Equipment leases (cars, trucks, machinery) become delinquent in slowdowns when small businesses fail. Watch alongside C&I delinquencies for full business-credit-quality picture.",
+      "related_series": [
+        "aUSBCLEASQ/A",
+        "aUSBDLCAIQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLREQ/A",
+      "description": "Delinquency rates, all banks, real estate loans, all",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, real estate loans (all) — combines residential mortgages + CRE delinquencies.",
+      "how_to_use": "Aggregate housing-finance stress gauge. CRE-driven recently (office sector); residential delinquencies very low post-Dodd-Frank QM rules. Decompose into residential vs CRE for clean signal.",
+      "related_series": [
+        "aUSBDLRERQ/A",
+        "aUSBCLAREQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLRERQ/A",
+      "description": "Delinquency rates, all banks, real estate loans, residential",
+      "frequency": "P3M",
+      "subcategory": "Bank Credit Quality",
+      "units": "%",
+      "meaning": "Delinquency rate, all banks, residential real estate loans — single-family + multifamily mortgage delinquencies. Pure residential housing-credit gauge.",
+      "how_to_use": "Very low post-2010 due to QM rules + locked-in low fixed rates. 2008 peak was ~12%; now ~1.5%. Most US homeowners locked in 3-4% mortgages 2020-21 — virtually no delinquency stress despite rate hikes.",
+      "related_series": [
+        "aUSBDLREQ/A",
+        "aUSMGFSHQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBDLALQ/A",
+      "description": "Delinquency rates, all banks, total loans and leases",
+      "frequency": "P3M",
+      "subcategory": "Delinquencies",
+      "units": "%",
+      "meaning": "Total Bank Loan Delinquency Rate. Earlier-stage stress signal than charge-offs.",
+      "how_to_use": "Watch alongside SLOOS lending standards. Delinquencies rising while standards tightening = rough cycle (banks defensive but borrowers still struggling).",
+      "related_series": [
+        "aUSBCLALQ/A",
+        "aUSBDLCOCQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGFSHQ/A",
+      "description": "All Loans, Foreclosures Started",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Stress",
+      "units": "%",
+      "meaning": "All loans, foreclosures started — share of mortgages entering foreclosure during the period. MBA quarterly National Delinquency Survey.",
+      "how_to_use": "Most-direct mortgage-stress gauge. Pre-2008 ~0.5%; peaked ~1.5% in 2009; post-recovery ~0.2%. Currently very low. Track alongside FHA/VA-specific foreclosure rates (higher stress) for credit-tier breakdown.",
+      "related_series": [
+        "aUSMGDHQ/A",
+        "aUSBDLRERQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGDHQ/A",
+      "description": "All Loans, Total Past Due",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Stress",
+      "units": "%",
+      "meaning": "All loans, total past due — share of mortgages 30+ days delinquent. Aggregate mortgage-credit-quality gauge from MBA.",
+      "how_to_use": "Sum of 30/60/90+-day delinquencies. Cyclical: rises in recessions, falls in expansions. Currently low (~3.5%) reflecting structural low-rate-locked-in protection. 2008 peak was ~10%.",
+      "related_series": [
+        "aUSMGD3HQ/A",
+        "aUSMGD6HQ/A",
+        "aUSMGD9HQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGFIHR",
+      "description": "All loans in foreclosure at end of quarter",
+      "frequency": "P3M",
+      "subcategory": "Foreclosures",
+      "units": "%",
+      "meaning": "All loans in foreclosure at end of quarter.",
+      "how_to_use": "Stock of in-process foreclosures. Plummeted with strong housing market.",
+      "related_series": [
+        "aUSMGFSHQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGD3HQ/A",
+      "description": "All loans, 30 days past due",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Stress",
+      "units": "%",
+      "meaning": "All loans, 30 days past due — early-stage mortgage delinquency. Most mortgages in this bucket cure (return to current) within 60 days.",
+      "how_to_use": "First sign of stress; cure rates ~70%. Watch the 30→60 progression rate as the meaningful credit-stress signal. Currently ~2% (vs ~5% peak in 2009).",
+      "related_series": [
+        "aUSMGD6HQ/A",
+        "aUSMGDHQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGD6HQ/A",
+      "description": "All loans, 60 days past due",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Stress",
+      "units": "%",
+      "meaning": "All loans, 60 days past due — mid-stage mortgage delinquency. Cure rates lower than 30-day (~40%); higher likelihood of progression to 90+ or foreclosure.",
+      "how_to_use": "Track for credit-cycle escalation. The 30→60 progression rate is a leading indicator of foreclosure starts. Currently ~0.7%.",
+      "related_series": [
+        "aUSMGD3HQ/A",
+        "aUSMGD9HQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGD9HQ/A",
+      "description": "All loans, 90 days past due",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Stress",
+      "units": "%",
+      "meaning": "All loans, 90+ days past due — late-stage mortgage delinquency. High probability of foreclosure absent loan modification or short sale.",
+      "how_to_use": "Most-watched mortgage-stress bucket. Currently ~0.8% (vs 5% peak in 2010). Sustained increase signals housing-credit cycle turning.",
+      "related_series": [
+        "aUSMGD6HQ/A",
+        "aUSMGFSHQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMALSO/A",
+      "description": "Loans Serviced, all",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Servicing",
+      "units": "Number",
+      "meaning": "Total Loans Serviced — number of mortgages being administered by servicers. Tracks mortgage-servicing industry size.",
+      "how_to_use": "Servicing rights are valuable assets; track for servicing-industry consolidation patterns. Slows when refinance activity is low (no new originations being serviced).",
+      "related_series": [
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGAAQ",
+      "description": "MBA Mortgage Applications, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Percent, WoW",
+      "meaning": "MBA Mortgage Applications week-over-week change — composite of purchase + refinance applications. Released Wednesdays for the prior week.",
+      "how_to_use": "Highest-frequency mortgage-demand gauge. Refinance index spikes on rate drops; purchase index follows housing-market activity. Pair with the rate level (aUSMGAR) for the rate-vs-volume relationship.",
+      "related_series": [
+        "aUSMGPIAG",
+        "aUSMGRAG",
+        "aUSMGAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGPIAG",
+      "description": "MBA Purchase Index",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Index",
+      "meaning": "MBA Purchase Index — weekly mortgage-purchase application volume. Pure home-purchase demand gauge (excludes refinance).",
+      "how_to_use": "Better real-estate-demand gauge than headline MBA index. Falls before existing home sales (purchase apps lead closings by 30-60 days). Currently weak as elevated rates suppress purchase demand.",
+      "related_series": [
+        "aUSMGRAG",
+        "aUSEXHSAL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGMAG",
+      "description": "Mortgage Market Index",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Index",
+      "meaning": "MBA Mortgage Market Index — composite of purchase + refinance volumes. Headline mortgage-application gauge.",
+      "how_to_use": "Volatile due to refi-rate-sensitivity. Refi spikes (when rates drop sharply) drive index moves but matter less for housing-market activity than purchase apps. Decompose to purchase + refi for clean signal.",
+      "related_series": [
+        "aUSMGPIAG",
+        "aUSMGRAG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMGRAG",
+      "description": "Mortgage Refinance Index",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Index",
+      "meaning": "MBA Mortgage Refinance Index — weekly refinance application volume. Highly rate-sensitive: 50bp drop in rates can drive 50% spike in this index.",
+      "how_to_use": "Refi applications signal household interest in lowering payments. Most-locked-in borrowers from 2020-21 lows have no incentive to refi until rates fall toward 5%. Currently very low.",
+      "related_series": [
+        "aUSMGPIAG",
+        "aUSMGAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMAH/A",
+      "description": "Mortgage applications, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Percent, WoW",
+      "meaning": "Mortgage applications week-over-week change — same conceptual measure as aUSMGAAQ. Cross-check series.",
+      "how_to_use": "Use whichever is fresher. The MBA index is the standard benchmark for high-frequency mortgage activity.",
+      "related_series": [
+        "aUSMGAAQ",
+        "aUSMGMAG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMTCMI/A",
+      "description": "Mortgage applications, conventional market index, refinancing",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Index",
+      "meaning": "MBA Conventional Mortgage Market Index, refinance — refinance applications for conventional (non-government-insured) mortgages.",
+      "how_to_use": "Conventional-borrower-segment refinance gauge. Cleaner signal than total refi (excludes FHA/VA streamline programs which have different drivers).",
+      "related_series": [
+        "aUSMTGMI/A",
+        "aUSMGRAG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMTGMI/A",
+      "description": "Mortgage applications, government market index, refinancing",
+      "frequency": "P1M",
+      "subcategory": "Mortgage Demand",
+      "units": "Index",
+      "meaning": "MBA Government Mortgage Market Index, refinance — refinance applications for government-insured (FHA/VA/USDA) mortgages.",
+      "how_to_use": "Government-program borrower segment. FHA streamline refi is rate-sensitive even at small rate drops because FHA is a fixed-spread market. Useful for tracking lower-credit-quality borrower behavior.",
+      "related_series": [
+        "aUSMTCMI/A",
+        "aUSMGRAG"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMACI/A",
+      "description": "Mortgage applications, market composite index",
+      "frequency": "P1M",
+      "subcategory": "MBA Apps",
+      "units": "Index",
+      "meaning": "MBA Mortgage Applications Composite Index — weekly Mortgage Bankers Association survey. Real-time housing-finance demand.",
+      "how_to_use": "Composite of purchase + refi indices. Most cyclical when refi-driven (rate-cycle bellwether — surges when rates fall). Purchase index is the cleaner housing-demand gauge.",
+      "related_series": [
+        "aUSMACP/A",
+        "aUSMACRI/A",
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMACP/A",
+      "description": "Mortgage applications, market composite index, purchase",
+      "frequency": "P1M",
+      "subcategory": "MBA Apps",
+      "units": "Index",
+      "meaning": "MBA Purchase Mortgage Applications Index — purchase only (excludes refi). The cleanest housing-demand-side gauge.",
+      "how_to_use": "Leads existing home sales by 1-2 months. Less rate-sensitive than refi but still rate-driven. Affordability (aUSHAI) drives multi-quarter trends.",
+      "related_series": [
+        "aUSMACI/A",
+        "aUSEHSPAR",
+        "aUSHAI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMACRI/A",
+      "description": "Mortgage applications, market composite index, refinancing",
+      "frequency": "P1M",
+      "subcategory": "MBA Apps",
+      "units": "Index",
+      "meaning": "MBA Refinance Mortgage Applications Index. Highly rate-sensitive — surges when rates fall ~50bp from local peak.",
+      "how_to_use": "Refi waves are the canonical mortgage-rate-cycle indicator. Most outstanding mortgages have low locked-in rates (pre-2022 issuance), so refi index requires rates to fall well below 6% to reactivate.",
+      "related_series": [
+        "aUSMACI/A",
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    }
+  ]
+}

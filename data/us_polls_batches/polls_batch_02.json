@@ -1,0 +1,743 @@
+{
+  "batch_id": 2,
+  "name": "ISM Surveys & Business Activity",
+  "ric_count": 92,
+  "rics": [
+    {
+      "ric": "USPMI=ECI",
+      "description": "ISM Manufacturing PMI — Actual",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=M",
+      "description": "ISM Manufacturing PMI — Median Consensus",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=F",
+      "description": "ISM Manufacturing PMI — SmartEconomics Forecast",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=P",
+      "description": "ISM Manufacturing PMI — Predicted Surprise",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=E",
+      "description": "ISM Manufacturing PMI — Mean Forecast",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=O",
+      "description": "ISM Manufacturing PMI — Mode Forecast",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=L",
+      "description": "ISM Manufacturing PMI — Min Forecast",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=H",
+      "description": "ISM Manufacturing PMI — Max Forecast",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=T",
+      "description": "ISM Manufacturing PMI — Forecast Standard Deviation",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSPMI=C",
+      "description": "ISM Manufacturing PMI — Number of Forecasters",
+      "indicator": "ISM Manufacturing PMI",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USISME=ECI",
+      "description": "ISM Manuf Employment Idx — Actual",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISME=M",
+      "description": "ISM Manuf Employment Idx — Median Consensus",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=F",
+      "description": "ISM Manuf Employment Idx — SmartEconomics Forecast",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=P",
+      "description": "ISM Manuf Employment Idx — Predicted Surprise",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=E",
+      "description": "ISM Manuf Employment Idx — Mean Forecast",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=O",
+      "description": "ISM Manuf Employment Idx — Mode Forecast",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P6M"
+    },
+    {
+      "ric": "pUSISME=L",
+      "description": "ISM Manuf Employment Idx — Min Forecast",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=H",
+      "description": "ISM Manuf Employment Idx — Max Forecast",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=T",
+      "description": "ISM Manuf Employment Idx — Forecast Standard Deviation",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "pUSISME=C",
+      "description": "ISM Manuf Employment Idx — Number of Forecasters",
+      "indicator": "ISM Manuf Employment Idx",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "USISMP=ECI",
+      "description": "ISM Mfg Prices Paid — Actual",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=M",
+      "description": "ISM Mfg Prices Paid — Median Consensus",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=F",
+      "description": "ISM Mfg Prices Paid — SmartEconomics Forecast",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=P",
+      "description": "ISM Mfg Prices Paid — Predicted Surprise",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=E",
+      "description": "ISM Mfg Prices Paid — Mean Forecast",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=O",
+      "description": "ISM Mfg Prices Paid — Mode Forecast",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=L",
+      "description": "ISM Mfg Prices Paid — Min Forecast",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=H",
+      "description": "ISM Mfg Prices Paid — Max Forecast",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=T",
+      "description": "ISM Mfg Prices Paid — Forecast Standard Deviation",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSISMP=C",
+      "description": "ISM Mfg Prices Paid — Number of Forecasters",
+      "indicator": "ISM Mfg Prices Paid",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USNPMI=ECI",
+      "description": "ISM N-Mfg PMI — Actual",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=M",
+      "description": "ISM N-Mfg PMI — Median Consensus",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=F",
+      "description": "ISM N-Mfg PMI — SmartEconomics Forecast",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=P",
+      "description": "ISM N-Mfg PMI — Predicted Surprise",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=E",
+      "description": "ISM N-Mfg PMI — Mean Forecast",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=O",
+      "description": "ISM N-Mfg PMI — Mode Forecast",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=L",
+      "description": "ISM N-Mfg PMI — Min Forecast",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=H",
+      "description": "ISM N-Mfg PMI — Max Forecast",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=T",
+      "description": "ISM N-Mfg PMI — Forecast Standard Deviation",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNPMI=C",
+      "description": "ISM N-Mfg PMI — Number of Forecasters",
+      "indicator": "ISM N-Mfg PMI",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USEPMI=ECI",
+      "description": "ISM N-Mfg Employment Idx — Actual",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSEPMI=M",
+      "description": "ISM N-Mfg Employment Idx — Median Consensus",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=F",
+      "description": "ISM N-Mfg Employment Idx — SmartEconomics Forecast",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=P",
+      "description": "ISM N-Mfg Employment Idx — Predicted Surprise",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=E",
+      "description": "ISM N-Mfg Employment Idx — Mean Forecast",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=O",
+      "description": "ISM N-Mfg Employment Idx — Mode Forecast",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=L",
+      "description": "ISM N-Mfg Employment Idx — Min Forecast",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=H",
+      "description": "ISM N-Mfg Employment Idx — Max Forecast",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=T",
+      "description": "ISM N-Mfg Employment Idx — Forecast Standard Deviation",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "pUSEPMI=C",
+      "description": "ISM N-Mfg Employment Idx — Number of Forecasters",
+      "indicator": "ISM N-Mfg Employment Idx",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": ""
+    },
+    {
+      "ric": "USOPMI=ECI",
+      "description": "ISM N-Mfg Bus Act — Actual",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=M",
+      "description": "ISM N-Mfg Bus Act — Median Consensus",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=F",
+      "description": "ISM N-Mfg Bus Act — SmartEconomics Forecast",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=P",
+      "description": "ISM N-Mfg Bus Act — Predicted Surprise",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=E",
+      "description": "ISM N-Mfg Bus Act — Mean Forecast",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=O",
+      "description": "ISM N-Mfg Bus Act — Mode Forecast",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P6M"
+    },
+    {
+      "ric": "pUSOPMI=L",
+      "description": "ISM N-Mfg Bus Act — Min Forecast",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=H",
+      "description": "ISM N-Mfg Bus Act — Max Forecast",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=T",
+      "description": "ISM N-Mfg Bus Act — Forecast Standard Deviation",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSOPMI=C",
+      "description": "ISM N-Mfg Bus Act — Number of Forecasters",
+      "indicator": "ISM N-Mfg Bus Act",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USKCMF=ECI",
+      "description": "KC Fed Manufacturing — Actual",
+      "indicator": "KC Fed Manufacturing",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USKCCI=ECI",
+      "description": "KC Fed Composite Index — Actual",
+      "indicator": "KC Fed Composite Index",
+      "statistic": "Actual",
+      "units": "Index (diffusion)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USNAHB=ECI",
+      "description": "NAHB Housing Market Indx — Actual",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Actual",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=M",
+      "description": "NAHB Housing Market Indx — Median Consensus",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Median Consensus",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=F",
+      "description": "NAHB Housing Market Indx — SmartEconomics Forecast",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=P",
+      "description": "NAHB Housing Market Indx — Predicted Surprise",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Predicted Surprise",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=E",
+      "description": "NAHB Housing Market Indx — Mean Forecast",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Mean Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=O",
+      "description": "NAHB Housing Market Indx — Mode Forecast",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Mode Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=L",
+      "description": "NAHB Housing Market Indx — Min Forecast",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Min Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=H",
+      "description": "NAHB Housing Market Indx — Max Forecast",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Max Forecast",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=T",
+      "description": "NAHB Housing Market Indx — Forecast Standard Deviation",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSNAHB=C",
+      "description": "NAHB Housing Market Indx — Number of Forecasters",
+      "indicator": "NAHB Housing Market Indx",
+      "statistic": "Number of Forecasters",
+      "units": "Index",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USIP=ECI",
+      "description": "Industrial Production MM — Actual",
+      "indicator": "Industrial Production MM",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=M",
+      "description": "Industrial Production MM — Median Consensus",
+      "indicator": "Industrial Production MM",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=F",
+      "description": "Industrial Production MM — SmartEconomics Forecast",
+      "indicator": "Industrial Production MM",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=P",
+      "description": "Industrial Production MM — Predicted Surprise",
+      "indicator": "Industrial Production MM",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=E",
+      "description": "Industrial Production MM — Mean Forecast",
+      "indicator": "Industrial Production MM",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=O",
+      "description": "Industrial Production MM — Mode Forecast",
+      "indicator": "Industrial Production MM",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=L",
+      "description": "Industrial Production MM — Min Forecast",
+      "indicator": "Industrial Production MM",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=H",
+      "description": "Industrial Production MM — Max Forecast",
+      "indicator": "Industrial Production MM",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=T",
+      "description": "Industrial Production MM — Forecast Standard Deviation",
+      "indicator": "Industrial Production MM",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSIP=C",
+      "description": "Industrial Production MM — Number of Forecasters",
+      "indicator": "Industrial Production MM",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "USFOUT=ECI",
+      "description": "Manuf Output MM — Actual",
+      "indicator": "Manuf Output MM",
+      "statistic": "Actual",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=M",
+      "description": "Manuf Output MM — Median Consensus",
+      "indicator": "Manuf Output MM",
+      "statistic": "Median Consensus",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=F",
+      "description": "Manuf Output MM — SmartEconomics Forecast",
+      "indicator": "Manuf Output MM",
+      "statistic": "SmartEconomics Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=P",
+      "description": "Manuf Output MM — Predicted Surprise",
+      "indicator": "Manuf Output MM",
+      "statistic": "Predicted Surprise",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=E",
+      "description": "Manuf Output MM — Mean Forecast",
+      "indicator": "Manuf Output MM",
+      "statistic": "Mean Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=O",
+      "description": "Manuf Output MM — Mode Forecast",
+      "indicator": "Manuf Output MM",
+      "statistic": "Mode Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=L",
+      "description": "Manuf Output MM — Min Forecast",
+      "indicator": "Manuf Output MM",
+      "statistic": "Min Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=H",
+      "description": "Manuf Output MM — Max Forecast",
+      "indicator": "Manuf Output MM",
+      "statistic": "Max Forecast",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=T",
+      "description": "Manuf Output MM — Forecast Standard Deviation",
+      "indicator": "Manuf Output MM",
+      "statistic": "Forecast Standard Deviation",
+      "units": "Percent",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "pUSFOUT=C",
+      "description": "Manuf Output MM — Number of Forecasters",
+      "indicator": "Manuf Output MM",
+      "statistic": "Number of Forecasters",
+      "units": "Percent",
+      "frequency": "P1M"
+    }
+  ]
+}

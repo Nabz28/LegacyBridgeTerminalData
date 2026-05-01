@@ -1,0 +1,69 @@
+{
+  "category": "Exchange Rates & Operations",
+  "category_slug": "id_exchange_rate_operations",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_Exchange Rate & Operations.xlsx",
+  "ric_count": 4,
+  "rics": [
+    {
+      "ric": "aIDBISNXBR",
+      "description": "BIS, Nominal Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "Index",
+      "meaning": "BIS Nominal Broad Effective Exchange Rate Index for IDR — trade-weighted IDR vs basket of trading partners' currencies, in nominal terms. Compiled by the Bank for International Settlements; rebased to 100.",
+      "how_to_use": "Better than IDR/USD alone for tracking IDR competitiveness — captures moves vs CNY, JPY, EUR, AUD, MYR, SGD (Indonesia's main trade partners). Falling NEER = IDR weakening on a trade-weighted basis. Use alongside the real EER (aIDBISRXBR) for inflation-adjusted competitiveness.",
+      "related_series": [
+        "aIDBISRXBR",
+        "aIDXRUSD",
+        "aIDCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDBISRXBR",
+      "description": "BIS, Real Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "Index",
+      "meaning": "BIS Real Broad Effective Exchange Rate Index for IDR — trade-weighted IDR adjusted for relative inflation against trading partners. The 'true' competitiveness gauge.",
+      "how_to_use": "Most analytically meaningful FX gauge. Rising real EER = IDR getting more expensive in real terms = exports become less competitive. Indonesia's real EER stayed elevated 2010-2014 (commodity supercycle) then weakened post-2015 — supporting the trade balance recovery. Watch for sustained real EER appreciation as a current-account deterioration signal.",
+      "related_series": [
+        "aIDBISNXBR",
+        "aIDXRUSD",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDOCFPP/A",
+      "description": "Purchasing power parity, National currency per USD",
+      "frequency": "P1Y",
+      "subcategory": "PPP",
+      "units": "IDR per USD",
+      "meaning": "Purchasing Power Parity, National currency per USD — same conceptual measure as aIDOAPPPGR.",
+      "how_to_use": "Cross-check series. Use either for cross-country price-level comparisons.",
+      "related_series": [
+        "aIDOAPPPGR",
+        "aIDXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDXRUSD",
+      "description": "INDONESIAN RUPIAHS TO US DOLLAR",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "IDR per USD",
+      "meaning": "Indonesian Rupiah per US Dollar — the headline IDR/USD spot rate. Daily fixing published by Bank Indonesia (Jakarta Interbank Spot Dollar Rate, JISDOR) around 10:00 WIB.",
+      "how_to_use": "THE Indonesia FX rate. Recent range: 14,500-16,800. Sustained moves above 16,500 typically trigger BI verbal then physical intervention (FX sales from reserves). DXY (broad USD index) and EM risk sentiment dominate near-term moves; commodity prices (coal, palm oil) and current account balance drive the trend. Pair with aIDCRESA (FX reserves) — sustained reserve drawdowns alongside IDR weakness signal stressed defense.",
+      "related_series": [
+        "aIDBISNXBR",
+        "aIDBISRXBR",
+        "aIDCRESA",
+        "aIDBIR"
+      ],
+      "notes": ""
+    }
+  ]
+}

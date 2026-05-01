@@ -1,0 +1,607 @@
+{
+  "category": "Population",
+  "category_slug": "id_population",
+  "section": "Consumer Sector",
+  "source_file": "Indonesia_Population.xlsx",
+  "ric_count": 40,
+  "rics": [
+    {
+      "ric": "aIDZGVCOP",
+      "description": "IFDI, Governance, Corporate Governance, Average Share of Independent Directors on the Board",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Corporate Governance, Average Share of Independent Directors on the Board. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOVCOR",
+        "aIDZOVSHP",
+        "aIDZGVSHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZOVCOR",
+      "description": "IFDI, Governance, Corporate Governance, Average of Other Corporate Governance Items",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Corporate Governance, Average of Other Corporate Governance Items. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZGVCOP",
+        "aIDZOVSHP",
+        "aIDZGVSHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZAVSHP",
+      "description": "IFDI, Governance, Other Governance, Institutions with more than 3 SSB Members",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Other Governance, Institutions with more than 3 SSB Members. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOVSHP",
+        "aIDZGVSHP",
+        "aIDZOVCOR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZGVSHP",
+      "description": "IFDI, Governance, Other Governance, Scholars with SSB Memberships",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Other Governance, Scholars with SSB Memberships. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOVSHP",
+        "aIDZOVCOR",
+        "aIDZAVSHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZOVSHP",
+      "description": "IFDI, Governance, Other Governance, Scholars with more than 5 SSB Memberships",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Other Governance, Scholars with more than 5 SSB Memberships. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZGVSHP",
+        "aIDZOVCOR",
+        "aIDZAVSHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZOGEDP",
+      "description": "IFDI, Knowledge, Education, Institutions Offering Islamic Finance Degrees",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Knowledge, Education, Institutions Offering Islamic Finance Degrees. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZKGEDP",
+        "aIDZOGRHP",
+        "aIDZKGRHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZKGEDP",
+      "description": "IFDI, Knowledge, Education, Institutions Offering Islamic Finance Training Courses",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Knowledge, Education, Institutions Offering Islamic Finance Training Courses. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOGEDP",
+        "aIDZOGRHP",
+        "aIDZKGRHP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZKGRHP",
+      "description": "IFDI, Knowledge, Research, Peer Reviewed & Journal Articles on Islamic Finance",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Knowledge, Research, Peer Reviewed & Journal Articles on Islamic Finance. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOGRHP",
+        "aIDZOGEDP",
+        "aIDZKGEDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZOGRHP",
+      "description": "IFDI, Knowledge, Research, Published Research Papers on Islamic Finance",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Knowledge, Research, Published Research Papers on Islamic Finance. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZKGRHP",
+        "aIDZOGEDP",
+        "aIDZKGEDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCOVRR.1D",
+      "description": "Coronavirus (COVID-19), Reproduction rate (R Number), Estimate",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Reproduction rate (R Number), Estimate. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGGR.1D",
+        "aIDXCGES.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTTT.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTTC.1D",
+        "aIDCVTT1.1D",
+        "aIDCVTS1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTNT.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, New",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, New. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTTT.1D",
+        "aIDCVTTC.1D",
+        "aIDCVTT1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTNS.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, New (7-day smoothed)",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, New (7-day smoothed). Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTS1.1D",
+        "aIDCVVCM.1D",
+        "aIDCVTTT.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTN1.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, New per thousand people",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, New per thousand people. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTT1.1D",
+        "aIDCVTS1.1D",
+        "aIDCVTTT.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTS1.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, New per thousand people (7-day smoothed)",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, New per thousand people (7-day smoothed). Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTNS.1D",
+        "aIDCVTT1.1D",
+        "aIDCVTN1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTTC.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, Per confirmed case",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, Per confirmed case. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTTT.1D",
+        "aIDCVTT1.1D",
+        "aIDCVTS1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTPR.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, Positive rate, % of total",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, Positive rate, % of total. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTTT.1D",
+        "aIDCVTTC.1D",
+        "aIDCVTT1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVTT1.1D",
+      "description": "Coronavirus (COVID-19), Tests, People tested, Total per thousand people",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Tests, People tested, Total per thousand people. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVTS1.1D",
+        "aIDCVTN1.1D",
+        "aIDCVTTT.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVB1.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Booster doses administered, Per hundred people",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Booster doses administered, Per hundred people. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVC1.1D",
+        "aIDCVVCM.1D",
+        "aIDCVVBT.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVBT.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Booster doses administered, Total",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Booster doses administered, Total. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVB1.1D",
+        "aIDCVVCT.1D",
+        "aIDCVVCN.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVCN.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Doses administered, New (7-day smoothed)",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Doses administered, New (7-day smoothed). Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVCM.1D",
+        "aIDCVVCT.1D",
+        "aIDCVVC1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVCM.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Doses administered, New (7-day smoothed), Per million people",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Doses administered, New (7-day smoothed), Per million people. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVCN.1D",
+        "aIDCVVC1.1D",
+        "aIDCVVB1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVC1.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Doses administered, Per hundred people",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Doses administered, Per hundred people. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVB1.1D",
+        "aIDCVVCM.1D",
+        "aIDCVVCT.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVCT.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, Doses administered, Total",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, Doses administered, Total. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVCN.1D",
+        "aIDCVVCM.1D",
+        "aIDCVVC1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVPF.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, People fully vaccinated",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, People fully vaccinated. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVP1.1D",
+        "aIDCVVPT.1D",
+        "aIDCVVPP.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVP1.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, People fully vaccinated, % of total",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, People fully vaccinated, % of total. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVPF.1D",
+        "aIDCVVPT.1D",
+        "aIDCVVPP.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVPT.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, People vaccinated",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, People vaccinated. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVPP.1D",
+        "aIDCVVPF.1D",
+        "aIDCVVP1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCVVPP.1D",
+      "description": "Coronavirus (COVID-19), Vaccinations, People vaccinated, % of total",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Vaccinations, People vaccinated, % of total. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDCVVPT.1D",
+        "aIDCVVPF.1D",
+        "aIDCVVP1.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDXCGCH.1D",
+      "description": "Coronavirus (COVID-19) Pandemic, Government Response, Containment Health Index",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus (COVID-19) Pandemic, Government Response, Containment Health Index. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGGR.1D",
+        "aIDXCGES.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDXCGES.1D",
+      "description": "Coronavirus (COVID-19) Pandemic, Government Response, Economic Support Index",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus (COVID-19) Pandemic, Government Response, Economic Support Index. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGGR.1D",
+        "aIDXCGCH.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDXCGGR.1D",
+      "description": "Coronavirus (COVID-19) Pandemic, Government Response, Government Response Index",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus (COVID-19) Pandemic, Government Response, Government Response Index. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGES.1D",
+        "aIDXCGCH.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDXCGST.1D",
+      "description": "Coronavirus (COVID-19) Pandemic, Government Response, Stringency Index",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus (COVID-19) Pandemic, Government Response, Stringency Index. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGGR.1D",
+        "aIDXCGES.1D",
+        "aIDXCGCH.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDACOV",
+      "description": "Coronavirus (COVID-19), Active cases",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Active cases. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDRNCOV.1D",
+        "aIDRCCOV.1D",
+        "aIDXCGST.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRDCOV.1D",
+      "description": "Coronavirus (COVID-19), Deaths",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Deaths. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGGR.1D",
+        "aIDXCGES.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRNCOV.1D",
+      "description": "Coronavirus (COVID-19), New cases",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: New cases. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDRCCOV.1D",
+        "aIDACOV",
+        "aIDXCGST.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRCOV",
+      "description": "Coronavirus (COVID-19), Recovered",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Recovered. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDXCGST.1D",
+        "aIDXCGGR.1D",
+        "aIDXCGES.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDRCCOV.1D",
+      "description": "Coronavirus (COVID-19), Total cases",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Total cases. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDRNCOV.1D",
+        "aIDACOV",
+        "aIDXCGST.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPOP",
+      "description": "Population",
+      "frequency": "P1Y",
+      "subcategory": "Population",
+      "units": "Persons, thousands",
+      "meaning": "Total Population — Indonesia population level. ~280M people (2024), world's 4th most populous nation after China, India, US.",
+      "how_to_use": "Demographic dividend continues: growing labor force, young median age (~30). Population growth ~1% pa, decelerating. Demographic transition (fertility decline) will see labor-force growth slow ~2030+.",
+      "related_series": [
+        "aIDLFTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDWCCOV.1D",
+      "description": "Coronavirus cases, Cumulative",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus cases, Cumulative. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDWDCOP.1D",
+        "aIDRNCOV.1D",
+        "aIDRCCOV.1D"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDWDCOP.1D",
+      "description": "Coronavirus, Deaths, Cumulative",
+      "frequency": "P1M",
+      "subcategory": "COVID-19",
+      "units": "Cases / Tests / Vaccinations",
+      "meaning": "COVID-19 reference data for Indonesia: Coronavirus, Deaths, Cumulative. Historical pandemic surveillance series, primarily 2020-2023.",
+      "how_to_use": "Historical reference. Indonesia experienced a major Delta wave (mid-2021) and Omicron wave (early 2022). Active surveillance ramped down post-2023. Use for retrospective epidemiological or economic-shock analysis.",
+      "related_series": [
+        "aIDWCCOV.1D",
+        "aIDRDCOV.1D",
+        "aIDXCGST.1D"
+      ],
+      "notes": ""
+    }
+  ]
+}

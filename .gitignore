@@ -1,0 +1,36 @@
+# ─── Build / dependency artifacts ──────────────────────────────────
+node_modules
+dist
+*.pyc
+__pycache__
+.venv
+venv
+
+# ─── Local environment ─────────────────────────────────────────────
+.env
+.env.local
+
+# ─── OS junk ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Claude Code internal state ────────────────────────────────────
+.claude/
+
+# ─── SQLite working files (only the journal/wal — the .sqlite is committed) ──
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+
+# ─── Note: data/*.sqlite + catalog/ ARE committed ──────────────────
+# The repo intentionally includes generated SQLite DBs (~55 MB total
+# across us/id/cn) and per-country catalog JSONs. This lets future
+# collaborators (and Claude sessions) run the terminal immediately
+# without re-running xlsx ingestion. To regenerate from scratch:
+#   pip install -r scripts/requirements.txt
+#   python scripts/extract_observations.py --country us
+#   python scripts/extract_rics.py --country us
+#   (repeat for --country id, --country cn)
+#
+# If repo size becomes a problem, switch to git-lfs for *.sqlite.

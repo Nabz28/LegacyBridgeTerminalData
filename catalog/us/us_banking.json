@@ -1,0 +1,418 @@
+{
+  "category": "Banking",
+  "category_slug": "us_banking",
+  "section": "Money & Finance",
+  "source_file": "US_Banking.xlsx",
+  "ric_count": 32,
+  "rics": [
+    {
+      "ric": "aUSBNKQPTP",
+      "description": "Bankruptcy filings (3 months ending), business, total",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings",
+      "meaning": "Business bankruptcy filings, 3-month rolling. From AOUSC.",
+      "how_to_use": "Trailing indicator. Spikes during recessions. Watch alongside delinquency rates and tightening lending standards.",
+      "related_series": [
+        "aUSBNQNP",
+        "aUSBNRQP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBNQNP",
+      "description": "Bankruptcy filings (3 months ending), non-business, total",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings",
+      "meaning": "Non-business (consumer) bankruptcy filings, 3-month rolling.",
+      "how_to_use": "Rises with consumer debt distress. Healthcare costs and divorce historically the dominant drivers.",
+      "related_series": [
+        "aUSBNKQPTP",
+        "aUSBNRQP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBNRQP",
+      "description": "Bankruptcy filings (3 months ending), total",
+      "frequency": "P3M",
+      "subcategory": "Bankruptcies",
+      "units": "Filings, quarterly",
+      "meaning": "Total US bankruptcy filings — sum of business and non-business (consumer) Chapter 7, 11, and 13 filings. Released quarterly by the Administrative Office of the US Courts.",
+      "how_to_use": "Cyclical late-cycle stress signal. Spikes when consumer credit delinquencies and business defaults pick up — typically lags labor weakness by 6-9 months. The 2005 BAPCPA reform created a structural break; pre-2005 levels not directly comparable to post-2005.",
+      "related_series": [
+        "aUSCRDDLQA",
+        "aUSCRDCDLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBAITX",
+      "description": "Commercial Banks, Applicable income taxes",
+      "frequency": "P1Y",
+      "subcategory": "Bank Income",
+      "units": "USD millions",
+      "meaning": "Commercial Banks: Applicable income taxes — federal + state taxes paid by US commercial banks. FDIC quarterly Call Report.",
+      "how_to_use": "Tracks bank profitability after tax. Useful for ROE calculations and post-tax-reform impact analysis (2017 TCJA cut bank effective tax rates from ~28% to ~21%). Bank earnings trends visible here lag pretax income.",
+      "related_series": [
+        "aUSBNKINC",
+        "aUSBNKROE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBININ",
+      "description": "Commercial Banks, interest income",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, total interest income.",
+      "how_to_use": "Surged 2022-23 with rate hikes. Watch alongside interest expense for NIM trend.",
+      "related_series": [
+        "aUSCBINXP",
+        "aUSCBNIIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBINXP",
+      "description": "Commercial banks, interest expense",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, total interest expense.",
+      "how_to_use": "Lagged the rate cycle (deposit betas). Compresses NIM when finally repricing.",
+      "related_series": [
+        "aUSCBININ",
+        "aUSCBNIIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBNINC",
+      "description": "Commercial banks, net income",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, net income (after tax).",
+      "how_to_use": "Aggregate banking system bottom line. Highly cyclical; watch ROE/ROA for normalized health.",
+      "related_series": [
+        "aUSCBPTNO",
+        "aUSCBNIIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBNIIN",
+      "description": "Commercial banks, net interest income",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, net interest income.",
+      "how_to_use": "Core banking earnings = interest income − interest expense. The biggest swing factor in bank profitability.",
+      "related_series": [
+        "aUSCBININ",
+        "aUSCBINXP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBNIEX",
+      "description": "Commercial banks, non-interest expense",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, non-interest expense (compensation, occupancy, tech, etc).",
+      "how_to_use": "Efficiency ratio (non-int exp / revenue) is a key metric. ~55-60% is healthy for large banks.",
+      "related_series": [
+        "aUSCBNIIC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBNIIC",
+      "description": "Commercial banks, non-interest income",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, non-interest income (fees, trading, mortgage banking, advisory).",
+      "how_to_use": "More volatile than NII. Helps diversify earnings; surged with capital markets activity.",
+      "related_series": [
+        "aUSCBNIEX",
+        "aUSCBNIIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBNINS",
+      "description": "Commercial banks, number of institutions",
+      "frequency": "P1Y",
+      "subcategory": "Bank Sector",
+      "units": "Number",
+      "meaning": "Commercial banks, number of institutions.",
+      "how_to_use": "Long-term decline (4,500+ in 2010 to ~4,000 today) from M&A and failures. Concentration is rising.",
+      "related_series": [
+        "aUSCBNINC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBPTNO",
+      "description": "Commercial banks, pre-tax net operating income",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, pre-tax net operating income.",
+      "how_to_use": "Strips out tax effects. Cleaner operating-performance read than after-tax net income.",
+      "related_series": [
+        "aUSCBNINC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBPLLL",
+      "description": "Commercial banks, provision for loan & lease losses",
+      "frequency": "P1Y",
+      "subcategory": "Credit Quality",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, provision for loan and lease losses.",
+      "how_to_use": "Counter-cyclical: rises sharply going into recessions. CECL accounting now front-loads provisions.",
+      "related_series": [
+        "aUSBCAOLLB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCBSGLO",
+      "description": "Commercial banks, securities gains/losses",
+      "frequency": "P1Y",
+      "subcategory": "Bank P&L",
+      "units": "USD thousands",
+      "meaning": "Commercial banks, securities gains/losses.",
+      "how_to_use": "Realized gains/losses on bond holdings. Big losses in 2022 from rising rates (HTM avoided realization).",
+      "related_series": [
+        "aUSCBNINC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCACIB/A",
+      "description": "Assets and liab of cml banks, commercial & industrial",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending",
+      "units": "USD millions",
+      "meaning": "Commercial and Industrial loans outstanding at commercial banks (Fed H.8). Business credit cycle gauge.",
+      "how_to_use": "Slows ahead of recessions; SLOOS lending standards typically lead loan-volume slowdowns by 1-2 quarters. Currently flat-ish — banks tightened standards 2023-24 in response to deposit competition + CRE worries.",
+      "related_series": [
+        "aUSBCALCB",
+        "aUSBCAREB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCALCB",
+      "description": "Assets and liab of cml banks, consumer",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending",
+      "units": "USD millions",
+      "meaning": "Consumer loans outstanding at commercial banks — credit cards + auto + other consumer (excluding real estate). Different from aUSCRDOUTA (G.19) which captures ALL consumer credit issuers.",
+      "how_to_use": "Banks are ~50% of the consumer credit market. Watch alongside G.19 total to gauge shadow-bank vs bank shifts. Credit unions + finance companies + securitization pools complete the picture.",
+      "related_series": [
+        "aUSBCACIB/A",
+        "aUSBCAREB/A",
+        "aUSCRDOUTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCAOLLB/A",
+      "description": "Assets and liab of cml banks, other loans and leases",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending",
+      "units": "USD millions",
+      "meaning": "Commercial Banks: Other loans and leases — non-traditional lending categories (lease financing, acceptances, agricultural production loans).",
+      "how_to_use": "Smaller than C&I, real estate, or consumer loan books. Useful for tracking lease-finance trends (declining as direct lending replaces leasing) and for full bank-credit picture.",
+      "related_series": [
+        "aUSBCACIB/A",
+        "aUSBCAREB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCAREB/A",
+      "description": "Assets and liab of cml banks, real estate",
+      "frequency": "P1M",
+      "subcategory": "Bank Lending",
+      "units": "USD millions",
+      "meaning": "Real Estate loans outstanding at commercial banks — residential mortgages + CRE. Largest single bank loan category.",
+      "how_to_use": "CRE stress concentrated in regional banks (large banks cleaner). Office sector weighs on aggregate; multifamily + industrial healthier. Watch SLOOS for CRE tightening signals.",
+      "related_series": [
+        "aUSBCACIB/A",
+        "aUSBDLRECQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDIBP",
+      "description": "IFDI, Financial Performance Indicator, Islamic Banking, Full Fledged Banks",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index/Score",
+      "meaning": "IFDI Financial Performance, Islamic Banking, Full-Fledged Banks (US data).",
+      "how_to_use": "Niche — Islamic Finance Development Indicator. US has few full-fledged Islamic banks; data is thin.",
+      "related_series": [
+        "aUSZBDIBP",
+        "aUSZPDIBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDIBR",
+      "description": "IFDI, Financial Performance Indicator, Islamic Banking, Return on Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "%",
+      "meaning": "IFDI Return on Assets, Islamic Banking.",
+      "how_to_use": "Cross-country comparable Islamic banking metric. US presence is small.",
+      "related_series": [
+        "aUSZQDIBP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDIBP",
+      "description": "IFDI, Financial Performance Indicator, Islamic Banking, Windows",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Islamic Banking windows (conventional banks with Islamic products).",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDTKR",
+      "description": "IFDI, Financial Performance Indicator, Takaful & Retakaful, Return on Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "%",
+      "meaning": "IFDI Return on Assets, Takaful & Retakaful (Islamic insurance).",
+      "how_to_use": "Niche US data.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDIBA",
+      "description": "IFDI, Financial Performance, Islamic Banking, Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "USD millions",
+      "meaning": "IFDI Islamic Banking assets, US.",
+      "how_to_use": "Tiny in absolute terms.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZBDIBP",
+      "description": "IFDI, Financial Performance, Islamic Banking, Publicly Listed Islamic Banks",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI publicly listed Islamic Banks, US.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDTKA",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "USD millions",
+      "meaning": "IFDI Takaful & Retakaful assets.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDTKP",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Operators",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Number",
+      "meaning": "IFDI Takaful & Retakaful operators count.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZBVRER",
+      "description": "IFDI, Governance, Regulations, Accounting & Auditing for Islamic Finance Institutions",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Governance & Regulations score for Islamic finance institutions.",
+      "how_to_use": "Composite governance score.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPVRER",
+      "description": "IFDI, Governance, Regulations, Islamic Banking",
+      "frequency": "",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Governance: Islamic Banking regulations.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZUVRER",
+      "description": "IFDI, Governance, Regulations, Shariah Governance",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Shariah Governance score.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZZVRER",
+      "description": "IFDI, Governance, Regulations, Sukuk",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Sukuk regulations score.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZWVRER",
+      "description": "IFDI, Governance, Regulations, Takaful",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Index",
+      "meaning": "IFDI Takaful regulations score.",
+      "how_to_use": "Niche.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSECTRNA",
+      "description": "Federal debt amount outstanding, treasury notes",
+      "frequency": "P1M",
+      "subcategory": "Treasury",
+      "units": "USD millions",
+      "meaning": "Federal debt outstanding — Treasury notes (note: filed under Banking by source).",
+      "how_to_use": "Should logically live in government_debt_borrowing. Cross-check with aUSSECMKNA.",
+      "related_series": [
+        "aUSSECMKNA"
+      ],
+      "notes": ""
+    }
+  ]
+}

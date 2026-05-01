@@ -1,0 +1,279 @@
+{
+  "category": "GDP/GVA by Industry",
+  "category_slug": "id_gdp_gva_by_industries",
+  "section": "National Accounts",
+  "source_file": "Indonesia_GDP & GVA By Industries.xlsx",
+  "ric_count": 20,
+  "rics": [
+    {
+      "ric": "aIDGDYMPRR",
+      "description": "Chg Y/Y, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "GDP by Industry",
+      "units": "Percent, YoY",
+      "meaning": "GDP/GVA by Industry, YoY — aggregate measure of value-added growth across industry sectors. Companion to GDP-by-expenditure release.",
+      "how_to_use": "Should track aIDCGDPYD/A closely. Differences reflect statistical-discrepancy items between expenditure and production approaches to GDP.",
+      "related_series": [
+        "aIDCGDPYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAEAHOTE/C",
+      "description": "GDP - ACCOMMODATION & FOOD SERVICE ACTIVITIES, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Tourism",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Accommodation & Food Service Activities, Constant Prices — real hotels + restaurants GVA.",
+      "how_to_use": "Pre-COVID growth ~6% pa; collapsed in 2020-21; recovering. Tracks Bali tourism + middle-class restaurant spending.",
+      "related_series": [
+        "aIDVAEAHOTE",
+        "aIDFRGART"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAEAHOTE",
+      "description": "GDP - ACCOMMODATION & FOOD SERVICE ACTIVITIES, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Tourism",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Accommodation & Food Service Activities, Current Prices — hotels + restaurants nominal GVA. ~2.5% of GDP.",
+      "how_to_use": "Use constant-prices version (aIDVAEAHOTE/C) for volume cycle. Tracks tourism + domestic-restaurant demand.",
+      "related_series": [
+        "aIDVAEAHOTE/C",
+        "aIDFRGART"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEAAG/C",
+      "description": "GDP - AGRICULTURE, FORESTRY & FISHING, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Agriculture",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Agriculture, Forestry & Fishing, constant prices. Includes palm oil, rubber, rice, fisheries. ~13% of GDP and ~28% of employment (high share given low productivity).",
+      "how_to_use": "Important for rural incomes and food prices. Palm oil exports (Indonesia is world's largest producer with Malaysia) drive value-added swings. Weather (El Niño, La Niña) is the dominant short-term variable. Pair with food CPI for the rural-urban transmission signal.",
+      "related_series": [
+        "aIDEAAG",
+        "aIDEMPAFNF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEAAG",
+      "description": "GDP - AGRICULTURE, FORESTRY & FISHING, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Agriculture",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Agriculture, Forestry & Fishing, Current Prices — nominal value-added in agriculture sector. Companion to aIDEAAG/C (constant prices).",
+      "how_to_use": "Use constant-prices version for cycle analysis; nominal version for nominal-GDP composition. Indonesia agri sector ~13% of nominal GDP, dominated by palm oil + rice + fisheries.",
+      "related_series": [
+        "aIDEAAG/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADELWAT/C",
+      "description": "GDP - ELECTRICITY & GAS SUPPLY, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Utilities",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Electricity & Gas Supply, Constant Prices — real utilities GVA. ~1.2% of GDP.",
+      "how_to_use": "Stable growth ~5% pa tracks GDP. Electricity demand growth a development indicator.",
+      "related_series": [
+        "aIDVADELWAT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADELWAT",
+      "description": "GDP - ELECTRICITY & GAS SUPPLY, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Utilities",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Electricity & Gas Supply, Current Prices — nominal utilities sector GVA. Includes PLN (state electricity utility) and gas distribution.",
+      "how_to_use": "Stable, low-cyclicality. Tracks electrification and economic growth.",
+      "related_series": [
+        "aIDVADELWAT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAFONBS/C",
+      "description": "GDP - FINANCIAL & INSURANCE ACTIVITIES, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Finance",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Financial & Insurance Activities, constant prices — bank, insurance, asset-management sector value added. ~4% of GDP, smaller than DM economies (10-15%) but growing.",
+      "how_to_use": "Tracks financialization of the economy. Bank profitability cycles, insurance penetration (still very low at ~3% of GDP — major growth opportunity), and capital markets development drive growth. Indonesia's domestic capital markets remain underdeveloped vs peers — finance-sector GDP share is a structural-development metric.",
+      "related_series": [
+        "aIDVAFONBS",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAFONBS",
+      "description": "GDP - FINANCIAL & INSURANCE ACTIVITIES, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Finance",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Financial & Insurance Activities, Current Prices — nominal finance-sector GVA.",
+      "how_to_use": "Use constant-prices version (aIDVAFONBS/C) for cycle. ~4% of GDP.",
+      "related_series": [
+        "aIDVAFONBS/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADSS/C",
+      "description": "GDP - OTHER SERVICES ACTIVITIES, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Services",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Other Services Activities, Constant Prices — real residual services GVA. Small share (~2%).",
+      "how_to_use": "Captures non-categorized services. Use category-specific GVA series for sector cycle analysis.",
+      "related_series": [
+        "aIDVADSS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADSS",
+      "description": "GDP - OTHER SERVICES ACTIVITIES, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Services",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Other Services Activities, Current Prices — nominal residual services GVA. Includes personal services, household services, NGO activities.",
+      "how_to_use": "Use constant-prices version (aIDVADSS/C) for volume cycle. Captures services not classified in main sectors. Small share of GDP (~2%).",
+      "related_series": [
+        "aIDVADSS/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAEATRAC/C",
+      "description": "GDP - TRANSPORTATION & STORAGE, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Transport",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP — Transportation & Storage, constant prices. Includes road, rail, air, sea transport plus warehousing. ~5% of GDP. Vital for an archipelagic economy.",
+      "how_to_use": "Logistics costs are a long-running competitiveness drag — Indonesia logistics-cost-to-GDP runs ~24% (vs ~14% for ASEAN-5 peers). Toll-road network expansion and Pelabuhan Indonesia (port operator) mergers aim to reduce this. Sector growth correlates with manufacturing and trade volumes.",
+      "related_series": [
+        "aIDVAEATRAC",
+        "aIDEMPTSC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVAEATRAC",
+      "description": "GDP - TRANSPORTATION & STORAGE, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Transport",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP — Transportation & Storage, Current Prices — nominal transport-and-storage GVA.",
+      "how_to_use": "Use constant-prices version (aIDVAEATRAC/C). ~5% of GDP. Critical for archipelagic economy.",
+      "related_series": [
+        "aIDVAEATRAC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCNHNPIA",
+      "description": "NPI SERVING HOUSEHOLD CONSUMPTION EXPENDITURE, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "NPISH",
+      "units": "IDR billions, current prices",
+      "meaning": "NPI Serving Household Consumption Expenditure, Current Prices — final consumption expenditure of non-profit institutions serving households (NPISH). Small GDP component (~1%).",
+      "how_to_use": "Niche. Niches captures religious organizations, charities, foundations. Tracks NGO and faith-organization activity.",
+      "related_series": [
+        "aIDCPCED/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADCONS/C",
+      "description": "Value Added, Economic Activity, Construction, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Construction",
+      "units": "IDR billions, constant prices",
+      "meaning": "Value Added: Construction, constant prices — construction sector GDP. Includes infrastructure (roads, ports, railways), residential, and commercial real estate construction. ~11% of GDP.",
+      "how_to_use": "Highly cyclical with infrastructure spending and BI rates. Surged during Jokowi's 2014-2024 infrastructure push (toll roads, MRT, dams, airports). Deceleration since 2024 reflects rate hikes and fiscal consolidation. Track alongside cement consumption and steel demand.",
+      "related_series": [
+        "aIDVADCONS",
+        "aIDEMPC",
+        "aIDCGFCYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADCONS",
+      "description": "Value Added, Economic Activity, Construction, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Construction",
+      "units": "IDR billions, current prices",
+      "meaning": "Value Added: Construction, Current Prices — nominal construction sector GVA.",
+      "how_to_use": "Use constant-prices version (aIDVADCONS/C) for volume cycle. ~11% of nominal GDP.",
+      "related_series": [
+        "aIDVADCONS/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADGM/C",
+      "description": "Value Added, Economic Activity, Manufacturing industry, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Manufacturing",
+      "units": "IDR billions, constant prices",
+      "meaning": "Value Added: Manufacturing Industry, constant prices — the manufacturing sector's contribution to GDP at constant prices. Indonesia's largest single industry sector at ~18-20% of GDP.",
+      "how_to_use": "Indonesia targets manufacturing as a growth driver (Making Indonesia 4.0 program). Key sub-sectors: food & beverage (largest), chemicals, transportation equipment, base metals (nickel processing post-2020 export bans). Track quarterly growth — sustained sub-3% indicates deindustrialization concerns.",
+      "related_series": [
+        "aIDVADGM",
+        "aIDEMPMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADGM",
+      "description": "Value Added, Economic Activity, Manufacturing industry, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Manufacturing",
+      "units": "IDR billions, current prices",
+      "meaning": "Value Added: Manufacturing Industry, Current Prices — nominal manufacturing GVA.",
+      "how_to_use": "Use constant-prices version (aIDVADGM/C) for cycle. Manufacturing is Indonesia's largest single sector at ~18-20% of nominal GDP.",
+      "related_series": [
+        "aIDVADGM/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADMIN/C",
+      "description": "Value Added, Economic Activity, Mining and quarrying, Constant Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Mining",
+      "units": "IDR billions, constant prices",
+      "meaning": "Value Added: Mining and Quarrying, constant prices — the mining/extractive sector's contribution to GDP. Includes coal, oil/gas, nickel, copper, gold, tin extraction. ~10-12% of GDP, highly cyclical with commodity prices.",
+      "how_to_use": "Most volatile GDP component. Coal (Indonesia is world's largest thermal coal exporter) and oil/gas dominate. Surged 2021-22 with commodity boom; decelerated 2023+ on lower coal/nickel prices. Watch global commodity prices for the leading signal.",
+      "related_series": [
+        "aIDVADMIN",
+        "aIDEMPMNQ",
+        "aIDCEXBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDVADMIN",
+      "description": "Value Added, Economic Activity, Mining and quarrying, Current Prices, GDP/GVA by Industry, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Mining",
+      "units": "IDR billions, current prices",
+      "meaning": "Value Added: Mining and Quarrying, Current Prices — nominal mining sector GVA.",
+      "how_to_use": "Highly volatile with commodity prices. Use constant-prices version (aIDVADMIN/C) for volume cycle.",
+      "related_series": [
+        "aIDVADMIN/C"
+      ],
+      "notes": ""
+    }
+  ]
+}

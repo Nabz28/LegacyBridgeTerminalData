@@ -1,0 +1,1020 @@
+{
+  "category": "Agriculture",
+  "category_slug": "us_agriculture",
+  "section": "Industry Sector",
+  "source_file": "US_Agriculture.xlsx",
+  "ric_count": 66,
+  "rics": [
+    {
+      "ric": "aUSBOSAR",
+      "description": "NOPA-Bean Oil Stocks",
+      "frequency": "P1M",
+      "subcategory": "Stocks",
+      "units": "",
+      "meaning": "NOPA-Bean Oil Stocks.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSQAR",
+        "aUSWSEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPMIPAQ",
+      "description": "Markit Comp Final PMI",
+      "frequency": "",
+      "subcategory": "Ag Component",
+      "units": "",
+      "meaning": "Markit Comp Final PMI.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWHIA/A",
+      "description": "Export Wheat Inspected",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSCRIIA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWESNAO",
+      "description": "Wheat Export Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Wheat Export Sales Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWEWAO",
+        "aUSWHIA/A",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWEWAO",
+      "description": "Wheat Export Sales New",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Wheat Export Sales New.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWESNAO",
+        "aUSWHIA/A",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBESNA",
+      "description": "Beef Export Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBESWA",
+      "description": "Beef Export Sales New",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPBSAO",
+      "description": "Cold Pork Belly Stocks",
+      "frequency": "P1M",
+      "subcategory": "Hog/Pork",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWSQAR",
+        "aUSWSEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFCOJA",
+      "description": "Cold Storage- FCOJ Stock",
+      "frequency": "P1M",
+      "subcategory": "Stocks",
+      "units": "",
+      "meaning": "Cold Storage- FCOJ Stock.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBSA",
+        "aUSWSQAR",
+        "aUSWSEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSA",
+      "description": "Cold Storage-Beef Stocks",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWSQAR",
+        "aUSWSEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCESNA",
+      "description": "Corn Exp Sale Next Yr Net",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTNSA",
+      "description": "Corn Exp Sales Net Total",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSUESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNESNA",
+      "description": "Corn Export Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Corn Export Sales Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNESWA",
+      "description": "Corn Export Sales New",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Corn Export Sales New.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSOIIA",
+      "description": "Exp Soybean Inspected",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWHIA/A",
+        "aUSSYAR",
+        "aUSSXAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRIIA",
+      "description": "Export Corn Inspected",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWHIA/A",
+        "aUSWEWAO",
+        "aUSWESNAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNSCA",
+      "description": "NOPA-Soy Crush",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCORNAR",
+      "description": "Prosp. Plantings- Corn",
+      "frequency": "P1Y",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSOYAR",
+        "aUSCTNAR",
+        "aUSAWAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTNAR",
+      "description": "Prosp. Plantings- Cotton",
+      "frequency": "P1Y",
+      "subcategory": "Cotton",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSOYAR",
+        "aUSCORNAR",
+        "aUSAWAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSOYAR",
+      "description": "Prosp. Plantings- Soy",
+      "frequency": "P1Y",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCTNAR",
+        "aUSCORNAR",
+        "aUSAWAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAWAR",
+      "description": "Prosp. Plantings- Wheat",
+      "frequency": "P1Y",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSOYAR",
+        "aUSCTNAR",
+        "aUSCORNAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCSQAR",
+      "description": "Qtrly Grain Stocks-Corn",
+      "frequency": "P3M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSQAR",
+        "aUSSSQAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSSQAR",
+      "description": "Qtrly Grain Stocks-Soy",
+      "frequency": "P3M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSQAR",
+        "aUSCSQAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSQAR",
+      "description": "Qtrly Grain Stocks-Wheat",
+      "frequency": "P3M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSSQAR",
+        "aUSCSQAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAHIAR",
+      "description": "Quarterly Hog Inventory",
+      "frequency": "P3M",
+      "subcategory": "Hog/Pork",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSTNSA",
+      "description": "Soybean Exp Sale Net Total",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSYAR",
+        "aUSSXAR",
+        "aUSSPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSESFA",
+      "description": "Soybean Exp Sale Next Yr Net",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSYAR",
+        "aUSSXAR",
+        "aUSSTNSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSESNA",
+      "description": "Soybean Export Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybean Export Sales Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSESWA",
+        "aUSWEWAO",
+        "aUSWESNAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSESWA",
+      "description": "Soybean Export Sales New",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybean Export Sales New.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSESNA",
+        "aUSWEWAO",
+        "aUSWESNAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMESNA",
+      "description": "Soybeanmeal Exp Sale Net",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybeanmeal Exp Sale Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMTNSA",
+      "description": "Soybn Meal Exp Sls Net Total",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybn Meal Exp Sls Net Total.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSESAR",
+        "aUSOTNSA",
+        "aUSOESFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOTNSA",
+      "description": "Soybn Oil Exp Sls Net Total",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybn Oil Exp Sls Net Total.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSESAR",
+        "aUSOESFA",
+        "aUSMTNSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOESFA",
+      "description": "Soybn Oil Exp Sls Nxt Yr Net",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soybn Oil Exp Sls Nxt Yr Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSESAR",
+        "aUSOTNSA",
+        "aUSMTNSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMESFA",
+      "description": "Soymeal Exp Sls Next Yr Net",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Soymeal Exp Sls Next Yr Net.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAPCOAR",
+      "description": "U.S. Corn Acreage",
+      "frequency": "P1Y",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSAPWHAR",
+        "aUSAPSBAR",
+        "aUSAPCTAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAPCTAR",
+      "description": "U.S. Cotton Acreage",
+      "frequency": "P1Y",
+      "subcategory": "Cotton",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSUESWA",
+        "aUSUESNA",
+        "aUSCTPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAPSBAR",
+      "description": "U.S. Soybean Acreage",
+      "frequency": "P1Y",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSYAR",
+        "aUSSXAR",
+        "aUSSTNSA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAPWHAR",
+      "description": "U.S. Wheat Acreage",
+      "frequency": "P1Y",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSQAR",
+        "aUSWPAR",
+        "aUSWHIA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPESWA",
+      "description": "US Pork Export Sales New",
+      "frequency": "P1M",
+      "subcategory": "Hog/Pork",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWEWAO",
+        "aUSWESNAO",
+        "aUSSESWA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMKTDAR",
+      "description": "USDA-Cattle Marketed",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSPOFAR",
+        "aUSOFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOFA",
+      "description": "USDA-Cattle On Feed",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSPOFAR",
+        "aUSMKTDAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOFAR",
+      "description": "USDA-Cattle Placed On Fd",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSOFA",
+        "aUSMKTDAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUESNA",
+      "description": "Up Cotton Exp Sales Net",
+      "frequency": "P1M",
+      "subcategory": "Cotton",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSUESWA",
+        "aUSWEWAO",
+        "aUSWESNAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSUESWA",
+      "description": "Up Cotton Exp Sales New",
+      "frequency": "P1M",
+      "subcategory": "Cotton",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSUESNA",
+        "aUSWEWAO",
+        "aUSWESNAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBPA",
+      "description": "WSD-Beef Output 2023",
+      "frequency": "P1M",
+      "subcategory": "Cattle/Beef",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWPAR",
+        "aUSSPAR",
+        "aUSPPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEOAR",
+      "description": "WSD-Corn Endstock 21/22",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCESA",
+        "aUSWSEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCESA",
+      "description": "WSD-Corn Endstocks 22/23",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCYAR",
+        "aUSCXAR",
+        "aUSCTESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCXAR",
+      "description": "WSD-Corn Exports 22/23",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSCYAR",
+        "aUSCPAR",
+        "aUSCESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPAR",
+      "description": "WSD-Corn Output 22/23",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCYAR",
+        "aUSCXAR",
+        "aUSCTPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCYAR",
+      "description": "WSD-Corn Yield 22/23",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "%",
+      "meaning": "Yield/interest rate associated with a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCXAR",
+        "aUSCPAR",
+        "aUSCESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTESA",
+      "description": "WSD-Cottn Endstocks 22/23",
+      "frequency": "P1M",
+      "subcategory": "Stocks",
+      "units": "",
+      "meaning": "WSD-Cottn Endstocks 22/23.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCESA",
+        "aUSWSEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTPAR",
+      "description": "WSD-Cotton Output 22/23",
+      "frequency": "P1M",
+      "subcategory": "Cotton",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSCPAR",
+        "aUSWPAR",
+        "aUSSPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPPA",
+      "description": "WSD-Pork Output 2020",
+      "frequency": "P1M",
+      "subcategory": "Hog/Pork",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWPAR",
+        "aUSSPAR",
+        "aUSPOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPOPA",
+      "description": "WSD-Poultry Output 2020",
+      "frequency": "P1M",
+      "subcategory": "Poultry",
+      "units": "",
+      "meaning": "Level of US livestock data.",
+      "how_to_use": "Cattle on feed = beef supply pipeline 6-9 months out. Slaughter rates = current production. Cold storage = demand cushion.",
+      "related_series": [
+        "aUSCOPCC/A",
+        "aUSWPAR",
+        "aUSSPAR",
+        "aUSPPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSEOAR",
+      "description": "WSD-Soybean E/S 18/19",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSYAR",
+        "aUSSXAR",
+        "aUSSPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSXAR",
+      "description": "WSD-Soybean Exp 19/20",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSYAR",
+        "aUSSPAR",
+        "aUSWSEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSPAR",
+      "description": "WSD-Soybean Output 19/20",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWPAR",
+        "aUSSYAR",
+        "aUSSXAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSYAR",
+      "description": "WSD-Soybean Yield 19/20",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "%",
+      "meaning": "Yield/interest rate associated with a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSSXAR",
+        "aUSSPAR",
+        "aUSWSEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSESAR",
+      "description": "WSD-Soybn Endstocks 19/20",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "WSD-Soybn Endstocks 19/20.",
+      "how_to_use": "Sub-component or variant within Agriculture. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWSEAR",
+        "aUSWESAR",
+        "aUSWCEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAWEOAR",
+      "description": "WSD-Wheat Endstocks18/19",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWPAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWESAR",
+      "description": "WSD-Wheat Endstocks19/20",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWPAR",
+        "aUSAWEOAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWPAR",
+      "description": "WSD-Wheat Output 19/20",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWESAR",
+        "aUSSPAR",
+        "aUSWSEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWESFA",
+      "description": "Wheat Exp Sale Next Yr Net",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSQAR",
+        "aUSWPAR",
+        "aUSWHIA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWCEAR",
+      "description": "World Corn endstocks 19/20",
+      "frequency": "P1M",
+      "subcategory": "Corn",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSEAR",
+        "aUSWAWEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWAWEAR",
+      "description": "World Wheat endstocks 19/20",
+      "frequency": "P1M",
+      "subcategory": "Wheat",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWSEAR",
+        "aUSWESAR",
+        "aUSWCEAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWSEAR",
+      "description": "World soy endstocks 19/20",
+      "frequency": "P1M",
+      "subcategory": "Soybean",
+      "units": "",
+      "meaning": "Level of a US crop production/stock measure.",
+      "how_to_use": "USDA NASS / WASDE estimates. Stocks-to-use ratio drives prices: <10% = tight, >20% = ample. Big producer + exporter; soybean trade especially China-sensitive.",
+      "related_series": [
+        "aUSCOMPCRP",
+        "aUSWCEAR",
+        "aUSWAWEAR",
+        "aUSWESAR"
+      ],
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,560 @@
+{
+  "category": "GDP by Expenditure",
+  "category_slug": "id_gdp_by_expenditure",
+  "section": "National Accounts",
+  "source_file": "Indonesia_GDP By Expenditure.xlsx",
+  "ric_count": 39,
+  "rics": [
+    {
+      "ric": "aIDGDPYAR",
+      "description": "Chg Y/Y, GDP by Expenditure, Annual, Statistics Indonesia",
+      "frequency": "P1Y",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "GDP YoY (Annual, BPS) — annualized GDP growth from BPS annual release.",
+      "how_to_use": "Long-time-series annual frequency complement to quarterly. Use for multi-year trend assessment.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDGDPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDPAR",
+      "description": "GDP, Annualized growth rate, Chg Y/Y",
+      "frequency": "P1Y",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "GDP Annualized Growth Rate — alternative framing of GDP YoY. Reuters poll-anchored series used as forecast benchmark.",
+      "how_to_use": "Used by markets as expectations anchor before BPS quarterly release. Comparison vs actual print drives IDR + SBN yields same-day.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDGDPYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDPXCAL",
+      "description": "GDP, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP, Chg P/P — period-on-period growth rate of GDP. Same conceptual measure as aIDCGDPPD/A in a different framing.",
+      "how_to_use": "Cross-check series. Use either for sequential momentum tracking.",
+      "related_series": [
+        "aIDCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDP/C",
+      "description": "GDP, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP at Constant Prices (BPS quarterly) — alternative release of real GDP level. Same conceptual measure as aIDCGDPD/CA from a different vintage.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data. Real GDP is the meaningful growth signal.",
+      "related_series": [
+        "aIDCGDPD/CA",
+        "aIDCGDPYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDPCUR",
+      "description": "GDP, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP at Current Prices (BPS quarterly) — alternative release of nominal GDP level. Same as aIDCGDPA from a different vintage.",
+      "how_to_use": "Cross-check against aIDCGDPA. Use for nominal-GDP analysis (debt/GDP, deficit/GDP ratios).",
+      "related_series": [
+        "aIDCGDPA",
+        "aIDCGDPYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDPQAR",
+      "description": "GDP- Actual, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP Actual QoQ — Reuters poll-anchored release of GDP quarter-over-quarter growth.",
+      "how_to_use": "Cross-check against aIDCGDPPD/A. Markets watch QoQ alongside YoY but YoY remains the headline for Indonesia.",
+      "related_series": [
+        "aIDCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGDPAR1",
+      "description": "GDP- Actual, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "GDP Actual YoY — Reuters poll-anchored 'actual' release of GDP year-over-year growth. Used in forecast-vs-actual comparisons.",
+      "how_to_use": "Cross-check against aIDCGDPYD/A. Reuters polls Indonesia's chief economists ahead of release; the 'actual' is set when BPS publishes.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDGDPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXNPD/A",
+      "description": "Exports - Goods & Services, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "Percent, QoQ",
+      "meaning": "Exports of Goods and Services, QoQ percent change in constant prices — sequential export-volume momentum.",
+      "how_to_use": "Volatile quarterly. Smooth with 4-quarter moving average. Use YoY (aIDCEXNYD/A) for trend.",
+      "related_series": [
+        "aIDCEXNYD/A",
+        "aIDCEXND/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXNYD/A",
+      "description": "Exports - Goods & Services, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "Percent, YoY",
+      "meaning": "Exports of Goods and Services, year-over-year change in constant prices. Captures both merchandise and services exports in real terms.",
+      "how_to_use": "Highly correlated with global commodity prices — Indonesia's top exports are coal, palm oil, nickel, oil/gas, and manufactures. China is the largest single export market (~25%). Watch CNY weakness and China industrial demand for the leading signal. Surge in export growth (>15% YoY) typically coincides with commodity cycle peaks.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCEXBA",
+        "aIDCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXND/CA",
+      "description": "Exports - Goods & Services, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "IDR billions, constant prices",
+      "meaning": "Exports of Goods and Services — constant-price level. Volume measure of external demand for Indonesia's output.",
+      "how_to_use": "Use for export-volume tracking distinct from price-driven nominal swings. Volume-vs-price decomposition tells you whether export strength is commodity-price-driven or genuinely volume-driven.",
+      "related_series": [
+        "aIDCEXNYD/A",
+        "aIDCEXNPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPPD/CA",
+      "description": "GDP based on Purchasing Power Parity, % quarter on quarter, Standardized, Chg P/P, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP PPP, QoQ growth in constant prices — companion to aIDCGPPPNA.",
+      "how_to_use": "Use real GDP QoQ (aIDCGDPPD/A) for analytical purposes; PPP versions for cross-country comparison.",
+      "related_series": [
+        "aIDCGDPPD/A",
+        "aIDCGPPPNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPPNA",
+      "description": "GDP based on Purchasing Power Parity, % quarter on quarter, Standardized, Chg P/P, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP PPP, QoQ change — sequential momentum of PPP-adjusted GDP.",
+      "how_to_use": "Less commonly used than YoY. PPP conversion factors are static within a year so QoQ should track real-GDP QoQ closely.",
+      "related_series": [
+        "aIDCGPPPD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPYB/CA",
+      "description": "GDP based on Purchasing Power Parity, % year on year, Standardized, Chg Y/Y, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "Percent, YoY",
+      "meaning": "GDP based on PPP, year-over-year change in constant prices — real PPP-GDP growth rate.",
+      "how_to_use": "Should track aIDCGDPYD/A closely (PPP growth ≈ real-GDP growth). Differences arise from PPP-conversion-factor revisions in IMF benchmark studies.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCGPPWN/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPYEA",
+      "description": "GDP based on Purchasing Power Parity, % year on year, Standardized, Chg Y/Y, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "Percent, YoY",
+      "meaning": "GDP based on PPP, YoY change (alternate release) — real PPP-adjusted GDP year-over-year growth.",
+      "how_to_use": "Cross-check against aIDCGPPYB/CA. Should track real-GDP YoY closely.",
+      "related_series": [
+        "aIDCGPPYB/CA",
+        "aIDCGDPYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPWN/CA",
+      "description": "GDP based on Purchasing Power Parity, Standardized, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "USD billions, constant PPP",
+      "meaning": "GDP based on Purchasing Power Parity, constant prices — real PPP-adjusted GDP level. Used for long-run comparisons across countries.",
+      "how_to_use": "Track Indonesia's relative weight in world output. Indonesia's share of global PPP GDP has risen from ~2% (2000) to ~3% (2024).",
+      "related_series": [
+        "aIDCGPPOGA",
+        "aIDCGPPYB/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGPPOGA",
+      "description": "GDP based on Purchasing Power Parity, Standardized, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/LSEG",
+      "frequency": "P3M",
+      "subcategory": "GDP PPP",
+      "units": "USD billions, current PPP",
+      "meaning": "GDP based on Purchasing Power Parity, current prices — IMF-compiled PPP-adjusted GDP. Adjusts for cross-country price-level differences.",
+      "how_to_use": "Indonesia PPP GDP ~$4.5 trillion (2024) — world's 7th largest economy by PPP, ahead of UK and France. Use PPP for relative-economic-size comparisons; current-USD GDP for trade-weight comparisons.",
+      "related_series": [
+        "aIDCGPPWN/CA",
+        "aIDCGPPYB/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPEX/C",
+      "description": "GDP, Standardized, Constant Prices, GDP by Expenditure, Annual, Statistics Indonesia/LSEG",
+      "frequency": "P1Y",
+      "subcategory": "GDP",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP at constant prices, annual — same conceptual measure as aIDCGDPD/CA at annual frequency. Used for long-time-series analysis.",
+      "how_to_use": "Use for multi-year trend analysis. Annual frequency cleaner for spotting structural slowdowns (e.g., the 2014-2016 commodity-bust deceleration from 6%+ to ~5% trend growth).",
+      "related_series": [
+        "aIDCGDPD/CA",
+        "aIDCGDPYD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMNPD/A",
+      "description": "Imports - Goods & Services, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "Percent, QoQ",
+      "meaning": "Imports of Goods and Services, QoQ percent change in constant prices — sequential import-volume momentum.",
+      "how_to_use": "Pro-cyclical with domestic demand. Volatile quarterly; use YoY for trend.",
+      "related_series": [
+        "aIDCIMNYD/A",
+        "aIDCIMND/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMNYD/A",
+      "description": "Imports - Goods & Services, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "Percent, YoY",
+      "meaning": "Imports of Goods and Services, year-over-year change in constant prices. Captures both merchandise and services imports in real terms.",
+      "how_to_use": "Pro-cyclical with domestic demand and capital investment (capital goods imports rise with GFCF). Falls in IDR weakness episodes due to import cost pass-through (oil products, capital goods). When import growth exceeds export growth for sustained periods, watch the current account for deficit deterioration.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCIMBA",
+        "aIDCBOPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCIMND/CA",
+      "description": "Imports - Goods & Services, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External",
+      "units": "IDR billions, constant prices",
+      "meaning": "Imports of Goods and Services — constant-price level. Volume measure of import demand.",
+      "how_to_use": "Use to separate volume-driven import dynamics from price effects. Capital goods volume leads investment by 1-2 quarters.",
+      "related_series": [
+        "aIDCIMNYD/A",
+        "aIDCIMNPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCPCEPD/A",
+      "description": "Consumer Spending, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Consumption",
+      "units": "Percent, QoQ",
+      "meaning": "Consumer Spending, QoQ percent change in constant prices — sequential consumption momentum.",
+      "how_to_use": "Volatile (Lebaran-Eid timing dominates Q2/Q3 swings). Use YoY for trend; QoQ for revisions and inflection signals.",
+      "related_series": [
+        "aIDCPCEYD/A",
+        "aIDCPCED/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCPCEYD/A",
+      "description": "Consumer Spending, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Consumption",
+      "units": "Percent, YoY",
+      "meaning": "Household Consumption Expenditure, year-over-year change in constant prices. Largest component of Indonesia GDP at ~55%. Includes goods + services purchased by households.",
+      "how_to_use": "Drives ~55% of GDP — the most important growth component. Track around major holidays: Lebaran (Eid al-Fitr) typically lifts Q2 or Q3 consumption depending on calendar; Christmas/New Year boosts Q4. Sustained sub-4% household consumption growth signals weak domestic demand and Bank Indonesia easing pressure. Pair with consumer confidence (aIDCONCF) and retail sales.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCONCF",
+        "aIDCONCE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCPCED/CA",
+      "description": "Consumer Spending, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Consumption",
+      "units": "IDR billions, constant prices",
+      "meaning": "Consumer Spending (Household Final Consumption) — constant-price level. The largest GDP component (~55%).",
+      "how_to_use": "Use the level for analytical baseline; YoY (aIDCPCEYD/A) is the meaningful growth signal. Indonesia's consumption-led growth model means household spending dynamics dominate.",
+      "related_series": [
+        "aIDCPCEYD/A",
+        "aIDCPCEPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDHD/CA",
+      "description": "GDP per capita, Constant prices, Standardized (based on annual data)",
+      "frequency": "P3M",
+      "subcategory": "GDP per capita",
+      "units": "Index, constant prices",
+      "meaning": "GDP per capita, constant prices, standardized — real income per person. Most analytically meaningful per-capita measure for tracking living standards over time.",
+      "how_to_use": "Indonesia is in the middle-income trap conversation: per-capita PPP GDP ~US$15,000 (2024). Annual real growth ~3-4% per capita reflects population growth (~1% pa) subtracted from GDP growth (~5%). Track for long-term convergence narrative — Indonesia targeted high-income status by 2045.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCGDHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCYDHD/CA",
+      "description": "GDP per capita, Constant prices, Standardized.",
+      "frequency": "P1Y",
+      "subcategory": "GDP per capita",
+      "units": "Index, constant prices",
+      "meaning": "GDP per capita, constant prices, standardized — same conceptual measure as aIDCGDHD/CA at standardized framing.",
+      "how_to_use": "Use for international comparison. Domestic analysts use aIDCGDHD/CA. Real per-capita growth ~3-4% pa in Indonesia (5% GDP minus 1% population).",
+      "related_series": [
+        "aIDCGDHD/CA",
+        "aIDCGDHA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDHQA",
+      "description": "GDP per capita, Current prices, Standardized",
+      "frequency": "P1Y",
+      "subcategory": "GDP per capita",
+      "units": "IDR thousands, current prices",
+      "meaning": "GDP per capita, current prices, quarterly — nominal per-capita GDP at higher frequency.",
+      "how_to_use": "Use annual (aIDCGDHA) for level comparisons; quarterly for tracking trend acceleration. Population assumptions (BPS census) drive denominator.",
+      "related_series": [
+        "aIDCGDHA",
+        "aIDCGDHD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDHA",
+      "description": "GDP per capita, Current prices, Standardized (based on annual data)",
+      "frequency": "P3M",
+      "subcategory": "GDP per capita",
+      "units": "IDR thousands, current prices",
+      "meaning": "GDP per capita, current prices, annual — nominal GDP per person. Used for income-level benchmarking.",
+      "how_to_use": "Indonesia per-capita GDP (current prices) ~Rp 75 million (~$5,000 USD) in 2024. Watch for milestone crossings — passing $7,000 per capita typically marks middle-income middle-stage transition.",
+      "related_series": [
+        "aIDCGDHD/CA",
+        "aIDCGDHQA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPPD/A",
+      "description": "GDP, % quarter on quarter, Standardized, Chg P/P, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "Real GDP growth, quarter-over-quarter change in constant prices — the higher-frequency complement to YoY. Indonesia GDP is highly seasonal (Lebaran-Eid timing affects Q2/Q3 mix), so QoQ is reported but YoY is the more market-relevant signal.",
+      "how_to_use": "Use for sequential momentum. Indonesia's QoQ pattern is highly seasonal — Q1 typically negative (post-holiday wind-down), Q3 positive (Lebaran spending if it falls in Q3). Focus on YoY (aIDCGDPYD/A) for trend; QoQ for revisions and sequential acceleration/deceleration.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDGDPQAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPPA",
+      "description": "GDP, % quarter on quarter, Standardized, Chg P/P, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, QoQ",
+      "meaning": "GDP at current prices, quarter-over-quarter percent change — nominal GDP growth pace. Combines real growth + GDP deflator (inflation).",
+      "how_to_use": "Used in fiscal arithmetic (debt/GDP and deficit/GDP move with nominal GDP). Compare to real QoQ (aIDCGDPPD/A) — the gap is GDP-deflator inflation. Recent nominal QoQ runs ~3-4% reflecting ~1% real + ~2% deflator.",
+      "related_series": [
+        "aIDCGDPPD/A",
+        "aIDCGDPYA",
+        "aIDCIPDPE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPYD/A",
+      "description": "GDP, % year on year, Standardized, Chg Y/Y, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "Real GDP growth, year-over-year change in constant prices — the headline Indonesia growth print. Released quarterly by BPS-Statistics Indonesia (Badan Pusat Statistik) with a ~6-week lag (e.g., Q1 data published in early May).",
+      "how_to_use": "THE Indonesia growth number markets watch. Trend ~5% per year is the post-2014 norm — Indonesia hasn't seen recession since 1998 Asian crisis (briefly negative in 2020 COVID). Sustained sub-4% prints raise concerns about structural slowdown; >5.5% suggests above-trend (often consumption-driven). Compare to consensus (Bloomberg/Reuters poll) — surprise drives IDR, SBN yields, and JCI.",
+      "related_series": [
+        "aIDCGDPPD/A",
+        "aIDCPCEYD/A",
+        "aIDCGFCYD/A",
+        "aIDGDPAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPYA",
+      "description": "GDP, % year on year, Standardized, Chg Y/Y, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "Percent, YoY",
+      "meaning": "GDP at current prices, year-over-year percent change — nominal GDP growth rate. Captures both real growth and GDP deflator inflation.",
+      "how_to_use": "Most useful in fiscal-arithmetic context (when computing debt or deficit as % of nominal GDP). Markets watch real GDP YoY (aIDCGDPYD/A) for the headline. Recent nominal YoY ~8-9% (5% real + 3% deflator).",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCGDPPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPD/CA",
+      "description": "GDP, Standardized, Constant Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "IDR billions, constant prices",
+      "meaning": "GDP at constant prices, quarterly — real GDP level (volume measure). Reference base year is updated periodically by BPS (currently 2010 base).",
+      "how_to_use": "The 'real economy' size measure. Use for constant-price level tracking. YoY (aIDCGDPYD/A) and QoQ (aIDCGDPPD/A) growth rates from this series are the most-watched headline numbers.",
+      "related_series": [
+        "aIDCGDPA",
+        "aIDCGDPYD/A",
+        "aIDCGDPEX/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGDPA",
+      "description": "GDP, Standardized, Current Prices, GDP by Expenditure, Quarterly, Statistics Indonesia/Refinitiv",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "IDR billions, current prices",
+      "meaning": "GDP at current prices, quarterly — nominal GDP level by expenditure approach. Released quarterly by BPS-Statistics Indonesia.",
+      "how_to_use": "Use for nominal-GDP level analysis (debt/GDP, deficit/GDP ratios). Compare to constant-price GDP (aIDCGDPD/CA) — gap reflects the GDP deflator, Indonesia's broadest inflation gauge. Recent annualized nominal GDP ~Rp 22,000 trillion (~$1.4 trillion USD).",
+      "related_series": [
+        "aIDCGDPD/CA",
+        "aIDCGDPYA",
+        "aIDCIPDE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGCEPD/A",
+      "description": "Government Consumption, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Government",
+      "units": "Percent, QoQ",
+      "meaning": "Government Consumption, QoQ percent change in constant prices — sequential government-spending momentum.",
+      "how_to_use": "Volatile. Reflects budget-execution patterns: Q4 typically sees spending push to use up budget allocations. Smooth with 4Q average for trend.",
+      "related_series": [
+        "aIDCGCEYD/A",
+        "aIDCGCED/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGCEYD/A",
+      "description": "Government Consumption, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Government",
+      "units": "Percent, YoY",
+      "meaning": "Government Consumption, year-over-year change in constant prices — central + regional government final consumption (salaries, goods/services purchased). ~8% of Indonesia GDP, smaller share than most G20 economies.",
+      "how_to_use": "Generally less cyclical than household consumption. Election-cycle distortions: government spending tends to accelerate in election years (2014, 2019, 2024). Subsidy spending (energy, food) shows up in this line. Watch for fiscal stimulus periods (2020 COVID response saw government consumption surge while private fell).",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDCAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGCED/CA",
+      "description": "Government Consumption, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Government",
+      "units": "IDR billions, constant prices",
+      "meaning": "Government Consumption — constant-price level. Central + regional government final consumption (salaries, goods/services purchased).",
+      "how_to_use": "Use level for analytical baseline; YoY (aIDCGCEYD/A) for cyclical tracking. Government consumption surges in election years and during crisis-response periods (2020 COVID).",
+      "related_series": [
+        "aIDCGCEYD/A",
+        "aIDCGCEPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGFCPD/A",
+      "description": "Gross Fixed Capital Investment, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Percent, QoQ",
+      "meaning": "Gross Fixed Capital Investment, QoQ percent change in constant prices — sequential investment momentum.",
+      "how_to_use": "Volatile. Fiscal year-end capex pushes inflate Q4. Use YoY (aIDCGFCYD/A) for trend identification.",
+      "related_series": [
+        "aIDCGFCYD/A",
+        "aIDCGFCD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGFCYD/A",
+      "description": "Gross Fixed Capital Investment, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "Percent, YoY",
+      "meaning": "Gross Fixed Capital Formation, year-over-year change in constant prices — investment spending on machinery, buildings, infrastructure. ~30% of Indonesia GDP.",
+      "how_to_use": "The cycle-sensitive growth component. Surges with infrastructure programs (Jokowi's 2014-2024 infrastructure push drove 6-8% pa GFCF growth) and FDI cycles. Decelerates sharply when BI rates rise. Pair with PMA (foreign investment realization, BKPM data) and domestic credit growth — when both stall, GFCF lags by 2-3 quarters.",
+      "related_series": [
+        "aIDCGDPYD/A",
+        "aIDBPDRIVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGFCD/CA",
+      "description": "Gross Fixed Capital Investment, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Investment",
+      "units": "IDR billions, constant prices",
+      "meaning": "Gross Fixed Capital Formation — constant-price level. Investment in machinery, buildings, infrastructure. ~30% of GDP.",
+      "how_to_use": "Use level for analytical baseline; YoY (aIDCGFCYD/A) for cyclical signal. Investment is the cycle-sensitive growth component — accelerates with infrastructure programs and FDI cycles.",
+      "related_series": [
+        "aIDCGFCYD/A",
+        "aIDCGFCPD/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

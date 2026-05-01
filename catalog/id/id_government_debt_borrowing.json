@@ -1,0 +1,51 @@
+{
+  "category": "Government Debt & Borrowing",
+  "category_slug": "id_government_debt_borrowing",
+  "section": "Government Sector",
+  "source_file": "Indonesia_Government Debt & Borrowing.xlsx",
+  "ric_count": 3,
+  "rics": [
+    {
+      "ric": "aIDPDEBTA",
+      "description": "Public Debt",
+      "frequency": "P3M",
+      "subcategory": "Public Debt",
+      "units": "IDR trillions",
+      "meaning": "Public Debt outstanding — total central government debt, including SBN (Surat Berharga Negara, Indonesian government securities) issued domestically and externally, plus loans from multilaterals (World Bank, ADB) and bilateral creditors.",
+      "how_to_use": "Indonesia's gross debt level rose from ~Rp 4,500T in 2019 to ~Rp 8,000T post-COVID. Domestic SBN dominates (~65% of total) — important for FX-risk insulation. Foreign holding share of SBN (~14%) is the key external-vulnerability metric — sharp drops mean foreign outflows pressuring IDR.",
+      "related_series": [
+        "aIDCDBTGUR",
+        "aIDCEXTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCDBTGUR",
+      "description": "Public debt as a percentage of GDP, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Public Debt",
+      "units": "Percent of GDP",
+      "meaning": "Public debt as a percentage of GDP — the standard sustainability gauge. Published quarterly by Ministry of Finance.",
+      "how_to_use": "Indonesia's debt/GDP rose from ~30% (pre-COVID) to ~40% (2024) — still moderate vs DM peers (90-130%) and EM peers like India (~85%) or Brazil (~85%). The State Finance Law caps gross debt at 60% of GDP. Watch debt-service-to-revenue ratio (~20%) for nearer-term fiscal stress.",
+      "related_series": [
+        "aIDPDEBTA",
+        "aIDGOVBALA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCDBTIIA",
+      "description": "Public debt, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Public Debt",
+      "units": "USD billions",
+      "meaning": "Public Debt, standardized — OECD-comparable framing of the gross public debt level in USD-equivalent terms.",
+      "how_to_use": "Use for international comparisons. Dollar-denominated framing exposes IDR depreciation effects on foreign-currency portion. Domestic analysts use IDR-level (aIDPDEBTA) for trend analysis.",
+      "related_series": [
+        "aIDPDEBTA",
+        "aIDCDBTGUR"
+      ],
+      "notes": ""
+    }
+  ]
+}

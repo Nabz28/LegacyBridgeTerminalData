@@ -1,0 +1,812 @@
+{
+  "category": "GDP Deflators",
+  "category_slug": "us_gdp_deflators",
+  "section": "National Accounts",
+  "source_file": "US_GDP Deflators.xlsx",
+  "ric_count": 51,
+  "rics": [
+    {
+      "ric": "aUSCPPPAPQ",
+      "description": "Core PCE prices-adv - Actual, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "PCE Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in Core PCE — most market-relevant when annualized over 3 or 6 months. Above ~0.17%/mo is hawkish for rates.",
+      "how_to_use": "THE Fed inflation series. The 6-month annualized core PCE is what FOMC commentary typically references. Released ~2 weeks after CPI with the BEA Personal Income & Outlays report. Lower than CPI because of basket weighting (less shelter weight) and chain-weighting.",
+      "related_series": [
+        "aUSPCEMAR",
+        "aUSDGEPAPQ",
+        "aUSDGEFAPQ",
+        "aUSCPPFAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPFAPQ",
+      "description": "Core PCE prices-final - Actual, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "PCE Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month change in Core PCE — most market-relevant when annualized over 3 or 6 months. Above ~0.17%/mo is hawkish for rates.",
+      "how_to_use": "THE Fed inflation series. The 6-month annualized core PCE is what FOMC commentary typically references. Released ~2 weeks after CPI with the BEA Personal Income & Outlays report. Lower than CPI because of basket weighting (less shelter weight) and chain-weighting.",
+      "related_series": [
+        "aUSPCEMAR",
+        "aUSDGEPAPQ",
+        "aUSDGEFAPQ",
+        "aUSCPPPAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGEPAPQ",
+      "description": "GDP deflator-adv - Actual, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSDGEFAPQ",
+        "aUSCPPPAPQ",
+        "aUSCPPFAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGEFAPQ",
+      "description": "GDP deflator-final - Actual, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSDGEPAPQ",
+        "aUSCPPPAPQ",
+        "aUSCPPFAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPI/A",
+      "description": "GDP, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEPAPQ",
+        "aUSPCEP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPCF/C",
+      "description": "GDP, Price Index, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCEOT/CA",
+        "aUSGDPQI/CA",
+        "aUSGDPCH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPCH/A",
+      "description": "GDP, Price Index, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCEOT/CA",
+        "aUSGDPQI/CA",
+        "aUSGDPCH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPQI/CA",
+      "description": "GDP, Price Index, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCEOT/CA",
+        "aUSGDPQI/CA",
+        "aUSGDPCH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN5JJP1/C",
+      "description": "IPRCD, Exports",
+      "frequency": "P1Y",
+      "subcategory": "Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSNG2Q8K/C",
+        "aUSNVFWJL/C",
+        "aUSNQNRC4/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNG2Q8K/C",
+      "description": "IPRCD, Exports, Goods",
+      "frequency": "P1Y",
+      "subcategory": "Exports",
+      "units": "",
+      "meaning": "Level of US exports.",
+      "how_to_use": "Largest categories: capital goods, services (financial, IP, travel), industrial supplies. Services exports persistently surplus. Strong USD compresses receipts in local-currency-equivalent terms.",
+      "related_series": [
+        "aUSCURACEXG/A",
+        "aUSNOZNH3/C",
+        "aUSN5JJP1/C",
+        "aUSNVFWJL/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNGGBWT/C",
+      "description": "IPRCD, Federal government consumption & investment",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Level of the government spending component of US GDP.",
+      "how_to_use": "Less cyclical than private components. Direct fiscal-stimulus channel. Federal vs state-and-local mix matters: states are pro-cyclical (balanced-budget constraints), federal is counter-cyclical.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSN536FH/C",
+        "aUSNVFWJL/C",
+        "aUSNQ2UM9/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNNGCCH/C",
+      "description": "IPRCD, Fixed investment, Non-residential",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNVFWJL/C",
+        "aUSNQ2UM9/C",
+        "aUSNDIYGZ/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNVFWJL/C",
+      "description": "IPRCD, Fixed investment, Non-residential, Structures",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNNGCCH/C",
+        "aUSNQ2UM9/C",
+        "aUSNDIYGZ/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDIYGZ/C",
+      "description": "IPRCD, Fixed investment, Residential",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNVFWJL/C",
+        "aUSNNGCCH/C",
+        "aUSNQ2UM9/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN536FH/C",
+      "description": "IPRCD, Government consumption & investment, National defense",
+      "frequency": "P1Y",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Level of the government spending component of US GDP (national region).",
+      "how_to_use": "Less cyclical than private components. Direct fiscal-stimulus channel. Federal vs state-and-local mix matters: states are pro-cyclical (balanced-budget constraints), federal is counter-cyclical.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNGGBWT/C",
+        "aUSNVFWJL/C",
+        "aUSNQ2UM9/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQ2UM9/C",
+      "description": "IPRCD, Gross private domestic investment, Fixed",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "",
+      "meaning": "Level of the private investment component of US GDP.",
+      "how_to_use": "Drives productivity growth long-term and is highly cyclical short-term. Residential investment leads recessions; nonresidential structures and equipment lag. AI capex surge is reshaping intellectual-property investment.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSNVFWJL/C",
+        "aUSNNGCCH/C",
+        "aUSNDIYGZ/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSN77MU6/C",
+      "description": "IPRCD, Imports, Services",
+      "frequency": "P1Y",
+      "subcategory": "Imports",
+      "units": "",
+      "meaning": "Level of US imports.",
+      "how_to_use": "Largest categories: consumer goods, capital goods, autos, industrial supplies. Goods imports cycle with US demand; services imports steadier. Watch country shares (especially China — tariff overlay).",
+      "related_series": [
+        "aUSCURACIMG/A",
+        "aUSNQNRC4/C",
+        "aUSNVFWJL/C",
+        "aUSNQ2UM9/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNKI7U0/C",
+      "description": "IPRCD, Personal expenditures",
+      "frequency": "P1Y",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "IPRCD, Personal expenditures.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNQNRC4/C",
+        "aUSNOZNH3/C",
+        "aUSPCEXFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOZNH3/C",
+      "description": "IPRCD, Personal expenditures, Durable goods",
+      "frequency": "P1Y",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "IPRCD, Personal expenditures, Durable goods.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNQNRC4/C",
+        "aUSNKI7U0/C",
+        "aUSCONNDCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNQNRC4/C",
+      "description": "IPRCD, Personal expenditures, Services",
+      "frequency": "P1Y",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "IPRCD, Personal expenditures, Services.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOZNH3/C",
+        "aUSNKI7U0/C",
+        "aUSPCEXFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPDEF/A",
+      "description": "Implicit Price Deflator, GDP",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA.",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSNDZG7W/C",
+        "aUSNDJ0CH/C",
+        "aUSGDPDEFA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGDPDEFA/A",
+      "description": "Implicit Price Deflator, GDP, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSNDZG7W/C",
+        "aUSNDJ0CH/C",
+        "aUSDGERAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDGERAPQ",
+      "description": "Implicit Price Deflator, Total-prelim, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Implicit Price Deflator, Total-prelim, Chg P/P.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNDZG7W/C",
+        "aUSNDJ0CH/C",
+        "aUSGDPDEFA/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDZG7W/C",
+      "description": "Implicit price deflator, GDP",
+      "frequency": "P1Y",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA.",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSNDJ0CH/C",
+        "aUSGDPDEFA/A",
+        "aUSDGERAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS11911/C",
+      "description": "Implicit price deflator, GDP, fixed invest, non-residential, equipment",
+      "frequency": "P1Y",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA.",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUS11912/C",
+        "aUSNVFWJL/C",
+        "aUSNNGCCH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS11912/C",
+      "description": "Implicit price deflator, GDP, fixed invest, non-residential, intellectual property",
+      "frequency": "P1Y",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA.",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUS11911/C",
+        "aUSNVFWJL/C",
+        "aUSNNGCCH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNDJ0CH/C",
+      "description": "Implicit price deflator, GDP, gross national product",
+      "frequency": "P1Y",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA (national region).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSNDZG7W/C",
+        "aUSGDPDEFA/A",
+        "aUSDGERAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEP/A",
+      "description": "Personal Consumption Expenditure, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCEOT/CA",
+        "aUSPCET/A",
+        "aUSPCEOPCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONDUCE/CA",
+      "description": "Personal Consumption Expenditure, Durable Goods, Price Index, GDP Deflators, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the headline PCE price index.",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR",
+        "aUSCONNDCE/CA",
+        "aUSPCET/A",
+        "aUSCONSRCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCNEGSCE/CA",
+      "description": "Personal Consumption Expenditure, Energy goods and services",
+      "frequency": "P1M",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "Level of personal consumption expenditures (PCE) in US GDP.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSPCEXFE/A",
+        "aUSPCEOPCE/CA",
+        "aUSCPMBXCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPMBCE/CA",
+      "description": "Personal Consumption Expenditure, Market-based, Total",
+      "frequency": "P1M",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "Level of personal consumption expenditures (PCE) in US GDP.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSCPMBXCE/CA",
+        "aUSPCEXFE/A",
+        "aUSPCETTI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPMBXCE/CA",
+      "description": "Personal Consumption Expenditure, Market-based, Total excluding food and energy",
+      "frequency": "P1M",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "Level of personal consumption expenditures (PCE) in US GDP.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSPCEXFE/A",
+        "aUSPCEOPCE/CA",
+        "aUSCPMBCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONNDCE/CA",
+      "description": "Personal Consumption Expenditure, Nondurable Goods, Price Index, GDP Deflators, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the headline PCE price index.",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR",
+        "aUSCONDUCE/CA",
+        "aUSPCET/A",
+        "aUSCONSRCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEXFE/A",
+      "description": "Personal Consumption Expenditure, Personal consumption expenditures less food and energy, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "Level of personal consumption expenditures (PCE) in US GDP.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSPCEOPCE/CA",
+        "aUSPCET/A",
+        "aUSCONSRCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEOPCE/CA",
+      "description": "Personal Consumption Expenditure, Personal consumption expenditures less food and energy, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "Consumption",
+      "units": "Persons",
+      "meaning": "Level of personal consumption expenditures (PCE) in US GDP.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSPCEXFE/A",
+        "aUSPCEP/A",
+        "aUSPCEOT/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCET/A",
+      "description": "Personal Consumption Expenditure, Price Index, GDP Deflators, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the headline PCE price index.",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR",
+        "aUSCONSRCE/CA",
+        "aUSCONNDCE/CA",
+        "aUSCONDUCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEOT/CA",
+      "description": "Personal Consumption Expenditure, Price Index, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the headline PCE price index.",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR",
+        "aUSPCET/A",
+        "aUSCONSRCE/CA",
+        "aUSCONNDCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCONSRCE/CA",
+      "description": "Personal Consumption Expenditure, Services, Price Index, GDP Deflators, Monthly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P1M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Index of the headline PCE price index.",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR",
+        "aUSPCET/A",
+        "aUSCONNDCE/CA",
+        "aUSCONDUCE/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGSPPAPD",
+      "description": "Profits after tax total-adv, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Profits after tax total-adv, Chg P/P.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSGSPRAPD",
+        "aUSGSPFAPD",
+        "aUSPCEPAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGSPFAPD",
+      "description": "Profits after tax total-final, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Profits after tax total-final, Chg P/P.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSGSPRAPD",
+        "aUSGSPPAPD",
+        "aUSPCEFAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGSPRAPD",
+      "description": "Profits after tax total-prelim, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Profits after tax total-prelim, Chg P/P.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSGSPPAPD",
+        "aUSGSPFAPD",
+        "aUSPCERAPQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEPAPQ",
+      "description": "Total-adv, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEP/A",
+        "aUSPCEOT/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEFAPQ",
+      "description": "Total-final, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEPAPQ",
+        "aUSPCEP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPPRAPQ",
+      "description": "Total-prelim, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEPAPQ",
+        "aUSPCEP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCERAPQ",
+      "description": "Total-prelim, Chg P/P, GDP Deflators, Quarterly, BEA - Bureau of Economic Analysis, U.S. Department of Commerce",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in the GDP deflator (implicit price index for GDP).",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEPAPQ",
+        "aUSPCEP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIPDPE/A",
+      "description": "GDP Price Deflator, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: GDP Price Deflator, % quarter on quarter, Standardized, Chg P/P.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSPCEOT/CA",
+        "aUSGDPQI/CA",
+        "aUSGDPCH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIPDYE/A",
+      "description": "GDP Price Deflator, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: GDP Price Deflator, % year on year, Standardized, Chg Y/Y.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCIPDPE/A",
+        "aUSCIPDE/CA",
+        "aUSPCET/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIPDE/CA",
+      "description": "GDP Price Deflator, Standardized",
+      "frequency": "P3M",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "GDP Price Deflator.",
+      "how_to_use": "Sub-component or variant within GDP Deflators. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSPCET/A",
+        "aUSPCEOT/CA",
+        "aUSNDZG7W/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDALLRA",
+      "description": "Dallas Fed PCE, Chg M/M",
+      "frequency": "P1M",
+      "subcategory": "PCE Deflator",
+      "units": "Index (2017=100)",
+      "meaning": "Level of the headline PCE price index (Personal Consumption Expenditures price index, all items).",
+      "how_to_use": "Cross-check against headline CPI. PCE differs in basket composition (broader, captures substitution behavior) and weighting (chain-weighted, services-heavier). CPI > PCE divergence is normal — usually 30-50bp wider in CPI.",
+      "related_series": [
+        "aUSPCEYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCETTI",
+      "description": "Personal Consumption Expenditure, Total, trimmed mean inflation rate (1-month annualized)",
+      "frequency": "P1M",
+      "subcategory": "Consumption",
+      "units": "%",
+      "meaning": "Personal consumption expenditures (pce) in us gdp, expressed at a seasonally-adjusted annual rate.",
+      "how_to_use": "~70% of US GDP. The dominant cyclical driver. Watch real PCE growth alongside real disposable income growth to see whether consumption is income-funded or savings-drawdown-funded.",
+      "related_series": [
+        "aUSCGDPPD/A",
+        "aUSCPMBXCE/CA",
+        "aUSCPMBCE/CA",
+        "aUSPCEXFE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPCEQAR",
+      "description": "Foreign exchange reserves - BMO, GDP Deflators, Quarterly, Reuters",
+      "frequency": "",
+      "subcategory": "GDP Deflator",
+      "units": "Index",
+      "meaning": "Level of the GDP deflator — broadest US price index, derived as nominal GDP / real GDP. Quarterly BEA.",
+      "how_to_use": "Broader than CPI/PCE — covers all final domestic production. Differs because it's chain-weighted and excludes imports. Useful for cross-country GDP-deflator comparison and for converting nominal to real GDP.",
+      "related_series": [
+        "aUSGDPDEF/A",
+        "aUSPCERAPQ",
+        "aUSPCEPAPQ",
+        "aUSPCEP/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

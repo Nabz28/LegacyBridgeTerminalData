@@ -1,0 +1,617 @@
+{
+  "category": "Consumer Finance",
+  "category_slug": "us_consumer_finance",
+  "section": "Consumer Sector",
+  "source_file": "US_Consumer Finance.xlsx",
+  "ric_count": 44,
+  "rics": [
+    {
+      "ric": "aUSMOV659A",
+      "description": "Households, Mortgage Origination Volume, Risk Score 620-659",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with risk score 620-659 — subprime band. NY Fed Household Debt and Credit Report quarterly. Sensitive to lending-standard shifts.",
+      "how_to_use": "Volumes rise when banks ease standards (cycle peaks) and collapse in tightening cycles. As a share of total originations, this band fell from 15-20% pre-2008 to 5-8% post-Dodd-Frank — a structural shift toward higher-quality lending.",
+      "related_series": [
+        "aUSMOV719A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOV719A",
+      "description": "Households, Mortgage Origination Volume, Risk Score 660-719",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with risk score 660-719 — near-prime/middle band. The pre-2008 mainstream borrower segment, now a smaller share given migration toward higher scores post-crisis.",
+      "how_to_use": "Watch share vs prime (720-759) as a cycle indicator: rising near-prime share indicates lender willingness to extend credit further. Falling share signals tightening — a leading indicator of housing slowdowns.",
+      "related_series": [
+        "aUSMOV759A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOV759A",
+      "description": "Households, Mortgage Origination Volume, Risk Score 720-759",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with risk score 720-759 — prime band. Largest single share of originations historically. Standard conforming-loan borrower.",
+      "how_to_use": "Most stable band through cycles. Fell ~70% from 2021 peak as rate hikes killed refinance volumes. Use as the 'baseline mortgage market' gauge — purchase originations in this band track home-sales volume.",
+      "related_series": [
+        "aUSMOV719A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOV620A",
+      "description": "Households, Mortgage Origination Volume, Risk Score <620",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with risk score below 620 — deep subprime band. Very small post-2008 (banks largely don't lend here; FHA dominates this credit-quality segment).",
+      "how_to_use": "Monitor for any uptick as a sign of loosening credit standards. Pre-2008, this band exceeded $50B/quarter. Post-Dodd-Frank QM rules effectively shut down deep-subprime conventional lending; FHA fills the gap with explicit federal guarantee.",
+      "related_series": [
+        "aUSMOV659A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOV760A",
+      "description": "Households, Mortgage Origination Volume, Risk Score >760",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with risk score 760+ — super-prime band. Largest dollar volume share (highest credit-quality borrowers tend to take larger loans for higher-priced homes).",
+      "how_to_use": "The 'jumbo + prime conforming' segment. Most resilient to rate shocks because these borrowers have alternatives (cash, equity). Useful for tracking high-end housing demand separately from broader market.",
+      "related_series": [
+        "aUSMOV759A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOVZERA",
+      "description": "Households, Mortgage Origination Volume, Risk Score Zero",
+      "frequency": "",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Mortgage originations with zero risk score — borrowers who lack credit-bureau histories (typically immigrants, young first-time buyers). Niche segment.",
+      "how_to_use": "Very small share. Useful only for tracking unusual lending patterns. Major spike would indicate credit-extension to non-traditional borrowers (concerning) — currently flat.",
+      "related_series": [
+        "aUSMOV620A",
+        "aUSMOVTOTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMOVTOTA",
+      "description": "Households, Mortgage Origination Volume, Total",
+      "frequency": "P3M",
+      "subcategory": "Mortgage Origination",
+      "units": "USD millions",
+      "meaning": "Total mortgage originations — sum of all credit-quality bands. NY Fed quarterly Household Debt and Credit Report. Includes both purchase and refinance originations.",
+      "how_to_use": "Headline mortgage finance volume. Collapsed from ~$1.2T quarterly peak in 2021 to ~$400B in 2023-24 as rate hikes killed refinance demand. Track purchase-origination share separately for housing-market signal.",
+      "related_series": [
+        "aUSMOV760A",
+        "aUSMOV759A",
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMEMSLA",
+      "description": "Consumer Credit Memo, Student Loans",
+      "frequency": "P3M",
+      "subcategory": "Student Loans",
+      "units": "USD billions",
+      "meaning": "Total student loans outstanding (memo to consumer credit) — ~$1.7T. Mostly federal direct loans; private student loans <$150B. Cumulative balance reflecting decades of borrowing minus repayments.",
+      "how_to_use": "Major household balance sheet item. Repayment obligations resumed Oct 2023 after pandemic forbearance; consumption headwind for borrowers. Forgiveness programs (PSLF, IDR) periodically reduce balances; track flow vs stock for cleaner signal.",
+      "related_series": [
+        "aUSCRDOUTA",
+        "aUSCRDTLAB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDTLQ",
+      "description": "Consumer Credit, % chg",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "%, MoM annualized",
+      "meaning": "Total consumer credit MoM% change, annualized — Fed G.19 high-frequency credit-growth signal. Captures revolving (cards) + nonrevolving (auto + student + personal) flows.",
+      "how_to_use": "Watch for sharp decelerations as consumer-stress signal. 2008 crisis saw -5% annualized; 2020 COVID saw -10% (credit-card payoffs from stimulus). Revolving accelerating + nonrevolving decelerating = households leaning on cards (late-cycle stress).",
+      "related_series": [
+        "aUSCRDTLAB",
+        "aUSCRDOUTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDTLAB",
+      "description": "Consumer Credit, Chg M/M",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, monthly absolute change — net credit creation flow. Fed G.19 release ~5th business day of each month, two-month lag.",
+      "how_to_use": "Decompose into revolving (cards) and nonrevolving (auto/student) for cleaner signal. Auto loan flows track auto sales; revolving flows show whether households are running balances or paying down. Stress shows up in revolving first.",
+      "related_series": [
+        "aUSCRDTLQ",
+        "aUSCRDTLFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDEPNA",
+      "description": "Consumer Credit, Depository Institutions - Nonrevolving",
+      "frequency": "P1M",
+      "subcategory": "Bank Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit at depository institutions — banks' auto loan + personal loan book (excludes mortgages, excludes credit cards). About half of all bank consumer lending by stock.",
+      "how_to_use": "Compare to total nonrevolving (G.19) for bank vs nonbank share. Auto loan share of bank lending has fallen as captive finance (GM Financial, Ford Credit, Toyota Financial) gained share — a structural shift in auto financing.",
+      "related_series": [
+        "aUSCRDPFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDEPFA",
+      "description": "Consumer Credit, Depository Institutions, Flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit at depository institutions, flows — net new bank consumer credit creation per period. Bank-channel credit-creation flow.",
+      "how_to_use": "Decompose vs nonbank flows (credit unions, finance companies) to see channel mix. Banks are ~50% of consumer credit; share has been falling as fintechs and captive auto finance grow.",
+      "related_series": [
+        "aUSCRDEPNA",
+        "aUSCRDTLFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDNVFB/A",
+      "description": "Consumer Credit, Nonrevolving, Flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, flows — auto + student + personal loan flows. Excludes credit cards (revolving).",
+      "how_to_use": "Auto loans dominate (~60% of nonrevolving flows). Student loans flat post-2020 forbearance/forgiveness. Track auto-loan flows for auto-sales pulse — they correlate ~0.8.",
+      "related_series": [
+        "aUSCRDTLFA",
+        "aUSCRDOUTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCREDAB",
+      "description": "Consumer credit - Actual, Absolute change, USD",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, absolute change in USD — total monthly net change in outstanding consumer credit. Same as aUSCRDTLAB at different release.",
+      "how_to_use": "Watch for sharp decelerations as consumer-stress signal. 2008 crisis saw monthly contractions of $20-30B; 2020 COVID saw similar drops driven by credit-card paydowns from stimulus.",
+      "related_series": [
+        "aUSCRDTLAB",
+        "aUSCRDTLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMEMMVA",
+      "description": "Consumer credit memo, motor vehicle loans",
+      "frequency": "P3M",
+      "subcategory": "Auto Loans",
+      "units": "USD billions",
+      "meaning": "Motor vehicle loans (memo item).",
+      "how_to_use": "~$1.6T outstanding. Rate-sensitive; new vs used split matters for credit risk.",
+      "related_series": [
+        "aUSFMEMMVA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFMEMMVA",
+      "description": "Consumer credit memo, motor vehicle loans, flows",
+      "frequency": "P3M",
+      "subcategory": "Auto Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit memo: motor vehicle loans, flows — net new auto-loan creation per period. Tracks auto-finance volume.",
+      "how_to_use": "Correlates with auto sales (~0.8). Track auto-loan-flow growth vs sales growth: when loans grow faster than sales, average loan-to-value rising (subprime expansion); when slower, customers paying cash.",
+      "related_series": [
+        "aUSMEMMVA",
+        "aUSCRDNVFB/A",
+        "aUSVHLS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCREDITI/A",
+      "description": "Consumer credit outstanding",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit outstanding (alternate framing) — same conceptual measure as aUSCRDOUTA. Total household nonmortgage debt.",
+      "how_to_use": "Cross-check vs aUSCRDOUTA. Total ~$5T as of 2024 (revolving ~$1.3T, nonrevolving ~$3.7T). Track YoY growth rate as consumer-leverage signal.",
+      "related_series": [
+        "aUSCRDOUTA",
+        "aUSNCHCINB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDOUTA",
+      "description": "Consumer credit outstanding",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer Credit Outstanding total — Federal Reserve G.19 monthly. Credit cards + auto + student + personal. ~$5T total.",
+      "how_to_use": "Watch growth rate alongside delinquencies (aUSBDLCOCQ/A) to gauge consumer balance-sheet stress. Composition: revolving (cards) + non-revolving (auto, student, personal). Excludes mortgage debt.",
+      "related_series": [
+        "aUSCREDITIR/A",
+        "aUSCREDITIN/A",
+        "aUSCRCDACR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNCHCINB/A",
+      "description": "Consumer credit outstanding, net change (AR)",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit outstanding, net change (annualized rate) — annualized version of monthly absolute change. Smoothed credit-creation pace.",
+      "how_to_use": "Annualized rate makes monthly volatility comparable to year-over-year stock change. Useful for comparing fast-growing vs slow-growing periods. Pre-COVID norm ~5%/year; post-COVID swings have been much larger.",
+      "related_series": [
+        "aUSCRDTLAB",
+        "aUSCRDTLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTUCICA",
+      "description": "Consumer credit, credit unions",
+      "frequency": "P1M",
+      "subcategory": "Credit by Lender",
+      "units": "USD billions",
+      "meaning": "Credit unions consumer credit.",
+      "how_to_use": "Credit unions ~12% of consumer credit. Member-owned, often cheaper rates.",
+      "related_series": [
+        "aUSTUCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTUCICFA",
+      "description": "Consumer credit, credit unions, Flows",
+      "frequency": "P1M",
+      "subcategory": "Credit Unions",
+      "units": "USD billions",
+      "meaning": "Consumer credit at credit unions, flows — net new credit-union consumer credit creation. Credit unions are ~12% of consumer credit market.",
+      "how_to_use": "Credit unions tend to lend to higher-credit-quality borrowers and have lower charge-off rates. Growing share post-2008 (banks tightened, CUs filled gap). Track for member-base growth and lending standards.",
+      "related_series": [
+        "aUSTUCICA",
+        "aUSCRDEPFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFCCICA",
+      "description": "Consumer credit, finance companies",
+      "frequency": "P1M",
+      "subcategory": "Credit by Lender",
+      "units": "USD billions",
+      "meaning": "Finance companies consumer credit.",
+      "how_to_use": "Captive finance arms (Ford Motor Credit, GM Financial). Auto-heavy.",
+      "related_series": [
+        "aUSFCCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFCCICFA",
+      "description": "Consumer credit, finance companies, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, finance companies, flows — net new credit creation by finance companies (Ford Motor Credit, GM Financial, Toyota Financial, etc.).",
+      "how_to_use": "Captive auto finance dominates this category. Flows correlate with auto sales but with higher beta because captives often offer subsidized financing to support sales.",
+      "related_series": [
+        "aUSFCCICA",
+        "aUSCRDTLFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDTLFA",
+      "description": "Consumer credit, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Total consumer credit flows — net new credit creation across all channels (banks, credit unions, finance companies, nonfinancial business, federal government).",
+      "how_to_use": "Aggregate flow measure. Decompose by channel for source of growth. Federal government student loans are a major share post-2010. Falling flows = consumer-credit cycle turning.",
+      "related_series": [
+        "aUSCRDTLAB",
+        "aUSCRDTLQ"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSCICA",
+      "description": "Consumer credit, nonfinancial business",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, nonfinancial business — credit extended directly by retailers (store credit cards, layaway, etc.). Smaller channel.",
+      "how_to_use": "Niche category but cyclical. Retailer-direct credit grew during pandemic for buy-now-pay-later programs. Track for retailer-credit-program expansion.",
+      "related_series": [
+        "aUSBSCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSCICFA",
+      "description": "Consumer credit, nonfinancial business, Flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, nonfinancial business, flows — net new credit creation by retailers/nonfinancial businesses.",
+      "how_to_use": "Track for BNPL (buy-now-pay-later) ecosystem growth. Affirm, Klarna, Afterpay programs partially captured here. Volatile due to small base.",
+      "related_series": [
+        "aUSBSCICA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUCIFNA",
+      "description": "Consumer credit, nonrevolving credit unions, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Consumer credit, nonrevolving at credit unions, flows — net new credit-union nonrevolving (auto + personal) lending.",
+      "how_to_use": "CUs growing share post-2008. Watch for member-base growth and lending standards. Auto lending is dominant within CU nonrevolving.",
+      "related_series": [
+        "aUSCUCICNA",
+        "aUSTUCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDPFNA",
+      "description": "Consumer credit, nonrevolving depository institutions, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit at depository institutions, flows — net new bank nonrevolving (auto + personal) lending.",
+      "how_to_use": "Bank-share gauge for nonrevolving lending. Bank share has fallen as captive finance grew (auto OEMs offer subsidized rates). Watch for share recovery if captives retreat.",
+      "related_series": [
+        "aUSCRDEPNA",
+        "aUSCRDNVFB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSMCIFNA",
+      "description": "Consumer credit, nonrevolving federal government & Sallie Mae, flows",
+      "frequency": "P1M",
+      "subcategory": "Credit by Lender",
+      "units": "USD billions",
+      "meaning": "Federal government & Sallie Mae, nonrevolving credit, flows.",
+      "how_to_use": "Federal student loan flow. Large negative flows during pause years.",
+      "related_series": [
+        "aUSMEMSLA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFFCCFNA",
+      "description": "Consumer credit, nonrevolving finance companies, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, finance companies, flows — net new finance-company nonrevolving lending. Mostly auto captives.",
+      "how_to_use": "Auto-loan flow proxy. Highly sensitive to auto-sales pace. Captives use 0% promo financing to drive volume — watch promo-financing share for auto-incentive cycle.",
+      "related_series": [
+        "aUSFCCICA",
+        "aUSFCCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSCIFNA",
+      "description": "Consumer credit, nonrevolving nonfinancial business, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, nonfinancial business, flows — retailer-direct nonrevolving lending. Smaller niche.",
+      "how_to_use": "Track for installment-credit programs. BNPL ecosystem partially flows here. Volatile due to small base.",
+      "related_series": [
+        "aUSBSCICOA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRCDACR",
+      "description": "Consumer credit, terms of credit - comm bks interest, credit card, all account",
+      "frequency": "P3M",
+      "subcategory": "Credit Card APR",
+      "units": "%",
+      "meaning": "Credit Card APR at commercial banks, all accounts (G.19 quarterly). ~22% in 2024 — record high.",
+      "how_to_use": "Spread to fed funds widened sharply post-COVID (banks raised more than rate hikes warranted). Average APR for accounts ASSESSED interest (those carrying a balance) is even higher (~24%).",
+      "related_series": [
+        "aUSCREDITIR/A",
+        "aUSPRIME",
+        "aUSBDLCOCQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCREDITIN/A",
+      "description": "Consumer installment credit, nonrevolving",
+      "frequency": "P1M",
+      "subcategory": "Non-Revolving Credit",
+      "units": "USD billions",
+      "meaning": "Non-revolving consumer credit — auto + student + personal loans. Larger than revolving; student loans dominate.",
+      "how_to_use": "Auto charge-offs spiking (subprime auto stress). Student loans frozen during pandemic; payments resumed October 2023. PSLF/IDR program shifts move totals around.",
+      "related_series": [
+        "aUSCRDOUTA",
+        "aUSCREDITIR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCREDITIR/A",
+      "description": "Consumer installment credit, revolving",
+      "frequency": "P1M",
+      "subcategory": "Revolving Credit",
+      "units": "USD billions",
+      "meaning": "Revolving consumer credit (credit cards). Hit ~$1.2T+ in 2024 — a record high.",
+      "how_to_use": "Watch nominal growth rate (~8%/yr trend, faster recently). 90+ delinquency rate (aUSBDLCOCQ/A) is now elevated, especially subprime card. Card APR (aUSCRCDACR) at ~22% is record high.",
+      "related_series": [
+        "aUSCRDOUTA",
+        "aUSCRCDACR",
+        "aUSBDLCOCQ/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDTNQ",
+      "description": "Nonrevolving Consumer Credit, % chg",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "Percent, MoM annualized",
+      "meaning": "Nonrevolving consumer credit, monthly percent change (annualized) — pace of nonrevolving (auto + student) credit growth.",
+      "how_to_use": "Smoother than revolving (cards). Auto-loan-driven cyclically; student-loan flows depend on policy (forgiveness, forbearance). Recent: weakened with auto-sales pullback.",
+      "related_series": [
+        "aUSCRDTLQ",
+        "aUSCRDTNAB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRDTNAB",
+      "description": "Nonrevolving Consumer Credit, Chg M/M",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, monthly absolute change — net new nonrevolving lending per month.",
+      "how_to_use": "Decompose vs revolving for cycle signal. Nonrevolving cycle lags consumer-spending cycle by 1-2 months (loans booked after purchase decisions).",
+      "related_series": [
+        "aUSCRDTNQ",
+        "aUSCRDTLAB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCICNRVA",
+      "description": "Nonrevolving consumer credit",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit outstanding — total stock of nonrevolving credit (auto + student + personal). ~$3.7T.",
+      "how_to_use": "Largest share of consumer credit (~75%). Student loans alone are ~$1.7T. Watch alongside revolving (cards) outstanding for total-leverage picture.",
+      "related_series": [
+        "aUSCRDOUTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCUCICNA",
+      "description": "Nonrevolving consumer credit at credit unions",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit at credit unions — CU nonrevolving lending stock. ~$400B.",
+      "how_to_use": "Auto-loan-heavy. CUs gaining share post-2008. Track for member-base growth and average loan size.",
+      "related_series": [
+        "aUSTUCICA",
+        "aUSCUCIFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFCCICNA",
+      "description": "Nonrevolving consumer credit, finance companies",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit at finance companies — captive auto finance + personal-loan finance companies. ~$700B.",
+      "how_to_use": "Auto OEM captives dominate. Watch for share trends vs banks; captives gain share when promotional financing aggressive.",
+      "related_series": [
+        "aUSFCCICA",
+        "aUSFCCICFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCICNFNA",
+      "description": "Nonrevolving consumer credit, flows",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, total flows — aggregate of all-channel nonrevolving lending creation.",
+      "how_to_use": "Sum of bank + CU + finance company + nonfin business + federal government nonrevolving flows. Federal government (student loans) is variable based on policy.",
+      "related_series": [
+        "aUSCRDNVFB/A",
+        "aUSCRDTLFA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBSCICOA",
+      "description": "Nonrevolving consumer credit, nonfinancial business",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, nonfinancial business — retailer-direct installment credit stock.",
+      "how_to_use": "Niche category. Includes retailer financing programs and BNPL providers. Track for ecosystem growth.",
+      "related_series": [
+        "aUSBSCIFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFICICNA",
+      "description": "Nonrevolving consumer credit, pool of securitized assets",
+      "frequency": "P1M",
+      "subcategory": "Consumer Credit",
+      "units": "USD billions",
+      "meaning": "Nonrevolving consumer credit, pool of securitized assets — auto-loan ABS and other consumer-credit-backed securities.",
+      "how_to_use": "Tracks securitized funding of consumer credit. ABS issuance is the supply side; investor demand drives pricing of subprime auto deals. Watch for ABS-spread changes as credit-cycle indicator.",
+      "related_series": [
+        "aUSFCCICA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFORIDB/A",
+      "description": "Ratio, financial obligation FOR",
+      "frequency": "P3M",
+      "subcategory": "Debt Burden",
+      "units": "%",
+      "meaning": "Financial obligations ratio (FOR).",
+      "how_to_use": "Broader than DSR — includes rent, auto leases, property tax, insurance. Better gauge for renters.",
+      "related_series": [
+        "aUSDSPIDB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSDSPIDB/A",
+      "description": "Ratio, household debt service DSR",
+      "frequency": "P3M",
+      "subcategory": "Debt Burden",
+      "units": "%",
+      "meaning": "Household debt service ratio (DSR) — debt payments / disposable income.",
+      "how_to_use": "Master household-leverage gauge. ~10% currently — well below 2008 peak (~13%).",
+      "related_series": [
+        "aUSFORIDB/A"
+      ],
+      "notes": ""
+    }
+  ]
+}

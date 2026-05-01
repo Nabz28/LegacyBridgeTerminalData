@@ -1,0 +1,188 @@
+{
+  "category": "Employment & Hours",
+  "category_slug": "id_employment_hours",
+  "section": "Labor Market",
+  "source_file": "Indonesia_Employment & Hours.xlsx",
+  "ric_count": 13,
+  "rics": [
+    {
+      "ric": "aIDEMPAFNF",
+      "description": "Employment, Agriculture, forestry, hunting & fishery",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Agriculture, Forestry, Hunting & Fishery — workers in primary sectors. ~28% of total employment but only ~13% of GDP.",
+      "how_to_use": "Productivity-gap measure: employment share much higher than GDP share signals low-productivity informal-rural employment. Structural decline from ~40% (2010) to ~28% (2024) reflects urbanization.",
+      "related_series": [
+        "aIDEAAG/C",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPLMT",
+      "description": "Employment, Annual, Statistics Indonesia",
+      "frequency": "P1Y",
+      "subcategory": "Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment, Annual Total — BPS annual labor-force employment level. Aggregate of formal + informal sector employed.",
+      "how_to_use": "Indonesia total employment ~135-140M. Annual frequency cleaner for trend. Watch for capacity-utilization signals: sustained employment gains alongside flat output point to labor-productivity headwinds.",
+      "related_series": [
+        "aIDCEMFO/A",
+        "aIDLFTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPSNPS",
+      "description": "Employment, Community, social & personal services",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Community, Social & Personal Services — workers in education, healthcare, government services, household services.",
+      "how_to_use": "Stable, counter-cyclical category. Government employment dominates (civil servants, teachers, healthcare workers). Public-sector hiring decisions drive trend.",
+      "related_series": [
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPC",
+      "description": "Employment, Construction",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Construction — workers employed in residential, commercial, infrastructure construction. ~7% of total employment.",
+      "how_to_use": "Highly cyclical with infrastructure spending and BI rates. Surged during 2014-2024 infrastructure push; decelerated since. Watch alongside cement consumption.",
+      "related_series": [
+        "aIDVADCONS/C",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMEGNWS",
+      "description": "Employment, Electricity, gas & water",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Electricity, Gas & Water — utility-sector workers. Small share (<1%) but high productivity.",
+      "how_to_use": "Stable, low-cyclicality. Tracks state-owned utility (PLN) employment patterns plus IPP (independent power producer) staffing.",
+      "related_series": [
+        "aIDVADELWAT/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEBIFINRE",
+      "description": "Employment, Financing, insurance, real estate, business service",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Financing, Insurance, Real Estate, Business Services — white-collar professional employment.",
+      "how_to_use": "Indicator of services-economy maturation. Tracks bank, insurance, asset-management, professional-services hiring. Concentrated in Jakarta/major cities.",
+      "related_series": [
+        "aIDVAFONBS/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPMF",
+      "description": "Employment, Manufacturing",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Manufacturing — workers employed in the manufacturing sector. ~14% of total employment but ~20% of GDP.",
+      "how_to_use": "Track for manufacturing-cycle signal. Sustained declines flag deindustrialization concerns. Pair with manufacturing GVA (aIDVADGM/C) for productivity calculations.",
+      "related_series": [
+        "aIDVADGM/C",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPMNQ",
+      "description": "Employment, Mining and quarrying",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Mining and Quarrying — workers in extractive industries. Small employment share (~1.5%) but high productivity.",
+      "how_to_use": "Cyclical with commodity prices. Track for major mine closures/openings (Freeport's Grasberg expansion, Newmont/Amman's Batu Hijau). High average wages drive disproportionate income contribution.",
+      "related_series": [
+        "aIDVADMIN/C",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMTOTOP",
+      "description": "Employment, Quarterly, Statistics Indonesia",
+      "frequency": "P3M",
+      "subcategory": "Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment, Quarterly Total — higher-frequency BPS employment release. Captures total employed across sectors.",
+      "how_to_use": "Use for cyclical tracking between annual Sakernas releases. Quarterly volatility from agricultural seasonality (planting/harvest cycles) is high.",
+      "related_series": [
+        "aIDEMPLMT",
+        "aIDCEMFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDEMPTSC",
+      "description": "Employment, Transportation, storage & communications",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Transportation, Storage & Communications — workers in logistics, transport, telecom, ICT services.",
+      "how_to_use": "Growing share post-2015 with digital economy expansion (Gojek, Grab drivers). E-commerce + ride-hailing have created new employment categories captured here.",
+      "related_series": [
+        "aIDVAEATRAC/C",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDWSNHNR",
+      "description": "Employment, Wholesale & retail trade, restaurants, hotels",
+      "frequency": "P1Y",
+      "subcategory": "Sector Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment in Wholesale & Retail Trade, Restaurants, Hotels — distributive trades + tourism employment. ~22% of total.",
+      "how_to_use": "Second-largest employment sector after agriculture. Cyclical with consumer spending and tourism flows. Pair with retail sales (aIDRSLSAR) for the distributive-trades cycle.",
+      "related_series": [
+        "aIDRSLSAR",
+        "aIDFRGART"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDWKUNTTP",
+      "description": "Labour Force, Unemployment",
+      "frequency": "P6M",
+      "subcategory": "Labor Force",
+      "units": "Persons, thousands",
+      "meaning": "Labour Force, Unemployment — total unemployed persons in the labor force. Number of people without work but actively seeking.",
+      "how_to_use": "Combine with employment count to compute unemployment rate. Indonesia ~7-8M unemployed (2024) out of ~143M labor force.",
+      "related_series": [
+        "aIDLFTOT",
+        "aIDUNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEMPO/A",
+      "description": "Employment, Employment, Payroll jobs, Standardized (based on source annual data)",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Persons, thousands",
+      "meaning": "Employment, Payroll Jobs (Standardized) — formal-sector employment level. From BPS Sakernas (Labor Force Survey).",
+      "how_to_use": "Indonesia formal-sector employment ~50-55M people; informal sector ~80M. Formal-share growth signals labor-market modernization. Track YoY pace for cyclical signal.",
+      "related_series": [
+        "aIDCEMFO/A",
+        "aIDEMPLMT"
+      ],
+      "notes": ""
+    }
+  ]
+}

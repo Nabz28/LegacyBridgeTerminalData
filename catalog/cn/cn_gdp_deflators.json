@@ -1,0 +1,65 @@
+{
+  "category": "GDP Deflators",
+  "category_slug": "cn_gdp_deflators",
+  "section": "National Accounts",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T17_07 (NATIONAL ACCOUNTS - GDP DEFLATORS).xlsx",
+  "ric_count": 4,
+  "rics": [
+    {
+      "ric": "aCNGDPDEF",
+      "description": "GDP Implicit Price Deflator",
+      "frequency": "P1Y",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP Implicit Price Deflator. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIPDPE/A",
+      "description": "GDP Price Deflator, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP Price Deflator, % quarter on quarter, Standardized, Chg P/P. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIPDYE/A",
+      "description": "GDP Price Deflator, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP Price Deflator, % year on year, Standardized, Chg Y/Y. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCIPDE/CA",
+      "description": "GDP Price Deflator, Standardized",
+      "frequency": "P3M",
+      "subcategory": "GDP",
+      "units": "CNY billions / Percent",
+      "meaning": "China GDP: GDP Price Deflator, Standardized. Sub-aggregate or alternative measure of GDP.",
+      "how_to_use": "Use alongside headline GDP YoY (aCNCGDPYD/A) for full national accounts picture. Different vintages and aggregations capture different aspects: by-expenditure, by-industry, by-province.",
+      "related_series": [
+        "aCNCGDPYD/A",
+        "aCNGDPC/C"
+      ],
+      "notes": ""
+    }
+  ]
+}

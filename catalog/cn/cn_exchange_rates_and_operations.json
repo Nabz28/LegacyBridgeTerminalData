@@ -1,0 +1,1156 @@
+{
+  "category": "Exchange Rates & Operations",
+  "category_slug": "cn_exchange_rates_and_operations",
+  "section": "Money & Finance",
+  "source_file": "China (Mainland)_Economic Overview_Apr 28, 2026T19_26 (MONEY & FINANCE - EXCHANGE RATES and OPERATIONS).xlsx",
+  "ric_count": 80,
+  "rics": [
+    {
+      "ric": "aCNFXEFFECT",
+      "description": "BIS, Nominal Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "Index",
+      "meaning": "BIS Nominal Broad Effective Exchange Rate Index for CNY — trade-weighted CNY against a basket of trading partners' currencies in nominal terms. The PBoC also publishes its own trade-weighted index (CFETS RMB Index) with similar weights.",
+      "how_to_use": "Better than USD/CNY alone for CNY competitiveness — captures moves vs JPY, EUR, KRW, SGD (key trade partners). Falling NEER = CNY weakening on trade-weighted basis. The PBoC explicitly targets stability against the basket post-2015 reform.",
+      "related_series": [
+        "aCNXRUSD",
+        "aCNBISRXBR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNBISRXBR",
+      "description": "BIS, Real Broad Effective Exchange Rate Index",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "Index",
+      "meaning": "BIS Real Broad Effective Exchange Rate Index for CNY — trade-weighted CNY adjusted for relative inflation against trading partners. Shows true CNY competitiveness.",
+      "how_to_use": "Most analytically meaningful FX gauge. CNY's real EER appreciated through 2010s as China grew faster than peers; reversed post-2022 amid CNY weakness + China deflation. Watch real EER trends for CNY structural overvaluation/undervaluation signals.",
+      "related_series": [
+        "aCNFXEFFECT",
+        "aCNXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUUTXM",
+      "description": "Import, digital program-controlled telephone or telegraph switch, Exchange Rates & Operations, Monthly, China Customs",
+      "frequency": "P1M",
+      "subcategory": "Imports",
+      "units": "USD millions / Volume",
+      "meaning": "China Imports: digital program-controlled telephone or telegraph switch, Exchange Rates & Operations, Monthly, China Customs. Detailed import series by product/category from China Customs.",
+      "how_to_use": "Customs publishes detailed monthly bilateral and product-level import data. Major Chinese imports: integrated circuits, crude oil, iron ore, soybeans, copper, machinery. Track monthly YoY changes for cycle signal.",
+      "related_series": [
+        "aCNCIMPB/A",
+        "aCNCIMPYB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKIDOM",
+      "description": "旅游外汇收入_台湾同胞_累计_全国",
+      "frequency": "P1Y",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 旅游外汇收入_台湾同胞_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPNNYM",
+      "description": "旅游外汇收入_外国人_累计_全国",
+      "frequency": "P1Y",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 旅游外汇收入_外国人_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEBTVM",
+      "description": "旅游外汇收入_澳门同胞_累计_全国",
+      "frequency": "P1Y",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 旅游外汇收入_澳门同胞_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBYXJM",
+      "description": "旅游外汇收入_累计_全国",
+      "frequency": "P6M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 旅游外汇收入_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBNSUM",
+      "description": "旅游外汇收入_香港同胞_累计_全国",
+      "frequency": "P1Y",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 旅游外汇收入_香港同胞_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNXGHWM",
+      "description": "Stock market capitalization, Shenzhen Stock Exchange, education",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market capitalization, Shenzhen Stock Exchange, education. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNHDMBM",
+        "aCNCNYDQTM",
+        "aCNCNUZSPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCKFIM",
+      "description": "Stock volume, Shenzhen Stock Exchange, construction, Current Period",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock volume, Shenzhen Stock Exchange, construction, Current Period. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNOEYHM",
+        "aCNCNMIOCM",
+        "aCNCNGBBHM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPEIYM",
+      "description": "Convertible bond volume, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Convertible bond volume, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTEZNM",
+        "aCNCNGLVRM",
+        "aCNCNEQGFM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNYLRVM",
+      "description": "Corporate bond spot turnover, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Corporate bond spot turnover, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNHXASM",
+        "aCNCNXCJVM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHXASM",
+      "description": "Corporate bond turnover, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Corporate bond turnover, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYLRVM",
+        "aCNCNXCJVM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEQGFM",
+      "description": "Corporate bond volume, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Corporate bond volume, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYLRVM",
+        "aCNCNTEZNM",
+        "aCNCNPEIYM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQVXEM",
+      "description": "Daily average number of shares sold, A shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Daily average number of shares sold, A shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNXCJVM",
+        "aCNCNCEWM",
+        "aCNCNWMSWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCEWM",
+      "description": "Daily average stock turnover, A shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Daily average stock turnover, A shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNXCJVM",
+        "aCNCNQVXEM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNXCJVM",
+      "description": "Daily average stock turnover, B shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Daily average stock turnover, B shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNCEWM",
+        "aCNCNQVXEM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNISAQM",
+      "description": "Equity share capital issued, B shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Equity share capital issued, B shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUZSPM",
+        "aCNCNKTKGM",
+        "aCNCNFAFTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNODYKM",
+      "description": "Initial stock fundraising, Preferred stock, Shanghai Stock Exchange, Cumulative",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Initial stock fundraising, Preferred stock, Shanghai Stock Exchange, Cumulative. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNMIOCM",
+        "aCNCNYLRVM",
+        "aCNCNXCJVM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMIOCM",
+      "description": "Initial stock fundraising, Shanghai Stock Exchange, Current Period",
+      "frequency": "P3M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Initial stock fundraising, Shanghai Stock Exchange, Current Period. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNODYKM",
+        "aCNCNOEYHM",
+        "aCNCNCKFIM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCUDM",
+      "description": "National debt spot turnover, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: National debt spot turnover, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYLRVM",
+        "aCNCNXCJVM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOTNUM",
+      "description": "Number of corporate bonds, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Number of corporate bonds, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYLRVM",
+        "aCNCNQVXEM",
+        "aCNCNHXASM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHVPRM",
+      "description": "Number of stock transactions, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Number of stock transactions, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNQVXEM",
+        "aCNCNOTNUM",
+        "aCNCNYLRVM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCYHCM",
+      "description": "Pledged government bond repurchase turnover, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Pledged government bond repurchase turnover, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYLRVM",
+        "aCNCNXCJVM",
+        "aCNCNTEZNM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUCDM",
+      "description": "Stock issue financing, Domestic legal person holds shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Domestic legal person holds shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNMQJM",
+        "aCNCNTIKQM",
+        "aCNCNHDGM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTIKQM",
+      "description": "Stock issue financing, Foreign-funded legal person holding shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Foreign-funded legal person holding shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNFUKFM",
+        "aCNCNMQJM",
+        "aCNCNUCDM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHZKFM",
+      "description": "Stock issue financing, Individual Sponsors, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Individual Sponsors, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUXXRM",
+        "aCNCNUQVRM",
+        "aCNCNUCSXM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNBCTWM",
+      "description": "Stock issue financing, Institutional placing shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Institutional placing shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUQVRM",
+        "aCNCNUCSXM",
+        "aCNCNUCDM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHDGM",
+      "description": "Stock issue financing, Raising legal person shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Raising legal person shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUCDM",
+        "aCNCNTIKQM",
+        "aCNCNMQJM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCAFKM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, circulated foreign shares listed abroad",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, circulated foreign shares listed abroad. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUCSXM",
+        "aCNCNTIKQM",
+        "aCNCNFUKFM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUCSXM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, circulated foreign shares listed abroad",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, circulated foreign shares listed abroad. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUCSXM",
+        "aCNCNTIKQM",
+        "aCNCNFUKFM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMQJM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, domestic legal person holding shares ring amplitude",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, domestic legal person holding shares ring amplitude. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUCDM",
+        "aCNCNTIKQM",
+        "aCNCNFUKFM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFUKFM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, foreign-funded legal person holding shares",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, foreign-funded legal person holding shares. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTIKQM",
+        "aCNCNMQJM",
+        "aCNCNUCDM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUXXRM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, individual sponsors",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, individual sponsors. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNHZKFM",
+        "aCNCNUQVRM",
+        "aCNCNUCSXM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUQVRM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, institutional placing shares",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, institutional placing shares. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNBCTWM",
+        "aCNCNUCSXM",
+        "aCNCNUCDM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMSSTM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, sponsor's shares's quarterly amplitude",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, sponsor's shares's quarterly amplitude. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNISXQM",
+        "aCNCNPPLM",
+        "aCNCNMQJM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNISXQM",
+      "description": "Stock issue financing, Shanghai Stock Exchange, state owned shares quarterly amplitude",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Shanghai Stock Exchange, state owned shares quarterly amplitude. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNPEXXM",
+        "aCNCNMSSTM",
+        "aCNCNMQJM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPPLM",
+      "description": "Stock issue financing, Sponsor's shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, Sponsor's shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNMSSTM",
+        "aCNCNUQVRM",
+        "aCNCNUCSXM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPEXXM",
+      "description": "Stock issue financing, State owned shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock issue financing, State owned shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNISXQM",
+        "aCNCNUQVRM",
+        "aCNCNUCSXM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNFAFTM",
+      "description": "Stock market capitalization, A shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market capitalization, A shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUZSPM",
+        "aCNCNWMSWM",
+        "aCNCNVOMWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNUZSPM",
+      "description": "Stock market capitalization, B shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market capitalization, B shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNFAFTM",
+        "aCNCNWMSWM",
+        "aCNCNVOMWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTEJTM",
+      "description": "Stock market value, A shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, A shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNWMSWM",
+        "aCNCNVOMWM",
+        "aCNCNTZICM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVOMWM",
+      "description": "Stock market value, B shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, B shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNWMSWM",
+        "aCNCNTZICM",
+        "aCNCNTEJTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNAMFGM",
+      "description": "Stock market value, Domestic legal person holds shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Domestic legal person holds shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNUCDM",
+        "aCNCNSTQM1",
+        "aCNCNJNEWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJNEWM",
+      "description": "Stock market value, Foreign-funded legal person holding shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Foreign-funded legal person holding shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTIKQM",
+        "aCNCNSTQM1",
+        "aCNCNFUKFM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPPFTM",
+      "description": "Stock market value, Individual Sponsors, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Individual Sponsors, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNWMSWM",
+        "aCNCNVOMWM",
+        "aCNCNUXXRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNMOMZM",
+      "description": "Stock market value, Institutional placing shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Institutional placing shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNWMSWM",
+        "aCNCNVOMWM",
+        "aCNCNUQVRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNSTQM1",
+      "description": "Stock market value, Raising legal person shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Raising legal person shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNJNEWM",
+        "aCNCNAMFGM",
+        "aCNCNHDGM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNWMSWM",
+      "description": "Stock market value, Sponsor's shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Sponsor's shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNVOMWM",
+        "aCNCNTZICM",
+        "aCNCNTEJTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTZICM",
+      "description": "Stock market value, State owned shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, State owned shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNWMSWM",
+        "aCNCNVOMWM",
+        "aCNCNTEJTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNAJTGM",
+      "description": "Stock turnover, A shares, Shanghai Stock Exchange, Current Prices, Exchange Rates & Operations, Monthly, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock turnover, A shares, Shanghai Stock Exchange, Current Prices, Exchange Rates & Operations, Monthly, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTEZNM",
+        "aCNCNXCJVM",
+        "aCNCNQZSQM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTEZNM",
+      "description": "Stock turnover, A shares, Shanghai Stock Exchange, Volume, Exchange Rates & Operations, Monthly, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock turnover, A shares, Shanghai Stock Exchange, Volume, Exchange Rates & Operations, Monthly, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNAJTGM",
+        "aCNCNXCJVM",
+        "aCNCNQZSQM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQZSQM",
+      "description": "Stock turnover, B shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock turnover, B shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNXCJVM",
+        "aCNCNTEZNM",
+        "aCNCNCEWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGLVRM",
+      "description": "Stock volume, A shares, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock volume, A shares, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTEZNM",
+        "aCNCNXCJVM",
+        "aCNCNWMSWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNAEXBM",
+      "description": "Treasury note spot volume, Shanghai Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Treasury note spot volume, Shanghai Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNTEZNM",
+        "aCNCNPEIYM",
+        "aCNCNGLVRM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGISM",
+      "description": "股票筹资额_优先股_上海证券交易所_当期_全国",
+      "frequency": "P3M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 股票筹资额_优先股_上海证券交易所_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQJMWM",
+      "description": "股票筹资额_优先股_上海证券交易所_累计_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 股票筹资额_优先股_上海证券交易所_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNKTKGM",
+      "description": "Equity share capital issued, GEM, Shenzhen Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Equity share capital issued, GEM, Shenzhen Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNISAQM",
+        "aCNCNXGHWM",
+        "aCNCNUZSPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNEDWAM",
+      "description": "Fund circulation market value, rating fund, Shenzhen Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Fund circulation market value, rating fund, Shenzhen Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNJZOSM",
+        "aCNCNYDQTM",
+        "aCNCNOEYHM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNJZOSM",
+      "description": "Fund market value, rating fund, Shenzhen Stock Exchange",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Fund market value, rating fund, Shenzhen Stock Exchange. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNEDWAM",
+        "aCNCNYDQTM",
+        "aCNCNOEYHM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOEYHM",
+      "description": "Fund turnover, rating fund, Shenzhen Stock Exchange, Current Period",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Fund turnover, rating fund, Shenzhen Stock Exchange, Current Period. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNMIOCM",
+        "aCNCNJZOSM",
+        "aCNCNEDWAM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNTIZEM",
+      "description": "Listed stocks, Shenzhen Stock Exchange, water, environmental & public facilities management",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Listed stocks, Shenzhen Stock Exchange, water, environmental & public facilities management. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNVTXBM",
+        "aCNCNYDQTM",
+        "aCNCNXGHWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNVTXBM",
+      "description": "Listed stocks, Shenzhen Stock Exchange, wholesale & retail trade",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Listed stocks, Shenzhen Stock Exchange, wholesale & retail trade. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNGBBHM",
+        "aCNCNTIZEM",
+        "aCNCNYDQTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNHDMBM",
+      "description": "Stock market capitalization, Shenzhen Stock Exchange, financial Industry",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market capitalization, Shenzhen Stock Exchange, financial Industry. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNXGHWM",
+        "aCNCNYDQTM",
+        "aCNCNUZSPM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCMWM",
+      "description": "Stock market value, Shenzhen Stock Exchange, culture, sports & entertainment",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Shenzhen Stock Exchange, culture, sports & entertainment. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYDQTM",
+        "aCNCNJZOSM",
+        "aCNCNEDWAM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNYDQTM",
+      "description": "Stock market value, Shenzhen Stock Exchange, scientific & technical services",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock market value, Shenzhen Stock Exchange, scientific & technical services. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNJZOSM",
+        "aCNCNEDWAM",
+        "aCNCNCMWM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNIIOAM",
+      "description": "Stock turnover, Shenzhen Stock Exchange, accommodation & catering industry",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock turnover, Shenzhen Stock Exchange, accommodation & catering industry. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNOEYHM",
+        "aCNCNHDMBM",
+        "aCNCNGNBOM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGNBOM",
+      "description": "Stock turnover, Shenzhen Stock Exchange, transportation, warehousing & postal services",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock turnover, Shenzhen Stock Exchange, transportation, warehousing & postal services. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNYDQTM",
+        "aCNCNOEYHM",
+        "aCNCNIIOAM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNGBBHM",
+      "description": "Stock volume, Shenzhen Stock Exchange, wholesale & retail trade, Cumulative",
+      "frequency": "P1M",
+      "subcategory": "Stock Exchange",
+      "units": "Various",
+      "meaning": "China Stock Exchange: Stock volume, Shenzhen Stock Exchange, wholesale & retail trade, Cumulative. Trading and listing data for Shanghai (SSE) or Shenzhen (SZSE) Stock Exchanges.",
+      "how_to_use": "China's two major stock exchanges. Major indices: SSE Composite (Shanghai), SZSE Composite (Shenzhen), CSI 300 (cap-weighted top 300), STAR 50 (SSE STAR Market — tech), ChiNext (SZSE growth board). Foreign access via Stock Connect.",
+      "related_series": [
+        "aCNCNVTXBM",
+        "aCNCNCKFIM",
+        "aCNCNYDQTM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNQTNCM",
+      "description": "股票筹资额_中小板配股_深圳证券交易所_当期_全国",
+      "frequency": "P3M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 股票筹资额_中小板配股_深圳证券交易所_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOIYZM",
+      "description": "股票筹资额_中小板配股_深圳证券交易所_累计_全国",
+      "frequency": "P1M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 股票筹资额_中小板配股_深圳证券交易所_累计_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOJFFM",
+      "description": "股票筹资额_创业板配股_深圳证券交易所_当期_全国",
+      "frequency": "P6M",
+      "subcategory": "Regional Indicator",
+      "units": "Various",
+      "meaning": "China regional / sectoral statistic: 股票筹资额_创业板配股_深圳证券交易所_当期_全国. Detailed regional or sectoral data series — original Chinese description preserved.",
+      "how_to_use": "Refer to source description for specific content. Regional and city-level data in the China dataset captures provincial and urban-level economic activity, often used by analysts tracking specific localities.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNDBJJM",
+      "description": "Bank sales (foreign currency), Bank's own business",
+      "frequency": "P1M",
+      "subcategory": "FX Market",
+      "units": "USD millions / CNY",
+      "meaning": "China FX Market: Bank sales (foreign currency), Bank's own business. FX market trading data — spot, forward, swap activity.",
+      "how_to_use": "PBoC and SAFE manage CNY market through a combination of mid-point fix, intervention, capital controls. Forward rates signal expected appreciation/depreciation.",
+      "related_series": [
+        "aCNXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNLANDM",
+      "description": "Exchange rate RMB/USD",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "USD per CNY",
+      "meaning": "Exchange rate RMB/USD — companion CNY/USD reference. Same conceptual measure as aCNXRUSD with potentially different vintage.",
+      "how_to_use": "Cross-check against aCNXRUSD. Use whichever has fresher data; both track the daily CNY-USD spot rate.",
+      "related_series": [
+        "aCNXRUSD",
+        "aCNCNXROM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCQXM",
+      "description": "Exchange rate, Hong Kong dollar to USD",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "HKD per USD",
+      "meaning": "Hong Kong Dollar to USD exchange rate — included in China dataset due to HKD's tight peg (HKD pegged to USD at 7.75-7.85). HKMA defends the peg via convertibility undertakings.",
+      "how_to_use": "Track for HK monetary-policy stress signals. Persistent trading at 7.85 (weak side) signals Hong Kong outflows; HKMA buys HKD/sells USD to defend. Critical for Hong Kong financial stability and offshore CNH market.",
+      "related_series": [
+        "aCNXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNXROM",
+      "description": "Exchange rate, Middle price of USD to RMB",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "USD per CNY (mid-price)",
+      "meaning": "Mid-Price of USD-CNY — the daily PBoC reference fix (zhōngjiānjià). Set at 09:15 CST and used as the center of the daily ±2% trading band.",
+      "how_to_use": "The PBoC's official signaling tool. Sharp moves in the fix (relative to market) signal policy intent — weaker-than-expected fix is depreciation guidance; stronger-than-expected is appreciation guidance. Markets watch the 'counter-cyclical factor' commentary in PBoC quarterly reports.",
+      "related_series": [
+        "aCNXRUSD",
+        "aCNFXEFFECT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNPMCZM",
+      "description": "Foreign exchange forward transaction volume, US dollar and yuan",
+      "frequency": "P1M",
+      "subcategory": "FX Market",
+      "units": "USD millions / CNY",
+      "meaning": "China FX Market: Foreign exchange forward transaction volume, US dollar and yuan. FX market trading data — spot, forward, swap activity.",
+      "how_to_use": "PBoC and SAFE manage CNY market through a combination of mid-point fix, intervention, capital controls. Forward rates signal expected appreciation/depreciation.",
+      "related_series": [
+        "aCNXRUSD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNOIJM",
+      "description": "Foreign exchange reserves",
+      "frequency": "P1M",
+      "subcategory": "Reserves",
+      "units": "USD millions",
+      "meaning": "Foreign Exchange Reserves — release-vintage version of total FX reserves. Cross-listed in exchange-rates dataset.",
+      "how_to_use": "Cross-check against aCNFXMAA. SAFE publishes FX reserves monthly with a 1-week lag.",
+      "related_series": [
+        "aCNFXMAA",
+        "aCNCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNXRUSD",
+      "description": "CHINESE YUAN TO US DOLLAR (AVERAGE AMOUNT)",
+      "frequency": "P1M",
+      "subcategory": "FX",
+      "units": "CNY per USD",
+      "meaning": "Chinese Yuan (Renminbi) per US Dollar — the headline USD/CNY spot rate. The PBoC sets a daily mid-point fix at 09:15 CST around which the onshore CNY is allowed to trade within ±2%.",
+      "how_to_use": "THE China FX rate. Recent range 6.4-7.4. The PBoC manages CNY against a basket but DXY/USD-CNY is the most-watched cross. Onshore CNY (CNY) and offshore CNH typically trade within ~50 bps; wider spreads signal capital-control stress. Pair with FX reserves (aCNCRESA) for intervention-intensity signals.",
+      "related_series": [
+        "aCNCNXROM",
+        "aCNFXEFFECT",
+        "aCNBISRXBR",
+        "aCNCRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNCNCHDWM",
+      "description": "Central bank foreign exchange account",
+      "frequency": "P1M",
+      "subcategory": "FX Market",
+      "units": "USD millions / CNY",
+      "meaning": "China FX Market: Central bank foreign exchange account. FX market trading data — spot, forward, swap activity.",
+      "how_to_use": "PBoC and SAFE manage CNY market through a combination of mid-point fix, intervention, capital controls. Forward rates signal expected appreciation/depreciation.",
+      "related_series": [
+        "aCNXRUSD"
+      ],
+      "notes": ""
+    }
+  ]
+}

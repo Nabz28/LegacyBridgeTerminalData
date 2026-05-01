@@ -1,0 +1,239 @@
+{
+  "category": "Import & Export Price Indices",
+  "category_slug": "us_import_export_price_indices",
+  "section": "Prices",
+  "source_file": "US_Import Export Price Indices.xlsx",
+  "ric_count": 17,
+  "rics": [
+    {
+      "ric": "aUSEXPP",
+      "description": "Export Prices, All commodities",
+      "frequency": "P1M",
+      "subcategory": "Export Prices",
+      "units": "Index",
+      "meaning": "Export prices, all commodities — BLS monthly.",
+      "how_to_use": "Reflects US producer pricing power abroad. Combined with import prices gives terms-of-trade signal.",
+      "related_series": [
+        "aUSEXPPNAG",
+        "aUSIMPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPPNAG",
+      "description": "Export Prices, Nonagricultural commodities",
+      "frequency": "P1M",
+      "subcategory": "Export Prices",
+      "units": "Index",
+      "meaning": "Export prices, nonagricultural commodities — strips out volatile food/farm exports.",
+      "how_to_use": "Better signal of manufactured-goods pricing. Cleaner trend than the headline.",
+      "related_series": [
+        "aUSEXPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEXPAR",
+      "description": "Export prices- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Export Prices",
+      "units": "%, MoM",
+      "meaning": "Export prices MoM % change.",
+      "how_to_use": "Released ~mid-month. Early read on global demand for US goods. Exports prices YoY ≈ goods exports inflation.",
+      "related_series": [
+        "aUSCEXIPF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPP",
+      "description": "Import Prices, All commodities",
+      "frequency": "P1M",
+      "subcategory": "Import Prices",
+      "units": "Index",
+      "meaning": "Import prices, all commodities.",
+      "how_to_use": "Direct inflation pass-through to consumer prices. Crude oil moves are the dominant driver historically.",
+      "related_series": [
+        "aUSIMPPXPT",
+        "aUSEXPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPPXPT",
+      "description": "Import Prices, All imports excluding petroleum",
+      "frequency": "P1M",
+      "subcategory": "Import Prices",
+      "units": "Index",
+      "meaning": "Import prices excluding petroleum — strips out the biggest source of volatility.",
+      "how_to_use": "Cleaner core-import-inflation measure. Pair with USD trade-weighted to identify FX vs underlying global price drivers.",
+      "related_series": [
+        "aUSIMPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSIMPAR",
+      "description": "Import prices- Actual, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Import Prices",
+      "units": "%, MoM",
+      "meaning": "Import prices MoM % change.",
+      "how_to_use": "Released alongside export prices. Direct CPI input — feeds goods inflation 1-2 months out.",
+      "related_series": [
+        "aUSCIMIPF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXIPF",
+      "description": "Export Prices, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Export Prices",
+      "units": "%, QoQ",
+      "meaning": "Standardized export prices QoQ % change.",
+      "how_to_use": "Quarterly aggregation of monthly. Use for cross-country comparison via OECD framework.",
+      "related_series": [
+        "aUSEXPAR",
+        "aUSCEXIYF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXIYF",
+      "description": "Export Prices, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Export Prices",
+      "units": "Percent, YoY",
+      "meaning": "Export Prices, year-over-year change (standardized) — pace of US export-price change. Reflects US producer pricing power abroad and currency effects.",
+      "how_to_use": "Track alongside import prices for terms-of-trade signal. When export prices rise faster than import prices, terms of trade improve (US gets more imports per export). Currency-driven mostly: dollar strength compresses export prices in dollar terms.",
+      "related_series": [
+        "aUSEXPP",
+        "aUSCIMIYF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEXIF/C",
+      "description": "Export Prices, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Export Prices",
+      "units": "Index",
+      "meaning": "Export Prices, standardized index — companion to aUSEXPP at standardized framing for international comparison.",
+      "how_to_use": "Use for cross-country export-price comparisons. Domestic analysts use aUSEXPP. Standardization aligns with IMF/OECD cross-border statistics conventions.",
+      "related_series": [
+        "aUSEXPP",
+        "aUSCEXIYF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMIPF",
+      "description": "Import Prices, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Import Prices",
+      "units": "%, QoQ",
+      "meaning": "Standardized import prices QoQ % change.",
+      "how_to_use": "Quarterly version. Pairs with export QoQ for terms-of-trade.",
+      "related_series": [
+        "aUSIMPAR",
+        "aUSCIMIYF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMIYF",
+      "description": "Import Prices, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Import Prices",
+      "units": "%, YoY",
+      "meaning": "Standardized import prices YoY %.",
+      "how_to_use": "Pass-through to CPI is highest in goods categories; services CPI mostly domestic.",
+      "related_series": [
+        "aUSCIMIPF",
+        "aUSCIMIF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIMIF/C",
+      "description": "Import Prices, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Import Prices",
+      "units": "Index",
+      "meaning": "Import Prices, standardized index — companion to aUSIMPP at standardized framing.",
+      "how_to_use": "Direct CPI input — feeds goods inflation. Crude oil moves are biggest single driver. Watch alongside dollar (DXY) for currency-pass-through to consumer prices.",
+      "related_series": [
+        "aUSIMPP",
+        "aUSDXY"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTRMPF",
+      "description": "Terms of Trade, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "Terms of Trade",
+      "units": "%, QoQ",
+      "meaning": "Terms-of-trade QoQ change — export prices / import prices.",
+      "how_to_use": "Improving (rising) ToT = country gets more imports per unit of exports = real income transfer in.",
+      "related_series": [
+        "aUSCTRMYF",
+        "aUSCTRMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTRMYF",
+      "description": "Terms of Trade, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "Terms of Trade",
+      "units": "%, YoY",
+      "meaning": "Terms-of-trade YoY change.",
+      "how_to_use": "Big oil price moves swing ToT for net importers/exporters. US flipped to net energy exporter, so oil shocks now help ToT.",
+      "related_series": [
+        "aUSCTRMPF",
+        "aUSCTRMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCTRMF/C",
+      "description": "Terms of Trade, Standardized",
+      "frequency": "P3M",
+      "subcategory": "Terms of Trade",
+      "units": "Index",
+      "meaning": "Terms of Trade, standardized — ratio of export prices to import prices. Measures how much imports a country gets per unit of export.",
+      "how_to_use": "Improving terms of trade = country gets more for less = real-income gain. US terms of trade improved post-shale (energy import collapse) but worsened during commodity-import surges. Watch for major shifts as macro-cycle signals.",
+      "related_series": [
+        "aUSEXPP",
+        "aUSIMPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTOTPRCF/C",
+      "description": "TERMS OF TRADE REBASED TO 1975=100",
+      "frequency": "P1M",
+      "subcategory": "Terms of Trade",
+      "units": "Index (1975=100)",
+      "meaning": "Terms-of-trade rebased to 1975=100.",
+      "how_to_use": "Long history version. Useful for showing decade-scale ToT trends.",
+      "related_series": [
+        "aUSCTRMF/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGBALBA",
+      "description": "Adv Goods Trade Balance",
+      "frequency": "P1M",
+      "subcategory": "Trade Balance",
+      "units": "USD millions",
+      "meaning": "Advance Goods Trade Balance — preliminary monthly goods-only deficit.",
+      "how_to_use": "Released ~3 days before the full BEA trade report. Goods-only (services excluded). Big surprises move the dollar at release.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

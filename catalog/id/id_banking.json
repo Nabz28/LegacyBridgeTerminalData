@@ -1,0 +1,458 @@
+{
+  "category": "Banking",
+  "category_slug": "id_banking",
+  "section": "Money & Finance",
+  "source_file": "Indonesia_Banking.xlsx",
+  "ric_count": 31,
+  "rics": [
+    {
+      "ric": "aIDCBLODPR",
+      "description": "Commercial Banks, Performance, loan to deposits ratio (%)",
+      "frequency": "P1M",
+      "subcategory": "Bank Performance",
+      "units": "Percent",
+      "meaning": "Loan-to-Deposit Ratio (LDR) for commercial banks — share of deposits being lent out. Indonesia regulatory norm is 78-92% (BI's macroprudential corridor).",
+      "how_to_use": "Above 92% requires extra reserve provisioning under BI's RIM (Reserve Requirement based on Intermediation) rules. Below 78% means banks are sitting on excess liquidity. Recent system LDR ~85-90%. Higher LDR = banks lending more aggressively; rising LDR with deposit outflows flags liquidity stress.",
+      "related_series": [
+        "aIDOCRD",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRBCOF",
+      "description": "Commercial and Rural Banks, claims on other sector, claims on other financial institutions",
+      "frequency": "P1M",
+      "subcategory": "Bank Claims",
+      "units": "IDR billions",
+      "meaning": "Commercial and Rural Banks: Claims on Other Sector, Other Financial Corporations — bank loans to non-bank financial institutions (insurance, asset managers, finance companies).",
+      "how_to_use": "Tracks interconnections in financial system. Surge in claims on NBFIs may signal regulatory arbitrage or shadow-banking growth — OJK monitors.",
+      "related_series": [
+        "aIDCRBCPNF",
+        "aIDCRBCSL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRBLPS",
+      "description": "Commercial and Rural Banks, claims on other sector, claims on private sectors, loans",
+      "frequency": "P1M",
+      "subcategory": "Bank Claims",
+      "units": "IDR billions",
+      "meaning": "Bank Claims on Local Government and State Enterprises — bank credit to public-sector entities (regional governments, SOEs like PLN, Pertamina, BUMN).",
+      "how_to_use": "State enterprises like PLN, Pertamina are major bank borrowers. Concentration risk: top SOEs hold significant share of bank loan books.",
+      "related_series": [
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRBCPNF",
+      "description": "Commercial and Rural Banks, claims on other sector, claims on public non financial",
+      "frequency": "P1M",
+      "subcategory": "Bank Claims",
+      "units": "IDR billions",
+      "meaning": "Bank Claims on Non-Financial Corporations — corporate-sector lending. The 'real economy' bank credit channel.",
+      "how_to_use": "Cyclical with capex investment cycles. Watch for sector concentration (mining, real estate, manufacturing). High concentration in property/CRE is a vulnerability.",
+      "related_series": [
+        "aIDCBCRDTA",
+        "aIDCRBCSL"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRBCSL",
+      "description": "Commercial and Rural Banks, claims on other sector, claims on state and local government",
+      "frequency": "P1M",
+      "subcategory": "Bank Claims",
+      "units": "IDR billions",
+      "meaning": "Bank Claims on Households — consumer + mortgage lending. Same concept as aIDCRDCONAA at different aggregation.",
+      "how_to_use": "Track for household-leverage cycle. Indonesia household-credit-to-GDP ~17% — low but rising as financial inclusion deepens.",
+      "related_series": [
+        "aIDCRDCONAA",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRBNCG",
+      "description": "Commercial and Rural Banks, net claims on central government",
+      "frequency": "P1M",
+      "subcategory": "Bank Claims",
+      "units": "IDR billions",
+      "meaning": "Bank Net Claims on Central Government — banks' net position vs central government (gov bonds held minus government deposits).",
+      "how_to_use": "Indonesia banks are large SBN (gov bond) holders post-2020. Surge in net claims on government during easing cycles signals 'crowding-in' of bank balance sheets into Treasury bonds vs lending.",
+      "related_series": [
+        "aIDPDEBTA",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCRDAPPCC",
+      "description": "Credit approval, consumer credits, total",
+      "frequency": "P1M",
+      "subcategory": "Credit Approvals",
+      "units": "IDR billions",
+      "meaning": "Consumer credit approvals — share of total credit approvals going to households (mortgages, vehicle loans, personal loans, credit cards).",
+      "how_to_use": "Track for household leverage cycle. Pre-2020 typically ~30-35% of total approvals. Surges during easing cycles when banks compete on consumer-loan rates. OJK monitors mortgage and auto-loan LTV (loan-to-value) caps for macroprudential signal — tight LTV slows this stat.",
+      "related_series": [
+        "aIDCREDAPP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCREDAPP",
+      "description": "Credit approval, total credits",
+      "frequency": "P1M",
+      "subcategory": "Credit Approvals",
+      "units": "IDR billions",
+      "meaning": "Total credit approvals — flow measure of new loan commitments by commercial banks. Leading indicator of stock-level outstanding credit.",
+      "how_to_use": "Approval flow leads outstanding-credit stock by 1-3 months (drawdowns lag commitments). Sharp slowdowns in approvals signal bank risk aversion or weak loan demand — early warning for deceleration in lending. Pair with consumer-credit-approval (aIDCRDAPPCC) for retail vs business breakdown.",
+      "related_series": [
+        "aIDCRDAPPCC",
+        "aIDCBCRDTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBCRDTA",
+      "description": "Credit of commercial banks to non bank third party, total",
+      "frequency": "P1M",
+      "subcategory": "Bank Credit",
+      "units": "IDR billions",
+      "meaning": "Total Credit of Commercial Banks to Non-Bank Third Parties — the headline bank credit aggregate. Includes corporate, SME, and household lending across all currency denominations. Published monthly by Bank Indonesia.",
+      "how_to_use": "Indonesia bank credit growth typically runs 8-12% YoY in normal cycles. Sub-5% signals weak loan demand or tight credit supply (often during BI hike cycles); >15% suggests aggressive easing. Pair with M2 — when credit grows faster than M2, banks are funding loans by drawing down liquidity buffers.",
+      "related_series": [
+        "aIDLONYAR",
+        "aIDOCRD",
+        "aIDM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDLONYAR",
+      "description": "Credit of commercial banks to non bank third party, total, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Bank Credit",
+      "units": "Percent, YoY",
+      "meaning": "Total Bank Credit, year-over-year change — pace of credit creation by commercial banks to non-bank third parties. The most-watched bank-lending growth indicator.",
+      "how_to_use": "Tracks the credit cycle. >12% YoY = expansionary; <5% = stalling. Compare to nominal GDP growth — credit-to-GDP gap widening signals overheating; narrowing signals deleveraging. BI watches this for systemic-stability signals; OJK (banking regulator) targets specific sectoral exposures.",
+      "related_series": [
+        "aIDCBCRDTA",
+        "aIDOCRD"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBIDAR",
+      "description": "Deposit Facility Rate",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Bank Indonesia Deposit Facility Rate — same conceptual measure as aIDRINTO in banking-data framing.",
+      "how_to_use": "Cross-check against aIDRINTO. The DF rate sets the floor of BI's interest rate corridor.",
+      "related_series": [
+        "aIDRINTO",
+        "aIDBIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCBILAR",
+      "description": "Lending Facility Rate",
+      "frequency": "P1M",
+      "subcategory": "Policy Rate",
+      "units": "Percent",
+      "meaning": "Bank Indonesia Lending Facility Rate — same conceptual measure as aIDRREPO in banking-data framing.",
+      "how_to_use": "Cross-check against aIDRREPO. The LF rate sets the ceiling of BI's interest rate corridor.",
+      "related_series": [
+        "aIDRREPO",
+        "aIDBIR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDMACBLCA",
+      "description": "Monetary Authority Balance, claims on banks, liquidity credit",
+      "frequency": "P1M",
+      "subcategory": "BI Operations",
+      "units": "IDR billions",
+      "meaning": "Monetary Authority Balance: Claims on Banks, Liquidity Credit — BI's lending to banks via repo and emergency facilities.",
+      "how_to_use": "Spikes during liquidity stress (2020 COVID). BI's term repo and FX swap operations show up here. Persistent large balance signals systemic dollar/IDR funding pressure.",
+      "related_series": [
+        "aIDASSTOT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDOCRD",
+      "description": "Outstanding credits of commercial banks, total",
+      "frequency": "P1M",
+      "subcategory": "Bank Credit",
+      "units": "IDR billions",
+      "meaning": "Outstanding credits of commercial banks, total — stock measure of bank loan book. Different framing from aIDCBCRDTA but tracks the same underlying credit aggregate.",
+      "how_to_use": "Use either this or aIDCBCRDTA as the level measure; growth rates (aIDLONYAR) are the meaningful signal. Decompose by sector (working capital, investment, consumption) for cyclical decomposition — investment loans are the most rate-sensitive component.",
+      "related_series": [
+        "aIDCBCRDTA",
+        "aIDLONYAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZQDIBA",
+      "description": "IFDI, Financial Performance, Islamic Banking, Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Assets. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZODIBR",
+        "aIDZQDIBP",
+        "aIDZODIBP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZQDIBP",
+      "description": "IFDI, Financial Performance, Islamic Banking, Full Fledged Banks",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Full Fledged Banks. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZIDIBP",
+        "aIDZADIBP",
+        "aIDZQDIBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZIDIBP",
+      "description": "IFDI, Financial Performance, Islamic Banking, Islamic Banks & Windows",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Islamic Banks & Windows. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZQDIBP",
+        "aIDZODIBP",
+        "aIDZADIBP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZADIBP",
+      "description": "IFDI, Financial Performance, Islamic Banking, Publicly Listed Islamic Banks",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Publicly Listed Islamic Banks. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZQDIBP",
+        "aIDZIDIBP",
+        "aIDZQDIBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZODIBR",
+      "description": "IFDI, Financial Performance, Islamic Banking, Return on Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Return on Assets. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZQDIBA",
+        "aIDZQDIBP",
+        "aIDZODTKR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZODIBP",
+      "description": "IFDI, Financial Performance, Islamic Banking, Windows",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Islamic Banking, Windows. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZIDIBP",
+        "aIDZQDIBP",
+        "aIDZQDIBA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZQDTKA",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Takaful & Retakaful, Assets. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZODTKR",
+        "aIDZQDTKP",
+        "aIDZODTKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZQDTKP",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Operators",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Takaful & Retakaful, Operators. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZODTKP",
+        "aIDZQDTKA",
+        "aIDZODTKR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZODTKP",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Publicly Listed Operators",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Takaful & Retakaful, Publicly Listed Operators. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZQDTKP",
+        "aIDZQDTKA",
+        "aIDZODTKR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZODTKR",
+      "description": "IFDI, Financial Performance, Takaful & Retakaful, Return on Assets",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Financial Performance, Takaful & Retakaful, Return on Assets. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZQDTKA",
+        "aIDZQDTKP",
+        "aIDZODTKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZAVRER",
+      "description": "IFDI, Governance, Regulations, Accounting & Auditing for Islamic Finance Institutions",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Accounting & Auditing for Islamic Finance Institutions. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZOVRER",
+        "aIDZLVRER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZGVRFR",
+      "description": "IFDI, Governance, Regulations, FinTech Sandbox",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, FinTech Sandbox. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZOVRER",
+        "aIDZLVRER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZOVRER",
+      "description": "IFDI, Governance, Regulations, Islamic Banking",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Islamic Banking. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZAVRER",
+        "aIDZQDIBP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZZVRER",
+      "description": "IFDI, Governance, Regulations, Islamic Funds",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Islamic Funds. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZOVRER",
+        "aIDZAVRER",
+        "aIDZLVRER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZFVRER",
+      "description": "IFDI, Governance, Regulations, Shariah Governance",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Shariah Governance. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZOVRER",
+        "aIDZLVRER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZIVRER",
+      "description": "IFDI, Governance, Regulations, Sukuk",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Sukuk. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZOVRER",
+        "aIDZLVRER"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDZLVRER",
+      "description": "IFDI, Governance, Regulations, Takaful",
+      "frequency": "P1Y",
+      "subcategory": "Islamic Finance",
+      "units": "Score / Index",
+      "meaning": "Islamic Finance Development Indicator (IFDI): Governance, Regulations, Takaful. Reference data on Indonesia's Islamic finance ecosystem (Sharia-compliant banking, takaful insurance, sukuk markets, Islamic funds).",
+      "how_to_use": "Indonesia is a major Islamic-finance market — ~7% of total banking assets are Sharia-compliant. The Financial Services Authority (OJK) targets growing this share. Reference indicator for tracking Islamic-finance ecosystem development; not a macro indicator.",
+      "related_series": [
+        "aIDZZVRER",
+        "aIDZOVRER",
+        "aIDZIVRER"
+      ],
+      "notes": ""
+    }
+  ]
+}

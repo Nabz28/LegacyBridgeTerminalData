@@ -1,0 +1,163 @@
+{
+  "category": "External Debt",
+  "category_slug": "id_external_debt",
+  "section": "External Sector",
+  "source_file": "Indonesia_External Debt.xlsx",
+  "ric_count": 11,
+  "rics": [
+    {
+      "ric": "aIDFFXDB",
+      "description": "External Debt, Banks",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt: Banks — Indonesian banks' foreign-currency borrowings (interbank lines, syndications, FX bonds).",
+      "how_to_use": "~$50B. Banks fund their FX loan books via FX deposits + external borrowing. Watch for sudden surges as a sign of dollar funding squeezes. Indonesian regulator (OJK) caps banks' foreign-currency net open positions to limit FX risk.",
+      "related_series": [
+        "aIDCEXTA",
+        "aIDFFXDOTS"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFFEDLGOV",
+      "description": "External Debt, General government",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt: General Government — the central + sub-national government foreign debt component. Closely tracks aIDCGVXA with minor methodological differences.",
+      "how_to_use": "Use for cross-validation against aIDCGVXA. The 'general government' framing aligns with IMF/SDDS reporting standards. Sub-national (provincial, regency) external debt is small in Indonesia — central government dominates.",
+      "related_series": [
+        "aIDCGVXA",
+        "aIDCEXTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFFXDMA",
+      "description": "External Debt, Monetary authorities",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt: Monetary Authorities — Bank Indonesia's foreign liabilities (IMF SDR allocation, FX swap lines, etc.).",
+      "how_to_use": "Small. Includes BI's bilateral swap lines (with PBOC, BoJ, etc.) and IMF allocations. Activated swaps appear here.",
+      "related_series": [
+        "aIDCEXTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDFFXDOTS",
+      "description": "External Debt, Other sectors",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt: Other Sectors — non-financial corporate external debt. Includes USD/EUR bonds issued by SOEs (Pertamina, PLN) and private corporates, plus offshore loans.",
+      "how_to_use": "~$200B. State-owned enterprises (PLN, Pertamina) account for a large share — their FX bonds are quasi-sovereign. Watch corporate refinancing schedules around major maturities; FX-mismatched corporates are the EM-stress vulnerability point.",
+      "related_series": [
+        "aIDCEXTA",
+        "aIDFFXDB"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDDEBTFT",
+      "description": "External Debt, Total (Source from SDDS)",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "External Debt, Total (SDDS-sourced) — IMF Special Data Dissemination Standard external-debt total.",
+      "how_to_use": "Cross-check against aIDCEXTA. SDDS-format aligns with international debt-statistics standards.",
+      "related_series": [
+        "aIDCEXTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGVXPA",
+      "description": "Government External Debt, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Government External Debt, QoQ absolute change — change in government foreign debt level.",
+      "how_to_use": "Tracks Treasury's foreign-currency funding cadence. Indonesia's typical pattern: USD/EUR/JPY bond issuance front-loaded in Q1.",
+      "related_series": [
+        "aIDCGVXA",
+        "aIDCGVXYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGVXYA",
+      "description": "Government External Debt, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "Percent, YoY",
+      "meaning": "Government External Debt, YoY change — pace of government external-borrowing growth.",
+      "how_to_use": "Track for sovereign-financing cycle. Indonesia gov external debt YoY growth typically 5-10%; surges during fiscal-stress years (2020 COVID).",
+      "related_series": [
+        "aIDCGVXA",
+        "aIDCGVXPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCGVXA",
+      "description": "Government External Debt, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Government External Debt — central government's foreign-currency debt + non-resident-held SBN. Largest single component of total external debt.",
+      "how_to_use": "Indonesia government external debt ~$200B. Decompose: bilateral/multilateral loans (~$50B, mostly USD/JPY) + global bonds (~$80B in USD, EUR, JPY, samurai) + non-resident SBN holdings (~$70B). Foreign-currency portion is the FX-risk concern; non-resident SBN is the flow-risk concern (sudden outflows).",
+      "related_series": [
+        "aIDCEXTA",
+        "aIDCGVXYA",
+        "aIDFFEDLGOV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXTPA",
+      "description": "Total External Debt, % quarter on quarter, Standardized, Chg P/P",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Total External Debt, QoQ absolute change — change in external debt level vs prior quarter.",
+      "how_to_use": "Track for borrowing cycle. Sharp QoQ surges (>$10B) signal aggressive external borrowing.",
+      "related_series": [
+        "aIDCEXTA",
+        "aIDCEXTYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXTYA",
+      "description": "Total External Debt, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "Percent, YoY",
+      "meaning": "Total External Debt, year-over-year change — pace of external-debt accumulation or paydown.",
+      "how_to_use": "Track for external-vulnerability buildup. Sustained >10% YoY growth signals over-borrowing in foreign currency. Indonesia ran 8-12% YoY growth pre-COVID (driven by infrastructure financing); recent growth slower (~3-5%). Spike in YoY rate alongside IDR weakness flags refinancing stress.",
+      "related_series": [
+        "aIDCEXTA",
+        "aIDCEXTPA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCEXTA",
+      "description": "Total External Debt, Standardized",
+      "frequency": "P3M",
+      "subcategory": "External Debt",
+      "units": "USD billions",
+      "meaning": "Total External Debt — debt owed to non-residents in foreign currencies + IDR-denominated debt held by foreigners. Published quarterly by Bank Indonesia (SULNI report).",
+      "how_to_use": "Indonesia's external debt ~$415B (2024). Composition: ~50% government, ~25% banks, ~25% non-financial corporates. Compare to FX reserves (~$140B) and exports (~$300B) for adequacy gauges. External debt to GDP ~30% — moderate but rising.",
+      "related_series": [
+        "aIDCEXTYA",
+        "aIDCGVXA",
+        "aIDFFXDB"
+      ],
+      "notes": ""
+    }
+  ]
+}

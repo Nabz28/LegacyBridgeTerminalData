@@ -1,0 +1,46 @@
+{
+  "category": "Import & Export Price Indices",
+  "category_slug": "cn_import_export_price_indices",
+  "section": "Prices",
+  "source_file": "China (Mainland)_Economic Overview_Apr 29, 2026T17_191 (PRICES - IMPORT & EXPORT PRICE INDICES).xlsx",
+  "ric_count": 3,
+  "rics": [
+    {
+      "ric": "aCNEXPT",
+      "description": "Export Prices",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Export Prices. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNIMPV"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNIMPV",
+      "description": "Import Prices",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Import Prices. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [
+        "aCNEXPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aCNTOT/C",
+      "description": "Terms of Trade",
+      "frequency": "P1M",
+      "subcategory": "Other",
+      "units": "Various",
+      "meaning": "China macro reference series: Terms of Trade. Refer to the description and source for analytical context.",
+      "how_to_use": "Cross-check against related series in the same category for context. China macro data is published by the National Bureau of Statistics (NBS, real-economy + prices), People's Bank of China (PBoC, monetary), State Administration of Foreign Exchange (SAFE, BoP/FX), and Ministry of Finance (fiscal).",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}

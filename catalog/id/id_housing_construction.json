@@ -1,0 +1,35 @@
+{
+  "category": "Housing & Construction",
+  "category_slug": "id_housing_construction",
+  "section": "Industry Sector",
+  "source_file": "Indonesia_Housing & Construction.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aIDINVCHR/C",
+      "description": "INCREASE IN STOCKS (CONSTANT)",
+      "frequency": "P1Y",
+      "subcategory": "Inventories",
+      "units": "IDR billions, constant prices",
+      "meaning": "Increase in Stocks (Constant Prices) — inventory accumulation in real terms. Volatile GDP component.",
+      "how_to_use": "Inventory cycles drive ~0.5-1pp swings in quarterly GDP. Inventory build-ups during slowdowns (unintended) flag upcoming production cuts.",
+      "related_series": [
+        "aIDCGFCD/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDGFCFR/C",
+      "description": "INVESTMENT SPENDING (CONSTANT)",
+      "frequency": "P1Y",
+      "subcategory": "Investment",
+      "units": "IDR billions, constant prices",
+      "meaning": "Investment Spending (Constant Prices) — gross fixed capital formation in real terms. Same concept as aIDCGFCD/CA.",
+      "how_to_use": "Cross-check series. Use either for investment-volume tracking.",
+      "related_series": [
+        "aIDCGFCD/CA"
+      ],
+      "notes": ""
+    }
+  ]
+}

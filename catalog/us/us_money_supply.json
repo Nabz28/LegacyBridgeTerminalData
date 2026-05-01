@@ -1,0 +1,332 @@
+{
+  "category": "Money Supply",
+  "category_slug": "us_money_supply",
+  "section": "Money & Finance",
+  "source_file": "US_Money Supply.xlsx",
+  "ric_count": 23,
+  "rics": [
+    {
+      "ric": "aUSCMS0B/A",
+      "description": "Money Supply M0, Standardized",
+      "frequency": "P1M",
+      "subcategory": "M0",
+      "units": "USD billions",
+      "meaning": "M0 / Monetary Base — currency in circulation + bank reserves at Fed. The Fed's direct liquidity injection.",
+      "how_to_use": "QE expanded the base 5x post-2008. Now shrinking via QT. Loose proxy for Fed balance sheet liquidity. Reserves portion specifically determines money market dynamics (RRP, fed funds market activity).",
+      "related_series": [
+        "aUSMAAAAAA",
+        "aUSCMS1B/A",
+        "aUSCMS2B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS0PB/A",
+      "description": "Money Supply M0, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "M0",
+      "units": "%, MoM",
+      "meaning": "Money supply M0 MoM % change.",
+      "how_to_use": "Volatile during balance-sheet operations. Less informative than YoY.",
+      "related_series": [
+        "aUSCMS0B/A",
+        "aUSCMS0YB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS0YB/A",
+      "description": "Money Supply M0, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "M0",
+      "units": "%, YoY",
+      "meaning": "Money supply M0 YoY % change.",
+      "how_to_use": "Useful long-run liquidity-cycle gauge. Negative growth = active QT.",
+      "related_series": [
+        "aUSCMS0B/A",
+        "aUSCMS0PB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS1B/A",
+      "description": "Money Supply M1, Standardized",
+      "frequency": "P1M",
+      "subcategory": "M1",
+      "units": "USD billions",
+      "meaning": "M1 Money Supply — currency + checking deposits + traveler's checks. Pre-2020 definition.",
+      "how_to_use": "Definition expanded in May 2020 to INCLUDE savings deposits — the level jumped artificially. Pre-2020 M1 series not directly comparable to post-2020. Use M2 for cleaner historical analysis.",
+      "related_series": [
+        "aUSCMS2B/A",
+        "aUSCMS0B/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS1PB/A",
+      "description": "Money Supply M1, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, MoM",
+      "meaning": "Money Supply M1 standardized, MoM percent change — monthly growth rate of M1 (currency + demand deposits + savings deposits post-2020 reclassification).",
+      "how_to_use": "Highly volatile post-2020 due to M1 reclassification. Watch year-over-year (aUSCMS1YB/A) for trend. Sustained negative monthly readings rare but happened in 2022-23 during QT.",
+      "related_series": [
+        "aUSCMS1YB/A",
+        "aUSM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS1YB/A",
+      "description": "Money Supply M1, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "M1",
+      "units": "%, YoY",
+      "meaning": "M1 YoY % change.",
+      "how_to_use": "Cross-check M1 vs M2 growth — divergence reveals whether liquidity is in transactional vs savings accounts.",
+      "related_series": [
+        "aUSCMS1B/A",
+        "aUSCMS2YB/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS2PB/A",
+      "description": "Money Supply M2, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "Percent, MoM",
+      "meaning": "Money Supply M2, MoM percent change — monthly growth rate of broad M2 aggregate. The most-watched money-supply growth signal.",
+      "how_to_use": "Watch for sustained MoM contractions as monetary-tightening signals. 2022-23 saw rare M2 contractions during QT — contributed to disinflation. Compare to nominal GDP for velocity-implied trend.",
+      "related_series": [
+        "aUSCMS2YB/A",
+        "aUSM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS2YB/A",
+      "description": "Money Supply M2, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "M2",
+      "units": "%, YoY",
+      "meaning": "M2 YoY % change — the most-watched money supply growth rate.",
+      "how_to_use": "Loose proxy for inflation 12-18 months out (monetarist view; weak in practice). Surged to 27% in 2021 post-stimulus, contracted in 2023. Sustained negative M2 growth historically associated with recession.",
+      "related_series": [
+        "aUSCMS2B/A",
+        "aUSCPIYYR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCMS2B/A",
+      "description": "Money Supply M2, Standardized",
+      "frequency": "P1M",
+      "subcategory": "M2",
+      "units": "USD billions",
+      "meaning": "M2 Money Supply level, standardized — M1 + small time deposits + retail money funds. The broadest practical money supply measure.",
+      "how_to_use": "M3 was discontinued in 2006. M2 surged 27% YoY in 2021 post-stimulus, contracted in 2023 (first sustained negative since 1930s). Watch nominal growth rate vs nominal GDP growth.",
+      "related_series": [
+        "aUSCMS2YB/A",
+        "aUSCMS1B/A",
+        "aUSMEMSVE/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESERVB/A",
+      "description": "Adjusted Reserves",
+      "frequency": "P1M",
+      "subcategory": "Bank Reserves",
+      "units": "USD billions",
+      "meaning": "Adjusted reserves — bank reserves at the Fed, adjusted for changes in reserve requirements.",
+      "how_to_use": "Matters for the federal funds market. Reserves abundance reduces fed funds market activity (since 2008).",
+      "related_series": [
+        "aUSMAAAAAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSADMBAS.1D/A",
+      "description": "Adjusted monetary base",
+      "frequency": "",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "Adjusted monetary base — Fed's preferred monetary-base measure adjusted for changes in reserve requirements and required-reserve ratio shifts. Most consistent across regulatory regimes.",
+      "how_to_use": "Cleaner than the raw monetary base for long-time-series comparisons. Post-2008 the distinction matters less because reserve requirements were eliminated in 2020. Track for Fed balance-sheet trajectory.",
+      "related_series": [
+        "aUSMAAAAAA",
+        "aUSM1",
+        "aUSM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMEMSVE/A",
+      "description": "Velocity of M2 Money Stock",
+      "frequency": "P3M",
+      "subcategory": "Money Velocity",
+      "units": "Ratio",
+      "meaning": "M2 velocity — nominal GDP divided by M2 money stock. Measures how often each dollar circulates per year in nominal output.",
+      "how_to_use": "Post-2008 collapsed from ~2.0 to ~1.1 as M2 expanded faster than nominal GDP. A revival of velocity is a pre-condition for sustained inflation: more money + same velocity = inflation; more money + falling velocity = deflation pressure.",
+      "related_series": [
+        "aUSM2",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGOCBN",
+      "description": "H.6, U.S. government deposits, total cash balance",
+      "frequency": "P1M",
+      "subcategory": "Treasury Cash",
+      "units": "USD billions",
+      "meaning": "H.6 — US government deposits, Treasury General Account (TGA) at Fed.",
+      "how_to_use": "TGA is a major liquidity siphon. When Treasury rebuilds TGA after a debt-ceiling deal, bank reserves drain — funding stress risk.",
+      "related_series": [],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMAAAAAA",
+      "description": "H3 - Monetary base",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "Monetary base (Fed H.3 release) — currency in circulation plus bank reserves at the Fed. Direct Fed liability; expands with QE, contracts with QT. Distinct from broader money aggregates.",
+      "how_to_use": "Misleading as a 'money supply' indicator post-2008 because reserves became huge but velocity collapsed (banks held them rather than lend). Useful for tracking Fed balance-sheet operations directly. Compare to M2 for the bank-lending multiplier.",
+      "related_series": [
+        "aUSM1",
+        "aUSM2",
+        "aUSADMBAS.1D/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSMZMSTK/A",
+      "description": "MZM money stock",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "MZM (Money of Zero Maturity) money stock — all money instantly convertible to cash without penalty. Effectively M2 minus small time deposits plus all institutional money funds.",
+      "how_to_use": "Less commonly tracked since the Fed discontinued its publication; private compilations remain. Some monetarists consider MZM more economically meaningful than M2 because time deposits are illiquid for transactional purposes.",
+      "related_series": [
+        "aUSM2",
+        "aUSM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM1/A",
+      "description": "Money supply M1",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M1 money supply (annual aggregate) — companion to monthly aUSM1 at lower frequency. Same conceptual measure.",
+      "how_to_use": "Use monthly aUSM1 for high-frequency tracking. Annual aggregate useful for long-time-series analysis. Post-2020 M1 includes savings deposits — the M1 vs M2 distinction is now blurred.",
+      "related_series": [
+        "aUSM1",
+        "aUSM2"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM1",
+      "description": "Money supply M1",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M1 money supply — currency in circulation + demand deposits + savings deposits (post-May 2020 reclassification, which made M1 ≈ M2 minus small time deposits and money-market mutual funds).",
+      "how_to_use": "Post-2020 the M1 vs M2 distinction blurred — savings deposits were moved from M2 into M1. Watch M2 instead for the meaningful aggregate. M1 still useful for tracking high-liquidity household balances; spikes during stress (cash hoarding) and post-stimulus.",
+      "related_series": [
+        "aUSM2",
+        "aUSMAAAAAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM1W/A",
+      "description": "Money supply M1 weekly",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M1 money supply, weekly — Fed H.6 release at weekly frequency. Smoother than monthly because it's a weekly average.",
+      "how_to_use": "Track for high-frequency M1 movements. Useful for spotting sudden shifts in liquidity preference (cash hoarding, deposit flight). Pair with weekly M2 (aUSM2W) for full picture.",
+      "related_series": [
+        "aUSM1",
+        "aUSM2W"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM1W",
+      "description": "Money supply M1, weekly",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M1 money supply, weekly (alternate release) — same conceptual measure as aUSM1W/A.",
+      "how_to_use": "Cross-check series. Use whichever is fresher.",
+      "related_series": [
+        "aUSM1W/A",
+        "aUSM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM2/A",
+      "description": "Money supply M2",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M2 money supply (annual aggregate) — companion to monthly aUSM2 at lower frequency.",
+      "how_to_use": "Use monthly aUSM2 for high-frequency tracking. Annual aggregate useful for long-time-series analysis.",
+      "related_series": [
+        "aUSM2",
+        "aUSM1"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM2",
+      "description": "Money supply M2",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M2 money supply — M1 + small time deposits + retail money-market mutual funds. The broadest commonly-tracked monetary aggregate; includes most household liquid savings.",
+      "how_to_use": "Year-over-year M2 growth is the key indicator. Sustained M2 contraction is rare — happened in 2022-23 for the first time in modern data, contributing to disinflation pressure. Fast M2 growth (>10% YoY like 2020) tends to precede inflation surges with 12-18mo lag.",
+      "related_series": [
+        "aUSM1",
+        "aUSMEMSVE/A",
+        "aUSCGDPPD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM2W/A",
+      "description": "Money supply M2 weekly",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M2 money supply, weekly — Fed H.6 release at weekly frequency. Most-watched high-frequency money-supply gauge.",
+      "how_to_use": "Tracks broad money at weekly resolution. Useful for spotting policy-effect timing: M2 acceleration signals expansion phase; sustained contraction signals tightening pressure (rare, observed 2022-23).",
+      "related_series": [
+        "aUSM2",
+        "aUSM1W"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSM2W",
+      "description": "Money supply M2, weekly",
+      "frequency": "P1M",
+      "subcategory": "Money Supply",
+      "units": "USD billions",
+      "meaning": "M2 money supply, weekly (alternate release) — same conceptual measure as aUSM2W/A.",
+      "how_to_use": "Cross-check series. Use whichever has fresher data.",
+      "related_series": [
+        "aUSM2W/A",
+        "aUSM2"
+      ],
+      "notes": ""
+    }
+  ]
+}

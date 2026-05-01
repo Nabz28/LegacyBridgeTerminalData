@@ -1,0 +1,2033 @@
+{
+  "category": "Employment & Hours",
+  "category_slug": "us_employment_hours",
+  "section": "Labor Market",
+  "source_file": "US_Employment & Hours.xlsx",
+  "ric_count": 133,
+  "rics": [
+    {
+      "ric": "aUSADPAO",
+      "description": "ADP National Employment - Actual, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "ADP",
+      "units": "Thousands",
+      "meaning": "Absolute period-over-period change in ADP private-sector employment (national region).",
+      "how_to_use": "ADP private-payrolls release, two days before BLS NFP. Methodology change in 2022 makes ADP a less-reliable NFP predictor than it once was. Useful as a sectoral cross-check but not the headline.",
+      "related_series": [
+        "aUSEMPADP/A",
+        "aUSPRPAO",
+        "aUSNFARAO",
+        "aUSEMPNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPADP/A",
+      "description": "Labour Market n.i.e, ADP total nonfarm private employment (estimate)",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "ADP private-sector employment estimate — released two days BEFORE the official BLS NFP. Based on ADP's payroll-processing client base.",
+      "how_to_use": "Methodology overhaul in 2022 made ADP a less-reliable NFP predictor. Use as a sectoral cross-check, not as a leading indicator of the BLS print. ADP captures small business better than BLS; BLS captures large + government better.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSLABFRCP",
+      "description": "Activity, Labour Force, Civilian labor force, total, Employment & Hours, Monthly, Bureau of Labor Statistics, U.S. Department of Labor",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Activity, Labour Force, Civilian labor force, total, Employment & Hours, Monthly, Bureau of Labor Statistics, U.S. Department of Labor.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWANTJO/A",
+        "aUSCIVILPF",
+        "aUSEMPR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCIVILPF",
+      "description": "Activity, Labour Force, Civilian noninstitutional population",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Persons",
+      "meaning": "Level of a US population cohort.",
+      "how_to_use": "Working-age population drives labor supply trend; aging cohorts drive Medicare/Social Security demand. Total US population growth has slowed to ~0.5%/yr from ~1%/yr historically.",
+      "related_series": [
+        "aUSPOPTO",
+        "aUSLABFRCP",
+        "aUSWANTJO/A",
+        "aUSEMPR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWANTJO/A",
+      "description": "Activity, Labour Force, Not in Labor Force, Want a Job Now",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Activity, Labour Force, Not in Labor Force, Want a Job Now.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSLABFRCP",
+        "aUSCIVILPF",
+        "aUSJOLTAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMDP",
+      "description": "Average hours, Producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Average hours, Producion workers, durable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNP",
+        "aUSHKIMNH/C",
+        "aUSHKIMDH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMP",
+      "description": "Average hours, Producion workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Average hours, Producion workers, manufacturing.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNP",
+        "aUSHKIMDP",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMNP",
+      "description": "Average hours, Producion workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Average hours, Producion workers, nondurable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNH/C",
+        "aUSHKIMDP",
+        "aUSHKIMP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMNO/A",
+      "description": "Average weekly hours, manufacturing, non-durable goods",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Average weekly hours, manufacturing, non-durable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWM/A",
+        "aUSWORKWOTM/A",
+        "aUSWORKWC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPNF/A",
+      "description": "Change in employment, nonfarm payroll, 1st estimate",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSPRPAO",
+        "aUSPAYBMS",
+        "aUSPAYBMN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGOVAO",
+      "description": "Employed in Government - Actual",
+      "frequency": "P1M",
+      "subcategory": "Government",
+      "units": "",
+      "meaning": "Employed in Government.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFGOVT/A",
+        "aUSEMPAWVP",
+        "aUSEMPAWIP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAALP",
+      "description": "Employed, Total nonfarm, Alabama",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Alabama.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAAZP",
+      "description": "Employed, Total nonfarm, Arizona",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Arizona.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAARP",
+      "description": "Employed, Total nonfarm, Arkansas",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Arkansas.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPACAP",
+      "description": "Employed, Total nonfarm, California",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, California.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPACOP",
+      "description": "Employed, Total nonfarm, Colorado",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Colorado.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPACTP",
+      "description": "Employed, Total nonfarm, Connecticut",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Connecticut.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPADEP",
+      "description": "Employed, Total nonfarm, Delaware",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Delaware.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPADCP",
+      "description": "Employed, Total nonfarm, District of columbia",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, District of columbia.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAFLP",
+      "description": "Employed, Total nonfarm, Florida",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Florida.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAGAP",
+      "description": "Employed, Total nonfarm, Georgia",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Georgia.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAIDP",
+      "description": "Employed, Total nonfarm, Idaho",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Idaho.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAINP",
+      "description": "Employed, Total nonfarm, Indiana",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Indiana.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAIAP",
+      "description": "Employed, Total nonfarm, Iowa",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Iowa.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAKSP",
+      "description": "Employed, Total nonfarm, Kansas",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Kansas.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAARP",
+        "aUSEMPAWVP",
+        "aUSEMPAWIP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAKYP",
+      "description": "Employed, Total nonfarm, Kentucky",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Kentucky.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMEP",
+      "description": "Employed, Total nonfarm, Maine",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Maine.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMDP",
+      "description": "Employed, Total nonfarm, Maryland",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Maryland.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMAP",
+      "description": "Employed, Total nonfarm, Massachusetts",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Massachusetts.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMSP",
+      "description": "Employed, Total nonfarm, Mississippi",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Mississippi.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMOP",
+      "description": "Employed, Total nonfarm, Missouri",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Missouri.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAMTP",
+      "description": "Employed, Total nonfarm, Montana",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Montana.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANEP",
+      "description": "Employed, Total nonfarm, Nebraska",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Nebraska.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANVP",
+      "description": "Employed, Total nonfarm, Nevada",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Nevada.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANHP",
+      "description": "Employed, Total nonfarm, New hampshire",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, New hampshire.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANJP",
+      "description": "Employed, Total nonfarm, New jersey",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, New jersey.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANMP",
+      "description": "Employed, Total nonfarm, New mexico",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, New mexico.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANYP",
+      "description": "Employed, Total nonfarm, New york",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, New york.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANCP",
+      "description": "Employed, Total nonfarm, North carolina",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, North carolina.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPASCP",
+        "aUSEMPANDP",
+        "aUSEMPAWVP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPANDP",
+      "description": "Employed, Total nonfarm, North dakota",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, North dakota.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPASDP",
+        "aUSEMPANCP",
+        "aUSEMPAWVP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAOHP",
+      "description": "Employed, Total nonfarm, Ohio",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Ohio.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAOKP",
+      "description": "Employed, Total nonfarm, Oklahoma",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Oklahoma.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAORP",
+      "description": "Employed, Total nonfarm, Oregon",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Oregon.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAPAP",
+      "description": "Employed, Total nonfarm, Pennsylvania",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Pennsylvania.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPARIP",
+      "description": "Employed, Total nonfarm, Rhode island",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Rhode island.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPASCP",
+      "description": "Employed, Total nonfarm, South carolina",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, South carolina.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPASDP",
+        "aUSEMPANCP",
+        "aUSEMPAWVP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPASDP",
+      "description": "Employed, Total nonfarm, South dakota",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, South dakota.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPASCP",
+        "aUSEMPANDP",
+        "aUSEMPAWVP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPATNP",
+      "description": "Employed, Total nonfarm, Tennessee",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Tennessee.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPATXP",
+      "description": "Employed, Total nonfarm, Texas",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Texas.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAUTP",
+      "description": "Employed, Total nonfarm, Utah",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Utah.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAVTP",
+      "description": "Employed, Total nonfarm, Vermont",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Vermont.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAVAP",
+      "description": "Employed, Total nonfarm, Virginia",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Virginia.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAWAP",
+      "description": "Employed, Total nonfarm, Washington",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Washington.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWIP",
+        "aUSEMPAVTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAWVP",
+      "description": "Employed, Total nonfarm, West virginia",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, West virginia.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAVAP",
+        "aUSEMPAWIP",
+        "aUSEMPAWAP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPAWIP",
+      "description": "Employed, Total nonfarm, Wisconsin",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employed, Total nonfarm, Wisconsin.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPAWVP",
+        "aUSEMPAWAP",
+        "aUSEMPAVTP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFENHS/A",
+      "description": "Employment, Education & health services",
+      "frequency": "P1M",
+      "subcategory": "Education & Health",
+      "units": "",
+      "meaning": "Employment, Education & health services.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPEO/A",
+        "aUSNFTHS/A",
+        "aUSNFPNBS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMG",
+      "description": "Employment, Goods-producing industries",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Goods-producing industries.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEARNHGI/A",
+        "aUSWORKWM/A",
+        "aUSWORKWC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM51P",
+      "description": "Employment, Information services",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Information services.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFTHS/A",
+        "aUSNFPNBS/A",
+        "aUSNFOSER/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFLNHO/A",
+      "description": "Employment, Leisure & hospitality",
+      "frequency": "P1M",
+      "subcategory": "Leisure & Hospitality",
+      "units": "",
+      "meaning": "Employment, Leisure & hospitality.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPLO/A",
+        "aUSSERVEMP/A",
+        "aUSPRPAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMN/A",
+      "description": "Employment, Manufacturing, non-durable",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Employment, Manufacturing, non-durable.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFARMM",
+        "aUSNFARMD/A",
+        "aUSHKIMNO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPCON/A",
+      "description": "Employment, Nonfarm payroll, goods-producing, construction",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMC",
+        "aUSWORKWC/A",
+        "aUSNFGPMIN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMC",
+      "description": "Employment, Nonfarm payroll, goods-producing, construction",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMC",
+        "aUSWORKWC/A",
+        "aUSNFGPMIN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMD/A",
+      "description": "Employment, Nonfarm payroll, goods-producing, manufacturing, durable",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMM",
+        "aUSEMPMAN/A",
+        "aUSWORKWM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMM",
+      "description": "Employment, Nonfarm payroll, goods-producing, manufacturing, total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMD/A",
+        "aUSEMPMAN/A",
+        "aUSWORKWM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPMAN/A",
+      "description": "Employment, Nonfarm payroll, goods-producing, manufacturing, total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMD/A",
+        "aUSEMPMAN/A",
+        "aUSWORKWM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFGPMIN/A",
+      "description": "Employment, Nonfarm payroll, goods-producing, mining",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMM",
+        "aUSNFARMD/A",
+        "aUSNFARMC"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFFAC/A",
+      "description": "Employment, Nonfarm payroll, service-producing, financial activities",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFSPUT/A",
+        "aUSNFRTLT/A",
+        "aUSNFOSER/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFGOVT/A",
+      "description": "Employment, Nonfarm payroll, service-producing, government",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFSPUT/A",
+        "aUSNFRTLT/A",
+        "aUSNFOSER/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFINFO/A",
+      "description": "Employment, Nonfarm payroll, service-producing, information",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFSPUT/A",
+        "aUSNFRTLT/A",
+        "aUSNFOSER/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFOSER/A",
+      "description": "Employment, Nonfarm payroll, service-producing, other services",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFSPUT/A",
+        "aUSNFRTLT/A",
+        "aUSNFINFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFRTLT/A",
+      "description": "Employment, Nonfarm payroll, service-producing, retail trade",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFSPUT/A",
+        "aUSNFOSER/A",
+        "aUSNFINFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFSPUT/A",
+      "description": "Employment, Nonfarm payroll, service-producing, utilities",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFRTLT/A",
+        "aUSNFOSER/A",
+        "aUSNFINFO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARM/A",
+      "description": "Employment, Nonfarm payroll, total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Total nonfarm payroll employment level. The headline US 'jobs number' from the BLS establishment survey, released first Friday each month.",
+      "how_to_use": "Single most market-moving US data release. Watch (a) MoM change vs consensus, (b) prior-month revisions (often +/-50k swings), (c) sectoral breakdown (private services vs goods vs government), (d) hours-worked + average earnings released alongside. Pair with U-3 from the household survey for full picture.",
+      "related_series": [
+        "aUSNFARMP/A",
+        "aUSEMPADP/A",
+        "aUSUNTOTR",
+        "aUSEARNH/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPNF",
+      "description": "Employment, Nonfarm payroll, total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSPRPAO",
+        "aUSPAYBMS",
+        "aUSPAYBMN/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARMP/A",
+      "description": "Employment, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Total private-sector nonfarm payroll employment — excludes government workers. The cyclical part of NFP.",
+      "how_to_use": "Stripping out government employment (which is policy-driven, not cyclical) gives a cleaner read on private-sector hiring. Government swing months (e.g., census hiring/layoff) make headline NFP misleading; private payrolls are what the Fed really watches.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSEMPADP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPRPAO",
+      "description": "Employment, Nonfarm payroll, total private, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Net change in US nonfarm payrolls — the headline 'NFP' jobs number.",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSNFARMP/A",
+        "aUSNFARAO",
+        "aUSEMPNF/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPSO/A",
+      "description": "Employment, Nonfarm private service providing (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Nonfarm private service providing (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPFO/A",
+        "aUSEMIPPIO/A",
+        "aUSEMIPPPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPFO/A",
+      "description": "Employment, Nonfarm private service- providing (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Nonfarm private service- providing (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPSO/A",
+        "aUSEMIPPIO/A",
+        "aUSEMIPGPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWPMANO/A",
+      "description": "Employment, Nonfarm production workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Employment, Nonfarm production workers, manufacturing.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWPMANP",
+        "aUSNFARMM",
+        "aUSNFARMD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEWPMANP",
+      "description": "Employment, Nonfarm production workers, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Employment, Nonfarm production workers, manufacturing.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEWPMANP",
+        "aUSNFARMM",
+        "aUSNFARMD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSERVEMP/A",
+      "description": "Employment, Nonfarm service-producing industries",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm service-producing industries.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPSP",
+        "aUSWORKWS/A",
+        "aUSNFSPUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPSP",
+      "description": "Employment, Nonfarm service-producing industries",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm service-producing industries.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPSP",
+        "aUSWORKWS/A",
+        "aUSNFSPUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPGCO/A",
+      "description": "Employment, Nonfarm, construction (chg)",
+      "frequency": "P1M",
+      "subcategory": "Construction",
+      "units": "",
+      "meaning": "Employment, Nonfarm, construction (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFARMC",
+        "aUSEMPCON/A",
+        "aUSEMIPPSO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEARNHGI/A",
+      "description": "Employment, Nonfarm, goods-producing industries, total",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm, goods-producing industries, total.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWM/A",
+        "aUSWORKWC/A",
+        "aUSSERVEMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIUP",
+      "description": "Employment, Nonfarm, natural resources & mining",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm, natural resources & mining.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFGPNRNM/A",
+        "aUSNFGPMIN/A",
+        "aUSSERVEMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFGPNRNM/A",
+      "description": "Employment, Nonfarm, natural resources & mining",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm, natural resources & mining.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFGPNRNM/A",
+        "aUSNFGPMIN/A",
+        "aUSSERVEMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEM81P",
+      "description": "Employment, Nonfarm, other services",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm, other services.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFOSER/A",
+        "aUSEMIPPOO/A",
+        "aUSSERVEMP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPOO/A",
+      "description": "Employment, Nonfarm, other services (chg)",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Nonfarm, other services (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFOSER/A",
+        "aUSEM81P",
+        "aUSEMIPPSO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPP",
+      "description": "Employment, Nonfarm, private",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Nonfarm, private.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSPRPAO",
+        "aUSNFARMP/A",
+        "aUSEMPADP/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPGPO/A",
+      "description": "Employment, Nonfarm, private, goods producing (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Nonfarm, private, goods producing (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFGPMIN/A",
+        "aUSNFARMM",
+        "aUSNFARMD/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPEO/A",
+      "description": "Employment, Private education & health care (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Private education & health care (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFENHS/A",
+        "aUSEMIPPSO/A",
+        "aUSEMIPPPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPPO/A",
+      "description": "Employment, Private professional & business services (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Private professional & business services (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFPNBS/A",
+        "aUSEMIPPLO/A",
+        "aUSEMIPPSO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPIO/A",
+      "description": "Employment, Private service providing, information (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Private service providing, information (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPSO/A",
+        "aUSEMIPPFO/A",
+        "aUSEMIPPPO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPLO/A",
+      "description": "Employment, Private services, leisure & hospitality (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Private services, leisure & hospitality (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPPO/A",
+        "aUSNFLNHO/A",
+        "aUSEMIPPSO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPGMO/A",
+      "description": "Employment, Private, mining & lodging (chg)",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Private, mining & lodging (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPSO/A",
+        "aUSEMIPPPO/A",
+        "aUSEMIPPLO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFPNBS/A",
+      "description": "Employment, Professional & business services",
+      "frequency": "P1M",
+      "subcategory": "Professional & Business",
+      "units": "",
+      "meaning": "Employment, Professional & business services.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMIPPPO/A",
+        "aUSNFTHS/A",
+        "aUSNFOSER/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPR/A",
+      "description": "Employment, Rate, Civilian Employment-Population ratio, total",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "%",
+      "meaning": "Ratio expression of a US population cohort.",
+      "how_to_use": "Working-age population drives labor supply trend; aging cohorts drive Medicare/Social Security demand. Total US population growth has slowed to ~0.5%/yr from ~1%/yr historically.",
+      "related_series": [
+        "aUSPOPTO",
+        "aUSLABFRCP",
+        "aUSEMPLP",
+        "aUSEMPLC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMIPPRO/A",
+      "description": "Employment, Retail trade (chg)",
+      "frequency": "P1M",
+      "subcategory": "Trade",
+      "units": "",
+      "meaning": "Employment, Retail trade (chg).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFRTLT/A",
+        "aUSNFWST/A",
+        "aUSNFTTNUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFSPPVT/A",
+      "description": "Employment, Service-producing industries, private",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Employment, Service-producing industries, private.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSSERVEMP/A",
+        "aUSEMPSP",
+        "aUSWORKWS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFTHS/A",
+      "description": "Employment, Temporary help services",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Temporary help services.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFPNBS/A",
+        "aUSNFOSER/A",
+        "aUSNFENHS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPLP",
+      "description": "Employment, Total (civilian, Household Survey)",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Total (civilian, Household Survey).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPLC/A",
+        "aUSLABFRCP",
+        "aUSEMPR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSEMPLC/A",
+      "description": "Employment, Total (civilian, household survey)",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Total (civilian, household survey).",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSEMPLP",
+        "aUSLABFRCP",
+        "aUSEMPR/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFTTNUT/A",
+      "description": "Employment, Trade, transport & utilities",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Trade, transport & utilities.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFWST/A",
+        "aUSNFTNWH/A",
+        "aUSNFSPUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFTNWH/A",
+      "description": "Employment, Transport & warehousing",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "",
+      "meaning": "Employment, Transport & warehousing.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFTTNUT/A",
+        "aUSSERVEMP/A",
+        "aUSPRPAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFWST/A",
+      "description": "Employment, Wholesale trade",
+      "frequency": "P1M",
+      "subcategory": "Trade",
+      "units": "",
+      "meaning": "Employment, Wholesale trade.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFTTNUT/A",
+        "aUSNFRTLT/A",
+        "aUSEMIPPRO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMDO/A",
+      "description": "Hours Worked, Average Per Week, Durable goods production",
+      "frequency": "P1M",
+      "subcategory": "Hours",
+      "units": "",
+      "meaning": "Hours Worked, Average Per Week, Durable goods production.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWM/A",
+        "aUSWORKWC/A",
+        "aUSHKIMNO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWC/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payroll, goods-producing industries, construction",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSWORKWM/A",
+        "aUSWORKWS/A",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWM/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payroll, goods-producing industries, manufacturing, total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSWORKWC/A",
+        "aUSWORKWS/A",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWOTM/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payroll, overtime hours, manufacturing",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSWORKWM/A",
+        "aUSWORKWS/A",
+        "aUSWORKWC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWS/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payroll, service-producing industries total",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSWORKWM/A",
+        "aUSWORKWC/A",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKW/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payroll, total private",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSHWANPVT/A",
+        "aUSWORKWS/A",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHWANPVT/A",
+      "description": "Hours Worked, Average Per Week, Nonfarm payrolls, all employees, total private",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSWRKWAO",
+        "aUSWORKW/A",
+        "aUSWORKWS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWRKWAO",
+      "description": "Hours Worked, Nonfarm payrolls, all employees, total private",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Level of US nonfarm payroll employment — total paid employees on US establishment surveys (excluding farms, private households, and certain non-profit categories).",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSHWANPVT/A",
+        "aUSWORKW/A",
+        "aUSWORKWS/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWAGC/A",
+      "description": "Hours Worked, Per Week, Aggregate hours, goods-producing, construction",
+      "frequency": "P1M",
+      "subcategory": "Construction",
+      "units": "",
+      "meaning": "Hours Worked, Per Week, Aggregate hours, goods-producing, construction.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWC/A",
+        "aUSWORKWAGM/A",
+        "aUSWORKWM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWAGM/A",
+      "description": "Hours Worked, Per Week, Aggregate hours, goods-producing, manufacturing, total",
+      "frequency": "P1M",
+      "subcategory": "Manufacturing",
+      "units": "",
+      "meaning": "Hours Worked, Per Week, Aggregate hours, goods-producing, manufacturing, total.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWM/A",
+        "aUSWORKWAGC/A",
+        "aUSWORKWOTM/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWAGS/A",
+      "description": "Hours Worked, Per Week, Aggregate hours, service producing industries total",
+      "frequency": "P1M",
+      "subcategory": "Hours",
+      "units": "",
+      "meaning": "Hours Worked, Per Week, Aggregate hours, service producing industries total.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWS/A",
+        "aUSWORKWM/A",
+        "aUSWORKWC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSWORKWAG/A",
+      "description": "Hours Worked, Per Week, Aggregate hours, total private",
+      "frequency": "P1M",
+      "subcategory": "Private Sector",
+      "units": "",
+      "meaning": "Hours Worked, Per Week, Aggregate hours, total private.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSWORKWAGS/A",
+        "aUSWORKWAGM/A",
+        "aUSWORKWAGC/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMDH/C",
+      "description": "Hours index, Producion workers, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Index",
+      "meaning": "Index reading: Hours index, Producion workers, durable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNH/C",
+        "aUSHKIMNP",
+        "aUSHKIMDP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMNH/C",
+      "description": "Hours index, Producion workers, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Index",
+      "meaning": "Index reading: Hours index, Producion workers, nondurable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNP",
+        "aUSHKIMDH/C",
+        "aUSHKIMNG/CA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJOLTAO",
+      "description": "Labour Market n.i.e, JOLTS Job Openings",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "JOLTS Job Openings — total US job postings at the end of each month. BLS Job Openings and Labor Turnover Survey, released ~6 weeks lagged.",
+      "how_to_use": "Openings/unemployed ratio (V/U) is the Fed's preferred labor-tightness gauge. V/U > 1.5 = very tight; V/U < 1.0 = loose. Crashed from 2.0 in 2022 toward 1.0 in 2024 — Fed's 'soft landing' is partly built on this falling without UR rising.",
+      "related_series": [
+        "aUSJBQUITO/A",
+        "aUSNFARM/A",
+        "aUSUNTOTR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJBHIREO/A",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Hires",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "Level of a JOLTS measure — BLS Job Openings and Labor Turnover Survey, monthly. Job openings = posted vacancies; hires = new starts; quits = voluntary departures; separations = total departures.",
+      "how_to_use": "Quits rate is the cleanest worker-confidence gauge — high quits = workers confident they can find better jobs. Openings/unemployed ratio (V/U) was Fed's preferred labor-tightness gauge during 2022-23 wage-spiral concerns.",
+      "related_series": [
+        "aUSJBSEPRO/A",
+        "aUSJBQUITO/A",
+        "aUSJBOPENO/A",
+        "aUSJBLOFFP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJBOPENO/A",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Job openings",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "Level of a JOLTS measure — BLS Job Openings and Labor Turnover Survey, monthly. Job openings = posted vacancies; hires = new starts; quits = voluntary departures; separations = total departures.",
+      "how_to_use": "Quits rate is the cleanest worker-confidence gauge — high quits = workers confident they can find better jobs. Openings/unemployed ratio (V/U) was Fed's preferred labor-tightness gauge during 2022-23 wage-spiral concerns.",
+      "related_series": [
+        "aUSJBSEPRO/A",
+        "aUSJOLTAO",
+        "aUSJBQUITO/A",
+        "aUSJBLOFFP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJBLOFFP",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Layoffs and discharges",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "Level of a JOLTS measure — BLS Job Openings and Labor Turnover Survey, monthly. Job openings = posted vacancies; hires = new starts; quits = voluntary departures; separations = total departures.",
+      "how_to_use": "Quits rate is the cleanest worker-confidence gauge — high quits = workers confident they can find better jobs. Openings/unemployed ratio (V/U) was Fed's preferred labor-tightness gauge during 2022-23 wage-spiral concerns.",
+      "related_series": [
+        "aUSJBSEPRO/A",
+        "aUSJBQUITO/A",
+        "aUSJBOPENO/A",
+        "aUSJBHIREO/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJBQUITO/A",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Quits",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "JOLTS Quits — voluntary departures. The cleanest worker-confidence gauge: high quits = workers confident they can find better jobs.",
+      "how_to_use": "Leads wage growth by 3-6 months (aUSEARNH/A YoY). 'Great Resignation' peak in 2022 (4.5M+/mo) faded by 2024. Quits below pre-pandemic baseline = workers locked in, wage growth moderating.",
+      "related_series": [
+        "aUSJOLTAO",
+        "aUSEARNH/A",
+        "aUSAHVEA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSJBSEPRO/A",
+      "description": "Labour Market n.i.e, JOLTS, Nonfarm, Total separations",
+      "frequency": "P1M",
+      "subcategory": "JOLTS",
+      "units": "Thousands",
+      "meaning": "Level of a JOLTS measure — BLS Job Openings and Labor Turnover Survey, monthly. Job openings = posted vacancies; hires = new starts; quits = voluntary departures; separations = total departures.",
+      "how_to_use": "Quits rate is the cleanest worker-confidence gauge — high quits = workers confident they can find better jobs. Openings/unemployed ratio (V/U) was Fed's preferred labor-tightness gauge during 2022-23 wage-spiral concerns.",
+      "related_series": [
+        "aUSJBSEPRO/A",
+        "aUSJBQUITO/A",
+        "aUSJBOPENO/A",
+        "aUSJBLOFFP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPAYBMN/A",
+      "description": "Nonfarm Payroll Employment Benchmark Adjustment, Not Seasonally Adjusted",
+      "frequency": "P1Y",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "",
+      "meaning": "Nonfarm Payroll Employment Benchmark Adjustment, Not Seasonally Adjusted.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSPAYBMS",
+        "aUSPRPAO",
+        "aUSNFSPUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSPAYBMS",
+      "description": "Nonfarm Payroll Employment Benchmark Adjustment, Seasonally Adjusted",
+      "frequency": "P1Y",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "",
+      "meaning": "Nonfarm Payroll Employment Benchmark Adjustment, Seasonally Adjusted.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSPAYBMN/A",
+        "aUSPRPAO",
+        "aUSNFSPUT/A"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFARAO",
+      "description": "Nonfarm payrolls - Actual, Absolute change",
+      "frequency": "P1M",
+      "subcategory": "Nonfarm Payrolls",
+      "units": "Thousands",
+      "meaning": "Net change in US nonfarm payrolls — the headline 'NFP' jobs number.",
+      "how_to_use": "First Friday of the month, BLS release. Single most market-moving US data print. Watch (a) MoM change vs consensus, (b) prior-month revisions, (c) sectoral breakdown, (d) hours and earnings in the same release.",
+      "related_series": [
+        "aUSNFARM/A",
+        "aUSPRPAO",
+        "aUSADPAO",
+        "aUSWRKWAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMDG/CA",
+      "description": "Weekly hours index, durable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Index",
+      "meaning": "Index reading: Weekly hours index, durable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNG/CA",
+        "aUSHKIMNO/A",
+        "aUSHKIMNH/C"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSHKIMNG/CA",
+      "description": "Weekly hours index, nondurable goods",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Index",
+      "meaning": "Index reading: Weekly hours index, nondurable goods.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSHKIMNH/C",
+        "aUSHKIMDG/CA",
+        "aUSHKIMNP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMPPO/A",
+      "description": "Employment, Employment, Payroll jobs, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "%, MoM",
+      "meaning": "Month-over-month percentage change in: Employment, Employment, Payroll jobs, % month on month, Standardized, Chg P/P.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMPYO/A",
+        "aUSCEMPO/A",
+        "aUSPRPAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMPYO/A",
+      "description": "Employment, Employment, Payroll jobs, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "%, YoY",
+      "meaning": "Year-over-year percentage change in: Employment, Employment, Payroll jobs, % year on year, Standardized, Chg Y/Y.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMPPO/A",
+        "aUSCEMPO/A",
+        "aUSPRPAO"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCEMPO/A",
+      "description": "Employment, Employment, Payroll jobs, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Employment",
+      "units": "Index",
+      "meaning": "Employment, Employment, Payroll jobs.",
+      "how_to_use": "Sub-component or variant within Employment & Hours. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCEMPYO/A",
+        "aUSCEMPPO/A",
+        "aUSPRPAO"
+      ],
+      "notes": ""
+    }
+  ]
+}

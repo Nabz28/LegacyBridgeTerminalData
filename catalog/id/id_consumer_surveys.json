@@ -1,0 +1,201 @@
+{
+  "category": "Consumer Surveys",
+  "category_slug": "id_consumer_surveys",
+  "section": "Surveys & Forecasts",
+  "source_file": "INDONESIA_Consumer Surveys.xlsx",
+  "ric_count": 14,
+  "rics": [
+    {
+      "ric": "aIDCSBUICON",
+      "description": "Business conditions, 6 months hence",
+      "frequency": "P1M",
+      "subcategory": "Sub-Index",
+      "units": "Index",
+      "meaning": "Business Conditions, 6 Months Hence — sub-index of BI Consumer Survey capturing forward-looking business-conditions assessment.",
+      "how_to_use": "Forward-looking sub-component. Track alongside CEI (aIDCONCE) for broader expectations read.",
+      "related_series": [
+        "aIDCONCE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSBYDUBG",
+      "description": "Buying durable goods conditions, present",
+      "frequency": "P1M",
+      "subcategory": "Sub-Index",
+      "units": "Index",
+      "meaning": "Buying Durable Goods Conditions, Present — sub-index measuring whether households view current conditions as appropriate for big-ticket purchases.",
+      "how_to_use": "Leading indicator of durable-goods spending (autos, appliances, furniture). Falls during high-inflation or rate-hike periods.",
+      "related_series": [
+        "aIDCONCFPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONIAR",
+      "description": "Consumer Confidence Index - Actual, Index, IDR",
+      "frequency": "P1M",
+      "subcategory": "Confidence",
+      "units": "Index",
+      "meaning": "Consumer Confidence Index — Reuters poll-anchored 'actual' release. Same conceptual measure as aIDCONCF.",
+      "how_to_use": "Cross-check series. Reuters polls economists ahead of the BI release; the 'actual' is set when BI publishes.",
+      "related_series": [
+        "aIDCONCF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONCF",
+      "description": "Consumer confidence",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index, 100=neutral",
+      "meaning": "Consumer Confidence Index (CCI) — Bank Indonesia monthly Survey of Consumer Confidence (SK). Composite of Current Conditions Index (CCI-Present) and Consumer Expectations Index (CEI). Released first week of each month.",
+      "how_to_use": "Most-watched Indonesia consumer-sentiment gauge. Above 100 = optimistic, below 100 = pessimistic. Indonesia consumer confidence has been resilient: typically 110-130. Sharp drops below 100 (1998, 2008, 2020) signal economic crisis. Sub-indices: business conditions, employment, income — track separately.",
+      "related_series": [
+        "aIDCONCE",
+        "aIDCONCFPT",
+        "aIDCONIAR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONCE",
+      "description": "Consumer confidence, expectations",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index, 100=neutral",
+      "meaning": "Consumer Expectations Index (CEI / IEK) — forward-looking sub-component of BI's consumer confidence survey. Captures households' 6-month outlook on income, employment, and business conditions.",
+      "how_to_use": "Leads household consumption growth by 1-2 quarters. Sub-100 readings sustained for 3+ months signal upcoming consumption slowdown. Pair with Present Conditions index (aIDCONCFPT) — when expectations diverge below current conditions, consumer cycle is rolling over.",
+      "related_series": [
+        "aIDCONCF",
+        "aIDCONCFPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCONCFPT",
+      "description": "Consumer confidence, present",
+      "frequency": "P1M",
+      "subcategory": "Consumer Confidence",
+      "units": "Index, 100=neutral",
+      "meaning": "Present Conditions Index (IKE) — sub-component of BI's consumer confidence survey assessing current economic conditions, employment, and major-purchase appropriateness.",
+      "how_to_use": "Coincides with current consumption activity (vs CEI which leads). Pairs with retail sales, vehicle sales for current-state cross-check. Higher than expectations = late-cycle pattern; lower = early-cycle.",
+      "related_series": [
+        "aIDCONCF",
+        "aIDCONCE"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSCRICMP",
+      "description": "Current incomes, present",
+      "frequency": "P1M",
+      "subcategory": "Sub-Index",
+      "units": "Index",
+      "meaning": "Current Incomes, Present — sub-index measuring household current-income perceptions.",
+      "how_to_use": "Pair with income expectations (aIDCSINC6MN). Divergence (current high, expectations low) signals income-cycle peak.",
+      "related_series": [
+        "aIDCSINC6MN",
+        "aIDCONCFPT"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSEMCNPR",
+      "description": "Employment conditions, present",
+      "frequency": "P1M",
+      "subcategory": "Sub-Index",
+      "units": "Index",
+      "meaning": "Employment Conditions, Present — sub-index assessing current labor-market perceptions.",
+      "how_to_use": "Track for current labor-market health from household side. Coincides with unemployment trends.",
+      "related_series": [
+        "aIDCSEMP6MN",
+        "aIDUNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSEMP6MN",
+      "description": "Employment, 6 months hence",
+      "frequency": "P1M",
+      "subcategory": "Sub-Index",
+      "units": "Index",
+      "meaning": "Employment, 6 Months Hence — household forward-looking employment-prospects sub-index.",
+      "how_to_use": "Leading labor-market indicator. Drops below current-conditions sub-index signal upcoming labor-market deterioration.",
+      "related_series": [
+        "aIDCSEMCNPR",
+        "aIDUNR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSINC6MN",
+      "description": "Incomes, 6 months hence",
+      "frequency": "P1M",
+      "subcategory": "Income Expectations",
+      "units": "Index",
+      "meaning": "Income Expectations, 6 Months Hence — sub-index of BI Consumer Survey capturing forward-looking household income optimism.",
+      "how_to_use": "Leading indicator for consumer spending. When income expectations fall while current incomes hold steady, households start saving more — consumption decelerates 1-2 quarters later. Diverges sharply from current-incomes (aIDCSCRICMP) at cycle turning points.",
+      "related_series": [
+        "aIDCSCRICMP",
+        "aIDCSEMP6MN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDPREXFR6M",
+      "description": "Price expectations for next 6 mos., overall prices",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "Index",
+      "meaning": "Price Expectations for Next 6 Months, Overall — household 6-month-ahead price expectation index from BI's Consumer Survey.",
+      "how_to_use": "Slightly longer horizon than aIDCSGENPR6. Both should track each other; divergence signals near vs medium-term inflation worry. Useful as a cross-check for BI's quarterly inflation forecasts published in the Monetary Policy Report.",
+      "related_series": [
+        "aIDCSGENPR6"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCSGENPR6",
+      "description": "Price, general, 3 months hence",
+      "frequency": "P1M",
+      "subcategory": "Inflation Expectations",
+      "units": "Index",
+      "meaning": "Price Expectations, General, 3 months hence — household inflation expectation sub-index from BI's Consumer Survey. Captures anticipated overall price changes.",
+      "how_to_use": "Indonesia's inflation expectations are sticky around BI's target band (1.5-3.5% since 2024). Sharp jumps signal expectation un-anchoring — concerning for BI policy. Pair with aIDPREXFR6M (6-month version) for short vs medium horizon read.",
+      "related_series": [
+        "aIDPREXFR6M",
+        "aIDCSEMP6MN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDCCIPSOR",
+      "description": "LSEG / Ipsos Primary Consumer Sentiment Index (CSI)",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "LSEG/Ipsos Primary Consumer Sentiment Index (CSI) for Indonesia — alternative consumer-sentiment gauge from Ipsos surveys.",
+      "how_to_use": "Cross-check against BI's Consumer Confidence Index (aIDCONCF). Smaller-sample but good for triangulation.",
+      "related_series": [
+        "aIDCONCF",
+        "aIDIPSORA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aIDIPSORA",
+      "description": "LSEG / Ipsos Primary Consumer Sentiment Index (PCSI)",
+      "frequency": "P1M",
+      "subcategory": "Sentiment",
+      "units": "Index",
+      "meaning": "LSEG/Ipsos Primary Consumer Sentiment Index (PCSI) — companion to aIDCCIPSOR.",
+      "how_to_use": "Cross-check. Use either for tertiary consumer-sentiment read.",
+      "related_series": [
+        "aIDCCIPSOR"
+      ],
+      "notes": ""
+    }
+  ]
+}

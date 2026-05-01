@@ -1,0 +1,810 @@
+{
+  "category": "Stocks, Bonds & Funds",
+  "category_slug": "us_stocks_bonds_funds",
+  "section": "Money & Finance",
+  "source_file": "US_Stocks, Bonds & Funds.xlsx",
+  "ric_count": 54,
+  "rics": [
+    {
+      "ric": "aUSAAIIN",
+      "description": "American Association of Individual Investors, Sentiment Survey, Bearish",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "American Association of Individual Investors, Sentiment Survey, Bearish.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAAIIP",
+        "aUSAAIIM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAAIIP",
+      "description": "American Association of Individual Investors, Sentiment Survey, Bullish, %",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "American Association of Individual Investors, Sentiment Survey, Bullish, %.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAAIIN",
+        "aUSAAIIM"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAAIIM",
+      "description": "American Association of Individual Investors, Sentiment Survey, Neutral",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "American Association of Individual Investors, Sentiment Survey, Neutral.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAAIIP",
+        "aUSAAIIN"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGB10YR",
+      "description": "Government Benchmarks, Real",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Government Benchmarks, Real.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSTPY05",
+        "aUSTNY05",
+        "aUSFAMTGA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSYMECE1R.1D",
+      "description": "Mortgage Lending Rates, FHFA, Previously Occupied Homes",
+      "frequency": "",
+      "subcategory": "Capital Markets",
+      "units": "%",
+      "meaning": "Level of a US mortgage rate.",
+      "how_to_use": "30Y fixed mortgage rate is the household-relevant rate. Spread to 10Y Treasury (typically 150-200bp) widens during housing/MBS stress. Drives housing affordability and turnover.",
+      "related_series": [
+        "aUSMBAMLR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSANFCI",
+      "description": "Adjusted National Financial Conditions Index, ANFCI",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "Index",
+      "meaning": "Index reading: Adjusted National Financial Conditions Index, ANFCI.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFCIX",
+        "aUSZQDFNP",
+        "aUSZQDFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNFCIX",
+      "description": "National Financial Conditions Index, NFCI",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "Index",
+      "meaning": "Index reading: National Financial Conditions Index, NFCI.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSANFCI",
+        "aUSZQDFNP",
+        "aUSZQDFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRCN20",
+      "description": "Constant Maturity Yields, 20 Year",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "%",
+      "meaning": "Level of a US Treasury yield.",
+      "how_to_use": "US Treasury yield by maturity. The 10Y is the global reference long rate. 2s10s spread is the classic recession signal (inversion historically precedes recession). Decompose into real yield (TIPS) + breakeven inflation.",
+      "related_series": [
+        "aUSGBOND"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCPFNN",
+      "description": "Corporate Paper, Total, Financial",
+      "frequency": "P1M",
+      "subcategory": "Corporate Bonds",
+      "units": "%",
+      "meaning": "Corporate Paper, Total, Financial.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNOMIRA",
+        "aUSZQDFNP",
+        "aUSZQDFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTPY05",
+      "description": "Government Bonds, Par Yield, Coupon-Equivalent",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "%",
+      "meaning": "Yield/interest rate associated with a US Treasury yield.",
+      "how_to_use": "US Treasury yield by maturity. The 10Y is the global reference long rate. 2s10s spread is the classic recession signal (inversion historically precedes recession). Decompose into real yield (TIPS) + breakeven inflation.",
+      "related_series": [
+        "aUSGBOND",
+        "aUSTNY05",
+        "aUSZPDSKP",
+        "aUSZPDSKA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTNY05",
+      "description": "Government Bonds, Zero-Coupon Yield, Continuously Compounded",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "%",
+      "meaning": "Yield/interest rate associated with a US Treasury yield.",
+      "how_to_use": "US Treasury yield by maturity. The 10Y is the global reference long rate. 2s10s spread is the classic recession signal (inversion historically precedes recession). Decompose into real yield (TIPS) + breakeven inflation.",
+      "related_series": [
+        "aUSGBOND",
+        "aUSTPY05",
+        "aUSZPDSKP",
+        "aUSZPDSKA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSGBOND",
+      "description": "TREASURY YIELD ADJUSTED TO CONSTANT MATURITY - 20 YEAR",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "%",
+      "meaning": "20-Year Treasury Yield (constant maturity). The discontinued-and-revived long-end Treasury. Less liquid than 10Y or 30Y.",
+      "how_to_use": "Use the 10Y for primary curve analysis. 20Y often trades richer than 30Y due to fewer issuance vs duration demand from pension funds.",
+      "related_series": [
+        "aUSEBM10Y",
+        "aUSLIDXIR10"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSTRB3AV",
+      "description": "Treasury Bills, Secondary Market Rate",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "%",
+      "meaning": "Treasury Bills, Secondary Market Rate.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTRA",
+        "aUSFAMTAA",
+        "aUSFAMRRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMIA",
+      "description": "ICI, Money Market Funds Assets - Institutional",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMITA",
+        "aUSFAMIRA",
+        "aUSFAMINA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMIGA",
+      "description": "ICI, Money Market Funds Assets - Institutional – Government",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional – Government.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTGA",
+        "aUSFAMRA",
+        "aUSFAMITA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMINA",
+      "description": "ICI, Money Market Funds Assets - Institutional – Prime",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional – Prime.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTNA",
+        "aUSFAMRNA",
+        "aUSFAMITA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMITA",
+      "description": "ICI, Money Market Funds Assets - Institutional – Tax Exempt",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional – Tax Exempt.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTTA",
+        "aUSFAMRTA",
+        "aUSFAMIRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMIAA",
+      "description": "ICI, Money Market Funds Assets - Institutional – Treasury & Agency",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional – Treasury & Agency.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTAA",
+        "aUSFAMRAA",
+        "aUSFAMIRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMIRA",
+      "description": "ICI, Money Market Funds Assets - Institutional – Treasury & Repo",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Institutional – Treasury & Repo.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMIAA",
+        "aUSFAMTRA",
+        "aUSFAMTAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRAAA",
+      "description": "ICI, Money Market Funds Assets - Retail",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRTA",
+        "aUSFAMRRA",
+        "aUSFAMRNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRA",
+      "description": "ICI, Money Market Funds Assets - Retail – Government",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail – Government.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTGA",
+        "aUSFAMRTA",
+        "aUSFAMRRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRNA",
+      "description": "ICI, Money Market Funds Assets - Retail – Prime",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail – Prime.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTNA",
+        "aUSFAMRTA",
+        "aUSFAMRRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRTA",
+      "description": "ICI, Money Market Funds Assets - Retail – Tax Exempt",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail – Tax Exempt.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTTA",
+        "aUSFAMRRA",
+        "aUSFAMRNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRAA",
+      "description": "ICI, Money Market Funds Assets - Retail – Treasury & Agency",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail – Treasury & Agency.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTAA",
+        "aUSFAMRRA",
+        "aUSFAMIAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMRRA",
+      "description": "ICI, Money Market Funds Assets - Retail – Treasury & Repo",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Retail – Treasury & Repo.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRAA",
+        "aUSFAMTRA",
+        "aUSFAMTAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTA",
+      "description": "ICI, Money Market Funds Assets - Total",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTTA",
+        "aUSFAMTRA",
+        "aUSFAMTNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTGA",
+      "description": "ICI, Money Market Funds Assets - Total – Government",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total – Government.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRA",
+        "aUSFAMIGA",
+        "aUSFAMTTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTNA",
+      "description": "ICI, Money Market Funds Assets - Total – Prime",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total – Prime.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRNA",
+        "aUSFAMINA",
+        "aUSFAMTTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTTA",
+      "description": "ICI, Money Market Funds Assets - Total – Tax Exempt",
+      "frequency": "P1M",
+      "subcategory": "Funds",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total – Tax Exempt.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRTA",
+        "aUSFAMITA",
+        "aUSFAMTRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTAA",
+      "description": "ICI, Money Market Funds Assets - Total – Treasury & Agency",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total – Treasury & Agency.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMRAA",
+        "aUSFAMIAA",
+        "aUSFAMTRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFAMTRA",
+      "description": "ICI, Money Market Funds Assets - Total – Treasury & Repo",
+      "frequency": "P1M",
+      "subcategory": "Treasury Yields",
+      "units": "",
+      "meaning": "ICI, Money Market Funds Assets - Total – Treasury & Repo.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSFAMTAA",
+        "aUSFAMRRA",
+        "aUSFAMRAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRBYLD",
+      "description": "Corporate Benchmarks, Moody's Aaa-Rated Long-Term",
+      "frequency": "P1M",
+      "subcategory": "Corporate Bonds",
+      "units": "%",
+      "meaning": "Corporate Benchmarks, Moody's Aaa-Rated Long-Term.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCRBBAA",
+        "aUSNOMIRA",
+        "aUSGB10YR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRBBAA",
+      "description": "Corporate Benchmarks, Moody's Baa-Rated Long-Term",
+      "frequency": "P1M",
+      "subcategory": "Corporate Bonds",
+      "units": "%",
+      "meaning": "Corporate Benchmarks, Moody's Baa-Rated Long-Term.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCRBYLD",
+        "aUSNOMIRA",
+        "aUSGB10YR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDSKR",
+      "description": "IFDI, Financial Performance Indicator, Sukuk, Liquidity Bid/Ask Spread",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance Indicator, Sukuk, Liquidity Bid/Ask Spread.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZPDSKP",
+        "aUSZPDSKA",
+        "aUSZQDFNP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDFNP",
+      "description": "IFDI, Financial Performance, Islamic Funds",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance, Islamic Funds.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZQDFNA",
+        "aUSZBDFNP",
+        "aUSZPDSKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZBDFNP",
+      "description": "IFDI, Financial Performance, Islamic Funds, Islamic Asset Managers",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance, Islamic Funds, Islamic Asset Managers.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZQDFNA",
+        "aUSZQDFNP",
+        "aUSZPDSKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZQDFNA",
+      "description": "IFDI, Financial Performance, Islamic Funds, Net Asset Value of Islamic Funds",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance, Islamic Funds, Net Asset Value of Islamic Funds.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZBDFNP",
+        "aUSZQDFNP",
+        "aUSZPDSKP"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDSKA",
+      "description": "IFDI, Financial Performance, Sukuk, Outstanding Sukuk, Current Prices, Stocks, Bonds & Funds, Annual, LSEG, IFDI",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance, Sukuk, Outstanding Sukuk, current prices.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZPDSKP",
+        "aUSZQDFNP",
+        "aUSZQDFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSZPDSKP",
+      "description": "IFDI, Financial Performance, Sukuk, Outstanding Sukuk, Volume, Stocks, Bonds & Funds, Annual, LSEG, IFDI",
+      "frequency": "P1Y",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "IFDI, Financial Performance, Sukuk, Outstanding Sukuk, Volume, Stocks, Bonds & Funds.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZPDSKA",
+        "aUSZQDFNP",
+        "aUSZQDFNA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSOSPHHHF",
+      "description": "Share prices: All shares/broad",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "%",
+      "meaning": "Share prices: All shares/broad, expressed as a share of the relevant total.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSZPDSKA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSNOMIRA",
+      "description": "Corporate Paper, Nominal interest rate",
+      "frequency": "",
+      "subcategory": "Corporate Bonds",
+      "units": "%",
+      "meaning": "Yield/interest rate: Corporate Paper, Nominal interest rate.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCPFNN",
+        "aUSCRBYLD",
+        "aUSCRBBAA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSSHRPRCF",
+      "description": "Dow Jones, Averages, Industrial Index",
+      "frequency": "P1M",
+      "subcategory": "Dow",
+      "units": "Index",
+      "meaning": "Index reading: Dow Jones, Averages, Industrial Index.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSNFCIX",
+        "aUSANFCI"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCKXR",
+      "description": "Auction Results, 10 Year (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 10 Year (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSABCWR",
+        "aUSABCQR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSBCZMR",
+      "description": "Auction Results, 13 Week (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 13 Week (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCKXR",
+        "aUSABCWR",
+        "aUSABCQR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSABCWR",
+      "description": "Auction Results, 2 Year (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 2 Year (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSBCKXR",
+        "aUSABCQR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSABCCR",
+      "description": "Auction Results, 3 Year (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 3 Year (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSBCKXR",
+        "aUSABCWR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSABCOR",
+      "description": "Auction Results, 4 Week (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 4 Week (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSBCKXR",
+        "aUSABCWR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSABCQR",
+      "description": "Auction Results, 5 Year (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 5 Year (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSBCKXR",
+        "aUSABCWR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSABCAA",
+      "description": "Auction Results, 7 Year (Official)",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, 7 Year (Official).",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSBCZMR",
+        "aUSBCKXR",
+        "aUSABCWR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSACDMA",
+      "description": "Auction Results, Accepted Bids, Total Competitive, 10 Year",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, Accepted Bids, Total Competitive, 10 Year.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSAACJA",
+        "aUSAACHA",
+        "aUSRZYTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAACHA",
+      "description": "Auction Results, Accepted Bids, Total Competitive, 4 Week",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, Accepted Bids, Total Competitive, 4 Week.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSACDMA",
+        "aUSAACJA",
+        "aUSRZYTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSAACJA",
+      "description": "Auction Results, Accepted Bids, Total Competitive, 7 Year",
+      "frequency": "P1M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, Accepted Bids, Total Competitive, 7 Year.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSACDMA",
+        "aUSAACHA",
+        "aUSRZYTA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRZYTA",
+      "description": "Auction Results, Total Issue, 10 Year TIPS",
+      "frequency": "P3M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, Total Issue, 10 Year TIPS.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSCATAA",
+        "aUSBCZMR",
+        "aUSBCKXR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCATAA",
+      "description": "Auction Results, Total Issue, 5 Year TIPS",
+      "frequency": "P3M",
+      "subcategory": "Capital Markets",
+      "units": "",
+      "meaning": "Auction Results, Total Issue, 5 Year TIPS.",
+      "how_to_use": "Sub-component or variant within Stocks, Bonds & Funds. No standard practitioner usage notes have been written for this specific RIC — consult the upstream source publication (BEA, BLS, Federal Reserve, Census, USDA, EIA, or the relevant industry survey) for the formal definition before using it.",
+      "related_series": [
+        "aUSRZYTA",
+        "aUSBCZMR",
+        "aUSBCKXR"
+      ],
+      "notes": ""
+    }
+  ]
+}

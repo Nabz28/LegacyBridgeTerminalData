@@ -1,0 +1,758 @@
+{
+  "batch_id": 8,
+  "name": "Inflation & Producer Prices sub-components",
+  "topic": "China CPI sub-categories (food, services, regional) + PPI sub-sectors",
+  "ric_count": 125,
+  "rics": [
+    {
+      "ric": "aCNCNOULM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average domestic market price of oil & chemical products, sodium cyanide (import)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNZZTS",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average import price, LNG",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCNUSGC",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Palm oil import average price",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCNVRGRM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "China steel price index, rebar",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNCLPXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDAXFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Bohai Economic Zone",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDBDIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Central South",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNGZKN/A",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, East area",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCNXZFYQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Fushun city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNQDTQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Fushun city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNQKJUQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Fuxin city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFWBRQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Fuxin city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNWKYAQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Handan city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFLNKQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Handan city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNGAQLQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Hegang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNTOPBQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Hegang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNKUWMQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Hengyang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNZGYQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Hengyang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNKTFDQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Huadong Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFZZHQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Huaibei City, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNLQAZQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Huaibei City, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNIDZRQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Huainan City, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFKSCQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Huainan City, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNYTAGQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Jixi city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNQAUZQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Jixi city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDELJQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, North China",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDIDQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, North-east area",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNQHMPQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, North-west region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNSBYJQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Pearl River Delta Economic Zone, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNMYWKQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Pearl River Delta Economic Zone, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNSCXIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Qiqihar city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNUEXUQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Qiqihar city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNMSQPQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Shunde District",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFVIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Southwest Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNLRKNQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Western Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNSWSFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Xinxiang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNEAEX/A",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Xinxiang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDZQFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Yangtze River Delta Economic Zone",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNRQZQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Yichun city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNLRTQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land price level, Yichun city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNBTFFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Bohai Economic Zone",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNNIPWQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Central Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNQRGHQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Central South",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDBEQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, East area",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDGDQQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Fushun city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNOZBPQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Fushun city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNLGNIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Fuxin city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNHMJM/A",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Fuxin city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNMQQFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Handan city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNACMUQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Handan city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNEBXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Hegang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNUPGIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Hegang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNSHOIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Hengyang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNEAUTQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Hengyang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNHTKXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Huadong Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNJDURQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Huaibei City, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCNHCSUQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Huaibei City, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNPZFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Huainan City, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNUABRQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Huainan City, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNZACEQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Jixi city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNYBWQ/A",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Jixi city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDQSVQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, North China",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFSFQQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, North-west region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNNTAQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Pearl River Delta Economic Zone, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNBQDUQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Pearl River Delta Economic Zone, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNUBICQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Qiqihar city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNNVRQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Qiqihar city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNIKBPQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Shunde District",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNGJSIQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Southwest Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNIIMOQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Western Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDSKXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Xinxiang city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNDMMXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Xinxiang city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNFCAVQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Yangtze River Delta Economic Zone",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNYXLFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Yichun city, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNMUFYQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Land use price level, Yichun city, Current Prices, Consumer Prices / Inflation, Quarterly, China Land Price Information Service Platform",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNZFQQM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average domestic market price of oil & chemical products, coke (secondary metallurgical coke)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNOOUEM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average domestic market price of oil & chemical products, epdm (4045#)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNMIGBM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average domestic market price of oil & chemical products, formaldehyde (primary, clean water)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCNULLRQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Star hotel room average room rate, Inner Mongolia Autonomous Region",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNWEDXQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Star hotel room average room rate, Jiangsu Province",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNEDONQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Star hotel room average room rate, Jiangxi Province",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNMBKQQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Star hotel room average room rate, one-star, Jiangxi Province",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNCNIDRFQ",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Star hotel room average room rate, one-star, Jilin Province",
+      "frequency": "P3M"
+    },
+    {
+      "ric": "aCNPFAPA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Apples (Fuji apple)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFBAA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Bananas (domestic products)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFBEA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Beef(leg)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFCEA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Celeries",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFCBA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Chickens(breast)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFCCA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Chickens(frozen fresh chicken)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFCHA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Chinese cabbages",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFCUA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Cucumbers",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFDUA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Ducks(frozen fresh duck)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFEGA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Eggs(fresh eggs in bulk)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFFWA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Flour(standard wheat)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFFFA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Flour(strong flour)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFHTA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Hair tails",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFKBA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Kidney beans",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFLCA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Live carps",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFLGA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Live grass carp",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFMUA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Mutton(leg)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFPOA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Peanut oil(pressing)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFPBA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Pork(belly meat)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFPRA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Pork(rump)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFPTA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Potatoes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFRSA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Rape seed oil(grade 1 in bulk)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFRAA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Rapes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFRCA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Rice(japonica rice)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFSPA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Soy products(bean curd)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFSBA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Soya bean oil(5 lin barrel bulk)",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNPFTMA",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "Average food price in 50 cities, Tomatoes",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCONPRSF",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPI",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Average",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIYY",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Average, Chg Y/Y, Price Index, Consumer Prices / Inflation, Monthly, National Bureau of Statistics of China",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIAR",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Average, Chg Y/Y, Consumer Prices / Inflation, Monthly, National Bureau of Statistics of China",
+      "frequency": ""
+    },
+    {
+      "ric": "aCNCPIMAR",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Chg P/P",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPICPIP",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Chg P/P",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIC",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Clothing, average",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPDURAF/C",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Consumer goods",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIF",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Food, average",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIFYY",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Food, average, Chg Y/Y",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIM",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Health care and medical services",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPNDURF/C",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Home appliances",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPIH",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Household facilities, articles and services",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPNOSSF/C",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Household services",
+      "frequency": "P1M"
+    },
+    {
+      "ric": "aCNCPNMDTF/C",
+      "slug": "cn_consumer_prices_inflation",
+      "description": "CPI, Medical services",
+      "frequency": "P1M"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "category": "International Reserves",
+  "category_slug": "us_international_reserves",
+  "section": "Money & Finance",
+  "source_file": "US_International Reserves.xlsx",
+  "ric_count": 13,
+  "rics": [
+    {
+      "ric": "aUSCRCUYRA",
+      "description": "Foreign currency reserves, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "FX Reserves Change",
+      "units": "%, YoY",
+      "meaning": "Foreign currency reserves YoY % change, standardized.",
+      "how_to_use": "Most useful for cross-country comparison. US reserves are tiny relative to GDP because USD is reserve currency — focus on the trend, not the level.",
+      "related_series": [
+        "aUSRAFXCH",
+        "aUSCRESYA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRESPA",
+      "description": "Official international reserves, % month on month, Standardized, Chg P/P",
+      "frequency": "P1M",
+      "subcategory": "Reserves Change",
+      "units": "%, MoM",
+      "meaning": "Official international reserves MoM % change, standardized.",
+      "how_to_use": "Watch for unusual swings — large MoM moves can signal FX intervention or valuation effects from gold/SDR repricing.",
+      "related_series": [
+        "aUSCRESYA",
+        "aUSRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRESYA",
+      "description": "Official international reserves, % year on year, Standardized, Chg Y/Y",
+      "frequency": "P1M",
+      "subcategory": "Reserves Change",
+      "units": "%, YoY",
+      "meaning": "Official international reserves YoY % change, standardized.",
+      "how_to_use": "Cleaner trend signal than MoM. US reserves grow mostly through gold revaluation and IMF position changes; FX trading is rare.",
+      "related_series": [
+        "aUSCRESPA",
+        "aUSRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSCRESA",
+      "description": "Official international reserves, Standardized",
+      "frequency": "P1M",
+      "subcategory": "Reserves Level",
+      "units": "USD billions",
+      "meaning": "Total official international reserves, standardized.",
+      "how_to_use": "Sum of FX, gold, SDR, IMF reserve position. Used for FX intervention capacity (rarely deployed for the US).",
+      "related_series": [
+        "aUSRES",
+        "aUSRAFXCH",
+        "aUSRESGLD",
+        "aUSRESSDR"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRES",
+      "description": "Reserve Assets",
+      "frequency": "P1M",
+      "subcategory": "FX Reserves",
+      "units": "USD millions",
+      "meaning": "Reserve Assets (total) — US international reserves: gold, foreign currency holdings, IMF position, SDRs. ~$700B total.",
+      "how_to_use": "Small relative to US GDP (~3%) — US is reserve issuer, not reserve holder. Track for FX intervention capacity (rarely used post-1985). ~80% of total is gold (revaluation gain over decades).",
+      "related_series": [
+        "aUSFXRESA",
+        "aUSRESGLDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRAFXCH",
+      "description": "Reserve Assets, Foreign currency reserves",
+      "frequency": "P1M",
+      "subcategory": "FX Reserves",
+      "units": "USD millions",
+      "meaning": "Foreign currency component of reserve assets — euros, yen, gold-backed.",
+      "how_to_use": "Smallest piece of US reserves. Big country FX reserves are mostly USD; the US holds mostly gold.",
+      "related_series": [
+        "aUSRES",
+        "aUSFXRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESGLD",
+      "description": "Reserve Assets, Gold stock",
+      "frequency": "P1M",
+      "subcategory": "Gold Reserves",
+      "units": "USD millions",
+      "meaning": "Gold stock component of reserve assets, valued at official rate (~$42/oz historically — way below market).",
+      "how_to_use": "The US holds ~8,100 tonnes — largest in the world. Valued at the legacy book price, vastly understated. Market value is 30x+ book.",
+      "related_series": [
+        "aUSRESGLDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESSDR",
+      "description": "Reserve Assets, Holdings of Special Drawing Rights",
+      "frequency": "P1M",
+      "subcategory": "SDR Holdings",
+      "units": "USD millions",
+      "meaning": "Holdings of Special Drawing Rights at the IMF.",
+      "how_to_use": "SDRs are an IMF reserve unit. US allocation grew sharply in the 2021 SDR allocation post-COVID.",
+      "related_series": [
+        "aUSRESIMF",
+        "aUSRVSSDRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESIMF",
+      "description": "Reserve Assets, Reserve position in IMF",
+      "frequency": "P1M",
+      "subcategory": "IMF Position",
+      "units": "USD millions",
+      "meaning": "US reserve position in IMF — quota subscription minus IMF holdings of US currency.",
+      "how_to_use": "Mostly accounting. Moves when the US lends to IMF programs or its quota changes.",
+      "related_series": [
+        "aUSRESSDR",
+        "aUSRESIMFIRA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSFXRESA",
+      "description": "US FOREIGN RESERVES:|ASSETS",
+      "frequency": "P1M",
+      "subcategory": "FX Reserves",
+      "units": "USD millions",
+      "meaning": "US Foreign Reserves: Total Assets — same conceptual measure as aUSRES. Treasury monthly release.",
+      "how_to_use": "Cross-check against aUSRES. The US holds reserves only minimally — most reserve-currency-issuer status means foreign central banks hold dollars instead.",
+      "related_series": [
+        "aUSRES",
+        "aUSRESGLDA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESGLDA",
+      "description": "US FOREIGN RESERVES:|GOLD",
+      "frequency": "P1M",
+      "subcategory": "Gold Reserves",
+      "units": "USD millions",
+      "meaning": "US Foreign Reserves: Gold — Treasury's gold holdings (~261M troy oz / ~8,134 metric tons). Largest national gold holding globally. Valued at ~$42/oz on books but market value far higher.",
+      "how_to_use": "Stock unchanged since 1970s. Book value uses 1973 statutory price ($42/oz); market value 50× higher. Recent gold rally has put 'unrealized' gains on US balance sheet at trillions — periodically discussed for revaluation.",
+      "related_series": [
+        "aUSRES",
+        "aUSFXRESA"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRESIMFIRA",
+      "description": "US FOREIGN RESERVES:|IMF POSITION",
+      "frequency": "P1M",
+      "subcategory": "IMF Position",
+      "units": "USD millions",
+      "meaning": "US Foreign Reserves: IMF Position — US reserve tranche position at the IMF. Funds the US can withdraw on demand from IMF without conditions.",
+      "how_to_use": "Small (~$50B). Used in BoP accounting; rarely activated. Tracks IMF financial commitments.",
+      "related_series": [
+        "aUSRVSSDRA",
+        "aUSRES"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUSRVSSDRA",
+      "description": "US FOREIGN RESERVES:|SDR'S",
+      "frequency": "P1M",
+      "subcategory": "SDR Holdings",
+      "units": "USD millions",
+      "meaning": "US Foreign Reserves: Special Drawing Rights — SDR holdings at the IMF. International reserve asset created by IMF, valued by basket of major currencies.",
+      "how_to_use": "Boosted in 2021 IMF general allocation ($650B globally to support COVID recovery). Useful for tracking IMF reserve operations. Less liquid than Treasury foreign currency holdings.",
+      "related_series": [
+        "aUSRESIMFIRA",
+        "aUSRES"
+      ],
+      "notes": ""
+    }
+  ]
+}

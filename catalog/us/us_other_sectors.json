@@ -1,0 +1,35 @@
+{
+  "category": "Sector Accounts",
+  "category_slug": "us_other_sectors",
+  "section": "National Accounts",
+  "source_file": "US_Other Sectors.xlsx",
+  "ric_count": 2,
+  "rics": [
+    {
+      "ric": "aUSCPICNFB/A",
+      "description": "CORPORATE PROFITS WITH IVA & CCADJ - NONFINANCIAL (AR)",
+      "frequency": "",
+      "subcategory": "Corporate Profits",
+      "units": "USD billions, SAAR",
+      "meaning": "Nonfinancial corporate profits with inventory valuation and capital consumption adjustments — the cleanest cyclical profit measure in the NIPA accounts.",
+      "how_to_use": "Leading indicator for capex and hiring. Diverges from S&P 500 EPS (which is global + financial-heavy); useful as a domestic real-economy profit gauge. Compare to nonfinancial output to track margin trends.",
+      "related_series": [
+        "aUSMPATX",
+        "aUSMPDMF",
+        "aUSMPNDMF"
+      ],
+      "notes": ""
+    },
+    {
+      "ric": "aUS15IDGN",
+      "description": "Consumer durables, households & NPISH",
+      "frequency": "P1Y",
+      "subcategory": "Household Sector",
+      "units": "USD billions",
+      "meaning": "Personal consumption of consumer durables by households and non-profit institutions serving households (NPISH). Annual NIPA detail.",
+      "how_to_use": "Long-cycle gauge of durables stock formation (vehicles, furniture, appliances). Use the QoQ retail/durables prints for cycle timing; this annual line is for level/trend.",
+      "related_series": [],
+      "notes": ""
+    }
+  ]
+}
