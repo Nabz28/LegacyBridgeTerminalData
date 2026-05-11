@@ -1,0 +1,6887 @@
+{
+  "meta": {
+    "version": "1.0",
+    "created": "2026-05-03",
+    "start_date": "2011-01-01",
+    "frequencies": [
+      "weekly",
+      "monthly"
+    ],
+    "total_series": 753,
+    "categories": {
+      "us_equities": 82,
+      "us_macro": 74,
+      "indonesia_equities": 129,
+      "indonesia_macro": 29,
+      "china_hk": 55,
+      "korea_japan_asean_india": 85,
+      "europe_dm_latam": 88,
+      "global_fx": 64,
+      "energy_commod": 35,
+      "metals_commod": 47,
+      "agri_soft_commod": 34,
+      "crypto": 31
+    }
+  },
+  "series": [
+    {
+      "id": "AMEX:SPY",
+      "name": "SPDR S&P 500 ETF",
+      "yf": "SPY",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 1993
+    },
+    {
+      "id": "NASDAQ:QQQ",
+      "name": "Invesco QQQ Trust",
+      "yf": "QQQ",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 1999
+    },
+    {
+      "id": "AMEX:DIA",
+      "name": "SPDR Dow Jones Industrial",
+      "yf": "DIA",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:IWM",
+      "name": "iShares Russell 2000",
+      "yf": "IWM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 2000
+    },
+    {
+      "id": "AMEX:MDY",
+      "name": "SPDR S&P MidCap 400",
+      "yf": "MDY",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 1995
+    },
+    {
+      "id": "AMEX:RSP",
+      "name": "Invesco S&P 500 Equal Weight",
+      "yf": "RSP",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 2003
+    },
+    {
+      "id": "AMEX:VTI",
+      "name": "Vanguard Total Stock Market",
+      "yf": "VTI",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Broad Index",
+      "ret": "log",
+      "start": 2001
+    },
+    {
+      "id": "TVC:SPX",
+      "name": "S&P 500 Index",
+      "yf": "^GSPC",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Index Direct",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "NASDAQ:NDX",
+      "name": "Nasdaq 100 Index",
+      "yf": "^NDX",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Index Direct",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "TVC:RUT",
+      "name": "Russell 2000 Index",
+      "yf": "^RUT",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Index Direct",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "TVC:DJI",
+      "name": "Dow Jones Industrial Avg",
+      "yf": "^DJI",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Index Direct",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "AMEX:XLK",
+      "name": "Tech Select Sector",
+      "yf": "XLK",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Tech",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLF",
+      "name": "Financial Select Sector",
+      "yf": "XLF",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Financials",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLE",
+      "name": "Energy Select Sector",
+      "yf": "XLE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Energy",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLV",
+      "name": "Health Care Select Sector",
+      "yf": "XLV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Healthcare",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLI",
+      "name": "Industrial Select Sector",
+      "yf": "XLI",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Industrials",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLY",
+      "name": "Consumer Discretionary Select",
+      "yf": "XLY",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Cons Disc",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLP",
+      "name": "Consumer Staples Select",
+      "yf": "XLP",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Cons Staples",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLU",
+      "name": "Utilities Select Sector",
+      "yf": "XLU",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Utilities",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLB",
+      "name": "Materials Select Sector",
+      "yf": "XLB",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Materials",
+      "ret": "log",
+      "start": 1998
+    },
+    {
+      "id": "AMEX:XLRE",
+      "name": "Real Estate Select Sector",
+      "yf": "XLRE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — REITs",
+      "ret": "log",
+      "start": 2015
+    },
+    {
+      "id": "AMEX:XLC",
+      "name": "Communication Svcs Select",
+      "yf": "XLC",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sector ETF — Comm",
+      "ret": "log",
+      "start": 2018
+    },
+    {
+      "id": "AMEX:SMH",
+      "name": "VanEck Semiconductor",
+      "yf": "SMH",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Semis",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "NASDAQ:SOXX",
+      "name": "iShares Semiconductor",
+      "yf": "SOXX",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Semis",
+      "ret": "log",
+      "start": 2001
+    },
+    {
+      "id": "AMEX:KRE",
+      "name": "SPDR Regional Banking",
+      "yf": "KRE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Reg Banks",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:KBE",
+      "name": "SPDR S&P Bank",
+      "yf": "KBE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Banks",
+      "ret": "log",
+      "start": 2005
+    },
+    {
+      "id": "NASDAQ:IBB",
+      "name": "iShares Biotechnology",
+      "yf": "IBB",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Biotech",
+      "ret": "log",
+      "start": 2001
+    },
+    {
+      "id": "AMEX:XBI",
+      "name": "SPDR S&P Biotech",
+      "yf": "XBI",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Biotech EW",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:ITB",
+      "name": "iShares US Home Construction",
+      "yf": "ITB",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Homebuilders",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:XHB",
+      "name": "SPDR S&P Homebuilders",
+      "yf": "XHB",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Homebuilders",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:ARKK",
+      "name": "ARK Innovation",
+      "yf": "ARKK",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Disruptive",
+      "ret": "log",
+      "start": 2014
+    },
+    {
+      "id": "AMEX:ARKG",
+      "name": "ARK Genomic Revolution",
+      "yf": "ARKG",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Genomics",
+      "ret": "log",
+      "start": 2014
+    },
+    {
+      "id": "AMEX:ARKW",
+      "name": "ARK Next Gen Internet",
+      "yf": "ARKW",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Internet",
+      "ret": "log",
+      "start": 2014
+    },
+    {
+      "id": "AMEX:FDN",
+      "name": "First Trust Dow Jones Internet",
+      "yf": "FDN",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Internet",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:IGV",
+      "name": "iShares Expanded Tech-Software",
+      "yf": "IGV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Software",
+      "ret": "log",
+      "start": 2001
+    },
+    {
+      "id": "AMEX:HACK",
+      "name": "ETFMG Prime Cyber Security",
+      "yf": "HACK",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Cybersec",
+      "ret": "log",
+      "start": 2014
+    },
+    {
+      "id": "AMEX:JETS",
+      "name": "US Global Jets",
+      "yf": "JETS",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Airlines",
+      "ret": "log",
+      "start": 2015
+    },
+    {
+      "id": "AMEX:IYT",
+      "name": "iShares Transportation",
+      "yf": "IYT",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Transports",
+      "ret": "log",
+      "start": 2003
+    },
+    {
+      "id": "AMEX:XRT",
+      "name": "SPDR S&P Retail",
+      "yf": "XRT",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Retail",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:OIH",
+      "name": "VanEck Oil Services",
+      "yf": "OIH",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Oil Svcs",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "AMEX:XOP",
+      "name": "SPDR S&P Oil & Gas E&P",
+      "yf": "XOP",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — E&P",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:GDX",
+      "name": "VanEck Gold Miners",
+      "yf": "GDX",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Sub-Industry — Gold Miners",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:MTUM",
+      "name": "iShares MSCI USA Momentum",
+      "yf": "MTUM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Momentum",
+      "ret": "log",
+      "start": 2013
+    },
+    {
+      "id": "AMEX:QUAL",
+      "name": "iShares MSCI USA Quality",
+      "yf": "QUAL",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Quality",
+      "ret": "log",
+      "start": 2013
+    },
+    {
+      "id": "AMEX:VLUE",
+      "name": "iShares MSCI USA Value",
+      "yf": "VLUE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Value",
+      "ret": "log",
+      "start": 2013
+    },
+    {
+      "id": "AMEX:USMV",
+      "name": "iShares MSCI USA Min Vol",
+      "yf": "USMV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Low Vol",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "AMEX:SPLV",
+      "name": "Invesco S&P 500 Low Volatility",
+      "yf": "SPLV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Low Vol",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "AMEX:SPHB",
+      "name": "Invesco S&P 500 High Beta",
+      "yf": "SPHB",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — High Beta",
+      "ret": "log",
+      "start": 2011
+    },
+    {
+      "id": "AMEX:SIZE",
+      "name": "iShares MSCI USA Size",
+      "yf": "SIZE",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Size",
+      "ret": "log",
+      "start": 2013
+    },
+    {
+      "id": "AMEX:DGRO",
+      "name": "iShares Core Dividend Growth",
+      "yf": "DGRO",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Factor — Div Growth",
+      "ret": "log",
+      "start": 2014
+    },
+    {
+      "id": "NASDAQ:IWF",
+      "name": "iShares Russell 1000 Growth",
+      "yf": "IWF",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Growth",
+      "ret": "log",
+      "start": 2000
+    },
+    {
+      "id": "NASDAQ:IWD",
+      "name": "iShares Russell 1000 Value",
+      "yf": "IWD",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Value",
+      "ret": "log",
+      "start": 2000
+    },
+    {
+      "id": "NASDAQ:IUSG",
+      "name": "iShares Core S&P US Growth",
+      "yf": "IUSG",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Growth",
+      "ret": "log",
+      "start": 2000
+    },
+    {
+      "id": "NASDAQ:IUSV",
+      "name": "iShares Core S&P US Value",
+      "yf": "IUSV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Value",
+      "ret": "log",
+      "start": 2000
+    },
+    {
+      "id": "AMEX:RPV",
+      "name": "Invesco S&P 500 Pure Value",
+      "yf": "RPV",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Pure Value",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "AMEX:RPG",
+      "name": "Invesco S&P 500 Pure Growth",
+      "yf": "RPG",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Style — Pure Growth",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "NASDAQ:AAPL",
+      "name": "Apple Inc",
+      "yf": "AAPL",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Tech",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NASDAQ:MSFT",
+      "name": "Microsoft Corp",
+      "yf": "MSFT",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Tech",
+      "ret": "log",
+      "start": 1986
+    },
+    {
+      "id": "NASDAQ:GOOGL",
+      "name": "Alphabet Inc Cl A",
+      "yf": "GOOGL",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Comm",
+      "ret": "log",
+      "start": 2004
+    },
+    {
+      "id": "NASDAQ:AMZN",
+      "name": "Amazon.com",
+      "yf": "AMZN",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Cons Disc",
+      "ret": "log",
+      "start": 1997
+    },
+    {
+      "id": "NASDAQ:META",
+      "name": "Meta Platforms",
+      "yf": "META",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Comm",
+      "ret": "log",
+      "start": 2012
+    },
+    {
+      "id": "NASDAQ:NVDA",
+      "name": "NVIDIA Corp",
+      "yf": "NVDA",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Semis",
+      "ret": "log",
+      "start": 1999
+    },
+    {
+      "id": "NASDAQ:TSLA",
+      "name": "Tesla Inc",
+      "yf": "TSLA",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Cons Disc",
+      "ret": "log",
+      "start": 2010
+    },
+    {
+      "id": "NYSE:BRK.B",
+      "name": "Berkshire Hathaway B",
+      "yf": "BRK-B",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Financials",
+      "ret": "log",
+      "start": 1996
+    },
+    {
+      "id": "NYSE:JPM",
+      "name": "JPMorgan Chase",
+      "yf": "JPM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Banks",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:V",
+      "name": "Visa Inc",
+      "yf": "V",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Fin Svcs",
+      "ret": "log",
+      "start": 2008
+    },
+    {
+      "id": "NYSE:MA",
+      "name": "Mastercard Inc",
+      "yf": "MA",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Fin Svcs",
+      "ret": "log",
+      "start": 2006
+    },
+    {
+      "id": "NYSE:UNH",
+      "name": "UnitedHealth Group",
+      "yf": "UNH",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Healthcare",
+      "ret": "log",
+      "start": 1984
+    },
+    {
+      "id": "NYSE:LLY",
+      "name": "Eli Lilly",
+      "yf": "LLY",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Pharma",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:XOM",
+      "name": "Exxon Mobil",
+      "yf": "XOM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Energy",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:CVX",
+      "name": "Chevron Corp",
+      "yf": "CVX",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Energy",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:WMT",
+      "name": "Walmart Inc",
+      "yf": "WMT",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Staples",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:HD",
+      "name": "Home Depot",
+      "yf": "HD",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Cons Disc",
+      "ret": "log",
+      "start": 1981
+    },
+    {
+      "id": "NYSE:BAC",
+      "name": "Bank of America",
+      "yf": "BAC",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Banks",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NASDAQ:COST",
+      "name": "Costco Wholesale",
+      "yf": "COST",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Staples",
+      "ret": "log",
+      "start": 1985
+    },
+    {
+      "id": "NYSE:AVGO",
+      "name": "Broadcom Inc",
+      "yf": "AVGO",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Semis",
+      "ret": "log",
+      "start": 2009
+    },
+    {
+      "id": "NASDAQ:TSM",
+      "name": "Taiwan Semiconductor ADR",
+      "yf": "TSM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Semis",
+      "ret": "log",
+      "start": 1997
+    },
+    {
+      "id": "NYSE:ORCL",
+      "name": "Oracle Corp",
+      "yf": "ORCL",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Software",
+      "ret": "log",
+      "start": 1986
+    },
+    {
+      "id": "NYSE:CRM",
+      "name": "Salesforce Inc",
+      "yf": "CRM",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Software",
+      "ret": "log",
+      "start": 2004
+    },
+    {
+      "id": "NASDAQ:NFLX",
+      "name": "Netflix Inc",
+      "yf": "NFLX",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Comm",
+      "ret": "log",
+      "start": 2002
+    },
+    {
+      "id": "NYSE:JNJ",
+      "name": "Johnson & Johnson",
+      "yf": "JNJ",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Pharma",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "NYSE:PG",
+      "name": "Procter & Gamble",
+      "yf": "PG",
+      "src": "tv",
+      "cat": "us_equities",
+      "sub": "Mega Cap — Staples",
+      "ret": "log",
+      "start": 1980
+    },
+    {
+      "id": "TVC:US02Y",
+      "name": "US 2Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US03Y",
+      "name": "US 3Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US05Y",
+      "name": "US 5Y",
+      "yf": "^FVX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US07Y",
+      "name": "US 7Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US10Y",
+      "name": "US 10Y",
+      "yf": "^TNX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US20Y",
+      "name": "US 20Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US30Y",
+      "name": "US 30Y",
+      "yf": "^TYX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US03MY",
+      "name": "US 3M Bill",
+      "yf": "^IRX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US06MY",
+      "name": "US 6M Bill",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "UST Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "US10Y-US02Y",
+      "name": "2s10s",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Curve Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "US10Y-US03MY",
+      "name": "3m10y",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Curve Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "US30Y-US05Y",
+      "name": "5s30s",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Curve Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "US30Y-US10Y",
+      "name": "10s30s",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Curve Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "DFII10",
+      "name": "US 10Y Real",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Real Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "DFII5",
+      "name": "US 5Y Real",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Real Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "DFII30",
+      "name": "US 30Y Real",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Real Yield",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US05YIE",
+      "name": "US 5Y Breakeven",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Breakeven",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:US10YIE",
+      "name": "US 10Y Breakeven",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Breakeven",
+      "ret": "diff"
+    },
+    {
+      "id": "T5YIFR",
+      "name": "5y5y Forward Breakeven",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Breakeven",
+      "ret": "diff"
+    },
+    {
+      "id": "DFF",
+      "name": "Effective Fed Funds",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Policy Rate",
+      "ret": "diff"
+    },
+    {
+      "id": "SOFR",
+      "name": "SOFR",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "IORB",
+      "name": "IORB",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Policy Rate",
+      "ret": "diff"
+    },
+    {
+      "id": "RRPONTSYD",
+      "name": "ON RRP Usage",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Funding",
+      "ret": "log"
+    },
+    {
+      "id": "WALCL",
+      "name": "Fed Balance Sheet",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Liquidity",
+      "ret": "yoy"
+    },
+    {
+      "id": "WTREGEN",
+      "name": "Treasury General Account",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Liquidity",
+      "ret": "yoy"
+    },
+    {
+      "id": "WRESBAL",
+      "name": "Bank Reserves",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Liquidity",
+      "ret": "yoy"
+    },
+    {
+      "id": "AMEX:BIL",
+      "name": "SPDR 1-3M T-Bill",
+      "yf": "BIL",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:SHY",
+      "name": "iShares 1-3Y UST",
+      "yf": "SHY",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:IEI",
+      "name": "iShares 3-7Y UST",
+      "yf": "IEI",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:IEF",
+      "name": "iShares 7-10Y UST",
+      "yf": "IEF",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:TLT",
+      "name": "iShares 20+Y UST",
+      "yf": "TLT",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EDV",
+      "name": "Vanguard Extended Duration",
+      "yf": "EDV",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GOVT",
+      "name": "iShares US Treasury",
+      "yf": "GOVT",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SCHO",
+      "name": "Schwab 1-3Y UST",
+      "yf": "SCHO",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SCHR",
+      "name": "Schwab Intermediate UST",
+      "yf": "SCHR",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Treasury ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:TIP",
+      "name": "iShares TIPS",
+      "yf": "TIP",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "TIPS ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:STIP",
+      "name": "iShares 0-5Y TIPS",
+      "yf": "STIP",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "TIPS ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:VTIP",
+      "name": "Vanguard Short TIPS",
+      "yf": "VTIP",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "TIPS ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SCHP",
+      "name": "Schwab US TIPS",
+      "yf": "SCHP",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "TIPS ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:LQD",
+      "name": "iShares IG Corp",
+      "yf": "LQD",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:USIG",
+      "name": "iShares Broad IG",
+      "yf": "USIG",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:HYG",
+      "name": "iShares HY Corp",
+      "yf": "HYG",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:JNK",
+      "name": "SPDR HY Bond",
+      "yf": "JNK",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:FALN",
+      "name": "iShares Fallen Angels HY",
+      "yf": "FALN",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:ANGL",
+      "name": "VanEck Fallen Angel HY",
+      "yf": "ANGL",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:BKLN",
+      "name": "Invesco Senior Loan",
+      "yf": "BKLN",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SRLN",
+      "name": "SPDR Blackstone Senior Loan",
+      "yf": "SRLN",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FLOT",
+      "name": "iShares Floating Rate Bond",
+      "yf": "FLOT",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:EMB",
+      "name": "iShares EM USD Bond",
+      "yf": "EMB",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EMLC",
+      "name": "VanEck EM Local Bond",
+      "yf": "EMLC",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Credit ETF",
+      "ret": "log"
+    },
+    {
+      "id": "HYG-IEF",
+      "name": "HY OAS Proxy",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Credit Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "LQD-IEF",
+      "name": "IG OAS Proxy",
+      "yf": null,
+      "src": "derived",
+      "cat": "us_macro",
+      "sub": "Credit Spread",
+      "ret": "diff"
+    },
+    {
+      "id": "BAMLH0A0HYM2",
+      "name": "ICE BofA US HY OAS",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Credit Spread",
+      "ret": "yoy"
+    },
+    {
+      "id": "BAMLC0A0CM",
+      "name": "ICE BofA US IG OAS",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Credit Spread",
+      "ret": "yoy"
+    },
+    {
+      "id": "TVC:DXY",
+      "name": "US Dollar Index",
+      "yf": "DX-Y.NYB",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "FX Index",
+      "ret": "log"
+    },
+    {
+      "id": "DTWEXBGS",
+      "name": "USD Broad TWI",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "FX Index",
+      "ret": "yoy"
+    },
+    {
+      "id": "CBOE:VIX",
+      "name": "VIX",
+      "yf": "^VIX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:VVIX",
+      "name": "VIX of VIX",
+      "yf": "^VVIX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:VIX9D",
+      "name": "9D VIX",
+      "yf": "^VIX9D",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:VIX3M",
+      "name": "3M VIX",
+      "yf": "^VIX3M",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:VIX6M",
+      "name": "6M VIX",
+      "yf": "^VIX6M",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:SKEW",
+      "name": "SKEW",
+      "yf": "^SKEW",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:MOVE",
+      "name": "MOVE Index",
+      "yf": null,
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:OVX",
+      "name": "Crude Oil VIX",
+      "yf": "^OVX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:GVZ",
+      "name": "Gold VIX",
+      "yf": "^GVZ",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:EVZ",
+      "name": "EuroFX VIX",
+      "yf": "^EVZ",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:RVX",
+      "name": "R2K VIX",
+      "yf": "^RVX",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "CBOE:VXEEM",
+      "name": "EM ETF VIX",
+      "yf": "^VXEEM",
+      "src": "tv",
+      "cat": "us_macro",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "WM2NS",
+      "name": "M2 (weekly NSA)",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Monetary",
+      "ret": "yoy"
+    },
+    {
+      "id": "WM1NS",
+      "name": "M1 (weekly NSA)",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Monetary",
+      "ret": "yoy"
+    },
+    {
+      "id": "NFCI",
+      "name": "Chicago Fed NFCI",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "FCI",
+      "ret": "yoy"
+    },
+    {
+      "id": "ANFCI",
+      "name": "Chicago Fed ANFCI",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "FCI",
+      "ret": "yoy"
+    },
+    {
+      "id": "STLFSI4",
+      "name": "St Louis Fed Stress",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "FCI",
+      "ret": "yoy"
+    },
+    {
+      "id": "TEDRATE",
+      "name": "TED Spread",
+      "yf": null,
+      "src": "fred",
+      "cat": "us_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "IDX:COMPOSITE",
+      "name": "JCI/JKSE",
+      "yf": "^JKSE",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:LQ45",
+      "name": "LQ45",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDX30",
+      "name": "IDX30",
+      "yf": "IDX30.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDX80",
+      "name": "IDX80",
+      "yf": "IDX80.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:KOMPAS100",
+      "name": "Kompas100",
+      "yf": "KOMPAS100.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JII",
+      "name": "Jakarta Islamic",
+      "yf": "JII.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JII70",
+      "name": "JII70",
+      "yf": "JII70.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BISNIS27",
+      "name": "Bisnis-27",
+      "yf": "BISNIS27.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MNC36",
+      "name": "MNC36",
+      "yf": "MNC36.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INFOBANK15",
+      "name": "Infobank15",
+      "yf": "INFOBANK15.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXBUMN20",
+      "name": "IDX BUMN20",
+      "yf": "IDXBUMN20.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SRI-KEHATI",
+      "name": "SRI-KEHATI ESG",
+      "yf": "SRI-KEHATI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXG30",
+      "name": "IDX Growth30",
+      "yf": "IDXG30.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXQ30",
+      "name": "IDX Quality30",
+      "yf": "IDXQ30.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXV30",
+      "name": "IDX Value30",
+      "yf": "IDXV30.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXHIDIV20",
+      "name": "IDX HiDiv20",
+      "yf": "IDXHIDIV20.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXSMC-LIQ",
+      "name": "IDX SMC Liquid",
+      "yf": "IDXSMC-LIQ.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXSMC-COMPOSITE",
+      "name": "IDX SMC Composite",
+      "yf": "IDXSMC-COMPOSITE.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ISSI",
+      "name": "Indonesia Sharia",
+      "yf": "ISSI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXESGL",
+      "name": "IDX ESG Leaders",
+      "yf": "IDXESGL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Broad Index",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXENERGY",
+      "name": "IDX Energy",
+      "yf": "IDXENERGY.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXBASIC",
+      "name": "IDX Basic Materials",
+      "yf": "IDXBASIC.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXINDUST",
+      "name": "IDX Industrials",
+      "yf": "IDXINDUST.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXNONCYC",
+      "name": "IDX Cons Non-Cyc",
+      "yf": "IDXNONCYC.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXCYCLIC",
+      "name": "IDX Cons Cyclicals",
+      "yf": "IDXCYCLIC.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXHEALTH",
+      "name": "IDX Healthcare",
+      "yf": "IDXHEALTH.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXFINANCE",
+      "name": "IDX Financials",
+      "yf": "IDXFINANCE.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXPROPERT",
+      "name": "IDX Properties",
+      "yf": "IDXPROPERT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXTECHNO",
+      "name": "IDX Technology",
+      "yf": "IDXTECHNO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXINFRA",
+      "name": "IDX Infrastructure",
+      "yf": "IDXINFRA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IDXTRANS",
+      "name": "IDX Transport",
+      "yf": "IDXTRANS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector IDX-IC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKAGRI",
+      "name": "JASICA Agri",
+      "yf": "JKAGRI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKMING",
+      "name": "JASICA Mining",
+      "yf": "JKMING.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKBIND",
+      "name": "JASICA Basic Industry",
+      "yf": "JKBIND.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKMISC",
+      "name": "JASICA Misc",
+      "yf": "JKMISC.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKCONS",
+      "name": "JASICA Consumer",
+      "yf": "JKCONS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKPROP",
+      "name": "JASICA Property",
+      "yf": "JKPROP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKINFR",
+      "name": "JASICA Infrastructure",
+      "yf": "JKINFR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKFINA",
+      "name": "JASICA Finance",
+      "yf": "JKFINA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKTRADE",
+      "name": "JASICA Trade",
+      "yf": "JKTRADE.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JKMNFG",
+      "name": "JASICA Manufacturing",
+      "yf": "JKMNFG.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Sector legacy",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BBCA",
+      "name": "Bank Central Asia",
+      "yf": "BBCA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BBRI",
+      "name": "Bank Rakyat",
+      "yf": "BBRI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BMRI",
+      "name": "Bank Mandiri",
+      "yf": "BMRI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BBNI",
+      "name": "Bank Negara",
+      "yf": "BBNI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BRIS",
+      "name": "Bank Syariah Indonesia",
+      "yf": "BRIS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ARTO",
+      "name": "Bank Jago",
+      "yf": "ARTO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BBTN",
+      "name": "Bank Tabungan Negara",
+      "yf": "BBTN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BNGA",
+      "name": "Bank CIMB Niaga",
+      "yf": "BNGA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BDMN",
+      "name": "Bank Danamon",
+      "yf": "BDMN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MEGA",
+      "name": "Bank Mega",
+      "yf": "MEGA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Banks",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TLKM",
+      "name": "Telkom Indonesia",
+      "yf": "TLKM.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ISAT",
+      "name": "Indosat",
+      "yf": "ISAT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:EXCL",
+      "name": "XL Axiata",
+      "yf": "EXCL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:FREN",
+      "name": "Smartfren",
+      "yf": "FREN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:GOTO",
+      "name": "GoTo",
+      "yf": "GOTO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BUKA",
+      "name": "Bukalapak",
+      "yf": "BUKA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:EMTK",
+      "name": "Elang Mahkota",
+      "yf": "EMTK.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MTEL",
+      "name": "Mitratel",
+      "yf": "MTEL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TOWR",
+      "name": "Sarana Menara",
+      "yf": "TOWR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Telco/Tech",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:UNVR",
+      "name": "Unilever Indonesia",
+      "yf": "UNVR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ICBP",
+      "name": "Indofood CBP",
+      "yf": "ICBP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INDF",
+      "name": "Indofood Sukses",
+      "yf": "INDF.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MYOR",
+      "name": "Mayora Indah",
+      "yf": "MYOR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:GGRM",
+      "name": "Gudang Garam",
+      "yf": "GGRM.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:HMSP",
+      "name": "HM Sampoerna",
+      "yf": "HMSP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:KLBF",
+      "name": "Kalbe Farma",
+      "yf": "KLBF.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer/HC",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MAPI",
+      "name": "Mitra Adiperkasa",
+      "yf": "MAPI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ACES",
+      "name": "Ace Hardware Indonesia",
+      "yf": "ACES.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:AMRT",
+      "name": "Sumber Alfaria (Alfamart)",
+      "yf": "AMRT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MIDI",
+      "name": "Midi Utama",
+      "yf": "MIDI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Consumer",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ADRO",
+      "name": "Adaro Energy",
+      "yf": "ADRO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:PTBA",
+      "name": "Bukit Asam",
+      "yf": "PTBA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ITMG",
+      "name": "Indo Tambangraya",
+      "yf": "ITMG.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MEDC",
+      "name": "Medco Energi",
+      "yf": "MEDC.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:PGAS",
+      "name": "PGN",
+      "yf": "PGAS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:HRUM",
+      "name": "Harum Energy",
+      "yf": "HRUM.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BUMI",
+      "name": "Bumi Resources",
+      "yf": "BUMI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BYAN",
+      "name": "Bayan Resources",
+      "yf": "BYAN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BSSR",
+      "name": "Baramulti",
+      "yf": "BSSR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INDY",
+      "name": "Indika Energy",
+      "yf": "INDY.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:AKRA",
+      "name": "AKR Corporindo",
+      "yf": "AKRA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Energy/Coal",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ANTM",
+      "name": "Aneka Tambang",
+      "yf": "ANTM.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INCO",
+      "name": "Vale Indonesia",
+      "yf": "INCO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MDKA",
+      "name": "Merdeka Copper Gold",
+      "yf": "MDKA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TINS",
+      "name": "Timah",
+      "yf": "TINS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:NCKL",
+      "name": "Trimegah Bangun (Harita)",
+      "yf": "NCKL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BRMS",
+      "name": "Bumi Resources Minerals",
+      "yf": "BRMS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:PSAB",
+      "name": "J Resources",
+      "yf": "PSAB.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Metals",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SMGR",
+      "name": "Semen Indonesia",
+      "yf": "SMGR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INTP",
+      "name": "Indocement",
+      "yf": "INTP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INKP",
+      "name": "Indah Kiat",
+      "yf": "INKP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TKIM",
+      "name": "Pabrik Kertas Tjiwi Kimia",
+      "yf": "TKIM.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JPFA",
+      "name": "Japfa Comfeed",
+      "yf": "JPFA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:CPIN",
+      "name": "Charoen Pokphand",
+      "yf": "CPIN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MAIN",
+      "name": "Malindo Feedmill",
+      "yf": "MAIN.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Cement/Industrial",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SMRA",
+      "name": "Summarecon",
+      "yf": "SMRA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BSDE",
+      "name": "Bumi Serpong Damai",
+      "yf": "BSDE.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:CTRA",
+      "name": "Ciputra",
+      "yf": "CTRA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:PWON",
+      "name": "Pakuwon Jati",
+      "yf": "PWON.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:LPKR",
+      "name": "Lippo Karawaci",
+      "yf": "LPKR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ASRI",
+      "name": "Alam Sutera",
+      "yf": "ASRI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JRPT",
+      "name": "Jaya Real Property",
+      "yf": "JRPT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Property",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ASII",
+      "name": "Astra International",
+      "yf": "ASII.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Auto/Cong",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:IMAS",
+      "name": "Indomobil",
+      "yf": "IMAS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Auto/Cong",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:GJTL",
+      "name": "Gajah Tunggal",
+      "yf": "GJTL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Auto/Cong",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:UNTR",
+      "name": "United Tractors",
+      "yf": "UNTR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Auto/Cong",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:HEXA",
+      "name": "Hexindo",
+      "yf": "HEXA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Auto/Cong",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:AALI",
+      "name": "Astra Agro Lestari",
+      "yf": "AALI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:LSIP",
+      "name": "London Sumatra",
+      "yf": "LSIP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SSMS",
+      "name": "Sawit Sumbermas",
+      "yf": "SSMS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:DSNG",
+      "name": "Dharma Satya",
+      "yf": "DSNG.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TAPG",
+      "name": "Triputra Agro",
+      "yf": "TAPG.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SMAR",
+      "name": "Sinar Mas Agro",
+      "yf": "SMAR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Plantation",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:TPIA",
+      "name": "Chandra Asri",
+      "yf": "TPIA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Petrochem",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:BRPT",
+      "name": "Barito Pacific",
+      "yf": "BRPT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Petrochem",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ESSA",
+      "name": "ESSA Industries",
+      "yf": "ESSA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Petrochem",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:JSMR",
+      "name": "Jasa Marga",
+      "yf": "JSMR.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Infra",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:WSKT",
+      "name": "Waskita Karya",
+      "yf": "WSKT.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Infra",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:PTPP",
+      "name": "PP Persero",
+      "yf": "PTPP.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Infra",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ADHI",
+      "name": "Adhi Karya",
+      "yf": "ADHI.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Infra",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:WIKA",
+      "name": "Wijaya Karya",
+      "yf": "WIKA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Infra",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:KAEF",
+      "name": "Kimia Farma",
+      "yf": "KAEF.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Healthcare",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:INAF",
+      "name": "Indofarma",
+      "yf": "INAF.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Healthcare",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:SIDO",
+      "name": "Sido Muncul",
+      "yf": "SIDO.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Healthcare",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:MIKA",
+      "name": "Mitra Keluarga",
+      "yf": "MIKA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Healthcare",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:HEAL",
+      "name": "Medikaloka Hermina",
+      "yf": "HEAL.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Healthcare",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:ERAA",
+      "name": "Erajaya",
+      "yf": "ERAA.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Retail",
+      "ret": "log"
+    },
+    {
+      "id": "IDX:RALS",
+      "name": "Ramayana",
+      "yf": "RALS.JK",
+      "src": "tv",
+      "cat": "indonesia_equities",
+      "sub": "Retail",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDIDR",
+      "name": "USD/IDR",
+      "yf": "USDIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:EURIDR",
+      "name": "EUR/IDR",
+      "yf": "EURIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:JPYIDR",
+      "name": "JPY/IDR",
+      "yf": "JPYIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:SGDIDR",
+      "name": "SGD/IDR",
+      "yf": "SGDIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:CNHIDR",
+      "name": "CNH/IDR",
+      "yf": "CNHIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:AUDIDR",
+      "name": "AUD/IDR",
+      "yf": "AUDIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:GBPIDR",
+      "name": "GBP/IDR",
+      "yf": "GBPIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:CHFIDR",
+      "name": "CHF/IDR",
+      "yf": "CHFIDR=X",
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "BI7DRR",
+      "name": "BI 7-Day Reverse Repo",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Policy Rate",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID01Y",
+      "name": "Indonesia 1Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID02Y",
+      "name": "Indonesia 2Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID03Y",
+      "name": "Indonesia 3Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID05Y",
+      "name": "Indonesia 5Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID07Y",
+      "name": "Indonesia 7Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID10Y",
+      "name": "Indonesia 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID15Y",
+      "name": "Indonesia 15Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID20Y",
+      "name": "Indonesia 20Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ID30Y",
+      "name": "Indonesia 30Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "JIBOR1M",
+      "name": "JIBOR 1M",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "JIBOR3M",
+      "name": "JIBOR 3M",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "JIBOR6M",
+      "name": "JIBOR 6M",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "JIBOR12M",
+      "name": "JIBOR 12M",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "INDONIA",
+      "name": "Indonesia ON Index",
+      "yf": null,
+      "src": "bi",
+      "cat": "indonesia_macro",
+      "sub": "Funding",
+      "ret": "diff"
+    },
+    {
+      "id": "IDNCPIALLMINMEI",
+      "name": "Indonesia CPI",
+      "yf": null,
+      "src": "fred",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "NGDPRSAXDCIDQ",
+      "name": "Indonesia GDP",
+      "yf": null,
+      "src": "fred",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "XTNTVA01IDM664S",
+      "name": "Indonesia Trade Balance",
+      "yf": null,
+      "src": "fred",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "MYAGM2IDM189N",
+      "name": "Indonesia M2",
+      "yf": null,
+      "src": "fred",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "IDNPROINDMISMEI",
+      "name": "Indonesia IP",
+      "yf": null,
+      "src": "fred",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "ECONOMICS:IDMPMI",
+      "name": "Indonesia Mfg PMI",
+      "yf": null,
+      "src": "tv",
+      "cat": "indonesia_macro",
+      "sub": "Macro",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000001",
+      "name": "Shanghai Composite",
+      "yf": "000001.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000300",
+      "name": "CSI 300",
+      "yf": "000300.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000905",
+      "name": "CSI 500",
+      "yf": "000905.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000852",
+      "name": "CSI 1000",
+      "yf": "000852.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000906",
+      "name": "CSI 800",
+      "yf": "000906.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SZSE:399001",
+      "name": "Shenzhen Component",
+      "yf": "399001.SZ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SZSE:399330",
+      "name": "SZSE 100",
+      "yf": "399330.SZ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SZSE:399006",
+      "name": "ChiNext",
+      "yf": "399006.SZ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:000688",
+      "name": "STAR 50",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:CN1!",
+      "name": "FTSE China A50 Futures",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:HSI",
+      "name": "Hang Seng",
+      "yf": "^HSI",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:HSCEI",
+      "name": "HSCEI",
+      "yf": "^HSCE",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:HSTECH",
+      "name": "Hang Seng TECH",
+      "yf": "^HSTECH",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:HSCI",
+      "name": "Hang Seng Composite",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXI",
+      "name": "iShares China Large-Cap",
+      "yf": "FXI",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:MCHI",
+      "name": "iShares MSCI China",
+      "yf": "MCHI",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:KWEB",
+      "name": "KraneShares China Internet",
+      "yf": "KWEB",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:ASHR",
+      "name": "Xtrackers CSI 300",
+      "yf": "ASHR",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CQQQ",
+      "name": "Invesco China Tech",
+      "yf": "CQQQ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:YINN",
+      "name": "Direxion 3x China Bull",
+      "yf": "YINN",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CHIQ",
+      "name": "Global X China Consumer",
+      "yf": "CHIQ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:KBA",
+      "name": "KraneShares MSCI China A",
+      "yf": "KBA",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:PGJ",
+      "name": "Invesco Golden Dragon",
+      "yf": "PGJ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:BABA",
+      "name": "Alibaba ADR",
+      "yf": "BABA",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:JD",
+      "name": "JD.com",
+      "yf": "JD",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:PDD",
+      "name": "PDD Holdings",
+      "yf": "PDD",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:BIDU",
+      "name": "Baidu",
+      "yf": "BIDU",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:NIO",
+      "name": "NIO",
+      "yf": "NIO",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:LI",
+      "name": "Li Auto",
+      "yf": "LI",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:XPEV",
+      "name": "XPeng",
+      "yf": "XPEV",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:NTES",
+      "name": "NetEase",
+      "yf": "NTES",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:BILI",
+      "name": "Bilibili",
+      "yf": "BILI",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "ADR",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:0700",
+      "name": "Tencent",
+      "yf": "0700.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:9988",
+      "name": "Alibaba HK",
+      "yf": "9988.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:3690",
+      "name": "Meituan",
+      "yf": "3690.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:1211",
+      "name": "BYD",
+      "yf": "1211.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:0005",
+      "name": "HSBC",
+      "yf": "0005.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:1299",
+      "name": "AIA",
+      "yf": "1299.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:2318",
+      "name": "Ping An",
+      "yf": "2318.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:1398",
+      "name": "ICBC",
+      "yf": "1398.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:0939",
+      "name": "CCB",
+      "yf": "0939.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:0883",
+      "name": "CNOOC",
+      "yf": "0883.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HKEX:1810",
+      "name": "Xiaomi",
+      "yf": "1810.HK",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "HK Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:600519",
+      "name": "Kweichow Moutai",
+      "yf": "600519.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "A-share",
+      "ret": "log"
+    },
+    {
+      "id": "SZSE:300750",
+      "name": "CATL",
+      "yf": "300750.SZ",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "A-share",
+      "ret": "log"
+    },
+    {
+      "id": "SSE:601318",
+      "name": "Ping An A",
+      "yf": "601318.SS",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "A-share",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDCNY",
+      "name": "USD/CNY",
+      "yf": "USDCNY=X",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDCNH",
+      "name": "USD/CNH",
+      "yf": "USDCNH=X",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDHKD",
+      "name": "USD/HKD",
+      "yf": "USDHKD=X",
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:CN10Y",
+      "name": "China 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:CN02Y",
+      "name": "China 2Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:CN05Y",
+      "name": "China 5Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:CN30Y",
+      "name": "China 30Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "china_hk",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "MYAGM2CNM189N",
+      "name": "China M2 YoY",
+      "yf": null,
+      "src": "fred",
+      "cat": "china_hk",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "CHNCPIALLMINMEI",
+      "name": "China CPI",
+      "yf": null,
+      "src": "fred",
+      "cat": "china_hk",
+      "sub": "Macro",
+      "ret": "yoy"
+    },
+    {
+      "id": "KRX:KOSPI",
+      "name": "KOSPI",
+      "yf": "^KS11",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:KOSDAQ",
+      "name": "KOSDAQ",
+      "yf": "^KQ11",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:KOSPI200",
+      "name": "KOSPI 200",
+      "yf": "^KS200",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:VKOSPI",
+      "name": "VKOSPI",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:005930",
+      "name": "Samsung Electronics",
+      "yf": "005930.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:000660",
+      "name": "SK Hynix",
+      "yf": "000660.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:373220",
+      "name": "LG Energy Solution",
+      "yf": "373220.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:207940",
+      "name": "Samsung Biologics",
+      "yf": "207940.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:035420",
+      "name": "NAVER",
+      "yf": "035420.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "KRX:005380",
+      "name": "Hyundai Motor",
+      "yf": "005380.KS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:NI225",
+      "name": "Nikkei 225",
+      "yf": "^N225",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:TOPIX",
+      "name": "TOPIX",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:JPNK400",
+      "name": "JPX-Nikkei 400",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:MOTHERS",
+      "name": "Mothers/Growth 250",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:JPVIXC",
+      "name": "Nikkei VI",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:7203",
+      "name": "Toyota",
+      "yf": "7203.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:6758",
+      "name": "Sony",
+      "yf": "6758.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:9984",
+      "name": "SoftBank Group",
+      "yf": "9984.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:6861",
+      "name": "Keyence",
+      "yf": "6861.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:8306",
+      "name": "Mitsubishi UFJ",
+      "yf": "8306.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:8035",
+      "name": "Tokyo Electron",
+      "yf": "8035.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:9983",
+      "name": "Fast Retailing",
+      "yf": "9983.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TSE:6098",
+      "name": "Recruit",
+      "yf": "6098.T",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:NIFTY",
+      "name": "NIFTY 50",
+      "yf": "^NSEI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BSE:SENSEX",
+      "name": "SENSEX",
+      "yf": "^BSESN",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:BANKNIFTY",
+      "name": "NIFTY Bank",
+      "yf": "^NSEBANK",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXIT",
+      "name": "NIFTY IT",
+      "yf": "^CNXIT",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXAUTO",
+      "name": "NIFTY Auto",
+      "yf": "^CNXAUTO",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXPHARMA",
+      "name": "NIFTY Pharma",
+      "yf": "^CNXPHARMA",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXFMCG",
+      "name": "NIFTY FMCG",
+      "yf": "^CNXFMCG",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXMETAL",
+      "name": "NIFTY Metal",
+      "yf": "^CNXMETAL",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXENERGY",
+      "name": "NIFTY Energy",
+      "yf": "^CNXENERGY",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXREALTY",
+      "name": "NIFTY Realty",
+      "yf": "^CNXREALTY",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:NIFTY_MIDCAP_100",
+      "name": "NIFTY Midcap 100",
+      "yf": "^NSEMDCP50",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:CNXSMALLCAP",
+      "name": "NIFTY Smallcap 100",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:INDIAVIX",
+      "name": "India VIX",
+      "yf": "^INDIAVIX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:RELIANCE",
+      "name": "Reliance",
+      "yf": "RELIANCE.NS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:TCS",
+      "name": "TCS",
+      "yf": "TCS.NS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:HDFCBANK",
+      "name": "HDFC Bank",
+      "yf": "HDFCBANK.NS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:INFY",
+      "name": "Infosys",
+      "yf": "INFY.NS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NSE:ICICIBANK",
+      "name": "ICICI Bank",
+      "yf": "ICICIBANK.NS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:STI",
+      "name": "STI",
+      "yf": "^STI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:D05",
+      "name": "DBS",
+      "yf": "D05.SI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:O39",
+      "name": "OCBC",
+      "yf": "O39.SI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:U11",
+      "name": "UOB",
+      "yf": "U11.SI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "MYX:FBMKLCI",
+      "name": "FBM KLCI",
+      "yf": "^KLSE",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "MYX:1155",
+      "name": "Maybank",
+      "yf": "1155.KL",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "MYX:1295",
+      "name": "Public Bank",
+      "yf": "1295.KL",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "MYX:5347",
+      "name": "Tenaga",
+      "yf": "5347.KL",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SET:SET",
+      "name": "SET Index",
+      "yf": "^SET.BK",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SET:SET50",
+      "name": "SET 50",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SET:PTT",
+      "name": "PTT",
+      "yf": "PTT.BK",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SET:AOT",
+      "name": "AOT",
+      "yf": "AOT.BK",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "SET:KBANK",
+      "name": "Kasikorn",
+      "yf": "KBANK.BK",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "PSE:PSEI",
+      "name": "PSEi",
+      "yf": "PSEI.PS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "PSE:SM",
+      "name": "SM Investments",
+      "yf": "SM.PS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "PSE:BDO",
+      "name": "BDO",
+      "yf": "BDO.PS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HOSE:VNINDEX",
+      "name": "VN-Index",
+      "yf": "^VNINDEX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "HOSE:VN30",
+      "name": "VN30",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "HOSE:VIC",
+      "name": "Vingroup",
+      "yf": "VIC.VN",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "HOSE:VCB",
+      "name": "Vietcombank",
+      "yf": "VCB.VN",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:XJO",
+      "name": "ASX 200",
+      "yf": "^AXJO",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:XKO",
+      "name": "ASX 300",
+      "yf": "^ATOI",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:XMM",
+      "name": "ASX 300 Metals & Mining",
+      "yf": null,
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:XFJ",
+      "name": "ASX 200 Financials",
+      "yf": "^AXFJ",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:BHP",
+      "name": "BHP",
+      "yf": "BHP.AX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:RIO",
+      "name": "Rio Tinto",
+      "yf": "RIO.AX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:CBA",
+      "name": "Commonwealth Bank",
+      "yf": "CBA.AX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "ASX:CSL",
+      "name": "CSL",
+      "yf": "CSL.AX",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TWSE:TAIEX",
+      "name": "TAIEX",
+      "yf": "^TWII",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TWSE:2330",
+      "name": "TSMC",
+      "yf": "2330.TW",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "TWSE:2317",
+      "name": "Hon Hai",
+      "yf": "2317.TW",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWJ",
+      "name": "iShares Japan",
+      "yf": "EWJ",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWY",
+      "name": "iShares Korea",
+      "yf": "EWY",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "BATS:INDA",
+      "name": "iShares India",
+      "yf": "INDA",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWS",
+      "name": "iShares Singapore",
+      "yf": "EWS",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWM",
+      "name": "iShares Malaysia",
+      "yf": "EWM",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:THD",
+      "name": "iShares Thailand",
+      "yf": "THD",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EPHE",
+      "name": "iShares Philippines",
+      "yf": "EPHE",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "BATS:VNM",
+      "name": "VanEck Vietnam",
+      "yf": "VNM",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWA",
+      "name": "iShares Australia",
+      "yf": "EWA",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWT",
+      "name": "iShares Taiwan",
+      "yf": "EWT",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:AAXJ",
+      "name": "iShares Asia ex-Japan",
+      "yf": "AAXJ",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EEM",
+      "name": "iShares EM",
+      "yf": "EEM",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:VWO",
+      "name": "Vanguard EM",
+      "yf": "VWO",
+      "src": "tv",
+      "cat": "korea_japan_asean_india",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:SXXP",
+      "name": "STOXX Europe 600",
+      "yf": "^STOXX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:SX5E",
+      "name": "Euro Stoxx 50",
+      "yf": "^STOXX50E",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:SX5P",
+      "name": "STOXX Europe 50",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:N100",
+      "name": "Euronext 100",
+      "yf": "^N100",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SX7P",
+      "name": "STOXX 600 Banks",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SXAP",
+      "name": "STOXX 600 Auto",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SX8P",
+      "name": "STOXX 600 Tech",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SXEP",
+      "name": "STOXX 600 Energy",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SXDP",
+      "name": "STOXX 600 Healthcare",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:SXPP",
+      "name": "STOXX 600 Basic Resources",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Sector Index",
+      "ret": "log"
+    },
+    {
+      "id": "XETR:DAX",
+      "name": "DAX 40",
+      "yf": "^GDAXI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "XETR:MDAX",
+      "name": "MDAX",
+      "yf": "^MDAXI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "XETR:TECDAX",
+      "name": "TecDAX",
+      "yf": "^TECDAX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "XETR:SDAX",
+      "name": "SDAX",
+      "yf": "^SDAXI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:PX1",
+      "name": "CAC 40",
+      "yf": "^FCHI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:CACMD",
+      "name": "CAC Mid 60",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:UKX",
+      "name": "FTSE 100",
+      "yf": "^FTSE",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:MCX",
+      "name": "FTSE 250",
+      "yf": "^FTMC",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:ASX",
+      "name": "FTSE All-Share",
+      "yf": "^FTAS",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "FTSE:AXX",
+      "name": "FTSE AIM",
+      "yf": "^FTAI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "MIL:FTSEMIB",
+      "name": "FTSE MIB",
+      "yf": "FTSEMIB.MI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BME:IBC",
+      "name": "IBEX 35",
+      "yf": "^IBEX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:AEX",
+      "name": "AEX",
+      "yf": "^AEX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:AMX",
+      "name": "AMX",
+      "yf": "^AMX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SIX:SMI",
+      "name": "SMI",
+      "yf": "^SSMI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SIX:SLI",
+      "name": "SLI",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "SIX:SPI",
+      "name": "SPI",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "OMXSTO:OMXS30",
+      "name": "OMXS30",
+      "yf": "^OMX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "OSL:OBX",
+      "name": "OBX",
+      "yf": "OBX.OL",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "OMXCOP:OMXC25",
+      "name": "OMXC25",
+      "yf": "^OMXC25",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "OMXHEX:OMXH25",
+      "name": "OMXH25",
+      "yf": "^OMXH25",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:BEL20",
+      "name": "BEL 20",
+      "yf": "^BFX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "VIE:ATX",
+      "name": "ATX",
+      "yf": "^ATX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EURONEXT:PSI20",
+      "name": "PSI 20",
+      "yf": "^PSI20",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ATHEX:GD",
+      "name": "ASE General",
+      "yf": "GD.AT",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "GPW:WIG20",
+      "name": "WIG 20",
+      "yf": "WIG20.WA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:DE02Y",
+      "name": "Germany 2Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:DE05Y",
+      "name": "Germany 5Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:DE10Y",
+      "name": "Germany 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:DE30Y",
+      "name": "Germany 30Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:GB02Y",
+      "name": "UK 2Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:GB10Y",
+      "name": "UK 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:GB30Y",
+      "name": "UK 30Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:FR10Y",
+      "name": "France 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:IT10Y",
+      "name": "Italy 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:ES10Y",
+      "name": "Spain 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TVC:GR10Y",
+      "name": "Greece 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "TSX:TSX",
+      "name": "TSX Composite",
+      "yf": "^GSPTSE",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TSX:TX60",
+      "name": "TSX 60",
+      "yf": "^TX60",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TSXV:JX",
+      "name": "TSX Venture",
+      "yf": "^SPCDNX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:CA10Y",
+      "name": "Canada 10Y",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Govvy",
+      "ret": "diff"
+    },
+    {
+      "id": "BVMF:IBOV",
+      "name": "Bovespa",
+      "yf": "^BVSP",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BVMF:IBXX",
+      "name": "IBrX 100",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BMV:ME",
+      "name": "S&P/BMV IPC",
+      "yf": "^MXX",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BCS:IPSA",
+      "name": "IPSA",
+      "yf": "^IPSA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BVC:COLCAP",
+      "name": "COLCAP",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BVL:SPBLPGPT",
+      "name": "S&P/BVL Peru",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "JSE:J203",
+      "name": "JSE All Share",
+      "yf": "^J203.JO",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "JSE:J200",
+      "name": "JSE Top 40",
+      "yf": "^JN0U.JO",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BIST:XU100",
+      "name": "BIST 100",
+      "yf": "XU100.IS",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "BIST:XU030",
+      "name": "BIST 30",
+      "yf": "XU030.IS",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TADAWUL:TASI",
+      "name": "Tadawul",
+      "yf": "^TASI.SR",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "ADX:GENERAL",
+      "name": "ADX General",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "DFM:GENERAL",
+      "name": "DFM General",
+      "yf": null,
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TASE:TA35",
+      "name": "TA-35",
+      "yf": "TA35.TA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "TASE:TA125",
+      "name": "TA-125",
+      "yf": "TA125.TA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "MOEX:IMOEX",
+      "name": "MOEX (sanctioned, gap post-2022)",
+      "yf": "IMOEX.ME",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "EGX:EGX30",
+      "name": "EGX 30",
+      "yf": "^CASE30",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "Index",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:VGK",
+      "name": "Vanguard Europe ETF",
+      "yf": "VGK",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:IEUR",
+      "name": "iShares Europe",
+      "yf": "IEUR",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EZU",
+      "name": "iShares Eurozone",
+      "yf": "EZU",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWG",
+      "name": "iShares Germany",
+      "yf": "EWG",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWQ",
+      "name": "iShares France",
+      "yf": "EWQ",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWU",
+      "name": "iShares UK",
+      "yf": "EWU",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWI",
+      "name": "iShares Italy",
+      "yf": "EWI",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWP",
+      "name": "iShares Spain",
+      "yf": "EWP",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWN",
+      "name": "iShares Netherlands",
+      "yf": "EWN",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWL",
+      "name": "iShares Switzerland",
+      "yf": "EWL",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWD",
+      "name": "iShares Sweden",
+      "yf": "EWD",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWO",
+      "name": "iShares Austria",
+      "yf": "EWO",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWZ",
+      "name": "iShares Brazil",
+      "yf": "EWZ",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWW",
+      "name": "iShares Mexico",
+      "yf": "EWW",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:ECH",
+      "name": "iShares Chile",
+      "yf": "ECH",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GXG",
+      "name": "Global X Colombia",
+      "yf": "GXG",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EZA",
+      "name": "iShares South Africa",
+      "yf": "EZA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:TUR",
+      "name": "iShares Turkey",
+      "yf": "TUR",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:KSA",
+      "name": "iShares Saudi Arabia",
+      "yf": "KSA",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:EWC",
+      "name": "iShares Canada",
+      "yf": "EWC",
+      "src": "tv",
+      "cat": "europe_dm_latam",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:BBDXY",
+      "name": "BBDXY",
+      "yf": null,
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:EXY",
+      "name": "Euro Currency Index",
+      "yf": null,
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:JXY",
+      "name": "Yen Currency Index",
+      "yf": null,
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX Index",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:BXY",
+      "name": "British Pound Index",
+      "yf": null,
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX Index",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURUSD",
+      "name": "EUR/USD",
+      "yf": "EURUSD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:GBPUSD",
+      "name": "GBP/USD",
+      "yf": "GBPUSD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDJPY",
+      "name": "USD/JPY",
+      "yf": "USDJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDCHF",
+      "name": "USD/CHF",
+      "yf": "USDCHF=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:AUDUSD",
+      "name": "AUD/USD",
+      "yf": "AUDUSD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:NZDUSD",
+      "name": "NZD/USD",
+      "yf": "NZDUSD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDCAD",
+      "name": "USD/CAD",
+      "yf": "USDCAD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDSEK",
+      "name": "USD/SEK",
+      "yf": "USDSEK=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDNOK",
+      "name": "USD/NOK",
+      "yf": "USDNOK=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURJPY",
+      "name": "EUR/JPY",
+      "yf": "EURJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURGBP",
+      "name": "EUR/GBP",
+      "yf": "EURGBP=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURCHF",
+      "name": "EUR/CHF",
+      "yf": "EURCHF=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURNOK",
+      "name": "EUR/NOK",
+      "yf": "EURNOK=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURSEK",
+      "name": "EUR/SEK",
+      "yf": "EURSEK=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURAUD",
+      "name": "EUR/AUD",
+      "yf": "EURAUD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:EURCAD",
+      "name": "EUR/CAD",
+      "yf": "EURCAD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:GBPJPY",
+      "name": "GBP/JPY",
+      "yf": "GBPJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:GBPCHF",
+      "name": "GBP/CHF",
+      "yf": "GBPCHF=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:AUDJPY",
+      "name": "AUD/JPY",
+      "yf": "AUDJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:NZDJPY",
+      "name": "NZD/JPY",
+      "yf": "NZDJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:CHFJPY",
+      "name": "CHF/JPY",
+      "yf": "CHFJPY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:AUDNZD",
+      "name": "AUD/NZD",
+      "yf": "AUDNZD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:AUDCAD",
+      "name": "AUD/CAD",
+      "yf": "AUDCAD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDCNY",
+      "name": "USD/CNY",
+      "yf": "USDCNY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDHKD",
+      "name": "USD/HKD",
+      "yf": "USDHKD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDKRW",
+      "name": "USD/KRW",
+      "yf": "USDKRW=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDTWD",
+      "name": "USD/TWD",
+      "yf": "USDTWD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDINR",
+      "name": "USD/INR",
+      "yf": "USDINR=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDTHB",
+      "name": "USD/THB",
+      "yf": "USDTHB=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDMYR",
+      "name": "USD/MYR",
+      "yf": "USDMYR=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDPHP",
+      "name": "USD/PHP",
+      "yf": "USDPHP=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDSGD",
+      "name": "USD/SGD",
+      "yf": "USDSGD=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDVND",
+      "name": "USD/VND",
+      "yf": "USDVND=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:JPYKRW",
+      "name": "JPY/KRW",
+      "yf": "JPYKRW=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDBRL",
+      "name": "USD/BRL",
+      "yf": "USDBRL=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDMXN",
+      "name": "USD/MXN",
+      "yf": "USDMXN=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDCLP",
+      "name": "USD/CLP",
+      "yf": "USDCLP=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDCOP",
+      "name": "USD/COP",
+      "yf": "USDCOP=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDPEN",
+      "name": "USD/PEN",
+      "yf": "USDPEN=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDARS",
+      "name": "USD/ARS",
+      "yf": "USDARS=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDZAR",
+      "name": "USD/ZAR",
+      "yf": "USDZAR=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDTRY",
+      "name": "USD/TRY",
+      "yf": "USDTRY=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDRUB",
+      "name": "USD/RUB",
+      "yf": "USDRUB=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDPLN",
+      "name": "USD/PLN",
+      "yf": "USDPLN=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDHUF",
+      "name": "USD/HUF",
+      "yf": "USDHUF=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDCZK",
+      "name": "USD/CZK",
+      "yf": "USDCZK=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USDILS",
+      "name": "USD/ILS",
+      "yf": "USDILS=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDSAR",
+      "name": "USD/SAR (pegged)",
+      "yf": "USDSAR=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "FX_IDC:USDAED",
+      "name": "USD/AED (pegged)",
+      "yf": "USDAED=X",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "FX",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:CVIX",
+      "name": "DB FX Vol",
+      "yf": null,
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "Vol Index",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:UUP",
+      "name": "Long-USD ETF",
+      "yf": "UUP",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:UDN",
+      "name": "Short-USD ETF",
+      "yf": "UDN",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXE",
+      "name": "Euro Trust",
+      "yf": "FXE",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXY",
+      "name": "Yen Trust",
+      "yf": "FXY",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXB",
+      "name": "Pound Trust",
+      "yf": "FXB",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXF",
+      "name": "Swiss Franc Trust",
+      "yf": "FXF",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXC",
+      "name": "Canadian Trust",
+      "yf": "FXC",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FXA",
+      "name": "Aussie Trust",
+      "yf": "FXA",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CYB",
+      "name": "Yuan ETF",
+      "yf": "CYB",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CEW",
+      "name": "EM FX ETF",
+      "yf": "CEW",
+      "src": "tv",
+      "cat": "global_fx",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:CL1!",
+      "name": "WTI",
+      "yf": "CL=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:BRN1!",
+      "name": "Brent",
+      "yf": "BZ=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "FX:USOIL",
+      "name": "WTI Spot",
+      "yf": "CL=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "FX:UKOIL",
+      "name": "Brent Spot",
+      "yf": "BZ=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:USOIL",
+      "name": "WTI Cash",
+      "yf": "CL=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:DUB1!",
+      "name": "Dubai Crude",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:HO1!",
+      "name": "Heating Oil",
+      "yf": "HO=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:RB1!",
+      "name": "Gasoline",
+      "yf": "RB=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:G1!",
+      "name": "Gasoil",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:NG1!",
+      "name": "Henry Hub",
+      "yf": "NG=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "FX:NATGAS",
+      "name": "Natgas Spot",
+      "yf": "NG=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:TFM1!",
+      "name": "TTF",
+      "yf": "TTF=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:NBP1!",
+      "name": "NBP",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:JKM1!",
+      "name": "JKM LNG",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:ATW1!",
+      "name": "Newcastle Coal",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:ATR1!",
+      "name": "API2 Coal",
+      "yf": "MTF=F",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:FFX1!",
+      "name": "Coking Coal",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:KOL",
+      "name": "Coal Miners ETF (delisted)",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:UXA1!",
+      "name": "Uranium U3O8",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:URA",
+      "name": "Uranium ETF",
+      "yf": "URA",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:URNM",
+      "name": "Sprott Uranium Miners",
+      "yf": "URNM",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:URNJ",
+      "name": "Sprott Junior Uranium",
+      "yf": "URNJ",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:CCJ",
+      "name": "Cameco",
+      "yf": "CCJ",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "ICEEUR:CFI2!",
+      "name": "EU Carbon",
+      "yf": null,
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:KRBN",
+      "name": "KraneShares Carbon",
+      "yf": "KRBN",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GRN",
+      "name": "Carbon ETN",
+      "yf": "GRN",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETN",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:USO",
+      "name": "US Oil Fund",
+      "yf": "USO",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:BNO",
+      "name": "US Brent Oil",
+      "yf": "BNO",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:UNG",
+      "name": "US Natgas",
+      "yf": "UNG",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:UGA",
+      "name": "US Gasoline",
+      "yf": "UGA",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:DBE",
+      "name": "DB Energy",
+      "yf": "DBE",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FCG",
+      "name": "Natgas ETF",
+      "yf": "FCG",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:AMLP",
+      "name": "Alerian MLP",
+      "yf": "AMLP",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:TAN",
+      "name": "Solar",
+      "yf": "TAN",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:ICLN",
+      "name": "Clean Energy",
+      "yf": "ICLN",
+      "src": "tv",
+      "cat": "energy_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "OANDA:XAUUSD",
+      "name": "Gold Spot",
+      "yf": "GC=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "TVC:GOLD",
+      "name": "Gold CFD",
+      "yf": "GC=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "COMEX:GC1!",
+      "name": "Gold Futures",
+      "yf": "GC=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GLD",
+      "name": "Gold ETF",
+      "yf": "GLD",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:IAU",
+      "name": "Gold ETF (alt)",
+      "yf": "IAU",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "OANDA:XAGUSD",
+      "name": "Silver Spot",
+      "yf": "SI=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "COMEX:SI1!",
+      "name": "Silver Futures",
+      "yf": "SI=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SLV",
+      "name": "Silver ETF",
+      "yf": "SLV",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SIVR",
+      "name": "Silver ETF (alt)",
+      "yf": "SIVR",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "OANDA:XPTUSD",
+      "name": "Platinum Spot",
+      "yf": "PL=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:PL1!",
+      "name": "Platinum Futures",
+      "yf": "PL=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:PPLT",
+      "name": "Platinum ETF",
+      "yf": "PPLT",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "OANDA:XPDUSD",
+      "name": "Palladium Spot",
+      "yf": "PA=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Spot",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:PA1!",
+      "name": "Palladium Futures",
+      "yf": "PA=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:PALL",
+      "name": "Palladium ETF",
+      "yf": "PALL",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "COMEX:HG1!",
+      "name": "Copper Futures",
+      "yf": "HG=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CPER",
+      "name": "Copper ETF",
+      "yf": "CPER",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "LME:CA1!",
+      "name": "LME Aluminum (use Stooq)",
+      "yf": null,
+      "src": "stooq",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "COMEX:ALI1!",
+      "name": "CME Aluminum",
+      "yf": "ALI=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "LME:ZS1!",
+      "name": "LME Zinc (use Stooq)",
+      "yf": null,
+      "src": "stooq",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "LME:NI1!",
+      "name": "LME Nickel (use Stooq)",
+      "yf": null,
+      "src": "stooq",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "LME:SN1!",
+      "name": "LME Tin (use Stooq)",
+      "yf": null,
+      "src": "stooq",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "LME:PB1!",
+      "name": "LME Lead (use Stooq)",
+      "yf": null,
+      "src": "stooq",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:FEF1!",
+      "name": "Iron Ore SGX",
+      "yf": null,
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "DCE:I1!",
+      "name": "DCE Iron Ore",
+      "yf": null,
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "NYMEX:HRC1!",
+      "name": "US HRC Steel",
+      "yf": "HRC=F",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "SHFE:RB1!",
+      "name": "China Rebar",
+      "yf": null,
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SLX",
+      "name": "Steel ETF",
+      "yf": "SLX",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:LIT",
+      "name": "Lithium ETF",
+      "yf": "LIT",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:ALB",
+      "name": "Albemarle",
+      "yf": "ALB",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:SQM",
+      "name": "SQM",
+      "yf": "SQM",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:REMX",
+      "name": "Rare Earth ETF",
+      "yf": "REMX",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:MP",
+      "name": "MP Materials",
+      "yf": "MP",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GDXJ",
+      "name": "Junior Gold Miners",
+      "yf": "GDXJ",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:NUGT",
+      "name": "2x Gold Miners",
+      "yf": "NUGT",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SIL",
+      "name": "Silver Miners",
+      "yf": "SIL",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SILJ",
+      "name": "Junior Silver",
+      "yf": "SILJ",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:COPX",
+      "name": "Copper Miners",
+      "yf": "COPX",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:PICK",
+      "name": "Industrial Metals Miners",
+      "yf": "PICK",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:XME",
+      "name": "Metals & Mining",
+      "yf": "XME",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:VALE",
+      "name": "Vale",
+      "yf": "VALE",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:FCX",
+      "name": "Freeport",
+      "yf": "FCX",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:NEM",
+      "name": "Newmont",
+      "yf": "NEM",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:GOLD",
+      "name": "Barrick",
+      "yf": "GOLD",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:AEM",
+      "name": "Agnico Eagle",
+      "yf": "AEM",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:FNV",
+      "name": "Franco-Nevada",
+      "yf": "FNV",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:WPM",
+      "name": "Wheaton",
+      "yf": "WPM",
+      "src": "tv",
+      "cat": "metals_commod",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZC1!",
+      "name": "Corn",
+      "yf": "ZC=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZW1!",
+      "name": "Wheat (SRW)",
+      "yf": "ZW=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:KE1!",
+      "name": "Wheat (HRW)",
+      "yf": "KE=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:MW1!",
+      "name": "Wheat (HRS)",
+      "yf": "MW=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZS1!",
+      "name": "Soybeans",
+      "yf": "ZS=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZL1!",
+      "name": "Soybean Oil",
+      "yf": "ZL=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZM1!",
+      "name": "Soybean Meal",
+      "yf": "ZM=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZO1!",
+      "name": "Oats",
+      "yf": "ZO=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CBOT:ZR1!",
+      "name": "Rough Rice",
+      "yf": "ZR=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:SB1!",
+      "name": "Sugar #11",
+      "yf": "SB=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:SF1!",
+      "name": "Sugar #5",
+      "yf": null,
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:KC1!",
+      "name": "Coffee Arabica",
+      "yf": "KC=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:RC1!",
+      "name": "Coffee Robusta",
+      "yf": null,
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:CC1!",
+      "name": "Cocoa",
+      "yf": "CC=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:CT1!",
+      "name": "Cotton",
+      "yf": "CT=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "ICE:OJ1!",
+      "name": "OJ",
+      "yf": "OJ=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:LBR1!",
+      "name": "Lumber",
+      "yf": "LBR=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:LE1!",
+      "name": "Live Cattle",
+      "yf": "LE=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:HE1!",
+      "name": "Lean Hogs",
+      "yf": "HE=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:GF1!",
+      "name": "Feeder Cattle",
+      "yf": "GF=F",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:DC1!",
+      "name": "Class III Milk",
+      "yf": null,
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "BMFBOVESPA:FCPO1!",
+      "name": "Palm Oil",
+      "yf": null,
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "SGX:TF1!",
+      "name": "Rubber TSR20",
+      "yf": null,
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:DBA",
+      "name": "DB Agri",
+      "yf": "DBA",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:DBC",
+      "name": "DB Commodity",
+      "yf": "DBC",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GSG",
+      "name": "GSCI",
+      "yf": "GSG",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:COMT",
+      "name": "iShares GSCI",
+      "yf": "COMT",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CORN",
+      "name": "Corn ETF",
+      "yf": "CORN",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:WEAT",
+      "name": "Wheat ETF",
+      "yf": "WEAT",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:SOYB",
+      "name": "Soybean ETF",
+      "yf": "SOYB",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:CANE",
+      "name": "Sugar ETF",
+      "yf": "CANE",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:JO",
+      "name": "Coffee ETN",
+      "yf": "JO",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETN",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:BAL",
+      "name": "Cotton ETN",
+      "yf": "BAL",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETN",
+      "ret": "log"
+    },
+    {
+      "id": "NYSE:MOO",
+      "name": "Agribusiness",
+      "yf": "MOO",
+      "src": "tv",
+      "cat": "agri_soft_commod",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "BITSTAMP:BTCUSD",
+      "name": "Bitcoin",
+      "yf": "BTC-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BITSTAMP:ETHUSD",
+      "name": "Ethereum",
+      "yf": "ETH-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:SOLUSDT",
+      "name": "Solana",
+      "yf": "SOL-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:BNBUSDT",
+      "name": "BNB",
+      "yf": "BNB-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:XRPUSDT",
+      "name": "XRP",
+      "yf": "XRP-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:ADAUSDT",
+      "name": "Cardano",
+      "yf": "ADA-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:AVAXUSDT",
+      "name": "Avalanche",
+      "yf": "AVAX-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:DOTUSDT",
+      "name": "Polkadot",
+      "yf": "DOT-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:LINKUSDT",
+      "name": "Chainlink",
+      "yf": "LINK-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:DOGEUSDT",
+      "name": "Dogecoin",
+      "yf": "DOGE-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:TRXUSDT",
+      "name": "TRON",
+      "yf": "TRX-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:NEARUSDT",
+      "name": "NEAR",
+      "yf": "NEAR-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:ARBUSDT",
+      "name": "Arbitrum",
+      "yf": "ARB-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:OPUSDT",
+      "name": "Optimism",
+      "yf": "OP-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:UNIUSDT",
+      "name": "Uniswap",
+      "yf": "UNI-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "BINANCE:AAVEUSDT",
+      "name": "Aave",
+      "yf": "AAVE-USD",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Crypto",
+      "ret": "log"
+    },
+    {
+      "id": "CRYPTOCAP:BTC.D",
+      "name": "BTC Dominance",
+      "yf": null,
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Dominance",
+      "ret": "log"
+    },
+    {
+      "id": "CRYPTOCAP:ETH.D",
+      "name": "ETH Dominance",
+      "yf": null,
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Dominance",
+      "ret": "log"
+    },
+    {
+      "id": "CRYPTOCAP:TOTAL",
+      "name": "Total Mcap",
+      "yf": null,
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Cap",
+      "ret": "log"
+    },
+    {
+      "id": "CRYPTOCAP:TOTAL3",
+      "name": "Total ex-BTC ex-ETH",
+      "yf": null,
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Cap",
+      "ret": "log"
+    },
+    {
+      "id": "CRYPTOCAP:USDT.D",
+      "name": "Stablecoin Dominance",
+      "yf": null,
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Dominance",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:IBIT",
+      "name": "iShares BTC Trust",
+      "yf": "IBIT",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:FBTC",
+      "name": "Fidelity BTC",
+      "yf": "FBTC",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "AMEX:GBTC",
+      "name": "Grayscale BTC",
+      "yf": "GBTC",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:ETHA",
+      "name": "iShares ETH Trust",
+      "yf": "ETHA",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "ETF",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:COIN",
+      "name": "Coinbase",
+      "yf": "COIN",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:MSTR",
+      "name": "MicroStrategy",
+      "yf": "MSTR",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:MARA",
+      "name": "Marathon",
+      "yf": "MARA",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "NASDAQ:RIOT",
+      "name": "Riot",
+      "yf": "RIOT",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Equity",
+      "ret": "log"
+    },
+    {
+      "id": "CME:BTC1!",
+      "name": "CME BTC Futures",
+      "yf": "BTC=F",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Future",
+      "ret": "log"
+    },
+    {
+      "id": "CME:ETH1!",
+      "name": "CME ETH Futures",
+      "yf": "ETH=F",
+      "src": "tv",
+      "cat": "crypto",
+      "sub": "Future",
+      "ret": "log"
+    }
+  ]
+}

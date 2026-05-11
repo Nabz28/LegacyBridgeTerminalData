@@ -1,0 +1,64 @@
+"""Hand-curated regime windows for overlaying on rolling correlation charts.
+
+Sources: NBER recession dates (US), Fed funds target schedule (Fed cycles),
+Bank Indonesia BI Rate / BI7DRR cycles (Indonesia), and ad-hoc crisis windows.
+Kept short on purpose — only the windows a macro analyst would actually
+overlay during a discussion.
+"""
+
+from __future__ import annotations
+
+REGIMES: list[dict] = [
+    # US recessions (NBER)
+    {"name": "GFC trough", "start": "2008-12-01", "end": "2009-06-30",
+     "type": "recession", "scope": "us"},
+    {"name": "COVID recession", "start": "2020-02-01", "end": "2020-04-30",
+     "type": "recession", "scope": "us"},
+
+    # Fed cycles
+    {"name": "Fed taper tantrum", "start": "2013-05-22", "end": "2013-09-18",
+     "type": "fed", "scope": "us"},
+    {"name": "Fed hike cycle", "start": "2015-12-16", "end": "2018-12-19",
+     "type": "fed", "scope": "us"},
+    {"name": "Fed cut cycle", "start": "2019-07-31", "end": "2020-03-15",
+     "type": "fed", "scope": "us"},
+    {"name": "Fed ZIRP + QE (COVID)", "start": "2020-03-15", "end": "2022-03-16",
+     "type": "fed", "scope": "us"},
+    {"name": "Fed hike cycle 2022", "start": "2022-03-16", "end": "2023-07-26",
+     "type": "fed", "scope": "us"},
+    {"name": "Fed cut cycle 2024", "start": "2024-09-18", "end": "2025-12-31",
+     "type": "fed", "scope": "us"},
+
+    # BI cycles (Indonesia)
+    {"name": "BI hike cycle 2018", "start": "2018-05-17", "end": "2018-11-16",
+     "type": "bi", "scope": "indo"},
+    {"name": "BI cut cycle 2019-20", "start": "2019-07-18", "end": "2021-02-18",
+     "type": "bi", "scope": "indo"},
+    {"name": "BI hike cycle 2022-23", "start": "2022-08-23", "end": "2024-04-24",
+     "type": "bi", "scope": "indo"},
+    {"name": "BI cut cycle 2024-25", "start": "2024-09-18", "end": "2025-12-31",
+     "type": "bi", "scope": "indo"},
+
+    # Crisis windows
+    {"name": "China deval Aug 2015", "start": "2015-08-11", "end": "2016-02-29",
+     "type": "crisis", "scope": "global"},
+    {"name": "Vol-mageddon", "start": "2018-02-05", "end": "2018-02-15",
+     "type": "crisis", "scope": "global"},
+    {"name": "Repo spike", "start": "2019-09-17", "end": "2019-10-31",
+     "type": "crisis", "scope": "global"},
+    {"name": "COVID crash", "start": "2020-02-19", "end": "2020-03-23",
+     "type": "crisis", "scope": "global"},
+    {"name": "UK LDI/Gilt crisis", "start": "2022-09-23", "end": "2022-10-14",
+     "type": "crisis", "scope": "global"},
+    {"name": "SVB / regional banks", "start": "2023-03-08", "end": "2023-05-01",
+     "type": "crisis", "scope": "global"},
+    {"name": "Yen carry unwind", "start": "2024-08-01", "end": "2024-08-09",
+     "type": "crisis", "scope": "global"},
+]
+
+TYPE_COLORS = {
+    "recession": "rgba(220,38,38,0.18)",
+    "fed":       "rgba(245,158,11,0.10)",
+    "bi":        "rgba(59,130,246,0.10)",
+    "crisis":    "rgba(168,85,247,0.18)",
+}

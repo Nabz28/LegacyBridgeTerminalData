@@ -1,0 +1,3 @@
+openpyxl>=3.1.0
+anthropic>=0.40.0    # only needed for scripts/enrich_skill.py (Tier-2 LLM enrichment)
+supabase>=2.0        # only needed for scripts/upload_to_supabase.py

@@ -5,10 +5,14 @@ dist
 __pycache__
 .venv
 venv
+.pytest_cache
+.ruff_cache
 
-# ─── Local environment ─────────────────────────────────────────────
+# ─── Local environment / secrets ───────────────────────────────────
 .env
 .env.local
+.env.*.local
+macro/dashboard/js/config.js
 
 # ─── OS junk ───────────────────────────────────────────────────────
 .DS_Store
@@ -18,19 +22,27 @@ desktop.ini
 # ─── Claude Code internal state ────────────────────────────────────
 .claude/
 
-# ─── SQLite working files (only the journal/wal — the .sqlite is committed) ──
-data/*.sqlite-journal
-data/*.sqlite-wal
-data/*.sqlite-shm
+# ─── Data store (external, never committed) ────────────────────────
+# Time-series databases and large correlation parquet files live in
+# `data-store/` outside the repo. See README "Data store".
+data/
+data-store/
+correlation/data/
 
-# ─── Note: data/*.sqlite + catalog/ ARE committed ──────────────────
-# The repo intentionally includes generated SQLite DBs (~55 MB total
-# across us/id/cn) and per-country catalog JSONs. This lets future
-# collaborators (and Claude sessions) run the terminal immediately
-# without re-running xlsx ingestion. To regenerate from scratch:
-#   pip install -r scripts/requirements.txt
-#   python scripts/extract_observations.py --country us
-#   python scripts/extract_rics.py --country us
-#   (repeat for --country id, --country cn)
-#
-# If repo size becomes a problem, switch to git-lfs for *.sqlite.
+# Legacy SQLite at correlation root (pre-restructure)
+correlation/*.sqlite
+correlation/*.db
+
+# SQLite working files
+**/*.sqlite-journal
+**/*.sqlite-wal
+**/*.sqlite-shm
+
+# ─── Logs ──────────────────────────────────────────────────────────
+*/logs/
+*.log
+
+# ─── Catalog JSONs (curated content) ARE committed on purpose ──────
+# macro/catalog/* and correlation/catalog/* are part of the infrastructure
+# and ship in this repo so the apps work after `git clone` + a populated
+# `data-store/` (or a Supabase project configured in dashboard config.js).

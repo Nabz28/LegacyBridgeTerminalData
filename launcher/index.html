@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Bridge Terminal</title>
+<style>
+  :root{
+    --bg:#0e1116;
+    --bg-elev:#161a22;
+    --bg-elev-2:#1d222c;
+    --border:#252b36;
+    --border-strong:#323847;
+    --text:#e6e8ec;
+    --text-dim:#9aa3b2;
+    --text-faint:#6b7280;
+    --accent:#ff8a00;
+    --accent-dim:#a85700;
+    --gold:#facc15;
+    --mono:'JetBrains Mono','Fira Code','Consolas',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:grid;place-items:center;
+    overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(255,138,0,0.07), transparent 60%),
+      radial-gradient(900px 500px at 50% 110%, rgba(250,204,21,0.04), transparent 60%),
+      var(--bg);
+  }
+  .stage{
+    width:min(960px, 92vw);
+    padding:48px 40px 36px;
+    text-align:center;
+  }
+  .brand{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:6px 14px;border:1px solid var(--accent-dim);border-radius:99px;
+    color:var(--accent);font-family:var(--mono);
+    font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h1{
+    font-size:clamp(28px, 4.2vw, 44px);
+    line-height:1.15;font-weight:700;
+    letter-spacing:-0.5px;margin-bottom:10px;
+  }
+  h1 .accent{color:var(--accent)}
+  .subtitle{
+    font-family:var(--mono);font-size:12px;letter-spacing:2px;
+    color:var(--text-dim);text-transform:uppercase;margin-bottom:48px;
+  }
+  .subtitle .badge{
+    display:inline-block;padding:2px 8px;margin-left:8px;
+    background:rgba(250,204,21,0.08);border:1px solid var(--gold);
+    color:var(--gold);border-radius:3px;font-size:10px;
+  }
+  .prompt{
+    font-family:var(--mono);font-size:11px;letter-spacing:2px;
+    color:var(--text-faint);text-transform:uppercase;margin-bottom:18px;
+  }
+  .windows{
+    display:grid;grid-template-columns:1fr 1fr;gap:20px;
+    max-width:780px;margin:0 auto;
+  }
+  @media (max-width: 640px){ .windows{grid-template-columns:1fr} }
+  .window{
+    display:block;text-align:left;text-decoration:none;color:inherit;
+    background:var(--bg-elev);border:1px solid var(--border-strong);
+    border-radius:6px;padding:24px 24px 20px;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;overflow:hidden;
+  }
+  .window:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent);
+    background:var(--bg-elev-2);
+  }
+  .window .hdr{
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:2px;
+    color:var(--text-faint);text-transform:uppercase;
+  }
+  .window .hdr .pip{width:7px;height:7px;border-radius:50%}
+  .window.macro .hdr .pip{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .window.corr .hdr .pip{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .window .name{
+    font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;
+  }
+  .window .desc{
+    font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:18px;
+  }
+  .window .meta{
+    display:flex;gap:14px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10px;color:var(--text-faint);
+    border-top:1px solid var(--border);padding-top:12px;
+  }
+  .window .meta b{color:var(--text);font-weight:600}
+  .window .arrow{
+    position:absolute;top:24px;right:24px;
+    color:var(--text-faint);font-size:18px;transition:transform .15s ease,color .15s ease;
+  }
+  .window:hover .arrow{transform:translateX(3px);color:var(--accent)}
+  .window.corr:hover{border-color:var(--gold)}
+  .window.corr:hover .arrow{color:var(--gold)}
+  .window .down,.window .pending,.window .ok{
+    margin-top:10px;font-family:var(--mono);font-size:10px;
+    letter-spacing:1px;text-transform:uppercase;
+    display:none;
+  }
+  .window .down{color:#ef4444}
+  .window .pending{color:var(--gold)}
+  .window .ok{color:#22c55e}
+  .window.state-offline .down{display:block}
+  .window.state-pending .pending{display:block}
+  .window.state-online  .ok{display:block}
+  .window.state-offline{opacity:.75}
+  .window.state-pending{opacity:.9}
+  .footer{
+    margin-top:42px;font-family:var(--mono);font-size:10px;color:var(--text-faint);
+    letter-spacing:1.5px;text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+  <main class="stage">
+    <div class="brand"><span class="dot"></span>Legacy Bridge Terminal</div>
+    <h1>Welcome to <span class="accent">Legacy Bridge</span> Terminal</h1>
+    <div class="subtitle">Only macro version<span class="badge">v1</span></div>
+
+    <div class="prompt">Please select window</div>
+    <div class="windows">
+      <a class="window macro" href="/macro/dashboard/">
+        <div class="arrow">›</div>
+        <div class="hdr"><span class="pip"></span>Module 01</div>
+        <div class="name">Macro Terminal</div>
+        <div class="desc">Bloomberg-style terminal over Refinitiv macro RICs across the United States, Indonesia, and China — plus US Reuters Polls.</div>
+        <div class="meta">
+          <span><b>~6,700</b> RICs</span>
+          <span><b>3</b> countries</span>
+          <span><b>366</b> polls</span>
+        </div>
+      </a>
+
+      <a class="window corr state-pending" id="corr-window" href="http://127.0.0.1:5174/" target="_blank" rel="noopener">
+        <div class="arrow">›</div>
+        <div class="hdr"><span class="pip"></span>Module 02</div>
+        <div class="name">Correlation Terminal</div>
+        <div class="desc">Cross-asset correlation matrices computed from cached weekly + monthly returns. 11 prebuilt templates, ad-hoc subset compute, pair scatter and rolling Pearson.</div>
+        <div class="meta">
+          <span><b>4,227</b> series</span>
+          <span><b>11</b> templates</span>
+          <span><b>:5174</b> port</span>
+        </div>
+        <div class="pending">Backend warming up — loading parquets…</div>
+        <div class="ok">Backend online · ready</div>
+        <div class="down">Service offline — run <code>Quickstart.bat</code> or <code>python correlation/ui/backend/app.py</code></div>
+      </a>
+    </div>
+
+    <div class="footer">localhost terminal · no data leaves this machine</div>
+  </main>
+
+<script>
+  // Probe the correlation backend. Flask boots in ~12s while it loads parquets,
+  // so we retry on a backoff before giving up. State transitions:
+  //   state-pending  → "Backend warming up..." (default on load)
+  //   state-online   → "Backend online · ready"
+  //   state-offline  → "Service offline — run Quickstart.bat..."
+  (() => {
+    const card = document.getElementById('corr-window');
+    const HEALTH_URL = 'http://127.0.0.1:5174/api/health';
+    const MAX_ATTEMPTS = 20;       // ~40s total
+    const INTERVAL_MS = 2000;
+    let attempts = 0;
+
+    function setState(s) {
+      card.classList.remove('state-pending', 'state-online', 'state-offline');
+      card.classList.add('state-' + s);
+    }
+
+    async function tick() {
+      attempts++;
+      try {
+        const res = await fetch(HEALTH_URL, { cache: 'no-store' });
+        if (res.ok) { setState('online'); return; }
+      } catch (_) { /* retry */ }
+      if (attempts >= MAX_ATTEMPTS) { setState('offline'); return; }
+      setTimeout(tick, INTERVAL_MS);
+    }
+    tick();
+  })();
+</script>
+</body>
+</html>

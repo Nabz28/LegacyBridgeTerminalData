@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CORR · Macro Correlation Terminal</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/terminal.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">
+    <span class="brand-mark"></span>
+    <span class="brand-text">CORR</span>
+    <span class="brand-sub">macro · v1</span>
+  </div>
+
+  <button id="search-btn" class="btn btn-ghost" title="Search (⌘K)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span>Search</span>
+    <span class="kbd">⌘K</span>
+  </button>
+
+  <div class="dropdown" id="templates-dropdown">
+    <button class="btn btn-ghost" id="templates-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18M3 12h18M3 19h18"/></svg>
+      <span>Templates</span>
+      <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu" id="templates-menu" hidden></div>
+  </div>
+
+  <div class="topbar-divider"></div>
+
+  <div class="seg" id="freq-seg" data-tip="Frequency · M to toggle">
+    <button data-freq="w" class="active">Weekly</button>
+    <button data-freq="m">Monthly</button>
+  </div>
+
+  <div class="seg" id="method-seg" data-tip="Correlation method">
+    <button data-method="pearson" class="active">Pearson</button>
+    <button data-method="spearman">Spearman</button>
+  </div>
+
+  <button class="btn btn-ghost btn-toggle" id="denoise-btn" data-tip="Marchenko-Pastur denoise (D)">
+    <span class="dot"></span>Denoise
+  </button>
+
+  <div class="dropdown" id="diff-dropdown">
+    <button class="btn btn-ghost btn-toggle" id="diff-btn" data-tip="Δ vs prior period">
+      <span class="dot"></span>Δ <span id="diff-label">off</span> <span class="caret">▾</span>
+    </button>
+    <div class="dropdown-menu sm" id="diff-menu" hidden>
+      <div class="menu-item" data-diff="0">Off</div>
+      <div class="menu-item" data-diff="180">vs −6m</div>
+      <div class="menu-item" data-diff="365">vs −1y</div>
+      <div class="menu-item" data-diff="730">vs −2y</div>
+      <div class="menu-item" data-diff="1825">vs −5y</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <button id="help-btn" class="btn btn-ghost btn-icon" title="Keyboard shortcuts (?)">?</button>
+  <div class="status" id="status">Ready</div>
+</header>
+
+<main id="main">
+
+  <!-- LEFT: UNIVERSE -->
+  <aside id="universe">
+    <div class="panel-header">
+      <span class="panel-title">UNIVERSE</span>
+      <span class="muted mono small" id="universe-count">0</span>
+    </div>
+    <div class="panel-section">
+      <input id="universe-filter" type="text" placeholder="Filter…" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="universe-tree"></div>
+    <div class="panel-footer">
+      <button id="universe-clear" class="btn btn-ghost btn-sm">Clear</button>
+      <button id="universe-compute" class="btn btn-primary btn-sm">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 7"/></svg>
+        Compute
+      </button>
+    </div>
+  </aside>
+
+  <!-- CENTER: HEATMAP -->
+  <section id="heatmap-pane">
+    <div class="heatmap-header">
+      <div class="heatmap-title-block">
+        <span class="panel-title" id="matrix-title">US Macro Cross-Asset</span>
+        <span class="meta-line mono" id="matrix-meta">…</span>
+      </div>
+      <div class="legend">
+        <span class="legend-label">−1</span>
+        <span class="legend-bar"></span>
+        <span class="legend-label">+1</span>
+        <span class="legend-divider"></span>
+        <span class="legend-asset-classes" id="legend-asset"></span>
+      </div>
+    </div>
+    <div id="heatmap-wrap">
+      <canvas id="heatmap-canvas"></canvas>
+      <div id="heatmap-tooltip" class="tooltip" hidden></div>
+      <div id="heatmap-empty" class="empty" hidden>
+        <div class="empty-title">No data yet</div>
+        <div class="empty-sub">Pick a template above, or select series in the universe panel and click Compute</div>
+      </div>
+      <div id="heatmap-loading" class="loading-overlay" hidden>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div class="time-slider-bar">
+      <div class="ts-meta mono small">
+        <span id="ts-start">2011-01-14</span>
+        <span class="muted">→</span>
+        <span id="ts-end">2026-05-01</span>
+        <span class="muted ts-len" id="ts-len">·  full range</span>
+      </div>
+      <div id="ts-track" class="ts-track">
+        <div class="ts-rail"></div>
+        <div id="ts-fill" class="ts-fill"></div>
+        <div id="ts-handle-a" class="ts-handle"></div>
+        <div id="ts-handle-b" class="ts-handle"></div>
+      </div>
+      <div class="ts-presets">
+        <button data-preset="all" class="btn btn-mini active">All</button>
+        <button data-preset="10y" class="btn btn-mini">10y</button>
+        <button data-preset="5y"  class="btn btn-mini">5y</button>
+        <button data-preset="3y"  class="btn btn-mini">3y</button>
+        <button data-preset="1y"  class="btn btn-mini">1y</button>
+        <button data-preset="6m"  class="btn btn-mini">6m</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: PCA + STATS -->
+  <aside id="rightrail">
+    <div class="rail-tabs">
+      <button data-tab="pca" class="rail-tab active">PCA</button>
+      <button data-tab="stats" class="rail-tab">Stats</button>
+      <button data-tab="history" class="rail-tab">History</button>
+    </div>
+
+    <div class="rail-pane" data-pane="pca">
+      <div class="pca-summary">
+        <div class="pca-row">
+          <span class="muted small">Top-5 explained</span>
+          <span class="mono pca-explained" id="pca-explained">—</span>
+        </div>
+        <div id="pca-eigenbar" class="pca-eigenbar"></div>
+      </div>
+      <div id="pca-factors" class="pca-factors"></div>
+    </div>
+
+    <div class="rail-pane" data-pane="stats" hidden>
+      <div class="stat-grid" id="stat-grid"></div>
+      <div class="rail-section">
+        <div class="rail-section-title">Top |ρ|</div>
+        <div id="top-pairs"></div>
+      </div>
+    </div>
+
+    <div class="rail-pane" data-pane="history" hidden>
+      <div class="rail-section">
+        <div class="rail-section-title">Saved</div>
+        <div id="saved-list" class="saved-list"></div>
+        <button id="save-current" class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+          Save current
+        </button>
+      </div>
+      <div class="rail-section">
+        <div class="rail-section-title">Recent</div>
+        <div id="recent-list" class="saved-list"></div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- BOTTOM: PAIR DETAIL -->
+<section id="pair-detail">
+  <div class="pair-header">
+    <div class="pair-header-left">
+      <span class="panel-title" id="pair-title">PAIR DETAIL</span>
+      <span class="muted small" id="pair-empty-hint">Click a cell on the heatmap to inspect</span>
+    </div>
+    <div class="pair-header-right mono small">
+      <span id="pair-meta"></span>
+    </div>
+  </div>
+  <div class="pair-body" id="pair-body" data-empty="true">
+    <div class="pair-chart">
+      <div class="chart-label muted small">Scatter (returns)</div>
+      <canvas id="scatter-canvas"></canvas>
+    </div>
+    <div class="pair-chart">
+      <div class="chart-label muted small">Rolling 52w correlation · regimes overlaid</div>
+      <canvas id="rolling-canvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH MODAL -->
+<div id="search-modal" class="modal" hidden>
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel">
+    <div class="search-input-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search-input" type="text" placeholder="Search ID / name · cat:us_eq · +SYM add · -SYM remove" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="search-results"></div>
+    <div class="search-footer mono small muted">
+      <span><span class="kbd">↑</span><span class="kbd">↓</span> navigate</span>
+      <span><span class="kbd">↵</span> select</span>
+      <span><span class="kbd">esc</span> close</span>
+    </div>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div id="help-modal" class="modal" hidden>
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel help-panel">
+    <div class="help-header">
+      <h3>Keyboard shortcuts</h3>
+      <button class="btn btn-ghost btn-sm" id="help-close">esc</button>
+    </div>
+    <div class="help-grid">
+      <div class="help-row"><span class="kbd">⌘K</span><span>Open spotlight search</span></div>
+      <div class="help-row"><span class="kbd">/</span><span>Focus universe filter</span></div>
+      <div class="help-row"><span class="kbd">T</span><span>Open templates menu</span></div>
+      <div class="help-row"><span class="kbd">M</span><span>Toggle weekly / monthly</span></div>
+      <div class="help-row"><span class="kbd">P</span><span>Toggle Pearson / Spearman</span></div>
+      <div class="help-row"><span class="kbd">D</span><span>Toggle MP denoise</span></div>
+      <div class="help-row"><span class="kbd">X</span><span>Cycle Δ-vs (off / 6m / 1y / 2y / 5y)</span></div>
+      <div class="help-row"><span class="kbd">←</span><span class="kbd">→</span><span>Move heatmap selection horizontally</span></div>
+      <div class="help-row"><span class="kbd">↑</span><span class="kbd">↓</span><span>Move selection vertically</span></div>
+      <div class="help-row"><span class="kbd">↵</span><span>Open pair detail for selected cell</span></div>
+      <div class="help-row"><span class="kbd">S</span><span>Save current view</span></div>
+      <div class="help-row"><span class="kbd">R</span><span>Reset time window to all-time</span></div>
+      <div class="help-row"><span class="kbd">?</span><span>Show this help</span></div>
+      <div class="help-row"><span class="kbd">esc</span><span>Close any modal / clear hover</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/lib/chart.umd.min.js"></script>
+<script src="/static/js/storage.js"></script>
+<script src="/static/js/state.js"></script>
+<script src="/static/js/heatmap.js"></script>
+<script src="/static/js/pair_detail.js"></script>
+<script src="/static/js/universe.js"></script>
+<script src="/static/js/templates.js"></script>
+<script src="/static/js/search.js"></script>
+<script src="/static/js/time_slider.js"></script>
+<script src="/static/js/pca.js"></script>
+<script src="/static/js/keyboard.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "agent": 5,
+    "task": "macro_audit",
+    "categories_audited": ["us_macro", "indonesia_macro", "china_hk"],
+    "issues_found": {
+      "missing_or_generic_sub": 17,
+      "wrong_ret_type": 7,
+      "data_artifact_extreme": 12
+    },
+    "notes": {
+      "IDR_FX_crosses": "FX_IDC:EURIDR/AUDIDR/CHFIDR/SGDIDR/JPYIDR/GBPIDR have isolated bad raw data points (e.g. value=4.0 when level should be ~14000) causing extreme log return spikes. These are source data artifacts; ret_type=log is correct for FX. Fix at ingest/raw-clean layer, not ret_type.",
+      "RRPONTSYD": "ON RRP Usage: ret=diff is the least-bad option given near-zero base in early history (yoy divides by ~0); diff values in USD billions remain large at extremes but are interpretable.",
+      "WM1NS": "M1 yoy spike to 370% in 2021 reflects a real FRED definitional change (savings accounts reclassified into M1), not a data error. ret=yoy is correct; downstream users should be aware of the structural break.",
+      "STLFSI4": "Max weekly diff of +-2.2 is a real COVID-era spike in this z-score index. ret=diff is appropriate for a dimensionless financial stress index.",
+      "LQD_HYG_IEF_spread": "HYG-IEF and LQD-IEF are price-spread proxy series. Max of +-18 occurs during COVID credit blowout and is real. ret=diff (change in spread proxy) is appropriate.",
+      "BAML_OAS": "BAMLH0A0HYM2 and BAMLC0A0CM raw data appears truncated to ~3 years (157 weekly obs). OAS spreads are measured in percentage points; diff (change in spread level) is standard market practice, not yoy ratio."
+    }
+  },
+  "recat": {
+    "TVC:ID10Y":          "Gov Yield",
+    "TVC:ID01Y":          "Gov Yield",
+    "TVC:ID03Y":          "Gov Yield",
+    "TVC:ID05Y":          "Gov Yield",
+    "TVC:ID15Y":          "Gov Yield",
+    "TVC:ID20Y":          "Gov Yield",
+    "TVC:ID30Y":          "Gov Yield",
+    "IDNCPIALLMINMEI":    "Inflation",
+    "NGDPRSAXDCIDQ":      "GDP",
+    "XTNTVA01IDM664S":    "External Sector",
+    "MYAGM2IDM189N":      "Monetary Aggregate",
+    "IDNPROINDMISMEI":    "Activity",
+    "ECONOMICS:IDIRYY":   "Inflation",
+    "ECONOMICS:IDIRMM":   "Inflation",
+    "ECONOMICS:IDCPI":    "Inflation",
+    "MYAGM2CNM189N":      "Monetary Aggregate",
+    "CHNCPIALLMINMEI":    "Inflation",
+    "WM2NS":              "Monetary Aggregate",
+    "WM1NS":              "Monetary Aggregate",
+    "NFCI":               "Financial Conditions",
+    "ANFCI":              "Financial Conditions",
+    "STLFSI4":            "Financial Conditions"
+  },
+  "ret_fix": {
+    "WALCL":              "yoy",
+    "WRESBAL":            "yoy",
+    "WTREGEN":            "yoy",
+    "ECONOMICS:IDIRMM":   "diff",
+    "ECONOMICS:IDIRYY":   "diff",
+    "BAMLH0A0HYM2":       "diff",
+    "BAMLC0A0CM":         "diff"
+  }
+}
