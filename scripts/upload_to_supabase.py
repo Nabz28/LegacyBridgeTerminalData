@@ -36,9 +36,24 @@ import sqlite3
 import sys
 import time
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Any, Iterable, Sequence
 
 import httpx
+
+
+def _sanitize(v: Any) -> Any:
+    """Replace inf/-inf/NaN with None so JSON encoding succeeds.
+
+    The correlation pipeline occasionally produces inf returns (e.g. when a
+    price jumps from 0 to positive in the source data). Postgres FLOAT can
+    store NaN/Inf natively, but JSON cannot — `httpx.post(json=...)` uses
+    `allow_nan=False` and crashes on the first one. Cleanest is to drop
+    these values; downstream consumers already treat NULL as missing data.
+    """
+    if isinstance(v, float):
+        if math.isnan(v) or math.isinf(v):
+            return None
+    return v
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MACRO_CATALOG_DIR = REPO_ROOT / "macro" / "catalog"
@@ -234,7 +249,7 @@ def upload_macro_country(country: str, client: SupabaseClient) -> None:
         rows_db = cur.fetchmany(OBS_BATCH)
         if not rows_db:
             break
-        batch = [{"ric": r[0], "date": r[1], "value": r[2]} for r in rows_db]
+        batch = [{"ric": r[0], "date": r[1], "value": _sanitize(r[2])} for r in rows_db]
         batch = _dedupe(batch, ("ric", "date"))
         client.upsert("macro", "observations", batch)
         pushed += len(batch)
@@ -276,13 +291,23 @@ def upload_macro_graphs(client: SupabaseClient) -> None:
 # --------------------------------------------------------------------------- #
 # Correlation upload                                                           #
 # --------------------------------------------------------------------------- #
-def upload_correlation_db(client: SupabaseClient) -> None:
+def upload_correlation_db(client: SupabaseClient, from_table: str | None = None) -> None:
     db_path = _data_store_root() / "correlation" / "correlation.sqlite"
     if not db_path.exists():
         raise SystemExit(f"missing sqlite at {db_path}")
 
     conn = sqlite3.connect(str(db_path))
     cur = conn.cursor()
+
+    # Tables in upload order. If --from-table is given, skip earlier ones.
+    all_tables = [
+        ("series",          None),  # series first, handled below
+        ("prices_weekly",   "close"),
+        ("prices_monthly",  "close"),
+        ("returns_weekly",  "ret"),
+        ("returns_monthly", "ret"),
+    ]
+    skip_until = from_table  # None means start at beginning
 
     # ----- series -----
     cur.execute("SELECT id, name, yf_symbol, source, category, subcategory, return_type, data_start FROM series")
@@ -292,9 +317,13 @@ def upload_correlation_db(client: SupabaseClient) -> None:
         for r in cur.fetchall()
     ]
     series_rows = _dedupe(series_rows, ("id",))
-    log.info("[correlation] upserting %d series", len(series_rows))
-    for chunk in _chunks(series_rows, SERIES_BATCH):
-        client.upsert("correlation", "series", chunk)
+    if skip_until is None or skip_until == "series":
+        log.info("[correlation] upserting %d series", len(series_rows))
+        for chunk in _chunks(series_rows, SERIES_BATCH):
+            client.upsert("correlation", "series", chunk)
+        skip_until = None
+    else:
+        log.info("[correlation] skipping series (--from-table=%s)", from_table)
 
     # Valid series IDs after dedupe — used to filter FK-orphan rows in
     # the prices/returns tables. The legacy SQLite has ~204 stringified
@@ -304,12 +333,17 @@ def upload_correlation_db(client: SupabaseClient) -> None:
     placeholders = ",".join("?" for _ in valid_ids)
 
     # ----- prices + returns (streamed, FK-filtered) -----
-    for table, value_col in (
+    data_tables = [
         ("prices_weekly",   "close"),
         ("prices_monthly",  "close"),
         ("returns_weekly",  "ret"),
         ("returns_monthly", "ret"),
-    ):
+    ]
+    for table, value_col in data_tables:
+        if skip_until is not None and table != skip_until:
+            log.info("[correlation] skipping %s (--from-table=%s)", table, from_table)
+            continue
+        skip_until = None
         cur.execute(f"SELECT COUNT(*) FROM {table} WHERE series_id IN ({placeholders})", tuple(valid_ids))
         total = cur.fetchone()[0]
         if total == 0:
@@ -326,7 +360,7 @@ def upload_correlation_db(client: SupabaseClient) -> None:
             rows_db = cur.fetchmany(OBS_BATCH)
             if not rows_db:
                 break
-            batch = [{"series_id": r[0], "date": r[1], value_col: r[2]} for r in rows_db]
+            batch = [{"series_id": r[0], "date": r[1], value_col: _sanitize(r[2])} for r in rows_db]
             batch = _dedupe(batch, ("series_id", "date"))
             client.upsert("correlation", table, batch)
             pushed += len(batch)
@@ -409,6 +443,10 @@ def main() -> int:
                         help="(macro) push the catalog influence graphs to macro.graph")
     parser.add_argument("--matrices", action="store_true",
                         help="(correlation) push parquet matrices to Storage + index")
+    parser.add_argument("--from-table",
+                        choices=["series", "prices_weekly", "prices_monthly",
+                                 "returns_weekly", "returns_monthly"],
+                        help="(correlation) resume from a specific table (skip earlier ones)")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO,
@@ -438,7 +476,7 @@ def main() -> int:
             if args.matrices:
                 upload_correlation_matrices(client)
             else:
-                upload_correlation_db(client)
+                upload_correlation_db(client, from_table=args.from_table)
     finally:
         client.close()
     return 0
