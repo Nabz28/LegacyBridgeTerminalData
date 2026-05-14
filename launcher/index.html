@@ -17,6 +17,8 @@
     --accent:#ff8a00;
     --accent-dim:#a85700;
     --gold:#facc15;
+    --cyan:#4a9eff;
+    --cyan-dim:#2a6cb8;
     --mono:'JetBrains Mono','Fira Code','Consolas',ui-monospace,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -65,10 +67,11 @@
     color:var(--text-faint);text-transform:uppercase;margin-bottom:18px;
   }
   .windows{
-    display:grid;grid-template-columns:1fr 1fr;gap:20px;
-    max-width:780px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;
+    max-width:1180px;margin:0 auto;
   }
-  @media (max-width: 640px){ .windows{grid-template-columns:1fr} }
+  @media (max-width: 980px){ .windows{grid-template-columns:1fr 1fr; max-width:780px} }
+  @media (max-width: 640px){ .windows{grid-template-columns:1fr; max-width:420px} }
   .window{
     display:block;text-align:left;text-decoration:none;color:inherit;
     background:var(--bg-elev);border:1px solid var(--border-strong);
@@ -89,6 +92,9 @@
   .window .hdr .pip{width:7px;height:7px;border-radius:50%}
   .window.macro .hdr .pip{background:var(--accent);box-shadow:0 0 8px var(--accent)}
   .window.corr .hdr .pip{background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .window.mgmt .hdr .pip{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+  .window.mgmt:hover{border-color:var(--cyan)}
+  .window.mgmt:hover .arrow{color:var(--cyan)}
   .window .name{
     font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;
   }
@@ -134,7 +140,7 @@
   <main class="stage">
     <div class="brand"><span class="dot"></span>Legacy Bridge Terminal</div>
     <h1>Welcome to <span class="accent">Legacy Bridge</span> Terminal</h1>
-    <div class="subtitle">Only macro version<span class="badge">v1</span></div>
+    <div class="subtitle">Three terminals available<span class="badge">v1</span></div>
 
     <div class="prompt">Please select window</div>
     <div class="windows">
@@ -161,6 +167,18 @@
           <span><b>live</b> compute</span>
         </div>
         <div class="ok">Powered by Supabase · ready</div>
+      </a>
+
+      <a class="window mgmt" id="mgmt-window" href="/management/" rel="noopener">
+        <div class="arrow">›</div>
+        <div class="hdr"><span class="pip"></span>Module 03</div>
+        <div class="name">Management Terminal</div>
+        <div class="desc">Research project lifecycle + KPI tracking. 15-day pipeline (IM → MD → IO → ER → publication), chrome-tab shell, per-analyst &amp; per-division scorecards, Google-Sheets-style ACL.</div>
+        <div class="meta">
+          <span><b>43</b> accounts</span>
+          <span><b>3</b> teams</span>
+          <span><b>GOD</b> view</span>
+        </div>
       </a>
     </div>
 

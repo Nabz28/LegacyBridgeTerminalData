@@ -1,0 +1,73 @@
+import { FormEvent, useState } from "react";
+import { login } from "../lib/api";
+import { persistSession } from "../lib/supabase";
+import type { User } from "../lib/types";
+
+interface LoginProps {
+  onAuth: (token: string, user: User, expiresIn: number) => void;
+}
+
+export function Login({ onAuth }: LoginProps) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!username || !password) return;
+    setBusy(true);
+    setErr(null);
+    try {
+      const res = await login(username, password);
+      persistSession(res.token, res.user, res.expires_in);
+      onAuth(res.token, res.user, res.expires_in);
+    } catch (e) {
+      setErr((e as Error).message || "Login failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="login-wrap">
+      <form className="login-card" onSubmit={onSubmit}>
+        <div className="login-brand">
+          <span className="dot" /> LBC Management Terminal
+        </div>
+        <div className="login-title">Sign in</div>
+        <div className="login-sub">Module 03 · v0.1</div>
+
+        {err && <div className="login-error">{err}</div>}
+
+        <div className="login-field">
+          <label>Username</label>
+          <input
+            type="text"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={busy}
+            spellCheck={false}
+          />
+        </div>
+
+        <div className="login-field">
+          <label>Password</label>
+          <input
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={busy}
+          />
+        </div>
+
+        <button type="submit" className="login-btn" disabled={busy}>
+          {busy ? "Authenticating…" : "Sign in"}
+        </button>
+      </form>
+    </div>
+  );
+}

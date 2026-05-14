@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": true,
-  "buildCommand": null,
+  "buildCommand": "cd management && npm install && npm run build",
   "outputDirectory": ".",
   "redirects": [
     { "source": "/", "destination": "/launcher/", "permanent": false },
@@ -11,11 +11,22 @@
     { "source": "/correlation", "destination": "/correlation/ui/static/", "permanent": false },
     { "source": "/correlation/", "destination": "/correlation/ui/static/", "permanent": false }
   ],
+  "rewrites": [
+    { "source": "/management", "destination": "/management/dist/index.html" },
+    { "source": "/management/", "destination": "/management/dist/index.html" },
+    { "source": "/management/:path*", "destination": "/management/dist/:path*" }
+  ],
   "headers": [
     {
       "source": "/macro/catalog/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
+      ]
+    },
+    {
+      "source": "/management/dist/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {

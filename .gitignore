@@ -53,3 +53,5 @@ correlation/*.db
 # macro/catalog/* and correlation/catalog/* are part of the infrastructure
 # and ship in this repo so the apps work after `git clone` + a populated
 # `data-store/` (or a Supabase project configured in dashboard config.js).
+management/dist/
+management/node_modules/
