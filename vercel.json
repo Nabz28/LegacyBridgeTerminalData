@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/launcher/", "permanent": false },
+    { "source": "/macro", "destination": "/macro/dashboard/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/macro/", "destination": "/macro/dashboard/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/macro/catalog/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
+      ]
+    },
+    {
+      "source": "/(.*).js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=300" }
+      ]
+    }
+  ],
+  "ignoreCommand": "true"
+}

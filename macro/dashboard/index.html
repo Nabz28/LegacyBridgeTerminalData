@@ -604,9 +604,13 @@ body{
   </div>
 </div>
 
-<!-- Per-environment config: copy js/config.example.js to js/config.js to customize.
-     Loaded with onerror so missing config falls back to defaults baked into data-source.js. -->
-<script src="js/config.js" onerror="window.MACROTERM_CONFIG = window.MACROTERM_CONFIG || { dataSource: 'sqlite', sqlite: { baseUrl: '/data/macro' } };"></script>
+<!-- Config layers (last one to assign window.MACROTERM_CONFIG wins):
+       1. js/config.vercel.js   (public defaults, committed — used by the deployed build)
+       2. js/config.js          (gitignored local override — present only in dev)
+     Both load synchronously. config.js 404s harmlessly on Vercel (gitignored), in
+     which case the vercel.js values stand. Locally, config.js overrides everything. -->
+<script src="js/config.vercel.js" onerror="window.MACROTERM_CONFIG = window.MACROTERM_CONFIG || { dataSource: 'sqlite', sqlite: { baseUrl: '/data/macro' } };"></script>
+<script src="js/config.js" onerror=""></script>
 <script src="js/data-source.js"></script>
 <script src="js/catalog-loader.js"></script>
 <script src="js/chart-engine.js"></script>

@@ -108,7 +108,7 @@
   .window:hover .arrow{transform:translateX(3px);color:var(--accent)}
   .window.corr:hover{border-color:var(--gold)}
   .window.corr:hover .arrow{color:var(--gold)}
-  .window .down,.window .pending,.window .ok{
+  .window .down,.window .pending,.window .ok,.window .remote{
     margin-top:10px;font-family:var(--mono);font-size:10px;
     letter-spacing:1px;text-transform:uppercase;
     display:none;
@@ -116,11 +116,14 @@
   .window .down{color:#ef4444}
   .window .pending{color:var(--gold)}
   .window .ok{color:#22c55e}
+  .window .remote{color:var(--text-dim)}
   .window.state-offline .down{display:block}
   .window.state-pending .pending{display:block}
   .window.state-online  .ok{display:block}
+  .window.state-remote  .remote{display:block}
   .window.state-offline{opacity:.75}
   .window.state-pending{opacity:.9}
+  .window.state-remote{opacity:.75}
   .footer{
     margin-top:42px;font-family:var(--mono);font-size:10px;color:var(--text-faint);
     letter-spacing:1.5px;text-transform:uppercase;
@@ -160,6 +163,7 @@
         <div class="pending">Backend warming up — loading parquets…</div>
         <div class="ok">Backend online · ready</div>
         <div class="down">Service offline — run <code>Quickstart.bat</code> or <code>python correlation/ui/backend/app.py</code></div>
+        <div class="remote">Local-only · clone the repo + run <code>Quickstart.bat</code> to use this terminal</div>
       </a>
     </div>
 
@@ -167,22 +171,38 @@
   </main>
 
 <script>
-  // Probe the correlation backend. Flask boots in ~12s while it loads parquets,
-  // so we retry on a backoff before giving up. State transitions:
+  // The correlation terminal is a Flask backend on :5174 — only runs locally.
+  // On any non-local host (Vercel preview / production), skip the health probe
+  // and mark it as remote-only so users get a clear message instead of an
+  // endless "warming up" spinner.
+  //
+  // Local probe states:
   //   state-pending  → "Backend warming up..." (default on load)
   //   state-online   → "Backend online · ready"
   //   state-offline  → "Service offline — run Quickstart.bat..."
+  // Remote (Vercel) state:
+  //   state-remote   → "Local-only — clone repo to run correlation terminal"
   (() => {
     const card = document.getElementById('corr-window');
+    const isLocal = ['localhost', '127.0.0.1', '0.0.0.0'].includes(location.hostname)
+                 || location.hostname.endsWith('.local');
+
+    function setState(s) {
+      card.classList.remove('state-pending', 'state-online', 'state-offline', 'state-remote');
+      card.classList.add('state-' + s);
+    }
+
+    if (!isLocal) {
+      setState('remote');
+      // Remove the broken localhost link — point at the GitHub repo instead.
+      card.setAttribute('href', 'https://github.com/Nabz28/LegacyBridgeTerminalData#correlation-terminal');
+      return;
+    }
+
     const HEALTH_URL = 'http://127.0.0.1:5174/api/health';
     const MAX_ATTEMPTS = 20;       // ~40s total
     const INTERVAL_MS = 2000;
     let attempts = 0;
-
-    function setState(s) {
-      card.classList.remove('state-pending', 'state-online', 'state-offline');
-      card.classList.add('state-' + s);
-    }
 
     async function tick() {
       attempts++;
