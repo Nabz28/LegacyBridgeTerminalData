@@ -205,19 +205,196 @@
     });
   };
 
-  SupabaseAPI.prototype.computeSubset = function () {
-    return Promise.reject(new Error(
-      'Custom subset compute is available in local mode only. ' +
-      'Clone the repo and run `python correlation/ui/backend/app.py`.'
-    ));
+  // ============================================================
+  //  Client-side compute: custom subset correlation + PCA
+  //
+  //  Fetch raw returns from Supabase for the requested series, then compute
+  //  Pearson correlation and (optionally) eigendecomposition in the browser.
+  //  Replaces the Flask /api/compute_subset and /api/pca endpoints.
+  //  Tradeoff: heavier wire transfer (N series × ~800 weeks) but works
+  //  without any server compute.
+  // ============================================================
+  SupabaseAPI.prototype.computeSubset = function (body) {
+    var ids = (body && body.ids) || [];
+    if (ids.length < 2) return Promise.reject(new Error('select at least 2 series'));
+    var freq = (body.freq === 'm' || body.freq === 'monthly') ? 'monthly' : 'weekly';
+    var table = 'returns_' + freq;
+    var fromDate = body.start_date || null;
+    var toDate   = body.end_date   || null;
+    var self = this;
+
+    return Promise.all([
+      self._ensureClient(),
+      self._names(),
+    ]).then(function (results) {
+      var cli = results[0];
+      var nameMap = results[1];
+      // Parallel fetch — one series at a time, paged. PostgREST caps each
+      // page at 1000 rows; 800 weeks fits in one page per series.
+      return Promise.all(ids.map(function (id) {
+        return _fetchOneSeriesReturns(cli, table, id, fromDate, toDate);
+      })).then(function (allSeries) {
+        // Build a dates × series matrix, keeping only dates where ALL series have data.
+        var byDate = _alignSeries(ids, allSeries);
+        if (byDate.dates.length < 10) {
+          throw new Error('not enough overlapping observations (n=' + byDate.dates.length + ')');
+        }
+        var matrix = _pearsonMatrix(byDate.values);
+        return {
+          ids: ids,
+          names: ids.map(function (id) { return nameMap[id] || id; }),
+          cats: ids.map(function (id) {
+            // Lazy: cats come from series_meta; if frontend needs them, derive
+            return (self._catCache && self._catCache[id]) || '';
+          }),
+          matrix: matrix,
+          freq: freq === 'monthly' ? 'm' : 'w',
+          method: 'pearson',  // cloud mode = Pearson only
+          n_obs: byDate.dates.length,
+          date_range: [byDate.dates[0], byDate.dates[byDate.dates.length - 1]],
+        };
+      });
+    });
   };
 
-  SupabaseAPI.prototype.getPCA = function () {
-    return Promise.reject(new Error(
-      'PCA is available in local mode only. ' +
-      'Clone the repo and run `python correlation/ui/backend/app.py`.'
-    ));
+  SupabaseAPI.prototype.getPCA = function (body) {
+    var ids = (body && body.ids) || [];
+    if (ids.length < 2) return Promise.reject(new Error('select at least 2 series'));
+    var topK = body.top_k || 5;
+    var self = this;
+    // Compute the subset matrix first, then run eigendecomposition.
+    return self.computeSubset(body).then(function (sub) {
+      return _loadMlMatrix().then(function (ML) {
+        return _pcaFromCorr(ML, sub.matrix, sub.ids, sub.names, topK);
+      });
+    });
   };
+
+  // -- helpers --
+  function _fetchOneSeriesReturns(cli, table, id, fromDate, toDate) {
+    var pageSize = 1000;
+    function loop(from, acc) {
+      var q = cli.from(table).select('date,ret').eq('series_id', id)
+                 .order('date', { ascending: true }).range(from, from + pageSize - 1);
+      if (fromDate) q = q.gte('date', fromDate);
+      if (toDate)   q = q.lte('date', toDate);
+      return q.then(function (res) {
+        var rows = res.data || [];
+        acc = acc.concat(rows);
+        if (rows.length < pageSize) return acc;
+        return loop(from + pageSize, acc);
+      });
+    }
+    return loop(0, []);
+  }
+
+  function _alignSeries(ids, allSeries) {
+    // Build a per-date map: date -> [val_for_id_0, val_for_id_1, ...].
+    // Drop rows where any value is missing.
+    var dateSets = allSeries.map(function (rows) {
+      var m = {};
+      for (var i = 0; i < rows.length; i++) m[rows[i].date] = rows[i].ret;
+      return m;
+    });
+    // Intersection of dates across all series.
+    var firstDates = Object.keys(dateSets[0] || {}).sort();
+    var dates = [];
+    var values = [];  // array of [v0, v1, ...] per date
+    for (var i = 0; i < firstDates.length; i++) {
+      var d = firstDates[i];
+      var row = new Array(ids.length);
+      var ok = true;
+      for (var j = 0; j < ids.length; j++) {
+        var v = dateSets[j][d];
+        if (v == null || !isFinite(v)) { ok = false; break; }
+        row[j] = v;
+      }
+      if (ok) { dates.push(d); values.push(row); }
+    }
+    return { dates: dates, values: values };
+  }
+
+  function _pearsonMatrix(rows) {
+    // rows: T × N (T dates, N series). Returns N × N Pearson correlation matrix.
+    if (!rows.length) return [];
+    var T = rows.length, N = rows[0].length;
+    // Column means.
+    var mean = new Array(N);
+    for (var j = 0; j < N; j++) {
+      var s = 0;
+      for (var i = 0; i < T; i++) s += rows[i][j];
+      mean[j] = s / T;
+    }
+    // Centered values.
+    var centered = new Array(T);
+    for (var i = 0; i < T; i++) {
+      var r = new Array(N);
+      for (var j = 0; j < N; j++) r[j] = rows[i][j] - mean[j];
+      centered[i] = r;
+    }
+    // Column std (population).
+    var std = new Array(N);
+    for (var j = 0; j < N; j++) {
+      var s2 = 0;
+      for (var i = 0; i < T; i++) s2 += centered[i][j] * centered[i][j];
+      std[j] = Math.sqrt(s2 / T) || 1;
+    }
+    // Correlation matrix.
+    var out = new Array(N);
+    for (var a = 0; a < N; a++) {
+      var row = new Array(N);
+      for (var b = 0; b < N; b++) {
+        if (a === b) { row[b] = 1; continue; }
+        if (b < a)  { row[b] = out[b][a]; continue; }
+        var s = 0;
+        for (var i = 0; i < T; i++) s += centered[i][a] * centered[i][b];
+        row[b] = s / (T * std[a] * std[b]);
+      }
+      out[a] = row;
+    }
+    return out;
+  }
+
+  var _mlMatrixPromise = null;
+  function _loadMlMatrix() {
+    if (_mlMatrixPromise) return _mlMatrixPromise;
+    _mlMatrixPromise = import('https://cdn.jsdelivr.net/npm/ml-matrix@6/+esm');
+    return _mlMatrixPromise;
+  }
+
+  function _pcaFromCorr(ML, matrix, ids, names, topK) {
+    var N = matrix.length;
+    var M = new ML.Matrix(matrix);
+    var evd = new ML.EigenvalueDecomposition(M, { assumeSymmetric: true });
+    // Real eigenvalues + eigenvectors. Sort descending.
+    var rev = evd.realEigenvalues.slice();
+    var evec = evd.eigenvectorMatrix.to2DArray();
+    var order = rev.map(function (v, i) { return [v, i]; })
+                   .sort(function (a, b) { return b[0] - a[0]; });
+    var totalVar = rev.reduce(function (s, v) { return s + Math.max(0, v); }, 0) || N;
+    var factors = [];
+    var cum = 0;
+    for (var k = 0; k < Math.min(topK, N); k++) {
+      var idx = order[k][1];
+      var lambda = order[k][0];
+      var explained = lambda / totalVar;
+      cum += explained;
+      // Loadings for this factor: signed |weight| sorted descending.
+      var loadings = [];
+      for (var i = 0; i < N; i++) {
+        var w = evec[i][idx];
+        loadings.push({
+          id: ids[i],
+          name: names[i],
+          weight: Math.abs(w),
+          sign: w >= 0 ? 1 : -1,
+        });
+      }
+      loadings.sort(function (a, b) { return b.weight - a.weight; });
+      factors.push({ k: k + 1, explained: explained, cumulative: cum, loadings: loadings });
+    }
+    return { factors: factors };
+  }
 
   // Fetch raw paired returns for the scatter plot.
   // PostgREST caps responses at 1000 rows by default — paginate just in case.

@@ -21,10 +21,11 @@
           ids, freq, method, start_date: start, end_date: end, top_k: 5,
         });
       } catch (e) {
-        // Cloud mode: server-side PCA isn't available. Show a soft notice
-        // rather than blanking the panel without explanation.
+        // PCA computation failed (e.g. matrix non-positive-definite, ml-matrix
+        // CDN unreachable). Soft-fail so the heatmap continues to work.
         this.clear();
-        this.explainedEl.textContent = 'local-only';
+        this.explainedEl.textContent = '—';
+        console.warn('[pca]', e.message);
         return;
       }
       if (data.error) { this.clear(); return; }
