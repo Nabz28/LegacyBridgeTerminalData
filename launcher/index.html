@@ -22,13 +22,14 @@
     --mono:'JetBrains Mono','Fira Code','Consolas',ui-monospace,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%}
+  html,body{min-height:100%}
   body{
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
     background:var(--bg);
     color:var(--text);
     display:grid;place-items:center;
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:auto;
     background:
       radial-gradient(1200px 600px at 50% -10%, rgba(255,138,0,0.07), transparent 60%),
       radial-gradient(900px 500px at 50% 110%, rgba(250,204,21,0.04), transparent 60%),
