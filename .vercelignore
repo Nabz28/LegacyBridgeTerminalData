@@ -2,12 +2,16 @@
 # The Vercel build serves:
 #   launcher/, macro/dashboard/, macro/catalog/, vercel.json
 
-# Server-side ETL & maintenance (Python — Vercel doesn't run them)
+# Server-side ETL & maintenance (Python — Vercel doesn't run them).
+# scripts/vercel-build.sh is needed by the buildCommand, so we exclude
+# items individually instead of the whole scripts/ folder -- once a
+# parent directory is excluded, gitignore-style negation can't re-add
+# anything inside it.
 macro/scripts/
 correlation/scripts/
-scripts/
-# ...except the production build helper, which the buildCommand invokes.
-!scripts/vercel-build.sh
+scripts/*.py
+scripts/apply-mgmt-sql.js
+scripts/serve.js
 
 # Correlation Flask backend only — the static frontend (correlation/ui/static/)
 # now talks to Supabase directly and IS deployed.
