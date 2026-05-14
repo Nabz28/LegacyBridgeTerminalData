@@ -15,6 +15,15 @@ export function TabStrip() {
 
   return (
     <div className="tab-strip">
+      <a
+        className="tab-strip__home"
+        href="/launcher/"
+        title="Back to terminal selector"
+        aria-label="Main terminal"
+      >
+        <span className="tab-strip__home-arrow">←</span>
+        <span className="tab-strip__home-label">HOME</span>
+      </a>
       <div className="tab-strip__brand">YGG</div>
       <div className="tab-strip__tabs">
         {tabs.map((tab) => (

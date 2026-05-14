@@ -98,6 +98,15 @@ export function Shell({ user, onLogout }: ShellProps) {
   return (
     <div className="shell">
       <div className="tabbar">
+        <a
+          href="/launcher/"
+          className="tabbar-home"
+          title="Back to terminal selector"
+          aria-label="Main terminal"
+        >
+          <span className="home-arrow">←</span>
+          <span className="home-label">HOME</span>
+        </a>
         <div
           className="tabbar-brand"
           onClick={() => setActiveKey("home")}

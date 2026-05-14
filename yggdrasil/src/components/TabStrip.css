@@ -7,6 +7,27 @@
   z-index: var(--z-tab-strip);
 }
 
+.tab-strip__home {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  border-right: 1px solid var(--border-1);
+  text-decoration: none;
+  user-select: none;
+  transition: color 0.1s ease, background 0.1s ease;
+}
+.tab-strip__home:hover {
+  color: var(--accent-blue);
+  background: var(--surface-1);
+}
+.tab-strip__home-arrow { font-size: var(--fs-md); line-height: 1; }
+
 .tab-strip__brand {
   display: flex;
   align-items: center;
