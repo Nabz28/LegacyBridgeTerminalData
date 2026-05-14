@@ -18,12 +18,17 @@ supabase/
 # Catalog staging files only used by the correlation pipeline
 correlation/catalog/staging/
 
-# Documentation / READMEs that aren't served
-README.md
+# Documentation / READMEs that aren't served (anchored: only the repo-root one,
+# leave management/README.md alone).
+/README.md
 correlation/catalog/universe.json.bak
 correlation/catalog/universe.json.bak2
 
 # Quickstart helpers (Windows)
 Quickstart.bat
 Stop.bat
-package.json
+
+# Repo-root dev-tooling manifest only. management/package.json and
+# yggdrasil/package.json MUST reach the build server -- without the leading
+# slash this glob was matching them too, causing the build to fail.
+/package.json
