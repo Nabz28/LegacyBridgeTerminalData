@@ -97,14 +97,9 @@
       this.titleEl.textContent = `${idA} ↔ ${idB}`;
       this.hintEl.textContent = 'loading…';
       this.bodyEl.dataset.empty = 'false';
-      const url = new URL(`/api/pair/${encodeURIComponent(idA)}/${encodeURIComponent(idB)}`, location.origin);
-      url.searchParams.set('freq', freq);
-      if (opts && opts.start) url.searchParams.set('start_date', opts.start);
-      if (opts && opts.end)   url.searchParams.set('end_date',   opts.end);
       let data;
       try {
-        const r = await fetch(url);
-        data = await r.json();
+        data = await window.CorrAPI.getPair(idA, idB, freq, opts || {});
       } catch (err) {
         this.showError(err.message);
         return;
@@ -113,7 +108,8 @@
 
       const ps = data.pearson, sp = data.spearman;
       const pf = ps == null ? 'n/a' : ((ps >= 0 ? '+' : '') + ps.toFixed(3));
-      const sf = sp == null ? 'n/a' : ((sp >= 0 ? '+' : '') + sp.toFixed(3));
+      // Spearman is only computed by the Flask backend; cloud mode returns null.
+      const sf = sp == null ? '—' : ((sp >= 0 ? '+' : '') + sp.toFixed(3));
       this.titleEl.textContent = `${idA} ↔ ${idB}  ·  ${data.names.a} ↔ ${data.names.b}`;
       this.hintEl.textContent = '';
       this.metaEl.textContent = `ρ=${pf}  Spearman=${sf}  n=${data.n_obs}  ${data.date_range[0]} → ${data.date_range[1]}`;

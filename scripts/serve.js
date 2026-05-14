@@ -116,11 +116,11 @@ http.createServer(function (req, res) {
     if (pathname === '/macro' || pathname === '/macro/') {
       res.writeHead(302, { Location: '/macro/dashboard/' }); res.end(); return;
     }
-    // Correlation is Flask-only — its frontend uses absolute `/static/` and `/api/`
-    // paths that only resolve under the Flask backend on :5174. Don't try to serve
-    // it from Node; redirect users to Flask. The launcher button does the same.
-    if (pathname === '/correlation' || pathname === '/correlation/' || pathname.startsWith('/correlation/ui/')) {
-      res.writeHead(302, { Location: 'http://127.0.0.1:5174/' }); res.end(); return;
+    // Correlation now ships as a static Supabase-driven app; serve it from
+    // the filesystem. The Flask backend still exists for local-only compute
+    // (custom subset, PCA) but isn't required — the static UI works on its own.
+    if (pathname === '/correlation' || pathname === '/correlation/') {
+      res.writeHead(302, { Location: '/correlation/ui/static/' }); res.end(); return;
     }
     if (pathname.endsWith('/')) pathname += 'index.html';
 

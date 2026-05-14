@@ -15,12 +15,18 @@
 
     async load(ids, freq, method, start, end) {
       if (!ids || ids.length < 2) { this.clear(); return; }
-      const r = await fetch('/api/pca', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids, freq, method, start_date: start, end_date: end, top_k: 5 }),
-      });
-      const data = await r.json();
+      let data;
+      try {
+        data = await window.CorrAPI.getPCA({
+          ids, freq, method, start_date: start, end_date: end, top_k: 5,
+        });
+      } catch (e) {
+        // Cloud mode: server-side PCA isn't available. Show a soft notice
+        // rather than blanking the panel without explanation.
+        this.clear();
+        this.explainedEl.textContent = 'local-only';
+        return;
+      }
       if (data.error) { this.clear(); return; }
       this._render(data);
     }

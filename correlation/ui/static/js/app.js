@@ -124,8 +124,12 @@
     setLoading(true);
     const t0 = performance.now();
     try {
-      const r = await fetch(`/api/template/${key}`);
-      const data = await r.json();
+      let data;
+      try {
+        data = await window.CorrAPI.getTemplate(key);
+      } catch (e) {
+        setStatus(e.message); setLoading(false); return;
+      }
       if (data.error) { setStatus(data.error); setLoading(false); return; }
       S.set({ template: key, freq: data.freq, method: data.method });
       const display = (window.TEMPLATE_LIST.find(t => t.key === key) || {}).name || key;
@@ -154,12 +158,14 @@
       if (S.get().startDate) body.start_date = S.get().startDate;
       if (S.get().endDate)   body.end_date   = S.get().endDate;
       if (S.get().diffWindowDays) body.diff_window_days = S.get().diffWindowDays;
-      const r = await fetch('/api/compute_subset', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      const data = await r.json();
+      let data;
+      try {
+        data = await window.CorrAPI.computeSubset(body);
+      } catch (e) {
+        // Cloud mode rejects this — show the message and bail.
+        setStatus(e.message);
+        return;
+      }
       if (data.error) { setStatus(data.error); return; }
       S.set({ template: null });
       applyMatrix(data, `Custom · ${data.ids.length} series`);
@@ -334,7 +340,7 @@
   // -------- regimes -------------------------------------------------
   async function loadRegimes() {
     try {
-      const r = await fetch('/static/data/regimes.json');
+      const r = await fetch('data/regimes.json');
       const data = await r.json();
       pair.setRegimes(data.regimes, data.colors);
       S.set({ regimes: data.regimes });
@@ -343,8 +349,13 @@
 
   // -------- date range -----------------------------------------------
   async function loadDateRange() {
-    const r = await fetch(`/api/dates?freq=${S.get().freq}`);
-    const data = await r.json();
+    let data;
+    try {
+      data = await window.CorrAPI.getDates(S.get().freq);
+    } catch (e) {
+      console.warn('[corr] date range load failed', e.message);
+      return;
+    }
     S.set({ dateRange: { start: data.start, end: data.end } });
     slider.setRange(data.start, data.end);
   }
@@ -469,7 +480,7 @@
   // -------- bootstrap -----------------------------------------------
   async function boot() {
     setStatus('loading…');
-    const r = await fetch('/static/data/series_meta.json');
+    const r = await fetch('data/series_meta.json');
     const seriesArr = await r.json();
     const byId = {};
     const avail = new Set();
@@ -485,7 +496,7 @@
     const counts = {};
     for (const t of window.TEMPLATE_LIST) {
       try {
-        const cr = await fetch(`/static/data/matrices/${t.key}.json`);
+        const cr = await fetch(`data/matrices/${t.key}.json`);
         if (cr.ok) {
           const cd = await cr.json();
           counts[t.key] = `${cd.ids.length}`;

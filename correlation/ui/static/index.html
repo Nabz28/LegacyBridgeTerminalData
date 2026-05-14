@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/css/terminal.css">
+<link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
 
@@ -249,17 +249,22 @@
   </div>
 </div>
 
-<script src="/static/lib/chart.umd.min.js"></script>
-<script src="/static/js/storage.js"></script>
-<script src="/static/js/state.js"></script>
-<script src="/static/js/heatmap.js"></script>
-<script src="/static/js/pair_detail.js"></script>
-<script src="/static/js/universe.js"></script>
-<script src="/static/js/templates.js"></script>
-<script src="/static/js/search.js"></script>
-<script src="/static/js/time_slider.js"></script>
-<script src="/static/js/pca.js"></script>
-<script src="/static/js/keyboard.js"></script>
-<script src="/static/js/app.js"></script>
+<!-- Config fallthrough — config.vercel.js (public, committed) loads first;
+     config.js (gitignored, local override) wins if present. -->
+<script src="js/config.vercel.js" onerror="window.CORRTERM_CONFIG = window.CORRTERM_CONFIG || { dataSource: 'flask' };"></script>
+<script src="js/config.js" onerror=""></script>
+<script src="js/corr-api.js"></script>
+<script src="lib/chart.umd.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/state.js"></script>
+<script src="js/heatmap.js"></script>
+<script src="js/pair_detail.js"></script>
+<script src="js/universe.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/search.js"></script>
+<script src="js/time_slider.js"></script>
+<script src="js/pca.js"></script>
+<script src="js/keyboard.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

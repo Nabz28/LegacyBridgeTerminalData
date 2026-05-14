@@ -6,7 +6,8 @@
   "outputDirectory": ".",
   "redirects": [
     { "source": "/", "destination": "/launcher/", "permanent": false },
-    { "source": "/macro", "destination": "/macro/dashboard/", "permanent": false }
+    { "source": "/macro", "destination": "/macro/dashboard/", "permanent": false },
+    { "source": "/correlation", "destination": "/correlation/ui/static/", "permanent": false }
   ],
   "headers": [
     {

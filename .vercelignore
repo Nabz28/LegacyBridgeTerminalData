@@ -7,8 +7,10 @@ macro/scripts/
 correlation/scripts/
 scripts/
 
-# Correlation Flask backend (cannot be hosted on Vercel; bundle is wasted)
-correlation/ui/
+# Correlation Flask backend only — the static frontend (correlation/ui/static/)
+# now talks to Supabase directly and IS deployed.
+correlation/ui/backend/
+correlation/ui/README.md
 
 # Supabase migrations (one-time, applied via SQL Editor)
 supabase/
