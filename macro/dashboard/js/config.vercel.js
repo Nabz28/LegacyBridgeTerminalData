@@ -15,8 +15,10 @@ window.MACROTERM_CONFIG = {
   },
 
   supabase: {
-    url:     'https://pkthsteoflatyppwduqu.supabase.co',
-    anonKey: 'sb_publishable_t53sdIf9bpuOGurMHinfgA_fomWtRGq',
+    // Paid project — shared with Narin's website, but our schemas
+    // (macro.*, correlation.*) are isolated from public.*.
+    url:     'https://adnubucjlezrtusbicja.supabase.co',
+    anonKey: 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7',
     macroSchema:       'macro',
     correlationSchema: 'correlation'
   }
