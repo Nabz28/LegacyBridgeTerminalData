@@ -18,6 +18,7 @@ import {
 interface ProjectTabProps {
   projectId: string;
   user: User;
+  onDeleted?: (projectId: string) => void;
 }
 
 interface UserLite {
@@ -29,7 +30,7 @@ interface UserLite {
   role: string;
 }
 
-export function ProjectTab({ projectId, user }: ProjectTabProps) {
+export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
   const [project, setProject] = useState<Project | null>(null);
   const [deliverables, setDeliverables] = useState<DeliverableStatusView[]>([]);
   const [owners, setOwners] = useState<DeliverableOwner[]>([]);
@@ -213,6 +214,31 @@ export function ProjectTab({ projectId, user }: ProjectTabProps) {
                 <button className="btn ghost sm" disabled={busy} onClick={() => setShowMembers(true)}>
                   Members
                 </button>
+                <button
+                  className="btn ghost sm"
+                  disabled={busy}
+                  onClick={async () => {
+                    const next = window.prompt(
+                      `Rename ${project.id}\n\nCurrent name:\n${project.theme}\n\nNew name:`,
+                      project.theme,
+                    );
+                    if (next === null) return;
+                    const trimmed = next.trim();
+                    if (!trimmed || trimmed === project.theme) return;
+                    setBusy(true);
+                    try {
+                      await adminMutate({
+                        action: "project_set_theme",
+                        project_id: project.id,
+                        theme: trimmed,
+                      });
+                      refresh();
+                    } catch (e) { setErr((e as Error).message); }
+                    finally { setBusy(false); }
+                  }}
+                >
+                  Rename
+                </button>
               {project.status === "active" ? (
                 <button
                   className="btn ghost sm"
@@ -273,6 +299,35 @@ export function ProjectTab({ projectId, user }: ProjectTabProps) {
                   Archive
                 </button>
               )}
+              <button
+                className="btn ghost sm danger"
+                disabled={busy}
+                onClick={async () => {
+                  const typed = window.prompt(
+                    `DELETE ${project.id}\n\n` +
+                      `This is irreversible. All deliverables, comments, ` +
+                      `events, members, and the activity log for this ` +
+                      `project will be removed.\n\n` +
+                      `Type the project ID (${project.id}) to confirm:`,
+                  );
+                  if (typed === null) return;
+                  if (typed.trim() !== project.id) {
+                    setErr(`Delete cancelled: typed value didn't match ${project.id}.`);
+                    return;
+                  }
+                  setBusy(true);
+                  try {
+                    await adminMutate({
+                      action: "project_delete",
+                      project_id: project.id,
+                    });
+                    onDeleted?.(project.id);
+                  } catch (e) { setErr((e as Error).message); }
+                  finally { setBusy(false); }
+                }}
+              >
+                Delete
+              </button>
                 </>
               )}
             </div>

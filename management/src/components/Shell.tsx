@@ -203,6 +203,7 @@ export function Shell({ user, onLogout }: ShellProps) {
             key={activeKey}
             projectId={activeKey.slice("project:".length)}
             user={user}
+            onDeleted={closeProject}
           />
         )}
       </div>

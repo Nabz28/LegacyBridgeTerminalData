@@ -122,7 +122,7 @@ export function mutateDeliverable(input: MutationInput): Promise<Record<string, 
 export type AdminAction =
   | "team_create" | "team_update" | "team_archive" | "team_set_members"
   | "user_create" | "user_update" | "user_reset_password" | "user_toggle_active"
-  | "project_set_status" | "project_set_visibility" | "project_set_theme"
+  | "project_set_status" | "project_set_visibility" | "project_set_theme" | "project_delete"
   | "acl_set" | "acl_revoke"
   | "member_add" | "member_set_permission" | "member_remove";
 

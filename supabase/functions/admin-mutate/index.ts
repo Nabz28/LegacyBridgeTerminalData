@@ -3,7 +3,8 @@
 // Action dispatch:
 //   team_create / team_update / team_archive / team_set_members           (admin)
 //   user_create / user_update / user_reset_password / user_toggle_active  (admin)
-//   project_set_status / project_set_visibility / project_set_theme      (admin OR project.given_by)
+//   project_set_status / project_set_visibility / project_set_theme      (admin OR management OR project.given_by)
+//   project_delete                                                        (admin OR management OR project.given_by) -- cascades via FK
 //   acl_set / acl_revoke                                                  (admin OR project.given_by)
 //   member_add / member_set_permission / member_remove                    (admin OR management)
 //
@@ -21,6 +22,7 @@ type Action =
   | "team_create" | "team_update" | "team_archive" | "team_set_members"
   | "user_create" | "user_update" | "user_reset_password" | "user_toggle_active"
   | "project_set_status" | "project_set_visibility" | "project_set_theme"
+  | "project_delete"
   | "acl_set" | "acl_revoke"
   | "member_add" | "member_set_permission" | "member_remove";
 
@@ -102,6 +104,7 @@ async function dispatch(supabase: SupabaseClient, auth: AuthPayload, body: Body)
     case "project_set_status":     return await projectSetStatus(supabase, auth, body);
     case "project_set_visibility": return await projectSetVisibility(supabase, auth, body);
     case "project_set_theme":      return await projectSetTheme(supabase, auth, body);
+    case "project_delete":         return await projectDelete(supabase, auth, body);
 
     case "acl_set":    return await aclSet(supabase, auth, body);
     case "acl_revoke": return await aclRevoke(supabase, auth, body);
@@ -150,7 +153,10 @@ async function logActivity(
 async function requireProjectOwner(
   supabase: SupabaseClient, auth: AuthPayload, projectId: string,
 ): Promise<void> {
-  if (auth.user_role === "admin") return;
+  // Admin + management roles get full project-edit authority across the org
+  // (matches the Project Tab UI which only renders these controls for those
+  // two roles). project.given_by + ACL co-owners are also allowed.
+  if (auth.user_role === "admin" || auth.user_role === "management") return;
   const { data, error } = await supabase
     .from("projects").select("given_by").eq("id", projectId).maybeSingle();
   if (error) throw new HttpError(error.message, 500);
@@ -314,6 +320,31 @@ async function projectSetTheme(supabase: SupabaseClient, auth: AuthPayload, body
   if (error) throw new HttpError(error.message, 500);
   await logActivity(supabase, auth.sub, "project_set_theme",
     { theme: body.theme, description: body.description }, body.project_id);
+  return ok();
+}
+
+async function projectDelete(supabase: SupabaseClient, auth: AuthPayload, body: Body): Promise<Response> {
+  // Hard delete. All child rows (deliverables, deliverable_owners, comments,
+  // activity_log, project_access, project_approvers, project_members,
+  // project_events, project_event_attendees) cascade via the FK ON DELETE
+  // CASCADE chain in 0005_management_schema.sql. The audit trail for this
+  // project is destroyed; for soft delete use project_set_status='archived'.
+  if (!body.project_id) throw new HttpError("project_id required");
+  await requireProjectOwner(supabase, auth, body.project_id);
+
+  // Log BEFORE deleting -- the activity_log row would cascade away with the
+  // project. Write a final entry with project_id=null but a payload that
+  // records what was removed, for forensics.
+  const { data: snapshot } = await supabase.from("projects")
+    .select("id, theme, status, project_type, day_zero, given_by, team_id")
+    .eq("id", body.project_id)
+    .maybeSingle();
+
+  const { error } = await supabase.from("projects").delete().eq("id", body.project_id);
+  if (error) throw new HttpError(error.message, 500);
+
+  await logActivity(supabase, auth.sub, "project_delete",
+    { deleted_project: snapshot ?? { id: body.project_id } });
   return ok();
 }
 
