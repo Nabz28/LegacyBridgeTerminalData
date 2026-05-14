@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": true,
-  "buildCommand": "cd management && npm install && npm run build",
+  "buildCommand": "cd management && npm install && npm run build && cd ../yggdrasil && npm install && npm run build",
   "outputDirectory": ".",
   "redirects": [
     { "source": "/", "destination": "/launcher/", "permanent": false },
@@ -14,7 +14,10 @@
   "rewrites": [
     { "source": "/management", "destination": "/management/dist/index.html" },
     { "source": "/management/", "destination": "/management/dist/index.html" },
-    { "source": "/management/:path*", "destination": "/management/dist/:path*" }
+    { "source": "/management/:path*", "destination": "/management/dist/:path*" },
+    { "source": "/yggdrasil", "destination": "/yggdrasil/dist/index.html" },
+    { "source": "/yggdrasil/", "destination": "/yggdrasil/dist/index.html" },
+    { "source": "/yggdrasil/:path*", "destination": "/yggdrasil/dist/:path*" }
   ],
   "headers": [
     {
@@ -25,6 +28,12 @@
     },
     {
       "source": "/management/dist/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/yggdrasil/dist/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
