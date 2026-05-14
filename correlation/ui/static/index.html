@@ -95,6 +95,10 @@
         <span class="panel-title" id="matrix-title">US Macro Cross-Asset</span>
         <span class="meta-line mono" id="matrix-meta">…</span>
       </div>
+      <div class="dl-group" data-tip="Download heatmap">
+        <button id="dl-heatmap-csv" class="btn btn-ghost btn-sm dl-btn" title="Download matrix as CSV">⬇ CSV</button>
+        <button id="dl-heatmap-png" class="btn btn-ghost btn-sm dl-btn" title="Download heatmap as PNG">⬇ PNG</button>
+      </div>
       <div class="legend">
         <span class="legend-label">−1</span>
         <span class="legend-bar"></span>
@@ -151,6 +155,10 @@
         <div class="pca-row">
           <span class="muted small">Top-5 explained</span>
           <span class="mono pca-explained" id="pca-explained">—</span>
+          <span class="dl-group dl-group-inline" style="margin-left:auto">
+            <button id="dl-pca-csv" class="dl-btn-tiny" title="Download factor loadings as CSV">⬇ CSV</button>
+            <button id="dl-pca-png" class="dl-btn-tiny" title="Download PCA panel as PNG">⬇ PNG</button>
+          </span>
         </div>
         <div id="pca-eigenbar" class="pca-eigenbar"></div>
       </div>
@@ -195,11 +203,22 @@
   </div>
   <div class="pair-body" id="pair-body" data-empty="true">
     <div class="pair-chart">
-      <div class="chart-label muted small">Scatter (returns)</div>
+      <div class="chart-label muted small">
+        <span>Scatter (returns)</span>
+        <span class="dl-group dl-group-inline">
+          <button id="dl-pair-csv" class="dl-btn-tiny" title="Download pair data (scatter + rolling) as CSV">⬇ CSV</button>
+          <button id="dl-scatter-png" class="dl-btn-tiny" title="Download scatter as PNG">⬇ PNG</button>
+        </span>
+      </div>
       <canvas id="scatter-canvas"></canvas>
     </div>
     <div class="pair-chart">
-      <div class="chart-label muted small">Rolling 52w correlation · regimes overlaid</div>
+      <div class="chart-label muted small">
+        <span>Rolling 52w correlation · regimes overlaid</span>
+        <span class="dl-group dl-group-inline">
+          <button id="dl-rolling-png" class="dl-btn-tiny" title="Download rolling correlation as PNG">⬇ PNG</button>
+        </span>
+      </div>
       <canvas id="rolling-canvas"></canvas>
     </div>
   </div>
@@ -254,6 +273,7 @@
 <script src="js/config.vercel.js" onerror="window.CORRTERM_CONFIG = window.CORRTERM_CONFIG || { dataSource: 'flask' };"></script>
 <script src="js/config.js" onerror=""></script>
 <script src="js/corr-api.js"></script>
+<script src="js/exports.js"></script>
 <script src="lib/chart.umd.min.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/state.js"></script>

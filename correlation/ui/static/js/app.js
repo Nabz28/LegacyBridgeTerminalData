@@ -52,6 +52,15 @@
     tsEnd:       document.getElementById('ts-end'),
     tsLen:       document.getElementById('ts-len'),
     tsPresets:   document.querySelectorAll('.ts-presets button'),
+
+    // download buttons (per-chart)
+    dlHeatmapCsv:  document.getElementById('dl-heatmap-csv'),
+    dlHeatmapPng:  document.getElementById('dl-heatmap-png'),
+    dlPairCsv:     document.getElementById('dl-pair-csv'),
+    dlScatterPng:  document.getElementById('dl-scatter-png'),
+    dlRollingPng:  document.getElementById('dl-rolling-png'),
+    dlPcaCsv:      document.getElementById('dl-pca-csv'),
+    dlPcaPng:      document.getElementById('dl-pca-png'),
   };
 
   const heatmap = new Heatmap(els.heatmapCanvas, els.tooltipEl);
@@ -299,6 +308,59 @@
     renderSaved();
     setStatus('view saved');
   }
+
+  // -------- downloads (CSV + PNG per chart) ---------------------------
+  function wireDownloads() {
+    // Heatmap CSV
+    els.dlHeatmapCsv?.addEventListener('click', () => {
+      const m = S.get().matrix;
+      if (!m || !m.ids?.length) { setStatus('no matrix to export'); return; }
+      try {
+        CorrExport.exportHeatmapCSV(m);
+        setStatus(`exported heatmap CSV (${m.ids.length}×${m.ids.length})`);
+      } catch (e) { setStatus('export failed: ' + e.message); }
+    });
+    // Heatmap PNG
+    els.dlHeatmapPng?.addEventListener('click', async () => {
+      const m = S.get().matrix;
+      if (!m || !m.ids?.length) { setStatus('no matrix to export'); return; }
+      try {
+        await CorrExport.exportHeatmapPNG(m, els.heatmapCanvas);
+        setStatus('exported heatmap PNG');
+      } catch (e) { setStatus('export failed: ' + e.message); }
+    });
+    // PCA CSV
+    els.dlPcaCsv?.addEventListener('click', () => {
+      const m = S.get().matrix;
+      const pcaData = pca.getData();
+      if (!m || !pcaData || !pcaData.factors?.length) {
+        setStatus('PCA not yet computed — open the PCA tab first');
+        return;
+      }
+      try {
+        CorrExport.exportPCACSV(pcaData, m);
+        setStatus(`exported PCA CSV (${pcaData.factors.length} factors)`);
+      } catch (e) { setStatus('export failed: ' + e.message); }
+    });
+    // PCA PNG (snapshots the right-rail PCA pane)
+    els.dlPcaPng?.addEventListener('click', async () => {
+      const m = S.get().matrix;
+      if (!m) { setStatus('no PCA to export'); return; }
+      try {
+        await CorrExport.exportPCAPNG(els.pcaEigenbar, els.pcaFactors, m);
+        setStatus('exported PCA PNG');
+      } catch (e) { setStatus('PCA PNG failed: ' + e.message); }
+    });
+    // Pair buttons: the PairDetail instance owns the data + chart instances;
+    // it wires its own three buttons (CSV + scatter PNG + rolling PNG).
+    pair.wireDownloads({
+      csv: els.dlPairCsv,
+      scatterPng: els.dlScatterPng,
+      rollingPng: els.dlRollingPng,
+      onStatus: setStatus,
+    });
+  }
+
   function loadSaved(v) {
     S.set({
       freq: v.freq, method: v.method,
@@ -507,6 +569,7 @@
 
     renderRecent();
     renderSaved();
+    wireDownloads();
 
     const hash = readHash();
     if (hash && hash.template) {

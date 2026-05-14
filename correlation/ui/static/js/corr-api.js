@@ -164,6 +164,11 @@
         var rollingRows = out[1].data || [];
         var paired = out[2];
 
+        // Ordinary-least-squares fit y = slope*x + intercept on paired returns.
+        // Same shape as Flask's /api/pair regression field: 2-point line covering
+        // the observed x-range so the chart can draw it as a single segment.
+        var reg = _ols(paired);
+
         return {
           names: { a: names[idA] || idA, b: names[idB] || idB },
           pearson: pairStatRow.pearson != null ? pairStatRow.pearson : null,
@@ -174,6 +179,7 @@
             pairStatRow.last_obs  || (paired[paired.length - 1] && paired[paired.length - 1].date) || null,
           ],
           scatter: paired.map(function (p) { return { x: p.a, y: p.b }; }),
+          regression: reg ? { x: reg.x, y: reg.y, slope: reg.slope, intercept: reg.intercept } : null,
           rolling: {
             dates:  rollingRows.map(function (r) { return r.obs_date; }),
             values: rollingRows.map(function (r) { return r.corr_val; }),
@@ -312,6 +318,35 @@
       if (ok) { dates.push(d); values.push(row); }
     }
     return { dates: dates, values: values };
+  }
+
+  function _ols(paired) {
+    // Ordinary least-squares of y on x. Returns the two endpoints of the fit
+    // line at min/max x so the scatter chart can draw it as a single segment,
+    // plus slope + intercept for display. Null when degenerate.
+    if (!paired || paired.length < 2) return null;
+    var n = paired.length;
+    var sx = 0, sy = 0;
+    for (var i = 0; i < n; i++) { sx += paired[i].a; sy += paired[i].b; }
+    var mx = sx / n, my = sy / n;
+    var num = 0, den = 0;
+    var minX = Infinity, maxX = -Infinity;
+    for (var j = 0; j < n; j++) {
+      var dx = paired[j].a - mx;
+      num += dx * (paired[j].b - my);
+      den += dx * dx;
+      if (paired[j].a < minX) minX = paired[j].a;
+      if (paired[j].a > maxX) maxX = paired[j].a;
+    }
+    if (den < 1e-12) return null;
+    var slope = num / den;
+    var intercept = my - slope * mx;
+    return {
+      slope: slope,
+      intercept: intercept,
+      x: [minX, maxX],
+      y: [slope * minX + intercept, slope * maxX + intercept],
+    };
   }
 
   function _pearsonMatrix(rows) {

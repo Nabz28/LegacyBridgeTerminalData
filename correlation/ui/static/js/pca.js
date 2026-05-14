@@ -11,7 +11,12 @@
       this.eigenbarEl.innerHTML = '';
       this.factorsEl.innerHTML = '';
       this.explainedEl.textContent = '—';
+      this.lastData = null;
     }
+
+    // Latest PCA result rendered to the panel, or null. Used by the
+    // download-CSV handler in app.js so it doesn't need to recompute.
+    getData() { return this.lastData || null; }
 
     async load(ids, freq, method, start, end) {
       if (!ids || ids.length < 2) { this.clear(); return; }
@@ -29,6 +34,7 @@
         return;
       }
       if (data.error) { this.clear(); return; }
+      this.lastData = data;
       this._render(data);
     }
 

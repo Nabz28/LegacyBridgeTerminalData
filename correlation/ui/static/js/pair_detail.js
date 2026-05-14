@@ -86,6 +86,50 @@
     }
     setScope(scope) { this.scope = scope; }
 
+    // Wire the three pair-related download buttons. Called once by app.js
+    // after init. Each button is enabled only when load() has populated data.
+    wireDownloads({ csv, scatterPng, rollingPng, onStatus }) {
+      const say = onStatus || function () {};
+      const hasData = () => !!(this._data && this._idA && this._idB);
+
+      csv?.addEventListener('click', () => {
+        if (!hasData()) { say('click a heatmap cell first'); return; }
+        try {
+          CorrExport.exportPairCSV(this._data, this._idA, this._idB);
+          say('exported pair CSV');
+        } catch (e) { say('CSV export failed: ' + e.message); }
+      });
+
+      scatterPng?.addEventListener('click', async () => {
+        if (!hasData() || !this.scatter) { say('scatter not ready'); return; }
+        const title = `Scatter · ${this._idA} ↔ ${this._idB}`;
+        const subtitle = `${this._data.names.a} ↔ ${this._data.names.b}  ·  n=${this._data.n_obs}  ·  ${this._data.date_range[0]} → ${this._data.date_range[1]}`;
+        const fname = CorrExport.filename(
+          ['corr-pair-scatter', this._idA + '_x_' + this._idB,
+           this._data.date_range && this._data.date_range[0],
+           this._data.date_range && this._data.date_range[1]],
+          'png');
+        try {
+          await CorrExport.exportChartPNG(this.scatter, title, subtitle, fname);
+          say('exported scatter PNG');
+        } catch (e) { say('scatter PNG failed: ' + e.message); }
+      });
+
+      rollingPng?.addEventListener('click', async () => {
+        if (!hasData() || !this.rolling) { say('rolling chart not ready'); return; }
+        const window = this._data.rolling && this._data.rolling.window || '52w';
+        const title = `Rolling ${window} · ${this._idA} ↔ ${this._idB}`;
+        const subtitle = `${this._data.names.a} ↔ ${this._data.names.b}  ·  ${this._data.date_range[0]} → ${this._data.date_range[1]}`;
+        const fname = CorrExport.filename(
+          ['corr-pair-rolling', this._idA + '_x_' + this._idB, window],
+          'png');
+        try {
+          await CorrExport.exportChartPNG(this.rolling, title, subtitle, fname);
+          say('exported rolling PNG');
+        } catch (e) { say('rolling PNG failed: ' + e.message); }
+      });
+    }
+
     showError(msg) {
       this.titleEl.textContent = 'pair: ' + msg;
       this.titleEl.classList.add('muted');
@@ -93,6 +137,9 @@
     }
 
     async load(idA, idB, freq, opts) {
+      this._idA = idA;
+      this._idB = idB;
+      this._data = null;  // cleared until fetch returns
       this.titleEl.classList.remove('muted');
       this.titleEl.textContent = `${idA} ↔ ${idB}`;
       this.hintEl.textContent = 'loading…';
@@ -105,14 +152,19 @@
         return;
       }
       if (data.error) { this.showError(data.error); return; }
+      this._data = data;
 
       const ps = data.pearson, sp = data.spearman;
       const pf = ps == null ? 'n/a' : ((ps >= 0 ? '+' : '') + ps.toFixed(3));
       // Spearman is only computed by the Flask backend; cloud mode returns null.
       const sf = sp == null ? '—' : ((sp >= 0 ? '+' : '') + sp.toFixed(3));
+      // β = OLS slope of B on A. Tells the hedge ratio (per +1 unit move in A,
+      // B moves β units on average). Independent of ρ which captures strength.
+      const slope = data.regression && data.regression.slope;
+      const bf = slope == null ? '—' : ((slope >= 0 ? '+' : '') + slope.toFixed(2));
       this.titleEl.textContent = `${idA} ↔ ${idB}  ·  ${data.names.a} ↔ ${data.names.b}`;
       this.hintEl.textContent = '';
-      this.metaEl.textContent = `ρ=${pf}  Spearman=${sf}  n=${data.n_obs}  ${data.date_range[0]} → ${data.date_range[1]}`;
+      this.metaEl.textContent = `ρ=${pf}  β=${bf}  Spearman=${sf}  n=${data.n_obs}  ${data.date_range[0]} → ${data.date_range[1]}`;
 
       this._renderScatter(data, idA, idB);
       this._renderRolling(data);

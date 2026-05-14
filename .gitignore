@@ -25,9 +25,16 @@ desktop.ini
 # ─── Data store (external, never committed) ────────────────────────
 # Time-series databases and large correlation parquet files live in
 # `data-store/` outside the repo. See README "Data store".
-data/
+/data/
 data-store/
 correlation/data/
+# Note: correlation/ui/static/data/ is the precomputed template matrices +
+# series_meta + cluster_order — IS committed (needed by the Vercel deploy).
+# The /data/ pattern above is anchored to repo root only so it doesn't
+# match nested data/ subdirs.
+
+# macro/dashboard relies on the in-repo catalog at macro/catalog/ — leave alone
+# Don't add a blanket **/data/ rule.
 
 # Legacy SQLite at correlation root (pre-restructure)
 correlation/*.sqlite

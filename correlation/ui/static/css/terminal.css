@@ -730,12 +730,60 @@ aside, #heatmap-pane {
   min-width: 0;
 }
 .pair-chart .chart-label {
-  position: absolute; top: 4px; left: 8px;
+  position: absolute; top: 4px; left: 8px; right: 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
   font-size: 10px;
   z-index: 2;
+  /* keep download buttons clickable; pointer-events default on children */
   pointer-events: none;
 }
+.pair-chart .chart-label > span { pointer-events: auto; }
 .pair-chart canvas { width: 100% !important; height: 100% !important; }
+
+/* ============================================================
+   Download buttons (inline per-chart). Two flavors:
+   .dl-btn       — main heatmap header, full-size buttons
+   .dl-btn-tiny  — pair scatter / pair rolling / PCA, very compact
+   ============================================================ */
+.dl-group {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.dl-group-inline {
+  font-size: 10px;
+}
+.dl-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  height: 24px;
+  padding: 0 8px;
+}
+.dl-btn-tiny {
+  display: inline-flex; align-items: center; gap: 3px;
+  height: 18px;
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .04em;
+  color: var(--text-2);
+  background: transparent;
+  border: 1px solid var(--border-1);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .08s ease, color .08s ease, border-color .08s ease;
+}
+.dl-btn-tiny:hover {
+  background: var(--bg-2);
+  color: var(--text-1);
+  border-color: var(--border-2);
+}
+.dl-btn-tiny:disabled,
+.dl-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+.dl-btn-tiny:active,
+.dl-btn:active { transform: translateY(1px); }
 
 /* ============================================================
    modals (search, help)
