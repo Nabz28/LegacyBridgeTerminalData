@@ -6,6 +6,8 @@
 macro/scripts/
 correlation/scripts/
 scripts/
+# ...except the production build helper, which the buildCommand invokes.
+!scripts/vercel-build.sh
 
 # Correlation Flask backend only — the static frontend (correlation/ui/static/)
 # now talks to Supabase directly and IS deployed.
