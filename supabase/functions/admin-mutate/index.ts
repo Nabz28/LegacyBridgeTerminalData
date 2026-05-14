@@ -3,8 +3,9 @@
 // Action dispatch:
 //   team_create / team_update / team_archive / team_set_members           (admin)
 //   user_create / user_update / user_reset_password / user_toggle_active  (admin)
-//   project_set_status / project_set_visibility                           (admin OR project.given_by)
+//   project_set_status / project_set_visibility / project_set_theme      (admin OR project.given_by)
 //   acl_set / acl_revoke                                                  (admin OR project.given_by)
+//   member_add / member_set_permission / member_remove                    (admin OR management)
 //
 // Every mutation appends an activity_log row tagged with the action.
 
@@ -20,7 +21,8 @@ type Action =
   | "team_create" | "team_update" | "team_archive" | "team_set_members"
   | "user_create" | "user_update" | "user_reset_password" | "user_toggle_active"
   | "project_set_status" | "project_set_visibility" | "project_set_theme"
-  | "acl_set" | "acl_revoke";
+  | "acl_set" | "acl_revoke"
+  | "member_add" | "member_set_permission" | "member_remove";
 
 interface Body {
   action: Action;
@@ -46,9 +48,9 @@ interface Body {
   visibility?: "org" | "restricted";
   theme?: string;
   description?: string | null;
-  // acl_*
+  // acl_* + member_* (Phase 4 -- ACL permission set OR T1/T2 member tier)
   target_user_id?: string;
-  permission?: "viewer" | "commenter" | "editor" | "owner";
+  permission?: "viewer" | "commenter" | "editor" | "owner" | "t1" | "t2";
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -104,8 +106,22 @@ async function dispatch(supabase: SupabaseClient, auth: AuthPayload, body: Body)
     case "acl_set":    return await aclSet(supabase, auth, body);
     case "acl_revoke": return await aclRevoke(supabase, auth, body);
 
+    case "member_add":            return await memberAdd(supabase, auth, body);
+    case "member_set_permission": return await memberSetPermission(supabase, auth, body);
+    case "member_remove":         return await memberRemove(supabase, auth, body);
+
     default: return errorResponse("unknown action", 400);
   }
+}
+
+function managementOnly(auth: AuthPayload): void {
+  if (auth.user_role !== "admin" && auth.user_role !== "management") {
+    throw new HttpError("management only", 403);
+  }
+}
+
+function asTier(permission: unknown): "t1" | "t2" {
+  return permission === "t2" ? "t2" : "t1";
 }
 
 class HttpError extends Error {
@@ -333,6 +349,58 @@ async function aclRevoke(supabase: SupabaseClient, auth: AuthPayload, body: Body
     .eq("user_id", body.target_user_id);
   if (error) throw new HttpError(error.message, 500);
   await logActivity(supabase, auth.sub, "acl_revoke",
+    { target_user_id: body.target_user_id }, body.project_id);
+  return ok();
+}
+
+// ─── project_members (Phase 4: T1/T2 editor tiers) ──────────────────────
+
+async function memberAdd(supabase: SupabaseClient, auth: AuthPayload, body: Body): Promise<Response> {
+  managementOnly(auth);
+  if (!body.project_id || !body.target_user_id) {
+    throw new HttpError("project_id and target_user_id required");
+  }
+  const permission = asTier(body.permission);
+  const { error } = await supabase.from("project_members").upsert({
+    project_id: body.project_id,
+    user_id: body.target_user_id,
+    permission,
+    added_by: auth.sub,
+    added_at: new Date().toISOString(),
+  }, { onConflict: "project_id,user_id" });
+  if (error) throw new HttpError(error.message, 500);
+  await logActivity(supabase, auth.sub, "member_add",
+    { target_user_id: body.target_user_id, permission }, body.project_id);
+  return ok();
+}
+
+async function memberSetPermission(supabase: SupabaseClient, auth: AuthPayload, body: Body): Promise<Response> {
+  managementOnly(auth);
+  if (!body.project_id || !body.target_user_id) {
+    throw new HttpError("project_id and target_user_id required");
+  }
+  const permission = asTier(body.permission);
+  const { error } = await supabase.from("project_members")
+    .update({ permission })
+    .eq("project_id", body.project_id)
+    .eq("user_id", body.target_user_id);
+  if (error) throw new HttpError(error.message, 500);
+  await logActivity(supabase, auth.sub, "member_set_permission",
+    { target_user_id: body.target_user_id, permission }, body.project_id);
+  return ok();
+}
+
+async function memberRemove(supabase: SupabaseClient, auth: AuthPayload, body: Body): Promise<Response> {
+  managementOnly(auth);
+  if (!body.project_id || !body.target_user_id) {
+    throw new HttpError("project_id and target_user_id required");
+  }
+  const { error } = await supabase.from("project_members")
+    .delete()
+    .eq("project_id", body.project_id)
+    .eq("user_id", body.target_user_id);
+  if (error) throw new HttpError(error.message, 500);
+  await logActivity(supabase, auth.sub, "member_remove",
     { target_user_id: body.target_user_id }, body.project_id);
   return ok();
 }
