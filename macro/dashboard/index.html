@@ -53,6 +53,19 @@ body{
   color:var(--accent);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
   padding-right:16px;border-right:1px solid var(--border);
 }
+/* Home link — back to /launcher/ so users can swap between macro & correlation
+   without manually typing URLs. Sits left of the brand. */
+.home-link{
+  display:flex;align-items:center;gap:6px;
+  color:var(--text-dim);text-decoration:none;
+  padding:4px 9px;border:1px solid var(--border-strong);border-radius:3px;
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:1px;
+  transition:color .1s ease,border-color .1s ease,background .1s ease;
+}
+.home-link:hover{
+  color:var(--accent);border-color:var(--accent-dim);background:rgba(255,138,0,.06);
+}
+.home-link .home-arrow{font-size:14px;line-height:1;margin-top:-1px}
 .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
 .search-wrap{flex:1;position:relative;max-width:560px}
 .search{
@@ -449,6 +462,10 @@ body{
 <body>
 
 <div class="topbar">
+  <a href="/launcher/" class="home-link" title="Back to terminal selector" aria-label="Home">
+    <span class="home-arrow">←</span>
+    <span class="home-label">HOME</span>
+  </a>
   <div class="brand"><span class="dot"></span> Refinitiv Macro</div>
   <div class="search-wrap">
     <input id="globalSearch" class="search" type="text" placeholder="Type a RIC code or keyword (e.g. CPI, NFP, GDP)..." autocomplete="off" spellcheck="false">
