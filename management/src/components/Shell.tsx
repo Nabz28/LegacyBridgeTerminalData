@@ -176,6 +176,8 @@ export function Shell({ user, onLogout }: ShellProps) {
             setFilter={setFilter}
             teams={teams}
             analysts={onlyAnalysts}
+            allUsers={analysts}
+            currentUser={user}
             onOpenProject={openProject}
           />
         )}

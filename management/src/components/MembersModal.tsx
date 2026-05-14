@@ -60,18 +60,40 @@ export function MembersModal({ project, currentUser, onClose, onChanged }: Membe
     });
 
   const memberIds = new Set(memberRows.map((m) => m.user_id));
-  // Analysts + management (e.g. SPD, division heads). Admin is excluded -- they
-  // already have implicit full access. Advisors keep their read+comment role.
-  const grantable = users
-    .filter((u) =>
-      (u.role === "analyst" || u.role === "management") &&
-      u.id !== project.given_by &&
-      !memberIds.has(u.id),
-    )
-    .sort((a, b) => {
+  // Analysts + management (e.g. SPD, division heads, C-suite, VDs). Admin
+  // is excluded -- they already have implicit full access. Advisors keep
+  // their read+comment role.
+  const grantable = users.filter((u) =>
+    (u.role === "analyst" || u.role === "management") &&
+    u.id !== project.given_by &&
+    !memberIds.has(u.id),
+  );
+
+  // Group the picker by division so the user can scan "ERD / MRD / IRD /
+  // Exec / SPD / AMD / M&D" instead of one flat 40-row list. Management
+  // (directors, VDs, SPD, C-suite) sort first within each group so the
+  // senior pick is at the top.
+  const DIVISION_ORDER = ["Exec", "ERD", "MRD", "IRD", "AMD", "SPD", "MND", "Quant", "Advisor"];
+  const DIVISION_LABEL: Record<string, string> = {
+    Exec: "Exec / C-suite", ERD: "ERD", MRD: "MRD", IRD: "IRD",
+    AMD: "AMD", SPD: "SPD", MND: "M&D", Quant: "Quant", Advisor: "Advisor",
+  };
+  const grouped = new Map<string, UserLite[]>();
+  for (const u of grantable) {
+    const k = u.division ?? "—";
+    if (!grouped.has(k)) grouped.set(k, []);
+    grouped.get(k)!.push(u);
+  }
+  const orderedDivisions = [
+    ...DIVISION_ORDER.filter((d) => grouped.has(d)),
+    ...Array.from(grouped.keys()).filter((d) => !DIVISION_ORDER.includes(d)),
+  ];
+  for (const div of orderedDivisions) {
+    grouped.get(div)!.sort((a, b) => {
       if (a.role !== b.role) return a.role === "management" ? -1 : 1;
-      return (a.division ?? "").localeCompare(b.division ?? "");
+      return a.full_name.localeCompare(b.full_name);
     });
+  }
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -141,13 +163,21 @@ export function MembersModal({ project, currentUser, onClose, onChanged }: Membe
             <div className="share-section-title">Add member</div>
             <div className="field-row" style={{ gridTemplateColumns: "2fr 1fr auto", alignItems: "end" }}>
               <div className="field" style={{ margin: 0 }}>
-                <label>Analyst</label>
+                <label>Person (grouped by division)</label>
                 <select value={addUserId} onChange={(e) => setAddUserId(e.target.value)}>
                   <option value="">Select…</option>
-                  {grantable.map((u) => (
-                    <option key={u.id} value={u.id}>
-                      {u.full_name}{u.division ? ` · ${u.division}` : ""}
-                    </option>
+                  {orderedDivisions.map((div) => (
+                    <optgroup key={div} label={DIVISION_LABEL[div] ?? div}>
+                      {grouped.get(div)!.map((u) => {
+                        const roleTag = u.role === "management" ? " ★" : "";
+                        const titleTag = u.title ? ` — ${u.title}` : "";
+                        return (
+                          <option key={u.id} value={u.id}>
+                            {u.full_name}{roleTag}{titleTag}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
                   ))}
                 </select>
               </div>
