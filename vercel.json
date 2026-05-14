@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": true,
-  "buildCommand": "cd management && npm install && npm run build && rm -rf src node_modules index.html vite.config.ts tsconfig*.json && cp -r dist/. . && rm -rf dist && cd ../yggdrasil && npm install && npm run build && rm -rf src node_modules index.html vite.config.ts tsconfig*.json public && cp -r dist/. . && rm -rf dist",
+  "buildCommand": "bash scripts/vercel-build.sh",
   "outputDirectory": ".",
   "redirects": [
     { "source": "/", "destination": "/launcher/", "permanent": false },
