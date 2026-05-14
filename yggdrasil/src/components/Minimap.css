@@ -1,0 +1,58 @@
+.minimap {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(5, 10, 20, 0.95);
+  border: 1px solid var(--border-1);
+  padding: 4px 4px 0;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.minimap__label {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.minimap__svg {
+  display: block;
+  cursor: pointer;
+}
+
+.minimap__edge {
+  stroke: var(--border-2);
+  stroke-width: 0.6;
+  opacity: 0.25;
+}
+
+/* Sprint-15: edges between visible-to-visible nodes light up to show
+ * the analyst's current "you are here" path through the full tree. */
+.minimap__edge--visible {
+  stroke: var(--accent-blue);
+  opacity: 0.85;
+  stroke-width: 0.9;
+}
+
+.minimap__node {
+  opacity: 0.9;
+}
+.minimap__node--macro    { fill: var(--zone-macro); }
+.minimap__node--industry { fill: var(--zone-industry); }
+.minimap__node--equity   { fill: var(--zone-equity); }
+
+/* Accordion-hidden nodes render muted so the visible path stands out. */
+.minimap__node--hidden { opacity: 0.28; }
+.minimap__node--visible { opacity: 1; }
+
+.minimap__frame {
+  fill: rgba(59, 130, 246, 0.12);
+  stroke: var(--accent-blue);
+  stroke-width: 1;
+  pointer-events: none;
+}

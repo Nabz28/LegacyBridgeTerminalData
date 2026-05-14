@@ -1,0 +1,193 @@
+.node-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-1);
+  /* Zone-colored left rail — wider than before so it reads at a glance.
+   * Default falls back to type-thesis; zone-specific overrides below. */
+  border-left: 5px solid var(--type-thesis);
+  text-align: left;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  transition: border-color 90ms ease-out, background 90ms ease-out;
+  overflow: hidden;
+}
+
+/* Zone-colored left rail (overrides the type-color rail for the dominant
+ * visual signal — analyst should clock zone first, type second). */
+.node-card--zone-macro    { border-left-color: var(--zone-macro); }
+.node-card--zone-industry { border-left-color: var(--zone-industry); }
+.node-card--zone-equity   { border-left-color: var(--zone-equity); }
+
+.node-card:hover {
+  background: var(--surface-2);
+  border-color: var(--border-2);
+}
+
+.node-card--selected {
+  border-color: var(--accent-blue);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.node-card--ancestor {
+  border-color: var(--accent-blue-dim);
+}
+
+/* type-specific left-rail accent */
+.node-card--type-thesis        { border-left-color: var(--type-thesis); }
+.node-card--type-sub_thesis    { border-left-color: var(--type-sub_thesis); }
+.node-card--type-question      { border-left-color: var(--type-question); }
+.node-card--type-hypothesis    { border-left-color: var(--type-hypothesis); }
+.node-card--type-scenario      { border-left-color: var(--type-scenario); }
+.node-card--type-assumption    { border-left-color: var(--type-assumption); }
+.node-card--type-evidence_need { border-left-color: var(--type-evidence_need); }
+.node-card--type-metric        { border-left-color: var(--type-metric); }
+.node-card--type-catalyst      { border-left-color: var(--type-catalyst); }
+
+/* ----- Header --------------------------------------------------- */
+
+.node-card__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  letter-spacing: 0.1em;
+}
+
+.node-card__type {
+  padding: 1px 5px;
+  background: var(--surface-3);
+  color: var(--text-primary);
+  border: 1px solid var(--border-1);
+}
+.node-card__type--thesis        { color: var(--type-thesis); }
+.node-card__type--sub_thesis    { color: var(--type-sub_thesis); }
+.node-card__type--question      { color: var(--type-question); }
+.node-card__type--hypothesis    { color: var(--type-hypothesis); }
+.node-card__type--scenario      { color: var(--type-scenario); }
+.node-card__type--assumption    { color: var(--type-assumption); }
+.node-card__type--evidence_need { color: var(--type-evidence_need); }
+.node-card__type--metric        { color: var(--type-metric); }
+.node-card__type--catalyst      { color: var(--type-catalyst); }
+
+.node-card__zone {
+  padding: 1px 6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border: 1px solid currentColor;
+}
+.node-card__zone--macro    {
+  color: var(--zone-macro);
+  background: var(--zone-macro-dim);
+}
+.node-card__zone--industry {
+  color: var(--zone-industry);
+  background: var(--zone-industry-dim);
+}
+.node-card__zone--equity   {
+  color: var(--zone-equity);
+  background: var(--zone-equity-dim);
+}
+
+.node-card__conf {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+/* ----- Title ---------------------------------------------------- */
+
+.node-card__title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* ----- Key question ------------------------------------------- */
+
+.node-card__kq {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-style: italic;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node-card__kq-label {
+  font-style: normal;
+  font-family: var(--font-mono);
+  color: var(--accent-blue-bright);
+  margin-right: 2px;
+}
+
+/* ----- Chips --------------------------------------------------- */
+
+.node-card__chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.node-card__chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 1px 5px;
+  background: var(--surface-0);
+  border: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  white-space: nowrap;
+  overflow: hidden;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.node-card__chip-label {
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.node-card__chip-value {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.node-card__chip-arrow {
+  margin: 0 3px;
+  color: var(--text-muted);
+}
+
+.node-card__chip--up   { border-color: var(--signal-up); }
+.node-card__chip--up   .node-card__chip-arrow { color: var(--signal-up); }
+.node-card__chip--down { border-color: var(--signal-down); }
+.node-card__chip--down .node-card__chip-arrow { color: var(--signal-down); }
+.node-card__chip--flat { border-color: var(--signal-flat); }
+
+/* ----- Inversion footer --------------------------------------- */
+
+.node-card__inv {
+  margin-top: auto;
+  padding-top: 4px;
+  border-top: 1px dashed var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  color: var(--signal-down);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,222 @@
+.home-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  padding: 28px 36px 60px;
+  overflow: auto;
+  background: var(--surface-0);
+}
+
+.home-tab__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+.home-tab__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxl);
+  letter-spacing: 0.18em;
+  color: var(--accent-blue);
+}
+
+.home-tab__title-dim {
+  color: var(--text-secondary);
+}
+
+.home-tab__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.home-tab__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.home-tab__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed var(--border-1);
+}
+
+.home-tab__section-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  color: var(--accent-blue);
+}
+
+.home-tab__section-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ----- Table ----------------------------------------------------- */
+
+.home-tab__table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-1);
+  background: var(--surface-1);
+}
+
+.home-tab__row {
+  display: grid;
+  grid-template-columns: 240px 1fr 80px 80px 100px;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+}
+
+.home-tab__row:last-child {
+  border-bottom: none;
+}
+
+.home-tab__row--head {
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.home-tab__row--clickable {
+  cursor: pointer;
+  transition: background 90ms ease-out;
+}
+
+.home-tab__row--clickable:hover {
+  background: var(--surface-3);
+}
+
+.home-tab__row--empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px;
+}
+
+.home-tab__cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 12px;
+}
+
+.home-tab__cell--name {
+  color: var(--accent-blue-bright);
+}
+
+.home-tab__cell--topic {
+  color: var(--text-primary);
+}
+
+.home-tab__cell--num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-tab__cell--ver {
+  color: var(--text-secondary);
+}
+
+.home-tab__error-inline {
+  color: var(--signal-down);
+}
+
+/* ----- "Coming" cards ------------------------------------------- */
+
+.home-tab__section--coming .home-tab__section-label {
+  color: var(--text-muted);
+}
+
+.home-tab__coming {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.home-tab__coming-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-1);
+  position: relative;
+  opacity: 0.7;
+}
+
+.home-tab__coming-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.home-tab__coming-body {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.home-tab__coming-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 6px;
+  background: var(--surface-3);
+  border: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ----- Error state ---------------------------------------------- */
+
+.home-tab--error {
+  display: grid;
+  place-items: center;
+}
+
+.home-tab__error-card {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--surface-1);
+  border: 1px solid var(--signal-down);
+  font-family: var(--font-mono);
+}
+
+.home-tab__error-title {
+  font-size: var(--fs-md);
+  letter-spacing: 0.16em;
+  color: var(--signal-down);
+}
+
+.home-tab__error-body {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+.home-tab__error-hint code {
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border: 1px solid var(--border-1);
+  color: var(--accent-blue-bright);
+}

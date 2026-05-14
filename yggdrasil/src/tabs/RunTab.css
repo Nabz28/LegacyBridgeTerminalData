@@ -1,0 +1,183 @@
+.run-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--surface-0);
+  overflow: hidden;
+}
+
+.run-tab__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border-1);
+}
+
+.run-tab__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.run-tab__topic {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.run-tab__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.run-tab__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.run-tab__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  user-select: none;
+  cursor: pointer;
+}
+
+.run-tab__toggle input {
+  width: auto;
+  height: auto;
+  margin: 0;
+  accent-color: var(--accent-blue);
+}
+
+.run-tab__toggle input:disabled + * {
+  opacity: 0.4;
+}
+
+.run-tab__btn {
+  padding: 4px 8px;
+  background: var(--surface-0);
+  border: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.run-tab__btn:hover {
+  background: var(--surface-2);
+  color: var(--accent-blue-bright);
+  border-color: var(--border-2);
+}
+
+.run-tab__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Preset buttons (Expand all / Show macro|industry|equity) — subtle
+ * accent so the analyst can distinguish them from one-shot actions
+ * like Collapse All / Reset / Tasks. */
+.run-tab__btn--preset {
+  color: var(--accent-blue);
+  border-color: var(--border-2);
+}
+
+.run-tab__btn--preset:hover {
+  color: var(--accent-blue-bright);
+  background: var(--accent-blue-dim);
+}
+
+.run-tab__detail-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  color: var(--accent-blue-bright);
+  background: var(--surface-2);
+  border: 1px solid var(--border-1);
+}
+
+.run-tab__body {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  flex: 1;
+  min-height: 0;
+}
+
+.run-tab__canvas {
+  position: relative;
+  background: var(--surface-0);
+  overflow: hidden;
+  border-right: 1px solid var(--border-1);
+  min-width: 0;
+  min-height: 0;
+}
+
+.run-tab__detail {
+  background: var(--surface-1);
+  overflow-y: auto;
+}
+
+.run-tab__detail-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 32px;
+  text-align: center;
+}
+
+.run-tab__detail-hint {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.run-tab--loading,
+.run-tab--error {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.run-tab__error {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--surface-1);
+  border: 1px solid var(--signal-down);
+  max-width: 520px;
+}
+
+.run-tab__error-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-md);
+  letter-spacing: 0.16em;
+  color: var(--signal-down);
+}
+
+.run-tab__error-body {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  word-break: break-word;
+}

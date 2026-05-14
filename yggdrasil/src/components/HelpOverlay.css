@@ -1,0 +1,68 @@
+.help-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: var(--z-command-palette);
+  backdrop-filter: blur(2px);
+}
+
+.help-overlay__card {
+  width: 520px;
+  max-width: calc(100% - 32px);
+  background: var(--surface-1);
+  border: 1px solid var(--accent-blue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.help-overlay__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+.help-overlay__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.16em;
+  color: var(--accent-blue);
+}
+
+.help-overlay__close {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border-1);
+}
+
+.help-overlay__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 8px 0;
+}
+
+.help-overlay__row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+}
+
+.help-overlay__row:hover {
+  background: var(--surface-2);
+}
+
+.help-overlay__keys {
+  color: var(--accent-blue-bright);
+}
+
+.help-overlay__action {
+  color: var(--text-secondary);
+}

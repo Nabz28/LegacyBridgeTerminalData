@@ -1,0 +1,36 @@
+.command-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--command-bar-h);
+  padding: 0 12px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border-1);
+}
+
+.command-bar__prompt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-md);
+  color: var(--accent-blue);
+}
+
+.command-bar__input {
+  flex: 1;
+  height: 22px;
+  padding: 0 8px;
+  background: var(--surface-0);
+  border: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.command-bar__input::placeholder {
+  color: var(--text-disabled);
+}
+
+.command-bar__hint {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+}

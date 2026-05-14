@@ -1,32 +1,25 @@
 {
-  "name": "yggdrasil-viz",
-  "private": true,
+  "name": "yggdrasil-terminal",
   "version": "0.1.0",
-  "type": "module",
-  "description": "Local web viewer for Yggdrasil research-decomposition trees.",
+  "private": true,
+  "description": "Bloomberg-style terminal for Yggdrasil research trees.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "d3-array": "^3.2.4",
-    "d3-hierarchy": "^3.1.2",
-    "d3-scale": "^4.0.2",
-    "d3-shape": "^3.2.0",
+    "@dagrejs/dagre": "^1.1.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@types/d3-array": "^3.2.1",
-    "@types/d3-hierarchy": "^3.1.7",
-    "@types/d3-scale": "^4.0.8",
-    "@types/d3-shape": "^3.1.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.3.3",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.10"
   }
 }

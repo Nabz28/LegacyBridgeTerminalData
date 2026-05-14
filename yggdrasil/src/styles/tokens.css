@@ -1,0 +1,89 @@
+/*
+ * Yggdrasil Terminal — design tokens.
+ *
+ * Bloomberg-aesthetic with a dark-blue accent (rather than orange).
+ * Hard edges everywhere — no rounded corners — so the UI reads as
+ * "instrument" rather than "consumer dashboard". 1px borders for
+ * panel separation. Density first.
+ */
+
+:root {
+  /* ----- Surfaces -------------------------------------------------- */
+  --surface-0: #000000;          /* page bg, gutters */
+  --surface-1: #050a14;          /* primary panel bg */
+  --surface-2: #0a1220;          /* elevated panel */
+  --surface-3: #111a2c;          /* hover / selected row */
+
+  /* ----- Borders --------------------------------------------------- */
+  --border-1: #1a2336;           /* default 1px panel divider */
+  --border-2: #2a3654;           /* emphasized border */
+  --border-accent: #3b82f6;      /* selected, focused */
+
+  /* ----- Text ------------------------------------------------------ */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-disabled: #475569;
+
+  /* ----- Accent palette ------------------------------------------- */
+  --accent-blue: #3b82f6;
+  --accent-blue-dim: #1d3a73;
+  --accent-blue-bright: #60a5fa;
+
+  /* ----- Zone colors ----------------------------------------------
+   * Strongly differentiated so the analyst can clock the zone at a
+   * glance: blue = macro (top-down / outside view), amber = industry
+   * (mid-level mechanics), emerald = equity (single-name / action). */
+  --zone-macro: #60a5fa;             /* blue */
+  --zone-macro-dim: #1e3a8a;
+  --zone-industry: #fbbf24;          /* amber */
+  --zone-industry-dim: #78350f;
+  --zone-equity: #4ade80;            /* emerald */
+  --zone-equity-dim: #064e3b;
+
+  /* ----- Signal --------------------------------------------------- */
+  --signal-up: #10b981;          /* support / upside */
+  --signal-down: #ef4444;        /* refute / kill / inversion */
+  --signal-flat: #94a3b8;
+
+  /* ----- Score heatmap (red → mid → green) ------------------------ */
+  --score-low: #7f1d1d;
+  --score-mid: #1e3a8a;
+  --score-high: #10b981;
+
+  /* ----- Type badges (per node type) ------------------------------ */
+  --type-thesis: #3b82f6;
+  --type-sub_thesis: #60a5fa;
+  --type-question: #a78bfa;
+  --type-hypothesis: #22d3ee;
+  --type-scenario: #f59e0b;
+  --type-assumption: #fbbf24;
+  --type-evidence_need: #94a3b8;
+  --type-metric: #10b981;
+  --type-catalyst: #ef4444;
+
+  /* ----- Typography ----------------------------------------------- */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo,
+               Consolas, monospace;
+
+  --fs-xxs: 10px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 14px;
+  --fs-xl: 16px;
+  --fs-xxl: 20px;
+
+  /* ----- Layout --------------------------------------------------- */
+  --tab-strip-h: 36px;
+  --command-bar-h: 32px;
+  --status-bar-h: 22px;
+
+  /* ----- Z-axis --------------------------------------------------- */
+  --z-base: 1;
+  --z-tab-strip: 10;
+  --z-status: 10;
+  --z-command-palette: 50;
+  --z-toast: 100;
+}

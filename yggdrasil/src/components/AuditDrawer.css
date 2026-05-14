@@ -1,0 +1,81 @@
+.audit-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audit-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border-1);
+  padding-bottom: 2px;
+}
+
+.audit-drawer__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.audit-drawer__counts {
+  display: flex;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+}
+
+.audit-drawer__count--included { color: var(--signal-up); }
+.audit-drawer__count--merged   { color: var(--accent-blue-bright); }
+.audit-drawer__count--excluded { color: var(--signal-down); }
+
+.audit-drawer__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+}
+
+.audit-drawer__table th,
+.audit-drawer__table td {
+  padding: 3px 6px;
+  border-bottom: 1px solid var(--border-1);
+  text-align: left;
+  vertical-align: top;
+}
+
+.audit-drawer__table th {
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: var(--surface-2);
+}
+
+.audit-drawer__row--included { border-left: 2px solid var(--signal-up); }
+.audit-drawer__row--merged   { border-left: 2px solid var(--accent-blue-bright); }
+.audit-drawer__row--excluded { border-left: 2px solid var(--signal-down); }
+
+.audit-drawer__row--included td:first-child { padding-left: 6px; }
+.audit-drawer__row--merged   td:first-child { padding-left: 6px; }
+.audit-drawer__row--excluded td:first-child { padding-left: 6px; }
+
+.audit-drawer__dim {
+  color: var(--text-primary);
+}
+
+.audit-drawer__verdict {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.audit-drawer__row--included .audit-drawer__verdict { color: var(--signal-up); }
+.audit-drawer__row--merged   .audit-drawer__verdict { color: var(--accent-blue-bright); }
+.audit-drawer__row--excluded .audit-drawer__verdict { color: var(--signal-down); }
+
+.audit-drawer__reason {
+  color: var(--text-secondary);
+  word-break: break-word;
+  max-width: 240px;
+}

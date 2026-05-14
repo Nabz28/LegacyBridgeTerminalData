@@ -1,0 +1,115 @@
+.search-overlay {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  max-width: calc(100% - 32px);
+  z-index: var(--z-command-palette);
+}
+
+.search-overlay__shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--surface-1);
+  border: 1px solid var(--accent-blue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.search-overlay__field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+.search-overlay__prompt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  color: var(--accent-blue);
+}
+
+.search-overlay__input {
+  flex: 1;
+  height: 24px;
+  padding: 0 4px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+}
+
+.search-overlay__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  min-width: 20px;
+  text-align: right;
+}
+
+.search-overlay__results {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.search-overlay__result {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.search-overlay__result:hover {
+  background: var(--surface-3);
+}
+
+.search-overlay__type {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.search-overlay__type--thesis        { color: var(--type-thesis); }
+.search-overlay__type--sub_thesis    { color: var(--type-sub_thesis); }
+.search-overlay__type--question      { color: var(--type-question); }
+.search-overlay__type--hypothesis    { color: var(--type-hypothesis); }
+.search-overlay__type--scenario      { color: var(--type-scenario); }
+.search-overlay__type--assumption    { color: var(--type-assumption); }
+.search-overlay__type--evidence_need { color: var(--type-evidence_need); }
+.search-overlay__type--metric        { color: var(--type-metric); }
+.search-overlay__type--catalyst      { color: var(--type-catalyst); }
+
+.search-overlay__zone {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.search-overlay__zone--macro    { color: var(--zone-macro); }
+.search-overlay__zone--industry { color: var(--zone-industry); }
+.search-overlay__zone--equity   { color: var(--zone-equity); }
+
+.search-overlay__title {
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-overlay__hint {
+  padding: 6px 12px;
+  border-top: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xxs);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}

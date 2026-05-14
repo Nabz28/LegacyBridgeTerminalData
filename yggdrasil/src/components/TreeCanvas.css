@@ -1,0 +1,207 @@
+.tree-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(ellipse at top, rgba(59, 130, 246, 0.05), transparent 60%),
+    var(--surface-0);
+  touch-action: none;
+  /* Grid background — gives the panning UI feedback so empty space
+   * doesn't feel infinite. The grid is in screen space so it stays
+   * static while the tree moves; intentional, like Figma. */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(ellipse at top, rgba(59, 130, 246, 0.05), transparent 60%);
+  background-size: 24px 24px, 24px 24px, auto;
+}
+
+.tree-canvas__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.tree-canvas__cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.tree-canvas__card-slot {
+  position: absolute;
+  pointer-events: auto;
+  /* Sprint-15: a fade transition softens accordion expand/collapse
+   * shuffles. 180ms feels alive without dragging. */
+  transition: opacity 180ms ease-out;
+  cursor: pointer;
+}
+
+.tree-canvas__card-slot:active {
+  cursor: grabbing;
+}
+
+.tree-canvas__card-slot--dimmed {
+  opacity: 0.18;
+}
+
+/* Sprint-15: off-path slots are siblings of any node in the currently
+ * expanded chain. They stay visible (still clickable to pivot the
+ * accordion onto a different branch) but visually recede so the
+ * focused drill chain stands out. Saturation drop plus opacity fade
+ * is more effective than opacity alone on the dark theme. */
+.tree-canvas__card-slot--off-path {
+  opacity: 0.32;
+  filter: grayscale(0.7);
+  transition: opacity 220ms ease-out, filter 220ms ease-out;
+}
+
+.tree-canvas__card-slot--off-path:hover {
+  opacity: 0.85;
+  filter: grayscale(0.2);
+}
+
+.tree-canvas__card-slot--selected {
+  z-index: 3;
+}
+
+.tree-canvas__card-slot--ancestor {
+  z-index: 2;
+}
+
+.tree-canvas__card-slot--descendant {
+  z-index: 2;
+}
+
+/* ----- Spine edges ---------------------------------------------- */
+
+.edge {
+  stroke: var(--border-2);
+  stroke-width: 1.25;
+  opacity: 0.85;
+  vector-effect: non-scaling-stroke;
+}
+
+.edge--dimmed {
+  opacity: 0.16;
+}
+
+/* ----- Cross-links --------------------------------------------- */
+
+.xlink__line {
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  opacity: 0.65;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.xlink__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.xlink--supports .xlink__line,
+.xlink--transmits_to .xlink__line {
+  stroke: var(--signal-up);
+}
+.xlink--supports .xlink__label,
+.xlink--transmits_to .xlink__label {
+  fill: var(--signal-up);
+}
+
+.xlink--refutes .xlink__line,
+.xlink--alternative_to .xlink__line {
+  stroke: var(--signal-down);
+}
+.xlink--refutes .xlink__label,
+.xlink--alternative_to .xlink__label {
+  fill: var(--signal-down);
+}
+
+.xlink--depends_on .xlink__line,
+.xlink--requires_evidence_from .xlink__line,
+.xlink--triggers .xlink__line {
+  stroke: var(--accent-blue-bright);
+}
+.xlink--depends_on .xlink__label,
+.xlink--requires_evidence_from .xlink__label,
+.xlink--triggers .xlink__label {
+  fill: var(--accent-blue-bright);
+}
+
+/* Stub cross-links — dashed-line edges that terminate at the nearest
+ * visible ancestor of a hidden target. Soften the line so the badge
+ * is the focus, not the line. */
+.xlink--stub .xlink__line {
+  opacity: 0.45;
+  stroke-dasharray: 3 5;
+}
+
+/* ----- Cross-link stub badges ---------------------------------- */
+
+/* The clickable chip rendered at the tip of a stub cross-link.
+ * Sits inside the SVG <g> with pointer-events enabled, drawn at the
+ * edge's tip just outside the ancestor card. Click drills into the
+ * hidden target. */
+.xlink-stub {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.xlink-stub__bg {
+  fill: var(--surface-2);
+  stroke: var(--border-1);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: fill 120ms ease-out;
+}
+
+.xlink-stub:hover .xlink-stub__bg {
+  fill: var(--surface-3);
+}
+
+.xlink-stub__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  fill: var(--text-secondary);
+  pointer-events: none;
+}
+
+/* Edge-type tinting on the badge for visual continuity with the line. */
+.xlink-stub--supports .xlink-stub__bg,
+.xlink-stub--transmits_to .xlink-stub__bg {
+  stroke: var(--signal-up);
+}
+.xlink-stub--supports .xlink-stub__label,
+.xlink-stub--transmits_to .xlink-stub__label {
+  fill: var(--signal-up);
+}
+
+.xlink-stub--refutes .xlink-stub__bg,
+.xlink-stub--alternative_to .xlink-stub__bg {
+  stroke: var(--signal-down);
+}
+.xlink-stub--refutes .xlink-stub__label,
+.xlink-stub--alternative_to .xlink-stub__label {
+  fill: var(--signal-down);
+}
+
+.xlink-stub--depends_on .xlink-stub__bg,
+.xlink-stub--requires_evidence_from .xlink-stub__bg,
+.xlink-stub--triggers .xlink-stub__bg {
+  stroke: var(--accent-blue-bright);
+}
+.xlink-stub--depends_on .xlink-stub__label,
+.xlink-stub--requires_evidence_from .xlink-stub__label,
+.xlink-stub--triggers .xlink-stub__label {
+  fill: var(--accent-blue-bright);
+}

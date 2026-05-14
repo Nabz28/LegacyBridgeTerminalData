@@ -1,0 +1,44 @@
+.status-bar {
+  display: flex;
+  align-items: center;
+  height: var(--status-bar-h);
+  padding: 0 12px;
+  background: var(--surface-0);
+  border-top: 1px solid var(--border-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  z-index: var(--z-status);
+  user-select: none;
+}
+
+.status-bar__cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-right: 1px solid var(--border-1);
+  white-space: nowrap;
+}
+
+.status-bar__cell:first-of-type {
+  padding-left: 0;
+}
+
+.status-bar__cell:last-of-type {
+  border-right: none;
+  padding-right: 0;
+}
+
+.status-bar__label {
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.status-bar__value {
+  color: var(--text-primary);
+}
+
+.status-bar__spacer {
+  flex: 1;
+}
