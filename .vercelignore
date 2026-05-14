@@ -1,0 +1,27 @@
+# Exclude everything that's not needed at runtime on the static deploy.
+# The Vercel build serves:
+#   launcher/, macro/dashboard/, macro/catalog/, vercel.json
+
+# Server-side ETL & maintenance (Python — Vercel doesn't run them)
+macro/scripts/
+correlation/scripts/
+scripts/
+
+# Correlation Flask backend (cannot be hosted on Vercel; bundle is wasted)
+correlation/ui/
+
+# Supabase migrations (one-time, applied via SQL Editor)
+supabase/
+
+# Catalog staging files only used by the correlation pipeline
+correlation/catalog/staging/
+
+# Documentation / READMEs that aren't served
+README.md
+correlation/catalog/universe.json.bak
+correlation/catalog/universe.json.bak2
+
+# Quickstart helpers (Windows)
+Quickstart.bat
+Stop.bat
+package.json
