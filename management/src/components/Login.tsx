@@ -32,6 +32,24 @@ export function Login({ onAuth }: LoginProps) {
   return (
     <div className="login-wrap">
       <form className="login-card" onSubmit={onSubmit}>
+        <a
+          href="/launcher/"
+          title="Back to terminal selector"
+          aria-label="Back to terminal selector"
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            alignSelf: "flex-start",
+            padding: "6px 12px", marginBottom: 16,
+            color: "var(--text-dim)", textDecoration: "none",
+            border: "1px solid var(--border-strong)",
+            borderRadius: 3,
+            fontFamily: "var(--mono)", fontSize: 11, fontWeight: 600,
+            letterSpacing: 1.5,
+          }}
+        >
+          <span style={{ fontSize: 13, lineHeight: 1 }}>←</span>
+          <span>HOME</span>
+        </a>
         <div className="login-brand">
           <span className="dot" /> LBC Management Terminal
         </div>
