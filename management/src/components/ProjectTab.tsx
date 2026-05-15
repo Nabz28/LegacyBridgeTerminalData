@@ -7,6 +7,7 @@ import { EventsList } from "./EventsList";
 import { CalendarView } from "./CalendarView";
 import { CreateTaskModal } from "./CreateTaskModal";
 import { NotesPane } from "./NotesPane";
+import { MeetingsPanel } from "./MeetingsPanel";
 import type {
   ActivityLogRow, Comment, DeliverableOwner, DeliverableStatusView,
   Project, ProjectEvent, ProjectEventAttendee, ProjectMember, User,
@@ -668,6 +669,17 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
                 }
                 onChanged={refresh}
               />
+
+              {/* Meeting-availability polls (When2Meet-style) */}
+              <div style={{ marginTop: 18 }}>
+                <h3 style={{ marginBottom: 8 }}>Find a meeting time</h3>
+                <MeetingsPanel
+                  projectId={projectId}
+                  currentUser={user}
+                  users={users}
+                  projectMembers={members}
+                />
+              </div>
 
               <div style={{ marginTop: 18 }}>
                 <h3>Activity</h3>

@@ -140,7 +140,9 @@ export type AdminAction =
   | "user_create" | "user_update" | "user_reset_password" | "user_toggle_active"
   | "project_set_status" | "project_set_visibility" | "project_set_theme" | "project_delete"
   | "acl_set" | "acl_revoke"
-  | "member_add" | "member_set_permission" | "member_remove";
+  | "member_add" | "member_set_permission" | "member_remove"
+  | "meeting_create" | "meeting_update" | "meeting_set_state"
+  | "meeting_delete" | "meeting_set_availability";
 
 export interface AdminMutateInput {
   action: AdminAction;
@@ -168,6 +170,20 @@ export interface AdminMutateInput {
   // acl (legacy) + member (Phase 4)
   target_user_id?: string;
   permission?: "viewer" | "commenter" | "editor" | "owner" | "t1" | "t2";
+  // meeting polls (Phase 6)
+  poll_id?: string;
+  poll_title?: string;
+  poll_description?: string | null;
+  poll_date_from?: string;
+  poll_date_to?: string;
+  poll_slot_minutes?: 15 | 30 | 60 | 120;
+  poll_day_start_hour?: number;
+  poll_day_end_hour?: number;
+  poll_time_zone?: string;
+  poll_state?: "open" | "closed";
+  available_slots?: string[];
+  maybe_slots?: string[];
+  response_note?: string | null;
 }
 
 export function adminMutate(input: AdminMutateInput): Promise<Record<string, unknown>> {

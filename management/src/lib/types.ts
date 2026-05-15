@@ -176,6 +176,35 @@ export interface ProjectEventAttendee {
   user_id: string;
 }
 
+// ─── Meeting polls (0017) ─────────────────────────────────────────────
+
+export interface MeetingPoll {
+  id: string;
+  project_id: string;
+  title: string;
+  description: string | null;
+  date_from: string;          // YYYY-MM-DD
+  date_to: string;            // YYYY-MM-DD
+  slot_minutes: 15 | 30 | 60 | 120;
+  day_start_hour: number;     // 0..23
+  day_end_hour: number;       // 1..24
+  time_zone: string;
+  state: "open" | "closed";
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MeetingResponse {
+  poll_id: string;
+  user_id: string;
+  available_slots: string[];  // ISO timestamps (start of slot)
+  maybe_slots: string[];
+  note: string | null;
+  submitted_at: string;
+  updated_at: string;
+}
+
 // ─── Notes (0015) ─────────────────────────────────────────────────────
 
 export type NoteColor = "yellow" | "pink" | "blue" | "green" | "red" | "gray";
