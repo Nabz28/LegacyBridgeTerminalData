@@ -242,7 +242,12 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-si
 .ms-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--navy-600);color:#0a0e1a;border-radius:99px;font-size:11px;font-weight:700}
 .ms-chip-x{cursor:pointer;font-size:13px;line-height:1;opacity:.7}
 .ms-chip-x:hover{opacity:1}
-.ms-panel{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:50;max-height:280px;display:flex;flex-direction:column}
+.ms-panel{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:50;max-height:240px;min-width:240px;display:flex;flex-direction:column}
+/* Hidden state: explicitly remove from the layout so a stale open class
+   never leaves a panel visible. The `[hidden]` attribute already does
+   display:none in the UA stylesheet but we add !important to defeat any
+   later flex/grid rules that might override it. */
+.ms-panel[hidden]{display:none !important}
 .ms-panel-actions{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-bottom:1px solid var(--border);font-size:11px}
 .ms-link{background:transparent;border:none;color:var(--navy-400);font:inherit;font-size:11px;cursor:pointer;padding:2px 4px;font-weight:600}
 .ms-link:hover{color:var(--navy-200);text-decoration:underline}
@@ -550,8 +555,8 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-si
         <label for="fTalentStage">Talent Stage</label>
         <select id="fTalentStage"></select>
       </div>
-      <div class="field row">
-        <div style="flex:1;">
+      <div class="field row" style="display:flex;gap:8px;align-items:flex-start;">
+        <div style="flex:1;min-width:0;">
           <label>Industry <span class="hint">— pick one or more</span></label>
           <div class="ms-picker" id="fCategoryMs" data-target="category">
             <button type="button" class="ms-trigger" id="fCategoryTrigger">
@@ -572,7 +577,7 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-si
             <button class="btn btn-ghost btn-sm" id="newCategoryCancel">×</button>
           </div>
         </div>
-        <div style="flex:1;">
+        <div style="flex:1;min-width:0;">
           <label>Sub-industry <span class="hint">— pick one or more</span></label>
           <div class="ms-picker" id="fSectorMs" data-target="sector">
             <button type="button" class="ms-trigger" id="fSectorTrigger">
