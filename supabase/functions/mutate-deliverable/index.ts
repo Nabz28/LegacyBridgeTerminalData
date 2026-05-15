@@ -50,7 +50,8 @@ type Action =
   | "set_blocker" | "unblock"
   // metadata
   | "set_file" | "set_title" | "set_description"
-  | "set_due_date" | "set_division" | "set_responsible_divisions"
+  | "set_start_date" | "set_due_date" | "set_dates"
+  | "set_division" | "set_responsible_divisions"
   | "set_owners"
   // tasks
   | "create_task" | "delete_task"
@@ -76,6 +77,7 @@ type Body = {
   title?: string;
   description?: string | null;
   due_date?: string;          // YYYY-MM-DD
+  start_date?: string | null; // YYYY-MM-DD, nullable
   division?: "ERD" | "MRD" | "IRD" | "MND" | "CROSS" | "NONE";
   responsible_divisions?: string[];
   owner_user_ids?: string[];
@@ -140,6 +142,8 @@ serve(async (req: Request): Promise<Response> => {
       case "set_title":        return await handleSetTitle(supabase, ctx, auth, payload);
       case "set_description":  return await handleSetDescription(supabase, ctx, auth, payload);
       case "set_due_date":     return await handleSetDueDate(supabase, ctx, auth, payload);
+      case "set_start_date":   return await handleSetStartDate(supabase, ctx, auth, payload);
+      case "set_dates":        return await handleSetDates(supabase, ctx, auth, payload);
       case "set_division":     return await handleSetDivision(supabase, ctx, auth, payload);
       case "set_responsible_divisions":
                                 return await handleSetResponsibleDivisions(supabase, ctx, auth, payload);
@@ -168,6 +172,8 @@ type Ctx = {
     revision_count: number;
     blocked: boolean;
     title: string | null;
+    start_date: string | null;
+    due_date: string;
   };
   owners: string[];
   approvers: string[];
@@ -178,7 +184,7 @@ type Ctx = {
 async function loadContext(supabase: SupabaseClient, dlvId: string): Promise<Ctx | null> {
   const { data: d } = await supabase
     .from("deliverables")
-    .select("id, project_id, kind, division, state, revision_count, blocked, title")
+    .select("id, project_id, kind, division, state, revision_count, blocked, title, start_date, due_date")
     .eq("id", dlvId)
     .maybeSingle();
   if (!d) return null;
@@ -482,13 +488,68 @@ async function handleSetDueDate(supabase: SupabaseClient, ctx: Ctx, auth: AuthPa
   if (!(await canEditDeliverable(supabase, ctx, auth))) return errorResponse("not permitted", 403);
   const due_date = String(body.due_date ?? "").trim();
   if (!/^\d{4}-\d{2}-\d{2}$/.test(due_date)) return errorResponse("due_date must be YYYY-MM-DD", 400);
+
+  // If a start_date is already set and the new due is before it, slide
+  // start back so the CHECK constraint doesn't reject the update.
+  const update: Record<string, unknown> = { due_date };
+  if (ctx.deliverable.start_date && ctx.deliverable.start_date > due_date) {
+    update.start_date = due_date;
+  }
+
   const { error } = await supabase
     .from("deliverables")
-    .update({ due_date })
+    .update(update)
     .eq("id", ctx.deliverable.id);
   if (error) throw error;
   await logActivity(supabase, ctx.deliverable.project_id, ctx.deliverable.id, auth.sub, "set_due_date",
-    { due_date });
+    update);
+  return jsonResponse({ ok: true });
+}
+
+async function handleSetStartDate(supabase: SupabaseClient, ctx: Ctx, auth: AuthPayload, body: Body) {
+  if (!(await canEditDeliverable(supabase, ctx, auth))) return errorResponse("not permitted", 403);
+  const raw = body.start_date;
+  let start_date: string | null = null;
+  if (raw != null && raw !== "") {
+    const s = String(raw).trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return errorResponse("start_date must be YYYY-MM-DD or null", 400);
+    if (s > ctx.deliverable.due_date) {
+      return errorResponse("start_date cannot be after due_date", 400);
+    }
+    start_date = s;
+  }
+  const { error } = await supabase
+    .from("deliverables")
+    .update({ start_date })
+    .eq("id", ctx.deliverable.id);
+  if (error) throw error;
+  await logActivity(supabase, ctx.deliverable.project_id, ctx.deliverable.id, auth.sub, "set_start_date",
+    { start_date });
+  return jsonResponse({ ok: true });
+}
+
+async function handleSetDates(supabase: SupabaseClient, ctx: Ctx, auth: AuthPayload, body: Body) {
+  // Atomic update of both endpoints. Useful when the UI moves a Gantt
+  // bar end-to-end and the new start/due wouldn't pass the per-field
+  // CHECK if applied sequentially.
+  if (!(await canEditDeliverable(supabase, ctx, auth))) return errorResponse("not permitted", 403);
+  const due = String(body.due_date ?? "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) return errorResponse("due_date required (YYYY-MM-DD)", 400);
+  let start: string | null = null;
+  if (body.start_date != null && body.start_date !== "") {
+    const s = String(body.start_date).trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return errorResponse("start_date must be YYYY-MM-DD or null", 400);
+    start = s;
+  }
+  if (start && start > due) return errorResponse("start_date must be <= due_date", 400);
+
+  const { error } = await supabase
+    .from("deliverables")
+    .update({ start_date: start, due_date: due })
+    .eq("id", ctx.deliverable.id);
+  if (error) throw error;
+  await logActivity(supabase, ctx.deliverable.project_id, ctx.deliverable.id, auth.sub, "set_dates",
+    { start_date: start, due_date: due });
   return jsonResponse({ ok: true });
 }
 
@@ -599,6 +660,16 @@ async function handleCreateTask(supabase: SupabaseClient, auth: AuthPayload, bod
     respDivs.length === 1 ? respDivs[0] :
     "NONE";
 
+  // Optional start_date (range tasks). When omitted the row stays as a
+  // single-point milestone; the DB CHECK guards against inversion.
+  let start_date: string | null = null;
+  if (body.start_date != null && body.start_date !== "") {
+    const s = String(body.start_date).trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return errorResponse("start_date must be YYYY-MM-DD or null", 400);
+    if (s > due_date) return errorResponse("start_date cannot be after due_date", 400);
+    start_date = s;
+  }
+
   const insertRow = {
     project_id,
     kind: "CUSTOM",
@@ -607,6 +678,7 @@ async function handleCreateTask(supabase: SupabaseClient, auth: AuthPayload, bod
     description: body.description ?? null,
     division: primaryDivision,
     responsible_divisions: respDivs,
+    start_date,
     due_date,
     state: "not_started",
   };

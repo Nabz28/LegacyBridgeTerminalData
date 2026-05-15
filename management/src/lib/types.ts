@@ -81,6 +81,7 @@ export interface Deliverable {
   // Phase 5: multi-division responsibility. Defaults to [division] for legacy
   // rows; for IM = ['ERD','MRD','IRD']; for custom tasks user picks via checkbox.
   responsible_divisions: string[];
+  start_date?: string | null;
   due_date: string;
   state: DeliverableState;
   file_url: string | null;

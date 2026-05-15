@@ -21,6 +21,7 @@ const DIVISIONS: Array<{ value: string; label: string }> = [
 
 export function CreateTaskModal({ projectId, projectDayZero, onClose, onCreated }: CreateTaskModalProps) {
   const [title, setTitle] = useState("");
+  const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState(today());
   const [divisions, setDivisions] = useState<Set<string>>(new Set());
   const [ownerIds, setOwnerIds] = useState<Set<string>>(new Set());
@@ -57,10 +58,14 @@ export function CreateTaskModal({ projectId, projectDayZero, onClose, onCreated 
     try {
       if (!title.trim()) throw new Error("title required");
       if (divisions.size === 0) throw new Error("pick at least one responsible division");
+      if (startDate && startDate > dueDate) {
+        throw new Error("start date must be on or before the due date");
+      }
       await mutateDeliverable({
         action: "create_task",
         project_id: projectId,
         title: title.trim(),
+        start_date: startDate || null,
         due_date: dueDate,
         responsible_divisions: Array.from(divisions),
         owner_user_ids: Array.from(ownerIds),
@@ -103,14 +108,27 @@ export function CreateTaskModal({ projectId, projectDayZero, onClose, onCreated 
           />
         </div>
 
-        <div className="field">
-          <label>Due date</label>
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            min={projectDayZero}
-          />
+        <div className="field row" style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <label>Start date <span className="hint" style={{ fontWeight: 500, fontSize: 11 }}>— optional</span></label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              min={projectDayZero}
+              max={dueDate || undefined}
+              placeholder="Leave empty for a milestone"
+            />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <label>Due date</label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              min={startDate || projectDayZero}
+            />
+          </div>
         </div>
 
         <div className="field">

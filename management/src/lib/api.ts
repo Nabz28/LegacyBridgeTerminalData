@@ -95,7 +95,8 @@ export type MutationAction =
   | "set_blocker" | "unblock"
   // Metadata
   | "set_file" | "set_title" | "set_description"
-  | "set_due_date" | "set_division" | "set_responsible_divisions"
+  | "set_due_date" | "set_start_date" | "set_dates"
+  | "set_division" | "set_responsible_divisions"
   | "set_owners"
   // Tasks
   | "create_task" | "delete_task"
@@ -114,6 +115,7 @@ export interface MutationInput {
   blocker_note?: string;
   blocked_by_deliverable_id?: string | null;
   due_date?: string;          // YYYY-MM-DD
+  start_date?: string | null; // YYYY-MM-DD, nullable
   title?: string;
   description?: string | null;
   division?: "ERD" | "MRD" | "IRD" | "MND" | "CROSS" | "NONE";

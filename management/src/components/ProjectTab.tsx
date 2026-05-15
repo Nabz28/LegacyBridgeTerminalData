@@ -442,12 +442,29 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
         </div>
 
         {deliverables.map((d) => {
-          const offset = daysBetween(dayZero, d.due_date);
-          // Center the bar inside its day-cell (cell N spans N/22 .. (N+1)/22).
+          const dueOffset = daysBetween(dayZero, d.due_date);
           const cellWidth = 100 / horizonDays;
-          const cellCenter = (offset + 0.5) * cellWidth;
-          const widthPct = Math.min(cellWidth * 2.4, 12);
-          const startPct = Math.max(0, Math.min(100 - widthPct, cellCenter - widthPct / 2));
+
+          // If start_date is set, render a range bar that spans from start
+          // to due (inclusive). Otherwise fall back to the milestone look:
+          // a centred ~2.4-cell-wide block sitting on the due date.
+          const hasRange = !!d.start_date && d.start_date !== d.due_date;
+          let startPct: number;
+          let widthPct: number;
+          if (hasRange) {
+            const startOffset = Math.max(0, daysBetween(dayZero, d.start_date!));
+            const endOffset = Math.max(startOffset, dueOffset);
+            startPct = startOffset * cellWidth;
+            // +1 cell so the bar ends at the END of the due day, not the start.
+            widthPct = Math.max(cellWidth, (endOffset + 1 - startOffset) * cellWidth);
+            // Clamp so we never extend past the horizon.
+            if (startPct + widthPct > 100) widthPct = Math.max(cellWidth, 100 - startPct);
+          } else {
+            const cellCenter = (dueOffset + 0.5) * cellWidth;
+            widthPct = Math.min(cellWidth * 2.4, 12);
+            startPct = Math.max(0, Math.min(100 - widthPct, cellCenter - widthPct / 2));
+          }
+
           const isSelected = selectedId === d.id;
           return (
             <div className="gantt-row" key={d.id}>
@@ -464,13 +481,20 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
                     d.blocked ? "blocked" : d.health,
                     `div-${d.division}`,
                     isSelected && "selected",
+                    hasRange && "range",
                   )}
                   style={{ left: `${startPct}%`, width: `${widthPct}%` }}
-                  title={`${KIND_LABELS[d.kind] ?? d.kind} · due ${fmtDate(d.due_date)} · ${d.blocked ? "blocked" : d.health}`}
+                  title={
+                    hasRange
+                      ? `${KIND_LABELS[d.kind] ?? d.kind} · ${fmtDate(d.start_date!)} → ${fmtDate(d.due_date)} · ${d.blocked ? "blocked" : d.health}`
+                      : `${KIND_LABELS[d.kind] ?? d.kind} · due ${fmtDate(d.due_date)} · ${d.blocked ? "blocked" : d.health}`
+                  }
                   onClick={() => setSelectedId(d.id)}
                 >
-                  <span className="gantt-bar-day">D{offset}</span>
-                  <span className="gantt-bar-date">{fmtDate(d.due_date)}</span>
+                  <span className="gantt-bar-day">{hasRange ? `D${daysBetween(dayZero, d.start_date!)}–D${dueOffset}` : `D${dueOffset}`}</span>
+                  <span className="gantt-bar-date">
+                    {hasRange ? `${fmtDate(d.start_date!)} → ${fmtDate(d.due_date)}` : fmtDate(d.due_date)}
+                  </span>
                 </button>
                 <div className="gantt-today" style={{ left: `${((todayOffset + 0.5) / horizonDays) * 100}%` }} title={`Today · D${todayOffset}`} />
               </div>
@@ -606,6 +630,9 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
               onSetDueDate={(due_date) =>
                 runMutation({ action: "set_due_date", deliverable_id: selected.id, due_date })
               }
+              onSetStartDate={(start_date) =>
+                runMutation({ action: "set_start_date", deliverable_id: selected.id, start_date })
+              }
               onSetOwners={(owner_user_ids) =>
                 runMutation({ action: "set_owners", deliverable_id: selected.id, owner_user_ids })
               }
@@ -716,6 +743,7 @@ interface DetailProps {
   onSetTitle: (title: string) => void;
   onSetDescription: (description: string | null) => void;
   onSetDueDate: (due_date: string) => void;
+  onSetStartDate: (start_date: string | null) => void;
   onSetOwners: (owner_user_ids: string[]) => void;
   onDelete: () => void;
   projectMembers: ProjectMember[];
@@ -803,14 +831,42 @@ function DeliverableDetail(props: DetailProps) {
         {d.title || (KIND_LABELS[d.kind] ?? d.kind)}
       </div>
 
-      <div style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 10 }}>
-        Due {fmtDateLong(d.due_date)}
+      <div style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 10, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+        <span>
+          {d.start_date ? <>From {fmtDateLong(d.start_date)} → </> : null}
+          Due {fmtDateLong(d.due_date)}
+        </span>
         {canEditMeta && (
-          <>
-            {" · "}
+          <span style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+            <span className="dim mono" style={{ fontSize: 9 }}>FROM</span>
+            <input
+              type="date"
+              value={d.start_date ?? ""}
+              max={d.due_date}
+              disabled={busy}
+              onChange={(e) => props.onSetStartDate(e.target.value || null)}
+              style={{
+                background: "var(--bg-elev)", color: "var(--text)",
+                border: "1px solid var(--border)", borderRadius: 2,
+                fontSize: 11, padding: "1px 4px",
+              }}
+              title="Optional start date. Leave empty to keep the deliverable as a single-day milestone."
+            />
+            {d.start_date && (
+              <button
+                type="button"
+                className="btn ghost sm"
+                disabled={busy}
+                style={{ padding: "1px 6px", fontSize: 10 }}
+                onClick={() => props.onSetStartDate(null)}
+                title="Clear start date (back to milestone)"
+              >×</button>
+            )}
+            <span className="dim mono" style={{ fontSize: 9, marginLeft: 4 }}>TO</span>
             <input
               type="date"
               value={d.due_date}
+              min={d.start_date ?? undefined}
               disabled={busy}
               onChange={(e) => {
                 if (e.target.value && e.target.value !== d.due_date) {
@@ -823,9 +879,9 @@ function DeliverableDetail(props: DetailProps) {
                 fontSize: 11, padding: "1px 4px",
               }}
             />
-          </>
+          </span>
         )}
-        {" · revisions ×"}{d.revision_count}
+        <span>· revisions ×{d.revision_count}</span>
       </div>
 
       {/* Description (richer field; great for CUSTOM tasks) */}
