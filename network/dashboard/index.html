@@ -1,0 +1,3445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legacy Network System — Legacy Bridge Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Config layers (last one to assign window.LBC_NETWORK_CONFIG wins):
+       1. js/config.vercel.js   (public defaults, committed — used by the deployed build)
+       2. js/config.js          (gitignored local override — present only in dev)
+     Both load synchronously. config.js 404s harmlessly on Vercel (gitignored), in
+     which case the vercel.js values stand. Locally, config.js overrides everything. -->
+<script src="js/config.vercel.js" onerror="window.LBC_NETWORK_CONFIG = window.LBC_NETWORK_CONFIG || { supabase: { url: '', anonKey: '' } };"></script>
+<script src="js/config.js" onerror=""></script>
+<style>
+:root {
+  /* Dark Bloomberg-style palette — LBC navy ramp inverted so:
+       navy-50  = darkest subtle surface tint
+       navy-900 = brightest white-blue (for high-contrast text/icons)
+     Buttons / fills use the bright end of the ramp; subtle bgs use the dark end. */
+  --navy-900:#e8efff; --navy-800:#c4d2eb; --navy-700:#a3b6d9; --navy-600:#7a9cc6;
+  --navy-500:#5b7ba0; --navy-400:#3e5c76; --navy-300:#2a3e63; --navy-200:#1d2d4d;
+  --navy-100:#152038; --navy-50:#0e1729;
+  --bg:#070b16; --surface:#0e1729; --surface-2:#152038;
+  --border:#1f2a44; --border-strong:#2d3a5a;
+  --text:#e8efff; --text-muted:#94a3b8; --text-faint:#5e6a85;
+  --accent-amber:#b8860b;
+  --danger:#f87171; --danger-bg:rgba(248,113,113,.12);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 4px 14px rgba(0,0,0,.5);
+  --shadow-lg:0 14px 36px rgba(0,0,0,.65);
+  --shadow-xl:0 28px 64px rgba(0,0,0,.75);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px;
+  --font-sans:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Playfair Display',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-size:14px;line-height:1.5;overflow:hidden}
+
+.topbar{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:var(--surface);border-bottom:1px solid var(--border);position:relative;z-index:10}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-mark{width:38px;height:38px;border-radius:50%;background:var(--navy-100);display:flex;align-items:center;justify-content:center;border:1px solid var(--navy-300)}
+.brand-mark svg{width:22px;height:22px}
+.brand-text h1{font-family:var(--font-serif);font-weight:500;font-size:17px;margin:0;color:var(--text);letter-spacing:.2px}
+.brand-text p{margin:0;font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--text-muted);font-weight:700}
+.sync-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;letter-spacing:1.3px;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--navy-100);color:var(--text-muted);cursor:pointer;transition:background .15s;vertical-align:middle;text-transform:uppercase}
+.sync-pill:hover{background:var(--navy-200)}
+.sync-pill .dot{width:6px;height:6px;border-radius:50%;background:#64748b;flex-shrink:0}
+.sync-pill.live{background:rgba(74,222,128,.16);color:#4ade80}
+.sync-pill.live .dot{background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.2)}
+.sync-pill.connecting{background:rgba(251,191,36,.18);color:#fbbf24}
+.sync-pill.connecting .dot{background:#fbbf24}
+.sync-pill.error{background:rgba(248,113,113,.14);color:#f87171}
+.sync-pill.error .dot{background:#f87171}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+
+.view-toggle{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:3px}
+.view-toggle button{border:none;background:transparent;padding:7px 16px;font-family:var(--font-sans);font-size:12.5px;font-weight:700;color:var(--text-muted);border-radius:7px;cursor:pointer;transition:all .2s;letter-spacing:.2px}
+.view-toggle button.active{background:var(--navy-600);color:#0a0e1a;box-shadow:var(--shadow-sm)}
+.view-toggle button:not(.active):hover{color:var(--navy-900)}
+
+/* Section switcher — Network / Clients / Talents */
+.section-switcher{display:inline-flex;gap:0;border:1px solid var(--navy-200);border-radius:var(--radius-md);padding:3px;background:var(--surface-2);margin:0 14px 0 4px}
+.section-switcher button{border:none;background:transparent;padding:8px 18px;font-family:var(--font-sans);font-size:12.5px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:var(--text-muted);border-radius:7px;cursor:pointer;transition:all .2s}
+.section-switcher button:hover{color:var(--navy-900)}
+.section-switcher button.active{background:var(--navy-700);color:#0a0e1a;box-shadow:var(--shadow-sm)}
+
+/* Admin lock button — variants for locked/unlocked */
+.btn-admin{position:relative}
+.btn-admin.unlocked{background:rgba(184,134,11,.16);color:var(--accent-amber);border-color:rgba(184,134,11,.55)}
+.btn-admin.unlocked:hover{background:rgba(184,134,11,.24);color:var(--accent-amber);border-color:var(--accent-amber)}
+
+/* Visibility toggle inside the connection modal */
+.visibility-row{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--navy-100);border:1px solid var(--navy-200);border-radius:var(--radius-sm)}
+.visibility-row .vis-icon{width:34px;height:34px;border-radius:50%;background:var(--navy-50);display:flex;align-items:center;justify-content:center;color:var(--navy-600);flex-shrink:0;border:1px solid var(--navy-300)}
+.visibility-row.admin .vis-icon{color:var(--accent-amber);border-color:rgba(184,134,11,.55);background:rgba(184,134,11,.10)}
+.visibility-row .vis-body{flex:1;min-width:0}
+.visibility-row .vis-title{font-size:12.5px;font-weight:800;color:var(--text);letter-spacing:.3px}
+.visibility-row .vis-desc{font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.4}
+.toggle-switch{position:relative;width:42px;height:22px;background:var(--navy-300);border-radius:999px;cursor:pointer;flex-shrink:0;transition:background .15s}
+.toggle-switch::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--text);transition:left .15s,background .15s}
+.toggle-switch.on{background:var(--accent-amber)}
+.toggle-switch.on::after{left:22px;background:#0a0e1a}
+
+/* Section badge — used in detail panel + tooltip */
+.section-badge{display:inline-flex;align-items:center;gap:6px;font-size:9.5px;font-weight:800;letter-spacing:1.2px;padding:3px 8px;border-radius:999px;background:var(--navy-600);color:#0a0e1a;text-transform:uppercase}
+.section-badge.section-clients{background:#5b7ba0;color:#0a0e1a}
+.section-badge.section-talents{background:#7a9cc6;color:#0a0e1a}
+.section-badge.vis-admin{background:rgba(184,134,11,.22);color:var(--accent-amber);border:1px solid rgba(184,134,11,.55)}
+
+.btn{font-family:var(--font-sans);font-size:13px;font-weight:700;padding:9px 16px;border-radius:var(--radius-md);border:1px solid var(--border-strong);background:var(--surface-2);color:var(--text);cursor:pointer;transition:all .15s}
+.btn:hover{border-color:var(--navy-500);color:var(--navy-900)}
+.btn-primary{background:var(--navy-600);color:#0a0e1a;border-color:var(--navy-600)}
+.btn-primary:hover{background:var(--navy-700);border-color:var(--navy-700);color:#0a0e1a}
+.btn-outline{background:transparent;color:var(--navy-700);border-color:var(--navy-400)}
+.btn-outline:hover{background:var(--navy-100);color:var(--navy-900);border-color:var(--navy-600)}
+.btn-ghost{background:transparent;border:1px solid transparent;color:var(--text-muted)}
+.btn-ghost:hover{background:var(--surface-2);color:var(--text)}
+.btn-sm{font-size:11.5px;padding:6px 12px;font-weight:700}
+.btn-danger{color:var(--danger);border-color:rgba(248,113,113,.45);background:transparent}
+.btn-danger:hover{background:var(--danger-bg);color:var(--danger);border-color:var(--danger)}
+
+.app{display:grid;grid-template-columns:1fr 280px;height:calc(100vh - 64px)}
+.canvas-wrap{position:relative;background:radial-gradient(ellipse at center,#0c1426 0%,var(--bg) 85%);overflow:hidden}
+#network{width:100%;height:100%;display:block}
+
+.search-overlay{position:absolute;top:24px;left:50%;transform:translateX(-50%);width:min(480px,80%);display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 6px 6px 18px;box-shadow:var(--shadow-md);z-index:5}
+.search-overlay input{flex:1;border:none;outline:none;font-family:var(--font-sans);font-size:13px;background:transparent;color:var(--text)}
+.search-overlay input::placeholder{color:var(--text-faint)}
+.search-overlay .search-send{width:32px;height:32px;border-radius:50%;background:var(--navy-600);border:none;color:#0a0e1a;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.search-overlay .search-send:hover{background:var(--navy-700)}
+
+.filter-wrap{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:6px;max-width:calc(100% - 80px);z-index:5}
+.filter-tabs{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:4px;box-shadow:var(--shadow-md);overflow-x:auto;scrollbar-width:none;max-width:100%}
+.filter-tabs::-webkit-scrollbar{display:none}
+.filter-tabs.secondary{background:var(--navy-50);border-color:var(--navy-100);padding:3px}
+.filter-tabs.secondary .filter-tab{font-size:11.5px;padding:5px 11px}
+.filter-tabs.hidden{display:none}
+.filter-tab{border:none;background:transparent;padding:7px 14px;font-family:var(--font-sans);font-size:12.5px;font-weight:700;color:var(--text-muted);border-radius:7px;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.filter-tab:hover{color:var(--navy-900)}
+.filter-tab.active{color:#0a0e1a;background:var(--navy-600)}
+.filter-tabs.secondary .filter-tab.active{background:var(--navy-700)}
+.filter-tab.add{color:var(--text-faint);font-weight:600}
+.filter-tab.add:hover{color:var(--navy-700);background:transparent}
+
+.zoom-controls{position:absolute;bottom:18px;right:20px;display:flex;flex-direction:column;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:4px;box-shadow:var(--shadow-md);z-index:5}
+.zoom-controls button{width:30px;height:30px;border:none;background:transparent;border-radius:6px;cursor:pointer;color:var(--text-muted);font-size:16px;display:flex;align-items:center;justify-content:center}
+.zoom-controls button:hover{background:var(--surface-2);color:var(--navy-900)}
+
+.side-panel{background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;padding:22px 20px;color:var(--text)}
+.side-panel::-webkit-scrollbar{width:8px}
+.side-panel::-webkit-scrollbar-track{background:var(--surface)}
+.side-panel::-webkit-scrollbar-thumb{background:var(--navy-200);border-radius:4px}
+.side-panel::-webkit-scrollbar-thumb:hover{background:var(--navy-300)}
+.panel-section{margin-bottom:26px}
+.panel-section h3{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--text-muted);margin:0 0 14px;display:flex;justify-content:space-between;align-items:center}
+.panel-section .mini-add{font-size:16px;color:var(--navy-700);cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;user-select:none;font-weight:400}
+.panel-section .mini-add:hover{background:var(--navy-100);color:var(--navy-900)}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--navy-50);border-radius:var(--radius-md);padding:12px 14px;border:1px solid var(--navy-100)}
+.stat .v{font-size:22px;font-weight:700;color:var(--navy-900);line-height:1;font-family:var(--font-serif)}
+.stat .l{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:6px;font-weight:700}
+
+.conn-list{display:flex;flex-direction:column;gap:6px}
+.conn-item{padding:9px 11px;border-radius:var(--radius-sm);background:var(--surface-2);border:1px solid var(--border);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px}
+.conn-item:hover{border-color:var(--navy-500);background:var(--navy-100)}
+.conn-item .mini-avatar{width:30px;height:30px;border-radius:50%;background:var(--navy-600);color:#0a0e1a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background-size:cover;background-position:center;flex-shrink:0;font-family:var(--font-serif)}
+.conn-item .body{flex:1;min-width:0}
+.conn-item .name{font-size:13px;font-weight:700;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.conn-item .meta{font-size:11.5px;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.conn-item .closeness{font-size:10px;font-weight:800;color:var(--navy-900);background:var(--navy-200);padding:2px 7px;border-radius:999px;flex-shrink:0}
+.empty-state{color:var(--text-faint);font-size:12.5px;text-align:center;padding:20px 10px;font-style:italic}
+
+.tooltip{position:absolute;background:var(--surface);border:1px solid var(--navy-300);border-radius:var(--radius-md);padding:12px 14px;box-shadow:var(--shadow-lg);pointer-events:none;opacity:0;transition:opacity .15s;z-index:20;min-width:180px;max-width:260px;color:var(--text)}
+.tooltip.show{opacity:1}
+.tooltip .t-name{font-weight:800;font-size:13px;color:var(--text)}
+.tooltip .t-role{font-size:11.5px;color:var(--text-muted);margin-top:2px}
+.tooltip .t-meta{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-muted);display:flex;flex-direction:column;gap:3px}
+.tooltip .t-meta span strong{color:var(--text);font-weight:700}
+
+.detail-panel{position:absolute;top:80px;left:20px;width:300px;background:var(--surface);border:1px solid var(--navy-300);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:18px 20px;z-index:6;transform:translateX(-120%);transition:transform .25s ease;max-height:calc(100vh - 200px);overflow-y:auto;color:var(--text)}
+.detail-panel.show{transform:translateX(0)}
+.detail-panel .dp-close{position:absolute;top:10px;right:10px;width:26px;height:26px;border:none;background:transparent;color:var(--text-faint);cursor:pointer;border-radius:6px;font-size:18px;display:flex;align-items:center;justify-content:center}
+.detail-panel .dp-close:hover{background:var(--surface-2);color:var(--text)}
+.detail-panel::-webkit-scrollbar{width:8px}
+.detail-panel::-webkit-scrollbar-track{background:var(--surface)}
+.detail-panel::-webkit-scrollbar-thumb{background:var(--navy-200);border-radius:4px}
+.dp-header{display:flex;gap:14px;align-items:flex-start;padding-right:24px}
+.dp-avatar{width:54px;height:54px;border-radius:50%;flex-shrink:0;background:var(--navy-600);color:#0a0e1a;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;background-size:cover;background-position:center;overflow:hidden;font-family:var(--font-serif)}
+.dp-avatar.company{background-color:var(--navy-100);color:var(--navy-900);border:1.5px solid var(--navy-300)}
+.dp-title{font-family:var(--font-serif);font-size:18px;font-weight:600;color:var(--text);margin:0;line-height:1.25}
+.dp-sub{font-size:11.5px;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.dp-section{margin-top:16px}
+.dp-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);font-weight:800;margin-bottom:6px}
+.dp-value{font-size:13px;color:var(--text)}
+.dp-connections{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.dp-conn{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--navy-100);border-radius:var(--radius-sm);font-size:12px;cursor:pointer;gap:8px;border:1px solid transparent}
+.dp-conn:hover{background:var(--navy-200);border-color:var(--navy-300)}
+.dp-conn .n{font-weight:700;color:var(--navy-900)}
+.dp-conn .c{background:var(--navy-600);color:#0a0e1a;font-size:10px;font-weight:800;padding:2px 6px;border-radius:999px;flex-shrink:0}
+.detail-actions{margin-top:16px;display:flex;gap:8px}
+
+.img-uploader{display:flex;align-items:center;gap:12px;margin-top:4px}
+.img-preview{width:64px;height:64px;border-radius:50%;background:var(--navy-100);border:1.5px dashed var(--navy-300);display:flex;align-items:center;justify-content:center;color:var(--navy-700);font-size:18px;font-weight:700;font-family:var(--font-serif);background-size:cover;background-position:center;overflow:hidden;flex-shrink:0;cursor:pointer;transition:border-color .15s}
+.img-preview:hover{border-color:var(--navy-600)}
+.img-preview.has-image{border-style:solid;border-color:var(--navy-600)}
+.img-uploader-controls{display:flex;flex-direction:column;gap:6px;font-size:11.5px}
+.img-uploader-controls .row{display:flex;gap:6px}
+.crop-stage{position:relative;width:300px;height:300px;background:#0a0e18;border-radius:var(--radius-md);overflow:hidden;touch-action:none;cursor:grab;user-select:none;margin:0 auto 14px}
+.crop-stage.dragging{cursor:grabbing}
+.crop-stage img{position:absolute;pointer-events:none;user-select:none;-webkit-user-drag:none;will-change:transform;max-width:none}
+.crop-overlay{position:absolute;top:50%;left:50%;width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;box-shadow:0 0 0 9999px rgba(5,18,51,.65);border:1.5px solid rgba(255,255,255,.75);pointer-events:none;box-sizing:border-box}
+.crop-hint{text-align:center;font-size:11.5px;color:var(--text-faint);margin-top:-6px;margin-bottom:10px;font-style:italic}
+.crop-zoom{display:flex;align-items:center;gap:10px;width:100%}
+.crop-zoom input[type="range"]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;background:linear-gradient(to right,var(--navy-200) 0%,var(--navy-600) 100%);outline:none}
+.crop-zoom input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--navy-700);border:2px solid var(--navy-800);cursor:pointer;box-shadow:var(--shadow-sm)}
+.crop-zoom input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--navy-700);border:2px solid var(--navy-800);cursor:pointer}
+.crop-zoom .zoom-btn{width:32px;height:32px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--surface-2);color:var(--text);cursor:pointer;font-size:18px;font-weight:400;line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
+.crop-zoom .zoom-btn:hover{border-color:var(--navy-500);color:var(--navy-900)}
+
+.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,16,.72);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-backdrop.show{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border:1px solid var(--navy-300);border-radius:var(--radius-lg);width:min(560px,92vw);max-height:92vh;overflow-y:auto;box-shadow:var(--shadow-xl);transform:translateY(14px) scale(.98);transition:transform .25s ease;color:var(--text)}
+.modal::-webkit-scrollbar{width:8px}
+.modal::-webkit-scrollbar-track{background:var(--surface)}
+.modal::-webkit-scrollbar-thumb{background:var(--navy-200);border-radius:4px}
+.modal-backdrop.show .modal{transform:translateY(0) scale(1)}
+.modal-header{padding:22px 28px 16px;border-bottom:1px solid var(--border)}
+.modal-header h2{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--text);margin:0}
+.modal-header p{margin:4px 0 0;font-size:12.5px;color:var(--text-muted)}
+.modal-body{padding:22px 28px;display:flex;flex-direction:column;gap:16px}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted)}
+.field label .hint{font-weight:500;color:var(--text-faint);text-transform:none;letter-spacing:0;margin-left:6px}
+.field input[type="text"],.field input[type="password"],.field select{font-family:var(--font-sans);font-size:14px;padding:10px 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;width:100%}
+.field input[type="text"]:focus,.field input[type="password"]:focus,.field select:focus{border-color:var(--navy-600);box-shadow:0 0 0 3px rgba(122,156,198,.2)}
+.field select option{background:var(--surface);color:var(--text)}
+.field .row{display:flex;gap:8px}
+.field .row>*{flex:1;min-width:0}
+
+.inline-add{display:none;margin-top:6px;gap:6px;align-items:center}
+.inline-add.show{display:flex}
+.inline-add input{flex:1;padding:8px 10px;font-size:13px;border:1px solid var(--navy-400);border-radius:var(--radius-sm);outline:none;font-family:var(--font-sans);background:var(--surface-2);color:var(--text)}
+
+.closeness-wrap{display:flex;align-items:center;gap:14px}
+.closeness-wrap input[type="range"]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;background:linear-gradient(to right,var(--navy-200) 0%,var(--navy-600) 100%);outline:none}
+.closeness-wrap input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--navy-700);border:2px solid var(--navy-800);cursor:pointer;box-shadow:var(--shadow-sm)}
+.closeness-wrap input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--navy-700);border:2px solid var(--navy-800);cursor:pointer}
+.closeness-value{background:var(--navy-600);color:#0a0e1a;font-weight:800;font-size:13px;padding:4px 10px;border-radius:var(--radius-sm);min-width:34px;text-align:center}
+.closeness-labels{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text-faint);margin-top:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+
+.modal-footer{padding:16px 28px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--border)}
+.modal-footer .right{display:flex;gap:8px}
+
+.member-chips{display:flex;flex-wrap:wrap;gap:6px}
+.member-chip{padding:6px 10px;font-size:11.5px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface-2);color:var(--text-muted);cursor:pointer;font-weight:700;transition:all .15s;user-select:none}
+.member-chip:hover{border-color:var(--navy-500);color:var(--navy-900)}
+.member-chip.selected{background:var(--navy-600);color:#0a0e1a;border-color:var(--navy-600)}
+
+/* Affiliations editor (multi-company history) */
+.aff-list{display:flex;flex-direction:column;gap:6px}
+.aff-row{display:grid;grid-template-columns:1.2fr 1fr auto auto;gap:6px;align-items:center}
+.aff-row input[type="text"]{font-family:var(--font-sans);font-size:13px;padding:8px 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);outline:none;width:100%;min-width:0;background:var(--surface-2);color:var(--text)}
+.aff-row input[type="text"]:focus{border-color:var(--navy-600);box-shadow:0 0 0 3px rgba(122,156,198,.2)}
+.aff-row .aff-current{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.7px;white-space:nowrap;cursor:pointer;user-select:none}
+.aff-row .aff-current input{accent-color:var(--navy-600)}
+.aff-row .aff-current.active{color:var(--navy-900)}
+.aff-row .aff-del{width:28px;height:28px;border:none;background:transparent;color:var(--text-faint);border-radius:6px;cursor:pointer;font-size:16px;line-height:1}
+.aff-row .aff-del:hover{background:var(--danger-bg);color:var(--danger)}
+
+/* Edge editor (known-by with relationship type) */
+.edge-list{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.edge-row{display:grid;grid-template-columns:1.4fr 1fr auto;gap:6px;align-items:center;background:var(--navy-100);border-radius:var(--radius-sm);padding:6px 8px;border:1px solid var(--navy-200)}
+.edge-row .edge-who{font-size:12.5px;color:var(--navy-900);font-weight:700;display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.edge-row .edge-who .pill{font-size:9.5px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:999px;background:var(--navy-600);color:#0a0e1a;text-transform:uppercase;flex-shrink:0}
+.edge-row .edge-who .pill.conn{background:var(--accent-amber);color:#0a0e1a}
+.edge-row select{font-family:var(--font-sans);font-size:12px;padding:5px 8px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);outline:none;min-width:0;width:100%}
+.edge-row .edge-del{width:24px;height:24px;border:none;background:transparent;color:var(--text-faint);border-radius:6px;cursor:pointer;font-size:14px;line-height:1}
+.edge-row .edge-del:hover{background:var(--danger-bg);color:var(--danger)}
+.edge-add-row{display:grid;grid-template-columns:1.4fr 1fr auto;gap:6px;align-items:center}
+.edge-add-row select{font-family:var(--font-sans);font-size:13px;padding:8px 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--text);outline:none;width:100%;min-width:0}
+.edge-empty{font-size:12px;color:var(--text-faint);font-style:italic;padding:4px 2px}
+
+/* Notes log */
+.note-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;max-height:200px;overflow-y:auto}
+.note-row{background:var(--navy-100);border:1px solid var(--navy-200);border-radius:var(--radius-sm);padding:8px 10px;font-size:12.5px;color:var(--text);line-height:1.45;position:relative}
+.note-row .note-meta{font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.note-row .note-del{border:none;background:transparent;color:var(--text-faint);cursor:pointer;font-size:14px;padding:0 4px;border-radius:4px;line-height:1}
+.note-row .note-del:hover{color:var(--danger);background:var(--danger-bg)}
+.note-row .note-text{white-space:pre-wrap;word-break:break-word}
+.note-add-row{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.note-add-row textarea{font-family:var(--font-sans);font-size:13px;padding:9px 10px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--text);outline:none;resize:vertical;min-height:54px}
+.note-add-row textarea:focus{border-color:var(--navy-600);box-shadow:0 0 0 3px rgba(122,156,198,.2)}
+.note-add-row button{align-self:flex-end}
+
+/* Detail-panel affiliation + notes blocks */
+.dp-aff{display:flex;flex-direction:column;gap:4px}
+.dp-aff-row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--text);padding:4px 0}
+.dp-aff-row.current{color:var(--navy-900);font-weight:700}
+.dp-aff-row .where{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dp-aff-row .badge{font-size:9.5px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:999px;background:var(--navy-600);color:#0a0e1a;text-transform:uppercase;flex-shrink:0;align-self:center}
+.dp-known-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 10px;background:var(--navy-100);border:1px solid var(--navy-200);border-radius:var(--radius-sm);font-size:12px;cursor:pointer}
+.dp-known-row:hover{background:var(--navy-200);border-color:var(--navy-300)}
+.dp-known-row .who{font-weight:700;color:var(--navy-900);display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dp-known-row .who .pill{font-size:9.5px;font-weight:800;letter-spacing:1px;padding:2px 6px;border-radius:999px;background:var(--navy-600);color:#0a0e1a;text-transform:uppercase;flex-shrink:0}
+.dp-known-row .who .pill.conn{background:var(--accent-amber);color:#0a0e1a}
+.dp-known-row .rel{font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.7px}
+.dp-note-row{background:var(--navy-100);border:1px solid var(--navy-200);border-radius:var(--radius-sm);padding:8px 10px;font-size:12.5px;line-height:1.45}
+.dp-note-row .dp-note-meta{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px}
+
+/* 2nd-degree link in graph */
+.link.deg2{stroke-dasharray:4 4;stroke-opacity:.6}
+
+.node-group{cursor:pointer}
+.node-group text{font-family:var(--font-sans);pointer-events:none;user-select:none}
+.link{fill:none;stroke:var(--navy-500);stroke-opacity:.45;transition:stroke-opacity .2s,stroke-width .2s}
+.link.highlighted{stroke:var(--navy-800);stroke-opacity:.95}
+.link.dimmed{stroke-opacity:.08}
+.node-group.dimmed{opacity:.22}
+.node-group.highlighted .node-bg{stroke:var(--accent-amber);stroke-width:2.2}
+
+.empty-canvas{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);pointer-events:none;text-align:center}
+.empty-canvas svg{width:64px;height:64px;opacity:.45;margin-bottom:16px}
+.empty-canvas h3{font-family:var(--font-serif);font-weight:500;font-size:18px;color:var(--text);margin:0}
+.empty-canvas p{font-size:13px;margin:6px 0 0;color:var(--text-muted)}
+
+.level-indicators{position:absolute;top:50%;right:24px;transform:translateY(-50%);display:flex;flex-direction:column;gap:28px;font-family:var(--font-serif);font-size:14px;font-style:italic;color:var(--text-faint);z-index:3;pointer-events:none}
+.level-indicators span{padding-right:10px;border-right:2px solid var(--border-strong);transition:color .2s,border-color .2s}
+.level-indicators span.active{color:var(--navy-900);border-right-color:var(--navy-600);font-weight:600;font-style:normal}
+
+@media (max-width:960px){.app{grid-template-columns:1fr}.side-panel{display:none}.level-indicators{display:none}}
+</style>
+</head>
+<body>
+
+<!-- SIGN-IN OVERLAY — blocks the app until the user has a valid management
+     session in localStorage. The actual login happens in /management/. -->
+<div id="signInOverlay" style="position:fixed;inset:0;background:rgba(8,12,20,0.96);z-index:9999;display:none;align-items:center;justify-content:center;">
+  <div style="background:var(--surface,#0f172a);border:1px solid var(--border,#1e293b);border-radius:8px;padding:32px 36px;max-width:440px;width:92vw;text-align:center;">
+    <div style="font-family:monospace;font-size:11px;letter-spacing:2px;color:var(--accent,#4a9eff);margin-bottom:14px;">MODULE 05 · LEGACY NETWORK SYSTEM</div>
+    <h2 style="margin:0 0 10px 0;font-size:22px;font-weight:700;">Sign in required</h2>
+    <p id="signInOverlayMsg" style="margin:0 0 22px 0;color:var(--text-dim,#9aa3b2);font-size:13px;line-height:1.55;">
+      Access to the Network Terminal is gated by your Management Terminal account. Sign in there and you'll come back to this page automatically.
+    </p>
+    <a href="/management/" style="display:inline-block;padding:10px 22px;background:var(--accent,#4a9eff);color:#000;border-radius:4px;font-weight:600;text-decoration:none;font-size:13px;letter-spacing:0.5px;">
+      Sign in via Management Terminal →
+    </a>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">
+      <img src="data:image/jpeg;base64,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" alt="Legacy Bridge Capital" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+    </div>
+    <div class="brand-text">
+      <h1>Legacy Network System</h1>
+      <p>Legacy Bridge Capital <span id="syncStatus" class="sync-pill" title="Local-only storage (browser only)"><span class="dot"></span><span class="sync-label">Local</span></span></p>
+    </div>
+  </div>
+  <div class="section-switcher" id="sectionSwitcher">
+    <button data-section="network" class="active">Network</button>
+    <button data-section="clients">Clients</button>
+    <button data-section="talents">Talents</button>
+  </div>
+  <div class="topbar-actions">
+    <a href="/launcher/" class="btn btn-outline" id="homeLink" title="Back to terminal selector" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+      <span style="font-size:14px;line-height:1;">←</span>
+      <span style="font-family:monospace;font-size:11px;letter-spacing:1.5px;">HOME</span>
+    </a>
+    <div id="userChip" style="display:none;font-size:11px;color:var(--text-dim,#9aa3b2);padding:4px 10px;border:1px solid var(--border,#1e293b);border-radius:3px;font-family:monospace;letter-spacing:0.5px;" title=""></div>
+    <div class="view-toggle" id="viewToggle">
+      <button data-view="company" class="active">Company View</button>
+      <button data-view="people">People View</button>
+    </div>
+    <button class="btn btn-outline btn-admin" id="adminLockBtn" title="Admin access — view & manage admin-only entries">
+      <span style="display:inline-flex;align-items:center;gap:6px;">
+        <svg id="adminLockIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span id="adminLockLabel">Admin</span>
+      </span>
+    </button>
+    <button class="btn btn-outline" id="addMemberBtn">
+      <span style="display:inline-flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add LBC Team
+      </span>
+    </button>
+    <button class="btn btn-primary" id="addConnectionBtn">
+      <span style="display:inline-flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span id="addConnectionLabel">Add Connection</span>
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ADMIN PASSCODE MODAL -->
+<div class="modal-backdrop" id="adminModalBackdrop">
+  <div class="modal" role="dialog" aria-labelledby="adminModalTitle" style="width:min(420px,92vw);">
+    <div class="modal-header">
+      <h2 id="adminModalTitle">Admin Access</h2>
+      <p id="adminModalDesc">Enter the team passcode to view and manage admin-only entries.</p>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="adminPasscodeInput">Passcode</label>
+        <input type="password" id="adminPasscodeInput" autocomplete="off" placeholder="Enter passcode…" />
+        <div id="adminPasscodeError" style="color:var(--danger);font-size:11.5px;margin-top:4px;display:none;">Incorrect passcode.</div>
+      </div>
+      <p style="font-size:11px;color:var(--text-faint);margin:0;line-height:1.45;">
+        Note: this gates the UI only — for real protection of sensitive entries we’ll add Supabase Auth in a later phase.
+      </p>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;">
+      <button class="btn btn-ghost" id="adminModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="adminModalConfirm">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <section class="canvas-wrap">
+    <svg id="network"></svg>
+    <div class="search-overlay">
+      <input type="text" id="searchInput" placeholder="Search connections, companies, sectors…" />
+      <button class="search-send" id="searchBtn" title="Search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+    <div class="level-indicators" id="levelIndicators">
+      <span data-level="company" class="active">Company Level</span>
+      <span data-level="people">People Level</span>
+    </div>
+    <div class="empty-canvas" id="emptyCanvas" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="12" cy="12" r="2"/><circle cx="5" cy="6" r="1.5"/><circle cx="19" cy="6" r="1.5"/><circle cx="5" cy="18" r="1.5"/><circle cx="19" cy="18" r="1.5"/>
+        <line x1="5" y1="6" x2="12" y2="12"/><line x1="19" y1="6" x2="12" y2="12"/><line x1="5" y1="18" x2="12" y2="12"/><line x1="19" y1="18" x2="12" y2="12"/>
+      </svg>
+      <h3>Your network starts here</h3>
+      <p>Click <strong>+ Add Connection</strong> to map your first relationship.</p>
+    </div>
+    <div class="filter-wrap">
+      <div class="filter-tabs" id="filterPrimary"></div>
+      <div class="filter-tabs secondary hidden" id="filterSecondary"></div>
+    </div>
+    <div class="zoom-controls">
+      <button id="zoomIn" title="Zoom in">+</button>
+      <button id="zoomOut" title="Zoom out">−</button>
+      <button id="zoomReset" title="Reset view">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><polyline points="3 4 3 9 8 9"/></svg>
+      </button>
+    </div>
+    <aside class="detail-panel" id="detailPanel">
+      <button class="dp-close" id="detailClose">×</button>
+      <div id="dpContent"></div>
+    </aside>
+    <div class="tooltip" id="tooltip"></div>
+  </section>
+
+  <aside class="side-panel">
+    <div class="panel-section">
+      <h3>Overview</h3>
+      <div class="stat-grid">
+        <div class="stat"><div class="v" id="statConn">0</div><div class="l">Connections</div></div>
+        <div class="stat"><div class="v" id="statComp">0</div><div class="l">Companies</div></div>
+        <div class="stat"><div class="v" id="statSect">0</div><div class="l">Sectors</div></div>
+        <div class="stat"><div class="v" id="statAvg">0.0</div><div class="l">Avg closeness</div></div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <h3>LBC Team <span class="mini-add" id="miniAddMember" title="Add team member">+</span></h3>
+      <div id="teamList" class="conn-list"></div>
+    </div>
+    <div class="panel-section">
+      <h3>Strongest Ties</h3>
+      <div id="topConnections" class="conn-list"></div>
+    </div>
+  </aside>
+</div>
+
+<!-- CONNECTION MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <h2 id="modalTitle">Add Connection</h2>
+      <p>Map a new relationship into the Legacy Bridge Capital network.</p>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="fName">Name</label>
+        <input type="text" id="fName" placeholder="e.g. Michael Johnson" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>Photo <span class="hint">— optional</span></label>
+        <div class="img-uploader">
+          <div class="img-preview" id="fPhotoPreview"><span id="fPhotoInitials">?</span></div>
+          <div class="img-uploader-controls">
+            <div class="row">
+              <button type="button" class="btn btn-sm" id="fPhotoUploadBtn">Upload photo</button>
+              <button type="button" class="btn btn-sm btn-ghost" id="fPhotoRemoveBtn" style="display:none;">Remove</button>
+            </div>
+            <div style="color:var(--text-faint);font-size:11px;">JPG/PNG, auto-resized to 200px</div>
+          </div>
+          <input type="file" id="fPhotoInput" accept="image/*" style="display:none;" />
+        </div>
+      </div>
+      <!-- Client section fields (shown only when section=clients) -->
+      <div class="field row" id="clientFieldsRow" style="display:none;">
+        <div style="flex:1;">
+          <label for="fClientType">Client Type</label>
+          <select id="fClientType"></select>
+        </div>
+        <div style="flex:1;">
+          <label for="fClientStatus">Status</label>
+          <select id="fClientStatus"></select>
+        </div>
+      </div>
+      <!-- Talent section fields (shown only when section=talents) -->
+      <div class="field" id="talentFieldsRow" style="display:none;">
+        <label for="fTalentStage">Talent Stage</label>
+        <select id="fTalentStage"></select>
+      </div>
+      <div class="field row">
+        <div style="flex:1;">
+          <label for="fCategory">Category</label>
+          <select id="fCategory"></select>
+          <div class="inline-add" id="addCategoryInline">
+            <input type="text" id="newCategoryInput" placeholder="New category…" />
+            <button class="btn btn-primary btn-sm" id="newCategoryConfirm">Add</button>
+            <button class="btn btn-ghost btn-sm" id="newCategoryCancel">×</button>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <label for="fSector">Sector</label>
+          <select id="fSector"></select>
+          <div class="inline-add" id="addSectorInline">
+            <input type="text" id="newSectorInput" placeholder="New sector…" />
+            <button class="btn btn-primary btn-sm" id="newSectorConfirm">Add</button>
+            <button class="btn btn-ghost btn-sm" id="newSectorCancel">×</button>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Affiliations <span class="hint">— current & past companies (mark one as current)</span></label>
+        <div id="affList" class="aff-list"></div>
+        <datalist id="companyList"></datalist>
+        <button type="button" class="btn btn-ghost btn-sm" id="affAddBtn" style="align-self:flex-start;margin-top:4px;">+ Add affiliation</button>
+      </div>
+      <div class="field">
+        <label>Closeness Index <span class="hint">— 1 = just knowing, 10 = really close</span></label>
+        <div class="closeness-wrap">
+          <input type="range" id="fCloseness" min="1" max="10" step="1" value="5" />
+          <span class="closeness-value" id="closenessValue">5</span>
+        </div>
+        <div class="closeness-labels"><span>Acquaintance</span><span>Close ally</span></div>
+      </div>
+      <div class="field">
+        <label>Known by <span class="hint">— LBC members and other connections, with relationship type</span></label>
+        <div id="edgeList" class="edge-list"></div>
+        <div class="edge-add-row">
+          <select id="edgeAddPerson"></select>
+          <select id="edgeAddRel"></select>
+          <button type="button" class="btn btn-sm btn-primary" id="edgeAddBtn">Add</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Notes <span class="hint">— timestamped, append-only log</span></label>
+        <div id="noteList" class="note-list"></div>
+        <div class="note-add-row">
+          <textarea id="noteInput" placeholder="Add a note… (Cmd/Ctrl+Enter to save)" rows="2"></textarea>
+          <button type="button" class="btn btn-sm btn-primary" id="noteAddBtn">Add note</button>
+        </div>
+      </div>
+      <!-- Visibility toggle (admin only) -->
+      <div class="field" id="visibilityField" style="display:none;">
+        <label>Visibility</label>
+        <div class="visibility-row" id="visibilityRow">
+          <div class="vis-icon" id="visIcon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="vis-body">
+            <div class="vis-title" id="visTitle">Public</div>
+            <div class="vis-desc" id="visDesc">Visible to anyone with the app open.</div>
+          </div>
+          <div class="toggle-switch" id="visToggle" role="switch" aria-checked="false" tabindex="0"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-danger" id="deleteBtn" style="display:none;">Delete</button>
+      <div class="right">
+        <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="saveBtn">Save Connection</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBER MODAL -->
+<div class="modal-backdrop" id="memberModalBackdrop">
+  <div class="modal" role="dialog" aria-labelledby="memberModalTitle">
+    <div class="modal-header">
+      <h2 id="memberModalTitle">Add LBC Team Member</h2>
+      <p>Add a new member to your Legacy Bridge Capital team.</p>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="mName">Full Name</label>
+        <input type="text" id="mName" placeholder="e.g. Narin" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>Photo <span class="hint">— optional</span></label>
+        <div class="img-uploader">
+          <div class="img-preview" id="mPhotoPreview"><span id="mPhotoInitials">?</span></div>
+          <div class="img-uploader-controls">
+            <div class="row">
+              <button type="button" class="btn btn-sm" id="mPhotoUploadBtn">Upload photo</button>
+              <button type="button" class="btn btn-sm btn-ghost" id="mPhotoRemoveBtn" style="display:none;">Remove</button>
+            </div>
+            <div style="color:var(--text-faint);font-size:11px;">JPG/PNG, auto-resized to 200px</div>
+          </div>
+          <input type="file" id="mPhotoInput" accept="image/*" style="display:none;" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="mPosition">Position</label>
+        <input type="text" id="mPosition" placeholder="e.g. CEO, CIO, Head of Equity Research" autocomplete="off" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-danger" id="memberDeleteBtn" style="display:none;">Delete</button>
+      <div class="right">
+        <button class="btn btn-ghost" id="memberCancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="memberSaveBtn">Save Member</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENERIC INPUT MODAL (for +Category, +Sector etc) -->
+<div class="modal-backdrop" id="inputModalBackdrop">
+  <div class="modal" style="width:min(420px,92vw);">
+    <div class="modal-header">
+      <h2 id="inputModalTitle">Add</h2>
+      <p id="inputModalDesc">Enter a name.</p>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label id="inputModalLabel" for="inputModalField">Name</label>
+        <input type="text" id="inputModalField" autocomplete="off" />
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;">
+      <button class="btn btn-ghost" id="inputModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="inputModalConfirm">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE CROP MODAL -->
+<div class="modal-backdrop" id="cropModalBackdrop">
+  <div class="modal" style="width:min(380px,92vw);">
+    <div class="modal-header">
+      <h2>Crop Photo</h2>
+      <p>Drag to reposition. Scroll or use the slider to zoom.</p>
+    </div>
+    <div class="modal-body" style="align-items:center;">
+      <div class="crop-stage" id="cropStage">
+        <img id="cropImg" alt="" draggable="false" />
+        <div class="crop-overlay"></div>
+      </div>
+      <div class="crop-zoom">
+        <button type="button" class="zoom-btn" id="cropZoomOut" title="Zoom out">−</button>
+        <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1" />
+        <button type="button" class="zoom-btn" id="cropZoomIn" title="Zoom in">+</button>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end;">
+      <button class="btn btn-ghost" id="cropCancel">Cancel</button>
+      <button class="btn btn-primary" id="cropDone">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* LEGACY NETWORK SYSTEM v2 */
+const LBC_LOGO_URL = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCACgAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8qqKKKACiip7Oyub6YQWsLSOfToB6n0FNJt2QN23IKt2OlX2oti0tncd2xhR9TXUaX4StbbEt+RPJ12fwL/jW8qqihEUKo4AAwBXbTwbes9DmniUtInL2ngo8NfXmP9mIZ/U/4VqweGdGgA/0TzD6yMW/TpWpRXZHD04bI55VZy6kMdlZQjENpCg9kFShQvQAfQUtFapJbGd2xrRxvw6KfqoNV5tK02f/AFthAxPfYAf0q1RQ4p7od2tjFufCWlTZMIlgb/ZbI/I1jXng6/gy1rIlwvp91vyP+NdnRWE8NTn0saRrTj1PMJoJreQxTxPG46qwwaZXpl3ZWt9H5V3Asq9s9R9D2rltW8JTQZn04tMnUxn74+nr/OuKrhJw1jqjpp4iM9Hoc5RSlWUkEEEdQaSuQ3CiiigAoorR0TSJdWudgJWFOZH9B6D3NVGLm+VCbUVdi6Nolxq0vy/JCv35D29h6mu4sbC106EQWsYVe57sfUmpLa3htYUt7eMJGgwAKkr1qOHjSXmcFWq6noFFFFdBkFFFFABRRRQAUUUUAFFFFABRRRQBka14et9TUzRbYrkdGxw3s3+NcTc209pM1vcRlHQ4KmvTazdb0aLVrfjC3EY/dv8A0PtXHiMMprmhv+Z0Uqzj7stjz+inzQy28rwzIUdCQynsaZXl7HaTWltNeXEdtAu55GwB/ntXoenWEOm2iWsI+7yzd2buaxPB+mCOFtSmX5pMpF7L3P4nj8K6SvUwlLljzvdnFiKl3yoKKKK7DnCilAJ4Arr/AIcfB/4pfF/UDpnwx8A614kmRgsrWNsWhhz/AM9JjiOP/gTCk2luCTexx9FfaXg3/glB+0l4gt1uvE2seEfC2cfuLm8kvJx9VgQoD/wM11d//wAEffitHCG0z4xeEriXulxp91Cv/fQL/wAqxeJpL7Rp7GfY+AqK+mPiR/wTq/ar+HMUt6PAcXiixiyWuPDd2LxgPXyGCTfkhr590vwp4j1jxPb+C7HSJ/7curpbKOxnxbyidjgRv5pURnP98itIzjJXiyHGS3Rk0V92fDz/AIJI/GXX7aG8+Ifjvw94S8zBezt4n1K5jHoxUpED9GYV6b/w5x8O+VgfH3V/M9f+Efh25+nnZ/WsniqS6miozfQ/Maivuzx//wAEj/jRoUUl18PfHnhrxUiAlba6STTbh/YbvMjJ+rLXyJ8S/g98UPg5q40P4n+BtW8O3TkiE3kGIZ8d4plzHKOP4WNaQrQqfCyJU5R3Rx1FFFaEhRRRQBz/AIq0cXMP9owJ+9iHzgfxL6/UfyrjTXqRGRg9DXAeINM/s3UHRBiGT54/oe34HivNxlKz50dmHqXXKzvIIUt4Y4IhhI1CqPYU+iivSWmxxvV3Crmj6Pq3iDVbTQ9C0y61HUb+Zbe0tLWJpZp5WOFREXlifQU7Q9D1nxNrNj4d8O6Xc6lqmp3CWlnZ20ZeW4mc4VEUdST/AInABNfsv+xH+xDoP7N+hReMfGMFtqfxG1O323V2pEkWlRuObW2Pr0DyjlyMDCgA4Vqyoq73NKdN1GeJ/stf8EtdKsbe08a/tLKL+9cCWHwpbT/6Pb+n2uVDmZvWNCEHQl+lfoFpOj+FPAuhxaVoum6ZoOjWCAR29tFHa20C+yjCrXxX4j/4KGXXjn9pHwn8APghpKppt34pg0jWfEF7FmSaKOUi5S0hPCrtjkXzZMk8lVHDVW/4K+a81r8FvBnh1Zio1XxOZnjHR0gtJTz64aRa8+UalWaVTqdScKcW49D7f8P+L/Cfis3Q8L+J9J1g2LiO6FhexXHkOwyFfYx2kjkA9q0Le8tLtZGtbmKYRSNE5jcMFdThlOOhB6g818Jf8EgtEis/gh4x1xIwjah4sMPyqACIbSAD9ZGr418MePPG9h+3ddv4L8W6xpH9v/FKW2uUsbySJLqCTVCrxyIDtdWTIIYHrR9XvKUU9g9tZJtbn7fAA1478ff2Tfgp+0ZpUtv8QPCkP9qiMpba5ZKsOoW/piXH7xR/ckDL7d6vfHX9oz4f/s6w+GdS+JEl5a6T4k1VtJ+3wQmVLJ/KaQSSqvz+XhCCVBI4OMZI9F0DX9E8U6NaeIfDmrWmp6ZqESz2t5aTLLDPGwyGR1JDA+1YLmjaSNXaWjPztsvid+0Z/wAE6PFFh4N+L8t98Rvgzezi20rW41LXVgvaNSxJRwvP2eRirAfunGCo+4PBPx/+CfxCsrC+8IfFTwvqJ1KFJ4LdNUhW52sOA0DMJEbnBVlBB4IrpPG3gjwr8RfC2o+DPGuhWmsaLq0Bt7uzuVykiH9VYHBVhhlIBBBFfil+2X+x7r/7LvjRJrTztV8E61Mx0TVpEBkicZb7JcEDAmUDIbgSKNwwQyjopxhiHZ6S/Myk5UdtUfuRkHA7+lYni7wV4S8feH7rwt418O6frekXiFZ7K/t1mhf32sOCOzDBHYivxW/Z5/bw+OvwCvLWwGvT+LPCsbBZdC1m4aUJH3+zznMkDcnA+ZPVK/Wr9nj9pv4W/tKeFm8QeAdVZby1CrqWj3e1L3T3boJEBIZSc7ZFJVvXOQIq0J0tXt3KhVjU0R8F/tcf8EyNS8HW978Q/wBnWG81bR4t0154YkczXlqnUtaOfmnQf882zIMfKX6D8/CCpIIwQcYPBr+lDGcg+1fnt/wUF/YLi8UQal8dvgpooTXYg114h0O1jAGpIMl7qBB/y8Acug/1gGR84+fow+Kd1Cp95lVofaiflvRQMEAg5B70V6JyBWL4ssvtWmG4VcvbHf8A8BPB/p+VbVNljWaJ4XGVdSpHsaipHni4lQlyyTHUEgAknAHJPpRX2F/wTt/Zr0z4n+Nbz4z/ABGhgi8B/D5/tUjXmFt7zUI18xVctx5UK4lkzxnyweC1E5qnFyYQi5OyPoH9jf4A+Cv2SPhReftXftDGPTdcnsfNsbe4j3TaVaSjCRJH1a8uMgbR8yqwTjL19cfB/wCMt/8AEX4A2nxw1jSI9ITVNPvtZgsS277NZo8pgDv0ZjFGjMwwMscDGK/JX9uD9rrVf2lvHUttoU89r4C8OPKNEtCSv2twCGvpl/vuMhFP3EOPvM2f0t8Wonwn/wCCfN9ZqiQyaN8LxabWbgTPp6xkZ9S8hx7kV5taErKU92zrpyWsY7I/Nv8A4J1aW3i79sfwZqN2hf7MNT1uUnswtZcH/vuVa+if+CxmtZuvhZ4bVlwiatfsuec/6PGp/Ld+Vebf8ElPDy3/AO0ZrWrum5NE8J3Gxv7rzXEEY/NVetD/AIK76qt18evCGjKf+PDwoJW54zNdy/0iFdD97EpLojJaUGz6r/4JZ6S2nfsn2F2y4/tTxBql2D6gTCL/ANpV+dH7P6HXv25fCM0fzif4jSXeRzlVu5Zc/ktfqP8A8E+dPj0f9jf4eNt2Gexu75+O8l3O+fyIr8w/2FLOfWv2z/h/IFLMusX165I7La3LE/rUU3eVV+pU9oI+zv8AgsAf+LQeAj/1NL/+kM1eh/8ABLW/e6/ZL0uB2+Wz1zVoFGc4Hn78D05c/nXnn/BYAH/hUHgEYJ/4ql//AEhmrsP+CT9wJv2XLiE8G28V6lGQfdYH/wDZqya/2Vepa/jfI+u/D3iLRPFmjWviDw5qUN/p94paG4hbKthirD2IZWUg8ggg8isT4pfDDwd8Y/A2rfDvx3pSX2kavD5Uy8B42HKSxt/BIjYZW7ED3Ffnj+zL+1SvwD/ao+InwA8faitv4J1rxtqsWmSzy4TR7+S8k28n7sM25Q3ZXKtwGc1+nS844rCpTlSkjWMlNH8/P7RXwF8Wfs5/E/Ufh14pVp44/wDSNL1EJtj1GxZiI517A8FXUfddWHTBPN/DL4neN/g/4z0/x98Pdcl0rWdObMcqcpKh+9DKnSSJhwyHr1GCAR+0n7bH7MOn/tKfCS407T7eFPGOgrJfeHbtsKTNj57Vm/55zABTngMEb+Gvw3u7W6sLuawvraW2uraR4Z4JVKyRSKxVkZeoZWBBHYg16dCsq0Pe36nFVh7OWh+6v7JX7WPg79qLwUdRsFj0vxTpaImuaI0m5rdz0liJ5kgcg7W6g5VvmHPvLDP51/PJ8HviR8RPg78QNK+IXw4e7i1fTpMBFgkeK6ibHmW8qKPnjcDBHXoRhlBH7r/AP41eHvj38NtN8f6DZXmntcDyb7Tr2Jo57G7UDzIWDAbgCcq44ZSpHXA4cRQ9k7x2Z1UavOrPc/NT/gpV+yVD8LPFX/C7vh/pgh8KeJ7spq1rAmI9M1JzneAOFinOSB0WTcON6ivhuv6MviF4D8NfE7wVrPgDxfYLeaPrtpJZ3cR6lGH3lPZ1OGVuzKD2r8OvH37HH7Q/gvx7rfgqx+E/i/xBDpd9JbW2p6do081tfQg5jmSRV2/MhUkZ+UkqeRXXha6lHlk9jCtSs7rqeJUV7DB+x5+1TcDMf7P3jcZ5+fTdn/oRFall+wx+1xfgGH4D+IkBP/Ld7aH/ANDlFdPtYd0Y8kux1/gT4QfsPeNPEWmeFrD47/FS61PV7qKxs7VPB0cbzzyMFRFwHxkkdeMZyRX1z8SvEH7EvgH4UP8AsVal8fNb8I2Xh+VLbXm0qxeS5vpT+9lS4nW3eMl5HDSKuOgQ4AK18V/s3X9n8DvBXiP9qbVreCXWLFpPDHw/tZ1DCfW5os3F5tPWO1gbJOMb5QuQcV8+319e6ne3GpaleTXV5dzPcXFxM5aSaV2LO7E9WZiST6mud0XUlZydl+Zop8i0Suz7t034Ff8ABLGSRDN+1N4hnyclJroQBh6HNmMV9lfEP43fsYfGj4Z6n8Kdd/aA8JwaFrNtFZzi11+K1nESMjBVZx8v3FB46ZFfiFub+8fzoyfU05YXnd3JhGty6JI/aH9nHwT+w/8As9anq2tfCn4zeHJbzXbaO2uZL/xnbXJMUblgFBZQvzHJ9eK1/id8A/2Mv2h/Gx8d+Ntb0bXtZNpDZh7TxeY0EMZbYBHDMF6u3OOc1+IpjjY5aJD9VFN+z2/e3iP/AGzH+FR9Ud+bmdyvbq1uU/on8A+H/h14N8FaX8O/A01lFoWkWYsLO1ivvOKQgEbd5YsTyeSc81xXw8/Y+/Zt+FPiyz8dfD74V6fo+vWAlFtfR3FzK8YkRkfHmSMOVZh071+CMTNbnNuxiPrGSv8AKtC18ReIrFt1l4h1a3PXMN/Mh/8AHWFT9Tl0kP6wnvE/oS+JPwi+GXxf06z0j4m+CdM8SWenXH2u1g1CAyJFNsKbwPXaxH0NWfh78Mfh/wDCjRJPDfw38H6Z4c0ua4a7ktNPtxFE0zKqs5A/iIVRn2Ffz+23xX+Klnj7J8T/ABhDjps1+8GP/IldDaftNftG2AVbP49fECJU6KPEV0QPwLmp+pTtbm0KWJje9j9xdR/Z7+AurazfeINY+Dngm/1TU5nuLy7vNEtppbiVzlndnQlie5Nd/bxW9vFHbWyJHHEoRETgKoGAAPQCvwWtf2zf2rbNQkPx/wDGRA/563iSn83QmvU/gP8A8FD/AI/+HPin4an+KPxPvtd8Hy38dvrNteW1vxbSfI0odI1cGMsJODzsIPBqJYOpa97lRxEL2sfs0eQB718ta9aaR+z7+1LZate6baDwL8c5xZ3LzQIU03xXGn7qQEr8q3kS7SO8sQbua+oopY54klikWRGAZWU5VgRkEHuCOa8p/am+EH/C8PgX4o8BWq41WW0+3aNMOHh1K3bzbZ1PVSXULkc4c1zQdnZ7M2ktLnqkdvDHjyoEQYGNqAY/SpeByT371/PpD+0d+0Vp7tHF8cfiFbOhKvH/AMJFdgowPKkb+oOQavwftYftO2wxD+0D4/HBGW1uZ8f99E11fUZdGjn+srsfv5nIGOlL+NeEfsWfHv8A4aF+A2h+LdRuVk8QaaP7I19eAft0KrmXHYSoUlHb5yO1e6tnbwcHHX0rjlFxbi9zpTTV0GFJ6A0bV/ujp6V+U/xg/wCCh37XvwY+Knib4Za/a+CJbnw9qMlssj6HKouIPvQyjE44eJkb8cdq5mL/AIKz/tMoQZPD/gCQAcj+yrkZ/K5roWEqNXRk68E7M+aPi3460/xRf6T4X8KvKvg/wXY/2PoEci7GmTcXuL2Re0tzOXlb0Uxp/BXBUyCZLmFLiI5SRQyn2NPr1YpJaHA9woooqgCiiigAooooAKKKKACggEEMAQeCD3FFFAH7Vf8ABOv47RfFv9nbS9M1rUkk1/wSw0C/82QB5Io1BtZjnruh2qT3aN6+oft1nj/j7gzj/nov+NfzahmXlWIz6HFL5j/89H/76NcM8EpSbTsdMcTZWaPoP9vT4UR/Cb9prxTZ6dAiaP4jkHiPTfLA2BLkkzIuOPlnEox6Fa+eqUsx6sT9TmkrshFxikznk7u6PsH/AIJlfHn/AIVX8dB4B1q9EPh/4gqmntvfCQ6imTayeg35eI/76elfsZ9tsyP+PuH/AL+L/jX82VO8yT/no/8A30a5q2EVWXMnY2p13BWsfov/AMFbfg3bx6l4Y+PWhRRst0o8Pa2YmU4ddz2krYOeR5sZPtGK/OSWRIYnlkOFRSzH2AqQu5GC7Ee7GsPxZfC100wK2HuTsH+6OT/QfjWiTw9LV3sQ37WfqVfB+piWF9Nlb5o8vF7r3H4dfxrpK8ztbmWznS5gbbJGdwNehabfw6laJdQ9Dwy/3W7issJW548j3RpXp2fMti1RRRXYc4UUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUABIAyenevP9f1P+09QeRCTDH8kf0Hf8etdB4p1gW0B063f99KP3hH8Ken1P8q40152MrXfIjsw9Oy5mFaOi6vLpNx5gy0L8SJ6j1HvWdRXDGTi7o6GlJWZ6db3EN3ClxbyB43GQRUlef6NrdxpEvy/PC5+eMnr7j0NdxY39rqMAntZQy9x3U+hFevRxEaq8zgqUnTfkWKKKK6DIKKKKACiiigAooooAKKKKACiiigArN1vWYtJg4w88gPlp/U+1Ra14ht9LUwxYluf7nZPdv8ACuJubma7ma4uJC8jnJJrjxGJUFyx3OilRcnzS2GzzS3ErTzOXdyWZj3NMooryztCiiigAqezvbmxmE9rKyOPToR6EdxUFFNNp3QNXO00zxbaXQEV+BbydN38B/wrdVldQ6MGVuQQcg15dVuy1S/085tblkGeV6qfwPFdtLGNaT1OaeHT1joej0Vytn40IAW+tAf9uI4/Q1rW/ibRp8f6X5ZPaRSP16V2RxFOWzOd0px6GpRUMV7ZTDMN3C/0cVMCDyCD9K1TT2M7NBRSM6L951X6nFVptV023/1t/Ap9N4J/ShyUd2NJvYtUVi3Pi7SYQfKMk7dtq4H5msa88YX8wK2qJbr6j5m/Pp+lYyxNOPW5pGjOXQ626vbWxj827nWNe2TyfoO9ctqvi6acNb6cpiQ8GQ/fP09P51gTzzXEhknlaRz1Zjk1HXDVxcp6R0R0woRjq9RWYsSSScnPNJRRXIbhRRRQB//Z";
+
+const STORAGE_KEY_V1 = 'lbc_legacy_network_v1';
+const STORAGE_KEY_V3 = 'lbc_legacy_network_v3';
+const STORAGE_KEY_V4 = 'lbc_legacy_network_v4';
+const STORAGE_KEY    = 'lbc_legacy_network_v5';
+
+/* ── Auth + admin gate ────────────────────────────────────────────────
+   Sign-in is driven entirely by the Management Terminal (Module 03):
+   /management/ writes its JWT + user record into localStorage and this
+   page reads the same keys. The legacy `legacy_2025` passcode is gone.
+
+   Admin (full read + write) is granted ONLY to:
+     - users with role 'admin'
+     - users with role 'management' whose title looks like a Director
+       (matches "Director" but NOT "Vice Director" or "VD") OR a
+       "Chief X Officer" C-suite title
+     - the special-case username 'aurafa' (AMD Vice Director who runs
+       the rolodex)
+
+   Anyone else logged in gets the read view. Not logged in -> the
+   sign-in overlay blocks the page entirely.
+
+   This is still client-side gating (anyone with DevTools could lie
+   about state.user), but the surface area is much smaller than a
+   shared passcode, and 0015_network_rls_hardening.sql is queued to
+   enforce the same rules server-side via RLS once it ships. */
+const MGMT_TOKEN_KEY = 'lbc.mgmt.token';
+const MGMT_USER_KEY  = 'lbc.mgmt.user';
+const MGMT_EXP_KEY   = 'lbc.mgmt.exp';
+const MGMT_LOGIN_URL = '/management/';
+
+function readMgmtSession() {
+  try {
+    const token = localStorage.getItem(MGMT_TOKEN_KEY);
+    const userRaw = localStorage.getItem(MGMT_USER_KEY);
+    const expRaw = localStorage.getItem(MGMT_EXP_KEY);
+    if (!token || !userRaw || !expRaw) return null;
+    if (Date.now() > Number(expRaw)) return null;
+    return { token, user: JSON.parse(userRaw) };
+  } catch { return null; }
+}
+
+function isDirectorTitle(title) {
+  if (!title) return false;
+  if (/vice\s+director|^vd\b|\bVD\b/i.test(title)) return false;
+  if (/director\b/i.test(title)) return true;
+  if (/^chief\s+.+\s+officer$/i.test(title.trim())) return true;
+  return false;
+}
+
+function adminEligibility(user) {
+  if (!user) return { eligible: false, reason: 'Sign in to use the Network Terminal.' };
+  if (user.role === 'admin') return { eligible: true, label: 'Admin' };
+  if (user.username === 'aurafa') return { eligible: true, label: 'Admin (AMD)' };
+  if (user.role !== 'management') {
+    return { eligible: false, reason: 'Admin requires a Director-level account.' };
+  }
+  if (!isDirectorTitle(user.title)) {
+    return { eligible: false, reason: 'Admin is reserved for Directors and C-suite.' };
+  }
+  return { eligible: true, label: 'Admin (Director)' };
+}
+
+/* Sections — three top-level views. Each connection belongs to exactly one. */
+const SECTIONS = [
+  { id: 'network', label: 'Network', addLabel: 'Add Connection', singular: 'Connection' },
+  { id: 'clients', label: 'Clients', addLabel: 'Add Client',     singular: 'Client'     },
+  { id: 'talents', label: 'Talents', addLabel: 'Add Talent',     singular: 'Talent'     },
+];
+const SECTION_BY_ID = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
+
+const CLIENT_TYPES = [
+  { id: 'research', label: 'Research' },
+  { id: 'investor', label: 'Investor' },
+];
+const CLIENT_TYPE_BY_ID = Object.fromEntries(CLIENT_TYPES.map(t => [t.id, t]));
+
+const CLIENT_STATUSES = [
+  { id: 'current', label: 'Current' },
+  { id: 'lead',    label: 'Lead'    },
+];
+const CLIENT_STATUS_BY_ID = Object.fromEntries(CLIENT_STATUSES.map(s => [s.id, s]));
+
+const TALENT_STAGES = [
+  { id: 'undergrad',   label: 'Undergrad'   },
+  { id: 'grad',        label: 'Graduate'    },
+  { id: 'experienced', label: 'Experienced' },
+  { id: 'alumni',      label: 'Alumni'      },
+  { id: 'other',       label: 'Other'       },
+];
+const TALENT_STAGE_BY_ID = Object.fromEntries(TALENT_STAGES.map(s => [s.id, s]));
+
+/* Relationship types for any known-by edge (LBC↔connection or connection↔connection) */
+const REL_TYPES = [
+  { id: 'colleague',    label: 'Colleague' },
+  { id: 'ex-colleague', label: 'Ex-colleague' },
+  { id: 'client',       label: 'Client' },
+  { id: 'investor',     label: 'Investor' },
+  { id: 'school',       label: 'School' },
+  { id: 'family',       label: 'Family' },
+  { id: 'mentor',       label: 'Mentor' },
+  { id: 'advisor',      label: 'Advisor' },
+  { id: 'friend',       label: 'Friend' },
+  { id: 'other',        label: 'Other' },
+];
+const REL_LABEL = Object.fromEntries(REL_TYPES.map(r => [r.id, r.label]));
+function relLabel(id) { return REL_LABEL[id] || 'Other'; }
+
+const DUMMY_SEED_FLAG = 'lbc_demo_seeded_v1';
+
+/* DUMMY DATA — auto-seeded the first time the app loads with an empty store.
+   Every name is prefixed "Dummy" so you can identify and delete them later.
+   Once seeded, the flag in localStorage prevents re-seeding even if you
+   delete them all. To re-seed: clear that flag in DevTools and reload. */
+function buildDummyConnections() {
+  const now = Date.now();
+  const D = (id, over) => Object.assign({
+    id, createdAt: now,
+    affiliations: [], knownBy: [], notes: [], image: null,
+    section: 'network', visibility: 'public',
+    clientType: null, clientStatus: null, talentStage: null,
+    closenessIndex: 6, sectorId: null, affiliation: '', position: '',
+  }, over);
+  return [
+    // ============ NETWORK (8) ============
+    D('dummy_net_01', { name: 'Dummy Andre Wijaya', sectorId: 'sec_ib', closenessIndex: 9,
+      affiliation: 'Dummy Goldman Sachs', position: 'Managing Director',
+      affiliations: [
+        { company: 'Dummy Goldman Sachs', position: 'Managing Director', current: true },
+        { company: 'Dummy McKinsey',      position: 'Senior Associate',   current: false },
+      ],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'ex-colleague' }],
+      notes: [
+        { id: 'dn01a', text: 'Dummy met at Mandiri summit Sep 2024.',        ts: now - 86400000 * 60 },
+        { id: 'dn01b', text: 'Open to dummy advisory mandate on Q3 IPO.',    ts: now - 86400000 * 10 },
+      ] }),
+    D('dummy_net_02', { name: 'Dummy Beatrice Lim', sectorId: 'sec_combank', closenessIndex: 7,
+      affiliation: 'Dummy DBS Bank', position: 'Head of Corporate Banking',
+      affiliations: [{ company: 'Dummy DBS Bank', position: 'Head of Corporate Banking', current: true }],
+      knownBy: [
+        { id: 'm2', type: 'member', relType: 'client' },
+        { id: 'dummy_net_01', type: 'connection', relType: 'school' },
+      ] }),
+    D('dummy_net_03', { name: 'Dummy Cipta Nugroho', sectorId: 'sec_pe', closenessIndex: 8, visibility: 'admin',
+      affiliation: 'Dummy Northstar Pacific', position: 'Partner',
+      affiliations: [{ company: 'Dummy Northstar Pacific', position: 'Partner', current: true }],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'advisor' }],
+      notes: [{ id: 'dn03', text: 'Sensitive: dummy plans to spin off energy book.', ts: now - 86400000 * 5 }] }),
+    D('dummy_net_04', { name: 'Dummy Daniel Kusuma', sectorId: 'sec_hf', closenessIndex: 6,
+      affiliation: 'Dummy Citadel SG', position: 'Portfolio Manager',
+      affiliations: [{ company: 'Dummy Citadel SG', position: 'Portfolio Manager', current: true }],
+      knownBy: [{ id: 'm2', type: 'member', relType: 'colleague' }] }),
+    D('dummy_net_05', { name: 'Dummy Eliana Surya', sectorId: 'sec_saas', closenessIndex: 8,
+      affiliation: 'Dummy ZenSaaS', position: 'Founder & CEO',
+      affiliations: [
+        { company: 'Dummy ZenSaaS', position: 'Founder & CEO', current: true },
+        { company: 'Dummy Gojek',   position: 'Product Lead',  current: false },
+      ],
+      knownBy: [{ id: 'm3', type: 'member', relType: 'friend' }] }),
+    D('dummy_net_06', { name: 'Dummy Farah Halim', sectorId: 'sec_og', closenessIndex: 7,
+      affiliation: 'Dummy Pertamina', position: 'VP Strategy',
+      affiliations: [{ company: 'Dummy Pertamina', position: 'VP Strategy', current: true }],
+      knownBy: [{ id: 'm6', type: 'member', relType: 'client' }] }),
+    D('dummy_net_07', { name: 'Dummy Gunawan Tirta', sectorId: 'sec_coal', closenessIndex: 9, visibility: 'admin',
+      affiliation: 'Dummy Bayan Resources', position: 'Family Office Head',
+      affiliations: [{ company: 'Dummy Bayan Resources', position: 'Family Office Head', current: true }],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'family' }],
+      notes: [{ id: 'dn07', text: 'Sensitive: dummy ultra-net-worth contact.', ts: now - 86400000 * 15 }] }),
+    D('dummy_net_08', { name: 'Dummy Hadi Pratama', sectorId: 'sec_mfg', closenessIndex: 6,
+      affiliation: 'Dummy Astra Manufacturing', position: 'COO',
+      affiliations: [{ company: 'Dummy Astra Manufacturing', position: 'COO', current: true }],
+      knownBy: [{ id: 'm5', type: 'member', relType: 'colleague' }] }),
+
+    // ============ CLIENTS (6) ============
+    D('dummy_cli_01', { name: 'Dummy Pertamina IR Desk', section: 'clients',
+      clientType: 'research', clientStatus: 'current',
+      sectorId: 'sec_og', closenessIndex: 9,
+      affiliation: 'Dummy Pertamina', position: 'Head of IR',
+      affiliations: [{ company: 'Dummy Pertamina', position: 'Head of IR', current: true }],
+      knownBy: [{ id: 'm5', type: 'member', relType: 'client' }],
+      notes: [{ id: 'dnc01', text: 'Dummy renewed retainer for FY26.', ts: now - 86400000 * 7 }] }),
+    D('dummy_cli_02', { name: 'Dummy BCA Research Desk', section: 'clients',
+      clientType: 'research', clientStatus: 'current',
+      sectorId: 'sec_combank', closenessIndex: 8,
+      affiliation: 'Dummy Bank Central Asia', position: 'Head of Equity Research',
+      affiliations: [{ company: 'Dummy Bank Central Asia', position: 'Head of Equity Research', current: true }],
+      knownBy: [{ id: 'm5', type: 'member', relType: 'client' }] }),
+    D('dummy_cli_03', { name: 'Dummy Mandiri Research Lead', section: 'clients', visibility: 'admin',
+      clientType: 'research', clientStatus: 'lead',
+      sectorId: 'sec_combank', closenessIndex: 5,
+      affiliation: 'Dummy Bank Mandiri', position: 'Head of Macro Research',
+      affiliations: [{ company: 'Dummy Bank Mandiri', position: 'Head of Macro Research', current: true }],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'colleague' }],
+      notes: [{ id: 'dnc03', text: 'Sensitive: dummy comparing us with Goldman.', ts: now - 86400000 * 3 }] }),
+    D('dummy_cli_04', { name: 'Dummy GIC Singapore', section: 'clients',
+      clientType: 'investor', clientStatus: 'current',
+      sectorId: 'sec_swf', closenessIndex: 8,
+      affiliation: 'Dummy GIC', position: 'Director, Emerging Markets',
+      affiliations: [{ company: 'Dummy GIC', position: 'Director, Emerging Markets', current: true }],
+      knownBy: [{ id: 'm2', type: 'member', relType: 'investor' }] }),
+    D('dummy_cli_05', { name: 'Dummy Temasek Lead', section: 'clients',
+      clientType: 'investor', clientStatus: 'lead',
+      sectorId: 'sec_swf', closenessIndex: 6,
+      affiliation: 'Dummy Temasek', position: 'VP Strategy',
+      affiliations: [{ company: 'Dummy Temasek', position: 'VP Strategy', current: true }],
+      knownBy: [{ id: 'm2', type: 'member', relType: 'investor' }] }),
+    D('dummy_cli_06', { name: 'Dummy XYZ Sovereign Fund', section: 'clients', visibility: 'admin',
+      clientType: 'investor', clientStatus: 'lead',
+      sectorId: 'sec_swf', closenessIndex: 7,
+      affiliation: 'Dummy XYZ SWF', position: 'Head of Alternatives',
+      affiliations: [{ company: 'Dummy XYZ SWF', position: 'Head of Alternatives', current: true }],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'investor' }],
+      notes: [{ id: 'dnc06', text: 'Sensitive: dummy meeting next month.', ts: now - 86400000 * 1 }] }),
+
+    // ============ TALENTS (6) ============
+    D('dummy_tal_01', { name: 'Dummy Anita Sari', section: 'talents', talentStage: 'undergrad',
+      sectorId: 'sec_ib', closenessIndex: 5,
+      affiliation: 'Dummy Universitas Indonesia', position: 'BA Finance, Class of 2027',
+      affiliations: [{ company: 'Dummy Universitas Indonesia', position: 'BA Finance, Class of 2027', current: true }],
+      knownBy: [{ id: 'm4', type: 'member', relType: 'mentor' }] }),
+    D('dummy_tal_02', { name: 'Dummy Budi Wirawan', section: 'talents', talentStage: 'undergrad',
+      sectorId: 'sec_saas', closenessIndex: 6,
+      affiliation: 'Dummy NTU', position: 'BSc CS, Class of 2026',
+      affiliations: [{ company: 'Dummy NTU', position: 'BSc CS, Class of 2026', current: true }],
+      knownBy: [{ id: 'm3', type: 'member', relType: 'mentor' }] }),
+    D('dummy_tal_03', { name: 'Dummy Citra Pranadi', section: 'talents', talentStage: 'grad',
+      sectorId: 'sec_am', closenessIndex: 7,
+      affiliation: 'Dummy INSEAD', position: 'MBA, Class of 2026',
+      affiliations: [{ company: 'Dummy INSEAD', position: 'MBA, Class of 2026', current: true }],
+      knownBy: [{ id: 'm2', type: 'member', relType: 'mentor' }] }),
+    D('dummy_tal_04', { name: 'Dummy Dharma Setiawan', section: 'talents', talentStage: 'experienced',
+      sectorId: 'sec_pe', closenessIndex: 8,
+      affiliation: 'Dummy Bain Capital', position: 'Senior Associate',
+      affiliations: [{ company: 'Dummy Bain Capital', position: 'Senior Associate', current: true }],
+      knownBy: [{ id: 'm2', type: 'member', relType: 'colleague' }],
+      notes: [{ id: 'dnt04', text: 'Dummy expressed interest in junior partner role.', ts: now - 86400000 * 20 }] }),
+    D('dummy_tal_05', { name: 'Dummy Eka Putri', section: 'talents', talentStage: 'alumni',
+      sectorId: 'sec_ib', closenessIndex: 9,
+      affiliation: 'Dummy Morgan Stanley', position: 'VP',
+      affiliations: [
+        { company: 'Dummy Morgan Stanley', position: 'VP',         current: true },
+        { company: 'Dummy LBC',            position: 'Associate',  current: false },
+      ],
+      knownBy: [{ id: 'm1', type: 'member', relType: 'ex-colleague' }] }),
+    D('dummy_tal_06', { name: 'Dummy Fitri Nugroho', section: 'talents', talentStage: 'other', visibility: 'admin',
+      sectorId: 'sec_fintech', closenessIndex: 6,
+      affiliation: 'Dummy Stealth Startup', position: 'Co-founder',
+      affiliations: [{ company: 'Dummy Stealth Startup', position: 'Co-founder', current: true }],
+      knownBy: [{ id: 'm3', type: 'member', relType: 'friend' }],
+      notes: [{ id: 'dnt06', text: 'Sensitive: dummy considering an acqui-hire conversation.', ts: now - 86400000 * 2 }] }),
+  ];
+}
+
+function maybeSeedDummies() {
+  if (localStorage.getItem(DUMMY_SEED_FLAG)) return; // already seeded once
+  if (state.connections.length > 0)            return; // user already has data
+  state.connections = buildDummyConnections().map(normalizeConnection);
+  localStorage.setItem(DUMMY_SEED_FLAG, '1');
+  saveState();
+}
+
+const DEFAULT_MEMBERS = [
+  { id: 'm1', name: 'Narin',                 role: 'CEO' },
+  { id: 'm2', name: 'Charlie Verchius',      role: 'CIO' },
+  { id: 'm3', name: 'M. Rizky Narindra',     role: 'CTO' },
+  { id: 'm4', name: 'Kayla Kwok',            role: 'CSO' },
+  { id: 'm5', name: 'Satya Damba Pramudita', role: 'ER Director' },
+  { id: 'm6', name: 'Aqila Muhammad Taqy',   role: 'IR Director' },
+  { id: 'm7', name: 'Amadeus B.H. Sianturi', role: 'MR Director' },
+];
+
+const DEFAULT_CATEGORIES = [
+  { id: 'finance',     name: 'Finance' },
+  { id: 'tech',        name: 'Technology' },
+  { id: 'energy',      name: 'Energy & Resources' },
+  { id: 'industrials', name: 'Industrials' },
+  { id: 'consumer',    name: 'Consumer & Retail' },
+  { id: 'healthcare',  name: 'Healthcare' },
+  { id: 'realestate',  name: 'Real Estate' },
+  { id: 'services',    name: 'Professional Services' },
+];
+
+const DEFAULT_SECTORS = [
+  // Finance (14)
+  { id: 'sec_combank',   name: 'Commercial Banking',      categoryId: 'finance' },
+  { id: 'sec_ib',        name: 'Investment Banking',      categoryId: 'finance' },
+  { id: 'sec_er',        name: 'Equity Research',         categoryId: 'finance' },
+  { id: 'sec_st',        name: 'Sales & Trading',         categoryId: 'finance' },
+  { id: 'sec_am',        name: 'Asset Management',        categoryId: 'finance' },
+  { id: 'sec_wm',        name: 'Wealth Management',       categoryId: 'finance' },
+  { id: 'sec_pe',        name: 'Private Equity',          categoryId: 'finance' },
+  { id: 'sec_vc',        name: 'Venture Capital',         categoryId: 'finance' },
+  { id: 'sec_hf',        name: 'Hedge Fund',              categoryId: 'finance' },
+  { id: 'sec_angel',     name: 'Angel Investor',          categoryId: 'finance' },
+  { id: 'sec_fo',        name: 'Family Office',           categoryId: 'finance' },
+  { id: 'sec_insurance', name: 'Insurance',               categoryId: 'finance' },
+  { id: 'sec_rating',    name: 'Credit Rating',           categoryId: 'finance' },
+  { id: 'sec_swf',       name: 'Sovereign Wealth Fund',   categoryId: 'finance' },
+  // Technology (10)
+  { id: 'sec_saas',      name: 'Software (SaaS)',         categoryId: 'tech' },
+  { id: 'sec_ai',        name: 'AI / ML',                 categoryId: 'tech' },
+  { id: 'sec_cloud',     name: 'Cloud & Infrastructure',  categoryId: 'tech' },
+  { id: 'sec_cyber',     name: 'Cybersecurity',           categoryId: 'tech' },
+  { id: 'sec_fintech',   name: 'Fintech',                 categoryId: 'tech' },
+  { id: 'sec_internet',  name: 'Consumer Internet',       categoryId: 'tech' },
+  { id: 'sec_ecomm',     name: 'E-commerce',              categoryId: 'tech' },
+  { id: 'sec_semi',      name: 'Semiconductors',          categoryId: 'tech' },
+  { id: 'sec_hw',        name: 'Hardware',                categoryId: 'tech' },
+  { id: 'sec_telco',     name: 'Telecommunications',      categoryId: 'tech' },
+  // Energy & Resources (7)
+  { id: 'sec_og',        name: 'Oil & Gas',               categoryId: 'energy' },
+  { id: 'sec_coal',      name: 'Coal & Mining',           categoryId: 'energy' },
+  { id: 'sec_metals',    name: 'Metals & Mining',         categoryId: 'energy' },
+  { id: 'sec_renew',     name: 'Renewables',              categoryId: 'energy' },
+  { id: 'sec_utilities', name: 'Utilities & Power',       categoryId: 'energy' },
+  { id: 'sec_nuclear',   name: 'Nuclear',                 categoryId: 'energy' },
+  { id: 'sec_commod',    name: 'Commodities Trading',     categoryId: 'energy' },
+  // Industrials (8)
+  { id: 'sec_mfg',       name: 'Manufacturing',           categoryId: 'industrials' },
+  { id: 'sec_aero',      name: 'Aerospace & Defense',     categoryId: 'industrials' },
+  { id: 'sec_auto',      name: 'Automotive',              categoryId: 'industrials' },
+  { id: 'sec_chem',      name: 'Chemicals',               categoryId: 'industrials' },
+  { id: 'sec_constr',    name: 'Construction',            categoryId: 'industrials' },
+  { id: 'sec_log',       name: 'Logistics & Shipping',    categoryId: 'industrials' },
+  { id: 'sec_infra',     name: 'Infrastructure',          categoryId: 'industrials' },
+  { id: 'sec_agri',      name: 'Agriculture',             categoryId: 'industrials' },
+  // Consumer & Retail (10)
+  { id: 'sec_fb',        name: 'Food & Beverage',         categoryId: 'consumer' },
+  { id: 'sec_pc',        name: 'Personal Care & Beauty',  categoryId: 'consumer' },
+  { id: 'sec_house',     name: 'Household Goods',         categoryId: 'consumer' },
+  { id: 'sec_apparel',   name: 'Apparel & Fashion',       categoryId: 'consumer' },
+  { id: 'sec_luxury',    name: 'Luxury Goods',            categoryId: 'consumer' },
+  { id: 'sec_travel',    name: 'Travel & Hospitality',    categoryId: 'consumer' },
+  { id: 'sec_media',     name: 'Media & Entertainment',   categoryId: 'consumer' },
+  { id: 'sec_gaming',    name: 'Gaming',                  categoryId: 'consumer' },
+  { id: 'sec_rest',      name: 'Restaurants',             categoryId: 'consumer' },
+  { id: 'sec_retail',    name: 'Retail',                  categoryId: 'consumer' },
+  // Healthcare (5)
+  { id: 'sec_pharma',    name: 'Pharmaceuticals',         categoryId: 'healthcare' },
+  { id: 'sec_biotech',   name: 'Biotech',                 categoryId: 'healthcare' },
+  { id: 'sec_meddev',    name: 'Medical Devices',         categoryId: 'healthcare' },
+  { id: 'sec_hospital',  name: 'Hospitals & Services',    categoryId: 'healthcare' },
+  { id: 'sec_healthins', name: 'Health Insurance',        categoryId: 'healthcare' },
+  // Real Estate (5)
+  { id: 'sec_reit',      name: 'REITs',                   categoryId: 'realestate' },
+  { id: 'sec_resi',      name: 'Residential',             categoryId: 'realestate' },
+  { id: 'sec_comm_re',   name: 'Commercial Real Estate',  categoryId: 'realestate' },
+  { id: 'sec_devel',     name: 'Property Development',    categoryId: 'realestate' },
+  { id: 'sec_proptech',  name: 'Proptech',                categoryId: 'realestate' },
+  // Professional Services (7)
+  { id: 'sec_consult',   name: 'Consulting',              categoryId: 'services' },
+  { id: 'sec_law',       name: 'Law',                     categoryId: 'services' },
+  { id: 'sec_accting',   name: 'Accounting & Audit',      categoryId: 'services' },
+  { id: 'sec_gov',       name: 'Government',              categoryId: 'services' },
+  { id: 'sec_edu',       name: 'Education',               categoryId: 'services' },
+  { id: 'sec_nonprofit', name: 'Non-profit',              categoryId: 'services' },
+  { id: 'sec_corp',      name: 'Corporate (In-house)',    categoryId: 'services' },
+];
+
+/* ===============================================================
+   SUPABASE — realtime collaboration layer
+   Schema: supabase/migrations/0013_network_schema.sql
+   ----
+   Credentials come from window.LBC_NETWORK_CONFIG (set by
+   js/config.vercel.js for prod, optionally overridden by
+   js/config.js for local dev — config.js is gitignored).
+   The publishable key is safe to ship in client code — it's
+   designed for that and is gated by Row-Level Security policies
+   in the DB. NEVER paste the service_role / sb_secret_* key here.
+   =============================================================== */
+const _LNS_CFG = (window.LBC_NETWORK_CONFIG && window.LBC_NETWORK_CONFIG.supabase) || {};
+const SUPABASE_URL              = _LNS_CFG.url     || '';
+const SUPABASE_PUBLISHABLE_KEY  = _LNS_CFG.anonKey || '';
+const USE_SUPABASE = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('YOUR_');
+
+/* This Supabase project is shared with other apps. All Legacy Network System
+   tables are prefixed `lns_` to avoid collisions on names like `categories`. */
+const SB_TABLES = {
+  categories:   'lns_categories',
+  sectors:      'lns_sectors',
+  members:      'lns_members',
+  connections:  'lns_connections',
+  company_meta: 'lns_company_meta',
+};
+const SB_TABLE_BY_DB = Object.fromEntries(Object.entries(SB_TABLES).map(([k, v]) => [v, k]));
+
+let sbClient = null;
+let syncStatus = 'local';
+if (USE_SUPABASE && typeof window.supabase !== 'undefined') {
+  try {
+    sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      realtime: { params: { eventsPerSecond: 10 } },
+    });
+    syncStatus = 'connecting';
+  } catch (e) { console.error('Supabase init failed:', e); syncStatus = 'error'; }
+}
+
+/* Row transformers (JS camelCase ↔ DB snake_case).
+   v4 stores affiliations / known_by / notes as jsonb arrays. */
+function connToRow(c) {
+  return {
+    id: c.id,
+    name: c.name,
+    sector_id: c.sectorId || null,
+    closeness_index: c.closenessIndex || 5,
+    affiliations: c.affiliations || [],
+    known_by: c.knownBy || [],
+    notes: c.notes || [],
+    affiliation: c.affiliation || null,
+    position: c.position || null,
+    image: c.image || null,
+    // v5
+    section:       c.section       || 'network',
+    visibility:    c.visibility    || 'public',
+    client_type:   c.clientType    || null,
+    client_status: c.clientStatus  || null,
+    talent_stage:  c.talentStage   || null,
+  };
+}
+function rowToConn(r) {
+  return normalizeConnection({
+    id: r.id,
+    name: r.name,
+    sectorId: r.sector_id,
+    closenessIndex: r.closeness_index || 5,
+    affiliations: r.affiliations || [],
+    knownBy: r.known_by || [],
+    notes: r.notes || [],
+    affiliation: r.affiliation,
+    position: r.position,
+    image: r.image,
+    createdAt: r.created_at ? new Date(r.created_at).getTime() : Date.now(),
+    // v5
+    section:      r.section,
+    visibility:   r.visibility,
+    clientType:   r.client_type,
+    clientStatus: r.client_status,
+    talentStage:  r.talent_stage,
+  });
+}
+function memberToRow(m) { return { id: m.id, name: m.name, role: m.role || null, image: m.image || null }; }
+function rowToMember(r) { return { id: r.id, name: r.name, role: r.role, image: r.image }; }
+function sectorToRow(s) { return { id: s.id, name: s.name, category_id: s.categoryId }; }
+function rowToSector(r) { return { id: r.id, name: r.name, categoryId: r.category_id }; }
+function catToRow(c)    { return { id: c.id, name: c.name }; }
+function rowToCat(r)    { return { id: r.id, name: r.name }; }
+
+async function cloudUpsert(table, entity) {
+  if (!sbClient) return;
+  try {
+    const transform = { connections: connToRow, members: memberToRow, sectors: sectorToRow, categories: catToRow }[table];
+    const payload = table === 'company_meta' ? { name: entity.name, logo: entity.logo || null } : transform(entity);
+    const { error } = await sbClient.from(SB_TABLES[table]).upsert(payload);
+    if (error) console.warn('upsert ' + table + ':', error);
+  } catch (e) { console.warn('upsert ' + table + ':', e); }
+}
+async function cloudDelete(table, keyValue) {
+  if (!sbClient) return;
+  try {
+    const keyCol = table === 'company_meta' ? 'name' : 'id';
+    const { error } = await sbClient.from(SB_TABLES[table]).delete().eq(keyCol, keyValue);
+    if (error) console.warn('delete ' + table + ':', error);
+  } catch (e) { console.warn('delete ' + table + ':', e); }
+}
+
+async function cloudLoadAll() {
+  const [cats, secs, mems, conns, meta] = await Promise.all([
+    sbClient.from(SB_TABLES.categories).select('*'),
+    sbClient.from(SB_TABLES.sectors).select('*'),
+    sbClient.from(SB_TABLES.members).select('*'),
+    sbClient.from(SB_TABLES.connections).select('*'),
+    sbClient.from(SB_TABLES.company_meta).select('*'),
+  ]);
+  for (const r of [cats, secs, mems, conns, meta]) {
+    if (r.error) {
+      // 42P01 = Postgres undefined_table ; PGRST205 = PostgREST schema-cache miss
+      if (r.error.code === '42P01' || r.error.code === 'PGRST205') throw new Error('TABLES_MISSING');
+      throw r.error;
+    }
+  }
+  state.categories  = (cats.data  || []).map(rowToCat);
+  state.sectors     = (secs.data  || []).map(rowToSector);
+  state.members     = (mems.data  || []).map(rowToMember);
+  state.connections = (conns.data || []).map(rowToConn);
+  state.companyMeta = {};
+  (meta.data || []).forEach(r => { state.companyMeta[r.name] = { logo: r.logo }; });
+
+  // First-time seed if the cloud DB is empty
+  if (state.categories.length === 0) {
+    await sbClient.from(SB_TABLES.categories).upsert(DEFAULT_CATEGORIES.map(catToRow), { ignoreDuplicates: true });
+    state.categories = [...DEFAULT_CATEGORIES];
+  }
+  if (state.sectors.length === 0) {
+    await sbClient.from(SB_TABLES.sectors).upsert(DEFAULT_SECTORS.map(sectorToRow), { ignoreDuplicates: true });
+    state.sectors = [...DEFAULT_SECTORS];
+  }
+  if (state.members.length === 0) {
+    await sbClient.from(SB_TABLES.members).upsert(DEFAULT_MEMBERS.map(memberToRow), { ignoreDuplicates: true });
+    state.members = [...DEFAULT_MEMBERS];
+  }
+}
+
+function cloudRealtime() {
+  const handle = (payload) => {
+    try {
+      // Realtime gives us the DB table name (e.g. `lns_categories`); map back to short name.
+      const table = SB_TABLE_BY_DB[payload.table] || payload.table;
+      const { eventType, new: newRow, old: oldRow } = payload;
+      if (table === 'categories') {
+        if (eventType === 'DELETE') state.categories = state.categories.filter(c => c.id !== oldRow.id);
+        else { const c = rowToCat(newRow); const i = state.categories.findIndex(x => x.id === c.id); if (i >= 0) state.categories[i] = c; else state.categories.push(c); }
+      } else if (table === 'sectors') {
+        if (eventType === 'DELETE') state.sectors = state.sectors.filter(s => s.id !== oldRow.id);
+        else { const s = rowToSector(newRow); const i = state.sectors.findIndex(x => x.id === s.id); if (i >= 0) state.sectors[i] = s; else state.sectors.push(s); }
+      } else if (table === 'members') {
+        if (eventType === 'DELETE') state.members = state.members.filter(m => m.id !== oldRow.id);
+        else { const m = rowToMember(newRow); const i = state.members.findIndex(x => x.id === m.id); if (i >= 0) state.members[i] = m; else state.members.push(m); }
+      } else if (table === 'connections') {
+        if (eventType === 'DELETE') state.connections = state.connections.filter(c => c.id !== oldRow.id);
+        else { const c = rowToConn(newRow); const i = state.connections.findIndex(x => x.id === c.id); if (i >= 0) state.connections[i] = c; else state.connections.push(c); }
+      } else if (table === 'company_meta') {
+        if (eventType === 'DELETE') delete state.companyMeta[oldRow.name];
+        else state.companyMeta[newRow.name] = { logo: newRow.logo };
+      }
+      saveState();
+      renderAll();
+    } catch (e) { console.warn('Realtime handler:', e); }
+  };
+  sbClient
+    .channel('lbc_network')
+    .on('postgres_changes', { event: '*', schema: 'public', table: SB_TABLES.categories   }, handle)
+    .on('postgres_changes', { event: '*', schema: 'public', table: SB_TABLES.sectors      }, handle)
+    .on('postgres_changes', { event: '*', schema: 'public', table: SB_TABLES.members      }, handle)
+    .on('postgres_changes', { event: '*', schema: 'public', table: SB_TABLES.connections  }, handle)
+    .on('postgres_changes', { event: '*', schema: 'public', table: SB_TABLES.company_meta }, handle)
+    .subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        setSyncStatus('connected');
+        console.info('Realtime subscribed — live updates active');
+      } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+        console.warn('Realtime subscription issue (' + status + '): REST save/load still works, but live updates may be delayed. Enable Realtime on all 5 tables in Supabase → Database → Publications.');
+        // Don't downgrade syncStatus — REST is still healthy
+      }
+    });
+}
+
+function setSyncStatus(s) {
+  syncStatus = s;
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.classList.remove('live', 'connecting', 'error');
+  const labels = { local: 'Local only', connecting: 'Syncing', connected: 'Live', error: 'Offline' };
+  if (s === 'connected') el.classList.add('live');
+  else if (s === 'connecting') el.classList.add('connecting');
+  else if (s === 'error') el.classList.add('error');
+  el.querySelector('.sync-label').textContent = labels[s] || 'Local only';
+}
+
+const state = {
+  members: [], connections: [], categories: [], sectors: [], companyMeta: {},
+  currentView: 'company', categoryFilter: 'all', sectorFilter: 'all',
+  selectedId: null, search: '', editingId: null, tempPhoto: null,
+  editingMemberId: null, tempMemberPhoto: null,
+  // v5: section + admin + per-section filters. Admin is derived from the
+  // logged-in Management Terminal user (see adminEligibility above); the
+  // sign-in overlay below blocks rendering until a valid mgmt session
+  // exists, so currentUser is always populated by the time renderAll runs.
+  section: 'network',
+  currentUser: null,
+  isAdmin: false,
+  clientTypeFilter:   'all',  // 'all' | 'research' | 'investor'
+  clientStatusFilter: 'all',  // 'all' | 'current' | 'lead'
+  talentStageFilter:  'all',  // 'all' | <stage id>
+};
+
+function uid(p = 'c') { return p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      state.members     = d.members     || [...DEFAULT_MEMBERS];
+      state.connections = (d.connections || []).map(normalizeConnection);
+      state.categories  = d.categories  || [...DEFAULT_CATEGORIES];
+      state.sectors     = d.sectors     || [...DEFAULT_SECTORS];
+      state.companyMeta = d.companyMeta || {};
+      return;
+    }
+    const v4raw = localStorage.getItem(STORAGE_KEY_V4);
+    if (v4raw) { migrateFromV4(JSON.parse(v4raw)); saveState(); return; }
+    const v3raw = localStorage.getItem(STORAGE_KEY_V3);
+    if (v3raw) { migrateFromV3(JSON.parse(v3raw)); saveState(); return; }
+    const v1raw = localStorage.getItem(STORAGE_KEY_V1);
+    if (v1raw) { migrateV1(JSON.parse(v1raw)); saveState(); return; }
+  } catch (e) { console.warn('Load error:', e); }
+  state.members = [...DEFAULT_MEMBERS];
+  state.connections = [];
+  state.categories = [...DEFAULT_CATEGORIES];
+  state.sectors = [...DEFAULT_SECTORS];
+  state.companyMeta = {};
+}
+
+/* Normalize a connection to v4 shape (idempotent — safe to call on already-v4 records). */
+function normalizeConnection(c) {
+  // affiliations: array of { company, position, current }
+  let affiliations = Array.isArray(c.affiliations) ? c.affiliations.slice() : null;
+  if (!affiliations || affiliations.length === 0) {
+    if (c.affiliation || c.position) {
+      affiliations = [{
+        company: c.affiliation || 'Unaffiliated',
+        position: c.position || '',
+        current: true,
+      }];
+    } else {
+      affiliations = [];
+    }
+  }
+  // Ensure exactly one current (or none if list is empty)
+  if (affiliations.length && !affiliations.some(a => a.current)) affiliations[0].current = true;
+  const primary = affiliations.find(a => a.current) || affiliations[0] || { company: 'Unaffiliated', position: '' };
+
+  // knownBy: array of { id, type: 'member'|'connection', relType }
+  const knownBy = (c.knownBy || []).map(item => {
+    if (item && typeof item === 'object' && item.id) {
+      return {
+        id: item.id,
+        type: item.type === 'connection' ? 'connection' : 'member',
+        relType: REL_LABEL[item.relType] ? item.relType : 'other',
+      };
+    }
+    // legacy: bare member-id string
+    return { id: String(item), type: 'member', relType: 'other' };
+  });
+
+  // notes: array of { id, text, ts }
+  const notes = Array.isArray(c.notes) ? c.notes.map(n => ({
+    id: n.id || uid('n'),
+    text: String(n.text || ''),
+    ts: typeof n.ts === 'number' ? n.ts : Date.now(),
+  })) : [];
+
+  // v5 fields — section / visibility / client + talent attrs
+  const section = SECTION_BY_ID[c.section] ? c.section : 'network';
+  const visibility = c.visibility === 'admin' ? 'admin' : 'public';
+  const clientType   = section === 'clients' && CLIENT_TYPE_BY_ID[c.clientType]     ? c.clientType   : (section === 'clients' ? 'research' : null);
+  const clientStatus = section === 'clients' && CLIENT_STATUS_BY_ID[c.clientStatus] ? c.clientStatus : (section === 'clients' ? 'lead'     : null);
+  const talentStage  = section === 'talents' && TALENT_STAGE_BY_ID[c.talentStage]   ? c.talentStage  : (section === 'talents' ? 'other'   : null);
+
+  return {
+    ...c,
+    affiliations,
+    affiliation: primary.company || 'Unaffiliated',
+    position: primary.position || '',
+    closenessIndex: c.closenessIndex || 5,
+    knownBy,
+    notes,
+    section,
+    visibility,
+    clientType,
+    clientStatus,
+    talentStage,
+  };
+}
+
+function migrateFromV4(v4) {
+  state.members = v4.members || [...DEFAULT_MEMBERS];
+  state.categories = v4.categories || [...DEFAULT_CATEGORIES];
+  state.sectors = v4.sectors || [...DEFAULT_SECTORS];
+  state.companyMeta = v4.companyMeta || {};
+  // Existing connections become section='network', visibility='public' by default
+  state.connections = (v4.connections || []).map(normalizeConnection);
+}
+
+function migrateFromV3(v3) {
+  state.members = v3.members || [...DEFAULT_MEMBERS];
+  state.categories = v3.categories || [...DEFAULT_CATEGORIES];
+  state.sectors = v3.sectors || [...DEFAULT_SECTORS];
+  state.companyMeta = v3.companyMeta || {};
+  state.connections = (v3.connections || []).map(normalizeConnection);
+}
+
+function migrateV1(v1) {
+  state.members = v1.members || [...DEFAULT_MEMBERS];
+  state.categories = [...DEFAULT_CATEGORIES];
+  state.sectors = [...DEFAULT_SECTORS];
+  state.companyMeta = {};
+  (v1.sectors || []).forEach(sName => {
+    const exists = state.sectors.find(s => s.name.toLowerCase() === sName.toLowerCase());
+    if (!exists) state.sectors.push({ id: uid('sec'), name: sName, categoryId: 'other' });
+  });
+  state.connections = (v1.connections || []).map(c => {
+    let sectorId = null;
+    if (c.sector) {
+      const match = state.sectors.find(s => s.name.toLowerCase() === c.sector.toLowerCase());
+      sectorId = match ? match.id : null;
+    }
+    const migrated = { ...c, sectorId };
+    delete migrated.sector;
+    return normalizeConnection(migrated);
+  });
+}
+
+/* ===============================================================
+   KNOWN-BY HELPERS
+   knownBy on a connection is the set of *incoming* edges
+   (i.e. people / members who know that connection).
+   Cross-connection edges are stored canonically on the connection
+   that is *named in* the edge, but we expose them symmetrically.
+   =============================================================== */
+function knownByMemberIds(conn) {
+  return (conn.knownBy || []).filter(e => e.type === 'member').map(e => e.id);
+}
+function knownByConnIds(conn) {
+  return (conn.knownBy || []).filter(e => e.type === 'connection').map(e => e.id);
+}
+/* All people (LBC members + other connections) who know this connection,
+   including reverse edges from other connections' knownBy lists. */
+function knownByEdges(conn) {
+  const edges = (conn.knownBy || []).map(e => ({ ...e }));
+  // reverse: any other connection that lists this conn as known-by them is also someone "this conn" knows
+  state.connections.forEach(other => {
+    if (other.id === conn.id) return;
+    (other.knownBy || []).forEach(e => {
+      if (e.type === 'connection' && e.id === conn.id) {
+        // skip if we already have the symmetric edge
+        if (!edges.find(x => x.type === 'connection' && x.id === other.id)) {
+          edges.push({ id: other.id, type: 'connection', relType: e.relType });
+        }
+      }
+    });
+  });
+  return edges;
+}
+/* All connection IDs that are directly tied to this connection (undirected). */
+function neighborConnIds(conn) {
+  const out = new Set(knownByConnIds(conn));
+  state.connections.forEach(other => {
+    if (other.id === conn.id) return;
+    if (knownByConnIds(other).includes(conn.id)) out.add(other.id);
+  });
+  return Array.from(out);
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      members: state.members, connections: state.connections,
+      categories: state.categories, sectors: state.sectors, companyMeta: state.companyMeta,
+    }));
+  } catch (e) {
+    alert('Storage quota exceeded — too many or too large images. Try removing some photos.');
+  }
+}
+
+function getSector(id) { return state.sectors.find(s => s.id === id); }
+function getCategory(id) { return state.categories.find(c => c.id === id); }
+function sectorCategory(sectorId) {
+  const s = getSector(sectorId);
+  return s ? getCategory(s.categoryId) : null;
+}
+function getMember(id) { return state.members.find(m => m.id === id); }
+
+function filteredConnections() {
+  let c = state.connections.slice();
+  // Section gating (each connection lives in exactly one section)
+  c = c.filter(x => (x.section || 'network') === state.section);
+  // Admin visibility gating (admin-only rows hidden when not unlocked)
+  if (!state.isAdmin) c = c.filter(x => (x.visibility || 'public') !== 'admin');
+
+  if (state.section === 'network') {
+    if (state.categoryFilter !== 'all') {
+      c = c.filter(x => {
+        const s = getSector(x.sectorId);
+        return s && s.categoryId === state.categoryFilter;
+      });
+    }
+    if (state.sectorFilter !== 'all') c = c.filter(x => x.sectorId === state.sectorFilter);
+  } else if (state.section === 'clients') {
+    if (state.clientTypeFilter   !== 'all') c = c.filter(x => x.clientType   === state.clientTypeFilter);
+    if (state.clientStatusFilter !== 'all') c = c.filter(x => x.clientStatus === state.clientStatusFilter);
+  } else if (state.section === 'talents') {
+    if (state.talentStageFilter !== 'all') c = c.filter(x => x.talentStage === state.talentStageFilter);
+  }
+
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    c = c.filter(x => {
+      const s = getSector(x.sectorId);
+      return (x.name || '').toLowerCase().includes(q) ||
+             (x.affiliation || '').toLowerCase().includes(q) ||
+             (s?.name || '').toLowerCase().includes(q) ||
+             (x.position || '').toLowerCase().includes(q);
+    });
+  }
+  return c;
+}
+
+function companiesMap() {
+  const m = {};
+  filteredConnections().forEach(c => {
+    const key = (c.affiliation || 'Unaffiliated').trim();
+    if (!m[key]) m[key] = { name: key, connections: [], sectors: new Set(), categories: new Set() };
+    m[key].connections.push(c);
+    const s = getSector(c.sectorId);
+    if (s) {
+      m[key].sectors.add(s.name);
+      const cat = getCategory(s.categoryId);
+      if (cat) m[key].categories.add(cat.name);
+    }
+  });
+  return m;
+}
+
+function resizeImage(file, maxSize = 200) {
+  return new Promise((resolve, reject) => {
+    // Keep PNG format for transparency; JPEG otherwise (smaller, white background)
+    const isPng = file.type === 'image/png' || (file.name || '').toLowerCase().endsWith('.png');
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let { width, height } = img;
+        const ratio = Math.min(maxSize / width, maxSize / height, 1);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!isPng) {
+          // JPEG can't hold alpha; paint white under to give transparent pixels a clean bg
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, width, height);
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.88));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function initialsOf(s, n = 2) {
+  return (s || '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, n).join('').toUpperCase();
+}
+
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+/* Modal-based input prompt (replaces native prompt()) */
+function promptInput(opts) {
+  return new Promise(resolve => {
+    const bd = document.getElementById('inputModalBackdrop');
+    const field = document.getElementById('inputModalField');
+    const confirmBtn = document.getElementById('inputModalConfirm');
+    const cancelBtn = document.getElementById('inputModalCancel');
+    document.getElementById('inputModalTitle').textContent = opts.title || 'Add';
+    document.getElementById('inputModalDesc').textContent = opts.description || '';
+    document.getElementById('inputModalLabel').textContent = opts.label || 'Name';
+    confirmBtn.textContent = opts.confirmLabel || 'Add';
+    field.placeholder = opts.placeholder || '';
+    field.value = '';
+    field.style.borderColor = '';
+    bd.classList.add('show');
+    setTimeout(() => field.focus(), 200);
+    const cleanup = () => {
+      bd.classList.remove('show');
+      confirmBtn.removeEventListener('click', onConfirm);
+      cancelBtn.removeEventListener('click', onCancel);
+      bd.removeEventListener('click', onBackdrop);
+      field.removeEventListener('keydown', onKey);
+    };
+    const onConfirm = () => {
+      const v = field.value.trim();
+      if (!v) {
+        field.style.borderColor = '#dc2626';
+        setTimeout(() => { field.style.borderColor = ''; }, 1500);
+        field.focus();
+        return;
+      }
+      cleanup();
+      resolve(v);
+    };
+    const onCancel = () => { cleanup(); resolve(null); };
+    const onBackdrop = (e) => { if (e.target === bd) onCancel(); };
+    const onKey = (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); onConfirm(); }
+      if (e.key === 'Escape') { e.preventDefault(); onCancel(); }
+    };
+    confirmBtn.addEventListener('click', onConfirm);
+    cancelBtn.addEventListener('click', onCancel);
+    bd.addEventListener('click', onBackdrop);
+    field.addEventListener('keydown', onKey);
+  });
+}
+
+/* IMAGE CROP MODAL */
+const cropState = {
+  resolve: null, naturalW: 0, naturalH: 0,
+  stageSize: 300, circleDiameter: 260,
+  fitScale: 1, scale: 1, tx: 0, ty: 0,
+  dragging: false, startX: 0, startY: 0, startTx: 0, startTy: 0,
+  isPng: false, outputSize: 200,
+};
+
+function cropApplyTransform() {
+  const img = document.getElementById('cropImg');
+  const total = cropState.fitScale * cropState.scale;
+  const w = cropState.naturalW * total;
+  const h = cropState.naturalH * total;
+  img.style.width = w + 'px';
+  img.style.height = h + 'px';
+  img.style.left = ((cropState.stageSize - w) / 2 + cropState.tx) + 'px';
+  img.style.top = ((cropState.stageSize - h) / 2 + cropState.ty) + 'px';
+}
+
+function cropClamp() {
+  const total = cropState.fitScale * cropState.scale;
+  const w = cropState.naturalW * total;
+  const h = cropState.naturalH * total;
+  const maxTx = Math.max(0, (w - cropState.circleDiameter) / 2);
+  const maxTy = Math.max(0, (h - cropState.circleDiameter) / 2);
+  cropState.tx = Math.max(-maxTx, Math.min(maxTx, cropState.tx));
+  cropState.ty = Math.max(-maxTy, Math.min(maxTy, cropState.ty));
+}
+
+function openCropModal(file, opts) {
+  opts = opts || {};
+  cropState.outputSize = opts.outputSize || 200;
+  return new Promise((resolve) => {
+    cropState.resolve = resolve;
+    cropState.isPng = file.type === 'image/png' || (file.name || '').toLowerCase().endsWith('.png');
+    const reader = new FileReader();
+    reader.onerror = () => resolve(null);
+    reader.onload = (e) => {
+      const img = document.getElementById('cropImg');
+      img.onload = () => {
+        cropState.naturalW = img.naturalWidth;
+        cropState.naturalH = img.naturalHeight;
+        if (!cropState.naturalW || !cropState.naturalH) { resolve(null); return; }
+        cropState.fitScale = cropState.circleDiameter / Math.min(cropState.naturalW, cropState.naturalH);
+        cropState.scale = 1;
+        cropState.tx = 0; cropState.ty = 0;
+        document.getElementById('cropZoom').value = 1;
+        cropApplyTransform();
+        document.getElementById('cropModalBackdrop').classList.add('show');
+      };
+      img.onerror = () => { resolve(null); alert('Could not load that image.'); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function cropFinish(dataUrl) {
+  document.getElementById('cropModalBackdrop').classList.remove('show');
+  if (cropState.resolve) {
+    cropState.resolve(dataUrl);
+    cropState.resolve = null;
+  }
+}
+
+(function initCropModal() {
+  const stage = document.getElementById('cropStage');
+  stage.addEventListener('pointerdown', (e) => {
+    cropState.dragging = true;
+    cropState.startX = e.clientX; cropState.startY = e.clientY;
+    cropState.startTx = cropState.tx; cropState.startTy = cropState.ty;
+    stage.classList.add('dragging');
+    try { stage.setPointerCapture(e.pointerId); } catch {}
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!cropState.dragging) return;
+    cropState.tx = cropState.startTx + (e.clientX - cropState.startX);
+    cropState.ty = cropState.startTy + (e.clientY - cropState.startY);
+    cropClamp();
+    cropApplyTransform();
+  });
+  const endDrag = (e) => {
+    cropState.dragging = false;
+    stage.classList.remove('dragging');
+    try { stage.releasePointerCapture(e.pointerId); } catch {}
+  };
+  stage.addEventListener('pointerup', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
+  stage.addEventListener('pointerleave', endDrag);
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const slider = document.getElementById('cropZoom');
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    const v = Math.max(parseFloat(slider.min), Math.min(parseFloat(slider.max), parseFloat(slider.value) + delta));
+    slider.value = v;
+    cropState.scale = v;
+    cropClamp();
+    cropApplyTransform();
+  }, { passive: false });
+
+  document.getElementById('cropZoom').addEventListener('input', (e) => {
+    cropState.scale = parseFloat(e.target.value);
+    cropClamp();
+    cropApplyTransform();
+  });
+  document.getElementById('cropZoomIn').addEventListener('click', () => {
+    const s = document.getElementById('cropZoom');
+    s.value = Math.min(parseFloat(s.max), parseFloat(s.value) + 0.2);
+    s.dispatchEvent(new Event('input'));
+  });
+  document.getElementById('cropZoomOut').addEventListener('click', () => {
+    const s = document.getElementById('cropZoom');
+    s.value = Math.max(parseFloat(s.min), parseFloat(s.value) - 0.2);
+    s.dispatchEvent(new Event('input'));
+  });
+  document.getElementById('cropCancel').addEventListener('click', () => cropFinish(null));
+  document.getElementById('cropModalBackdrop').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('cropModalBackdrop')) cropFinish(null);
+  });
+  document.getElementById('cropDone').addEventListener('click', () => {
+    const out = cropState.outputSize;
+    const canvas = document.createElement('canvas');
+    canvas.width = out; canvas.height = out;
+    const ctx = canvas.getContext('2d');
+    const total = cropState.fitScale * cropState.scale;
+    const w = cropState.naturalW * total;
+    const h = cropState.naturalH * total;
+    const imgLeft = (cropState.stageSize - w) / 2 + cropState.tx;
+    const imgTop  = (cropState.stageSize - h) / 2 + cropState.ty;
+    const circleLeft = (cropState.stageSize - cropState.circleDiameter) / 2;
+    const circleTop  = (cropState.stageSize - cropState.circleDiameter) / 2;
+    const srcX = (circleLeft - imgLeft) / total;
+    const srcY = (circleTop  - imgTop)  / total;
+    const srcSize = cropState.circleDiameter / total;
+    if (!cropState.isPng) {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, out, out);
+    }
+    const img = document.getElementById('cropImg');
+    ctx.drawImage(img, srcX, srcY, srcSize, srcSize, 0, 0, out, out);
+    const dataUrl = canvas.toDataURL(cropState.isPng ? 'image/png' : 'image/jpeg', 0.9);
+    cropFinish(dataUrl);
+  });
+  // Escape cancels (capture phase, beats other Escape handlers)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('cropModalBackdrop').classList.contains('show')) {
+      e.preventDefault();
+      e.stopPropagation();
+      cropFinish(null);
+    }
+  }, true);
+})();
+
+
+/* ================== VIEW TOGGLE ================== */
+const viewToggle = document.getElementById('viewToggle');
+viewToggle.querySelectorAll('button').forEach(b => {
+  b.addEventListener('click', () => {
+    viewToggle.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    state.currentView = b.dataset.view;
+    updateLevelIndicators();
+    renderGraph();
+  });
+});
+
+/* ================== SECTION SWITCHER ================== */
+const sectionSwitcher = document.getElementById('sectionSwitcher');
+sectionSwitcher.querySelectorAll('button').forEach(b => {
+  b.addEventListener('click', () => {
+    if (b.dataset.section === state.section) return;
+    sectionSwitcher.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    state.section = b.dataset.section;
+    state.selectedId = null;
+    hideDetail();
+    updateAddButtonLabel();
+    renderAll();
+  });
+});
+
+function updateAddButtonLabel() {
+  const label = document.getElementById('addConnectionLabel');
+  if (label) label.textContent = SECTION_BY_ID[state.section].addLabel;
+}
+
+/* ================== ADMIN GATE ================== */
+const adminModalBackdrop = document.getElementById('adminModalBackdrop');
+const adminPasscodeInput = document.getElementById('adminPasscodeInput');
+const adminPasscodeError = document.getElementById('adminPasscodeError');
+const adminLockBtn = document.getElementById('adminLockBtn');
+const adminLockLabel = document.getElementById('adminLockLabel');
+
+function openAdminModal() {
+  adminPasscodeInput.value = '';
+  adminPasscodeError.style.display = 'none';
+  adminModalBackdrop.classList.add('show');
+  setTimeout(() => adminPasscodeInput.focus(), 200);
+}
+function closeAdminModal() { adminModalBackdrop.classList.remove('show'); }
+
+function refreshAdminButton() {
+  const elig = adminEligibility(state.currentUser);
+  if (state.isAdmin) {
+    adminLockBtn.classList.add('unlocked');
+    adminLockBtn.classList.remove('disabled');
+    adminLockLabel.textContent = elig.label ? elig.label + ' · Unlocked' : 'Admin · Unlocked';
+    adminLockBtn.title = 'Click to switch back to read view for this session';
+  } else if (elig.eligible) {
+    adminLockBtn.classList.remove('unlocked', 'disabled');
+    adminLockLabel.textContent = 'View as Admin';
+    adminLockBtn.title = 'You qualify for the admin view. Click to enable.';
+  } else {
+    adminLockBtn.classList.remove('unlocked');
+    adminLockBtn.classList.add('disabled');
+    adminLockLabel.textContent = 'Read only';
+    adminLockBtn.title = elig.reason || 'Admin view restricted.';
+  }
+}
+
+function setAdmin(on) {
+  const elig = adminEligibility(state.currentUser);
+  state.isAdmin = !!on && elig.eligible;
+  refreshAdminButton();
+  renderAll();
+}
+
+adminLockBtn.addEventListener('click', () => {
+  const elig = adminEligibility(state.currentUser);
+  if (!elig.eligible) {
+    // Not allowed -- show a non-blocking toast-style message via the
+    // existing modal (re-used as a passive notice; no input).
+    document.getElementById('adminModalTitle').textContent = 'Admin restricted';
+    document.getElementById('adminModalDesc').textContent =
+      elig.reason + (state.currentUser
+        ? ' Signed in as ' + (state.currentUser.full_name || state.currentUser.username) +
+          ' (' + (state.currentUser.title || state.currentUser.role) + ').'
+        : '');
+    document.getElementById('adminPasscodeInput').style.display = 'none';
+    document.getElementById('adminPasscodeError').style.display = 'none';
+    document.getElementById('adminModalConfirm').style.display = 'none';
+    document.getElementById('adminModalCancel').textContent = 'OK';
+    adminModalBackdrop.classList.add('show');
+    return;
+  }
+  if (state.isAdmin) {
+    if (confirm('Switch back to read view? Admin-only entries will be hidden.')) setAdmin(false);
+  } else {
+    setAdmin(true);
+  }
+});
+document.getElementById('adminModalCancel').addEventListener('click', closeAdminModal);
+adminModalBackdrop.addEventListener('click', (e) => { if (e.target === adminModalBackdrop) closeAdminModal(); });
+function updateLevelIndicators() {
+  document.querySelectorAll('#levelIndicators span').forEach(s => s.classList.remove('active'));
+  const which = state.currentView === 'company' ? 'company' : 'people';
+  document.querySelector(`#levelIndicators span[data-level="${which}"]`).classList.add('active');
+}
+
+/* ================== CONNECTION MODAL ================== */
+const modalBackdrop = document.getElementById('modalBackdrop');
+const fName = document.getElementById('fName');
+const fCategory = document.getElementById('fCategory');
+const fSector = document.getElementById('fSector');
+const fCloseness = document.getElementById('fCloseness');
+const closenessValue = document.getElementById('closenessValue');
+const modalTitle = document.getElementById('modalTitle');
+const deleteBtn = document.getElementById('deleteBtn');
+const companyList = document.getElementById('companyList');
+const addCategoryInline = document.getElementById('addCategoryInline');
+const newCategoryInput = document.getElementById('newCategoryInput');
+const addSectorInline = document.getElementById('addSectorInline');
+const newSectorInput = document.getElementById('newSectorInput');
+const fPhotoPreview = document.getElementById('fPhotoPreview');
+const fPhotoInitials = document.getElementById('fPhotoInitials');
+const fPhotoInput = document.getElementById('fPhotoInput');
+const fPhotoUploadBtn = document.getElementById('fPhotoUploadBtn');
+const fPhotoRemoveBtn = document.getElementById('fPhotoRemoveBtn');
+
+/* Working buffers for the currently-open modal — committed to state on Save */
+let mAffiliations = [];   // [{ company, position, current }]
+let mEdges        = [];   // [{ id, type, relType }]
+let mNotes        = [];   // [{ id, text, ts }]
+let mVisibility   = 'public';  // 'public' | 'admin'
+let mSection      = 'network'; // pinned to the section the modal was opened in
+
+function openModal(editing = null) {
+  // Anchor the modal to whatever section is currently active (or the connection's own section if editing)
+  mSection = editing?.section || state.section;
+  const sectionMeta = SECTION_BY_ID[mSection];
+
+  state.editingId = editing ? editing.id : null;
+  modalTitle.textContent = (editing ? 'Edit ' : 'Add ') + sectionMeta.singular;
+  deleteBtn.style.display = editing ? 'inline-flex' : 'none';
+  fName.value = editing?.name || '';
+  fCloseness.value = editing?.closenessIndex || 5;
+  closenessValue.textContent = fCloseness.value;
+  state.tempPhoto = editing?.image || null;
+
+  // Initialize working buffers
+  mAffiliations = editing
+    ? (editing.affiliations && editing.affiliations.length
+        ? editing.affiliations.map(a => ({ ...a }))
+        : [{ company: '', position: '', current: true }])
+    : [{ company: '', position: '', current: true }];
+  mEdges = editing ? (editing.knownBy || []).map(e => ({ ...e })) : [];
+  mNotes = editing ? (editing.notes || []).map(n => ({ ...n })) : [];
+  mVisibility = editing?.visibility === 'admin' ? 'admin' : 'public';
+
+  // Show/hide section-specific fields
+  document.getElementById('clientFieldsRow').style.display = mSection === 'clients' ? 'flex' : 'none';
+  document.getElementById('talentFieldsRow').style.display = mSection === 'talents' ? 'flex' : 'none';
+
+  // Populate section-specific selects + restore values from editing record
+  populateSelect(document.getElementById('fClientType'),   CLIENT_TYPES,    editing?.clientType   || 'research');
+  populateSelect(document.getElementById('fClientStatus'), CLIENT_STATUSES, editing?.clientStatus || 'lead');
+  populateSelect(document.getElementById('fTalentStage'),  TALENT_STAGES,   editing?.talentStage  || 'other');
+
+  // Visibility field — admins only
+  const visField = document.getElementById('visibilityField');
+  if (state.isAdmin) {
+    visField.style.display = 'flex';
+    refreshVisibilityToggle();
+  } else {
+    visField.style.display = 'none';
+  }
+
+  refreshCategorySelect(editing ? sectorCategory(editing.sectorId)?.id : null);
+  refreshSectorSelect(editing?.sectorId || null);
+  refreshCompanyList();
+  refreshPhotoPreview(fName.value || '?');
+  renderAffEditor();
+  renderEdgeEditor();
+  renderNoteEditor();
+  modalBackdrop.classList.add('show');
+  setTimeout(() => fName.focus(), 200);
+}
+
+function populateSelect(sel, options, selectedId) {
+  sel.innerHTML = '';
+  options.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.id; opt.textContent = o.label;
+    if (o.id === selectedId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function refreshVisibilityToggle() {
+  const row    = document.getElementById('visibilityRow');
+  const toggle = document.getElementById('visToggle');
+  const title  = document.getElementById('visTitle');
+  const desc   = document.getElementById('visDesc');
+  if (mVisibility === 'admin') {
+    row.classList.add('admin');
+    toggle.classList.add('on');
+    toggle.setAttribute('aria-checked', 'true');
+    title.textContent = 'Admin-only';
+    desc.textContent  = 'Hidden until someone unlocks admin view with the passcode.';
+  } else {
+    row.classList.remove('admin');
+    toggle.classList.remove('on');
+    toggle.setAttribute('aria-checked', 'false');
+    title.textContent = 'Public';
+    desc.textContent  = 'Visible to anyone with the app open.';
+  }
+}
+document.getElementById('visToggle').addEventListener('click', () => {
+  mVisibility = mVisibility === 'admin' ? 'public' : 'admin';
+  refreshVisibilityToggle();
+});
+document.getElementById('visToggle').addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); document.getElementById('visToggle').click(); }
+});
+function closeModal() {
+  modalBackdrop.classList.remove('show');
+  addCategoryInline.classList.remove('show');
+  addSectorInline.classList.remove('show');
+  newCategoryInput.value = '';
+  newSectorInput.value = '';
+  state.editingId = null;
+  state.tempPhoto = null;
+  mAffiliations = []; mEdges = []; mNotes = [];
+  mVisibility = 'public';
+  mSection = 'network';
+}
+
+/* ---- Affiliations editor ---- */
+function renderAffEditor() {
+  const list = document.getElementById('affList');
+  list.innerHTML = '';
+  if (!mAffiliations.length) mAffiliations.push({ company: '', position: '', current: true });
+  // Ensure exactly one current
+  if (!mAffiliations.some(a => a.current)) mAffiliations[0].current = true;
+
+  mAffiliations.forEach((aff, idx) => {
+    const row = document.createElement('div');
+    row.className = 'aff-row';
+    row.innerHTML = `
+      <input type="text" placeholder="Company" value="${escapeHtml(aff.company || '')}" list="companyList" data-k="company" />
+      <input type="text" placeholder="Position" value="${escapeHtml(aff.position || '')}" data-k="position" />
+      <label class="aff-current${aff.current ? ' active' : ''}" title="Mark as the person's current/primary affiliation">
+        <input type="radio" name="affCurrent" ${aff.current ? 'checked' : ''} />
+        Current
+      </label>
+      <button type="button" class="aff-del" title="Remove this affiliation">×</button>
+    `;
+    row.querySelectorAll('input[type="text"]').forEach(inp => {
+      inp.addEventListener('input', (e) => { mAffiliations[idx][e.target.dataset.k] = e.target.value; });
+    });
+    row.querySelector('input[type="radio"]').addEventListener('change', () => {
+      mAffiliations.forEach((a, i) => { a.current = (i === idx); });
+      renderAffEditor();
+    });
+    row.querySelector('.aff-del').addEventListener('click', () => {
+      mAffiliations.splice(idx, 1);
+      if (mAffiliations.length && !mAffiliations.some(a => a.current)) mAffiliations[0].current = true;
+      renderAffEditor();
+    });
+    list.appendChild(row);
+  });
+}
+document.getElementById('affAddBtn').addEventListener('click', () => {
+  mAffiliations.push({ company: '', position: '', current: false });
+  renderAffEditor();
+});
+
+/* ---- Edge (known-by) editor ---- */
+function renderEdgeEditor() {
+  const list = document.getElementById('edgeList');
+  list.innerHTML = '';
+  if (!mEdges.length) {
+    const empty = document.createElement('div');
+    empty.className = 'edge-empty';
+    empty.textContent = 'No one attributed yet — pick people below to add.';
+    list.appendChild(empty);
+  } else {
+    mEdges.forEach((e, idx) => {
+      const isMember = e.type === 'member';
+      const subject = isMember ? getMember(e.id) : state.connections.find(c => c.id === e.id);
+      if (!subject) return; // orphaned reference
+      const name = subject.name || '(unknown)';
+      const row = document.createElement('div');
+      row.className = 'edge-row';
+      row.innerHTML = `
+        <div class="edge-who" title="${escapeHtml(name)}">
+          <span class="pill ${isMember ? '' : 'conn'}">${isMember ? 'LBC' : '2nd°'}</span>
+          ${escapeHtml(name)}
+        </div>
+        <select data-k="relType">
+          ${REL_TYPES.map(r => `<option value="${r.id}" ${r.id === e.relType ? 'selected' : ''}>${r.label}</option>`).join('')}
+        </select>
+        <button type="button" class="edge-del" title="Remove">×</button>
+      `;
+      row.querySelector('select').addEventListener('change', (ev) => { mEdges[idx].relType = ev.target.value; });
+      row.querySelector('.edge-del').addEventListener('click', () => {
+        mEdges.splice(idx, 1);
+        renderEdgeEditor();
+        refreshEdgeAddPicker();
+      });
+      list.appendChild(row);
+    });
+  }
+  refreshEdgeAddPicker();
+}
+function refreshEdgeAddPicker() {
+  const sel = document.getElementById('edgeAddPerson');
+  const rel = document.getElementById('edgeAddRel');
+  sel.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = ''; placeholder.textContent = 'Select person…';
+  sel.appendChild(placeholder);
+
+  const usedIds = new Set(mEdges.map(e => e.type + ':' + e.id));
+  const grpMembers = document.createElement('optgroup');
+  grpMembers.label = 'LBC Team';
+  state.members.forEach(m => {
+    if (usedIds.has('member:' + m.id)) return;
+    const o = document.createElement('option');
+    o.value = 'member:' + m.id;
+    o.textContent = m.name + (m.role ? ' · ' + m.role : '');
+    grpMembers.appendChild(o);
+  });
+  if (grpMembers.childElementCount) sel.appendChild(grpMembers);
+
+  const grpConns = document.createElement('optgroup');
+  grpConns.label = 'Other connections';
+  state.connections
+    .filter(c => c.id !== state.editingId)
+    .slice()
+    .sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+    .forEach(c => {
+      if (usedIds.has('connection:' + c.id)) return;
+      const o = document.createElement('option');
+      o.value = 'connection:' + c.id;
+      o.textContent = c.name + (c.affiliation ? ' · ' + c.affiliation : '');
+      grpConns.appendChild(o);
+    });
+  if (grpConns.childElementCount) sel.appendChild(grpConns);
+
+  if (!rel.dataset.ready) {
+    rel.innerHTML = REL_TYPES.map(r => `<option value="${r.id}">${r.label}</option>`).join('');
+    rel.value = 'colleague';
+    rel.dataset.ready = '1';
+  }
+}
+document.getElementById('edgeAddBtn').addEventListener('click', () => {
+  const sel = document.getElementById('edgeAddPerson');
+  const rel = document.getElementById('edgeAddRel');
+  if (!sel.value) return;
+  const [type, id] = sel.value.split(':');
+  mEdges.push({ id, type, relType: rel.value });
+  renderEdgeEditor();
+});
+
+/* ---- Notes editor ---- */
+function renderNoteEditor() {
+  const list = document.getElementById('noteList');
+  list.innerHTML = '';
+  if (!mNotes.length) {
+    const empty = document.createElement('div');
+    empty.className = 'edge-empty';
+    empty.textContent = 'No notes yet.';
+    list.appendChild(empty);
+    return;
+  }
+  // newest first
+  mNotes.slice().sort((a, b) => b.ts - a.ts).forEach(n => {
+    const row = document.createElement('div');
+    row.className = 'note-row';
+    row.innerHTML = `
+      <div class="note-meta">
+        <span>${formatDate(n.ts)}</span>
+        <button type="button" class="note-del" title="Delete note">×</button>
+      </div>
+      <div class="note-text">${escapeHtml(n.text)}</div>
+    `;
+    row.querySelector('.note-del').addEventListener('click', () => {
+      mNotes = mNotes.filter(x => x.id !== n.id);
+      renderNoteEditor();
+    });
+    list.appendChild(row);
+  });
+}
+function addNoteFromInput() {
+  const input = document.getElementById('noteInput');
+  const text = input.value.trim();
+  if (!text) return;
+  mNotes.push({ id: uid('n'), text, ts: Date.now() });
+  input.value = '';
+  renderNoteEditor();
+}
+document.getElementById('noteAddBtn').addEventListener('click', addNoteFromInput);
+document.getElementById('noteInput').addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); addNoteFromInput(); }
+});
+
+function formatDate(ts) {
+  const d = new Date(ts);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dDay = new Date(d); dDay.setHours(0,0,0,0);
+  const diff = Math.round((today - dDay) / 86400000);
+  const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  if (diff === 0) return 'Today · ' + time;
+  if (diff === 1) return 'Yesterday · ' + time;
+  return d.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }) + ' · ' + time;
+}
+function refreshCategorySelect(selectedId = null) {
+  fCategory.innerHTML = '';
+  state.categories.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id; o.textContent = c.name;
+    fCategory.appendChild(o);
+  });
+  const addOpt = document.createElement('option');
+  addOpt.value = '__add_new__'; addOpt.textContent = '+ New category…';
+  fCategory.appendChild(addOpt);
+  if (selectedId && state.categories.find(c => c.id === selectedId)) fCategory.value = selectedId;
+  else if (state.categories.length > 0) fCategory.value = state.categories[0].id;
+}
+function refreshSectorSelect(selectedId = null) {
+  fSector.innerHTML = '';
+  const cat = fCategory.value;
+  const sectorsInCat = state.sectors.filter(s => s.categoryId === cat);
+  sectorsInCat.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id; o.textContent = s.name;
+    fSector.appendChild(o);
+  });
+  const addOpt = document.createElement('option');
+  addOpt.value = '__add_new__'; addOpt.textContent = '+ New sector…';
+  fSector.appendChild(addOpt);
+  if (selectedId && sectorsInCat.find(s => s.id === selectedId)) fSector.value = selectedId;
+  else if (sectorsInCat.length > 0) fSector.value = sectorsInCat[0].id;
+  else fSector.value = '__add_new__';
+}
+function refreshCompanyList() {
+  companyList.innerHTML = '';
+  const set = new Set();
+  state.connections.forEach(c => {
+    (c.affiliations || []).forEach(a => { if (a.company) set.add(a.company); });
+  });
+  Array.from(set).sort().forEach(name => {
+    const o = document.createElement('option');
+    o.value = name; companyList.appendChild(o);
+  });
+}
+function refreshPhotoPreview(nameFallback) {
+  if (state.tempPhoto) {
+    fPhotoPreview.style.backgroundImage = `url(${state.tempPhoto})`;
+    fPhotoPreview.classList.add('has-image');
+    fPhotoInitials.textContent = '';
+    fPhotoRemoveBtn.style.display = 'inline-flex';
+  } else {
+    fPhotoPreview.style.backgroundImage = '';
+    fPhotoPreview.classList.remove('has-image');
+    fPhotoInitials.textContent = initialsOf(nameFallback || '?');
+    fPhotoRemoveBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('addConnectionBtn').addEventListener('click', () => openModal());
+document.getElementById('cancelBtn').addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', e => { if (e.target === modalBackdrop) closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (modalBackdrop.classList.contains('show')) closeModal();
+    if (memberModalBackdrop.classList.contains('show')) closeMemberModal();
+  }
+});
+fCloseness.addEventListener('input', () => { closenessValue.textContent = fCloseness.value; });
+fName.addEventListener('input', () => {
+  if (!state.tempPhoto) fPhotoInitials.textContent = initialsOf(fName.value || '?');
+});
+
+fCategory.addEventListener('change', () => {
+  if (fCategory.value === '__add_new__') {
+    addCategoryInline.classList.add('show');
+    newCategoryInput.focus();
+    fCategory.value = state.categories[0]?.id || '';
+    refreshSectorSelect();
+  } else refreshSectorSelect();
+});
+document.getElementById('newCategoryConfirm').addEventListener('click', () => {
+  const v = newCategoryInput.value.trim();
+  if (!v) return;
+  const exists = state.categories.find(c => c.name.toLowerCase() === v.toLowerCase());
+  let newId;
+  if (exists) newId = exists.id;
+  else {
+    newId = uid('cat');
+    const cat = { id: newId, name: v };
+    state.categories.push(cat);
+    saveState();
+    cloudUpsert('categories', cat);
+  }
+  refreshCategorySelect(newId);
+  refreshSectorSelect();
+  renderFilterTabs();
+  addCategoryInline.classList.remove('show');
+  newCategoryInput.value = '';
+});
+document.getElementById('newCategoryCancel').addEventListener('click', () => {
+  addCategoryInline.classList.remove('show'); newCategoryInput.value = '';
+});
+newCategoryInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('newCategoryConfirm').click(); }
+});
+
+fSector.addEventListener('change', () => {
+  if (fSector.value === '__add_new__') {
+    addSectorInline.classList.add('show');
+    newSectorInput.focus();
+  }
+});
+document.getElementById('newSectorConfirm').addEventListener('click', () => {
+  const v = newSectorInput.value.trim();
+  if (!v) return;
+  const cat = fCategory.value;
+  const exists = state.sectors.find(s => s.name.toLowerCase() === v.toLowerCase() && s.categoryId === cat);
+  let newId;
+  if (exists) newId = exists.id;
+  else {
+    newId = uid('sec');
+    const sec = { id: newId, name: v, categoryId: cat };
+    state.sectors.push(sec);
+    saveState();
+    cloudUpsert('sectors', sec);
+  }
+  refreshSectorSelect(newId);
+  renderFilterTabs();
+  addSectorInline.classList.remove('show');
+  newSectorInput.value = '';
+});
+document.getElementById('newSectorCancel').addEventListener('click', () => {
+  addSectorInline.classList.remove('show');
+  newSectorInput.value = '';
+  refreshSectorSelect();
+});
+newSectorInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('newSectorConfirm').click(); }
+});
+
+fPhotoUploadBtn.addEventListener('click', () => fPhotoInput.click());
+fPhotoPreview.addEventListener('click', () => fPhotoInput.click());
+fPhotoInput.addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  try {
+    const dataUrl = await openCropModal(file, { outputSize: 200 });
+    if (dataUrl) {
+      state.tempPhoto = dataUrl;
+      refreshPhotoPreview(fName.value);
+    }
+  } catch { alert('Could not read that image.'); }
+  e.target.value = '';
+});
+fPhotoRemoveBtn.addEventListener('click', () => {
+  state.tempPhoto = null;
+  refreshPhotoPreview(fName.value);
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const name = fName.value.trim();
+  if (!name) {
+    fName.focus(); fName.style.borderColor = '#dc2626';
+    setTimeout(() => { fName.style.borderColor = ''; }, 1500);
+    return;
+  }
+  if (fSector.value === '__add_new__') {
+    alert('Please confirm or cancel the new sector first.');
+    return;
+  }
+  // Clean affiliations: drop fully-empty rows, trim, ensure one current
+  let affiliations = mAffiliations
+    .map(a => ({ company: (a.company || '').trim(), position: (a.position || '').trim(), current: !!a.current }))
+    .filter(a => a.company || a.position);
+  if (!affiliations.length) {
+    affiliations = [{ company: 'Unaffiliated', position: '', current: true }];
+  } else {
+    if (!affiliations.some(a => a.current)) affiliations[0].current = true;
+    // Demote any duplicate "current" flags except first
+    let seenCurrent = false;
+    affiliations = affiliations.map(a => {
+      if (a.current && !seenCurrent) { seenCurrent = true; return a; }
+      return { ...a, current: false };
+    });
+  }
+  const primary = affiliations.find(a => a.current) || affiliations[0];
+
+  // Capture old edge set so we can update the symmetric counterpart on other connections
+  const oldEdges = state.editingId
+    ? (state.connections.find(c => c.id === state.editingId)?.knownBy || []).slice()
+    : [];
+
+  const data = {
+    name, sectorId: fSector.value,
+    affiliations,
+    affiliation: primary.company || 'Unaffiliated',
+    position: primary.position || '',
+    closenessIndex: parseInt(fCloseness.value, 10),
+    knownBy: mEdges.slice(),
+    notes: mNotes.slice(),
+    image: state.tempPhoto || null,
+    // v5 — section / visibility / sub-type fields
+    section: mSection,
+    visibility: state.isAdmin ? mVisibility : 'public',
+    clientType:   mSection === 'clients' ? document.getElementById('fClientType').value   : null,
+    clientStatus: mSection === 'clients' ? document.getElementById('fClientStatus').value : null,
+    talentStage:  mSection === 'talents' ? document.getElementById('fTalentStage').value  : null,
+  };
+
+  let conn;
+  if (state.editingId) {
+    const idx = state.connections.findIndex(c => c.id === state.editingId);
+    if (idx >= 0) { state.connections[idx] = { ...state.connections[idx], ...data }; conn = state.connections[idx]; }
+  } else {
+    conn = { id: uid('c'), createdAt: Date.now(), ...data };
+    state.connections.push(conn);
+  }
+
+  // Maintain symmetric known-by on the *other* connection side
+  if (conn) {
+    syncSymmetricEdges(conn, oldEdges);
+  }
+
+  saveState();
+  if (conn) cloudUpsert('connections', conn);
+  closeModal();
+  renderAll();
+});
+
+/* When connection A lists connection B in its knownBy, we mirror that on B
+   so the relationship is bidirectional. We also clean up if A no longer
+   lists B (and B's mirror was originally added by us). */
+function syncSymmetricEdges(conn, oldEdges) {
+  const newConnIds = new Set(
+    (conn.knownBy || []).filter(e => e.type === 'connection').map(e => e.id)
+  );
+  const oldConnIds = new Set(
+    (oldEdges || []).filter(e => e.type === 'connection').map(e => e.id)
+  );
+
+  // Add this conn to any newly-added partner's knownBy (if not already there)
+  newConnIds.forEach(partnerId => {
+    const partner = state.connections.find(c => c.id === partnerId);
+    if (!partner) return;
+    partner.knownBy = partner.knownBy || [];
+    const exists = partner.knownBy.find(e => e.type === 'connection' && e.id === conn.id);
+    if (!exists) {
+      // Use the same relType the source side specified
+      const relType = (conn.knownBy.find(e => e.type === 'connection' && e.id === partnerId) || {}).relType || 'other';
+      partner.knownBy.push({ id: conn.id, type: 'connection', relType });
+    }
+  });
+  // Remove mirror entries from partners that were dropped
+  oldConnIds.forEach(partnerId => {
+    if (newConnIds.has(partnerId)) return;
+    const partner = state.connections.find(c => c.id === partnerId);
+    if (!partner) return;
+    partner.knownBy = (partner.knownBy || []).filter(e => !(e.type === 'connection' && e.id === conn.id));
+  });
+}
+deleteBtn.addEventListener('click', () => {
+  if (!state.editingId) return;
+  if (!confirm('Delete this connection? This cannot be undone.')) return;
+  const delId = state.editingId;
+  state.connections = state.connections.filter(c => c.id !== delId);
+  // Remove any references to this connection from other connections' knownBy
+  state.connections.forEach(c => {
+    c.knownBy = (c.knownBy || []).filter(e => !(e.type === 'connection' && e.id === delId));
+  });
+  saveState();
+  cloudDelete('connections', delId);
+  closeModal();
+  if (state.selectedId && state.selectedId.endsWith(delId)) hideDetail();
+  renderAll();
+});
+
+/* ================== MEMBER MODAL (NEW) ================== */
+const memberModalBackdrop = document.getElementById('memberModalBackdrop');
+const mName = document.getElementById('mName');
+const mPosition = document.getElementById('mPosition');
+const memberModalTitle = document.getElementById('memberModalTitle');
+const memberDeleteBtn = document.getElementById('memberDeleteBtn');
+const mPhotoPreview = document.getElementById('mPhotoPreview');
+const mPhotoInitials = document.getElementById('mPhotoInitials');
+const mPhotoInput = document.getElementById('mPhotoInput');
+const mPhotoUploadBtn = document.getElementById('mPhotoUploadBtn');
+const mPhotoRemoveBtn = document.getElementById('mPhotoRemoveBtn');
+
+function openMemberModal(editing = null) {
+  state.editingMemberId = editing ? editing.id : null;
+  memberModalTitle.textContent = editing ? 'Edit LBC Team Member' : 'Add LBC Team Member';
+  memberDeleteBtn.style.display = editing ? 'inline-flex' : 'none';
+  mName.value = editing?.name || '';
+  mPosition.value = editing?.role || '';
+  state.tempMemberPhoto = editing?.image || null;
+  refreshMemberPhotoPreview(mName.value || '?');
+  memberModalBackdrop.classList.add('show');
+  setTimeout(() => mName.focus(), 200);
+}
+function closeMemberModal() {
+  memberModalBackdrop.classList.remove('show');
+  state.editingMemberId = null;
+  state.tempMemberPhoto = null;
+}
+function refreshMemberPhotoPreview(nameFallback) {
+  if (state.tempMemberPhoto) {
+    mPhotoPreview.style.backgroundImage = `url(${state.tempMemberPhoto})`;
+    mPhotoPreview.classList.add('has-image');
+    mPhotoInitials.textContent = '';
+    mPhotoRemoveBtn.style.display = 'inline-flex';
+  } else {
+    mPhotoPreview.style.backgroundImage = '';
+    mPhotoPreview.classList.remove('has-image');
+    mPhotoInitials.textContent = initialsOf(nameFallback || '?');
+    mPhotoRemoveBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('addMemberBtn').addEventListener('click', () => openMemberModal());
+document.getElementById('miniAddMember').addEventListener('click', () => openMemberModal());
+document.getElementById('memberCancelBtn').addEventListener('click', closeMemberModal);
+memberModalBackdrop.addEventListener('click', e => { if (e.target === memberModalBackdrop) closeMemberModal(); });
+mName.addEventListener('input', () => {
+  if (!state.tempMemberPhoto) mPhotoInitials.textContent = initialsOf(mName.value || '?');
+});
+mPhotoUploadBtn.addEventListener('click', () => mPhotoInput.click());
+mPhotoPreview.addEventListener('click', () => mPhotoInput.click());
+mPhotoInput.addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  try {
+    const dataUrl = await openCropModal(file, { outputSize: 200 });
+    if (dataUrl) {
+      state.tempMemberPhoto = dataUrl;
+      refreshMemberPhotoPreview(mName.value);
+    }
+  } catch { alert('Could not read that image.'); }
+  e.target.value = '';
+});
+mPhotoRemoveBtn.addEventListener('click', () => {
+  state.tempMemberPhoto = null;
+  refreshMemberPhotoPreview(mName.value);
+});
+document.getElementById('memberSaveBtn').addEventListener('click', () => {
+  const name = mName.value.trim();
+  if (!name) {
+    mName.focus(); mName.style.borderColor = '#dc2626';
+    setTimeout(() => { mName.style.borderColor = ''; }, 1500);
+    return;
+  }
+  const data = {
+    name,
+    role: mPosition.value.trim() || 'Team Member',
+    image: state.tempMemberPhoto || null,
+  };
+  let member;
+  if (state.editingMemberId) {
+    const idx = state.members.findIndex(m => m.id === state.editingMemberId);
+    if (idx >= 0) { state.members[idx] = { ...state.members[idx], ...data }; member = state.members[idx]; }
+  } else {
+    member = { id: uid('m'), createdAt: Date.now(), ...data };
+    state.members.push(member);
+  }
+  saveState();
+  if (member) cloudUpsert('members', member);
+  closeMemberModal();
+  renderAll();
+});
+memberDeleteBtn.addEventListener('click', () => {
+  if (!state.editingMemberId) return;
+  if (state.members.length <= 1) {
+    alert('Cannot delete the last team member. Add another first.');
+    return;
+  }
+  const m = getMember(state.editingMemberId);
+  if (!confirm(`Delete team member "${m?.name}"? They will be removed from all connection attributions.`)) return;
+  const delMemId = state.editingMemberId;
+  const affected = [];
+  state.connections.forEach(c => {
+    const before = (c.knownBy || []).length;
+    c.knownBy = (c.knownBy || []).filter(e => !(e.type === 'member' && e.id === delMemId));
+    if (c.knownBy.length !== before) affected.push(c);
+  });
+  state.members = state.members.filter(m => m.id !== delMemId);
+  saveState();
+  cloudDelete('members', delMemId);
+  affected.forEach(c => cloudUpsert('connections', c));
+  closeMemberModal();
+  renderAll();
+});
+
+/* ================== FILTER TABS ================== */
+const filterPrimary = document.getElementById('filterPrimary');
+const filterSecondary = document.getElementById('filterSecondary');
+
+function renderFilterTabs() {
+  filterPrimary.innerHTML = '';
+  filterSecondary.innerHTML = '';
+
+  if (state.section === 'clients') {
+    return renderClientsFilters();
+  }
+  if (state.section === 'talents') {
+    return renderTalentsFilters();
+  }
+  // ----- Network section: original category/sector filters -----
+  const anyone = document.createElement('button');
+  anyone.className = 'filter-tab' + (state.categoryFilter === 'all' ? ' active' : '');
+  anyone.textContent = 'Anyone';
+  anyone.addEventListener('click', () => {
+    state.categoryFilter = 'all'; state.sectorFilter = 'all'; renderAll();
+  });
+  filterPrimary.appendChild(anyone);
+
+  state.categories.forEach(cat => {
+    const b = document.createElement('button');
+    b.className = 'filter-tab' + (state.categoryFilter === cat.id ? ' active' : '');
+    b.textContent = cat.name;
+    b.addEventListener('click', () => {
+      state.categoryFilter = cat.id; state.sectorFilter = 'all'; renderAll();
+    });
+    filterPrimary.appendChild(b);
+  });
+
+  const addCat = document.createElement('button');
+  addCat.className = 'filter-tab add';
+  addCat.textContent = '+ Category';
+  addCat.addEventListener('click', async () => {
+    const v = await promptInput({
+      title: 'Add Category',
+      description: 'Create a new top-level category. Sectors can be added inside it afterward.',
+      label: 'Category name',
+      placeholder: 'e.g. Healthcare, Real Estate',
+    });
+    if (v) {
+      const exists = state.categories.find(c => c.name.toLowerCase() === v.toLowerCase());
+      if (exists) {
+        state.categoryFilter = exists.id;
+      } else {
+        const newId = uid('cat');
+        const cat = { id: newId, name: v };
+        state.categories.push(cat);
+        state.categoryFilter = newId;
+        saveState();
+        cloudUpsert('categories', cat);
+      }
+      renderAll();
+    }
+  });
+  filterPrimary.appendChild(addCat);
+
+  if (state.categoryFilter === 'all') {
+    filterSecondary.classList.add('hidden'); return;
+  }
+  filterSecondary.classList.remove('hidden');
+  filterSecondary.innerHTML = '';
+  const activeCat = getCategory(state.categoryFilter);
+  const all = document.createElement('button');
+  all.className = 'filter-tab' + (state.sectorFilter === 'all' ? ' active' : '');
+  all.textContent = 'All ' + (activeCat?.name || '');
+  all.addEventListener('click', () => { state.sectorFilter = 'all'; renderAll(); });
+  filterSecondary.appendChild(all);
+
+  const sectorsInCat = state.sectors.filter(s => s.categoryId === state.categoryFilter);
+  sectorsInCat.forEach(sec => {
+    const b = document.createElement('button');
+    b.className = 'filter-tab' + (state.sectorFilter === sec.id ? ' active' : '');
+    b.textContent = sec.name;
+    b.addEventListener('click', () => { state.sectorFilter = sec.id; renderAll(); });
+    filterSecondary.appendChild(b);
+  });
+
+  const addSec = document.createElement('button');
+  addSec.className = 'filter-tab add';
+  addSec.textContent = '+ Sector';
+  addSec.addEventListener('click', async () => {
+    const v = await promptInput({
+      title: 'Add Sector',
+      description: 'Create a new sector inside "' + activeCat.name + '".',
+      label: 'Sector name',
+      placeholder: 'e.g. Insurance, Semiconductors',
+    });
+    if (v) {
+      const exists = state.sectors.find(s => s.name.toLowerCase() === v.toLowerCase() && s.categoryId === state.categoryFilter);
+      if (exists) {
+        state.sectorFilter = exists.id;
+      } else {
+        const newId = uid('sec');
+        const sec = { id: newId, name: v, categoryId: state.categoryFilter };
+        state.sectors.push(sec);
+        state.sectorFilter = newId;
+        saveState();
+        cloudUpsert('sectors', sec);
+      }
+      renderAll();
+    }
+  });
+  filterSecondary.appendChild(addSec);
+}
+
+/* Clients filter — two-axis: Type (primary), Status (secondary) */
+function renderClientsFilters() {
+  const mkTab = (label, isActive, onClick) => {
+    const b = document.createElement('button');
+    b.className = 'filter-tab' + (isActive ? ' active' : '');
+    b.textContent = label;
+    b.addEventListener('click', onClick);
+    return b;
+  };
+  filterPrimary.appendChild(mkTab('All Types', state.clientTypeFilter === 'all', () => {
+    state.clientTypeFilter = 'all'; renderAll();
+  }));
+  CLIENT_TYPES.forEach(t => {
+    filterPrimary.appendChild(mkTab(t.label, state.clientTypeFilter === t.id, () => {
+      state.clientTypeFilter = t.id; renderAll();
+    }));
+  });
+  filterSecondary.classList.remove('hidden');
+  filterSecondary.appendChild(mkTab('Current + Lead', state.clientStatusFilter === 'all', () => {
+    state.clientStatusFilter = 'all'; renderAll();
+  }));
+  CLIENT_STATUSES.forEach(s => {
+    filterSecondary.appendChild(mkTab(s.label, state.clientStatusFilter === s.id, () => {
+      state.clientStatusFilter = s.id; renderAll();
+    }));
+  });
+}
+
+/* Talents filter — single axis: Stage */
+function renderTalentsFilters() {
+  const mkTab = (label, isActive, onClick) => {
+    const b = document.createElement('button');
+    b.className = 'filter-tab' + (isActive ? ' active' : '');
+    b.textContent = label;
+    b.addEventListener('click', onClick);
+    return b;
+  };
+  filterPrimary.appendChild(mkTab('All Stages', state.talentStageFilter === 'all', () => {
+    state.talentStageFilter = 'all'; renderAll();
+  }));
+  TALENT_STAGES.forEach(s => {
+    filterPrimary.appendChild(mkTab(s.label, state.talentStageFilter === s.id, () => {
+      state.talentStageFilter = s.id; renderAll();
+    }));
+  });
+  filterSecondary.classList.add('hidden');
+}
+
+/* ================== SEARCH ================== */
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  state.search = e.target.value.trim();
+  renderGraph();
+});
+
+/* ================== DETAIL PANEL ================== */
+const detailPanel = document.getElementById('detailPanel');
+const dpContent = document.getElementById('dpContent');
+
+function showDetailCompany(companyName) {
+  const m = companiesMap();
+  const c = m[companyName];
+  if (!c) return;
+  state.selectedId = 'company:' + companyName;
+  const meta = state.companyMeta[companyName] || {};
+  const sorted = c.connections.slice().sort((a, b) => b.closenessIndex - a.closenessIndex);
+  const avatarStyle = meta.logo ? `style="background-image:url(${meta.logo});"` : '';
+  const avatarContent = meta.logo ? '' : initialsOf(companyName, 3);
+  dpContent.innerHTML = `
+    <div class="dp-header">
+      <div class="dp-avatar company" ${avatarStyle}>${avatarContent}</div>
+      <div style="flex:1; min-width:0;">
+        <h3 class="dp-title">${escapeHtml(companyName)}</h3>
+        <div class="dp-sub">${escapeHtml(Array.from(c.categories).join(' · ') || '—')}</div>
+      </div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Company logo</div>
+      <div class="img-uploader">
+        <button class="btn btn-sm" id="dpCompanyUpload">${meta.logo ? 'Replace' : 'Upload logo'}</button>
+        ${meta.logo ? '<button class="btn btn-sm btn-ghost" id="dpCompanyRemove">Remove</button>' : ''}
+        <input type="file" id="dpCompanyInput" accept="image/*" style="display:none;" />
+      </div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Sectors</div>
+      <div class="dp-value">${Array.from(c.sectors).map(escapeHtml).join(', ') || '—'}</div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">${sorted.length} connection${sorted.length === 1 ? '' : 's'}</div>
+      <div class="dp-connections">
+        ${sorted.map(p => `
+          <div class="dp-conn" data-conn-id="${p.id}">
+            <div style="min-width:0;">
+              <div class="n">${escapeHtml(p.name)}</div>
+              <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(p.position || '—')}</div>
+            </div>
+            <div class="c">${p.closenessIndex}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  detailPanel.classList.add('show');
+  dpContent.querySelectorAll('.dp-conn').forEach(el => {
+    el.addEventListener('click', () => {
+      const conn = state.connections.find(x => x.id === el.dataset.connId);
+      if (conn) openModal(conn);
+    });
+  });
+  const input = document.getElementById('dpCompanyInput');
+  document.getElementById('dpCompanyUpload').addEventListener('click', () => input.click());
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    try {
+      const dataUrl = await openCropModal(file, { outputSize: 240 });
+      if (dataUrl) {
+        state.companyMeta[companyName] = { ...(state.companyMeta[companyName] || {}), logo: dataUrl };
+        saveState();
+        cloudUpsert('company_meta', { name: companyName, logo: dataUrl });
+        showDetailCompany(companyName);
+        renderGraph();
+      }
+    } catch { alert('Could not read that image.'); }
+    e.target.value = '';
+  });
+  const rm = document.getElementById('dpCompanyRemove');
+  if (rm) rm.addEventListener('click', () => {
+    delete state.companyMeta[companyName];
+    saveState();
+    cloudDelete('company_meta', companyName);
+    showDetailCompany(companyName);
+    renderGraph();
+  });
+  highlightNode('company:' + companyName);
+}
+
+function showDetailPerson(connId) {
+  const conn = state.connections.find(c => c.id === connId);
+  if (!conn) return;
+  state.selectedId = 'person:' + connId;
+  const s = getSector(conn.sectorId);
+  const cat = s ? getCategory(s.categoryId) : null;
+  const avatarStyle = conn.image ? `style="background-image:url(${conn.image});"` : '';
+  const avatarContent = conn.image ? '' : initialsOf(conn.name);
+  const affiliations = (conn.affiliations && conn.affiliations.length)
+    ? conn.affiliations
+    : [{ company: conn.affiliation || '—', position: conn.position || '', current: true }];
+  const edges = knownByEdges(conn);
+  const notes = (conn.notes || []).slice().sort((a, b) => b.ts - a.ts);
+
+  const affHtml = affiliations.map(a => `
+    <div class="dp-aff-row${a.current ? ' current' : ''}">
+      <div class="where">${escapeHtml(a.company || '—')}${a.position ? ' — ' + escapeHtml(a.position) : ''}</div>
+      ${a.current ? '<span class="badge">Current</span>' : '<span style="font-size:10.5px;color:var(--text-faint);font-weight:700;letter-spacing:.7px;text-transform:uppercase;">Past</span>'}
+    </div>
+  `).join('');
+
+  const edgesHtml = edges.length ? edges.map(e => {
+    const isMember = e.type === 'member';
+    const subject = isMember ? getMember(e.id) : state.connections.find(c => c.id === e.id);
+    if (!subject) return '';
+    const navAttr = isMember ? '' : `data-jump-conn="${escapeHtml(e.id)}"`;
+    return `
+      <div class="dp-known-row" ${navAttr}>
+        <div class="who">
+          <span class="pill ${isMember ? '' : 'conn'}">${isMember ? 'LBC' : '2nd°'}</span>
+          ${escapeHtml(subject.name)}
+        </div>
+        <div class="rel">${escapeHtml(relLabel(e.relType))}</div>
+      </div>
+    `;
+  }).join('') : '<span style="color:var(--text-faint);font-style:italic;font-size:12px;">No one attributed yet</span>';
+
+  const notesHtml = notes.length ? notes.map(n => `
+    <div class="dp-note-row">
+      <div class="dp-note-meta">${formatDate(n.ts)}</div>
+      <div>${escapeHtml(n.text)}</div>
+    </div>
+  `).join('') : '<span style="color:var(--text-faint);font-style:italic;font-size:12px;">No notes yet</span>';
+
+  // Section + visibility badges
+  const section = conn.section || 'network';
+  const sectionMeta = SECTION_BY_ID[section];
+  let sectionDetail = '';
+  if (section === 'clients') {
+    sectionDetail = `${CLIENT_TYPE_BY_ID[conn.clientType]?.label || '—'} · ${CLIENT_STATUS_BY_ID[conn.clientStatus]?.label || '—'}`;
+  } else if (section === 'talents') {
+    sectionDetail = TALENT_STAGE_BY_ID[conn.talentStage]?.label || '—';
+  }
+  const badgesHtml = `
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+      <span class="section-badge section-${section}">${sectionMeta.label}${sectionDetail ? ' · ' + sectionDetail : ''}</span>
+      ${conn.visibility === 'admin' ? `
+        <span class="section-badge vis-admin" title="Hidden until admin view is unlocked">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          Admin-only
+        </span>` : ''}
+    </div>`;
+
+  dpContent.innerHTML = `
+    <div class="dp-header">
+      <div class="dp-avatar" ${avatarStyle}>${avatarContent}</div>
+      <div style="flex:1; min-width:0;">
+        <h3 class="dp-title">${escapeHtml(conn.name)}</h3>
+        <div class="dp-sub">${escapeHtml(conn.position || s?.name || '—')}</div>
+        ${badgesHtml}
+      </div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Affiliations</div>
+      <div class="dp-aff">${affHtml}</div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Category · Sector</div>
+      <div class="dp-value">${escapeHtml(cat?.name || '—')} · ${escapeHtml(s?.name || '—')}</div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Closeness Index</div>
+      <div class="dp-value">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;height:6px;background:var(--navy-100);border-radius:999px;overflow:hidden;">
+            <div style="height:100%;width:${conn.closenessIndex * 10}%;background:var(--navy-800);"></div>
+          </div>
+          <strong style="color:var(--navy-900);">${conn.closenessIndex}/10</strong>
+        </div>
+      </div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Known by · ${edges.length}</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">${edgesHtml}</div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-label">Notes · ${notes.length}</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">${notesHtml}</div>
+    </div>
+    <div class="detail-actions">
+      <button class="btn btn-primary" id="dpEdit" style="flex:1;">Edit</button>
+      <button class="btn btn-danger" id="dpDel" style="flex:1;">Delete</button>
+    </div>
+  `;
+  // Clickable 2nd° rows jump to that person's detail
+  dpContent.querySelectorAll('[data-jump-conn]').forEach(el => {
+    el.addEventListener('click', () => showDetailPerson(el.dataset.jumpConn));
+  });
+  document.getElementById('dpEdit').addEventListener('click', () => openModal(conn));
+  document.getElementById('dpDel').addEventListener('click', () => {
+    if (confirm('Delete connection "' + conn.name + '"?')) {
+      state.connections = state.connections.filter(c => c.id !== conn.id);
+      // Also strip references from other connections
+      state.connections.forEach(c => {
+        c.knownBy = (c.knownBy || []).filter(e => !(e.type === 'connection' && e.id === conn.id));
+      });
+      saveState();
+      cloudDelete('connections', conn.id);
+      hideDetail(); renderAll();
+    }
+  });
+  detailPanel.classList.add('show');
+  highlightNode('person:' + connId);
+}
+
+function hideDetail() {
+  detailPanel.classList.remove('show');
+  state.selectedId = null;
+  clearHighlight();
+}
+document.getElementById('detailClose').addEventListener('click', hideDetail);
+
+/* ================== GRAPH ================== */
+const svgEl = d3.select('#network');
+let zoom, gRoot, gLinks, gNodes;
+let simulation;
+let currentNodes = [];
+let currentLinks = [];
+
+function initSvg() {
+  svgEl.selectAll('*').remove();
+  svgEl.append('defs');
+  gRoot  = svgEl.append('g');
+  gLinks = gRoot.append('g').attr('class', 'links');
+  gNodes = gRoot.append('g').attr('class', 'nodes');
+  zoom = d3.zoom().scaleExtent([0.25, 4]).on('zoom', (e) => gRoot.attr('transform', e.transform));
+  svgEl.call(zoom);
+  svgEl.on('click', (e) => { if (e.target.tagName === 'svg') hideDetail(); });
+}
+
+function closenessColor(c) {
+  // Dark-mode scale: dim navy (low) → bright blue-white (high)
+  const scale = d3.scaleLinear().domain([1, 5, 10]).range(['#3d5685', '#7a9cc6', '#c4d8ff']);
+  return scale(c);
+}
+function adminColor(c) {
+  // Admin-only variant — lighter, icier blue. Still scales with closeness
+  // so the closeness signal is preserved while the visibility class is distinct.
+  const scale = d3.scaleLinear().domain([1, 5, 10]).range(['#6e9fcc', '#a3d4f0', '#dcefff']);
+  return scale(c);
+}
+function personNodeColor(conn) {
+  return (conn.visibility === 'admin') ? adminColor(conn.closenessIndex) : closenessColor(conn.closenessIndex);
+}
+function closenessStroke(c) { return 1 + (c / 10) * 3; }
+
+function buildGraph() {
+  // Preserve positions of nodes that existed in the previous render
+  const prev = {};
+  (currentNodes || []).forEach(n => {
+    if (typeof n.x === 'number') {
+      prev[n.id] = { x: n.x, y: n.y, vx: n.vx || 0, vy: n.vy || 0 };
+    }
+  });
+  const mode = state.currentView;
+  const nodes = [];
+  const links = [];
+  const hubId = '__lbc__';
+  nodes.push({ id: hubId, type: 'hub', label: 'LBC', size: 42 });
+  const cmap = companiesMap();
+
+  if (mode === 'company') {
+    Object.values(cmap).forEach(c => {
+      const total = c.connections.length;
+      const avgClose = d3.mean(c.connections, x => x.closenessIndex) || 1;
+      nodes.push({
+        id: 'company:' + c.name, type: 'company',
+        label: c.name,
+        sublabel: total + (total === 1 ? ' contact' : ' contacts'),
+        size: 22 + Math.min(28, total * 4.5),
+        connections: c.connections, avgCloseness: avgClose,
+        sectors: Array.from(c.sectors), categories: Array.from(c.categories),
+        logo: state.companyMeta[c.name]?.logo || null,
+      });
+      links.push({ source: hubId, target: 'company:' + c.name, strength: avgClose, count: total, kind: 'hub-company' });
+    });
+  } else {
+    // PEOPLE VIEW — companies orbit hub, people orbit their own company,
+    // plus 2nd-degree edges between people who know each other.
+    const includedPersonIds = new Set();
+    Object.values(cmap).forEach(c => {
+      const total = c.connections.length;
+      const avgClose = d3.mean(c.connections, x => x.closenessIndex) || 1;
+      nodes.push({
+        id: 'company:' + c.name, type: 'company-sub',
+        label: c.name,
+        sublabel: total + (total === 1 ? ' person' : ' people'),
+        size: 26 + Math.min(20, total * 3),
+        connections: c.connections, avgCloseness: avgClose,
+        sectors: Array.from(c.sectors), categories: Array.from(c.categories),
+        logo: state.companyMeta[c.name]?.logo || null,
+      });
+      links.push({ source: hubId, target: 'company:' + c.name, strength: avgClose, count: total, kind: 'hub-company' });
+      c.connections.forEach(p => {
+        nodes.push({
+          id: 'person:' + p.id, type: 'person',
+          label: p.name, sublabel: p.position || '',
+          size: 14 + (p.closenessIndex / 10) * 10,
+          connection: p, image: p.image || null,
+        });
+        includedPersonIds.add(p.id);
+        links.push({ source: 'company:' + c.name, target: 'person:' + p.id, strength: p.closenessIndex, kind: 'company-person' });
+      });
+    });
+    // 2nd-degree edges (connection ↔ connection). Deduped by sorted pair.
+    const seenPairs = new Set();
+    state.connections.forEach(conn => {
+      if (!includedPersonIds.has(conn.id)) return;
+      (conn.knownBy || []).forEach(e => {
+        if (e.type !== 'connection') return;
+        if (!includedPersonIds.has(e.id)) return;
+        const a = conn.id, b = e.id;
+        const key = a < b ? a + '|' + b : b + '|' + a;
+        if (seenPairs.has(key)) return;
+        seenPairs.add(key);
+        links.push({
+          source: 'person:' + a, target: 'person:' + b,
+          strength: 4, kind: 'deg2', relType: e.relType,
+        });
+      });
+    });
+  }
+  // Restore preserved positions so existing nodes don't jump on re-render
+  nodes.forEach(n => {
+    if (prev[n.id]) {
+      n.x = prev[n.id].x; n.y = prev[n.id].y;
+      n.vx = prev[n.id].vx; n.vy = prev[n.id].vy;
+    }
+  });
+  currentNodes = nodes;
+  currentLinks = links;
+}
+
+function renderGraph() {
+  buildGraph();
+  const svg = document.getElementById('network');
+  const w = svg.clientWidth, h = svg.clientHeight;
+  document.getElementById('emptyCanvas').style.display = filteredConnections().length ? 'none' : 'flex';
+  if (simulation) simulation.stop();
+
+  const linkSel = gLinks.selectAll('line').data(currentLinks, d => {
+    const s = typeof d.source === 'object' ? d.source.id : d.source;
+    const t = typeof d.target === 'object' ? d.target.id : d.target;
+    return s + '--' + t;
+  });
+  linkSel.exit().remove();
+  const linkEnter = linkSel.enter().append('line');
+  const linkAll = linkEnter.merge(linkSel)
+    .attr('class', d => 'link' + (d.kind === 'deg2' ? ' deg2' : ''))
+    .attr('stroke-width', d => d.kind === 'deg2' ? 1.4 : closenessStroke(d.strength || 3))
+    .attr('stroke', d => d.kind === 'deg2' ? '#b8860b' : closenessColor(d.strength || 3))
+    .attr('stroke-dasharray', d => d.kind === 'deg2' ? '4 4' : null)
+    .attr('stroke-opacity', d => d.kind === 'deg2' ? 0.55 : (d.kind === 'company-person' ? 0.55 : 0.38));
+
+  const nodeSel = gNodes.selectAll('g.node-group').data(currentNodes, d => d.id);
+  nodeSel.exit().remove();
+  const nodeEnter = nodeSel.enter().append('g').attr('class', 'node-group')
+    .call(d3.drag()
+      .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on('end',   (e, d) => { if (!e.active) simulation.alphaTarget(0); if (d.type !== 'hub') { d.fx = null; d.fy = null; } })
+    )
+    .on('mouseenter', (e, d) => showTooltip(e, d))
+    .on('mousemove',  (e) => moveTooltip(e))
+    .on('mouseleave', () => hideTooltip())
+    .on('click', (e, d) => {
+      e.stopPropagation();
+      if (d.type === 'company' || d.type === 'company-sub') showDetailCompany(d.label);
+      else if (d.type === 'person') showDetailPerson(d.connection.id);
+      else if (d.type === 'hub') hideDetail();
+    });
+
+  const nodeAll_preEach = nodeEnter.merge(nodeSel);
+  nodeAll_preEach.each(function (d) {
+    const sel = d3.select(this);
+    sel.selectAll('*').remove();  // clear children so updates (e.g. new image) are re-rendered
+    if (d.type === 'hub') {
+      // clipped circular logo image
+      const hubClipId = 'clip-hub';
+      const defs = svgEl.select('defs');
+      let hubCp = defs.select('#' + hubClipId);
+      if (hubCp.empty()) {
+        hubCp = defs.append('clipPath').attr('id', hubClipId);
+        hubCp.append('circle').attr('r', d.size);
+      } else hubCp.select('circle').attr('r', d.size);
+      sel.append('circle').attr('class', 'node-bg').attr('r', d.size)
+        .attr('fill', '#0e1729').attr('stroke', '#7a9cc6').attr('stroke-width', 1.6);
+      sel.append('image').attr('href', LBC_LOGO_URL)
+        .attr('x', -d.size).attr('y', -d.size)
+        .attr('width', d.size * 2).attr('height', d.size * 2)
+        .attr('clip-path', `url(#${hubClipId})`)
+        .attr('preserveAspectRatio', 'xMidYMid slice');
+      sel.append('text').attr('y', d.size + 18).attr('text-anchor', 'middle')
+        .attr('fill', '#c4d2eb').attr('font-size', 11).attr('font-weight', 700)
+        .attr('letter-spacing', 1.2).text('LEGACY BRIDGE');
+    } else if (d.type === 'company' || d.type === 'company-sub') {
+      // Mark a company as "all-admin" when every contact in it is admin-only.
+      // Such companies are auto-hidden from non-admin viewers (they fall out
+      // of filteredConnections → companiesMap). For admin viewers we tint them
+      // in the same icy palette as admin-only person nodes so it's obvious
+      // which companies would vanish if admin is re-locked.
+      const allAdminOnly = (d.connections || []).length > 0
+        && d.connections.every(c => c.visibility === 'admin');
+      const defaultStroke = d.type === 'company-sub' ? '#5b7ba0' : '#7a9cc6';
+      const stroke = allAdminOnly ? '#a3d4f0' : defaultStroke;
+      sel.append('circle').attr('class', 'node-bg').attr('r', d.size)
+        .attr('fill', allAdminOnly ? '#1c2c4a' : '#152038')
+        .attr('stroke', stroke)
+        .attr('stroke-width', allAdminOnly ? 1.9 : 1.5)
+        .attr('filter', 'drop-shadow(0 2px 8px rgba(0,0,0,0.55))');
+      if (d.logo) {
+        const clipId = 'clip-' + d.id.replace(/[^a-zA-Z0-9]/g, '_');
+        const defs = svgEl.select('defs');
+        let cp = defs.select('#' + clipId);
+        if (cp.empty()) {
+          cp = defs.append('clipPath').attr('id', clipId);
+          cp.append('circle').attr('r', d.size - 2);
+        } else cp.select('circle').attr('r', d.size - 2);
+        sel.append('image').attr('href', d.logo)
+          .attr('x', -(d.size - 2)).attr('y', -(d.size - 2))
+          .attr('width', (d.size - 2) * 2).attr('height', (d.size - 2) * 2)
+          .attr('clip-path', `url(#${clipId})`)
+          .attr('preserveAspectRatio', 'xMidYMid slice');
+      } else {
+        sel.append('text').attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+          .attr('fill', '#c4d8ff').attr('font-size', Math.max(12, d.size * 0.45))
+          .attr('font-weight', 700).attr('font-family', 'Playfair Display, serif')
+          .text(initialsOf(d.label, 3));
+      }
+      sel.append('text').attr('y', d.size + 16).attr('text-anchor', 'middle')
+        .attr('fill', '#e8efff').attr('font-size', 12).attr('font-weight', 700)
+        .text(truncate(d.label, 22));
+      sel.append('text').attr('y', d.size + 30).attr('text-anchor', 'middle')
+        .attr('fill', '#94a3b8').attr('font-size', 10.5).attr('font-weight', 500)
+        .text(d.sublabel || '');
+    } else if (d.type === 'person') {
+      const isAdminOnly = d.connection.visibility === 'admin';
+      const col = personNodeColor(d.connection);
+      sel.append('circle').attr('class', 'node-bg').attr('r', d.size)
+        .attr('fill', d.image ? '#152038' : col)
+        .attr('fill-opacity', d.image ? 1 : (isAdminOnly ? 0.30 : 0.22))
+        .attr('stroke', col).attr('stroke-width', isAdminOnly ? 2.1 : 1.8);
+      if (d.image) {
+        const clipId = 'clip-' + d.id.replace(/[^a-zA-Z0-9]/g, '_');
+        const defs = svgEl.select('defs');
+        let cp = defs.select('#' + clipId);
+        if (cp.empty()) {
+          cp = defs.append('clipPath').attr('id', clipId);
+          cp.append('circle').attr('r', d.size - 1.5);
+        } else cp.select('circle').attr('r', d.size - 1.5);
+        sel.append('image').attr('href', d.image)
+          .attr('x', -(d.size - 1.5)).attr('y', -(d.size - 1.5))
+          .attr('width', (d.size - 1.5) * 2).attr('height', (d.size - 1.5) * 2)
+          .attr('clip-path', `url(#${clipId})`)
+          .attr('preserveAspectRatio', 'xMidYMid slice');
+      } else {
+        sel.append('text').attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+          .attr('fill', '#e8efff').attr('font-size', 10).attr('font-weight', 700)
+          .text(initialsOf(d.label));
+      }
+      sel.append('text').attr('y', d.size + 13).attr('text-anchor', 'middle')
+        .attr('fill', '#e8efff').attr('font-size', 10.5).attr('font-weight', 600)
+        .text(truncate(d.label, 22));
+    }
+  });
+
+  const nodeAll = nodeAll_preEach;
+  const hub = currentNodes.find(n => n.type === 'hub');
+  if (hub) { hub.fx = w / 2; hub.fy = h / 2; }
+
+  simulation = d3.forceSimulation(currentNodes)
+    .force('link', d3.forceLink(currentLinks).id(d => d.id)
+      .distance(d => {
+        if (d.kind === 'hub-company') return state.currentView === 'people' ? 240 : 150;
+        if (d.kind === 'company-person') return 55 + (10 - (d.strength || 5)) * 3;
+        if (d.kind === 'deg2') return 80;
+        return 140;
+      })
+      .strength(d => {
+        if (d.kind === 'company-person') return 0.9;
+        if (d.kind === 'deg2') return 0.18;
+        return 0.5;
+      }))
+    .force('charge', d3.forceManyBody().strength(d => {
+      if (d.type === 'hub') return -1400;
+      if (d.type === 'company') return -800 - d.size * 6;
+      if (d.type === 'company-sub') return -650 - d.size * 4;
+      if (d.type === 'person') return -90;
+      return -100;
+    }))
+    .force('collide', d3.forceCollide().radius(d => (d.size || 12) + (d.type === 'person' ? 6 : 18)))
+    .force('center', d3.forceCenter(w / 2, h / 2).strength(0.04))
+    .on('tick', () => {
+      linkAll.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+             .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      nodeAll.attr('transform', d => `translate(${d.x}, ${d.y})`);
+    });
+  simulation.alpha(1).restart();
+}
+
+function truncate(s, n) {
+  s = s || ''; return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+/* ================== TOOLTIP ================== */
+const tooltip = document.getElementById('tooltip');
+function showTooltip(e, d) {
+  let html = '';
+  if (d.type === 'company' || d.type === 'company-sub') {
+    html = `
+      <div class="t-name">${escapeHtml(d.label)}</div>
+      <div class="t-role">${escapeHtml((d.categories || []).join(' · ') || '—')}</div>
+      <div class="t-meta">
+        <span><strong>${d.connections.length}</strong> contact${d.connections.length === 1 ? '' : 's'}</span>
+        <span>Avg. closeness <strong>${d.avgCloseness.toFixed(1)}/10</strong></span>
+        <span>${escapeHtml((d.sectors || []).join(', ') || '—')}</span>
+      </div>`;
+  } else if (d.type === 'person') {
+    const c = d.connection;
+    const s = getSector(c.sectorId);
+    const affCount = (c.affiliations || []).length;
+    const deg2Count = neighborConnIds(c).length;
+    html = `
+      <div class="t-name">${escapeHtml(c.name)}</div>
+      <div class="t-role">${escapeHtml(c.position || '—')}</div>
+      <div class="t-meta">
+        <span><strong>${escapeHtml(c.affiliation || '—')}</strong>${affCount > 1 ? ` <span style="color:var(--text-faint);">+${affCount - 1} more</span>` : ''}</span>
+        <span>${escapeHtml(s?.name || '—')}</span>
+        <span>Closeness <strong>${c.closenessIndex}/10</strong>${deg2Count ? ` · <strong>${deg2Count}</strong> 2nd° tie${deg2Count === 1 ? '' : 's'}` : ''}</span>
+      </div>`;
+  } else if (d.type === 'hub') {
+    html = `
+      <div class="t-name">Legacy Bridge Capital</div>
+      <div class="t-role">Network hub</div>
+      <div class="t-meta">
+        <span><strong>${state.connections.length}</strong> total contacts</span>
+        <span><strong>${Object.keys(companiesMap()).length}</strong> companies</span>
+      </div>`;
+  }
+  tooltip.innerHTML = html;
+  tooltip.classList.add('show');
+  moveTooltip(e);
+}
+function moveTooltip(e) {
+  const rect = document.querySelector('.canvas-wrap').getBoundingClientRect();
+  tooltip.style.left = (e.clientX - rect.left + 14) + 'px';
+  tooltip.style.top  = (e.clientY - rect.top  + 14) + 'px';
+}
+function hideTooltip() { tooltip.classList.remove('show'); }
+
+/* ================== HIGHLIGHT ================== */
+function highlightNode(id) {
+  // Compute the set of nodes & links connected to the selected one
+  const connected = new Set([id]);
+  currentLinks.forEach(l => {
+    const sId = typeof l.source === 'object' ? l.source.id : l.source;
+    const tId = typeof l.target === 'object' ? l.target.id : l.target;
+    if (sId === id) connected.add(tId);
+    if (tId === id) connected.add(sId);
+  });
+  gNodes.selectAll('g.node-group')
+    .classed('highlighted', d => d.id === id)
+    .classed('dimmed', d => d.type !== 'hub' && !connected.has(d.id));
+  gLinks.selectAll('line')
+    .classed('highlighted', d => (d.source.id === id || d.target.id === id))
+    .classed('dimmed', d => !(d.source.id === id || d.target.id === id));
+}
+function clearHighlight() {
+  gNodes.selectAll('g.node-group').classed('highlighted', false).classed('dimmed', false);
+  gLinks.selectAll('line').classed('highlighted', false).classed('dimmed', false);
+}
+
+/* ================== ZOOM ================== */
+document.getElementById('zoomIn').addEventListener('click',    () => svgEl.transition().duration(250).call(zoom.scaleBy, 1.3));
+document.getElementById('zoomOut').addEventListener('click',   () => svgEl.transition().duration(250).call(zoom.scaleBy, 0.75));
+document.getElementById('zoomReset').addEventListener('click', () => svgEl.transition().duration(350).call(zoom.transform, d3.zoomIdentity));
+
+/* ================== SIDE PANEL (editable team) ================== */
+function renderSidePanel() {
+  // Stats reflect the section's visible connections (admin-only rows
+  // excluded unless admin is unlocked). We bypass the user's category /
+  // sector / type filters here so the overview always shows the whole
+  // section, not just the currently-narrowed slice.
+  const visible = state.connections.filter(c =>
+    (c.section || 'network') === state.section &&
+    (state.isAdmin || (c.visibility || 'public') !== 'admin')
+  );
+  document.getElementById('statConn').textContent = visible.length;
+  const companies = new Set(visible.map(c => (c.affiliation || 'Unaffiliated').trim()));
+  document.getElementById('statComp').textContent = companies.size;
+  const sectorsInUse = new Set(visible.map(c => c.sectorId).filter(Boolean));
+  document.getElementById('statSect').textContent = sectorsInUse.size;
+  const avg = visible.length
+    ? (visible.reduce((a, c) => a + c.closenessIndex, 0) / visible.length) : 0;
+  document.getElementById('statAvg').textContent = avg.toFixed(1);
+
+  // Re-label the "Connections" stat to match the current section's singular
+  const statConnLabel = document.querySelector('#statConn + .l');
+  if (statConnLabel) statConnLabel.textContent = SECTION_BY_ID[state.section].label;
+
+  const teamList = document.getElementById('teamList');
+  teamList.innerHTML = '';
+  state.members.forEach(m => {
+    // Member tally counts visible connections in current section only
+    const count = visible.filter(c => knownByMemberIds(c).includes(m.id)).length;
+    const item = document.createElement('div');
+    item.className = 'conn-item';
+    item.dataset.memberId = m.id;
+    item.title = 'Click to edit ' + m.name;
+    const avatarStyle = m.image ? `style="background-image:url(${m.image});"` : '';
+    const avatarContent = m.image ? '' : initialsOf(m.name);
+    item.innerHTML = `
+      <div class="mini-avatar" ${avatarStyle}>${avatarContent}</div>
+      <div class="body">
+        <div class="name">
+          <span>${escapeHtml(m.name)}</span>
+          <span class="closeness">${count}</span>
+        </div>
+        <div class="meta">${escapeHtml(m.role || '—')}</div>
+      </div>
+    `;
+    item.addEventListener('click', () => openMemberModal(m));
+    teamList.appendChild(item);
+  });
+
+  const top = visible.slice().sort((a, b) => b.closenessIndex - a.closenessIndex).slice(0, 6);
+  const topList = document.getElementById('topConnections');
+  if (!top.length) {
+    topList.innerHTML = `<div class="empty-state">No connections yet</div>`;
+  } else {
+    topList.innerHTML = '';
+    top.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'conn-item';
+      const avatarStyle = c.image ? `style="background-image:url(${c.image});"` : '';
+      const avatarContent = c.image ? '' : initialsOf(c.name);
+      item.innerHTML = `
+        <div class="mini-avatar" ${avatarStyle}>${avatarContent}</div>
+        <div class="body">
+          <div class="name">
+            <span>${escapeHtml(c.name)}</span>
+            <span class="closeness">${c.closenessIndex}/10</span>
+          </div>
+          <div class="meta">${escapeHtml(c.affiliation || '—')} · ${escapeHtml(c.position || '—')}</div>
+        </div>
+      `;
+      item.addEventListener('click', () => showDetailPerson(c.id));
+      topList.appendChild(item);
+    });
+  }
+}
+
+/* ================== RESIZE ================== */
+window.addEventListener('resize', () => {
+  const svg = document.getElementById('network');
+  const w = svg.clientWidth, h = svg.clientHeight;
+  const hub = currentNodes.find(n => n.type === 'hub');
+  if (hub) { hub.fx = w / 2; hub.fy = h / 2; }
+  if (simulation) {
+    simulation.force('center', d3.forceCenter(w / 2, h / 2).strength(0.04));
+    simulation.alpha(0.5).restart();
+  }
+});
+
+/* ================== RENDER ALL ================== */
+function renderAll() {
+  renderFilterTabs();
+  renderSidePanel();
+  renderGraph();
+}
+
+/* ================== INIT ================== */
+(async function init() {
+  // Render from local cache first so the canvas appears instantly
+  loadState();
+  maybeSeedDummies();
+  initSvg();
+  refreshAdminButton();
+  updateAddButtonLabel();
+  renderAll();
+
+  const pill = document.getElementById('syncStatus');
+  if (pill) pill.addEventListener('click', () => {
+    if (syncStatus === 'local') {
+      alert('Local mode — Supabase is not configured. Data is stored in this browser only.');
+    } else if (syncStatus === 'connecting') {
+      alert('Connecting to Supabase…');
+    } else if (syncStatus === 'error') {
+      alert('Cloud sync is offline.\n\nMost likely cause: the database tables haven’t been created yet. Open supabase_schema.sql and run it in your Supabase SQL Editor, then reload.\n\nMeanwhile your changes are saved locally in this browser only.');
+    } else {
+      alert('Cloud sync active. Changes are saved to Supabase and broadcast to all connected teammates in real time.');
+    }
+  });
+
+  if (sbClient) {
+    try {
+      setSyncStatus('connecting');
+      await cloudLoadAll();
+      saveState();
+      renderAll();
+      // REST round-trip succeeded — mark connected and try realtime for live push
+      setSyncStatus('connected');
+      cloudRealtime();
+    } catch (e) {
+      console.error('Cloud load failed:', e);
+      // Non-blocking: just log + flip the sync pill to OFFLINE. The pill's
+      // click handler already explains TABLES_MISSING when the user asks.
+      if (e && e.message === 'TABLES_MISSING') {
+        console.warn('[LNS] Supabase reachable but schema is missing. Run supabase_schema.sql to enable cloud sync.');
+      }
+      setSyncStatus('error');
+    }
+  } else {
+    setSyncStatus('local');
+  }
+})();
+
+/* ── Sign-in guard ─────────────────────────────────────────────────────
+   Runs last so all DOM refs and state init are already in place. If the
+   user isn't signed in via the Management Terminal, swap the app shell
+   for the sign-in overlay and bail. Otherwise populate state.currentUser
+   and auto-unlock the admin view if they qualify. */
+(function applySignInGuard() {
+  const session = readMgmtSession();
+  const overlay = document.getElementById('signInOverlay');
+  const chip = document.getElementById('userChip');
+  if (!session) {
+    if (overlay) overlay.style.display = 'flex';
+    return;
+  }
+  state.currentUser = session.user;
+  if (chip) {
+    const u = session.user;
+    chip.style.display = 'inline-flex';
+    chip.textContent = (u.full_name || u.username || '').toUpperCase();
+    chip.title = (u.full_name || u.username) + ' · ' + (u.title || u.role);
+  }
+  const elig = adminEligibility(state.currentUser);
+  if (elig.eligible) {
+    // Auto-unlock admin -- per spec, anyone who qualifies gets admin view
+    // automatically (no extra click). They can still toggle to read view
+    // via the Admin button if they want to preview what non-admins see.
+    state.isAdmin = true;
+  }
+  refreshAdminButton();
+  renderAll();
+})();
+</script>
+</body>
+</html>

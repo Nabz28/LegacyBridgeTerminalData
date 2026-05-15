@@ -9,7 +9,9 @@
     { "source": "/macro", "destination": "/macro/dashboard/", "permanent": false },
     { "source": "/macro/", "destination": "/macro/dashboard/", "permanent": false },
     { "source": "/correlation", "destination": "/correlation/ui/static/", "permanent": false },
-    { "source": "/correlation/", "destination": "/correlation/ui/static/", "permanent": false }
+    { "source": "/correlation/", "destination": "/correlation/ui/static/", "permanent": false },
+    { "source": "/network", "destination": "/network/dashboard/", "permanent": false },
+    { "source": "/network/", "destination": "/network/dashboard/", "permanent": false }
   ],
   "rewrites": [],
   "headers": [
