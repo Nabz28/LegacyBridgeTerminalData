@@ -6,6 +6,7 @@ import { MembersModal } from "./MembersModal";
 import { EventsList } from "./EventsList";
 import { CalendarView } from "./CalendarView";
 import { CreateTaskModal } from "./CreateTaskModal";
+import { NotesPane } from "./NotesPane";
 import type {
   ActivityLogRow, Comment, DeliverableOwner, DeliverableStatusView,
   Project, ProjectEvent, ProjectEventAttendee, ProjectMember, User,
@@ -596,6 +597,33 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
                   responsible_divisions: divisions,
                 })
               }
+              onSetTitle={(title) =>
+                runMutation({ action: "set_title", deliverable_id: selected.id, title })
+              }
+              onSetDescription={(description) =>
+                runMutation({ action: "set_description", deliverable_id: selected.id, description })
+              }
+              onSetDueDate={(due_date) =>
+                runMutation({ action: "set_due_date", deliverable_id: selected.id, due_date })
+              }
+              onSetOwners={(owner_user_ids) =>
+                runMutation({ action: "set_owners", deliverable_id: selected.id, owner_user_ids })
+              }
+              onDelete={async () => {
+                if (!window.confirm(
+                  `Delete this ${selected.kind === "CUSTOM" ? "task" : "deliverable"}?\n\n` +
+                  `"${selected.title ?? selected.kind}" and all of its comments, notes, ` +
+                  `attachments, and owner assignments will be removed. This cannot be undone.`,
+                )) return;
+                try {
+                  await mutateDeliverable({ action: "delete_task", deliverable_id: selected.id });
+                  setSelectedId(null);
+                  refresh();
+                } catch (e) {
+                  setErr((e as Error).message);
+                }
+              }}
+              projectMembers={members}
               onDeselect={() => setSelectedId(null)}
             />
           ) : (
@@ -685,15 +713,32 @@ interface DetailProps {
   ) => void;
   onSetDivision: (division: "ERD" | "MRD" | "IRD" | "MND" | "CROSS" | "NONE") => void;
   onSetResponsibleDivisions: (divisions: string[]) => void;
+  onSetTitle: (title: string) => void;
+  onSetDescription: (description: string | null) => void;
+  onSetDueDate: (due_date: string) => void;
+  onSetOwners: (owner_user_ids: string[]) => void;
+  onDelete: () => void;
+  projectMembers: ProjectMember[];
   onDeselect: () => void;
 }
 
 function DeliverableDetail(props: DetailProps) {
-  const { deliverable: d, comments, users, owners, approvers, currentUser, busy } = props;
+  const { deliverable: d, comments, users, owners, approvers, currentUser, busy, projectMembers } = props;
   const [draft, setDraft] = useState("");
   const [fileUrl, setFileUrl] = useState(d.file_url ?? "");
   const [uploading, setUploading] = useState(false);
   const [uploadErr, setUploadErr] = useState<string | null>(null);
+  const [showOwnersPicker, setShowOwnersPicker] = useState(false);
+  const [descDraft, setDescDraft] = useState(d.description ?? "");
+  const [editingDesc, setEditingDesc] = useState(false);
+
+  // Reset description draft whenever the deliverable changes (so switching
+  // between deliverables doesn't carry over the previous draft).
+  useEffect(() => {
+    setDescDraft(d.description ?? "");
+    setEditingDesc(false);
+    setShowOwnersPicker(false);
+  }, [d.id, d.description]);
 
   const isOwner = owners.some((o) => o.user_id === currentUser.id);
   const approvalDivision = d.kind === "IM" ? "IM" : d.division;
@@ -706,17 +751,182 @@ function DeliverableDetail(props: DetailProps) {
   const canPublish = (isOwner || isApprover) && d.state === "approved" && d.kind.startsWith("PUB_");
   const canBlock = isOwner && !d.blocked;
   const canUnblock = (isOwner || isApprover) && d.blocked;
+  const canEditMeta = currentUser.role === "admin" || currentUser.role === "management";
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-        <h3>{KIND_LABELS[d.kind] ?? d.kind} {d.sequence_no > 1 && `#${d.sequence_no}`}</h3>
-        <button className="btn ghost sm" onClick={props.onDeselect}>← back</button>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10, gap: 8 }}>
+        <h3 style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis" }}>
+          {KIND_LABELS[d.kind] ?? d.kind} {d.sequence_no > 1 && `#${d.sequence_no}`}
+        </h3>
+        <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+          {canEditMeta && (
+            <button
+              className="btn ghost sm"
+              disabled={busy}
+              title="Rename"
+              onClick={() => {
+                const next = window.prompt("Rename this " +
+                  (d.kind === "CUSTOM" ? "task" : "deliverable"),
+                  d.title ?? d.kind);
+                if (next === null) return;
+                const trimmed = next.trim();
+                if (!trimmed || trimmed === d.title) return;
+                props.onSetTitle(trimmed);
+              }}
+            >Rename</button>
+          )}
+          {canEditMeta && (
+            <button
+              className="btn ghost sm"
+              disabled={busy}
+              onClick={() => setShowOwnersPicker((v) => !v)}
+              title="Reassign owners"
+            >Owners</button>
+          )}
+          {canEditMeta && (
+            <button
+              className="btn ghost sm danger"
+              disabled={busy}
+              onClick={props.onDelete}
+              title="Delete this deliverable. All comments, notes, and attachments are removed too."
+            >Delete</button>
+          )}
+          <button className="btn ghost sm" onClick={props.onDeselect}>← back</button>
+        </div>
+      </div>
+
+      <div style={{
+        fontSize: 13, fontWeight: 600, marginBottom: 8,
+        color: "var(--text)",
+      }}>
+        {d.title || (KIND_LABELS[d.kind] ?? d.kind)}
       </div>
 
       <div style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 10 }}>
-        Due {fmtDateLong(d.due_date)} · revisions ×{d.revision_count}
+        Due {fmtDateLong(d.due_date)}
+        {canEditMeta && (
+          <>
+            {" · "}
+            <input
+              type="date"
+              value={d.due_date}
+              disabled={busy}
+              onChange={(e) => {
+                if (e.target.value && e.target.value !== d.due_date) {
+                  props.onSetDueDate(e.target.value);
+                }
+              }}
+              style={{
+                background: "var(--bg-elev)", color: "var(--text)",
+                border: "1px solid var(--border)", borderRadius: 2,
+                fontSize: 11, padding: "1px 4px",
+              }}
+            />
+          </>
+        )}
+        {" · revisions ×"}{d.revision_count}
       </div>
+
+      {/* Description (richer field; great for CUSTOM tasks) */}
+      <div style={{ marginBottom: 14 }}>
+        {!editingDesc ? (
+          <div style={{
+            fontSize: 12, color: "var(--text-dim)",
+            background: "var(--bg-elev)", border: "1px solid var(--border)",
+            borderRadius: 3, padding: "8px 10px", whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+          }}>
+            {d.description
+              ? d.description
+              : <span style={{ fontStyle: "italic" }}>
+                  No description yet.{canEditMeta && " Click to add context, links, or a brief."}
+                </span>}
+            {canEditMeta && (
+              <button
+                className="btn ghost sm"
+                style={{ marginLeft: 8, padding: "2px 6px", fontSize: 10 }}
+                onClick={() => setEditingDesc(true)}
+                disabled={busy}
+              >Edit</button>
+            )}
+          </div>
+        ) : (
+          <div>
+            <textarea
+              value={descDraft}
+              onChange={(e) => setDescDraft(e.target.value)}
+              placeholder="Optional context, brief, links, or scope notes."
+              rows={4}
+              disabled={busy}
+              style={{
+                width: "100%", minHeight: 80, resize: "vertical",
+                background: "var(--bg)", color: "var(--text)",
+                border: "1px solid var(--border-strong)", borderRadius: 3,
+                padding: 8, fontSize: 13, fontFamily: "inherit",
+                outline: "none",
+              }}
+            />
+            <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+              <button
+                className="btn primary sm"
+                disabled={busy}
+                onClick={() => {
+                  const trimmed = descDraft.trim();
+                  props.onSetDescription(trimmed === "" ? null : trimmed);
+                  setEditingDesc(false);
+                }}
+              >Save</button>
+              <button
+                className="btn ghost sm"
+                disabled={busy}
+                onClick={() => { setDescDraft(d.description ?? ""); setEditingDesc(false); }}
+              >Cancel</button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Owners picker (toggled by the Owners button up top) */}
+      {showOwnersPicker && canEditMeta && (
+        <div style={{
+          border: "1px solid var(--border-strong)", borderRadius: 3,
+          padding: 10, marginBottom: 14, background: "var(--bg-elev)",
+        }}>
+          <div className="dim mono" style={{ fontSize: 10, letterSpacing: 1.5, marginBottom: 6 }}>
+            REASSIGN OWNERS
+          </div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", maxHeight: 180, overflowY: "auto" }}>
+            {projectMembers.length === 0 && (
+              <span className="dim" style={{ fontSize: 11 }}>
+                No project members yet. Open the Members modal first.
+              </span>
+            )}
+            {projectMembers.map((m) => {
+              const u = users[m.user_id];
+              if (!u) return null;
+              const checked = owners.some((o) => o.user_id === m.user_id);
+              return (
+                <label key={m.user_id} className={cls("picker-chip", checked && "on")}>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    disabled={busy}
+                    onChange={() => {
+                      const nextIds = checked
+                        ? owners.map((o) => o.user_id).filter((id) => id !== m.user_id)
+                        : [...owners.map((o) => o.user_id), m.user_id];
+                      props.onSetOwners(nextIds);
+                    }}
+                  />
+                  {u.full_name}
+                  <span className="dim mono" style={{ fontSize: 9 }}>·{u.division ?? "—"}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div style={{ marginBottom: 14 }}>
         <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
@@ -887,7 +1097,10 @@ function DeliverableDetail(props: DetailProps) {
         </button>
       </div>
 
-      <h3>Thread</h3>
+      {/* Rich notes (separate from the chat-style comments thread) */}
+      <NotesPane deliverableId={d.id} currentUser={currentUser} users={users} />
+
+      <h3 style={{ marginTop: 18 }}>Thread</h3>
       {comments.length === 0 && (
         <div style={{ fontSize: 11, color: "var(--text-faint)" }}>No comments yet.</div>
       )}

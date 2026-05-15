@@ -90,10 +90,19 @@ export function createProject(input: CreateProjectInput): Promise<{ id: string; 
 // ─── deliverable mutations ────────────────────────────────────────────
 
 export type MutationAction =
+  // State machine
   | "submit" | "approve" | "request_revision" | "publish"
-  | "set_file" | "set_blocker" | "unblock" | "add_comment"
-  | "set_due_date" | "set_title" | "set_division"
-  | "set_responsible_divisions" | "create_task" | "delete_task";
+  | "set_blocker" | "unblock"
+  // Metadata
+  | "set_file" | "set_title" | "set_description"
+  | "set_due_date" | "set_division" | "set_responsible_divisions"
+  | "set_owners"
+  // Tasks
+  | "create_task" | "delete_task"
+  // Discussion
+  | "add_comment"
+  // Rich notes
+  | "add_note" | "update_note" | "delete_note";
 
 export interface MutationInput {
   action: MutationAction;
@@ -106,12 +115,17 @@ export interface MutationInput {
   blocked_by_deliverable_id?: string | null;
   due_date?: string;          // YYYY-MM-DD
   title?: string;
+  description?: string | null;
   division?: "ERD" | "MRD" | "IRD" | "MND" | "CROSS" | "NONE";
   responsible_divisions?: string[];
-  // create_task fields
+  // create_task / set_owners
   project_id?: string;
-  description?: string;
   owner_user_ids?: string[];
+  // Note actions
+  note_id?: string;
+  note_body?: string;
+  note_color?: "yellow" | "pink" | "blue" | "green" | "red" | "gray" | null;
+  note_pinned?: boolean;
 }
 export function mutateDeliverable(input: MutationInput): Promise<Record<string, unknown>> {
   return call("mutate-deliverable", input);

@@ -76,6 +76,7 @@ export interface Deliverable {
   kind: DeliverableKind;
   sequence_no: number;
   title: string | null;
+  description?: string | null;
   division: DeliverableDivision;
   // Phase 5: multi-division responsibility. Defaults to [division] for legacy
   // rows; for IM = ['ERD','MRD','IRD']; for custom tasks user picks via checkbox.
@@ -172,4 +173,19 @@ export interface ProjectEvent {
 export interface ProjectEventAttendee {
   event_id: string;
   user_id: string;
+}
+
+// ─── Notes (0015) ─────────────────────────────────────────────────────
+
+export type NoteColor = "yellow" | "pink" | "blue" | "green" | "red" | "gray";
+
+export interface DeliverableNote {
+  id: string;
+  deliverable_id: string;
+  author_user_id: string | null;
+  body: string;
+  pinned: boolean;
+  color: NoteColor | null;
+  created_at: string;
+  updated_at: string;
 }
