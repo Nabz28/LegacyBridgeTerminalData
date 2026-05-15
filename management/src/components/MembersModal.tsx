@@ -73,10 +73,10 @@ export function MembersModal({ project, currentUser, onClose, onChanged }: Membe
   // Exec / SPD / AMD / M&D" instead of one flat 40-row list. Management
   // (directors, VDs, SPD, C-suite) sort first within each group so the
   // senior pick is at the top.
-  const DIVISION_ORDER = ["Exec", "ERD", "MRD", "IRD", "AMD", "SPD", "MND", "Quant", "Advisor"];
+  const DIVISION_ORDER = ["Exec", "ERD", "MRD", "IRD", "QRD", "AMD", "SPD", "MND", "Advisor"];
   const DIVISION_LABEL: Record<string, string> = {
-    Exec: "Exec / C-suite", ERD: "ERD", MRD: "MRD", IRD: "IRD",
-    AMD: "AMD", SPD: "SPD", MND: "M&D", Quant: "Quant", Advisor: "Advisor",
+    Exec: "Exec / C-suite", ERD: "ERD", MRD: "MRD", IRD: "IRD", QRD: "QRD",
+    AMD: "AMD", SPD: "SPD", MND: "M&D", Advisor: "Advisor",
   };
   const grouped = new Map<string, UserLite[]>();
   for (const u of grantable) {

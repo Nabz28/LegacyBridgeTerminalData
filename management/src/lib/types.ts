@@ -4,7 +4,7 @@
 export type UserRole = "admin" | "management" | "analyst" | "advisor";
 export type Division =
   | "ERD" | "MRD" | "IRD" | "AMD" | "SPD" | "MND"
-  | "Exec" | "Quant" | "Advisor";
+  | "Exec" | "QRD" | "Advisor";
 
 export type ProjectType = "research" | "general";
 export type ProjectStatus = "active" | "completed" | "archived" | "cancelled";

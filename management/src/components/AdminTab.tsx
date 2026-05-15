@@ -538,7 +538,7 @@ function UserFormModal({ existing, onSubmit, onCancel }: UserFormModalProps) {
               <option value="SPD">SPD</option>
               <option value="MND">M&D</option>
               <option value="Exec">Exec</option>
-              <option value="Quant">Quant</option>
+              <option value="QRD">QRD</option>
               <option value="Advisor">Advisor</option>
             </select>
           </div>

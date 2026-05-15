@@ -34,7 +34,7 @@ const DIVISIONS: Array<{ key: string; label: string }> = [
   { key: "AMD",     label: "AMD" },
   { key: "SPD",     label: "SPD" },
   { key: "MND",     label: "M&D" },
-  { key: "Quant",   label: "Quant" },
+  { key: "QRD",     label: "QRD" },
   { key: "Advisor", label: "Advisor" },
 ];
 
