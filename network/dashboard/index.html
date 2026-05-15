@@ -320,19 +320,36 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-si
 </head>
 <body>
 
-<!-- SIGN-IN OVERLAY — blocks the app until the user has a valid management
-     session in localStorage. The actual login happens in /management/. -->
+<!-- SIGN-IN OVERLAY — blocks the app until the user signs in. Same account
+     system as the Management Terminal (one auth-login Edge Function for
+     both), so a login here lands you in /management/ too, and vice versa,
+     because the JWT lives in shared localStorage on the same origin. -->
 <div id="signInOverlay" style="position:fixed;inset:0;background:rgba(8,12,20,0.96);z-index:9999;display:none;align-items:center;justify-content:center;">
-  <div style="background:var(--surface,#0f172a);border:1px solid var(--border,#1e293b);border-radius:8px;padding:32px 36px;max-width:440px;width:92vw;text-align:center;">
-    <div style="font-family:monospace;font-size:11px;letter-spacing:2px;color:var(--accent,#4a9eff);margin-bottom:14px;">MODULE 05 · LEGACY NETWORK SYSTEM</div>
-    <h2 style="margin:0 0 10px 0;font-size:22px;font-weight:700;">Sign in required</h2>
-    <p id="signInOverlayMsg" style="margin:0 0 22px 0;color:var(--text-dim,#9aa3b2);font-size:13px;line-height:1.55;">
-      Access to the Network Terminal is gated by your Management Terminal account. Sign in there and you'll come back to this page automatically.
+  <form id="signInForm" autocomplete="on" style="background:var(--surface,#0f172a);border:1px solid var(--border,#1e293b);border-radius:8px;padding:32px 36px;max-width:420px;width:92vw;">
+    <div style="font-family:monospace;font-size:11px;letter-spacing:2px;color:var(--accent,#4a9eff);margin-bottom:12px;text-align:center;">MODULE 05 · LEGACY NETWORK SYSTEM</div>
+    <h2 style="margin:0 0 6px 0;font-size:22px;font-weight:700;text-align:center;">Sign in</h2>
+    <p style="margin:0 0 18px 0;color:var(--text-dim,#9aa3b2);font-size:12px;line-height:1.5;text-align:center;">
+      Use your Management Terminal credentials.
     </p>
-    <a href="/management/" style="display:inline-block;padding:10px 22px;background:var(--accent,#4a9eff);color:#000;border-radius:4px;font-weight:600;text-decoration:none;font-size:13px;letter-spacing:0.5px;">
-      Sign in via Management Terminal →
-    </a>
-  </div>
+    <div style="margin-bottom:12px;">
+      <label for="signInUsername" style="display:block;font-size:11px;font-family:monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim,#9aa3b2);margin-bottom:4px;">Username</label>
+      <input type="text" id="signInUsername" name="username" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required
+        style="width:100%;padding:10px 12px;background:var(--bg,#0a0f17);border:1px solid var(--border,#1e293b);border-radius:4px;color:#fff;font-family:inherit;font-size:14px;outline:none;" />
+    </div>
+    <div style="margin-bottom:18px;">
+      <label for="signInPassword" style="display:block;font-size:11px;font-family:monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim,#9aa3b2);margin-bottom:4px;">Password</label>
+      <input type="password" id="signInPassword" name="password" autocomplete="current-password" required
+        style="width:100%;padding:10px 12px;background:var(--bg,#0a0f17);border:1px solid var(--border,#1e293b);border-radius:4px;color:#fff;font-family:inherit;font-size:14px;outline:none;" />
+    </div>
+    <div id="signInError" style="display:none;color:#ef4444;font-size:12px;margin-bottom:12px;padding:8px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:4px;"></div>
+    <button type="submit" id="signInSubmit"
+      style="width:100%;padding:11px;background:var(--accent,#4a9eff);color:#000;border:none;border-radius:4px;font-weight:600;font-size:13px;letter-spacing:0.5px;cursor:pointer;">
+      Sign in
+    </button>
+    <div style="margin-top:14px;text-align:center;font-size:11px;color:var(--text-faint,#6b7280);">
+      Already signed in elsewhere? <a href="/management/" style="color:var(--accent,#4a9eff);">Open Management Terminal</a>
+    </div>
+  </form>
 </div>
 
 <header class="topbar">
@@ -3410,35 +3427,110 @@ function renderAll() {
   }
 })();
 
-/* ── Sign-in guard ─────────────────────────────────────────────────────
-   Runs last so all DOM refs and state init are already in place. If the
-   user isn't signed in via the Management Terminal, swap the app shell
-   for the sign-in overlay and bail. Otherwise populate state.currentUser
-   and auto-unlock the admin view if they qualify. */
-(function applySignInGuard() {
-  const session = readMgmtSession();
-  const overlay = document.getElementById('signInOverlay');
+/* ── Sign-in + session bootstrap ───────────────────────────────────────
+   Same account system as the Management Terminal — we POST to the same
+   /functions/v1/auth-login endpoint and persist the JWT under the same
+   lbc.mgmt.* localStorage keys, so a sign-in here is a sign-in there
+   (cross-terminal SSO on the same origin). If there's already a valid
+   session, we skip the form. Otherwise we show it; on submit we hit
+   auth-login, store the token, and start the app. */
+function applyAuthedSession(user) {
+  state.currentUser = user;
   const chip = document.getElementById('userChip');
-  if (!session) {
-    if (overlay) overlay.style.display = 'flex';
-    return;
-  }
-  state.currentUser = session.user;
   if (chip) {
-    const u = session.user;
     chip.style.display = 'inline-flex';
-    chip.textContent = (u.full_name || u.username || '').toUpperCase();
-    chip.title = (u.full_name || u.username) + ' · ' + (u.title || u.role);
+    chip.textContent = (user.full_name || user.username || '').toUpperCase();
+    chip.title = (user.full_name || user.username) + ' · ' + (user.title || user.role);
   }
   const elig = adminEligibility(state.currentUser);
-  if (elig.eligible) {
-    // Auto-unlock admin -- per spec, anyone who qualifies gets admin view
-    // automatically (no extra click). They can still toggle to read view
-    // via the Admin button if they want to preview what non-admins see.
-    state.isAdmin = true;
-  }
+  // Auto-unlock admin -- anyone who qualifies gets admin view by default.
+  // They can still click the Admin button to switch to read view.
+  state.isAdmin = elig.eligible;
   refreshAdminButton();
   renderAll();
+}
+
+async function attemptSignIn(username, password) {
+  const cfg = window.LBC_NETWORK_CONFIG || {};
+  const supaUrl = (cfg.supabase && cfg.supabase.url) || '';
+  const anon    = (cfg.supabase && cfg.supabase.anonKey) || '';
+  if (!supaUrl || !anon) throw new Error('Supabase config missing.');
+
+  const res = await fetch(supaUrl + '/functions/v1/auth-login', {
+    method: 'POST',
+    headers: {
+      'apikey': anon,
+      'Authorization': 'Bearer ' + anon,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  });
+  const text = await res.text();
+  let body = null;
+  try { body = text ? JSON.parse(text) : null; } catch { body = null; }
+  if (!res.ok) {
+    const msg = (body && body.error) || ('Sign-in failed (' + res.status + ')');
+    throw new Error(msg);
+  }
+  if (!body || !body.token || !body.user) {
+    throw new Error('Unexpected response from auth-login.');
+  }
+  // Persist with the same keys management/src/lib/supabase.ts uses, so SSO
+  // works in both directions (login here -> open /management/ and you're
+  // already in; login at /management/ -> open /network/ and the overlay
+  // never appears).
+  const ttlSec = body.expires_in || (12 * 3600);
+  localStorage.setItem(MGMT_TOKEN_KEY, body.token);
+  localStorage.setItem(MGMT_USER_KEY,  JSON.stringify(body.user));
+  localStorage.setItem(MGMT_EXP_KEY,   String(Date.now() + ttlSec * 1000));
+  return body.user;
+}
+
+(function bootstrapSignIn() {
+  const overlay = document.getElementById('signInOverlay');
+  const form    = document.getElementById('signInForm');
+  const errEl   = document.getElementById('signInError');
+  const btn     = document.getElementById('signInSubmit');
+  const userEl  = document.getElementById('signInUsername');
+  const passEl  = document.getElementById('signInPassword');
+
+  const session = readMgmtSession();
+  if (session) {
+    // Already signed in via shared localStorage -- never show the form.
+    applyAuthedSession(session.user);
+    return;
+  }
+
+  // Show the form; the actual app stays unrendered until login succeeds.
+  if (overlay) overlay.style.display = 'flex';
+  setTimeout(() => userEl && userEl.focus(), 100);
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = (userEl.value || '').trim().toLowerCase();
+      const password = passEl.value || '';
+      if (!username || !password) return;
+      if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+      btn.disabled = true;
+      const prevLabel = btn.textContent;
+      btn.textContent = 'Signing in…';
+      try {
+        const user = await attemptSignIn(username, password);
+        overlay.style.display = 'none';
+        applyAuthedSession(user);
+      } catch (err) {
+        if (errEl) {
+          errEl.textContent = (err && err.message) ? err.message : 'Sign-in failed.';
+          errEl.style.display = 'block';
+        }
+        passEl.select();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = prevLabel;
+      }
+    });
+  }
 })();
 </script>
 </body>

@@ -7,12 +7,14 @@
 // it's enforced by Row Level Security on the database side, not by hiding
 // the key. NEVER put an `sb_secret_*` / service_role key in this file.
 //
-// Same Supabase project as macro/correlation/management — tables live in
-// public.lns_* (see supabase/migrations/0013_network_schema.sql).
+// Network shares its Supabase project with the Management Terminal
+// (ohbzrlobkjtbmukqthdu). Same auth-login Edge Function, same JWT signing
+// secret, same PostgREST instance — so the same JWT works for both modules
+// and for the lns_* tables. See supabase/migrations/0014_network_schema.sql.
 
 window.LBC_NETWORK_CONFIG = {
   supabase: {
-    url:     'https://adnubucjlezrtusbicja.supabase.co',
-    anonKey: 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7'
+    url:     'https://ohbzrlobkjtbmukqthdu.supabase.co',
+    anonKey: 'sb_publishable_V6CYOsEiXLO1Sz0TL4nH4A_uEOTuO2y'
   }
 };
