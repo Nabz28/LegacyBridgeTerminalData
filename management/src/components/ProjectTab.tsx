@@ -772,13 +772,16 @@ function DeliverableDetail(props: DetailProps) {
   const [descDraft, setDescDraft] = useState(d.description ?? "");
   const [editingDesc, setEditingDesc] = useState(false);
 
-  // Reset description draft whenever the deliverable changes (so switching
-  // between deliverables doesn't carry over the previous draft).
+  // Reset per-deliverable local state whenever the selected deliverable
+  // changes, so switching between deliverables never carries over the
+  // previous one's draft / file URL (which would silently overwrite the
+  // wrong deliverable's link on Save).
   useEffect(() => {
     setDescDraft(d.description ?? "");
+    setFileUrl(d.file_url ?? "");
     setEditingDesc(false);
     setShowOwnersPicker(false);
-  }, [d.id, d.description]);
+  }, [d.id, d.description, d.file_url]);
 
   const isOwner = owners.some((o) => o.user_id === currentUser.id);
   const approvalDivision = d.kind === "IM" ? "IM" : d.division;
@@ -1015,9 +1018,16 @@ function DeliverableDetail(props: DetailProps) {
             </div>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
               {(["ERD","MRD","IRD","MND"] as const).map((div) => {
-                const current = d.responsible_divisions && d.responsible_divisions.length > 0
+                // The server only accepts ERD/MRD/IRD/MND in
+                // responsible_divisions. Legacy / CROSS / NONE rows fall
+                // back to [d.division] which can be 'CROSS' or 'NONE' --
+                // strip those so the toggle never sends an invalid value
+                // (was a silent 400 when unchecking on a CROSS deliverable).
+                const VALID = ["ERD", "MRD", "IRD", "MND"];
+                const raw = d.responsible_divisions && d.responsible_divisions.length > 0
                   ? d.responsible_divisions
                   : [d.division];
+                const current = raw.filter((x) => VALID.includes(x));
                 const checked = current.includes(div);
                 return (
                   <label key={div} className={cls("picker-chip", checked && "on")}>
@@ -1028,8 +1038,8 @@ function DeliverableDetail(props: DetailProps) {
                       onChange={() => {
                         const next = checked
                           ? current.filter((x) => x !== div)
-                          : [...current.filter((x) => x !== "CROSS"), div];
-                        if (next.length === 0) return;
+                          : [...current, div];
+                        if (next.length === 0) return;  // must keep >=1
                         props.onSetResponsibleDivisions(next);
                       }}
                     />

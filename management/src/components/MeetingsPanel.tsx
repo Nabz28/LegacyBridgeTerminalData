@@ -13,7 +13,7 @@
 //   3. Coverage summary -- top 5 slots by "everyone is available", plus
 //      a list of members who haven't responded yet.
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { adminMutate } from "../lib/api";
 import { getClient } from "../lib/supabase";
 import { useRealtimeRefresh } from "../lib/realtime";
@@ -81,7 +81,7 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
   const [busy, setBusy] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const [tick, setTick] = useState(0);
-  const refresh = () => setTick((t) => t + 1);
+  const refresh = useCallback(() => setTick((t) => t + 1), []);
   useRealtimeRefresh(refresh);
 
   // Local edit buffer for the open poll. Keyed by slot ISO -> Slot status.
@@ -95,17 +95,27 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
       setLoading(true);
       try {
         const sb = getClient();
-        const [pRes, rRes] = await Promise.all([
-          sb.from("meeting_polls").select("*")
-            .eq("project_id", projectId)
-            .order("created_at", { ascending: false }),
-          sb.from("meeting_responses").select("*"),
-        ]);
+        // 1. Polls for THIS project only.
+        const pRes = await sb.from("meeting_polls").select("*")
+          .eq("project_id", projectId)
+          .order("created_at", { ascending: false });
         if (!alive) return;
         if (pRes.error) throw pRes.error;
-        if (rRes.error) throw rRes.error;
-        setPolls((pRes.data ?? []) as MeetingPoll[]);
-        setResponses((rRes.data ?? []) as MeetingResponse[]);
+        const projectPolls = (pRes.data ?? []) as MeetingPoll[];
+        setPolls(projectPolls);
+
+        // 2. Responses scoped to those poll ids (was an unbounded full-
+        // table fetch — correctness + scale risk). Empty project => skip.
+        const pollIds = projectPolls.map((p) => p.id);
+        if (pollIds.length === 0) {
+          setResponses([]);
+        } else {
+          const rRes = await sb.from("meeting_responses").select("*")
+            .in("poll_id", pollIds);
+          if (!alive) return;
+          if (rRes.error) throw rRes.error;
+          setResponses((rRes.data ?? []) as MeetingResponse[]);
+        }
         setErr(null);
       } catch (e) {
         if (alive) setErr((e as Error).message);

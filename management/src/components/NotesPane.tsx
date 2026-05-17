@@ -5,7 +5,7 @@
 // the author (or admin/management). Pinned notes float to the top of the
 // list. Backed by management.deliverable_notes (migration 0015).
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { mutateDeliverable } from "../lib/api";
 import { getClient } from "../lib/supabase";
 import { useRealtimeRefresh } from "../lib/realtime";
@@ -61,7 +61,7 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
   const [draftPinned, setDraftPinned] = useState(false);
   const [busy, setBusy] = useState(false);
   const [tick, setTick] = useState(0);
-  const refresh = () => setTick((t) => t + 1);
+  const refresh = useCallback(() => setTick((t) => t + 1), []);
   useRealtimeRefresh(refresh);
 
   useEffect(() => {
