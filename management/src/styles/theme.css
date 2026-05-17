@@ -1571,7 +1571,7 @@ a { color: var(--accent); text-decoration: none; }
 }
 .mm-canvas {
   position: relative; overflow: hidden;
-  height: 620px;
+  height: 78vh; min-height: 560px;
   border: 1px solid var(--border-strong); border-radius: 4px;
   background:
     radial-gradient(circle, rgba(148,163,184,0.10) 1px, transparent 1px)
@@ -1581,6 +1581,16 @@ a { color: var(--accent); text-decoration: none; }
 }
 .mm-canvas:active { cursor: grabbing; }
 .mm-canvas.mm-linking { cursor: crosshair; }
+
+/* The pan/zoom layer. Everything (nodes + edges) lives inside and is
+   transformed together; transform-origin top-left so the math is simple. */
+.mm-world {
+  position: absolute; top: 0; left: 0;
+  width: 0; height: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
 .mm-empty {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -1588,8 +1598,29 @@ a { color: var(--accent); text-decoration: none; }
   pointer-events: none;
 }
 
+/* Floating zoom / view controls, pinned to the canvas (not the world). */
+.mm-zoom {
+  position: absolute; right: 12px; bottom: 12px; z-index: 5;
+  display: flex; align-items: center; gap: 4px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border-strong); border-radius: 4px;
+  padding: 4px;
+}
+.mm-zoom-btn {
+  min-width: 26px; height: 24px; padding: 0 6px;
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border-strong); border-radius: 3px;
+  font-family: var(--mono); font-size: 12px; cursor: pointer;
+}
+.mm-zoom-btn.wide { font-size: 10px; letter-spacing: 0.5px; }
+.mm-zoom-btn:hover { border-color: var(--gold); color: var(--gold); }
+.mm-zoom-pct {
+  min-width: 38px; text-align: center;
+  font-size: 10px; color: var(--text-faint);
+}
+
 .mm-edges {
-  position: absolute; inset: 0;
+  position: absolute; left: 0; top: 0;
   pointer-events: none; overflow: visible;
 }
 .mm-edge path {
