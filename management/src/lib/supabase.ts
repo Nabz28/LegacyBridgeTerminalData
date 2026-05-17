@@ -22,7 +22,12 @@ let _demoClient: ReturnType<typeof createClient> | null = null;
 function authedFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const token = readToken();
   const headers = new Headers(init?.headers);
-  if (token && !headers.has("Authorization")) {
+  // supabase-js injects a default `Authorization: Bearer <anonKey>` (role
+  // `anon`, which has no grant on the `management` schema). We MUST replace
+  // it with the session JWT (role `authenticated`) on every request, not
+  // just when absent — otherwise PostgREST runs as `anon` and every query
+  // fails with "permission denied for schema management".
+  if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
   return fetch(input, { ...init, headers });
