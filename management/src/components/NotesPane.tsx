@@ -59,6 +59,11 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
   const [draftBody, setDraftBody] = useState("");
   const [draftColor, setDraftColor] = useState<NoteColor | null>(null);
   const [draftPinned, setDraftPinned] = useState(false);
+  // Inline-edit state: which note is being edited + its working text.
+  // (Replaces the old window.prompt path, which was single-line, ugly,
+  // and silently no-ops in sandboxed/automation contexts.)
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editDraft, setEditDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [tick, setTick] = useState(0);
   const refresh = useCallback(() => setTick((t) => t + 1), []);
@@ -135,14 +140,22 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
     finally { setBusy(false); }
   };
 
-  const editNoteBody = async (n: DeliverableNote) => {
-    const next = window.prompt("Edit note", n.body);
-    if (next === null) return;
-    const text = next.trim();
-    if (!text || text === n.body) return;
+  const startEdit = (n: DeliverableNote) => {
+    setEditingId(n.id);
+    setEditDraft(n.body);
+  };
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditDraft("");
+  };
+  const saveEdit = async (n: DeliverableNote) => {
+    const text = editDraft.trim();
+    if (!text) { setErr("Note can't be empty."); return; }
+    if (text === n.body) { cancelEdit(); return; }
     setBusy(true); setErr(null);
     try {
       await mutateDeliverable({ action: "update_note", note_id: n.id, note_body: text });
+      cancelEdit();
       refresh();
     } catch (e) { setErr((e as Error).message); }
     finally { setBusy(false); }
@@ -276,13 +289,33 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
                   color: "var(--gold)", fontWeight: 700,
                 }}>★ PINNED</div>
               )}
-              <div style={{
-                fontSize: 13, lineHeight: 1.5, whiteSpace: "pre-wrap",
-                wordBreak: "break-word",
-                paddingRight: n.pinned ? 70 : 0,
-              }}>
-                {n.body}
-              </div>
+              {editingId === n.id ? (
+                <textarea
+                  value={editDraft}
+                  onChange={(e) => setEditDraft(e.target.value)}
+                  rows={Math.min(8, Math.max(2, editDraft.split("\n").length))}
+                  disabled={busy}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); saveEdit(n); }
+                    if (e.key === "Escape") { e.preventDefault(); cancelEdit(); }
+                  }}
+                  style={{
+                    width: "100%", resize: "vertical", minHeight: 56,
+                    background: "var(--bg)", color: "var(--text)",
+                    border: "1px solid var(--border-strong)", borderRadius: 3,
+                    padding: 8, fontSize: 13, fontFamily: "inherit", outline: "none",
+                  }}
+                />
+              ) : (
+                <div style={{
+                  fontSize: 13, lineHeight: 1.5, whiteSpace: "pre-wrap",
+                  wordBreak: "break-word",
+                  paddingRight: n.pinned ? 70 : 0,
+                }}>
+                  {n.body}
+                </div>
+              )}
               <div style={{
                 marginTop: 6, display: "flex", alignItems: "center",
                 justifyContent: "space-between", gap: 8, flexWrap: "wrap",
@@ -291,7 +324,23 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
                   {author?.full_name ?? "Unknown"} · {fmtRelativeTime(n.created_at)}
                   {n.updated_at !== n.created_at && " · edited"}
                 </div>
-                {editable && (
+                {editable && editingId === n.id && (
+                  <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                    <button
+                      className="btn primary sm"
+                      onClick={() => saveEdit(n)}
+                      disabled={busy || !editDraft.trim()}
+                      style={{ fontSize: 10, padding: "2px 8px" }}
+                    >Save</button>
+                    <button
+                      className="btn ghost sm"
+                      onClick={cancelEdit}
+                      disabled={busy}
+                      style={{ fontSize: 10, padding: "2px 8px" }}
+                    >Cancel</button>
+                  </div>
+                )}
+                {editable && editingId !== n.id && (
                   <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
                     {/* Color picker, compact */}
                     {COLORS.map((c) => (
@@ -320,7 +369,7 @@ export function NotesPane({ deliverableId, currentUser, users }: NotesPaneProps)
                     </button>
                     <button
                       className="btn ghost sm"
-                      onClick={() => editNoteBody(n)}
+                      onClick={() => startEdit(n)}
                       disabled={busy}
                       style={{ fontSize: 10, padding: "2px 6px" }}
                     >Edit</button>
