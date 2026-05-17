@@ -637,6 +637,17 @@ a { color: var(--accent); text-decoration: none; }
 .cal-dlv.risk      { background: rgba(245,158,11,0.10); }
 .cal-dlv.on_time, .cal-dlv.published { background: rgba(16,185,129,0.10); }
 .cal-dlv.blocked   { background: rgba(239,68,68,0.18); }
+/* Multi-day deliverable segments: label on the first day, slim connectors on
+   continuation days so a start→due task reads as one spanning bar. */
+.cal-dlv.cal-seg-start { border-radius: 2px 0 0 2px; }
+.cal-dlv.cal-seg-mid,
+.cal-dlv.cal-seg-end {
+  border-left-width: 0;
+  min-height: 6px; padding-top: 0; padding-bottom: 0;
+  opacity: 0.55;
+}
+.cal-dlv.cal-seg-mid { border-radius: 0; }
+.cal-dlv.cal-seg-end { border-radius: 0 2px 2px 0; }
 .cal-event { cursor: default; }
 .cal-event.event-kind-meeting    { border-left-color: var(--accent); }
 .cal-event.event-kind-onboarding { border-left-color: var(--violet); }

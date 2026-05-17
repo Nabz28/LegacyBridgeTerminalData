@@ -16,6 +16,24 @@ interface CalendarViewProps {
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+type SegPos = "single" | "start" | "mid" | "end";
+interface DeliverableSeg { d: DeliverableStatusView; pos: SegPos }
+
+// Inclusive list of YYYY-MM-DD strings from startIso..endIso (UTC, capped so
+// pathological data can't blow up the grid).
+function eachIsoInRange(startIso: string, endIso: string): string[] {
+  const out: string[] = [];
+  const start = new Date(startIso + "T00:00:00Z");
+  const end = new Date(endIso + "T00:00:00Z");
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) return [endIso];
+  const cur = new Date(start);
+  for (let i = 0; i < 366 && cur.getTime() <= end.getTime(); i++) {
+    out.push(cur.toISOString().slice(0, 10));
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return out.length ? out : [endIso];
+}
+
 export function CalendarView({
   project, deliverables, events, eventAttendees, users: _users, onSelectDeliverable,
 }: CalendarViewProps) {
@@ -28,13 +46,22 @@ export function CalendarView({
 
   const grid = useMemo(() => buildMonthGrid(cursor.y, cursor.m), [cursor]);
 
-  // Index deliverables + events by ISO date (YYYY-MM-DD).
+  // Index deliverables + events by ISO date (YYYY-MM-DD). A deliverable with a
+  // start_date spans every day from start → due (consistent with the Gantt);
+  // without one it stays a single-day milestone on the due date.
   const deliverablesByDate = useMemo(() => {
-    const m = new Map<string, DeliverableStatusView[]>();
+    const m = new Map<string, DeliverableSeg[]>();
     for (const d of deliverables) {
-      const arr = m.get(d.due_date) ?? [];
-      arr.push(d);
-      m.set(d.due_date, arr);
+      const endIso = d.due_date;
+      const startIso = d.start_date && d.start_date <= endIso ? d.start_date : endIso;
+      const days = eachIsoInRange(startIso, endIso);
+      days.forEach((iso, i) => {
+        const pos: SegPos =
+          days.length === 1 ? "single" : i === 0 ? "start" : i === days.length - 1 ? "end" : "mid";
+        const arr = m.get(iso) ?? [];
+        arr.push({ d, pos });
+        m.set(iso, arr);
+      });
     }
     return m;
   }, [deliverables]);
@@ -103,18 +130,33 @@ export function CalendarView({
                 {isToday && <span className="cal-today-badge mono">TODAY</span>}
               </div>
               <div className="cal-cell-cards">
-                {dlvs.map((d) => (
-                  <button
-                    key={d.id}
-                    type="button"
-                    className={cls("cal-card cal-dlv", d.blocked ? "blocked" : d.health, `div-${d.division}`)}
-                    onClick={() => onSelectDeliverable(d.id)}
-                    title={`${d.title ?? d.kind} · ${d.blocked ? "blocked" : d.health}`}
-                  >
-                    <span className="cal-card-kind">{KIND_LABELS[d.kind] ?? d.kind}</span>
-                    <span className="cal-card-title">{d.title ?? d.kind}</span>
-                  </button>
-                ))}
+                {dlvs.map(({ d, pos }) => {
+                  // Label only on the first visible segment; continuation days
+                  // render a slim connector so the task reads as one bar.
+                  const showLabel = pos === "single" || pos === "start";
+                  const rangeHint = d.start_date && d.start_date !== d.due_date
+                    ? ` · ${d.start_date} → ${d.due_date}`
+                    : "";
+                  return (
+                    <button
+                      key={`${d.id}-${pos}-${iso}`}
+                      type="button"
+                      className={cls(
+                        "cal-card cal-dlv", `cal-seg-${pos}`,
+                        d.blocked ? "blocked" : d.health, `div-${d.division}`,
+                      )}
+                      onClick={() => onSelectDeliverable(d.id)}
+                      title={`${d.title ?? d.kind} · ${d.blocked ? "blocked" : d.health}${rangeHint}`}
+                    >
+                      {showLabel && (
+                        <>
+                          <span className="cal-card-kind">{KIND_LABELS[d.kind] ?? d.kind}</span>
+                          <span className="cal-card-title">{d.title ?? d.kind}</span>
+                        </>
+                      )}
+                    </button>
+                  );
+                })}
                 {evs.map((e) => {
                   const attendeeCount = eventAttendees.filter((a) => a.event_id === e.id).length;
                   const time = new Date(e.start_at).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
