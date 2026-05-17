@@ -219,3 +219,27 @@ export interface DeliverableNote {
   created_at: string;
   updated_at: string;
 }
+
+// ─── Mindmap (0020) ───────────────────────────────────────────────────
+
+export interface MindmapNode {
+  id: string;
+  project_id: string;
+  title: string;
+  body: string;
+  x: number;
+  y: number;
+  color: NoteColor | null;
+  collapsed: boolean;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MindmapEdge {
+  id: string;
+  project_id: string;
+  source_node_id: string;
+  target_node_id: string;
+  created_at: string;
+}

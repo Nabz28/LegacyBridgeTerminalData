@@ -8,6 +8,7 @@ import { CalendarView } from "./CalendarView";
 import { CreateTaskModal } from "./CreateTaskModal";
 import { NotesPane } from "./NotesPane";
 import { MeetingsPanel } from "./MeetingsPanel";
+import { MindmapCanvas } from "./MindmapCanvas";
 import type {
   ActivityLogRow, Comment, DeliverableOwner, DeliverableStatusView,
   Project, ProjectEvent, ProjectEventAttendee, ProjectMember, User,
@@ -49,7 +50,7 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
   const [tick, setTick] = useState(0);
   const [showMembers, setShowMembers] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
-  const [view, setView] = useState<"schedule" | "calendar">("schedule");
+  const [view, setView] = useState<"schedule" | "calendar" | "mindmap">("schedule");
   const [horizonChoice, setHorizonChoice] = useState<"15" | "22" | "30" | "60" | "90" | "auto">("22");
   // Resizable panes — Gantt height vs body, dlv-list vs right-rail width.
   const [ganttHeight, setGanttHeight] = useState<number>(() => {
@@ -211,6 +212,13 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
               >
                 + Task
               </button>
+              <button
+                className="btn sm mm-btn"
+                onClick={() => setView("mindmap")}
+                title="Open the project mindmap — a thinking framework for analysts"
+              >
+                Mindmap
+              </button>
               {(user.role === "admin" || user.role === "management") && (
                 <>
                 <button className="btn ghost sm" disabled={busy} onClick={() => setShowMembers(true)}>
@@ -370,6 +378,13 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
         >
           Calendar
         </button>
+        <button
+          type="button"
+          className={cls("view-tab", "view-tab-mm", view === "mindmap" && "active")}
+          onClick={() => setView("mindmap")}
+        >
+          Mindmap
+        </button>
         <div style={{ flex: 1 }} />
         {view === "schedule" && (
           <label className="horizon-picker mono">
@@ -398,6 +413,10 @@ export function ProjectTab({ projectId, user, onDeleted }: ProjectTabProps) {
           users={users}
           onSelectDeliverable={(id) => { setSelectedId(id); setView("schedule"); }}
         />
+      )}
+
+      {view === "mindmap" && (
+        <MindmapCanvas projectId={projectId} currentUser={user} users={users} />
       )}
 
       {view === "schedule" && (
