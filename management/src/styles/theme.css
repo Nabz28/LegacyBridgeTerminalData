@@ -1551,6 +1551,13 @@ a { color: var(--accent); text-decoration: none; }
   display: flex; flex-direction: column; gap: 3px;
 }
 
+/* Inline link-style button (e.g. editable email cell). */
+.linklike {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--accent); font: inherit; text-align: left;
+}
+.linklike:hover { text-decoration: underline; }
+
 /* ─── Mindmap ─────────────────────────────────────────────────────── */
 /* Yellow action button (vs the blue .btn.primary). */
 .btn.mm-btn {

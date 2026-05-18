@@ -307,6 +307,12 @@ function UsersAdmin() {
   const [tick, setTick] = useState(0);
   const refresh = () => setTick((t) => t + 1);
 
+  // Contact (email) is read from users_lite and written straight to the
+  // base table under RLS (migration 0021) — no admin-mutate redeploy.
+  const [contact, setContact] = useState<Record<string, string>>({});
+  const [contactReady, setContactReady] = useState(false);
+  const [emailEdit, setEmailEdit] = useState<{ id: string; val: string } | null>(null);
+
   useEffect(() => {
     (async () => {
       const sb = getClient();
@@ -318,8 +324,43 @@ function UsersAdmin() {
         .order("full_name");
       if (error) { setErr(error.message); return; }
       setRows((data ?? []) as UserActivity[]);
+
+      // Best-effort: degrades quietly if migration 0021 isn't applied yet.
+      try {
+        const { data: cd, error: ce } = await sb
+          .from("users_lite")
+          .select("id, email");
+        if (!ce && cd) {
+          const map: Record<string, string> = {};
+          for (const r of cd as Array<{ id: string; email: string | null }>) {
+            map[r.id] = r.email ?? "";
+          }
+          setContact(map);
+          setContactReady(true);
+        }
+      } catch { /* email column not live yet */ }
     })();
   }, [tick]);
+
+  const saveEmail = (id: string, raw: string) =>
+    handle(async () => {
+      const val = raw.trim();
+      const { error } = await getClient()
+        .from("users")
+        .update({ email: val || null })
+        .eq("id", id);
+      if (error) throw error;
+      setContact((c) => ({ ...c, [id]: val }));
+      setEmailEdit(null);
+    });
+
+  const sendTest = (id: string) =>
+    handle(async () => {
+      const { data, error } = await getClient()
+        .rpc("fn_send_test_email", { p_user_id: id });
+      if (error) throw error;
+      window.alert(String(data ?? "Done."));
+    });
 
   const filtered = filter.trim()
     ? rows.filter((r) => {
@@ -357,6 +398,7 @@ function UsersAdmin() {
               <th>User</th>
               <th>Role</th>
               <th>Division</th>
+              <th>Email</th>
               <th className="num">Active proj</th>
               <th className="num">In flight</th>
               <th className="num">Done</th>
@@ -373,6 +415,33 @@ function UsersAdmin() {
                 </td>
                 <td className="mono">{r.role}</td>
                 <td className="mono dim">{r.division ?? "—"}</td>
+                <td className="mono" style={{ fontSize: 11, minWidth: 190 }}>
+                  {!contactReady ? (
+                    <span className="dim">—</span>
+                  ) : emailEdit?.id === r.user_id ? (
+                    <input
+                      autoFocus
+                      type="email"
+                      value={emailEdit.val}
+                      placeholder="name@firm.com"
+                      style={{ width: 170, fontSize: 11 }}
+                      onChange={(e) => setEmailEdit({ id: r.user_id, val: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") saveEmail(r.user_id, emailEdit.val);
+                        if (e.key === "Escape") setEmailEdit(null);
+                      }}
+                      onBlur={() => saveEmail(r.user_id, emailEdit.val)}
+                    />
+                  ) : (
+                    <button
+                      className="linklike"
+                      title="Click to set / edit email"
+                      onClick={() => setEmailEdit({ id: r.user_id, val: contact[r.user_id] ?? "" })}
+                    >
+                      {contact[r.user_id] ? contact[r.user_id] : <span className="dim">+ add email</span>}
+                    </button>
+                  )}
+                </td>
                 <td className="num mono">{r.active_projects}</td>
                 <td className="num mono">{r.in_flight}</td>
                 <td className="num mono">{r.completed}</td>
@@ -384,6 +453,14 @@ function UsersAdmin() {
                 <td>
                   <div style={{ display: "flex", gap: 4, justifyContent: "flex-end" }}>
                     <button className="btn ghost sm" disabled={busy} onClick={() => setEditing(r)}>Edit</button>
+                    {contactReady && contact[r.user_id] && (
+                      <button
+                        className="btn ghost sm"
+                        disabled={busy}
+                        title="Send a test notification email"
+                        onClick={() => sendTest(r.user_id)}
+                      >Test ✉</button>
+                    )}
                     <button className="btn ghost sm" disabled={busy} onClick={() => setResetFor(r)}>Reset pwd</button>
                     <button
                       className="btn ghost sm"
@@ -397,7 +474,7 @@ function UsersAdmin() {
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr><td colSpan={8} className="empty-cell">No users match.</td></tr>
+              <tr><td colSpan={9} className="empty-cell">No users match.</td></tr>
             )}
           </tbody>
         </table>
