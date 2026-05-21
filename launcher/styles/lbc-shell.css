@@ -145,6 +145,17 @@
 .mc-cat-name{flex:1;font-size:12.5px;color:var(--text-secondary,#D4DCEA)}
 .mc-cat-count{font-family:'Geist Mono','JetBrains Mono',monospace;font-size:10px;color:var(--text-tertiary)}
 .mc-cat-series{background:rgba(0,0,0,.18);padding-left:6px}
+
+/* correlation heatmap */
+.corr-heat{border-collapse:collapse;font-family:'Geist Mono','JetBrains Mono',monospace;font-size:10px}
+.corr-heat th{font-weight:500;color:var(--text-tertiary,#8E9AB0);font-size:9.5px;padding:3px}
+.corr-colh{height:84px;white-space:nowrap;vertical-align:bottom;text-align:center}
+.corr-colh{writing-mode:vertical-rl;transform:rotate(180deg)}
+.corr-rowh{text-align:right;padding-right:8px!important;white-space:nowrap;max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.corr-cell{width:32px;height:28px;text-align:center;cursor:pointer;color:rgba(255,255,255,.88);
+  border:1px solid rgba(0,0,0,.30);transition:outline .1s}
+.corr-cell:hover{outline:2px solid var(--paper,#E8E4D9);outline-offset:-2px}
+.corr-cell.sel{outline:2px solid var(--paper-strong,#F5F2EA);outline-offset:-2px}
 .lbc-tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .lbc-ticon{width:40px;height:40px;border-radius:0;display:grid;place-items:center;color:var(--ac);
   border:1px solid color-mix(in srgb, var(--ac) 32%, transparent);

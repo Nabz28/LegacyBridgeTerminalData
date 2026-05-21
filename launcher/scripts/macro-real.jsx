@@ -186,62 +186,95 @@ const DataGatherer = () => {
 };
 
 // ================================================================
-// TOOL 2 — Correlation
+// TOOL 2 — Correlation Terminal (templates → heatmap → pair detail)
 // ================================================================
+const CORR_DATA = 'corr-data';   // bundled from the correlation app (relative to /launcher/)
+const CORR_TEMPLATES = [
+  { name: 'us_macro_xa',      display: 'US Macro Cross-Asset' },
+  { name: 'asia_beta',        display: 'Asia Beta' },
+  { name: 'g10_em_fx',        display: 'G10 / EM FX' },
+  { name: 'risk_factors',     display: 'Risk Factors' },
+  { name: 'crypto_equity',    display: 'Crypto × Equity' },
+  { name: 'commodities',      display: 'Commodities' },
+  { name: 'energy_transition',display: 'Energy Transition' },
+  { name: 'indo_domestic',    display: 'Indonesia Domestic' },
+  { name: 'indo_xborder',     display: 'Indonesia Cross-Border' },
+  { name: 'china_hk',         display: 'China / HK' },
+  { name: 'europe_xa',        display: 'Europe Cross-Asset' },
+];
+const corrColor = (v) => {
+  if (v == null) return 'transparent';
+  const a = Math.min(1, Math.abs(v));
+  return v >= 0 ? `rgba(25,195,125,${0.10 + a * 0.72})` : `rgba(255,92,112,${0.10 + a * 0.72})`;
+};
+const corrShort = (s) => (s && s.length > 11 ? s.slice(0, 10) + '…' : s);
+
 const CorrelationTool = () => {
+  const { AreaChart } = window.ChartLib || {};
   const fmt = window.fmt || { num: (v, d = 2) => Number(v).toFixed(d) };
-  const [q, setQ] = React.useState('');
-  const [opts, setOpts] = React.useState([]);
-  const [a, setA] = React.useState(null);
-  const [b, setB] = React.useState(null);
-  const [res, setRes] = React.useState(null);
-  const [busy, setBusy] = React.useState(false);
+  const [tplName, setTplName] = React.useState('us_macro_xa');
+  const [tpl, setTpl] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [sel, setSel] = React.useState(null);    // {i,j}
+  const [pair, setPair] = React.useState(null);   // {na,nb,r,loading,rolling}
 
   React.useEffect(() => {
-    if (!q.trim()) { setOpts([]); return; }
-    const t = setTimeout(() => sbGet(`/series?or=(id.ilike.*${encodeURIComponent(q.trim())}*,name.ilike.*${encodeURIComponent(q.trim())}*)&select=id,name,category&limit=30`, 'correlation').then(setOpts).catch(() => {}), 250);
-    return () => clearTimeout(t);
-  }, [q]);
+    setLoading(true); setTpl(null); setSel(null); setPair(null);
+    fetch(`${CORR_DATA}/matrices/${tplName}.json`).then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => { setTpl(d); setLoading(false); }).catch(() => setLoading(false));
+  }, [tplName]);
 
-  const compute = () => {
-    if (!a || !b) return;
-    setBusy(true); setRes(null);
-    sbRpc('pair_stats', { series_a: a.id, series_b: b.id, frequency: 'weekly' }, 'correlation')
-      .then((r) => { setRes(Array.isArray(r) ? r[0] : r); setBusy(false); }).catch((c) => { setRes({ error: c }); setBusy(false); });
+  const pickCell = (i, j) => {
+    if (!tpl || i === j) return;
+    setSel({ i, j });
+    setPair({ na: tpl.names[i], nb: tpl.names[j], r: tpl.matrix[i][j], loading: true });
+    sbRpc('rolling_corr', { series_a: tpl.ids[i], series_b: tpl.ids[j], frequency: 'weekly', window_size: 52 }, 'correlation')
+      .then((rows) => setPair((p) => ({ ...p, loading: false, rolling: (rows || []).map((x) => x.corr_val) })))
+      .catch(() => setPair((p) => ({ ...p, loading: false, rolling: [] })));
   };
 
-  const pearson = res && (res.pearson != null ? res.pearson : null);
   return (
     <section className="mc-section mc-data-page">
-      <div className="mc-section-h"><span>Correlation Terminal</span><span className="mc-section-h-sub">Pairwise correlation · 4,142 series · weekly returns · live compute</span></div>
-      <div style={{ padding: 22, maxWidth: 720 }}>
-        <div className="mc-filter" style={{ marginBottom: 12 }}><input placeholder="Search a series (e.g. BBCA, SPY, USDIDR)…" value={q} onChange={(e) => setQ(e.target.value)} /></div>
-        {opts.length > 0 && (
-          <div className="mc-list" style={{ maxHeight: 180, marginBottom: 14 }}>
-            {opts.map((o) => (
-              <div key={o.id} className="mc-list-item" onClick={() => { if (!a) setA(o); else if (!b) setB(o); setQ(''); setOpts([]); }}>
-                <div className="mc-li-top"><span className="mc-li-label">{o.name}</span></div>
-                <div className="mc-li-bot"><span className="mc-li-val" style={{ fontFamily: 'var(--font-mono)' }}>{o.id}</span><span style={{ color: 'var(--text-tertiary)' }}>{o.category}</span></div>
+      <div className="mc-section-h"><span>Correlation Terminal</span><span className="mc-section-h-sub">{tpl ? tpl.display : '…'} · {tpl ? tpl.ids.length : '—'} series · weekly · click a cell for the pair</span></div>
+      <div style={{ padding: '12px 18px' }}>
+        <div className="mc-chip-row" style={{ flexWrap: 'wrap', marginBottom: 14 }}>
+          {CORR_TEMPLATES.map((t) => <button key={t.name} className={`mc-chip ${tplName === t.name ? 'active' : ''}`} onClick={() => setTplName(t.name)}>{t.display}</button>)}
+        </div>
+        {loading && <div className="mc-news-empty">Loading matrix…</div>}
+        {!loading && !tpl && <div className="mc-news-empty">Could not load this template.</div>}
+        {tpl && (
+          <div style={{ display: 'flex', gap: 18, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            <div style={{ overflow: 'auto', maxWidth: '100%' }}>
+              <table className="corr-heat"><tbody>
+                <tr><th></th>{tpl.names.map((n, j) => <th key={j} title={n} className="corr-colh">{corrShort(n)}</th>)}</tr>
+                {tpl.matrix.map((row, i) => (
+                  <tr key={i}>
+                    <th className="corr-rowh" title={tpl.names[i]}>{corrShort(tpl.names[i])}</th>
+                    {row.map((v, j) => (
+                      <td key={j} className={`corr-cell ${sel && sel.i === i && sel.j === j ? 'sel' : ''}`}
+                          style={{ background: i === j ? 'rgba(151,170,197,.18)' : corrColor(v) }}
+                          title={`${tpl.names[i]} × ${tpl.names[j]}: ${fmt.num(v, 2)}`} onClick={() => pickCell(i, j)}>
+                        {fmt.num(v, 1)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody></table>
+            </div>
+            {pair && (
+              <div className="mc-chart-card" style={{ minWidth: 320, flex: 1 }}>
+                <div className="mc-chart-h"><span>{pair.na} × {pair.nb}</span></div>
+                <div style={{ padding: '16px 16px 6px', textAlign: 'center' }}>
+                  <div className="num-hero" style={{ fontSize: 38, color: pair.r >= 0 ? 'var(--pos)' : 'var(--neg)' }}>{fmt.num(pair.r, 2)}</div>
+                  <div style={{ color: 'var(--text-tertiary)', fontSize: 12 }}>full-period Pearson (weekly)</div>
+                </div>
+                <div className="mc-chart-h"><span>52-week rolling correlation</span></div>
+                {pair.loading ? <div className="mc-news-empty">Computing rolling…</div>
+                  : (AreaChart && pair.rolling && pair.rolling.length ? <AreaChart data={pair.rolling} height={160} color="#97AAC5" /> : <div className="mc-news-empty">No rolling overlap</div>)}
               </div>
-            ))}
+            )}
           </div>
         )}
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
-          <div className="mc-tag" style={{ flex: 1, padding: '10px 12px' }}>{a ? `${a.id} · ${a.name}` : 'Pick series A'} {a && <span style={{ cursor: 'pointer', marginLeft: 8 }} onClick={() => setA(null)}>×</span>}</div>
-          <span style={{ color: 'var(--text-tertiary)' }}>vs</span>
-          <div className="mc-tag" style={{ flex: 1, padding: '10px 12px' }}>{b ? `${b.id} · ${b.name}` : 'Pick series B'} {b && <span style={{ cursor: 'pointer', marginLeft: 8 }} onClick={() => setB(null)}>×</span>}</div>
-          <button className="sw-tf" onClick={compute} disabled={!a || !b || busy}>{busy ? 'Computing…' : 'Compute'}</button>
-        </div>
-        {res && (res.error ? <div className="mc-news-empty">Compute failed ({res.error}).</div> : (
-          <div className="mc-chart-card"><div className="mc-chart-h"><span>Pearson correlation (weekly)</span></div>
-            <div style={{ padding: 28, textAlign: 'center' }}>
-              <div className="num-hero" style={{ fontSize: 48, color: pearson >= 0 ? 'var(--pos)' : 'var(--neg)' }}>{pearson != null ? fmt.num(pearson, 2) : '—'}</div>
-              <div style={{ color: 'var(--text-tertiary)', marginTop: 8, fontSize: 12.5 }}>
-                {pearson == null ? 'No overlap' : Math.abs(pearson) > 0.7 ? 'Strong' : Math.abs(pearson) > 0.4 ? 'Moderate' : 'Weak'} {pearson >= 0 ? 'positive' : 'negative'} correlation · {a.id} vs {b.id}
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
     </section>
   );
