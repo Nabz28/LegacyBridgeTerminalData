@@ -724,6 +724,8 @@ const App = ({ qars, terminal, onHome }) => {
             ))}
           </div>
           </React.Fragment>
+        ) : activeTabObj?.kind === 'am-book' ? (
+          window.AssetMgmt ? <window.AssetMgmt /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}

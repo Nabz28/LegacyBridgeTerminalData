@@ -38,14 +38,7 @@ const LBC_TERMINALS = [
   { id: 'asset', num: 'T1', name: 'Asset Management', accent: '#6f9cf2', icon: LBC_ICONS.asset,
     desc: 'The book — positions, watchlists, conviction memos, journal & performance.',
     roles: ['admin', 'management'],   // ACCESS MATRIX: management tier only (refine later)
-    workspaces: [
-      { kind: 'portfolio',     label: 'Positions',     built: true },
-      { kind: 'am-cockpit',    label: 'Cockpit',       built: false },
-      { kind: 'am-watchlists', label: 'Watchlists',    built: false },
-      { kind: 'am-ideas',      label: 'Ideas / Memos', built: false },
-      { kind: 'am-journal',    label: 'Trade Journal', built: false },
-      { kind: 'am-perf',       label: 'Performance',   built: false },
-    ] },
+    workspaces: [ { kind: 'am-book', label: 'The Book', built: true } ] },
   { id: 'macro', num: 'T2', name: 'Macro', accent: '#5b8def', icon: LBC_ICONS.macro,
     desc: 'Refinitiv macro across US, Indonesia & China — 9,310 indicators, live from Supabase.',
     workspaces: [ { kind: 'macro-lab', label: 'Indicator Lab', built: true } ] },
