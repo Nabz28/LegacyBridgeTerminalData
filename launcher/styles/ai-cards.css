@@ -1,0 +1,517 @@
+/* ================================================================
+   Today's Brief — editorial morning briefing
+   ----------------------------------------------------------------
+   Renders inside the news widget on the Markets dashboard.
+   Layout: 1 lead card (Jakarta, large, w/ body lede) + 2 stacked
+   supporting cards (New York, Global). Each card carries region,
+   timestamp, source attribution pills, signal count, sentiment.
+
+   Design rules:
+   - NO "AI" badge, NO sparkles. Product doesn't announce itself.
+   - NO colored left-edge accent bar.
+   - Sentiment = one word + numeric net, plus a tiny tick on a track.
+   - Source pills are honest attribution — Bloomberg, Reuters, FT,
+     CNBC Indonesia, Kontan, etc.
+   - Em-dash bullets only.
+   - Asymmetric grid (2fr lead + 1fr supp).
+   ================================================================ */
+
+/* ============ SECTION CONTAINER ============ */
+
+.db-strip {
+  padding: 21px 24px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Embedded mode — when DailyBrief renders inside a widget body
+   the widget chrome already provides the title, so suppress the
+   internal section rule and tighten padding. */
+.db-strip--embedded {
+  padding: 14px 16px 12px;
+  gap: 10px;
+}
+.db-strip--embedded .db-strip__rule { display: none; }
+
+.db-strip__rule {
+  display: flex;
+  align-items: baseline;
+  gap: 13px;
+}
+.db-strip__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+.db-strip__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+  align-self: center;
+}
+.db-strip__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ============ ASYMMETRIC GRID ============ */
+
+.db-strip__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.db-strip__supp {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (max-width: 1100px) {
+  .db-strip__grid { grid-template-columns: 1fr; }
+  .db-strip__supp { flex-direction: row; }
+  .db-strip__supp > * { flex: 1; }
+}
+
+/* ============ CARD ============ */
+
+.db-card {
+  background: var(--bg-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-3);
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  transition: border-color var(--t-fast) var(--ease);
+  overflow: hidden;
+}
+.db-card:hover { border-color: var(--border-strong); }
+.db-card--lead {
+  background: var(--bg-1);
+  padding: 18px 20px 14px;
+  gap: 10px;
+}
+
+/* ============ HEAD: region pill on the left, timestamp on the right ============ */
+
+.db-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--font-mono);
+}
+.db-card__region {
+  font-size: var(--fs-11);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.db-card__time {
+  font-size: var(--fs-11);
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.db-card__locale {
+  margin-left: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+
+/* ============ HEADLINE & LEDE ============ */
+
+.db-card__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.012em;
+  line-height: 1.32;
+  color: var(--text-primary);
+}
+.db-card--lead .db-card__headline {
+  font-size: 19px;
+  letter-spacing: -0.018em;
+  line-height: 1.24;
+}
+.db-card__lede {
+  margin: 0;
+  font-size: var(--fs-13);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ============ BULLETS — em-dash only ============ */
+
+.db-card__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.db-card__points li {
+  position: relative;
+  padding-left: 16px;
+  font-size: var(--fs-12);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.db-card__points li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-tertiary);
+}
+
+/* ============ FOOT: sentiment track + sources ============ */
+
+.db-card__foot {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ============ SENTIMENT ROW — bolder, higher-contrast ============
+   Word: larger, semibold, stronger color. Track: 3px tall with a fill
+   bar that grows from left. Tick: 11px line. Net number: bigger, mono. */
+.db-card__sent-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+}
+.db-card__sent-word {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  min-width: 96px;
+}
+.db-card__sent-row--pos .db-card__sent-word { color: var(--pos); }
+.db-card__sent-row--neg .db-card__sent-word { color: var(--neg); }
+.db-card__sent-row--flat .db-card__sent-word { color: var(--text-secondary); }
+.db-card__sent-track {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1px;
+}
+.db-card__sent-fill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  background: var(--text-tertiary);
+  border-radius: 1px;
+}
+.db-card__sent-row--pos .db-card__sent-fill { background: var(--pos); box-shadow: 0 0 8px var(--pos-bg); }
+.db-card__sent-row--neg .db-card__sent-fill { background: var(--neg); box-shadow: 0 0 8px var(--neg-bg); }
+.db-card__sent-tick {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 11px;
+  background: var(--paper-strong);
+  transform: translateX(-50%);
+  border-radius: 1px;
+}
+.db-card__sent-row--pos .db-card__sent-tick { background: var(--pos-bloom); }
+.db-card__sent-row--neg .db-card__sent-tick { background: var(--neg-bloom); }
+.db-card__sent-net {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  min-width: 44px;
+  text-align: right;
+  letter-spacing: -0.01em;
+}
+.db-card__sent-row--pos .db-card__sent-net { color: var(--pos); }
+.db-card__sent-row--neg .db-card__sent-net { color: var(--neg); }
+
+/* ============ RELATED NEWS STRIP — 3 mini cards under the lead ============ */
+.db-related {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.db-related__rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.db-related__title {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+.db-related__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+.db-related__more {
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--r-2);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.db-related__more:hover {
+  color: var(--text-primary);
+  border-color: var(--brand);
+}
+
+.db-related__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.db-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.db-mini:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-3);
+}
+.db-mini__thumb {
+  position: relative;
+  height: 128px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--bg-3);
+  overflow: hidden;
+}
+.db-mini__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.92) brightness(1.0) contrast(1.05);
+}
+/* Dark gradient overlay — bottom dark for source/sentiment readability */
+.db-mini__thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0)   45%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  pointer-events: none;
+}
+.db-mini__source {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 3px 7px;
+  border-radius: 1px;
+  backdrop-filter: blur(3px);
+}
+
+/* Sentiment chip — pinned bottom-right of thumb image */
+.db-mini__sent {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px;
+  border-radius: var(--r-1);
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(3px);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.db-mini__sent-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--text-tertiary);
+}
+.db-mini__sent-net {
+  font-size: 9.5px;
+  opacity: 0.85;
+  margin-left: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.db-mini__sent--pos { color: var(--pos); border-color: var(--pos-border); }
+.db-mini__sent--pos .db-mini__sent-dot { background: var(--pos); box-shadow: 0 0 6px var(--pos); }
+.db-mini__sent--neg { color: var(--neg); border-color: var(--neg-border); }
+.db-mini__sent--neg .db-mini__sent-dot { background: var(--neg); box-shadow: 0 0 6px var(--neg); }
+.db-mini__sent--flat .db-mini__sent-dot { background: var(--text-secondary); }
+
+.db-mini__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+}
+.db-mini__headline {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.34;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+}
+.db-mini__summary {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.db-mini__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+.db-mini__time {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+}
+.db-mini__open {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  color: var(--brand);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--t-fast) var(--ease);
+}
+.db-mini__open:hover { color: var(--brand-strong); }
+
+@media (max-width: 1100px) {
+  .db-related__grid { grid-template-columns: 1fr 1fr; }
+  .db-mini:nth-child(3) { display: none; }
+}
+
+/* SOURCES — count + attribution pill row */
+.db-card__sources {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+  flex-wrap: wrap;
+}
+.db-card__sources-count {
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.db-card__source-pills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.db-card__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-1);
+  background: var(--bg-2);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.db-card__pill--more {
+  background: transparent;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* ============ BACKWARD-COMPAT — legacy .ai-card classes
+   The previous component used .ai-card / .ai-strip selectors. Keep
+   them mapped to the new system so any unmodified call sites still
+   render something coherent. ============ */
+
+.ai-strip { display: contents; }
+.ai-card  { display: contents; }

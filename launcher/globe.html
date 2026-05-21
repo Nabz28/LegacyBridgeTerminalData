@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1400, initial-scale=1" />
+<title>Legacy Bridge Terminal — Globe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/motion-ascii.css" />
+<link rel="stylesheet" href="styles/widgets.css" />
+<link rel="stylesheet" href="styles/macro-ws.css" />
+<link rel="stylesheet" href="styles/qars-core.css" />
+<style>
+  html, body, #root { height: 100%; margin: 0; padding: 0; background: var(--bg-0); }
+  /* Slim shell — no terminal chrome, just the globe itself. */
+  #root { display: flex; flex-direction: column; }
+  .glbpage-bar {
+    display: flex; align-items: center; gap: 12px;
+    height: 36px; padding: 0 14px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-1);
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+  .glbpage-bar-title { color: var(--paper); font-weight: 600; letter-spacing: 0.08em; }
+  .glbpage-bar-meta  { margin-left: auto; opacity: 0.8; }
+  .glbpage-bar-btn   {
+    appearance: none; background: transparent;
+    border: 1px solid var(--border-default); color: var(--text-secondary);
+    padding: 4px 10px; cursor: pointer;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+    border-radius: var(--r-2);
+  }
+  .glbpage-bar-btn:hover { border-color: var(--paper); color: var(--paper); }
+  .glbpage-frame { flex: 1; min-height: 0; position: relative; }
+  .glbpage-frame > section { height: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Minimum deps for MacroGlobe -->
+<script type="text/babel" src="scripts/data.jsx"></script>
+<script type="text/babel" src="scripts/data-ext.jsx"></script>
+<script type="text/babel" src="scripts/macro-globe-data.jsx"></script>
+<script type="text/babel" src="scripts/macro-globe.jsx"></script>
+
+<script type="text/babel">
+// ============================================================
+// Detached-globe shell
+//   - Mounts MacroGlobe full-bleed
+//   - Heartbeats every 4s on BroadcastChannel('lbc-globe')
+//     so the inline /Map panel knows we're alive
+//   - Listens for { type: 'reattach' } to self-close
+//   - Announces { type: 'closing' } on beforeunload
+// ============================================================
+const GLB_CHANNEL = 'lbc-globe';
+const HEARTBEAT_MS = 4000;
+
+const GlobeShell = () => {
+  const channelRef = React.useRef(null);
+  React.useEffect(() => {
+    if (typeof BroadcastChannel === 'undefined') return;
+    const ch = new BroadcastChannel(GLB_CHANNEL);
+    channelRef.current = ch;
+    const beat = () => { try { ch.postMessage({ type: 'heartbeat', ts: Date.now() }); } catch {} };
+    beat();
+    const id = setInterval(beat, HEARTBEAT_MS);
+    ch.onmessage = (ev) => {
+      if (ev.data && ev.data.type === 'reattach') {
+        window.close();
+      }
+    };
+    const announceClose = () => { try { ch.postMessage({ type: 'closing' }); ch.close(); } catch {} };
+    window.addEventListener('beforeunload', announceClose);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener('beforeunload', announceClose);
+      try { ch.close(); } catch {}
+    };
+  }, []);
+
+  // Forward picks from the globe to the parent terminal.
+  React.useEffect(() => {
+    window.lbcSelectGlobeEntity = (info) => {
+      if (channelRef.current) {
+        try { channelRef.current.postMessage({ type: 'select', info }); } catch {}
+      }
+    };
+    return () => { delete window.lbcSelectGlobeEntity; };
+  }, []);
+
+  const reattach = () => {
+    if (channelRef.current) try { channelRef.current.postMessage({ type: 'closing' }); } catch {}
+    window.close();
+  };
+
+  return (
+    <>
+      <div className="glbpage-bar">
+        <span className="glbpage-bar-title">LBC · GLOBE</span>
+        <span>3D map · live AIS / aircraft / satellites / energy</span>
+        <span className="glbpage-bar-meta">detached window · main terminal stays at 60 fps</span>
+        <button className="glbpage-bar-btn" onClick={reattach}>← Reattach inline</button>
+      </div>
+      <div className="glbpage-frame">
+        {window.MacroGlobe ? <window.MacroGlobe /> : <div style={{ padding: 40, color: 'var(--text-tertiary)' }}>MacroGlobe failed to load.</div>}
+      </div>
+    </>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<GlobeShell />);
+</script>
+</body>
+</html>

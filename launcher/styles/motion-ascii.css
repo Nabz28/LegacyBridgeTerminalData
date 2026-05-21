@@ -1,0 +1,201 @@
+/* ============================================================
+   Legacy Bridge Terminal — ASCII motion library
+   ----------------------------------------------------------------
+   Decorative filler only. Never blocks reading of data.
+   Audit rules:
+     - At most one ASCII glyph per panel header
+     - At most one ASCII loader per async surface
+     - Use ::before / ::after pseudo-elements (never <span>)
+   ============================================================ */
+
+/* ============================================================
+   ASCII LOADER — rotating shade glyphs
+   Use: <span class="ascii-loader" aria-hidden="true"></span>
+   ============================================================ */
+.ascii-loader {
+  display: inline-block;
+  width: 1ch;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+}
+.ascii-loader::before {
+  content: '░';
+  animation: ascii-loader-cycle 720ms steps(4, end) infinite;
+}
+@keyframes ascii-loader-cycle {
+  0%   { content: '░'; }
+  25%  { content: '▒'; }
+  50%  { content: '▓'; }
+  75%  { content: '█'; }
+  100% { content: '▓'; }
+}
+
+/* Inline progress band — for streaming/typing surfaces */
+.ascii-progress {
+  display: inline-block;
+  font-family: var(--font-mono);
+  color: var(--paper);
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 12ch;
+}
+.ascii-progress::before {
+  content: '▒▓█▓▒░ ▒▓█▓▒░';
+  display: inline-block;
+  animation: ascii-progress-slide 1.4s linear infinite;
+}
+@keyframes ascii-progress-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-6ch); }
+}
+
+/* ============================================================
+   ASCII CORNERS — panel header decoration
+   Apply on a panel header element. Renders thin corner glyphs.
+   Use sparingly: max one panel per workspace section.
+   ============================================================ */
+.ascii-corner {
+  position: relative;
+}
+.ascii-corner::before,
+.ascii-corner::after {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  opacity: 0.45;
+  pointer-events: none;
+  line-height: 1;
+}
+.ascii-corner::before {
+  content: '┐';
+  top: 4px;
+  right: 4px;
+}
+.ascii-corner::after {
+  content: '└';
+  bottom: 4px;
+  left: 4px;
+}
+
+/* ============================================================
+   ASCII RULE — section divider with marker glyph
+   Use: <div class="ascii-rule" data-marker="◆"></div>
+   ============================================================ */
+.ascii-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  opacity: 0.55;
+}
+.ascii-rule::before,
+.ascii-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+.ascii-rule[data-marker]::before {
+  content: '── ' attr(data-marker) ' ──';
+  flex: 0;
+  height: auto;
+  background: none;
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   ASCII BULLET — replaces SVG bullets in lists
+   Use: <li class="ascii-bullet">…</li>
+   ============================================================ */
+.ascii-bullet {
+  position: relative;
+  padding-left: 18px;
+}
+.ascii-bullet::before {
+  content: '▍';
+  position: absolute;
+  left: 4px;
+  top: 0;
+  font-family: var(--font-mono);
+  color: var(--paper);
+  opacity: 0.6;
+}
+
+/* ============================================================
+   ASCII SCANLINE — empty-state ornament
+   Subtle horizontal scanline drift behind empty containers.
+   Use: <div class="empty ascii-scanline">…</div>
+   ============================================================ */
+.ascii-scanline {
+  position: relative;
+  overflow: hidden;
+}
+.ascii-scanline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(255, 255, 255, 0.025) 3px,
+      rgba(255, 255, 255, 0.025) 4px
+    );
+  pointer-events: none;
+  animation: ascii-scanline-drift 8s linear infinite;
+}
+@keyframes ascii-scanline-drift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(4px); }
+}
+
+/* ============================================================
+   ASCII TYPEWRITER — caret blink for live-input feels
+   Use: <span class="ascii-caret"></span>
+   ============================================================ */
+.ascii-caret {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1em;
+  vertical-align: -2px;
+  background: var(--paper);
+  margin-left: 2px;
+  animation: ascii-caret-blink 1s steps(2, end) infinite;
+}
+@keyframes ascii-caret-blink {
+  0%, 50%   { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ============================================================
+   ASCII SEPARATOR — vertical pipe between inline items
+   Use in ticker, breadcrumb, kbd hints. Mono-aligned.
+   ============================================================ */
+.ascii-sep {
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  opacity: 0.4;
+  margin: 0 6px;
+}
+.ascii-sep::before { content: '│'; }
+
+/* ============================================================
+   REDUCED MOTION — pause every ASCII animation
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ascii-loader::before,
+  .ascii-progress::before,
+  .ascii-scanline::before,
+  .ascii-caret { animation: none !important; }
+}
+[data-reduced-motion="1"] .ascii-loader::before,
+[data-reduced-motion="1"] .ascii-progress::before,
+[data-reduced-motion="1"] .ascii-scanline::before,
+[data-reduced-motion="1"] .ascii-caret { animation: none !important; }

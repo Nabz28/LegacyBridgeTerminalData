@@ -1,0 +1,103 @@
+/* Portfolio + Algo Marketplace */
+.po-ws { display: flex; flex-direction: column; height: 100%; background: var(--bg-app); color: var(--text-primary); overflow: hidden; }
+
+.po-tabs {
+  display: flex; gap: 2px;
+  background: var(--bg-1); border-bottom: 1px solid var(--border-default);
+  padding: 0 18px;
+}
+.po-tab {
+  padding: 10px 16px; font-size: 12px; font-weight: 500;
+  color: var(--text-tertiary); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.po-tab:hover { color: var(--text-primary); }
+.po-tab.active { color: var(--sky-strong); border-bottom-color: var(--sky); font-weight: 700; }
+
+.po-body { flex: 1; overflow-y: auto; padding: 16px 22px; }
+
+/* KPI strip */
+.po-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
+.po-kpi {
+  background: var(--bg-1); border: 1px solid var(--border-default);
+  border-radius: 4px; padding: 12px 14px;
+}
+.po-kpi .l { font-size: 9.5px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+.po-kpi .v { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.po-kpi .v.lg { font-size: 22px; }
+.po-kpi .d { font-family: var(--font-mono); font-size: 11px; font-weight: 600; margin-top: 4px; }
+.po-kpi .d.pos { color: var(--pos); }
+.po-kpi .d.neg { color: var(--neg); }
+
+/* Two-column main */
+.po-main { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 16px; }
+.po-card {
+  background: var(--bg-1); border: 1px solid var(--border-default);
+  border-radius: 4px; overflow: hidden;
+}
+.po-card-h {
+  padding: 10px 14px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-app);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.po-card-body { padding: 12px 14px; }
+
+/* Allocation pie via stacked bars */
+.po-alloc-list { display: flex; flex-direction: column; gap: 8px; }
+.po-alloc-item { display: grid; grid-template-columns: 50px 1fr 60px; gap: 10px; align-items: center; }
+.po-alloc-sym { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; color: var(--text-primary); }
+.po-alloc-bar { height: 8px; background: var(--bg-3); border-radius: 1px; overflow: hidden; position: relative; }
+.po-alloc-bar > span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--brand-steel); }
+.po-alloc-pct { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; color: var(--text-secondary); text-align: right; }
+
+/* Positions table */
+.po-pos { width: 100%; border-collapse: collapse; }
+.po-pos th, .po-pos td {
+  padding: 8px 10px; font-size: 11.5px; border-bottom: 1px solid var(--border-subtle);
+}
+.po-pos th {
+  text-align: left; color: var(--text-tertiary);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px;
+  font-size: 9.5px; background: var(--bg-app);
+}
+.po-pos td { color: var(--text-primary); }
+.po-pos td.num, .po-pos th.num { font-family: var(--font-mono); text-align: right; }
+.po-pos tr:hover { background: var(--bg-2); }
+
+/* Algo marketplace */
+.po-algo-h { padding: 10px 0 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); }
+.po-algo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.po-algo-card {
+  background: var(--bg-1); border: 1px solid var(--border-default);
+  border-radius: 4px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.po-algo-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.po-algo-tag {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  background: var(--bg-3); border: 1px solid var(--border-default);
+  padding: 2px 6px; border-radius: 2px; color: var(--text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.po-algo-name { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.po-algo-author { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); }
+.po-algo-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.45; }
+.po-algo-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px 10px; padding-top: 10px; border-top: 1px solid var(--border-subtle); }
+.po-algo-stats .l { font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; }
+.po-algo-stats .v { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
+.po-algo-stats .v.pos { color: var(--pos); }
+.po-algo-stats .v.neg { color: var(--neg); }
+.po-algo-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border-subtle); }
+.po-algo-aum { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); }
+.po-algo-btn {
+  background: var(--brand-steel); border: 0; color: #000;
+  padding: 5px 12px; border-radius: 2px; font-size: 11px; font-weight: 600;
+  cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.po-algo-btn:hover { background: var(--brand-steel-2); }
+.po-algo-btn.ghost { background: transparent; color: var(--brand-steel); border: 1px solid var(--brand-steel); }
+.po-algo-btn.ghost:hover { background: var(--bg-3); }

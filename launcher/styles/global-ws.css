@@ -1,0 +1,111 @@
+/* Global Map + Economic Calendar */
+.gm-ws { display: flex; height: 100%; background: var(--bg-app); color: var(--text-primary); overflow: hidden; }
+
+.gm-main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+.gm-head {
+  padding: 12px 18px; border-bottom: 1px solid var(--border-default);
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--bg-1);
+}
+.gm-head-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+.gm-head-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; font-family: var(--font-mono); }
+.gm-legend { display: flex; gap: 14px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); }
+.gm-legend-item { display: flex; align-items: center; gap: 6px; }
+.gm-legend-sw { width: 14px; height: 10px; border-radius: 1px; }
+
+.gm-map-wrap {
+  flex: 1; min-height: 0; padding: 16px 18px;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(91,141,239,0.04), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(31,184,119,0.03), transparent 60%);
+}
+.gm-map-svg {
+  width: 100%; height: 100%; max-height: 520px;
+  font-family: var(--font-mono);
+}
+
+.gm-region-card {
+  background: var(--bg-1); border: 1px solid var(--border-default);
+  border-radius: 4px; padding: 10px 12px;
+}
+.gm-region-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.gm-region-name { font-size: 12px; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+.gm-region-flag { font-size: 13px; }
+.gm-region-perf { font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+.gm-region-perf.pos { color: var(--pos); }
+.gm-region-perf.neg { color: var(--neg); }
+.gm-region-row {
+  display: grid; grid-template-columns: 50px 1fr 50px;
+  font-family: var(--font-mono); font-size: 10.5px; gap: 6px; padding: 2px 0;
+}
+.gm-region-row .l { color: var(--text-tertiary); }
+.gm-region-row .v { color: var(--text-primary); text-align: right; }
+
+/* Right panel: economic calendar */
+.gm-cal {
+  width: 460px; flex-shrink: 0;
+  background: var(--bg-1); border-left: 1px solid var(--border-default);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.gm-cal-h {
+  padding: 12px 16px;
+  font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-default);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.gm-cal-filters { display: flex; gap: 4px; padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); }
+.gm-cal-chip {
+  background: var(--bg-app); border: 1px solid var(--border-default);
+  color: var(--text-secondary); padding: 3px 9px;
+  border-radius: 2px; font-size: 10.5px; cursor: pointer;
+  font-family: var(--font-mono); text-transform: uppercase;
+}
+.gm-cal-chip:hover { background: var(--bg-2); color: var(--text-primary); }
+.gm-cal-chip.active { background: var(--signal-soft); box-shadow: inset 0 0 0 1px var(--signal-edge); color: var(--signal-strong); border-color: transparent; font-weight: 600; }
+
+.gm-cal-list { flex: 1; overflow-y: auto; }
+.gm-cal-day {
+  padding: 8px 16px 4px;
+  font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--text-tertiary);
+  background: var(--bg-app);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky; top: 0; z-index: 1;
+}
+.gm-cal-row {
+  display: grid; grid-template-columns: 38px 24px 1fr auto;
+  gap: 8px; align-items: flex-start;
+  padding: 9px 16px; border-bottom: 1px solid var(--border-subtle);
+  font-size: 11.5px;
+}
+.gm-cal-row:hover { background: var(--bg-2); }
+.gm-cal-time { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); }
+.gm-cal-flag { font-size: 14px; line-height: 1; }
+.gm-cal-event { color: var(--text-primary); font-weight: 500; line-height: 1.35; }
+.gm-cal-vals {
+  display: flex; gap: 8px; margin-top: 3px;
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary);
+}
+.gm-cal-vals span b { color: var(--text-primary); font-weight: 600; }
+.gm-cal-vals .actual b { color: var(--brand-steel); }
+.gm-cal-imp {
+  font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  font-family: var(--font-mono);
+  align-self: center;
+}
+.gm-cal-imp.high { background: rgba(240,71,92,0.15); color: var(--neg); border: 1px solid rgba(240,71,92,0.3); }
+.gm-cal-imp.med  { background: rgba(245,181,68,0.15); color: var(--warn); border: 1px solid rgba(245,181,68,0.3); }
+.gm-cal-imp.low  { background: var(--bg-3); color: var(--text-tertiary); border: 1px solid var(--border-default); }
+
+/* Map node interactions */
+.gm-node { cursor: pointer; transition: all 120ms; }
+.gm-node:hover .gm-node-ring { stroke-opacity: 1; }
+.gm-node-bubble { transition: all 120ms; }
+.gm-node:hover .gm-node-bubble { filter: brightness(1.2); }
+
+/* Connection lines */
+.gm-link { stroke: rgba(151,170,197,0.12); stroke-width: 0.6; fill: none; }
+.gm-link.active { stroke: var(--brand-steel); stroke-width: 1.2; stroke-opacity: 0.6; }

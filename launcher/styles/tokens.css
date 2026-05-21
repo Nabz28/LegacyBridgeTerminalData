@@ -1,0 +1,588 @@
+/* ============================================================
+   Legacy Bridge Terminal — Design Tokens (v5 / Human Hand)
+   ----------------------------------------------------------------
+   Direction shift: stop looking like an AI design tool exported
+   the file. Move the entire palette away from cobalt-on-OLED-black
+   (Vercel/Linear/Cursor visual signature) toward a warm
+   near-black canvas with paper-white as the primary accent and
+   warm metallic as the only chroma.
+
+   Foundational moves:
+   1. Canvas is WARM near-black (#0A0907) — almost imperceptible
+      against pure black, but it makes the brand metallic sing
+      instead of fight. Bloomberg/Reuters/FT terminals are warm.
+   2. Active-state color removed from the blue family entirely.
+      Replaced with paper-white (#E8E4D9) — a warm off-white that
+      reads as luminous on dark surfaces. Differentiates the
+      product from every blue-accent AI dashboard.
+   3. Borders are NOT rgba(255,255,255,0.x) — they're the paper
+      color at low alpha. Border color belongs to the palette.
+   4. Semantic green/red are GRAPHITE at rest. Only bloom into
+      saturated color on hover or selection. A confident product
+      doesn't scream up/down constantly.
+   5. Type: GEIST sans (display + text), GEIST MONO for numerics.
+      Geist Mono has slab numerals — distinctive without being
+      programmer-coded like JetBrains/Plex.
+   6. Spacing scale moves to a Fibonacci-derived rhythm
+      (5/8/13/21/34/55) — feels hand-tuned, not 4px-grid generic.
+   7. Radii TIGHTEN to 0/2/3/4. No more 8px softness.
+   ============================================================ */
+
+:root {
+  /* ============================================================
+     SURFACES — warm near-black family
+     The undertone is +6° toward red/yellow (warm) instead of the
+     previous -4° toward blue (cool). The change is barely visible
+     in isolation but radically changes how brand metallic reads.
+     ============================================================ */
+  --bg-0:      #020203;     /* App canvas — near-pure black */
+  --bg-1:      #0A0A0B;     /* Panel base */
+  --bg-2:      #111114;     /* Hover surface */
+  --bg-3:      #17171B;     /* Raised: table headers, popovers */
+  --bg-4:      #1E1E22;     /* Overlays, drawer */
+  --bg-5:      #27272D;     /* Modals */
+
+  --ink-deep:  #000000;     /* Deepest — header bars, ticker spine. */
+
+  /* Legacy aliases — keep workspace CSS that still references them. */
+  --brand-navy:    var(--bg-0);
+  --brand-navy-2:  var(--bg-1);
+  --brand-navy-3:  var(--bg-2);
+  --bg-app:        var(--bg-0);
+
+  /* Chrome surfaces */
+  --chrome-top:    var(--ink-deep);
+  --chrome-nav:    var(--ink-deep);
+  --chrome-ticker: var(--ink-deep);
+
+  /* ============================================================
+     PAPER — the new primary accent.
+     Warm off-white. Replaces the cobalt sky as the active-state
+     color across the entire product. This is the move that
+     differentiates the design from every AI-generated dashboard.
+     ============================================================ */
+  --paper:         #E8E4D9;     /* Paper-white — primary interaction color */
+  --paper-strong:  #F5F2EA;
+  --paper-press:   #CFC9BA;
+  --paper-soft:    rgba(232, 228, 217, 0.08);
+  --paper-softer:  rgba(232, 228, 217, 0.04);
+  --paper-edge:    rgba(232, 228, 217, 0.32);
+  --paper-glow:    rgba(232, 228, 217, 0.18);
+
+  /* ============================================================
+     BRAND — steel blue (signature identity, #97AAC5)
+     Used for: logo, brand mark, keyline, tape strip, active tab.
+     Reserved for identity + decisive accents.
+     ============================================================ */
+  --brand:       #97AAC5;     /* Steel blue */
+  --brand-strong:#B5C3D6;     /* Hover */
+  --brand-dim:   #5C6B82;     /* Architecture-level rules */
+  --brand-soft:  rgba(151, 170, 197, 0.10);
+  --brand-edge:  rgba(151, 170, 197, 0.32);
+  --brand-glow:  rgba(151, 170, 197, 0.18);
+
+  /* ============================================================
+     SIGNAL — kept as a token, but ALIASED TO PAPER.
+     Anything in the codebase that says "signal" or "sky" now
+     resolves to the paper palette. No blue in active states.
+     ============================================================ */
+  --signal:        var(--paper);
+  --signal-strong: var(--paper-strong);
+  --signal-press:  var(--paper-press);
+  --signal-soft:   var(--paper-soft);
+  --signal-softer: var(--paper-softer);
+  --signal-edge:   var(--paper-edge);
+  --signal-glow:   var(--paper-glow);
+
+  /* Legacy sky aliases — historical workspace CSS. */
+  --sky:        var(--paper);
+  --sky-strong: var(--paper-strong);
+  --sky-press:  var(--paper-press);
+  --sky-soft:   var(--paper-soft);
+  --sky-softer: var(--paper-softer);
+  --sky-edge:   var(--paper-edge);
+  --sky-glow:   var(--paper-glow);
+  --brand-steel:     var(--paper);
+  --brand-steel-2:   var(--paper-strong);
+  --brand-steel-dim: #6B665C;
+  --accent:        var(--paper);
+  --accent-2:      var(--paper-strong);
+  --accent-ring:   var(--paper-glow);
+
+  /* ============================================================
+     BORDERS — derived from paper, not pure white.
+     Border color belongs to the palette family.
+     ============================================================ */
+  --border-subtle:  rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.18);
+  --border-focus:   var(--paper-edge);
+  --divider:        rgba(255, 255, 255, 0.08);
+
+  /* ============================================================
+     TEXT — paper-white primary, all WCAG AA on warm near-black
+     ============================================================ */
+  --text-primary:    #FFFFFF;
+  --text-secondary:  #D4DCEA;
+  --text-tertiary:   #8E9AB0;
+  --text-disabled:   #586275;
+  --text-inverse:    var(--ink-deep);  /* Dark text on bright fills */
+  --text-on-sky:     var(--ink-deep);
+
+  /* ============================================================
+     SEMANTIC — always-on red/green
+     User explicitly wants red/green for prices and chart series.
+     Graphite-at-rest doctrine REMOVED. The terminal is a trading
+     surface; positive/negative reads instantly without hover.
+     ============================================================ */
+  --pos:        #19C37D;        /* Always-on green */
+  --pos-bg:     rgba(25, 195, 125, 0.08);
+  --pos-border: rgba(25, 195, 125, 0.28);
+  --pos-dim:    #0E8C5A;
+  --pos-bloom:  #2EE39A;        /* Hover lift */
+
+  --neg:        #FF5C70;        /* Always-on red */
+  --neg-bg:     rgba(255, 92, 112, 0.08);
+  --neg-border: rgba(255, 92, 112, 0.28);
+  --neg-dim:    #B73A4A;
+  --neg-bloom:  #FF7C8C;
+
+  --warn:       #FFC65C;
+  --warn-bg:    rgba(255, 198, 92, 0.10);
+
+  --info:       var(--paper);
+  --info-bg:    var(--paper-soft);
+
+  --neutral-flat: var(--text-secondary);
+
+  /* ============================================================
+     TYPOGRAPHY — Geist + Geist Mono
+     Geist is Vercel's open sans; we use it for craft, not because
+     it's trendy. Pair with Geist Mono for slab-character numerics
+     that read as a financial product, not a code editor.
+     System fallbacks: SF, Helvetica, then arial. Inter dropped
+     from the primary stack — it's the AI-design default font.
+     ============================================================ */
+  --font-sans:    'Geist', 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Geist', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-editorial: 'Newsreader', 'Cormorant', 'EB Garamond', 'Georgia', 'Times New Roman', serif;
+  --font-mono:    'Geist Mono', 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Sizes — explicit pixel values, nothing under 11. */
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --fs-32: 32px;
+
+  --lh-tight:  1.10;
+  --lh-snug:   1.28;
+  --lh-normal: 1.50;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ============================================================
+     SPACING — Fibonacci-derived (hand-tuned feel)
+     5 / 8 / 13 / 21 / 34 / 55. Aliased to existing s-* tokens
+     so nothing breaks; the actual values shift toward
+     asymmetric, less-machine rhythm.
+     ============================================================ */
+  --s-0:  0;
+  --s-1:  3px;
+  --s-2:  5px;
+  --s-3:  8px;
+  --s-4:  13px;
+  --s-5:  16px;     /* kept conventional for inputs */
+  --s-6:  21px;
+  --s-7:  24px;     /* kept conventional for cards */
+  --s-8:  34px;
+  --s-9:  55px;
+
+  /* ============================================================
+     RADIUS — tightened across the board
+     Senior-designer move: less rounded = more architectural.
+     ============================================================ */
+  --r-0:    0;
+  --r-1:    2px;
+  --r-2:    3px;        /* inputs, buttons (was 4) */
+  --r-3:    4px;        /* cards (was 6) */
+  --r-4:    6px;        /* modals (was 8) */
+  --r-pill: 999px;
+
+  /* ============================================================
+     ELEVATION
+     ============================================================ */
+  --sh-0: none;
+  --sh-1: 0 1px 0 0 rgba(255,255,255,0.03) inset;
+  --sh-2: 0 8px 24px -8px rgba(0,0,0,0.70), 0 0 0 1px var(--border-strong);
+  --sh-3: 0 24px 48px -16px rgba(0,0,0,0.85), 0 0 0 1px var(--border-strong);
+  --sh-focus: 0 0 0 2px var(--paper-glow);
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  --topbar-h:       44px;
+  --keyline-h:      1px;
+  --tape-h:         3px;
+  --nav-w:          88px;
+  --ticker-h:       54px;          /* grew from 34px to fit market cards */
+  --panel-header-h: 32px;
+  --logo-url: url('../assets/bridge-logo.png');
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --t-fast: 80ms;
+  --t-med:  160ms;
+  --t-slow: 280ms;
+  --ease:   cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ============================================================
+     GRID BACKDROP — body-level structured void
+     The fill behind every workspace. Subtle hairlines on a
+     pure-black canvas. Panels sit on top with opaque bgs, so the
+     grid only shows in negative space — the "structured void"
+     feel the user described.
+     ============================================================ */
+  --grid-cell:  24px;
+  --grid-line:  rgba(255, 255, 255, 0.035);
+  --grid-line-strong: rgba(255, 255, 255, 0.06);
+
+  /* ============================================================
+     ASCII FILLER — decorative only (NEVER inside data text)
+     Used for: section dividers, loader animations, empty-state
+     ornaments, header corners. One ASCII glyph per surface max.
+     ============================================================ */
+  --ascii-rule-h:   '──────────────────────';
+  --ascii-rule-v:   '│';
+  --ascii-corner-tl:'┌';
+  --ascii-corner-tr:'┐';
+  --ascii-corner-bl:'└';
+  --ascii-corner-br:'┘';
+  --ascii-block:    '█';
+  --ascii-shade-1:  '░';
+  --ascii-shade-2:  '▒';
+  --ascii-shade-3:  '▓';
+  --ascii-bullet:   '▍';
+  --ascii-arrow:    '›';
+}
+
+/* ============================================================
+   GRID BACKDROP — applied at body level
+   Two intersecting linear gradients form the rectangle grid.
+   Cell ~24px, line ~0.035 alpha. Reads as "structured void"
+   without competing with content.
+   ============================================================ */
+body {
+  background-color: var(--bg-0);
+  background-image:
+    linear-gradient(to right,  var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+  background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "ss03", "tnum";
+}
+button { font-family: inherit; }
+
+.mono, .num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Scrollbars */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.06);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.16);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+::selection { background: var(--paper-glow); color: var(--text-primary); }
+
+/* ============================================================
+   FOCUS — paper ring, not blue
+   ============================================================ */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+  border-radius: var(--r-2);
+  box-shadow: 0 0 0 4px var(--paper-glow);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+[data-reduced-motion="1"] *,
+[data-reduced-motion="1"] *::before,
+[data-reduced-motion="1"] *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+/* ============================================================
+   UTILITIES — semantic color (always-on red/green)
+   Trading surface — positive/negative reads instantly.
+   ============================================================ */
+.pos  { color: var(--pos); }
+.neg  { color: var(--neg); }
+.flat { color: var(--text-tertiary); }
+.pos--bloom { color: var(--pos-bloom); }
+.neg--bloom { color: var(--neg-bloom); }
+
+/* Hover lift — subtle brightness bump, semantic color stays */
+.bloom-on-hover:hover .pos,
+tr:hover .pos,
+.is-selected .pos { color: var(--pos-bloom); }
+.bloom-on-hover:hover .neg,
+tr:hover .neg,
+.is-selected .neg { color: var(--neg-bloom); }
+
+/* ============================================================
+   LABEL — uppercase microcopy
+   Tracking pulled BACK to 0.06em — was 0.08, which is the
+   AI-design default. Subtle calibration toward editorial.
+   ============================================================ */
+.label {
+  font-size: var(--fs-11);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-bold);
+}
+.label--dim { color: var(--text-tertiary); }
+.label--brand { color: var(--brand); }
+
+/* ============================================================
+   HEADINGS — editorial weight
+   ============================================================ */
+.h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-22);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.018em;
+  line-height: var(--lh-tight);
+  color: var(--text-primary);
+}
+.h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-15);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.005em;
+  color: var(--text-primary);
+}
+.h3 {
+  font-size: var(--fs-13);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   NUMERIC SCALE
+   ============================================================ */
+.num-hero {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-32);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+.num-display {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+.num-body {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   NUMERIC BLOCK — left rule REMOVED
+   The colored left-edge accent was the user's most-cited
+   AI-design tell. Replaced with pure typographic separation:
+   label above, value below, generous asymmetric padding.
+   ============================================================ */
+.nb {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0;
+  border-left: none;
+}
+.nb__lbl {
+  font-size: var(--fs-11);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+}
+.nb__val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-15);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  line-height: 1.20;
+  letter-spacing: -0.01em;
+}
+.nb__sub {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-11);
+  color: var(--text-tertiary);
+  line-height: 1.25;
+}
+.nb--lg .nb__val { font-size: var(--fs-22); font-weight: var(--fw-semibold); }
+.nb--xl .nb__val { font-size: var(--fs-28); font-weight: var(--fw-semibold); letter-spacing: -0.018em; }
+
+/* ============================================================
+   ACTIVE STATE — paper-tinted, never blue
+   ============================================================ */
+
+/* Pattern 1 — INSET TINT (chips, tabs, rails, list rows) */
+.is-active {
+  background: var(--paper-soft);
+  box-shadow: inset 0 0 0 1px var(--paper-edge);
+  color: var(--paper-strong);
+}
+
+/* Pattern 2 — DARK-ON-BRIGHT (one primary CTA per screen) */
+.is-cta {
+  background: var(--paper);
+  color: var(--text-inverse);
+  border: none;
+  font-weight: var(--fw-semibold);
+}
+.is-cta:hover { background: var(--paper-strong); }
+.is-cta:active { background: var(--paper-press); }
+
+/* ============================================================
+   BRAND KEYLINE
+   ============================================================ */
+.brand-keyline {
+  height: var(--keyline-h);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--brand-dim) 8%,
+    var(--brand) 50%,
+    var(--brand-dim) 92%,
+    transparent 100%
+  );
+  opacity: 0.55;
+}
+
+/* ============================================================
+   TAPE STRIP
+   ============================================================ */
+.tape {
+  position: relative;
+  height: var(--tape-h);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.tape__range {
+  position: absolute;
+  top: 0; bottom: 0;
+  background: linear-gradient(
+    90deg,
+    var(--brand-dim) 0%,
+    var(--brand) 50%,
+    var(--brand-dim) 100%
+  );
+  opacity: 0.65;
+}
+.tape__tick {
+  position: absolute;
+  top: -2px; bottom: -2px;
+  width: 2px;
+  background: var(--text-primary);
+  box-shadow: 0 0 6px var(--brand-glow);
+}
+
+/* ============================================================
+   HAIRLINE FILTER GROUP — replaces pill chip rows
+   Plain text in tracked caps separated by a hairline rule.
+   No pills, no pill-shaped backgrounds, no border-radius: 999px.
+   Active = paper text + 1px paper underline.
+   ============================================================ */
+.hfilter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid var(--divider);
+}
+.hfilter__item {
+  padding: 8px 13px;
+  font-size: var(--fs-11);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--t-fast) var(--ease);
+}
+.hfilter__item:hover { color: var(--text-secondary); }
+.hfilter__item.is-on {
+  color: var(--text-primary);
+}
+.hfilter__item.is-on::after {
+  content: '';
+  position: absolute;
+  left: 13px; right: 13px;
+  bottom: -1px;
+  height: 1px;
+  background: var(--paper);
+}
