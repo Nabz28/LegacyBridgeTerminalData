@@ -156,6 +156,40 @@
   border:1px solid rgba(0,0,0,.30);transition:outline .1s}
 .corr-cell:hover{outline:2px solid var(--paper,#E8E4D9);outline-offset:-2px}
 .corr-cell.sel{outline:2px solid var(--paper-strong,#F5F2EA);outline-offset:-2px}
+
+/* ============================================================
+   LIVE MACRO DASHBOARD (mld-) — real FRED + DBnomics data
+   ============================================================ */
+.mld-page{background:var(--bg-0,#020203)}
+.mld-bar{flex-shrink:0;display:flex;align-items:center;gap:14px;padding:9px 16px;
+  border-bottom:1px solid var(--border-subtle,rgba(255,255,255,.06))}
+.mld-scroll{flex:1;min-height:0;overflow:auto;padding:18px 16px 32px}
+.mld-region{margin-bottom:26px}
+.mld-region-h{display:flex;align-items:center;gap:10px;margin:0 0 13px;
+  font-family:'Geist','Inter',sans-serif;font-weight:600;font-size:15px;letter-spacing:-.01em;color:#EAEFF7}
+.mld-region-bar{width:3px;height:16px;background:var(--brand,#97AAC5);border-radius:2px}
+.mld-region-n{font-family:'Geist Mono','JetBrains Mono',monospace;font-size:10px;color:var(--text-tertiary,#8E9AB0);
+  border:1px solid var(--border-subtle,rgba(255,255,255,.10));padding:1px 6px;border-radius:9px}
+.mld-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:11px}
+.mld-card{display:flex;flex-direction:column;gap:6px;padding:13px 14px 11px;
+  background:var(--bg-2,#111114);border:1px solid var(--border-subtle,rgba(255,255,255,.07));
+  border-radius:5px;transition:border-color .16s,transform .16s,background .16s}
+.mld-card:hover{border-color:rgba(151,170,197,.32);transform:translateY(-2px);background:var(--bg-3,#17171B)}
+.mld-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.mld-card-label{font-family:'Geist','Inter',sans-serif;font-size:12.5px;font-weight:500;color:var(--text-secondary,#D4DCEA);line-height:1.25}
+.mld-card-tag{flex-shrink:0;font-family:'Geist Mono','JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-tertiary,#8E9AB0);margin-top:2px}
+.mld-card-val{font-family:'Geist','Inter',sans-serif;font-weight:600;font-size:27px;letter-spacing:-.025em;
+  color:#F2F5FA;line-height:1.05;display:flex;align-items:baseline;gap:5px}
+.mld-yoy{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:.06em;color:var(--brand,#97AAC5);
+  font-weight:500;border:1px solid color-mix(in srgb,var(--brand,#97AAC5) 34%,transparent);padding:0 4px;border-radius:3px}
+.mld-card-change{font-family:'Geist Mono','JetBrains Mono',monospace;font-size:11px;font-weight:500;display:flex;align-items:baseline;gap:5px}
+.mld-card-prevlbl{color:var(--text-tertiary,#8E9AB0);font-size:9.5px;font-weight:400}
+.mld-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:2px;
+  font-family:'Geist Mono','JetBrains Mono',monospace;font-size:9.5px;color:var(--text-tertiary,#8E9AB0)}
+.mld-src{padding:1px 5px;border:1px solid var(--border-subtle,rgba(255,255,255,.08));border-radius:3px;
+  letter-spacing:.04em;color:#6f7d92}
+
 .lbc-tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .lbc-ticon{width:40px;height:40px;border-radius:0;display:grid;place-items:center;color:var(--ac);
   border:1px solid color-mix(in srgb, var(--ac) 32%, transparent);

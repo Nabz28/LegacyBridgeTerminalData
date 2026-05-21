@@ -325,13 +325,137 @@ const MacroMapTool = () => {
 // ================================================================
 // MacroTerminal — container + RIGHT toolbar
 // ================================================================
-// Dashboard wrapper — Narin's MacroDashboard needs region state.
-const MacroDashboardTool = () => {
-  const [region, setRegion] = React.useState('both');
-  return window.MacroDashboard
-    ? <div className="mc-workspace" style={{ height: '100%', overflow: 'auto' }}><window.MacroDashboard region={region} setRegion={setRegion} /></div>
-    : <div className="mc-section mc-news-empty">Dashboard not loaded.</div>;
+// ================================================================
+// TOOL 0 — Live Macro Dashboard (real data, NOT Refinitiv).
+// Reads macro.live_indicators, refreshed daily by the macro-refresh
+// edge function (FRED + DBnomics). Grouped by region; each indicator
+// shows latest value, change vs prior, a sparkline + "as of" stamp.
+// ================================================================
+const LD_REGIONS = [
+  { id: 'global',    label: 'Global · US' },
+  { id: 'china',     label: 'China' },
+  { id: 'indonesia', label: 'Indonesia' },
+];
+const LD_CAT_LABEL = { rates: 'Rates', inflation: 'Inflation', growth: 'Growth', labor: 'Labor', markets: 'Markets', fx: 'FX', trade: 'Trade' };
+
+const ldNum = (v, d) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const ldFmtVal = (v, unit) => {
+  if (v === null || v === undefined) return '—';
+  const d = Math.abs(v) >= 1000 ? 0 : 2;
+  const n = ldNum(v, d);
+  if (unit === '%') return n + '%';
+  if (unit === '$') return '$' + n;
+  if (unit === 'Rp') return 'Rp' + n;
+  if (unit === '$bn') return '$' + n + 'B';
+  if (unit === 'k') return n + 'k';
+  return n;
 };
+const ldFmtChange = (v) => {
+  if (v === null || v === undefined) return '';
+  const d = Math.abs(v) >= 1000 ? 0 : 2;
+  return (v > 0 ? '+' : '') + ldNum(v, d);
+};
+const ldAgo = (iso) => {
+  if (!iso) return '';
+  const ms = Date.now() - new Date(iso).getTime();
+  const h = Math.floor(ms / 3.6e6);
+  if (h < 1) return 'just now';
+  if (h < 24) return h + 'h ago';
+  return Math.floor(h / 24) + 'd ago';
+};
+
+const LdSpark = ({ data, color }) => {
+  if (!data || data.length < 2) return <div style={{ height: 34 }} />;
+  const vs = data.map((p) => p.v);
+  const min = Math.min(...vs), max = Math.max(...vs), rng = (max - min) || 1;
+  const W = 132, H = 34;
+  const pts = data.map((p, i) => [(i / (data.length - 1)) * W, H - ((p.v - min) / rng) * (H - 6) - 3]);
+  const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const area = line + ` L ${W} ${H} L 0 ${H} Z`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" style={{ width: '100%', height: 34, display: 'block' }}>
+      <path d={area} fill={color} fillOpacity="0.10" />
+      <path d={line} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+};
+
+const LdCard = ({ r }) => {
+  const ch = r.change_abs;
+  const dir = ch > 0 ? 'up' : ch < 0 ? 'down' : 'flat';
+  const col = dir === 'up' ? 'var(--pos,#19C37D)' : dir === 'down' ? 'var(--neg,#FF5C70)' : 'var(--brand,#97AAC5)';
+  const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '■';
+  return (
+    <div className="mld-card">
+      <div className="mld-card-top">
+        <span className="mld-card-label">{r.label}</span>
+        <span className="mld-card-tag">{LD_CAT_LABEL[r.category] || r.category}</span>
+      </div>
+      <div className="mld-card-val">{ldFmtVal(r.latest_value, r.unit)}{r.transform === 'yoy' && <span className="mld-yoy">YoY</span>}</div>
+      <div className="mld-card-change" style={{ color: col }}>
+        {ch !== null && ch !== undefined ? <span>{arrow} {ldFmtChange(ch)}{r.unit === '%' ? ' pp' : ''}</span> : <span style={{ color: 'var(--brand,#97AAC5)' }}>—</span>}
+        <span className="mld-card-prevlbl"> vs prior</span>
+      </div>
+      <LdSpark data={r.spark} color={col} />
+      <div className="mld-card-foot">
+        <span>as of {r.latest_date || '—'}</span>
+        <span className="mld-src">{r.source}</span>
+      </div>
+    </div>
+  );
+};
+
+const MacroLiveDashboard = () => {
+  const [rows, setRows] = React.useState(null);
+  const [err, setErr]   = React.useState('');
+  const [filter, setFilter] = React.useState('all');
+  const [tick, setTick] = React.useState(0);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    setErr('');
+    sbGet('/live_indicators?select=*&order=region,sort_order', 'macro')
+      .then((r) => { if (!cancelled) setRows(r); })
+      .catch((c) => { if (!cancelled) setErr('Failed to load live data (' + c + ')'); });
+    return () => { cancelled = true; };
+  }, [tick]);
+
+  const lastUpdated = rows && rows.length ? rows.reduce((m, r) => (r.updated_at > m ? r.updated_at : m), '') : '';
+  const regions = LD_REGIONS.filter((rg) => filter === 'all' || rg.id === filter);
+
+  return (
+    <section className="mc-section mld-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div className="mc-section-h">
+        <span>Live Macro · global rates, inflation &amp; markets</span>
+        <span className="mc-section-h-sub">{lastUpdated ? 'updated ' + ldAgo(lastUpdated) + ' · FRED + DBnomics · auto-refreshed daily' : 'FRED + DBnomics'}</span>
+      </div>
+      <div className="mld-bar">
+        <div className="mc-chip-row">
+          <button className={`mc-chip ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
+          {LD_REGIONS.map((rg) => <button key={rg.id} className={`mc-chip ${filter === rg.id ? 'active' : ''}`} onClick={() => setFilter(rg.id)}>{rg.label}</button>)}
+        </div>
+        <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => setTick((t) => t + 1)}>↻ Reload</button>
+      </div>
+      <div className="mld-scroll">
+        {err && <div className="mc-news-empty" style={{ padding: 30 }}>{err}</div>}
+        {!rows && !err && <div className="mc-news-empty" style={{ padding: 30 }}>Loading live macro data…</div>}
+        {rows && rows.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 30 }}>No indicators yet.</div>}
+        {rows && regions.map((rg) => {
+          const items = rows.filter((r) => r.region === rg.id);
+          if (!items.length) return null;
+          return (
+            <div key={rg.id} className="mld-region">
+              <div className="mld-region-h"><span className="mld-region-bar" />{rg.label}<span className="mld-region-n">{items.length}</span></div>
+              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} />)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const MacroDashboardTool = () => <MacroLiveDashboard />;
 const wrapWs = (node) => <div className="mc-workspace" style={{ height: '100%', overflow: 'auto' }}>{node}</div>;
 
 const MACRO_TOOLS = [
