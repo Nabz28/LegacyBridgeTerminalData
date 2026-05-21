@@ -263,10 +263,10 @@
         ctx.strokeRect(left + 0.5, top + i * cellH + 0.5, sizeW, cellH);
         ctx.strokeRect(left + j * cellW + 0.5, top + 0.5, cellW, sizeH);
       }
-      // Selection box (amber).
+      // Selection box (paper-white).
       if (this.selection) {
         const { i, j } = this.selection;
-        ctx.strokeStyle = '#ff9d00';
+        ctx.strokeStyle = '#E8E4D9';
         ctx.lineWidth = 1.5;
         ctx.strokeRect(left + j * cellW + 1, top + i * cellH + 1, cellW - 2, cellH - 2);
       }

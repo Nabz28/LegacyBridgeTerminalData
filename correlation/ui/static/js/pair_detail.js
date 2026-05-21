@@ -46,7 +46,7 @@
       const x = active[0].element.x;
       if (!isFinite(x) || x < chartArea.left || x > chartArea.right) return;
       ctx.save();
-      ctx.strokeStyle = 'rgba(255,157,0,0.7)';
+      ctx.strokeStyle = 'rgba(143,180,255,0.9)';
       ctx.lineWidth = 1;
       ctx.setLineDash([3, 3]);
       ctx.beginPath();
@@ -187,7 +187,7 @@
           type: 'line',
           label: 'OLS',
           data: data.regression.x.map((x, i) => ({ x, y: data.regression.y[i] })),
-          borderColor: '#ff9d00',
+          borderColor: '#62a0e8',
           borderWidth: 1.5,
           pointRadius: 0,
           fill: false,
@@ -204,7 +204,7 @@
             legend: { display: false },
             tooltip: {
               backgroundColor: 'rgba(13,17,24,.97)',
-              titleColor: '#ff9d00',
+              titleColor: '#62a0e8',
               bodyColor: TXT,
               borderColor: '#283040',
               borderWidth: 1,
@@ -260,7 +260,7 @@
               mode: 'index',
               intersect: false,
               backgroundColor: 'rgba(13,17,24,.97)',
-              titleColor: '#ff9d00',
+              titleColor: '#62a0e8',
               bodyColor: TXT,
               borderColor: '#283040',
               borderWidth: 1,

@@ -135,20 +135,20 @@ input[type="text"]:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px var(
   font-weight: 600;
   letter-spacing: .02em;
 }
-.btn-primary:hover { background: #ffae33; color: #1a1100; }
+.btn-primary:hover { background: #b5c3d6; color: #06121f; }
 
 .btn-toggle .dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--border-2);
   transition: background var(--t-fast), box-shadow var(--t-fast);
 }
-.btn-toggle.active { color: var(--accent); border-color: rgba(255,157,0,.45); background: var(--accent-soft); }
+.btn-toggle.active { color: var(--accent); border-color: rgba(151,170,197,.45); background: var(--accent-soft); }
 .btn-toggle.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 
 .btn-sm { height: 26px; padding: 0 8px; font-size: 12px; }
 .btn-mini { height: 22px; padding: 0 8px; font-size: 11px; border: 1px solid var(--border-1); border-radius: var(--r-1); color: var(--text-2); }
 .btn-mini:hover { background: var(--bg-2); color: var(--text-1); }
-.btn-mini.active { background: var(--accent-soft); color: var(--accent); border-color: rgba(255,157,0,.45); }
+.btn-mini.active { background: var(--accent-soft); color: var(--accent); border-color: rgba(151,170,197,.45); }
 .btn-icon { width: 28px; padding: 0; justify-content: center; }
 
 .kbd {
@@ -181,6 +181,7 @@ input[type="text"]:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px var(
 }
 /* Home link — back to /launcher/ so users can swap terminals without
    editing the URL. Sits to the left of the brand mark. */
+#topbar .home-link, #topbar .brand { display: none; }  /* embedded in unified shell — redundant */
 .home-link {
   display: flex; align-items: center; gap: 5px;
   color: var(--text-2); text-decoration: none;
@@ -204,9 +205,9 @@ input[type="text"]:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px var(
 }
 .brand-mark {
   width: 16px; height: 16px;
-  background: linear-gradient(135deg, var(--accent), #ff5500);
+  background: linear-gradient(135deg, var(--accent), #62a0e8);
   border-radius: 3px;
-  box-shadow: 0 0 12px rgba(255,157,0,.45);
+  box-shadow: 0 0 12px rgba(151,170,197,.45);
 }
 .brand-text { font-weight: 700; font-size: 14px; letter-spacing: .04em; }
 .brand-sub  { color: var(--text-3); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; }
@@ -433,7 +434,7 @@ aside, #heatmap-pane {
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-weight: 400;
 }
-.series-row.selected { background: rgba(255,157,0,.06); }
+.series-row.selected { background: rgba(151,170,197,.06); }
 .series-row.selected .sid { color: var(--accent); }
 
 /* ============================================================
@@ -555,7 +556,7 @@ aside, #heatmap-pane {
   position: absolute;
   top: 50%;
   height: 4px;
-  background: linear-gradient(90deg, rgba(255,157,0,.7), var(--accent));
+  background: linear-gradient(90deg, rgba(151,170,197,.7), var(--accent));
   border-radius: 2px;
   transform: translateY(-50%);
 }
@@ -566,7 +567,7 @@ aside, #heatmap-pane {
   border: 2px solid var(--bg-1);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 8px rgba(255,157,0,.4);
+  box-shadow: 0 0 8px rgba(151,170,197,.4);
   cursor: grab;
   z-index: 2;
 }
@@ -627,7 +628,7 @@ aside, #heatmap-pane {
 }
 .pca-eigenbar .seg-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #ff5500);
+  background: linear-gradient(90deg, var(--accent), #62a0e8);
 }
 
 .pca-factor {
