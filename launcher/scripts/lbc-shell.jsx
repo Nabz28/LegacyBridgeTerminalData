@@ -18,6 +18,14 @@ const LBC_ICONS = {
   management:_svg(<><rect x="3" y="4" width="18" height="16" rx="0"/><path d="M7 9h4M7 13h4M7 17h2"/><path d="M14.5 8.5l1.7 1.7L20 6.5"/></>),
   network:   _svg(<><circle cx="5" cy="6" r="2.1"/><circle cx="19" cy="7" r="2.1"/><circle cx="12" cy="18" r="2.1"/><path d="M6.8 7.4l4 9M17.4 8.6l-4 8M7 6.4h10"/></>),
   yggdrasil: _svg(<><circle cx="12" cy="5" r="2.3"/><circle cx="6" cy="19" r="2.3"/><circle cx="18" cy="19" r="2.3"/><path d="M12 7.3v3.4M12 10.7c-6 1.4-6 4.4-6 6.1M12 10.7c6 1.4 6 4.4 6 6.1"/></>),
+  correlation:_svg(<><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></>),
+};
+
+// Narin's custom-auth (public anon/publishable key — safe to ship in client).
+const LBC_AUTH = {
+  url: 'https://adnubucjlezrtusbicja.supabase.co/functions/v1/auth-login',
+  anon: 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7',
+  storeKey: 'lbc_auth',
 };
 
 // ================================================================
@@ -38,21 +46,21 @@ const LBC_TERMINALS = [
       { kind: 'am-perf',       label: 'Performance',   built: false },
     ] },
   { id: 'macro', num: 'T2', name: 'Macro', accent: '#5b8def', icon: LBC_ICONS.macro,
-    desc: 'Top-down regime — indicator lab, correlation matrices, the globe & calendar.',
-    workspaces: [
-      { kind: 'macro',           label: 'Indicator Lab',  built: true },
-      { kind: 'global',          label: 'Globe & Cal',    built: true },
-      { kind: 'mac-correlation', label: 'Correlation',    built: false },
-      { kind: 'mac-influence',   label: 'Influence Map',  built: false },
-    ] },
-  { id: 'industry', num: 'T3', name: 'Industry', accent: '#4f86e0', icon: LBC_ICONS.industry,
+    desc: 'Bloomberg-style terminal over US, Indonesia & China macro RICs, plus US Reuters Polls.',
+    external: '/macro/dashboard/',
+    workspaces: [ { kind: 'ext-macro', label: 'Macro', built: false } ] },
+  { id: 'correlation', num: 'T3', name: 'Correlation', accent: '#62a0e8', icon: LBC_ICONS.correlation,
+    desc: 'Cross-asset correlation matrices from cached weekly & monthly returns, with live compute.',
+    external: '/correlation/ui/static/',
+    workspaces: [ { kind: 'ext-correlation', label: 'Correlation', built: false } ] },
+  { id: 'industry', num: 'T4', name: 'Industry', accent: '#4f86e0', icon: LBC_ICONS.industry,
     desc: 'Sectors, peer comps and demand-supply structure across the IDX universe.',
     workspaces: [
       { kind: 'industry', label: 'Sector Map',    built: true },
       { kind: 'ind-comps', label: 'Peer Comps',   built: false },
       { kind: 'ind-data',  label: 'Industry Data', built: false },
     ] },
-  { id: 'equity', num: 'T4', name: 'Equity', accent: '#83acf0', icon: LBC_ICONS.equity,
+  { id: 'equity', num: 'T5', name: 'Equity', accent: '#83acf0', icon: LBC_ICONS.equity,
     desc: 'Bottom-up single-name deep dive, screeners, scanners and financials.',
     workspaces: [
       { kind: 'markets',        label: 'Markets',     built: true },
@@ -61,15 +69,15 @@ const LBC_TERMINALS = [
       { kind: 'scanners',       label: 'Scanners',    built: true },
       { kind: 'eq-financials',  label: 'Financials',  built: false },
     ] },
-  { id: 'management', num: 'T5', name: 'Management', accent: '#3f72cc', icon: LBC_ICONS.management,
+  { id: 'management', num: 'T6', name: 'Management', accent: '#3f72cc', icon: LBC_ICONS.management,
     desc: 'Research lifecycle, KPI tracking & per-analyst scorecards.',
     external: '/management/',
     workspaces: [ { kind: 'ext-management', label: 'Management', built: false } ] },
-  { id: 'network', num: 'T6', name: 'Network', accent: '#5b8def', icon: LBC_ICONS.network,
+  { id: 'network', num: 'T7', name: 'Network', accent: '#5b8def', icon: LBC_ICONS.network,
     desc: 'Relationship mapper for the LBC team, contacts, clients & talent pipeline.',
-    external: '/network/',
+    external: '/network/dashboard/',
     workspaces: [ { kind: 'ext-network', label: 'Network', built: false } ] },
-  { id: 'yggdrasil', num: 'T7', name: 'Yggdrasil', accent: '#6f9cf2', icon: LBC_ICONS.yggdrasil,
+  { id: 'yggdrasil', num: 'T8', name: 'Yggdrasil', accent: '#6f9cf2', icon: LBC_ICONS.yggdrasil,
     desc: 'Thesis decomposition tree — theses, hypotheses, scenarios & metrics.',
     external: '/yggdrasil/',
     workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: false } ] },
@@ -106,10 +114,44 @@ const NotYet = ({ title, terminal }) => {
 window.NotYet = NotYet;
 
 // ================================================================
-// LoginPage — stub front door (real custom-auth wired in a later phase).
+// LoginPage — real custom-auth against Narin's auth-login edge fn.
 // ================================================================
-const LoginPage = ({ onEnter }) => {
-  const submit = (e) => { e.preventDefault(); onEnter(); };
+const LoginPage = ({ onAuthed }) => {
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [busy, setBusy] = React.useState(false);
+  const [err, setErr] = React.useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (busy) return;
+    setErr(''); setBusy(true);
+    try {
+      const res = await fetch(LBC_AUTH.url, {
+        method: 'POST',
+        headers: {
+          'apikey': LBC_AUTH.anon,
+          'Authorization': 'Bearer ' + LBC_AUTH.anon,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: username.trim(), password }),
+      });
+      if (!res.ok) {
+        setErr(res.status === 401 ? 'Invalid username or passphrase.' : 'Login failed (HTTP ' + res.status + ').');
+        setBusy(false);
+        return;
+      }
+      const data = await res.json();
+      const exp = Date.now() + (data.expires_in ? data.expires_in * 1000 : 12 * 3600 * 1000);
+      const session = { token: data.token, user: data.user, exp };
+      try { localStorage.setItem(LBC_AUTH.storeKey, JSON.stringify(session)); } catch {}
+      onAuthed(session);
+    } catch (e2) {
+      setErr('Network error — could not reach the auth service.');
+      setBusy(false);
+    }
+  };
+
   return (
     <div className="lbc-stage">
       <div className="lbc-login">
@@ -119,14 +161,19 @@ const LoginPage = ({ onEnter }) => {
           <div className="sub">Research Operating System</div>
           <div className="lbc-field">
             <label>Analyst ID</label>
-            <input type="text" defaultValue="" placeholder="username" autoComplete="username" />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}
+                   placeholder="username" autoComplete="username" autoFocus />
           </div>
           <div className="lbc-field">
             <label>Passphrase</label>
-            <input type="password" defaultValue="" placeholder="••••••••" autoComplete="current-password" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                   placeholder="••••••••" autoComplete="current-password" />
           </div>
-          <button className="lbc-login-btn" type="submit">Enter Terminal</button>
-          <div className="lbc-login-note">Auth is a stub — unified custom-auth lands in a later phase.</div>
+          <button className="lbc-login-btn" type="submit" disabled={busy}>
+            {busy ? 'Signing in…' : 'Enter Terminal'}
+          </button>
+          {err && <div className="lbc-login-err">{err}</div>}
+          <div className="lbc-login-note">Authenticates against Legacy Bridge custom auth.</div>
         </form>
       </div>
     </div>
@@ -150,8 +197,8 @@ const BRIDGE_SEGS = [
 ];
 const BRIDGE_FLOW_D = BRIDGE_SEGS.map(s => s.d).join(' ');
 
-const HomePage = ({ onSelect }) => {
-  const liveCount = LBC_TERMINALS.filter(t => t.workspaces.some(w => w.built)).length;
+const HomePage = ({ onSelect, user, onLogout }) => {
+  const liveCount = LBC_TERMINALS.filter(t => t.external || t.workspaces.some(w => w.built)).length;
   const stageRef = React.useRef(null);
   const glowRef = React.useRef(null);
   const gridhiRef = React.useRef(null);
@@ -217,9 +264,10 @@ const HomePage = ({ onSelect }) => {
         <div className="lbc-home-bar">
           <div><b>LBC · LEGACY BRIDGE TERMINAL</b> · v1</div>
           <div className="r">
-            <span>SELECT A TERMINAL</span>
+            {user ? <span className="lbc-user">{user.full_name || user.username}{user.role ? ' · ' + user.role : ''}</span> : <span>SELECT A TERMINAL</span>}
             <span className="lbc-pip"></span>
             <span>ONLINE</span>
+            {user && <button className="lbc-logout" onClick={onLogout}>Sign out</button>}
           </div>
         </div>
 
@@ -235,7 +283,7 @@ const HomePage = ({ onSelect }) => {
             </svg>
           </div>
           <h1>Legacy <b>Bridge</b> Terminal.</h1>
-          <p className="sub">One desk · seven terminals · a research operating system for Indonesian equity work.</p>
+          <p className="sub">One desk · every LBC terminal · a research operating system for Indonesian equity work.</p>
         </div>
 
         <div className="lbc-sec">
@@ -249,7 +297,7 @@ const HomePage = ({ onSelect }) => {
             const live = t.workspaces.some(w => w.built);
             return (
               <div key={t.id} className={`lbc-tile ${live ? '' : 'soon'}`} style={{ ['--ac']: t.accent }}
-                   onClick={() => onSelect(t.id)} onMouseMove={onTileMove}>
+                   onClick={() => t.external ? (window.location.href = t.external) : onSelect(t.id)} onMouseMove={onTileMove}>
                 <div className="lbc-tile-top">
                   <span className="lbc-ticon">{t.icon}</span>
                   <span className="lbc-tnum">{t.num}</span>
@@ -272,14 +320,33 @@ const HomePage = ({ onSelect }) => {
 // ================================================================
 // LBCShell — top-level stage machine. Mounts the whole product.
 // ================================================================
+const readLbcSession = () => {
+  try {
+    const raw = localStorage.getItem(LBC_AUTH.storeKey);
+    if (!raw) return null;
+    const s = JSON.parse(raw);
+    if (s && s.token && s.exp && Date.now() < s.exp) return s;
+    if (s) localStorage.removeItem(LBC_AUTH.storeKey); // expired
+  } catch {}
+  return null;
+};
+
 const LBCShell = () => {
-  const [stage, setStage] = React.useState('login'); // 'login' | 'home' | 'terminal'
+  const existing = readLbcSession();
+  const [stage, setStage] = React.useState(existing ? 'home' : 'login'); // 'login' | 'home' | 'terminal'
+  const [user, setUser] = React.useState(existing ? existing.user : null);
   const [termId, setTermId] = React.useState(null);
   const term = LBC_TERMINALS.find(t => t.id === termId) || null;
 
-  if (stage === 'login') return <LoginPage onEnter={() => setStage('home')} />;
+  const onAuthed = (session) => { setUser(session.user); setStage('home'); };
+  const onLogout = () => {
+    try { localStorage.removeItem(LBC_AUTH.storeKey); } catch {}
+    setUser(null); setTermId(null); setStage('login');
+  };
+
+  if (stage === 'login') return <LoginPage onAuthed={onAuthed} />;
   if (stage === 'home' || !term) {
-    return <HomePage onSelect={(id) => { setTermId(id); setStage('terminal'); }} />;
+    return <HomePage user={user} onLogout={onLogout} onSelect={(id) => { setTermId(id); setStage('terminal'); }} />;
   }
   // Terminal stage — Narin's full app shell, scoped to this terminal's manifest.
   return (

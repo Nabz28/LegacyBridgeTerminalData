@@ -53,6 +53,16 @@
 .lbc-login-btn:hover{background:var(--lbc-blue-2)}
 .lbc-login-note{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:9.5px;
   letter-spacing:.1em;color:#46577a}
+.lbc-login-err{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.02em;color:#ff8aa5}
+.lbc-login-btn[disabled]{opacity:.6;cursor:default}
+
+/* home bar — signed-in user chip + sign out */
+.lbc-user{color:#dfe9fb;text-transform:none;letter-spacing:.03em;font-size:11px}
+.lbc-logout{background:transparent;border:1px solid var(--lbc-line);color:#7e94b8;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 10px;cursor:pointer;border-radius:0;transition:color .2s,border-color .2s}
+.lbc-logout:hover{color:#dfe9fb;border-color:var(--lbc-blue)}
 
 /* ============================================================
    HOME launcher
