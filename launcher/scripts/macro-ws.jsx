@@ -454,6 +454,7 @@ const MacroDashboard = ({ region, setRegion }) => (
     <NewsAndSentiment region={region} />
   </>
 );
+window.MacroDashboard = MacroDashboard;
 
 // ----------------------------------------------------------------
 // Tab strip + router shell

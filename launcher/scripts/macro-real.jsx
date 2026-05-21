@@ -325,20 +325,35 @@ const MacroMapTool = () => {
 // ================================================================
 // MacroTerminal — container + RIGHT toolbar
 // ================================================================
+// Dashboard wrapper — Narin's MacroDashboard needs region state.
+const MacroDashboardTool = () => {
+  const [region, setRegion] = React.useState('both');
+  return window.MacroDashboard
+    ? <div className="mc-workspace" style={{ height: '100%', overflow: 'auto' }}><window.MacroDashboard region={region} setRegion={setRegion} /></div>
+    : <div className="mc-section mc-news-empty">Dashboard not loaded.</div>;
+};
+const wrapWs = (node) => <div className="mc-workspace" style={{ height: '100%', overflow: 'auto' }}>{node}</div>;
+
 const MACRO_TOOLS = [
-  { id: 'gather', label: 'Data Gatherer', glyph: '▤' },
-  { id: 'corr',   label: 'Correlation',   glyph: '▦' },
-  { id: 'map',    label: 'Variables Map', glyph: '⊕' },
+  { id: 'dashboard', label: 'Dashboard',     glyph: '◧' },
+  { id: 'news',      label: 'News',          glyph: '❏' },
+  { id: 'gather',    label: 'Data Gatherer', glyph: '▤' },
+  { id: 'connect',   label: 'Connections',   glyph: '⊚' },
+  { id: 'map',       label: 'Map · Globe',   glyph: '◍' },
+  { id: 'corr',      label: 'Correlation',   glyph: '▦' },
 ];
 
 const MacroTerminal = () => {
-  const [tool, setTool] = React.useState('gather');
+  const [tool, setTool] = React.useState('dashboard');
   return (
     <div className="mtool-shell">
       <div className="mtool-main">
-        {tool === 'gather' && <DataGatherer />}
-        {tool === 'corr'   && <CorrelationTool />}
-        {tool === 'map'    && <MacroMapTool />}
+        {tool === 'dashboard' && <MacroDashboardTool />}
+        {tool === 'news'      && (window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>)}
+        {tool === 'gather'    && <DataGatherer />}
+        {tool === 'connect'   && (window.MacroConnections ? wrapWs(<window.MacroConnections />) : <div className="mc-section mc-news-empty">Connections not loaded.</div>)}
+        {tool === 'map'       && (window.MacroMap         ? wrapWs(<window.MacroMap />)         : <div className="mc-section mc-news-empty">Map not loaded.</div>)}
+        {tool === 'corr'      && <CorrelationTool />}
       </div>
       <div className="mtool-bar">
         {MACRO_TOOLS.map((t) => (
