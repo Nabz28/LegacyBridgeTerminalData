@@ -27,6 +27,45 @@ const downloadCsv = (filename, rows) => {
 };
 
 // ================================================================
+// MacroSubMap — per-variable influence sub-map (drivers / driven / related)
+// ================================================================
+const MacroSubMap = ({ centerRic, centerName, neighbors, labels, onPick }) => {
+  const W = 620, H = 300, cx = W / 2, cy = H / 2, R = 116;
+  const relColor = { driver: '#19C37D', driven: '#FF5C70', related: '#97AAC5' };
+  const nodes = neighbors.map((n, i) => {
+    const ang = (i / neighbors.length) * Math.PI * 2 - Math.PI / 2;
+    return Object.assign({}, n, { x: cx + Math.cos(ang) * R, y: cy + Math.sin(ang) * (R * 0.74), name: labels[n.ric] || n.ric });
+  });
+  return (
+    <div className="mc-card">
+      <div className="mc-card-h">Variable map — drivers · driven · related</div>
+      <div style={{ padding: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {nodes.map((n, i) => (
+            <line key={'l' + i} x1={cx} y1={cy} x2={n.x} y2={n.y} stroke={relColor[n.rel]} strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray={n.rel === 'related' ? '3 3' : ''} />
+          ))}
+          {nodes.map((n, i) => (
+            <g key={'n' + i} style={{ cursor: 'pointer' }} onClick={() => onPick(n.ric)}>
+              <text x={n.x} y={n.y - 9} fontSize="9" fill="#D4DCEA" textAnchor="middle">{String(n.name).slice(0, 20)}</text>
+              <circle cx={n.x} cy={n.y} r="5" fill={relColor[n.rel]} />
+              {n.lag && <text x={n.x} y={n.y + 15} fontSize="7.5" fill="#8E9AB0" textAnchor="middle" fontFamily="var(--font-mono)">{n.lag.join('–')}m</text>}
+            </g>
+          ))}
+          <circle cx={cx} cy={cy} r="9" fill="#E8E4D9" stroke="#fff" strokeWidth="1" />
+          <text x={cx} y={cy - 15} fontSize="10.5" fill="#fff" textAnchor="middle" fontWeight="600">{String(centerName || centerRic || '').slice(0, 28)}</text>
+        </svg>
+        <div style={{ display: 'flex', gap: 16, justifyContent: 'center', fontSize: 10, color: '#8E9AB0', fontFamily: 'var(--font-mono)', marginTop: 4 }}>
+          <span><span style={{ color: relColor.driver }}>●</span> driver</span>
+          <span><span style={{ color: relColor.driven }}>●</span> drives</span>
+          <span><span style={{ color: relColor.related }}>●</span> related</span>
+          <span style={{ color: 'var(--text-tertiary)' }}>· click a node to open it</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ================================================================
 // TOOL 1 — Data Gatherer (old structure, new design)
 // ================================================================
 const DataGatherer = () => {
@@ -42,6 +81,8 @@ const DataGatherer = () => {
   const [detail, setDetail]   = React.useState(null);
   const [obs, setObs]         = React.useState([]);
   const [err, setErr]         = React.useState('');
+  const [graph, setGraph]     = React.useState([]);      // condensed influence edges for the country
+  const [subLabels, setSubLabels] = React.useState({});  // ric -> name for sub-map neighbors
 
   // category tree per country
   React.useEffect(() => {
@@ -79,6 +120,33 @@ const DataGatherer = () => {
       .catch((c) => { if (!cancelled) setErr('Series failed (' + c + ')'); });
     return () => { cancelled = true; };
   }, [activeRic]);
+
+  // Influence sub-map: condensed graph edges for the country (cached on country change)
+  React.useEffect(() => {
+    sbGet(`/graph?country=eq.${country}&graph_kind=eq.condensed&select=payload&limit=1`, 'macro')
+      .then((r) => setGraph(r && r[0] && r[0].payload && r[0].payload.edges ? r[0].payload.edges : []))
+      .catch(() => setGraph([]));
+  }, [country]);
+
+  // Neighbors of the selected variable: drivers (→it), driven (it→), curated related.
+  const neighbors = React.useMemo(() => {
+    if (!activeRic) return [];
+    const out = []; const seen = new Set();
+    graph.forEach((e) => {
+      if (e.target === activeRic && !seen.has(e.source)) { seen.add(e.source); out.push({ ric: e.source, rel: 'driver', lag: e.lag_months }); }
+      if (e.source === activeRic && !seen.has(e.target)) { seen.add(e.target); out.push({ ric: e.target, rel: 'driven', lag: e.lag_months }); }
+    });
+    const rel = detail && detail.related_series;
+    (Array.isArray(rel) ? rel : []).forEach((r) => { if (r && !seen.has(r)) { seen.add(r); out.push({ ric: r, rel: 'related' }); } });
+    return out.slice(0, 12);
+  }, [activeRic, graph, detail]);
+
+  React.useEffect(() => {
+    const rics = neighbors.map((n) => n.ric);
+    if (!rics.length) { setSubLabels({}); return; }
+    sbGet('/series_lite?select=ric,description&ric=in.(' + rics.map((r) => encodeURIComponent('"' + r + '"')).join(',') + ')', 'macro')
+      .then((rows) => { const m = {}; (rows || []).forEach((r) => { m[r.ric] = r.description; }); setSubLabels(m); }).catch(() => {});
+  }, [neighbors]);
 
   const values = obs.map((o) => o.value).filter((v) => v != null);
   const latest = values.length ? values[values.length - 1] : null;
@@ -177,6 +245,7 @@ const DataGatherer = () => {
                 <div className="mc-card"><div className="mc-card-h">Related series</div>
                   <div style={{ padding: 14, fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--brand, #97AAC5)' }}>{Array.isArray(detail.related_series) ? detail.related_series.join(' · ') : String(detail.related_series)}</div></div>
               )}
+              {neighbors.length > 0 && <MacroSubMap centerRic={activeRic} centerName={detail && detail.description} neighbors={neighbors} labels={subLabels} onPick={(r) => setActiveRic(r)} />}
             </>
           )}
         </div>
