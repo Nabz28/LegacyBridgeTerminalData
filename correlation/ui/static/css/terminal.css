@@ -2,38 +2,38 @@
    CORR Macro Correlation Terminal — design tokens
    ============================================================ */
 :root {
-  /* surfaces */
-  --bg-0:        #0b0e13;     /* canvas/page */
-  --bg-1:        #11151c;     /* surface 1 - panels */
-  --bg-2:        #161b24;     /* surface 2 - rows on hover */
-  --bg-3:        #1d232e;     /* surface 3 - elevated */
-  --bg-canvas:   #0a0d12;     /* heatmap canvas bg */
+  /* surfaces — v5 "Human Hand" warm near-black */
+  --bg-0:        #020203;     /* canvas/page */
+  --bg-1:        #0A0A0B;     /* surface 1 - panels */
+  --bg-2:        #111114;     /* surface 2 - rows on hover */
+  --bg-3:        #17171B;     /* surface 3 - elevated */
+  --bg-canvas:   #020203;     /* heatmap canvas bg */
 
-  /* borders */
-  --border-1:    #1c2129;     /* subtle dividers */
-  --border-2:    #283040;     /* default */
-  --border-3:    #3a4358;     /* strong/focused */
+  /* borders — paper at low alpha */
+  --border-1:    rgba(255,255,255,.05);  /* subtle dividers */
+  --border-2:    rgba(255,255,255,.10);  /* default */
+  --border-3:    rgba(255,255,255,.18);  /* strong/focused */
 
   /* text */
-  --text-1:      #e6e9ee;     /* primary */
-  --text-2:      #9da3ad;     /* secondary */
-  --text-3:      #5b6270;     /* muted/labels */
-  --text-disabled:#3a4051;
+  --text-1:      #FFFFFF;     /* primary */
+  --text-2:      #D4DCEA;     /* secondary */
+  --text-3:      #8E9AB0;     /* muted/labels */
+  --text-disabled:#586275;
 
-  /* accent (Bloomberg amber, modernized) */
-  --accent:       #ff9d00;
-  --accent-soft:  rgba(255,157,0,.16);
-  --cyan:         #29d4ff;
-  --cyan-soft:    rgba(41,212,255,.14);
+  /* accent — v5 steel-blue brand + blue secondary (no amber) */
+  --accent:       #97AAC5;
+  --accent-soft:  rgba(151,170,197,.16);
+  --cyan:         #62a0e8;
+  --cyan-soft:    rgba(98,160,232,.14);
 
-  /* correlation gradient stops (perceptually balanced) */
-  --pos-3:       #2dd674;
+  /* correlation gradient stops — keep red↔green semantics; brightest = v5 pos/neg */
+  --pos-3:       #19C37D;
   --pos-2:       #1a8a4d;
   --pos-1:       #0e3a2a;
   --neg-1:       #3d1217;
   --neg-2:       #a02831;
-  --neg-3:       #f54e58;
-  --neutral:     #14181f;
+  --neg-3:       #FF5C70;
+  --neutral:     #111114;
 
   /* layout */
   --top-h:       46px;
@@ -43,9 +43,9 @@
   --time-bar-h:  56px;
 
   /* radii / motion */
-  --r-1: 4px;
-  --r-2: 6px;
-  --r-3: 8px;
+  --r-1: 2px;
+  --r-2: 3px;
+  --r-3: 4px;
   --t-fast: 90ms;
   --t-mid:  180ms;
   --shadow-1: 0 4px 12px rgba(0,0,0,.55);
@@ -64,7 +64,7 @@ html, body {
   overflow: hidden;
   background: var(--bg-0);
   color: var(--text-1);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
   font-size: 13px;
   font-feature-settings: "ss01" on, "cv11" on;
   font-variant-numeric: tabular-nums;
@@ -74,7 +74,7 @@ html, body {
 }
 
 .mono, .number, .kbd, .meta-line {
-  font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  font-family: 'Geist Mono', 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
   font-feature-settings: "tnum" on;
   letter-spacing: 0;
 }

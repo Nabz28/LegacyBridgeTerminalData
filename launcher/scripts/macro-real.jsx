@@ -255,99 +255,18 @@ const DataGatherer = () => {
 };
 
 // ================================================================
-// TOOL 2 — Correlation Terminal (templates → heatmap → pair detail)
+// TOOL 2 — Correlation Terminal (full app, restyled to v5, embedded)
+// All features preserved: Pearson/Spearman · Weekly/Monthly · MP denoise ·
+// Δ-vs · custom-subset Universe builder (scrollable sidebar) · time slider ·
+// PCA/Stats/History rail · scatter + rolling pair detail · CSV/PNG downloads ·
+// spotlight + help. The /correlation app is restyled in css/terminal.css.
 // ================================================================
-const CORR_DATA = 'corr-data';   // bundled from the correlation app (relative to /launcher/)
-const CORR_TEMPLATES = [
-  { name: 'us_macro_xa',      display: 'US Macro Cross-Asset' },
-  { name: 'asia_beta',        display: 'Asia Beta' },
-  { name: 'g10_em_fx',        display: 'G10 / EM FX' },
-  { name: 'risk_factors',     display: 'Risk Factors' },
-  { name: 'crypto_equity',    display: 'Crypto × Equity' },
-  { name: 'commodities',      display: 'Commodities' },
-  { name: 'energy_transition',display: 'Energy Transition' },
-  { name: 'indo_domestic',    display: 'Indonesia Domestic' },
-  { name: 'indo_xborder',     display: 'Indonesia Cross-Border' },
-  { name: 'china_hk',         display: 'China / HK' },
-  { name: 'europe_xa',        display: 'Europe Cross-Asset' },
-];
-const corrColor = (v) => {
-  if (v == null) return 'transparent';
-  const a = Math.min(1, Math.abs(v));
-  return v >= 0 ? `rgba(25,195,125,${0.10 + a * 0.72})` : `rgba(255,92,112,${0.10 + a * 0.72})`;
-};
-const corrShort = (s) => (s && s.length > 11 ? s.slice(0, 10) + '…' : s);
-
-const CorrelationTool = () => {
-  const { AreaChart } = window.ChartLib || {};
-  const fmt = window.fmt || { num: (v, d = 2) => Number(v).toFixed(d) };
-  const [tplName, setTplName] = React.useState('us_macro_xa');
-  const [tpl, setTpl] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-  const [sel, setSel] = React.useState(null);    // {i,j}
-  const [pair, setPair] = React.useState(null);   // {na,nb,r,loading,rolling}
-
-  React.useEffect(() => {
-    setLoading(true); setTpl(null); setSel(null); setPair(null);
-    fetch(`${CORR_DATA}/matrices/${tplName}.json`).then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((d) => { setTpl(d); setLoading(false); }).catch(() => setLoading(false));
-  }, [tplName]);
-
-  const pickCell = (i, j) => {
-    if (!tpl || i === j) return;
-    setSel({ i, j });
-    setPair({ na: tpl.names[i], nb: tpl.names[j], r: tpl.matrix[i][j], loading: true });
-    sbRpc('rolling_corr', { series_a: tpl.ids[i], series_b: tpl.ids[j], frequency: 'weekly', window_size: 52 }, 'correlation')
-      .then((rows) => setPair((p) => ({ ...p, loading: false, rolling: (rows || []).map((x) => x.corr_val) })))
-      .catch(() => setPair((p) => ({ ...p, loading: false, rolling: [] })));
-  };
-
-  return (
-    <section className="mc-section mc-data-page">
-      <div className="mc-section-h"><span>Correlation Terminal</span><span className="mc-section-h-sub">{tpl ? tpl.display : '…'} · {tpl ? tpl.ids.length : '—'} series · weekly · click a cell for the pair</span></div>
-      <div style={{ padding: '12px 18px' }}>
-        <div className="mc-chip-row" style={{ flexWrap: 'wrap', marginBottom: 14 }}>
-          {CORR_TEMPLATES.map((t) => <button key={t.name} className={`mc-chip ${tplName === t.name ? 'active' : ''}`} onClick={() => setTplName(t.name)}>{t.display}</button>)}
-        </div>
-        {loading && <div className="mc-news-empty">Loading matrix…</div>}
-        {!loading && !tpl && <div className="mc-news-empty">Could not load this template.</div>}
-        {tpl && (
-          <div style={{ display: 'flex', gap: 18, alignItems: 'flex-start', flexWrap: 'wrap' }}>
-            <div style={{ overflow: 'auto', maxWidth: '100%' }}>
-              <table className="corr-heat"><tbody>
-                <tr><th></th>{tpl.names.map((n, j) => <th key={j} title={n} className="corr-colh">{corrShort(n)}</th>)}</tr>
-                {tpl.matrix.map((row, i) => (
-                  <tr key={i}>
-                    <th className="corr-rowh" title={tpl.names[i]}>{corrShort(tpl.names[i])}</th>
-                    {row.map((v, j) => (
-                      <td key={j} className={`corr-cell ${sel && sel.i === i && sel.j === j ? 'sel' : ''}`}
-                          style={{ background: i === j ? 'rgba(151,170,197,.18)' : corrColor(v) }}
-                          title={`${tpl.names[i]} × ${tpl.names[j]}: ${fmt.num(v, 2)}`} onClick={() => pickCell(i, j)}>
-                        {fmt.num(v, 1)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody></table>
-            </div>
-            {pair && (
-              <div className="mc-chart-card" style={{ minWidth: 320, flex: 1 }}>
-                <div className="mc-chart-h"><span>{pair.na} × {pair.nb}</span></div>
-                <div style={{ padding: '16px 16px 6px', textAlign: 'center' }}>
-                  <div className="num-hero" style={{ fontSize: 38, color: pair.r >= 0 ? 'var(--pos)' : 'var(--neg)' }}>{fmt.num(pair.r, 2)}</div>
-                  <div style={{ color: 'var(--text-tertiary)', fontSize: 12 }}>full-period Pearson (weekly)</div>
-                </div>
-                <div className="mc-chart-h"><span>52-week rolling correlation</span></div>
-                {pair.loading ? <div className="mc-news-empty">Computing rolling…</div>
-                  : (AreaChart && pair.rolling && pair.rolling.length ? <AreaChart data={pair.rolling} height={160} color="#97AAC5" /> : <div className="mc-news-empty">No rolling overlap</div>)}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-};
+const CorrelationTool = () => (
+  <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg-0,#020203)' }}>
+    <iframe src="/correlation/ui/static/" title="Correlation Terminal"
+            style={{ flex: 1, width: '100%', border: 0, display: 'block' }} />
+  </div>
+);
 
 // ================================================================
 // TOOL 3 — Macro Variables Map (from macro.graph, redesigned)
