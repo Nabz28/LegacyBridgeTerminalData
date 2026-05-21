@@ -343,6 +343,86 @@ const MACRO_TOOLS = [
   { id: 'corr',      label: 'Correlation',   glyph: '▦' },
 ];
 
+// ================================================================
+// Connections — the old Refinitiv influence map (vis-network) over
+// macro.graph: nodes (pre-positioned, cluster-colored) + edges
+// (hand = solid + lag label, auto = dashed). Click a node to focus.
+// ================================================================
+const MacroConnectionsMap = () => {
+  const [country, setCountry] = React.useState('us');
+  const [mode, setMode] = React.useState('condensed');   // condensed | full
+  const [status, setStatus] = React.useState('loading');
+  const wrapRef = React.useRef(null);
+  const netRef = React.useRef(null);
+  const roRef = React.useRef(null);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    setStatus('loading');
+    if (netRef.current) { netRef.current.destroy(); netRef.current = null; }
+    sbGet(`/graph?country=eq.${country}&graph_kind=eq.${mode}&select=payload&limit=1`, 'macro')
+      .then((r) => {
+        if (cancelled) return;
+        const g = r && r[0] && r[0].payload;
+        if (!g || !g.nodes || !g.nodes.length) { setStatus('empty'); return; }
+        const vis = window.vis;
+        if (!vis || !wrapRef.current) { setStatus('novis'); return; }
+        const cc = {}; (g.clusters || []).forEach((c) => { cc[c.id] = c.color; });
+        const nodes = new vis.DataSet(g.nodes.map((n) => ({
+          id: n.id, label: n.label || n.id, title: n.description || n.id,
+          x: n.x, y: n.y, value: n.importance || 1,
+          color: { background: cc[n.cluster] || '#5b8def', border: 'rgba(255,255,255,.25)',
+                   highlight: { background: '#E8E4D9', border: '#fff' } },
+          font: { color: '#D4DCEA', size: 12, face: 'Geist, Inter, sans-serif' },
+        })));
+        const edges = new vis.DataSet(g.edges.map((e) => ({
+          from: e.source, to: e.target,
+          dashes: e.confidence !== 'hand',
+          label: e.lag_months ? '+' + e.lag_months.join('–') + 'mo' : '',
+          title: e.note || '', arrows: (e.type === 'drives' || e.type === 'leads') ? 'to' : undefined,
+          color: { color: 'rgba(151,170,197,0.40)', highlight: '#8fb4ff' },
+          font: { color: '#8E9AB0', size: 9, strokeWidth: 0, background: 'rgba(2,2,3,0.6)' },
+          width: e.confidence === 'hand' ? 1.5 : 0.7,
+        })));
+        netRef.current = new vis.Network(wrapRef.current, { nodes, edges }, {
+          physics: false,
+          interaction: { hover: true, tooltipDelay: 120, navigationButtons: false, keyboard: false },
+          nodes: { shape: 'dot', scaling: { min: 8, max: 28 }, borderWidth: 1.5 },
+          edges: { smooth: { type: 'continuous' } },
+        });
+        setStatus('ok');
+        netRef.current.on('click', (p) => { if (p.nodes && p.nodes[0]) netRef.current.focus(p.nodes[0], { scale: 1.05, animation: true }); });
+        // Force a resize after layout settles (the container can be 0-height when
+        // vis measures it on create) + observe future resizes (keep-alive show/hide).
+        const refit = () => { const el = wrapRef.current; if (!netRef.current || !el) return; netRef.current.setSize(el.clientWidth + 'px', el.clientHeight + 'px'); netRef.current.redraw(); netRef.current.fit({ animation: false }); };
+        requestAnimationFrame(refit); setTimeout(refit, 200);
+        if (window.ResizeObserver && wrapRef.current) { roRef.current = new ResizeObserver(refit); roRef.current.observe(wrapRef.current); }
+      })
+      .catch(() => { if (!cancelled) setStatus('error'); });
+    return () => { cancelled = true; if (roRef.current) { roRef.current.disconnect(); roRef.current = null; } if (netRef.current) { netRef.current.destroy(); netRef.current = null; } };
+  }, [country, mode]);
+
+  const msg = { loading: 'Loading influence graph…', empty: `No ${mode} graph for ${country.toUpperCase()}`, error: 'Failed to load graph', novis: 'vis-network not loaded' };
+
+  return (
+    <section className="mc-section mc-data-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div className="mc-section-h">
+        <span>Connections · influence map</span>
+        <span className="mc-section-h-sub">{country.toUpperCase()} · {mode} · {status === 'ok' ? 'drag to pan · scroll to zoom · click a node' : '…'}</span>
+      </div>
+      <div style={{ padding: '8px 14px', display: 'flex', gap: 14, alignItems: 'center' }}>
+        <div className="mc-chip-row">{MACRO_COUNTRIES.map((c) => <button key={c.id} className={`mc-chip ${country === c.id ? 'active' : ''}`} onClick={() => setCountry(c.id)}>{c.label}</button>)}</div>
+        <div className="mc-chip-row">{['condensed', 'full'].map((m) => <button key={m} className={`mc-chip ${mode === m ? 'active' : ''}`} onClick={() => setMode(m)}>{m}</button>)}</div>
+        <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => netRef.current && netRef.current.fit({ animation: true })}>Fit</button>
+      </div>
+      <div style={{ flex: 1, minHeight: 440, position: 'relative' }}>
+        <div ref={wrapRef} style={{ position: 'absolute', inset: 0, background: 'var(--bg-0,#020203)' }} />
+        {status !== 'ok' && <div className="mc-news-empty" style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', pointerEvents: 'none' }}>{msg[status] || '…'}</div>}
+      </div>
+    </section>
+  );
+};
+
 // Error boundary — a single tool (e.g. the Cesium globe tearing down) can't
 // black out the whole terminal; it shows a retry fallback instead.
 class MtoolBoundary extends React.Component {
@@ -366,7 +446,7 @@ const macroToolNode = (id) => {
   if (id === 'dashboard') return <MacroDashboardTool />;
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
-  if (id === 'connect')   return window.MacroConnections ? wrapWs(<window.MacroConnections />) : <div className="mc-section mc-news-empty">Connections not loaded.</div>;
+  if (id === 'connect')   return <MacroConnectionsMap />;
   if (id === 'map')       return window.MacroMap         ? wrapWs(<window.MacroMap />)         : <div className="mc-section mc-news-empty">Map not loaded.</div>;
   if (id === 'corr')      return <CorrelationTool />;
   return null;
