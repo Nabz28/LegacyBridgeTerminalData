@@ -588,7 +588,8 @@ const App = ({ qars, terminal, onHome }) => {
 
       {/* ===== TOP BAR ===== */}
       <div className="topbar">
-        <div className="tb-logo">
+        <button className="lbc-tb-home" onClick={() => onHome && onHome()} title="Back to all terminals (Home)">‹ Terminals</button>
+        <div className="tb-logo" onClick={() => onHome && onHome()} style={{ cursor: 'pointer' }} title="Back to all terminals">
           <div className="bridge" aria-label="Bridge logo"></div>
           <div className="name">Terminal<span className="v">V1</span></div>
         </div>

@@ -37,6 +37,7 @@ const LBC_AUTH = {
 const LBC_TERMINALS = [
   { id: 'asset', num: 'T1', name: 'Asset Management', accent: '#6f9cf2', icon: LBC_ICONS.asset,
     desc: 'The book — positions, watchlists, conviction memos, journal & performance.',
+    roles: ['admin', 'management'],   // ACCESS MATRIX: management tier only (refine later)
     workspaces: [
       { kind: 'portfolio',     label: 'Positions',     built: true },
       { kind: 'am-cockpit',    label: 'Cockpit',       built: false },
@@ -87,6 +88,11 @@ window.LBC_TERMINALS = LBC_TERMINALS;
 // Kinds that map to a real, live QarsTerminal workspace.
 const LBC_LIVE_KINDS = new Set(['markets','equity-landing','stock','scanners','macro','industry','portfolio','global']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
+
+// Access gating — a terminal with `roles` is restricted to those user roles;
+// no `roles` = open to any authenticated user.
+const lbcCanAccess = (t, user) => !t || !t.roles || (!!user && t.roles.includes(user.role));
+window.lbcCanAccess = lbcCanAccess;
 
 // ================================================================
 // NotYet — placeholder shown for unbuilt workspaces / external apps.
@@ -295,9 +301,11 @@ const HomePage = ({ onSelect, user, onLogout }) => {
         <div className="lbc-grid">
           {LBC_TERMINALS.map(t => {
             const live = t.workspaces.some(w => w.built);
+            const locked = !lbcCanAccess(t, user);
             return (
-              <div key={t.id} className={`lbc-tile ${live ? '' : 'soon'}`} style={{ ['--ac']: t.accent }}
-                   onClick={() => t.external ? (window.location.href = t.external) : onSelect(t.id)} onMouseMove={onTileMove}>
+              <div key={t.id} className={`lbc-tile ${live ? '' : 'soon'} ${locked ? 'locked' : ''}`} style={{ ['--ac']: t.accent }}
+                   onClick={() => { if (locked) return; t.external ? (window.location.href = t.external) : onSelect(t.id); }}
+                   onMouseMove={onTileMove}>
                 <div className="lbc-tile-top">
                   <span className="lbc-ticon">{t.icon}</span>
                   <span className="lbc-tnum">{t.num}</span>
@@ -305,8 +313,8 @@ const HomePage = ({ onSelect, user, onLogout }) => {
                 <div className="lbc-tname">{t.name}</div>
                 <div className="lbc-tdesc">{t.desc}</div>
                 <div className="lbc-tfoot">
-                  <span className={`lbc-badge ${live ? 'live' : ''}`}>{live ? 'Live' : t.external ? 'External' : 'Soon'}</span>
-                  <span className="lbc-tarrow">Open ↗</span>
+                  <span className={`lbc-badge ${locked ? 'locked' : live ? 'live' : ''}`}>{locked ? 'Restricted' : live ? 'Live' : t.external ? 'External' : 'Soon'}</span>
+                  <span className="lbc-tarrow">{locked ? '🔒' : 'Open ↗'}</span>
                 </div>
               </div>
             );
@@ -346,7 +354,11 @@ const LBCShell = () => {
 
   if (stage === 'login') return <LoginPage onAuthed={onAuthed} />;
   if (stage === 'home' || !term) {
-    return <HomePage user={user} onLogout={onLogout} onSelect={(id) => { setTermId(id); setStage('terminal'); }} />;
+    return <HomePage user={user} onLogout={onLogout} onSelect={(id) => {
+      const t = LBC_TERMINALS.find(x => x.id === id);
+      if (t && !lbcCanAccess(t, user)) return; // gate: no access → ignore
+      setTermId(id); setStage('terminal');
+    }} />;
   }
   // Terminal stage — Narin's full app shell, scoped to this terminal's manifest.
   return (

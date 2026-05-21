@@ -109,6 +109,17 @@
   box-shadow:0 18px 40px -22px color-mix(in srgb, var(--ac) 70%, transparent)}
 .lbc-tile.soon{opacity:.66}
 .lbc-tile.soon:hover{transform:translateY(-2px)}
+.lbc-tile.locked{opacity:.42;cursor:not-allowed}
+.lbc-tile.locked:hover{transform:none;border-color:var(--lbc-line);box-shadow:none}
+.lbc-tile.locked:hover::after{opacity:0}
+.lbc-tile.locked .lbc-tarrow{opacity:1;transform:none;font-size:12px}
+.lbc-badge.locked{color:#7e94b8;border-color:var(--lbc-line)}
+
+/* top-left "back to Home/all terminals" control inside every in-shell terminal */
+.lbc-tb-home{background:transparent;border:1px solid var(--lbc-line);color:#8fb4ff;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+  padding:6px 12px;margin-right:12px;cursor:pointer;border-radius:0;white-space:nowrap;flex-shrink:0}
+.lbc-tb-home:hover{color:#dfe9fb;border-color:var(--lbc-blue);background:rgba(111,156,242,.08)}
 .lbc-tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .lbc-ticon{width:40px;height:40px;border-radius:0;display:grid;place-items:center;color:var(--ac);
   border:1px solid color-mix(in srgb, var(--ac) 32%, transparent);
