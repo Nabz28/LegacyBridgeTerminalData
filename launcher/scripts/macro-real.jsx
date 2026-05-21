@@ -15,6 +15,24 @@ const sbRpc = (fn, body, profile) =>
   fetch(SB_BASE + '/rpc/' + fn, { method: 'POST', headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON, 'Content-Type': 'application/json', 'Content-Profile': profile }, body: JSON.stringify(body) })
     .then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
 
+// ---- authed access (per-account dashboard prefs) — uses the LBC session JWT ----
+const lbcSession = () => {
+  try { const s = JSON.parse(localStorage.getItem('lbc_auth') || 'null'); return (s && s.token && s.exp && Date.now() < s.exp) ? s : null; } catch { return null; }
+};
+const lbcToken = () => { const s = lbcSession(); return s ? s.token : null; };
+const lbcSub   = () => { const s = lbcSession(); return s && s.user ? s.user.id : null; };
+const sbAuthGet = (path, profile) => {
+  const t = lbcToken() || SB_ANON;
+  return fetch(SB_BASE + path, { headers: { apikey: SB_ANON, Authorization: 'Bearer ' + t, 'Accept-Profile': profile } })
+    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
+};
+const sbAuthSave = (path, rows, profile) => {
+  const t = lbcToken();
+  if (!t) return Promise.reject('no-auth');
+  return fetch(SB_BASE + path, { method: 'POST', headers: { apikey: SB_ANON, Authorization: 'Bearer ' + t, 'Content-Type': 'application/json', 'Content-Profile': profile, Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(rows) })
+    .then((r) => (r.ok ? true : Promise.reject(r.status)));
+};
+
 const MACRO_COUNTRIES = [{ id: 'us', label: 'US' }, { id: 'id', label: 'ID' }, { id: 'cn', label: 'CN' }];
 
 // ---- CSV download (old terminal "export" function) ----
@@ -332,11 +350,28 @@ const MacroMapTool = () => {
 // shows latest value, change vs prior, a sparkline + "as of" stamp.
 // ================================================================
 const LD_REGIONS = [
-  { id: 'global',    label: 'Global · US' },
-  { id: 'china',     label: 'China' },
-  { id: 'indonesia', label: 'Indonesia' },
+  { id: 'global',      label: 'Global · US' },
+  { id: 'commodities', label: 'Commodities' },
+  { id: 'china',       label: 'China' },
+  { id: 'indonesia',   label: 'Indonesia' },
 ];
-const LD_CAT_LABEL = { rates: 'Rates', inflation: 'Inflation', growth: 'Growth', labor: 'Labor', markets: 'Markets', fx: 'FX', trade: 'Trade' };
+const LD_REGION_LABEL = LD_REGIONS.reduce((m, r) => { m[r.id] = r.label; return m; }, {});
+const LD_CAT_LABEL = { rates: 'Rates', inflation: 'Inflation', growth: 'Growth', labor: 'Labor', markets: 'Markets', fx: 'FX', trade: 'Trade', energy: 'Energy', agriculture: 'Agriculture', metals: 'Metals' };
+
+// Predefined templates the user can toggle. keys=null means "everything".
+// 'custom' is special (per-account selection built with the + picker).
+const LD_TEMPLATES = [
+  { id: 'us_overview', label: 'US Overview',  glyph: '★', keys: ['us_10y', 'us_2s10s', 'us_fed_funds', 'us_cpi', 'us_core_cpi', 'us_unrate', 'sp500', 'vix', 'usd_index', 'wti'] },
+  { id: 'rates',       label: 'Rates',        glyph: '%', keys: ['us_10y', 'us_2s10s', 'us_30y', 'us_fed_funds', 'us_5y_be', 'cn_3m', 'cn_discount', 'id_policy'] },
+  { id: 'inflation',   label: 'Inflation',    glyph: '▲', keys: ['us_cpi', 'us_core_cpi', 'us_5y_be', 'cn_cpi', 'id_cpi'] },
+  { id: 'fx',          label: 'FX',           glyph: '⇄', keys: ['usd_index', 'eur_usd', 'jpy_usd', 'cny_usd', 'gbp_usd', 'id_idr'] },
+  { id: 'energy',      label: 'Energy',       glyph: '⚡', keys: ['wti', 'brent', 'natgas', 'gasoline', 'heating_oil', 'diesel'] },
+  { id: 'agriculture', label: 'Agriculture',  glyph: '❀', keys: ['corn', 'wheat', 'soybeans', 'coffee', 'sugar', 'cotton'] },
+  { id: 'metals',      label: 'Metals',       glyph: '◆', keys: ['gold', 'silver', 'copper', 'aluminum', 'nickel', 'zinc', 'iron_ore'] },
+  { id: 'indo',        label: 'Indo Macro',   glyph: '∎', keys: ['id_cpi', 'id_idr', 'id_policy'] },
+  { id: 'china',       label: 'China Macro',  glyph: '∎', keys: ['cn_cpi', 'cn_3m', 'cn_discount', 'cn_exports'] },
+  { id: 'all',         label: 'Everything',   glyph: '⊞', keys: null },
+];
 
 const ldNum = (v, d) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
 const ldFmtVal = (v, unit) => {
@@ -380,13 +415,14 @@ const LdSpark = ({ data, color }) => {
   );
 };
 
-const LdCard = ({ r }) => {
+const LdCard = ({ r, onRemove }) => {
   const ch = r.change_abs;
   const dir = ch > 0 ? 'up' : ch < 0 ? 'down' : 'flat';
   const col = dir === 'up' ? 'var(--pos,#19C37D)' : dir === 'down' ? 'var(--neg,#FF5C70)' : 'var(--brand,#97AAC5)';
   const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '■';
   return (
     <div className="mld-card">
+      {onRemove && <button className="mld-card-x" title="Remove" onClick={() => onRemove(r.key)}>×</button>}
       <div className="mld-card-top">
         <span className="mld-card-label">{r.label}</span>
         <span className="mld-card-tag">{LD_CAT_LABEL[r.category] || r.category}</span>
@@ -405,12 +441,68 @@ const LdCard = ({ r }) => {
   );
 };
 
-const MacroLiveDashboard = () => {
-  const [rows, setRows] = React.useState(null);
-  const [err, setErr]   = React.useState('');
-  const [filter, setFilter] = React.useState('all');
-  const [tick, setTick] = React.useState(0);
+// Catalog picker — browse every available (live) indicator by country +
+// category and check the ones you want on your dashboard.
+const LdPicker = ({ rows, selected, onClose, onSave }) => {
+  const [draft, setDraft] = React.useState(() => new Set(selected));
+  const [q, setQ] = React.useState('');
+  const toggle = (k) => setDraft((prev) => { const n = new Set(prev); n.has(k) ? n.delete(k) : n.add(k); return n; });
+  const ql = q.trim().toLowerCase();
+  const visible = rows.filter((r) => !ql || (r.label || '').toLowerCase().includes(ql) || r.key.includes(ql) || (r.category || '').includes(ql));
+  return (
+    <div className="mld-modal-bg" onClick={onClose}>
+      <div className="mld-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="mld-modal-h">
+          <span>Add data · {rows.length} live indicators available</span>
+          <button className="mld-modal-x" onClick={onClose}>×</button>
+        </div>
+        <input className="mld-search" placeholder="Search indicators (e.g. gold, cpi, yield)…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <div className="mld-modal-body">
+          {LD_REGIONS.map((rg) => {
+            const items = visible.filter((r) => r.region === rg.id);
+            if (!items.length) return null;
+            const cats = [...new Set(items.map((r) => r.category))];
+            return (
+              <div key={rg.id} className="mld-pick-region">
+                <div className="mld-pick-region-h">{rg.label}</div>
+                {cats.map((cat) => (
+                  <div key={cat} className="mld-pick-cat">
+                    <div className="mld-pick-cat-h">{LD_CAT_LABEL[cat] || cat}</div>
+                    <div className="mld-pick-list">
+                      {items.filter((r) => r.category === cat).map((r) => (
+                        <label key={r.key} className={`mld-pick-item ${draft.has(r.key) ? 'on' : ''}`}>
+                          <input type="checkbox" checked={draft.has(r.key)} onChange={() => toggle(r.key)} />
+                          <span className="mld-pick-name">{r.label}</span>
+                          <span className="mld-pick-val">{ldFmtVal(r.latest_value, r.unit)}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+        <div className="mld-modal-foot">
+          <span className="mld-pick-count">{draft.size} selected</span>
+          <button className="sw-tf" onClick={onClose}>Cancel</button>
+          <button className="mld-save-btn" onClick={() => onSave([...draft])}>Save dashboard</button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
+const MacroLiveDashboard = () => {
+  const [rows, setRows]             = React.useState(null);
+  const [err, setErr]               = React.useState('');
+  const [tick, setTick]             = React.useState(0);
+  const [active, setActive]         = React.useState('us_overview');   // template id | 'custom'
+  const [customKeys, setCustomKeys] = React.useState([]);
+  const [picker, setPicker]         = React.useState(false);
+  const loggedIn = !!lbcToken();
+
+  // catalog (anon)
   React.useEffect(() => {
     let cancelled = false;
     setErr('');
@@ -420,37 +512,74 @@ const MacroLiveDashboard = () => {
     return () => { cancelled = true; };
   }, [tick]);
 
+  // per-account prefs (authed, once)
+  React.useEffect(() => {
+    let cancelled = false;
+    if (!loggedIn) return;
+    sbAuthGet('/user_dashboard?select=active_template,custom_keys&user_sub=eq.' + lbcSub(), 'macro')
+      .then((r) => { if (!cancelled && r && r[0]) { setActive(r[0].active_template || 'us_overview'); setCustomKeys(r[0].custom_keys || []); } })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  const persist = (nextActive, nextCustom) => {
+    if (!loggedIn) return;
+    sbAuthSave('/user_dashboard', [{ user_sub: lbcSub(), active_template: nextActive, custom_keys: nextCustom, updated_at: new Date().toISOString() }], 'macro').catch(() => {});
+  };
+  const chooseTemplate = (id) => { setActive(id); persist(id, customKeys); };
+  const saveCustom = (keys) => { setCustomKeys(keys); setActive('custom'); setPicker(false); persist('custom', keys); };
+  const removeFromCustom = (key) => { const next = customKeys.filter((k) => k !== key); setCustomKeys(next); persist('custom', next); };
+
+  const byKey = rows ? rows.reduce((m, r) => { m[r.key] = r; return m; }, {}) : {};
+  const tmpl = LD_TEMPLATES.find((t) => t.id === active);
+  let shownRows = [];
+  if (rows) {
+    if (active === 'custom') shownRows = customKeys.map((k) => byKey[k]).filter(Boolean);
+    else if (tmpl && tmpl.keys === null) shownRows = rows;                       // Everything
+    else if (tmpl) shownRows = tmpl.keys.map((k) => byKey[k]).filter(Boolean);
+  }
   const lastUpdated = rows && rows.length ? rows.reduce((m, r) => (r.updated_at > m ? r.updated_at : m), '') : '';
-  const regions = LD_REGIONS.filter((rg) => filter === 'all' || rg.id === filter);
 
   return (
     <section className="mc-section mld-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="mc-section-h">
-        <span>Live Macro · global rates, inflation &amp; markets</span>
+        <span>Live Macro · your dashboard</span>
         <span className="mc-section-h-sub">{lastUpdated ? 'updated ' + ldAgo(lastUpdated) + ' · FRED + DBnomics · auto-refreshed daily' : 'FRED + DBnomics'}</span>
       </div>
-      <div className="mld-bar">
-        <div className="mc-chip-row">
-          <button className={`mc-chip ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
-          {LD_REGIONS.map((rg) => <button key={rg.id} className={`mc-chip ${filter === rg.id ? 'active' : ''}`} onClick={() => setFilter(rg.id)}>{rg.label}</button>)}
-        </div>
-        <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => setTick((t) => t + 1)}>↻ Reload</button>
+      <div className="mld-tabs">
+        {LD_TEMPLATES.map((t) => (
+          <button key={t.id} className={`mld-tab ${active === t.id ? 'active' : ''}`} onClick={() => chooseTemplate(t.id)}>
+            <span className="mld-tab-g">{t.glyph}</span>{t.label}
+          </button>
+        ))}
+        <button className={`mld-tab mld-tab-custom ${active === 'custom' ? 'active' : ''}`} onClick={() => { setActive('custom'); persist('custom', customKeys); }}>
+          <span className="mld-tab-g">◇</span>Custom{customKeys.length ? ' · ' + customKeys.length : ''}
+        </button>
+        <button className="mld-add-btn" title="Build a custom view" onClick={() => setPicker(true)}>+ Add data</button>
+        <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => setTick((t) => t + 1)}>↻</button>
       </div>
       <div className="mld-scroll">
         {err && <div className="mc-news-empty" style={{ padding: 30 }}>{err}</div>}
         {!rows && !err && <div className="mc-news-empty" style={{ padding: 30 }}>Loading live macro data…</div>}
-        {rows && rows.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 30 }}>No indicators yet.</div>}
-        {rows && regions.map((rg) => {
-          const items = rows.filter((r) => r.region === rg.id);
+        {rows && active === 'custom' && customKeys.length === 0 && (
+          <div className="mc-news-empty" style={{ padding: 40, textAlign: 'center' }}>
+            Your custom dashboard is empty.<br />
+            <button className="mld-save-btn" style={{ marginTop: 14 }} onClick={() => setPicker(true)}>+ Add data</button>
+          </div>
+        )}
+        {rows && LD_REGIONS.map((rg) => {
+          const items = shownRows.filter((r) => r.region === rg.id);
           if (!items.length) return null;
           return (
             <div key={rg.id} className="mld-region">
               <div className="mld-region-h"><span className="mld-region-bar" />{rg.label}<span className="mld-region-n">{items.length}</span></div>
-              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} />)}</div>
+              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} onRemove={active === 'custom' ? removeFromCustom : null} />)}</div>
             </div>
           );
         })}
+        {rows && !loggedIn && <div className="mld-note">Sign in to save your dashboard across sessions.</div>}
       </div>
+      {picker && rows && <LdPicker rows={rows} selected={shownRows.map((r) => r.key)} onClose={() => setPicker(false)} onSave={saveCustom} />}
     </section>
   );
 };

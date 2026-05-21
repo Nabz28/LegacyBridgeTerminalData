@@ -46,6 +46,36 @@ const CATALOG: Ind[] = [
   { key: "id_cpi", region: "indonesia", category: "inflation", label: "Indonesia CPI", unit: "%", source: "FRED", series_id: "IDNCPIALLMINMEI", transform: "yoy", freq: "monthly", sort: 1 },
   { key: "id_idr", region: "indonesia", category: "fx", label: "IDR / USD", unit: "Rp", source: "FRED", series_id: "CCUSMA02IDM618N", transform: "level", freq: "monthly", sort: 2 },
   { key: "id_policy", region: "indonesia", category: "rates", label: "BI Policy Rate", unit: "%", source: "DBnomics", series_id: "IMF/IFS/M.ID.FPOLM_PA", transform: "level", freq: "monthly", sort: 3 },
+
+  // ---- GLOBAL FX majors (FRED, daily) ----
+  { key: "eur_usd", region: "global", category: "fx", label: "EUR / USD", unit: "", source: "FRED", series_id: "DEXUSEU", transform: "level", freq: "daily", sort: 15 },
+  { key: "jpy_usd", region: "global", category: "fx", label: "USD / JPY", unit: "", source: "FRED", series_id: "DEXJPUS", transform: "level", freq: "daily", sort: 16 },
+  { key: "cny_usd", region: "global", category: "fx", label: "USD / CNY", unit: "", source: "FRED", series_id: "DEXCHUS", transform: "level", freq: "daily", sort: 17 },
+  { key: "gbp_usd", region: "global", category: "fx", label: "GBP / USD", unit: "", source: "FRED", series_id: "DEXUSUK", transform: "level", freq: "daily", sort: 18 },
+
+  // ---- COMMODITIES · Energy (FRED, daily/weekly) ----
+  { key: "brent", region: "commodities", category: "energy", label: "Brent Crude", unit: "$", source: "FRED", series_id: "DCOILBRENTEU", transform: "level", freq: "daily", sort: 1 },
+  { key: "natgas", region: "commodities", category: "energy", label: "Natural Gas · Henry Hub", unit: "$", source: "FRED", series_id: "DHHNGSP", transform: "level", freq: "daily", sort: 2 },
+  { key: "gasoline", region: "commodities", category: "energy", label: "US Gasoline", unit: "$", source: "FRED", series_id: "GASREGW", transform: "level", freq: "weekly", sort: 3 },
+  { key: "heating_oil", region: "commodities", category: "energy", label: "Heating Oil", unit: "$", source: "FRED", series_id: "DHOILNYH", transform: "level", freq: "daily", sort: 4 },
+  { key: "diesel", region: "commodities", category: "energy", label: "US Diesel", unit: "$", source: "FRED", series_id: "GASDESW", transform: "level", freq: "weekly", sort: 5 },
+
+  // ---- COMMODITIES · Agriculture (FRED / IMF global, monthly) ----
+  { key: "corn", region: "commodities", category: "agriculture", label: "Corn · $/mt", unit: "", source: "FRED", series_id: "PMAIZMTUSDM", transform: "level", freq: "monthly", sort: 10 },
+  { key: "wheat", region: "commodities", category: "agriculture", label: "Wheat · $/mt", unit: "", source: "FRED", series_id: "PWHEAMTUSDM", transform: "level", freq: "monthly", sort: 11 },
+  { key: "soybeans", region: "commodities", category: "agriculture", label: "Soybeans · $/mt", unit: "", source: "FRED", series_id: "PSOYBUSDM", transform: "level", freq: "monthly", sort: 12 },
+  { key: "coffee", region: "commodities", category: "agriculture", label: "Coffee · ¢/lb", unit: "", source: "FRED", series_id: "PCOFFOTMUSDM", transform: "level", freq: "monthly", sort: 13 },
+  { key: "sugar", region: "commodities", category: "agriculture", label: "Sugar · ¢/lb", unit: "", source: "FRED", series_id: "PSUGAISAUSDM", transform: "level", freq: "monthly", sort: 14 },
+  { key: "cotton", region: "commodities", category: "agriculture", label: "Cotton · ¢/lb", unit: "", source: "FRED", series_id: "PCOTTINDUSDM", transform: "level", freq: "monthly", sort: 15 },
+
+  // ---- COMMODITIES · Metals (FRED + DBnomics, monthly) ----
+  { key: "gold", region: "commodities", category: "metals", label: "Gold · $/oz", unit: "$", source: "DBnomics", series_id: "IMF/PCPS/M.W00.PGOLD.USD", transform: "level", freq: "monthly", sort: 20 },
+  { key: "silver", region: "commodities", category: "metals", label: "Silver · $/oz", unit: "$", source: "DBnomics", series_id: "IMF/PCPS/M.W00.PSILVER.USD", transform: "level", freq: "monthly", sort: 21 },
+  { key: "copper", region: "commodities", category: "metals", label: "Copper · $/mt", unit: "$", source: "FRED", series_id: "PCOPPUSDM", transform: "level", freq: "monthly", sort: 22 },
+  { key: "aluminum", region: "commodities", category: "metals", label: "Aluminum · $/mt", unit: "$", source: "FRED", series_id: "PALUMUSDM", transform: "level", freq: "monthly", sort: 23 },
+  { key: "nickel", region: "commodities", category: "metals", label: "Nickel · $/mt", unit: "$", source: "FRED", series_id: "PNICKUSDM", transform: "level", freq: "monthly", sort: 24 },
+  { key: "zinc", region: "commodities", category: "metals", label: "Zinc · $/mt", unit: "$", source: "FRED", series_id: "PZINCUSDM", transform: "level", freq: "monthly", sort: 25 },
+  { key: "iron_ore", region: "commodities", category: "metals", label: "Iron Ore · $/dmt", unit: "$", source: "FRED", series_id: "PIORECRUSDM", transform: "level", freq: "monthly", sort: 26 },
 ];
 
 // DBnomics periods come as YYYY (annual), YYYY-MM (monthly), YYYY-Qn
@@ -90,7 +120,7 @@ async function dbnomicsObs(seriesPath: string): Promise<Obs[]> {
   return out;
 }
 
-const sparkLen = (freq: string) => (freq === "daily" ? 60 : freq === "quarterly" ? 16 : 24);
+const sparkLen = (freq: string) => (freq === "daily" ? 60 : freq === "weekly" ? 40 : freq === "quarterly" ? 16 : 24);
 
 // Build the upsert row for one indicator from its (newest-first) observations.
 function buildRow(ind: Ind, obs: Obs[]) {
