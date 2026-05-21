@@ -343,21 +343,56 @@ const MACRO_TOOLS = [
   { id: 'corr',      label: 'Correlation',   glyph: '▦' },
 ];
 
+// Error boundary — a single tool (e.g. the Cesium globe tearing down) can't
+// black out the whole terminal; it shows a retry fallback instead.
+class MtoolBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { err: null }; }
+  static getDerivedStateFromError(err) { return { err }; }
+  componentDidCatch() {}
+  render() {
+    if (this.state.err) {
+      return (
+        <div className="mc-section mc-news-empty" style={{ padding: 40 }}>
+          This tool hit an error.{' '}
+          <button className="sw-tf" onClick={() => this.setState({ err: null })}>Retry</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const macroToolNode = (id) => {
+  if (id === 'dashboard') return <MacroDashboardTool />;
+  if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
+  if (id === 'gather')    return <DataGatherer />;
+  if (id === 'connect')   return window.MacroConnections ? wrapWs(<window.MacroConnections />) : <div className="mc-section mc-news-empty">Connections not loaded.</div>;
+  if (id === 'map')       return window.MacroMap         ? wrapWs(<window.MacroMap />)         : <div className="mc-section mc-news-empty">Map not loaded.</div>;
+  if (id === 'corr')      return <CorrelationTool />;
+  return null;
+};
+
 const MacroTerminal = () => {
   const [tool, setTool] = React.useState('dashboard');
+  const [opened, setOpened] = React.useState(['dashboard']);   // keep-alive set
+  const open = (id) => { setTool(id); setOpened((o) => (o.includes(id) ? o : [...o, id])); };
   return (
     <div className="mtool-shell">
+      {/* Keep-alive: each tool mounts on first open and stays mounted (hidden when
+          inactive). Critical for the Cesium globe — unmounting it threw on teardown
+          and black-screened the app. Also preserves each tool's state on switch. */}
       <div className="mtool-main">
-        {tool === 'dashboard' && <MacroDashboardTool />}
-        {tool === 'news'      && (window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>)}
-        {tool === 'gather'    && <DataGatherer />}
-        {tool === 'connect'   && (window.MacroConnections ? wrapWs(<window.MacroConnections />) : <div className="mc-section mc-news-empty">Connections not loaded.</div>)}
-        {tool === 'map'       && (window.MacroMap         ? wrapWs(<window.MacroMap />)         : <div className="mc-section mc-news-empty">Map not loaded.</div>)}
-        {tool === 'corr'      && <CorrelationTool />}
+        {MACRO_TOOLS.map((t) => (
+          opened.includes(t.id) ? (
+            <div key={t.id} style={{ height: '100%', display: tool === t.id ? 'block' : 'none' }}>
+              <MtoolBoundary>{macroToolNode(t.id)}</MtoolBoundary>
+            </div>
+          ) : null
+        ))}
       </div>
       <div className="mtool-bar">
         {MACRO_TOOLS.map((t) => (
-          <button key={t.id} className={`mtool-btn ${tool === t.id ? 'active' : ''}`} onClick={() => setTool(t.id)} title={t.label}>
+          <button key={t.id} className={`mtool-btn ${tool === t.id ? 'active' : ''}`} onClick={() => open(t.id)} title={t.label}>
             <span className="mtool-glyph">{t.glyph}</span>
             <span className="mtool-label">{t.label}</span>
           </button>
