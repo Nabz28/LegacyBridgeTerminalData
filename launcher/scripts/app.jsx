@@ -680,6 +680,8 @@ const App = ({ qars, terminal, onHome }) => {
               setActiveTab(id);
             }}
           />
+        ) : activeTabObj?.kind === 'macro-lab' ? (
+          <window.MacroLab />
         ) : activeTabObj?.kind === 'macro' ? (
           <MacroWorkspace />
         ) : activeTabObj?.kind === 'industry' ? (

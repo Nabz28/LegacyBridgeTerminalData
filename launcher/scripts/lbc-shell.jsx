@@ -47,9 +47,8 @@ const LBC_TERMINALS = [
       { kind: 'am-perf',       label: 'Performance',   built: false },
     ] },
   { id: 'macro', num: 'T2', name: 'Macro', accent: '#5b8def', icon: LBC_ICONS.macro,
-    desc: 'Bloomberg-style terminal over US, Indonesia & China macro RICs, plus US Reuters Polls.',
-    external: '/macro/dashboard/',
-    workspaces: [ { kind: 'ext-macro', label: 'Macro', built: false } ] },
+    desc: 'Refinitiv macro across US, Indonesia & China — 9,310 indicators, live from Supabase.',
+    workspaces: [ { kind: 'macro-lab', label: 'Indicator Lab', built: true } ] },
   { id: 'correlation', num: 'T3', name: 'Correlation', accent: '#62a0e8', icon: LBC_ICONS.correlation,
     desc: 'Cross-asset correlation matrices from cached weekly & monthly returns, with live compute.',
     external: '/correlation/ui/static/',
@@ -86,7 +85,7 @@ const LBC_TERMINALS = [
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['markets','equity-landing','stock','scanners','macro','industry','portfolio','global']);
+const LBC_LIVE_KINDS = new Set(['markets','equity-landing','stock','scanners','macro','macro-lab','industry','portfolio','global']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating — a terminal with `roles` is restricted to those user roles;
