@@ -296,9 +296,10 @@ const CandleChart = ({
 // ----------------------------------------------------------------
 // AreaChart — for macro indicators (Statista-style filled line)
 // ----------------------------------------------------------------
-const AreaChart = ({ data, height = 220, color = 'var(--brand-steel)', showAxis = true, showLast = true, baseline }) => {
+const AreaChart = ({ data, labels, unit = '', height = 220, color = 'var(--brand-steel)', showAxis = true, showLast = true, baseline }) => {
   const wrapRef = React.useRef(null);
   const [w, setW] = React.useState(600);
+  const [hover, setHover] = React.useState(null);   // { idx, x }
   React.useEffect(() => {
     const ro = new ResizeObserver(entries => {
       for (const e of entries) setW(Math.max(160, e.contentRect.width));
@@ -317,7 +318,8 @@ const AreaChart = ({ data, height = 220, color = 'var(--brand-steel)', showAxis 
   const padR = 8, padT = 8, padB = showAxis ? 18 : 4;
   const innerW = w - padL - padR;
   const innerH = height - padT - padB;
-  const px = (i) => padL + (i / (data.length - 1)) * innerW;
+  const denom = data.length > 1 ? data.length - 1 : 1;
+  const px = (i) => padL + (i / denom) * innerW;
   const py = (v) => padT + (1 - (v - yMin) / (yMax - yMin)) * innerH;
 
   const linePts = data.map((v, i) => `${px(i).toFixed(1)},${py(v).toFixed(1)}`);
@@ -331,9 +333,24 @@ const AreaChart = ({ data, height = 220, color = 'var(--brand-steel)', showAxis 
   const lastY = py(last);
   const baseY = baseline != null ? py(baseline) : null;
 
+  // Crosshair — snap to nearest data point under the cursor.
+  const onMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    let idx = Math.round(((x - padL) / innerW) * denom);
+    idx = Math.max(0, Math.min(data.length - 1, idx));
+    setHover({ idx, x: px(idx) });
+  };
+  const onLeave = () => setHover(null);
+  const fmtVal = (v) => fmt.num(v, Math.abs(v) < 10 ? 2 : 0);
+  // Tooltip x, clamped inside the chart so it never overflows the wrap.
+  const tipW = 132;
+  const tipLeft = hover ? Math.max(padL, Math.min(hover.x - tipW / 2, w - tipW - 4)) : 0;
+
   return (
-    <div ref={wrapRef} style={{ width: '100%' }}>
-      <svg width={w} height={height} style={{ display: 'block' }}>
+    <div ref={wrapRef} style={{ width: '100%', position: 'relative' }}>
+      <svg width={w} height={height} onMouseMove={onMove} onMouseLeave={onLeave}
+           style={{ display: 'block', cursor: 'crosshair' }}>
         <defs>
           <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color} stopOpacity="0.35" />
@@ -360,13 +377,34 @@ const AreaChart = ({ data, height = 220, color = 'var(--brand-steel)', showAxis 
         )}
         <polygon points={areaPts.join(' ')} fill="url(#areaG)" />
         <polyline points={linePts.join(' ')} fill="none" stroke={color} strokeWidth="1.4" />
-        {showLast && (
+        {showLast && !hover && (
           <>
             <circle cx={px(data.length-1)} cy={lastY} r="2.5" fill={color} />
             <circle cx={px(data.length-1)} cy={lastY} r="5" fill={color} opacity="0.18" />
           </>
         )}
+        {/* Crosshair: faded vertical dashed line + point readout */}
+        {hover && (
+          <>
+            <line x1={hover.x} x2={hover.x} y1={padT} y2={padT + innerH}
+                  stroke="rgba(151,170,197,0.45)" strokeWidth="0.8" strokeDasharray="3 3" />
+            <circle cx={hover.x} cy={py(data[hover.idx])} r="6" fill={color} opacity="0.2" />
+            <circle cx={hover.x} cy={py(data[hover.idx])} r="3" fill={color} stroke="#020203" strokeWidth="1" />
+          </>
+        )}
       </svg>
+      {hover && (
+        <div style={{
+          position: 'absolute', top: 4, left: tipLeft, width: tipW,
+          background: 'rgba(0,0,0,0.86)', border: '1px solid var(--border-strong, rgba(255,255,255,0.18))',
+          padding: '5px 8px', borderRadius: 4, pointerEvents: 'none',
+          fontFamily: 'var(--font-mono)', fontSize: 10.5, lineHeight: 1.35,
+          backdropFilter: 'blur(6px)', boxSizing: 'border-box',
+        }}>
+          <div style={{ color: 'var(--text-tertiary)' }}>{labels && labels[hover.idx] != null ? labels[hover.idx] : '#' + hover.idx}</div>
+          <div style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{fmtVal(data[hover.idx])}{unit ? ' ' + unit : ''}</div>
+        </div>
+      )}
     </div>
   );
 };

@@ -810,11 +810,7 @@ const App = ({ qars, terminal, onHome }) => {
             </span>
           </div>
         ))}
-        <div className="btab-new" onClick={() => {
-          const id = `t${Date.now()}`;
-          setTabs([...tabs, { id, title: 'New Workspace', kind: 'markets' }]);
-          setActiveTab(id);
-        }} title="New tab">{I.add}</div>
+        <div className="btab-new" onClick={() => onHome && onHome()} title="Open another terminal — back to Home">{I.add}</div>
         <div className="btabs-spacer"></div>
         <div className="btabs-right">
           <span>{layout.length} widgets</span>

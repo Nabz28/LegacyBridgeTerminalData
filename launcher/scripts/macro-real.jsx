@@ -166,7 +166,9 @@ const DataGatherer = () => {
       .then((rows) => { const m = {}; (rows || []).forEach((r) => { m[r.ric] = r.description; }); setSubLabels(m); }).catch(() => {});
   }, [neighbors]);
 
-  const values = obs.map((o) => o.value).filter((v) => v != null);
+  const paired = obs.filter((o) => o.value != null);
+  const values = paired.map((o) => o.value);
+  const dates  = paired.map((o) => o.date);
   const latest = values.length ? values[values.length - 1] : null;
   const prev   = values.length > 1 ? values[values.length - 2] : null;
   const chg    = latest != null && prev != null ? latest - prev : null;
@@ -247,7 +249,7 @@ const DataGatherer = () => {
                   <span>{(detail && detail.description) || activeRic} · {values.length} points</span>
                   <button className="sw-tf" onClick={exportCsv} disabled={!obs.length}>⤓ CSV</button>
                 </div>
-                {AreaChart && values.length ? <AreaChart data={values} height={250} color="#5B8DEF" /> : <div className="mc-news-empty" style={{ padding: 40 }}>No data</div>}
+                {AreaChart && values.length ? <AreaChart data={values} labels={dates} unit={unit} height={250} color="#5B8DEF" /> : <div className="mc-news-empty" style={{ padding: 40 }}>No data</div>}
               </div>
 
               {/* Skill panel — old terminal structure */}
@@ -542,6 +544,9 @@ const MacroLiveDashboard = () => {
 
   return (
     <section className="mc-section mld-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ borderBottom: '1px solid var(--border-subtle, rgba(255,255,255,0.06))', flex: '0 0 auto' }}>
+        <TVWidget kind="ticker-tape" config={TV_TICKER_CFG} height={46} />
+      </div>
       <div className="mc-section-h">
         <span>Live Macro · your dashboard</span>
         <span className="mc-section-h-sub">{lastUpdated ? 'updated ' + ldAgo(lastUpdated) + ' · FRED + DBnomics · auto-refreshed daily' : 'FRED + DBnomics'}</span>
@@ -587,8 +592,109 @@ const MacroLiveDashboard = () => {
 const MacroDashboardTool = () => <MacroLiveDashboard />;
 const wrapWs = (node) => <div className="mc-workspace" style={{ height: '100%', overflow: 'auto' }}>{node}</div>;
 
+// ================================================================
+// TradingView live widgets — client-side embeds from s3.tradingview.com
+// (same family the Equity stock charts already load via tv.js). These give
+// live intraday market prices the FRED/DBnomics curated cards can't —
+// futures, indices, FX crosses, crypto. Display-only; nothing is stored.
+// ================================================================
+const TVWidget = ({ kind, config, height, minHeight }) => {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const host = ref.current;
+    if (!host) return;
+    host.innerHTML = '';
+    const widget = document.createElement('div');
+    widget.className = 'tradingview-widget-container__widget';
+    widget.style.height = '100%';
+    widget.style.width = '100%';
+    host.appendChild(widget);
+    const s = document.createElement('script');
+    s.src = `https://s3.tradingview.com/external-embedding/embed-widget-${kind}.js`;
+    s.async = true;
+    s.type = 'text/javascript';
+    s.innerHTML = JSON.stringify(config);
+    host.appendChild(s);
+    return () => { host.innerHTML = ''; };
+  }, [kind, JSON.stringify(config)]);
+  return <div className="tradingview-widget-container" ref={ref} style={{ height: height || '100%', minHeight, width: '100%' }} />;
+};
+window.TVWidget = TVWidget;
+
+const TV_TICKER_CFG = {
+  symbols: [
+    { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
+    { proName: 'FOREXCOM:NSXUSD', title: 'Nasdaq 100' },
+    { proName: 'IDX:COMPOSITE', title: 'IDX' },
+    { proName: 'TVC:GOLD', title: 'Gold' },
+    { proName: 'TVC:SILVER', title: 'Silver' },
+    { proName: 'NYMEX:CL1!', title: 'WTI Crude' },
+    { proName: 'TVC:UKOIL', title: 'Brent' },
+    { proName: 'NYMEX:NG1!', title: 'Nat Gas' },
+    { proName: 'COMEX:HG1!', title: 'Copper' },
+    { proName: 'FX_IDC:USDIDR', title: 'USD/IDR' },
+    { proName: 'FX:USDCNH', title: 'USD/CNH' },
+    { proName: 'TVC:DXY', title: 'Dollar Index' },
+    { proName: 'TVC:US10Y', title: 'US 10Y' },
+    { proName: 'BINANCE:BTCUSDT', title: 'BTC' },
+    { proName: 'BINANCE:ETHUSDT', title: 'ETH' },
+  ],
+  colorTheme: 'dark', isTransparent: true, showSymbolLogo: true, displayMode: 'adaptive', locale: 'en',
+};
+
+const TV_OVERVIEW_CFG = {
+  colorTheme: 'dark', dateRange: '12M', showChart: true, locale: 'en',
+  width: '100%', height: '100%', isTransparent: true, showSymbolLogo: true, showFloatingTooltip: true,
+  plotLineColorGrowing: '#19C37D', plotLineColorFalling: '#FF5C70',
+  belowLineFillColorGrowing: 'rgba(25,195,125,0.10)', belowLineFillColorFalling: 'rgba(255,92,112,0.10)',
+  gridLineColor: 'rgba(151,170,197,0.08)', scaleFontColor: '#8E9AB0',
+  tabs: [
+    { title: 'Indices', symbols: [
+      { s: 'FOREXCOM:SPXUSD', d: 'S&P 500' }, { s: 'FOREXCOM:NSXUSD', d: 'Nasdaq 100' }, { s: 'FOREXCOM:DJI', d: 'Dow 30' },
+      { s: 'TVC:RUT', d: 'Russell 2000' }, { s: 'XETR:DAX', d: 'DAX' }, { s: 'TVC:UKX', d: 'FTSE 100' },
+      { s: 'INDEX:NKY', d: 'Nikkei 225' }, { s: 'TVC:HSI', d: 'Hang Seng' }, { s: 'TVC:SSEC', d: 'Shanghai' },
+      { s: 'KRX:KOSPI', d: 'KOSPI' }, { s: 'IDX:COMPOSITE', d: 'IDX Composite' },
+    ] },
+    { title: 'Commodities', symbols: [
+      { s: 'TVC:GOLD', d: 'Gold' }, { s: 'TVC:SILVER', d: 'Silver' }, { s: 'TVC:PLATINUM', d: 'Platinum' }, { s: 'TVC:PALLADIUM', d: 'Palladium' },
+      { s: 'COMEX:HG1!', d: 'Copper' }, { s: 'CBOT:ZC1!', d: 'Corn' }, { s: 'CBOT:ZW1!', d: 'Wheat' }, { s: 'CBOT:ZS1!', d: 'Soybeans' },
+      { s: 'ICEUS:KC1!', d: 'Coffee' }, { s: 'ICEUS:SB1!', d: 'Sugar' }, { s: 'ICEUS:CT1!', d: 'Cotton' }, { s: 'ICEUS:CC1!', d: 'Cocoa' },
+    ] },
+    { title: 'Energy', symbols: [
+      { s: 'NYMEX:CL1!', d: 'WTI Crude' }, { s: 'TVC:UKOIL', d: 'Brent' }, { s: 'NYMEX:NG1!', d: 'Nat Gas' },
+      { s: 'NYMEX:RB1!', d: 'Gasoline' }, { s: 'NYMEX:HO1!', d: 'Heating Oil' }, { s: 'ICEEUR:GAS1!', d: 'UK Nat Gas' },
+    ] },
+    { title: 'Forex', symbols: [
+      { s: 'TVC:DXY', d: 'Dollar Index' }, { s: 'FX:EURUSD', d: 'EUR/USD' }, { s: 'FX:USDJPY', d: 'USD/JPY' }, { s: 'FX:GBPUSD', d: 'GBP/USD' },
+      { s: 'FX:AUDUSD', d: 'AUD/USD' }, { s: 'FX:USDCAD', d: 'USD/CAD' }, { s: 'FX_IDC:USDIDR', d: 'USD/IDR' }, { s: 'FX:USDCNH', d: 'USD/CNH' },
+      { s: 'FX:USDSGD', d: 'USD/SGD' }, { s: 'FX_IDC:USDINR', d: 'USD/INR' },
+    ] },
+    { title: 'Crypto', symbols: [
+      { s: 'BINANCE:BTCUSDT', d: 'Bitcoin' }, { s: 'BINANCE:ETHUSDT', d: 'Ethereum' }, { s: 'BINANCE:SOLUSDT', d: 'Solana' }, { s: 'BINANCE:BNBUSDT', d: 'BNB' },
+      { s: 'BINANCE:XRPUSDT', d: 'XRP' }, { s: 'BINANCE:ADAUSDT', d: 'Cardano' }, { s: 'BINANCE:DOGEUSDT', d: 'Dogecoin' }, { s: 'BINANCE:AVAXUSDT', d: 'Avalanche' },
+    ] },
+    { title: 'Rates', symbols: [
+      { s: 'TVC:US10Y', d: 'US 10Y' }, { s: 'TVC:US02Y', d: 'US 2Y' }, { s: 'TVC:US30Y', d: 'US 30Y' },
+      { s: 'TVC:DE10Y', d: 'Germany 10Y' }, { s: 'TVC:GB10Y', d: 'UK 10Y' }, { s: 'TVC:JP10Y', d: 'Japan 10Y' }, { s: 'TVC:ID10Y', d: 'Indonesia 10Y' },
+    ] },
+  ],
+};
+
+const TVMarketsTool = () => (
+  <section className="mc-section mc-data-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div className="mc-section-h">
+      <span>Live Markets</span>
+      <span className="mc-section-h-sub">TradingView · indices · commodities · energy · FX · crypto · rates — live intraday</span>
+    </div>
+    <div style={{ flex: 1, minHeight: 480, padding: '10px 14px' }}>
+      <TVWidget kind="market-overview" config={TV_OVERVIEW_CFG} height="100%" />
+    </div>
+  </section>
+);
+
 const MACRO_TOOLS = [
   { id: 'dashboard', label: 'Dashboard',     glyph: '◧' },
+  { id: 'markets',   label: 'Live Markets',  glyph: '$' },
   { id: 'news',      label: 'News',          glyph: '❏' },
   { id: 'gather',    label: 'Data Gatherer', glyph: '▤' },
   { id: 'connect',   label: 'Connections',   glyph: '⊚' },
@@ -601,19 +707,28 @@ const MACRO_TOOLS = [
 // macro.graph: nodes (pre-positioned, cluster-colored) + edges
 // (hand = solid + lag label, auto = dashed). Click a node to focus.
 // ================================================================
+// 3 influence link types (part_of is structural — rendered faint, not a "type").
+const MC_EDGE_STYLE = {
+  drives:  { color: '#19C37D', width: 1.7, dashes: false,  arrow: true,  label: 'drives' },
+  leads:   { color: '#5B8DEF', width: 1.4, dashes: false,  arrow: true,  label: 'leads' },
+  related: { color: '#97AAC5', width: 0.9, dashes: [4, 4], arrow: false, label: 'related' },
+};
+
 const MacroConnectionsMap = () => {
   const [country, setCountry] = React.useState('us');
-  const [mode, setMode] = React.useState('condensed');   // condensed | full
   const [status, setStatus] = React.useState('loading');
   const wrapRef = React.useRef(null);
   const netRef = React.useRef(null);
   const roRef = React.useRef(null);
 
+  // Always the curated "condensed" graph — the most important variables per
+  // country. The old full/insane graphs (1000s of nodes) lagged the browser
+  // and were dropped. Edges are typed into 3 influence kinds via MC_EDGE_STYLE.
   React.useEffect(() => {
     let cancelled = false;
     setStatus('loading');
     if (netRef.current) { netRef.current.destroy(); netRef.current = null; }
-    sbGet(`/graph?country=eq.${country}&graph_kind=eq.${mode}&select=payload&limit=1`, 'macro')
+    sbGet(`/graph?country=eq.${country}&graph_kind=eq.condensed&select=payload&limit=1`, 'macro')
       .then((r) => {
         if (cancelled) return;
         const g = r && r[0] && r[0].payload;
@@ -628,15 +743,21 @@ const MacroConnectionsMap = () => {
                    highlight: { background: '#E8E4D9', border: '#fff' } },
           font: { color: '#D4DCEA', size: 12, face: 'Geist, Inter, sans-serif' },
         })));
-        const edges = new vis.DataSet(g.edges.map((e) => ({
-          from: e.source, to: e.target,
-          dashes: e.confidence !== 'hand',
-          label: e.lag_months ? '+' + e.lag_months.join('–') + 'mo' : '',
-          title: e.note || '', arrows: (e.type === 'drives' || e.type === 'leads') ? 'to' : undefined,
-          color: { color: 'rgba(151,170,197,0.40)', highlight: '#8fb4ff' },
-          font: { color: '#8E9AB0', size: 9, strokeWidth: 0, background: 'rgba(2,2,3,0.6)' },
-          width: e.confidence === 'hand' ? 1.5 : 0.7,
-        })));
+        const edges = new vis.DataSet(g.edges.map((e) => {
+          const st = MC_EDGE_STYLE[e.type];
+          if (!st) {   // part_of / structural → faint dotted, no arrow, not a legend type
+            return { from: e.source, to: e.target, dashes: [1, 3], width: 0.4, title: e.note || '',
+                     color: { color: 'rgba(151,170,197,0.16)', highlight: 'rgba(151,170,197,0.45)' } };
+          }
+          return {
+            from: e.source, to: e.target, dashes: st.dashes,
+            label: e.lag_months ? '+' + e.lag_months.join('–') + 'mo' : '',
+            title: e.note || '', arrows: st.arrow ? 'to' : undefined,
+            color: { color: st.color, opacity: 0.55, highlight: st.color },
+            font: { color: '#8E9AB0', size: 9, strokeWidth: 0, background: 'rgba(2,2,3,0.6)' },
+            width: st.width,
+          };
+        }));
         netRef.current = new vis.Network(wrapRef.current, { nodes, edges }, {
           physics: false,
           interaction: { hover: true, tooltipDelay: 120, navigationButtons: false, keyboard: false },
@@ -653,19 +774,26 @@ const MacroConnectionsMap = () => {
       })
       .catch(() => { if (!cancelled) setStatus('error'); });
     return () => { cancelled = true; if (roRef.current) { roRef.current.disconnect(); roRef.current = null; } if (netRef.current) { netRef.current.destroy(); netRef.current = null; } };
-  }, [country, mode]);
+  }, [country]);
 
-  const msg = { loading: 'Loading influence graph…', empty: `No ${mode} graph for ${country.toUpperCase()}`, error: 'Failed to load graph', novis: 'vis-network not loaded' };
+  const msg = { loading: 'Loading influence graph…', empty: `No curated influence map for ${country.toUpperCase()} yet — the hand-authored map currently covers US.`, error: 'Failed to load graph', novis: 'vis-network not loaded' };
 
   return (
     <section className="mc-section mc-data-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="mc-section-h">
         <span>Connections · influence map</span>
-        <span className="mc-section-h-sub">{country.toUpperCase()} · {mode} · {status === 'ok' ? 'drag to pan · scroll to zoom · click a node' : '…'}</span>
+        <span className="mc-section-h-sub">{country.toUpperCase()} · most-important macro variables · {status === 'ok' ? 'drag to pan · scroll to zoom · click a node' : '…'}</span>
       </div>
-      <div style={{ padding: '8px 14px', display: 'flex', gap: 14, alignItems: 'center' }}>
+      <div style={{ padding: '8px 14px', display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
         <div className="mc-chip-row">{MACRO_COUNTRIES.map((c) => <button key={c.id} className={`mc-chip ${country === c.id ? 'active' : ''}`} onClick={() => setCountry(c.id)}>{c.label}</button>)}</div>
-        <div className="mc-chip-row">{['condensed', 'full'].map((m) => <button key={m} className={`mc-chip ${mode === m ? 'active' : ''}`} onClick={() => setMode(m)}>{m}</button>)}</div>
+        <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 10.5, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+          {Object.keys(MC_EDGE_STYLE).map((k) => (
+            <span key={k} style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+              <span style={{ width: 16, height: 0, borderTop: `2px ${MC_EDGE_STYLE[k].dashes ? 'dashed' : 'solid'} ${MC_EDGE_STYLE[k].color}` }} />
+              {MC_EDGE_STYLE[k].label}{MC_EDGE_STYLE[k].arrow ? ' →' : ''}
+            </span>
+          ))}
+        </div>
         <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => netRef.current && netRef.current.fit({ animation: true })}>Fit</button>
       </div>
       <div style={{ flex: 1, minHeight: 440, position: 'relative' }}>
@@ -697,6 +825,7 @@ class MtoolBoundary extends React.Component {
 
 const macroToolNode = (id) => {
   if (id === 'dashboard') return <MacroDashboardTool />;
+  if (id === 'markets')   return <TVMarketsTool />;
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
   if (id === 'connect')   return <MacroConnectionsMap />;
