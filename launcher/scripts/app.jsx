@@ -726,6 +726,10 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           </React.Fragment>
         ) : activeTabObj?.kind === 'am-book' ? (
           window.AssetMgmt ? <window.AssetMgmt /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'network-map' ? (
+          window.NetworkMap ? <window.NetworkMap /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : (activeTabObj?.kind === 'ext-management' || activeTabObj?.kind === 'ext-yggdrasil') ? (
+          <iframe src={activeTabObj.url} title={terminal?.name || 'Embedded'} style={{ width: '100%', height: '100%', border: 0, display: 'block', background: 'var(--bg-0,#020203)' }} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}

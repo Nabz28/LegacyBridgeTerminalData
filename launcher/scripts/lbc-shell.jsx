@@ -60,16 +60,13 @@ const LBC_TERMINALS = [
     ] },
   { id: 'management', num: 'T5', name: 'Management', accent: '#3f72cc', icon: LBC_ICONS.management,
     desc: 'Research lifecycle, KPI tracking & per-analyst scorecards.',
-    external: '/management/',
-    workspaces: [ { kind: 'ext-management', label: 'Management', built: false } ] },
+    workspaces: [ { kind: 'ext-management', label: 'Management', built: true, extra: { url: '/management/' } } ] },
   { id: 'network', num: 'T6', name: 'Network', accent: '#5b8def', icon: LBC_ICONS.network,
     desc: 'Relationship mapper for the LBC team, contacts, clients & talent pipeline.',
-    external: '/network/dashboard/',
-    workspaces: [ { kind: 'ext-network', label: 'Network', built: false } ] },
+    workspaces: [ { kind: 'network-map', label: 'Network', built: true } ] },
   { id: 'yggdrasil', num: 'T7', name: 'Yggdrasil', accent: '#6f9cf2', icon: LBC_ICONS.yggdrasil,
     desc: 'Thesis decomposition tree — theses, hypotheses, scenarios & metrics.',
-    external: '/yggdrasil/',
-    workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: false } ] },
+    workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: true, extra: { url: '/yggdrasil/' } } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
