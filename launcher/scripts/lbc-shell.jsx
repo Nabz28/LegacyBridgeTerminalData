@@ -292,7 +292,7 @@ const HomePage = ({ onSelect, user, onLogout }) => {
             const locked = !lbcCanAccess(t, user);
             return (
               <div key={t.id} className={`lbc-tile ${live ? '' : 'soon'} ${locked ? 'locked' : ''}`} style={{ ['--ac']: t.accent }}
-                   onClick={() => { if (locked) return; t.external ? (window.location.href = t.external) : onSelect(t.id); }}
+                   onClick={() => { if (locked) return; onSelect(t.id); }}
                    onMouseMove={onTileMove}>
                 <div className="lbc-tile-top">
                   <span className="lbc-ticon">{t.icon}</span>
@@ -327,34 +327,98 @@ const readLbcSession = () => {
   return null;
 };
 
+// Browser-style tabs: Home + open terminals live as tabs (Chrome / Refinitiv).
+let _tabSeq = 0;
+const newTabId = () => 'tab' + (++_tabSeq) + Date.now().toString(36);
+const LBC_HOME_ICON = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></svg>
+);
+
 const LBCShell = () => {
   const existing = readLbcSession();
-  const [stage, setStage] = React.useState(existing ? 'home' : 'login'); // 'login' | 'home' | 'terminal'
   const [user, setUser] = React.useState(existing ? existing.user : null);
-  const [termId, setTermId] = React.useState(null);
-  const term = LBC_TERMINALS.find(t => t.id === termId) || null;
+  const [authed, setAuthed] = React.useState(!!existing);
+  const [tabs, setTabs] = React.useState(() => [{ id: newTabId(), type: 'home' }]);
+  const [activeId, setActiveId] = React.useState(() => tabs[0].id);
 
-  const onAuthed = (session) => { setUser(session.user); setStage('home'); };
+  const onAuthed = (session) => { setUser(session.user); setAuthed(true); };
   const onLogout = () => {
     try { localStorage.removeItem(LBC_AUTH.storeKey); } catch {}
-    setUser(null); setTermId(null); setStage('login');
+    const id = newTabId();
+    setUser(null); setAuthed(false); setTabs([{ id, type: 'home' }]); setActiveId(id);
   };
 
-  if (stage === 'login') return <LoginPage onAuthed={onAuthed} />;
-  if (stage === 'home' || !term) {
-    return <HomePage user={user} onLogout={onLogout} onSelect={(id) => {
-      const t = LBC_TERMINALS.find(x => x.id === id);
-      if (t && !lbcCanAccess(t, user)) return; // gate: no access → ignore
-      setTermId(id); setStage('terminal');
-    }} />;
-  }
-  // Terminal stage — Narin's full app shell, scoped to this terminal's manifest.
+  // Open a terminal: external apps -> new browser tab; in-shell terminals ->
+  // focus an existing tab, else convert the active Home tab, else add a tab.
+  const openTerminal = (termId) => {
+    const t = LBC_TERMINALS.find((x) => x.id === termId);
+    if (!t || !lbcCanAccess(t, user)) return;
+    if (t.external) { try { window.open(t.external, '_blank', 'noopener'); } catch { window.location.href = t.external; } return; }
+    const ex = tabs.find((x) => x.type === 'terminal' && x.termId === termId);
+    if (ex) { setActiveId(ex.id); return; }
+    const cur = tabs.find((x) => x.id === activeId);
+    if (cur && cur.type === 'home') {
+      setTabs(tabs.map((x) => (x.id === activeId ? { id: x.id, type: 'terminal', termId } : x)));
+    } else {
+      const id = newTabId();
+      setTabs([...tabs, { id, type: 'terminal', termId }]);
+      setActiveId(id);
+    }
+  };
+  const addTab = () => { const id = newTabId(); setTabs([...tabs, { id, type: 'home' }]); setActiveId(id); };
+  const closeTab = (id) => {
+    const next = tabs.filter((x) => x.id !== id);
+    if (!next.length) { const nid = newTabId(); setTabs([{ id: nid, type: 'home' }]); setActiveId(nid); return; }
+    setTabs(next);
+    if (id === activeId) setActiveId(next[next.length - 1].id);
+  };
+  const goHome = () => { const h = tabs.find((x) => x.type === 'home'); if (h) setActiveId(h.id); else addTab(); };
+
+  if (!authed) return <LoginPage onAuthed={onAuthed} />;
+
   return (
-    <window.AppShell
-      key={term.id}
-      terminal={term}
-      onHome={() => setStage('home')}
-    />
+    <div className="lbc-browser">
+      <div className="lbc-tabstrip">
+        <div className="lbc-tabstrip-brand">LBC</div>
+        <div className="lbc-tabstrip-tabs">
+          {tabs.map((t) => {
+            const term = t.type === 'terminal' ? LBC_TERMINALS.find((x) => x.id === t.termId) : null;
+            return (
+              <div key={t.id} className={`lbc-ttab ${t.id === activeId ? 'active' : ''}`} onClick={() => setActiveId(t.id)} title={term ? term.name : 'Home'}
+                   style={term ? { ['--ac']: term.accent } : null}>
+                <span className="lbc-ttab-ico">{term ? term.icon : LBC_HOME_ICON}</span>
+                <span className="lbc-ttab-name">{term ? term.name : 'Home'}</span>
+                <span className="lbc-ttab-x" onClick={(e) => { e.stopPropagation(); closeTab(t.id); }} title="Close tab">×</span>
+              </div>
+            );
+          })}
+          <button className="lbc-ttab-add" onClick={addTab} title="New tab">+</button>
+        </div>
+        <div className="lbc-tabstrip-sp"></div>
+        {user && <span className="lbc-tabstrip-user">{user.full_name || user.username}{user.role ? ' · ' + user.role : ''}</span>}
+        <span className="lbc-pip"></span>
+        <button className="lbc-logout" onClick={onLogout}>Sign out</button>
+      </div>
+      <div className="lbc-browser-body">
+        {tabs.map((t) => {
+          const isActive = t.id === activeId;
+          if (t.type === 'home') {
+            // Home tabs render only when active (the hero animation + cursor RAF
+            // shouldn't run for hidden tabs); terminals stay mounted to keep state.
+            return isActive ? (
+              <div key={t.id} className="lbc-tabpane"><HomePage user={user} onLogout={onLogout} onSelect={openTerminal} /></div>
+            ) : null;
+          }
+          const term = LBC_TERMINALS.find((x) => x.id === t.termId);
+          if (!term) return null;
+          return (
+            <div key={t.id} className="lbc-tabpane" style={{ display: isActive ? 'block' : 'none' }}>
+              <window.AppShell terminal={term} onHome={goHome} onNewTab={addTab} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 window.LBCShell = LBCShell;

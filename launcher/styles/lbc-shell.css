@@ -356,3 +356,45 @@
   .lbc-flow{animation:none;opacity:0}
   .lbc-cursor-glow,.lbc-gridbg-hi{display:none}
 }
+
+/* ============================================================
+   Browser-style multi-tab shell (Chrome / Refinitiv)
+   ============================================================ */
+.lbc-browser{display:flex;flex-direction:column;height:100vh;background:#050507}
+.lbc-tabstrip{flex-shrink:0;display:flex;align-items:center;gap:8px;height:42px;padding:0 12px;
+  background:#0b0d12;border-bottom:1px solid rgba(255,255,255,.07)}
+.lbc-tabstrip-brand{font-family:'Geist Mono','JetBrains Mono',monospace;font-weight:700;font-size:12px;letter-spacing:.12em;
+  color:#97AAC5;padding-right:8px;border-right:1px solid rgba(255,255,255,.08)}
+.lbc-tabstrip-tabs{display:flex;align-items:center;gap:4px;flex:0 1 auto;overflow-x:auto;scrollbar-width:none}
+.lbc-tabstrip-tabs::-webkit-scrollbar{display:none}
+.lbc-ttab{display:flex;align-items:center;gap:8px;max-width:210px;padding:7px 10px 7px 12px;cursor:pointer;border-radius:8px 8px 0 0;
+  color:#8E9AB0;font-size:12.5px;font-weight:500;border:1px solid transparent;border-bottom:none;position:relative;top:1px;
+  transition:background .14s,color .14s}
+.lbc-ttab:hover{background:rgba(151,170,197,.07);color:#D4DCEA}
+.lbc-ttab.active{background:#050507;color:#EAEFF7;border-color:rgba(255,255,255,.09)}
+.lbc-ttab.active::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;height:2px;border-radius:2px;
+  background:var(--ac,#6f9cf2)}
+.lbc-ttab-ico{display:inline-flex;width:15px;height:15px;flex-shrink:0;color:var(--ac,#97AAC5)}
+.lbc-ttab-ico svg{width:100%;height:100%}
+.lbc-ttab-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbc-ttab-x{flex-shrink:0;width:16px;height:16px;display:grid;place-items:center;border-radius:4px;font-size:14px;line-height:1;
+  color:#5f6b80;opacity:.65;transition:background .14s,color .14s,opacity .14s}
+.lbc-ttab:hover .lbc-ttab-x{opacity:1}
+.lbc-ttab-x:hover{background:rgba(255,92,112,.18);color:#FF5C70}
+.lbc-ttab-add{flex-shrink:0;width:28px;height:28px;display:grid;place-items:center;cursor:pointer;border:none;border-radius:7px;
+  background:transparent;color:#8E9AB0;font-size:18px;line-height:1;transition:background .14s,color .14s}
+.lbc-ttab-add:hover{background:rgba(151,170,197,.12);color:#EAEFF7}
+.lbc-tabstrip-sp{flex:1}
+.lbc-tabstrip-user{font-family:'Geist Mono','JetBrains Mono',monospace;font-size:10.5px;color:#8E9AB0;white-space:nowrap}
+.lbc-tabstrip .lbc-pip{width:6px;height:6px;border-radius:50%;background:#19C37D;box-shadow:0 0 8px #19C37D}
+.lbc-tabstrip .lbc-logout{background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#8E9AB0;
+  font-family:inherit;font-size:11px;padding:4px 10px;cursor:pointer;transition:border-color .14s,color .14s}
+.lbc-tabstrip .lbc-logout:hover{border-color:rgba(255,92,112,.4);color:#FF5C70}
+.lbc-browser-body{flex:1;min-height:0;position:relative}
+.lbc-tabpane{position:absolute;inset:0;overflow:hidden}
+/* the embedded terminal app fills the pane (its own .app is 100vh by default) */
+.lbc-tabpane > .app{height:100%!important}
+/* HomePage stage is position:fixed by default — re-scope it inside the pane so
+   it sits below the tab strip instead of covering the whole viewport. */
+.lbc-tabpane > .lbc-stage{position:absolute!important;inset:0;height:100%}
+.lbc-tabpane .lbc-home{min-height:100%}

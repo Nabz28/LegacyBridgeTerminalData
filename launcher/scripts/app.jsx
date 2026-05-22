@@ -344,7 +344,7 @@ const BackgroundNoise = ({ color, size, density }) => {
 // ================================================================
 // Main App
 // ================================================================
-const App = ({ qars, terminal, onHome }) => {
+const App = ({ qars, terminal, onHome, onNewTab }) => {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [bellOpen, setBellOpen] = useState(false);
   const [alertsOpen, setAlertsOpen] = useState(false);
@@ -810,7 +810,7 @@ const App = ({ qars, terminal, onHome }) => {
             </span>
           </div>
         ))}
-        <div className="btab-new" onClick={() => onHome && onHome()} title="Open another terminal — back to Home">{I.add}</div>
+        <div className="btab-new" onClick={() => onNewTab && onNewTab()} title="New tab">{I.add}</div>
         <div className="btabs-spacer"></div>
         <div className="btabs-right">
           <span>{layout.length} widgets</span>
@@ -946,7 +946,7 @@ const buildPaletteRegistry = ({ openWorkspaceRef, setEditModeRef, openLibraryRef
 // ================================================================
 // Inner app body — has access to Qars hooks
 // ================================================================
-const AppShell = ({ terminal, onHome }) => {
+const AppShell = ({ terminal, onHome, onNewTab }) => {
   const { push } = window.Qars.useToast();
   const { openTicket } = window.Qars.useOrderTicket();
   const { triggeredCount, armedCount } = window.Qars.useAlerts();
@@ -956,7 +956,7 @@ const AppShell = ({ terminal, onHome }) => {
   const liveTime = window.Qars.formatClock(clock, settings.timezone);
   const tz = window.Qars.tzAbbr[settings.timezone] || 'UTC';
 
-  return <App qars={{ push, openTicket, triggeredCount, armedCount, session, liveTime, tz }} terminal={terminal} onHome={onHome} />;
+  return <App qars={{ push, openTicket, triggeredCount, armedCount, session, liveTime, tz }} terminal={terminal} onHome={onHome} onNewTab={onNewTab} />;
 };
 window.AppShell = AppShell;
 
