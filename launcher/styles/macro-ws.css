@@ -2364,6 +2364,10 @@
 .mld-card-click { cursor: pointer; transition: border-color .15s, transform .15s; }
 .mld-card-click:hover { border-color: rgba(151,170,197,.34); transform: translateY(-2px); }
 
+/* subcategory grouping within a region on the macro dashboard */
+.mld-sub { margin: 6px 0 14px; }
+.mld-sub-h { font-family: 'Geist Mono','JetBrains Mono',monospace; font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-tertiary,#8E9AB0); margin: 0 0 8px 2px; opacity: .85; }
+
 /* Live Markets — TradingView widget + clickable deep-dive rail */
 .mtv-wrap { flex: 1; min-height: 0; display: flex; gap: 0; }
 .mtv-widget { flex: 1; min-width: 0; min-height: 480px; padding: 10px 14px; }

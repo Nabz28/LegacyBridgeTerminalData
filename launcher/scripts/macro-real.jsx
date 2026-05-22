@@ -446,26 +446,35 @@ const MacroMapTool = () => {
 // shows latest value, change vs prior, a sparkline + "as of" stamp.
 // ================================================================
 const LD_REGIONS = [
-  { id: 'global',      label: 'Global · US' },
-  { id: 'commodities', label: 'Commodities' },
-  { id: 'china',       label: 'China' },
-  { id: 'indonesia',   label: 'Indonesia' },
+  { id: 'United States',  label: 'United States' },
+  { id: 'Global',         label: 'Global · DM' },
+  { id: 'Indonesia',      label: 'Indonesia' },
+  { id: 'China',          label: 'China' },
+  { id: 'Commodities',    label: 'Commodities' },
+  { id: 'FX',             label: 'FX' },
+  { id: 'Equity Indices', label: 'Equity Indices' },
+  { id: 'Rates',          label: 'Rates' },
+  { id: 'Crypto',         label: 'Crypto' },
 ];
 const LD_REGION_LABEL = LD_REGIONS.reduce((m, r) => { m[r.id] = r.label; return m; }, {});
-const LD_CAT_LABEL = { rates: 'Rates', inflation: 'Inflation', growth: 'Growth', labor: 'Labor', markets: 'Markets', fx: 'FX', trade: 'Trade', energy: 'Energy', agriculture: 'Agriculture', metals: 'Metals' };
+// category now holds the human-readable subcategory ("Monetary & Rates", "Energy"…);
+// LD_CAT_LABEL is just a passthrough fallback.
+const LD_CAT_LABEL = {};
 
 // Predefined templates the user can toggle. keys=null means "everything".
 // 'custom' is special (per-account selection built with the + picker).
 const LD_TEMPLATES = [
-  { id: 'us_overview', label: 'US Overview',  glyph: '★', keys: ['us_10y', 'us_2s10s', 'us_fed_funds', 'us_cpi', 'us_core_cpi', 'us_unrate', 'sp500', 'vix', 'usd_index', 'wti'] },
-  { id: 'rates',       label: 'Rates',        glyph: '%', keys: ['us_10y', 'us_2s10s', 'us_30y', 'us_fed_funds', 'us_5y_be', 'cn_3m', 'cn_discount', 'id_policy'] },
-  { id: 'inflation',   label: 'Inflation',    glyph: '▲', keys: ['us_cpi', 'us_core_cpi', 'us_5y_be', 'cn_cpi', 'id_cpi'] },
-  { id: 'fx',          label: 'FX',           glyph: '⇄', keys: ['usd_index', 'eur_usd', 'jpy_usd', 'cny_usd', 'gbp_usd', 'id_idr'] },
-  { id: 'energy',      label: 'Energy',       glyph: '⚡', keys: ['wti', 'brent', 'natgas', 'gasoline', 'heating_oil', 'diesel'] },
-  { id: 'agriculture', label: 'Agriculture',  glyph: '❀', keys: ['corn', 'wheat', 'soybeans', 'coffee', 'sugar', 'cotton'] },
-  { id: 'metals',      label: 'Metals',       glyph: '◆', keys: ['gold', 'silver', 'copper', 'aluminum', 'nickel', 'zinc', 'iron_ore'] },
-  { id: 'indo',        label: 'Indo Macro',   glyph: '∎', keys: ['id_cpi', 'id_idr', 'id_policy'] },
-  { id: 'china',       label: 'China Macro',  glyph: '∎', keys: ['cn_cpi', 'cn_3m', 'cn_discount', 'cn_exports'] },
+  { id: 'us_overview', label: 'US Overview',  glyph: '★', keys: ['us_10y', 'us_2s10s', 'us_fed_funds', 'us_cpi', 'us_core_cpi', 'us_unrate', 'spx', 'vix', 'dxy', 'wti', 'gold', 'btc'] },
+  { id: 'rates',       label: 'Rates',        glyph: '%', keys: ['us_3m', 'us_2y', 'us_5y', 'us_10y', 'us_30y', 'us_2s10s', 'us_be_10y', 'ea_10y', 'jp_10y', 'uk_10y'] },
+  { id: 'inflation',   label: 'Inflation',    glyph: '▲', keys: ['us_cpi', 'us_core_cpi', 'us_pce', 'us_core_pce', 'ea_hicp', 'uk_cpi', 'jp_cpi', 'id_cpi_yoy', 'cn_cpi_yoy'] },
+  { id: 'fx',          label: 'FX',           glyph: '⇄', keys: ['dxy', 'eurusd', 'usdjpy', 'gbpusd', 'usdcny', 'usdidr', 'usdinr'] },
+  { id: 'energy',      label: 'Energy',       glyph: '⚡', keys: ['wti', 'brent', 'natgas', 'gasoline', 'heating_oil'] },
+  { id: 'metals',      label: 'Metals',       glyph: '◆', keys: ['gold', 'silver', 'platinum', 'palladium', 'copper', 'aluminum', 'iron_ore', 'steel_hrc'] },
+  { id: 'agriculture', label: 'Agriculture',  glyph: '❀', keys: ['corn', 'wheat', 'soybeans', 'coffee', 'sugar', 'cocoa', 'cotton'] },
+  { id: 'indices',     label: 'Indices',      glyph: '▦', keys: ['spx', 'ndx', 'dji', 'dax', 'ftse', 'nikkei', 'hsi', 'csi300', 'jci', 'nifty', 'vix'] },
+  { id: 'crypto',      label: 'Crypto',       glyph: '◇', keys: ['btc', 'eth', 'sol', 'bnb', 'xrp', 'ada', 'doge', 'avax'] },
+  { id: 'indo',        label: 'Indonesia',    glyph: '∎', keys: ['id_bi_rate', 'id_cpi_yoy', 'id_gdp_real_q', 'id_exports', 'id_imports', 'id_fx_reserves', 'id_m2', 'usdidr', 'jci'] },
+  { id: 'china',       label: 'China',        glyph: '∎', keys: ['cn_policy_rate', 'cn_cpi_yoy', 'cn_ip_yoy', 'cn_retail_yoy', 'cn_pmi_mfg', 'cn_m2_yoy', 'cn_exports_usd', 'shcomp'] },
   { id: 'all',         label: 'Everything',   glyph: '⊞', keys: null },
 ];
 
@@ -670,10 +679,19 @@ const MacroLiveDashboard = () => {
         {rows && LD_REGIONS.map((rg) => {
           const items = shownRows.filter((r) => r.region === rg.id);
           if (!items.length) return null;
+          // group the region's items by subcategory (the `category` field)
+          const subs = [];
+          items.forEach((it) => { let s = subs.find((x) => x.cat === it.category); if (!s) { s = { cat: it.category, items: [] }; subs.push(s); } s.items.push(it); });
+          const mkOpen = (row) => setDetail({ source: row.source, id: row.series_id, title: row.label, sub: row.source + ' · ' + (LD_REGION_LABEL[row.region] || row.region) + ' · ' + (LD_CAT_LABEL[row.category] || row.category), unit: row.unit, tvSymbol: row.tv_symbol || (row.source === 'YAHOO' ? '' : '') });
           return (
             <div key={rg.id} className="mld-region">
               <div className="mld-region-h"><span className="mld-region-bar" />{rg.label}<span className="mld-region-n">{items.length}</span></div>
-              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} onRemove={active === 'custom' ? removeFromCustom : null} onOpen={(row) => setDetail({ source: row.source, id: row.series_id, title: row.label, sub: row.source + ' · ' + (LD_REGION_LABEL[row.region] || row.region) + ' · ' + (LD_CAT_LABEL[row.category] || row.category), unit: row.unit })} />)}</div>
+              {subs.map((s) => (
+                <div key={s.cat} className="mld-sub">
+                  <div className="mld-sub-h">{s.cat}</div>
+                  <div className="mld-grid">{s.items.map((r) => <LdCard key={r.key} r={r} onRemove={active === 'custom' ? removeFromCustom : null} onOpen={mkOpen} />)}</div>
+                </div>
+              ))}
             </div>
           );
         })}
