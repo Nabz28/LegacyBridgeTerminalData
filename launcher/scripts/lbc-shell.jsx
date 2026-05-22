@@ -252,16 +252,8 @@ const HomePage = ({ onSelect, user, onLogout }) => {
       <div className="lbc-cursor-glow" ref={glowRef}></div>
 
       <div className="lbc-home">
-        <div className="lbc-home-bar">
-          <div><b>LBC · LEGACY BRIDGE TERMINAL</b> · v1</div>
-          <div className="r">
-            {user ? <span className="lbc-user">{user.full_name || user.username}{user.role ? ' · ' + user.role : ''}</span> : <span>SELECT A TERMINAL</span>}
-            <span className="lbc-pip"></span>
-            <span>ONLINE</span>
-            {user && <button className="lbc-logout" onClick={onLogout}>Sign out</button>}
-          </div>
-        </div>
-
+        {/* The top tab strip (LBCShell) now carries identity + Sign out for every
+            window, so the Home page's own bar would be a duplicate — removed. */}
         <div className="lbc-hero">
           <div className="lbc-bridgewrap">
             <svg viewBox="3 77 425 172" aria-label="Legacy Bridge Capital">
