@@ -50,48 +50,57 @@ const downloadCsv = (filename, rows) => {
 // Yahoo), shown in the Data-Gatherer crosshair chart with CSV export.
 // ================================================================
 const SERIES_PROXY = 'https://adnubucjlezrtusbicja.supabase.co/functions/v1/series-proxy';
+const SERIES_RANGES = [{ k: '1y', l: '1Y' }, { k: '5y', l: '5Y' }, { k: 'all', l: 'All' }];
 const SeriesDetailModal = ({ title, sub, source, id, unit, onClose }) => {
   const { AreaChart } = window.ChartLib || {};
   const fmt = window.fmt || { num: (v, d = 2) => Number(v).toFixed(d) };
+  const isY = source === 'YAHOO';
+  const [range, setRange] = React.useState('all');     // 1y | 5y | all
   const [obs, setObs] = React.useState(null);
   const [err, setErr] = React.useState('');
   React.useEffect(() => {
     let cancelled = false; setObs(null); setErr('');
-    fetch(`${SERIES_PROXY}?source=${encodeURIComponent(source)}&id=${encodeURIComponent(id)}`, { headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON } })
+    // Yahoo: re-fetch per range so 1Y/5Y come back daily (max returns monthly).
+    const yqs = isY ? (range === '1y' ? '&range=1y&interval=1d' : range === '5y' ? '&range=5y&interval=1d' : '&range=max&interval=1mo') : '';
+    fetch(`${SERIES_PROXY}?source=${encodeURIComponent(source)}&id=${encodeURIComponent(id)}${yqs}`, { headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON } })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => { if (cancelled) return; if (d.error) { setErr(d.error); setObs([]); } else setObs(d.obs || []); })
       .catch((c) => { if (!cancelled) { setErr('Fetch failed (' + c + ')'); setObs([]); } });
     return () => { cancelled = true; };
-  }, [source, id]);
-  // Downsample the DRAWN line for perf (FRED daily series can be 16k+ points);
-  // CSV export and the latest read keep the full series.
-  const full = obs || [];
+  }, [source, id, isY ? range : 'all']);   // FRED/DBnomics fetch once; filter client-side
+  const all = obs || [];
+  // FRED/DBnomics: filter the full series client-side; Yahoo is already server-ranged.
+  const filtered = (!isY && range !== 'all' && all.length)
+    ? (() => { const cut = new Date(); cut.setFullYear(cut.getFullYear() - (range === '1y' ? 1 : 5)); const cs = cut.toISOString().slice(0, 10); return all.filter((o) => o.date >= cs); })()
+    : all;
+  // Downsample the DRAWN line for perf (FRED daily can be 16k+); CSV keeps the filtered series.
   const MAXPTS = 1500;
-  const shown = full.length > MAXPTS
-    ? (() => { const out = []; const step = full.length / MAXPTS; for (let i = 0; i < MAXPTS; i++) out.push(full[Math.floor(i * step)]); out.push(full[full.length - 1]); return out; })()
-    : full;
+  const shown = filtered.length > MAXPTS
+    ? (() => { const out = []; const step = filtered.length / MAXPTS; for (let i = 0; i < MAXPTS; i++) out.push(filtered[Math.floor(i * step)]); out.push(filtered[filtered.length - 1]); return out; })()
+    : filtered;
   const values = shown.map((o) => o.value);
   const dates = shown.map((o) => o.date);
-  const latest = full.length ? full[full.length - 1].value : null;
-  const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...full.map((o) => [o.date, o.value])]);
+  const latest = all.length ? all[all.length - 1].value : null;
+  const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...filtered.map((o) => [o.date, o.value])]);
   return (
     <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(2,2,3,.7)', backdropFilter: 'blur(4px)', display: 'grid', placeItems: 'center', padding: 30 }}>
       <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(1120px,96vw)', height: 'min(660px,90vh)', display: 'flex', flexDirection: 'column', background: 'var(--bg-1,#0A0A0B)', border: '1px solid var(--border-default,rgba(255,255,255,.12))', borderRadius: 12, boxShadow: '0 24px 70px rgba(0,0,0,.6)' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '16px 22px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.07))' }}>
           <div>
             <div style={{ fontWeight: 600, fontSize: 15.5, color: '#EAEFF7', letterSpacing: '-.01em' }}>{title}</div>
-            <div style={{ fontSize: 11.5, color: 'var(--text-tertiary,#8E9AB0)', marginTop: 3 }}>{sub}{obs ? ` · ${obs.length} points` : ''}{latest != null ? ` · latest ${fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0)}${unit ? ' ' + unit : ''}` : ''}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--text-tertiary,#8E9AB0)', marginTop: 3 }}>{sub}{obs ? ` · ${filtered.length} points` : ''}{latest != null ? ` · latest ${fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0)}${unit ? ' ' + unit : ''}` : ''}</div>
           </div>
           <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <button className="sw-tf" onClick={exportCsv} disabled={!obs || !obs.length}>⤓ CSV</button>
+            <div className="mtv-range">{SERIES_RANGES.map((r) => <button key={r.k} className={`mtv-range-btn ${range === r.k ? 'active' : ''}`} onClick={() => setRange(r.k)}>{r.l}</button>)}</div>
+            <button className="sw-tf" onClick={exportCsv} disabled={!obs || !filtered.length}>⤓ CSV</button>
             <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-tertiary,#8E9AB0)', fontSize: 22, cursor: 'pointer', lineHeight: 1 }}>×</button>
           </div>
         </div>
         <div style={{ flex: 1, minHeight: 0, padding: '18px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          {!obs && !err && <div className="mc-news-empty" style={{ padding: 50 }}>Loading full history…</div>}
+          {!obs && !err && <div className="mc-news-empty" style={{ padding: 50 }}>Loading history…</div>}
           {err && <div className="mc-news-empty" style={{ padding: 50 }}>{err}</div>}
-          {obs && obs.length > 0 && AreaChart && <AreaChart data={values} labels={dates} unit={unit} height={460} color="#5B8DEF" />}
-          {obs && obs.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 50 }}>No data available for this series.</div>}
+          {obs && values.length > 0 && AreaChart && <AreaChart data={values} labels={dates} unit={unit} height={460} color="#5B8DEF" />}
+          {obs && values.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 50 }}>No data for this range.</div>}
         </div>
       </div>
     </div>

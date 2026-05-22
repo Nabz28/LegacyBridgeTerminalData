@@ -57,8 +57,8 @@ async function dbnomicsObs(id: string): Promise<Obs[]> {
   return out;
 }
 
-async function yahooObs(ticker: string): Promise<Obs[]> {
-  const u = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=max`;
+async function yahooObs(ticker: string, range = "max", interval = "1d"): Promise<Obs[]> {
+  const u = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${encodeURIComponent(interval)}&range=${encodeURIComponent(range)}`;
   const r = await fetch(u, { headers: { "User-Agent": "Mozilla/5.0 (compatible; LBC-series/1.0)" } });
   if (!r.ok) throw new Error(`Yahoo ${ticker} HTTP ${r.status}`);
   const j = await r.json();
@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     let obs: Obs[];
     if (source === "FRED") { if (!FRED_KEY) return json({ error: "FRED_API_KEY not set" }, 500); obs = await fredObs(id); }
     else if (source === "DBNOMICS") obs = await dbnomicsObs(id);
-    else if (source === "YAHOO") obs = await yahooObs(id);
+    else if (source === "YAHOO") obs = await yahooObs(id, url.searchParams.get("range") || "max", url.searchParams.get("interval") || "1d");
     else return json({ error: "source must be FRED|DBNOMICS|YAHOO" }, 400);
     return json({ source, id, count: obs.length, obs });
   } catch (e) {
