@@ -50,57 +50,87 @@ const downloadCsv = (filename, rows) => {
 // Yahoo), shown in the Data-Gatherer crosshair chart with CSV export.
 // ================================================================
 const SERIES_PROXY = 'https://adnubucjlezrtusbicja.supabase.co/functions/v1/series-proxy';
-const SERIES_RANGES = [{ k: '1y', l: '1Y' }, { k: '5y', l: '5Y' }, { k: 'all', l: 'All' }];
-const SeriesDetailModal = ({ title, sub, source, id, unit, onClose }) => {
+const SERIES_RANGES = [{ k: '1y', l: '1Y' }, { k: '2y', l: '2Y' }, { k: '5y', l: '5Y' }, { k: '10y', l: '10Y' }, { k: 'max', l: 'Max' }];
+const SERIES_INTERVALS = [{ k: '1d', l: 'D' }, { k: '1wk', l: 'W' }, { k: '1mo', l: 'M' }];
+const RANGE_YEARS = { '1y': 1, '2y': 2, '5y': 5, '10y': 10 };
+const TV_INTERVAL = { '1d': 'D', '1wk': 'W', '1mo': 'M' };
+const TV_RANGE = { '1y': '12M', '2y': '60M', '5y': '60M', '10y': 'ALL', 'max': 'ALL' };
+const _wkKey = (ds) => { const d = new Date(ds + 'T00:00:00Z'); const day = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - day); return d.toISOString().slice(0, 10); };
+const resampleObs = (arr, interval) => {
+  if (interval === '1d' || arr.length < 2) return arr;
+  const keyfn = interval === '1mo' ? (o) => o.date.slice(0, 7) : (o) => _wkKey(o.date);
+  const m = new Map(); arr.forEach((o) => m.set(keyfn(o), o));   // ascending -> last per bucket
+  return [...m.values()];
+};
+
+// title, sub, source(FRED|DBnomics|YAHOO), id, unit, tvSymbol(optional), onClose
+const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) => {
   const { AreaChart } = window.ChartLib || {};
   const fmt = window.fmt || { num: (v, d = 2) => Number(v).toFixed(d) };
   const isY = source === 'YAHOO';
-  const [range, setRange] = React.useState('all');     // 1y | 5y | all
+  const [range, setRange] = React.useState('5y');
+  const [interval, setIntervalState] = React.useState('1d');
   const [obs, setObs] = React.useState(null);
   const [err, setErr] = React.useState('');
   React.useEffect(() => {
     let cancelled = false; setObs(null); setErr('');
-    // Yahoo: re-fetch per range so 1Y/5Y come back daily (max returns monthly).
-    const yqs = isY ? (range === '1y' ? '&range=1y&interval=1d' : range === '5y' ? '&range=5y&interval=1d' : '&range=max&interval=1mo') : '';
+    // Yahoo: server returns the exact range+interval. FRED/DBnomics: fetch full once, shape client-side.
+    const yqs = isY ? `&range=${range}&interval=${interval}` : '';
     fetch(`${SERIES_PROXY}?source=${encodeURIComponent(source)}&id=${encodeURIComponent(id)}${yqs}`, { headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON } })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => { if (cancelled) return; if (d.error) { setErr(d.error); setObs([]); } else setObs(d.obs || []); })
       .catch((c) => { if (!cancelled) { setErr('Fetch failed (' + c + ')'); setObs([]); } });
     return () => { cancelled = true; };
-  }, [source, id, isY ? range : 'all']);   // FRED/DBnomics fetch once; filter client-side
+  }, [source, id, isY ? range + '|' + interval : 'x']);
   const all = obs || [];
-  // FRED/DBnomics: filter the full series client-side; Yahoo is already server-ranged.
-  const filtered = (!isY && range !== 'all' && all.length)
-    ? (() => { const cut = new Date(); cut.setFullYear(cut.getFullYear() - (range === '1y' ? 1 : 5)); const cs = cut.toISOString().slice(0, 10); return all.filter((o) => o.date >= cs); })()
-    : all;
-  // Downsample the DRAWN line for perf (FRED daily can be 16k+); CSV keeps the filtered series.
+  // FRED/DBnomics: filter by range + resample to the chosen interval client-side. Yahoo is server-shaped.
+  let series = all;
+  if (!isY && all.length) {
+    if (range !== 'max') { const cut = new Date(); cut.setFullYear(cut.getFullYear() - (RANGE_YEARS[range] || 5)); const cs = cut.toISOString().slice(0, 10); series = all.filter((o) => o.date >= cs); }
+    series = resampleObs(series, interval);
+  }
   const MAXPTS = 1500;
-  const shown = filtered.length > MAXPTS
-    ? (() => { const out = []; const step = filtered.length / MAXPTS; for (let i = 0; i < MAXPTS; i++) out.push(filtered[Math.floor(i * step)]); out.push(filtered[filtered.length - 1]); return out; })()
-    : filtered;
+  const shown = series.length > MAXPTS
+    ? (() => { const out = []; const step = series.length / MAXPTS; for (let i = 0; i < MAXPTS; i++) out.push(series[Math.floor(i * step)]); out.push(series[series.length - 1]); return out; })()
+    : series;
   const values = shown.map((o) => o.value);
   const dates = shown.map((o) => o.date);
   const latest = all.length ? all[all.length - 1].value : null;
-  const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...filtered.map((o) => [o.date, o.value])]);
+  const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...series.map((o) => [o.date, o.value])]);
+  const tvCfg = tvSymbol ? {
+    symbol: tvSymbol, interval: TV_INTERVAL[interval] || 'D', range: TV_RANGE[range] || '60M',
+    theme: 'dark', style: '2', locale: 'en', autosize: true, hide_side_toolbar: true, allow_symbol_change: false,
+    save_image: false, backgroundColor: 'rgba(10,10,11,1)', gridColor: 'rgba(151,170,197,0.06)',
+  } : null;
   return (
-    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(2,2,3,.7)', backdropFilter: 'blur(4px)', display: 'grid', placeItems: 'center', padding: 30 }}>
-      <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(1120px,96vw)', height: 'min(660px,90vh)', display: 'flex', flexDirection: 'column', background: 'var(--bg-1,#0A0A0B)', border: '1px solid var(--border-default,rgba(255,255,255,.12))', borderRadius: 12, boxShadow: '0 24px 70px rgba(0,0,0,.6)' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '16px 22px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.07))' }}>
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(2,2,3,.7)', backdropFilter: 'blur(4px)', display: 'grid', placeItems: 'center', padding: 24 }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(1280px,97vw)', height: 'min(720px,92vh)', display: 'flex', flexDirection: 'column', background: 'var(--bg-1,#0A0A0B)', border: '1px solid var(--border-default,rgba(255,255,255,.12))', borderRadius: 12, boxShadow: '0 24px 70px rgba(0,0,0,.6)' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.07))' }}>
           <div>
             <div style={{ fontWeight: 600, fontSize: 15.5, color: '#EAEFF7', letterSpacing: '-.01em' }}>{title}</div>
-            <div style={{ fontSize: 11.5, color: 'var(--text-tertiary,#8E9AB0)', marginTop: 3 }}>{sub}{obs ? ` · ${filtered.length} points` : ''}{latest != null ? ` · latest ${fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0)}${unit ? ' ' + unit : ''}` : ''}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--text-tertiary,#8E9AB0)', marginTop: 3 }}>{sub}{obs ? ` · ${series.length} points` : ''}{latest != null ? ` · latest ${fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0)}${unit ? ' ' + unit : ''}` : ''}</div>
           </div>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            <div className="mtv-range">{SERIES_RANGES.map((r) => <button key={r.k} className={`mtv-range-btn ${range === r.k ? 'active' : ''}`} onClick={() => setRange(r.k)}>{r.l}</button>)}</div>
-            <button className="sw-tf" onClick={exportCsv} disabled={!obs || !filtered.length}>⤓ CSV</button>
-            <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-tertiary,#8E9AB0)', fontSize: 22, cursor: 'pointer', lineHeight: 1 }}>×</button>
-          </div>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-tertiary,#8E9AB0)', fontSize: 22, cursor: 'pointer', lineHeight: 1 }}>×</button>
         </div>
-        <div style={{ flex: 1, minHeight: 0, padding: '18px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          {!obs && !err && <div className="mc-news-empty" style={{ padding: 50 }}>Loading history…</div>}
-          {err && <div className="mc-news-empty" style={{ padding: 50 }}>{err}</div>}
-          {obs && values.length > 0 && AreaChart && <AreaChart data={values} labels={dates} unit={unit} height={460} color="#5B8DEF" />}
-          {obs && values.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 50 }}>No data for this range.</div>}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '10px 20px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.05))' }}>
+          <div className="mtv-range">{SERIES_RANGES.map((r) => <button key={r.k} className={`mtv-range-btn ${range === r.k ? 'active' : ''}`} onClick={() => setRange(r.k)}>{r.l}</button>)}</div>
+          <div className="mtv-range">{SERIES_INTERVALS.map((iv) => <button key={iv.k} className={`mtv-range-btn ${interval === iv.k ? 'active' : ''}`} onClick={() => setIntervalState(iv.k)}>{iv.l}</button>)}</div>
+          <span style={{ flex: 1 }} />
+          <button className="sw-tf" onClick={exportCsv} disabled={!obs || !series.length}>⤓ CSV</button>
+        </div>
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', gap: 12, padding: '14px 18px' }}>
+          <div style={{ flex: tvCfg ? 1.35 : 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            {!obs && !err && <div className="mc-news-empty" style={{ padding: 40 }}>Loading history…</div>}
+            {err && <div className="mc-news-empty" style={{ padding: 40 }}>{err}</div>}
+            {obs && values.length > 0 && AreaChart && <AreaChart data={values} labels={dates} unit={unit} height={tvCfg ? 480 : 500} color="#5B8DEF" />}
+            {obs && values.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 40 }}>No data for this range.</div>}
+          </div>
+          {tvCfg && window.TVWidget && (
+            <div style={{ flex: 1, minWidth: 320, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--text-tertiary,#8E9AB0)', marginBottom: 6 }}>⚡ TradingView · live</div>
+              <div style={{ flex: 1, minHeight: 0 }}><window.TVWidget kind="advanced-chart" config={tvCfg} height="100%" /></div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -650,7 +680,7 @@ const MacroLiveDashboard = () => {
         {rows && !loggedIn && <div className="mld-note">Sign in to save your dashboard across sessions.</div>}
       </div>
       {picker && rows && <LdPicker rows={rows} selected={shownRows.map((r) => r.key)} onClose={() => setPicker(false)} onSave={saveCustom} />}
-      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} onClose={() => setDetail(null)} />}
+      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} tvSymbol={detail.tvSymbol} onClose={() => setDetail(null)} />}
     </section>
   );
 };
@@ -751,29 +781,29 @@ const TV_OVERVIEW_CFG = {
 // be intercepted, so this is our own clickable layer over the same names).
 const TV_DEEPDIVE = [
   { cat: 'Indices', items: [
-    { label: 'S&P 500', y: '^GSPC' }, { label: 'Nasdaq 100', y: '^NDX' }, { label: 'Dow 30', y: '^DJI' }, { label: 'Russell 2000', y: '^RUT' },
-    { label: 'DAX', y: '^GDAXI' }, { label: 'FTSE 100', y: '^FTSE' }, { label: 'Nikkei 225', y: '^N225' }, { label: 'Hang Seng', y: '^HSI' },
-    { label: 'Shanghai', y: '000001.SS' }, { label: 'KOSPI', y: '^KS11' }, { label: 'IDX Composite', y: '^JKSE' },
+    { label: 'S&P 500', y: '^GSPC', tv: 'FOREXCOM:SPXUSD' }, { label: 'Nasdaq 100', y: '^NDX', tv: 'FOREXCOM:NSXUSD' }, { label: 'Dow 30', y: '^DJI', tv: 'FOREXCOM:DJI' }, { label: 'Russell 2000', y: '^RUT', tv: 'TVC:RUT' },
+    { label: 'DAX', y: '^GDAXI', tv: 'XETR:DAX' }, { label: 'FTSE 100', y: '^FTSE', tv: 'TVC:UKX' }, { label: 'Nikkei 225', y: '^N225', tv: 'INDEX:NKY' }, { label: 'Hang Seng', y: '^HSI', tv: 'TVC:HSI' },
+    { label: 'Shanghai', y: '000001.SS', tv: 'TVC:SSEC' }, { label: 'KOSPI', y: '^KS11', tv: 'KRX:KOSPI' }, { label: 'IDX Composite', y: '^JKSE', tv: 'IDX:COMPOSITE' },
   ] },
   { cat: 'Commodities', items: [
-    { label: 'Gold', y: 'GC=F' }, { label: 'Silver', y: 'SI=F' }, { label: 'Platinum', y: 'PL=F' }, { label: 'Palladium', y: 'PA=F' },
-    { label: 'Copper', y: 'HG=F' }, { label: 'Corn', y: 'ZC=F' }, { label: 'Wheat', y: 'ZW=F' }, { label: 'Soybeans', y: 'ZS=F' },
-    { label: 'Coffee', y: 'KC=F' }, { label: 'Sugar', y: 'SB=F' }, { label: 'Cotton', y: 'CT=F' }, { label: 'Cocoa', y: 'CC=F' },
+    { label: 'Gold', y: 'GC=F', tv: 'TVC:GOLD' }, { label: 'Silver', y: 'SI=F', tv: 'TVC:SILVER' }, { label: 'Platinum', y: 'PL=F', tv: 'TVC:PLATINUM' }, { label: 'Palladium', y: 'PA=F', tv: 'TVC:PALLADIUM' },
+    { label: 'Copper', y: 'HG=F', tv: 'CAPITALCOM:COPPER' }, { label: 'Corn', y: 'ZC=F', tv: 'CAPITALCOM:CORN' }, { label: 'Wheat', y: 'ZW=F', tv: 'CAPITALCOM:WHEAT' }, { label: 'Soybeans', y: 'ZS=F', tv: 'CAPITALCOM:SOYBEANS' },
+    { label: 'Coffee', y: 'KC=F', tv: 'CAPITALCOM:COFFEE' }, { label: 'Sugar', y: 'SB=F', tv: 'CAPITALCOM:SUGAR' }, { label: 'Cotton', y: 'CT=F', tv: 'CAPITALCOM:COTTON' }, { label: 'Cocoa', y: 'CC=F', tv: 'CAPITALCOM:COCOA' },
   ] },
   { cat: 'Energy', items: [
-    { label: 'WTI Crude', y: 'CL=F' }, { label: 'Brent', y: 'BZ=F' }, { label: 'Nat Gas', y: 'NG=F' }, { label: 'Gasoline', y: 'RB=F' }, { label: 'Heating Oil', y: 'HO=F' },
+    { label: 'WTI Crude', y: 'CL=F', tv: 'TVC:USOIL' }, { label: 'Brent', y: 'BZ=F', tv: 'TVC:UKOIL' }, { label: 'Nat Gas', y: 'NG=F', tv: 'CAPITALCOM:NATURALGAS' }, { label: 'Gasoline', y: 'RB=F', tv: 'CAPITALCOM:GASOLINE' }, { label: 'Heating Oil', y: 'HO=F', tv: 'NYMEX:HO1!' },
   ] },
   { cat: 'Forex', items: [
-    { label: 'Dollar Index', y: 'DX-Y.NYB' }, { label: 'EUR/USD', y: 'EURUSD=X' }, { label: 'USD/JPY', y: 'JPY=X' }, { label: 'GBP/USD', y: 'GBPUSD=X' },
-    { label: 'AUD/USD', y: 'AUDUSD=X' }, { label: 'USD/CAD', y: 'CAD=X' }, { label: 'USD/IDR', y: 'IDR=X' }, { label: 'USD/CNH', y: 'CNH=X' },
-    { label: 'USD/SGD', y: 'SGD=X' }, { label: 'USD/INR', y: 'INR=X' },
+    { label: 'Dollar Index', y: 'DX-Y.NYB', tv: 'TVC:DXY' }, { label: 'EUR/USD', y: 'EURUSD=X', tv: 'FX:EURUSD' }, { label: 'USD/JPY', y: 'JPY=X', tv: 'FX:USDJPY' }, { label: 'GBP/USD', y: 'GBPUSD=X', tv: 'FX:GBPUSD' },
+    { label: 'AUD/USD', y: 'AUDUSD=X', tv: 'FX:AUDUSD' }, { label: 'USD/CAD', y: 'CAD=X', tv: 'FX:USDCAD' }, { label: 'USD/IDR', y: 'IDR=X', tv: 'FX_IDC:USDIDR' }, { label: 'USD/CNH', y: 'CNH=X', tv: 'FX:USDCNH' },
+    { label: 'USD/SGD', y: 'SGD=X', tv: 'FX:USDSGD' }, { label: 'USD/INR', y: 'INR=X', tv: 'FX_IDC:USDINR' },
   ] },
   { cat: 'Crypto', items: [
-    { label: 'Bitcoin', y: 'BTC-USD' }, { label: 'Ethereum', y: 'ETH-USD' }, { label: 'Solana', y: 'SOL-USD' }, { label: 'BNB', y: 'BNB-USD' },
-    { label: 'XRP', y: 'XRP-USD' }, { label: 'Cardano', y: 'ADA-USD' }, { label: 'Dogecoin', y: 'DOGE-USD' }, { label: 'Avalanche', y: 'AVAX-USD' },
+    { label: 'Bitcoin', y: 'BTC-USD', tv: 'BINANCE:BTCUSDT' }, { label: 'Ethereum', y: 'ETH-USD', tv: 'BINANCE:ETHUSDT' }, { label: 'Solana', y: 'SOL-USD', tv: 'BINANCE:SOLUSDT' }, { label: 'BNB', y: 'BNB-USD', tv: 'BINANCE:BNBUSDT' },
+    { label: 'XRP', y: 'XRP-USD', tv: 'BINANCE:XRPUSDT' }, { label: 'Cardano', y: 'ADA-USD', tv: 'BINANCE:ADAUSDT' }, { label: 'Dogecoin', y: 'DOGE-USD', tv: 'BINANCE:DOGEUSDT' }, { label: 'Avalanche', y: 'AVAX-USD', tv: 'BINANCE:AVAXUSDT' },
   ] },
   { cat: 'Rates', items: [
-    { label: 'US 10Y', y: '^TNX' }, { label: 'US 5Y', y: '^FVX' }, { label: 'US 30Y', y: '^TYX' }, { label: 'US 13W', y: '^IRX' },
+    { label: 'US 10Y', y: '^TNX', tv: 'TVC:US10Y' }, { label: 'US 5Y', y: '^FVX', tv: 'TVC:US05Y' }, { label: 'US 30Y', y: '^TYX', tv: 'TVC:US30Y' }, { label: 'US 13W', y: '^IRX', tv: 'TVC:US03MY' },
   ] },
 ];
 
@@ -794,26 +824,48 @@ const TVMarketsTool = () => {
               <div className="mtv-grp-h">{g.cat}</div>
               <div className="mtv-grp-items">
                 {g.items.map((it) => (
-                  <button key={it.y} className="mtv-item" onClick={() => setDetail({ source: 'YAHOO', id: it.y, title: it.label, sub: 'Yahoo history · ' + it.y, unit: '' })}>{it.label}</button>
+                  <button key={it.y} className="mtv-item" onClick={() => setDetail({ source: 'YAHOO', id: it.y, title: it.label, sub: 'Yahoo history · ' + it.y, unit: '', tvSymbol: it.tv })}>{it.label}</button>
                 ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} onClose={() => setDetail(null)} />}
+      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} tvSymbol={detail.tvSymbol} onClose={() => setDetail(null)} />}
     </section>
   );
 };
 
+// One subterminal: live macro (FRED/DBnomics cards) + live markets (TradingView)
+// behind a Macro/Markets toggle, both kept mounted. Every item opens the same
+// enhanced detail modal (full history · 1Y–10Y · D/W/M · CSV · live TV chart).
+const MacroMarketsTool = () => {
+  const [view, setView] = React.useState('macro');
+  return (
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 14, padding: '10px 18px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.06))' }}>
+        <span style={{ fontWeight: 600, fontSize: 14, color: '#EAEFF7' }}>Markets &amp; Macro</span>
+        <div className="mtv-range">
+          <button className={`mtv-range-btn ${view === 'macro' ? 'active' : ''}`} onClick={() => setView('macro')}>Macro</button>
+          <button className={`mtv-range-btn ${view === 'markets' ? 'active' : ''}`} onClick={() => setView('markets')}>Markets</button>
+        </div>
+        <span style={{ marginLeft: 'auto', fontSize: 10.5, color: 'var(--text-tertiary,#8E9AB0)', fontFamily: 'var(--font-mono)' }}>click any data → full history · 1Y–10Y · D/W/M · CSV · live</span>
+      </div>
+      <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
+        <div style={{ position: 'absolute', inset: 0, display: view === 'macro' ? 'block' : 'none', overflow: 'hidden' }}><MacroLiveDashboard /></div>
+        <div style={{ position: 'absolute', inset: 0, display: view === 'markets' ? 'flex' : 'none', flexDirection: 'column' }}><TVMarketsTool /></div>
+      </div>
+    </div>
+  );
+};
+
 const MACRO_TOOLS = [
-  { id: 'dashboard', label: 'Dashboard',     glyph: '◧' },
-  { id: 'markets',   label: 'Live Markets',  glyph: '$' },
-  { id: 'news',      label: 'News',          glyph: '❏' },
-  { id: 'gather',    label: 'Data Gatherer', glyph: '▤' },
-  { id: 'connect',   label: 'Connections',   glyph: '⊚' },
-  { id: 'map',       label: 'Map · Globe',   glyph: '◍' },
-  { id: 'corr',      label: 'Correlation',   glyph: '▦' },
+  { id: 'data',    label: 'Markets & Macro', glyph: '◧' },
+  { id: 'news',    label: 'News',            glyph: '❏' },
+  { id: 'gather',  label: 'Data Gatherer',   glyph: '▤' },
+  { id: 'connect', label: 'Connections',     glyph: '⊚' },
+  { id: 'map',     label: 'Map · Globe',     glyph: '◍' },
+  { id: 'corr',    label: 'Correlation',     glyph: '▦' },
 ];
 
 // ================================================================
@@ -938,8 +990,7 @@ class MtoolBoundary extends React.Component {
 }
 
 const macroToolNode = (id) => {
-  if (id === 'dashboard') return <MacroDashboardTool />;
-  if (id === 'markets')   return <TVMarketsTool />;
+  if (id === 'data')      return <MacroMarketsTool />;
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
   if (id === 'connect')   return <MacroConnectionsMap />;
@@ -949,8 +1000,8 @@ const macroToolNode = (id) => {
 };
 
 const MacroTerminal = () => {
-  const [tool, setTool] = React.useState('dashboard');
-  const [opened, setOpened] = React.useState(['dashboard']);   // keep-alive set
+  const [tool, setTool] = React.useState('data');
+  const [opened, setOpened] = React.useState(['data']);   // keep-alive set
   const open = (id) => { setTool(id); setOpened((o) => (o.includes(id) ? o : [...o, id])); };
   return (
     <div className="mtool-shell">
