@@ -97,7 +97,14 @@ const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) 
   const dates = shown.map((o) => o.date);
   const latest = all.length ? all[all.length - 1].value : null;
   const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...series.map((o) => [o.date, o.value])]);
-  const tvCfg = tvSymbol ? {
+  // Some TradingView symbols (non-US sovereign yields + a few data symbols) are
+  // restricted in the free embed widget ("only available on TradingView"). A
+  // personal Premium account can't unlock the anonymous embed, so we skip the
+  // embed for those (our own data chart already covers them) and offer an
+  // "Open in TradingView ↗" deep link instead (opens in the user's TV login).
+  const tvBlocked = tvSymbol && SeriesDetailModal.EMBED_BLOCK.has(tvSymbol);
+  const tvUrl = tvSymbol ? 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(tvSymbol) : null;
+  const tvCfg = (tvSymbol && !tvBlocked) ? {
     symbol: tvSymbol, interval: TV_INTERVAL[interval] || 'D', range: TV_RANGE[range] || '60M',
     theme: 'dark', style: '2', locale: 'en', autosize: true, hide_side_toolbar: true, allow_symbol_change: false,
     save_image: false, backgroundColor: 'rgba(10,10,11,1)', gridColor: 'rgba(151,170,197,0.06)',
@@ -116,6 +123,7 @@ const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) 
           <div className="mtv-range">{SERIES_RANGES.map((r) => <button key={r.k} className={`mtv-range-btn ${range === r.k ? 'active' : ''}`} onClick={() => setRange(r.k)}>{r.l}</button>)}</div>
           <div className="mtv-range">{SERIES_INTERVALS.map((iv) => <button key={iv.k} className={`mtv-range-btn ${interval === iv.k ? 'active' : ''}`} onClick={() => setIntervalState(iv.k)}>{iv.l}</button>)}</div>
           <span style={{ flex: 1 }} />
+          {tvUrl && <a href={tvUrl} target="_blank" rel="noopener" className="sw-tf" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }} title={tvBlocked ? 'This symbol charts on TradingView (free embed restricted) — opens in your TV session' : 'Open this symbol on TradingView'}>Open in TradingView ↗</a>}
           <button className="sw-tf" onClick={exportCsv} disabled={!obs || !series.length}>⤓ CSV</button>
         </div>
         <div style={{ flex: 1, minHeight: 0, display: 'flex', gap: 12, padding: '14px 18px' }}>
@@ -136,6 +144,10 @@ const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) 
     </div>
   );
 };
+// TradingView symbols restricted in the free embed widget ("only available on
+// TradingView") — non-US sovereign yields + a few data symbols. We skip the
+// embed for these and rely on our own data chart + the Open-in-TradingView link.
+SeriesDetailModal.EMBED_BLOCK = new Set(['TVC:JP10Y', 'TVC:DE10Y', 'TVC:GB10Y', 'TVC:ID10Y', 'TVC:CN10Y', 'TVC:IN10Y', 'TVC:BR10Y', 'TVC:FR10Y', 'TVC:IT10Y']);
 window.SeriesDetailModal = SeriesDetailModal;
 
 // ================================================================
