@@ -45,6 +45,61 @@ const downloadCsv = (filename, rows) => {
 };
 
 // ================================================================
+// SeriesDetailModal — click a Dashboard card or a Live Markets row to
+// pull the FULL history (via the series-proxy edge fn: FRED / DBnomics /
+// Yahoo), shown in the Data-Gatherer crosshair chart with CSV export.
+// ================================================================
+const SERIES_PROXY = 'https://adnubucjlezrtusbicja.supabase.co/functions/v1/series-proxy';
+const SeriesDetailModal = ({ title, sub, source, id, unit, onClose }) => {
+  const { AreaChart } = window.ChartLib || {};
+  const fmt = window.fmt || { num: (v, d = 2) => Number(v).toFixed(d) };
+  const [obs, setObs] = React.useState(null);
+  const [err, setErr] = React.useState('');
+  React.useEffect(() => {
+    let cancelled = false; setObs(null); setErr('');
+    fetch(`${SERIES_PROXY}?source=${encodeURIComponent(source)}&id=${encodeURIComponent(id)}`, { headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON } })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => { if (cancelled) return; if (d.error) { setErr(d.error); setObs([]); } else setObs(d.obs || []); })
+      .catch((c) => { if (!cancelled) { setErr('Fetch failed (' + c + ')'); setObs([]); } });
+    return () => { cancelled = true; };
+  }, [source, id]);
+  // Downsample the DRAWN line for perf (FRED daily series can be 16k+ points);
+  // CSV export and the latest read keep the full series.
+  const full = obs || [];
+  const MAXPTS = 1500;
+  const shown = full.length > MAXPTS
+    ? (() => { const out = []; const step = full.length / MAXPTS; for (let i = 0; i < MAXPTS; i++) out.push(full[Math.floor(i * step)]); out.push(full[full.length - 1]); return out; })()
+    : full;
+  const values = shown.map((o) => o.value);
+  const dates = shown.map((o) => o.date);
+  const latest = full.length ? full[full.length - 1].value : null;
+  const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...full.map((o) => [o.date, o.value])]);
+  return (
+    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(2,2,3,.7)', backdropFilter: 'blur(4px)', display: 'grid', placeItems: 'center', padding: 30 }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ width: 'min(1120px,96vw)', height: 'min(660px,90vh)', display: 'flex', flexDirection: 'column', background: 'var(--bg-1,#0A0A0B)', border: '1px solid var(--border-default,rgba(255,255,255,.12))', borderRadius: 12, boxShadow: '0 24px 70px rgba(0,0,0,.6)' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '16px 22px', borderBottom: '1px solid var(--border-subtle,rgba(255,255,255,.07))' }}>
+          <div>
+            <div style={{ fontWeight: 600, fontSize: 15.5, color: '#EAEFF7', letterSpacing: '-.01em' }}>{title}</div>
+            <div style={{ fontSize: 11.5, color: 'var(--text-tertiary,#8E9AB0)', marginTop: 3 }}>{sub}{obs ? ` · ${obs.length} points` : ''}{latest != null ? ` · latest ${fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0)}${unit ? ' ' + unit : ''}` : ''}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <button className="sw-tf" onClick={exportCsv} disabled={!obs || !obs.length}>⤓ CSV</button>
+            <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-tertiary,#8E9AB0)', fontSize: 22, cursor: 'pointer', lineHeight: 1 }}>×</button>
+          </div>
+        </div>
+        <div style={{ flex: 1, minHeight: 0, padding: '18px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          {!obs && !err && <div className="mc-news-empty" style={{ padding: 50 }}>Loading full history…</div>}
+          {err && <div className="mc-news-empty" style={{ padding: 50 }}>{err}</div>}
+          {obs && obs.length > 0 && AreaChart && <AreaChart data={values} labels={dates} unit={unit} height={460} color="#5B8DEF" />}
+          {obs && obs.length === 0 && !err && <div className="mc-news-empty" style={{ padding: 50 }}>No data available for this series.</div>}
+        </div>
+      </div>
+    </div>
+  );
+};
+window.SeriesDetailModal = SeriesDetailModal;
+
+// ================================================================
 // MacroSubMap — per-variable influence sub-map (drivers / driven / related)
 // ================================================================
 const MacroSubMap = ({ centerRic, centerName, neighbors, labels, onPick }) => {
@@ -417,14 +472,14 @@ const LdSpark = ({ data, color }) => {
   );
 };
 
-const LdCard = ({ r, onRemove }) => {
+const LdCard = ({ r, onRemove, onOpen }) => {
   const ch = r.change_abs;
   const dir = ch > 0 ? 'up' : ch < 0 ? 'down' : 'flat';
   const col = dir === 'up' ? 'var(--pos,#19C37D)' : dir === 'down' ? 'var(--neg,#FF5C70)' : 'var(--brand,#97AAC5)';
   const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '■';
   return (
-    <div className="mld-card">
-      {onRemove && <button className="mld-card-x" title="Remove" onClick={() => onRemove(r.key)}>×</button>}
+    <div className={`mld-card ${onOpen ? 'mld-card-click' : ''}`} onClick={() => onOpen && onOpen(r)} title={onOpen ? 'Open full history' : ''}>
+      {onRemove && <button className="mld-card-x" title="Remove" onClick={(e) => { e.stopPropagation(); onRemove(r.key); }}>×</button>}
       <div className="mld-card-top">
         <span className="mld-card-label">{r.label}</span>
         <span className="mld-card-tag">{LD_CAT_LABEL[r.category] || r.category}</span>
@@ -502,6 +557,7 @@ const MacroLiveDashboard = () => {
   const [active, setActive]         = React.useState('us_overview');   // template id | 'custom'
   const [customKeys, setCustomKeys] = React.useState([]);
   const [picker, setPicker]         = React.useState(false);
+  const [detail, setDetail]         = React.useState(null);   // clicked card -> full-history modal
   const loggedIn = !!lbcToken();
 
   // catalog (anon)
@@ -578,13 +634,14 @@ const MacroLiveDashboard = () => {
           return (
             <div key={rg.id} className="mld-region">
               <div className="mld-region-h"><span className="mld-region-bar" />{rg.label}<span className="mld-region-n">{items.length}</span></div>
-              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} onRemove={active === 'custom' ? removeFromCustom : null} />)}</div>
+              <div className="mld-grid">{items.map((r) => <LdCard key={r.key} r={r} onRemove={active === 'custom' ? removeFromCustom : null} onOpen={(row) => setDetail({ source: row.source, id: row.series_id, title: row.label, sub: row.source + ' · ' + (LD_REGION_LABEL[row.region] || row.region) + ' · ' + (LD_CAT_LABEL[row.category] || row.category), unit: row.unit })} />)}</div>
             </div>
           );
         })}
         {rows && !loggedIn && <div className="mld-note">Sign in to save your dashboard across sessions.</div>}
       </div>
       {picker && rows && <LdPicker rows={rows} selected={shownRows.map((r) => r.key)} onClose={() => setPicker(false)} onSave={saveCustom} />}
+      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} onClose={() => setDetail(null)} />}
     </section>
   );
 };
@@ -628,10 +685,10 @@ const TV_TICKER_CFG = {
     { proName: 'IDX:COMPOSITE', title: 'IDX' },
     { proName: 'TVC:GOLD', title: 'Gold' },
     { proName: 'TVC:SILVER', title: 'Silver' },
-    { proName: 'NYMEX:CL1!', title: 'WTI Crude' },
+    { proName: 'TVC:USOIL', title: 'WTI Crude' },
     { proName: 'TVC:UKOIL', title: 'Brent' },
-    { proName: 'NYMEX:NG1!', title: 'Nat Gas' },
-    { proName: 'COMEX:HG1!', title: 'Copper' },
+    { proName: 'CAPITALCOM:NATURALGAS', title: 'Nat Gas' },
+    { proName: 'CAPITALCOM:COPPER', title: 'Copper' },
     { proName: 'FX_IDC:USDIDR', title: 'USD/IDR' },
     { proName: 'FX:USDCNH', title: 'USD/CNH' },
     { proName: 'TVC:DXY', title: 'Dollar Index' },
@@ -657,12 +714,12 @@ const TV_OVERVIEW_CFG = {
     ] },
     { title: 'Commodities', symbols: [
       { s: 'TVC:GOLD', d: 'Gold' }, { s: 'TVC:SILVER', d: 'Silver' }, { s: 'TVC:PLATINUM', d: 'Platinum' }, { s: 'TVC:PALLADIUM', d: 'Palladium' },
-      { s: 'COMEX:HG1!', d: 'Copper' }, { s: 'CBOT:ZC1!', d: 'Corn' }, { s: 'CBOT:ZW1!', d: 'Wheat' }, { s: 'CBOT:ZS1!', d: 'Soybeans' },
-      { s: 'ICEUS:KC1!', d: 'Coffee' }, { s: 'ICEUS:SB1!', d: 'Sugar' }, { s: 'ICEUS:CT1!', d: 'Cotton' }, { s: 'ICEUS:CC1!', d: 'Cocoa' },
+      { s: 'CAPITALCOM:COPPER', d: 'Copper' }, { s: 'CAPITALCOM:CORN', d: 'Corn' }, { s: 'CAPITALCOM:WHEAT', d: 'Wheat' }, { s: 'CAPITALCOM:SOYBEANS', d: 'Soybeans' },
+      { s: 'CAPITALCOM:COFFEE', d: 'Coffee' }, { s: 'CAPITALCOM:SUGAR', d: 'Sugar' }, { s: 'CAPITALCOM:COTTON', d: 'Cotton' }, { s: 'CAPITALCOM:COCOA', d: 'Cocoa' },
     ] },
     { title: 'Energy', symbols: [
-      { s: 'NYMEX:CL1!', d: 'WTI Crude' }, { s: 'TVC:UKOIL', d: 'Brent' }, { s: 'NYMEX:NG1!', d: 'Nat Gas' },
-      { s: 'NYMEX:RB1!', d: 'Gasoline' }, { s: 'NYMEX:HO1!', d: 'Heating Oil' }, { s: 'ICEEUR:GAS1!', d: 'UK Nat Gas' },
+      { s: 'TVC:USOIL', d: 'WTI Crude' }, { s: 'TVC:UKOIL', d: 'Brent' }, { s: 'CAPITALCOM:NATURALGAS', d: 'Nat Gas' },
+      { s: 'CAPITALCOM:GASOLINE', d: 'Gasoline' },
     ] },
     { title: 'Forex', symbols: [
       { s: 'TVC:DXY', d: 'Dollar Index' }, { s: 'FX:EURUSD', d: 'EUR/USD' }, { s: 'FX:USDJPY', d: 'USD/JPY' }, { s: 'FX:GBPUSD', d: 'GBP/USD' },
@@ -680,17 +737,65 @@ const TV_OVERVIEW_CFG = {
   ],
 };
 
-const TVMarketsTool = () => (
-  <section className="mc-section mc-data-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-    <div className="mc-section-h">
-      <span>Live Markets</span>
-      <span className="mc-section-h-sub">TradingView · indices · commodities · energy · FX · crypto · rates — live intraday</span>
-    </div>
-    <div style={{ flex: 1, minHeight: 480, padding: '10px 14px' }}>
-      <TVWidget kind="market-overview" config={TV_OVERVIEW_CFG} height="100%" />
-    </div>
-  </section>
-);
+// Deep-dive catalog — same instruments mapped to Yahoo tickers. Clicking a
+// chip opens the full-history detail modal (TradingView's iframe rows can't
+// be intercepted, so this is our own clickable layer over the same names).
+const TV_DEEPDIVE = [
+  { cat: 'Indices', items: [
+    { label: 'S&P 500', y: '^GSPC' }, { label: 'Nasdaq 100', y: '^NDX' }, { label: 'Dow 30', y: '^DJI' }, { label: 'Russell 2000', y: '^RUT' },
+    { label: 'DAX', y: '^GDAXI' }, { label: 'FTSE 100', y: '^FTSE' }, { label: 'Nikkei 225', y: '^N225' }, { label: 'Hang Seng', y: '^HSI' },
+    { label: 'Shanghai', y: '000001.SS' }, { label: 'KOSPI', y: '^KS11' }, { label: 'IDX Composite', y: '^JKSE' },
+  ] },
+  { cat: 'Commodities', items: [
+    { label: 'Gold', y: 'GC=F' }, { label: 'Silver', y: 'SI=F' }, { label: 'Platinum', y: 'PL=F' }, { label: 'Palladium', y: 'PA=F' },
+    { label: 'Copper', y: 'HG=F' }, { label: 'Corn', y: 'ZC=F' }, { label: 'Wheat', y: 'ZW=F' }, { label: 'Soybeans', y: 'ZS=F' },
+    { label: 'Coffee', y: 'KC=F' }, { label: 'Sugar', y: 'SB=F' }, { label: 'Cotton', y: 'CT=F' }, { label: 'Cocoa', y: 'CC=F' },
+  ] },
+  { cat: 'Energy', items: [
+    { label: 'WTI Crude', y: 'CL=F' }, { label: 'Brent', y: 'BZ=F' }, { label: 'Nat Gas', y: 'NG=F' }, { label: 'Gasoline', y: 'RB=F' }, { label: 'Heating Oil', y: 'HO=F' },
+  ] },
+  { cat: 'Forex', items: [
+    { label: 'Dollar Index', y: 'DX-Y.NYB' }, { label: 'EUR/USD', y: 'EURUSD=X' }, { label: 'USD/JPY', y: 'JPY=X' }, { label: 'GBP/USD', y: 'GBPUSD=X' },
+    { label: 'AUD/USD', y: 'AUDUSD=X' }, { label: 'USD/CAD', y: 'CAD=X' }, { label: 'USD/IDR', y: 'IDR=X' }, { label: 'USD/CNH', y: 'CNH=X' },
+    { label: 'USD/SGD', y: 'SGD=X' }, { label: 'USD/INR', y: 'INR=X' },
+  ] },
+  { cat: 'Crypto', items: [
+    { label: 'Bitcoin', y: 'BTC-USD' }, { label: 'Ethereum', y: 'ETH-USD' }, { label: 'Solana', y: 'SOL-USD' }, { label: 'BNB', y: 'BNB-USD' },
+    { label: 'XRP', y: 'XRP-USD' }, { label: 'Cardano', y: 'ADA-USD' }, { label: 'Dogecoin', y: 'DOGE-USD' }, { label: 'Avalanche', y: 'AVAX-USD' },
+  ] },
+  { cat: 'Rates', items: [
+    { label: 'US 10Y', y: '^TNX' }, { label: 'US 5Y', y: '^FVX' }, { label: 'US 30Y', y: '^TYX' }, { label: 'US 13W', y: '^IRX' },
+  ] },
+];
+
+const TVMarketsTool = () => {
+  const [detail, setDetail] = React.useState(null);
+  return (
+    <section className="mc-section mc-data-page" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div className="mc-section-h">
+        <span>Live Markets</span>
+        <span className="mc-section-h-sub">TradingView live · click any instrument in the right rail for full history + CSV</span>
+      </div>
+      <div className="mtv-wrap">
+        <div className="mtv-widget"><TVWidget kind="market-overview" config={TV_OVERVIEW_CFG} height="100%" /></div>
+        <div className="mtv-deep">
+          <div className="mtv-deep-h">Deep dive — full history + CSV (Yahoo)</div>
+          {TV_DEEPDIVE.map((g) => (
+            <div key={g.cat} className="mtv-grp">
+              <div className="mtv-grp-h">{g.cat}</div>
+              <div className="mtv-grp-items">
+                {g.items.map((it) => (
+                  <button key={it.y} className="mtv-item" onClick={() => setDetail({ source: 'YAHOO', id: it.y, title: it.label, sub: 'Yahoo history · ' + it.y, unit: '' })}>{it.label}</button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {detail && <SeriesDetailModal title={detail.title} sub={detail.sub} source={detail.source} id={detail.id} unit={detail.unit} onClose={() => setDetail(null)} />}
+    </section>
+  );
+};
 
 const MACRO_TOOLS = [
   { id: 'dashboard', label: 'Dashboard',     glyph: '◧' },
