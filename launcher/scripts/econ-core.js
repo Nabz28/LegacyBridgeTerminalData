@@ -152,16 +152,62 @@
   function diag(Mx) { var d = []; for (var i = 0; i < Mx.rows; i++) d.push(Mx.get(i, i)); return d; }
   function colVec(a) { return M.columnVector(a); }
 
+  // Inverse with a clear, human error on singular / near-singular design.
+  function safeInverse(A, label) {
+    try {
+      var inv = inverse(A);
+      var arr = inv.to1DArray();
+      for (var i = 0; i < arr.length; i++) if (!isFinite(arr[i])) throw 0;
+      return inv;
+    } catch (e) {
+      throw new Error((label || "Design matrix") + " is singular or near-singular — two regressors are perfectly collinear (e.g. a constant series plus the intercept, or a variable and a duplicate/linear transform of it), or there are fewer observations than parameters. Drop one regressor or change a transform.");
+    }
+  }
+
   // Solve OLS given design matrix Xrows (n×k, caller includes intercept) + y.
   function olsFit(Xrows, y) {
+    if (Xrows.length < Xrows[0].length) throw new Error("Not enough observations (" + Xrows.length + ") for " + Xrows[0].length + " parameters.");
     var X = mat(Xrows), yv = colVec(y);
     var Xt = X.transpose();
     var XtX = Xt.mmul(X);
-    var XtXinv = inverse(XtX);
+    var XtXinv = safeInverse(XtX, "Regressor matrix X'X");
     var beta = XtXinv.mmul(Xt).mmul(yv);          // k×1
     var fitted = X.mmul(beta);
     var resid = yv.clone().sub(fitted);
     return { X: X, y: yv, beta: beta, XtXinv: XtXinv, fitted: fitted, resid: resid };
+  }
+
+  // R² of an auxiliary regression (null if it can't be fit).
+  function r2of(yv, Xrows) {
+    try {
+      var f = olsFit(Xrows, yv);
+      var e = f.resid.to1DArray(); var rss = sum(e.map(function (v) { return v * v; }));
+      var m = mean(yv); var tss = sum(yv.map(function (v) { return (v - m) * (v - m); }));
+      return tss ? 1 - rss / tss : 0;
+    } catch (_) { return null; }
+  }
+  // Misspecification diagnostics: Breusch-Pagan (heteroskedasticity),
+  // Breusch-Godfrey (serial correlation), VIF (multicollinearity).
+  function regDiag(resid, Xrows, intercept, kReg) {
+    var n = resid.length, out = {};
+    var e2 = resid.map(function (e) { return e * e; });
+    var r2bp = r2of(e2, Xrows);
+    if (r2bp != null && kReg > 0) { out.bp = n * r2bp; out.bpDf = kReg; out.bpP = 1 - chiCdf(out.bp, kReg); }
+    var h = Math.max(1, Math.min(4, Math.floor(n / 10)));
+    var Xaug = [], yBG = [];
+    for (var i = h; i < n; i++) { var row = Xrows[i].slice(); for (var l = 1; l <= h; l++) row.push(resid[i - l]); Xaug.push(row); yBG.push(resid[i]); }
+    var r2bg = r2of(yBG, Xaug);
+    if (r2bg != null) { out.bg = (n - h) * r2bg; out.bgH = h; out.bgP = 1 - chiCdf(out.bg, h); }
+    if (kReg >= 2) {
+      out.vif = []; var start = intercept ? 1 : 0;
+      for (var c = start; c < Xrows[0].length; c++) {
+        var yc = Xrows.map(function (r) { return r[c]; });
+        var Xother = Xrows.map(function (r) { var rr = []; for (var cc = 0; cc < r.length; cc++) if (cc !== c) rr.push(r[cc]); if (!intercept) rr.unshift(1); return rr; });
+        var r2v = r2of(yc, Xother);
+        out.vif.push(r2v != null && r2v < 1 ? 1 / (1 - r2v) : null);
+      }
+    }
+    return out;
   }
 
   // ---------------- OLS with full diagnostics ------------------------------
@@ -186,13 +232,24 @@
     var df = n - k;
     var sigma2 = rss / df, sigma = Math.sqrt(sigma2);
     // covariance: classical or HC1 robust (White)
-    var vcov;
+    var vcov, hacL = null;
     if (opts.robust === 'hc1') {
-      var Xm = f.X, Xt = Xm.transpose();
-      var meat = new M(k, k);
-      for (var r = 0; r < n; r++) { var xr = Xm.getRowVector(r); var xx = xr.transpose().mmul(xr); meat.add(xx.mul(resid[r] * resid[r])); }
+      var Xm = f.X, meat = new M(k, k);
+      for (var r = 0; r < n; r++) { var xr = Xm.getRowVector(r); meat.add(xr.transpose().mmul(xr).mul(resid[r] * resid[r])); }
       var bread = f.XtXinv;
       vcov = bread.mmul(meat).mmul(bread).mul(n / df);
+    } else if (opts.robust === 'hac') {
+      // Newey-West HAC: Bartlett kernel, automatic bandwidth L = floor(4·(n/100)^(2/9)).
+      var Xh = f.X; hacL = opts.hacLags != null ? opts.hacLags : Math.max(1, Math.floor(4 * Math.pow(n / 100, 2 / 9)));
+      var S = new M(k, k);
+      for (var t0 = 0; t0 < n; t0++) { var x0 = Xh.getRowVector(t0); S.add(x0.transpose().mmul(x0).mul(resid[t0] * resid[t0])); }
+      for (var L = 1; L <= hacL; L++) {
+        var w = 1 - L / (hacL + 1), G = new M(k, k);
+        for (var t = L; t < n; t++) { var xt = Xh.getRowVector(t), xl = Xh.getRowVector(t - L); G.add(xt.transpose().mmul(xl).mul(resid[t] * resid[t - L])); }
+        var GG = G.clone().add(G.transpose()); S.add(GG.mul(w));
+      }
+      var breadH = f.XtXinv;
+      vcov = breadH.mmul(S).mmul(breadH).mul(n / df);
     } else {
       vcov = f.XtXinv.mul(sigma2);
     }
@@ -221,48 +278,103 @@
       r2: r2, adjR2: adjR2, fStat: fStat, fP: fP, sigma: sigma, rmse: Math.sqrt(rss / n),
       aic: aic, bic: bic, llf: llf, dw: dw, jb: jb, jbP: jbP,
       resid: resid, fitted: fitted, yMean: yMean, rss: rss, tss: tss,
-      vcov: vcov.to2DArray(), robust: opts.robust || 'none'
+      vcov: vcov.to2DArray(), robust: opts.robust || 'none', hacLags: hacL,
+      diag: regDiag(resid, Xrows, intercept, kReg)
     };
   }
 
   // ---------------- ADF stationarity test ----------------------------------
-  // MacKinnon (2010) approximate critical values.
+  // MacKinnon approximate critical values + a p-value interpolated from the
+  // Dickey-Fuller τ percentile surface (case-specific). Lag length chosen by AIC.
   var ADF_CRIT = {
     c: { '1%': -3.43, '5%': -2.86, '10%': -2.57 },
     ct: { '1%': -3.96, '5%': -3.41, '10%': -3.13 },
     n: { '1%': -2.58, '5%': -1.95, '10%': -1.62 }
   };
-  function adf(yArr, opts) {
-    opts = opts || {}; var trend = opts.trend || 'c'; var maxLag = opts.lags == null ? Math.floor(Math.pow(yArr.length - 1, 1 / 3)) : opts.lags;
-    var y = clean(yArr); var n = y.length;
-    if (n < maxLag + 5) return { error: 'series too short for ADF' };
-    var dy = []; for (var i = 1; i < n; i++) dy.push(y[i] - y[i - 1]);
-    // regress Δy_t on [trend terms, y_{t-1}, Δy_{t-1..t-lag}]
-    var start = maxLag; // first usable index into dy
+  // (p, τ) percentile points — increasing in τ as p rises. Used to interpolate p.
+  var ADF_SURF = {
+    c: [[0.01, -3.43], [0.025, -3.12], [0.05, -2.86], [0.10, -2.57], [0.20, -2.23], [0.50, -1.57], [0.90, -0.44], [0.99, 0.60]],
+    ct: [[0.01, -3.96], [0.025, -3.66], [0.05, -3.41], [0.10, -3.13], [0.20, -2.79], [0.50, -2.18], [0.90, -1.14], [0.99, -0.07]],
+    n: [[0.01, -2.58], [0.025, -2.23], [0.05, -1.95], [0.10, -1.62], [0.20, -1.28], [0.50, -0.50], [0.90, 0.91], [0.99, 1.60]]
+  };
+  function dfPvalue(stat, trend) {
+    var g = ADF_SURF[trend] || ADF_SURF.c;
+    if (stat <= g[0][1]) return g[0][0] * 0.5;            // more extreme than 1% point
+    if (stat >= g[g.length - 1][1]) return g[g.length - 1][0];
+    for (var i = 1; i < g.length; i++) { if (stat <= g[i][1]) { var t0 = g[i - 1][1], t1 = g[i][1], p0 = g[i - 1][0], p1 = g[i][0]; return p0 + (p1 - p0) * (stat - t0) / (t1 - t0); } }
+    return 0.5;
+  }
+  // single ADF regression at a given lag → {stat, aic, k, nobs, gamma}
+  function adfFit(y, dy, trend, lag) {
     var Y = [], Xr = [];
-    for (var t = start; t < dy.length; t++) {
+    for (var t = lag; t < dy.length; t++) {
       var row = [];
-      if (trend !== 'n') row.push(1);              // constant
-      if (trend === 'ct') row.push(t);             // linear trend
-      row.push(y[t]);                              // y_{t-1} (level at time t maps to dy index t)
-      for (var L = 1; L <= maxLag; L++) row.push(dy[t - L]);
+      if (trend !== 'n') row.push(1);
+      if (trend === 'ct') row.push(t);
+      row.push(y[t]);                              // y_{t-1}
+      for (var L = 1; L <= lag; L++) row.push(dy[t - L]);
       Xr.push(row); Y.push(dy[t]);
     }
+    var k = Xr[0].length, nobs = Y.length, dfa = nobs - k;
+    if (dfa < 1) return null;
     var f = olsFit(Xr, Y); var beta = f.beta.to1DArray(); var resid = f.resid.to1DArray();
-    var k = Xr[0].length, dfa = Y.length - k; var rss = sum(resid.map(function (e) { return e * e; }));
-    var vcov = f.XtXinv.mul(rss / dfa); var gammaIdx = (trend === 'n' ? 0 : (trend === 'ct' ? 2 : 1));
-    var gamma = beta[gammaIdx], seg = Math.sqrt(vcov.get(gammaIdx, gammaIdx));
-    var stat = gamma / seg;
+    var rss = sum(resid.map(function (e) { return e * e; }));
+    if (!isFinite(rss) || rss <= 0) return null;
+    var vcov = f.XtXinv.mul(rss / dfa); var gIdx = (trend === 'n' ? 0 : (trend === 'ct' ? 2 : 1));
+    var seg = Math.sqrt(vcov.get(gIdx, gIdx)); var gamma = beta[gIdx]; var stat = gamma / seg;
+    if (!isFinite(stat)) return null;
+    var aic = nobs * Math.log(rss / nobs) + 2 * k;
+    return { stat: stat, aic: aic, k: k, nobs: nobs, gamma: gamma, lag: lag };
+  }
+  function adf(yArr, opts) {
+    opts = opts || {}; var trend = opts.trend || 'c';
+    var y = clean(yArr); var n = y.length;
+    var maxLag = opts.lags == null ? Math.min(12, Math.floor(Math.pow(n - 1, 1 / 3))) : opts.lags;
+    if (n < maxLag + 6) return { error: 'Series too short for ADF (' + n + ' obs, need ≥ ' + (maxLag + 6) + '). Try a longer span or lower frequency.' };
+    var dy = []; for (var i = 1; i < n; i++) dy.push(y[i] - y[i - 1]);
+    var best = null;
+    if (opts.lags != null) { best = adfFit(y, dy, trend, opts.lags); }
+    else { for (var L = 0; L <= maxLag; L++) { var fit = adfFit(y, dy, trend, L); if (fit && (!best || fit.aic < best.aic)) best = fit; } }
+    if (!best) return { error: 'ADF regression could not be estimated (insufficient/degenerate data).' };
     var crit = ADF_CRIT[trend] || ADF_CRIT.c;
-    return { method: 'ADF', stat: stat, lags: maxLag, trend: trend, n: Y.length, critical: crit, stationary: stat < crit['5%'], gamma: gamma, decision: stat < crit['5%'] ? 'Reject unit root at 5% — stationary' : 'Cannot reject unit root at 5% — non-stationary' };
+    var p = dfPvalue(best.stat, trend);
+    return {
+      method: 'ADF', stat: best.stat, lags: best.lag, lagAuto: opts.lags == null, trend: trend, n: best.nobs,
+      critical: crit, p: p, stationary: best.stat < crit['5%'], gamma: best.gamma,
+      decision: best.stat < crit['5%'] ? 'Reject unit root at 5% (p≈' + p.toFixed(3) + ') — series is stationary I(0)' : 'Cannot reject unit root at 5% (p≈' + p.toFixed(3) + ') — series is non-stationary; difference it (likely I(1))'
+    };
+  }
+
+  // ---------------- Engle-Granger cointegration ----------------------------
+  // Step 1: OLS of y on X (the cointegrating regression). Step 2: ADF on its
+  // residuals (no deterministics). Compares to Engle-Granger critical values
+  // (more negative than ADF; depend on # regressors).
+  var EG_CRIT = { 1: { '1%': -3.90, '5%': -3.34, '10%': -3.04 }, 2: { '1%': -4.29, '5%': -3.74, '10%': -3.45 }, 3: { '1%': -4.64, '5%': -4.10, '10%': -3.81 } };
+  function engleGranger(y, Xcols, names) {
+    var reg = ols(y, Xcols, { names: names, intercept: true });
+    var u = reg.resid;
+    var adfu = adf(u, { trend: 'n' });
+    if (adfu.error) return { method: 'cointegration', error: adfu.error };
+    var nx = Math.min(3, Xcols.length); var crit = EG_CRIT[nx] || EG_CRIT[1];
+    return {
+      method: 'cointegration', test: 'Engle-Granger', stat: adfu.stat, lags: adfu.lags, nReg: Xcols.length,
+      critical: crit, cointegrated: adfu.stat < crit['5%'], beta: reg.coef, names: reg.names,
+      decision: adfu.stat < crit['5%'] ? 'Residuals are stationary — variables are COINTEGRATED at 5% (a long-run relationship exists; consider a VECM)' : 'Residuals have a unit root — NOT cointegrated at 5% (a levels regression here is likely spurious — use differences)'
+    };
   }
 
   // ---------------- ACF / PACF ---------------------------------------------
   function acf(yArr, maxLag) {
     var y = clean(yArr), n = y.length, m = mean(y); maxLag = maxLag || Math.min(40, Math.floor(n / 4));
     var c0 = 0; for (var i = 0; i < n; i++) c0 += (y[i] - m) * (y[i] - m); c0 /= n;
-    var out = [];
-    for (var L = 1; L <= maxLag; L++) { var ck = 0; for (var t = L; t < n; t++) ck += (y[t] - m) * (y[t - L] - m); ck /= n; out.push({ lag: L, value: c0 ? ck / c0 : 0, ci: 1.96 / Math.sqrt(n) }); }
+    var out = [], cumsq = 0;
+    for (var L = 1; L <= maxLag; L++) {
+      var ck = 0; for (var t = L; t < n; t++) ck += (y[t] - m) * (y[t - L] - m); ck /= n;
+      var r = c0 ? ck / c0 : 0;
+      var ci = 1.96 * Math.sqrt((1 + 2 * cumsq) / n);   // Bartlett bands widen with prior autocorrelations
+      out.push({ lag: L, value: r, ci: ci });
+      cumsq += r * r;
+    }
     return out;
   }
   function pacf(yArr, maxLag) {
@@ -316,7 +428,7 @@
     opts = opts || {}; var trend = opts.trend || 'c';
     var d = buildVarDesign(cols, p, trend);
     var Z = mat(d.Z), Y = mat(d.Y);
-    var ZtZ = Z.transpose().mmul(Z); var ZtZinv = inverse(ZtZ);
+    var ZtZ = Z.transpose().mmul(Z); var ZtZinv = safeInverse(ZtZ, "VAR regressor matrix Z'Z");
     var B = ZtZinv.mmul(Z.transpose()).mmul(Y);   // m×K  (coeffs per equation in columns)
     var resid = Y.clone().sub(Z.mmul(B));
     var T = d.T, K = d.K, m = d.m;
@@ -331,7 +443,7 @@
     var eig = varStability(B.to2DArray(), K, p, trend);
     return {
       method: 'VAR', names: names, p: p, trend: trend, K: K, T: T, m: m,
-      B: B.to2DArray(), Sigma: Sigma.to2DArray(), resid: resid.to2DArray(),
+      B: B.to2DArray(), Sigma: Sigma.to2DArray(), resid: resid.to2DArray(), ZtZinv: ZtZinv.to2DArray(),
       aic: aic, bic: bic, hqic: hqic, llf: llf, eigen: eig,
       stable: eig.every(function (e) { return e.mod < 1 + 1e-8; })
     };
@@ -391,7 +503,18 @@
   function zeros(r, c) { var m = []; for (var i = 0; i < r; i++) m.push(new Array(c).fill(0)); return m; }
   function matMul(A, B) { var r = A.length, n = B.length, c = B[0].length, out = zeros(r, c); for (var i = 0; i < r; i++) for (var k = 0; k < n; k++) { var a = A[i][k]; if (!a) continue; for (var j = 0; j < c; j++) out[i][j] += a * B[k][j]; } return out; }
   function matAdd(A, B) { return A.map(function (row, i) { return row.map(function (v, j) { return v + B[i][j]; }); }); }
-  function cholesky(S) { var n = S.length, L = zeros(n, n); for (var i = 0; i < n; i++) for (var j = 0; j <= i; j++) { var s = 0; for (var k = 0; k < j; k++) s += L[i][k] * L[j][k]; if (i === j) L[i][j] = Math.sqrt(Math.max(S[i][i] - s, 1e-12)); else L[i][j] = (S[i][j] - s) / (L[j][j] || 1e-12); } return L; }
+  function cholesky(S) {
+    var n = S.length, L = zeros(n, n);
+    for (var i = 0; i < n; i++) for (var j = 0; j <= i; j++) {
+      var s = 0; for (var k = 0; k < j; k++) s += L[i][k] * L[j][k];
+      if (i === j) { var d = S[i][i] - s; if (d <= 1e-10) throw new Error('Residual covariance matrix is not positive definite — two endogenous variables are collinear (or one is a transform of another). Remove one.'); L[i][j] = Math.sqrt(d); }
+      else L[i][j] = (S[i][j] - s) / (L[j][j] || 1e-12);
+    }
+    return L;
+  }
+  // standard-normal matrix r×c (Box-Muller) — for posterior IRF draws.
+  function randn(r, c) { var m = zeros(r, c); for (var i = 0; i < r; i++) for (var j = 0; j < c; j++) { var u1 = Math.random() || 1e-12, u2 = Math.random(); m[i][j] = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2); } return m; }
+  function transposeM(A) { var r = A.length, c = A[0].length, t = zeros(c, r); for (var i = 0; i < r; i++) for (var j = 0; j < c; j++) t[j][i] = A[i][j]; return t; }
 
   function selectVarLag(cols, names, maxP, trend) {
     var out = [];
@@ -400,69 +523,111 @@
     return { table: out, aic: best('aic'), bic: best('bic'), hqic: best('hqic') };
   }
 
-  // ---------------- BVAR (conjugate Minnesota prior) -----------------------
-  // Analytical Normal-inverse-Wishart posterior mean via Theil dummy obs.
-  // Returns posterior coefficient mean + IRF with credible bands (MC draws).
+  // ---------------- BVAR (Litterman / Minnesota prior) ---------------------
+  // Per-equation Bayesian ridge with a proper Minnesota prior. For equation i,
+  // the prior on the coefficient of variable j at lag l has mean 1 if (own,
+  // lag-1) else 0, and variance:
+  //   own:   (λ1 / l^λ3)²
+  //   cross: (λ1·λ2·σ_i/σ_j / l^λ3)²
+  // deterministics get a near-flat prior. Posterior (equation variance σ_i²):
+  //   β = (Z'Z/σ_i² + V0⁻¹)⁻¹ (Z'y/σ_i² + V0⁻¹ μ0),  V_post = (Z'Z/σ_i² + V0⁻¹)⁻¹.
+  function arSigma(c, p) {
+    var Y = [], X = []; for (var t = p; t < c.length; t++) { var row = [1]; for (var L = 1; L <= p; L++) row.push(c[t - L]); X.push(row); Y.push(c[t]); }
+    try { var f = olsFit(X, Y); var e = f.resid.to1DArray(); return Math.sqrt(sum(e.map(function (v) { return v * v; })) / Math.max(1, Y.length - X[0].length)) || (std(c) || 1); } catch (_) { return std(c) || 1; }
+  }
   function bvar(cols, names, p, opts) {
     opts = opts || {};
-    var l1 = opts.lambda1 == null ? 0.2 : opts.lambda1; // overall tightness
-    var l2 = opts.lambda2 == null ? 0.5 : opts.lambda2; // cross-variable
-    var l3 = opts.lambda3 == null ? 1 : opts.lambda3;   // lag decay
+    var l1 = opts.lambda1 == null ? 0.2 : opts.lambda1;   // overall tightness
+    var l2 = opts.lambda2 == null ? 0.5 : opts.lambda2;   // cross-variable shrinkage
+    var l3 = opts.lambda3 == null ? 1 : opts.lambda3;     // lag-decay exponent
     var trend = opts.trend || 'c';
-    var K = cols.length;
-    // AR(1) residual sigmas for scaling
-    var sig = cols.map(function (c) { var ar = ols(c.slice(1), [c.slice(0, -1)], { intercept: true }); return Math.sqrt(ar.rss / ar.df); });
-    var d = buildVarDesign(cols, p, trend);
-    var off = (trend === 'n') ? 0 : (trend === 'ct' ? 2 : 1);
-    var m = d.m;
-    // Build dummy observations (Yd, Zd) encoding the Minnesota prior.
-    var Yd = [], Zd = [];
-    // 1) coefficient priors on own/other lags
-    for (var l = 1; l <= p; l++) for (var v = 0; v < K; v++) {
-      var yrow = new Array(K).fill(0); var zrow = new Array(m).fill(0);
-      // prior mean: own first lag = 1 (random walk), else 0
-      var priorMean = (l === 1) ? 1 : 0;
-      var tight = (sig[v] / Math.pow(l, l3)) / l1; // smaller => tighter
-      yrow[v] = priorMean * tight;
-      zrow[off + (l - 1) * K + v] = tight;
-      Yd.push(yrow); Zd.push(zrow);
+    var K = cols.length, off = (trend === 'n') ? 0 : (trend === 'ct' ? 2 : 1);
+    var sig = cols.map(function (c) { return arSigma(c, p); });
+    var d = buildVarDesign(cols, p, trend), m = d.m, T = d.T;
+    var Z = mat(d.Z), Y = mat(d.Y);
+    var ZtZ = Z.transpose().mmul(Z);              // m×m
+    var ZtY = Z.transpose().mmul(Y);              // m×K
+    // prior variance vector + mean for equation i
+    function priorFor(i) {
+      var V0 = new Array(m), mu0 = new Array(m).fill(0);
+      for (var dpos = 0; dpos < off; dpos++) V0[dpos] = 1e6;     // near-flat on const/trend
+      for (var l = 1; l <= p; l++) for (var j = 0; j < K; j++) {
+        var pos = off + (l - 1) * K + j;
+        if (j === i) { V0[pos] = Math.pow(l1 / Math.pow(l, l3), 2); if (l === 1) mu0[pos] = 1; }
+        else { V0[pos] = Math.pow(l1 * l2 * (sig[i] / sig[j]) / Math.pow(l, l3), 2); }
+      }
+      return { V0: V0, mu0: mu0 };
     }
-    // 2) prior on covariance (scale) — one dummy per variable
-    for (var v2 = 0; v2 < K; v2++) { var yr = new Array(K).fill(0); yr[v2] = sig[v2]; Yd.push(yr); Zd.push(new Array(m).fill(0)); }
-    // 3) loose prior on deterministic (constant/trend)
-    if (off > 0) for (var o = 0; o < off; o++) { var zr = new Array(m).fill(0); zr[o] = 1e-4; Yd.push(new Array(K).fill(0)); Zd.push(zr); }
-    // stack actual + dummy
-    var Yall = d.Y.concat(Yd), Zall = d.Z.concat(Zd);
-    var Z = mat(Zall), Y = mat(Yall);
-    var ZtZ = Z.transpose().mmul(Z); var ZtZinv = inverse(ZtZ);
-    var B = ZtZinv.mmul(Z.transpose()).mmul(Y);
-    var resid = Y.clone().sub(Z.mmul(B));
-    var Tstar = Yall.length;
-    var Sigma = resid.transpose().mmul(resid).mul(1 / (Tstar - m));
-    var model = { method: 'BVAR', names: names, p: p, trend: trend, K: K, T: d.T, m: m, B: B.to2DArray(), Sigma: Sigma.to2DArray(), priors: { lambda1: l1, lambda2: l2, lambda3: l3 } };
+    var Bcols = [], Vpost = [];                    // per-equation posterior mean (m×1) + cov (m×m)
+    for (var i = 0; i < K; i++) {
+      var pr = priorFor(i), s2 = sig[i] * sig[i] || 1;
+      var A = ZtZ.clone().mul(1 / s2);             // Z'Z/σ²
+      for (var r = 0; r < m; r++) A.set(r, r, A.get(r, r) + 1 / pr.V0[r]);   // + V0⁻¹
+      var Ainv = safeInverse(A, 'BVAR posterior precision');
+      // rhs = Z'y_i/σ² + V0⁻¹ μ0
+      var rhs = new Array(m);
+      for (var rr = 0; rr < m; rr++) rhs[rr] = ZtY.get(rr, i) / s2 + (1 / pr.V0[rr]) * pr.mu0[rr];
+      var bpost = Ainv.mmul(colVec(rhs));          // m×1
+      Bcols.push(bpost.to1DArray());
+      Vpost.push(Ainv.to2DArray());
+    }
+    // assemble B (m×K), residuals, Sigma
+    var Barr = []; for (var rrr = 0; rrr < m; rrr++) { var row = []; for (var c2 = 0; c2 < K; c2++) row.push(Bcols[c2][rrr]); Barr.push(row); }
+    var B = mat(Barr); var resid = Y.clone().sub(Z.mmul(B));
+    var Sigma = resid.transpose().mmul(resid).mul(1 / Math.max(1, T - m));
+    var model = { method: 'BVAR', names: names, p: p, trend: trend, K: K, T: T, m: m, B: Barr, Sigma: Sigma.to2DArray(), _Vpost: Vpost, priors: { lambda1: l1, lambda2: l2, lambda3: l3 } };
     model.eigen = varStability(model.B, K, p, trend);
     model.stable = model.eigen.every(function (e) { return e.mod < 1 + 1e-8; });
     return model;
   }
 
-  // IRF with credible bands for VAR/BVAR via residual bootstrap-ish parametric draws.
+  // IRF with credible/confidence bands via legitimate posterior / sampling draws.
+  //   BVAR: draw each equation's coeffs from its Normal posterior N(β̂_i, V_post_i).
+  //   VAR : matrix-normal sampling vec(B) ~ N(vec(B̂), Σ ⊗ (Z'Z)⁻¹).
+  function drawB(model) {
+    var K = model.K, m = model.m, B = model.B;
+    if (model.method === 'BVAR' && model._Vpost) {
+      var cols2 = [];
+      for (var i = 0; i < K; i++) {
+        var L = cholesky(model._Vpost[i]);          // m×m
+        var z = randn(m, 1); var d0 = matMul(L, z); // m×1 perturbation
+        var bi = []; for (var r = 0; r < m; r++) bi.push(B[r][i] + d0[r][0]);
+        cols2.push(bi);
+      }
+      var out = []; for (var rr = 0; rr < m; rr++) { var row = []; for (var c = 0; c < K; c++) row.push(cols2[c][rr]); out.push(row); }
+      return out;
+    }
+    // VAR matrix-normal: B + chol(ZtZinv)·N(m×K)·chol(Σ)'
+    if (model.ZtZinv) {
+      var Lz = cholesky(model.ZtZinv);              // m×m
+      var Ls = cholesky(model.Sigma);               // K×K
+      var N = randn(m, K);
+      var pert = matMul(matMul(Lz, N), transposeM(Ls)); // m×K
+      return matAdd(B, pert);
+    }
+    return B;
+  }
   function irfWithBands(model, horizon, draws) {
     draws = draws || 200; var K = model.K;
     var point = varIRF(model, horizon, true);
-    // parametric draws: perturb Sigma's Cholesky lightly using its sampling var (approx)
-    var all = []; // all[d] = irf
-    var P = cholesky(model.Sigma);
+    var all = [];
     for (var dd = 0; dd < draws; dd++) {
-      // jitter coefficients by their approximate sd (Sigma scale / sqrt(T)); cheap band approximation
-      var jModel = { K: K, p: model.p, trend: model.trend, B: jitterB(model.B, model.Sigma, model.T), Sigma: model.Sigma };
-      all.push(varIRF(jModel, horizon, true));
+      try {
+        var jModel = { method: model.method, K: K, p: model.p, trend: model.trend, B: drawB(model), Sigma: model.Sigma };
+        all.push(varIRF(jModel, horizon, true));
+      } catch (e) { /* skip a non-PD draw */ }
     }
-    // percentiles per (h,i,j)
+    if (!all.length) return { point: point, lower: null, upper: null, draws: 0 };
     var lower = [], upper = [];
-    for (var h = 0; h <= horizon; h++) { lower.push(zeros(K, K)); upper.push(zeros(K, K)); for (var i = 0; i < K; i++) for (var j = 0; j < K; j++) { var vals = all.map(function (a) { return a[h][i][j]; }).sort(function (x, y) { return x - y; }); lower[h][i][j] = vals[Math.floor(0.16 * draws)]; upper[h][i][j] = vals[Math.floor(0.84 * draws)]; } }
-    return { point: point, lower: lower, upper: upper, draws: draws };
+    for (var h = 0; h <= horizon; h++) {
+      lower.push(zeros(K, K)); upper.push(zeros(K, K));
+      for (var i = 0; i < K; i++) for (var j = 0; j < K; j++) {
+        var vals = all.map(function (a) { return a[h][i][j]; }).sort(function (x, y) { return x - y; });
+        lower[h][i][j] = vals[Math.floor(0.16 * vals.length)]; upper[h][i][j] = vals[Math.min(vals.length - 1, Math.floor(0.84 * vals.length))];
+      }
+    }
+    return { point: point, lower: lower, upper: upper, draws: all.length };
   }
-  function jitterB(B, Sigma, T) { var sd = Math.sqrt((Sigma[0] ? Sigma[0][0] : 1) / Math.max(T, 1)) * 0.15; return B.map(function (row) { return row.map(function (v) { return v + (Math.random() * 2 - 1) * sd; }); }); }
 
   // ---------------- panel data ---------------------------------------------
   // rows: [{entity, time, y, x:[...]}], names. effects: 'pooled'|'fixed'|'random'
@@ -482,9 +647,20 @@
       });
       var nEnt = Object.keys(byEnt).length;
       var res2 = ols(yw, xw, { names: names, intercept: false });
-      // adjust df for entity dummies absorbed
+      // df correction: FE absorbs nEnt entity means → df = NT − N − K. Rescale
+      // sigma/se/t/p/ci so inference isn't over-confident (the v1 bug).
+      var dfFE = res2.n - nEnt - res2.k;
+      if (dfFE > 0) {
+        var scale = (res2.n - res2.k) / dfFE;
+        res2.df = dfFE; res2.sigma = res2.sigma * Math.sqrt(scale);
+        res2.se = res2.se.map(function (s) { return s * Math.sqrt(scale); });
+        res2.t = res2.coef.map(function (b, i) { return res2.se[i] ? b / res2.se[i] : NaN; });
+        res2.p = res2.t.map(function (tv) { return tPtwo(tv, dfFE); });
+        var tc = tInv(0.975, dfFE);
+        res2.ci = res2.coef.map(function (b, i) { return [b - tc * res2.se[i], b + tc * res2.se[i]]; });
+      }
       res2.method = 'Panel (Fixed Effects)'; res2.effects = 'fixed'; res2.entities = nEnt;
-      res2.dfAdjNote = 'within estimator; ' + nEnt + ' entity intercepts absorbed';
+      res2.dfAdjNote = 'within estimator; ' + nEnt + ' entity intercepts absorbed (df=' + (dfFE > 0 ? dfFE : res2.df) + ')';
       return res2;
     }
     // random effects (simplified FGLS via Swamy-Arora quasi-demean)
@@ -513,7 +689,7 @@
     mean: mean, std: std, variance: variance, median: median, quantile: quantile, skewness: skewness, kurtosis: kurtosis, describe: describe,
     transform: transform, TRANSFORMS: TRANSFORMS, resample: resample, alignVars: alignVars,
     pearson: pearson, spearman: spearman, corrMatrix: corrMatrix,
-    ols: ols, adf: adf, acf: acf, pacf: pacf, granger: granger, grangerMatrix: grangerMatrix,
+    ols: ols, adf: adf, engleGranger: engleGranger, acf: acf, pacf: pacf, granger: granger, grangerMatrix: grangerMatrix,
     varFit: varFit, selectVarLag: selectVarLag, varIRF: varIRF, varFEVD: varFEVD,
     bvar: bvar, irfWithBands: irfWithBands, panel: panel,
     _tCdf: tCdf, _fCdf: fCdf

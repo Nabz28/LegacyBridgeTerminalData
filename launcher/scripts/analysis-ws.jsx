@@ -31,14 +31,16 @@
   var LOCAL_KEY = 'lbcAnalysisWorkspace';
 
   var METHODS = [
-    { id: 'ols', label: 'Regression (OLS)', group: 'equation', glyph: 'β', desc: 'Y = c + ΣβⱼXⱼ + ε' },
-    { id: 'loglinear', label: 'Log-Linear', group: 'equation', glyph: 'ln', desc: 'ln Y on regressors (elasticities)' },
-    { id: 'var', label: 'VAR', group: 'multi', glyph: 'V', desc: 'Vector autoregression + IRF / FEVD' },
-    { id: 'bvar', label: 'Bayesian VAR', group: 'multi', glyph: 'B', desc: 'Minnesota prior + IRF bands' },
+    { id: 'ols', label: 'Regression (OLS)', group: 'equation', glyph: 'β', desc: 'Y = c + ΣβⱼXⱼ + ε · HC1 / Newey-West SE + diagnostics' },
+    { id: 'loglinear', label: 'Log-Linear', group: 'equation', glyph: 'ln', desc: 'auto-logs level vars → elasticities / semi-elasticities' },
+    { id: 'coint', label: 'Cointegration', group: 'equation', glyph: '∫', desc: 'Engle-Granger long-run test (guards against spurious regression)' },
+    { id: 'var', label: 'VAR', group: 'multi', glyph: 'V', desc: 'Vector autoregression · lag-select · Cholesky IRF / FEVD' },
+    { id: 'bvar', label: 'Bayesian VAR', group: 'multi', glyph: 'B', desc: 'Minnesota prior + posterior IRF bands' },
     { id: 'panel', label: 'Panel (FE / RE)', group: 'panel', glyph: '▦', desc: 'Fixed / random effects on long data' },
     { id: 'corr', label: 'Correlation', group: 'set', glyph: 'ρ', desc: 'Pearson / Spearman matrix' },
     { id: 'descriptive', label: 'Descriptive', group: 'set', glyph: 'Σ', desc: 'Summary statistics + distribution' },
-    { id: 'adf', label: 'ADF / Stationarity', group: 'one', glyph: '√', desc: 'Augmented Dickey-Fuller unit-root test' },
+    { id: 'adf', label: 'ADF / Stationarity', group: 'one', glyph: '√', desc: 'Augmented Dickey-Fuller (AIC lag) + p-value' },
+    { id: 'acf', label: 'ACF / PACF', group: 'one', glyph: '⟂', desc: 'Autocorrelation & partial autocorrelation' },
     { id: 'granger', label: 'Granger Causality', group: 'set', glyph: '→', desc: 'Predictive causality F-tests' }
   ];
   var FREQS = [{ id: '', label: 'Native' }, { id: 'W', label: 'Weekly' }, { id: 'M', label: 'Monthly' }, { id: 'Q', label: 'Quarterly' }, { id: 'A', label: 'Annual' }];
@@ -64,7 +66,9 @@
         <div className="an-modal" onClick={function (e) { e.stopPropagation(); }}>
           <div className="an-modal-h"><span>{props.title || 'Choose a data series'}</span><button className="an-modal-x" onClick={props.onClose}>×</button></div>
           <div className="an-modal-search">
-            <input autoFocus placeholder="Search live + Refinitiv macro data…  (e.g. CPI, palm oil, 10Y, GDP)" value={q} onChange={function (e) { setQ(e.target.value); }} />
+            <input autoFocus placeholder="Search live + Refinitiv macro data…  (e.g. CPI, palm oil, 10Y, GDP)" value={q}
+              onChange={function (e) { setQ(e.target.value); }}
+              onKeyDown={function (e) { if (e.key === 'Escape') { e.preventDefault(); props.onClose(); } else if (e.key === 'Enter' && rows && rows.length) { e.preventDefault(); props.onPick(rows[0]); } }} />
             <div className="an-ctry">{D.REF_COUNTRIES.map(function (c) { return <button key={c.id} className={'an-ctry-btn ' + (country === c.id ? 'on' : '')} onClick={function () { setCountry(c.id); }} title={'Refinitiv country: ' + c.label}>{c.label}</button>; })}</div>
           </div>
           <div className="an-modal-body">
@@ -121,7 +125,7 @@
     var _sm = React.useState({}), seriesMap = _sm[0], setSeriesMap = _sm[1];     // uid -> series
     var _m = React.useState('ols'), method = _m[0], setMethod = _m[1];
     var _cfg = React.useState({ y: null, x: [], endo: [], setvars: [], one: null, lags: 2, trend: 'c', robust: 'none', lambda1: 0.2, lambda2: 0.5, lambda3: 1, corrMethod: 'pearson', effects: 'fixed', irfH: 12 }), cfg = _cfg[0], setCfg = _cfg[1];
-    var _cl = React.useState({ freq: '' }), cleaning = _cl[0], setCleaning = _cl[1];
+    var _cl = React.useState({ freq: 'M' }), cleaning = _cl[0], setCleaning = _cl[1];
     var _res = React.useState(null), result = _res[0], setResult = _res[1];
     var _run = React.useState(false), running = _run[0], setRunning = _run[1];
     var _err = React.useState(''), err = _err[0], setErr = _err[1];
@@ -130,6 +134,7 @@
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
     var _panel = React.useState(''), panelCsv = _panel[0], setPanelCsv = _panel[1];
     var loaded = React.useRef(false);
+    var saveTimer = React.useRef(null);
 
     var byUid = {}; vars.forEach(function (v) { byUid[v.uid] = v; });
 
@@ -151,7 +156,12 @@
     function persist(nextVars, nextSaved) {
       var doc = { v: 1, vars: (nextVars || vars).map(function (v) { return { uid: v.uid, kind: v.kind, label: v.label, source: v.source, seriesId: v.seriesId, ric: v.ric, transform: v.transform, k: v.k }; }), saved: nextSaved || saved, updated: new Date().toISOString() };
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(doc)); } catch (e) { }
-      if (cloudEnabled()) { setSync('saving'); cloudSave(doc).then(function () { setSync('saved'); setTimeout(function () { setSync('idle'); }, 1500); }).catch(function () { setSync('local'); }); }
+      // debounce cloud writes so rapid edits don't race / clobber across tabs
+      if (cloudEnabled()) {
+        setSync('saving');
+        if (saveTimer.current) clearTimeout(saveTimer.current);
+        saveTimer.current = setTimeout(function () { cloudSave(doc).then(function () { setSync('saved'); setTimeout(function () { setSync('idle'); }, 1500); }).catch(function () { setSync('local'); }); }, 600);
+      }
     }
 
     function addVar(item) {
@@ -172,26 +182,42 @@
       addVar(item);
       if (tgt === 'y') setCfg(function (c) { return Object.assign({}, c, { y: item.uid }); });
       else if (tgt === 'x') setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(item.uid) > -1 ? c.x : c.x.concat([item.uid]) }); });
+      else if (tgt === 'xswap') { var sidx = picker.idx; setCfg(function (c) { var nx = c.x.slice(); nx[sidx] = item.uid; return Object.assign({}, c, { x: nx }); }); }
       else if (tgt === 'one') setCfg(function (c) { return Object.assign({}, c, { one: item.uid }); });
       else if (tgt === 'endo') setCfg(function (c) { return Object.assign({}, c, { endo: c.endo.indexOf(item.uid) > -1 ? c.endo : c.endo.concat([item.uid]) }); });
       else if (tgt === 'set') setCfg(function (c) { return Object.assign({}, c, { setvars: c.setvars.indexOf(item.uid) > -1 ? c.setvars : c.setvars.concat([item.uid]) }); });
       setPicker(null);
     }
 
-    // assemble aligned dataset for a list of var uids (applies per-var transform)
-    function buildSeries(uid) {
-      var vd = byUid[uid], s = seriesMap[uid]; if (!vd || !s) return null;
-      var vals = s.map(function (o) { return o.value; });
-      var tvals = E.transform(vals, vd.transform, { k: vd.k || 1 });
-      var out = []; for (var i = 0; i < s.length; i++) if (tvals[i] != null && isFinite(tvals[i])) out.push({ date: s[i].date, value: tvals[i] });
-      return { name: alias(vd), series: out };
-    }
-    function buildDataset(uids) {
-      var parts = uids.map(buildSeries).filter(Boolean);
-      if (parts.length !== uids.length) return { error: 'Some series have not finished loading yet — try again in a moment.' };
-      var aligned = E.alignVars(parts, { freq: cleaning.freq || null });
-      if (aligned.n < 8) return { error: 'Only ' + aligned.n + ' aligned observations after transforms/frequency — need ≥ 8. Check date overlap & frequency.' };
-      return aligned;
+    // Assemble an aligned dataset for a list of var uids.
+    // ORDER MATTERS (fixes the mixed-frequency / lag-meaning bug):
+    //   1) resample each raw series to the common frequency,
+    //   2) inner-join on dates (so every column is on the SAME calendar grid),
+    //   3) THEN apply each variable's transform on its aligned column, so a
+    //      "lag 1" / "diff" always means one common period — never 1 native day
+    //      for one series and 1 month for another.
+    function buildDataset(uids, ddopts) {
+      ddopts = ddopts || {};
+      var tf = function (vd) { return (ddopts.forceLog && vd.transform === 'level') ? 'log' : vd.transform; };
+      var freq = cleaning.freq;  // '' = native (no resample)
+      var resampled = uids.map(function (uid) {
+        var vd = byUid[uid], s = seriesMap[uid]; if (!vd || !s) return null;
+        return { vd: vd, series: freq ? E.resample(s, freq, vd.agg || 'last') : s.slice() };
+      });
+      if (resampled.some(function (r) { return !r || !r.series.length; })) return { error: 'Some series are still loading (or returned no data) — try again in a moment.' };
+      var alignedRaw = E.alignVars(resampled.map(function (r) { return { name: r.vd.label, series: r.series }; }), {});
+      var fl = (FREQS.find(function (f) { return f.id === freq; }) || { label: 'native' }).label.toLowerCase();
+      if (alignedRaw.n < 5) return { error: 'Only ' + alignedRaw.n + ' overlapping ' + fl + ' observations across the chosen series. Their date ranges barely overlap — pick a longer common span or a lower frequency' + (!freq ? ' (mixed native frequencies rarely share exact dates — set a Frequency above).' : '.') };
+      var tcols = alignedRaw.columns.map(function (col, i) { return E.transform(col, tf(byUid[uids[i]]), { k: byUid[uids[i]].k || 1 }); });
+      var keep = [];
+      for (var r = 0; r < alignedRaw.n; r++) { var ok = true; for (var c = 0; c < tcols.length; c++) { var v = tcols[c][r]; if (v == null || !isFinite(v)) { ok = false; break; } } if (ok) keep.push(r); }
+      if (keep.length < 8) return { error: 'Only ' + keep.length + ' usable observations after transforms (lags/diffs drop leading rows). Lower the frequency, shorten lags, or add more history.' };
+      return {
+        dates: keep.map(function (r) { return alignedRaw.dates[r]; }),
+        names: uids.map(function (uid) { var vd = byUid[uid]; return (ddopts.forceLog && vd.transform === 'level') ? ('ln ' + vd.label) : alias(vd); }),
+        columns: tcols.map(function (col) { return keep.map(function (r) { return col[r]; }); }),
+        n: keep.length, freq: freq
+      };
     }
 
     function run() {
@@ -210,18 +236,26 @@
       if (method === 'adf') {
         if (!cfg.one) throw new Error('Pick a variable to test.');
         var ds = buildDataset([cfg.one]); if (ds.error) throw new Error(ds.error);
-        return E.adf(ds.columns[0], { trend: cfg.trend === 'c' ? 'c' : (cfg.trend === 'ct' ? 'ct' : 'c') });
+        return E.adf(ds.columns[0], { trend: cfg.trend });
+      }
+      if (method === 'acf') {
+        if (!cfg.one) throw new Error('Pick a variable.');
+        var dsa = buildDataset([cfg.one]); if (dsa.error) throw new Error(dsa.error);
+        var col = dsa.columns[0]; var mL = Math.min(36, Math.max(4, Math.floor(col.length / 3)));
+        return { method: 'acf', name: dsa.names[0], n: col.length, acf: E.acf(col, mL), pacf: E.pacf(col, mL) };
       }
       if (method === 'ols' || method === 'loglinear') {
         if (!cfg.y || !cfg.x.length) throw new Error('Set a dependent (Y) and at least one regressor (X).');
         var uids = [cfg.y].concat(cfg.x);
-        // log-linear: force log transform on display (use a temp transform override)
-        var ds2 = buildDataset(uids); if (ds2.error) throw new Error(ds2.error);
-        var yCol = ds2.columns[0], xCols = ds2.columns.slice(1);
-        var names = ds2.names.slice(1);
-        var res = E.ols(yCol, xCols, { names: names, robust: cfg.robust });
-        res._yName = ds2.names[0]; res._dates = ds2.dates;
+        var ds2 = buildDataset(uids, { forceLog: method === 'loglinear' }); if (ds2.error) throw new Error(ds2.error);
+        var res = E.ols(ds2.columns[0], ds2.columns.slice(1), { names: ds2.names.slice(1), robust: cfg.robust });
+        res._yName = ds2.names[0]; res._dates = ds2.dates; res._n = ds2.n; res._logged = method === 'loglinear';
         return res;
+      }
+      if (method === 'coint') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set a dependent (Y) and at least one regressor (X).');
+        var dsc = buildDataset([cfg.y].concat(cfg.x)); if (dsc.error) throw new Error(dsc.error);
+        return E.engleGranger(dsc.columns[0], dsc.columns.slice(1), dsc.names.slice(1));
       }
       if (method === 'corr') {
         if (cfg.setvars.length < 2) throw new Error('Pick at least 2 variables.');
@@ -317,15 +351,16 @@
             <div className="an-builder">
               <div className="an-builder-h">{curMethod.glyph} {curMethod.label}<span className="an-builder-desc">{curMethod.desc}</span></div>
 
-              {(method === 'ols' || method === 'loglinear') && (
+              {(method === 'ols' || method === 'loglinear' || method === 'coint') && (
                 <div className="an-eq">
                   <Slot role="y" vd={byUid[cfg.y]} placeholder="Y (dependent)" onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { y: uid })); }} onClear={function () { setCfg(Object.assign({}, cfg, { y: null })); }} />
                   <span className="an-eq-op">=</span><span className="an-eq-c">c</span>
-                  {cfg.x.map(function (uid, i) { return <span key={uid} className="an-eq-x"><span className="an-eq-op">+</span><span className="an-beta">β{i + 1}</span><Slot vd={byUid[uid]} onClick={function () { }} onDrop={function () { }} onClear={function () { setCfg(Object.assign({}, cfg, { x: cfg.x.filter(function (u) { return u !== uid; }) })); }} /></span>; })}
+                  {cfg.x.map(function (uid, i) { return <span key={uid} className="an-eq-x"><span className="an-eq-op">+</span><span className="an-beta">β{i + 1}</span><Slot vd={byUid[uid]} onClick={function () { setPicker({ target: 'xswap', idx: i }); }} onDrop={function (u2) { var nx = cfg.x.slice(); nx[i] = u2; setCfg(Object.assign({}, cfg, { x: nx })); }} onClear={function () { setCfg(Object.assign({}, cfg, { x: cfg.x.filter(function (u) { return u !== uid; }) })); }} /></span>; })}
                   <Slot vd={null} placeholder="+ regressor" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { x: cfg.x.indexOf(uid) > -1 ? cfg.x : cfg.x.concat([uid]) })); }} />
                   <span className="an-eq-err">+ ε</span>
-                  {method === 'loglinear' && <div className="an-note an-note-inline">Tip: set Y and X transforms to <b>Log (ln)</b> in the tray for a log-log elasticity model, or just ln(Y) for semi-elasticity.</div>}
-                  <div className="an-opt"><label>Std. errors</label><select value={cfg.robust} onChange={function (e) { setCfg(Object.assign({}, cfg, { robust: e.target.value })); }}><option value="none">Classical</option><option value="hc1">Robust (HC1)</option></select></div>
+                  {method === 'loglinear' && <div className="an-note an-note-inline">Level variables are auto-logged (ln). A coefficient on ln X is an <b>elasticity</b>; on a level X it's a semi-elasticity. Override per variable in the tray.</div>}
+                  {method === 'coint' && <div className="an-note an-note-inline">Use <b>levels</b> (not differences) here. Engle-Granger tests whether the residual of Y on X is stationary — i.e. a genuine long-run relationship rather than a spurious one.</div>}
+                  {method !== 'coint' && <div className="an-opt"><label>Std. errors</label><select value={cfg.robust} onChange={function (e) { setCfg(Object.assign({}, cfg, { robust: e.target.value })); }}><option value="none">Classical</option><option value="hc1">Robust (HC1)</option><option value="hac">HAC (Newey-West)</option></select></div>}
                 </div>
               )}
 
@@ -342,7 +377,9 @@
                     <div className="an-opt"><label>Lags (p)</label><input type="number" min="1" max="12" value={cfg.lags} onChange={function (e) { setCfg(Object.assign({}, cfg, { lags: +e.target.value || 1 })); }} /></div>
                     <div className="an-opt"><label>Trend</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div>
                     <div className="an-opt"><label>IRF horizon</label><input type="number" min="4" max="48" value={cfg.irfH} onChange={function (e) { setCfg(Object.assign({}, cfg, { irfH: +e.target.value || 12 })); }} /></div>
-                    {method === 'bvar' && <div className="an-opt"><label>λ₁ tightness</label><input type="number" step="0.05" min="0.01" max="2" value={cfg.lambda1} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda1: +e.target.value })); }} /></div>}
+                    {method === 'bvar' && <div className="an-opt"><label title="Overall prior tightness — smaller = tighter to the random-walk prior">λ₁ tight</label><input type="number" step="0.05" min="0.01" max="2" value={cfg.lambda1} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda1: +e.target.value })); }} /></div>}
+                    {method === 'bvar' && <div className="an-opt"><label title="Cross-variable shrinkage — smaller = other variables' lags shrunk harder toward 0">λ₂ cross</label><input type="number" step="0.05" min="0.01" max="1" value={cfg.lambda2} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda2: +e.target.value })); }} /></div>}
+                    {method === 'bvar' && <div className="an-opt"><label title="Lag-decay exponent — higher = distant lags shrunk harder">λ₃ decay</label><input type="number" step="0.5" min="0.5" max="3" value={cfg.lambda3} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda3: +e.target.value })); }} /></div>}
                   </div>
                 </div>
               )}
@@ -363,10 +400,10 @@
                 </div>
               )}
 
-              {method === 'adf' && (
+              {(method === 'adf' || method === 'acf') && (
                 <div className="an-multi">
-                  <div className="an-eq"><span className="an-eq-lbl">Test series</span><Slot vd={byUid[cfg.one]} placeholder="pick a variable" onClick={function () { setPicker({ target: 'one' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { one: uid })); }} onClear={function () { setCfg(Object.assign({}, cfg, { one: null })); }} /></div>
-                  <div className="an-opts"><div className="an-opt"><label>Deterministic</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div></div>
+                  <div className="an-eq"><span className="an-eq-lbl">{method === 'adf' ? 'Test series' : 'Series'}</span><Slot vd={byUid[cfg.one]} placeholder="pick a variable" onClick={function () { setPicker({ target: 'one' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { one: uid })); }} onClear={function () { setCfg(Object.assign({}, cfg, { one: null })); }} /></div>
+                  {method === 'adf' && <div className="an-opts"><div className="an-opt"><label>Deterministic</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div><span className="an-dim">Lag length auto-selected by AIC.</span></div>}
                 </div>
               )}
 

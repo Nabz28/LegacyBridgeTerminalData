@@ -8,7 +8,8 @@
   var fmt = function (v, d) { if (v == null || !isFinite(v)) return '—'; d = d == null ? 4 : d; return Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); };
   var fmtP = function (p) { if (p == null || !isFinite(p)) return '—'; return p < 0.0001 ? '<0.0001' : p.toFixed(4); };
   var stars = function (p) { return p == null ? '' : (p < 0.01 ? '***' : p < 0.05 ? '**' : p < 0.1 ? '*' : ''); };
-  var COL = { line: '#7c9bf2', line2: '#19C37D', line3: '#FF5C70', band: 'rgba(124,155,242,.18)', grid: 'rgba(151,170,197,.12)', zero: 'rgba(255,255,255,.25)' };
+  // brand steel-blue + always-on semantic green/red (LBC tokens)
+  var COL = { line: '#97AAC5', line2: '#19C37D', line3: '#FF5C70', band: 'rgba(151,170,197,.20)', grid: 'rgba(151,170,197,.12)', zero: 'rgba(255,255,255,.25)' };
 
   // ---- mini SVG line chart (multi-series + optional CI band) ----
   function MiniLine(props) {
@@ -89,6 +90,25 @@
     return <div className="an-stat-grid">{props.stats.map(function (s, i) { return <div key={i} className="an-stat"><span className="an-stat-l">{s.label}</span><span className="an-stat-v">{s.value}</span></div>; })}</div>;
   }
 
+  // Misspecification diagnostics + actionable guidance.
+  function DiagPanel(props) {
+    var d = props.diag || {}; var maxVif = (d.vif || []).reduce(function (m, v) { return (v != null && v > m) ? v : m; }, 0);
+    if (d.bp == null && d.bg == null && !maxVif) return null;
+    var het = d.bpP != null && d.bpP < 0.05, ser = d.bgP != null && d.bgP < 0.05;
+    return (
+      <div className="an-sub">
+        <div className="an-sub-h">Diagnostics</div>
+        <div className="an-stat-grid">
+          {d.bp != null && <div className="an-stat"><span className="an-stat-l">Breusch-Pagan (heterosk.)</span><span className="an-stat-v">{fmt(d.bp, 2)} · p={fmtP(d.bpP)} {het ? '⚠' : '✓'}</span></div>}
+          {d.bg != null && <div className="an-stat"><span className="an-stat-l">Breusch-Godfrey ac({d.bgH})</span><span className="an-stat-v">{fmt(d.bg, 2)} · p={fmtP(d.bgP)} {ser ? '⚠' : '✓'}</span></div>}
+          {maxVif > 0 && <div className="an-stat"><span className="an-stat-l">Max VIF (collinearity)</span><span className="an-stat-v">{fmt(maxVif, 2)} {maxVif > 10 ? '⚠' : '✓'}</span></div>}
+        </div>
+        {(het || ser) && props.robust !== 'hac' && <div className="an-note">⚠ {ser ? 'Serial correlation' : 'Heteroskedasticity'} detected — switch Std. errors to <b>HAC (Newey-West)</b> (regression menu) for valid inference.</div>}
+        {maxVif > 10 && <div className="an-note">⚠ High multicollinearity (max VIF &gt; 10) — coefficients are imprecise; drop or combine a regressor.</div>}
+      </div>
+    );
+  }
+
   // ---- regression equation rendered with estimated coefficients ----
   function EquationLine(props) {
     var r = props.r; var hasC = r.names[0] === '(const)';
@@ -126,10 +146,13 @@
       return (
         <div className="an-res">
           <EquationLine r={res} yName={props.yName} />
-          {res.robust && res.robust !== 'none' && <div className="an-note">Std. errors: {res.robust.toUpperCase()} (heteroskedasticity-robust)</div>}
+          {res.robust === 'hac' && <div className="an-note">Std. errors: <b>Newey-West HAC</b> ({res.hacLags} lags) — robust to heteroskedasticity & autocorrelation.</div>}
+          {res.robust === 'hc1' && <div className="an-note">Std. errors: <b>HC1 White</b> — heteroskedasticity-robust (not autocorrelation-robust; use HAC for time series).</div>}
+          {res._logged && <div className="an-note">Level variables auto-logged — slopes on ln·ln pairs read as elasticities.</div>}
           <CoefTable r={res} />
           <div className="an-sig-key">*** p&lt;0.01 · ** p&lt;0.05 · * p&lt;0.1</div>
           <StatGrid stats={statList} />
+          {res.diag && <DiagPanel diag={res.diag} robust={res.robust} />}
           <div className="an-charts2">
             <div className="an-chart-card"><div className="an-chart-h">Actual vs. Fitted</div><MiniLine series={[{ name: 'Actual', values: actual, color: COL.line2 }, { name: 'Fitted', values: res.fitted, color: COL.line }]} /></div>
             <div className="an-chart-card"><div className="an-chart-h">Residuals</div><MiniLine series={[{ name: 'resid', values: res.resid, color: COL.line3, w: 1.2 }]} /></div>
@@ -148,6 +171,8 @@
             { label: 'AIC', value: fmt(res.aic, 2) }, { label: 'BIC', value: fmt(res.bic, 2) },
             { label: 'Stable', value: res.stable ? '✓ all roots inside unit circle' : '⚠ unstable (root ≥ 1)' }
           ]} />
+          <div className="an-note">Identification: orthogonalized (Cholesky) IRFs depend on the variable order — <b>{names.join(' → ')}</b>. Endogenous variables should be stationary (difference/log non-stationary series; run ADF first). {method === 'BVAR' ? 'Bands = 68% posterior (Minnesota prior draws).' : (band ? 'Bands = 68% from matrix-normal coefficient sampling.' : '')}</div>
+          {!res.stable && <div className="an-verdict warn">⚠ The VAR is unstable (a companion root ≥ 1) — IRFs do not die out and forecasts diverge. Difference your variables or reduce lags.</div>}
           {res._lagSel && <div className="an-sub"><div className="an-sub-h">Lag-order selection</div>
             <table className="an-table"><thead><tr><th>p</th><th>AIC</th><th>BIC</th><th>HQIC</th></tr></thead><tbody>
               {res._lagSel.table.map(function (row) { return <tr key={row.p} className={row.p === res.p ? 'an-row-on' : ''}><td>{row.p}</td><td className="an-num">{fmt(row.aic, 2)}</td><td className="an-num">{fmt(row.bic, 2)}</td><td className="an-num">{fmt(row.hqic, 2)}</td></tr>; })}
@@ -190,10 +215,36 @@
     if (method === 'ADF') {
       return (
         <div className="an-res">
-          <StatGrid stats={[{ label: 'ADF statistic', value: fmt(res.stat, 4) }, { label: 'Lags', value: res.lags }, { label: 'Trend', value: res.trend }, { label: 'Obs', value: res.n }]} />
+          <StatGrid stats={[{ label: 'ADF statistic', value: fmt(res.stat, 4) }, { label: 'p-value (approx)', value: fmt(res.p, 4) }, { label: 'Lags' + (res.lagAuto ? ' (AIC)' : ''), value: res.lags }, { label: 'Trend', value: res.trend }, { label: 'Obs', value: res.n }]} />
           <table className="an-table"><thead><tr><th>Critical values</th><th>1%</th><th>5%</th><th>10%</th></tr></thead>
             <tbody><tr><td>Threshold</td><td className="an-num">{res.critical['1%']}</td><td className="an-num">{res.critical['5%']}</td><td className="an-num">{res.critical['10%']}</td></tr></tbody></table>
           <div className={'an-verdict ' + (res.stationary ? 'good' : 'warn')}>{res.decision}</div>
+        </div>
+      );
+    }
+
+    if (method === 'cointegration') {
+      return (
+        <div className="an-res">
+          <div className="an-note">{res.test} test — Step 1: OLS of Y on X (the long-run / cointegrating regression). Step 2: ADF on its residuals.</div>
+          {res.beta && <EquationLine r={{ names: res.names, coef: res.beta }} yName={(res.names && res.names[0]) || 'Y'} />}
+          <StatGrid stats={[{ label: 'Residual ADF stat', value: fmt(res.stat, 4) }, { label: 'Lags', value: res.lags }, { label: '# regressors', value: res.nReg }]} />
+          <table className="an-table"><thead><tr><th>Engle-Granger critical</th><th>1%</th><th>5%</th><th>10%</th></tr></thead>
+            <tbody><tr><td>Threshold</td><td className="an-num">{res.critical['1%']}</td><td className="an-num">{res.critical['5%']}</td><td className="an-num">{res.critical['10%']}</td></tr></tbody></table>
+          <div className={'an-verdict ' + (res.cointegrated ? 'good' : 'warn')}>{res.decision}</div>
+        </div>
+      );
+    }
+
+    if (method === 'acf') {
+      var lags = res.acf.map(function (o) { return o.lag; });
+      return (
+        <div className="an-res">
+          <div className="an-note">Autocorrelation of <b>{res.name}</b> · n={res.n}. Bars beyond the dashed Bartlett band are significant at ~5%.</div>
+          <div className="an-charts2">
+            <div className="an-chart-card"><div className="an-chart-h">ACF</div><Bars values={res.acf.map(function (o) { return o.value; })} labels={lags} /><div className="an-dim" style={{ fontSize: 10, marginTop: 4 }}>±{fmt(res.acf[0] ? res.acf[0].ci : 0, 2)} band (lag 1)</div></div>
+            <div className="an-chart-card"><div className="an-chart-h">PACF</div><Bars values={res.pacf.map(function (o) { return o.value; })} labels={lags} /></div>
+          </div>
         </div>
       );
     }
