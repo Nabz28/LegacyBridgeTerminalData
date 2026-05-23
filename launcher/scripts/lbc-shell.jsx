@@ -58,15 +58,19 @@ const LBC_TERMINALS = [
       { kind: 'scanners',       label: 'Scanners',    built: true },
       { kind: 'eq-financials',  label: 'Financials',  built: false },
     ] },
+  // Embedded apps (own build) — rendered as bare full-bleed iframes inside the
+  // shell tab strip (NOT wrapped in AppShell), so no double chrome. They share
+  // this origin's localStorage, so the lbc_auth session is mirrored into the
+  // keys each app expects (see LBCShell session-bridge effect).
   { id: 'management', num: 'T5', name: 'Management', accent: '#3f72cc', icon: LBC_ICONS.management,
     desc: 'Research lifecycle, KPI tracking & per-analyst scorecards.',
-    workspaces: [ { kind: 'ext-management', label: 'Management', built: true, extra: { url: '/management/' } } ] },
+    embed: '/management/', workspaces: [ { kind: 'ext-management', label: 'Management', built: true } ] },
   { id: 'network', num: 'T6', name: 'Network', accent: '#5b8def', icon: LBC_ICONS.network,
     desc: 'Relationship mapper for the LBC team, contacts, clients & talent pipeline.',
-    workspaces: [ { kind: 'network-map', label: 'Network', built: true } ] },
+    embed: '/network/dashboard/', workspaces: [ { kind: 'ext-network', label: 'Network', built: true } ] },
   { id: 'yggdrasil', num: 'T7', name: 'Yggdrasil', accent: '#6f9cf2', icon: LBC_ICONS.yggdrasil,
     desc: 'Thesis decomposition tree — theses, hypotheses, scenarios & metrics.',
-    workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: true, extra: { url: '/yggdrasil/' } } ] },
+    embed: '/yggdrasil/', workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
@@ -330,6 +334,25 @@ const LBCShell = () => {
   const [tabs, setTabs] = React.useState(() => [{ id: newTabId(), type: 'home' }]);
   const [activeId, setActiveId] = React.useState(() => tabs[0].id);
 
+  // Session bridge for embedded apps: the Management terminal reads its session
+  // from its OWN localStorage keys (lbc.mgmt.token/user/exp), not lbc_auth. Same
+  // origin, so we mirror the shell's current (Narin's-signed) session into those
+  // keys before its iframe loads — otherwise it sends a stale token and Supabase
+  // rejects it ("No suitable key or wrong key type"). Runs on auth change.
+  React.useEffect(() => {
+    try {
+      const raw = localStorage.getItem(LBC_AUTH.storeKey);
+      const s = raw ? JSON.parse(raw) : null;
+      if (s && s.token && s.exp && Date.now() < s.exp) {
+        localStorage.setItem('lbc.mgmt.token', s.token);
+        localStorage.setItem('lbc.mgmt.user', JSON.stringify(s.user));
+        localStorage.setItem('lbc.mgmt.exp', String(s.exp));
+      } else {
+        ['lbc.mgmt.token', 'lbc.mgmt.user', 'lbc.mgmt.exp'].forEach((k) => localStorage.removeItem(k));
+      }
+    } catch {}
+  }, [authed, user]);
+
   const onAuthed = (session) => { setUser(session.user); setAuthed(true); };
   const onLogout = () => {
     try { localStorage.removeItem(LBC_AUTH.storeKey); } catch {}
@@ -402,7 +425,9 @@ const LBCShell = () => {
           if (!term) return null;
           return (
             <div key={t.id} className="lbc-tabpane" style={{ display: isActive ? 'block' : 'none' }}>
-              <window.AppShell terminal={term} onHome={goHome} onNewTab={addTab} />
+              {term.embed
+                ? <iframe className="lbc-embed" src={term.embed} title={term.name} />
+                : <window.AppShell terminal={term} onHome={goHome} onNewTab={addTab} />}
             </div>
           );
         })}
