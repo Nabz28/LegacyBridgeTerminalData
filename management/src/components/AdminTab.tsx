@@ -64,6 +64,7 @@ function TeamsAdmin() {
   const refresh = () => setTick((t) => t + 1);
 
   useEffect(() => {
+    let alive = true;
     (async () => {
       const sb = getClient();
       const [tRes, mRes, uRes] = await Promise.all([
@@ -72,10 +73,15 @@ function TeamsAdmin() {
         sb.from("users_lite").select("id, username, full_name, division, title, role")
           .eq("active", true).order("full_name"),
       ]);
+      if (!alive) return;
+      const firstErr = tRes.error || mRes.error || uRes.error;
+      if (firstErr) { setErr(firstErr.message); return; }
+      setErr(null);
       setTeams((tRes.data ?? []) as Team[]);
       setMembers((mRes.data ?? []) as Array<{ team_id: string; user_id: string }>);
       setUsers((uRes.data ?? []) as UserLite[]);
     })();
+    return () => { alive = false; };
   }, [tick]);
 
   const teamWithMembers: TeamWithMembers[] = useMemo(() => teams.map((t) => ({
@@ -312,6 +318,10 @@ function UsersAdmin() {
   const [contact, setContact] = useState<Record<string, string>>({});
   const [contactReady, setContactReady] = useState(false);
   const [emailEdit, setEmailEdit] = useState<{ id: string; val: string } | null>(null);
+  // title + can_create_research_project are NOT in v_user_activity. Pull them
+  // from users_lite so the edit modal can pre-fill them — otherwise saving an
+  // edit silently wiped the user's title and research-project privilege.
+  const [profiles, setProfiles] = useState<Record<string, { title: string; canCreate: boolean }>>({});
 
   useEffect(() => {
     (async () => {
@@ -329,13 +339,19 @@ function UsersAdmin() {
       try {
         const { data: cd, error: ce } = await sb
           .from("users_lite")
-          .select("id, email");
+          .select("id, email, title, can_create_research_project");
         if (!ce && cd) {
           const map: Record<string, string> = {};
-          for (const r of cd as Array<{ id: string; email: string | null }>) {
+          const prof: Record<string, { title: string; canCreate: boolean }> = {};
+          for (const r of cd as Array<{
+            id: string; email: string | null;
+            title: string | null; can_create_research_project: boolean | null;
+          }>) {
             map[r.id] = r.email ?? "";
+            prof[r.id] = { title: r.title ?? "", canCreate: Boolean(r.can_create_research_project) };
           }
           setContact(map);
+          setProfiles(prof);
           setContactReady(true);
         }
       } catch { /* email column not live yet */ }
@@ -495,6 +511,8 @@ function UsersAdmin() {
       {editing && (
         <UserFormModal
           existing={editing}
+          existingTitle={profiles[editing.user_id]?.title ?? ""}
+          existingCanCreate={profiles[editing.user_id]?.canCreate ?? false}
           onCancel={() => setEditing(null)}
           onSubmit={async (data) => {
             await handle(async () => {
@@ -545,17 +563,19 @@ interface UserFormData {
 
 interface UserFormModalProps {
   existing?: UserActivity;
+  existingTitle?: string;
+  existingCanCreate?: boolean;
   onSubmit: (data: UserFormData) => void;
   onCancel: () => void;
 }
-function UserFormModal({ existing, onSubmit, onCancel }: UserFormModalProps) {
+function UserFormModal({ existing, existingTitle, existingCanCreate, onSubmit, onCancel }: UserFormModalProps) {
   const [username, setUsername] = useState(existing?.username ?? "");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState(existing?.full_name ?? "");
   const [role, setRole] = useState<UserFormData["role"]>((existing?.role ?? "analyst") as UserFormData["role"]);
   const [division, setDivision] = useState(existing?.division ?? "");
-  const [title, setTitle] = useState("");
-  const [canCreate, setCanCreate] = useState(false);
+  const [title, setTitle] = useState(existingTitle ?? "");
+  const [canCreate, setCanCreate] = useState(existingCanCreate ?? false);
 
   const isEdit = Boolean(existing);
 

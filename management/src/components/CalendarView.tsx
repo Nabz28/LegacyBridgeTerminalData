@@ -80,7 +80,11 @@ export function CalendarView({
   const monthLabel = new Date(Date.UTC(cursor.y, cursor.m, 1))
     .toLocaleDateString(undefined, { month: "long", year: "numeric", timeZone: "UTC" });
 
-  const todayIso = new Date().toISOString().slice(0, 10);
+  // Local calendar date (matches goToday's local now + the grid's date-string
+  // cells). Using UTC here mis-highlighted "today" during early-AM hours in
+  // timezones ahead of UTC (e.g. UTC+7 before 07:00).
+  const now = new Date();
+  const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
   const goPrev = () => setCursor(({ y, m }) => m === 0 ? { y: y - 1, m: 11 } : { y, m: m - 1 });
   const goNext = () => setCursor(({ y, m }) => m === 11 ? { y: y + 1, m: 0 } : { y, m: m + 1 });

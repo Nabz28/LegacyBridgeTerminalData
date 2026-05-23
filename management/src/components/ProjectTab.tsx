@@ -802,6 +802,11 @@ function DeliverableDetail(props: DetailProps) {
     setShowOwnersPicker(false);
   }, [d.id, d.description, d.file_url]);
 
+  // Clear the action/comment textarea only when the SELECTED deliverable
+  // changes — keyed on id alone so a realtime update to the current
+  // deliverable's description/file never wipes a half-typed comment.
+  useEffect(() => { setDraft(""); }, [d.id]);
+
   const isOwner = owners.some((o) => o.user_id === currentUser.id);
   const approvalDivision = d.kind === "IM" ? "IM" : d.division;
   const isApprover = approvers.some(

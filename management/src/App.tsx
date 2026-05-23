@@ -30,7 +30,8 @@ export function App() {
     const token = readToken();
     const user = readUser();
     if (token && user) {
-      setSession({ token, user, expires_at: 0 });
+      const expRaw = localStorage.getItem("lbc.mgmt.exp");
+      setSession({ token, user, expires_at: expRaw ? Number(expRaw) : 0 });
     }
     setReady(true);
   }, []);

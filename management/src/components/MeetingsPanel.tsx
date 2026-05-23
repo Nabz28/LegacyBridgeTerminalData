@@ -271,110 +271,11 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
       const ratio = count.yes / denom;
       // 0 -> very faint, 1 -> saturated green
       const alpha = 0.15 + Math.min(0.65, ratio * 0.8);
-      bg = `rgba(34, 197, 94, ${alpha})`;
+      bg = `rgba(25, 195, 125, ${alpha})`;
     }
     if (status === "yes")   { bg = "var(--positive)"; border = "1px solid var(--positive)"; }
     if (status === "maybe") { bg = "var(--amber)";    border = "1px solid var(--amber)"; }
     return { background: bg, border };
-  }
-
-  // ── Create-poll inline form (no separate file, kept inline for clarity)
-  function CreatePollForm({ onClose }: { onClose: () => void }) {
-    const [title, setTitle] = useState("");
-    const [dateFrom, setDateFrom] = useState(today());
-    const [dateTo, setDateTo] = useState(() => {
-      const t = parseISODate(today());
-      t.setDate(t.getDate() + 6);
-      return fmtDateInput(t);
-    });
-    const [slotMinutes, setSlotMinutes] = useState<60 | 30 | 15 | 120>(60);
-    const [startH, setStartH] = useState(8);
-    const [endH, setEndH] = useState(20);
-    const [creating, setCreating] = useState(false);
-    const [formErr, setFormErr] = useState<string | null>(null);
-
-    const submit = async () => {
-      const t = title.trim();
-      if (!t) { setFormErr("title required"); return; }
-      if (dateFrom > dateTo) { setFormErr("end date must be on or after start"); return; }
-      if (startH >= endH) { setFormErr("end hour must be after start hour"); return; }
-      setCreating(true); setFormErr(null);
-      try {
-        await adminMutate({
-          action: "meeting_create",
-          project_id: projectId,
-          poll_title: t,
-          poll_date_from: dateFrom,
-          poll_date_to: dateTo,
-          poll_slot_minutes: slotMinutes,
-          poll_day_start_hour: startH,
-          poll_day_end_hour: endH,
-        });
-        onClose();
-        refresh();
-      } catch (e) {
-        setFormErr((e as Error).message);
-      } finally { setCreating(false); }
-    };
-
-    return (
-      <div style={{
-        border: "1px solid var(--border-strong)", borderRadius: 4,
-        padding: 12, marginBottom: 12, background: "var(--bg-elev)",
-      }}>
-        <div className="dim mono" style={{ fontSize: 10, letterSpacing: 1.5, marginBottom: 8 }}>
-          NEW MEETING POLL
-        </div>
-        {formErr && <div className="error-banner" style={{ margin: "0 0 8px 0" }}>{formErr}</div>}
-        <div className="field" style={{ marginBottom: 8 }}>
-          <label style={{ fontSize: 10 }}>Title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Kickoff sync · IM review · Brainstorm" autoFocus />
-        </div>
-        <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-          <div className="field" style={{ flex: 1, margin: 0 }}>
-            <label style={{ fontSize: 10 }}>From</label>
-            <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
-          </div>
-          <div className="field" style={{ flex: 1, margin: 0 }}>
-            <label style={{ fontSize: 10 }}>To</label>
-            <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} min={dateFrom} />
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-          <div className="field" style={{ flex: 1, margin: 0 }}>
-            <label style={{ fontSize: 10 }}>Slot</label>
-            <select value={slotMinutes} onChange={(e) => setSlotMinutes(Number(e.target.value) as 15 | 30 | 60 | 120)}>
-              <option value={15}>15 min</option>
-              <option value={30}>30 min</option>
-              <option value={60}>60 min</option>
-              <option value={120}>2 hr</option>
-            </select>
-          </div>
-          <div className="field" style={{ flex: 1, margin: 0 }}>
-            <label style={{ fontSize: 10 }}>Day starts</label>
-            <select value={startH} onChange={(e) => setStartH(Number(e.target.value))}>
-              {Array.from({ length: 23 }, (_, i) => i).map((h) => (
-                <option key={h} value={h}>{h.toString().padStart(2, "0")}:00</option>
-              ))}
-            </select>
-          </div>
-          <div className="field" style={{ flex: 1, margin: 0 }}>
-            <label style={{ fontSize: 10 }}>Day ends</label>
-            <select value={endH} onChange={(e) => setEndH(Number(e.target.value))}>
-              {Array.from({ length: 24 }, (_, i) => i + 1).map((h) => (
-                <option key={h} value={h}>{h.toString().padStart(2, "0")}:00</option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
-          <button className="btn ghost sm" onClick={onClose} disabled={creating}>Cancel</button>
-          <button className="btn primary sm" onClick={submit} disabled={creating || !title.trim()}>
-            {creating ? "Creating…" : "Create poll"}
-          </button>
-        </div>
-      </div>
-    );
   }
 
   // ── Top-level render ──────────────────────────────────────────────
@@ -397,7 +298,13 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
 
       {err && <div className="error-banner" style={{ margin: 0 }}>{err}</div>}
 
-      {showCreate && <CreatePollForm onClose={() => setShowCreate(false)} />}
+      {showCreate && (
+        <CreatePollForm
+          projectId={projectId}
+          onClose={() => setShowCreate(false)}
+          onCreated={refresh}
+        />
+      )}
 
       {loading && <div className="dim" style={{ fontSize: 12 }}>Loading polls…</div>}
 
@@ -468,7 +375,7 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
             <div style={{
               marginBottom: 10, padding: 8,
               border: "1px solid var(--accent-dim)",
-              borderRadius: 3, background: "rgba(74, 158, 255, 0.06)",
+              borderRadius: 3, background: "var(--accent-fade)",
             }}>
               <div className="mono" style={{ fontSize: 10, letterSpacing: 1.5, color: "var(--accent)", marginBottom: 4 }}>
                 BEST SLOTS · top {topSlots.length}
@@ -515,7 +422,7 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
               <span style={{ width: 10, height: 10, background: "var(--amber)", borderRadius: 2 }} /> maybe
             </span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-              <span style={{ width: 10, height: 10, background: "rgba(34,197,94,0.35)", border: "1px solid var(--border)", borderRadius: 2 }} /> heatmap (group)
+              <span style={{ width: 10, height: 10, background: "rgba(25,195,125,0.35)", border: "1px solid var(--border)", borderRadius: 2 }} /> heatmap (group)
             </span>
           </div>
 
@@ -618,6 +525,114 @@ export function MeetingsPanel({ projectId, currentUser, users, projectMembers }:
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Create-poll form ──────────────────────────────────────────────────
+// Module-scope (NOT nested in MeetingsPanel) so its identity is stable: a
+// nested definition is a new component type on every parent render, which
+// unmounts/remounts the form and wipes the draft + input focus whenever the
+// parent re-renders (e.g. a realtime tick).
+interface CreatePollFormProps {
+  projectId: string;
+  onClose: () => void;
+  onCreated: () => void;
+}
+function CreatePollForm({ projectId, onClose, onCreated }: CreatePollFormProps) {
+  const [title, setTitle] = useState("");
+  const [dateFrom, setDateFrom] = useState(today());
+  const [dateTo, setDateTo] = useState(() => {
+    const t = parseISODate(today());
+    t.setDate(t.getDate() + 6);
+    return fmtDateInput(t);
+  });
+  const [slotMinutes, setSlotMinutes] = useState<60 | 30 | 15 | 120>(60);
+  const [startH, setStartH] = useState(8);
+  const [endH, setEndH] = useState(20);
+  const [creating, setCreating] = useState(false);
+  const [formErr, setFormErr] = useState<string | null>(null);
+
+  const submit = async () => {
+    const t = title.trim();
+    if (!t) { setFormErr("title required"); return; }
+    if (dateFrom > dateTo) { setFormErr("end date must be on or after start"); return; }
+    if (startH >= endH) { setFormErr("end hour must be after start hour"); return; }
+    setCreating(true); setFormErr(null);
+    try {
+      await adminMutate({
+        action: "meeting_create",
+        project_id: projectId,
+        poll_title: t,
+        poll_date_from: dateFrom,
+        poll_date_to: dateTo,
+        poll_slot_minutes: slotMinutes,
+        poll_day_start_hour: startH,
+        poll_day_end_hour: endH,
+      });
+      onClose();
+      onCreated();
+    } catch (e) {
+      setFormErr((e as Error).message);
+    } finally { setCreating(false); }
+  };
+
+  return (
+    <div style={{
+      border: "1px solid var(--border-strong)", borderRadius: 4,
+      padding: 12, marginBottom: 12, background: "var(--bg-elev)",
+    }}>
+      <div className="dim mono" style={{ fontSize: 10, letterSpacing: 1.5, marginBottom: 8 }}>
+        NEW MEETING POLL
+      </div>
+      {formErr && <div className="error-banner" style={{ margin: "0 0 8px 0" }}>{formErr}</div>}
+      <div className="field" style={{ marginBottom: 8 }}>
+        <label style={{ fontSize: 10 }}>Title</label>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Kickoff sync · IM review · Brainstorm" autoFocus />
+      </div>
+      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+        <div className="field" style={{ flex: 1, margin: 0 }}>
+          <label style={{ fontSize: 10 }}>From</label>
+          <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+        </div>
+        <div className="field" style={{ flex: 1, margin: 0 }}>
+          <label style={{ fontSize: 10 }}>To</label>
+          <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} min={dateFrom} />
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+        <div className="field" style={{ flex: 1, margin: 0 }}>
+          <label style={{ fontSize: 10 }}>Slot</label>
+          <select value={slotMinutes} onChange={(e) => setSlotMinutes(Number(e.target.value) as 15 | 30 | 60 | 120)}>
+            <option value={15}>15 min</option>
+            <option value={30}>30 min</option>
+            <option value={60}>60 min</option>
+            <option value={120}>2 hr</option>
+          </select>
+        </div>
+        <div className="field" style={{ flex: 1, margin: 0 }}>
+          <label style={{ fontSize: 10 }}>Day starts</label>
+          <select value={startH} onChange={(e) => setStartH(Number(e.target.value))}>
+            {Array.from({ length: 23 }, (_, i) => i).map((h) => (
+              <option key={h} value={h}>{h.toString().padStart(2, "0")}:00</option>
+            ))}
+          </select>
+        </div>
+        <div className="field" style={{ flex: 1, margin: 0 }}>
+          <label style={{ fontSize: 10 }}>Day ends</label>
+          <select value={endH} onChange={(e) => setEndH(Number(e.target.value))}>
+            {Array.from({ length: 24 }, (_, i) => i + 1).map((h) => (
+              <option key={h} value={h}>{h.toString().padStart(2, "0")}:00</option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
+        <button className="btn ghost sm" onClick={onClose} disabled={creating}>Cancel</button>
+        <button className="btn primary sm" onClick={submit} disabled={creating || !title.trim()}>
+          {creating ? "Creating…" : "Create poll"}
+        </button>
+      </div>
     </div>
   );
 }
