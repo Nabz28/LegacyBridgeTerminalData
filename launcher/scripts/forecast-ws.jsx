@@ -16,7 +16,9 @@
   var F = window.Forecast, DD = window.DriverData;
   var SB = 'https://adnubucjlezrtusbicja.supabase.co/rest/v1';
   var ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
-  var COL = { hist: '#97AAC5', fcst: '#E8E4D9', band: 'rgba(232,228,217,.14)', grid: 'rgba(151,170,197,.14)', pos: '#19C37D', target: '#E8E4D9' };
+  // resolve chart strokes from the LBC design tokens (fall back to literals if unavailable)
+  function tok(name, fb) { try { var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim(); return v || fb; } catch (e) { return fb; } }
+  var COL = { hist: tok('--brand', '#97AAC5'), fcst: tok('--paper', '#E8E4D9'), target: tok('--paper', '#E8E4D9'), pos: tok('--pos', '#19C37D'), band: 'rgba(232,228,217,.14)', grid: 'rgba(151,170,197,.14)' };
 
   // ---- per-account cloud sync ----
   function lbcSession() { try { var s = JSON.parse(localStorage.getItem('lbc_auth') || 'null'); return (s && s.token && s.exp && Date.now() < s.exp) ? s : null; } catch (e) { return null; } }
@@ -106,7 +108,7 @@
         <line x1={pad.l} y1={Hpx - pad.b} x2={W - pad.r} y2={Hpx - pad.b} stroke={COL.grid} />
         {bandPath && <path d={bandPath} fill={COL.band} stroke="none" />}
         <line x1={nowX} y1={pad.t} x2={nowX} y2={Hpx - pad.b} stroke="rgba(151,170,197,.35)" strokeDasharray="2 3" />
-        {props.base && <path d={pathOf((lastHist != null ? [lastHist] : []).concat(props.base), fcOff)} fill="none" stroke="rgba(232,228,217,.35)" strokeWidth="1.2" />}
+        {props.base && <path d={pathOf((lastHist != null ? [lastHist] : []).concat(props.base), fcOff)} fill="none" stroke="rgba(232,228,217,.3)" strokeWidth="1.2" strokeDasharray="6 4" />}
         {props.fit && <path d={pathOf(props.fit, 0)} fill="none" stroke="rgba(151,170,197,.45)" strokeWidth="1" strokeDasharray="1 2" />}
         <path d={pathOf(hist, 0)} fill="none" stroke={COL.hist} strokeWidth="1.6" />
         <path d={pathOf(fcLine, fcOff)} fill="none" stroke={props.color || COL.fcst} strokeWidth="1.7" strokeDasharray="4 2" />
@@ -435,6 +437,8 @@
               var up = (hL != null && fL != null) ? fL >= hL : null;
               var base = (pinned && pinned.target === result.target && pinned.fcst.length === target.fcst.length) ? pinned.fcst : null;
               var vsBase = base ? fL - base[base.length - 1] : null;
+              var tf = target.fit || {};
+              var spuriousDrivers = result.order.filter(function (id) { return id !== result.target && result.nodes[id].fit && result.nodes[id].fit.spurious; }).map(function (id) { return result.nodes[id].sym; });
               return <div className="fc-res">
                 {stale && <div className="fc-updating">● updating forecast…</div>}
                 <div className="fc-res-h">
@@ -446,10 +450,13 @@
                 </div>
                 <div className="fc-res-now">last actual <b>{fmtVal(hL)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{fmtVal(fL)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtVal(vsBase)}</b></span>}</div>
                 {result.warning && <div className="an-verdict warn">⚠ {result.warning}</div>}
-                {target.fit && target.fit.error && <div className="an-verdict warn">⚠ Target won't fit: {target.fit.error}</div>}
-                {target.fit && target.fit.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's regression residuals are non-stationary (DW={fmtVal(target.fit.dw, 2)}{target.fit.adfP != null ? ', ADF p≈' + fmtVal(target.fit.adfP, 2) : ''}). A high R² here can be a common-trend artefact — try <b>differenced/growth</b> drivers, or the <b>log Y</b> toggle for a price.</div>}
-                {target.fit && target.fit.kind === 'regression' && !target.fit.error && <div className="an-note">Fit R²={fmtVal(target.fit.r2, 3)} on {target.fit.nfit} periods · {target.fit.names.slice(1).join(', ')}{target.fit.logspace ? ' · log Y' : ''} · dotted line = in-sample fit</div>}
-                <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} fit={target.fit && target.fit.fittedHist} base={base} bandPct={bandPct} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={184} />
+                {tf.error && <div className="an-verdict warn">⚠ Target won't fit: {tf.error}</div>}
+                {tf.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's residuals are non-stationary (DW={fmtVal(tf.dw, 2)}{tf.adfP != null ? ', ADF p≈' + fmtVal(tf.adfP, 2) : ''}). A high R² here can be a common-trend artefact — {tf.logspace ? 'try differenced / % growth drivers (log Y is already on).' : <span>try <b>differenced / % growth</b> drivers, or the <b>log Y</b> toggle for a price.</span>}</div>}
+                {target.extreme && <div className="an-verdict warn">⚠ Forecast runs far beyond the historical range (runaway compounding) — sanity-check the driver scenarios / growth rates.</div>}
+                {spuriousDrivers.length > 0 && <div className="an-note">⚠ {spuriousDrivers.length} driver fit(s) flagged spurious ({spuriousDrivers.join(', ')}) — the target cone inherits their uncertainty.</div>}
+                {tf.kind === 'regression' && !tf.error && <div className="an-note">Fit R²={fmtVal(tf.r2, 3)} on {tf.nfit} periods · {tf.names.slice(1).join(', ')}{tf.logspace ? ' · log Y (point = median)' : ''}{tf.holdout ? ' · hold-out RMSE ' + fmtVal(tf.holdout.rmse) + ' / MAE ' + fmtVal(tf.holdout.mae) + ' (last ' + tf.holdout.n + ')' : ''}</div>}
+                <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} fit={tf.fittedHist} base={base} bandPct={bandPct} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={184} />
+                <div className="fc-legend"><span className="fc-lg"><i className="fc-lg-hist" />history</span><span className="fc-lg"><i className="fc-lg-fcst" />forecast</span>{tf.fittedHist && <span className="fc-lg"><i className="fc-lg-fit" />in-sample fit</span>}{base && <span className="fc-lg"><i className="fc-lg-base" />baseline</span>}<span className="fc-lg"><i className="fc-lg-band" />{bandPct}% band</span></div>
                 <div className="fc-sm-h">Drivers</div>
                 <div className="fc-smalls">
                   {result.order.filter(function (id) { return id !== result.target; }).map(function (id) { var nd = result.nodes[id]; return (
@@ -458,6 +465,7 @@
                       <FcChart hist={nd.hist} fcst={nd.fcst} lo={nd.lo} hi={nd.hi} fit={nd.fit && nd.fit.fittedHist} histDates={result.dates.hist} futureDates={result.dates.future} height={92} />
                       {nd.fit && nd.fit.error && <div className="fc-sm-err">⚠ {nd.fit.error}</div>}
                       {nd.fit && nd.fit.spurious && <div className="fc-sm-err">⚠ spurious fit (non-stationary residuals)</div>}
+                      {nd.extreme && <div className="fc-sm-err">⚠ runs far beyond history</div>}
                     </div>
                   ); })}
                 </div>

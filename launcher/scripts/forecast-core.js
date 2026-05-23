@@ -74,11 +74,15 @@
       else if (tk.t === 'op') {
         var unary = (prev == null || prev.t === 'op' || prev.t === 'lp' || prev.t === 'comma');
         if (unary && (tk.v === '-' || tk.v === '+')) { tk = { t: 'op', v: tk.v === '-' ? 'u-' : 'u+', unary: true }; }
-        while (ops.length) {
-          var top = ops[ops.length - 1];
-          if (top.t !== 'op') break;
-          var popIt = RIGHT[tk.v] ? (PREC[top.v] > PREC[tk.v]) : (PREC[top.v] >= PREC[tk.v]);
-          if (popIt) out.push(ops.pop()); else break;
+        // a PREFIX unary binds to everything on its right → it pops nothing already on the stack
+        // (so 2^-3 = 0.125, while -2^2 = -(2^2) = -4 still works because the '^' won't pop the u-)
+        if (!tk.unary) {
+          while (ops.length) {
+            var top = ops[ops.length - 1];
+            if (top.t !== 'op') break;
+            var popIt = RIGHT[tk.v] ? (PREC[top.v] > PREC[tk.v]) : (PREC[top.v] >= PREC[tk.v]);
+            if (popIt) out.push(ops.pop()); else break;
+          }
         }
         ops.push(tk);
       }
@@ -254,7 +258,21 @@
         for (var t2 = 0; t2 < Ht; t2++) { var v = res.coef[0], good = true; for (var j2 = 0; j2 < ps.length; j2++) { var lg2 = (n.lags && n.lags[ps[j2]]) || 0; var pv2 = path[ps[j2]] ? path[ps[j2]][t2 - lg2] : null; if (pv2 == null || !isFinite(pv2)) { good = false; break; } v += res.coef[j2 + 1] * pv2; } fh[t2] = good ? (logsp ? Math.exp(v) : v) : null; }
         // spurious-regression check: residuals non-stationary (DW≈0 or ADF can't reject a unit root)
         var spur = false, adfP = null; try { var ra = E.adf(res.resid, { trend: 'c' }); adfP = ra ? ra.p : null; if ((res.dw != null && res.dw < 0.8) || (ra && ra.stationary === false)) spur = true; } catch (e) { }
-        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur };
+        // rolling-origin hold-out: fit on the first 80%, score the rest (errors on the original scale)
+        var holdout = null;
+        if (Y.length >= 12) {
+          var cut = Math.floor(Y.length * 0.8);
+          if (cut >= ps.length + 3 && Y.length - cut >= 2) {
+            try {
+              var Xtr = Xcols.map(function (c) { return c.slice(0, cut); });
+              var rb = E.ols(Y.slice(0, cut), Xtr, {});
+              var se = 0, ae = 0, m = 0;
+              for (var ti = cut; ti < Y.length; ti++) { var pr = rb.coef[0]; for (var jj = 0; jj < ps.length; jj++) pr += rb.coef[jj + 1] * Xcols[jj][ti]; var act = Y[ti]; if (logsp) { pr = Math.exp(pr); act = Math.exp(act); } var er = pr - act; if (isFinite(er)) { se += er * er; ae += Math.abs(er); m++; } }
+              if (m) holdout = { rmse: Math.sqrt(se / m), mae: ae / m, n: m };
+            } catch (e) { }
+          }
+        }
+        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur, holdout: holdout };
       } else if (n.method === 'arima') {
         var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || 4, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
       } else if (n.method === 'ets') {
@@ -300,10 +318,15 @@
     var out = { dates: { hist: histDates, future: futureDates }, order: order, target: target, freq: freq, H: H, bandPct: bandPct, warning: coverageWarn, nodes: {} };
     order.forEach(function (id) {
       var n = byId[id];
+      var h = path[id].slice(0, Ht), fc = path[id].slice(Ht);
+      // sanity flag: forecast leaves 10× the largest historical magnitude (runaway compounding)
+      var hmax = 0; h.forEach(function (v) { if (isF(v) && Math.abs(v) > hmax) hmax = Math.abs(v); });
+      var fmax = 0; fc.forEach(function (v) { if (isF(v) && Math.abs(v) > fmax) fmax = Math.abs(v); });
+      var extreme = hmax > 0 && fmax > 10 * hmax;
       out.nodes[id] = {
         label: n.label, sym: n.sym, method: n.method, isTarget: !!n.isTarget,
-        hist: path[id].slice(0, Ht), fcst: path[id].slice(Ht), lo: lo[id] || null, hi: hi[id] || null,
-        fit: fit[id] || null
+        hist: h, fcst: fc, lo: lo[id] || null, hi: hi[id] || null,
+        fit: fit[id] || null, extreme: extreme
       };
     });
     return out;

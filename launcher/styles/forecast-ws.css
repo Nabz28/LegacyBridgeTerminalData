@@ -126,7 +126,16 @@
 .fc-svg{background:var(--an-bg2);border:1px solid var(--an-bd2);border-radius:var(--r-2,3px)}
 /* the target cone is the hero — heavier frame + faint accent wash so the eye lands here first */
 .fc-res>.fc-svg{border-color:var(--an-acc-edge);background:linear-gradient(180deg,var(--an-acc-soft),transparent)}
-.fc-res-actions{display:flex;align-items:center;gap:10px}
+.fc-res-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+/* chart legend — decode the 4–5 layers on the cone */
+.fc-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:5px;font-family:var(--an-mono);font-size:9.5px;color:var(--an-tx3)}
+.fc-lg{display:inline-flex;align-items:center;gap:5px}
+.fc-lg i{width:14px;height:0;display:inline-block;border-top-width:2px;border-top-style:solid}
+.fc-lg-hist{border-top-color:var(--an-brand)}
+.fc-lg-fcst{border-top-color:var(--an-acc);border-top-style:dashed!important}
+.fc-lg-fit{border-top-color:var(--brand-edge,rgba(151,170,197,.55));border-top-style:dotted!important}
+.fc-lg-base{border-top-color:rgba(232,228,217,.45);border-top-style:dashed!important}
+.fc-lg-band{border-top:none!important;height:9px;width:14px;background:var(--an-acc-soft);border:1px solid var(--an-acc-edge);border-radius:2px}
 .fc-pinbtn{background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx3);border-radius:var(--r-2,3px);
   font-family:var(--an-mono);font-size:10px;padding:3px 8px;cursor:pointer;white-space:nowrap}
 .fc-pinbtn:hover{border-color:var(--an-acc-edge);color:var(--an-acc)}
