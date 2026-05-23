@@ -195,15 +195,16 @@
       var m = {}; rs.forEach(function (o) { if (o.value != null && isFinite(o.value)) m[pkey(o.date, freq)] = o.value; });
       keyMaps[n.id] = m;
     });
-    // common keys = intersection across all data nodes
-    var first = keyMaps[dataNodes[0].id];
-    var commonKeys = Object.keys(first).filter(function (k) { return dataNodes.every(function (n) { return keyMaps[n.id][k] != null; }); }).sort();
-    if (commonKeys.length < 8) return { error: 'Only ' + commonKeys.length + ' overlapping ' + freq + ' periods across the data nodes (need ≥ 8). Pick series with a longer common span or a lower frequency.' };
+    // master axis = UNION of every data node's periods (not intersection): a short
+    // series (e.g. 5q of a stock's revenue) no longer truncates a long macro series.
+    // Each node keeps its OWN history on this axis (null where it has no data);
+    // univariate fits use a node's own points, regressions align a child with its
+    // parents on their overlapping non-null rows only.
+    var keySet = {}; dataNodes.forEach(function (n) { Object.keys(keyMaps[n.id]).forEach(function (k) { keySet[k] = 1; }); });
+    var commonKeys = Object.keys(keySet).sort();
+    if (commonKeys.length < 4) return { error: 'Only ' + commonKeys.length + ' ' + freq + ' periods of history — add a longer series or lower the frequency.' };
     var Ht = commonKeys.length;
-    // warn when one short series truncates the whole common sample
-    var longest = 0; dataNodes.forEach(function (n) { var kk = Object.keys(keyMaps[n.id]).length; if (kk > longest) longest = kk; });
     var coverageWarn = null;
-    if (Ht < longest * 0.5) { var srt = dataNodes.map(function (n) { return { sym: byId[n.id].sym, k: Object.keys(keyMaps[n.id]).length }; }).sort(function (a, b) { return a.k - b.k; }); coverageWarn = 'Common sample is only ' + Ht + ' ' + freq + ' periods — truncated by ' + srt[0].sym + ' (others reach ' + longest + '). Drop or extend it for a longer fit.'; }
     var histDates = commonKeys.map(function (k) { return keyDate(k, freq); });
 
     // future dates
@@ -216,8 +217,8 @@
     var uni = {};        // id -> precomputed univariate forecast array (len H) when applicable
     var compiled = {};   // id -> compiled equation
 
-    // history for data nodes
-    dataNodes.forEach(function (n) { var arr = new Array(Ht + H).fill(null); for (var i = 0; i < Ht; i++) arr[i] = keyMaps[n.id][commonKeys[i]]; path[n.id] = arr; });
+    // history for data nodes (null where the node has no observation at a master key)
+    dataNodes.forEach(function (n) { var arr = new Array(Ht + H).fill(null); for (var i = 0; i < Ht; i++) { var v = keyMaps[n.id][commonKeys[i]]; arr[i] = (v != null && isFinite(v)) ? v : null; } path[n.id] = arr; });
 
     // history for derived/equation nodes (no own series): eval from parents over history, in topo order
     order.forEach(function (id) {
@@ -272,7 +273,7 @@
             } catch (e) { }
           }
         }
-        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur, holdout: holdout };
+        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, thin: Y.length < 12, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur, holdout: holdout };
       } else if (n.method === 'arima') {
         var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || 4, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
       } else if (n.method === 'ets') {

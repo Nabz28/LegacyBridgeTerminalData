@@ -686,6 +686,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           />
         ) : activeTabObj?.kind === 'driver-lab' ? (
           <window.EquityDriverLab />
+        ) : activeTabObj?.kind === 'equity-forecast' ? (
+          <window.EquityForecastLab />
         ) : activeTabObj?.kind === 'macro-lab' ? (
           <window.MacroLab />
         ) : activeTabObj?.kind === 'macro' ? (

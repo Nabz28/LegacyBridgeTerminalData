@@ -25,18 +25,20 @@
   function lbcToken() { var s = lbcSession(); return s ? s.token : null; }
   function lbcSub() { var s = lbcSession(); return (s && s.user) ? s.user.id : null; }
   function cloudEnabled() { return !!(lbcToken() && lbcSub()); }
-  function cloudLoad() {
+  function cloudLoad(table) {
     if (!cloudEnabled()) return Promise.resolve(null);
-    return fetch(SB + '/forecast_workspace?user_sub=eq.' + encodeURIComponent(lbcSub()) + '&select=doc', { headers: { apikey: ANON, Authorization: 'Bearer ' + lbcToken() } })
+    return fetch(SB + '/' + table + '?user_sub=eq.' + encodeURIComponent(lbcSub()) + '&select=doc', { headers: { apikey: ANON, Authorization: 'Bearer ' + lbcToken() } })
       .then(function (r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
       .then(function (rows) { return (rows && rows[0] && rows[0].doc) ? rows[0].doc : null; });
   }
-  function cloudSave(doc) {
+  function cloudSave(table, doc) {
     if (!cloudEnabled()) return Promise.resolve(false);
-    return fetch(SB + '/forecast_workspace', { method: 'POST', headers: { apikey: ANON, Authorization: 'Bearer ' + lbcToken(), 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify([{ user_sub: lbcSub(), doc: doc, updated_at: new Date().toISOString() }]) })
+    return fetch(SB + '/' + table, { method: 'POST', headers: { apikey: ANON, Authorization: 'Bearer ' + lbcToken(), 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify([{ user_sub: lbcSub(), doc: doc, updated_at: new Date().toISOString() }]) })
       .then(function (r) { if (!r.ok) return Promise.reject('HTTP ' + r.status); return true; });
   }
-  var LOCAL_KEY = 'lbcForecastWorkspace';
+  // two flavours of the same studio: macro drivers, and equity (metric pulled from a stock)
+  var MACRO_CFG = { title: 'Forecast Studio', sub: 'scenario graph', table: 'forecast_workspace', localKey: 'lbcForecastWorkspace', equity: false, defFreq: 'Q' };
+  var EQUITY_CFG = { title: 'Equity Forecast', sub: 'driver model · forecast a metric from its drivers', table: 'equity_forecast_workspace', localKey: 'lbcEquityForecastWorkspace', equity: true, defFreq: 'Q' };
 
   var FREQS = [{ id: 'M', label: 'Monthly', perYear: 12 }, { id: 'Q', label: 'Quarterly', perYear: 4 }, { id: 'A', label: 'Annual', perYear: 1 }];
 
@@ -82,6 +84,49 @@
     );
   }
 
+  // ===================== stock metric picker (equity mode) =====================
+  // Pulls a company's financial metric (revenue, EBIT, margin…) by ticker from the
+  // equity-statements cache. IDX .JK names usually have no Yahoo fundamentals — the
+  // note steers those to "+ Manual" (paste). Macro drivers use FcPicker.
+  function StockMetricModal(props) {
+    var _t = React.useState(''), ticker = _t[0], setTicker = _t[1];
+    var _m = React.useState('revenue'), metricId = _m[0], setMetricId = _m[1];
+    var _f = React.useState('quarterly'), freq = _f[0], setFreq = _f[1];
+    var _b = React.useState(false), busy = _b[0], setBusy = _b[1];
+    var _n = React.useState(''), note = _n[0], setNote = _n[1];
+    function add() {
+      if (!ticker.trim()) { setNote('Enter a ticker (e.g. AAPL, MSFT).'); return; }
+      setBusy(true); setNote('Pulling ' + ticker.trim().toUpperCase() + '…');
+      DD.autoPull(ticker.trim(), metricId, freq).then(function (out) {
+        setBusy(false);
+        if (out.series && out.series.length) {
+          var met = DD.METRICS.find(function (m) { return m.id === metricId; }) || {};
+          props.onAdd(ticker.trim().toUpperCase() + ' ' + met.label, out.series, { kind: 'stock', ticker: ticker.trim(), metricId: metricId, freq: freq }, out.currency || null, met.kind || 'currency');
+        } else { setNote(out.note || 'No data — IDX names usually lack Yahoo fundamentals. Use “＋ Manual” to paste the series.'); }
+      }).catch(function (e) { setBusy(false); setNote('Pull failed (' + e + ') — use “＋ Manual” to paste instead.'); });
+    }
+    return (
+      <div className="an-modal-bg" onClick={props.onClose}>
+        <div className="an-modal fc-stk-modal" onClick={function (e) { e.stopPropagation(); }}>
+          <div className="an-modal-h"><span>Add a company financial metric</span><button className="an-modal-x" onClick={props.onClose}>×</button></div>
+          <div className="fc-stk-body">
+            <label className="fc-stk-lbl">Ticker</label>
+            <input className="ed-input" autoFocus placeholder="AAPL, MSFT, NVDA …  (.JK IDX names: paste via ＋ Manual)" value={ticker}
+              onChange={function (e) { setTicker(e.target.value); }} onKeyDown={function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } else if (e.key === 'Escape') props.onClose(); }} />
+            <label className="fc-stk-lbl">Metric</label>
+            <select className="ed-input" value={metricId} onChange={function (e) { setMetricId(e.target.value); }}>
+              {DD.METRICS.map(function (m) { return <option key={m.id} value={m.id}>{m.label}</option>; })}
+            </select>
+            <label className="fc-stk-lbl">Frequency</label>
+            <div className="ed-freq">{[['quarterly', 'Quarterly'], ['annual', 'Annual']].map(function (f) { return <button key={f[0]} className={'ed-freq-btn ' + (freq === f[0] ? 'on' : '')} onClick={function () { setFreq(f[0]); }}>{f[1]}</button>; })}</div>
+            {note && <div className="ed-note">{note}</div>}
+            <button className="an-btn ed-btn-wide" disabled={busy} onClick={add}>{busy ? '⟳ Pulling…' : '⤓ Add metric'}</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // ===================== forecast chart (history + fan + forecast) =====================
   function FcChart(props) {
     var hist = props.hist || [], fcst = props.fcst || [], lo = props.lo, hi = props.hi;
@@ -97,9 +142,10 @@
     // band polygon over the forecast region
     var bandPath = null;
     if (lo && hi) { var up = [], dn = []; for (var i = 0; i < H; i++) { if (lo[i] != null && hi[i] != null && isFinite(lo[i]) && isFinite(hi[i])) { up.push(x(Ht + i).toFixed(1) + ' ' + y(hi[i]).toFixed(1)); dn.push(x(Ht + i).toFixed(1) + ' ' + y(lo[i]).toFixed(1)); } } if (up.length) bandPath = 'M' + up.join(' L') + ' L' + dn.reverse().join(' L') + ' Z'; }
-    var lastHist = hist.length ? hist[hist.length - 1] : null;
-    var fcLine = (lastHist != null ? [lastHist] : []).concat(fcst);   // join to last history point
-    var fcOff = lastHist != null ? Ht - 1 : Ht;
+    // last actual + first forecast (history may end before the axis end for a short series → bridge the gap)
+    var lastIdx = -1, lastHist = null; for (var li = hist.length - 1; li >= 0; li--) { if (hist[li] != null && isFinite(hist[li])) { lastIdx = li; lastHist = hist[li]; break; } }
+    var firstFc = null, firstOff = Ht; for (var fj = 0; fj < fcst.length; fj++) { if (fcst[fj] != null && isFinite(fcst[fj])) { firstFc = fcst[fj]; firstOff = Ht + fj; break; } }
+    var connector = (lastHist != null && firstFc != null) ? ('M' + x(lastIdx).toFixed(1) + ' ' + y(lastHist).toFixed(1) + ' L' + x(firstOff).toFixed(1) + ' ' + y(firstFc).toFixed(1)) : null;
     var nowX = x(Ht - 1);
     var hd = props.histDates || [], fd = props.futureDates || [];
     return (
@@ -108,10 +154,11 @@
         <line x1={pad.l} y1={Hpx - pad.b} x2={W - pad.r} y2={Hpx - pad.b} stroke={COL.grid} />
         {bandPath && <path d={bandPath} fill={COL.band} stroke="none" />}
         <line x1={nowX} y1={pad.t} x2={nowX} y2={Hpx - pad.b} stroke="rgba(151,170,197,.35)" strokeDasharray="2 3" />
-        {props.base && <path d={pathOf((lastHist != null ? [lastHist] : []).concat(props.base), fcOff)} fill="none" stroke="rgba(232,228,217,.3)" strokeWidth="1.2" strokeDasharray="6 4" />}
+        {props.base && <path d={pathOf(props.base, Ht)} fill="none" stroke="rgba(232,228,217,.3)" strokeWidth="1.2" strokeDasharray="6 4" />}
         {props.fit && <path d={pathOf(props.fit, 0)} fill="none" stroke="rgba(151,170,197,.45)" strokeWidth="1" strokeDasharray="1 2" />}
         <path d={pathOf(hist, 0)} fill="none" stroke={COL.hist} strokeWidth="1.6" />
-        <path d={pathOf(fcLine, fcOff)} fill="none" stroke={props.color || COL.fcst} strokeWidth="1.7" strokeDasharray="4 2" />
+        {connector && <path d={connector} fill="none" stroke={props.color || COL.fcst} strokeWidth="1.7" strokeDasharray="4 2" />}
+        <path d={pathOf(fcst, Ht)} fill="none" stroke={props.color || COL.fcst} strokeWidth="1.7" strokeDasharray="4 2" />
         {props.bandPct && bandPath && <text x={W - pad.r} y={pad.t + 8} className="an-axt" textAnchor="end">{props.bandPct}% band</text>}
         <text x={pad.l - 4} y={pad.t + 8} className="an-axt" textAnchor="end">{fmtVal(mx)}</text>
         <text x={pad.l - 4} y={Hpx - pad.b} className="an-axt" textAnchor="end">{fmtVal(mn)}</text>
@@ -184,7 +231,7 @@
             {F.METHODS.map(function (m) { return <option key={m.id} value={m.id}>{methodGlyph(m.id) + '  ' + m.label}</option>; })}
           </select>
         </div>
-        {n.series ? <div className="fc-insp-meta">{n.source === 'manual' ? 'Manual series' : 'Macro series'} · {n.series.length} obs</div> : <div className="fc-insp-meta">Derived (computed from parents — no observed history)</div>}
+        {n.series ? <div className="fc-insp-meta">{n.source === 'manual' ? 'Manual series' : n.source === 'stock' ? 'Stock metric' : 'Macro series'} · {n.series.length} obs</div> : <div className="fc-insp-meta">Derived (computed from parents — no observed history)</div>}
 
         {needsParents && <div className="fc-insp-block">
           <label>Drivers (parents)</label>
@@ -262,15 +309,18 @@
   }
 
   // ===================== main =====================
-  function ForecastLab() {
+  function ForecastStudio(props) {
+    var cfg = (props && props.config) || MACRO_CFG;
+    var LOCAL_KEY = cfg.localKey;
     var _n = React.useState([]), nodes = _n[0], setNodes = _n[1];
     var _sel = React.useState(null), selectedId = _sel[0], setSelectedId = _sel[1];
-    var _h = React.useState({ n: 40, freq: 'Q' }), horizon = _h[0], setHorizon = _h[1];
+    var _h = React.useState({ n: 40, freq: cfg.defFreq || 'Q' }), horizon = _h[0], setHorizon = _h[1];
     var _bp = React.useState(80), bandPct = _bp[0], setBandPct = _bp[1];
     var _res = React.useState(null), result = _res[0], setResult = _res[1];
     var _run = React.useState(false), running = _run[0], setRunning = _run[1];
     var _err = React.useState(''), err = _err[0], setErr = _err[1];
     var _pick = React.useState(false), picking = _pick[0], setPicking = _pick[1];
+    var _stk = React.useState(false), picking2 = _stk[0], setPicking2 = _stk[1];
     var _paste = React.useState(false), pasting = _paste[0], setPasting = _paste[1];
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
     var _off = React.useState(false), cloudOff = _off[0], setCloudOff = _off[1];
@@ -283,14 +333,14 @@
 
     // boot
     React.useEffect(function () {
-      cloudLoad().then(function (doc) { cloudSafe.current = true; if (!doc) { try { doc = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); } catch (e) { } } if (doc) hydrate(doc); })
+      cloudLoad(cfg.table).then(function (doc) { cloudSafe.current = true; if (!doc) { try { doc = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); } catch (e) { } } if (doc) hydrate(doc); })
         .catch(function () { try { var d = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); if (d) hydrate(d); } catch (e) { } if (cloudEnabled()) setCloudOff(true); })
         .then(function () { loaded.current = true; });
       return function () { if (saveTimer.current) clearTimeout(saveTimer.current); if (runTimer.current) clearTimeout(runTimer.current); };
     }, []);
 
     function hydrate(doc) {
-      if (doc.horizon) setHorizon(Object.assign({ n: 40, freq: 'Q' }, doc.horizon));
+      if (doc.horizon) setHorizon(Object.assign({ n: 40, freq: cfg.defFreq || 'Q' }, doc.horizon));
       if (doc.bandPct) setBandPct(doc.bandPct);
       if (doc.nodes && doc.nodes.length) {
         var max = 1; doc.nodes.forEach(function (n) { var m = parseInt(String(n.id).replace(/\D/g, ''), 10); if (m > max) max = m; aliveUids.current[n.id] = true; });
@@ -303,12 +353,12 @@
     function persist() {
       var hasContent = nodes.length > 0;
       var doc = { v: 1, horizon: horizon, bandPct: bandPct, nodes: nodes.map(function (n) {
-        // macro nodes refetch on load (don't store the series); manual nodes keep theirs
-        var keepSeries = n.source === 'manual';
-        return { id: n.id, label: n.label, sym: n.sym, method: n.method, parents: n.parents || [], lags: n.lags || {}, equation: n.equation || '', params: n.params || {}, isTarget: !!n.isTarget, source: n.source, seriesRef: n.seriesRef || null, series: keepSeries ? n.series : null };
+        // macro nodes refetch on load (don't store the series); manual + stock metrics keep theirs
+        var keepSeries = n.source === 'manual' || n.source === 'stock';
+        return { id: n.id, label: n.label, sym: n.sym, method: n.method, parents: n.parents || [], lags: n.lags || {}, equation: n.equation || '', params: n.params || {}, isTarget: !!n.isTarget, source: n.source, seriesRef: n.seriesRef || null, currency: n.currency || null, series: keepSeries ? n.series : null };
       }), updated: new Date().toISOString() };
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(doc)); } catch (e) { }
-      if (cloudEnabled() && cloudSafe.current && hasContent) { setSync('saving'); if (saveTimer.current) clearTimeout(saveTimer.current); saveTimer.current = setTimeout(function () { cloudSave(doc).then(function () { setSync('saved'); setTimeout(function () { setSync('idle'); }, 1500); }).catch(function () { setSync('local'); }); }, 700); }
+      if (cloudEnabled() && cloudSafe.current && hasContent) { setSync('saving'); if (saveTimer.current) clearTimeout(saveTimer.current); saveTimer.current = setTimeout(function () { cloudSave(cfg.table, doc).then(function () { setSync('saved'); setTimeout(function () { setSync('idle'); }, 1500); }).catch(function () { setSync('local'); }); }, 700); }
     }
     React.useEffect(function () { if (loaded.current) persist(); }, [nodes, horizon, bandPct]);
 
@@ -322,9 +372,11 @@
     }, [computeKey]);
 
     function fetchNode(n) {
-      DD.fetchMacro({ uid: n.seriesRef.uid, kind: n.seriesRef.kind, source: n.seriesRef.source, seriesId: n.seriesRef.seriesId, ric: n.seriesRef.ric })
-        .then(function (s) { if (!aliveUids.current[n.id]) return; setNodes(function (ns) { return ns.map(function (x) { return x.id === n.id ? Object.assign({}, x, { series: s }) : x; }); }); })
-        .catch(function () { });
+      var ref = n.seriesRef; if (!ref) return;
+      var p = ref.kind === 'stock'
+        ? DD.autoPull(ref.ticker, ref.metricId, ref.freq).then(function (o) { return o.series || []; })
+        : DD.fetchMacro({ uid: ref.uid, kind: ref.kind, source: ref.source, seriesId: ref.seriesId, ric: ref.ric });
+      p.then(function (s) { if (!aliveUids.current[n.id]) return; setNodes(function (ns) { return ns.map(function (x) { return x.id === n.id ? Object.assign({}, x, { series: s }) : x; }); }); }).catch(function () { });
     }
     function newId() { var id = 'n' + (idc.current++); aliveUids.current[id] = true; return id; }
 
@@ -339,6 +391,11 @@
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
       var node = { id: id, label: label || 'Manual', sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'manual', series: series };
       setNodes(nodes.concat([node])); setSelectedId(id); setPasting(false);
+    }
+    function addStock(label, series, ref, currency) {
+      var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
+      var node = { id: id, label: label, sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'stock', seriesRef: ref, currency: currency || null, series: series };
+      setNodes(nodes.concat([node])); setSelectedId(id); setPicking2(false);
     }
     function addDerived() {
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
@@ -376,7 +433,7 @@
     return (
       <section className="an-lab fc-lab">
         <div className="an-topbar">
-          <div className="an-title">Forecast Studio <span className="an-title-sub">· scenario graph</span></div>
+          <div className="an-title">{cfg.title} <span className="an-title-sub">· {cfg.sub}</span></div>
           <div className="an-topbar-sp" />
           {stale && result && <span className="fc-stale">● updating…</span>}
           <span className={'an-sync an-sync-' + (cloudOff ? 'local' : sync)} title={cloudOff ? 'Cloud unreachable on load — local only this session.' : ''}>{cloudOff ? '⚠ Local only' : sync === 'saving' ? '⟳ Saving…' : sync === 'saved' ? '☁ Saved' : sync === 'local' ? '✓ Local' : (loggedIn ? '☁ Cloud' : '✓ Local')}</span>
@@ -402,12 +459,15 @@
 
             <div className="an-rail-h" style={{ marginTop: 6 }}>Variables <span className="fc-count">{nodes.length}</span></div>
             <div className="fc-add-row">
+              {cfg.equity && <button className="an-add fc-add-stock" onClick={function () { setPicking2(true); }}>＋ Stock metric</button>}
               <button className="an-add" onClick={function () { setPicking(true); }}>＋ Macro</button>
               <button className="an-add" onClick={function () { setPasting(true); }}>＋ Manual</button>
               <button className="an-add" onClick={addDerived}>＋ Equation</button>
             </div>
             <div className="an-tray fc-tray">
-              {!nodes.length && <div className="an-empty">No variables yet. Add the <b>target</b> (e.g. Gold) and its <b>drivers</b> (DXY, 10Y yield), then connect them in the graph and pick a forecast method for each.</div>}
+              {!nodes.length && (cfg.equity
+                ? <div className="an-empty">No variables yet. Add the <b>target</b> — e.g. <b>＋ Stock metric</b> → a ticker's Revenue/EBIT — then its <b>drivers</b> (＋ Macro: CPO, FX, rates; or other stock metrics), connect them in the graph and pick a method for each.</div>
+                : <div className="an-empty">No variables yet. Add the <b>target</b> (e.g. Gold) and its <b>drivers</b> (DXY, 10Y yield), then connect them in the graph and pick a forecast method for each.</div>)}
               {nodes.map(function (n) { return (
                 <div key={n.id} className={'fc-vcard ' + (n.id === selectedId ? 'on' : '')} onClick={function () { setSelectedId(n.id); }}>
                   <span className="fc-vc-glyph" title={n.method}>{methodGlyph(n.method)}</span>
@@ -433,7 +493,8 @@
             {!result && !running && <div className="an-empty an-results-empty">Build the graph, then <b>Run forecast</b>. The target's path + fan band and every driver's forecast appear here. Flip any driver to a <b>scenario</b> and the cone updates live.</div>}
             {running && !result && <div className="an-running"><div className="an-running-bar" />Forecasting…</div>}
             {result && target && (function () {
-              var hL = target.hist[target.hist.length - 1], fL = target.fcst[target.fcst.length - 1];
+              var hL = (function (a) { for (var i = a.length - 1; i >= 0; i--) if (a[i] != null && isFinite(a[i])) return a[i]; return null; })(target.hist);
+              var fL = target.fcst[target.fcst.length - 1];
               var up = (hL != null && fL != null) ? fL >= hL : null;
               var base = (pinned && pinned.target === result.target && pinned.fcst.length === target.fcst.length) ? pinned.fcst : null;
               var vsBase = base ? fL - base[base.length - 1] : null;
@@ -454,6 +515,7 @@
                 {tf.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's residuals are non-stationary (DW={fmtVal(tf.dw, 2)}{tf.adfP != null ? ', ADF p≈' + fmtVal(tf.adfP, 2) : ''}). A high R² here can be a common-trend artefact — {tf.logspace ? 'try differenced / % growth drivers (log Y is already on).' : <span>try <b>differenced / % growth</b> drivers, or the <b>log Y</b> toggle for a price.</span>}</div>}
                 {target.extreme && <div className="an-verdict warn">⚠ Forecast runs far beyond the historical range (runaway compounding) — sanity-check the driver scenarios / growth rates.</div>}
                 {spuriousDrivers.length > 0 && <div className="an-note">⚠ {spuriousDrivers.length} driver fit(s) flagged spurious ({spuriousDrivers.join(', ')}) — the target cone inherits their uncertainty.</div>}
+                {tf.kind === 'regression' && tf.thin && !tf.error && <div className="an-verdict warn">⚠ <b>Thin fit</b>: only {tf.nfit} overlapping periods (auto-pulled fundamentals are short). Treat βs as indicative — paste a longer metric history (＋ Manual) or forecast it univariately (drift/growth).</div>}
                 {tf.kind === 'regression' && !tf.error && <div className="an-note">Fit R²={fmtVal(tf.r2, 3)} on {tf.nfit} periods · {tf.names.slice(1).join(', ')}{tf.logspace ? ' · log Y (point = median)' : ''}{tf.holdout ? ' · hold-out RMSE ' + fmtVal(tf.holdout.rmse) + ' / MAE ' + fmtVal(tf.holdout.mae) + ' (last ' + tf.holdout.n + ')' : ''}</div>}
                 <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} fit={tf.fittedHist} base={base} bandPct={bandPct} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={184} />
                 <div className="fc-legend"><span className="fc-lg"><i className="fc-lg-hist" />history</span><span className="fc-lg"><i className="fc-lg-fcst" />forecast</span>{tf.fittedHist && <span className="fc-lg"><i className="fc-lg-fit" />in-sample fit</span>}{base && <span className="fc-lg"><i className="fc-lg-base" />baseline</span>}<span className="fc-lg"><i className="fc-lg-band" />{bandPct}% band</span></div>
@@ -475,6 +537,7 @@
         </div>
 
         {picking && <FcPicker onClose={function () { setPicking(false); }} onPick={addMacro} />}
+        {picking2 && <StockMetricModal onClose={function () { setPicking2(false); }} onAdd={addStock} />}
         {pasting && <PasteModal onClose={function () { setPasting(false); }} onAdd={addManual} />}
       </section>
     );
@@ -501,5 +564,7 @@
     );
   }
 
-  window.ForecastLab = ForecastLab;
+  // macro (drivers from macro data) and equity (target metric pulled from a stock) flavours
+  window.ForecastLab = function ForecastLab() { return React.createElement(ForecastStudio, { config: MACRO_CFG }); };
+  window.EquityForecastLab = function EquityForecastLab() { return React.createElement(ForecastStudio, { config: EQUITY_CFG }); };
 })();

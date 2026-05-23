@@ -35,8 +35,15 @@
 
 /* ---- variable cards ---- */
 .fc-count{font-family:var(--an-mono);font-size:10px;color:var(--an-tx3)}
-.fc-add-row{display:flex;gap:5px}
-.fc-add-row .an-add{flex:1;text-align:center}
+.fc-add-row{display:flex;gap:5px;flex-wrap:wrap}
+.fc-add-row .an-add{flex:1;text-align:center;white-space:nowrap}
+/* equity: the stock-metric add is the primary action — full-width, filled accent */
+.fc-add-stock{flex-basis:100%!important;background:var(--an-acc-soft)!important;border-color:var(--an-acc-edge)!important;color:var(--an-acc)!important;font-weight:600}
+.fc-add-stock:hover{background:color-mix(in srgb,var(--an-acc) 24%,transparent)!important}
+/* stock-metric modal */
+.fc-stk-body{padding:13px 15px;display:flex;flex-direction:column;gap:7px}
+.fc-stk-lbl{font-family:var(--an-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--an-tx3);margin-top:3px}
+.fc-stk-body select.ed-input{color-scheme:dark}
 .fc-tray{gap:5px}
 .fc-vcard{display:flex;align-items:center;gap:7px;padding:6px 8px;background:var(--an-bg2);border:1px solid var(--an-bd);
   border-radius:var(--r-2,3px);cursor:pointer;transition:border-color var(--t-fast,120ms)}
