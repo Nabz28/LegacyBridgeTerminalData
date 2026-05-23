@@ -21,7 +21,7 @@
 }
 .sw-header-main {
   display: flex; align-items: flex-start; justify-content: space-between;
-  padding: 14px 18px 10px;
+  padding: 10px 18px 7px;
   gap: 32px;
 }
 .sw-symbol-block { min-width: 0; }
@@ -85,6 +85,7 @@
 .sw-stat-v {
   font-family: var(--font-mono); font-size: 12px; font-weight: 600;
   color: var(--text-primary); margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ============ BODY (rail + main) ============ */
@@ -109,6 +110,7 @@
   letter-spacing: 0.6px; padding: 4px 14px 6px;
 }
 .sw-rail-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 6px 14px;
   font-size: 12px; color: var(--text-secondary);
   cursor: pointer; position: relative;
@@ -1584,7 +1586,7 @@
 }
 .fin-table thead th.fin-line-h { text-align: left; position: sticky; left: 0; z-index: 3; }
 .fin-table th.num, .fin-table td.num { text-align: right; }
-.fin-row { cursor: pointer; transition: background 0.1s; }
+.fin-row { cursor: default; transition: background 0.1s; }
 .fin-row:hover { background: var(--brand-soft); }
 .fin-row td { padding: 5px 10px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); white-space: nowrap; }
 .fin-line { position: sticky; left: 0; background: var(--bg-1); z-index: 1; text-align: left; max-width: 280px; overflow: hidden; text-overflow: ellipsis; }
@@ -1615,3 +1617,37 @@
 .fin-kpi-sub { display: block; font-size: 9px; color: var(--text-tertiary); }
 
 .fin-foot { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); line-height: 1.5; padding-top: 6px; border-top: 1px solid var(--border-subtle); }
+
+/* ================================================================
+   PROVENANCE — LIVE vs SAMPLE indicators (equity terminal)
+   ================================================================ */
+.prov-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  padding: 2px 7px; border-radius: 99px; text-transform: uppercase;
+}
+.prov-badge.live   { color: var(--pos); background: var(--pos-bg); border: 1px solid var(--pos-border); }
+.prov-badge.sample { color: #FFC65C; background: rgba(255,198,92,0.10); border: 1px solid rgba(255,198,92,0.30); }
+.prov-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pos); box-shadow: 0 0 6px var(--pos); display: inline-block; flex-shrink: 0; }
+.prov-dot.sample { background: #FFC65C; box-shadow: 0 0 6px rgba(255,198,92,0.6); }
+.prov-dot.live   { background: var(--pos); box-shadow: 0 0 6px var(--pos); }
+
+/* left-rail provenance pips */
+.sw-rail-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sw-rail-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.sw-rail-pip.live   { background: var(--pos); box-shadow: 0 0 5px var(--pos); }
+.sw-rail-pip.sample { background: rgba(255,198,92,0.55); }
+
+/* sample-data banner above mock sections */
+.sw-sample-bar {
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.02em;
+  color: #FFC65C; background: rgba(255,198,92,0.07);
+  border: 1px solid rgba(255,198,92,0.22); border-radius: 5px;
+  padding: 7px 12px; margin: 0 0 12px;
+}
+.sw-sample-bar b { color: #FFC65C; font-weight: 700; }
+
+/* WACC provenance line */
+.wacc-prov { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.wacc-prov-txt { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.02em; }

@@ -62,21 +62,23 @@ const StockHeader = ({ t }) => {
 };
 
 // ---------- LEFT RAIL (section nav) ----------
+// `live`: true = real runtime data (gets a green LIVE pip); false = mock/sample
+// fixture (amber SAMPLE pip + a banner). Live sections lead each group.
 const SECTIONS = [
-  { id: 'overview',     label: 'Overview',          group: 'main' },
-  { id: 'transact',     label: 'Transactional',     group: 'main' },
-  { id: 'financials',   label: 'Financials',        group: 'fundamentals' },
-  { id: 'wacc',         label: 'WACC',              group: 'fundamentals' },
-  { id: 'comparable',   label: 'Comparable',        group: 'fundamentals' },
-  { id: 'owners',       label: 'Owners (KSEI)',     group: 'fundamentals' },
-  { id: 'risk',         label: 'Risk',              group: 'risk' },
-  { id: 'esg',          label: 'ESG',               group: 'risk' },
-  { id: 'suppliers',    label: 'Suppliers & Buyers', group: 'fundamentals' },
-  { id: 'thesis',       label: 'AI Thesis',         group: 'thesis' },
-  { id: 'monte',        label: 'Monte Carlo',       group: 'thesis' },
-  { id: 'notes',        label: 'Thesis Notes',      group: 'thesis' },
-  { id: 'news',         label: 'News',              group: 'thesis' },
-  { id: 'mirofish',     label: 'MiroFish',          group: 'thesis' },
+  { id: 'overview',     label: 'Overview',           group: 'main',         live: false },
+  { id: 'financials',   label: 'Financials',         group: 'fundamentals', live: true  },
+  { id: 'wacc',         label: 'WACC',               group: 'fundamentals', live: true  },
+  { id: 'comparable',   label: 'Comparable',         group: 'fundamentals', live: false },
+  { id: 'owners',       label: 'Owners (KSEI)',      group: 'fundamentals', live: false },
+  { id: 'suppliers',    label: 'Suppliers & Buyers', group: 'fundamentals', live: false },
+  { id: 'transact',     label: 'Transactional',      group: 'main',         live: false },
+  { id: 'risk',         label: 'Risk',               group: 'risk',         live: false },
+  { id: 'esg',          label: 'ESG',                group: 'risk',         live: false },
+  { id: 'thesis',       label: 'AI Thesis',          group: 'thesis',       live: false },
+  { id: 'monte',        label: 'Monte Carlo',        group: 'thesis',       live: false },
+  { id: 'notes',        label: 'Thesis Notes',       group: 'thesis',       live: false },
+  { id: 'news',         label: 'News',               group: 'thesis',       live: false },
+  { id: 'mirofish',     label: 'MiroFish',           group: 'thesis',       live: false },
 ];
 
 const StockLeftRail = ({ active, setActive }) => {
@@ -96,8 +98,10 @@ const StockLeftRail = ({ active, setActive }) => {
           {items.map(s => (
             <div key={s.id}
                  className={`sw-rail-item ${active === s.id ? 'active' : ''}`}
-                 onClick={() => setActive(s.id)}>
-              {s.label}
+                 onClick={() => setActive(s.id)}
+                 title={s.live ? 'Live data' : 'Sample data — illustrative, not a live feed'}>
+              <span className="sw-rail-label">{s.label}</span>
+              <span className={`sw-rail-pip ${s.live ? 'live' : 'sample'}`} />
             </div>
           ))}
         </div>
@@ -367,8 +371,8 @@ const ThesisBand = ({ symbol }) => {
   const [open, setOpen] = React.useState(() => {
     try {
       const v = localStorage.getItem(`${storageKey}-open`);
-      return v === null ? true : v === '1';
-    } catch { return true; }
+      return v === null ? false : v === '1';   // collapsed by default — frees the top for content
+    } catch { return false; }
   });
   const [data, setData] = React.useState(() => {
     try {
@@ -1990,6 +1994,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const t = window.DATA_EXT.TICKER_UNIVERSE[symbol] || window.DATA_EXT.TICKER_UNIVERSE.BBCA;
   const fix = window.DATA_EXT.STOCK_FIXTURES[symbol] || window.DATA_EXT.STOCK_FIXTURES.BBCA;
   const [active, setActive] = React.useState('overview');
+  const activeSection = SECTIONS.find(s => s.id === active);
   const WaccTab = window.WaccTab;
   const FinancialsPro = window.FinancialsPro;
   const [tf, setTf] = React.useState('3M');
@@ -2011,6 +2016,12 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
             <TradingViewChart symbol={symbol} />
           </div>
           <div className="sw-content">
+            {activeSection && !activeSection.live && (
+              <div className="sw-sample-bar">
+                <span className="prov-dot sample" />
+                <b>SAMPLE DATA</b> — illustrative fixtures, not a live feed. Live sections are tagged <span className="prov-dot live" style={{ margin: '0 3px' }} />LIVE.
+              </div>
+            )}
             {active === 'overview'   && <OverviewTab     t={t} fix={fix} candles={candles} indicators={indicators} />}
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
             {active === 'financials' && (FinancialsPro ? <FinancialsPro symbol={symbol} t={t} /> : <FinancialsTab fix={fix} symbol={symbol} />)}

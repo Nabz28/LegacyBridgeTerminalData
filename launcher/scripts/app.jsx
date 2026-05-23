@@ -602,20 +602,24 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
 
         <div className="tb-spacer"></div>
 
-        <div className="tb-actions">
-          <button className={`tb-btn ${editMode ? 'active' : ''}`} onClick={() => setEditMode(!editMode)}>
-            {I.layout} <span>Edit layout</span>
-          </button>
-          <button className="tb-btn is-cta" onClick={() => openLibrary(null, 'add')}>
-            {I.add} <span>Add widget</span>
-          </button>
-          <button className="tb-btn" onClick={saveLayout} title="Saved layouts (⌘S)">
-            {I.save} <span>Layouts</span>
-          </button>
-          <button className="tb-btn" onClick={resetLayout} title="Reset to default">
-            {I.reset}
-          </button>
-        </div>
+        {/* Widget-board controls only make sense on the 'markets' board —
+            hidden on Equities / Stock / Scanners so the chrome stays relevant. */}
+        {activeTabObj?.kind === 'markets' && (
+          <div className="tb-actions">
+            <button className={`tb-btn ${editMode ? 'active' : ''}`} onClick={() => setEditMode(!editMode)}>
+              {I.layout} <span>Edit layout</span>
+            </button>
+            <button className="tb-btn is-cta" onClick={() => openLibrary(null, 'add')}>
+              {I.add} <span>Add widget</span>
+            </button>
+            <button className="tb-btn" onClick={saveLayout} title="Saved layouts (⌘S)">
+              {I.save} <span>Layouts</span>
+            </button>
+            <button className="tb-btn" onClick={resetLayout} title="Reset to default">
+              {I.reset}
+            </button>
+          </div>
+        )}
 
         <div className="tb-user">
           <button className="tb-btn" style={{ position: 'relative' }} onClick={() => setBellOpen(true)} title="Notifications">

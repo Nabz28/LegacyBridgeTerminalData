@@ -52,11 +52,13 @@ const LBC_TERMINALS = [
   { id: 'equity', num: 'T4', name: 'Equity', accent: '#83acf0', icon: LBC_ICONS.equity,
     desc: 'Bottom-up single-name deep dive, screeners, scanners and financials.',
     workspaces: [
-      { kind: 'markets',        label: 'Markets',     built: true },
-      { kind: 'equity-landing', label: 'Equities·IDX', built: true },
-      { kind: 'stock',          label: 'Stock',       built: true, extra: { symbol: 'BBCA' } },
-      { kind: 'scanners',       label: 'Scanners',    built: true },
-      { kind: 'eq-financials',  label: 'Financials',  built: false },
+      // 'Equities' is the single equity entry — its universe browser opens a
+      // stock deep-dive (kind 'stock') as a tab. Standalone 'Stock' + the
+      // 'Financials' placeholder were removed (redundant). 'markets' is the
+      // widget board; 'stock' kind is still rendered when opened from Equities.
+      { kind: 'equity-landing', label: 'Equities',  built: true },
+      { kind: 'scanners',       label: 'Scanners',  built: true },
+      { kind: 'markets',        label: 'Markets',   built: true },
     ] },
   // Embedded apps (own build) — rendered as bare full-bleed iframes inside the
   // shell tab strip (NOT wrapped in AppShell), so no double chrome. They share

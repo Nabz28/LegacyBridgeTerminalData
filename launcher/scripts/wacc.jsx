@@ -101,6 +101,7 @@
     if (effTax != null && (!isFinite(effTax) || effTax < 0 || effTax > 0.6)) effTax = null;
     return {
       ticker: yt,
+      fetchedAt: j.fetchedAt || null,
       currency: snap.currency,
       marketCap: snap.marketCap != null ? snap.marketCap : null,
       totalDebt: snap.totalDebt != null ? snap.totalDebt : last(bal.TotalDebt),
@@ -303,6 +304,13 @@
             <div className="wacc-hero-val">{wacc != null ? pct(wacc) : '—'}</div>
             <div className="wacc-hero-sub">
               {symbol} · {sectorLabel} · {ccy} · β source: <b>{betaSource === 'bottomup' ? 'bottom-up peer' : betaSource}</b>
+            </div>
+            <div className="wacc-prov">
+              <span className="prov-badge live"><span className="prov-dot" />LIVE</span>
+              <span className="wacc-prov-txt">
+                β · LBC correlation engine
+                {fund && fund.fetchedAt ? ' · fundamentals as of ' + new Date(fund.fetchedAt).toLocaleString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : ' · Yahoo'}
+              </span>
             </div>
           </div>
           <div className="wacc-hero-breakdown">

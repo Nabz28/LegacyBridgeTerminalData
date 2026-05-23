@@ -158,7 +158,6 @@
       !search || (label.toLowerCase().includes(search.toLowerCase()) || k.toLowerCase().includes(search.toLowerCase())));
     const baseKey = COMMON_BASE[stmt];
     const baseByDate = block[baseKey] || {};
-    const [openLine, setOpenLine] = React.useState(null);
 
     const cell = (key, d, idx) => {
       const v = block[key] ? block[key][d] : null;
@@ -189,37 +188,16 @@
             {rows.map(([key, label, bold]) => {
               const seriesVals = periods.map((d) => block[key] ? block[key][d] : null);
               return (
-                <React.Fragment key={key}>
-                  <tr className={`fin-row ${bold ? 'fin-bold' : ''}`} onClick={() => setOpenLine(openLine === key ? null : key)}>
-                    <td className="fin-line" title={key}>{label}</td>
-                    <td className="fin-spark-cell">{freq !== 'ttm' && <Spark vals={seriesVals} />}</td>
-                    {periods.map((d, i) => <td key={i} className="num">{cell(key, d, i)}</td>)}
-                  </tr>
-                  {openLine === key && freq !== 'ttm' && (
-                    <tr className="fin-expand"><td colSpan={periods.length + 2}>
-                      <FinTrend labels={periodLabels} vals={seriesVals} label={label} pkey={key} />
-                    </td></tr>
-                  )}
-                </React.Fragment>
+                <tr key={key} className={`fin-row ${bold ? 'fin-bold' : ''}`}>
+                  <td className="fin-line" title={key}>{label}</td>
+                  <td className="fin-spark-cell">{freq !== 'ttm' && <Spark vals={seriesVals} />}</td>
+                  {periods.map((d, i) => <td key={i} className="num">{cell(key, d, i)}</td>)}
+                </tr>
               );
             })}
             {rows.length === 0 && <tr><td colSpan={periods.length + 2} className="fin-empty">No matching line items.</td></tr>}
           </tbody>
         </table>
-      </div>
-    );
-  };
-
-  // expand-row trend (reuse ChartLib.ColumnChart)
-  const FinTrend = ({ labels, vals, label, pkey }) => {
-    const data = labels.map((l, i) => ({ label: l, v: vals[i] == null ? 0 : (PER_SHARE.has(pkey) ? vals[i] : vals[i] / 1e9) }));
-    const unit = PER_SHARE.has(pkey) ? '' : ' (B)';
-    return (
-      <div className="fin-trend">
-        <div className="fin-trend-h">{label}{unit} · {labels[0]}–{labels[labels.length - 1]}</div>
-        {window.ChartLib && window.ChartLib.ColumnChart
-          ? <window.ChartLib.ColumnChart data={data} height={150} />
-          : <div className="dim">chart unavailable</div>}
       </div>
     );
   };
@@ -520,7 +498,9 @@
 
     const ccy = doc.currency || 'IDR';
     const fetched = doc.fetchedAt ? new Date(doc.fetchedAt) : null;
-    const ago = fetched ? Math.round((Date.now() - fetched.getTime()) / 86400000) : null;
+    const fetchedLabel = fetched
+      ? fetched.toLocaleString([], { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+      : '—';
 
     return (
       <div className="sw-section fin">
@@ -530,7 +510,8 @@
             <span className="fin-meta">{symbol} · {doc.snapshot?.sector || '—'} · {ccy}</span>
           </div>
           <div className="fin-head-r">
-            <span className="fin-updated">updated {ago === 0 ? 'today' : (ago != null ? ago + 'd ago' : '—')} · Yahoo</span>
+            <span className="prov-badge live" title={`Live data — fetched ${fetchedLabel}`}><span className="prov-dot" />LIVE</span>
+            <span className="fin-updated">as of {fetchedLabel} · Yahoo</span>
             <button className="fin-btn ghost" title="Download full model as Excel (.xlsx)" onClick={() => exportExcel(doc, symbol)}>⇩ Excel</button>
             <button className="fin-btn ghost" title="Download all statements as CSV" onClick={() => exportFullCSV(doc, symbol)}>⇩ CSV</button>
             <button className="fin-btn" disabled={refreshing} onClick={() => load(true)}>{refreshing ? 'Refreshing…' : '↻ Refresh'}</button>
