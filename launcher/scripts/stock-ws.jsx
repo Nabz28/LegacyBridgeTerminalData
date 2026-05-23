@@ -66,6 +66,7 @@ const SECTIONS = [
   { id: 'overview',     label: 'Overview',          group: 'main' },
   { id: 'transact',     label: 'Transactional',     group: 'main' },
   { id: 'financials',   label: 'Financials',        group: 'fundamentals' },
+  { id: 'wacc',         label: 'WACC',              group: 'fundamentals' },
   { id: 'comparable',   label: 'Comparable',        group: 'fundamentals' },
   { id: 'owners',       label: 'Owners (KSEI)',     group: 'fundamentals' },
   { id: 'risk',         label: 'Risk',              group: 'risk' },
@@ -140,6 +141,8 @@ const IDX_UNIVERSE = [
   { sym: 'ARTO', name: 'Bank Jago',             board: 'Main', sector: 'Banks',     mcap:   38 },
   { sym: 'BRIS', name: 'Bank Syariah Indonesia',board: 'Main', sector: 'Banks',     mcap:   46 },
 ];
+// Exposed for the WACC tool's peer-comparison engine (same-sector bottom-up beta).
+window.IDX_UNIVERSE = IDX_UNIVERSE;
 
 const EQUITY_WATCHLISTS = [
   { id: 'wl1', name: 'High-conviction long', items: 7,  thesis: 'Compounders with structural moats — BBCA, TLKM, ASII…' },
@@ -1984,6 +1987,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const t = window.DATA_EXT.TICKER_UNIVERSE[symbol] || window.DATA_EXT.TICKER_UNIVERSE.BBCA;
   const fix = window.DATA_EXT.STOCK_FIXTURES[symbol] || window.DATA_EXT.STOCK_FIXTURES.BBCA;
   const [active, setActive] = React.useState('overview');
+  const WaccTab = window.WaccTab;
   const [tf, setTf] = React.useState('3M');
   const [indicators, setIndicators] = React.useState({ ma: true, bb: false, rsi: false });
   const toggleIndicator = (k) => setIndicators(s => ({ ...s, [k]: !s[k] }));
@@ -2006,6 +2010,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
             {active === 'overview'   && <OverviewTab     t={t} fix={fix} candles={candles} indicators={indicators} />}
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
             {active === 'financials' && <FinancialsTab    fix={fix} symbol={symbol} />}
+            {active === 'wacc'       && WaccTab && <WaccTab symbol={symbol} t={t} />}
             {active === 'comparable' && <ComparableTab    fix={fix} />}
             {active === 'owners'     && <OwnersTab        fix={fix} />}
             {active === 'risk'       && <RiskTab          fix={fix} />}
