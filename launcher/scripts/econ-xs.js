@@ -36,30 +36,31 @@
     var n = raw.length;
     if (n < 20) return { method: 'garch', error: 'Series too short for GARCH (' + n + ' obs, need ≥ 20).' };
 
-    // De-mean (constant mean model): r_t = y_t - mean.
+    // De-mean (constant mean model), then SCALE residuals to unit variance so the
+    // optimizer is well-conditioned regardless of return magnitude (daily returns
+    // ~1e-2..1e-4). ω and vol are rescaled back at the end; α,β,γ are scale-free.
     var mu = L.mean(raw);
     var r = raw.map(function (v) { return v - mu; });
-    var v0 = L.variance(r, 0) || 1e-8;               // sample variance for σ²_0 / starts
-    var e2 = r.map(function (e) { return e * e; });
+    var v0 = L.variance(r, 0) || 1e-8;
+    var sc = Math.sqrt(v0) || 1;
+    var rs = r.map(function (v) { return v / sc; });   // unit-variance residuals
+    var e2 = rs.map(function (e) { return e * e; });
 
-    // θ = [ω, α, β]  or  [ω, α, γ, β] for GJR.
-    var idxB = gjr ? 3 : 2;                          // position of β in θ
+    var idxB = gjr ? 3 : 2;                          // position of β in θ = [ω,α,(γ),β]
     var BIG = 1e10;
 
-    // negative log-likelihood; clamps params to the feasible region.
     function negLL(theta) {
       var omega = theta[0], alpha = theta[1];
       var gamma = gjr ? theta[2] : 0;
       var beta = theta[idxB];
-      // feasibility: ω>0, α,β,γ≥0, α+β+γ/2<1
       if (!(omega > 0) || alpha < 0 || beta < 0 || gamma < 0) return BIG;
       var pers = alpha + beta + gamma / 2;
       if (pers >= 0.9999) return BIG;
-      var sig2 = v0, ll = 0, half = 0.5 * Math.log(2 * Math.PI);
+      var sig2 = 1, ll = 0, half = 0.5 * Math.log(2 * Math.PI);   // scaled var = 1
       for (var t = 0; t < n; t++) {
         if (t > 0) {
           var prevE2 = e2[t - 1];
-          var lev = (gjr && r[t - 1] < 0) ? gamma * prevE2 : 0;
+          var lev = (gjr && rs[t - 1] < 0) ? gamma * prevE2 : 0;
           sig2 = omega + alpha * prevE2 + lev + beta * sig2;
         }
         if (!(sig2 > 0) || !isFinite(sig2)) return BIG;
@@ -68,31 +69,25 @@
       return isFinite(ll) ? ll : BIG;
     }
 
-    // ---- Nelder-Mead simplex (minimizes negLL) ----
-    var start = gjr ? [0.05 * v0, 0.03, 0.03, 0.9] : [0.05 * v0, 0.05, 0.9];
-    var theta = nelderMead(negLL, start, 300);
-    var omega = theta[0], alpha = theta[1];
-    var gamma = gjr ? theta[2] : 0;
-    var beta = theta[idxB];
+    // ---- Nelder-Mead simplex (minimizes negLL) on the unit-variance scale ----
+    var start = gjr ? [0.05, 0.03, 0.03, 0.9] : [0.05, 0.05, 0.9];
+    var theta = nelderMead(negLL, start, 400);
+    var alpha = theta[1], gamma = gjr ? theta[2] : 0, beta = theta[idxB];
+    var omegaS = theta[0];                             // scaled ω
     var persistence = alpha + beta + gamma / 2;
+    var llf = -negLL(theta);
 
-    // Reconstruct the conditional-variance path + standardized residuals.
-    var condVol = new Array(n), stdResid = new Array(n);
-    var sig2 = v0;
+    // Reconstruct conditional vol on the ORIGINAL scale (σ_t = sc·√sig2_scaled).
+    var condVol = new Array(n), stdResid = new Array(n), sig2 = 1;
     for (var t = 0; t < n; t++) {
-      if (t > 0) {
-        var prevE2 = e2[t - 1];
-        var lev = (gjr && r[t - 1] < 0) ? gamma * prevE2 : 0;
-        sig2 = omega + alpha * prevE2 + lev + beta * sig2;
-      }
-      condVol[t] = Math.sqrt(Math.max(sig2, 0));
+      if (t > 0) { var pe2 = e2[t - 1]; var lev2 = (gjr && rs[t - 1] < 0) ? gamma * pe2 : 0; sig2 = omegaS + alpha * pe2 + lev2 + beta * sig2; }
+      condVol[t] = Math.sqrt(Math.max(sig2, 0)) * sc;
       stdResid[t] = condVol[t] > 0 ? r[t] / condVol[t] : 0;
     }
 
-    var llf = -negLL(theta);
-    var kParams = gjr ? 4 : 3;                        // ω,α,(γ),β  (mean is profiled out)
-    var aic = -2 * llf + 2 * kParams;
-    var bic = -2 * llf + kParams * Math.log(n);
+    var omega = omegaS * v0;                           // rescale ω to original variance units
+    var kParams = gjr ? 4 : 3;
+    var aic = -2 * llf + 2 * kParams, bic = -2 * llf + kParams * Math.log(n);
     var uncondVol = persistence < 1 ? Math.sqrt(omega / (1 - persistence)) : NaN;
 
     var out = {

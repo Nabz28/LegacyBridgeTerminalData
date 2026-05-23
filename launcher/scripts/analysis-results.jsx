@@ -39,6 +39,8 @@
         {series.map(function (s, i) { return <path key={i} d={path(s.values)} fill="none" stroke={s.color || COL.line} strokeWidth={s.w || 1.6} />; })}
         <text x={pad.l - 4} y={pad.t + 8} className="an-axt" textAnchor="end">{fmt(hi, Math.abs(hi) < 10 ? 2 : 0)}</text>
         <text x={pad.l - 4} y={H - pad.b} className="an-axt" textAnchor="end">{fmt(lo, Math.abs(lo) < 10 ? 2 : 0)}</text>
+        {labels.length > 0 && <text x={pad.l} y={H - 5} className="an-axt" textAnchor="start">{String(labels[0]).slice(0, 7)}</text>}
+        {labels.length > 1 && <text x={W - pad.r} y={H - 5} className="an-axt" textAnchor="end">{String(labels[labels.length - 1]).slice(0, 7)}</text>}
       </svg>
     );
   }
@@ -298,7 +300,8 @@
             <tbody>{res.names.map(function (nm, i) { return <tr key={i}><td className="an-vn">{nm}</td><td className="an-num">{fmt(res.coef[i])}<span className="an-star">{stars(res.p[i])}</span></td><td className="an-num">{fmt(res.se[i])}</td><td className="an-num">{fmt(res.t[i], 3)}</td><td className="an-num">{fmtP(res.p[i])}</td></tr>; })}</tbody></table>
           <StatGrid stats={[{ label: 'σ', value: fmt(res.sigma, 4) }, { label: 'AIC', value: fmt(res.aic, 2) }, { label: 'BIC', value: fmt(res.bic, 2) }, { label: 'Obs', value: res.n }, { label: 'Ljung-Box p', value: res.ljung ? fmtP(res.ljung.p) + (res.ljung.p < 0.05 ? ' ⚠ residual autocorr' : ' ✓ white') : '—' }]} />
           {fc.length > 0 && <div className="an-sub"><div className="an-sub-h">Forecast ({fc.length} steps{res.forecastScale === 'differenced' ? ', differenced scale' : ''}, 95% band)</div>
-            <MiniLine series={[{ name: 'fit+fc', values: fseries, color: COL.line }]} band={lo ? { lower: lo, upper: up } : null} height={170} /></div>}
+            <MiniLine series={[{ name: 'fit+fc', values: fseries, color: COL.line }]} band={lo ? { lower: lo, upper: up } : null} labels={res._dates || []} height={170} /></div>}
+          {fc.length > 0 && (o.d > 0 || o.D > 0) && <div className="an-note">⚠ Forecast bands are <b>approximate</b> for differenced (d/D ≥ 1) models — interval variance is propagated on the differenced scale, so long-horizon bands understate true level-scale uncertainty.</div>}
         </div>
       );
     }
@@ -308,9 +311,9 @@
       return (
         <div className="an-res">
           <StatGrid stats={[{ label: 'α (level)', value: fmt(res.alpha, 3) }, { label: 'β (trend)', value: res.beta != null ? fmt(res.beta, 3) : '—' }, { label: 'γ (seasonal)', value: res.gamma != null ? fmt(res.gamma, 3) : '—' }, { label: 'SSE', value: fmt(res.sse, 2) }]} />
+          <div className="an-note">Smoothing constants are fixed defaults (not SSE-optimized) — a quick baseline forecast. Forecast carries no interval.</div>
           <div className="an-chart-card"><div className="an-chart-h">{res._name} · observed (green) + fit/forecast (blue)</div>
-            <MiniLine series={[{ name: 'obs', values: eser, color: COL.line2 }, { name: 'fit', values: efit, color: COL.line }]} height={180} /></div>
-        </div>
+            <MiniLine series={[{ name: 'obs', values: eser, color: COL.line2 }, { name: 'fit', values: efit, color: COL.line }]} height={180} /></div></div>
       );
     }
     if (method === 'hp') {
@@ -318,8 +321,8 @@
         <div className="an-res">
           <StatGrid stats={[{ label: 'λ smoothing', value: res.lambda }, { label: 'Obs', value: (res.trend || []).length }]} />
           <div className="an-chart-card"><div className="an-chart-h">{res._name} · series (green) vs trend (blue) · λ={res.lambda}</div>
-            <MiniLine series={[{ name: 'y', values: res._series || [], color: COL.line2 }, { name: 'trend', values: res.trend, color: COL.line }]} height={170} /></div>
-          <div className="an-chart-card"><div className="an-chart-h">Cycle (gap)</div><MiniLine series={[{ name: 'cycle', values: res.cycle, color: COL.line3, w: 1.3 }]} height={120} /></div>
+            <MiniLine series={[{ name: 'y', values: res._series || [], color: COL.line2 }, { name: 'trend', values: res.trend, color: COL.line }]} labels={res._dates || []} height={170} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">Cycle (gap)</div><MiniLine series={[{ name: 'cycle', values: res.cycle, color: COL.line3, w: 1.3 }]} labels={res._dates || []} height={120} /></div>
         </div>
       );
     }
@@ -337,7 +340,7 @@
     if (method === 'garch') {
       return (
         <div className="an-res">
-          <StatGrid stats={[{ label: 'ω', value: fmt(res.omega, 5) }, { label: 'α (ARCH)', value: fmt(res.alpha, 4) }, res.gamma != null ? { label: 'γ (GJR)', value: fmt(res.gamma, 4) } : { label: 'β (GARCH)', value: fmt(res.beta, 4) }, { label: res.gamma != null ? 'β (GARCH)' : 'Persistence', value: res.gamma != null ? fmt(res.beta, 4) : fmt(res.persistence, 4) }, { label: 'Persistence', value: fmt(res.persistence, 4) }, { label: 'Uncond. vol', value: fmt(res.uncondVol, 4) }, { label: 'Log-lik', value: fmt(res.llf, 1) }, { label: 'Obs', value: res.n }]} />
+          <StatGrid stats={[{ label: 'ω', value: fmt(res.omega, 6) }, { label: 'α (ARCH)', value: fmt(res.alpha, 4) }].concat(res.gamma != null ? [{ label: 'γ (GJR asymmetry)', value: fmt(res.gamma, 4) }] : []).concat([{ label: 'β (GARCH)', value: fmt(res.beta, 4) }, { label: 'Persistence', value: fmt(res.persistence, 4) }, { label: 'Uncond. vol', value: fmt(res.uncondVol, 5) }, { label: 'Log-lik', value: fmt(res.llf, 1) }, { label: 'AIC', value: fmt(res.aic, 1) }, { label: 'Obs', value: res.n }])} />
           {res.persistence >= 0.999 && <div className="an-verdict warn">⚠ Persistence ≈ 1 — variance is near-integrated (IGARCH); shocks die out very slowly.</div>}
           <div className="an-chart-card"><div className="an-chart-h">{res._name} · conditional volatility (σₜ)</div><MiniLine series={[{ name: 'vol', values: res.condVol, color: COL.line }]} height={170} /></div>
         </div>
@@ -376,6 +379,7 @@
         <div className="an-res">
           <StatGrid stats={[{ label: 'Variables', value: res.K }, { label: 'Lags', value: res.p }, { label: 'Cointegrating rank', value: res.rank + (res.rank === 0 ? ' (none)' : '') }]} />
           <div className={'an-verdict ' + (res.rank > 0 ? 'good' : 'warn')}>{res.rank > 0 ? res.rank + ' cointegrating relationship(s) found — the system shares a long-run equilibrium; estimate a VECM (rank ' + res.rank + ').' : 'No cointegration — model the variables in differences (a VAR on Δ), not levels.'}</div>
+          <div className="an-note">5% critical values: Osterwald-Lenum (1992), {res.det === 'n' ? 'no-deterministic' : 'unrestricted-constant'} case · asymptotic. Rank = first r whose trace stat falls below its critical value.</div>
           <div className="an-sub"><div className="an-sub-h">Trace test</div>
             <table className="an-table"><thead><tr><th>H₀: rank ≤</th><th>eigenvalue</th><th>trace stat</th><th>5% crit</th></tr></thead>
               <tbody>{res.trace.map(function (t, i) { return <tr key={i} className={t.crit5 != null && t.stat > t.crit5 ? 'an-row-on' : ''}><td>{t.r}</td><td className="an-num">{fmt(res.eigenvalues[i], 4)}</td><td className="an-num">{fmt(t.stat, 2)}</td><td className="an-num">{t.crit5 == null ? '—' : t.crit5}</td></tr>; })}</tbody></table></div>
@@ -395,7 +399,7 @@
           <div className="an-sub"><div className="an-sub-h">Adjustment speeds α (error-correction)</div>
             <table className="an-table"><thead><tr><th>Equation Δ</th>{(res.alpha[0] || []).map(function (_, j) { return <th key={j}>α{j + 1}</th>; })}</tr></thead>
               <tbody>{res.names.map(function (n, i) { return <tr key={i}><td className="an-vn">{n}</td>{res.alpha[i].map(function (v, j) { return <td key={j} className="an-num">{fmt(v, 3)}</td>; })}</tr>; })}</tbody></table></div>
-          {res.ect && res.ect.length > 0 && <div className="an-chart-card"><div className="an-chart-h">Error-correction term (deviation from equilibrium)</div><MiniLine series={[{ name: 'ect', values: res.ect, color: COL.line }]} height={130} /></div>}
+          {res.ect && res.ect.length > 0 && <div className="an-chart-card"><div className="an-chart-h">Error-correction term (deviation from equilibrium)</div><MiniLine series={[{ name: 'ect', values: res.ect.map(function (r) { return Array.isArray(r) ? r[0] : r; }), color: COL.line }]} height={130} /></div>}
         </div>
       );
     }

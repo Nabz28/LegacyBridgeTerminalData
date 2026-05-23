@@ -402,7 +402,7 @@
       if (method === 'johansen') {
         if (cfg.endo.length < 2) throw new Error('Johansen needs at least 2 variables.');
         var dsj = buildDataset(cfg.endo); if (dsj.error) throw new Error(dsj.error);
-        var rj = E.johansen(dsj.columns, dsj.names, cfg.lags, { det: cfg.trend }); if (rj.error) throw new Error(rj.error); return rj;
+        var rj = E.johansen(dsj.columns, dsj.names, cfg.lags, { det: cfg.trend === 'n' ? 'n' : 'c' }); if (rj.error) throw new Error(rj.error); return rj;
       }
       if (method === 'vecm') {
         if (cfg.endo.length < 2) throw new Error('VECM needs at least 2 variables.');
@@ -503,10 +503,13 @@
                     {cfg.x.map(function (uid) { return <Slot key={uid} vd={byUid[uid]} onClick={function () { }} onDrop={function () { }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { x: c.x.filter(function (u) { return u !== uid; }) }); }); }} />; })}
                     <Slot vd={null} placeholder="+ exog (ARIMAX)" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(uid) > -1 ? c.x : c.x.concat([uid]) }); }); }} />
                   </div>
+                  <div className="an-note an-note-inline" style={{ fontFamily: 'var(--an-mono)' }}>{(byUid[cfg.y] ? byUid[cfg.y].label : 'Y')} ~ ARIMA(<b>{cfg.p},{cfg.d},{cfg.q}</b>){(cfg.P + cfg.D + cfg.Q) > 0 ? <span>(<b>{cfg.P},{cfg.D},{cfg.Q}</b>)<sub>{cfg.s}</sub></span> : ''}{cfg.x.length ? ' + ' + cfg.x.length + ' exog' : ''}</div>
                   <div className="an-opts">
+                    <span className="an-dim">non-seasonal (p,d,q):</span>
                     {[['p', 'p'], ['d', 'd'], ['q', 'q']].map(function (o) { return <div key={o[0]} className="an-opt"><label>{o[1]}</label><input type="number" min="0" max="5" value={cfg[o[0]]} onChange={function (e) { var v = +e.target.value || 0; setCfg(function (c) { var n = {}; n[o[0]] = v; return Object.assign({}, c, n); }); }} /></div>; })}
-                    <span className="an-dim">seasonal:</span>
+                    <span className="an-dim">‖ seasonal (P,D,Q)·s:</span>
                     {[['P', 'P'], ['D', 'D'], ['Q', 'Q'], ['s', 's']].map(function (o) { return <div key={o[0]} className="an-opt"><label>{o[1]}</label><input type="number" min="0" max={o[0] === 's' ? 24 : 3} value={cfg[o[0]]} onChange={function (e) { var v = +e.target.value || 0; setCfg(function (c) { var n = {}; n[o[0]] = v; return Object.assign({}, c, n); }); }} /></div>; })}
+                    <span className="an-dim">‖</span>
                     <div className="an-opt"><label>Forecast h</label><input type="number" min="0" max="60" value={cfg.h} onChange={function (e) { setCfg(Object.assign({}, cfg, { h: +e.target.value || 0 })); }} /></div>
                   </div>
                 </div>

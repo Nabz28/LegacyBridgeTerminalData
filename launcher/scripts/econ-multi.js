@@ -134,12 +134,21 @@
   //    Osterwald-Lenum 5% critical values (constant in cointegration space).
   // =========================================================================
   // Indexed by n−r (number of common stochastic trends being tested), 1..5.
-  var JOHANSEN_TRACE_5 = { 1: 3.84, 2: 15.49, 3: 29.80, 4: 47.86, 5: 68.81 };
-  var JOHANSEN_MAXEIG_5 = { 1: 3.84, 2: 14.26, 3: 21.13, 4: 27.58, 5: 33.88 };
+  // Osterwald-Lenum (1992) 5% critical values, keyed by (K−r), for the two
+  // deterministic cases supported: 'c' = unrestricted constant, 'n' = none.
+  var JOHANSEN_TRACE_5 = {
+    c: { 1: 3.84, 2: 15.49, 3: 29.80, 4: 47.86, 5: 68.81 },
+    n: { 1: 3.84, 2: 12.53, 3: 24.31, 4: 39.89, 5: 59.46 }
+  };
+  var JOHANSEN_MAXEIG_5 = {
+    c: { 1: 3.84, 2: 14.26, 3: 21.13, 4: 27.58, 5: 33.88 },
+    n: { 1: 3.84, 2: 11.44, 3: 17.89, 4: 23.80, 5: 30.04 }
+  };
 
   function johansen(cols, names, p, opts) {
     opts = opts || {};
-    var det = opts.det || 'c';
+    var det = (opts.det === 'n') ? 'n' : 'c';            // only no-constant or unrestricted-constant
+    var traceTbl = JOHANSEN_TRACE_5[det], maxTbl = JOHANSEN_MAXEIG_5[det];
     var K = cols.length;
     var T0 = cols[0] ? cols[0].length : 0;
     if (p < 1) p = 1;
@@ -204,8 +213,8 @@
       tr *= T;
       var me = -T * Math.log(1 - lambdas[rr].lam);
       var nMinusR = K - rr;                                            // dimension being tested
-      var traceCrit = JOHANSEN_TRACE_5[nMinusR] != null ? JOHANSEN_TRACE_5[nMinusR] : null;
-      var maxCrit = JOHANSEN_MAXEIG_5[nMinusR] != null ? JOHANSEN_MAXEIG_5[nMinusR] : null;
+      var traceCrit = traceTbl[nMinusR] != null ? traceTbl[nMinusR] : null;
+      var maxCrit = maxTbl[nMinusR] != null ? maxTbl[nMinusR] : null;
       trace.push({ r: rr, stat: tr, crit5: traceCrit });
       maxeig.push({ r: rr, stat: me, crit5: maxCrit });
       // Rank = first r for which the trace test fails to reject (stat < crit).
