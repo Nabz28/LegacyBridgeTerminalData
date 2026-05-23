@@ -413,16 +413,78 @@
     );
   };
 
-  // ---- CSV export of the active statement ----
+  // ---- CSV export of the active statement (raw numeric values) ----
   function exportCSV(stmt, doc, freq, symbol) {
     const block = freq === 'quarterly' ? doc.statements.quarterly[stmt] : doc.statements.annual[stmt];
     const periods = periodsOf(block);
     const rows = orderedKeys(stmt, block);
     let csv = 'Line item,' + periods.join(',') + '\n';
     rows.forEach(([k, label]) => { csv += '"' + label + '",' + periods.map((d) => (block[k] && block[k][d] != null ? block[k][d] : '')).join(',') + '\n'; });
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `${symbol}_${stmt}_${freq}.csv`; a.click(); URL.revokeObjectURL(a.href);
+    download(new Blob([csv], { type: 'text/csv' }), `${symbol}_${stmt}_${freq}.csv`);
+  }
+  function download(blob, name) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href);
+  }
+
+  // ---- full-model exports (Excel workbook + combined CSV) — raw numbers ----
+  function statementAOA(stmt, block) {
+    const periods = periodsOf(block);
+    const aoa = [['Line Item', ...periods]];
+    orderedKeys(stmt, block).forEach(([k, label]) =>
+      aoa.push([label, ...periods.map((d) => (block[k] && block[k][d] != null) ? block[k][d] : null)]));
+    return aoa;
+  }
+  function ratiosAOA(doc) {
+    const { periods, rows } = ratioSeries(doc);
+    const aoa = [['Ratio', ...periods.map((d) => d.slice(0, 4))]];
+    rows.forEach((r) => aoa.push([r.name + (r.type === 'pct' ? ' (%)' : ' (x)'),
+      ...r.vals.map((v) => v == null ? null : (r.type === 'pct' ? +(v * 100).toFixed(2) : +v.toFixed(3)))]));
+    return aoa;
+  }
+  function estimatesAOA(doc) {
+    const e = doc.estimates || {};
+    const aoa = [['Metric', 'Value'], ['Mean target', e.targetMean ?? null], ['Target low', e.targetLow ?? null],
+      ['Target high', e.targetHigh ?? null], ['Rating', e.recommendationKey ?? null],
+      ['Recommendation mean', e.recommendationMean ?? null], ['Analysts', e.numberOfAnalystOpinions ?? null],
+      ['Forward P/E', e.forwardPE ?? null], ['Trailing P/E', e.trailingPE ?? null]];
+    const trend = e.earningsTrend || [];
+    if (trend.length) {
+      aoa.push([]); aoa.push(['Period', 'End date', 'EPS avg', 'EPS low', 'EPS high', 'Rev avg', 'Rev growth']);
+      trend.forEach((t) => aoa.push([t.period, t.endDate, t.epsAvg, t.epsLow, t.epsHigh, t.revAvg, t.revGrowth]));
+    }
+    return aoa;
+  }
+  function exportExcel(doc, symbol) {
+    const XLSX = window.XLSX;
+    if (!XLSX) { window.alert('Excel library is still loading — try again in a moment.'); return; }
+    const wb = XLSX.utils.book_new();
+    const A = doc.statements.annual, Q = doc.statements.quarterly;
+    const add = (name, aoa) => XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), name.slice(0, 31));
+    add('Income (Annual)', statementAOA('income', A.income));
+    add('Balance (Annual)', statementAOA('balance', A.balance));
+    add('Cash Flow (Annual)', statementAOA('cashflow', A.cashflow));
+    add('Income (Qtr)', statementAOA('income', Q.income));
+    add('Balance (Qtr)', statementAOA('balance', Q.balance));
+    add('Cash Flow (Qtr)', statementAOA('cashflow', Q.cashflow));
+    add('Ratios', ratiosAOA(doc));
+    add('Multiples', [['Metric', 'Value'], ...multiples(doc).map((m) => [m[0], m[1]])]);
+    add('Estimates', estimatesAOA(doc));
+    XLSX.writeFile(wb, `${symbol}_financials.xlsx`);
+  }
+  function exportFullCSV(doc, symbol) {
+    const A = doc.statements.annual;
+    let csv = '';
+    const sec = (title, stmt, block) => {
+      const periods = periodsOf(block);
+      csv += title + '\nLine Item,' + periods.join(',') + '\n';
+      orderedKeys(stmt, block).forEach(([k, label]) =>
+        csv += '"' + label + '",' + periods.map((d) => (block[k] && block[k][d] != null) ? block[k][d] : '').join(',') + '\n');
+      csv += '\n';
+    };
+    sec('INCOME STATEMENT (Annual)', 'income', A.income);
+    sec('BALANCE SHEET (Annual)', 'balance', A.balance);
+    sec('CASH FLOW (Annual)', 'cashflow', A.cashflow);
+    download(new Blob([csv], { type: 'text/csv' }), `${symbol}_financials.csv`);
   }
 
   // ================= main =================
@@ -469,6 +531,8 @@
           </div>
           <div className="fin-head-r">
             <span className="fin-updated">updated {ago === 0 ? 'today' : (ago != null ? ago + 'd ago' : '—')} · Yahoo</span>
+            <button className="fin-btn ghost" title="Download full model as Excel (.xlsx)" onClick={() => exportExcel(doc, symbol)}>⇩ Excel</button>
+            <button className="fin-btn ghost" title="Download all statements as CSV" onClick={() => exportFullCSV(doc, symbol)}>⇩ CSV</button>
             <button className="fin-btn" disabled={refreshing} onClick={() => load(true)}>{refreshing ? 'Refreshing…' : '↻ Refresh'}</button>
           </div>
         </div>
@@ -494,7 +558,7 @@
             </div>
             <input className="fin-search" placeholder="Filter line items…" value={search} onChange={(e) => setSearch(e.target.value)} />
             <div style={{ flex: 1 }} />
-            <button className="fin-btn ghost" onClick={() => exportCSV(view, doc, freq === 'ttm' ? 'quarterly' : freq, symbol)}>⇩ CSV</button>
+            <button className="fin-btn ghost" title="Download just this statement (current view) as CSV" onClick={() => exportCSV(view, doc, freq === 'ttm' ? 'quarterly' : freq, symbol)}>⇩ This statement</button>
           </div>
         )}
 
