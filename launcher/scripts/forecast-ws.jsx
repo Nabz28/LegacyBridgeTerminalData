@@ -86,6 +86,7 @@
     var Ht = hist.length, H = fcst.length, N = Ht + H, W = 460, Hpx = props.height || 168, pad = { l: 46, r: 10, t: 10, b: 20 };
     var all = []; hist.concat(fcst).forEach(function (v) { if (v != null && isFinite(v)) all.push(v); });
     if (lo) lo.forEach(function (v) { if (v != null && isFinite(v)) all.push(v); }); if (hi) hi.forEach(function (v) { if (v != null && isFinite(v)) all.push(v); });
+    if (props.base) props.base.forEach(function (v) { if (v != null && isFinite(v)) all.push(v); });
     if (!all.length) return <div className="an-empty">no data</div>;
     var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all); if (mn === mx) { mx = mn + 1; mn -= 1; }
     var x = function (i) { return pad.l + (N <= 1 ? 0 : (i / (N - 1)) * (W - pad.l - pad.r)); };
@@ -105,8 +106,11 @@
         <line x1={pad.l} y1={Hpx - pad.b} x2={W - pad.r} y2={Hpx - pad.b} stroke={COL.grid} />
         {bandPath && <path d={bandPath} fill={COL.band} stroke="none" />}
         <line x1={nowX} y1={pad.t} x2={nowX} y2={Hpx - pad.b} stroke="rgba(151,170,197,.35)" strokeDasharray="2 3" />
+        {props.base && <path d={pathOf((lastHist != null ? [lastHist] : []).concat(props.base), fcOff)} fill="none" stroke="rgba(232,228,217,.35)" strokeWidth="1.2" />}
+        {props.fit && <path d={pathOf(props.fit, 0)} fill="none" stroke="rgba(151,170,197,.45)" strokeWidth="1" strokeDasharray="1 2" />}
         <path d={pathOf(hist, 0)} fill="none" stroke={COL.hist} strokeWidth="1.6" />
         <path d={pathOf(fcLine, fcOff)} fill="none" stroke={props.color || COL.fcst} strokeWidth="1.7" strokeDasharray="4 2" />
+        {props.bandPct && bandPath && <text x={W - pad.r} y={pad.t + 8} className="an-axt" textAnchor="end">{props.bandPct}% band</text>}
         <text x={pad.l - 4} y={pad.t + 8} className="an-axt" textAnchor="end">{fmtVal(mx)}</text>
         <text x={pad.l - 4} y={Hpx - pad.b} className="an-axt" textAnchor="end">{fmtVal(mn)}</text>
         {hd.length > 0 && <text x={pad.l} y={Hpx - 6} className="an-axt" textAnchor="start">{String(hd[0]).slice(0, 7)}</text>}
@@ -137,14 +141,15 @@
     var edges = []; nodes.forEach(function (n) { eff(n).forEach(function (p) { if (pos[p] && pos[n.id]) edges.push({ from: p, to: n.id }); }); });
     return (
       <div className="fc-graph-wrap">
-        <svg viewBox={'0 0 ' + Wpx + ' ' + Hpx} width={Wpx} height={Hpx} className="fc-graph">
+        <svg viewBox={'0 0 ' + Wpx + ' ' + Hpx} width={Wpx} height={Hpx} className="fc-graph" style={{ maxWidth: '100%', height: 'auto' }}>
           <defs><marker id="fcArrow" markerWidth="7" markerHeight="7" refX="6" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6.4 Z" fill="rgba(151,170,197,.6)" /></marker></defs>
           {edges.map(function (e, i) { var a = pos[e.from], b = pos[e.to]; var x1 = a.x + NW, y1 = a.y + NH / 2, x2 = b.x, y2 = b.y + NH / 2; var mx = (x1 + x2) / 2; return <path key={i} d={'M' + x1 + ' ' + y1 + ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2} fill="none" stroke="rgba(151,170,197,.4)" strokeWidth="1.2" markerEnd="url(#fcArrow)" />; })}
           {nodes.map(function (n) { var p = pos[n.id]; var on = n.id === sel; return (
             <g key={n.id} className={'fc-node ' + (on ? 'on ' : '') + (n.isTarget ? 'target' : '')} transform={'translate(' + p.x + ',' + p.y + ')'} onClick={function () { props.onSelect(n.id); }} style={{ cursor: 'pointer' }}>
+              <title>{n.label + '  ·  ' + n.method}</title>
               <rect width={NW} height={NH} rx="4" />
               <text x="9" y="17" className="fc-node-sym">{methodGlyph(n.method)} {n.sym}</text>
-              <text x="9" y="32" className="fc-node-lbl">{(n.label || '').slice(0, 16)}</text>
+              <text x="9" y="32" className="fc-node-lbl">{(n.label || '').length > 16 ? (n.label || '').slice(0, 15) + '…' : (n.label || '')}</text>
               {n.isTarget && <text x={NW - 8} y="15" className="fc-node-star" textAnchor="end">★</text>}
             </g>
           ); })}
@@ -188,6 +193,7 @@
             ); })}
           </div>
           {n.method === 'regression' && (n.parents || []).length > 0 && <div className="fc-lags">{(n.parents || []).map(function (pid) { var pn = nodes.find(function (x) { return x.id === pid; }); return <label key={pid} className="fc-lag" title="Lag this driver by N periods">{pn ? pn.sym : pid}<input type="number" min="0" max="12" value={(n.lags && n.lags[pid]) || 0} onChange={function (e) { var lg = Object.assign({}, n.lags || {}); lg[pid] = Math.max(0, +e.target.value || 0); up({ lags: lg }); }} /></label>; })}</div>}
+          {n.method === 'regression' && <label className="fc-logchk" title="Fit log(Y) on level drivers — keeps a positive-only target (price, index) positive and reads β as a semi-elasticity (% per unit). Use for prices like gold."><input type="checkbox" checked={!!(n.params && n.params.logspace)} onChange={function (e) { upParams({ logspace: e.target.checked }); }} /> log Y — keep positive (semi-elasticity)</label>}
         </div>}
 
         {n.method === 'equation' && <div className="fc-insp-block">
@@ -246,7 +252,7 @@
         {mode === 'growth'
           ? <div className="fc-row-inline"><label>Growth %/period</label><input type="number" step="0.5" value={p.growthPct || 0} onChange={function (e) { props.onParams({ growthPct: +e.target.value || 0 }); }} /></div>
           : <div>
-              <textarea className="fc-scen-ta" placeholder={'one value per future period (comma or newline)\n' + H + ' periods — blanks hold the previous value'} value={p.scenarioRaw || ''} onChange={function (e) { var raw = e.target.value; var path = raw.split(/[\s,;]+/).map(function (x) { return x === '' ? null : parseFloat(x); }).filter(function (x, i, a) { return true; }); props.onParams({ scenarioRaw: raw, scenarioPath: path.map(function (x) { return isFinite(x) ? x : null; }) }); }} />
+              <textarea className="fc-scen-ta" placeholder={'one value per future period (comma or newline)\n' + H + ' periods — beyond what you enter holds the last value'} value={p.scenarioRaw || ''} onChange={function (e) { var raw = e.target.value; var vals = raw.split(/[\s,;]+/).filter(function (s) { return s !== ''; }).map(function (x) { var v = parseFloat(x); return isFinite(v) ? v : null; }); props.onParams({ scenarioRaw: raw, scenarioPath: vals }); }} />
               <div className="fc-dim">{(p.scenarioPath || []).filter(function (x) { return x != null; }).length} / {H} periods set</div>
             </div>}
       </div>
@@ -267,6 +273,7 @@
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
     var _off = React.useState(false), cloudOff = _off[0], setCloudOff = _off[1];
     var _stale = React.useState(false), stale = _stale[0], setStale = _stale[1];
+    var _pin = React.useState(null), pinned = _pin[0], setPinned = _pin[1];   // {target, sym, fcst:[]} baseline snapshot for overlay
     var loaded = React.useRef(false), cloudSafe = React.useRef(false), aliveUids = React.useRef({}), saveTimer = React.useRef(null), runTimer = React.useRef(null), idc = React.useRef(1);
 
     var byId = {}; nodes.forEach(function (n) { byId[n.id] = n; });
@@ -304,7 +311,7 @@
     React.useEffect(function () { if (loaded.current) persist(); }, [nodes, horizon, bandPct]);
 
     // live recompute on structural/param/scenario/horizon changes once a forecast exists
-    var computeKey = JSON.stringify({ h: horizon, b: bandPct, ns: nodes.map(function (n) { return { i: n.id, m: n.method, p: n.parents, l: n.lags, e: n.equation, pa: n.params, t: n.isTarget, s: n.series ? n.series.length : 0 }; }) });
+    var computeKey = React.useMemo(function () { return JSON.stringify({ h: horizon, b: bandPct, ns: nodes.map(function (n) { return { i: n.id, m: n.method, p: n.parents, l: n.lags, e: n.equation, pa: n.params, t: n.isTarget, s: n.series ? n.series.length : 0 }; }) }); }, [nodes, horizon, bandPct]);
     React.useEffect(function () {
       if (!loaded.current || !result) { return; }
       setStale(true);
@@ -351,6 +358,12 @@
       }, 20);
     }
 
+    function pinBaseline() {
+      if (!result) return;
+      if (pinned) { setPinned(null); return; }
+      var t = result.nodes[result.target];
+      setPinned({ target: result.target, sym: t.sym, label: t.label, fcst: t.fcst.slice(), end: result.dates.future[result.dates.future.length - 1] });
+    }
     function setFreq(fr) { setHorizon(Object.assign({}, horizon, { freq: fr })); }
     function setN(n) { setHorizon(Object.assign({}, horizon, { n: Math.max(1, Math.min(240, n || 1)) })); }
     function presetYears(yrs) { var py = (FREQS.find(function (f) { return f.id === horizon.freq; }) || { perYear: 4 }).perYear; setN(yrs * py); }
@@ -365,7 +378,7 @@
           <div className="an-topbar-sp" />
           {stale && result && <span className="fc-stale">● updating…</span>}
           <span className={'an-sync an-sync-' + (cloudOff ? 'local' : sync)} title={cloudOff ? 'Cloud unreachable on load — local only this session.' : ''}>{cloudOff ? '⚠ Local only' : sync === 'saving' ? '⟳ Saving…' : sync === 'saved' ? '☁ Saved' : sync === 'local' ? '✓ Local' : (loggedIn ? '☁ Cloud' : '✓ Local')}</span>
-          <button className="an-run fc-run" disabled={running} onClick={doRun}>{running ? '⟳ Running…' : '▶ Run forecast'}</button>
+          <button className="an-run fc-run" disabled={running} onClick={doRun}>{running ? '⟳ Running…' : result ? '↻ Re-run' : '▶ Run forecast'}</button>
         </div>
 
         <div className="fc-grid">
@@ -414,26 +427,42 @@
           </div>
 
           {/* RIGHT — forecast output */}
-          <div className="an-results fc-out">
+          <div className={'an-results fc-out' + (stale && result ? ' fc-stale-out' : '')}>
             {!result && !running && <div className="an-empty an-results-empty">Build the graph, then <b>Run forecast</b>. The target's path + fan band and every driver's forecast appear here. Flip any driver to a <b>scenario</b> and the cone updates live.</div>}
             {running && !result && <div className="an-running"><div className="an-running-bar" />Forecasting…</div>}
-            {result && target && <div className="fc-res">
-              <div className="fc-res-h"><span className="fc-res-title">★ {target.label}</span><span className="fc-res-end">{result.H} {FREQS.find(function (f) { return f.id === result.freq; }).label.toLowerCase()} → {endLabel}</span></div>
-              <div className="fc-res-now">last actual <b>{fmtVal(target.hist[target.hist.length - 1])}</b> → forecast <b className="fc-pos">{fmtVal(target.fcst[target.fcst.length - 1])}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}</div>
-              {target.fit && target.fit.error && <div className="an-note">⚠ Target: {target.fit.error}</div>}
-              {target.fit && target.fit.kind === 'regression' && <div className="an-note">Fit R²={fmtVal(target.fit.r2, 3)} on {target.fit.nfit} periods · {target.fit.names.slice(1).join(', ')}</div>}
-              <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={180} />
-              <div className="fc-sm-h">Drivers</div>
-              <div className="fc-smalls">
-                {result.order.filter(function (id) { return id !== result.target; }).map(function (id) { var nd = result.nodes[id]; return (
-                  <div key={id} className="fc-sm" onClick={function () { setSelectedId(id); }}>
-                    <div className="fc-sm-top"><span className="fc-sm-sym">{methodGlyph(nd.method)} {nd.sym}</span><span className="fc-sm-val">{fmtVal(nd.fcst[nd.fcst.length - 1])}</span></div>
-                    <FcChart hist={nd.hist} fcst={nd.fcst} lo={nd.lo} hi={nd.hi} histDates={result.dates.hist} futureDates={result.dates.future} height={92} />
-                    {nd.fit && nd.fit.error && <div className="fc-sm-err">⚠ {nd.fit.error}</div>}
-                  </div>
-                ); })}
-              </div>
-            </div>}
+            {result && target && (function () {
+              var hL = target.hist[target.hist.length - 1], fL = target.fcst[target.fcst.length - 1];
+              var up = (hL != null && fL != null) ? fL >= hL : null;
+              var base = (pinned && pinned.target === result.target && pinned.fcst.length === target.fcst.length) ? pinned.fcst : null;
+              var vsBase = base ? fL - base[base.length - 1] : null;
+              return <div className="fc-res">
+                {stale && <div className="fc-updating">● updating forecast…</div>}
+                <div className="fc-res-h">
+                  <span className="fc-res-title">★ {target.label}</span>
+                  <span className="fc-res-actions">
+                    <button className={'fc-pinbtn ' + (pinned ? 'on' : '')} title="Snapshot this forecast as a baseline, then change a driver's scenario to see the delta you caused" onClick={pinBaseline}>{pinned ? '✓ baseline pinned' : '⊕ Pin baseline'}</button>
+                    <span className="fc-res-end">{result.H} {FREQS.find(function (f) { return f.id === result.freq; }) ? FREQS.find(function (f) { return f.id === result.freq; }).label.toLowerCase() : ''} → {endLabel}</span>
+                  </span>
+                </div>
+                <div className="fc-res-now">last actual <b>{fmtVal(hL)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{fmtVal(fL)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtVal(vsBase)}</b></span>}</div>
+                {result.warning && <div className="an-verdict warn">⚠ {result.warning}</div>}
+                {target.fit && target.fit.error && <div className="an-verdict warn">⚠ Target won't fit: {target.fit.error}</div>}
+                {target.fit && target.fit.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's regression residuals are non-stationary (DW={fmtVal(target.fit.dw, 2)}{target.fit.adfP != null ? ', ADF p≈' + fmtVal(target.fit.adfP, 2) : ''}). A high R² here can be a common-trend artefact — try <b>differenced/growth</b> drivers, or the <b>log Y</b> toggle for a price.</div>}
+                {target.fit && target.fit.kind === 'regression' && !target.fit.error && <div className="an-note">Fit R²={fmtVal(target.fit.r2, 3)} on {target.fit.nfit} periods · {target.fit.names.slice(1).join(', ')}{target.fit.logspace ? ' · log Y' : ''} · dotted line = in-sample fit</div>}
+                <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} fit={target.fit && target.fit.fittedHist} base={base} bandPct={bandPct} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={184} />
+                <div className="fc-sm-h">Drivers</div>
+                <div className="fc-smalls">
+                  {result.order.filter(function (id) { return id !== result.target; }).map(function (id) { var nd = result.nodes[id]; return (
+                    <div key={id} className="fc-sm" onClick={function () { setSelectedId(id); }}>
+                      <div className="fc-sm-top"><span className="fc-sm-sym">{methodGlyph(nd.method)} {nd.sym}</span><span className="fc-sm-val">{fmtVal(nd.fcst[nd.fcst.length - 1])}</span></div>
+                      <FcChart hist={nd.hist} fcst={nd.fcst} lo={nd.lo} hi={nd.hi} fit={nd.fit && nd.fit.fittedHist} histDates={result.dates.hist} futureDates={result.dates.future} height={92} />
+                      {nd.fit && nd.fit.error && <div className="fc-sm-err">⚠ {nd.fit.error}</div>}
+                      {nd.fit && nd.fit.spurious && <div className="fc-sm-err">⚠ spurious fit (non-stationary residuals)</div>}
+                    </div>
+                  ); })}
+                </div>
+              </div>;
+            })()}
           </div>
         </div>
 

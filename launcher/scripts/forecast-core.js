@@ -61,8 +61,9 @@
     }
     return toks;
   }
-  var PREC = { '+': 2, '-': 2, '*': 3, '/': 3, '%': 3, '^': 4 };
-  var RIGHT = { '^': true };
+  // unary +/- sit between */ and ^ so that -2^2 = -(2^2) and -2*3 = (-2)*3
+  var PREC = { '+': 2, '-': 2, '*': 3, '/': 3, '%': 3, 'u-': 3.5, 'u+': 3.5, '^': 4 };
+  var RIGHT = { '^': true, 'u-': true, 'u+': true };
   function toRPN(toks) {
     var out = [], ops = [], prev = null;
     for (var k = 0; k < toks.length; k++) {
@@ -71,15 +72,13 @@
       else if (tk.t === 'func') { ops.push(tk); }
       else if (tk.t === 'comma') { while (ops.length && ops[ops.length - 1].t !== 'lp') out.push(ops.pop()); if (!ops.length) throw new Error('misplaced comma'); }
       else if (tk.t === 'op') {
-        // unary minus / plus
         var unary = (prev == null || prev.t === 'op' || prev.t === 'lp' || prev.t === 'comma');
         if (unary && (tk.v === '-' || tk.v === '+')) { tk = { t: 'op', v: tk.v === '-' ? 'u-' : 'u+', unary: true }; }
-        else {
-          while (ops.length) {
-            var top = ops[ops.length - 1];
-            if (top.t === 'op' && (top.unary || (RIGHT[tk.v] ? PREC[top.v] > PREC[tk.v] : PREC[top.v] >= PREC[tk.v]))) out.push(ops.pop());
-            else break;
-          }
+        while (ops.length) {
+          var top = ops[ops.length - 1];
+          if (top.t !== 'op') break;
+          var popIt = RIGHT[tk.v] ? (PREC[top.v] > PREC[tk.v]) : (PREC[top.v] >= PREC[tk.v]);
+          if (popIt) out.push(ops.pop()); else break;
         }
         ops.push(tk);
       }
@@ -178,7 +177,7 @@
     // validate parents / methods
     for (var vi = 0; vi < nodes.length; vi++) {
       var nd = nodes[vi];
-      (nd.parents || []).forEach(function (pid) { if (!byId[pid]) throw 0; });
+      (nd.parents || []).forEach(function (pid) { if (!byId[pid]) throw new Error('"' + (nd.label || nd.id) + '" references a missing driver — remove and reconnect it.'); });
     }
     var topo = topoSort(nodes); if (topo.error) return { error: topo.error };
     var order = topo.order;
@@ -197,6 +196,10 @@
     var commonKeys = Object.keys(first).filter(function (k) { return dataNodes.every(function (n) { return keyMaps[n.id][k] != null; }); }).sort();
     if (commonKeys.length < 8) return { error: 'Only ' + commonKeys.length + ' overlapping ' + freq + ' periods across the data nodes (need ≥ 8). Pick series with a longer common span or a lower frequency.' };
     var Ht = commonKeys.length;
+    // warn when one short series truncates the whole common sample
+    var longest = 0; dataNodes.forEach(function (n) { var kk = Object.keys(keyMaps[n.id]).length; if (kk > longest) longest = kk; });
+    var coverageWarn = null;
+    if (Ht < longest * 0.5) { var srt = dataNodes.map(function (n) { return { sym: byId[n.id].sym, k: Object.keys(keyMaps[n.id]).length }; }).sort(function (a, b) { return a.k - b.k; }); coverageWarn = 'Common sample is only ' + Ht + ' ' + freq + ' periods — truncated by ' + srt[0].sym + ' (others reach ' + longest + '). Drop or extend it for a longer fit.'; }
     var histDates = commonKeys.map(function (k) { return keyDate(k, freq); });
 
     // future dates
@@ -232,19 +235,26 @@
       var n = byId[id]; var hist = path[id];
       var histVals = hist.slice(0, Ht);
       if (n.method === 'regression') {
-        var ps = (n.parents || []); if (!ps.length) { fit[id] = { error: 'no parents' }; return; }
-        // aligned rows where y and all lagged parents are finite
+        var ps = (n.parents || []); if (!ps.length) { fit[id] = { error: 'connect at least one driver' }; return; }
+        // semi-log mode: fit log(Y) on level parents → Y forecast = exp(...) stays > 0
+        // (β = semi-elasticity); parents stay in levels so they may be negative (e.g. yields).
+        var logsp = !!(n.params && n.params.logspace);
         var Y = [], X = [], rows = [];
         for (var t = 0; t < Ht; t++) {
-          var y = histVals[t]; if (y == null || !isFinite(y)) continue;
+          var yraw = histVals[t]; var y = logsp ? (yraw != null && yraw > 0 ? Math.log(yraw) : null) : yraw; if (y == null || !isFinite(y)) continue;
           var xr = [], ok = true;
           for (var j = 0; j < ps.length; j++) { var lg = (n.lags && n.lags[ps[j]]) || 0; var pv = path[ps[j]] ? path[ps[j]][t - lg] : null; if (pv == null || !isFinite(pv)) { ok = false; break; } xr.push(pv); }
           if (!ok) continue; Y.push(y); X.push(xr); rows.push(t);
         }
-        if (Y.length < ps.length + 3) { fit[id] = { error: 'too few aligned points to fit (' + Y.length + ')' }; return; }
+        if (Y.length < ps.length + 3) { fit[id] = { error: 'too few aligned points to fit (' + Y.length + ')' + (logsp ? ' — log mode needs positive Y' : '') }; return; }
         var Xcols = ps.map(function (_, j) { return X.map(function (r) { return r[j]; }); });
         var res = E.ols(Y, Xcols, { names: ps.map(function (pid) { return byId[pid].sym; }), robust: 'hac' });
-        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length };
+        // in-sample fitted over the full history grid (faint overlay so a weak fit is visible)
+        var fh = new Array(Ht).fill(null);
+        for (var t2 = 0; t2 < Ht; t2++) { var v = res.coef[0], good = true; for (var j2 = 0; j2 < ps.length; j2++) { var lg2 = (n.lags && n.lags[ps[j2]]) || 0; var pv2 = path[ps[j2]] ? path[ps[j2]][t2 - lg2] : null; if (pv2 == null || !isFinite(pv2)) { good = false; break; } v += res.coef[j2 + 1] * pv2; } fh[t2] = good ? (logsp ? Math.exp(v) : v) : null; }
+        // spurious-regression check: residuals non-stationary (DW≈0 or ADF can't reject a unit root)
+        var spur = false, adfP = null; try { var ra = E.adf(res.resid, { trend: 'c' }); adfP = ra ? ra.p : null; if ((res.dw != null && res.dw < 0.8) || (ra && ra.stationary === false)) spur = true; } catch (e) { }
+        fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur };
       } else if (n.method === 'arima') {
         var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || 4, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
       } else if (n.method === 'ets') {
@@ -287,7 +297,7 @@
 
     // ---- assemble output ----
     var target = (nodes.find(function (n) { return n.isTarget; }) || nodes[nodes.length - 1]).id;
-    var out = { dates: { hist: histDates, future: futureDates }, order: order, target: target, freq: freq, H: H, bandPct: bandPct, nodes: {} };
+    var out = { dates: { hist: histDates, future: futureDates }, order: order, target: target, freq: freq, H: H, bandPct: bandPct, warning: coverageWarn, nodes: {} };
     order.forEach(function (id) {
       var n = byId[id];
       out.nodes[id] = {
@@ -308,7 +318,7 @@
           if (n.method === 'scenario') { val = scenarioVal(n, f); }
           else if (n.method === 'regression') {
             if (fi.error) { val = null; }
-            else { val = fi.coef[0]; var ps = n.parents || [], okp = true; for (var j = 0; j < ps.length; j++) { var lg = (n.lags && n.lags[ps[j]]) || 0; var pv = path[ps[j]] ? path[ps[j]][gi - lg] : null; if (pv == null || !isFinite(pv)) { okp = false; break; } val += fi.coef[j + 1] * pv; } if (!okp) val = null; else if (noise) val += gauss(rng) * (fi.sigma || 0); }
+            else { var lin = fi.coef[0]; var ps = n.parents || [], okp = true; for (var j = 0; j < ps.length; j++) { var lg = (n.lags && n.lags[ps[j]]) || 0; var pv = path[ps[j]] ? path[ps[j]][gi - lg] : null; if (pv == null || !isFinite(pv)) { okp = false; break; } lin += fi.coef[j + 1] * pv; } if (!okp) { val = null; } else { if (noise) lin += gauss(rng) * (fi.sigma || 0); val = fi.logspace ? Math.exp(lin) : lin; } }
           }
           else if (n.method === 'equation') { var c = getCompiled(id, n); val = evalEq(c, n, gi); }
           else if (n.method === 'arima' || n.method === 'ets') { val = uni[id] ? uni[id][f - 1] : null; if (noise && val != null) val += gauss(rng) * (fi.sigma || 0) * Math.sqrt(f); }

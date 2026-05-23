@@ -122,7 +122,21 @@
 .fc-res-now{font-size:12px;color:var(--an-tx2)}
 .fc-res-now b{font-family:var(--an-mono);color:var(--an-tx)}
 .fc-pos{color:var(--pos-bloom,#2EE39A)!important}
+.fc-neg{color:var(--neg-bloom,#FF7C8C)!important}
 .fc-svg{background:var(--an-bg2);border:1px solid var(--an-bd2);border-radius:var(--r-2,3px)}
+/* the target cone is the hero — heavier frame + faint accent wash so the eye lands here first */
+.fc-res>.fc-svg{border-color:var(--an-acc-edge);background:linear-gradient(180deg,var(--an-acc-soft),transparent)}
+.fc-res-actions{display:flex;align-items:center;gap:10px}
+.fc-pinbtn{background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx3);border-radius:var(--r-2,3px);
+  font-family:var(--an-mono);font-size:10px;padding:3px 8px;cursor:pointer;white-space:nowrap}
+.fc-pinbtn:hover{border-color:var(--an-acc-edge);color:var(--an-acc)}
+.fc-pinbtn.on{background:var(--an-acc-soft);border-color:var(--an-acc-edge);color:var(--an-acc)}
+.fc-updating{font-family:var(--an-mono);font-size:10.5px;color:var(--an-acc);margin-bottom:4px}
+.fc-stale-out{transition:opacity .15s}.fc-stale-out .fc-res{opacity:.55}
+.fc-logchk{display:flex;align-items:center;gap:6px;font-family:var(--an-mono);font-size:10.5px;color:var(--an-tx2);cursor:pointer}
+.fc-logchk input{accent-color:var(--an-acc)}
+/* honesty banners directly in the output column need a gap before the chart */
+.fc-out .an-verdict{margin-bottom:10px}
 .fc-sm-h{font-family:var(--an-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--an-tx3);margin-top:6px}
 .fc-smalls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .fc-sm{border:1px solid var(--an-bd2);border-radius:var(--r-2,3px);background:var(--an-bg2);padding:6px;cursor:pointer;transition:border-color var(--t-fast,120ms)}
