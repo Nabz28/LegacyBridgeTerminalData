@@ -52,22 +52,26 @@
 
   // Metric → which statement + candidate line-item keys (first match wins), or a
   // ratio of two keys (for margins). Keys match the equity-statements doc.
+  // `kind` drives unit-aware formatting & scenario math downstream:
+  //   currency = a money aggregate (B/M/K, additive ΔY in currency),
+  //   pershare = per-share figure (currency, no magnitude suffix),
+  //   percent  = a ratio/margin (additive ΔY in percentage points).
   var METRICS = [
-    { id: 'revenue', label: 'Revenue', stmt: 'income', keys: ['TotalRevenue', 'OperatingRevenue'] },
-    { id: 'grossProfit', label: 'Gross Profit', stmt: 'income', keys: ['GrossProfit'] },
-    { id: 'opIncome', label: 'Operating Income / EBIT', stmt: 'income', keys: ['OperatingIncome', 'EBIT', 'TotalOperatingIncomeAsReported'] },
-    { id: 'ebitda', label: 'EBITDA', stmt: 'income', keys: ['EBITDA', 'NormalizedEBITDA'] },
-    { id: 'netIncome', label: 'Net Income', stmt: 'income', keys: ['NetIncome', 'NetIncomeCommonStockholders'] },
-    { id: 'eps', label: 'EPS (diluted)', stmt: 'income', keys: ['DilutedEPS', 'BasicEPS'] },
-    { id: 'grossMargin', label: 'Gross Margin %', stmt: 'income', ratio: ['GrossProfit', 'TotalRevenue'] },
-    { id: 'opMargin', label: 'Operating Margin %', stmt: 'income', ratio: ['OperatingIncome', 'TotalRevenue'] },
-    { id: 'netMargin', label: 'Net Margin %', stmt: 'income', ratio: ['NetIncome', 'TotalRevenue'] },
-    { id: 'assets', label: 'Total Assets', stmt: 'balance', keys: ['TotalAssets'] },
-    { id: 'debt', label: 'Total Debt', stmt: 'balance', keys: ['TotalDebt'] },
-    { id: 'equity', label: 'Total Equity', stmt: 'balance', keys: ['StockholdersEquity', 'TotalEquityGrossMinorityInterest'] },
-    { id: 'opCF', label: 'Operating Cash Flow', stmt: 'cashflow', keys: ['OperatingCashFlow'] },
-    { id: 'fcf', label: 'Free Cash Flow', stmt: 'cashflow', keys: ['FreeCashFlow'] },
-    { id: 'capex', label: 'Capex', stmt: 'cashflow', keys: ['CapitalExpenditure'] }
+    { id: 'revenue', label: 'Revenue', stmt: 'income', keys: ['TotalRevenue', 'OperatingRevenue'], kind: 'currency' },
+    { id: 'grossProfit', label: 'Gross Profit', stmt: 'income', keys: ['GrossProfit'], kind: 'currency' },
+    { id: 'opIncome', label: 'Operating Income / EBIT', stmt: 'income', keys: ['OperatingIncome', 'EBIT', 'TotalOperatingIncomeAsReported'], kind: 'currency' },
+    { id: 'ebitda', label: 'EBITDA', stmt: 'income', keys: ['EBITDA', 'NormalizedEBITDA'], kind: 'currency' },
+    { id: 'netIncome', label: 'Net Income', stmt: 'income', keys: ['NetIncome', 'NetIncomeCommonStockholders'], kind: 'currency' },
+    { id: 'eps', label: 'EPS (diluted)', stmt: 'income', keys: ['DilutedEPS', 'BasicEPS'], kind: 'pershare' },
+    { id: 'grossMargin', label: 'Gross Margin %', stmt: 'income', ratio: ['GrossProfit', 'TotalRevenue'], kind: 'percent' },
+    { id: 'opMargin', label: 'Operating Margin %', stmt: 'income', ratio: ['OperatingIncome', 'TotalRevenue'], kind: 'percent' },
+    { id: 'netMargin', label: 'Net Margin %', stmt: 'income', ratio: ['NetIncome', 'TotalRevenue'], kind: 'percent' },
+    { id: 'assets', label: 'Total Assets', stmt: 'balance', keys: ['TotalAssets'], kind: 'currency' },
+    { id: 'debt', label: 'Total Debt', stmt: 'balance', keys: ['TotalDebt'], kind: 'currency' },
+    { id: 'equity', label: 'Total Equity', stmt: 'balance', keys: ['StockholdersEquity', 'TotalEquityGrossMinorityInterest'], kind: 'currency' },
+    { id: 'opCF', label: 'Operating Cash Flow', stmt: 'cashflow', keys: ['OperatingCashFlow'], kind: 'currency' },
+    { id: 'fcf', label: 'Free Cash Flow', stmt: 'cashflow', keys: ['FreeCashFlow'], kind: 'currency' },
+    { id: 'capex', label: 'Capex', stmt: 'cashflow', keys: ['CapitalExpenditure'], kind: 'currency' }
   ];
 
   function mapToSeries(map) {
