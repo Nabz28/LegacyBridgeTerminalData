@@ -926,12 +926,13 @@ const MacroMarketsTool = () => {
 };
 
 const MACRO_TOOLS = [
-  { id: 'data',    label: 'Markets & Macro', glyph: '◧' },
-  { id: 'news',    label: 'News',            glyph: '❏' },
-  { id: 'gather',  label: 'Data Gatherer',   glyph: '▤' },
-  { id: 'connect', label: 'Connections',     glyph: '⊚' },
-  { id: 'map',     label: 'Map · Globe',     glyph: '◍' },
-  { id: 'corr',    label: 'Correlation',     glyph: '▦' },
+  { id: 'data',     label: 'Markets & Macro', glyph: '◧' },
+  { id: 'news',     label: 'News',            glyph: '❏' },
+  { id: 'gather',   label: 'Data Gatherer',   glyph: '▤' },
+  { id: 'analysis', label: 'Analysis',        glyph: 'Σ' },
+  { id: 'connect',  label: 'Connections',     glyph: '⊚' },
+  { id: 'map',      label: 'Map · Globe',     glyph: '◍' },
+  { id: 'corr',     label: 'Correlation',     glyph: '▦' },
 ];
 
 // ================================================================
@@ -1059,6 +1060,7 @@ const macroToolNode = (id) => {
   if (id === 'data')      return <MacroMarketsTool />;
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
+  if (id === 'analysis')  return window.AnalysisLab    ? <window.AnalysisLab />              : <div className="mc-section mc-news-empty">Analysis tool not loaded.</div>;
   if (id === 'connect')   return <MacroConnectionsMap />;
   if (id === 'map')       return window.MacroMap         ? wrapWs(<window.MacroMap />)         : <div className="mc-section mc-news-empty">Map not loaded.</div>;
   if (id === 'corr')      return <CorrelationTool />;
