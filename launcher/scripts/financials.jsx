@@ -560,4 +560,5 @@
   };
 
   window.FinancialsPro = FinancialsPro;
+  window.EquityPeers = PeersPanel;   // live peer-comps, reused by the Comparable section
 })();

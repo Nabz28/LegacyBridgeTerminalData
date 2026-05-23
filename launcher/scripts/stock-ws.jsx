@@ -115,11 +115,11 @@ const SECTIONS = [
   { id: 'overview',     label: 'Overview',           group: 'main',         live: false },
   { id: 'financials',   label: 'Financials',         group: 'fundamentals', live: true  },
   { id: 'wacc',         label: 'WACC',               group: 'fundamentals', live: true  },
-  { id: 'comparable',   label: 'Comparable',         group: 'fundamentals', live: false },
+  { id: 'comparable',   label: 'Comparable',         group: 'fundamentals', live: true  },
   { id: 'owners',       label: 'Owners (KSEI)',      group: 'fundamentals', live: false },
   { id: 'suppliers',    label: 'Suppliers & Buyers', group: 'fundamentals', live: false },
   { id: 'transact',     label: 'Transactional',      group: 'main',         live: false },
-  { id: 'risk',         label: 'Risk',               group: 'risk',         live: false },
+  { id: 'risk',         label: 'Risk',               group: 'risk',         live: true  },
   { id: 'esg',          label: 'ESG',                group: 'risk',         live: false },
   { id: 'thesis',       label: 'AI Thesis',          group: 'thesis',       live: false },
   { id: 'monte',        label: 'Monte Carlo',        group: 'thesis',       live: false },
@@ -2048,6 +2048,8 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const activeSection = SECTIONS.find(s => s.id === active);
   const WaccTab = window.WaccTab;
   const FinancialsPro = window.FinancialsPro;
+  const EquityPeers = window.EquityPeers;
+  const RiskPro = window.RiskPro;
   // Live header: fresh quote + statements snapshot → recompute multiples off live price.
   const [quote, setQuote] = React.useState(null);
   const [headerDoc, setHeaderDoc] = React.useState(null);
@@ -2090,9 +2092,9 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
             {active === 'financials' && (FinancialsPro ? <FinancialsPro symbol={symbol} t={t} /> : <FinancialsTab fix={fix} symbol={symbol} />)}
             {active === 'wacc'       && WaccTab && <WaccTab symbol={symbol} t={t} />}
-            {active === 'comparable' && <ComparableTab    fix={fix} />}
+            {active === 'comparable' && (EquityPeers ? <EquityPeers symbol={symbol} /> : <ComparableTab fix={fix} />)}
             {active === 'owners'     && <OwnersTab        fix={fix} />}
-            {active === 'risk'       && <RiskTab          fix={fix} />}
+            {active === 'risk'       && (RiskPro ? <RiskPro symbol={symbol} /> : <RiskTab fix={fix} />)}
             {active === 'esg'        && <EsgTab           fix={fix} />}
             {active === 'thesis'     && <ThesisTab        fix={fix} />}
             {active === 'monte'      && <MonteCarloTab    fix={fix} />}

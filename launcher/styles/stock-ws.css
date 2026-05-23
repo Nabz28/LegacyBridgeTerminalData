@@ -1656,3 +1656,21 @@
 .wacc-prov-txt { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.02em; }
 
 .eq-rail-count { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); letter-spacing: 0.03em; padding: 4px 2px 6px; }
+
+/* ── Risk analytics ─────────────────────────────────────────────────── */
+.sw-section.risk { display: flex; flex-direction: column; gap: 12px; }
+.risk-msg { padding: 28px; text-align: center; color: var(--text-tertiary); font-family: var(--font-mono); font-size: 12px; }
+.risk-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.risk-src { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); margin-left: 8px; letter-spacing: 0.02em; }
+.risk-win { display: inline-flex; border: 1px solid var(--border-default); border-radius: 5px; overflow: hidden; }
+.risk-win-b { font-family: var(--font-mono); font-size: 10px; padding: 5px 11px; background: var(--bg-0); border: none; border-right: 1px solid var(--border-subtle); color: var(--text-tertiary); cursor: pointer; }
+.risk-win-b:last-child { border-right: none; }
+.risk-win-b.on { background: var(--brand); color: var(--bg-0); }
+.risk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.risk-kv { background: var(--bg-1); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 10px 12px; }
+.risk-kv-l { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
+.risk-kv-v { font-family: var(--font-mono); font-size: 20px; color: var(--accent); margin-top: 3px; }
+.risk-kv-v.pos { color: var(--pos); }
+.risk-kv-v.neg { color: var(--neg); }
+.risk-kv-h { font-size: 9px; color: var(--text-tertiary); margin-top: 2px; }
+.risk-foot { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); line-height: 1.5; padding-top: 6px; border-top: 1px solid var(--border-subtle); }
