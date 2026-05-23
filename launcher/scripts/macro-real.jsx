@@ -473,22 +473,41 @@ const LD_REGION_LABEL = LD_REGIONS.reduce((m, r) => { m[r.id] = r.label; return 
 // LD_CAT_LABEL is just a passthrough fallback.
 const LD_CAT_LABEL = {};
 
-// Predefined templates the user can toggle. keys=null means "everything".
+// Dropdown-grouped views. A view selects rows by: keys[] (curated), keys===null
+// (everything), region (whole region), or region+cat (one commodity category).
 // 'custom' is special (per-account selection built with the + picker).
 const LD_TEMPLATES = [
-  { id: 'us_overview', label: 'US Overview',  glyph: '★', keys: ['us_10y', 'us_2s10s', 'us_fed_funds', 'us_cpi', 'us_core_cpi', 'us_unrate', 'spx', 'vix', 'dxy', 'wti', 'gold', 'btc'] },
-  { id: 'rates',       label: 'Rates',        glyph: '%', keys: ['us_3m', 'us_2y', 'us_5y', 'us_10y', 'us_30y', 'us_2s10s', 'us_be_10y', 'ea_10y', 'jp_10y', 'uk_10y'] },
-  { id: 'inflation',   label: 'Inflation',    glyph: '▲', keys: ['us_cpi', 'us_core_cpi', 'us_pce', 'us_core_pce', 'ea_hicp', 'uk_cpi', 'jp_cpi', 'id_cpi_yoy', 'cn_cpi_yoy'] },
-  { id: 'fx',          label: 'FX',           glyph: '⇄', keys: ['dxy', 'eurusd', 'usdjpy', 'gbpusd', 'usdcny', 'usdidr', 'usdinr'] },
-  { id: 'energy',      label: 'Energy',       glyph: '⚡', keys: ['wti', 'brent', 'natgas', 'gasoline', 'heating_oil'] },
-  { id: 'metals',      label: 'Metals',       glyph: '◆', keys: ['gold', 'silver', 'platinum', 'palladium', 'copper', 'aluminum', 'iron_ore', 'steel_hrc'] },
-  { id: 'agriculture', label: 'Agriculture',  glyph: '❀', keys: ['corn', 'wheat', 'soybeans', 'coffee', 'sugar', 'cocoa', 'cotton'] },
-  { id: 'indices',     label: 'Indices',      glyph: '▦', keys: ['spx', 'ndx', 'dji', 'dax', 'ftse', 'nikkei', 'hsi', 'csi300', 'jci', 'nifty', 'vix'] },
-  { id: 'crypto',      label: 'Crypto',       glyph: '◇', keys: ['btc', 'eth', 'sol', 'bnb', 'xrp', 'ada', 'doge', 'avax'] },
-  { id: 'indo',        label: 'Indonesia',    glyph: '∎', keys: ['id_bi_rate', 'id_cpi_yoy', 'id_gdp_real_q', 'id_exports', 'id_imports', 'id_fx_reserves', 'id_m2', 'usdidr', 'jci'] },
-  { id: 'china',       label: 'China',        glyph: '∎', keys: ['cn_policy_rate', 'cn_cpi_yoy', 'cn_ip_yoy', 'cn_retail_yoy', 'cn_pmi_mfg', 'cn_m2_yoy', 'cn_exports_usd', 'shcomp'] },
-  { id: 'all',         label: 'Everything',   glyph: '⊞', keys: null },
+  // — Featured —
+  { id: 'us_overview', group: 'Featured', label: 'US Overview', keys: ['us_10y', 'us_2s10s', 'us_fed_funds', 'us_cpi', 'us_core_cpi', 'us_unrate', 'spx', 'vix', 'dxy', 'wti', 'gold', 'btc'] },
+  { id: 'indo',        group: 'Featured', label: 'Indonesia Macro', keys: ['id_bi_rate', 'id_cpi_yoy', 'id_gdp_real_q', 'id_exports', 'id_imports', 'id_fx_reserves', 'id_m2', 'usdidr', 'jci'] },
+  { id: 'indo_cmdty',  group: 'Featured', label: 'Indonesia Commodity Complex', keys: ['wb_coal_au', 'wb_palm_oil', 'wb_nickel', 'wb_tin', 'wb_rubber', 'wb_coffee_robusta', 'wb_rice', 'wb_shrimp', 'wb_urea', 'gold', 'usdidr', 'jci'] },
+  { id: 'all',         group: 'Featured', label: 'Everything', keys: null },
+  // — Regions —
+  { id: 'region_us',     group: 'Regions', label: 'United States', region: 'United States' },
+  { id: 'region_global', group: 'Regions', label: 'Global · DM',    region: 'Global' },
+  { id: 'region_china',  group: 'Regions', label: 'China',          region: 'China' },
+  // — Rates & Inflation —
+  { id: 'rates',     group: 'Rates & Inflation', label: 'Rates',     keys: ['us_3m', 'us_2y', 'us_5y', 'us_10y', 'us_30y', 'us_2s10s', 'us_be_10y', 'ea_10y', 'jp_10y', 'uk_10y'] },
+  { id: 'inflation', group: 'Rates & Inflation', label: 'Inflation', keys: ['us_cpi', 'us_core_cpi', 'us_pce', 'us_core_pce', 'ea_hicp', 'uk_cpi', 'jp_cpi', 'id_cpi_yoy', 'cn_cpi_yoy'] },
+  // — Cross-Asset —
+  { id: 'fx',      group: 'Cross-Asset', label: 'FX',             region: 'FX' },
+  { id: 'indices', group: 'Cross-Asset', label: 'Equity Indices', region: 'Equity Indices' },
+  { id: 'crypto',  group: 'Cross-Asset', label: 'Crypto',         region: 'Crypto' },
+  // — Commodities —
+  { id: 'cmd_all',        group: 'Commodities', label: 'All Commodities',     region: 'Commodities' },
+  { id: 'cmd_energy',     group: 'Commodities', label: 'Energy',              region: 'Commodities', cat: 'Energy' },
+  { id: 'cmd_precious',   group: 'Commodities', label: 'Precious Metals',     region: 'Commodities', cat: 'Precious Metals' },
+  { id: 'cmd_industrial', group: 'Commodities', label: 'Industrial Metals',   region: 'Commodities', cat: 'Industrial Metals' },
+  { id: 'cmd_palm',       group: 'Commodities', label: 'Palm Oil & Veg Oils', region: 'Commodities', cat: 'Palm Oil & Veg Oils' },
+  { id: 'cmd_grains',     group: 'Commodities', label: 'Grains & Food',       region: 'Commodities', cat: 'Grains & Food' },
+  { id: 'cmd_softs',      group: 'Commodities', label: 'Softs & Beverages',   region: 'Commodities', cat: 'Softs & Beverages' },
+  { id: 'cmd_agriraw',    group: 'Commodities', label: 'Agri Raw Materials',  region: 'Commodities', cat: 'Agri Raw Materials' },
+  { id: 'cmd_fert',       group: 'Commodities', label: 'Fertilizers · Pupuk', region: 'Commodities', cat: 'Fertilizers' },
+  { id: 'cmd_meat',       group: 'Commodities', label: 'Meat & Seafood',      region: 'Commodities', cat: 'Meat & Seafood' },
+  { id: 'cmd_battery',    group: 'Commodities', label: 'Battery & Critical',  region: 'Commodities', cat: 'Battery & Critical' },
+  { id: 'cmd_indices',    group: 'Commodities', label: 'Commodity Indices',   region: 'Commodities', cat: 'Commodity Indices' },
 ];
+const LD_GROUP_ORDER = ['Featured', 'Regions', 'Rates & Inflation', 'Cross-Asset', 'Commodities'];
 
 const ldNum = (v, d) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
 const ldFmtVal = (v, unit) => {
@@ -496,10 +515,13 @@ const ldFmtVal = (v, unit) => {
   const d = Math.abs(v) >= 1000 ? 0 : 2;
   const n = ldNum(v, d);
   if (unit === '%') return n + '%';
-  if (unit === '$') return '$' + n;
-  if (unit === 'Rp') return 'Rp' + n;
   if (unit === '$bn') return '$' + n + 'B';
+  if (unit === '$mn') return '$' + n + 'M';
+  if (unit === 'Rp') return 'Rp' + n;
   if (unit === 'k') return n + 'k';
+  // commodity benchmarks: $, $/mt, $/kg, $/bbl, $/mmbtu, $/m3, $/lb → $-prefixed; ¢/lb, ¢/kg → ¢-suffixed
+  if (unit && unit.charAt(0) === '$') return '$' + n;
+  if (unit && unit.charAt(0) === '¢') return n + '¢';
   return n;
 };
 const ldFmtChange = (v) => {
@@ -653,8 +675,11 @@ const MacroLiveDashboard = () => {
   let shownRows = [];
   if (rows) {
     if (active === 'custom') shownRows = customKeys.map((k) => byKey[k]).filter(Boolean);
-    else if (tmpl && tmpl.keys === null) shownRows = rows;                       // Everything
-    else if (tmpl) shownRows = tmpl.keys.map((k) => byKey[k]).filter(Boolean);
+    else if (!tmpl) shownRows = rows;                                              // unknown/legacy id → Everything
+    else if (tmpl.keys === null) shownRows = rows;                                 // Everything
+    else if (tmpl.keys) shownRows = tmpl.keys.map((k) => byKey[k]).filter(Boolean); // curated key list
+    else if (tmpl.cat) shownRows = rows.filter((r) => r.region === tmpl.region && r.category === tmpl.cat); // one commodity category
+    else if (tmpl.region) shownRows = rows.filter((r) => r.region === tmpl.region); // whole region
   }
   const lastUpdated = rows && rows.length ? rows.reduce((m, r) => (r.updated_at > m ? r.updated_at : m), '') : '';
 
@@ -668,16 +693,27 @@ const MacroLiveDashboard = () => {
         <span className="mc-section-h-sub">{lastUpdated ? 'updated ' + ldAgo(lastUpdated) + ' · FRED + DBnomics · auto-refreshed daily' : 'FRED + DBnomics'}</span>
       </div>
       <div className="mld-tabs">
-        {LD_TEMPLATES.map((t) => (
-          <button key={t.id} className={`mld-tab ${active === t.id ? 'active' : ''}`} onClick={() => chooseTemplate(t.id)}>
-            <span className="mld-tab-g">{t.glyph}</span>{t.label}
-          </button>
-        ))}
-        <button className={`mld-tab mld-tab-custom ${active === 'custom' ? 'active' : ''}`} onClick={() => { setActive('custom'); persist('custom', customKeys); }}>
-          <span className="mld-tab-g">◇</span>Custom{customKeys.length ? ' · ' + customKeys.length : ''}
-        </button>
+        <span className="mld-cat-lbl">Category</span>
+        <div className="mld-cat-wrap">
+          <select
+            className="mld-cat-select"
+            value={active}
+            onChange={(e) => { const v = e.target.value; if (v === 'custom') { setActive('custom'); persist('custom', customKeys); } else chooseTemplate(v); }}
+          >
+            {LD_GROUP_ORDER.map((g) => (
+              <optgroup key={g} label={g}>
+                {LD_TEMPLATES.filter((t) => t.group === g).map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
+              </optgroup>
+            ))}
+            <optgroup label="Personal">
+              <option value="custom">My Custom View{customKeys.length ? ' · ' + customKeys.length : ''}</option>
+            </optgroup>
+          </select>
+          <span className="mld-cat-caret">▾</span>
+        </div>
+        <span className="mld-cat-count">{shownRows.length} indicator{shownRows.length === 1 ? '' : 's'}</span>
         <button className="mld-add-btn" title="Build a custom view" onClick={() => setPicker(true)}>+ Add data</button>
-        <button className="sw-tf" style={{ marginLeft: 'auto' }} onClick={() => setTick((t) => t + 1)}>↻</button>
+        <button className="sw-tf" style={{ marginLeft: 'auto' }} title="Refresh" onClick={() => setTick((t) => t + 1)}>↻</button>
       </div>
       <div className="mld-scroll">
         {err && <div className="mc-news-empty" style={{ padding: 30 }}>{err}</div>}

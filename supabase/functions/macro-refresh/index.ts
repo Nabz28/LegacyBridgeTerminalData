@@ -1,10 +1,13 @@
 // macro-refresh — daily live macro + cross-asset dashboard refresh.
 //
-// Pulls a curated catalog (~186 indicators) from FRED, DBnomics, and Yahoo
+// Pulls a curated catalog (~245 indicators) from FRED, DBnomics, and Yahoo
 // Finance, computes display value / prior / change / sparkline, and upserts
 // into macro.live_indicators (then prunes keys no longer in the catalog).
 // Invoked daily by pg_cron (migration 0009) and callable on demand.
-// Catalog curated + validated 2026-05-22. Secrets: FRED_API_KEY.
+// Catalog curated + validated 2026-05-22. Commodity complex expanded
+// 2026-05-23 (palm oil/CPO, coal, LNG, base metals, fertilizers/pupuk,
+// grains, softs, agri raw materials, meat/seafood, IMF indices via FRED
+// IMF + World Bank pink-sheet). Secrets: FRED_API_KEY.
 
 const FRED_KEY = Deno.env.get("FRED_API_KEY") ?? "";
 const SB_URL = Deno.env.get("SUPABASE_URL") ?? "";
@@ -126,37 +129,92 @@ const RAW: string[][] = [
   ["cn_m1_yoy","China","Money & Credit","M1 (YoY)","%","DBnomics","NBS/M_A0D01/A0D0104","","level","monthly"],
   ["cn_reer","China","Markets","China REER (BIS)","idx","FRED","RBCNBIS","","level","monthly"],
   ["cn_share_price","China","Markets","China Share Price Idx","idx","FRED","SPASTT01CNM661N","TVC:SSEC","level","monthly"],
+  // --- Energy (Yahoo futures = live daily; FRED IMF/WB = monthly global benchmarks) ---
   ["wti","Commodities","Energy","WTI Crude","$","YAHOO","CL=F","NYMEX:CL1!","level","daily"],
   ["brent","Commodities","Energy","Brent Crude","$","YAHOO","BZ=F","TVC:UKOIL","level","daily"],
-  ["natgas","Commodities","Energy","Natural Gas","$","YAHOO","NG=F","NYMEX:NG1!","level","daily"],
+  ["natgas","Commodities","Energy","Natural Gas (Henry Hub)","$","YAHOO","NG=F","NYMEX:NG1!","level","daily"],
   ["gasoline","Commodities","Energy","RBOB Gasoline","$","YAHOO","RB=F","NYMEX:RB1!","level","daily"],
   ["heating_oil","Commodities","Energy","Heating Oil","$","YAHOO","HO=F","NYMEX:HO1!","level","daily"],
+  ["wb_coal_au","Commodities","Energy","Coal · Australia (Newcastle)","$/mt","FRED","PCOALAUUSDM","","level","monthly"],
+  ["wb_lng_jp","Commodities","Energy","LNG · Japan import","$/mmbtu","FRED","PNGASJPUSDM","","level","monthly"],
+  ["wb_natgas_eu","Commodities","Energy","Natural Gas · Europe (TTF)","$/mmbtu","FRED","PNGASEUUSDM","","level","monthly"],
+  // --- Precious Metals ---
   ["gold","Commodities","Precious Metals","Gold","$","YAHOO","GC=F","TVC:GOLD","level","daily"],
   ["silver","Commodities","Precious Metals","Silver","$","YAHOO","SI=F","TVC:SILVER","level","daily"],
   ["platinum","Commodities","Precious Metals","Platinum","$","YAHOO","PL=F","TVC:PLATINUM","level","daily"],
   ["palladium","Commodities","Precious Metals","Palladium","$","YAHOO","PA=F","TVC:PALLADIUM","level","daily"],
-  ["copper","Commodities","Base & Ferrous Metals","Copper","$","YAHOO","HG=F","CAPITALCOM:COPPER","level","daily"],
-  ["aluminum","Commodities","Base & Ferrous Metals","Aluminum","$","YAHOO","ALI=F","","level","daily"],
-  ["iron_ore","Commodities","Base & Ferrous Metals","Iron Ore 62% CFR","$","YAHOO","TIO=F","","level","daily"],
-  ["steel_hrc","Commodities","Base & Ferrous Metals","US HRC Steel","$","YAHOO","HRC=F","","level","daily"],
+  // --- Industrial Metals (Indonesia: nickel & tin are major export earners) ---
+  ["copper","Commodities","Industrial Metals","Copper","$","YAHOO","HG=F","CAPITALCOM:COPPER","level","daily"],
+  ["aluminum","Commodities","Industrial Metals","Aluminum","$","YAHOO","ALI=F","","level","daily"],
+  ["iron_ore","Commodities","Industrial Metals","Iron Ore 62% CFR","$","YAHOO","TIO=F","","level","daily"],
+  ["steel_hrc","Commodities","Industrial Metals","US HRC Steel","$","YAHOO","HRC=F","","level","daily"],
+  ["wb_nickel","Commodities","Industrial Metals","Nickel · LME","$/mt","FRED","PNICKUSDM","","level","monthly"],
+  ["wb_tin","Commodities","Industrial Metals","Tin · LME","$/mt","FRED","PTINUSDM","","level","monthly"],
+  ["wb_zinc","Commodities","Industrial Metals","Zinc · LME","$/mt","FRED","PZINCUSDM","","level","monthly"],
+  ["wb_lead","Commodities","Industrial Metals","Lead · LME","$/mt","FRED","PLEADUSDM","","level","monthly"],
+  ["wb_uranium","Commodities","Industrial Metals","Uranium","$/lb","FRED","PURANUSDM","","level","monthly"],
+  // --- Battery & Critical ---
   ["lithium_etf","Commodities","Battery & Critical","Lithium/Battery (LIT ETF)","$","YAHOO","LIT","AMEX:LIT","level","daily"],
-  ["corn","Commodities","Agriculture","Corn","$","YAHOO","ZC=F","CAPITALCOM:CORN","level","daily"],
-  ["wheat","Commodities","Agriculture","Wheat","$","YAHOO","ZW=F","CAPITALCOM:WHEAT","level","daily"],
-  ["soybeans","Commodities","Agriculture","Soybeans","$","YAHOO","ZS=F","CAPITALCOM:SOYBEANS","level","daily"],
-  ["soybean_oil","Commodities","Agriculture","Soybean Oil","$","YAHOO","ZL=F","","level","daily"],
-  ["soybean_meal","Commodities","Agriculture","Soybean Meal","$","YAHOO","ZM=F","","level","daily"],
-  ["rough_rice","Commodities","Agriculture","Rough Rice","$","YAHOO","ZR=F","","level","daily"],
-  ["oats","Commodities","Agriculture","Oats","$","YAHOO","ZO=F","","level","daily"],
-  ["coffee","Commodities","Softs","Coffee (Arabica)","$","YAHOO","KC=F","CAPITALCOM:COFFEE","level","daily"],
-  ["sugar","Commodities","Softs","Sugar No.11","$","YAHOO","SB=F","CAPITALCOM:SUGAR","level","daily"],
-  ["cocoa","Commodities","Softs","Cocoa","$","YAHOO","CC=F","CAPITALCOM:COCOA","level","daily"],
-  ["cotton","Commodities","Softs","Cotton No.2","$","YAHOO","CT=F","CAPITALCOM:COTTON","level","daily"],
-  ["orange_juice","Commodities","Softs","Orange Juice","$","YAHOO","OJ=F","","level","daily"],
-  ["live_cattle","Commodities","Livestock","Live Cattle","$","YAHOO","LE=F","","level","daily"],
-  ["lean_hogs","Commodities","Livestock","Lean Hogs","$","YAHOO","HE=F","","level","daily"],
-  ["feeder_cattle","Commodities","Livestock","Feeder Cattle","$","YAHOO","GF=F","","level","daily"],
+  // --- Palm Oil & Vegetable Oils (Indonesia: world's #1 CPO producer) ---
+  ["wb_palm_oil","Commodities","Palm Oil & Veg Oils","Palm Oil (CPO)","$/mt","FRED","PPOILUSDM","","level","monthly"],
+  ["soybeans","Commodities","Palm Oil & Veg Oils","Soybeans","$","YAHOO","ZS=F","CAPITALCOM:SOYBEANS","level","daily"],
+  ["soybean_oil","Commodities","Palm Oil & Veg Oils","Soybean Oil","$","YAHOO","ZL=F","","level","daily"],
+  ["soybean_meal","Commodities","Palm Oil & Veg Oils","Soybean Meal","$","YAHOO","ZM=F","","level","daily"],
+  ["wb_sunflower_oil","Commodities","Palm Oil & Veg Oils","Sunflower Oil","$/mt","FRED","PSUNOUSDM","","level","monthly"],
+  ["wb_rapeseed_oil","Commodities","Palm Oil & Veg Oils","Rapeseed Oil","$/mt","FRED","PROILUSDM","","level","monthly"],
+  ["wb_groundnut_oil","Commodities","Palm Oil & Veg Oils","Groundnut Oil","$/mt","FRED","PGNUTSUSDM","","level","monthly"],
+  // --- Grains & Staple Food ---
+  ["corn","Commodities","Grains & Food","Corn (CBOT)","$","YAHOO","ZC=F","CAPITALCOM:CORN","level","daily"],
+  ["wheat","Commodities","Grains & Food","Wheat (CBOT)","$","YAHOO","ZW=F","CAPITALCOM:WHEAT","level","daily"],
+  ["rough_rice","Commodities","Grains & Food","Rough Rice (CBOT)","$","YAHOO","ZR=F","","level","daily"],
+  ["oats","Commodities","Grains & Food","Oats","$","YAHOO","ZO=F","","level","daily"],
+  ["wb_rice","Commodities","Grains & Food","Rice · Thai 5%","$/mt","FRED","PRICENPQUSDM","","level","monthly"],
+  ["wb_maize","Commodities","Grains & Food","Maize · World","$/mt","FRED","PMAIZMTUSDM","","level","monthly"],
+  ["wb_wheat","Commodities","Grains & Food","Wheat · World (HRW)","$/mt","FRED","PWHEAMTUSDM","","level","monthly"],
+  ["wb_barley","Commodities","Grains & Food","Barley","$/mt","FRED","PBARLUSDM","","level","monthly"],
+  // --- Softs & Beverages (Indonesia: top robusta coffee producer) ---
+  ["coffee","Commodities","Softs & Beverages","Coffee (Arabica)","$","YAHOO","KC=F","CAPITALCOM:COFFEE","level","daily"],
+  ["sugar","Commodities","Softs & Beverages","Sugar No.11","$","YAHOO","SB=F","CAPITALCOM:SUGAR","level","daily"],
+  ["cocoa","Commodities","Softs & Beverages","Cocoa","$","YAHOO","CC=F","CAPITALCOM:COCOA","level","daily"],
+  ["orange_juice","Commodities","Softs & Beverages","Orange Juice","$","YAHOO","OJ=F","","level","daily"],
+  ["wb_coffee_robusta","Commodities","Softs & Beverages","Coffee · Robusta","$/kg","FRED","PCOFFROBUSDM","","level","monthly"],
+  ["wb_tea","Commodities","Softs & Beverages","Tea · avg auctions","$/kg","FRED","PTEAUSDM","","level","monthly"],
+  ["wb_sugar_world","Commodities","Softs & Beverages","Sugar · World (ISA)","¢/lb","FRED","PSUGAISAUSDM","","level","monthly"],
+  ["wb_bananas","Commodities","Softs & Beverages","Bananas","$/mt","FRED","PBANSOPUSDM","","level","monthly"],
+  ["wb_oranges","Commodities","Softs & Beverages","Oranges","$/kg","FRED","PORANGUSDM","","level","monthly"],
+  // --- Agricultural Raw Materials (Indonesia: #2 natural rubber producer) ---
+  ["cotton","Commodities","Agri Raw Materials","Cotton No.2","$","YAHOO","CT=F","CAPITALCOM:COTTON","level","daily"],
+  ["wb_rubber","Commodities","Agri Raw Materials","Rubber · SGP/MYS","$/kg","FRED","PRUBBUSDM","","level","monthly"],
+  ["wb_cotton","Commodities","Agri Raw Materials","Cotton · A Index","¢/lb","FRED","PCOTTINDUSDM","","level","monthly"],
+  ["wb_wool_coarse","Commodities","Agri Raw Materials","Wool · coarse","¢/kg","FRED","PWOOLCUSDM","","level","monthly"],
+  ["wb_logs","Commodities","Agri Raw Materials","Hardwood Logs","$/m3","FRED","PLOGSKUSDM","","level","monthly"],
+  ["wb_sawnwood","Commodities","Agri Raw Materials","Sawnwood · Malaysia","$/m3","FRED","PSAWMALUSDM","","level","monthly"],
+  // --- Fertilizers / Pupuk (World Bank pink-sheet annual benchmarks) ---
+  ["wb_urea","Commodities","Fertilizers","Urea (E. Europe bulk)","$/mt","DBnomics","WB/commodity_prices/FUREA_EE_BULK-1W","","level","annual"],
+  ["wb_dap","Commodities","Fertilizers","DAP · Diammonium Phosphate","$/mt","DBnomics","WB/commodity_prices/FDAP-1W","","level","annual"],
+  ["wb_potash","Commodities","Fertilizers","Potassium Chloride (Potash)","$/mt","DBnomics","WB/commodity_prices/FPOTASH-1W","","level","annual"],
+  ["wb_phosrock","Commodities","Fertilizers","Phosphate Rock","$/mt","DBnomics","WB/commodity_prices/FPHOSROCK-1W","","level","annual"],
+  ["wb_tsp","Commodities","Fertilizers","Triple Superphosphate (TSP)","$/mt","DBnomics","WB/commodity_prices/FTSP-1W","","level","annual"],
+  ["wb_fert_idx","Commodities","Fertilizers","Fertilizers Index (2010=100)","idx","DBnomics","WB/commodity_prices/FIFERTILIZERS-1W","","level","annual"],
+  // --- Meat & Seafood (Indonesia: major shrimp exporter) ---
+  ["live_cattle","Commodities","Meat & Seafood","Live Cattle","$","YAHOO","LE=F","","level","daily"],
+  ["lean_hogs","Commodities","Meat & Seafood","Lean Hogs","$","YAHOO","HE=F","","level","daily"],
+  ["feeder_cattle","Commodities","Meat & Seafood","Feeder Cattle","$","YAHOO","GF=F","","level","daily"],
+  ["wb_beef","Commodities","Meat & Seafood","Beef","¢/lb","FRED","PBEEFUSDM","","level","monthly"],
+  ["wb_poultry","Commodities","Meat & Seafood","Poultry (chicken)","¢/lb","FRED","PPOULTUSDM","","level","monthly"],
+  ["wb_shrimp","Commodities","Meat & Seafood","Shrimp","$/kg","FRED","PSHRIUSDM","","level","monthly"],
+  ["wb_salmon","Commodities","Meat & Seafood","Salmon","$/kg","FRED","PSALMUSDM","","level","monthly"],
+  ["wb_lamb","Commodities","Meat & Seafood","Lamb","¢/lb","FRED","PLAMBUSDM","","level","monthly"],
+  // --- Commodity Indices ---
   ["sp_gsci","Commodities","Commodity Indices","S&P GSCI","$","YAHOO","^SPGSCI","","level","daily"],
   ["bcom","Commodities","Commodity Indices","Bloomberg Commodity Idx","$","YAHOO","^BCOM","","level","daily"],
+  ["wb_idx_all","Commodities","Commodity Indices","IMF All Commodities","idx","FRED","PALLFNFINDEXM","","level","monthly"],
+  ["wb_idx_energy","Commodities","Commodity Indices","IMF Energy","idx","FRED","PNRGINDEXM","","level","monthly"],
+  ["wb_idx_food","Commodities","Commodity Indices","IMF Food","idx","FRED","PFOODINDEXM","","level","monthly"],
+  ["wb_idx_metals","Commodities","Commodity Indices","IMF Metals","idx","FRED","PMETAINDEXM","","level","monthly"],
+  ["wb_idx_industrial","Commodities","Commodity Indices","IMF Industrial Inputs","idx","FRED","PINDUINDEXM","","level","monthly"],
+  ["wb_idx_agri_raw","Commodities","Commodity Indices","IMF Agri Raw Materials","idx","FRED","PRAWMINDEXM","","level","monthly"],
+  ["wb_idx_beverages","Commodities","Commodity Indices","IMF Beverages","idx","FRED","PBEVEINDEXM","","level","monthly"],
   ["eurusd","FX","USD Majors","EUR/USD","","YAHOO","EURUSD=X","FX:EURUSD","level","daily"],
   ["usdjpy","FX","USD Majors","USD/JPY","","YAHOO","JPY=X","FX:USDJPY","level","daily"],
   ["gbpusd","FX","USD Majors","GBP/USD","","YAHOO","GBPUSD=X","FX:GBPUSD","level","daily"],
@@ -365,12 +423,21 @@ Deno.serve(async () => {
   const rows: unknown[] = [];
   const errors: Record<string, string> = {};
 
+  // World Bank pink-sheet series carry forward projections (out to 2030); IMF/
+  // FRED + Yahoo can briefly carry an as-yet-incomplete print. Trim so the card
+  // shows the latest *actual* observation, never a forecast.
+  const TODAY = new Date().toISOString().slice(0, 10);
+  const CUR_YEAR_START = `${TODAY.slice(0, 4)}-01-01`;
+
   for (const ind of CATALOG) {
     try {
-      const obs = await withRetry(() =>
+      let obs = await withRetry(() =>
         ind.source === "FRED" ? fredObs(ind.series_id)
           : ind.source === "YAHOO" ? yahooObs(ind.series_id)
             : dbnomicsObs(ind.series_id));
+      const isPinkSheet = ind.source === "DBnomics" && ind.series_id.includes("commodity_prices");
+      // pink-sheet = annual + projections → keep only completed years; others → drop any future-dated obs
+      obs = isPinkSheet ? obs.filter((o) => o.date < CUR_YEAR_START) : obs.filter((o) => o.date <= TODAY);
       rows.push(buildRow(ind, obs));
     } catch (e) {
       errors[ind.key] = e instanceof Error ? e.message : String(e);
