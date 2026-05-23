@@ -19,6 +19,7 @@ const LBC_ICONS = {
   network:   _svg(<><circle cx="5" cy="6" r="2.1"/><circle cx="19" cy="7" r="2.1"/><circle cx="12" cy="18" r="2.1"/><path d="M6.8 7.4l4 9M17.4 8.6l-4 8M7 6.4h10"/></>),
   yggdrasil: _svg(<><circle cx="12" cy="5" r="2.3"/><circle cx="6" cy="19" r="2.3"/><circle cx="18" cy="19" r="2.3"/><path d="M12 7.3v3.4M12 10.7c-6 1.4-6 4.4-6 6.1M12 10.7c6 1.4 6 4.4 6 6.1"/></>),
   correlation:_svg(<><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></>),
+  tools:     _svg(<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.9 2.9-2-2 2.9-2.9z"/>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -73,6 +74,11 @@ const LBC_TERMINALS = [
   { id: 'yggdrasil', num: 'T7', name: 'Yggdrasil', accent: '#6f9cf2', icon: LBC_ICONS.yggdrasil,
     desc: 'Thesis decomposition tree — theses, hypotheses, scenarios & metrics.',
     embed: '/yggdrasil/', workspaces: [ { kind: 'ext-yggdrasil', label: 'Yggdrasil', built: true } ] },
+  // Utility toolbox — self-contained tools embedded full-bleed. Autocharter is
+  // the first (CSV/Excel → publication-ready Chart.js figures). More tools later.
+  { id: 'tools', num: 'T8', name: 'Tools', accent: '#7c9bf2', icon: LBC_ICONS.tools,
+    desc: 'Utility toolbox — Autocharter turns CSV/Excel into publication-ready charts. More tools coming.',
+    embed: '/autocharter/', workspaces: [ { kind: 'ext-autocharter', label: 'Autocharter', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
