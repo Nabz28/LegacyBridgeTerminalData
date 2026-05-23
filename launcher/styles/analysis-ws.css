@@ -254,8 +254,8 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 .ed-freq-btn.on{background:var(--an-acc-soft);border-color:color-mix(in srgb,var(--an-acc) 46%,transparent);color:var(--an-acc)}
 .ed-unitsel{flex:0 0 92px;max-width:none}
 .ed-paste-h,.ed-or{font-family:var(--an-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--an-tx3)}
-.ed-or{text-align:center;margin:3px 0 1px;position:relative}
-.ed-or::before,.ed-or::after{content:'';position:absolute;top:50%;width:14%;height:1px;background:var(--an-bd)}
+.ed-or{text-align:center;margin:5px 0 2px;position:relative}
+.ed-or::before,.ed-or::after{content:'';position:absolute;top:50%;width:24%;height:1px;background:var(--an-bd)}
 .ed-or::before{left:0}.ed-or::after{right:0}
 .ed-paste{width:100%;box-sizing:border-box;min-height:78px;resize:vertical;background:var(--an-bg2);border:1px solid var(--an-bd);
   color:var(--an-tx);border-radius:var(--r-2,3px);font-family:var(--an-mono);font-size:11px;padding:7px 8px;line-height:1.5}
@@ -265,7 +265,7 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 .ed-pull{display:flex;gap:6px;flex-wrap:wrap}
 .ed-tick{flex:0 0 100px}
 .ed-metricsel{flex:1;min-width:120px;max-width:none}
-.ed-note{font-size:10.5px;color:var(--an-tx3);line-height:1.45;padding:4px 0}
+.ed-note{font-size:11.5px;color:var(--an-tx3);line-height:1.5;padding:4px 0}
 .ed-yok{font-family:var(--an-mono);font-size:10.5px;color:var(--pos-bloom,#2EE39A);font-weight:600}
 .ed-spark{background:var(--an-bg2);border:1px solid var(--an-bd2);border-radius:var(--r-2,3px);padding:4px 5px}
 /* driver chip carries 3 controls (transform · lag · agg) — let the row wrap and tighten the selects so it fits the 266px rail */
@@ -282,7 +282,10 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 /* scenario panel */
 .ed-scenario{margin-top:14px;border:1px solid var(--an-bd);border-radius:var(--r-3,4px);background:var(--an-bg2);padding:13px 15px;
   animation:anFade var(--t-med,160ms) var(--ease,ease)}
-.ed-scen-h{font-size:13px;font-weight:700;color:var(--an-tx);margin-bottom:7px;letter-spacing:-.01em}
+.ed-scen-htop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.ed-scen-h{font-size:13px;font-weight:700;color:var(--an-tx);letter-spacing:-.01em}
+.ed-copy{font-size:11px;padding:4px 9px}
+.ed-copy:hover{color:var(--an-acc)}
 .ed-scen-tbl{margin-top:8px;display:block;overflow-x:auto}
 .ed-shock-wrap{display:inline-flex;align-items:center;gap:3px;justify-content:flex-end}
 .ed-shock{width:58px;background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx);border-radius:var(--r-2,3px);
@@ -298,6 +301,8 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 .ed-scen-v{font-family:var(--an-mono);font-size:14px;font-weight:700;color:var(--an-tx)}
 .ed-scen-v.pos{color:var(--pos-bloom,#2EE39A)}
 .ed-scen-v.neg{color:var(--neg-bloom,#FF7C8C)}
+/* honesty banners rendered directly in the results column (spurious / small-N) need a gap before the result card */
+.an-results > .an-verdict{margin-bottom:12px}
 /* narrow split-pane companion to the .an-* breakpoint */
 @media (max-width:1180px){
   .ed-tick{flex:1 1 100%}

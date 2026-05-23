@@ -190,9 +190,23 @@
     var deltaKind = scen.elasticity ? 'percent' : K;       // contribution units
     var pctStr = pctValid ? ((pctDelta >= 0 ? '+' : '') + fmtNum(pctDelta, 2) + '%') : 'n/a';
 
+    var _cp = React.useState(false), copied = _cp[0], setCopied = _cp[1];
+    function copyModel() {
+      var L = [];
+      L.push(scen.metricLabel + '  —  ' + (scen.elasticity ? 'Elasticity (log-log)' : 'Driver regression') + ' · n=' + scen.n + (scen.r2 != null ? ' · R²=' + fmtNum(scen.r2, 3) : ''));
+      L.push('Base (' + scen.baseKey + ')\t' + fmtMetric(scen.baseY, K, ccy));
+      L.push('Predicted\t' + fmtMetric(predicted, K, ccy));
+      L.push('Δ\t' + (totalDelta >= 0 ? '+' : '') + fmtMetric(totalDelta, K, ccy, true) + (pctValid && K !== 'percent' ? '  (' + pctStr + ')' : ''));
+      L.push('');
+      L.push(['Driver', 'beta', 'shock', 'contribution'].join('\t'));
+      rows.forEach(function (r, i) { L.push([r.d.label + (r.d.lag > 0 ? ' (t+' + r.d.lag + ')' : ''), fmtNum(r.d.beta, 4), (r.shock || 0) + (r.d.shockKind === 'pct' ? '%' : ' abs'), scen.elasticity ? (fmtNum(contribVals[i], 2) + '%') : fmtMetric(contribVals[i], deltaKind, ccy, true)].join('\t')); });
+      var txt = L.join('\n');
+      try { navigator.clipboard.writeText(txt).then(function () { setCopied(true); setTimeout(function () { setCopied(false); }, 1500); }, function () { }); } catch (e) { }
+    }
+
     return (
       <div className="ed-scenario">
-        <div className="ed-scen-h">Scenario — shock the macro drivers</div>
+        <div className="ed-scen-htop"><div className="ed-scen-h">Scenario — shock the macro drivers</div><button className="an-btn ed-copy" onClick={copyModel} title="Copy a memo-ready summary (β, shocks, contributions, predicted) to the clipboard">{copied ? '✓ Copied' : '⧉ Copy model'}</button></div>
         <div className="an-note">For a <b>%</b>-shock driver, enter how much higher/lower the macro variable is vs its latest period (e.g. +10). For a <b>Δ</b> driver (modelled on changes), enter the absolute change in that differenced value. The model implies the move in <b>{scen.metricLabel}</b>{scen.elasticity ? ' (elasticity / multiplicative)' : ' (level model / additive)'}{(scen.r2 != null ? ' · fit R²=' + fmtNum(scen.r2, 3) + (scen.n ? ' on ' + scen.n + ' periods' : '') : '')}.</div>
         <table className="an-table ed-scen-tbl">
           <thead><tr><th>Driver</th><th>β</th><th>Shock</th><th>Contribution {scen.elasticity ? '≈ %Δ' : 'Δ'}</th></tr></thead>
@@ -205,13 +219,14 @@
             </tr>
           ); })}</tbody>
         </table>
-        {any && Viz && <div className="an-chart-card" style={{ marginTop: 10 }}><div className="an-chart-h">Per-driver contribution{scen.elasticity ? ' (≈ %Δ)' : ''} — magnitudes in the table</div><Viz.Bars values={contribVals} labels={scen.drivers.map(function (d) { return d.label; })} /></div>}
+        {any && Viz && <div className="an-chart-card" style={{ marginTop: 10 }}><div className="an-chart-h">Per-driver contribution{scen.elasticity ? ' (≈ %Δ)' : ''} — green lifts, red drags (magnitudes in the table)</div><Viz.Bars values={contribVals} labels={scen.drivers.map(function (d) { return d.label; })} color={COL.line2} /></div>}
         <div className="ed-scen-out">
           <div className="ed-scen-cell"><span className="ed-scen-l">Base ({scen.baseKey})</span><span className="ed-scen-v">{fmtMetric(scen.baseY, K, ccy)}</span></div>
           <div className="ed-scen-cell"><span className="ed-scen-l">Predicted</span><span className="ed-scen-v">{fmtMetric(predicted, K, ccy)}</span></div>
           <div className="ed-scen-cell"><span className="ed-scen-l">Δ</span><span className={'ed-scen-v ' + (totalDelta >= 0 ? 'pos' : 'neg')}>{(totalDelta >= 0 ? '+' : '') + fmtMetric(totalDelta, K, ccy, true)}{pctValid && K !== 'percent' ? ' (' + pctStr + ')' : ''}</span></div>
         </div>
         {scen.multiDriver && <div className="an-note">⚠ βs are <b>partial</b> (each holds the others fixed). Correlated macro drivers (e.g. CPO / FX / oil) shocked independently can double-count — check <b>Max VIF</b> in the diagnostics panel and the correlation screen before trusting the combined move.</div>}
+        {scen.elasticity && K === 'percent' && <div className="an-note">⚠ The metric is a <b>ratio/margin</b>: an "elasticity" here is a % change of the margin itself (not a move in percentage points). For margins, prefer Driver Regression so contributions read in <b>pp</b>.</div>}
         {scen.elasticity && <div className="an-note">Elasticity scenario compounds multiplicatively; per-driver figures are first-order approximations. βs on Δ/growth drivers are semi-elasticities, not pure elasticities.</div>}
       </div>
     );
@@ -233,6 +248,7 @@
     var _pull = React.useState(false), pulling = _pull[0], setPulling = _pull[1];
     var _saved = React.useState([]), saved = _saved[0], setSaved = _saved[1];
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
+    var _off = React.useState(false), cloudOff = _off[0], setCloudOff = _off[1];   // cloud unreachable this session → local-only (no clobber)
     var _edit = React.useState(true), editingY = _edit[0], setEditingY = _edit[1]; // collapse Y inputs once a series is loaded
     var loaded = React.useRef(false);
     var cloudSafe = React.useRef(false);   // only auto-write to cloud after a CLEAN load (never clobber on a transient load error)
@@ -245,7 +261,7 @@
         cloudSafe.current = true;          // cloud reachable & answered — safe to write back
         if (!doc) { try { doc = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); } catch (e) { } }
         if (doc) hydrate(doc);
-      }).catch(function () { try { var d = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); if (d) hydrate(d); } catch (e) { } /* cloud unreachable — stay local-only this session */ })
+      }).catch(function () { try { var d = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null'); if (d) hydrate(d); } catch (e) { } if (cloudEnabled()) setCloudOff(true); /* cloud unreachable — stay local-only this session */ })
         .then(function () { loaded.current = true; });
     }, []);
     React.useEffect(function () { return function () { if (saveTimer.current) clearTimeout(saveTimer.current); }; }, []);
@@ -361,8 +377,9 @@
       var yK = keep.map(function (r) { return yCol[r]; });
       var yLevelK = keep.map(function (r) { return yLevel[r]; });
       var xK = xCols.map(function (col) { return keep.map(function (r) { return col[r]; }); });
-      // pre-lag last value within the kept window — the "current" modeled level the scenario shocks
-      var lastLevel = preLag.map(function (col) { var last = null; for (var r2 = 0; r2 < keys.length; r2++) { if (col[r2] != null && isFinite(col[r2])) last = col[r2]; } return last; });
+      // pre-lag last value within the KEPT window — the "current" modeled level the
+      // scenario shocks (scan keep rows so it matches the model's actual base period)
+      var lastLevel = preLag.map(function (col) { var last = null; for (var ki = 0; ki < keep.length; ki++) { var v = col[keep[ki]]; if (v != null && isFinite(v)) last = v; } return last; });
       var names = dedupeNames(drivers.map(function (d) { return (elasticity && d.transform === 'level') ? ('ln ' + driverAlias(d)) : driverAlias(d); }));
       return { y: yK, x: xK, names: names, dates: keep.map(function (r) { return keys[r]; }), n: keep.length, baseY: yLevelK[yLevelK.length - 1], baseKey: keep.length ? keys[keep[keep.length - 1]] : '', lastLevel: lastLevel };
     }
@@ -390,8 +407,10 @@
       res._dates = ds.dates; res._n = ds.n; res._logged = elasticity;
       // honesty flags: tiny sample, and spurious-regression risk when everything is in levels
       res._smallN = ds.n < 20;
-      if (method === 'driver' && drivers.every(function (d) { return d.transform === 'level'; })) {
-        try { var ra = E.adf(res.resid, { trend: 'c' }); if (ra && ra.stationary === false) res._spurious = { p: ra.p }; } catch (e) { }
+      // spurious-regression check whenever ANY driver is in levels (a single level
+      // regressor + a trending metric is enough to manufacture a common-trend fit)
+      if (method === 'driver' && drivers.some(function (d) { return d.transform === 'level'; })) {
+        try { var ra = E.adf(res.resid, { trend: 'c' }); if (ra && ra.stationary === false) res._spurious = { p: ra.p, allLevel: drivers.every(function (d) { return d.transform === 'level'; }) }; } catch (e) { }
       }
       res._scen = {
         elasticity: elasticity, baseY: ds.baseY, baseKey: ds.baseKey, currency: metric.currency, metricKind: metric.kind || 'currency',
@@ -437,7 +456,7 @@
             <span className="an-method-caret">▾</span>
           </div>
           <div className="an-topbar-sp" />
-          <span className={'an-sync an-sync-' + sync}>{sync === 'saving' ? '⟳ Saving…' : sync === 'saved' ? '☁ Saved' : sync === 'local' ? '✓ Local' : (loggedIn ? '☁ Cloud' : '✓ Local')}</span>
+          <span className={'an-sync an-sync-' + (cloudOff ? 'local' : sync)} title={cloudOff ? 'Cloud was unreachable on load — saving locally only this session (so a good cloud copy is never overwritten). Reload to retry.' : ''}>{cloudOff ? '⚠ Local only' : sync === 'saving' ? '⟳ Saving…' : sync === 'saved' ? '☁ Saved' : sync === 'local' ? '✓ Local' : (loggedIn ? '☁ Cloud' : '✓ Local')}</span>
           <button className="an-btn" onClick={saveModel}>＋ Save model</button>
         </div>
 
@@ -460,7 +479,7 @@
                   <div className="ed-paste-h">Paste a (date, value) series</div>
                   <textarea className="ed-paste" placeholder={'2023-Q1, 12500\n2023-Q2, 13100\n2023-Q3, 12880\n…\nor  2021, 48.3   /   31/12/2022  52.1'} value={metric.rawPaste} onChange={function (e) { setMetric(Object.assign({}, metric, { rawPaste: e.target.value })); }} />
                   <button className="an-btn ed-btn-wide" onClick={parsePaste}>Parse pasted series</button>
-                  <div className="ed-or">— or auto-pull (US / select global) —</div>
+                  <div className="ed-or">or auto-pull (US / select global)</div>
                   <div className="ed-pull">
                     <input className="ed-input ed-tick" placeholder="Ticker (AAPL)" value={metric.ticker} onChange={function (e) { setMetric(Object.assign({}, metric, { ticker: e.target.value })); }} />
                     <select className="an-tf ed-metricsel" value={metric.metricId} onChange={function (e) { setMetric(Object.assign({}, metric, { metricId: e.target.value })); }}>
@@ -523,7 +542,7 @@
           <div className="an-results">
             {!result && !running && <div className="an-empty an-results-empty">Set the financial metric (Y), add macro drivers (X), then <b>Run model</b>. Coefficients, fit, diagnostics — and a driver scenario — appear here.</div>}
             {running && <div className="an-running"><div className="an-running-bar" />Computing…</div>}
-            {result && result._spurious && <div className="an-verdict warn">⚠ Likely <b>spurious regression</b>: all drivers are in levels and the residuals are non-stationary (ADF p≈{fmtNum(result._spurious.p, 3)}). A high R²/t-stat here can be an artefact of common trends. Switch the drivers (and ideally the metric) to <b>Δ / % growth / Δln</b> before trusting the βs.</div>}
+            {result && result._spurious && <div className="an-verdict warn">⚠ Likely <b>spurious regression</b>: {result._spurious.allLevel ? 'the drivers are in levels' : 'a level driver is present'} and the residuals are non-stationary (ADF p≈{fmtNum(result._spurious.p, 3)}). A high R²/t-stat here can be an artefact of common trends. Switch the driver(s) (and ideally the metric) to <b>Δ / % growth / Δln</b> before trusting the βs.</div>}
             {result && result._smallN && !result._spurious && <div className="an-verdict warn">⚠ Only <b>{result._n} periods</b> — too few for reliable inference (HAC SEs and t-stats are barely meaningful below ~20 obs). Treat the βs as indicative, not precise.</div>}
             {result && R && <R.ResultView result={result} yName={result._yName} vars={{}} />}
           </div>
