@@ -112,7 +112,7 @@ const StockHeader = ({ t, live, asOf }) => {
 // fixture (amber SAMPLE pip + a banner). Live sections lead each group.
 const SECTIONS = [
   { id: 'chart',        label: 'Chart',              group: 'main',         live: true  },
-  { id: 'overview',     label: 'Overview',           group: 'main',         live: false },
+  { id: 'overview',     label: 'Overview',           group: 'main',         live: true  },
   { id: 'financials',   label: 'Financials',         group: 'fundamentals', live: true  },
   { id: 'wacc',         label: 'WACC',               group: 'fundamentals', live: true  },
   { id: 'comparable',   label: 'Comparable',         group: 'fundamentals', live: true  },
@@ -124,7 +124,7 @@ const SECTIONS = [
   { id: 'thesis',       label: 'AI Thesis',          group: 'thesis',       live: false },
   { id: 'monte',        label: 'Monte Carlo',        group: 'thesis',       live: true  },
   { id: 'notes',        label: 'Thesis Notes',       group: 'thesis',       live: false },
-  { id: 'news',         label: 'News',               group: 'thesis',       live: false },
+  { id: 'news',         label: 'News',               group: 'thesis',       live: true  },
   { id: 'mirofish',     label: 'MiroFish',           group: 'thesis',       live: false },
 ];
 
@@ -2051,6 +2051,8 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const EquityPeers = window.EquityPeers;
   const RiskPro = window.RiskPro;
   const MonteCarloPro = window.MonteCarloPro;
+  const OverviewPro = window.OverviewPro;
+  const StockNewsPro = window.StockNewsPro;
   // Live header: fresh quote + statements snapshot → recompute multiples off live price.
   const [quote, setQuote] = React.useState(null);
   const [headerDoc, setHeaderDoc] = React.useState(null);
@@ -2089,7 +2091,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
               </div>
             )}
             {active === 'chart'      && <div className="sw-chart-section"><TradingViewChart symbol={symbol} /></div>}
-            {active === 'overview'   && <OverviewTab     t={t} fix={fix} candles={candles} indicators={indicators} />}
+            {active === 'overview'   && (OverviewPro ? <OverviewPro symbol={symbol} /> : <OverviewTab t={t} fix={fix} candles={candles} indicators={indicators} />)}
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
             {active === 'financials' && (FinancialsPro ? <FinancialsPro symbol={symbol} t={t} /> : <FinancialsTab fix={fix} symbol={symbol} />)}
             {active === 'wacc'       && WaccTab && <WaccTab symbol={symbol} t={t} />}
@@ -2101,7 +2103,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
             {active === 'monte'      && (MonteCarloPro ? <MonteCarloPro symbol={symbol} /> : <MonteCarloTab fix={fix} />)}
             {active === 'notes'      && <NotesTab />}
             {active === 'suppliers'  && <SuppliersTab    fix={fix} />}
-            {active === 'news'       && <StockNewsTab    fix={fix} t={t} />}
+            {active === 'news'       && (StockNewsPro ? <StockNewsPro symbol={symbol} /> : <StockNewsTab fix={fix} t={t} />)}
             {active === 'mirofish'   && <MirofishTab     t={t} />}
           </div>
         </div>
