@@ -5,9 +5,53 @@
 
 const { CandleChart, AreaChart, ColumnChart, buildCandles } = window.ChartLib;
 
+// ---------- live header data (equity-quote + equity-statements snapshot) -----
+const SW_SB_URL  = 'https://adnubucjlezrtusbicja.supabase.co';
+const SW_SB_ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
+const SW_HDRS    = { apikey: SW_SB_ANON, Authorization: 'Bearer ' + SW_SB_ANON };
+const SW_QUOTE_FN = SW_SB_URL + '/functions/v1/equity-quote';
+const SW_STMT_FN  = SW_SB_URL + '/functions/v1/equity-statements';
+const swYahoo = (sym) => sym + '.JK';
+const _swLast = (o) => { if (!o) return null; const ks = Object.keys(o).sort(); return ks.length ? o[ks[ks.length - 1]] : null; };
+const _swRp = (v, div, d, suf) => (v == null || !isFinite(v)) ? '—' : 'Rp ' + (v / div).toFixed(d) + suf;
+
+// Merge a fresh quote + the statements snapshot into a header object, recomputing
+// valuation multiples off the LIVE price so nothing is ever stale.
+function buildLiveHeader(symbol, base, quote, doc) {
+  const snap = (doc && doc.snapshot) || {};
+  const A = (doc && doc.statements && doc.statements.annual) || {};
+  const inc = A.income || {}, bal = A.balance || {}, cf = A.cashflow || {};
+  const shares = snap.sharesOutstanding ?? null;
+  const price = quote ? quote.price : null;
+  const mktcap = (price != null && shares) ? price * shares : (snap.marketCap ?? null);
+  const eps = _swLast(inc.DilutedEPS) ?? _swLast(inc.BasicEPS)
+    ?? ((_swLast(inc.NetIncome) != null && shares) ? _swLast(inc.NetIncome) / shares : null);
+  const equity = _swLast(bal.StockholdersEquity) ?? _swLast(bal.CommonStockEquity);
+  const dps = (_swLast(cf.CashDividendsPaid) != null && shares) ? Math.abs(_swLast(cf.CashDividendsPaid)) / shares : null;
+  return {
+    symbol, exchange: base.exchange || 'IDX', name: snap.longName || base.name || symbol,
+    sector: snap.sector || base.sector || '—', industry: snap.industry || base.industry || '—',
+    currency: (quote && quote.currency) || 'IDR',
+    price, chg: quote ? quote.change : null, chgp: quote ? quote.changePct : null,
+    open: quote ? quote.open : null, high: quote ? quote.high : null, low: quote ? quote.low : null,
+    prevClose: quote ? quote.prevClose : null, volume: quote ? quote.volume : null,
+    w52h: quote ? quote.fiftyTwoWeekHigh : null, w52l: quote ? quote.fiftyTwoWeekLow : null,
+    mcap: _swRp(mktcap, 1e12, 2, ' T'),
+    shares: shares != null ? (shares / 1e9).toFixed(2) + ' B' : '—',
+    value: (quote && quote.volume != null && price != null) ? _swRp(quote.volume * price, 1e12, 2, ' T') : '—',
+    pe: (price != null && eps) ? price / eps : null,
+    pb: (mktcap != null && equity) ? mktcap / equity : null,
+    divYield: (dps != null && price) ? (dps / price) * 100 : null,
+    beta: snap.beta ?? null,
+  };
+}
+
 // ---------- HEADER ----------
-const StockHeader = ({ t }) => {
-  const isPos = t.chgp >= 0;
+const StockHeader = ({ t, live, asOf }) => {
+  const isPos = (t.chgp ?? 0) >= 0;
+  const nf = (v, d = 0) => (v == null || !isFinite(v)) ? '—' : fmt.num(v, d);
+  const xf = (v, d = 1, suf = '') => (v == null || !isFinite(v)) ? '—' : v.toFixed(d) + suf;
+  const asOfLabel = asOf ? new Date(asOf).toLocaleString([], { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—';
   return (
     <div className="sw-header">
       <div className="sw-header-main">
@@ -16,6 +60,9 @@ const StockHeader = ({ t }) => {
             <span className="sw-sym">{t.symbol}</span>
             <span className="sw-exch">{t.exchange}</span>
             <span className="sw-name">{t.name}</span>
+            <span className={`prov-badge ${live ? 'live' : 'sample'}`} title={live ? ('Live quote · ' + asOfLabel + ' · Yahoo') : 'Loading / sample'}>
+              <span className={`prov-dot ${live ? 'live' : 'sample'}`} />{live ? 'LIVE' : 'SAMPLE'}
+            </span>
           </div>
           <div className="sw-meta-row">
             <span>{t.sector}</span>
@@ -24,32 +71,31 @@ const StockHeader = ({ t }) => {
             <span className="dot-sep">·</span>
             <span>Mkt Cap {t.mcap}</span>
             <span className="dot-sep">·</span>
-            <span>{t.shares} shares · Float {t.float}</span>
+            <span>{t.shares} shares</span>
           </div>
         </div>
         <div className="sw-quote-block">
-          <div className="sw-px">{t.currency} {fmt.num(t.price, 0)}</div>
+          <div className="sw-px">{t.currency} {nf(t.price)}</div>
           <div className={`sw-chg ${isPos ? 'pos' : 'neg'}`}>
-            {isPos ? '+' : ''}{fmt.num(t.chg, 0)} ({isPos ? '+' : ''}{t.chgp.toFixed(2)}%)
+            {isPos ? '+' : ''}{nf(t.chg)} ({isPos ? '+' : ''}{xf(t.chgp, 2)}%)
           </div>
-          <div className="sw-asof">As of 14:58:25 WIB · IDX Open</div>
+          <div className="sw-asof">{live ? ('As of ' + asOfLabel + ' WIB · Yahoo') : 'Loading live quote…'}</div>
         </div>
       </div>
       <div className="sw-stats">
         {[
-          ['Open',     fmt.num(t.open, 0)],
-          ['High',     fmt.num(t.high, 0)],
-          ['Low',      fmt.num(t.low, 0)],
-          ['Prev',     fmt.num(t.prevClose, 0)],
-          ['Volume',   t.volume],
-          ['Value',    t.value],
-          ['VWAP',     fmt.num(t.vwap, 0)],
-          ['52W H',    fmt.num(t.w52h, 0)],
-          ['52W L',    fmt.num(t.w52l, 0)],
-          ['P/E',      t.pe.toFixed(1) + 'x'],
-          ['P/B',      t.pb.toFixed(1) + 'x'],
-          ['Div Y',    t.divYield.toFixed(1) + '%'],
-          ['β',        t.beta.toFixed(2)],
+          ['Open',   nf(t.open)],
+          ['High',   nf(t.high)],
+          ['Low',    nf(t.low)],
+          ['Prev',   nf(t.prevClose)],
+          ['Volume', t.volume != null ? (t.volume / 1e6).toFixed(1) + 'M' : '—'],
+          ['Value',  t.value],
+          ['52W H',  nf(t.w52h)],
+          ['52W L',  nf(t.w52l)],
+          ['P/E',    xf(t.pe, 1, 'x')],
+          ['P/B',    xf(t.pb, 1, 'x')],
+          ['Div Y',  xf(t.divYield, 1, '%')],
+          ['β',      xf(t.beta, 2)],
         ].map(([l, v]) => (
           <div key={l} className="sw-stat">
             <div className="sw-stat-l">{l}</div>
@@ -65,6 +111,7 @@ const StockHeader = ({ t }) => {
 // `live`: true = real runtime data (gets a green LIVE pip); false = mock/sample
 // fixture (amber SAMPLE pip + a banner). Live sections lead each group.
 const SECTIONS = [
+  { id: 'chart',        label: 'Chart',              group: 'main',         live: true  },
   { id: 'overview',     label: 'Overview',           group: 'main',         live: false },
   { id: 'financials',   label: 'Financials',         group: 'fundamentals', live: true  },
   { id: 'wacc',         label: 'WACC',               group: 'fundamentals', live: true  },
@@ -1997,6 +2044,21 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const activeSection = SECTIONS.find(s => s.id === active);
   const WaccTab = window.WaccTab;
   const FinancialsPro = window.FinancialsPro;
+  // Live header: fresh quote + statements snapshot → recompute multiples off live price.
+  const [quote, setQuote] = React.useState(null);
+  const [headerDoc, setHeaderDoc] = React.useState(null);
+  const [headerAsOf, setHeaderAsOf] = React.useState(null);
+  React.useEffect(() => {
+    let alive = true;
+    setQuote(null); setHeaderDoc(null); setHeaderAsOf(null);
+    fetch(`${SW_QUOTE_FN}?ticker=${encodeURIComponent(swYahoo(symbol))}`, { headers: SW_HDRS })
+      .then(r => r.json()).then(j => { if (alive && j.ok) { setQuote(j.quote); setHeaderAsOf(j.quote.asOf); } }).catch(() => {});
+    fetch(`${SW_STMT_FN}?ticker=${encodeURIComponent(swYahoo(symbol))}`, { headers: SW_HDRS })
+      .then(r => r.json()).then(j => { if (alive && j.doc) setHeaderDoc(j.doc); }).catch(() => {});
+    return () => { alive = false; };
+  }, [symbol]);
+  const _hbase = (window.IDX_UNIVERSE || []).find(u => u.sym === symbol) || { name: t.name, sector: t.sector };
+  const liveT = buildLiveHeader(symbol, { exchange: 'IDX', name: _hbase.name, sector: _hbase.sector }, quote, headerDoc);
   const [tf, setTf] = React.useState('3M');
   const [indicators, setIndicators] = React.useState({ ma: true, bb: false, rsi: false });
   const toggleIndicator = (k) => setIndicators(s => ({ ...s, [k]: !s[k] }));
@@ -2007,14 +2069,11 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
 
   return (
     <div className="stock-ws">
-      <StockHeader t={t} />
+      <StockHeader t={liveT} live={!!quote} asOf={headerAsOf} />
       <ThesisBand symbol={symbol} />
       <div className="sw-body">
         <StockLeftRail active={active} setActive={setActive} />
         <div className="sw-main">
-          <div className="sw-chart-wrap">
-            <TradingViewChart symbol={symbol} />
-          </div>
           <div className="sw-content">
             {activeSection && !activeSection.live && (
               <div className="sw-sample-bar">
@@ -2022,6 +2081,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
                 <b>SAMPLE DATA</b> — illustrative fixtures, not a live feed. Live sections are tagged <span className="prov-dot live" style={{ margin: '0 3px' }} />LIVE.
               </div>
             )}
+            {active === 'chart'      && <div className="sw-chart-section"><TradingViewChart symbol={symbol} /></div>}
             {active === 'overview'   && <OverviewTab     t={t} fix={fix} candles={candles} indicators={indicators} />}
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
             {active === 'financials' && (FinancialsPro ? <FinancialsPro symbol={symbol} t={t} /> : <FinancialsTab fix={fix} symbol={symbol} />)}

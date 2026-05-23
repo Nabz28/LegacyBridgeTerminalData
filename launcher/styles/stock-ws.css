@@ -181,6 +181,9 @@
 .sw-content {
   padding: 10px;
 }
+/* Chart is now a left-rail section (not always-on top) — fill the content area. */
+.sw-chart-section { height: calc(100vh - 250px); min-height: 460px; display: flex; }
+.sw-chart-section > * { flex: 1; min-height: 0; }
 .sw-section { display: flex; flex-direction: column; gap: 10px; }
 .sw-grid-2 {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
