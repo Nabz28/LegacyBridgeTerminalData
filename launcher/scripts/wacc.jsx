@@ -21,7 +21,7 @@
 (function () {
   const SB_URL = 'https://adnubucjlezrtusbicja.supabase.co';
   const SB_ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
-  const FUND_FN = SB_URL + '/functions/v1/equity-fundamentals';
+  const STMT_FN = SB_URL + '/functions/v1/equity-statements';   // shared cache (statements + snapshot)
   const SERIES_PROXY = SB_URL + '/functions/v1/series-proxy';
   const REST_HEADERS = { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON };
   const MARKET_ID = 'IDX:COMPOSITE';   // JCI / IHSG — the IDX market benchmark
@@ -84,10 +84,32 @@
     if (!r.ok) throw new Error('returns HTTP ' + r.status);
     return await r.json(); // [{date, ret}]
   }
+  // Reads the SHARED equity-statements cache and shapes a fundamentals object.
+  // Now sources effective tax + interest expense + debt from the real income/
+  // balance statements (auto-fills what WACC used to default).
   async function fetchFundamentals(yt) {
-    const r = await fetch(`${FUND_FN}?ticker=${encodeURIComponent(yt)}`, { headers: REST_HEADERS });
+    const r = await fetch(`${STMT_FN}?ticker=${encodeURIComponent(yt)}`, { headers: REST_HEADERS });
     const j = await r.json().catch(() => null);
-    return (j && j.fundamentals) ? j.fundamentals : null;
+    const doc = j && j.doc;
+    if (!doc) return null;
+    const snap = doc.snapshot || {};
+    const A = (doc.statements && doc.statements.annual) || {};
+    const inc = A.income || {}, bal = A.balance || {};
+    const last = (o) => { if (!o) return null; const ks = Object.keys(o).sort(); return ks.length ? o[ks[ks.length - 1]] : null; };
+    const pretax = last(inc.PretaxIncome), tax = last(inc.TaxProvision), interest = last(inc.InterestExpense);
+    let effTax = (pretax && tax != null && pretax !== 0) ? tax / pretax : null;
+    if (effTax != null && (!isFinite(effTax) || effTax < 0 || effTax > 0.6)) effTax = null;
+    return {
+      ticker: yt,
+      currency: snap.currency,
+      marketCap: snap.marketCap != null ? snap.marketCap : null,
+      totalDebt: snap.totalDebt != null ? snap.totalDebt : last(bal.TotalDebt),
+      totalCash: snap.totalCash,
+      yahooBeta: snap.beta,
+      sector: snap.sector,
+      effectiveTaxRate: effTax,
+      interestExpense: interest != null ? Math.abs(interest) : null,
+    };
   }
   async function fetchFredLatest(id) {
     const r = await fetch(`${SERIES_PROXY}?source=FRED&id=${encodeURIComponent(id)}`, { headers: REST_HEADERS });

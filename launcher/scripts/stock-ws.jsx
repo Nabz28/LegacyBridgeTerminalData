@@ -956,6 +956,9 @@ const symbolToSchema = (symbol) => {
   };
   return map[symbol] || 'banks';
 };
+// Exposed for the FinancialsPro terminal's curated Operating-KPI panel.
+window.OP_KPI_SCHEMAS = OP_KPI_SCHEMAS;
+window.symbolToSchema = symbolToSchema;
 
 const OperationalKpiPanel = ({ symbol }) => {
   const schemaKey = symbolToSchema(symbol);
@@ -1988,6 +1991,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const fix = window.DATA_EXT.STOCK_FIXTURES[symbol] || window.DATA_EXT.STOCK_FIXTURES.BBCA;
   const [active, setActive] = React.useState('overview');
   const WaccTab = window.WaccTab;
+  const FinancialsPro = window.FinancialsPro;
   const [tf, setTf] = React.useState('3M');
   const [indicators, setIndicators] = React.useState({ ma: true, bb: false, rsi: false });
   const toggleIndicator = (k) => setIndicators(s => ({ ...s, [k]: !s[k] }));
@@ -2009,7 +2013,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
           <div className="sw-content">
             {active === 'overview'   && <OverviewTab     t={t} fix={fix} candles={candles} indicators={indicators} />}
             {active === 'transact'   && <TransactionalTab fix={fix} symbol={symbol} />}
-            {active === 'financials' && <FinancialsTab    fix={fix} symbol={symbol} />}
+            {active === 'financials' && (FinancialsPro ? <FinancialsPro symbol={symbol} t={t} /> : <FinancialsTab fix={fix} symbol={symbol} />)}
             {active === 'wacc'       && WaccTab && <WaccTab symbol={symbol} t={t} />}
             {active === 'comparable' && <ComparableTab    fix={fix} />}
             {active === 'owners'     && <OwnersTab        fix={fix} />}
