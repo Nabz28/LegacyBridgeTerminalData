@@ -122,7 +122,7 @@ const SECTIONS = [
   { id: 'risk',         label: 'Risk',               group: 'risk',         live: true  },
   { id: 'esg',          label: 'ESG',                group: 'risk',         live: false },
   { id: 'thesis',       label: 'AI Thesis',          group: 'thesis',       live: false },
-  { id: 'monte',        label: 'Monte Carlo',        group: 'thesis',       live: false },
+  { id: 'monte',        label: 'Monte Carlo',        group: 'thesis',       live: true  },
   { id: 'notes',        label: 'Thesis Notes',       group: 'thesis',       live: false },
   { id: 'news',         label: 'News',               group: 'thesis',       live: false },
   { id: 'mirofish',     label: 'MiroFish',           group: 'thesis',       live: false },
@@ -2050,6 +2050,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
   const FinancialsPro = window.FinancialsPro;
   const EquityPeers = window.EquityPeers;
   const RiskPro = window.RiskPro;
+  const MonteCarloPro = window.MonteCarloPro;
   // Live header: fresh quote + statements snapshot → recompute multiples off live price.
   const [quote, setQuote] = React.useState(null);
   const [headerDoc, setHeaderDoc] = React.useState(null);
@@ -2097,7 +2098,7 @@ const StockWorkspace = ({ symbol = 'BBCA', selectedSymbol, setSelectedSymbol }) 
             {active === 'risk'       && (RiskPro ? <RiskPro symbol={symbol} /> : <RiskTab fix={fix} />)}
             {active === 'esg'        && <EsgTab           fix={fix} />}
             {active === 'thesis'     && <ThesisTab        fix={fix} />}
-            {active === 'monte'      && <MonteCarloTab    fix={fix} />}
+            {active === 'monte'      && (MonteCarloPro ? <MonteCarloPro symbol={symbol} /> : <MonteCarloTab fix={fix} />)}
             {active === 'notes'      && <NotesTab />}
             {active === 'suppliers'  && <SuppliersTab    fix={fix} />}
             {active === 'news'       && <StockNewsTab    fix={fix} t={t} />}
