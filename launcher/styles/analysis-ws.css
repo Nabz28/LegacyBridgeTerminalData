@@ -238,3 +238,49 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 /* results fade-in */
 .an-res{animation:anFade var(--t-med,160ms) var(--ease,ease)}
 @keyframes anFade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+/* ================================================================
+   Equity Driver Lab — extends the Analysis workbench skin (.an-*).
+   ================================================================ */
+.ed-metric{display:flex;flex-direction:column;gap:7px}
+.ed-input{background:var(--an-bg2);border:1px solid var(--an-bd);color:var(--an-tx);border-radius:var(--r-2,3px);
+  font-family:inherit;font-size:12px;padding:6px 8px;width:100%;box-sizing:border-box}
+.ed-input:focus{outline:none;border-color:var(--an-acc-edge)}
+.ed-input::placeholder{color:var(--an-tx3)}
+.ed-freq{display:flex;gap:5px}
+.ed-freq-btn{flex:1;padding:5px 8px;border-radius:var(--r-2,3px);background:var(--an-bg2);border:1px solid var(--an-bd);
+  color:var(--an-tx2);font-family:inherit;font-size:11px;cursor:pointer;font-weight:500}
+.ed-freq-btn.on{background:var(--an-acc-soft);border-color:color-mix(in srgb,var(--an-acc) 46%,transparent);color:var(--an-acc)}
+.ed-paste-h,.ed-or{font-family:var(--an-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--an-tx3)}
+.ed-or{text-align:center;margin:3px 0 1px}
+.ed-paste{width:100%;box-sizing:border-box;min-height:78px;resize:vertical;background:var(--an-bg2);border:1px solid var(--an-bd);
+  color:var(--an-tx);border-radius:var(--r-2,3px);font-family:var(--an-mono);font-size:11px;padding:7px 8px;line-height:1.5}
+.ed-paste:focus{outline:none;border-color:var(--an-acc-edge)}
+.ed-paste::placeholder{color:var(--an-tx3);opacity:.65}
+.ed-btn-wide{width:100%;justify-content:center;text-align:center}
+.ed-pull{display:flex;gap:6px}
+.ed-tick{flex:0 0 108px}
+.ed-metricsel{flex:1;max-width:none}
+.ed-note{font-size:10.5px;color:var(--an-tx3);line-height:1.45;padding:4px 0}
+.ed-yok{font-family:var(--an-mono);font-size:10.5px;color:var(--pos-bloom,#2EE39A);font-weight:600}
+.ed-spark{background:var(--an-bg2);border:1px solid var(--an-bd2);border-radius:var(--r-2,3px);padding:4px 5px}
+/* lag stepper inside a driver chip */
+.ed-lag{display:inline-flex;align-items:center;gap:3px;font-family:var(--an-mono);font-size:10px;color:var(--an-tx3)}
+.ed-lag input{width:34px;background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx2);border-radius:var(--r-2,3px);
+  font-family:inherit;font-size:10.5px;padding:2px 3px;text-align:center;color-scheme:dark}
+.ed-eq{flex-wrap:wrap}
+/* scenario panel */
+.ed-scenario{margin-top:14px;border:1px solid var(--an-bd);border-radius:var(--r-3,4px);background:var(--an-bg2);padding:13px 15px;
+  animation:anFade var(--t-med,160ms) var(--ease,ease)}
+.ed-scen-h{font-size:13px;font-weight:700;color:var(--an-tx);margin-bottom:7px;letter-spacing:-.01em}
+.ed-scen-tbl{margin-top:8px}
+.ed-shock{width:64px;background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx);border-radius:var(--r-2,3px);
+  font-family:var(--an-mono);font-size:11px;padding:3px 5px;text-align:right;color-scheme:dark}
+.ed-shock:focus{outline:none;border-color:var(--an-acc-edge)}
+.ed-scen-out{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.ed-scen-cell{flex:1;min-width:120px;background:var(--an-bg3);border:1px solid var(--an-bd2);border-radius:var(--r-2,3px);
+  padding:8px 10px;display:flex;flex-direction:column;gap:3px}
+.ed-scen-l{font-family:var(--an-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--an-tx3)}
+.ed-scen-v{font-family:var(--an-mono);font-size:14px;font-weight:700;color:var(--an-tx)}
+.ed-scen-v.pos{color:var(--pos-bloom,#2EE39A)}
+.ed-scen-v.neg{color:var(--neg-bloom,#FF7C8C)}

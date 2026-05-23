@@ -684,6 +684,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
               setActiveTab(id);
             }}
           />
+        ) : activeTabObj?.kind === 'driver-lab' ? (
+          <window.EquityDriverLab />
         ) : activeTabObj?.kind === 'macro-lab' ? (
           <window.MacroLab />
         ) : activeTabObj?.kind === 'macro' ? (

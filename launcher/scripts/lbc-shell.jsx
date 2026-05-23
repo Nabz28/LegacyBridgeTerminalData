@@ -57,9 +57,10 @@ const LBC_TERMINALS = [
       // stock deep-dive (kind 'stock') as a tab. Standalone 'Stock' + the
       // 'Financials' placeholder were removed (redundant). 'markets' is the
       // widget board; 'stock' kind is still rendered when opened from Equities.
-      { kind: 'equity-landing', label: 'Equities',  built: true },
-      { kind: 'scanners',       label: 'Scanners',  built: true },
-      { kind: 'markets',        label: 'Markets',   built: true },
+      { kind: 'equity-landing', label: 'Equities',   built: true },
+      { kind: 'scanners',       label: 'Scanners',   built: true },
+      { kind: 'driver-lab',     label: 'Driver Lab', built: true },
+      { kind: 'markets',        label: 'Markets',    built: true },
     ] },
   // Embedded apps (own build) — rendered as bare full-bleed iframes inside the
   // shell tab strip (NOT wrapped in AppShell), so no double chrome. They share
@@ -83,7 +84,7 @@ const LBC_TERMINALS = [
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['markets','equity-landing','stock','scanners','macro','macro-lab','industry','portfolio','global']);
+const LBC_LIVE_KINDS = new Set(['markets','equity-landing','stock','scanners','driver-lab','macro','macro-lab','industry','portfolio','global']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating — a terminal with `roles` is restricted to those user roles;
