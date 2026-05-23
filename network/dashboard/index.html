@@ -389,6 +389,7 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);font-si
 
 <header class="topbar">
   <a href="/launcher/" id="homeLink" title="Back to terminal selector" aria-label="Back to terminal selector"
+     onclick="if(window.top!==window.self){event.preventDefault();try{window.top.postMessage({type:'lbc:home'},window.location.origin);}catch(_){}}"
      style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;margin-right:14px;
             color:var(--text-muted);text-decoration:none;
             border:1px solid var(--border-strong);border-radius:var(--radius-sm);

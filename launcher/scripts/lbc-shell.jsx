@@ -386,6 +386,17 @@ const LBCShell = () => {
   };
   const goHome = () => { const h = tabs.find((x) => x.type === 'home'); if (h) setActiveId(h.id); else addTab(); };
 
+  // Embedded terminals (Network / Management / Yggdrasil iframes) ask the shell
+  // to go Home via postMessage instead of navigating their OWN iframe to
+  // /launcher/ — doing the latter would load the launcher inside the iframe and
+  // render a second, nested tab strip ("double layer of tabs"). This mirrors
+  // the native terminals' onHome: focus the Home tab, keep open tabs alive.
+  React.useEffect(() => {
+    const onMsg = (e) => { if (e && e.data && e.data.type === 'lbc:home') goHome(); };
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [tabs, activeId]);
+
   if (!authed) return <LoginPage onAuthed={onAuthed} />;
 
   return (
@@ -440,8 +451,17 @@ window.LBCShell = LBCShell;
 // ================================================================
 // Mount (moved here from app.jsx so it runs after AppShell is defined).
 // ================================================================
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <window.Qars.QarsRoot paletteRegistry={window.__paletteRegistry}>
-    <LBCShell />
-  </window.Qars.QarsRoot>
-);
+// Guard: the launcher must NEVER render nested inside an embed iframe. If an
+// embedded app ever navigates its own iframe here (e.g. an old HOME link),
+// bounce the TOP frame to this URL instead of mounting a duplicate shell —
+// kills the "second layer of tabs" bug at the root, regardless of the source.
+if (window.top !== window.self) {
+  try { window.top.location.replace(window.location.href); }
+  catch (e) { /* same-origin in practice; ignore if blocked */ }
+} else {
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <window.Qars.QarsRoot paletteRegistry={window.__paletteRegistry}>
+      <LBCShell />
+    </window.Qars.QarsRoot>
+  );
+}

@@ -36,6 +36,12 @@ export function Login({ onAuth }: LoginProps) {
           href="/launcher/"
           title="Back to terminal selector"
           aria-label="Back to terminal selector"
+          onClick={(e) => {
+            if (window.top !== window.self) {
+              e.preventDefault();
+              try { window.top?.postMessage({ type: "lbc:home" }, window.location.origin); } catch { /* noop */ }
+            }
+          }}
           style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             alignSelf: "flex-start",

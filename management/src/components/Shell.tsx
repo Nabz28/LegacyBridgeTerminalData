@@ -103,6 +103,15 @@ export function Shell({ user, onLogout }: ShellProps) {
           className="tabbar-home"
           title="Back to terminal selector"
           aria-label="Main terminal"
+          onClick={(e) => {
+            // When embedded in the launcher shell, ask the parent to go Home
+            // instead of loading /launcher/ INTO this iframe (which would nest
+            // a second shell). Standalone, the href navigates normally.
+            if (window.top !== window.self) {
+              e.preventDefault();
+              try { window.top?.postMessage({ type: "lbc:home" }, window.location.origin); } catch { /* noop */ }
+            }
+          }}
         >
           <span className="home-arrow">←</span>
           <span className="home-label">HOME</span>

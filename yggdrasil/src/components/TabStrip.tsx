@@ -20,6 +20,14 @@ export function TabStrip() {
         href="/launcher/"
         title="Back to terminal selector"
         aria-label="Main terminal"
+        onClick={(e) => {
+          // Embedded in the launcher shell → ask the parent to go Home rather
+          // than loading /launcher/ INTO this iframe (which nests a 2nd shell).
+          if (window.top !== window.self) {
+            e.preventDefault();
+            try { window.top?.postMessage({ type: 'lbc:home' }, window.location.origin); } catch { /* noop */ }
+          }
+        }}
       >
         <span className="tab-strip__home-arrow">←</span>
         <span className="tab-strip__home-label">HOME</span>
