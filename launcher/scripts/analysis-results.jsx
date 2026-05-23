@@ -132,7 +132,7 @@
     if (res.error) return <div className="an-err">{res.error}</div>;
     var method = res.method || '';
 
-    if (method.indexOf('OLS') > -1 || method.indexOf('Panel') > -1) {
+    if (method.indexOf('OLS') > -1 || method.indexOf('Panel') > -1 || method === 'factor') {
       var idx = res.fitted.map(function (_, i) { return i; });
       var actual = res.fitted.map(function (f, i) { return f + res.resid[i]; });
       var statList = [
@@ -142,6 +142,7 @@
         { label: 'AIC', value: fmt(res.aic, 2) }, { label: 'BIC', value: fmt(res.bic, 2) },
         { label: 'Durbin–Watson', value: fmt(res.dw, 3) }, { label: 'Jarque–Bera', value: fmt(res.jb, 2) + (res.jbP != null ? ' (p=' + fmtP(res.jbP) + ')' : '') }
       ];
+      if (res.alphaAnn != null) statList.unshift({ label: 'Jensen α (annualized)', value: fmt(res.alphaAnn, 3) + ' · t=' + fmt(res.alphaT, 2) + ' · p=' + fmtP(res.alphaP) });
       if (res.effects) statList.unshift({ label: 'Effects', value: res.effects + (res.entities ? ' · ' + res.entities + ' entities' : '') });
       if (res.clustered) statList.push({ label: 'Std. errors', value: 'cluster-robust (' + res.clustered + ' entities)' });
       if (res.theta != null) statList.push({ label: 'θ (RE)', value: fmt(res.theta, 3) });
@@ -164,9 +165,28 @@
       );
     }
 
-    if (method === 'VAR' || method === 'BVAR') {
+    if (method === 'VAR' || method === 'BVAR' || method === 'svar') {
       var K = res.K, names = res.names;
       var irf = res._irf, fevd = res._fevd, band = res._irfBands;
+      if (method === 'svar') {
+        return (
+          <div className="an-res">
+            <StatGrid stats={[{ label: 'Model', value: 'SVAR(' + res.p + ')' }, { label: 'Identification', value: res.ident === 'bq' ? 'Blanchard-Quah (long-run)' : 'Recursive (Cholesky)' }, { label: 'Variables', value: K }, { label: 'Stable', value: res.stable ? '✓' : '⚠ unstable' }]} />
+            <div className="an-note">Structural impulse responses{res.ident === 'bq' ? ' — first shock has a permanent long-run effect; second is transitory' : ' — recursive ordering: ' + names.join(' → ')}.</div>
+            <div className="an-sub"><div className="an-sub-h">Structural IRF — response of row to structural shock in column</div>
+              <div className="an-irf-grid" style={{ gridTemplateColumns: 'auto repeat(' + K + ', 1fr)' }}>
+                <div className="an-irf-corner"></div>
+                {names.map(function (n, j) { return <div key={'h' + j} className="an-irf-colh">↯ {n}</div>; })}
+                {names.map(function (ni, i) { return [<div key={'r' + i} className="an-irf-rowh">{ni}</div>].concat(names.map(function (nj, j) {
+                  return <div key={i + '_' + j} className="an-irf-cell"><MiniLine series={[{ name: 'irf', values: irf.map(function (h) { return h[i][j]; }), color: COL.line, w: 1.5 }]} height={86} /></div>;
+                })); })}
+              </div></div>
+            {fevd && <div className="an-sub"><div className="an-sub-h">Variance decomposition (h={fevd.length - 1})</div>
+              <table className="an-table"><thead><tr><th>Variable</th>{names.map(function (n, j) { return <th key={j}>{n}</th>; })}</tr></thead>
+                <tbody>{names.map(function (ni, i) { return <tr key={i}><td className="an-vn">{ni}</td>{fevd[fevd.length - 1][i].map(function (v, j) { return <td key={j} className="an-num">{(v * 100).toFixed(1)}%</td>; })}</tr>; })}</tbody></table></div>}
+          </div>
+        );
+      }
       return (
         <div className="an-res">
           <StatGrid stats={[
@@ -260,6 +280,147 @@
       }
       return <div className="an-res"><StatGrid stats={[{ label: 'F-stat', value: fmt(res.fStat, 3) }, { label: 'p-value', value: fmtP(res.p) }, { label: 'Lags', value: res.lags }]} />
         <div className={'an-verdict ' + (res.causes ? 'good' : 'warn')}>{res.causes ? 'X Granger-causes Y at 5%' : 'No Granger causality at 5%'}</div></div>;
+    }
+
+    // ---- ARIMA / SARIMAX ----
+    if (method === 'arima') {
+      var o = res.order, ord = '(' + o.p + ',' + o.d + ',' + o.q + ')' + (o.P + o.D + o.Q ? '(' + o.P + ',' + o.D + ',' + o.Q + ')' + o.s : '');
+      var fc = res.forecast || [];
+      var hist = res.fitted || []; var fitted2 = hist.slice();
+      // build a continuous series: in-sample fitted then forecast means
+      var fseries = fitted2.concat(fc.map(function (f) { return f.mean; }));
+      var lo = fc.length ? hist.map(function () { return null; }).concat(fc.map(function (f) { return f.lo95; })) : null;
+      var up = fc.length ? hist.map(function () { return null; }).concat(fc.map(function (f) { return f.hi95; })) : null;
+      return (
+        <div className="an-res">
+          <div className="an-eq-result"><b>{res._yName || 'Y'}</b> · ARIMA {ord}</div>
+          <table className="an-table an-coef"><thead><tr><th>Term</th><th>Coef.</th><th>Std.Err</th><th>t</th><th>P&gt;|t|</th></tr></thead>
+            <tbody>{res.names.map(function (nm, i) { return <tr key={i}><td className="an-vn">{nm}</td><td className="an-num">{fmt(res.coef[i])}<span className="an-star">{stars(res.p[i])}</span></td><td className="an-num">{fmt(res.se[i])}</td><td className="an-num">{fmt(res.t[i], 3)}</td><td className="an-num">{fmtP(res.p[i])}</td></tr>; })}</tbody></table>
+          <StatGrid stats={[{ label: 'σ', value: fmt(res.sigma, 4) }, { label: 'AIC', value: fmt(res.aic, 2) }, { label: 'BIC', value: fmt(res.bic, 2) }, { label: 'Obs', value: res.n }, { label: 'Ljung-Box p', value: res.ljung ? fmtP(res.ljung.p) + (res.ljung.p < 0.05 ? ' ⚠ residual autocorr' : ' ✓ white') : '—' }]} />
+          {fc.length > 0 && <div className="an-sub"><div className="an-sub-h">Forecast ({fc.length} steps{res.forecastScale === 'differenced' ? ', differenced scale' : ''}, 95% band)</div>
+            <MiniLine series={[{ name: 'fit+fc', values: fseries, color: COL.line }]} band={lo ? { lower: lo, upper: up } : null} height={170} /></div>}
+        </div>
+      );
+    }
+    if (method === 'ets') {
+      var ef = res.forecast || []; var eser = (res._series || []).concat([]);
+      var efit = (res.fitted || []).concat(ef.map(function (f) { return f.mean; }));
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'α (level)', value: fmt(res.alpha, 3) }, { label: 'β (trend)', value: res.beta != null ? fmt(res.beta, 3) : '—' }, { label: 'γ (seasonal)', value: res.gamma != null ? fmt(res.gamma, 3) : '—' }, { label: 'SSE', value: fmt(res.sse, 2) }]} />
+          <div className="an-chart-card"><div className="an-chart-h">{res._name} · observed (green) + fit/forecast (blue)</div>
+            <MiniLine series={[{ name: 'obs', values: eser, color: COL.line2 }, { name: 'fit', values: efit, color: COL.line }]} height={180} /></div>
+        </div>
+      );
+    }
+    if (method === 'hp') {
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'λ smoothing', value: res.lambda }, { label: 'Obs', value: (res.trend || []).length }]} />
+          <div className="an-chart-card"><div className="an-chart-h">{res._name} · series (green) vs trend (blue) · λ={res.lambda}</div>
+            <MiniLine series={[{ name: 'y', values: res._series || [], color: COL.line2 }, { name: 'trend', values: res.trend, color: COL.line }]} height={170} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">Cycle (gap)</div><MiniLine series={[{ name: 'cycle', values: res.cycle, color: COL.line3, w: 1.3 }]} height={120} /></div>
+        </div>
+      );
+    }
+    if (method === 'decompose') {
+      return (
+        <div className="an-res">
+          <div className="an-note">{res._name} · classical {res.type === 'mul' ? 'multiplicative' : 'additive'} decomposition, period s={res.s}.</div>
+          <div className="an-chart-card"><div className="an-chart-h">Observed</div><MiniLine series={[{ name: 'y', values: res._series || [], color: COL.line2 }]} height={110} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">Trend</div><MiniLine series={[{ name: 't', values: res.trend, color: COL.line }]} height={110} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">Seasonal</div><MiniLine series={[{ name: 's', values: res.seasonal, color: COL.line }]} height={100} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">Remainder</div><MiniLine series={[{ name: 'r', values: res.remainder, color: COL.line3, w: 1.2 }]} height={100} /></div>
+        </div>
+      );
+    }
+    if (method === 'garch') {
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'ω', value: fmt(res.omega, 5) }, { label: 'α (ARCH)', value: fmt(res.alpha, 4) }, res.gamma != null ? { label: 'γ (GJR)', value: fmt(res.gamma, 4) } : { label: 'β (GARCH)', value: fmt(res.beta, 4) }, { label: res.gamma != null ? 'β (GARCH)' : 'Persistence', value: res.gamma != null ? fmt(res.beta, 4) : fmt(res.persistence, 4) }, { label: 'Persistence', value: fmt(res.persistence, 4) }, { label: 'Uncond. vol', value: fmt(res.uncondVol, 4) }, { label: 'Log-lik', value: fmt(res.llf, 1) }, { label: 'Obs', value: res.n }]} />
+          {res.persistence >= 0.999 && <div className="an-verdict warn">⚠ Persistence ≈ 1 — variance is near-integrated (IGARCH); shocks die out very slowly.</div>}
+          <div className="an-chart-card"><div className="an-chart-h">{res._name} · conditional volatility (σₜ)</div><MiniLine series={[{ name: 'vol', values: res.condVol, color: COL.line }]} height={170} /></div>
+        </div>
+      );
+    }
+    if (method === 'logit') {
+      return (
+        <div className="an-res">
+          <table className="an-table an-coef"><thead><tr><th>Variable</th><th>Coef.</th><th>Std.Err</th><th>z</th><th>P&gt;|z|</th><th>Odds ratio</th></tr></thead>
+            <tbody>{res.names.map(function (nm, i) { return <tr key={i}><td className="an-vn">{nm}</td><td className="an-num">{fmt(res.coef[i])}<span className="an-star">{stars(res.p[i])}</span></td><td className="an-num">{fmt(res.se[i])}</td><td className="an-num">{fmt(res.z[i], 3)}</td><td className="an-num">{fmtP(res.p[i])}</td><td className="an-num">{fmt(res.oddsRatio[i], 3)}</td></tr>; })}</tbody></table>
+          <div className="an-sig-key">*** p&lt;0.01 · ** p&lt;0.05 · * p&lt;0.1</div>
+          <StatGrid stats={[{ label: 'McFadden pseudo-R²', value: fmt(res.pseudoR2, 3) }, { label: 'Log-lik', value: fmt(res.llf, 2) }, { label: 'Obs', value: res.n }]} />
+        </div>
+      );
+    }
+    if (method === 'quantreg') {
+      var qn = res.coef.length === res.names.length + 1 ? ['(const)'].concat(res.names) : res.names;
+      return (
+        <div className="an-res">
+          <div className="an-note">Quantile regression at <b>τ = {res.tau}</b> · n={res.n}.</div>
+          <table className="an-table an-coef"><thead><tr><th>Variable</th><th>Coef. (τ={res.tau})</th></tr></thead>
+            <tbody>{res.coef.map(function (c, i) { return <tr key={i}><td className="an-vn">{qn[i]}</td><td className="an-num">{fmt(c)}</td></tr>; })}</tbody></table>
+        </div>
+      );
+    }
+    if (method === 'chow') {
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'Chow F', value: fmt(res.fStat, 3) }, { label: 'df', value: res.df1 + ', ' + res.df2 }, { label: 'p-value', value: fmtP(res.p) }, { label: 'Break at', value: res._breakDate || ('obs ' + res.breakIndex) }]} />
+          <div className={'an-verdict ' + (res.broke ? 'warn' : 'good')}>{res.broke ? '⚠ Structural break detected at 5% — coefficients differ across the split (consider separate models or a break dummy).' : 'No structural break at 5% — coefficients are stable across the split.'}</div>
+        </div>
+      );
+    }
+    if (method === 'johansen') {
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'Variables', value: res.K }, { label: 'Lags', value: res.p }, { label: 'Cointegrating rank', value: res.rank + (res.rank === 0 ? ' (none)' : '') }]} />
+          <div className={'an-verdict ' + (res.rank > 0 ? 'good' : 'warn')}>{res.rank > 0 ? res.rank + ' cointegrating relationship(s) found — the system shares a long-run equilibrium; estimate a VECM (rank ' + res.rank + ').' : 'No cointegration — model the variables in differences (a VAR on Δ), not levels.'}</div>
+          <div className="an-sub"><div className="an-sub-h">Trace test</div>
+            <table className="an-table"><thead><tr><th>H₀: rank ≤</th><th>eigenvalue</th><th>trace stat</th><th>5% crit</th></tr></thead>
+              <tbody>{res.trace.map(function (t, i) { return <tr key={i} className={t.crit5 != null && t.stat > t.crit5 ? 'an-row-on' : ''}><td>{t.r}</td><td className="an-num">{fmt(res.eigenvalues[i], 4)}</td><td className="an-num">{fmt(t.stat, 2)}</td><td className="an-num">{t.crit5 == null ? '—' : t.crit5}</td></tr>; })}</tbody></table></div>
+          {res.maxeig && <div className="an-sub"><div className="an-sub-h">Max-eigenvalue test</div>
+            <table className="an-table"><thead><tr><th>H₀: rank =</th><th>max-eig stat</th><th>5% crit</th></tr></thead>
+              <tbody>{res.maxeig.map(function (t, i) { return <tr key={i} className={t.crit5 != null && t.stat > t.crit5 ? 'an-row-on' : ''}><td>{t.r}</td><td className="an-num">{fmt(t.stat, 2)}</td><td className="an-num">{t.crit5 == null ? '—' : t.crit5}</td></tr>; })}</tbody></table></div>}
+        </div>
+      );
+    }
+    if (method === 'vecm') {
+      return (
+        <div className="an-res">
+          <StatGrid stats={[{ label: 'Cointegrating rank', value: res.rank }, { label: 'Variables', value: res.names.length }]} />
+          <div className="an-sub"><div className="an-sub-h">Cointegrating vectors β (long-run relationship)</div>
+            <table className="an-table"><thead><tr><th>Variable</th>{(res.beta[0] || []).map(function (_, j) { return <th key={j}>β{j + 1}</th>; })}</tr></thead>
+              <tbody>{res.names.map(function (n, i) { return <tr key={i}><td className="an-vn">{n}</td>{res.beta[i].map(function (v, j) { return <td key={j} className="an-num">{fmt(v, 3)}</td>; })}</tr>; })}</tbody></table></div>
+          <div className="an-sub"><div className="an-sub-h">Adjustment speeds α (error-correction)</div>
+            <table className="an-table"><thead><tr><th>Equation Δ</th>{(res.alpha[0] || []).map(function (_, j) { return <th key={j}>α{j + 1}</th>; })}</tr></thead>
+              <tbody>{res.names.map(function (n, i) { return <tr key={i}><td className="an-vn">{n}</td>{res.alpha[i].map(function (v, j) { return <td key={j} className="an-num">{fmt(v, 3)}</td>; })}</tr>; })}</tbody></table></div>
+          {res.ect && res.ect.length > 0 && <div className="an-chart-card"><div className="an-chart-h">Error-correction term (deviation from equilibrium)</div><MiniLine series={[{ name: 'ect', values: res.ect, color: COL.line }]} height={130} /></div>}
+        </div>
+      );
+    }
+    if (method === 'pca') {
+      return (
+        <div className="an-res">
+          <div className="an-note">Principal components on {res.names.length} standardized variables · n={res.n}.</div>
+          <div className="an-chart-card"><div className="an-chart-h">Scree — variance explained per component</div><Bars values={res.explained.map(function (v) { return v * 100; })} labels={res.explained.map(function (_, i) { return 'PC' + (i + 1); })} /></div>
+          <div className="an-sub"><div className="an-sub-h">Explained variance</div>
+            <table className="an-table"><thead><tr><th>Component</th><th>Eigenvalue</th><th>% variance</th><th>cumulative %</th></tr></thead>
+              <tbody>{res.eigenvalues.map(function (e, i) { return <tr key={i}><td>PC{i + 1}</td><td className="an-num">{fmt(e, 3)}</td><td className="an-num">{(res.explained[i] * 100).toFixed(1)}%</td><td className="an-num">{(res.cumExplained[i] * 100).toFixed(1)}%</td></tr>; })}</tbody></table></div>
+          <div className="an-sub"><div className="an-sub-h">Loadings</div>
+            <table className="an-table"><thead><tr><th>Variable</th>{res.names.map(function (_, j) { return <th key={j}>PC{j + 1}</th>; })}</tr></thead>
+              <tbody>{res.names.map(function (n, i) { return <tr key={i}><td className="an-vn">{n}</td>{res.loadings[i].map(function (v, j) { return <td key={j} className="an-num" style={{ background: corrColor(v) }}>{fmt(v, 2)}</td>; })}</tr>; })}</tbody></table></div>
+        </div>
+      );
+    }
+    if (method === 'rolling') {
+      var rn = (res.coefPaths && res.coefPaths.length === (res.names.length + 1)) ? ['(const)'].concat(res.names) : res.names;
+      return (
+        <div className="an-res">
+          <div className="an-note"><b>{res._yName || 'Y'}</b> · rolling regression, {res.window}-period window — time-varying coefficients.</div>
+          {(res.coefPaths || []).map(function (path, i) { return <div key={i} className="an-chart-card"><div className="an-chart-h">β · {rn[i] || ('coef ' + i)}</div><MiniLine series={[{ name: 'b', values: path, color: i === 0 ? COL.line2 : COL.line }]} height={110} /></div>; })}
+        </div>
+      );
     }
 
     return <pre className="an-raw">{JSON.stringify(res, null, 2).slice(0, 2000)}</pre>;

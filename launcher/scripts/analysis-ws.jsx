@@ -30,19 +30,36 @@
   }
   var LOCAL_KEY = 'lbcAnalysisWorkspace';
 
+  // build: 'eq'=Y+X equation, 'one'=single series, 'multi'=endogenous set,
+  // 'set'=variable set, 'arima'=Y+order(+xreg), 'panel'=long CSV.
   var METHODS = [
-    { id: 'ols', label: 'Regression (OLS)', group: 'equation', glyph: 'β', desc: 'Y = c + ΣβⱼXⱼ + ε · HC1 / Newey-West SE + diagnostics' },
-    { id: 'loglinear', label: 'Log-Linear', group: 'equation', glyph: 'ln', desc: 'auto-logs level vars → elasticities / semi-elasticities' },
-    { id: 'coint', label: 'Cointegration', group: 'equation', glyph: '∫', desc: 'Engle-Granger long-run test (guards against spurious regression)' },
-    { id: 'var', label: 'VAR', group: 'multi', glyph: 'V', desc: 'Vector autoregression · lag-select · Cholesky IRF / FEVD' },
-    { id: 'bvar', label: 'Bayesian VAR', group: 'multi', glyph: 'B', desc: 'Minnesota prior + posterior IRF bands' },
-    { id: 'panel', label: 'Panel (FE / RE)', group: 'panel', glyph: '▦', desc: 'Fixed / random effects on long data' },
-    { id: 'corr', label: 'Correlation', group: 'set', glyph: 'ρ', desc: 'Pearson / Spearman matrix' },
-    { id: 'descriptive', label: 'Descriptive', group: 'set', glyph: 'Σ', desc: 'Summary statistics + distribution' },
-    { id: 'adf', label: 'ADF / Stationarity', group: 'one', glyph: '√', desc: 'Augmented Dickey-Fuller (AIC lag) + p-value' },
-    { id: 'acf', label: 'ACF / PACF', group: 'one', glyph: '⟂', desc: 'Autocorrelation & partial autocorrelation' },
-    { id: 'granger', label: 'Granger Causality', group: 'set', glyph: '→', desc: 'Predictive causality F-tests' }
+    { id: 'ols', group: 'Regression', build: 'eq', glyph: 'β', label: 'OLS Regression', desc: 'Y = c + ΣβⱼXⱼ + ε · HC1 / Newey-West SE + diagnostics' },
+    { id: 'loglinear', group: 'Regression', build: 'eq', glyph: 'ln', label: 'Log-Linear (elasticities)', desc: 'auto-logs level variables' },
+    { id: 'factor', group: 'Regression', build: 'eq', glyph: 'ƒ', label: 'Factor · CAPM · Fama-French', desc: 'alpha + factor betas on excess returns (HAC SE)' },
+    { id: 'rolling', group: 'Regression', build: 'eq', glyph: '↻', label: 'Rolling Regression (β)', desc: 'time-varying coefficients over a moving window' },
+    { id: 'quantile', group: 'Regression', build: 'eq', glyph: 'τ', label: 'Quantile Regression', desc: 'conditional-quantile (τ) regression' },
+    { id: 'logit', group: 'Regression', build: 'eq', glyph: '⌇', label: 'Logistic Regression', desc: 'binary outcome (recession/default prob) · IRLS' },
+    { id: 'chow', group: 'Regression', build: 'eq', glyph: '⊻', label: 'Chow Break Test', desc: 'structural-break F-test at a split point' },
+    { id: 'arima', group: 'Time Series', build: 'arima', glyph: 'φ', label: 'ARIMA · ARIMAX · SARIMA · SARIMAX', desc: 'Box-Jenkins (p,d,q)(P,D,Q)ₛ + exogenous + forecast' },
+    { id: 'ets', group: 'Time Series', build: 'one', glyph: '⌁', label: 'Exponential Smoothing (ETS)', desc: 'Holt-Winters level/trend/seasonal + forecast' },
+    { id: 'hp', group: 'Time Series', build: 'one', glyph: '∿', label: 'HP Filter (trend / cycle)', desc: 'Hodrick-Prescott output-gap decomposition' },
+    { id: 'decompose', group: 'Time Series', build: 'one', glyph: '❍', label: 'Seasonal Decomposition', desc: 'trend + seasonal + remainder (additive/mult.)' },
+    { id: 'adf', group: 'Time Series', build: 'one', glyph: '√', label: 'ADF / Stationarity', desc: 'Augmented Dickey-Fuller (AIC lag) + p-value' },
+    { id: 'acf', group: 'Time Series', build: 'one', glyph: '⟂', label: 'ACF / PACF', desc: 'autocorrelation & partial autocorrelation' },
+    { id: 'garch', group: 'Volatility', build: 'one', glyph: 'σ', label: 'GARCH · GJR-GARCH', desc: 'conditional volatility (MLE) for risk / VaR' },
+    { id: 'var', group: 'Multivariate (VAR)', build: 'multi', glyph: 'V', label: 'VAR', desc: 'vector autoregression · lag-select · Cholesky IRF / FEVD' },
+    { id: 'svar', group: 'Multivariate (VAR)', build: 'multi', glyph: 'S', label: 'Structural VAR (SVAR)', desc: 'recursive or Blanchard-Quah long-run identification' },
+    { id: 'bvar', group: 'Multivariate (VAR)', build: 'multi', glyph: 'B', label: 'Bayesian VAR', desc: 'Minnesota prior + posterior IRF bands' },
+    { id: 'coint', group: 'Cointegration', build: 'eq', glyph: '∫', label: 'Engle-Granger', desc: 'single-equation long-run test (spurious-regression guard)' },
+    { id: 'johansen', group: 'Cointegration', build: 'multi', glyph: '∮', label: 'Johansen', desc: 'trace & max-eigenvalue cointegration rank' },
+    { id: 'vecm', group: 'Cointegration', build: 'multi', glyph: 'Ω', label: 'VECM', desc: 'vector error-correction (cointegrated systems)' },
+    { id: 'corr', group: 'Statistics', build: 'set', glyph: 'ρ', label: 'Correlation', desc: 'Pearson / Spearman matrix' },
+    { id: 'pca', group: 'Statistics', build: 'set', glyph: '⊕', label: 'PCA', desc: 'principal components (yield-curve / factor extraction)' },
+    { id: 'descriptive', group: 'Statistics', build: 'set', glyph: 'Σ', label: 'Descriptive', desc: 'summary statistics + distribution' },
+    { id: 'granger', group: 'Statistics', build: 'set', glyph: '→', label: 'Granger Causality', desc: 'predictive-causality F-tests' },
+    { id: 'panel', group: 'Panel', build: 'panel', glyph: '▦', label: 'Panel (FE / RE)', desc: 'fixed / random effects · cluster SE · Hausman' }
   ];
+  var METHOD_GROUPS = ['Regression', 'Time Series', 'Volatility', 'Multivariate (VAR)', 'Cointegration', 'Statistics', 'Panel'];
   var FREQS = [{ id: '', label: 'Native' }, { id: 'W', label: 'Weekly' }, { id: 'M', label: 'Monthly' }, { id: 'Q', label: 'Quarterly' }, { id: 'A', label: 'Annual' }];
 
   function alias(vd) { var t = (E.TRANSFORMS.find(function (x) { return x.id === vd.transform; }) || {}).label || vd.transform; return vd.transform === 'level' ? vd.label : vd.label + ' [' + t + ']'; }
@@ -131,7 +148,9 @@
     var _v = React.useState([]), vars = _v[0], setVars = _v[1];                 // tray: [{uid,label,source,transform,k,seriesId,kind,ric}]
     var _sm = React.useState({}), seriesMap = _sm[0], setSeriesMap = _sm[1];     // uid -> series
     var _m = React.useState('ols'), method = _m[0], setMethod = _m[1];
-    var _cfg = React.useState({ y: null, x: [], endo: [], setvars: [], one: null, lags: 2, trend: 'c', robust: 'none', lambda1: 0.2, lambda2: 0.5, lambda3: 1, corrMethod: 'pearson', effects: 'fixed', irfH: 12 }), cfg = _cfg[0], setCfg = _cfg[1];
+    var CFG0 = { y: null, x: [], endo: [], setvars: [], one: null, lags: 2, trend: 'c', robust: 'none', lambda1: 0.2, lambda2: 0.5, lambda3: 1, corrMethod: 'pearson', effects: 'fixed', irfH: 12,
+      p: 1, d: 0, q: 0, P: 0, D: 0, Q: 0, s: 12, h: 12, ident: 'recursive', hpLambda: 1600, tau: 0.5, win: 36, gjr: false, decType: 'add', rank: 1, breakPct: 50 };
+    var _cfg = React.useState(CFG0), cfg = _cfg[0], setCfg = _cfg[1];
     var _cl = React.useState({ freq: 'M' }), cleaning = _cl[0], setCleaning = _cl[1];
     var _res = React.useState(null), result = _res[0], setResult = _res[1];
     var _run = React.useState(false), running = _run[0], setRunning = _run[1];
@@ -255,6 +274,30 @@
         var col = dsa.columns[0]; var mL = Math.min(36, Math.max(4, Math.floor(col.length / 3)));
         return { method: 'acf', name: dsa.names[0], n: col.length, acf: E.acf(col, mL), pacf: E.pacf(col, mL) };
       }
+      if (method === 'garch') {
+        if (!cfg.one) throw new Error('Pick a series (returns / Δln, not levels).');
+        var dg = buildDataset([cfg.one]); if (dg.error) throw new Error(dg.error);
+        var rg = E.garch(dg.columns[0], { gjr: cfg.gjr }); if (rg.error) throw new Error(rg.error);
+        rg._name = dg.names[0]; rg._dates = dg.dates; return rg;
+      }
+      if (method === 'hp') {
+        if (!cfg.one) throw new Error('Pick a series.');
+        var dh = buildDataset([cfg.one]); if (dh.error) throw new Error(dh.error);
+        var rh = E.hpFilter(dh.columns[0], cfg.hpLambda); if (rh.error) throw new Error(rh.error);
+        rh._name = dh.names[0]; rh._series = dh.columns[0]; rh._dates = dh.dates; return rh;
+      }
+      if (method === 'ets') {
+        if (!cfg.one) throw new Error('Pick a series.');
+        var de = buildDataset([cfg.one]); if (de.error) throw new Error(de.error);
+        var re = E.ets(de.columns[0], { trend: cfg.etsTrend !== false, seasonal: cfg.etsSeason || 'none', s: cfg.s, h: cfg.h }); if (re.error) throw new Error(re.error);
+        re._name = de.names[0]; re._series = de.columns[0]; return re;
+      }
+      if (method === 'decompose') {
+        if (!cfg.one) throw new Error('Pick a series.');
+        var dd = buildDataset([cfg.one]); if (dd.error) throw new Error(dd.error);
+        var rd = E.seasonalDecompose(dd.columns[0], cfg.s, cfg.etsSeason === 'mul' ? 'mul' : 'add'); if (rd.error) throw new Error(rd.error);
+        rd._name = dd.names[0]; rd._series = dd.columns[0]; return rd;
+      }
       if (method === 'ols' || method === 'loglinear') {
         if (!cfg.y || !cfg.x.length) throw new Error('Set a dependent (Y) and at least one regressor (X).');
         var uids = [cfg.y].concat(cfg.x);
@@ -268,11 +311,56 @@
         var dsc = buildDataset([cfg.y].concat(cfg.x)); if (dsc.error) throw new Error(dsc.error);
         return E.engleGranger(dsc.columns[0], dsc.columns.slice(1), dsc.names.slice(1));
       }
+      if (method === 'factor') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set the asset (Y) and at least one factor (X).');
+        var dsf = buildDataset([cfg.y].concat(cfg.x)); if (dsf.error) throw new Error(dsf.error);
+        var ppy = { '': 252, W: 52, M: 12, Q: 4, A: 1 }[cleaning.freq] || 12;
+        var rf = E.factorModel(dsf.columns[0], dsf.columns.slice(1), { names: dsf.names.slice(1), robust: cfg.robust === 'none' ? 'hac' : cfg.robust, periodsPerYear: ppy });
+        rf._yName = dsf.names[0]; return rf;
+      }
+      if (method === 'rolling') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set Y and at least one X.');
+        var dsr = buildDataset([cfg.y].concat(cfg.x)); if (dsr.error) throw new Error(dsr.error);
+        if (cfg.win >= dsr.n) throw new Error('Window (' + cfg.win + ') ≥ observations (' + dsr.n + '). Use a smaller window.');
+        var rr = E.rollingOls(dsr.columns[0], dsr.columns.slice(1), { window: cfg.win, names: dsr.names.slice(1) });
+        rr._yName = dsr.names[0]; rr._dates = dsr.dates; return rr;
+      }
+      if (method === 'quantile') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set Y and at least one X.');
+        var dsq = buildDataset([cfg.y].concat(cfg.x)); if (dsq.error) throw new Error(dsq.error);
+        var rq = E.quantReg(dsq.columns[0], dsq.columns.slice(1), { tau: cfg.tau, names: dsq.names.slice(1) });
+        rq._yName = dsq.names[0]; return rq;
+      }
+      if (method === 'logit') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set a binary Y (0/1) and at least one X.');
+        var dsl = buildDataset([cfg.y].concat(cfg.x)); if (dsl.error) throw new Error(dsl.error);
+        var rl = E.logit(dsl.columns[0], dsl.columns.slice(1), { names: dsl.names.slice(1) });
+        if (rl.error) throw new Error(rl.error); rl._yName = dsl.names[0]; return rl;
+      }
+      if (method === 'chow') {
+        if (!cfg.y || !cfg.x.length) throw new Error('Set Y and at least one X.');
+        var dsch = buildDataset([cfg.y].concat(cfg.x)); if (dsch.error) throw new Error(dsch.error);
+        var bk = Math.max(2, Math.min(dsch.n - 2, Math.round(dsch.n * (cfg.breakPct / 100))));
+        var rc = E.chow(dsch.columns[0], dsch.columns.slice(1), bk);
+        rc._breakDate = dsch.dates[bk]; return rc;
+      }
+      if (method === 'arima') {
+        if (!cfg.y) throw new Error('Pick the series (Y).');
+        var uidsA = [cfg.y].concat(cfg.x);
+        var dsA = buildDataset(uidsA); if (dsA.error) throw new Error(dsA.error);
+        var ar = E.arima(dsA.columns[0], { p: cfg.p, d: cfg.d, q: cfg.q, P: cfg.P, D: cfg.D, Q: cfg.Q, s: cfg.s, h: cfg.h, xreg: cfg.x.length ? dsA.columns.slice(1) : null, xnames: dsA.names.slice(1) });
+        if (ar.error) throw new Error(ar.error); ar._yName = dsA.names[0]; ar._dates = dsA.dates; return ar;
+      }
       if (method === 'corr') {
         if (cfg.setvars.length < 2) throw new Error('Pick at least 2 variables.');
         var ds3 = buildDataset(cfg.setvars); if (ds3.error) throw new Error(ds3.error);
         var cm = E.corrMatrix(ds3.columns, ds3.names, { method: cfg.corrMethod });
         return { method: 'corr', names: cm.names, matrix: cm.matrix, n: cm.n, methodKind: cfg.corrMethod };
+      }
+      if (method === 'pca') {
+        if (cfg.setvars.length < 2) throw new Error('Pick at least 2 variables.');
+        var dp = buildDataset(cfg.setvars); if (dp.error) throw new Error(dp.error);
+        var rp = E.pca(dp.columns, dp.names, {}); if (rp.error) throw new Error(rp.error); return rp;
       }
       if (method === 'descriptive') {
         if (!cfg.setvars.length) throw new Error('Pick at least 1 variable.');
@@ -304,6 +392,23 @@
           return bm;
         }
       }
+      if (method === 'svar') {
+        if (cfg.endo.length < 2) throw new Error('SVAR needs at least 2 endogenous variables.');
+        var dss = buildDataset(cfg.endo); if (dss.error) throw new Error(dss.error);
+        var ps = Math.max(1, Math.min(cfg.lags, Math.floor(dss.n / (cfg.endo.length + 2)) - 1));
+        var sv = E.svar(dss.columns, dss.names, ps, { trend: cfg.trend, ident: cfg.ident, horizon: cfg.irfH }); if (sv.error) throw new Error(sv.error);
+        sv._irf = sv.irf; sv._fevd = sv.fevd; return sv;
+      }
+      if (method === 'johansen') {
+        if (cfg.endo.length < 2) throw new Error('Johansen needs at least 2 variables.');
+        var dsj = buildDataset(cfg.endo); if (dsj.error) throw new Error(dsj.error);
+        var rj = E.johansen(dsj.columns, dsj.names, cfg.lags, { det: cfg.trend }); if (rj.error) throw new Error(rj.error); return rj;
+      }
+      if (method === 'vecm') {
+        if (cfg.endo.length < 2) throw new Error('VECM needs at least 2 variables.');
+        var dsv = buildDataset(cfg.endo); if (dsv.error) throw new Error(dsv.error);
+        var rv = E.vecm(dsv.columns, dsv.names, cfg.lags, { r: cfg.rank }); if (rv.error) throw new Error(rv.error); return rv;
+      }
       throw new Error('Unknown method');
     }
 
@@ -326,7 +431,7 @@
       var entry = { id: 'm' + Date.now(), name: name, method: method, cfg: cfg, cleaning: cleaning, vars: vars.map(function (v) { return v.uid; }), at: new Date().toISOString() };
       var next = [entry].concat(saved).slice(0, 50); setSaved(next); persist(null, next);
     }
-    function loadModel(entry) { setMethod(entry.method); setCfg(Object.assign({ y: null, x: [], endo: [], setvars: [], one: null, lags: 2, trend: 'c', robust: 'none', lambda1: 0.2, lambda2: 0.5, lambda3: 1, corrMethod: 'pearson', effects: 'fixed', irfH: 12 }, entry.cfg)); if (entry.cleaning) setCleaning(entry.cleaning); setResult(null); }
+    function loadModel(entry) { setMethod(entry.method); setCfg(Object.assign({}, CFG0, entry.cfg)); if (entry.cleaning) setCleaning(entry.cleaning); setResult(null); }
     function delModel(id) { var next = saved.filter(function (s) { return s.id !== id; }); setSaved(next); persist(null, next); }
 
     var loggedIn = cloudEnabled();
@@ -336,8 +441,12 @@
       <section className="an-lab">
         <div className="an-topbar">
           <div className="an-title">Analysis <span className="an-title-sub">· econometric workbench</span></div>
-          <div className="an-method-chips">
-            {METHODS.map(function (m) { return <button key={m.id} className={'an-mchip ' + (method === m.id ? 'on' : '')} title={m.desc} onClick={function () { setMethod(m.id); setResult(null); setErr(''); }}><span className="an-mchip-g">{m.glyph}</span>{m.label}</button>; })}
+          <div className="an-method-wrap">
+            <span className="an-method-lbl">Method</span>
+            <select className="an-method-select" value={method} onChange={function (e) { setMethod(e.target.value); setResult(null); setErr(''); }}>
+              {METHOD_GROUPS.map(function (g) { return <optgroup key={g} label={g}>{METHODS.filter(function (m) { return m.group === g; }).map(function (m) { return <option key={m.id} value={m.id}>{m.glyph + '  ' + m.label}</option>; })}</optgroup>; })}
+            </select>
+            <span className="an-method-caret">▾</span>
           </div>
           <div className="an-topbar-sp" />
           <span className={'an-sync an-sync-' + sync}>{sync === 'saving' ? '⟳ Saving…' : sync === 'saved' ? '☁ Saved' : sync === 'local' ? '✓ Local' : (loggedIn ? '☁ Cloud' : '✓ Local')}</span>
@@ -363,20 +472,47 @@
             <div className="an-builder">
               <div className="an-builder-h">{curMethod.glyph} {curMethod.label}<span className="an-builder-desc">{curMethod.desc}</span></div>
 
-              {(method === 'ols' || method === 'loglinear' || method === 'coint') && (
+              {curMethod.build === 'eq' && (
                 <div className="an-eq">
-                  <Slot role="y" vd={byUid[cfg.y]} placeholder="Y (dependent)" onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { y: uid }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { y: null }); }); }} />
+                  <Slot role="y" vd={byUid[cfg.y]} placeholder={method === 'logit' ? 'Y (binary 0/1)' : 'Y (dependent)'} onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { y: uid }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { y: null }); }); }} />
                   <span className="an-eq-op">=</span><span className="an-eq-c">c</span>
                   {cfg.x.map(function (uid, i) { return <span key={uid} className="an-eq-x"><span className="an-eq-op">+</span><span className="an-beta">β{i + 1}</span><Slot vd={byUid[uid]} onClick={function () { setPicker({ target: 'xswap', idx: i }); }} onDrop={function (u2) { setCfg(function (c) { var nx = c.x.slice(); if (i < nx.length) nx[i] = u2; return Object.assign({}, c, { x: nx }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { x: c.x.filter(function (u) { return u !== uid; }) }); }); }} /></span>; })}
-                  <Slot vd={null} placeholder="+ regressor" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(uid) > -1 ? c.x : c.x.concat([uid]) }); }); }} />
+                  <Slot vd={null} placeholder={method === 'factor' ? '+ factor' : '+ regressor'} onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(uid) > -1 ? c.x : c.x.concat([uid]) }); }); }} />
                   <span className="an-eq-err">+ ε</span>
-                  {method === 'loglinear' && <div className="an-note an-note-inline">Level variables are auto-logged (ln). A coefficient on ln X is an <b>elasticity</b>; on a level X it's a semi-elasticity. Override per variable in the tray.</div>}
-                  {method === 'coint' && <div className="an-note an-note-inline">Use <b>levels</b> (not differences) here. Engle-Granger tests whether the residual of Y on X is stationary — i.e. a genuine long-run relationship rather than a spurious one.</div>}
-                  {method !== 'coint' && <div className="an-opt"><label>Std. errors</label><select value={cfg.robust} onChange={function (e) { setCfg(Object.assign({}, cfg, { robust: e.target.value })); }}><option value="none">Classical</option><option value="hc1">Robust (HC1)</option><option value="hac">HAC (Newey-West)</option></select></div>}
+                  {method === 'loglinear' && <div className="an-note an-note-inline">Level variables are auto-logged (ln). A coefficient on ln X is an <b>elasticity</b>; on a level X it's a semi-elasticity.</div>}
+                  {method === 'coint' && <div className="an-note an-note-inline">Use <b>levels</b> (not differences). Engle-Granger tests whether the residual of Y on X is stationary — a genuine long-run relationship vs a spurious one.</div>}
+                  {method === 'factor' && <div className="an-note an-note-inline">Y = the asset's (excess) return; X = factor returns (Mkt-Rf, SMB, HML, …). The intercept is <b>Jensen's α</b> (annualized in results); slopes are factor betas.</div>}
+                  {method === 'logit' && <div className="an-note an-note-inline">Y must be <b>0/1</b> (e.g. recession or default flag). Results show coefficients, odds ratios and McFadden pseudo-R².</div>}
+                  {method === 'quantile' && <div className="an-note an-note-inline">Estimates the conditional <b>τ-quantile</b> of Y (median regression at τ=0.5).</div>}
+                  {method === 'chow' && <div className="an-note an-note-inline">Tests whether the regression coefficients <b>break</b> at the split point below.</div>}
+                  <div className="an-opts">
+                    {(method === 'ols' || method === 'loglinear' || method === 'factor') && <div className="an-opt"><label>Std. errors</label><select value={cfg.robust} onChange={function (e) { setCfg(Object.assign({}, cfg, { robust: e.target.value })); }}><option value="none">Classical</option><option value="hc1">Robust (HC1)</option><option value="hac">HAC (Newey-West)</option></select></div>}
+                    {method === 'rolling' && <div className="an-opt"><label>Window</label><input type="number" min="8" max="240" value={cfg.win} onChange={function (e) { setCfg(Object.assign({}, cfg, { win: +e.target.value || 36 })); }} /></div>}
+                    {method === 'quantile' && <div className="an-opt"><label>τ quantile</label><input type="number" step="0.05" min="0.05" max="0.95" value={cfg.tau} onChange={function (e) { setCfg(Object.assign({}, cfg, { tau: +e.target.value })); }} /></div>}
+                    {method === 'chow' && <div className="an-opt"><label>Break at %</label><input type="number" min="10" max="90" step="5" value={cfg.breakPct} onChange={function (e) { setCfg(Object.assign({}, cfg, { breakPct: +e.target.value || 50 })); }} /></div>}
+                  </div>
                 </div>
               )}
 
-              {(method === 'var' || method === 'bvar') && (
+              {curMethod.build === 'arima' && (
+                <div className="an-multi">
+                  <div className="an-eq">
+                    <span className="an-eq-lbl">Series</span>
+                    <Slot role="y" vd={byUid[cfg.y]} placeholder="Y (the series)" onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { y: uid }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { y: null }); }); }} />
+                    {cfg.x.length > 0 && <span className="an-eq-lbl" style={{ marginLeft: 10 }}>exog (X):</span>}
+                    {cfg.x.map(function (uid) { return <Slot key={uid} vd={byUid[uid]} onClick={function () { }} onDrop={function () { }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { x: c.x.filter(function (u) { return u !== uid; }) }); }); }} />; })}
+                    <Slot vd={null} placeholder="+ exog (ARIMAX)" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(uid) > -1 ? c.x : c.x.concat([uid]) }); }); }} />
+                  </div>
+                  <div className="an-opts">
+                    {[['p', 'p'], ['d', 'd'], ['q', 'q']].map(function (o) { return <div key={o[0]} className="an-opt"><label>{o[1]}</label><input type="number" min="0" max="5" value={cfg[o[0]]} onChange={function (e) { var v = +e.target.value || 0; setCfg(function (c) { var n = {}; n[o[0]] = v; return Object.assign({}, c, n); }); }} /></div>; })}
+                    <span className="an-dim">seasonal:</span>
+                    {[['P', 'P'], ['D', 'D'], ['Q', 'Q'], ['s', 's']].map(function (o) { return <div key={o[0]} className="an-opt"><label>{o[1]}</label><input type="number" min="0" max={o[0] === 's' ? 24 : 3} value={cfg[o[0]]} onChange={function (e) { var v = +e.target.value || 0; setCfg(function (c) { var n = {}; n[o[0]] = v; return Object.assign({}, c, n); }); }} /></div>; })}
+                    <div className="an-opt"><label>Forecast h</label><input type="number" min="0" max="60" value={cfg.h} onChange={function (e) { setCfg(Object.assign({}, cfg, { h: +e.target.value || 0 })); }} /></div>
+                  </div>
+                </div>
+              )}
+
+              {curMethod.build === 'multi' && (
                 <div className="an-multi">
                   <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid) setCfg(function (c) { return c.endo.indexOf(uid) < 0 ? Object.assign({}, c, { endo: c.endo.concat([uid]) }) : c; }); }}>
                     <div className="an-drop-h">Endogenous variables <span className="an-dim">(order matters for Cholesky IRF)</span></div>
@@ -388,7 +524,9 @@
                   <div className="an-opts">
                     <div className="an-opt"><label>Lags (p)</label><input type="number" min="1" max="12" value={cfg.lags} onChange={function (e) { setCfg(Object.assign({}, cfg, { lags: +e.target.value || 1 })); }} /></div>
                     <div className="an-opt"><label>Trend</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div>
-                    <div className="an-opt"><label>IRF horizon</label><input type="number" min="4" max="48" value={cfg.irfH} onChange={function (e) { setCfg(Object.assign({}, cfg, { irfH: +e.target.value || 12 })); }} /></div>
+                    {(method === 'var' || method === 'svar' || method === 'bvar') && <div className="an-opt"><label>IRF horizon</label><input type="number" min="4" max="48" value={cfg.irfH} onChange={function (e) { setCfg(Object.assign({}, cfg, { irfH: +e.target.value || 12 })); }} /></div>}
+                    {method === 'svar' && <div className="an-opt"><label>Identification</label><select value={cfg.ident} onChange={function (e) { setCfg(Object.assign({}, cfg, { ident: e.target.value })); }}><option value="recursive">Recursive (Cholesky)</option><option value="bq">Blanchard-Quah (long-run)</option></select></div>}
+                    {method === 'vecm' && <div className="an-opt"><label title="Number of cointegrating relationships (run Johansen first)">Coint. rank r</label><input type="number" min="1" max="5" value={cfg.rank} onChange={function (e) { setCfg(Object.assign({}, cfg, { rank: +e.target.value || 1 })); }} /></div>}
                     {method === 'bvar' && <div className="an-opt"><label title="Overall prior tightness — smaller = tighter to the random-walk prior">λ₁ tight</label><input type="number" step="0.05" min="0.01" max="2" value={cfg.lambda1} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda1: +e.target.value })); }} /></div>}
                     {method === 'bvar' && <div className="an-opt"><label title="Cross-variable shrinkage — smaller = other variables' lags shrunk harder toward 0">λ₂ cross</label><input type="number" step="0.05" min="0.01" max="1" value={cfg.lambda2} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda2: +e.target.value })); }} /></div>}
                     {method === 'bvar' && <div className="an-opt"><label title="Lag-decay exponent — higher = distant lags shrunk harder">λ₃ decay</label><input type="number" step="0.5" min="0.5" max="3" value={cfg.lambda3} onChange={function (e) { setCfg(Object.assign({}, cfg, { lambda3: +e.target.value })); }} /></div>}
@@ -396,10 +534,10 @@
                 </div>
               )}
 
-              {(method === 'corr' || method === 'descriptive' || method === 'granger') && (
+              {curMethod.build === 'set' && (
                 <div className="an-multi">
                   <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid) setCfg(function (c) { return c.setvars.indexOf(uid) < 0 ? Object.assign({}, c, { setvars: c.setvars.concat([uid]) }) : c; }); }}>
-                    <div className="an-drop-h">Variables</div>
+                    <div className="an-drop-h">Variables{method === 'pca' ? ' (≥2 — standardized to a correlation-matrix PCA)' : ''}</div>
                     <div className="an-drop-items">
                       {cfg.setvars.map(function (uid) { return <span key={uid} className="an-tag">{byUid[uid] ? byUid[uid].label : uid}<button onClick={function () { setCfg(Object.assign({}, cfg, { setvars: cfg.setvars.filter(function (u) { return u !== uid; }) })); }}>×</button></span>; })}
                       <button className="an-tag-add" onClick={function () { setPicker({ target: 'set' }); }}>＋ add / drop here</button>
@@ -412,14 +550,24 @@
                 </div>
               )}
 
-              {(method === 'adf' || method === 'acf') && (
+              {curMethod.build === 'one' && (
                 <div className="an-multi">
                   <div className="an-eq"><span className="an-eq-lbl">{method === 'adf' ? 'Test series' : 'Series'}</span><Slot vd={byUid[cfg.one]} placeholder="pick a variable" onClick={function () { setPicker({ target: 'one' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { one: uid })); }} onClear={function () { setCfg(Object.assign({}, cfg, { one: null })); }} /></div>
-                  {method === 'adf' && <div className="an-opts"><div className="an-opt"><label>Deterministic</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div><span className="an-dim">Lag length auto-selected by AIC.</span></div>}
+                  <div className="an-opts">
+                    {method === 'adf' && <div className="an-opt"><label>Deterministic</label><select value={cfg.trend} onChange={function (e) { setCfg(Object.assign({}, cfg, { trend: e.target.value })); }}><option value="c">Constant</option><option value="ct">Const+Trend</option><option value="n">None</option></select></div>}
+                    {method === 'adf' && <span className="an-dim">Lag length auto-selected by AIC.</span>}
+                    {method === 'garch' && <div className="an-opt"><label title="Add the GJR asymmetry term (leverage effect)">GJR asymmetry</label><input type="checkbox" checked={cfg.gjr} onChange={function (e) { setCfg(Object.assign({}, cfg, { gjr: e.target.checked })); }} /></div>}
+                    {method === 'garch' && <span className="an-dim">Tip: model returns/changes (Δln), not levels.</span>}
+                    {method === 'hp' && <div className="an-opt"><label title="HP smoothing: 1600 quarterly, 129600 monthly, 6.25 annual">λ smoothing</label><input type="number" min="1" value={cfg.hpLambda} onChange={function (e) { setCfg(Object.assign({}, cfg, { hpLambda: +e.target.value || 1600 })); }} /></div>}
+                    {method === 'ets' && <div className="an-opt"><label>Trend</label><input type="checkbox" checked={cfg.etsTrend !== false} onChange={function (e) { setCfg(Object.assign({}, cfg, { etsTrend: e.target.checked })); }} /></div>}
+                    {(method === 'ets' || method === 'decompose') && <div className="an-opt"><label>Seasonal</label><select value={cfg.etsSeason || (method === 'decompose' ? 'add' : 'none')} onChange={function (e) { setCfg(Object.assign({}, cfg, { etsSeason: e.target.value })); }}><option value="none">None</option><option value="add">Additive</option><option value="mul">Multiplicative</option></select></div>}
+                    {(method === 'ets' || method === 'decompose') && <div className="an-opt"><label>Period s</label><input type="number" min="2" max="24" value={cfg.s} onChange={function (e) { setCfg(Object.assign({}, cfg, { s: +e.target.value || 12 })); }} /></div>}
+                    {method === 'ets' && <div className="an-opt"><label>Forecast h</label><input type="number" min="1" max="60" value={cfg.h} onChange={function (e) { setCfg(Object.assign({}, cfg, { h: +e.target.value || 12 })); }} /></div>}
+                  </div>
                 </div>
               )}
 
-              {method === 'panel' && (
+              {curMethod.build === 'panel' && (
                 <div className="an-multi">
                   <div className="an-note">Panel uses <b>long-format</b> data. Paste/upload columns: <code>entity, time, y, x1, x2, …</code></div>
                   <textarea className="an-panel-csv" placeholder={'country,year,gdp,inv,cpi\nUS,2018,2.9,21.0,2.4\nUS,2019,2.3,20.1,1.8\nID,2018,5.2,32.0,3.2\n…'} value={panelCsv} onChange={function (e) { setPanelCsv(e.target.value); }} />
@@ -428,7 +576,7 @@
               )}
 
               <div className="an-runrow">
-                {method !== 'panel' && <div className="an-clean"><label>Frequency</label><select value={cleaning.freq} onChange={function (e) { setCleaning({ freq: e.target.value }); }}>{FREQS.map(function (f) { return <option key={f.id} value={f.id}>{f.label}</option>; })}</select><span className="an-dim">aligned by date intersection · missing rows dropped</span></div>}
+                {curMethod.build !== 'panel' && <div className="an-clean"><label>Frequency</label><select value={cleaning.freq} onChange={function (e) { setCleaning({ freq: e.target.value }); }}>{FREQS.map(function (f) { return <option key={f.id} value={f.id}>{f.label}</option>; })}</select><span className="an-dim">aligned by date intersection · missing rows dropped</span></div>}
                 <span className="an-topbar-sp" />
                 <button className="an-run" disabled={running} onClick={run}>{running ? '⟳ Running…' : '▶ Run analysis'}</button>
               </div>

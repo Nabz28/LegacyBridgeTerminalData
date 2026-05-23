@@ -721,6 +721,15 @@
     ols: ols, adf: adf, engleGranger: engleGranger, acf: acf, pacf: pacf, granger: granger, grangerMatrix: grangerMatrix,
     varFit: varFit, selectVarLag: selectVarLag, varIRF: varIRF, varFEVD: varFEVD,
     bvar: bvar, irfWithBands: irfWithBands, panel: panel,
-    _tCdf: tCdf, _fCdf: fCdf
+    _tCdf: tCdf, _fCdf: fCdf,
+    // internal toolkit exposed for econ-models.js (advanced models build on these)
+    _lib: {
+      M: M, inverse: inverse, SVD: SVD, EVD: EVD,
+      mat: mat, colVec: colVec, diag: diag, safeInverse: safeInverse, olsFit: olsFit,
+      cholesky: cholesky, matMul: matMul, matAdd: matAdd, transposeM: transposeM, randn: randn,
+      zeros: zeros, eye: eye, varFit: varFit, coefBlocks: coefBlocks, buildVarDesign: buildVarDesign,
+      sum: sum, clean: clean, mean: mean, std: std, variance: variance,
+      tCdf: tCdf, fCdf: fCdf, chiCdf: chiCdf, normCdf: normCdf, tInv: tInv, tPtwo: tPtwo
+    }
   };
 })();
