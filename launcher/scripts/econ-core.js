@@ -383,7 +383,9 @@
     for (var k = 1; k <= maxLag; k++) {
       var num = ac[k - 1]; for (var j = 1; j < k; j++) num -= prev[j - 1] * ac[k - 1 - j];
       var den = 1; for (var j2 = 1; j2 < k; j2++) den -= prev[j2 - 1] * ac[j2 - 1];
-      var pk = den ? num / den : 0; var cur = [];
+      var pk = (Math.abs(den) > 1e-10) ? num / den : 0;
+      if (pk > 1) pk = 1; else if (pk < -1) pk = -1;   // a partial autocorrelation must lie in [-1,1]
+      var cur = [];
       for (var i = 0; i < k - 1; i++) cur.push(prev[i] - pk * prev[k - 2 - i]);
       cur.push(pk); prev = cur; out.push({ lag: k, value: pk, ci: 1.96 / Math.sqrt(n) });
     }
@@ -630,6 +632,17 @@
   }
 
   // ---------------- panel data ---------------------------------------------
+  // Arellano entity-clustered covariance: (X'X)⁻¹ (Σ_e (X_e'û_e)(X_e'û_e)') (X'X)⁻¹.
+  function panelClusterVcov(Xrows, resid, entW, XtXinv, k) {
+    var byE = {}, G = 0;
+    for (var i = 0; i < Xrows.length; i++) { var e = entW[i]; if (!byE[e]) { byE[e] = new Array(k).fill(0); G++; } for (var c = 0; c < k; c++) byE[e][c] += Xrows[i][c] * resid[i]; }
+    var meat = zeros(k, k);
+    Object.keys(byE).forEach(function (e) { var s = byE[e]; for (var a = 0; a < k; a++) for (var b = 0; b < k; b++) meat[a][b] += s[a] * s[b]; });
+    var n = Xrows.length, cF = (G / Math.max(1, G - 1)) * ((n - 1) / Math.max(1, n - k));
+    var v = matMul(matMul(XtXinv, meat), XtXinv);
+    for (var a2 = 0; a2 < k; a2++) for (var b2 = 0; b2 < k; b2++) v[a2][b2] *= cF;
+    return { vcov: v, G: G };
+  }
   // rows: [{entity, time, y, x:[...]}], names. effects: 'pooled'|'fixed'|'random'
   function panel(data, names, opts) {
     opts = opts || {}; var effects = opts.effects || 'fixed';
@@ -637,37 +650,44 @@
     var Xcols = names.map(function (_, j) { return data.map(function (r) { return r.x[j]; }); });
     if (effects === 'pooled') { var res = ols(y, Xcols, { names: names, intercept: true }); res.method = 'Panel (Pooled OLS)'; res.effects = 'pooled'; res.entities = uniq(data.map(function (r) { return r.entity; })).length; return res; }
     if (effects === 'fixed') {
-      // within transform: demean by entity
+      // within transform: demean by entity (track entity per within-row for clustering)
       var byEnt = groupBy(data, 'entity');
-      var yw = [], xw = names.map(function () { return []; });
+      var yw = [], xw = names.map(function () { return []; }), entW = [];
       Object.keys(byEnt).forEach(function (e) {
         var grp = byEnt[e]; var ym = mean(grp.map(function (r) { return r.y; }));
         var xm = names.map(function (_, j) { return mean(grp.map(function (r) { return r.x[j]; })); });
-        grp.forEach(function (r) { yw.push(r.y - ym); names.forEach(function (_, j) { xw[j].push(r.x[j] - xm[j]); }); });
+        grp.forEach(function (r) { yw.push(r.y - ym); entW.push(e); names.forEach(function (_, j) { xw[j].push(r.x[j] - xm[j]); }); });
       });
       var nEnt = Object.keys(byEnt).length;
       var res2 = ols(yw, xw, { names: names, intercept: false });
-      // df correction: FE absorbs nEnt entity means → df = NT − N − K. Rescale
-      // sigma/se/t/p/ci so inference isn't over-confident (the v1 bug).
-      var dfFE = res2.n - nEnt - res2.k;
-      if (dfFE > 0) {
-        var scale = (res2.n - res2.k) / dfFE;
-        res2.df = dfFE; res2.sigma = res2.sigma * Math.sqrt(scale);
-        res2.se = res2.se.map(function (s) { return s * Math.sqrt(scale); });
-        res2.t = res2.coef.map(function (b, i) { return res2.se[i] ? b / res2.se[i] : NaN; });
-        res2.p = res2.t.map(function (tv) { return tPtwo(tv, dfFE); });
-        var tc = tInv(0.975, dfFE);
-        res2.ci = res2.coef.map(function (b, i) { return [b - tc * res2.se[i], b + tc * res2.se[i]]; });
-      }
+      var k = res2.k, dfFE = res2.n - nEnt - k;             // residual df = NT − N − K
+      var sigma2FE = dfFE > 0 ? res2.rss / dfFE : res2.rss / Math.max(1, res2.df);
+      res2.sigma = Math.sqrt(sigma2FE);
+      // (X'X)⁻¹ from the classical vcov (= σ²_ols·(X'X)⁻¹)
+      var sig2ols = res2.rss / (res2.n - k);
+      var XtXinv = res2.vcov.map(function (row) { return row.map(function (v) { return v / sig2ols; }); });
+      // df-corrected classical FE covariance (for the Hausman test)
+      res2._vcovFE = XtXinv.map(function (row) { return row.map(function (v) { return v * sigma2FE; }); });
+      res2._dfResid = dfFE;
+      // entity-clustered (Arellano) covariance — the right default for panels
+      var Xrows = []; for (var ii = 0; ii < yw.length; ii++) { var rr = []; for (var jj = 0; jj < k; jj++) rr.push(xw[jj][ii]); Xrows.push(rr); }
+      var cl = panelClusterVcov(Xrows, res2.resid, entW, XtXinv, k);
+      var dfc = Math.max(1, cl.G - 1);
+      res2.se = []; for (var d = 0; d < k; d++) res2.se.push(Math.sqrt(Math.max(cl.vcov[d][d], 0)));
+      res2.t = res2.coef.map(function (b, i) { return res2.se[i] ? b / res2.se[i] : NaN; });
+      res2.p = res2.t.map(function (tv) { return tPtwo(tv, dfc); });
+      var tcc = tInv(0.975, dfc);
+      res2.ci = res2.coef.map(function (b, i) { return [b - tcc * res2.se[i], b + tcc * res2.se[i]]; });
+      res2.df = dfc; res2.clustered = cl.G; res2.vcov = res2._vcovFE;
       res2.method = 'Panel (Fixed Effects)'; res2.effects = 'fixed'; res2.entities = nEnt;
-      res2.dfAdjNote = 'within estimator; ' + nEnt + ' entity intercepts absorbed (df=' + (dfFE > 0 ? dfFE : res2.df) + ')';
+      res2.dfAdjNote = 'within estimator · ' + nEnt + ' entity intercepts absorbed · cluster-robust SE by entity (' + cl.G + ' clusters)';
       return res2;
     }
     // random effects (simplified FGLS via Swamy-Arora quasi-demean)
     var poolRes = ols(y, Xcols, { names: names, intercept: true });
     var feRes = panel(data, names, { effects: 'fixed' });
     var byEnt2 = groupBy(data, 'entity'); var Ti = Object.keys(byEnt2).map(function (e) { return byEnt2[e].length; });
-    var sigE2 = feRes.rss / feRes.df; var sigU2 = Math.max((poolRes.rss / poolRes.df) - sigE2, sigE2 * 0.05);
+    var sigE2 = feRes.rss / (feRes._dfResid || feRes.df); var sigU2 = Math.max((poolRes.rss / poolRes.df) - sigE2, sigE2 * 0.05);
     var Tbar = mean(Ti); var theta = 1 - Math.sqrt(sigE2 / (sigE2 + Tbar * sigU2));
     var yq = [], xq = names.map(function () { return []; }), cq = [];
     Object.keys(byEnt2).forEach(function (e) {
@@ -678,6 +698,15 @@
     // include quasi-demeaned constant as a regressor
     var res3 = ols(yq, [cq].concat(xq), { names: ['(const)'].concat(names), intercept: false });
     res3.method = 'Panel (Random Effects)'; res3.effects = 'random'; res3.theta = theta; res3.entities = Object.keys(byEnt2).length;
+    // Hausman test: H = (β_FE−β_RE)'(V_FE−V_RE)⁻¹(β_FE−β_RE) ~ χ²(K). Large H ⇒ prefer FE.
+    try {
+      var bFE = feRes.coef, bRE = res3.coef.slice(1), kk = bFE.length;
+      var dV = zeros(kk, kk);
+      for (var a = 0; a < kk; a++) for (var b = 0; b < kk; b++) dV[a][b] = feRes._vcovFE[a][b] - res3.vcov[a + 1][b + 1];
+      var dvec = colVec(bFE.map(function (v, i) { return v - bRE[i]; }));
+      var H = dvec.transpose().mmul(safeInverse(mat(dV), 'Hausman')).mmul(dvec).get(0, 0);
+      if (isFinite(H) && H >= 0) { res3.hausman = H; res3.hausmanDf = kk; res3.hausmanP = 1 - chiCdf(H, kk); res3.hausmanPrefer = res3.hausmanP < 0.05 ? 'FE' : 'RE'; }
+    } catch (e) { res3.hausmanNote = 'Hausman test not computable (V_FE−V_RE not positive definite for this sample).'; }
     return res3;
   }
   function uniq(a) { return Object.keys(a.reduce(function (o, v) { o[v] = 1; return o; }, {})); }

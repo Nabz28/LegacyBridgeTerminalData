@@ -92,14 +92,21 @@
     var vd = props.vd;
     return (
       <div className="an-var" draggable onDragStart={function (e) { e.dataTransfer.setData('text/uid', vd.uid); }}>
-        <span className="an-var-grip">⠿</span>
-        <span className={'an-src an-src-' + (vd.source || '').toLowerCase().replace(/[^a-z]/g, '')}>{vd.source === 'Refinitiv' ? 'RIC' : vd.source}</span>
-        <span className="an-var-label" title={vd.label}>{vd.label}</span>
-        <select className="an-tf" value={vd.transform} onChange={function (e) { props.onTransform(vd.uid, e.target.value); }} title="Transform">
-          {E.TRANSFORMS.map(function (t) { return <option key={t.id} value={t.id}>{t.label}</option>; })}
-        </select>
-        <span className="an-var-n">{props.n != null ? props.n + ' obs' : ''}</span>
-        <button className="an-var-x" title="Remove" onClick={function () { props.onRemove(vd.uid); }}>×</button>
+        <div className="an-var-top">
+          <span className="an-var-grip">⠿</span>
+          <span className={'an-src an-src-' + (vd.source || '').toLowerCase().replace(/[^a-z]/g, '')}>{vd.source === 'Refinitiv' ? 'RIC' : vd.source}</span>
+          <span className="an-var-label" title={vd.label}>{vd.label}</span>
+          <button className="an-var-x" title="Remove" onClick={function () { props.onRemove(vd.uid); }}>×</button>
+        </div>
+        <div className="an-var-bot">
+          <select className="an-tf" value={vd.transform} onChange={function (e) { props.onTransform(vd.uid, e.target.value); }} title="Transform">
+            {E.TRANSFORMS.map(function (t) { return <option key={t.id} value={t.id}>{t.label}</option>; })}
+          </select>
+          <select className="an-tf" value={vd.agg || 'last'} onChange={function (e) { props.onAgg(vd.uid, e.target.value); }} title="Resample aggregation — use Sum/Avg for flow variables (GDP, exports), Last for stocks/levels">
+            <option value="last">Last</option><option value="mean">Avg</option><option value="sum">Sum</option>
+          </select>
+          <span className="an-var-n">{props.n != null ? props.n + ' obs' : ''}</span>
+        </div>
       </div>
     );
   }
@@ -147,6 +154,9 @@
         .then(function () { loaded.current = true; });
     }, []);
 
+    // clear any pending debounced cloud save on unmount (no setState on dead component)
+    React.useEffect(function () { return function () { if (saveTimer.current) clearTimeout(saveTimer.current); }; }, []);
+
     function hydrateVars(vlist) {
       setVars(vlist);
       // refetch series for restored vars
@@ -154,7 +164,7 @@
     }
 
     function persist(nextVars, nextSaved) {
-      var doc = { v: 1, vars: (nextVars || vars).map(function (v) { return { uid: v.uid, kind: v.kind, label: v.label, source: v.source, seriesId: v.seriesId, ric: v.ric, transform: v.transform, k: v.k }; }), saved: nextSaved || saved, updated: new Date().toISOString() };
+      var doc = { v: 1, vars: (nextVars || vars).map(function (v) { return { uid: v.uid, kind: v.kind, label: v.label, source: v.source, seriesId: v.seriesId, ric: v.ric, transform: v.transform, agg: v.agg, k: v.k }; }), saved: nextSaved || saved, updated: new Date().toISOString() };
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(doc)); } catch (e) { }
       // debounce cloud writes so rapid edits don't race / clobber across tabs
       if (cloudEnabled()) {
@@ -166,7 +176,7 @@
 
     function addVar(item) {
       if (byUid[item.uid]) return;
-      var vd = { uid: item.uid, kind: item.kind, label: item.label, source: item.source, seriesId: item.seriesId, ric: item.ric, transform: 'level', k: 1 };
+      var vd = { uid: item.uid, kind: item.kind, label: item.label, source: item.source, seriesId: item.seriesId, ric: item.ric, transform: 'level', agg: 'last', k: 1 };
       var next = vars.concat([vd]); setVars(next); persist(next, null);
       D.fetchSeries(item).then(function (s) { setSeriesMap(function (m) { var n = Object.assign({}, m); n[item.uid] = s; return n; }); }).catch(function () { });
     }
@@ -176,13 +186,14 @@
       persist(next, null);
     }
     function setTransform(uid, t) { var next = vars.map(function (v) { return v.uid === uid ? Object.assign({}, v, { transform: t }) : v; }); setVars(next); persist(next, null); }
+    function setAgg(uid, a) { var next = vars.map(function (v) { return v.uid === uid ? Object.assign({}, v, { agg: a }) : v; }); setVars(next); persist(next, null); }
 
     function onPick(item) {
       var tgt = picker && picker.target;
       addVar(item);
       if (tgt === 'y') setCfg(function (c) { return Object.assign({}, c, { y: item.uid }); });
       else if (tgt === 'x') setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(item.uid) > -1 ? c.x : c.x.concat([item.uid]) }); });
-      else if (tgt === 'xswap') { var sidx = picker.idx; setCfg(function (c) { var nx = c.x.slice(); nx[sidx] = item.uid; return Object.assign({}, c, { x: nx }); }); }
+      else if (tgt === 'xswap') { var sidx = picker.idx; setCfg(function (c) { var nx = c.x.slice(); if (sidx < nx.length) nx[sidx] = item.uid; return Object.assign({}, c, { x: nx }); }); }
       else if (tgt === 'one') setCfg(function (c) { return Object.assign({}, c, { one: item.uid }); });
       else if (tgt === 'endo') setCfg(function (c) { return Object.assign({}, c, { endo: c.endo.indexOf(item.uid) > -1 ? c.endo : c.endo.concat([item.uid]) }); });
       else if (tgt === 'set') setCfg(function (c) { return Object.assign({}, c, { setvars: c.setvars.indexOf(item.uid) > -1 ? c.setvars : c.setvars.concat([item.uid]) }); });
@@ -282,13 +293,14 @@
         if (method === 'var') {
           var m = E.varFit(ds6.columns, ds6.names, p, { trend: cfg.trend });
           m._lagSel = E.selectVarLag(ds6.columns, ds6.names, Math.min(8, p + 4), cfg.trend);
-          m._irf = E.varIRF(m, cfg.irfH, true); m._fevd = E.varFEVD(m, cfg.irfH);
+          m._irf = E.varIRF(m, cfg.irfH, true);
+          try { m._fevd = E.varFEVD(m, cfg.irfH); } catch (e) { m._fevd = null; }
           return m;
         } else {
           var bm = E.bvar(ds6.columns, ds6.names, p, { lambda1: cfg.lambda1, lambda2: cfg.lambda2, lambda3: cfg.lambda3, trend: cfg.trend });
           var bands = E.irfWithBands(bm, cfg.irfH, 160);
           bm._irf = bands.point; bm._irfBands = { lower: bands.lower, upper: bands.upper };
-          bm._fevd = E.varFEVD(bm, cfg.irfH);
+          try { bm._fevd = E.varFEVD(bm, cfg.irfH); } catch (e) { bm._fevd = null; }
           return bm;
         }
       }
@@ -338,7 +350,7 @@
             <div className="an-rail-h">Data <button className="an-add" onClick={function () { setPicker({ target: 'tray' }); }}>＋ Add series</button></div>
             <div className="an-tray">
               {!vars.length && <div className="an-empty">No series yet. Click <b>＋ Add series</b> to search live + Refinitiv macro data, then drag them into your model.</div>}
-              {vars.map(function (vd) { return <VarChip key={vd.uid} vd={vd} n={(seriesMap[vd.uid] || []).length || null} onTransform={setTransform} onRemove={removeVar} />; })}
+              {vars.map(function (vd) { return <VarChip key={vd.uid} vd={vd} n={(seriesMap[vd.uid] || []).length || null} onTransform={setTransform} onAgg={setAgg} onRemove={removeVar} />; })}
             </div>
             {saved.length > 0 && <div className="an-saved">
               <div className="an-rail-h">Saved models</div>
@@ -353,10 +365,10 @@
 
               {(method === 'ols' || method === 'loglinear' || method === 'coint') && (
                 <div className="an-eq">
-                  <Slot role="y" vd={byUid[cfg.y]} placeholder="Y (dependent)" onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { y: uid })); }} onClear={function () { setCfg(Object.assign({}, cfg, { y: null })); }} />
+                  <Slot role="y" vd={byUid[cfg.y]} placeholder="Y (dependent)" onClick={function () { setPicker({ target: 'y' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { y: uid }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { y: null }); }); }} />
                   <span className="an-eq-op">=</span><span className="an-eq-c">c</span>
-                  {cfg.x.map(function (uid, i) { return <span key={uid} className="an-eq-x"><span className="an-eq-op">+</span><span className="an-beta">β{i + 1}</span><Slot vd={byUid[uid]} onClick={function () { setPicker({ target: 'xswap', idx: i }); }} onDrop={function (u2) { var nx = cfg.x.slice(); nx[i] = u2; setCfg(Object.assign({}, cfg, { x: nx })); }} onClear={function () { setCfg(Object.assign({}, cfg, { x: cfg.x.filter(function (u) { return u !== uid; }) })); }} /></span>; })}
-                  <Slot vd={null} placeholder="+ regressor" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(Object.assign({}, cfg, { x: cfg.x.indexOf(uid) > -1 ? cfg.x : cfg.x.concat([uid]) })); }} />
+                  {cfg.x.map(function (uid, i) { return <span key={uid} className="an-eq-x"><span className="an-eq-op">+</span><span className="an-beta">β{i + 1}</span><Slot vd={byUid[uid]} onClick={function () { setPicker({ target: 'xswap', idx: i }); }} onDrop={function (u2) { setCfg(function (c) { var nx = c.x.slice(); if (i < nx.length) nx[i] = u2; return Object.assign({}, c, { x: nx }); }); }} onClear={function () { setCfg(function (c) { return Object.assign({}, c, { x: c.x.filter(function (u) { return u !== uid; }) }); }); }} /></span>; })}
+                  <Slot vd={null} placeholder="+ regressor" onClick={function () { setPicker({ target: 'x' }); }} onDrop={function (uid) { setCfg(function (c) { return Object.assign({}, c, { x: c.x.indexOf(uid) > -1 ? c.x : c.x.concat([uid]) }); }); }} />
                   <span className="an-eq-err">+ ε</span>
                   {method === 'loglinear' && <div className="an-note an-note-inline">Level variables are auto-logged (ln). A coefficient on ln X is an <b>elasticity</b>; on a level X it's a semi-elasticity. Override per variable in the tray.</div>}
                   {method === 'coint' && <div className="an-note an-note-inline">Use <b>levels</b> (not differences) here. Engle-Granger tests whether the residual of Y on X is stationary — i.e. a genuine long-run relationship rather than a spurious one.</div>}
@@ -366,7 +378,7 @@
 
               {(method === 'var' || method === 'bvar') && (
                 <div className="an-multi">
-                  <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid && cfg.endo.indexOf(uid) < 0) setCfg(Object.assign({}, cfg, { endo: cfg.endo.concat([uid]) })); }}>
+                  <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid) setCfg(function (c) { return c.endo.indexOf(uid) < 0 ? Object.assign({}, c, { endo: c.endo.concat([uid]) }) : c; }); }}>
                     <div className="an-drop-h">Endogenous variables <span className="an-dim">(order matters for Cholesky IRF)</span></div>
                     <div className="an-drop-items">
                       {cfg.endo.map(function (uid, i) { return <span key={uid} className="an-tag">{i + 1}. {byUid[uid] ? byUid[uid].label : uid}<button onClick={function () { setCfg(Object.assign({}, cfg, { endo: cfg.endo.filter(function (u) { return u !== uid; }) })); }}>×</button></span>; })}
@@ -386,7 +398,7 @@
 
               {(method === 'corr' || method === 'descriptive' || method === 'granger') && (
                 <div className="an-multi">
-                  <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid && cfg.setvars.indexOf(uid) < 0) setCfg(Object.assign({}, cfg, { setvars: cfg.setvars.concat([uid]) })); }}>
+                  <div className="an-drop" onDragOver={function (e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }} onDragLeave={function (e) { e.currentTarget.classList.remove('drag'); }} onDrop={function (e) { e.preventDefault(); e.currentTarget.classList.remove('drag'); var uid = e.dataTransfer.getData('text/uid'); if (uid) setCfg(function (c) { return c.setvars.indexOf(uid) < 0 ? Object.assign({}, c, { setvars: c.setvars.concat([uid]) }) : c; }); }}>
                     <div className="an-drop-h">Variables</div>
                     <div className="an-drop-items">
                       {cfg.setvars.map(function (uid) { return <span key={uid} className="an-tag">{byUid[uid] ? byUid[uid].label : uid}<button onClick={function () { setCfg(Object.assign({}, cfg, { setvars: cfg.setvars.filter(function (u) { return u !== uid; }) })); }}>×</button></span>; })}
@@ -427,7 +439,7 @@
           {/* RIGHT — results */}
           <div className="an-results">
             {!result && !running && <div className="an-empty an-results-empty">Build a model and hit <b>Run analysis</b>. Results — coefficients, diagnostics, IRFs, heatmaps — appear here.</div>}
-            {running && <div className="an-empty">Computing…</div>}
+            {running && <div className="an-running"><div className="an-running-bar" />Computing…</div>}
             {result && R && <R.ResultView result={result} yName={result._yName} vars={byUid} />}
           </div>
         </div>

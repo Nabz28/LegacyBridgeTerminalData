@@ -64,7 +64,8 @@
   function corrColor(v) {
     if (v == null || !isFinite(v)) return 'rgba(255,255,255,.04)';
     var a = Math.min(Math.abs(v), 1);
-    return v >= 0 ? 'rgba(124,155,242,' + (0.12 + a * 0.7) + ')' : 'rgba(255,92,112,' + (0.12 + a * 0.7) + ')';
+    // diverging: brand steel for positive, semantic red for negative (LBC palette — no cobalt)
+    return v >= 0 ? 'rgba(151,170,197,' + (0.12 + a * 0.7) + ')' : 'rgba(255,92,112,' + (0.12 + a * 0.7) + ')';
   }
   function Heatmap(props) {
     var names = props.names, m = props.matrix;
@@ -142,7 +143,9 @@
         { label: 'Durbin–Watson', value: fmt(res.dw, 3) }, { label: 'Jarque–Bera', value: fmt(res.jb, 2) + (res.jbP != null ? ' (p=' + fmtP(res.jbP) + ')' : '') }
       ];
       if (res.effects) statList.unshift({ label: 'Effects', value: res.effects + (res.entities ? ' · ' + res.entities + ' entities' : '') });
+      if (res.clustered) statList.push({ label: 'Std. errors', value: 'cluster-robust (' + res.clustered + ' entities)' });
       if (res.theta != null) statList.push({ label: 'θ (RE)', value: fmt(res.theta, 3) });
+      if (res.hausman != null) statList.push({ label: 'Hausman χ²(' + res.hausmanDf + ')', value: fmt(res.hausman, 2) + ' · p=' + fmtP(res.hausmanP) + ' → prefer ' + res.hausmanPrefer });
       return (
         <div className="an-res">
           <EquationLine r={res} yName={props.yName} />
