@@ -171,7 +171,9 @@ const StockLeftRail = ({ active, setActive }) => {
 // Main: TradingView IHSG + Cmd-K index search + context news feed
 // ================================================================
 
-const IDX_UNIVERSE = [
+// Full IHSG universe (idx-universe.js, loaded earlier) when present; the inline
+// list below is just a fallback for local dev without that file.
+const IDX_UNIVERSE = (typeof window !== 'undefined' && window.IDX_UNIVERSE_FULL) || [
   { sym: 'BBCA', name: 'Bank Central Asia',     board: 'Main', sector: 'Banks',     mcap: 1242 },
   { sym: 'BBRI', name: 'Bank Rakyat Indonesia', board: 'Main', sector: 'Banks',     mcap:  812 },
   { sym: 'BMRI', name: 'Bank Mandiri',          board: 'Main', sector: 'Banks',     mcap:  580 },
@@ -264,11 +266,14 @@ const EquityDashboard = ({ openStockTab }) => {
   ];
   const filteredUniverse = IDX_UNIVERSE.filter(s =>
     (!universeSearch || s.sym.toLowerCase().includes(universeSearch.toLowerCase()) || s.name.toLowerCase().includes(universeSearch.toLowerCase())) &&
-    (universeFilter.board === 'all' || s.board === universeFilter.board) &&
-    (universeFilter.sector === 'all' || s.sector === universeFilter.sector) &&
-    (universeFilter.mcap === 'all' || (universeFilter.mcap === 'large' ? s.mcap >= 100 : universeFilter.mcap === 'mid' ? (s.mcap >= 25 && s.mcap < 100) : s.mcap < 25))
+    (universeFilter.sector === 'all' || s.sector === universeFilter.sector)
   );
   const sectors = ['all', ...Array.from(new Set(IDX_UNIVERSE.map(s => s.sector)))];
+  // Open any IDX ticker the user types (covers names not in the browse list).
+  const openTyped = () => {
+    const q = (universeSearch || '').trim().toUpperCase();
+    if (q && openStockTab) openStockTab(q, (IDX_UNIVERSE.find(s => s.sym === q) || {}).name || q);
+  };
 
   return (
     <div className="eq-dash">
@@ -282,25 +287,24 @@ const EquityDashboard = ({ openStockTab }) => {
           </button>
           {groupOpen.universe && (
             <div className="eq-rail-group-body">
-              <div className="eq-rail-search"><input placeholder="Search ticker, name…" value={universeSearch} onChange={(e) => setUniverseSearch(e.target.value)} /></div>
+              <div className="eq-rail-search">
+                <input placeholder="Search or type a ticker → Enter…" value={universeSearch}
+                       onChange={(e) => setUniverseSearch(e.target.value)}
+                       onKeyDown={(e) => { if (e.key === 'Enter') openTyped(); }} />
+              </div>
               <div className="eq-rail-chips">
                 <span className="eq-rail-chip-l">Sector</span>
                 {sectors.map(s => (
                   <button key={s} className={`eq-rail-chip ${universeFilter.sector === s ? 'is-on' : ''}`} onClick={() => setUniverseFilter(f => ({ ...f, sector: s }))}>{s}</button>
                 ))}
               </div>
-              <div className="eq-rail-chips">
-                <span className="eq-rail-chip-l">Mcap</span>
-                {[['all','All'],['large','Large ≥100T'],['mid','Mid 25-100T'],['small','<25T']].map(([k,l]) => (
-                  <button key={k} className={`eq-rail-chip ${universeFilter.mcap === k ? 'is-on' : ''}`} onClick={() => setUniverseFilter(f => ({ ...f, mcap: k }))}>{l}</button>
-                ))}
-              </div>
+              <div className="eq-rail-count">{filteredUniverse.length} names · ↵ opens any IDX ticker</div>
               <ul className="eq-rail-list">
                 {filteredUniverse.map(s => (
                   <li key={s.sym} className="eq-rail-item" onClick={() => openStockTab && openStockTab(s.sym, s.name)}>
                     <span className="eq-rail-item-sym">{s.sym}</span>
                     <span className="eq-rail-item-name">{s.name}</span>
-                    <span className="eq-rail-item-meta">Rp {s.mcap}T · {s.sector}</span>
+                    <span className="eq-rail-item-meta">{s.sub || s.sector}</span>
                   </li>
                 ))}
               </ul>
