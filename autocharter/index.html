@@ -8,6 +8,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@4.3.6/build/index.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#fff;color:#1B2A4A;display:flex;height:100vh;overflow:hidden}
@@ -156,6 +159,135 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#fff;c
 .legend-row.legend-hidden{display:none}
 .legend-row.legend-bottom{order:2;margin-top:10px;margin-bottom:0}
 .legend-row.legend-right{flex-direction:column;align-items:flex-start;gap:7px}
+
+/* ============================================================================
+   LBC DARK THEME — re-skins all chrome (sidebar, project panel, controls,
+   header, import/data-editor/format panels, export row) to match the other
+   LBC terminals. The chart itself (.chart-stage → .chart-wrap → canvas) stays
+   a clean WHITE publication sheet, by design. Accent #8B2635 → LBC blue.
+   ============================================================================ */
+:root{
+  --lbc-bg0:#020203; --lbc-bg1:#0A0A0B; --lbc-bg2:#121317; --lbc-bg3:#17181c;
+  --lbc-bd:rgba(255,255,255,.11); --lbc-bd2:rgba(255,255,255,.06);
+  --lbc-tx:#EAEFF7; --lbc-tx2:#D4DCEA; --lbc-tx3:#8E9AB0;
+  --lbc-brand:#97AAC5; --lbc-acc:#7c9bf2; --lbc-acc-soft:rgba(124,155,242,.16);
+  --lbc-mono:'Geist Mono','IBM Plex Mono',ui-monospace,monospace;
+}
+body{background:var(--lbc-bg0);color:var(--lbc-tx);font-family:'Geist','Inter','Segoe UI',system-ui,sans-serif}
+
+/* ---- sidebar ---- */
+.sidebar{background:linear-gradient(180deg,#0c0d11 0%,#070708 100%);border-right:1px solid var(--lbc-bd)}
+.sidebar-title{color:var(--lbc-tx);font-family:var(--lbc-mono);font-weight:600;letter-spacing:.12em}
+.sb-section{color:var(--lbc-tx3);border-top-color:var(--lbc-bd2)}
+.project-panel{border-bottom-color:var(--lbc-bd2)}
+.project-label{color:var(--lbc-tx3)}
+.project-select,.chart-edit-row select{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx);color-scheme:dark}
+.project-btn{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.project-btn:hover{background:var(--lbc-bg3);border-color:rgba(151,170,197,.4)}
+.project-btn.primary{background:var(--lbc-acc);border-color:var(--lbc-acc);color:#06121f;font-weight:600}
+.project-btn.primary:hover{background:#92acf5}
+.project-btn.active{background:var(--lbc-brand);border-color:var(--lbc-brand);color:#06121f}
+.fig-btn{color:var(--lbc-tx3)}
+.fig-btn:hover{background:rgba(255,255,255,.045);color:var(--lbc-tx)}
+.fig-btn.active{background:var(--lbc-acc-soft);color:var(--lbc-tx);border-left-color:var(--lbc-acc)}
+.fig-btn .fig-num{color:var(--lbc-tx3)}
+.fig-btn.active .fig-num{color:var(--lbc-acc)}
+.category-block.drag-over,.chart-item.drag-over{outline-color:var(--lbc-acc);background:var(--lbc-acc-soft)}
+.edit-chip{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx3)}
+.edit-chip:hover{background:var(--lbc-bg3);color:var(--lbc-tx)}
+.drag-handle{color:var(--lbc-tx3)}
+.empty-category{color:var(--lbc-tx3)}
+
+/* ---- main / chart header ---- */
+.main{background:var(--lbc-bg0)}
+.chart-title{color:var(--lbc-tx)}
+.chart-subtitle{color:var(--lbc-tx3)}
+.chart-source{color:var(--lbc-tx3)}
+.size-hint{color:var(--lbc-tx3)}
+.edit-pencil{color:var(--lbc-tx3)}
+.editable-line:hover .edit-pencil,.edit-pencil:focus{color:var(--lbc-acc);background:rgba(255,255,255,.06)}
+.inline-edit-input{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx);color-scheme:dark}
+
+/* ---- controls bar ---- */
+.controls{background:var(--lbc-bg1);border:1px solid var(--lbc-bd)}
+.controls .ctrl-group label{color:var(--lbc-tx2)}
+.controls select,.ctrl-group select{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx);color-scheme:dark}
+.ctrl-group input[type="color"]{background:var(--lbc-bg2);border:1px solid var(--lbc-bd)}
+.thickness-slider,.thickness-input{accent-color:var(--lbc-acc)}
+.thickness-input,.size-input{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx)}
+.thickness-input:focus,.size-input:focus{border-color:var(--lbc-acc)}
+.size-unit{color:var(--lbc-tx3)}
+.ctrl-divider{background:var(--lbc-bd)}
+.ctrl-group input[type="checkbox"]{accent-color:var(--lbc-acc)}
+.ctrl-reset,.ctrl-reset-size{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.ctrl-reset:hover,.ctrl-reset-size:hover{background:var(--lbc-bg3);color:var(--lbc-tx)}
+
+/* ---- sync badge ---- */
+.sync-badge{background:var(--lbc-bg2);color:var(--lbc-tx3);font-family:var(--lbc-mono)}
+.sync-badge.synced{background:rgba(25,195,125,.16);color:#3ddc97}
+.sync-badge.pending{background:rgba(124,155,242,.16);color:var(--lbc-acc)}
+.sync-badge.error{background:rgba(255,92,112,.16);color:#ff8a99}
+
+/* ---- export row ---- */
+.export-btn{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.export-btn:hover{background:var(--lbc-bg3);border-color:rgba(151,170,197,.4);color:var(--lbc-tx)}
+
+/* ---- import panel ---- */
+.import-panel{background:var(--lbc-bg1);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.import-panel-title{color:var(--lbc-tx)}
+.import-panel select{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx);color-scheme:dark}
+.import-action{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.import-action:hover{background:var(--lbc-bg3)}
+.import-action.primary{background:var(--lbc-acc);border-color:var(--lbc-acc);color:#06121f}
+.import-field label{color:var(--lbc-tx3)}
+.import-warning{color:#f0c674}
+.import-error{color:#ff8a99}
+
+/* ---- data editor (spreadsheet) ---- */
+.data-editor-panel{background:var(--lbc-bg1);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.data-editor-title{color:var(--lbc-tx)}
+.data-editor-meta{color:var(--lbc-tx3)}
+.data-editor-btn{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.data-editor-btn:hover{background:var(--lbc-bg3);color:var(--lbc-tx)}
+.data-editor-btn.primary{background:var(--lbc-acc);border-color:var(--lbc-acc);color:#06121f}
+.data-editor-btn:disabled{background:var(--lbc-bg2);color:var(--lbc-tx3);opacity:.5}
+.data-editor-grid-wrap{background:var(--lbc-bg1);border:1px solid var(--lbc-bd)}
+.data-editor-table th,.data-editor-table td{background:var(--lbc-bg1);border-bottom:1px solid var(--lbc-bd2);border-right:1px solid var(--lbc-bd2)}
+.data-editor-table th{background:var(--lbc-bg2)}
+.data-editor-input{color:var(--lbc-tx);background:transparent}
+.data-editor-input:focus{background:var(--lbc-acc-soft);box-shadow:inset 0 0 0 1px var(--lbc-acc)}
+.data-editor-header-input{color:var(--lbc-tx2)}
+.data-editor-row-action{background:var(--lbc-bg2)!important}
+.data-editor-delete{color:var(--lbc-tx3)}
+.data-editor-delete:hover{color:#ff8a99}
+.data-editor-error{color:#ff8a99}
+.data-editor-warning{color:#f0c674}
+.data-editor-ok{color:#3ddc97}
+
+/* ---- format panel ---- */
+.format-panel{background:var(--lbc-bg1);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.format-panel-title{color:var(--lbc-tx)}
+.format-panel-note{color:var(--lbc-tx3)}
+.format-section{background:var(--lbc-bg2);border:1px solid var(--lbc-bd2)}
+.format-section-title{color:var(--lbc-tx)}
+.format-row label{color:var(--lbc-tx3)}
+.format-row input,.format-row select{background:var(--lbc-bg1);border:1px solid var(--lbc-bd);color:var(--lbc-tx);color-scheme:dark}
+.format-row input[type="checkbox"]{accent-color:var(--lbc-acc)}
+.format-btn{background:var(--lbc-bg2);border:1px solid var(--lbc-bd);color:var(--lbc-tx2)}
+.format-btn:hover{background:var(--lbc-bg3);color:var(--lbc-tx)}
+
+/* ---- THE CHART: white publication sheet on the dark workspace ---- */
+.chart-stage{background:#fff;border:1px solid var(--lbc-bd);border-radius:10px;
+  padding:20px 22px;box-shadow:0 14px 40px rgba(0,0,0,.4);max-width:100%}
+.chart-stage .legend-row{color:#6b7280}
+.chart-wrap{background:#fff}
+.chart-wrap:hover{border-color:#e5e7eb}
+
+/* ---- dark scrollbars for the chrome ---- */
+.sidebar::-webkit-scrollbar,.main::-webkit-scrollbar,.data-editor-grid-wrap::-webkit-scrollbar{width:10px;height:10px}
+.sidebar::-webkit-scrollbar-thumb,.main::-webkit-scrollbar-thumb,.data-editor-grid-wrap::-webkit-scrollbar-thumb{background:rgba(151,170,197,.22);border-radius:6px}
+.sidebar::-webkit-scrollbar-thumb:hover,.main::-webkit-scrollbar-thumb:hover{background:rgba(151,170,197,.4)}
+.sidebar::-webkit-scrollbar-track,.main::-webkit-scrollbar-track{background:transparent}
 </style>
 </head>
 <body>
@@ -259,6 +391,42 @@ Chart.register(ChartDataLabels);
 // Clear via browser devtools if you want to reset everything.
 var STORAGE_KEY='pdrbGalleryState';
 var PROJECT_STORAGE_KEY='lbcAutocharterWorkspace';
+
+// ================================================================================
+// ===================== LBC PER-ACCOUNT CLOUD SYNC (Supabase) ====================
+// ================================================================================
+// Same-origin as the launcher shell, so we read the signed LBC session straight
+// out of localStorage ('lbc_auth') and use its JWT as the PostgREST Bearer. Each
+// user's whole workspace (projects + charts + uploaded data) is upserted to
+// public.autocharter_workspace, RLS-gated to their own row. localStorage stays a
+// per-device cache + offline fallback so the tool never errors when signed out.
+var LBC_SB_URL='https://adnubucjlezrtusbicja.supabase.co/rest/v1';
+var LBC_SB_ANON='sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
+var REMOTE_DOC=null;       // workspace doc fetched from Supabase at boot (null = none/offline)
+var CLOUD_OK=false;        // last cloud write succeeded
+
+function lbcSession(){
+  try{ var s=JSON.parse(localStorage.getItem('lbc_auth')||'null'); return (s&&s.token&&s.exp&&Date.now()<s.exp)?s:null; }catch(e){ return null; }
+}
+function lbcToken(){ var s=lbcSession(); return s?s.token:null; }
+function lbcSub(){ var s=lbcSession(); return (s&&s.user)?s.user.id:null; }
+function cloudEnabled(){ return !!(lbcToken()&&lbcSub()); }
+
+function cloudLoad(){
+  if(!cloudEnabled()) return Promise.resolve(null);
+  return fetch(LBC_SB_URL+'/autocharter_workspace?user_sub=eq.'+encodeURIComponent(lbcSub())+'&select=doc',{
+    headers:{ apikey:LBC_SB_ANON, Authorization:'Bearer '+lbcToken() }
+  }).then(function(r){ return r.ok?r.json():Promise.reject('HTTP '+r.status); })
+    .then(function(rows){ return (rows&&rows[0]&&rows[0].doc&&rows[0].doc.projects)?rows[0].doc:null; });
+}
+function cloudSave(doc){
+  if(!cloudEnabled()) return Promise.resolve(false);
+  return fetch(LBC_SB_URL+'/autocharter_workspace',{
+    method:'POST',
+    headers:{ apikey:LBC_SB_ANON, Authorization:'Bearer '+lbcToken(), 'Content-Type':'application/json', Prefer:'resolution=merge-duplicates,return=minimal' },
+    body:JSON.stringify([{ user_sub:lbcSub(), doc:doc, updated_at:new Date().toISOString() }])
+  }).then(function(r){ if(!r.ok) return Promise.reject('HTTP '+r.status); CLOUD_OK=true; return true; });
+}
 var syncReady=false;
 // ================================================================================
 
@@ -341,10 +509,14 @@ function setSyncStatus(s){
   var b=document.getElementById('syncBadge');if(!b)return;
   b.className='sync-badge';
   b.title='';
-  if(s==='saving'||s==='pending'){b.classList.add('pending');b.textContent='⟳ Saving...';}
-  else if(s==='saved') {b.classList.add('synced'); b.textContent='✓ Saved';}
+  if(s==='saving'||s==='pending'){b.classList.add('pending');b.textContent='⟳ Saving…';}
+  else if(s==='saved') {
+    b.classList.add('synced');
+    if(cloudEnabled()&&CLOUD_OK){ b.textContent='☁ Synced'; b.title='Saved to your LBC account'; }
+    else { b.textContent='✓ Saved'; b.title='Saved on this device'+(cloudEnabled()?' (cloud retry pending)':''); }
+  }
   else if(s==='error') {b.classList.add('error');  b.textContent='⚠ Error';}
-  else                 {b.textContent='○ Loading...';}
+  else                 {b.textContent='○ Loading…';}
 }
 
 function captureSettings(){
@@ -424,19 +596,30 @@ function restoreSettings(settings){
   });
 }
 
-function loadState(){
-  try{
-    initializeProjectWorkspace();
-  }catch(e){
-    console.error('localStorage load failed:',e);
-    createFallbackWorkspace();
-  }
+function finishLoad(){
   syncReady=true;
   renderProjectSelect();
   renderSidebar();
   if(FIGS.length)showChart(Math.max(0,Math.min(currentIdx,FIGS.length-1)));
   else showChart(-1);
   setSyncStatus('saved');
+}
+
+// Remote-first: pull this account's workspace from Supabase, fall back to the
+// local cache (or an empty project) if signed out / offline. Never throws.
+function loadState(){
+  setSyncStatus('loading');
+  cloudLoad().then(function(remoteDoc){
+    REMOTE_DOC=remoteDoc;
+    if(remoteDoc) CLOUD_OK=true;     // a row exists for this account
+  }).catch(function(e){
+    console.warn('autocharter cloud load failed, using local cache:',e);
+    REMOTE_DOC=null;
+  }).then(function(){
+    try{ initializeProjectWorkspace(); }
+    catch(e){ console.error('workspace init failed:',e); createFallbackWorkspace(); }
+    finishLoad();
+  });
 }
 
 var saveTimer=null;
@@ -448,12 +631,21 @@ function queueSave(){
 }
 
 function saveState(){
+  var doc=null, localOk=false;
   try{
-    localStorage.setItem(PROJECT_STORAGE_KEY,JSON.stringify(gatherState()));
-    setSyncStatus('saved');
+    doc=gatherState();
+    localStorage.setItem(PROJECT_STORAGE_KEY,JSON.stringify(doc));
+    localOk=true;
   }catch(e){
-    console.error('localStorage save failed:',e);
-    setSyncStatus('error');
+    console.error('local save failed:',e);
+  }
+  if(doc&&cloudEnabled()){
+    setSyncStatus('saving');
+    cloudSave(doc)
+      .then(function(){ setSyncStatus('saved'); })
+      .catch(function(e){ console.warn('autocharter cloud save failed (kept local copy):',e); setSyncStatus('saved'); });
+  }else{
+    setSyncStatus(localOk?'saved':'error');
   }
 }
 
@@ -1595,25 +1787,19 @@ function persistActiveProjectSettings(){
 }
 
 function initializeProjectWorkspace(){
-  var raw=localStorage.getItem(PROJECT_STORAGE_KEY);
-  if(raw){
-    var parsed=JSON.parse(raw);
-    projects=(parsed.projects||[]).map(hydrateProject);
+  // Source order: this account's cloud doc → local cache → a single empty
+  // project. No bundled demo/sample projects — every account starts blank.
+  var parsed=REMOTE_DOC;
+  if(!parsed){
+    var raw=localStorage.getItem(PROJECT_STORAGE_KEY);
+    if(raw){ try{ parsed=JSON.parse(raw); }catch(e){ parsed=null; } }
+  }
+  if(parsed&&Array.isArray(parsed.projects)&&parsed.projects.length){
+    projects=parsed.projects.map(hydrateProject);
     activeProjectId=parsed.activeProjectId;
-    if(hasGhaffarProjectData())ensureGhaffarProject(projects);
-    else ensureBuiltInDemoProjects(projects);
   }
   if(!projects.length){
-    if(hasGhaffarProjectData()){
-      projects=[createGhaffarProject()];
-    } else {
-      var legacy=null;
-      try{
-        var legacyRaw=localStorage.getItem(STORAGE_KEY);
-        if(legacyRaw)legacy=JSON.parse(legacyRaw);
-      }catch(e){}
-      projects=[createSeedProject(legacy)].concat(createBuiltInDemoProjects());
-    }
+    projects=[createEmptyProject('Untitled Project')];
     activeProjectId=projects[0].id;
   }
   if(!projects.some(function(p){return p.id===activeProjectId;}))activeProjectId=projects[0].id;
@@ -1621,7 +1807,7 @@ function initializeProjectWorkspace(){
 }
 
 function createFallbackWorkspace(){
-  projects=hasGhaffarProjectData()?[createGhaffarProject()]:[createSeedProject(null)].concat(createBuiltInDemoProjects());
+  projects=[createEmptyProject('Untitled Project')];
   activeProjectId=projects[0].id;
   applyProject(projects[0]);
 }
