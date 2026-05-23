@@ -7,14 +7,17 @@
 // it's enforced by Row Level Security on the database side, not by hiding
 // the key. NEVER put an `sb_secret_*` / service_role key in this file.
 //
-// Network shares its Supabase project with the Management Terminal
-// (ohbzrlobkjtbmukqthdu). Same auth-login Edge Function, same JWT signing
-// secret, same PostgREST instance — so the same JWT works for both modules
-// and for the lns_* tables. See supabase/migrations/0014_network_schema.sql.
+// Network runs on the shared "Narin's Plus" Supabase project
+// (adnubucjlezrtusbicja) — the same project the launcher shell, Macro,
+// Asset-Mgmt and Management use. The lns_* tables (public schema, allow_all
+// RLS) were migrated here from the old decommission-bound temp project
+// (ohbzrlobkjtbmukqthdu) via scripts/copy-lns-to-narins.js; this repoints the
+// app at that copy. Publishable key only — RLS-gated, never an sb_secret_*.
+// See supabase/migrations/0014_network_schema.sql (+ 0014b/0014c, 0026 grants).
 
 window.LBC_NETWORK_CONFIG = {
   supabase: {
-    url:     'https://ohbzrlobkjtbmukqthdu.supabase.co',
-    anonKey: 'sb_publishable_V6CYOsEiXLO1Sz0TL4nH4A_uEOTuO2y'
+    url:     'https://adnubucjlezrtusbicja.supabase.co',
+    anonKey: 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7'
   }
 };
