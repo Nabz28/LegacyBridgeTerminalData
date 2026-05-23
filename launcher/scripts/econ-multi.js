@@ -136,12 +136,15 @@
   // Indexed by n−r (number of common stochastic trends being tested), 1..5.
   // Osterwald-Lenum (1992) 5% critical values, keyed by (K−r), for the two
   // deterministic cases supported: 'c' = unrestricted constant, 'n' = none.
+  // 'c' = UNRESTRICTED constant (the constant is concentrated out of both R0 and
+  // R1, i.e. enters the short-run dynamics — Johansen Case 3 / H1(r)); 'n' = no
+  // deterministic term. Values are the matching Osterwald-Lenum (1992) 5% rows.
   var JOHANSEN_TRACE_5 = {
-    c: { 1: 3.84, 2: 15.49, 3: 29.80, 4: 47.86, 5: 68.81 },
+    c: { 1: 3.84, 2: 15.41, 3: 29.68, 4: 47.21, 5: 68.52 },
     n: { 1: 3.84, 2: 12.53, 3: 24.31, 4: 39.89, 5: 59.46 }
   };
   var JOHANSEN_MAXEIG_5 = {
-    c: { 1: 3.84, 2: 14.26, 3: 21.13, 4: 27.58, 5: 33.88 },
+    c: { 1: 3.84, 2: 14.07, 3: 20.97, 4: 27.07, 5: 33.46 },
     n: { 1: 3.84, 2: 11.44, 3: 17.89, 4: 23.80, 5: 30.04 }
   };
 

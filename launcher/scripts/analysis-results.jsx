@@ -160,8 +160,8 @@
           <StatGrid stats={statList} />
           {res.diag && <DiagPanel diag={res.diag} robust={res.robust} />}
           <div className="an-charts2">
-            <div className="an-chart-card"><div className="an-chart-h">Actual vs. Fitted</div><MiniLine series={[{ name: 'Actual', values: actual, color: COL.line2 }, { name: 'Fitted', values: res.fitted, color: COL.line }]} /></div>
-            <div className="an-chart-card"><div className="an-chart-h">Residuals</div><MiniLine series={[{ name: 'resid', values: res.resid, color: COL.line3, w: 1.2 }]} /></div>
+            <div className="an-chart-card"><div className="an-chart-h">Actual vs. Fitted</div><MiniLine series={[{ name: 'Actual', values: actual, color: COL.line2 }, { name: 'Fitted', values: res.fitted, color: COL.line }]} labels={res._dates || []} /></div>
+            <div className="an-chart-card"><div className="an-chart-h">Residuals</div><MiniLine series={[{ name: 'resid', values: res.resid, color: COL.line3, w: 1.2 }]} labels={res._dates || []} /></div>
           </div>
         </div>
       );
@@ -342,7 +342,7 @@
         <div className="an-res">
           <StatGrid stats={[{ label: 'ω', value: fmt(res.omega, 6) }, { label: 'α (ARCH)', value: fmt(res.alpha, 4) }].concat(res.gamma != null ? [{ label: 'γ (GJR asymmetry)', value: fmt(res.gamma, 4) }] : []).concat([{ label: 'β (GARCH)', value: fmt(res.beta, 4) }, { label: 'Persistence', value: fmt(res.persistence, 4) }, { label: 'Uncond. vol', value: fmt(res.uncondVol, 5) }, { label: 'Log-lik', value: fmt(res.llf, 1) }, { label: 'AIC', value: fmt(res.aic, 1) }, { label: 'Obs', value: res.n }])} />
           {res.persistence >= 0.999 && <div className="an-verdict warn">⚠ Persistence ≈ 1 — variance is near-integrated (IGARCH); shocks die out very slowly.</div>}
-          <div className="an-chart-card"><div className="an-chart-h">{res._name} · conditional volatility (σₜ)</div><MiniLine series={[{ name: 'vol', values: res.condVol, color: COL.line }]} height={170} /></div>
+          <div className="an-chart-card"><div className="an-chart-h">{res._name} · conditional volatility (σₜ)</div><MiniLine series={[{ name: 'vol', values: res.condVol, color: COL.line }]} labels={res._dates || []} height={170} /></div>
         </div>
       );
     }
@@ -422,7 +422,7 @@
       return (
         <div className="an-res">
           <div className="an-note"><b>{res._yName || 'Y'}</b> · rolling regression, {res.window}-period window — time-varying coefficients.</div>
-          {(res.coefPaths || []).map(function (path, i) { return <div key={i} className="an-chart-card"><div className="an-chart-h">β · {rn[i] || ('coef ' + i)}</div><MiniLine series={[{ name: 'b', values: path, color: i === 0 ? COL.line2 : COL.line }]} height={110} /></div>; })}
+          <div className="an-charts2">{(res.coefPaths || []).map(function (path, i) { return <div key={i} className="an-chart-card"><div className="an-chart-h">β · {rn[i] || ('coef ' + i)}</div><MiniLine series={[{ name: 'b', values: path, color: i === 0 ? COL.line2 : COL.line }]} labels={res._dates || []} height={110} /></div>; })}</div>
         </div>
       );
     }
