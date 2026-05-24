@@ -204,7 +204,6 @@
     var commonKeys = Object.keys(keySet).sort();
     if (commonKeys.length < 4) return { error: 'Only ' + commonKeys.length + ' ' + freq + ' periods of history — add a longer series or lower the frequency.' };
     var Ht = commonKeys.length;
-    var coverageWarn = null;
     var histDates = commonKeys.map(function (k) { return keyDate(k, freq); });
 
     // future dates
@@ -279,13 +278,18 @@
       } else if (n.method === 'ets') {
         var pe = n.params || {}; try { var et = E.ets(histVals.filter(isF), { trend: pe.trend !== false, seasonal: pe.seasonal || 'none', s: pe.s || 4, h: H }); uni[id] = (et.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'ets', sigma: Math.sqrt((et.sse || 0) / Math.max(1, histVals.filter(isF).length)) }; } catch (e) { uni[id] = null; fit[id] = { error: 'ets failed: ' + (e.message || e) }; }
       } else if (n.method === 'drift') {
-        var dd = diffs(histVals); fit[id] = { kind: 'drift', slope: mean(dd), sigma: sd(dd), last: lastFinite(histVals) };
+        var dl = lastFinite(histVals); if (dl == null) { fit[id] = { error: 'no history on the shared timeline' }; return; }
+        var dd = diffs(histVals); fit[id] = { kind: 'drift', slope: mean(dd), sigma: sd(dd), last: dl };
       } else if (n.method === 'rw') {
-        var dr = diffs(histVals); fit[id] = { kind: 'rw', sigma: sd(dr), last: lastFinite(histVals) };
+        var rl = lastFinite(histVals); if (rl == null) { fit[id] = { error: 'no history on the shared timeline' }; return; }
+        var dr = diffs(histVals); fit[id] = { kind: 'rw', sigma: sd(dr), last: rl };
       } else if (n.method === 'growth') {
-        fit[id] = { kind: 'growth', g: (n.params && n.params.growthPct || 0) / 100, last: lastFinite(histVals), sigma: 0 };
+        var gl = lastFinite(histVals); if (gl == null) { fit[id] = { error: 'no history to grow from' }; return; }
+        fit[id] = { kind: 'growth', g: (n.params && n.params.growthPct || 0) / 100, last: gl, sigma: 0 };
       } else if (n.method === 'scenario') {
-        fit[id] = { kind: 'scenario', last: lastFinite(histVals), sigma: 0 };
+        var sl = lastFinite(histVals);
+        if (sl == null && (n.params && n.params.scenMode) !== 'level') { fit[id] = { error: 'no base value — switch to a custom-values scenario or give it history' }; return; }
+        fit[id] = { kind: 'scenario', last: sl, sigma: 0 };
       } else if (n.method === 'equation') {
         fit[id] = { kind: 'equation', sigma: 0, err: getCompiled(id, n)._err };
       } else { fit[id] = { kind: n.method || 'rw', sigma: 0, last: lastFinite(histVals) }; }
@@ -316,7 +320,7 @@
 
     // ---- assemble output ----
     var target = (nodes.find(function (n) { return n.isTarget; }) || nodes[nodes.length - 1]).id;
-    var out = { dates: { hist: histDates, future: futureDates }, order: order, target: target, freq: freq, H: H, bandPct: bandPct, warning: coverageWarn, nodes: {} };
+    var out = { dates: { hist: histDates, future: futureDates }, order: order, target: target, freq: freq, H: H, bandPct: bandPct, nodes: {} };
     order.forEach(function (id) {
       var n = byId[id];
       var h = path[id].slice(0, Ht), fc = path[id].slice(Ht);

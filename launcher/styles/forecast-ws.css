@@ -37,12 +37,16 @@
 .fc-count{font-family:var(--an-mono);font-size:10px;color:var(--an-tx3)}
 .fc-add-row{display:flex;gap:5px;flex-wrap:wrap}
 .fc-add-row .an-add{flex:1;text-align:center;white-space:nowrap}
-/* equity: the stock-metric add is the primary action — full-width, filled accent */
-.fc-add-stock{flex-basis:100%!important;background:var(--an-acc-soft)!important;border-color:var(--an-acc-edge)!important;color:var(--an-acc)!important;font-weight:600}
-.fc-add-stock:hover{background:color-mix(in srgb,var(--an-acc) 24%,transparent)!important}
+/* equity: the stock-metric add is the PRIMARY action — full-width, real paper fill */
+.fc-add-stock{flex-basis:100%!important;background:color-mix(in srgb,var(--an-acc) 18%,transparent)!important;border-color:var(--an-acc)!important;color:var(--an-acc)!important;font-weight:700}
+.fc-add-stock:hover{background:color-mix(in srgb,var(--an-acc) 30%,transparent)!important}
+/* …and its three secondaries go quiet so the hierarchy is unmistakable */
+.fc-add-stock ~ .an-add{background:var(--an-bg2)!important;border-color:var(--an-bd)!important;color:var(--an-tx2)!important;font-weight:500}
+.fc-add-stock ~ .an-add:hover{background:var(--an-bg3)!important;color:var(--an-tx)!important}
 /* stock-metric modal */
 .fc-stk-body{padding:13px 15px;display:flex;flex-direction:column;gap:7px}
 .fc-stk-lbl{font-family:var(--an-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--an-tx3);margin-top:3px}
+.fc-stk-hint{font-size:10.5px;color:var(--an-tx3);line-height:1.45;margin:-2px 0 2px}
 .fc-stk-body select.ed-input{color-scheme:dark}
 .fc-tray{gap:5px}
 .fc-vcard{display:flex;align-items:center;gap:7px;padding:6px 8px;background:var(--an-bg2);border:1px solid var(--an-bd);

@@ -97,25 +97,28 @@
     function add() {
       if (!ticker.trim()) { setNote('Enter a ticker (e.g. AAPL, MSFT).'); return; }
       setBusy(true); setNote('Pulling ' + ticker.trim().toUpperCase() + '…');
-      DD.autoPull(ticker.trim(), metricId, freq).then(function (out) {
+      var tk = ticker.trim().toUpperCase();
+      DD.autoPull(tk, metricId, freq).then(function (out) {
         setBusy(false);
         if (out.series && out.series.length) {
           var met = DD.METRICS.find(function (m) { return m.id === metricId; }) || {};
-          props.onAdd(ticker.trim().toUpperCase() + ' ' + met.label, out.series, { kind: 'stock', ticker: ticker.trim(), metricId: metricId, freq: freq }, out.currency || null, met.kind || 'currency');
+          props.onAdd(tk + ' ' + met.label, out.series, { kind: 'stock', ticker: tk, metricId: metricId, freq: freq }, out.currency || null, met.kind || 'currency');
         } else { setNote(out.note || 'No data — IDX names usually lack Yahoo fundamentals. Use “＋ Manual” to paste the series.'); }
       }).catch(function (e) { setBusy(false); setNote('Pull failed (' + e + ') — use “＋ Manual” to paste instead.'); });
     }
+    var GROUPS = [{ id: 'income', label: 'Income statement' }, { id: 'balance', label: 'Balance sheet' }, { id: 'cashflow', label: 'Cash flow' }];
     return (
       <div className="an-modal-bg" onClick={props.onClose}>
         <div className="an-modal fc-stk-modal" onClick={function (e) { e.stopPropagation(); }}>
           <div className="an-modal-h"><span>Add a company financial metric</span><button className="an-modal-x" onClick={props.onClose}>×</button></div>
           <div className="fc-stk-body">
             <label className="fc-stk-lbl">Ticker</label>
-            <input className="ed-input" autoFocus placeholder="AAPL, MSFT, NVDA …  (.JK IDX names: paste via ＋ Manual)" value={ticker}
+            <input className="ed-input" autoFocus placeholder="AAPL, MSFT, NVDA …" value={ticker}
               onChange={function (e) { setTicker(e.target.value); }} onKeyDown={function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } else if (e.key === 'Escape') props.onClose(); }} />
+            <div className="fc-stk-hint">US tickers auto-pull from Yahoo fundamentals. IDX <b>.JK</b> names usually have none — paste the series via <b>＋ Manual</b> instead.</div>
             <label className="fc-stk-lbl">Metric</label>
             <select className="ed-input" value={metricId} onChange={function (e) { setMetricId(e.target.value); }}>
-              {DD.METRICS.map(function (m) { return <option key={m.id} value={m.id}>{m.label}</option>; })}
+              {GROUPS.map(function (g) { var ms = DD.METRICS.filter(function (m) { return m.stmt === g.id; }); return ms.length ? <optgroup key={g.id} label={g.label}>{ms.map(function (m) { return <option key={m.id} value={m.id}>{m.label}</option>; })}</optgroup> : null; })}
             </select>
             <label className="fc-stk-lbl">Frequency</label>
             <div className="ed-freq">{[['quarterly', 'Quarterly'], ['annual', 'Annual']].map(function (f) { return <button key={f[0]} className={'ed-freq-btn ' + (freq === f[0] ? 'on' : '')} onClick={function () { setFreq(f[0]); }}>{f[1]}</button>; })}</div>
@@ -242,7 +245,7 @@
             ); })}
           </div>
           {n.method === 'regression' && (n.parents || []).length > 0 && <div className="fc-lags">{(n.parents || []).map(function (pid) { var pn = nodes.find(function (x) { return x.id === pid; }); return <label key={pid} className="fc-lag" title="Lag this driver by N periods">{pn ? pn.sym : pid}<input type="number" min="0" max="12" value={(n.lags && n.lags[pid]) || 0} onChange={function (e) { var lg = Object.assign({}, n.lags || {}); lg[pid] = Math.max(0, +e.target.value || 0); up({ lags: lg }); }} /></label>; })}</div>}
-          {n.method === 'regression' && <label className="fc-logchk" title="Fit log(Y) on level drivers — keeps a positive-only target (price, index) positive and reads β as a semi-elasticity (% per unit). Use for prices like gold."><input type="checkbox" checked={!!(n.params && n.params.logspace)} onChange={function (e) { upParams({ logspace: e.target.checked }); }} /> log Y — keep positive (semi-elasticity)</label>}
+          {n.method === 'regression' && <label className="fc-logchk" title="Fit log(Y) on level drivers — keeps a positive-only target (revenue, a price, an index) from forecasting negative, and reads β as a semi-elasticity (% per unit)."><input type="checkbox" checked={!!(n.params && n.params.logspace)} onChange={function (e) { upParams({ logspace: e.target.checked }); }} /> log Y — keep positive (semi-elasticity)</label>}
         </div>}
 
         {n.method === 'equation' && <div className="fc-insp-block">
@@ -499,6 +502,7 @@
               var base = (pinned && pinned.target === result.target && pinned.fcst.length === target.fcst.length) ? pinned.fcst : null;
               var vsBase = base ? fL - base[base.length - 1] : null;
               var tf = target.fit || {};
+              var ccy = (byId[result.target] && byId[result.target].currency) || '';
               var spuriousDrivers = result.order.filter(function (id) { return id !== result.target && result.nodes[id].fit && result.nodes[id].fit.spurious; }).map(function (id) { return result.nodes[id].sym; });
               return <div className="fc-res">
                 {stale && <div className="fc-updating">● updating forecast…</div>}
@@ -509,14 +513,13 @@
                     <span className="fc-res-end">{result.H} {FREQS.find(function (f) { return f.id === result.freq; }) ? FREQS.find(function (f) { return f.id === result.freq; }).label.toLowerCase() : ''} → {endLabel}</span>
                   </span>
                 </div>
-                <div className="fc-res-now">last actual <b>{fmtVal(hL)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{fmtVal(fL)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtVal(vsBase)}</b></span>}</div>
-                {result.warning && <div className="an-verdict warn">⚠ {result.warning}</div>}
+                <div className="fc-res-now">last actual <b>{ccy ? ccy + ' ' : ''}{fmtVal(hL)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{ccy ? ccy + ' ' : ''}{fmtVal(fL)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtVal(vsBase)}</b></span>}</div>
                 {tf.error && <div className="an-verdict warn">⚠ Target won't fit: {tf.error}</div>}
                 {tf.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's residuals are non-stationary (DW={fmtVal(tf.dw, 2)}{tf.adfP != null ? ', ADF p≈' + fmtVal(tf.adfP, 2) : ''}). A high R² here can be a common-trend artefact — {tf.logspace ? 'try differenced / % growth drivers (log Y is already on).' : <span>try <b>differenced / % growth</b> drivers, or the <b>log Y</b> toggle for a price.</span>}</div>}
                 {target.extreme && <div className="an-verdict warn">⚠ Forecast runs far beyond the historical range (runaway compounding) — sanity-check the driver scenarios / growth rates.</div>}
                 {spuriousDrivers.length > 0 && <div className="an-note">⚠ {spuriousDrivers.length} driver fit(s) flagged spurious ({spuriousDrivers.join(', ')}) — the target cone inherits their uncertainty.</div>}
                 {tf.kind === 'regression' && tf.thin && !tf.error && <div className="an-verdict warn">⚠ <b>Thin fit</b>: only {tf.nfit} overlapping periods (auto-pulled fundamentals are short). Treat βs as indicative — paste a longer metric history (＋ Manual) or forecast it univariately (drift/growth).</div>}
-                {tf.kind === 'regression' && !tf.error && <div className="an-note">Fit R²={fmtVal(tf.r2, 3)} on {tf.nfit} periods · {tf.names.slice(1).join(', ')}{tf.logspace ? ' · log Y (point = median)' : ''}{tf.holdout ? ' · hold-out RMSE ' + fmtVal(tf.holdout.rmse) + ' / MAE ' + fmtVal(tf.holdout.mae) + ' (last ' + tf.holdout.n + ')' : ''}</div>}
+                {tf.kind === 'regression' && !tf.error && <div className="an-note">Fit R²={fmtVal(tf.r2, 3)} on {tf.nfit} periods · {(tf.names || []).slice(1).join(', ')}{tf.logspace ? ' · log Y (point = median)' : ''}{tf.holdout ? ' · hold-out RMSE ' + fmtVal(tf.holdout.rmse) + ' / MAE ' + fmtVal(tf.holdout.mae) + ' (last ' + tf.holdout.n + ')' : ''}</div>}
                 <FcChart hist={target.hist} fcst={target.fcst} lo={target.lo} hi={target.hi} fit={tf.fittedHist} base={base} bandPct={bandPct} histDates={result.dates.hist} futureDates={result.dates.future} color={COL.target} height={184} />
                 <div className="fc-legend"><span className="fc-lg"><i className="fc-lg-hist" />history</span><span className="fc-lg"><i className="fc-lg-fcst" />forecast</span>{tf.fittedHist && <span className="fc-lg"><i className="fc-lg-fit" />in-sample fit</span>}{base && <span className="fc-lg"><i className="fc-lg-base" />baseline</span>}<span className="fc-lg"><i className="fc-lg-band" />{bandPct}% band</span></div>
                 <div className="fc-sm-h">Drivers</div>
