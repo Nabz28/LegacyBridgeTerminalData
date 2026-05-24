@@ -1,0 +1,90 @@
+/* lbc-grid.css — shared Excel-like data grid (window.LbcDataGrid).
+   Scoped .lg-* classes; consumes the --an-* token skin (defined on the
+   .an-lab containers that host Analysis / Forecast / Driver Lab). */
+
+.lg-wrap {
+  --lg-bg1: var(--an-bg1, #0A0A0B);
+  --lg-bg2: var(--an-bg2, #111114);
+  --lg-bg3: var(--an-bg3, #17171B);
+  --lg-bd: var(--an-bd, rgba(255, 255, 255, .10));
+  --lg-bd2: var(--an-bd2, rgba(255, 255, 255, .05));
+  --lg-tx: var(--an-tx, #fff);
+  --lg-tx2: var(--an-tx2, #D4DCEA);
+  --lg-tx3: var(--an-tx3, #8E9AB0);
+  --lg-acc: var(--an-acc, #E8E4D9);
+  --lg-mono: var(--an-mono, 'Geist Mono', ui-monospace, monospace);
+  border: 1px solid var(--lg-bd);
+  border-radius: var(--r-3, 4px);
+  overflow: hidden;
+  background: var(--lg-bg1);
+}
+
+.lg-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--lg-bd);
+  background: var(--lg-bg2);
+}
+.lg-bar-l { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.lg-bar-r { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.lg-title { font-size: 12px; font-weight: 700; color: var(--lg-tx); letter-spacing: -.01em; }
+.lg-badge {
+  font-family: var(--lg-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-1, 2px);
+  background: color-mix(in srgb, var(--lg-acc) 16%, transparent);
+  color: var(--lg-acc); white-space: nowrap;
+}
+.lg-dim { font-family: var(--lg-mono); font-size: 10px; color: var(--lg-tx3); white-space: nowrap; }
+.lg-csv {
+  font-family: var(--lg-mono); font-size: 10.5px; font-weight: 600;
+  padding: 4px 9px; border-radius: var(--r-2, 3px);
+  background: var(--lg-bg3); border: 1px solid var(--lg-bd); color: var(--lg-tx2);
+  cursor: pointer; transition: background var(--duration-fast, 150ms) var(--ease, ease), color 150ms ease;
+}
+.lg-csv:hover { background: color-mix(in srgb, var(--lg-acc) 22%, var(--lg-bg3)); color: var(--lg-tx); }
+
+.lg-note { padding: 6px 10px; font-size: 11px; color: var(--lg-tx3); border-bottom: 1px solid var(--lg-bd2); }
+.lg-trunc { border-bottom: 0; border-top: 1px solid var(--lg-bd2); color: var(--lg-acc); }
+
+.lg-scroll { overflow: auto; position: relative; }
+
+.lg-table { border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; }
+.lg-table th, .lg-table td {
+  padding: 4px 10px; font-size: 11.5px; white-space: nowrap;
+  border-bottom: 1px solid var(--lg-bd2); border-right: 1px solid var(--lg-bd2);
+  text-align: left;
+}
+.lg-table thead th {
+  position: sticky; top: 0; z-index: 3;
+  background: var(--lg-bg3); color: var(--lg-tx2);
+  font-weight: 700; font-size: 10.5px; letter-spacing: .02em;
+  border-bottom: 1px solid var(--lg-bd);
+}
+.lg-table td { color: var(--lg-tx2); }
+.lg-table tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--lg-bg2) 55%, transparent); }
+.lg-table tbody tr:hover td { background: color-mix(in srgb, var(--lg-acc) 8%, var(--lg-bg2)); }
+
+/* numeric columns: mono + right aligned */
+.lg-table .lg-num { font-family: var(--lg-mono); text-align: right; color: var(--lg-tx); }
+.lg-table thead th.lg-num { text-align: right; }
+
+/* row-number gutter (sticky left, z above body, below header corner) */
+.lg-gut {
+  position: sticky; left: 0; z-index: 2;
+  background: var(--lg-bg2); color: var(--lg-tx3);
+  font-family: var(--lg-mono); font-size: 10px; text-align: right;
+  border-right: 1px solid var(--lg-bd);
+}
+.lg-corner { z-index: 4; background: var(--lg-bg3); }
+
+/* first data column also sticky, to the right of the gutter */
+.lg-table th.lg-fix, .lg-table td.lg-fix {
+  position: sticky; left: 38px; z-index: 2;
+  background: var(--lg-bg2); color: var(--lg-tx); font-weight: 600;
+  border-right: 1px solid var(--lg-bd);
+}
+.lg-table thead th.lg-fix { z-index: 4; background: var(--lg-bg3); }
+.lg-table tbody tr:nth-child(even) td.lg-fix { background: color-mix(in srgb, var(--lg-bg2) 92%, #000); }

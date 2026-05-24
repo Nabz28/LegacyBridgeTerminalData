@@ -60,7 +60,7 @@
     { id: 'panel', group: 'Panel', build: 'panel', glyph: '▦', label: 'Panel (FE / RE)', desc: 'fixed / random effects · cluster SE · Hausman' }
   ];
   var METHOD_GROUPS = ['Regression', 'Time Series', 'Volatility', 'Multivariate (VAR)', 'Cointegration', 'Statistics', 'Panel'];
-  var FREQS = [{ id: '', label: 'Native' }, { id: 'W', label: 'Weekly' }, { id: 'M', label: 'Monthly' }, { id: 'Q', label: 'Quarterly' }, { id: 'A', label: 'Annual' }];
+  var FREQS = [{ id: 'auto', label: 'Auto (detect)' }, { id: '', label: 'Native (exact dates)' }, { id: 'W', label: 'Weekly' }, { id: 'M', label: 'Monthly' }, { id: 'Q', label: 'Quarterly' }, { id: 'A', label: 'Annual' }];
 
   function alias(vd) { var t = (E.TRANSFORMS.find(function (x) { return x.id === vd.transform; }) || {}).label || vd.transform; return vd.transform === 'level' ? vd.label : vd.label + ' [' + t + ']'; }
   function histogram(col, name) { var n = col.length; if (!n) return null; var lo = Math.min.apply(null, col), hi = Math.max.apply(null, col); var bins = Math.min(20, Math.max(6, Math.ceil(Math.sqrt(n)))); var w = (hi - lo) / bins || 1; var counts = new Array(bins).fill(0), edges = []; for (var b = 0; b < bins; b++) edges.push((lo + b * w).toFixed(1)); col.forEach(function (v) { var i = Math.min(bins - 1, Math.floor((v - lo) / w)); counts[i]++; }); return { counts: counts, edges: edges, name: name }; }
@@ -151,7 +151,7 @@
     var CFG0 = { y: null, x: [], endo: [], setvars: [], one: null, lags: 2, trend: 'c', robust: 'none', lambda1: 0.2, lambda2: 0.5, lambda3: 1, corrMethod: 'pearson', effects: 'fixed', irfH: 12,
       p: 1, d: 0, q: 0, P: 0, D: 0, Q: 0, s: 12, h: 12, ident: 'recursive', hpLambda: 1600, tau: 0.5, win: 36, gjr: false, decType: 'add', rank: 1, breakPct: 50 };
     var _cfg = React.useState(CFG0), cfg = _cfg[0], setCfg = _cfg[1];
-    var _cl = React.useState({ freq: 'M' }), cleaning = _cl[0], setCleaning = _cl[1];
+    var _cl = React.useState({ freq: 'auto' }), cleaning = _cl[0], setCleaning = _cl[1];
     var _res = React.useState(null), result = _res[0], setResult = _res[1];
     var _run = React.useState(false), running = _run[0], setRunning = _run[1];
     var _err = React.useState(''), err = _err[0], setErr = _err[1];
@@ -159,10 +159,22 @@
     var _saved = React.useState([]), saved = _saved[0], setSaved = _saved[1];
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
     var _panel = React.useState(''), panelCsv = _panel[0], setPanelCsv = _panel[1];
+    var _tab = React.useState('res'), resTab = _tab[0], setResTab = _tab[1];        // 'res' | 'data'
     var loaded = React.useRef(false);
     var saveTimer = React.useRef(null);
+    var resultsRef = React.useRef(null);
 
     var byUid = {}; vars.forEach(function (v) { byUid[v.uid] = v; });
+
+    // The variable uids that feed the current method (mirrors compute()'s picks).
+    function activeUids() {
+      var b = (METHODS.find(function (m) { return m.id === method; }) || {}).build;
+      if (b === 'one') return cfg.one ? [cfg.one] : [];
+      if (b === 'arima' || b === 'eq') return (cfg.y ? [cfg.y] : []).concat(cfg.x || []);
+      if (b === 'multi') return (cfg.endo || []).slice();
+      if (b === 'set') return (cfg.setvars || []).slice();
+      return [];
+    }
 
     // boot: load workspace (cloud-first, local fallback)
     React.useEffect(function () {
@@ -229,15 +241,23 @@
     function buildDataset(uids, ddopts) {
       ddopts = ddopts || {};
       var tf = function (vd) { return (ddopts.forceLog && vd.transform === 'level') ? 'log' : vd.transform; };
-      var freq = cleaning.freq;  // '' = native (no resample)
+      var freqMode = cleaning.freq;  // 'auto' | '' (native) | 'W'|'M'|'Q'|'A'
+      // Per-variable native-frequency detection (drives the freq strip + auto align).
+      var detected = uids.map(function (uid) {
+        var s = seriesMap[uid]; var d = s && s.length ? E.detectFreq(s) : null;
+        return { uid: uid, label: byUid[uid] ? byUid[uid].label : uid, freq: d };
+      });
+      // Resolve the alignment frequency: 'auto' -> coarsest detected.
+      var freq = freqMode;
+      if (freqMode === 'auto') freq = E.autoFreq(uids.map(function (uid) { return seriesMap[uid] || []; })).id;
       var resampled = uids.map(function (uid) {
         var vd = byUid[uid], s = seriesMap[uid]; if (!vd || !s) return null;
         return { vd: vd, series: freq ? E.resample(s, freq, vd.agg || 'last') : s.slice() };
       });
       if (resampled.some(function (r) { return !r || !r.series.length; })) return { error: 'Some series are still loading (or returned no data) — try again in a moment.' };
       var alignedRaw = E.alignVars(resampled.map(function (r) { return { name: r.vd.label, series: r.series }; }), {});
-      var fl = (FREQS.find(function (f) { return f.id === freq; }) || { label: 'native' }).label.toLowerCase();
-      if (alignedRaw.n < 5) return { error: 'Only ' + alignedRaw.n + ' overlapping ' + fl + ' observations across the chosen series. Their date ranges barely overlap — pick a longer common span or a lower frequency' + (!freq ? ' (mixed native frequencies rarely share exact dates — set a Frequency above).' : '.') };
+      var fl = (E.FREQ_LABEL[freq] || 'native').toLowerCase();
+      if (alignedRaw.n < 5) return { error: 'Only ' + alignedRaw.n + ' overlapping ' + fl + ' observations across the chosen series. Their date ranges barely overlap — pick a longer common span or a lower frequency' + (!freq ? ' (mixed native frequencies rarely share exact dates — switch Frequency to Auto).' : '.') };
       var tcols = alignedRaw.columns.map(function (col, i) { return E.transform(col, tf(byUid[uids[i]]), { k: byUid[uids[i]].k || 1 }); });
       var keep = [];
       for (var r = 0; r < alignedRaw.n; r++) { var ok = true; for (var c = 0; c < tcols.length; c++) { var v = tcols[c][r]; if (v == null || !isFinite(v)) { ok = false; break; } } if (ok) keep.push(r); }
@@ -246,7 +266,8 @@
         dates: keep.map(function (r) { return alignedRaw.dates[r]; }),
         names: uids.map(function (uid) { var vd = byUid[uid]; return (ddopts.forceLog && vd.transform === 'level') ? ('ln ' + vd.label) : alias(vd); }),
         columns: tcols.map(function (col) { return keep.map(function (r) { return col[r]; }); }),
-        n: keep.length, freq: freq
+        n: keep.length, freq: freq, freqMode: freqMode, perYear: (E.FREQ_PER_YEAR[freq] || 252), detected: detected,
+        dropped: alignedRaw.n - keep.length
       };
     }
 
@@ -255,7 +276,7 @@
       setTimeout(function () {  // let spinner paint
         try {
           var res = compute();
-          setResult(res);
+          setResult(res); setResTab('res');
         } catch (e) { setErr(String(e && e.message || e)); setResult(null); }
         setRunning(false);
       }, 20);
@@ -314,7 +335,7 @@
       if (method === 'factor') {
         if (!cfg.y || !cfg.x.length) throw new Error('Set the asset (Y) and at least one factor (X).');
         var dsf = buildDataset([cfg.y].concat(cfg.x)); if (dsf.error) throw new Error(dsf.error);
-        var ppy = { '': 252, W: 52, M: 12, Q: 4, A: 1 }[cleaning.freq] || 12;
+        var ppy = dsf.perYear || 12;
         var rf = E.factorModel(dsf.columns[0], dsf.columns.slice(1), { names: dsf.names.slice(1), robust: cfg.robust === 'none' ? 'hac' : cfg.robust, periodsPerYear: ppy });
         rf._yName = dsf.names[0]; return rf;
       }
@@ -436,6 +457,38 @@
 
     var loggedIn = cloudEnabled();
     var curMethod = METHODS.find(function (m) { return m.id === method; });
+
+    // ---- frequency strip (live, method-independent) ----
+    var uidsNow = activeUids();
+    var detList = uidsNow.map(function (uid) {
+      var s = seriesMap[uid];
+      return { label: byUid[uid] ? byUid[uid].label : uid, d: (s && s.length) ? E.detectFreq(s) : null };
+    });
+    var resolvedId = cleaning.freq === 'auto'
+      ? (uidsNow.length ? E.autoFreq(uidsNow.map(function (u) { return seriesMap[u] || []; })).id : null)
+      : cleaning.freq;
+    var resolvedLabel = cleaning.freq === '' ? 'Native (exact dates)' : (E.FREQ_LABEL[resolvedId] || '—');
+
+    // ---- aligned dataset for the Data tab + CSV export ----
+    function displayDataset() {
+      if (curMethod.build === 'panel') return { error: 'Panel models use pasted long-format CSV — export from your source.' };
+      if (!uidsNow.length) return { error: 'Pick the variables for this model first.' };
+      return buildDataset(uidsNow);
+    }
+    function exportCsv() {
+      var ds = displayDataset();
+      if (ds.error) { setErr(ds.error); return; }
+      var headers = ['Date'].concat(ds.names);
+      var rows = ds.dates.map(function (d, i) { return [d].concat(ds.columns.map(function (c) { return c[i]; })); });
+      window.LbcExport.saveCSV('analysis-' + method + '-' + window.LbcExport.stamp() + '.csv', { headers: headers, rows: rows });
+    }
+    function exportPng() {
+      if (!window.LbcExport) return;
+      window.LbcExport.pngFromContainer(resultsRef.current, {
+        filename: 'analysis-' + method + '-' + window.LbcExport.stamp() + '.png',
+        onError: function (m) { setErr(m || 'Nothing chart-like to export as PNG. Switch to a method with a chart, or use CSV.'); }
+      });
+    }
 
     return (
       <section className="an-lab">
@@ -578,8 +631,20 @@
                 </div>
               )}
 
+              {curMethod.build !== 'panel' && detList.length > 0 && (
+                <div className="an-freqstrip">
+                  {detList.map(function (it, i) {
+                    return <span key={i} className="an-freqchip" title={it.d ? (it.d.n + ' obs' + (it.d.gapDays != null ? ' · ~' + it.d.gapDays + 'd median gap' : '')) : 'still loading'}>
+                      <span className="an-freqchip-lbl">{it.label}</span>
+                      <span className={'an-freqchip-f' + (it.d && resolvedId && it.d.id !== resolvedId ? ' an-freqchip-coerced' : '')}>{it.d ? it.d.label : '…'}</span>
+                    </span>;
+                  })}
+                  <span className="an-freqarrow">→ aligned to</span>
+                  <span className="an-freqchip an-freqchip-out"><span className="an-freqchip-f">{resolvedLabel}</span></span>
+                </div>
+              )}
               <div className="an-runrow">
-                {curMethod.build !== 'panel' && <div className="an-clean"><label>Frequency</label><select value={cleaning.freq} onChange={function (e) { setCleaning({ freq: e.target.value }); }}>{FREQS.map(function (f) { return <option key={f.id} value={f.id}>{f.label}</option>; })}</select><span className="an-dim">aligned by date intersection · missing rows dropped</span></div>}
+                {curMethod.build !== 'panel' && <div className="an-clean"><label>Frequency</label><select value={cleaning.freq} onChange={function (e) { setCleaning({ freq: e.target.value }); }}>{FREQS.map(function (f) { return <option key={f.id} value={f.id}>{f.label}</option>; })}</select><span className="an-dim">{cleaning.freq === 'auto' ? 'auto = align to the coarsest series · missing rows dropped' : 'aligned by date intersection · missing rows dropped'}</span></div>}
                 <span className="an-topbar-sp" />
                 <button className="an-run" disabled={running} onClick={run}>{running ? '⟳ Running…' : '▶ Run analysis'}</button>
               </div>
@@ -589,9 +654,30 @@
 
           {/* RIGHT — results */}
           <div className="an-results">
-            {!result && !running && <div className="an-empty an-results-empty">Build a model and hit <b>Run analysis</b>. Results — coefficients, diagnostics, IRFs, heatmaps — appear here.</div>}
-            {running && <div className="an-running"><div className="an-running-bar" />Computing…</div>}
-            {result && R && <R.ResultView result={result} yName={result._yName} vars={byUid} />}
+            {result && (
+              <div className="an-resbar">
+                <div className="an-restabs">
+                  <button className={'an-restab' + (resTab === 'res' ? ' on' : '')} onClick={function () { setResTab('res'); }}>Results</button>
+                  <button className={'an-restab' + (resTab === 'data' ? ' on' : '')} onClick={function () { setResTab('data'); }}>Data</button>
+                </div>
+                <div className="an-resexp">
+                  <button className="an-exp-btn" onClick={exportCsv} title="Download the aligned dataset as CSV">↓ CSV</button>
+                  {resTab === 'res' && <button className="an-exp-btn" onClick={exportPng} title="Download the chart as a white-background PNG">↓ PNG</button>}
+                </div>
+              </div>
+            )}
+            <div className="an-res-body" ref={resultsRef}>
+              {!result && !running && <div className="an-empty an-results-empty">Build a model and hit <b>Run analysis</b>. Results — coefficients, diagnostics, IRFs, heatmaps — appear here.</div>}
+              {running && <div className="an-running"><div className="an-running-bar" />Computing…</div>}
+              {result && resTab === 'data' && (function () {
+                var ds = displayDataset();
+                if (ds.error) return <div className="an-err">{ds.error}</div>;
+                var headers = ['Date'].concat(ds.names);
+                var rows = ds.dates.map(function (d, i) { return [d].concat(ds.columns.map(function (c) { return c[i]; })); });
+                return <window.LbcDataGrid title="Aligned dataset" freqBadge={(resolvedLabel || 'native') + (cleaning.freq === 'auto' ? ' · auto' : '')} headers={headers} rows={rows} note={ds.n + ' rows after alignment' + (ds.dropped ? ' · ' + ds.dropped + ' dropped (lags/diffs/NA)' : '')} filename={'analysis-' + method + '-data-' + window.LbcExport.stamp() + '.csv'} maxHeight={460} />;
+              })()}
+              {result && resTab === 'res' && R && <R.ResultView result={result} yName={result._yName} vars={byUid} />}
+            </div>
           </div>
         </div>
 

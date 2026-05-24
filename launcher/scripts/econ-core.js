@@ -108,14 +108,58 @@
     });
   }
 
+  // ---------------- frequency auto-detection -------------------------------
+  // Detect the native sampling frequency of a series from the median gap
+  // between consecutive observations. This is what lets the platform align
+  // series that are only "days apart" without the analyst hand-picking a
+  // resample frequency.
+  var FREQ_RANK = { D: 0, W: 1, M: 2, Q: 3, A: 4 };
+  var FREQ_LABEL = { D: 'Daily', W: 'Weekly', M: 'Monthly', Q: 'Quarterly', A: 'Annual' };
+  var FREQ_PER_YEAR = { D: 252, W: 52, M: 12, Q: 4, A: 1 };
+
+  function detectFreq(series) {
+    var s = (series || []).filter(function (o) { return o && o.date; })
+      .slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+    var n = s.length;
+    if (n < 2) return { id: 'M', label: FREQ_LABEL.M, gapDays: null, n: n, perYear: FREQ_PER_YEAR.M, low: true };
+    var gaps = [];
+    for (var i = 1; i < n; i++) {
+      var t0 = Date.parse(s[i - 1].date + 'T00:00:00Z'), t1 = Date.parse(s[i].date + 'T00:00:00Z');
+      if (isFinite(t0) && isFinite(t1) && t1 > t0) gaps.push((t1 - t0) / 86400000);
+    }
+    if (!gaps.length) return { id: 'M', label: FREQ_LABEL.M, gapDays: null, n: n, perYear: FREQ_PER_YEAR.M, low: true };
+    gaps.sort(function (a, b) { return a - b; });
+    var mid = Math.floor(gaps.length / 2);
+    var med = gaps.length % 2 === 0 ? (gaps[mid - 1] + gaps[mid]) / 2 : gaps[mid];
+    var id = med <= 3.5 ? 'D' : med <= 10 ? 'W' : med <= 45 ? 'M' : med <= 135 ? 'Q' : 'A';
+    return { id: id, label: FREQ_LABEL[id], gapDays: Math.round(med * 10) / 10, n: n, perYear: FREQ_PER_YEAR[id] };
+  }
+
+  // Coarsest detected frequency across a set of series (standard practice:
+  // align everything down to the lowest-frequency member to avoid invented
+  // observations). Accepts [{series}] or [rawSeriesArray].
+  function autoFreq(seriesList) {
+    var best = -1, bestId = 'M', detected = [];
+    (seriesList || []).forEach(function (s) {
+      var ser = s && s.series ? s.series : s;
+      var d = detectFreq(ser); detected.push(d);
+      if (FREQ_RANK[d.id] > best) { best = FREQ_RANK[d.id]; bestId = d.id; }
+    });
+    return { id: bestId, label: FREQ_LABEL[bestId], perYear: FREQ_PER_YEAR[bestId], detected: detected };
+  }
+
   // ---------------- alignment ----------------------------------------------
-  // vars = [{name, series:[{date,value}]}] -> {dates, names, columns:[col per var], rows:[[...]]}
-  // Inner-join on dates after optional resample; drops rows with any null.
+  // vars = [{name, series:[{date,value}]}] -> {dates, names, columns:[col per var], rows:[[...]], freq}
+  // opt.freq: '' (native exact-date join), 'D'|'W'|'M'|'Q'|'A', or 'auto'
+  // (detect the coarsest native frequency and resample everything to it).
+  // Inner-join on the (resampled) dates; drops rows with any null.
   function alignVars(vars, opt) {
     opt = opt || {};
+    var freq = opt.freq;
+    if (freq === 'auto') freq = autoFreq(vars).id;
     var prepped = vars.map(function (v) {
       var s = v.series.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
-      if (opt.freq) s = resample(s, opt.freq, opt.agg);
+      if (freq) s = resample(s, freq, opt.agg);
       var mp = {}; s.forEach(function (o) { mp[o.date] = o.value; });
       return { name: v.name, map: mp };
     });
@@ -130,7 +174,7 @@
       if (ok) { rows.push(row); keptDates.push(d); }
     });
     var columns = vars.map(function (_, i) { return rows.map(function (r) { return r[i]; }); });
-    return { dates: keptDates, names: vars.map(function (v) { return v.name; }), columns: columns, rows: rows, n: rows.length };
+    return { dates: keptDates, names: vars.map(function (v) { return v.name; }), columns: columns, rows: rows, n: rows.length, freq: freq || null };
   }
 
   // ---------------- correlation --------------------------------------------
@@ -717,6 +761,7 @@
     ready: !!(M && JS),
     mean: mean, std: std, variance: variance, median: median, quantile: quantile, skewness: skewness, kurtosis: kurtosis, describe: describe,
     transform: transform, TRANSFORMS: TRANSFORMS, resample: resample, alignVars: alignVars,
+    detectFreq: detectFreq, autoFreq: autoFreq, FREQ_RANK: FREQ_RANK, FREQ_LABEL: FREQ_LABEL, FREQ_PER_YEAR: FREQ_PER_YEAR,
     pearson: pearson, spearman: spearman, corrMatrix: corrMatrix,
     ols: ols, adf: adf, engleGranger: engleGranger, acf: acf, pacf: pacf, granger: granger, grangerMatrix: grangerMatrix,
     varFit: varFit, selectVarLag: selectVarLag, varIRF: varIRF, varFEVD: varFEVD,

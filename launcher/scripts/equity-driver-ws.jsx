@@ -250,7 +250,9 @@
     var _sync = React.useState('idle'), sync = _sync[0], setSync = _sync[1];
     var _off = React.useState(false), cloudOff = _off[0], setCloudOff = _off[1];   // cloud unreachable this session → local-only (no clobber)
     var _edit = React.useState(true), editingY = _edit[0], setEditingY = _edit[1]; // collapse Y inputs once a series is loaded
+    var _tab = React.useState('res'), resTab = _tab[0], setResTab = _tab[1];        // 'res' | 'data'
     var loaded = React.useRef(false);
+    var resultsRef = React.useRef(null);
     var cloudSafe = React.useRef(false);   // only auto-write to cloud after a CLEAN load (never clobber on a transient load error)
     var aliveUids = React.useRef({});      // guard against stale in-flight driver fetches re-inserting removed series
     var saveTimer = React.useRef(null);
@@ -387,10 +389,32 @@
     function run() {
       setErr(''); setRunning(true);
       setTimeout(function () {
-        try { setResult(compute()); }
+        try { setResult(compute()); setResTab('res'); }
         catch (e) { setErr(String(e && e.message || e)); setResult(null); }
         setRunning(false);
       }, 20);
+    }
+
+    // Aligned modelled dataset (period × Y + drivers) for the Data tab + CSV.
+    function driverTable() {
+      var ds = buildDriverDataset(method === 'elasticity');
+      if (ds.error) return { error: ds.error };
+      var headers = ['Period', (method === 'elasticity' ? 'ln ' : '') + (metric.label || 'Metric')].concat(ds.names);
+      var rows = ds.dates.map(function (d, i) { return [d, ds.y[i]].concat(ds.x.map(function (col) { return col[i]; })); });
+      return { headers: headers, rows: rows, n: ds.n };
+    }
+    function exportCsv() {
+      if (!window.LbcExport) return;
+      var t = driverTable();
+      if (t.error) { setErr(t.error); return; }
+      window.LbcExport.saveCSV('driver-' + method + '-' + window.LbcExport.stamp() + '.csv', { headers: t.headers, rows: t.rows });
+    }
+    function exportPng() {
+      if (!window.LbcExport) return;
+      window.LbcExport.pngFromContainer(resultsRef.current, {
+        filename: 'driver-' + method + '-' + window.LbcExport.stamp() + '.png',
+        onError: function (m) { setErr(m || 'No chart to export — the Correlation method has a heatmap; regression shows fit/residual charts.'); }
+      });
     }
 
     function compute() {
@@ -527,6 +551,14 @@
                 <div className="an-opt"><label>Std. errors</label><select value={cfg.robust} onChange={function (e) { setCfg(Object.assign({}, cfg, { robust: e.target.value })); }}><option value="hac">HAC (Newey-West)</option><option value="hc1">Robust (HC1)</option><option value="none">Classical</option></select></div>
               </div>}
 
+              {E && (metric.series || drivers.length) ? (
+                <div className="an-freqstrip">
+                  {metric.series && metric.series.length > 1 && (function () { var d = E.detectFreq(metric.series); return <span className="an-freqchip" title={'metric · ' + d.n + ' obs · ~' + d.gapDays + 'd gap'}><span className="an-freqchip-lbl">{metric.label || 'Metric'}</span><span className="an-freqchip-f">{d.label}</span></span>; })()}
+                  {drivers.map(function (dv) { var s = seriesMap[dv.uid]; if (!s || s.length < 2) return null; var d = E.detectFreq(s); return <span key={dv.uid} className="an-freqchip" title={dv.label + ' · ' + d.n + ' obs · ~' + d.gapDays + 'd gap'}><span className="an-freqchip-lbl">{dv.label}</span><span className="an-freqchip-f">{d.label}</span></span>; })}
+                  <span className="an-freqarrow">→ bucketed to</span>
+                  <span className="an-freqchip an-freqchip-out"><span className="an-freqchip-f">{metric.freq === 'annual' ? 'Fiscal years' : 'Fiscal quarters'}</span></span>
+                </div>
+              ) : null}
               <div className="an-runrow">
                 <span className="an-dim">aligned on {metric.freq === 'annual' ? 'fiscal years' : 'fiscal quarters'} · drivers bucketed to each period</span>
                 <span className="an-topbar-sp" />
@@ -540,11 +572,30 @@
 
           {/* RIGHT — results */}
           <div className="an-results">
+            {result && (
+              <div className="an-resbar">
+                <div className="an-restabs">
+                  <button className={'an-restab' + (resTab === 'res' ? ' on' : '')} onClick={function () { setResTab('res'); }}>Results</button>
+                  <button className={'an-restab' + (resTab === 'data' ? ' on' : '')} onClick={function () { setResTab('data'); }}>Data</button>
+                </div>
+                <div className="an-resexp">
+                  <button className="an-exp-btn" onClick={exportCsv} title="Download the aligned modelled dataset as CSV">↓ CSV</button>
+                  {resTab === 'res' && <button className="an-exp-btn" onClick={exportPng} title="Download the chart as a white-background PNG">↓ PNG</button>}
+                </div>
+              </div>
+            )}
+            <div className="an-res-body" ref={resultsRef}>
             {!result && !running && <div className="an-empty an-results-empty">Set the financial metric (Y), add macro drivers (X), then <b>Run model</b>. Coefficients, fit, diagnostics — and a driver scenario — appear here.</div>}
             {running && <div className="an-running"><div className="an-running-bar" />Computing…</div>}
-            {result && result._spurious && <div className="an-verdict warn">⚠ Likely <b>spurious regression</b>: {result._spurious.allLevel ? 'the drivers are in levels' : 'a level driver is present'} and the residuals are non-stationary (ADF p≈{fmtNum(result._spurious.p, 3)}). A high R²/t-stat here can be an artefact of common trends. Switch the driver(s) (and ideally the metric) to <b>Δ / % growth / Δln</b> before trusting the βs.</div>}
-            {result && result._smallN && !result._spurious && <div className="an-verdict warn">⚠ Only <b>{result._n} periods</b> — too few for reliable inference (HAC SEs and t-stats are barely meaningful below ~20 obs). Treat the βs as indicative, not precise.</div>}
-            {result && R && <R.ResultView result={result} yName={result._yName} vars={{}} />}
+            {result && resTab === 'data' && (function () {
+              var t = driverTable();
+              if (t.error) return <div className="an-err">{t.error}</div>;
+              return <window.LbcDataGrid title="Modelled dataset" freqBadge={metric.freq === 'annual' ? 'Annual' : 'Quarterly'} headers={t.headers} rows={t.rows} note={t.n + ' aligned periods'} filename={'driver-' + method + '-data-' + window.LbcExport.stamp() + '.csv'} maxHeight={460} />;
+            })()}
+            {result && resTab === 'res' && result._spurious && <div className="an-verdict warn">⚠ Likely <b>spurious regression</b>: {result._spurious.allLevel ? 'the drivers are in levels' : 'a level driver is present'} and the residuals are non-stationary (ADF p≈{fmtNum(result._spurious.p, 3)}). A high R²/t-stat here can be an artefact of common trends. Switch the driver(s) (and ideally the metric) to <b>Δ / % growth / Δln</b> before trusting the βs.</div>}
+            {result && resTab === 'res' && result._smallN && !result._spurious && <div className="an-verdict warn">⚠ Only <b>{result._n} periods</b> — too few for reliable inference (HAC SEs and t-stats are barely meaningful below ~20 obs). Treat the βs as indicative, not precise.</div>}
+            {result && resTab === 'res' && R && <R.ResultView result={result} yName={result._yName} vars={{}} />}
+            </div>
           </div>
         </div>
 

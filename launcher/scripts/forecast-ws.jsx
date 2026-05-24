@@ -13,7 +13,7 @@
 // ================================================================
 (function () {
   'use strict';
-  var F = window.Forecast, DD = window.DriverData;
+  var F = window.Forecast, DD = window.DriverData, EC = window.Econ;
   var SB = 'https://adnubucjlezrtusbicja.supabase.co/rest/v1';
   var ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
   // resolve chart strokes from the LBC design tokens (fall back to literals if unavailable)
@@ -336,7 +336,9 @@
     var _off = React.useState(false), cloudOff = _off[0], setCloudOff = _off[1];
     var _stale = React.useState(false), stale = _stale[0], setStale = _stale[1];
     var _pin = React.useState(null), pinned = _pin[0], setPinned = _pin[1];   // {target, sym, fcst:[]} baseline snapshot for overlay
+    var _tab = React.useState('chart'), resTab = _tab[0], setResTab = _tab[1];   // 'chart' | 'data'
     var loaded = React.useRef(false), cloudSafe = React.useRef(false), aliveUids = React.useRef({}), saveTimer = React.useRef(null), runTimer = React.useRef(null), idc = React.useRef(1);
+    var resultsRef = React.useRef(null);
 
     var byId = {}; nodes.forEach(function (n) { byId[n.id] = n; });
     var selected = byId[selectedId] || null;
@@ -440,6 +442,44 @@
     var loggedIn = cloudEnabled();
     var target = result ? result.nodes[result.target] : null;
 
+    // Combined history + forecast table (target first, then drivers, + band).
+    function forecastTable() {
+      if (!result) return { headers: [], rows: [] };
+      var hist = result.dates.hist || [], fut = result.dates.future || [];
+      var tgtId = result.target;
+      var tnode = result.nodes[tgtId];
+      if (!tnode) return { headers: [], rows: [] };
+      var ids = [tgtId].concat((result.order || []).filter(function (id) { return id !== tgtId && result.nodes[id]; }));
+      var hasBand = !!(tnode.lo && tnode.hi);
+      var headers = ['Date', 'Phase'].concat(ids.map(function (id) { return result.nodes[id].sym || result.nodes[id].label; }));
+      if (hasBand) headers = headers.concat([(tnode.sym || 'target') + ' lo', (tnode.sym || 'target') + ' hi']);
+      var rows = [];
+      hist.forEach(function (d, i) {
+        var row = [d, 'history'].concat(ids.map(function (id) { var n = result.nodes[id]; return (n.hist && n.hist[i] != null && isFinite(n.hist[i])) ? n.hist[i] : null; }));
+        if (hasBand) row = row.concat([null, null]);
+        rows.push(row);
+      });
+      fut.forEach(function (d, i) {
+        var row = [d, 'forecast'].concat(ids.map(function (id) { var n = result.nodes[id]; return (n.fcst && n.fcst[i] != null && isFinite(n.fcst[i])) ? n.fcst[i] : null; }));
+        if (hasBand) row = row.concat([tnode.lo && tnode.lo[i] != null ? tnode.lo[i] : null, tnode.hi && tnode.hi[i] != null ? tnode.hi[i] : null]);
+        rows.push(row);
+      });
+      return { headers: headers, rows: rows };
+    }
+    function exportCsv() {
+      if (!result || !window.LbcExport) return;
+      var sym = (target && (target.sym || target.label)) || 'forecast';
+      window.LbcExport.saveCSV('forecast-' + sym + '-' + window.LbcExport.stamp() + '.csv', forecastTable());
+    }
+    function exportPng() {
+      if (!window.LbcExport) return;
+      var sym = (target && (target.sym || target.label)) || 'forecast';
+      window.LbcExport.pngFromContainer(resultsRef.current, {
+        filename: 'forecast-' + sym + '-' + window.LbcExport.stamp() + '.png',
+        onError: function (m) { setErr(m || 'No chart to export — switch to the Chart tab.'); }
+      });
+    }
+
     return (
       <section className="an-lab fc-lab">
         <div className="an-topbar">
@@ -484,6 +524,7 @@
                   <span className="fc-vc-sym">{n.sym}</span>
                   <span className="fc-vc-lbl" title={n.label}>{n.label}</span>
                   {n.isTarget && <span className="fc-vc-star">★</span>}
+                  {n.series && n.series.length > 1 && EC && (function () { var d = EC.detectFreq(n.series); var mism = d.id !== horizon.freq; return <span className={'fc-vc-freq' + (mism ? ' fc-vc-freq-mismatch' : '')} title={d.label + ' · ' + d.n + ' obs · ~' + d.gapDays + 'd gap' + (mism ? ' → resampled to ' + (FREQS.find(function (f) { return f.id === horizon.freq; }) || {}).label : '')}>{d.id}</span>; })()}
                   {n.source !== 'derived' && !n.series && <span className="fc-vc-load" title="loading series">…</span>}
                 </div>
               ); })}
@@ -500,9 +541,26 @@
 
           {/* RIGHT — forecast output */}
           <div className={'an-results fc-out' + (stale && result ? ' fc-stale-out' : '')}>
+            {result && (
+              <div className="an-resbar">
+                <div className="an-restabs">
+                  <button className={'an-restab' + (resTab === 'chart' ? ' on' : '')} onClick={function () { setResTab('chart'); }}>Chart</button>
+                  <button className={'an-restab' + (resTab === 'data' ? ' on' : '')} onClick={function () { setResTab('data'); }}>Data</button>
+                </div>
+                <div className="an-resexp">
+                  <button className="an-exp-btn" onClick={exportCsv} title="Download the full forecast table as CSV">↓ CSV</button>
+                  {resTab === 'chart' && <button className="an-exp-btn" onClick={exportPng} title="Download the chart as a white-background PNG">↓ PNG</button>}
+                </div>
+              </div>
+            )}
+            <div className="an-res-body" ref={resultsRef}>
             {!result && !running && <div className="an-empty an-results-empty">Build the graph, then <b>Run forecast</b>. The target's path + fan band and every driver's forecast appear here. Flip any driver to a <b>scenario</b> and the cone updates live.</div>}
             {running && !result && <div className="an-running"><div className="an-running-bar" />Forecasting…</div>}
-            {result && target && (function () {
+            {result && resTab === 'data' && (function () {
+              var t = forecastTable();
+              return <window.LbcDataGrid title={(target ? (target.sym || target.label) : 'Forecast') + ' — history + forecast'} freqBadge={(FREQS.find(function (f) { return f.id === result.freq; }) || {}).label || ''} headers={t.headers} rows={t.rows} note={(result.dates.hist || []).length + ' history + ' + (result.dates.future || []).length + ' forecast periods'} filename={'forecast-' + (target ? (target.sym || 'series') : 'series') + '-' + window.LbcExport.stamp() + '.csv'} maxHeight={520} />;
+            })()}
+            {result && target && resTab === 'chart' && (function () {
               var hL = (function (a) { for (var i = a.length - 1; i >= 0; i--) if (a[i] != null && isFinite(a[i])) return a[i]; return null; })(target.hist);
               var fL = target.fcst[target.fcst.length - 1];
               var up = (hL != null && fL != null) ? fL >= hL : null;
@@ -544,6 +602,7 @@
                 </div>
               </div>;
             })()}
+            </div>
           </div>
         </div>
 

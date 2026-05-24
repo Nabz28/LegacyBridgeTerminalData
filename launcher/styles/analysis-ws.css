@@ -31,7 +31,29 @@
 .an-grid{flex:1;min-height:0;display:grid;grid-template-columns:266px minmax(340px,1fr) minmax(380px,1.05fr);gap:0}
 .an-rail{border-right:1px solid var(--an-bd);overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:14px}
 .an-center{border-right:1px solid var(--an-bd);overflow-y:auto;padding:16px 18px}
-.an-results{overflow-y:auto;padding:16px 18px;background:linear-gradient(180deg,rgba(255,255,255,.012),transparent)}
+.an-results{display:flex;flex-direction:column;min-height:0;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.012),transparent)}
+.an-res-body{flex:1;min-height:0;overflow-y:auto;padding:16px 18px}
+
+/* results header: Results / Data tabs + export */
+.an-resbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-bottom:1px solid var(--an-bd);background:var(--an-bg2)}
+.an-restabs{display:flex;gap:4px}
+.an-restab{font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:var(--r-2,3px);background:transparent;border:1px solid transparent;color:var(--an-tx3);cursor:pointer;transition:background 150ms var(--ease),color 150ms var(--ease)}
+.an-restab:hover{color:var(--an-tx2)}
+.an-restab.on{background:var(--an-bg3);border-color:var(--an-bd);color:var(--an-tx)}
+.an-resexp{display:flex;gap:6px}
+.an-exp-btn{font-family:var(--an-mono);font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:var(--r-2,3px);background:var(--an-bg3);border:1px solid var(--an-bd);color:var(--an-tx2);cursor:pointer;transition:background 150ms var(--ease),color 150ms var(--ease)}
+.an-exp-btn:hover{background:color-mix(in srgb,var(--an-acc) 22%,var(--an-bg3));color:var(--an-tx)}
+
+/* frequency detection strip */
+.an-freqstrip{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:11px;border-top:1px solid var(--an-bd2)}
+.an-freqchip{display:inline-flex;align-items:center;gap:6px;padding:2px 4px 2px 8px;background:var(--an-bg2);border:1px solid var(--an-bd);border-radius:var(--r-2,3px);font-size:10.5px}
+.an-freqchip-lbl{color:var(--an-tx2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.an-freqchip-f{font-family:var(--an-mono);font-size:9.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 6px;border-radius:var(--r-1,2px);background:var(--brand-soft,rgba(151,170,197,.14));color:var(--an-tx2)}
+.an-freqchip-coerced .an-freqchip-f,.an-freqchip-coerced{color:var(--an-tx)}
+.an-freqchip-coerced .an-freqchip-f{background:color-mix(in srgb,var(--an-acc) 18%,transparent);color:var(--an-acc)}
+.an-freqarrow{font-family:var(--an-mono);font-size:10px;color:var(--an-tx3);margin:0 2px}
+.an-freqchip-out{padding:2px 4px}
+.an-freqchip-out .an-freqchip-f{background:color-mix(in srgb,var(--an-acc) 26%,transparent);color:var(--an-acc)}
 
 /* rail / data tray */
 .an-rail-h{display:flex;align-items:center;justify-content:space-between;font-family:var(--an-mono);font-size:10px;
@@ -302,7 +324,7 @@ code{font-family:var(--an-mono);font-size:11px;background:var(--an-bg3);padding:
 .ed-scen-v.pos{color:var(--pos-bloom,#2EE39A)}
 .ed-scen-v.neg{color:var(--neg-bloom,#FF7C8C)}
 /* honesty banners rendered directly in the results column (spurious / small-N) need a gap before the result card */
-.an-results > .an-verdict{margin-bottom:12px}
+.an-results > .an-verdict,.an-res-body > .an-verdict{margin-bottom:12px}
 /* narrow split-pane companion to the .an-* breakpoint */
 @media (max-width:1180px){
   .ed-tick{flex:1 1 100%}
