@@ -394,23 +394,23 @@
       var existSyms = nodes.map(function (n) { return n.sym; });
       var id = newId();
       var node = { id: id, label: item.label, sym: symFrom(item.label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'macro', seriesRef: { uid: item.uid, kind: item.kind, source: item.source, seriesId: item.seriesId, ric: item.ric }, series: null };
-      setNodes(nodes.concat([node])); setSelectedId(id); setPicking(false);
+      setNodes(function (ns) { return ns.concat([node]); }); setSelectedId(id); setPicking(false);
       fetchNode(node);
     }
     function addManual(label, series) {
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
       var node = { id: id, label: label || 'Manual', sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'manual', series: series };
-      setNodes(nodes.concat([node])); setSelectedId(id); setPasting(false);
+      setNodes(function (ns) { return ns.concat([node]); }); setSelectedId(id); setPasting(false);
     }
     function addStock(label, series, ref, currency, kind) {
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
       var node = { id: id, label: label, sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'stock', seriesRef: ref, currency: currency || null, kind: kind || 'currency', series: series };
-      setNodes(nodes.concat([node])); setSelectedId(id); setPicking2(false);
+      setNodes(function (ns) { return ns.concat([node]); }); setSelectedId(id); setPicking2(false);
     }
     function addDerived() {
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
       var node = { id: id, label: 'Derived', sym: symFrom('Derived', existSyms), method: 'equation', parents: [], lags: {}, equation: '', params: {}, isTarget: false, source: 'derived', series: null };
-      setNodes(nodes.concat([node])); setSelectedId(id);
+      setNodes(function (ns) { return ns.concat([node]); }); setSelectedId(id);
     }
     function changeNode(id, patch) { setNodes(function (ns) { return ns.map(function (n) { return n.id === id ? Object.assign({}, n, patch) : n; }); }); }
     function removeNode(id) { aliveUids.current[id] = false; setNodes(function (ns) { return ns.filter(function (n) { return n.id !== id; }).map(function (n) { if ((n.parents || []).indexOf(id) > -1) { var lg = Object.assign({}, n.lags); delete lg[id]; return Object.assign({}, n, { parents: n.parents.filter(function (p) { return p !== id; }), lags: lg }); } return n; }); }); if (selectedId === id) setSelectedId(null); }
