@@ -52,17 +52,25 @@ async function probe(sym) {
   const q = await getJSON(`${SB}/functions/v1/equity-quote?ticker=${encodeURIComponent(yt(sym))}`);
   const hasQuote = !!(q && q.ok && q.quote && q.quote.price != null);
   let hasStatements = false, sector = null, currency = q && q.quote ? q.quote.currency : null;
+  let annualN = 0, quarterlyN = 0;
   if (WANT_STATEMENTS) {
-    const s = await getJSON(`${SB}/functions/v1/equity-statements?ticker=${encodeURIComponent(yt(sym))}`, 60000);
+    // refresh=1 forces a live Yahoo re-fetch + MERGE into the cached doc — this is
+    // what lets statement history accumulate over repeated runs (Yahoo only returns
+    // ~4 annual / ~5 quarterly periods per call, but the cache keeps the union).
+    const s = await getJSON(`${SB}/functions/v1/equity-statements?ticker=${encodeURIComponent(yt(sym))}&refresh=1`, 60000);
     const doc = s && s.doc;
     if (doc) {
       sector = doc.snapshot && doc.snapshot.sector;
       const inc = doc.statements && doc.statements.annual && doc.statements.annual.income;
+      const qinc = doc.statements && doc.statements.quarterly && doc.statements.quarterly.income;
       hasStatements = !!(inc && Object.keys(inc).length > 0);
+      // depth = max periods across any income line item
+      const depth = (b) => { let mx = 0; Object.values(b || {}).forEach((bd) => { const n = Object.keys(bd || {}).length; if (n > mx) mx = n; }); return mx; };
+      annualN = depth(inc); quarterlyN = depth(qinc);
     }
   }
   const tier = hasStatements ? "full" : hasQuote ? "quote" : "none";
-  return { sym, tier, hasQuote, hasStatements, sector, currency };
+  return { sym, tier, hasQuote, hasStatements, sector, currency, annualN, quarterlyN };
 }
 
 (async () => {
@@ -91,4 +99,11 @@ async function probe(sym) {
   fs.writeFileSync(OUT_FILE, JSON.stringify(results, null, 0));
   const tally = results.reduce((a, r) => { a[r.tier] = (a[r.tier] || 0) + 1; return a; }, {});
   console.log(`\nDONE → ${OUT_FILE}\n  full: ${tally.full || 0}  quote-only: ${tally.quote || 0}  none: ${tally.none || 0}`);
+  if (WANT_STATEMENTS) {
+    const full = results.filter((r) => r.hasStatements);
+    const avg = (arr) => arr.length ? (arr.reduce((s, v) => s + v, 0) / arr.length) : 0;
+    const max = (arr) => arr.length ? Math.max.apply(null, arr) : 0;
+    const aN = full.map((r) => r.annualN || 0), qN = full.map((r) => r.quarterlyN || 0);
+    console.log(`  annual periods/name: avg ${avg(aN).toFixed(1)} max ${max(aN)}  ·  quarterly periods/name: avg ${avg(qN).toFixed(1)} max ${max(qN)}`);
+  }
 })().catch((e) => { console.error("FATAL", e.message); process.exit(1); });
