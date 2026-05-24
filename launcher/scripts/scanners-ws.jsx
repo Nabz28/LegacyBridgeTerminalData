@@ -141,7 +141,7 @@
         if (isFinite(mn)) qs.push(encodeURIComponent(f.key) + '=gte.' + mn);
         if (isFinite(mx)) qs.push(encodeURIComponent(f.key) + '=lte.' + mx);
       });
-      if (sectorsSel.length) qs.push('sector=in.(' + sectorsSel.map(function (s) { return '"' + s.replace(/"/g, '') + '"'; }).join(',') + ')');
+      if (sectorsSel.length) qs.push('sector=in.(' + sectorsSel.map(function (s) { return '"' + encodeURIComponent(s.replace(/"/g, '')) + '"'; }).join(',') + ')');  // encode &/spaces so PostgREST doesn't split the param
       qs.push('order=' + encodeURIComponent(srt.col) + '.' + srt.dir + '.nullslast');
       setLoading(true); setErr('');
       fetch(SB + '/equity_screen?' + qs.join('&'), { headers: { apikey: ANON } })
@@ -192,9 +192,9 @@
         var payload = { rows: batch.map(function (r) { return { symbol: r.sym, yahoo: r.sym + '.JK', name: r.name, sector: r.sector, sub_sector: r.sub }; }) };
         fetch(FN, { method: 'POST', headers: { apikey: ANON, Authorization: 'Bearer ' + ANON, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
           .then(function (r) { return r.json().catch(function () { return {}; }); })
-          .then(function (j) { state.written += (j && j.written) || 0; })
-          .catch(function () { /* batch failed; counted in done below */ })
-          .then(function () { state.done = Math.min(state.total, bi * CH); state.failed = state.done - state.written; setRefresh(Object.assign({}, state)); setTimeout(step, 150); });
+          .then(function (j) { state.written += (j && j.written) || 0; state.failed += (j && j.failed) ? j.failed.length : batch.length; })
+          .catch(function () { state.failed += batch.length; })
+          .then(function () { state.done = Math.min(state.total, bi * CH); setRefresh(Object.assign({}, state)); setTimeout(step, 150); });
       }
       step();
     }
