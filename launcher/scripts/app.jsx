@@ -47,6 +47,8 @@ const I = {
   watchlist: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z"/></svg>,
   screens: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="12" rx="1"/><line x1="7" y1="20" x2="17" y2="20"/></svg>,
   research: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4"/><path d="M8 13h8M8 17h5"/></svg>,
+  drivers: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="5" cy="6" r="2.1"/><circle cx="5" cy="18" r="2.1"/><circle cx="19" cy="12" r="2.1"/><path d="M7 7l9.4 4M7 17l9.4-4"/></svg>,
+  forecast: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 20V4"/><path d="M3 20h18"/><path d="M6 15l4-3 3 2"/><path d="M13 14l4-6 4 3" strokeDasharray="3 2.5"/></svg>,
   alerts: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>,
   add: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 5v14M5 12h14"/></svg>,
   edit: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>,
@@ -68,6 +70,7 @@ const I = {
 // kind → nav icon (per-terminal workspace rail)
 const NAV_ICON = {
   markets: I.layout, 'equity-landing': I.portfolio, stock: I.watchlist, scanners: I.search,
+  'driver-lab': I.drivers, 'equity-forecast': I.forecast,
   macro: I.research, industry: I.grid, portfolio: I.watchlist, global: I.screens,
 };
 
@@ -584,7 +587,7 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
   });
 
   return (
-    <div className={`app ${editMode ? 'edit-mode' : ''}`}>
+    <div className={`app ${editMode ? 'edit-mode' : ''} ${terminal && terminal.selfNav ? 'no-nav' : ''}`}>
 
       {/* ===== TOP BAR ===== */}
       <div className="topbar">
@@ -633,7 +636,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
         </div>
       </div>
 
-      {/* ===== LEFT NAV ===== */}
+      {/* ===== LEFT NAV ===== (hidden for self-navigating terminals like Macro, which carry their own tool rail) */}
+      {!(terminal && terminal.selfNav) && (
       <div className="nav">
         <div className="nav-item nav-home" onClick={() => onHome && onHome()} title="All terminals">
           {I.grid}<span className="lbl">Home</span>
@@ -657,6 +661,7 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
         <div className="nav-item">{I.help}<span className="lbl">Help & Docs</span></div>
         <div className="nav-micro">v1.0 · 2026</div>
       </div>
+      )}
 
       {/* ===== WORKSPACE ===== */}
       <div className="workspace">

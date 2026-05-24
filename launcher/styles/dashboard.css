@@ -167,6 +167,9 @@ html, body { height: 100%; overflow: hidden; }
   color: var(--brand-steel);
 }
 
+/* self-navigating terminals (e.g. Macro, with its own tool rail) drop the shell nav column */
+.app.no-nav { grid-template-columns: minmax(0, 1fr); }
+
 /* ========== LEFT NAV ========== */
 .nav {
   background: var(--chrome-nav);

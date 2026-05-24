@@ -42,7 +42,10 @@ const LBC_TERMINALS = [
     workspaces: [ { kind: 'am-book', label: 'The Book', built: true } ] },
   { id: 'macro', num: 'T2', name: 'Macro', accent: '#5b8def', icon: LBC_ICONS.macro,
     desc: 'Refinitiv macro across US, Indonesia & China — 9,310 indicators, live from Supabase.',
-    workspaces: [ { kind: 'macro-lab', label: 'Indicator Lab', built: true } ] },
+    // self-navigating: the macro workspace carries its own tool rail (Markets & Macro,
+    // News, Analysis, Forecast, …), so the shell's workspace nav column is suppressed.
+    selfNav: true,
+    workspaces: [ { kind: 'macro-lab', label: 'Markets & Macro', built: true } ] },
   { id: 'industry', num: 'T3', name: 'Industry', accent: '#4f86e0', icon: LBC_ICONS.industry,
     desc: 'Sectors, peer comps and demand-supply structure across the IDX universe.',
     workspaces: [
