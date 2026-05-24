@@ -174,6 +174,7 @@
     if (!model || !model.nodes || !model.nodes.length) return { error: 'Add at least one variable node.' };
     var nodes = model.nodes, byId = {}; nodes.forEach(function (n) { byId[n.id] = n; });
     var freq = (model.horizon && model.horizon.freq) || 'Q';
+    var perYear = { M: 12, Q: 4, A: 1 }[freq] || 4;          // default seasonal period from the frequency
     var H = Math.max(1, Math.min(240, (model.horizon && model.horizon.n) || 20));
     var S = Math.max(0, Math.min(500, model.sims != null ? model.sims : 240));
     var bandPct = model.bandPct || 80;                       // central interval width
@@ -274,9 +275,9 @@
         }
         fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, thin: Y.length < 12, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur, holdout: holdout };
       } else if (n.method === 'arima') {
-        var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || 4, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
+        var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || perYear, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
       } else if (n.method === 'ets') {
-        var pe = n.params || {}; try { var et = E.ets(histVals.filter(isF), { trend: pe.trend !== false, seasonal: pe.seasonal || 'none', s: pe.s || 4, h: H }); uni[id] = (et.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'ets', sigma: Math.sqrt((et.sse || 0) / Math.max(1, histVals.filter(isF).length)) }; } catch (e) { uni[id] = null; fit[id] = { error: 'ets failed: ' + (e.message || e) }; }
+        var pe = n.params || {}; try { var et = E.ets(histVals.filter(isF), { trend: pe.trend !== false, seasonal: pe.seasonal || 'none', s: pe.s || perYear, h: H }); uni[id] = (et.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'ets', sigma: Math.sqrt((et.sse || 0) / Math.max(1, histVals.filter(isF).length)) }; } catch (e) { uni[id] = null; fit[id] = { error: 'ets failed: ' + (e.message || e) }; }
       } else if (n.method === 'drift') {
         var dl = lastFinite(histVals); if (dl == null) { fit[id] = { error: 'no history on the shared timeline' }; return; }
         var dd = diffs(histVals); fit[id] = { kind: 'drift', slope: mean(dd), sigma: sd(dd), last: dl };

@@ -44,6 +44,8 @@
 
   // ---- helpers ----
   function fmtVal(v, d) { if (v == null || !isFinite(v)) return '—'; var a = Math.abs(v); if (a >= 1e9) return (v / 1e9).toFixed(2) + 'B'; if (a >= 1e6) return (v / 1e6).toFixed(2) + 'M'; if (a >= 1e3) return Number(v).toLocaleString('en-US', { maximumFractionDigits: 0 }); return Number(v).toLocaleString('en-US', { minimumFractionDigits: d == null ? 2 : d, maximumFractionDigits: d == null ? 2 : d }); }
+  // unit-aware formatter for a metric value: a margin prints %, a per-share/index drops the B/M suffix, currency keeps it
+  function fmtKind(v, kind, ccy) { if (v == null || !isFinite(v)) return '—'; if (kind === 'percent') return fmtVal(v, 2) + '%'; if (kind === 'pershare' || kind === 'index') return (ccy ? ccy + ' ' : '') + fmtVal(v, 2); return (ccy ? ccy + ' ' : '') + fmtVal(v); }
   function symFrom(label, existing) { var base = String(label || 'X').replace(/[^A-Za-z0-9]/g, '').slice(0, 6) || 'X'; if (/^[0-9]/.test(base)) base = 'X' + base; var s = base, i = 2; while (existing.indexOf(s) > -1) { s = base + i; i++; } return s; }
   function methodGlyph(m) { return ({ regression: 'β', equation: 'ƒ', arima: 'φ', ets: '⌁', drift: '↗', rw: '∼', growth: '%', scenario: '✎' })[m] || '•'; }
   // descendants of id (so we never offer a parent that would create a cycle)
@@ -218,6 +220,9 @@
     var candidates = nodes.filter(function (o) { return o.id !== n.id && !desc[o.id]; });
     var needsParents = (F.METHODS.find(function (m) { return m.id === n.method; }) || {}).needsParents;
     var parentSyms = (n.parents || []).map(function (pid) { var pn = nodes.find(function (x) { return x.id === pid; }); return pn ? pn.sym : pid; });
+    var freq = (props.horizon && props.horizon.freq) || 'Q';
+    var perY = { M: 12, Q: 4, A: 1 }[freq] || 4;                 // seasonal period implied by the frequency
+    var seasonalFreq = freq === 'Q' || freq === 'M';
     function up(patch) { props.onChange(n.id, patch); }
     function upParams(patch) { props.onChange(n.id, { params: Object.assign({}, n.params || {}, patch) }); }
     return (
@@ -255,12 +260,14 @@
         </div>}
 
         {n.method === 'arima' && <div className="fc-insp-block fc-grid6">
-          {[['p', 'p'], ['d', 'd'], ['q', 'q'], ['P', 'P'], ['D', 'D'], ['Q', 'Q'], ['s', 's']].map(function (o) { return <label key={o[0]} className="fc-mini">{o[1]}<input type="number" min="0" max={o[0] === 's' ? 24 : 3} value={(n.params && n.params[o[0]]) != null ? n.params[o[0]] : (o[0] === 'p' ? 1 : o[0] === 'd' ? 1 : o[0] === 's' ? 4 : 0)} onChange={function (e) { var v = {}; v[o[0]] = +e.target.value || 0; upParams(v); }} /></label>; })}
+          {[['p', 'p'], ['d', 'd'], ['q', 'q'], ['P', 'P'], ['D', 'D'], ['Q', 'Q'], ['s', 's']].map(function (o) { return <label key={o[0]} className="fc-mini">{o[1]}<input type="number" min="0" max={o[0] === 's' ? 24 : 3} value={(n.params && n.params[o[0]]) != null ? n.params[o[0]] : (o[0] === 'p' ? 1 : o[0] === 'd' ? 1 : o[0] === 's' ? perY : 0)} onChange={function (e) { var v = {}; v[o[0]] = +e.target.value || 0; upParams(v); }} /></label>; })}
+          {seasonalFreq && !(n.params && (n.params.P || n.params.D || n.params.Q)) && <div className="fc-dim" style={{ flexBasis: '100%' }}>tip: {freq === 'Q' ? 'quarterly' : 'monthly'} financials are seasonal — set <b>D=1, P or Q=1</b> with s={perY} to model it</div>}
         </div>}
         {n.method === 'ets' && <div className="fc-insp-block fc-grid6">
           <label className="fc-mini fc-chk">trend<input type="checkbox" checked={!(n.params && n.params.trend === false)} onChange={function (e) { upParams({ trend: e.target.checked }); }} /></label>
           <label className="fc-mini">seasonal<select value={(n.params && n.params.seasonal) || 'none'} onChange={function (e) { upParams({ seasonal: e.target.value }); }}><option value="none">none</option><option value="add">add</option><option value="mul">mul</option></select></label>
-          <label className="fc-mini">s<input type="number" min="2" max="24" value={(n.params && n.params.s) || 4} onChange={function (e) { upParams({ s: +e.target.value || 4 }); }} /></label>
+          <label className="fc-mini">s<input type="number" min="2" max="24" value={(n.params && n.params.s) || perY} onChange={function (e) { upParams({ s: +e.target.value || perY }); }} /></label>
+          {seasonalFreq && (!n.params || (n.params.seasonal || 'none') === 'none') && <div className="fc-dim" style={{ flexBasis: '100%' }}>tip: {freq === 'Q' ? 'quarterly' : 'monthly'} financials are seasonal — set <b>seasonal</b> to add/mul (s={perY})</div>}
         </div>}
         {n.method === 'growth' && <div className="fc-insp-block fc-row-inline"><label>Growth %/period</label><input type="number" step="0.5" value={(n.params && n.params.growthPct) || 0} onChange={function (e) { upParams({ growthPct: +e.target.value || 0 }); }} /></div>}
 
@@ -358,7 +365,7 @@
       var doc = { v: 1, horizon: horizon, bandPct: bandPct, nodes: nodes.map(function (n) {
         // macro nodes refetch on load (don't store the series); manual + stock metrics keep theirs
         var keepSeries = n.source === 'manual' || n.source === 'stock';
-        return { id: n.id, label: n.label, sym: n.sym, method: n.method, parents: n.parents || [], lags: n.lags || {}, equation: n.equation || '', params: n.params || {}, isTarget: !!n.isTarget, source: n.source, seriesRef: n.seriesRef || null, currency: n.currency || null, series: keepSeries ? n.series : null };
+        return { id: n.id, label: n.label, sym: n.sym, method: n.method, parents: n.parents || [], lags: n.lags || {}, equation: n.equation || '', params: n.params || {}, isTarget: !!n.isTarget, source: n.source, seriesRef: n.seriesRef || null, currency: n.currency || null, kind: n.kind || null, series: keepSeries ? n.series : null };
       }), updated: new Date().toISOString() };
       try { localStorage.setItem(LOCAL_KEY, JSON.stringify(doc)); } catch (e) { }
       if (cloudEnabled() && cloudSafe.current && hasContent) { setSync('saving'); if (saveTimer.current) clearTimeout(saveTimer.current); saveTimer.current = setTimeout(function () { cloudSave(cfg.table, doc).then(function () { setSync('saved'); setTimeout(function () { setSync('idle'); }, 1500); }).catch(function () { setSync('local'); }); }, 700); }
@@ -395,9 +402,9 @@
       var node = { id: id, label: label || 'Manual', sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'manual', series: series };
       setNodes(nodes.concat([node])); setSelectedId(id); setPasting(false);
     }
-    function addStock(label, series, ref, currency) {
+    function addStock(label, series, ref, currency, kind) {
       var existSyms = nodes.map(function (n) { return n.sym; }); var id = newId();
-      var node = { id: id, label: label, sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'stock', seriesRef: ref, currency: currency || null, series: series };
+      var node = { id: id, label: label, sym: symFrom(label, existSyms), method: nodes.length ? 'regression' : 'rw', parents: [], lags: {}, params: {}, isTarget: nodes.length === 0, source: 'stock', seriesRef: ref, currency: currency || null, kind: kind || 'currency', series: series };
       setNodes(nodes.concat([node])); setSelectedId(id); setPicking2(false);
     }
     function addDerived() {
@@ -502,7 +509,8 @@
               var base = (pinned && pinned.target === result.target && pinned.fcst.length === target.fcst.length) ? pinned.fcst : null;
               var vsBase = base ? fL - base[base.length - 1] : null;
               var tf = target.fit || {};
-              var ccy = (byId[result.target] && byId[result.target].currency) || '';
+              var tgtNode = byId[result.target] || {};
+              var ccy = tgtNode.currency || '', tkind = tgtNode.kind || 'currency';
               var spuriousDrivers = result.order.filter(function (id) { return id !== result.target && result.nodes[id].fit && result.nodes[id].fit.spurious; }).map(function (id) { return result.nodes[id].sym; });
               return <div className="fc-res">
                 {stale && <div className="fc-updating">● updating forecast…</div>}
@@ -513,7 +521,7 @@
                     <span className="fc-res-end">{result.H} {FREQS.find(function (f) { return f.id === result.freq; }) ? FREQS.find(function (f) { return f.id === result.freq; }).label.toLowerCase() : ''} → {endLabel}</span>
                   </span>
                 </div>
-                <div className="fc-res-now">last actual <b>{ccy ? ccy + ' ' : ''}{fmtVal(hL)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{ccy ? ccy + ' ' : ''}{fmtVal(fL)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtVal(target.lo[target.lo.length - 1])} – {fmtVal(target.hi[target.hi.length - 1])})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtVal(vsBase)}</b></span>}</div>
+                <div className="fc-res-now">last actual <b>{fmtKind(hL, tkind, ccy)}</b> → forecast <b className={up == null ? '' : up ? 'fc-pos' : 'fc-neg'}>{fmtKind(fL, tkind, ccy)}</b>{target.lo && target.lo[target.lo.length - 1] != null && <span className="fc-dim"> ({bandPct}% band {fmtKind(target.lo[target.lo.length - 1], tkind, ccy)} – {fmtKind(target.hi[target.hi.length - 1], tkind, ccy)})</span>}{vsBase != null && <span className="fc-dim"> · vs baseline <b className={vsBase >= 0 ? 'fc-pos' : 'fc-neg'}>{(vsBase >= 0 ? '+' : '') + fmtKind(vsBase, tkind, ccy)}</b></span>}</div>
                 {tf.error && <div className="an-verdict warn">⚠ Target won't fit: {tf.error}</div>}
                 {tf.spurious && <div className="an-verdict warn">⚠ <b>Likely spurious</b>: the target's residuals are non-stationary (DW={fmtVal(tf.dw, 2)}{tf.adfP != null ? ', ADF p≈' + fmtVal(tf.adfP, 2) : ''}). A high R² here can be a common-trend artefact — {tf.logspace ? 'try differenced / % growth drivers (log Y is already on).' : <span>try <b>differenced / % growth</b> drivers, or the <b>log Y</b> toggle for a price.</span>}</div>}
                 {target.extreme && <div className="an-verdict warn">⚠ Forecast runs far beyond the historical range (runaway compounding) — sanity-check the driver scenarios / growth rates.</div>}
