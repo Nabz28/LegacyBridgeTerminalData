@@ -100,6 +100,17 @@
   }
   function compileExpr(str) {
     var rpn = toRPN(tokenize(String(str || '')));
+    // well-formedness / arity check by simulating stack depth — rejects
+    // min(1,2,3), pow(2), 2**3, "2.3.4", lone operators, etc. at compile time
+    // so the equation builder flags them instead of silently producing NaN.
+    var depth = 0;
+    for (var vi = 0; vi < rpn.length; vi++) {
+      var rt = rpn[vi];
+      if (rt.t === 'num' || rt.t === 'var') depth += 1;
+      else if (rt.t === 'func') { var fa = FUNC_ARITY[rt.v]; if (fa == null) throw new Error('Unknown function "' + rt.v + '"'); if (depth < fa) throw new Error('"' + rt.v + '" needs ' + fa + ' argument' + (fa > 1 ? 's' : '') + '.'); depth = depth - fa + 1; }
+      else if (rt.t === 'op') { if (rt.unary) { if (depth < 1) throw new Error('Malformed expression.'); } else { if (depth < 2) throw new Error('Malformed expression near "' + rt.v + '".'); depth -= 1; } }
+    }
+    if (depth !== 1) throw new Error('Malformed expression — check operators, commas, and the number of function arguments.');
     var vars = {};
     rpn.forEach(function (t) { if (t.t === 'var' && !(t.v in FUNCS)) vars[t.v] = true; });
     return {
@@ -254,6 +265,7 @@
         if (Y.length < ps.length + 3) { fit[id] = { error: 'too few aligned points to fit (' + Y.length + ')' + (logsp ? ' — log mode needs positive Y' : '') }; return; }
         var Xcols = ps.map(function (_, j) { return X.map(function (r) { return r[j]; }); });
         var res = E.ols(Y, Xcols, { names: ps.map(function (pid) { return byId[pid].sym; }), robust: 'hac' });
+        if (res.error) { fit[id] = { error: res.error }; return; }   // near-collinear / constant driver → clean error, no bogus R²
         // in-sample fitted over the full history grid (faint overlay so a weak fit is visible)
         var fh = new Array(Ht).fill(null);
         for (var t2 = 0; t2 < Ht; t2++) { var v = res.coef[0], good = true; for (var j2 = 0; j2 < ps.length; j2++) { var lg2 = (n.lags && n.lags[ps[j2]]) || 0; var pv2 = path[ps[j2]] ? path[ps[j2]][t2 - lg2] : null; if (pv2 == null || !isFinite(pv2)) { good = false; break; } v += res.coef[j2 + 1] * pv2; } fh[t2] = good ? (logsp ? Math.exp(v) : v) : null; }
@@ -275,7 +287,14 @@
         }
         fit[id] = { kind: 'regression', coef: res.coef, sigma: res.sigma, r2: res.r2, names: res.names, nfit: Y.length, thin: Y.length < 12, logspace: logsp, fittedHist: fh, dw: res.dw, adfP: adfP, spurious: spur, holdout: holdout };
       } else if (n.method === 'arima') {
-        var pp = n.params || {}; try { var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || perYear, h: H }); uni[id] = (ar.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
+        var pp = n.params || {};
+        try {
+          var ar = E.arima(histVals.filter(isF), { p: pp.p || 1, d: pp.d || 1, q: pp.q || 0, P: pp.P || 0, D: pp.D || 0, Q: pp.Q || 0, s: pp.s || perYear, h: H });
+          var arf = (ar && ar.forecast || []).map(function (o) { return o.mean; });
+          if (ar && ar.error) { uni[id] = null; fit[id] = { error: 'ARIMA: ' + ar.error }; }
+          else if (!arf.length || arf.every(function (v) { return v == null || !isFinite(v); })) { uni[id] = null; fit[id] = { error: 'ARIMA could not fit this series (too few or too smooth observations) — try Drift, Random walk, or ETS.' }; }
+          else { uni[id] = arf; fit[id] = { kind: 'arima', sigma: ar.sigma || sd(diffs(histVals)), order: ar.order }; }
+        } catch (e) { uni[id] = null; fit[id] = { error: 'arima failed: ' + (e.message || e) }; }
       } else if (n.method === 'ets') {
         var pe = n.params || {}; try { var et = E.ets(histVals.filter(isF), { trend: pe.trend !== false, seasonal: pe.seasonal || 'none', s: pe.s || perYear, h: H }); uni[id] = (et.forecast || []).map(function (o) { return o.mean; }); fit[id] = { kind: 'ets', sigma: Math.sqrt((et.sse || 0) / Math.max(1, histVals.filter(isF).length)) }; } catch (e) { uni[id] = null; fit[id] = { error: 'ets failed: ' + (e.message || e) }; }
       } else if (n.method === 'drift') {
@@ -292,7 +311,13 @@
         if (sl == null && (n.params && n.params.scenMode) !== 'level') { fit[id] = { error: 'no base value — switch to a custom-values scenario or give it history' }; return; }
         fit[id] = { kind: 'scenario', last: sl, sigma: 0 };
       } else if (n.method === 'equation') {
-        fit[id] = { kind: 'equation', sigma: 0, err: getCompiled(id, n)._err };
+        var ce = getCompiled(id, n);
+        var psyms = (n.parents || []).map(function (pp2) { return byId[pp2] ? byId[pp2].sym : null; });
+        var missingV = (ce.vars || []).filter(function (v) { return psyms.indexOf(v) < 0; });
+        if (ce._err) fit[id] = { kind: 'equation', sigma: 0, error: 'Equation error: ' + ce._err };
+        else if (missingV.length) fit[id] = { kind: 'equation', sigma: 0, error: 'Equation references ' + missingV.map(function (m) { return '"' + m + '"'; }).join(', ') + ' — connect ' + (missingV.length > 1 ? 'them' : 'it') + ' as a driver (＋) or fix the formula.' };
+        else if (!histVals.some(isF)) fit[id] = { kind: 'equation', sigma: 0, error: 'Equation produced no finite values over the history — check the drivers’ overlap and the formula.' };
+        else fit[id] = { kind: 'equation', sigma: 0 };
       } else { fit[id] = { kind: n.method || 'rw', sigma: 0, last: lastFinite(histVals) }; }
     });
 
@@ -343,6 +368,7 @@
         var gi = Ht - 1 + f;                                    // global index of this future step
         for (var oi = 0; oi < order.length; oi++) {
           var id = order[oi], n = byId[id], fi = fit[id] || {}, val;
+          if (fi.error) { path[id][gi] = null; continue; }   // a node that couldn't be fit forecasts nothing (not a flat 0-line)
           // scenario override path always wins
           if (n.method === 'scenario') { val = scenarioVal(n, f); }
           else if (n.method === 'regression') {

@@ -287,9 +287,17 @@
       or[s2] = Math.exp(beta[s2]);
     }
 
+    // (quasi-)separation: IRLS "converges" to a degenerate perfect fit — coefficients
+    // and SEs explode and pseudo-R² → 1. The estimates are not trustworthy.
+    var maxAbsSlope = 0; for (var ms = 1; ms < k; ms++) maxAbsSlope = Math.max(maxAbsSlope, Math.abs(beta[ms]));
+    var maxSlopeSe = 0; for (var mse = 1; mse < k; mse++) if (isFinite(se[mse])) maxSlopeSe = Math.max(maxSlopeSe, se[mse]);
+    var separation = (isFinite(pseudoR2) && pseudoR2 > 0.999) || maxAbsSlope > 25 || maxSlopeSe > 1e3;
+
     return {
       method: 'logit', names: names, coef: beta, se: se, z: zStat, p: pval,
-      oddsRatio: or, pseudoR2: pseudoR2, llf: llf, n: n, fitted: fitted
+      oddsRatio: or, pseudoR2: pseudoR2, llf: llf, n: n, fitted: fitted,
+      separation: separation,
+      separationNote: separation ? 'Perfect / quasi-complete separation detected — a predictor (or combination) splits the 0/1 outcome almost perfectly, so the MLE diverges: coefficients, odds ratios and SEs are inflated and unreliable despite the near-1 pseudo-R². Drop or combine the separating predictor, or use a smaller/penalised model.' : null
     };
   }
 

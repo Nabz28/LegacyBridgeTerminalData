@@ -370,7 +370,9 @@
         var uidsA = [cfg.y].concat(cfg.x);
         var dsA = buildDataset(uidsA); if (dsA.error) throw new Error(dsA.error);
         var ar = E.arima(dsA.columns[0], { p: cfg.p, d: cfg.d, q: cfg.q, P: cfg.P, D: cfg.D, Q: cfg.Q, s: cfg.s, h: cfg.h, xreg: cfg.x.length ? dsA.columns.slice(1) : null, xnames: dsA.names.slice(1) });
-        if (ar.error) throw new Error(ar.error); ar._yName = dsA.names[0]; ar._dates = dsA.dates; return ar;
+        if (ar.error) throw new Error(ar.error);
+        if (!ar.forecast || !ar.forecast.length) throw new Error('ARIMA could not fit this series (too few observations, or it is too smooth/constant). Try a longer/cleaner series, fewer terms, or ETS.');
+        ar._yName = dsA.names[0]; ar._dates = dsA.dates; return ar;
       }
       if (method === 'corr') {
         if (cfg.setvars.length < 2) throw new Error('Pick at least 2 variables.');
@@ -617,7 +619,7 @@
                     {method === 'hp' && <div className="an-opt"><label title="HP smoothing: 1600 quarterly, 129600 monthly, 6.25 annual">λ smoothing</label><input type="number" min="1" value={cfg.hpLambda} onChange={function (e) { setCfg(Object.assign({}, cfg, { hpLambda: +e.target.value || 1600 })); }} /></div>}
                     {method === 'ets' && <div className="an-opt"><label>Trend</label><input type="checkbox" checked={cfg.etsTrend !== false} onChange={function (e) { setCfg(Object.assign({}, cfg, { etsTrend: e.target.checked })); }} /></div>}
                     {(method === 'ets' || method === 'decompose') && <div className="an-opt"><label>Seasonal</label><select value={cfg.etsSeason || (method === 'decompose' ? 'add' : 'none')} onChange={function (e) { setCfg(Object.assign({}, cfg, { etsSeason: e.target.value })); }}><option value="none">None</option><option value="add">Additive</option><option value="mul">Multiplicative</option></select></div>}
-                    {(method === 'ets' || method === 'decompose') && <div className="an-opt"><label>Period s</label><input type="number" min="2" max="24" value={cfg.s} onChange={function (e) { setCfg(Object.assign({}, cfg, { s: +e.target.value || 12 })); }} /></div>}
+                    {(method === 'ets' || method === 'decompose') && <div className="an-opt"><label title="Seasonal period: 4 quarterly · 12 monthly · 52 weekly · 5 or 7 daily">Period s</label><input type="number" min="2" max="366" value={cfg.s} onChange={function (e) { setCfg(Object.assign({}, cfg, { s: +e.target.value || 12 })); }} /></div>}
                     {method === 'ets' && <div className="an-opt"><label>Forecast h</label><input type="number" min="1" max="60" value={cfg.h} onChange={function (e) { setCfg(Object.assign({}, cfg, { h: +e.target.value || 12 })); }} /></div>}
                   </div>
                 </div>

@@ -105,7 +105,7 @@ function chunk<T>(arr: T[], n: number): T[][] {
 async function fetchStatements(ticker: string): Promise<Statements> {
   const out = emptyStatements();
   const p2 = Math.floor(Date.now() / 1000);
-  const p1 = p2 - 60 * 60 * 24 * 365 * 6; // ~6 years back
+  const p1 = p2 - 60 * 60 * 24 * 365 * 11; // ~11 years back (cache merges accumulate toward 10Y; Yahoo's keyless endpoint itself caps ~4 annual periods per fetch)
   const jobs: Promise<void>[] = [];
   // CRITICAL: request annual and quarterly SEPARATELY — Yahoo truncates annual
   // history to the latest period when annual* and quarterly* types are mixed in

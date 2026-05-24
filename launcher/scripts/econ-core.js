@@ -269,7 +269,13 @@
     }
     var colNames = intercept ? ['(const)'].concat(names) : names.slice();
     var k = Xrows[0].length;
-    var f = olsFit(Xrows, y);
+    // zero-variance regressor: collinear with the intercept and carries no information
+    for (var zc = 0; zc < Xraw.length; zc++) {
+      var zcol = Xraw[zc], z0 = zcol[0], zsame = true;
+      for (var zi = 1; zi < zcol.length; zi++) { if (zcol[zi] !== z0) { zsame = false; break; } }
+      if (zsame) return { error: 'Regressor "' + (names[zc] || ('X' + (zc + 1))) + '" has no variation (constant) over the sample — drop it or change its transform.' };
+    }
+    var f; try { f = olsFit(Xrows, y); } catch (e) { return { error: (e && e.message) || 'Regressors are perfectly collinear (X\'X is singular) — drop one regressor or change a transform.' }; }
     var resid = f.resid.to1DArray(), fitted = f.fitted.to1DArray(), betaArr = f.beta.to1DArray();
     var rss = sum(resid.map(function (e) { return e * e; }));
     var yMean = mean(y); var tss = sum(y.map(function (v) { return (v - yMean) * (v - yMean); }));
@@ -303,6 +309,9 @@
     var tcrit = tInv(0.975, df);
     var ci = betaArr.map(function (b, i2) { return [b - tcrit * se[i2], b + tcrit * se[i2]]; });
     var r2 = tss ? 1 - rss / tss : NaN;
+    // With an intercept, in-sample R² is mathematically in [0,1]; a negative value
+    // means the normal equations broke down (near-collinear regressors → exploding coefs).
+    if (intercept && isFinite(r2) && r2 < -1e-6) return { error: 'Numerically unstable fit — the regressors are near-collinear (in-sample R² came out < 0, coefficients exploded). Drop a regressor, or use Δ / % growth transforms.' };
     var adjR2 = tss ? 1 - (rss / df) / (tss / (n - 1)) : NaN;
     var kReg = k - (intercept ? 1 : 0);
     var fStat = (kReg > 0 && df > 0) ? ((tss - rss) / kReg) / (rss / df) : NaN;
@@ -361,7 +370,8 @@
     }
     var k = Xr[0].length, nobs = Y.length, dfa = nobs - k;
     if (dfa < 1) return null;
-    var f = olsFit(Xr, Y); var beta = f.beta.to1DArray(); var resid = f.resid.to1DArray();
+    var f; try { f = olsFit(Xr, Y); } catch (e) { return null; }  // singular design (e.g. a constant series) → caller reports a clean error
+    var beta = f.beta.to1DArray(); var resid = f.resid.to1DArray();
     var rss = sum(resid.map(function (e) { return e * e; }));
     if (!isFinite(rss) || rss <= 0) return null;
     var vcov = f.XtXinv.mul(rss / dfa); var gIdx = (trend === 'n' ? 0 : (trend === 'ct' ? 2 : 1));
@@ -373,6 +383,7 @@
   function adf(yArr, opts) {
     opts = opts || {}; var trend = opts.trend || 'c';
     var y = clean(yArr); var n = y.length;
+    if (n && variance(y) < 1e-12 * (Math.abs(mean(y)) + 1)) return { error: 'Series has no variation (constant) — a unit-root test is undefined. Pick a series that actually moves.' };
     var maxLag = opts.lags == null ? Math.min(12, Math.floor(Math.pow(n - 1, 1 / 3))) : opts.lags;
     if (n < maxLag + 6) return { error: 'Series too short for ADF (' + n + ' obs, need ≥ ' + (maxLag + 6) + '). Try a longer span or lower frequency.' };
     var dy = []; for (var i = 1; i < n; i++) dy.push(y[i] - y[i - 1]);
@@ -396,6 +407,7 @@
   var EG_CRIT = { 1: { '1%': -3.90, '5%': -3.34, '10%': -3.04 }, 2: { '1%': -4.29, '5%': -3.74, '10%': -3.45 }, 3: { '1%': -4.64, '5%': -4.10, '10%': -3.81 } };
   function engleGranger(y, Xcols, names) {
     var reg = ols(y, Xcols, { names: names, intercept: true });
+    if (reg.error) return { method: 'cointegration', error: reg.error };
     var u = reg.resid;
     var adfu = adf(u, { trend: 'n' });
     if (adfu.error) return { method: 'cointegration', error: adfu.error };
@@ -621,7 +633,11 @@
     var Barr = []; for (var rrr = 0; rrr < m; rrr++) { var row = []; for (var c2 = 0; c2 < K; c2++) row.push(Bcols[c2][rrr]); Barr.push(row); }
     var B = mat(Barr); var resid = Y.clone().sub(Z.mmul(B));
     var Sigma = resid.transpose().mmul(resid).mul(1 / Math.max(1, T - m));
-    var model = { method: 'BVAR', names: names, p: p, trend: trend, K: K, T: T, m: m, B: Barr, Sigma: Sigma.to2DArray(), _Vpost: Vpost, priors: { lambda1: l1, lambda2: l2, lambda3: l3 } };
+    // information criteria from the posterior-mean residuals (comparable to the VAR's)
+    var detSb = detSmall(Sigma.to2DArray());
+    var llf = -0.5 * T * (K * Math.log(2 * Math.PI) + Math.log(Math.max(detSb, 1e-300)) + K);
+    var nparams = K * m, aic = -2 * llf + 2 * nparams, bic = -2 * llf + nparams * Math.log(T), hqic = -2 * llf + 2 * nparams * Math.log(Math.log(Math.max(3, T)));
+    var model = { method: 'BVAR', names: names, p: p, trend: trend, K: K, T: T, m: m, B: Barr, Sigma: Sigma.to2DArray(), _Vpost: Vpost, llf: llf, aic: aic, bic: bic, hqic: hqic, priors: { lambda1: l1, lambda2: l2, lambda3: l3 } };
     model.eigen = varStability(model.B, K, p, trend);
     model.stable = model.eigen.every(function (e) { return e.mod < 1 + 1e-8; });
     return model;
@@ -692,7 +708,7 @@
     opts = opts || {}; var effects = opts.effects || 'fixed';
     var y = data.map(function (r) { return r.y; });
     var Xcols = names.map(function (_, j) { return data.map(function (r) { return r.x[j]; }); });
-    if (effects === 'pooled') { var res = ols(y, Xcols, { names: names, intercept: true }); res.method = 'Panel (Pooled OLS)'; res.effects = 'pooled'; res.entities = uniq(data.map(function (r) { return r.entity; })).length; return res; }
+    if (effects === 'pooled') { var res = ols(y, Xcols, { names: names, intercept: true }); if (res.error) return { method: 'Panel (Pooled OLS)', error: res.error }; res.method = 'Panel (Pooled OLS)'; res.effects = 'pooled'; res.entities = uniq(data.map(function (r) { return r.entity; })).length; return res; }
     if (effects === 'fixed') {
       // within transform: demean by entity (track entity per within-row for clustering)
       var byEnt = groupBy(data, 'entity');
@@ -704,6 +720,7 @@
       });
       var nEnt = Object.keys(byEnt).length;
       var res2 = ols(yw, xw, { names: names, intercept: false });
+      if (res2.error) return { method: 'Panel (Fixed Effects)', error: res2.error + ' (in FE, a regressor with no within-entity variation — e.g. time-invariant — cannot be identified).' };
       var k = res2.k, dfFE = res2.n - nEnt - k;             // residual df = NT − N − K
       var sigma2FE = dfFE > 0 ? res2.rss / dfFE : res2.rss / Math.max(1, res2.df);
       res2.sigma = Math.sqrt(sigma2FE);
@@ -729,7 +746,9 @@
     }
     // random effects (simplified FGLS via Swamy-Arora quasi-demean)
     var poolRes = ols(y, Xcols, { names: names, intercept: true });
+    if (poolRes.error) return { method: 'Panel (Random Effects)', error: poolRes.error };
     var feRes = panel(data, names, { effects: 'fixed' });
+    if (feRes.error) return { method: 'Panel (Random Effects)', error: feRes.error };
     var byEnt2 = groupBy(data, 'entity'); var Ti = Object.keys(byEnt2).map(function (e) { return byEnt2[e].length; });
     var sigE2 = feRes.rss / (feRes._dfResid || feRes.df); var sigU2 = Math.max((poolRes.rss / poolRes.df) - sigE2, sigE2 * 0.05);
     var Tbar = mean(Ti); var theta = 1 - Math.sqrt(sigE2 / (sigE2 + Tbar * sigU2));

@@ -73,7 +73,7 @@
     var names = props.names, m = props.matrix;
     return (
       <div className="an-heat-wrap"><table className="an-heat"><thead><tr><th></th>{names.map(function (n, j) { return <th key={j} title={n}>{n.slice(0, 10)}</th>; })}</tr></thead>
-        <tbody>{names.map(function (n, i) { return <tr key={i}><th title={n}>{n.slice(0, 14)}</th>{m[i].map(function (v, j) { return <td key={j} style={{ background: corrColor(v) }} title={n + ' × ' + names[j] + ' = ' + fmt(v, 3)}>{v == null ? '·' : (Math.abs(v) >= 0.995 ? '1' : v.toFixed(2))}</td>; })}</tr>; })}</tbody>
+        <tbody>{names.map(function (n, i) { return <tr key={i}><th title={n}>{n.slice(0, 14)}</th>{m[i].map(function (v, j) { return <td key={j} style={{ background: corrColor(v) }} title={n + ' × ' + names[j] + ' = ' + fmt(v, 3)}>{(v == null || !isFinite(v)) ? '·' : (Math.abs(v) >= 0.995 ? '1' : v.toFixed(2))}</td>; })}</tr>; })}</tbody>
       </table></div>
     );
   }
@@ -349,6 +349,7 @@
     if (method === 'logit') {
       return (
         <div className="an-res">
+          {res.separation && <div className="an-verdict warn">⚠ {res.separationNote}</div>}
           <table className="an-table an-coef"><thead><tr><th>Variable</th><th>Coef.</th><th>Std.Err</th><th>z</th><th>P&gt;|z|</th><th>Odds ratio</th></tr></thead>
             <tbody>{res.names.map(function (nm, i) { return <tr key={i}><td className="an-vn">{nm}</td><td className="an-num">{fmt(res.coef[i])}<span className="an-star">{stars(res.p[i])}</span></td><td className="an-num">{fmt(res.se[i])}</td><td className="an-num">{fmt(res.z[i], 3)}</td><td className="an-num">{fmtP(res.p[i])}</td><td className="an-num">{fmt(res.oddsRatio[i], 3)}</td></tr>; })}</tbody></table>
           <div className="an-sig-key">*** p&lt;0.01 · ** p&lt;0.05 · * p&lt;0.1</div>

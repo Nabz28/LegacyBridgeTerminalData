@@ -151,7 +151,7 @@
       const t = ttmBlock(qtr); block = t.block; periods = ['TTM']; periodLabels = [t.label.replace('TTM → ', 'TTM ')];
     } else {
       block = freq === 'quarterly' ? qtr : ann;
-      periods = periodsOf(block).slice(-8); // cap columns
+      periods = periodsOf(block).slice(freq === 'quarterly' ? -12 : -10); // cap columns: 10 fiscal years / 12 quarters
       periodLabels = periods.map((d) => freq === 'quarterly' ? d.slice(0, 7) : d.slice(0, 4));
     }
     const rows = orderedKeys(stmt, block).filter(([k, label]) =>
@@ -206,7 +206,7 @@
   function ratioSeries(doc) {
     const A = doc.statements.annual;
     const inc = A.income, bal = A.balance, cf = A.cashflow;
-    const periods = periodsOf(inc).slice(-5);
+    const periods = periodsOf(inc).slice(-10);
     const g = (blk, k, d) => (blk[k] && blk[k][d] != null) ? blk[k][d] : null;
     const defs = [
       ['Gross margin', (d) => { const r = g(inc, 'TotalRevenue', d), x = g(inc, 'GrossProfit', d); return r && x != null ? x / r : null; }, 'pct'],

@@ -82,15 +82,21 @@
   }
   function pickKey(block, keys) { for (var i = 0; i < keys.length; i++) { if (block[keys[i]]) return block[keys[i]]; } return null; }
 
+  // Normalise an IDX ticker to its Yahoo symbol: BBCA → BBCA.JK (mirrors the
+  // Financials tab). Without this, "BBCA" resolves to a US-listed name on Yahoo
+  // (e.g. a Canadian ETF) and returns no Indonesian fundamentals.
+  function yahooSym(t) { t = String(t || '').trim().toUpperCase(); return (!t || /\./.test(t)) ? t : t + '.JK'; }
+
   // Auto-pull a metric from equity-statements (convenience; thin/empty for IDX).
   function autoPull(ticker, metricId, freq) {
     var met = METRICS.find(function (m) { return m.id === metricId; }) || METRICS[0];
     freq = freq === 'annual' ? 'annual' : 'quarterly';
-    return fetch(STMT_FN + '?ticker=' + encodeURIComponent(ticker), { headers: { apikey: ANON, Authorization: 'Bearer ' + ANON } })
+    var ysym = yahooSym(ticker);
+    return fetch(STMT_FN + '?ticker=' + encodeURIComponent(ysym), { headers: { apikey: ANON, Authorization: 'Bearer ' + ANON } })
       .then(function (r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
       .then(function (j) {
         var st = j && j.doc && j.doc.statements; var block = st && st[freq] && st[freq][met.stmt];
-        if (!block || !Object.keys(block).length) return { series: [], note: 'No auto-pull data for ' + ticker + ' (' + freq + ') — Yahoo has no fundamentals for this name (typical for IDX). Paste the series instead.', currency: (j.doc && j.doc.currency) || null };
+        if (!block || !Object.keys(block).length) return { series: [], note: 'No auto-pull data for ' + ysym + ' (' + freq + ') — Yahoo has no fundamentals for this name. Paste the series instead.', currency: (j.doc && j.doc.currency) || null };
         var series;
         if (met.ratio) {
           var a = mapToSeries(block[met.ratio[0]]), b = mapToSeries(block[met.ratio[1]]);
