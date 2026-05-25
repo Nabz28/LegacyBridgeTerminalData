@@ -20,6 +20,7 @@ const LBC_ICONS = {
   yggdrasil: _svg(<><circle cx="12" cy="5" r="2.3"/><circle cx="6" cy="19" r="2.3"/><circle cx="18" cy="19" r="2.3"/><path d="M12 7.3v3.4M12 10.7c-6 1.4-6 4.4-6 6.1M12 10.7c6 1.4 6 4.4 6 6.1"/></>),
   correlation:_svg(<><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></>),
   tools:     _svg(<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.9 2.9-2-2 2.9-2.9z"/>),
+  legion:    _svg(<><path d="M12 2.5L20 7v10l-8 4.5L4 17V7z"/><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5V4M14.2 13.3L18 15.5M9.8 13.3L6 15.5"/></>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -83,11 +84,19 @@ const LBC_TERMINALS = [
   { id: 'tools', num: 'T8', name: 'Tools', accent: '#7c9bf2', icon: LBC_ICONS.tools,
     desc: 'Utility toolbox — Autocharter turns CSV/Excel into publication-ready charts. More tools coming.',
     embed: '/autocharter/', workspaces: [ { kind: 'ext-autocharter', label: 'Autocharter', built: true } ] },
+  // LEGION — LBC's AI chief of staff (the brain). Management-only. Native
+  // in-shell terminal (window.LEGION); selfNav so the shell's workspace nav
+  // is suppressed (LEGION carries its own Brain/HQ mode toggle).
+  { id: 'legion', num: 'T9', name: 'LEGION', accent: '#8b7cf0', icon: LBC_ICONS.legion,
+    desc: 'AI chief of staff — the LBC brain. Knowledge base + HQ: goals, KPIs, milestones, growth.',
+    roles: ['admin', 'management'],
+    selfNav: true,
+    workspaces: [ { kind: 'legion', label: 'LEGION', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','portfolio','global']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','portfolio','global','legion']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating — a terminal with `roles` is restricted to those user roles;
