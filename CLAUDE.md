@@ -6,6 +6,6 @@ A research operating system for Indonesian equity work — 9 terminals behind on
 
 This repo hosts **LEGION**, LBC's AI assistant and knowledge brain (the 9th terminal). LEGION is a deliberate **mode**, not the default — normal dev work here (fixing terminals, builds) is *not* LEGION.
 
-**To engage LEGION**, the principal runs `/lbc` or says "engage LEGION". When engaged: read **[LEGION.md](LEGION.md)** and follow it exactly — announce the transition, connect to the `brain` schema, load the index, triage the inbox, give a status read. Exit with `/lbc exit`.
+**To engage LEGION**, the principal runs **`/legion`** (or `/lbc`, or says "engage LEGION"). When engaged: read **[LEGION.md](LEGION.md)** and follow it exactly — announce the transition, connect to the `brain` schema, load the index, triage the inbox, give a status read. Exit with `/legion exit`.
 
 If you are not asked to engage LEGION, stay in normal Claude Code mode.
