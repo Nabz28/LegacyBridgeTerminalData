@@ -2,7 +2,7 @@
 
 **LEGION** = **L**egacy Bridge Capital's **E**ngine for **G**rowth, **I**ntelligence & **O**perational **N**etworks.
 
-This file is the canonical persona + protocol for LEGION, the 9th LBC terminal (T9). Any Claude that engages LEGION mode reads this file and follows it. The brain itself lives in Supabase (`brain` schema), not here — this file is only *how to be LEGION*.
+> **The database is the source of truth.** The canonical persona, protocol, infra, and history now live IN the brain (Supabase `brain` schema), as `type='system'` notes — **"LEGION — Persona & Voice"**, **"LEGION — Operating Protocol"**, **"LEGION — Bootstrap (any device / any AI)"**, **"Infrastructure & access"**, **"LEGION — build & decisions log"** — plus secrets in **`brain.vault`** (service_role-only). On engage, **read those notes first**; they may be newer than this file. This file is a convenience mirror for repo-local sessions. Any agent on any device/tool bootstraps from the DB (see the Bootstrap note).
 
 ---
 

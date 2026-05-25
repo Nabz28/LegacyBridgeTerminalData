@@ -150,9 +150,33 @@ const LgDump = ({ onDumped }) => {
 };
 
 // ================================================================
+// LgLinkedRefs — Obsidian-style "linked references": outbound links
+// (this note → others) + backlinks (others → this note), from the index.
+// ================================================================
+const LgLinkedRefs = ({ note, index, onWiki }) => {
+  if (!note) return null;
+  const title = (note.title || '').toLowerCase();
+  const find = (t) => (index || []).find((n) => (n.title || '').toLowerCase() === (t || '').toLowerCase());
+  const out = (note.links || []).map((t) => find(t) || { title: t, missing: true });
+  const back = (index || []).filter((n) => n.id !== note.id && (n.links || []).some((t) => (t || '').toLowerCase() === title));
+  if (!out.length && !back.length) return null;
+  const Row = ({ n }) => (
+    <button className={`lg-ref ${n.missing ? 'missing' : ''}`} onClick={() => onWiki && onWiki(n.title)} title={n.missing ? 'no note with this title yet' : 'open'}>
+      <span className={`lg-typedot t-${n.type || 'note'}`} />{n.title}{n.missing ? ' ·?' : ''}
+    </button>
+  );
+  return (
+    <div className="lg-refs">
+      {out.length > 0 && <div className="lg-refsec"><div className="lg-refs-h">Links to →</div><div className="lg-refs-list">{out.map((n, i) => <Row key={i} n={n} />)}</div></div>}
+      {back.length > 0 && <div className="lg-refsec"><div className="lg-refs-h">← Linked from</div><div className="lg-refs-list">{back.map((n) => <Row key={n.id} n={n} />)}</div></div>}
+    </div>
+  );
+};
+
+// ================================================================
 // LgNoteDetail — read/edit a single note.
 // ================================================================
-const LgNoteDetail = ({ note, onWiki, onSaved, onDeleted, onToast }) => {
+const LgNoteDetail = ({ note, index, onWiki, onSaved, onDeleted, onToast }) => {
   const [editing, setEditing] = React.useState(false);
   const [body, setBody] = React.useState(note ? note.body || '' : '');
   const [title, setTitle] = React.useState(note ? note.title || '' : '');
@@ -206,6 +230,7 @@ const LgNoteDetail = ({ note, onWiki, onSaved, onDeleted, onToast }) => {
       {editing
         ? <textarea className="lg-bodyedit" value={body} onChange={(e) => setBody(e.target.value)} placeholder="Markdown · [[wikilinks]] supported" />
         : <LgNoteBody md={note.body} onWiki={onWiki} />}
+      {!editing && <LgLinkedRefs note={note} index={index} onWiki={onWiki} />}
     </div>
   );
 };
@@ -217,6 +242,7 @@ const FOLDER_ORDER = ['home', 'strategy', 'growth', 'investments', 'operations',
 
 const Legion = () => {
   const [mode, setMode] = React.useState('hq'); // 'hq' | 'brain'
+  const [brainView, setBrainView] = React.useState('list'); // 'list' | 'graph'
   const [notes, setNotes] = React.useState(null); // index (no body)
   const [active, setActive] = React.useState(null); // full note
   const [query, setQuery] = React.useState('');
@@ -232,7 +258,7 @@ const Legion = () => {
 
   const loadIndex = React.useCallback(async () => {
     try {
-      const rows = await BRAIN.get('/notes?select=id,title,folder,type,tags,status,pinned,created_at,updated_at,data&order=updated_at.desc&limit=2000');
+      const rows = await BRAIN.get('/notes?select=id,title,folder,type,tags,status,pinned,links,created_at,updated_at,data&order=updated_at.desc&limit=2000');
       setNotes(rows); setErr(null);
       const snaps = rows.filter((n) => n.type === 'status_snapshot');
       setSnapshot(snaps.length ? snaps[0] : null);
@@ -285,7 +311,7 @@ const Legion = () => {
     if (!q) { setSearchHits(null); return; }
     let live = true;
     const enc = encodeURIComponent('*' + q + '*');
-    BRAIN.get('/notes?or=(title.ilike.' + enc + ',body.ilike.' + enc + ')&select=id,title,folder,type,tags,status,pinned,updated_at,data&order=updated_at.desc&limit=200')
+    BRAIN.get('/notes?or=(title.ilike.' + enc + ',body.ilike.' + enc + ')&select=id,title,folder,type,tags,status,pinned,links,updated_at,data&order=updated_at.desc&limit=200')
       .then((r) => { if (live) setSearchHits(r); }).catch(() => { if (live) setSearchHits([]); });
     return () => { live = false; };
   }, [query]);
@@ -326,9 +352,13 @@ const Legion = () => {
       {mode === 'hq'
         ? (window.LegionHQ ? <window.LegionHQ notes={notes} snapshot={snapshot} onOpenNote={openNote} reload={loadIndex} /> : <div className="lg-loading">Loading HQ…</div>)
         : (
-          <div className="lg-brain">
+          <div className={`lg-brain ${brainView === 'graph' ? 'is-graph' : ''}`}>
             {/* rail */}
             <div className="lg-rail">
+              <div className="lg-viewtoggle">
+                <button className={brainView === 'list' ? 'on' : ''} onClick={() => setBrainView('list')}>List</button>
+                <button className={brainView === 'graph' ? 'on' : ''} onClick={() => setBrainView('graph')}>Graph</button>
+              </div>
               <div className="lg-search">
                 <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search the brain…" />
               </div>
@@ -362,8 +392,10 @@ const Legion = () => {
               <LgDump onDumped={loadIndex} />
             </div>
 
-            {/* list */}
-            <div className="lg-list">
+            {/* list OR graph */}
+            {brainView === 'graph'
+              ? (window.LegionGraph ? <window.LegionGraph notes={notes} activeId={active && active.id} onOpen={openNote} /> : <div className="lg-loading">Graph…</div>)
+              : <div className="lg-list">
               {notes == null && <div className="lg-loading">Loading…</div>}
               {notes != null && list.length === 0 && <div className="lg-loading">No notes here.</div>}
               {list.map((n) => (
@@ -381,10 +413,10 @@ const Legion = () => {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>}
 
             {/* detail */}
-            <LgNoteDetail note={active} onWiki={openByTitle}
+            <LgNoteDetail note={active} index={notes} onWiki={openByTitle}
               onSaved={(nx) => { setActive(nx); loadIndex(); }}
               onDeleted={() => { setActive(null); loadIndex(); }}
               onToast={flash} />
