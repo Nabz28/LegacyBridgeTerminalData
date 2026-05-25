@@ -27,6 +27,10 @@ correlation/catalog/staging/
 # Documentation / READMEs that aren't served (anchored: only the repo-root one,
 # leave management/README.md alone).
 /README.md
+# Agent / dev docs — not runtime assets. Keep LEGION's operating manual and the
+# CLAUDE.md pointer out of the public deploy (no secrets, but no reason to serve).
+/LEGION.md
+/CLAUDE.md
 correlation/catalog/universe.json.bak
 correlation/catalog/universe.json.bak2
 
