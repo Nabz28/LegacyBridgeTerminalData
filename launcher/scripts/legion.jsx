@@ -232,7 +232,7 @@ const Legion = () => {
 
   const loadIndex = React.useCallback(async () => {
     try {
-      const rows = await BRAIN.get('/notes?select=id,title,folder,type,tags,status,pinned,updated_at,data&order=updated_at.desc&limit=2000');
+      const rows = await BRAIN.get('/notes?select=id,title,folder,type,tags,status,pinned,created_at,updated_at,data&order=updated_at.desc&limit=2000');
       setNotes(rows); setErr(null);
       const snaps = rows.filter((n) => n.type === 'status_snapshot');
       setSnapshot(snaps.length ? snaps[0] : null);
@@ -280,7 +280,8 @@ const Legion = () => {
   // filtered list (client-side; server search when query present)
   const [searchHits, setSearchHits] = React.useState(null);
   React.useEffect(() => {
-    const q = query.trim();
+    // strip chars that would break the PostgREST or()/ilike filter
+    const q = query.trim().replace(/[(),*%\\]/g, ' ').replace(/\s+/g, ' ').trim();
     if (!q) { setSearchHits(null); return; }
     let live = true;
     const enc = encodeURIComponent('*' + q + '*');

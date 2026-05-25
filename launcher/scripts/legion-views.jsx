@@ -78,6 +78,93 @@ const LgRollupCard = ({ label, value, sub }) => (
   </div>
 );
 
+// ================================================================
+// Self-customizable widgets. LEGION writes notes of type='hq_widget'
+// with data { widget, order, span(1-3), tone, ...config } and they
+// render here — she reshapes her own HQ with NO redeploy.
+// Supported widget kinds: callout | todo | kpi | progress | list |
+//   metric_row | table | links | note_ref
+// ================================================================
+const LgTodo = ({ note, reload }) => {
+  const items = (note.data && note.data.items) || [];
+  const [busy, setBusy] = React.useState(false);
+  const toggle = async (i) => {
+    if (busy) return; setBusy(true);
+    const next = items.map((it, idx) => (idx === i ? Object.assign({}, it, { done: !it.done }) : it));
+    try { await window.BRAIN.update('notes', 'id=eq.' + note.id, { data: Object.assign({}, note.data, { items: next }) }); reload && reload(); } catch (e) {}
+    setBusy(false);
+  };
+  const doneN = items.filter((it) => it.done).length;
+  return (
+    <div className="lg-w-todo">
+      {items.length === 0 && <div className="lg-dim">No items.</div>}
+      {items.map((it, i) => (
+        <label key={i} className={`lg-todo-item ${it.done ? 'done' : ''}`}>
+          <input type="checkbox" checked={!!it.done} onChange={() => toggle(i)} />
+          <span>{it.text}</span>
+        </label>
+      ))}
+      {items.length > 0 && <div className="lg-todo-foot lg-dim">{doneN}/{items.length} done</div>}
+    </div>
+  );
+};
+
+const LgNoteRef = ({ data }) => {
+  const [body, setBody] = React.useState(null);
+  React.useEffect(() => {
+    let live = true;
+    const match = data.note_id ? 'id=eq.' + data.note_id : (data.note_title ? 'title=eq.' + encodeURIComponent(data.note_title) : null);
+    if (!match) { setBody('—'); return; }
+    window.BRAIN.get('/notes?' + match + '&select=body&limit=1')
+      .then((r) => { if (live) setBody(r && r[0] ? r[0].body : '(note not found)'); })
+      .catch(() => { if (live) setBody('(load failed)'); });
+    return () => { live = false; };
+  }, [data.note_id, data.note_title]);
+  if (body == null) return <div className="lg-dim">Loading…</div>;
+  return <div className="lg-md" dangerouslySetInnerHTML={{ __html: window.legionMd(body) }} />;
+};
+
+const LgWidget = ({ note, reload, onOpen }) => {
+  const d = note.data || {};
+  const kind = d.widget || 'callout';
+  const span = Math.max(1, Math.min(3, d.span || 1));
+  let inner;
+  if (kind === 'todo') inner = <LgTodo note={note} reload={reload} />;
+  else if (kind === 'kpi') inner = (
+    <div className="lg-w-kpibig"><div className="lg-w-kpival">{lgNum(d.value)}<span className="lg-kpi-unit">{d.unit || ''}</span></div>
+      {(d.target != null || d.sub) && <div className="lg-dim">{d.sub || ('target ' + lgNum(d.target))}</div>}</div>
+  );
+  else if (kind === 'progress') inner = (
+    <div className="lg-w-prog">{(d.bars || []).map((b, i) => {
+      const pct = Math.max(0, Math.min(100, b.max ? (Number(b.value) / Number(b.max)) * 100 : Number(b.value) || 0));
+      return (<div key={i} className="lg-w-progrow"><div className="lg-w-progtop"><span>{b.label}</span><span className="lg-dim">{lgNum(b.value)}{b.max ? (' / ' + lgNum(b.max)) : ''}</span></div><div className={`lg-prog st-${b.status || 'on_track'}`}><span style={{ width: pct + '%' }} /></div></div>);
+    })}</div>
+  );
+  else if (kind === 'list') inner = <ul className="lg-w-list">{(d.items || []).map((x, i) => <li key={i}>{x}</li>)}</ul>;
+  else if (kind === 'metric_row') inner = (
+    <div className="lg-w-metrics">{(d.metrics || []).map((m, i) => (
+      <div key={i} className="lg-w-metric"><div className="lg-w-metric-val">{lgNum(m.value)}</div><div className="lg-dim">{m.label}</div>{m.sub && <div className="lg-w-metric-sub lg-dim">{m.sub}</div>}</div>
+    ))}</div>
+  );
+  else if (kind === 'table') inner = (
+    <table className="lg-w-table"><thead><tr>{(d.columns || []).map((c, i) => <th key={i}>{c}</th>)}</tr></thead>
+      <tbody>{(d.rows || []).map((row, ri) => <tr key={ri}>{(row || []).map((cell, ci) => <td key={ci}>{cell}</td>)}</tr>)}</tbody></table>
+  );
+  else if (kind === 'links') inner = (
+    <div className="lg-w-links">{(d.links || []).map((l, i) => <a key={i} href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</div>
+  );
+  else if (kind === 'note_ref') inner = <LgNoteRef data={d} />;
+  else inner = <div className="lg-md" dangerouslySetInnerHTML={{ __html: window.legionMd(d.text || note.body || '') }} />; // callout
+  const tone = d.tone || (kind === 'callout' ? 'drive' : '');
+  return (
+    <div className={`lg-w span-${span} tone-${tone}`}>
+      <div className="lg-w-h"><span className="lg-w-title">{note.title}</span>
+        {onOpen && <button className="lg-w-edit" title="Open underlying note" onClick={() => onOpen(note.id)}>↗</button>}</div>
+      <div className="lg-w-body">{inner}</div>
+    </div>
+  );
+};
+
 const LegionHQ = ({ notes, snapshot, onOpenNote, reload }) => {
   const [roll, setRoll] = React.useState({});
   React.useEffect(() => {
@@ -110,6 +197,7 @@ const LegionHQ = ({ notes, snapshot, onOpenNote, reload }) => {
   const goals = byType('goal');
   const kpis = byType('kpi');
   const initiatives = byType('initiative');
+  const widgets = [...byType('hq_widget')].sort((a, b) => (((a.data && a.data.order) || 0) - ((b.data && b.data.order) || 0)));
   const milestones = [...byType('milestone')].sort((a, b) => ((a.data && a.data.due) || '').localeCompare((b.data && b.data.due) || ''));
   const today = new Date().toISOString().slice(0, 10);
   const snap = snapshot && snapshot.data ? snapshot.data : null;
@@ -141,6 +229,12 @@ const LegionHQ = ({ notes, snapshot, onOpenNote, reload }) => {
           <div className="lg-snap-empty">No status read yet. Run <code>/lbc</code> in Claude Code and LEGION will assess where LBC stands and log it here.</div>
         )}
       </div>
+
+      {/* LEGION's self-built panels (type='hq_widget') */}
+      {widgets.length > 0 && <>
+        <div className="lg-section-lbl">LEGION's panels</div>
+        <div className="lg-wgrid">{widgets.map((w) => <LgWidget key={w.id} note={w} reload={reload} onOpen={onOpenNote} />)}</div>
+      </>}
 
       {/* live rollups */}
       <div className="lg-section-lbl">Live across the terminals</div>
