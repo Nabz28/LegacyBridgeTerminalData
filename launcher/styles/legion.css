@@ -45,6 +45,17 @@
 .lg-empty-row{padding:16px;border:1px dashed var(--border-subtle,rgba(255,255,255,.10));border-radius:8px;
   color:var(--text-tertiary,#8E9AB0);font-size:12.5px;background:var(--bg-1,#0A0A0B)}
 
+/* daily check-in (always-curious nudge) */
+.lg-checkin{margin-bottom:14px;padding:11px 15px;border-radius:10px;cursor:pointer;border:1px solid var(--border-subtle,rgba(255,255,255,.08));background:var(--bg-1,#0A0A0B)}
+.lg-checkin.stale{border-color:rgba(255,180,84,.4);background:linear-gradient(135deg,rgba(255,180,84,.1),transparent)}
+.lg-checkin.ok{border-color:rgba(95,214,164,.28);background:linear-gradient(135deg,rgba(95,214,164,.06),transparent)}
+.lg-checkin-h{display:flex;align-items:center;gap:9px;font-size:13px;color:#EAEFF7}
+.lg-checkin-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.lg-checkin.stale .lg-checkin-dot{background:#ffc578;box-shadow:0 0 0 0 rgba(255,180,84,.5);animation:lgpulse 2.4s infinite}
+.lg-checkin.ok .lg-checkin-dot{background:#5fd6a4}
+.lg-checkin-asks{margin:8px 0 0;padding-left:24px}
+.lg-checkin-asks li{font-size:12px;line-height:1.5;color:var(--text-secondary,#D4DCEA);margin-bottom:2px}
+
 /* status snapshot */
 .lg-snap{border:1px solid var(--lg-edge);border-radius:12px;padding:16px 18px;margin-top:4px;
   background:linear-gradient(135deg,var(--lg-soft),rgba(139,124,240,.02))}

@@ -165,7 +165,32 @@ const LgWidget = ({ note, reload, onOpen }) => {
   );
 };
 
+// Daily check-in — LEGION's "always curious" banner. Reads the Pulse note
+// (type=system, title 'LEGION — Pulse'): staleness vs cadence + open asks.
+const LgCheckin = ({ pulse, onOpenNote }) => {
+  if (!pulse) return null;
+  const d = pulse.data || {};
+  const last = d.last_update_at;
+  const cadence = d.cadence_hours || 24;
+  const hours = last ? (Date.now() - new Date(last).getTime()) / 3600000 : null;
+  const stale = hours == null || hours >= cadence;
+  const asks = d.open_asks || [];
+  const ago = window.lgTimeAgo ? window.lgTimeAgo(last) : '';
+  return (
+    <div className={`lg-checkin ${stale ? 'stale' : 'ok'}`} onClick={() => onOpenNote && onOpenNote(pulse.id)}>
+      <div className="lg-checkin-h">
+        <span className="lg-checkin-dot" />
+        {stale
+          ? <b>LEGION wants an update{last ? ` — ${ago} since your last` : ''}. Run /legion and tell her what moved.</b>
+          : <b>Brain is fresh — last update {ago}. Still open with LEGION:</b>}
+      </div>
+      {asks.length > 0 && <ul className="lg-checkin-asks">{asks.map((a, i) => <li key={i}>{a}</li>)}</ul>}
+    </div>
+  );
+};
+
 const LegionHQ = ({ notes, snapshot, onOpenNote, reload }) => {
+  const pulse = (notes || []).find((n) => n.type === 'system' && n.title === 'LEGION — Pulse');
   const [roll, setRoll] = React.useState({});
   React.useEffect(() => {
     let live = true;
@@ -204,6 +229,9 @@ const LegionHQ = ({ notes, snapshot, onOpenNote, reload }) => {
 
   return (
     <div className="lg-hq">
+      {/* daily check-in — always-curious nudge */}
+      <LgCheckin pulse={pulse} onOpenNote={onOpenNote} />
+
       {/* status snapshot — LEGION's latest read */}
       <div className="lg-snap">
         {snap ? (
