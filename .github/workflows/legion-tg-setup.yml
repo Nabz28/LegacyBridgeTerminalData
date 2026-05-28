@@ -1,0 +1,36 @@
+# LEGION — Telegram bot setup (one-shot, manual-dispatch only).
+#
+# Runs scripts/legion/tg_setup.py in CI where the network can actually
+# reach api.telegram.org. Reads the bot token from brain.vault (pre-filed
+# by LEGION); discovers chat_id from getUpdates; sends a smoke-test
+# message. Idempotent — safe to re-run.
+#
+# Pre-req: the principal has talked to @BotFather, got a token, filed it
+# to brain.vault.telegram_bot_token, and sent at least one message to
+# the new bot (so getUpdates has something to discover from).
+
+name: legion-tg-setup
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Discover chat_id + smoke test
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python scripts/legion/tg_setup.py
