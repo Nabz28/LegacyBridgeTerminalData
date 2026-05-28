@@ -42,3 +42,8 @@ Stop.bat
 # yggdrasil/package.json MUST reach the build server -- without the leading
 # slash this glob was matching them too, causing the build to fail.
 /package.json
+
+# Brain backups (L3) — JSON dumps of brain.notes + audit + vault metadata,
+# written by scripts/backup_brain.py and the nightly GitHub Action. Forensic
+# storage only; not a runtime asset.
+backups/
