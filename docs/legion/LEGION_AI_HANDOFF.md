@@ -48,6 +48,9 @@ state the next action.
   `MEMORY.md` so OpenClaw injects current state into new Telegram sessions.
 - `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
   `brain.intake` so Telegram LEGION can operate brain-first.
+- On Windows Telegram/WhatsApp agent runs, use `@file` JSON arguments for every
+  live brain call on the first attempt. Do not hand-escape nested JSON in
+  PowerShell; that was the source of the residual raw tool-call warning.
 - Full smoke passed on 2026-05-28 after the Codex quota reset.
 
 ## Operational Priority

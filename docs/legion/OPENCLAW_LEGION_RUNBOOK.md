@@ -207,6 +207,24 @@ Actions:
 - `brain.snapshot_read`: read latest `status_snapshot`.
 - `brain.pulse_touch`: refresh `LEGION - Pulse`.
 
+PowerShell operator test:
+
+```powershell
+node "$HOME\.openclaw\workspace\skills\legion-brain\scripts\brain-action.mjs" brain.bootstrap '{}'
+```
+
+Telegram/WhatsApp agent rule on Windows: use `@file` on the first attempt, even
+for simple payloads. Do not use inline JSON in the chat agent path.
+
+```powershell
+node "$HOME\.openclaw\workspace\skills\legion-brain\scripts\brain-action.mjs" brain.intake '@C:\path\to\args.json'
+```
+
+Do not hand-escape nested JSON in PowerShell. If a Telegram agent exposes a raw
+brain tool failure, the likely cause is shell quoting or a non-`@file` call.
+Retry with `@file`, then answer from the synced `MEMORY.md` brain cache if the
+live call still fails.
+
 Rules:
 
 - The brain is source of truth.
