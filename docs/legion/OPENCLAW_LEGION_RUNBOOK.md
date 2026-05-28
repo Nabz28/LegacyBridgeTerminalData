@@ -1,6 +1,6 @@
 # LEGION OpenClaw Runbook
 
-Last verified: 2026-05-28 19:17 GMT+7
+Last verified: 2026-05-29 00:55 GMT+7
 Principal: Nabil Sachio Refat
 
 ## Mission
@@ -30,6 +30,11 @@ same action surface. Model providers are replaceable. Context is not.
   15 minutes.
 - Verification: full smoke test passed after quota reset, including image
   describe reading `LEGION TEST` from a generated image.
+- Telegram group trigger routing: OpenClaw treats whole-word `LEGION`,
+  whole-word `LBC`, and `@LEGIONLBC_bot` as group mention patterns. Telegram
+  privacy mode is disabled, so those plain trigger words can now reach the bot.
+  The LBC group still requires a mention/trigger/reply, so ambient chatter
+  should not summon LEGION.
 
 ## Live Local Paths
 
@@ -133,7 +138,15 @@ Do not copy tokens from the live config. The important shape is:
       "enabled": true,
       "name": "LEGION Telegram",
       "commands": { "native": false },
-      "mediaMaxMb": 8
+      "mediaMaxMb": 8,
+      "groups": {
+        "-5196396460": {
+          "enabled": true,
+          "requireMention": true,
+          "groupPolicy": "open",
+          "allowFrom": ["*"]
+        }
+      }
     },
     "whatsapp": {
       "enabled": false
@@ -144,6 +157,11 @@ Do not copy tokens from the live config. The important shape is:
       "workspace": "C:\\Users\\DELL\\.openclaw\\workspace",
       "skills": ["legion-brain", "weather"],
       "model": { "primary": "openai/gpt-5.5" }
+    }
+  },
+  "messages": {
+    "groupChat": {
+      "mentionPatterns": ["\\bLEGION\\b", "\\bLBC\\b", "@LEGIONLBC_bot"]
     }
   },
   "tools": {
@@ -276,8 +294,10 @@ What it checks:
 
 - Gateway process exists.
 - TCP port `127.0.0.1:18789` is open.
-- `openclaw gateway health` returns OK, or TCP is open with no fresh stall
-  signature.
+- `openclaw gateway health` returns OK.
+- TCP-open but health-timeout/health-failed is treated as unhealthy and triggers
+  recovery. This catches the half-stall where the port listens but the
+  WebSocket control plane stops responding.
 - Fresh stall signatures after the latest `gateway ready`:
   - `stalled session:`
   - `active_work_without_progress`
@@ -342,12 +362,23 @@ Group chat:
 
 - Add the bot to the group.
 - BotFather group permissions must be enabled.
-- Mention `@LEGIONLBC_bot` or reply to a bot message.
+- Mention `@LEGIONLBC_bot`, reply to a bot message, or use the standalone
+  trigger words `LEGION` or `LBC`.
 - Approved LBC executive group: `telegram:-5196396460`.
 - This group is allowlisted globally, and inside it any member can call LEGION
   because `groups[-5196396460].allowFrom=["*"]`.
-- `requireMention=true` remains enabled. LEGION should answer mentions/replies,
-  not every ambient group message.
+- `requireMention=true` remains enabled. OpenClaw's `messages.groupChat`
+  mention patterns include `\bLEGION\b`, `\bLBC\b`, and `@LEGIONLBC_bot`.
+  LEGION should answer mentions, replies, and those trigger words, not every
+  ambient group message.
+- Telegram BotFather privacy mode is disabled. Bot API state on 2026-05-29
+  showed `can_read_all_group_messages=true`, so plain `LEGION` and `LBC`
+  trigger messages can now reach OpenClaw.
+- Telegram BotFather inline mode is enabled (`supports_inline_queries=true`).
+  That is why typing `@LEGIONLBC_bot` in the group opens a loading/search-style
+  inline picker. This is Telegram UI, not OpenClaw thinking. Disable inline mode
+  in BotFather if the mention UI gets in the way, or use reply/trigger words
+  after privacy is disabled.
 - Random direct messages remain locked behind pairing/allowlist. DMs are not
   globally open.
 
@@ -415,7 +446,8 @@ billing, move to an API-key backend with fallback.
 - Codex subscription quota can block replies and image processing.
 - OpenClaw can show event-loop degradation during model work; current watchdog
   does not restart on transient degradation if health stays OK.
-- Telegram group behavior still needs real group-message validation by Nabil.
+- Telegram group trigger behavior still needs one real group-message validation
+  by Nabil using `LEGION status` or `LBC status`.
 - WhatsApp is not live.
 - This setup is not 24/7 until moved to an always-on host.
 - Brain writes depend on `SUPABASE_SERVICE_ROLE_KEY`; loss or rotation requires

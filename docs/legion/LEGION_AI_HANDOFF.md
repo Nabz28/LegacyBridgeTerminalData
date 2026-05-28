@@ -49,8 +49,18 @@ state the next action.
 - `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
   `brain.intake` so Telegram LEGION can operate brain-first.
 - Telegram group `-5196396460` is the approved LBC executive group. Any member
-  in that group can call LEGION by mention/reply; random DMs remain locked by
-  pairing/allowlist.
+  in that group can call LEGION by mention/reply or by standalone trigger words
+  `LEGION` and `LBC`; random DMs remain locked by pairing/allowlist.
+- OpenClaw config uses `messages.groupChat.mentionPatterns` for
+  `\bLEGION\b`, `\bLBC\b`, and `@LEGIONLBC_bot`, while the LBC group keeps
+  `requireMention=true`. This should route trigger-word calls without answering
+  ambient group chatter.
+- Telegram BotFather privacy mode is disabled as of 2026-05-29. Bot API
+  returned `getMe.can_read_all_group_messages=true`, so plain trigger words can
+  reach OpenClaw.
+- Telegram inline mode is enabled if `getMe.supports_inline_queries=true`; this
+  causes the long loading/search UI when typing `@LEGIONLBC_bot` in a group.
+  Disable inline mode in BotFather if needed.
 - Rattana Chaniago is LBC CFO and maps to Telegram `@rattanaaa` /
   `1069737458`. Keep `LEGION - Telegram Identity Map` current for new LBC
   members.
