@@ -33,15 +33,22 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 _TOKEN_FILE = _REPO_ROOT / ".claude" / "tg-token.txt"
 
 
-def load_token() -> str:
+def load_token(b: "Brain | None" = None) -> str:
+    """Resolve token from env → scratch file → brain.vault. The vault
+    fallback lets this run from CI / from a fresh agent without surfacing
+    the token in chat or on disk."""
     t = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if t:
         return t
     if _TOKEN_FILE.exists():
         return _TOKEN_FILE.read_text(encoding="utf-8").strip()
+    if b is not None:
+        vt = b.vault_try("telegram_bot_token")
+        if vt:
+            return vt
     raise SystemExit(
-        f"no token. either set TELEGRAM_BOT_TOKEN env var, or write the "
-        f"token into {_TOKEN_FILE.relative_to(_REPO_ROOT)} (gitignored)."
+        f"no token. set TELEGRAM_BOT_TOKEN env var, write the token into "
+        f"{_TOKEN_FILE.relative_to(_REPO_ROOT)}, or pre-file brain.vault.telegram_bot_token."
     )
 
 
@@ -58,7 +65,8 @@ def tg(method: str, token: str, params: dict | None = None) -> dict:
 
 
 def main() -> int:
-    token = load_token()
+    b = Brain()
+    token = load_token(b)
     if not (":" in token and len(token) > 30):
         print(f"bad token shape (got length {len(token)} — Telegram tokens look like 123456:AA...).", file=sys.stderr)
         return 2
@@ -98,7 +106,6 @@ def main() -> int:
     print(f"chat OK: id={chat_id}  type={chat['type']}  from=@{sender.get('username') or sender.get('first_name')}")
 
     # 3) File both into brain.vault
-    b = Brain()
     b.vault_set(
         "telegram_bot_token", token,
         note=f"@{bot['username']} (bot id {bot['id']}). Created via BotFather. Used by F1 nag.",
