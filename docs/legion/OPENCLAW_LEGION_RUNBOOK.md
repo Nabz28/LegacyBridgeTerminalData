@@ -333,6 +333,10 @@ Direct chat:
 - Message `@LEGIONLBC_bot` directly.
 - Send text, reminders, or an image.
 - Image handling is bounded and should summarize/extract visible text.
+- Telegram bot profile fallback text is configured:
+  "If silent: Codex is off. Tell Nabil to start his laptop."
+- This fallback is visible metadata only. It is not an automatic offline reply.
+  A true offline reply requires an always-on Telegram webhook/relay service.
 
 Group chat:
 
@@ -361,6 +365,10 @@ If Nabil insists on using his personal number:
 
 Current local mode requires the laptop to be awake. If the laptop sleeps or
 shuts down, OpenClaw stops. The watchdog recovers it only after Windows wakes.
+Telegram cannot send new LEGION replies while the laptop/gateway is offline.
+The bot profile now tells users: "If silent: Codex is off. Tell Nabil to start
+his laptop." True automatic offline replies require moving Telegram handling to
+an always-on server/webhook.
 
 24/7 options:
 
