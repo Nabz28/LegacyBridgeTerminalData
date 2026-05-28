@@ -343,8 +343,22 @@ Group chat:
 - Add the bot to the group.
 - BotFather group permissions must be enabled.
 - Mention `@LEGIONLBC_bot` or reply to a bot message.
-- Do not expect the bot to answer every ambient group message unless OpenClaw
-  group routing is deliberately loosened.
+- Approved LBC executive group: `telegram:-5196396460`.
+- This group is allowlisted globally, and inside it any member can call LEGION
+  because `groups[-5196396460].allowFrom=["*"]`.
+- `requireMention=true` remains enabled. LEGION should answer mentions/replies,
+  not every ambient group message.
+- Random direct messages remain locked behind pairing/allowlist. DMs are not
+  globally open.
+
+Known Telegram identities:
+
+- `telegram:6101244829` / `@NabilSachre` = Nabil Sachio Refat, principal.
+- `telegram:1069737458` / `@rattanaaa` = Rattana Chaniago, CFO.
+
+If a known LBC executive is not recognized, update the brain note
+`LEGION - Telegram Identity Map`, add/update the matching `person` note, then
+run `C:\Users\DELL\.openclaw\ops\legion-brain-sync.ps1`.
 
 ## WhatsApp Boundary
 

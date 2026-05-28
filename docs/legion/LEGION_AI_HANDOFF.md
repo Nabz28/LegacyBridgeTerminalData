@@ -48,6 +48,12 @@ state the next action.
   `MEMORY.md` so OpenClaw injects current state into new Telegram sessions.
 - `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
   `brain.intake` so Telegram LEGION can operate brain-first.
+- Telegram group `-5196396460` is the approved LBC executive group. Any member
+  in that group can call LEGION by mention/reply; random DMs remain locked by
+  pairing/allowlist.
+- Rattana Chaniago is LBC CFO and maps to Telegram `@rattanaaa` /
+  `1069737458`. Keep `LEGION - Telegram Identity Map` current for new LBC
+  members.
 - On Windows Telegram/WhatsApp agent runs, use `@file` JSON arguments for every
   live brain call on the first attempt. Do not hand-escape nested JSON in
   PowerShell; that was the source of the residual raw tool-call warning.
