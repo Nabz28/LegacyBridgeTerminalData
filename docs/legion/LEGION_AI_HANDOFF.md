@@ -43,6 +43,10 @@ state the next action.
 - WhatsApp is disabled until a dedicated eSIM WhatsApp account works.
 - Image handling works through bounded `codex/gpt-5.5` image describe.
 - Watchdog runs every 5 minutes via Windows Scheduled Task.
+- Brain sync runs every 15 minutes via Windows Scheduled Task and writes
+  `LEGION_CONTEXT.md` into the OpenClaw workspace.
+- `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
+  `brain.intake` so Telegram LEGION can operate brain-first.
 - Full smoke passed on 2026-05-28 after the Codex quota reset.
 
 ## Operational Priority
@@ -55,8 +59,13 @@ The system should progress toward:
 4. Dedicated-number WhatsApp activation.
 5. Periodic brain-backed health reporting.
 
+## Runtime Behavior
+
+Telegram LEGION should not wait for Nabil to ask for the brain. Start from the
+synced context cache, call `brain.bootstrap` when current state matters, and
+write substantive intake with `brain.intake` or a specific action.
+
 ## Human Interface
 
 Nabil expects direct status, hard truth, and concrete fixes. Use heat when he is
 slacking, but always pair it with a next action.
-

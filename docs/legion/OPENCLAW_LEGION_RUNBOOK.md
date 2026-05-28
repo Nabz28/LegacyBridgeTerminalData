@@ -26,6 +26,8 @@ same action surface. Model providers are replaceable. Context is not.
   `openai/gpt-5.5` as the OpenClaw agent model via Codex auth.
 - Brain action surface: `legion-brain` OpenClaw skill.
 - Recovery: Windows Scheduled Task `LEGION OpenClaw Watchdog`, every 5 minutes.
+- Brain context sync: Windows Scheduled Task `LEGION OpenClaw Brain Sync`, every
+  15 minutes.
 - Verification: full smoke test passed after quota reset, including image
   describe reading `LEGION TEST` from a generated image.
 
@@ -40,7 +42,10 @@ Do not commit files from these paths unless they have been sanitized first.
   `C:\Users\DELL\.openclaw\workspace\skills\legion-brain\scripts\brain-action.mjs`
 - Watchdog script: `C:\Users\DELL\.openclaw\ops\legion-openclaw-watchdog.ps1`
 - Smoke script: `C:\Users\DELL\.openclaw\ops\legion-openclaw-smoke.ps1`
+- Brain sync script: `C:\Users\DELL\.openclaw\ops\legion-brain-sync.ps1`
+- Synced context cache: `C:\Users\DELL\.openclaw\workspace\LEGION_CONTEXT.md`
 - Watchdog logs: `C:\Users\DELL\.openclaw\logs\legion-openclaw-watchdog.log`
+- Brain sync logs: `C:\Users\DELL\.openclaw\logs\legion-brain-sync.log`
 - OpenClaw logs: `%TEMP%\openclaw\openclaw-YYYY-MM-DD.log`
 
 ## Canonical Vercel Deployment
@@ -186,6 +191,13 @@ Skill name: `legion-brain`
 
 Actions:
 
+- `brain.bootstrap`: read current LEGION operating state in one call, including
+  latest status snapshot, Pulse, open todos, OpenClaw production state, backlog,
+  and manual note references.
+- `brain.context_sync`: return the same state plus compact Markdown for
+  `LEGION_CONTEXT.md`.
+- `brain.intake`: capture substantive Telegram/WhatsApp intake and refresh
+  Pulse.
 - `brain.dump`: create an inbox note.
 - `brain.recall`: search note titles and bodies.
 - `brain.todo_add`: create a `todo` note.
@@ -199,6 +211,11 @@ Rules:
 
 - The brain is source of truth.
 - OpenClaw is only the proxy.
+- Telegram LEGION should call `brain.bootstrap` for new conversations, after
+  restarts, after long gaps, and before strategic/status advice.
+- Telegram LEGION should use `brain.intake` or a more specific brain action for
+  tasks, decisions, risks, status updates, reminders, KPI changes, contact
+  context, and infrastructure changes.
 - Never invent LBC facts.
 - Never write outside the `brain` schema from this skill.
 - For substantive intake, write `brain.dump` first, then `brain.pulse_touch`.
@@ -263,6 +280,27 @@ Known good recovery test:
 - Watchdog logged `restart requested: gateway process missing`.
 - Watchdog ran `gateway restart`.
 - Health returned OK and Telegram came back connected.
+
+## Brain Sync
+
+Task name: `LEGION OpenClaw Brain Sync`
+
+Schedule:
+
+- Every 15 minutes.
+- Uses `powershell.exe -NoProfile -ExecutionPolicy Bypass`.
+- Writes `LEGION_CONTEXT.md` in the OpenClaw workspace.
+
+What it does:
+
+- Calls `node ...\brain-action.mjs brain.context_sync`.
+- Pulls the latest status snapshot, Pulse, open todos, OpenClaw production
+  state, and runtime contract from the brain.
+- Writes a compact Markdown cache for OpenClaw startup context.
+
+This is not the authority. It is a local cache so Telegram LEGION wakes up with
+current brain context before it decides whether to call a skill. Supabase brain
+remains the authority.
 
 ## Telegram Usage
 
@@ -357,8 +395,10 @@ If Telegram stops replying:
 ```powershell
 openclaw.cmd gateway health
 openclaw.cmd channels status --deep
+Get-Content "$HOME\.openclaw\workspace\LEGION_CONTEXT.md" -Head 80
 Get-Content "$env:TEMP\openclaw\openclaw-$(Get-Date -Format yyyy-MM-dd).log" -Tail 120
 Get-Content "$HOME\.openclaw\logs\legion-openclaw-watchdog.log" -Tail 40
+Get-Content "$HOME\.openclaw\logs\legion-brain-sync.log" -Tail 40
 openclaw.cmd gateway restart
 ```
 
