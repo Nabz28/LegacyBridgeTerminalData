@@ -1,0 +1,104 @@
+# LEGION — nightly brain backup (L3 from the self-diagnosis).
+#
+# Runs at 01:00 UTC = 08:00 Asia/Jakarta every day. Dumps brain.notes,
+# brain.notes_audit, and brain.vault metadata (NO values) to JSON, then
+# pushes to the PRIVATE companion repo Nabz28/LBC-brain-backups under
+# backups/brain/<UTC-date>/.
+#
+# WHY PRIVATE: brain content includes strategy, person records, AUM
+# figures, risk writeups. This launcher repo is PUBLIC. The dumps must
+# go to a private repo regardless of how the workflow lives in this one.
+#
+# REQUIRED REPO SECRETS (already registered via the LEGION D1 finisher):
+#   SUPABASE_URL                — https://adnubucjlezrtusbicja.supabase.co
+#   SUPABASE_SERVICE_ROLE_KEY   — server-side key for brain reads
+#   BRAIN_BACKUP_PAT            — GitHub PAT with write access to the
+#                                 private Nabz28/LBC-brain-backups repo
+
+name: brain-backup
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brain-backup
+  cancel-in-progress: false
+
+env:
+  BACKUP_REPO: Nabz28/LBC-brain-backups
+  BACKUP_BRANCH: main
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out launcher repo (read-only)
+        uses: actions/checkout@v4
+        with:
+          path: launcher
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run brain backup → writes to launcher/backups/brain/<date>/
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "::error ::Missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY repo secret."
+            exit 1
+          fi
+          cd launcher
+          python scripts/backup_brain.py
+
+      - name: Check out private backup repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.BACKUP_REPO }}
+          token: ${{ secrets.BRAIN_BACKUP_PAT }}
+          path: backups-repo
+          ref: ${{ env.BACKUP_BRANCH }}
+          persist-credentials: true
+
+      - name: Sync new dump into private repo
+        run: |
+          set -euo pipefail
+          DATE=$(date -u +%Y-%m-%d)
+          SRC="launcher/backups/brain/${DATE}"
+          DEST="backups-repo/backups/brain/${DATE}"
+          if [ ! -d "$SRC" ]; then
+            echo "::error ::no dump produced at $SRC"
+            exit 1
+          fi
+          mkdir -p "$(dirname "$DEST")"
+          # rsync would be tidier but is overkill; the script overwrites in place
+          rm -rf "$DEST"
+          cp -r "$SRC" "$DEST"
+
+      - name: Commit + push to private repo if changed
+        working-directory: backups-repo
+        run: |
+          set -euo pipefail
+          git config user.name  "legion-backup[bot]"
+          git config user.email "legion-backup[bot]@users.noreply.github.com"
+          git add backups/
+          if git diff --cached --quiet; then
+            echo "no changes — brain unchanged since last backup"
+            exit 0
+          fi
+          DATE=$(date -u +%Y-%m-%d)
+          ROWS=$(jq '.totals.notes' "backups/brain/${DATE}/summary.json")
+          AUDIT=$(jq '.totals.notes_audit' "backups/brain/${DATE}/summary.json")
+          git commit -m "chore(brain): nightly backup ${DATE} (notes=${ROWS}, audit=${AUDIT})"
+          git push origin "${{ env.BACKUP_BRANCH }}"
