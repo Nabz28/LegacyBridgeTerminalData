@@ -290,6 +290,8 @@ Schedule:
 - Every 15 minutes.
 - Uses `powershell.exe -NoProfile -ExecutionPolicy Bypass`.
 - Writes `LEGION_CONTEXT.md` in the OpenClaw workspace.
+- Replaces a bounded `Live Brain Cache` block in `MEMORY.md`, because OpenClaw
+  injects `MEMORY.md` into new agent sessions.
 
 What it does:
 
@@ -297,10 +299,14 @@ What it does:
 - Pulls the latest status snapshot, Pulse, open todos, OpenClaw production
   state, and runtime contract from the brain.
 - Writes a compact Markdown cache for OpenClaw startup context.
+- Updates `MEMORY.md` between `LEGION_BRAIN_SYNC_START` and
+  `LEGION_BRAIN_SYNC_END` markers without growing the file.
 
 This is not the authority. It is a local cache so Telegram LEGION wakes up with
 current brain context before it decides whether to call a skill. Supabase brain
-remains the authority.
+remains the authority. The cache exists because standalone `LEGION_CONTEXT.md`
+is useful for humans but is not automatically injected by OpenClaw; `MEMORY.md`
+is injected.
 
 ## Telegram Usage
 

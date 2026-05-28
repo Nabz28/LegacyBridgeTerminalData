@@ -8,6 +8,7 @@ $homeDir = [Environment]::GetFolderPath("UserProfile")
 $workspaceDir = Join-Path $homeDir ".openclaw\workspace"
 $skillScript = Join-Path $workspaceDir "skills\legion-brain\scripts\brain-action.mjs"
 $contextPath = Join-Path $workspaceDir "LEGION_CONTEXT.md"
+$memoryPath = Join-Path $workspaceDir "MEMORY.md"
 $logDir = Join-Path $homeDir ".openclaw\logs"
 $logPath = Join-Path $logDir "legion-brain-sync.log"
 
@@ -50,7 +51,32 @@ try {
   ) -join "`n"
 
   Set-Content -LiteralPath $contextPath -Value $content -Encoding UTF8
-  Write-SyncLog "synced context to $contextPath"
+
+  $memoryBlock = @(
+    "<!-- LEGION_BRAIN_SYNC_START -->",
+    "## Live Brain Cache",
+    "",
+    "This block is auto-replaced by `legion-brain-sync.ps1`. It is a bounded cache of Supabase brain state so OpenClaw injects current context at session startup.",
+    "",
+    $parsed.markdown,
+    "<!-- LEGION_BRAIN_SYNC_END -->"
+  ) -join "`n"
+
+  if (Test-Path -LiteralPath $memoryPath) {
+    $memory = Get-Content -LiteralPath $memoryPath -Raw
+  } else {
+    $memory = "# MEMORY.md - Long-Term Memory`n"
+  }
+
+  $pattern = "(?s)<!-- LEGION_BRAIN_SYNC_START -->.*?<!-- LEGION_BRAIN_SYNC_END -->"
+  if ($memory -match $pattern) {
+    $memory = [regex]::Replace($memory, $pattern, [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $memoryBlock })
+  } else {
+    $memory = $memory.TrimEnd() + "`n`n" + $memoryBlock + "`n"
+  }
+  Set-Content -LiteralPath $memoryPath -Value $memory -Encoding UTF8
+
+  Write-SyncLog "synced context to $contextPath and MEMORY.md"
   exit 0
 } catch {
   Write-SyncLog "sync failed: $($_.Exception.Message)"

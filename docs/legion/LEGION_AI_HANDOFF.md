@@ -43,8 +43,9 @@ state the next action.
 - WhatsApp is disabled until a dedicated eSIM WhatsApp account works.
 - Image handling works through bounded `codex/gpt-5.5` image describe.
 - Watchdog runs every 5 minutes via Windows Scheduled Task.
-- Brain sync runs every 15 minutes via Windows Scheduled Task and writes
-  `LEGION_CONTEXT.md` into the OpenClaw workspace.
+- Brain sync runs every 15 minutes via Windows Scheduled Task, writes
+  `LEGION_CONTEXT.md`, and replaces a bounded live brain cache inside
+  `MEMORY.md` so OpenClaw injects current state into new Telegram sessions.
 - `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
   `brain.intake` so Telegram LEGION can operate brain-first.
 - Full smoke passed on 2026-05-28 after the Codex quota reset.
