@@ -1,0 +1,59 @@
+# LEGION — F1 daily nag via Telegram.
+#
+# Runs at 02:00 UTC = 09:00 Asia/Jakarta every day. Reads Pulse + inbox +
+# open todos + overdue milestones; if anything wants attention AND we
+# have not nagged in the last 12h, pings the principal on Telegram.
+#
+# All credentials (Telegram token + chat id) live in brain.vault — the
+# workflow only needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY (already
+# registered as repo secrets by the L3 work). No new repo secrets.
+
+name: legion-nag
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Send even if the 12h anti-spam window is open"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legion-nag
+  cancel-in-progress: false
+
+jobs:
+  nag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run nag
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "::error ::missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY"
+            exit 1
+          fi
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="--force"
+          fi
+          python scripts/legion/nag.py $ARGS
