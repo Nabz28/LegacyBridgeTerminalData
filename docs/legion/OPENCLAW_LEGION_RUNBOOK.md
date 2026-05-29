@@ -32,9 +32,13 @@ closed on the next action. The canonical voice contract lives in
 - Brain action surface: `legion-brain` OpenClaw skill.
 - Recovery: Windows Scheduled Task `LEGION OpenClaw Watchdog`, every 5 minutes.
 - Brain context sync: Windows Scheduled Task `LEGION OpenClaw Brain Sync`, every
-  15 minutes.
+  5 minutes.
 - Voice context sync: `brain.context_sync` includes the full persona note in
   `LEGION_CONTEXT.md` and in the bounded live cache inside `MEMORY.md`.
+- Live reply preflight: Telegram/WhatsApp LEGION must call `brain.preflight`
+  before every substantive answer. This returns the latest brain state and the
+  writeback/fallback contract. If it is unavailable, LEGION must say she is
+  answering from cache and must not claim fresh brain state.
 - Verification: full smoke test passed after quota reset, including image
   describe reading `LEGION TEST` from a generated image.
 - Voice smoke test passed with `openclaw agent --message "LEGION status..."`:
@@ -230,6 +234,9 @@ Skill name: `legion-brain`
 
 Actions:
 
+- `brain.preflight`: mandatory live brain read before substantive
+  Telegram/WhatsApp replies. Returns current state plus the writeback and
+  fallback contract. If it returns `ok:false`, answer from cache only.
 - `brain.bootstrap`: read current LEGION operating state in one call, including
   latest status snapshot, Pulse, open todos, OpenClaw production state, backlog,
   and manual note references.
@@ -249,7 +256,7 @@ Actions:
 PowerShell operator test:
 
 ```powershell
-node "$HOME\.openclaw\workspace\skills\legion-brain\scripts\brain-action.mjs" brain.bootstrap '{}'
+node "$HOME\.openclaw\workspace\skills\legion-brain\scripts\brain-action.mjs" brain.preflight '{}'
 ```
 
 Telegram/WhatsApp agent rule on Windows: use `@file` on the first attempt, even
@@ -268,8 +275,7 @@ Rules:
 
 - The brain is source of truth.
 - OpenClaw is only the proxy.
-- Telegram LEGION should call `brain.bootstrap` for new conversations, after
-  restarts, after long gaps, and before strategic/status advice.
+- Telegram LEGION should call `brain.preflight` before substantive replies.
 - Telegram LEGION should follow the synced voice contract on every answer:
   strict, human, fiery, C-level, and action-closing.
 - Telegram LEGION should use `brain.intake` or a more specific brain action for
@@ -280,6 +286,9 @@ Rules:
 - For substantive intake, write `brain.dump` first, then `brain.pulse_touch`.
 - For reminders, write `brain.todo_add`; the existing F1 Telegram cron can nag
   from brain todos.
+- If preflight is unavailable, say live brain read is unavailable, answer from
+  `LEGION_CONTEXT.md` / `MEMORY.md`, and avoid claims that depend on fresh
+  state. If a write action fails, do not imply persistence.
 
 ## Health Commands
 
@@ -341,6 +350,15 @@ Known good recovery test:
 - Watchdog logged `restart requested: gateway process missing`.
 - Watchdog ran `gateway restart`.
 - Health returned OK and Telegram came back connected.
+- On 2026-05-29, `openclaw gateway restart` briefly left the process
+  TCP-open while WebSocket health timed out. A controlled hard recycle of the
+  OpenClaw Node gateway restored health. This is exactly why the watchdog treats
+  TCP-open/health-timeout as unhealthy and escalates from normal restart to
+  forced process restart.
+- Avoid running multiple OpenClaw CLI health/channel probes in parallel during
+  diagnostics. The local WebSocket control plane is sensitive to concurrent
+  probes during startup/recovery; run health, channels, and smoke tests
+  serially.
 
 ## Brain Sync
 
@@ -348,7 +366,7 @@ Task name: `LEGION OpenClaw Brain Sync`
 
 Schedule:
 
-- Every 15 minutes.
+- Every 5 minutes.
 - Uses `powershell.exe -NoProfile -ExecutionPolicy Bypass`.
 - Writes `LEGION_CONTEXT.md` in the OpenClaw workspace.
 - Replaces a bounded `Live Brain Cache` block in `MEMORY.md`, because OpenClaw

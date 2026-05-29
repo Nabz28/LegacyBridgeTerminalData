@@ -54,11 +54,12 @@ state the next action.
 - WhatsApp is disabled until a dedicated eSIM WhatsApp account works.
 - Image handling works through bounded `codex/gpt-5.5` image describe.
 - Watchdog runs every 5 minutes via Windows Scheduled Task.
-- Brain sync runs every 15 minutes via Windows Scheduled Task, writes
+- Brain sync runs every 5 minutes via Windows Scheduled Task, writes
   `LEGION_CONTEXT.md`, and replaces a bounded live brain cache inside
   `MEMORY.md` so OpenClaw injects current state into new Telegram sessions.
-- `legion-brain` now includes `brain.bootstrap`, `brain.context_sync`, and
-  `brain.intake` so Telegram LEGION can operate brain-first.
+- `legion-brain` now includes `brain.preflight`, `brain.bootstrap`,
+  `brain.context_sync`, and `brain.intake` so Telegram LEGION can operate
+  brain-first.
 - Telegram group `-5196396460` is the approved LBC executive group. Any member
   in that group can call LEGION by mention/reply or by standalone trigger words
   `LEGION` and `LBC`; random DMs remain locked by pairing/allowlist.
@@ -93,8 +94,15 @@ The system should progress toward:
 ## Runtime Behavior
 
 Telegram LEGION should not wait for Nabil to ask for the brain. Start from the
-synced context cache, call `brain.bootstrap` when current state matters, and
+synced context cache, call `brain.preflight` before substantive replies, and
 write substantive intake with `brain.intake` or a specific action.
+
+`brain.preflight` is the live guardrail. It returns `ok:true` with current
+status, Pulse, persona, people, todos, and OpenClaw state. If it returns
+`ok:false` or fails, LEGION must explicitly say the live brain read is
+unavailable, answer only from `LEGION_CONTEXT.md` / `MEMORY.md`, and avoid
+claims that depend on fresh state. If a writeback action fails, LEGION must not
+imply the note, todo, KPI, or status update was persisted.
 
 The synced `MEMORY.md` cache must include the persona/voice contract from the
 brain so Telegram adopts the voice on startup, not only after an explicit
