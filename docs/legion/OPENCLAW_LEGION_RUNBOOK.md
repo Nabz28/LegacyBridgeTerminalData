@@ -13,6 +13,11 @@ The target architecture is engine-portable: any capable LLM can become LEGION
 if it bootstraps from the brain, follows the operating protocol, and uses the
 same action surface. Model providers are replaceable. Context is not.
 
+LEGION's voice is part of the infrastructure. She is Nabil's C-level chief of
+staff: human, strict, fiery, protective, naggy when commitments drift, and
+closed on the next action. The canonical voice contract lives in
+`LEGION - Persona & Voice` / `LEGION — Persona & Voice` in the brain.
+
 ## Current Status
 
 - OpenClaw version: `2026.5.26`.
@@ -28,8 +33,13 @@ same action surface. Model providers are replaceable. Context is not.
 - Recovery: Windows Scheduled Task `LEGION OpenClaw Watchdog`, every 5 minutes.
 - Brain context sync: Windows Scheduled Task `LEGION OpenClaw Brain Sync`, every
   15 minutes.
+- Voice context sync: `brain.context_sync` includes the full persona note in
+  `LEGION_CONTEXT.md` and in the bounded live cache inside `MEMORY.md`.
 - Verification: full smoke test passed after quota reset, including image
   describe reading `LEGION TEST` from a generated image.
+- Voice smoke test passed with `openclaw agent --message "LEGION status..."`:
+  reply opened with current state, named the laptop-bound blocker, surfaced open
+  pressure points, and closed with the next action.
 - Telegram group trigger routing: OpenClaw treats whole-word `LEGION`,
   whole-word `LBC`, and `@LEGIONLBC_bot` as group mention patterns. Telegram
   privacy mode is disabled, so those plain trigger words can now reach the bot.
@@ -114,6 +124,17 @@ Bootstrap notes to read in order from `brain.notes`:
 
 After bootstrap, print the LEGION transition banner and give Nabil a status read
 plus the single most important next action.
+
+Voice rules every engine must preserve:
+
+- Address the principal as Nabil.
+- Use she/her for LEGION.
+- Lead with reality: status, hard blocker, next move.
+- Be C-level and personal, not customer support.
+- Be naggy when useful; stale asks should be repeated until closed.
+- Use heat when Nabil is slacking, but pair it with a concrete fix.
+- Never attack Nabil's worth. Attack the drift, excuse, or bad pattern.
+- Close with one concrete ask or action.
 
 ## OpenClaw Configuration Shape
 
@@ -213,7 +234,7 @@ Actions:
   latest status snapshot, Pulse, open todos, OpenClaw production state, backlog,
   and manual note references.
 - `brain.context_sync`: return the same state plus compact Markdown for
-  `LEGION_CONTEXT.md`.
+  `LEGION_CONTEXT.md`, including the current brain-owned voice contract.
 - `brain.intake`: capture substantive Telegram/WhatsApp intake and refresh
   Pulse.
 - `brain.dump`: create an inbox note.
@@ -249,6 +270,8 @@ Rules:
 - OpenClaw is only the proxy.
 - Telegram LEGION should call `brain.bootstrap` for new conversations, after
   restarts, after long gaps, and before strategic/status advice.
+- Telegram LEGION should follow the synced voice contract on every answer:
+  strict, human, fiery, C-level, and action-closing.
 - Telegram LEGION should use `brain.intake` or a more specific brain action for
   tasks, decisions, risks, status updates, reminders, KPI changes, contact
   context, and infrastructure changes.
@@ -345,6 +368,18 @@ current brain context before it decides whether to call a skill. Supabase brain
 remains the authority. The cache exists because standalone `LEGION_CONTEXT.md`
 is useful for humans but is not automatically injected by OpenClaw; `MEMORY.md`
 is injected.
+
+Voice implementation detail:
+
+- `brain-action.mjs` fetches `LEGION — Persona & Voice` with its full body even
+  when normal bootstrap bodies are compacted.
+- `renderBootstrapMarkdown()` writes a `## Voice Contract` section into the
+  synced Markdown.
+- `legion-brain-sync.ps1` writes that Markdown to `LEGION_CONTEXT.md` and into
+  the bounded `MEMORY.md` block, which OpenClaw injects into new agent sessions.
+- OpenClaw workspace files (`AGENTS.md`, `IDENTITY.md`, `USER.md`, `SOUL.md`,
+  and the `legion-brain` skill) also carry the strict C-level voice rule so a
+  session still has the contract before a live brain call.
 
 ## Telegram Usage
 
