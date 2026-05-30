@@ -2,7 +2,8 @@ param(
   [int]$CooldownSeconds = 300,
   [int]$StatusTimeoutSeconds = 75,
   [int]$PostRestartWaitSeconds = 150,
-  [int]$StartupGraceSeconds = 240
+  [int]$StartupGraceSeconds = 240,
+  [int]$ActivityGraceSeconds = 240
 )
 
 $ErrorActionPreference = "Stop"
@@ -160,6 +161,34 @@ function Test-RecentStallSignature {
   return $null
 }
 
+function Test-RecentMediaOrSessionActivity {
+  $cutoff = (Get-Date).AddSeconds(-1 * $ActivityGraceSeconds)
+  $paths = @(
+    (Join-Path $stateDir "media\inbound"),
+    (Join-Path $stateDir "agents\main\sessions"),
+    (Join-Path $stateDir "telegram\ingress-spool-default")
+  )
+
+  foreach ($path in $paths) {
+    if (-not (Test-Path -LiteralPath $path)) { continue }
+    try {
+      $recent = Get-ChildItem -LiteralPath $path -File -Recurse -ErrorAction Stop |
+        Where-Object { $_.LastWriteTime -gt $cutoff } |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+      if ($recent) {
+        return @{
+          Active = $true
+          Path = $recent.FullName
+          LastWriteTime = $recent.LastWriteTime
+        }
+      }
+    } catch {}
+  }
+
+  return @{ Active = $false; Path = $null; LastWriteTime = $null }
+}
+
 function Test-GatewayHealth {
   $gatewayProcess = Get-CimInstance Win32_Process |
     Where-Object { $_.Name -eq "node.exe" -and $_.CommandLine -like $gatewayPattern } |
@@ -251,6 +280,23 @@ $health = Test-GatewayHealth
 if ($health.Healthy) {
   Write-WatchdogLog "healthy"
   exit 0
+}
+
+$transientHealthReasons = @(
+  "gateway health probe timed out while tcp open",
+  "gateway health probe failed while tcp open"
+)
+$isTransientHealthFailure = $transientHealthReasons -contains $health.Reason
+if (-not $isTransientHealthFailure -and $health.Reason -like "recent stall signature:*") {
+  $isTransientHealthFailure = $true
+}
+
+if ($isTransientHealthFailure) {
+  $activity = Test-RecentMediaOrSessionActivity
+  if ($activity.Active) {
+    Write-WatchdogLog "unhealthy but deferring restart during recent media/session activity: $($health.Reason); recent=$($activity.Path)"
+    exit 0
+  }
 }
 
 $nowUtc = (Get-Date).ToUniversalTime()

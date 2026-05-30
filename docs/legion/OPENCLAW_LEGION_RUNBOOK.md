@@ -43,6 +43,10 @@ closed on the next action. The canonical voice contract lives in
   persona, not report about the persona. Normal chat should hide note metadata,
   tags, timestamps, tool/action names, schemas, JSON fields, and implementation
   details unless Nabil explicitly asks for audit/debug detail.
+- Telegram image handling: OpenClaw can pass images as a generated text
+  `Description:` block rather than a raw image object. LEGION must treat that
+  description as the image content and must not claim she cannot see the image
+  when `[media attached]`, `[Image]`, or `Description:` is present.
 - Verification: full smoke test passed after quota reset, including image
   describe reading `LEGION TEST` from a generated image.
 - Voice smoke test passed with `openclaw agent --message "LEGION status..."`:
@@ -305,6 +309,9 @@ Rules:
 - If preflight is unavailable, say live brain read is unavailable, answer from
   `LEGION_CONTEXT.md` / `MEMORY.md`, and avoid claims that depend on fresh
   state. If a write action fails, do not imply persistence.
+- If Telegram supplies `[media attached]`, `[Image]`, or a generated
+  `Description:` block, answer from the description. Only ask Nabil to resend
+  when the current turn has no media and no description.
 
 ## Health Commands
 
@@ -351,6 +358,9 @@ What it checks:
   - `active_work_without_progress`
   - `Polling stall detected`
   - `gateway readiness unavailable`
+- Recent media/session activity. If a transient health failure happens while a
+  new media file, session file, or Telegram ingress spool file was just written,
+  the watchdog defers restart instead of killing an in-flight image run.
 
 What it does:
 
@@ -375,6 +385,11 @@ Known good recovery test:
   diagnostics. The local WebSocket control plane is sensitive to concurrent
   probes during startup/recovery; run health, channels, and smoke tests
   serially.
+- On 2026-05-30, Telegram image handling failed because a photo downloaded into
+  `.openclaw\media\inbound` and received a usable generated description, but
+  the watchdog restarted the gateway while the media/session run was fresh. The
+  watchdog now has a media/session activity grace window to prevent that class
+  of false recovery.
 
 ## Brain Sync
 

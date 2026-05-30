@@ -52,7 +52,9 @@ state the next action.
 
 - Telegram is live as `@LEGIONLBC_bot`.
 - WhatsApp is disabled until a dedicated eSIM WhatsApp account works.
-- Image handling works through bounded `codex/gpt-5.5` image describe.
+- Image handling works through bounded `codex/gpt-5.5` image describe. For
+  Telegram, OpenClaw may pass the model a text `Description:` block instead of
+  a raw image object; LEGION must treat that description as the image content.
 - Watchdog runs every 5 minutes via Windows Scheduled Task.
 - Brain sync runs every 5 minutes via Windows Scheduled Task, writes
   `LEGION_CONTEXT.md`, and replaces a bounded live brain cache inside
@@ -79,6 +81,11 @@ state the next action.
 - On Windows Telegram/WhatsApp agent runs, use `@file` JSON arguments for every
   live brain call on the first attempt. Do not hand-escape nested JSON in
   PowerShell; that was the source of the residual raw tool-call warning.
+- On 2026-05-30, Telegram image failure was traced to infrastructure, not
+  vision: a photo downloaded into `.openclaw\media\inbound`, OpenClaw generated
+  a usable `Description:`, but the watchdog restarted the gateway during the
+  fresh media/session run. The watchdog now defers restart during recent
+  media/session activity.
 - Full smoke passed on 2026-05-28 after the Codex quota reset.
 
 ## Operational Priority
@@ -112,6 +119,11 @@ persona, not about the persona. Default shape is 2-5 short human sentences.
 In casual chat, avoid labeled template openings or closes like `Current state /
 Hard blocker / Next action`; make the status read and final ask sound like
 human sentences.
+
+Image failure to avoid: if the current Telegram turn includes `[media
+attached]`, `[Image]`, or a `Description:` block, do not say the image is
+unavailable. Answer from the description and only ask for a resend when the
+current turn has no media and no description.
 
 The synced `MEMORY.md` cache must include the persona/voice contract from the
 brain so Telegram adopts the voice on startup, not only after an explicit
