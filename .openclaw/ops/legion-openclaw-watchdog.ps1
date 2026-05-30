@@ -239,12 +239,17 @@ function Restart-OpenClawGateway {
   Write-WatchdogLog "restart requested: $Reason"
   $restart = Invoke-WithTimeout -FilePath $openclaw -Arguments @("gateway", "restart") -TimeoutSeconds 60
   Write-WatchdogLog "gateway restart exit=$($restart.ExitCode) timeout=$($restart.TimedOut)"
-  Start-Sleep -Seconds $PostRestartWaitSeconds
 
-  $health = Test-GatewayHealth
-  if ($health.Healthy) {
-    Write-WatchdogLog "recovered after normal restart"
-    return $true
+  if (-not $restart.TimedOut) {
+    Start-Sleep -Seconds $PostRestartWaitSeconds
+
+    $health = Test-GatewayHealth
+    if ($health.Healthy) {
+      Write-WatchdogLog "recovered after normal restart"
+      return $true
+    }
+  } else {
+    $health = @{ Reason = "normal restart timed out" }
   }
 
   Write-WatchdogLog "normal restart did not recover: $($health.Reason); forcing gateway process restart"
@@ -287,9 +292,6 @@ $transientHealthReasons = @(
   "gateway health probe failed while tcp open"
 )
 $isTransientHealthFailure = $transientHealthReasons -contains $health.Reason
-if (-not $isTransientHealthFailure -and $health.Reason -like "recent stall signature:*") {
-  $isTransientHealthFailure = $true
-}
 
 if ($isTransientHealthFailure) {
   $activity = Test-RecentMediaOrSessionActivity
