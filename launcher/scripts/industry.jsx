@@ -204,9 +204,10 @@
 
     const tickers = useMemo(() => an.tickersFor(ind, equity), [ind, equity]);
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
-    const conviction = useMemo(() => an.conviction(snap), [snap]);
-    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
+    // tilt must be computed before conviction so the driver component can contribute
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
     const kesimpulan = useMemo(() => an.kesimpulan(ind, snap, conviction, status, tilt), [ind, snap, conviction, status, tilt]);
 
@@ -247,11 +248,11 @@
 
     const sortedSubIndustry = useMemo(() => {
       return subIndustryData.slice().sort((a, b) => {
-        if (subSort === 'chg1d')   { const va = a.chg1d == null ? -Infinity : a.chg1d;   const vb = b.chg1d == null ? -Infinity : b.chg1d;   return vb - va; }
-        if (subSort === 'breadth') { return b.breadth - a.breadth; }
+        if (subSort === 'chg1d')   { const va = (a.chg1d == null || isNaN(a.chg1d)) ? -Infinity : a.chg1d;   const vb = (b.chg1d == null || isNaN(b.chg1d)) ? -Infinity : b.chg1d;   return vb - va; }
+        if (subSort === 'breadth') { const va = isNaN(a.breadth) ? -1 : a.breadth; const vb = isNaN(b.breadth) ? -1 : b.breadth; return vb - va; }
         if (subSort === 'n')       { return b.n - a.n; }
-        if (subSort === 'medPE')   { const va = a.medPE == null ? Infinity : a.medPE;    const vb = b.medPE == null ? Infinity : b.medPE;    return va - vb; }
-        if (subSort === 'medROE')  { const va = a.medROE == null ? -Infinity : a.medROE; const vb = b.medROE == null ? -Infinity : b.medROE; return vb - va; }
+        if (subSort === 'medPE')   { const va = (a.medPE == null || isNaN(a.medPE)) ? Infinity : a.medPE;    const vb = (b.medPE == null || isNaN(b.medPE)) ? Infinity : b.medPE;    return va - vb; }
+        if (subSort === 'medROE')  { const va = (a.medROE == null || isNaN(a.medROE)) ? -Infinity : a.medROE; const vb = (b.medROE == null || isNaN(b.medROE)) ? -Infinity : b.medROE; return vb - va; }
         return 0;
       });
     }, [subIndustryData, subSort]);
@@ -300,14 +301,17 @@
       [tickers]
     );
 
-    // Find the primary commodity driver for the proxy chart:
-    // first supply driver with a spark, else first supply driver, else first driver with spark
+    // Find the primary commodity driver for the proxy chart.
+    // Only consider postures where found===true so label/spark/value are present.
+    // Priority: (1) supply driver with spark, (2) any driver with spark, (3) supply driver (no spark → empty state)
     const primaryProxyPosture = useMemo(() => {
-      const supplyWithSpark = postures.find(p => p.driver && p.driver.kind === 'supply' && p.spark && p.spark.length > 1);
+      const found = postures.filter(p => p.found);
+      const supplyWithSpark = found.find(p => p.driver && p.driver.kind === 'supply' && p.spark && p.spark.length > 1);
       if (supplyWithSpark) return supplyWithSpark;
-      const firstSupply = postures.find(p => p.driver && p.driver.kind === 'supply');
-      if (firstSupply) return firstSupply;
-      return postures.find(p => p.spark && p.spark.length > 1) || null;
+      const anyWithSpark = found.find(p => p.spark && p.spark.length > 1);
+      if (anyWithSpark) return anyWithSpark;
+      // fallback: supply driver even without spark (chart shows empty state gracefully)
+      return found.find(p => p.driver && p.driver.kind === 'supply') || null;
     }, [postures]);
 
     return h('div', { className: 'in-work' },
@@ -525,9 +529,10 @@
   function SectorCard({ ind, equity, indByKey, cycleData, onClick }) {
     const tickers = useMemo(() => an.tickersFor(ind, equity), [ind, equity]);
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
-    const conviction = useMemo(() => an.conviction(snap), [snap]);
-    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
+    // tilt must be before conviction so driver component contributes to the score
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
     const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
 
@@ -658,6 +663,116 @@
   }
 
   /* =====================================================================
+     TOP OPPORTUNITIES STRIP
+     CIO at-a-glance: top 3 favored + bottom 2 laggards by favorability.
+     Derived from the metricsMap bubbled up by SortableSectorCard.
+     Each chip is clickable and jumps straight to that sector's detail.
+     ===================================================================== */
+  function TopOpportunities({ metricsMap, taxonomy, onSelectSector, cycleData }) {
+    // Only show when at least half the sectors have reported metrics
+    const readyIds = Object.keys(metricsMap);
+    if (readyIds.length < Math.ceil(taxonomy.length / 2)) return null;
+
+    // Sort all sectors that have metrics by favorability descending
+    const sorted = taxonomy
+      .filter(ind => metricsMap[ind.id] != null)
+      .slice()
+      .sort((a, b) => {
+        const fa = metricsMap[a.id] ? metricsMap[a.id].fav : 0;
+        const fb = metricsMap[b.id] ? metricsMap[b.id].fav : 0;
+        return fb - fa;
+      });
+
+    if (sorted.length < 2) return null;
+
+    const top = sorted.slice(0, 3);
+    const bot = sorted.slice(-2).reverse(); // worst first in bottom strip
+
+    const favored = (cycleData && cycleData.favored) ? new Set(cycleData.favored) : new Set();
+
+    const TopChip = ({ ind, rank }) => {
+      const m = metricsMap[ind.id] || {};
+      const isCycleFav = favored.has(ind.id);
+      return h('button', {
+        key: ind.id,
+        onClick: () => onSelectSector(ind),
+        style: {
+          display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'flex-start',
+          background: 'rgba(25,195,125,0.07)', border: '1px solid rgba(25,195,125,0.28)',
+          borderRadius: 4, padding: '8px 12px', cursor: 'pointer', textAlign: 'left',
+          minWidth: 140, transition: 'background 0.12s, border-color 0.12s',
+        },
+        onMouseEnter: (e) => { e.currentTarget.style.background = 'rgba(25,195,125,0.14)'; e.currentTarget.style.borderColor = 'rgba(25,195,125,0.5)'; },
+        onMouseLeave: (e) => { e.currentTarget.style.background = 'rgba(25,195,125,0.07)'; e.currentTarget.style.borderColor = 'rgba(25,195,125,0.28)'; },
+      },
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 5 } },
+          h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--pos)', fontWeight: 700, opacity: 0.7 } }, '#' + rank),
+          isCycleFav && h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 8, color: 'var(--in)', background: 'var(--in-soft)', borderRadius: 2, padding: '0 4px', fontWeight: 700 } }, 'CYCLE')
+        ),
+        h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 } }, ind.name),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
+          h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: 'var(--pos)' } }, 'Fav ' + (m.fav != null ? m.fav : '—')),
+          m.chg1d != null
+            ? h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 10, color: m.chg1d >= 0 ? 'var(--pos)' : 'var(--neg)', fontWeight: 600 } }, (m.chg1d >= 0 ? '+' : '') + m.chg1d.toFixed(1) + '%')
+            : null
+        )
+      );
+    };
+
+    const BotChip = ({ ind, rank }) => {
+      const m = metricsMap[ind.id] || {};
+      return h('button', {
+        key: ind.id,
+        onClick: () => onSelectSector(ind),
+        style: {
+          display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'flex-start',
+          background: 'rgba(255,92,112,0.07)', border: '1px solid rgba(255,92,112,0.25)',
+          borderRadius: 4, padding: '8px 12px', cursor: 'pointer', textAlign: 'left',
+          minWidth: 120, transition: 'background 0.12s, border-color 0.12s',
+        },
+        onMouseEnter: (e) => { e.currentTarget.style.background = 'rgba(255,92,112,0.14)'; e.currentTarget.style.borderColor = 'rgba(255,92,112,0.45)'; },
+        onMouseLeave: (e) => { e.currentTarget.style.background = 'rgba(255,92,112,0.07)'; e.currentTarget.style.borderColor = 'rgba(255,92,112,0.25)'; },
+      },
+        h('div', { style: { fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--neg)', fontWeight: 700, opacity: 0.7 } }, 'AVOID'),
+        h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.2 } }, ind.name),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
+          h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: 'var(--neg)' } }, 'Fav ' + (m.fav != null ? m.fav : '—')),
+          m.chg1d != null
+            ? h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 10, color: m.chg1d >= 0 ? 'var(--pos)' : 'var(--neg)', fontWeight: 600 } }, (m.chg1d >= 0 ? '+' : '') + m.chg1d.toFixed(1) + '%')
+            : null
+        )
+      );
+    };
+
+    return h('div', {
+      style: {
+        background: 'var(--bg-1)', border: '1px solid var(--border-subtle,rgba(255,255,255,0.05))',
+        borderRadius: 4, padding: '12px 16px', marginBottom: 14,
+      }
+    },
+      h('div', { style: { display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 10 } },
+        h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)' } }, 'Top Opportunities'),
+        h('div', { style: { fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-tertiary)' } }, 'by favorability · click to drill in')
+      ),
+      h('div', { style: { display: 'flex', alignItems: 'flex-start', gap: 20, flexWrap: 'wrap' } },
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 5 } },
+          h('div', { style: { fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--pos)', marginBottom: 2 } }, 'Leaders'),
+          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 7 } },
+            top.map((ind, i) => h(TopChip, { key: ind.id, ind, rank: i + 1 }))
+          )
+        ),
+        h('div', { style: { width: 1, background: 'rgba(255,255,255,0.06)', alignSelf: 'stretch', flexShrink: 0 } }),
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 5 } },
+          h('div', { style: { fontFamily: 'var(--font-mono)', fontSize: 9, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--neg)', marginBottom: 2 } }, 'Laggards'),
+          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 7 } },
+            bot.map((ind, i) => h(BotChip, { key: ind.id, ind, rank: i + 1 }))
+          )
+        )
+      )
+    );
+  }
+
+  /* =====================================================================
      NEWS PANEL
      ===================================================================== */
   const NEWS_PLACEHOLDER = [
@@ -710,8 +825,9 @@
   function SortableSectorCard({ ind, equity, indByKey, cycleData, onClick, onMetrics }) {
     const tickers = useMemo(() => an.tickersFor(ind, equity), [ind, equity]);
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
-    const conviction = useMemo(() => an.conviction(snap), [snap]);
+    // tilt before conviction so driver component contributes
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
     const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
 
@@ -811,6 +927,9 @@
 
       /* movement alerts */
       h(MovementAlerts, { indicators, indByKey }),
+
+      /* top opportunities strip — leaders / laggards at a glance */
+      h(TopOpportunities, { metricsMap, taxonomy: filteredTaxonomy, onSelectSector, cycleData }),
 
       /* commodity strip */
       h('div', { style: { marginBottom: 16 } },

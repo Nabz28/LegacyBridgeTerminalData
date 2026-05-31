@@ -146,38 +146,42 @@
     },
     // sector snapshot: breadth (up/flat/down separate), avg + mcap-weighted 1D, valuation medians
     snapshot: (rows) => {
+      if (!rows || !rows.length) return { n: 0, up: 0, flat: 0, down: 0, nullChg: 0, breadth: 0, avgChg: null, mcapChg: null, mcap: 0, medPE: null, medROE: null, medGrowth: null };
       const n = rows.length;
-      const up = rows.filter(r => r.change_pct != null && Number(r.change_pct) > 0).length;
-      const flat = rows.filter(r => r.change_pct != null && Number(r.change_pct) === 0).length;
-      const down = rows.filter(r => r.change_pct != null && Number(r.change_pct) < 0).length;
+      // PostgREST returns numeric columns as strings — coerce everywhere
+      const up   = rows.filter(r => r.change_pct != null && Number(r.change_pct) > 0).length;
+      const flat  = rows.filter(r => r.change_pct != null && Number(r.change_pct) === 0).length;
+      const down  = rows.filter(r => r.change_pct != null && Number(r.change_pct) < 0).length;
       // breadth: up counts full, flat counts half, nulls excluded from denominator
       const counted = up + flat + down;
       const breadth = counted ? (up + flat * 0.5) / counted : 0;
-      // avg and mcapChg use numeric coercion but skip nulls
-      const avg = mean(rows.filter(r => r.change_pct != null).map(r => r.change_pct));
+      // avg and mcapChg: coerce strings → numbers, skip nulls
+      const avg = mean(rows.filter(r => r.change_pct != null).map(r => Number(r.change_pct)));
       const totMcap = rows.reduce((s, r) => s + (Number(r.mcap) || 0), 0);
       const mcapW = totMcap
         ? rows.reduce((s, r) => r.change_pct != null ? s + Number(r.change_pct) * (Number(r.mcap) || 0) : s, 0) / totMcap
         : avg;
+      // median: coerce field values to numbers before passing to median()
       return { n, up, flat, down, nullChg: n - counted, breadth, avgChg: avg, mcapChg: mcapW, mcap: totMcap,
-        medPE: median(rows.map(r => r.pe)), medROE: median(rows.map(r => r.roe)), medGrowth: median(rows.map(r => r.earnings_growth)) };
+        medPE: median(rows.map(r => Number(r.pe))), medROE: median(rows.map(r => Number(r.roe))), medGrowth: median(rows.map(r => Number(r.earnings_growth))) };
     },
     // conviction 0-100: centered 50, from mcap-weighted move, breadth, quality,
     // and weighted driver tilt (modest component so a strong commodity tailwind lifts score).
     conviction: (snap, tilt) => {
       if (!snap || !snap.n) return 50;
-      const mv = clamp((snap.mcapChg || 0) / 3, -1, 1) * 28;          // 1D mcap move
+      const mv = clamp((snap.mcapChg != null ? Number(snap.mcapChg) : 0) / 3, -1, 1) * 28; // 1D mcap move
       const br = clamp((snap.breadth - 0.5) * 2, -1, 1) * 22;          // breadth
-      const q = snap.medROE != null ? clamp((snap.medROE - 10) / 15, -1, 1) * 10 : 0; // quality tilt
+      const q = snap.medROE != null ? clamp((Number(snap.medROE) - 10) / 15, -1, 1) * 10 : 0; // quality tilt
       // weighted driver contribution (max ±10): use weightedNet when available
       const wn = (tilt && tilt.weightedNet != null) ? tilt.weightedNet : (tilt && tilt.net != null ? tilt.net : 0);
       const dv = clamp(wn, -1, 1) * 10;
       return Math.round(clamp(50 + mv + br + q + dv, 0, 100));
     },
     status: (conv, snap) => {
-      if (conv >= 65 && (snap.mcapChg || 0) > 0) return 'BULLISH';
-      if (conv <= 35 && (snap.mcapChg || 0) < 0) return 'BEARISH';
-      if ((snap.breadth > 0.55) !== ((snap.mcapChg || 0) > 0)) return 'ROTATION';
+      const chg = snap.mcapChg != null ? Number(snap.mcapChg) : 0;
+      if (conv >= 65 && chg > 0) return 'BULLISH';
+      if (conv <= 35 && chg < 0) return 'BEARISH';
+      if ((snap.breadth > 0.55) !== (chg > 0)) return 'ROTATION';
       return 'NEUTRAL';
     },
     // driver posture from live_indicators change_pct + the driver's upIs.
@@ -238,31 +242,42 @@
       // valuation: cheaper than peers = higher (PE, PB, EV/EBITDA).
       // Non-positive multiple (<=0) = penalty (~20-25), not neutral — it signals distress/loss.
       // Only positive multiples get the cheaper-than-peer green treatment.
+      // PostgREST returns numerics as strings — coerce with Number() before any arithmetic.
       const valBits = [['pe', row.pe, peerMed.pe], ['pb', row.pb, peerMed.pb], ['ev_ebitda', row.ev_ebitda, peerMed.ev_ebitda]];
       let val = 0, valN = 0;
       valBits.forEach(([, v, m]) => {
         if (!isNum(v)) return; // missing data: skip this metric
+        const nv = Number(v), nm = Number(m);
         valN++;
-        if (Number(v) <= 0) {
+        if (nv <= 0) {
           // negative/zero multiple = distress penalty
           val += 22;
-        } else if (isNum(m) && Number(m) > 0) {
-          val += clamp(50 + (Number(m) - Number(v)) / Number(m) * 60, 0, 100);
+        } else if (isNum(m) && nm > 0) {
+          val += clamp(50 + (nm - nv) / nm * 60, 0, 100);
         } else {
           val += 50; // peer median missing, no signal
         }
       });
       sc.valuation = valN ? val / valN : 50;
-      // fundamental: ROE, margins, growth vs peers
+      // fundamental: ROE, margins, growth vs peers — coerce PostgREST strings
       const fBits = [['roe', row.roe, peerMed.roe], ['net_margin', row.net_margin, peerMed.net_margin], ['rev_growth', row.rev_growth, peerMed.rev_growth]];
-      let fu = 0, fn = 0; fBits.forEach(([, v, m]) => { if (isNum(v) && isNum(m)) { fu += clamp(50 + (v - m) * 2, 0, 100); fn++; } });
+      let fu = 0, fn = 0;
+      fBits.forEach(([, v, m]) => {
+        if (isNum(v) && isNum(m)) { fu += clamp(50 + (Number(v) - Number(m)) * 2, 0, 100); fn++; }
+      });
       sc.fundamental = fn ? fu / fn : 50;
-      // technical proxy: 1D change + position vs 52w range
-      let tech = 50; if (isNum(row.change_pct)) tech += clamp(row.change_pct * 4, -20, 20);
-      if (isNum(row.price) && isNum(row.w52_high) && isNum(row.w52_low) && row.w52_high > row.w52_low) tech += (((row.price - row.w52_low) / (row.w52_high - row.w52_low)) - 0.5) * 30;
+      // technical proxy: 1D change + position vs 52w range — coerce PostgREST strings
+      const chgPct = Number(row.change_pct), price = Number(row.price);
+      const w52h = Number(row.w52_high), w52l = Number(row.w52_low);
+      let tech = 50;
+      if (isNum(row.change_pct)) tech += clamp(chgPct * 4, -20, 20);
+      if (isNum(row.price) && isNum(row.w52_high) && isNum(row.w52_low) && w52h > w52l) tech += (((price - w52l) / (w52h - w52l)) - 0.5) * 30;
       sc.technical = clamp(tech, 0, 100);
-      // risk: lower beta + lower D/E + higher current ratio = higher (safer)
-      let rk = 50; if (isNum(row.beta)) rk += clamp((1.1 - row.beta) * 25, -20, 20); if (isNum(row.debt_equity)) rk += clamp((1 - row.debt_equity) * 12, -15, 15);
+      // risk: lower beta + lower D/E + higher current ratio = higher (safer) — coerce strings
+      const beta = Number(row.beta), de = Number(row.debt_equity);
+      let rk = 50;
+      if (isNum(row.beta)) rk += clamp((1.1 - beta) * 25, -20, 20);
+      if (isNum(row.debt_equity)) rk += clamp((1 - de) * 12, -15, 15);
       sc.risk = clamp(rk, 0, 100);
       // industry + macro come from ctx (sector conviction + driver tilt)
       sc.industry = clamp(ctx.conviction != null ? ctx.conviction : 50, 0, 100);
@@ -329,7 +344,7 @@
         drv = 'drivers are balanced';
       }
       const br = Math.round(snap.breadth * 100);
-      const movers = `${snap.up}/${snap.n} names up today (${br}% breadth), cap-weighted ${fmt.pct(snap.mcapChg)}`;
+      const movers = snap.n ? `${snap.up}/${snap.n} names up today (${br}% breadth), cap-weighted ${fmt.pct(snap.mcapChg)}` : 'no tickers matched';
       const drvDetail = tilt.net != null ? ` (${tilt.tail} tailwind / ${tilt.head} headwind)` : '';
       return `${ind.name} is ${dir} (conviction ${conv}). ${movers}. Currently ${drv}${drvDetail}. Thesis: ${ind.thesis}`;
     },
@@ -338,7 +353,8 @@
     // Returns a number (percentage points) or null if either side is missing.
     rsVsMarket: (snap, indByKey) => {
       const ihsgInd = indByKey['id_share_price'];
-      const ihsgChg = ihsgInd && ihsgInd.change_pct != null ? Number(ihsgInd.change_pct) : null;
+      // PostgREST returns change_pct as string — coerce
+      const ihsgChg = (ihsgInd && ihsgInd.change_pct != null && isNum(ihsgInd.change_pct)) ? Number(ihsgInd.change_pct) : null;
       if (ihsgChg == null) return null;
       if (snap == null || snap.mcapChg == null) return null;
       return Number(snap.mcapChg) - ihsgChg;
