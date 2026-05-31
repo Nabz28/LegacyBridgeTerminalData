@@ -65,21 +65,22 @@
      names for commodity-pure plays (used where a sector is broader than the
      theme). region: which lens it belongs to (id | global | us).
      ===================================================================== */
-  const D = (key, label, upIs, kind) => ({ key, label, upIs, kind });
+  // D(key, label, upIs, kind, weight) — weight default 1; set 2 for primary commodity/rate driver
+  const D = (key, label, upIs, kind, weight) => ({ key, label, upIs, kind, weight: weight || 1 });
   const TAXONOMY = [
     // ---- Commodity-linked Indonesian industries (the "booming sector" drill-downs) ----
     { id: 'coal', name: 'Coal & Mining', idxSector: 'Energy', region: 'id', accent: '#7a6b52',
       thesis: 'Thermal coal exporters levered to Newcastle price + China/India power demand.',
       tickers: ['ADRO', 'PTBA', 'ITMG', 'BUMI', 'INDY', 'HRUM', 'BYAN', 'GEMS', 'DOID', 'ABMM'],
-      drivers: [D('wb_coal_au', 'Newcastle Coal', 'tailwind', 'supply'), D('wb_idx_energy', 'Energy Index', 'tailwind', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand'), D('id_usdidr_m', 'USD/IDR', 'tailwind', 'macro')] },
+      drivers: [D('wb_coal_au', 'Newcastle Coal', 'tailwind', 'supply', 2), D('wb_idx_energy', 'Energy Index', 'tailwind', 'supply'), D('wb_natgas_eu', 'EU Nat Gas (supply)', 'tailwind', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand'), D('id_usdidr_m', 'USD/IDR', 'tailwind', 'macro')] },
     { id: 'nickel', name: 'Nickel & Battery Metals', idxSector: 'Basic Materials', region: 'id', accent: '#9aa7b0',
       thesis: 'Nickel/ferronickel + EV battery supply chain; sensitive to LME nickel + China stainless/EV demand.',
       tickers: ['INCO', 'ANTM', 'NCKL', 'MBMA', 'NICL', 'PSAB'],
-      drivers: [D('wb_nickel', 'Nickel (LME)', 'tailwind', 'supply'), D('wb_idx_metals', 'Metals Index', 'tailwind', 'supply'), D('lithium_etf', 'Lithium/Battery', 'mixed', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
+      drivers: [D('wb_nickel', 'Nickel (LME)', 'tailwind', 'supply', 2), D('wb_idx_metals', 'Metals Index', 'tailwind', 'supply'), D('lithium_etf', 'Lithium/Battery', 'mixed', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'cpo', name: 'Plantation & CPO', idxSector: 'Consumer Non-Cyclicals', region: 'id', accent: '#c9a227',
       thesis: 'Palm oil planters; CPO price + biodiesel mandate + soybean-oil substitution.',
       tickers: ['AALI', 'LSIP', 'DSNG', 'TAPG', 'SMAR', 'SSMS', 'SGRO', 'TBLA', 'ANJT', 'PALM'],
-      drivers: [D('wb_palm_oil', 'Palm Oil', 'tailwind', 'supply'), D('soybean_oil', 'Soybean Oil (sub)', 'mixed', 'supply'), D('wb_idx_food', 'Food Index', 'tailwind', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
+      drivers: [D('wb_palm_oil', 'Palm Oil', 'tailwind', 'supply', 2), D('soybean_oil', 'Soybean Oil (sub)', 'mixed', 'supply'), D('wb_rapeseed_oil', 'Rapeseed Oil (sub)', 'mixed', 'supply'), D('wb_fert_idx', 'Fertilizers (cost)', 'headwind', 'supply'), D('wb_idx_food', 'Food Index', 'tailwind', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'tin', name: 'Tin', idxSector: 'Basic Materials', region: 'id', accent: '#8c8c94',
       thesis: 'Tin miners levered to LME tin + global electronics/solder demand.',
       tickers: ['TINS', 'PSAB', 'CITA'],
@@ -143,25 +144,35 @@
       if (ind.tickers && ind.tickers.length) { const set = new Set(ind.tickers); return equity.filter(e => set.has(e.symbol)); }
       return equity.filter(e => e.sector === ind.idxSector);
     },
-    // sector snapshot: breadth, avg + mcap-weighted 1D, count, valuation medians
+    // sector snapshot: breadth (up/flat/down separate), avg + mcap-weighted 1D, valuation medians
     snapshot: (rows) => {
       const n = rows.length;
-      const up = rows.filter(r => Number(r.change_pct) > 0).length;
-      const breadth = n ? up / n : 0;
-      const avg = mean(rows.map(r => r.change_pct));
+      const up = rows.filter(r => r.change_pct != null && Number(r.change_pct) > 0).length;
+      const flat = rows.filter(r => r.change_pct != null && Number(r.change_pct) === 0).length;
+      const down = rows.filter(r => r.change_pct != null && Number(r.change_pct) < 0).length;
+      // breadth: up counts full, flat counts half, nulls excluded from denominator
+      const counted = up + flat + down;
+      const breadth = counted ? (up + flat * 0.5) / counted : 0;
+      // avg and mcapChg use numeric coercion but skip nulls
+      const avg = mean(rows.filter(r => r.change_pct != null).map(r => r.change_pct));
       const totMcap = rows.reduce((s, r) => s + (Number(r.mcap) || 0), 0);
-      const mcapW = totMcap ? rows.reduce((s, r) => s + (Number(r.change_pct) || 0) * (Number(r.mcap) || 0), 0) / totMcap : avg;
-      return { n, up, down: n - up, breadth, avgChg: avg, mcapChg: mcapW, mcap: totMcap,
+      const mcapW = totMcap
+        ? rows.reduce((s, r) => r.change_pct != null ? s + Number(r.change_pct) * (Number(r.mcap) || 0) : s, 0) / totMcap
+        : avg;
+      return { n, up, flat, down, nullChg: n - counted, breadth, avgChg: avg, mcapChg: mcapW, mcap: totMcap,
         medPE: median(rows.map(r => r.pe)), medROE: median(rows.map(r => r.roe)), medGrowth: median(rows.map(r => r.earnings_growth)) };
     },
-    // conviction 0-100 (adapted): centered 50, +/- from mcap-weighted move,
-    // breadth, and a quality tilt (median ROE). Honest daily-snapshot reading.
-    conviction: (snap) => {
+    // conviction 0-100: centered 50, from mcap-weighted move, breadth, quality,
+    // and weighted driver tilt (modest component so a strong commodity tailwind lifts score).
+    conviction: (snap, tilt) => {
       if (!snap || !snap.n) return 50;
       const mv = clamp((snap.mcapChg || 0) / 3, -1, 1) * 28;          // 1D mcap move
       const br = clamp((snap.breadth - 0.5) * 2, -1, 1) * 22;          // breadth
       const q = snap.medROE != null ? clamp((snap.medROE - 10) / 15, -1, 1) * 10 : 0; // quality tilt
-      return Math.round(clamp(50 + mv + br + q, 0, 100));
+      // weighted driver contribution (max ±10): use weightedNet when available
+      const wn = (tilt && tilt.weightedNet != null) ? tilt.weightedNet : (tilt && tilt.net != null ? tilt.net : 0);
+      const dv = clamp(wn, -1, 1) * 10;
+      return Math.round(clamp(50 + mv + br + q + dv, 0, 100));
     },
     status: (conv, snap) => {
       if (conv >= 65 && (snap.mcapChg || 0) > 0) return 'BULLISH';
@@ -169,27 +180,54 @@
       if ((snap.breadth > 0.55) !== ((snap.mcapChg || 0) > 0)) return 'ROTATION';
       return 'NEUTRAL';
     },
-    // driver posture from live_indicators change_pct + the driver's upIs
+    // driver posture from live_indicators change_pct + the driver's upIs.
+    // If change_pct is null/missing, derive from prev_value/latest_value if both present;
+    // else posture='n/a' with chgMissing:true (never silently treated as neutral/0).
     posture: (driver, indByKey) => {
       const ind = indByKey[driver.key];
       if (!ind) return { driver, found: false, chg: null, posture: 'n/a' };
-      const chg = Number(ind.change_pct);
+      let chg = ind.change_pct;
+      let chgMissing = false;
+      if (chg == null) {
+        const lv = ind.latest_value, pv = ind.prev_value;
+        if (isNum(lv) && isNum(pv) && Number(pv) !== 0) {
+          chg = ((Number(lv) - Number(pv)) / Math.abs(Number(pv))) * 100;
+        } else {
+          chgMissing = true;
+        }
+      }
+      if (chgMissing) {
+        return { driver, found: true, chg: null, chgMissing: true, value: ind.latest_value, unit: ind.unit, label: ind.label || driver.label, spark: ind.spark, tv: ind.tv_symbol, posture: 'n/a' };
+      }
+      const chgN = Number(chg);
       let posture = 'neutral';
-      if (isNum(chg) && Math.abs(chg) > 0.2) {
-        const rising = chg > 0;
+      if (Math.abs(chgN) > 0.2) {
+        const rising = chgN > 0;
         if (driver.upIs === 'tailwind') posture = rising ? 'tailwind' : 'headwind';
         else if (driver.upIs === 'headwind') posture = rising ? 'headwind' : 'tailwind';
         else posture = 'mixed';
       }
-      return { driver, found: true, chg, value: ind.latest_value, unit: ind.unit, label: ind.label || driver.label, spark: ind.spark, tv: ind.tv_symbol, posture };
+      return { driver, found: true, chg: chgN, value: ind.latest_value, unit: ind.unit, label: ind.label || driver.label, spark: ind.spark, tv: ind.tv_symbol, posture };
     },
-    // net driver tilt for an industry (+1 net tailwind .. -1 net headwind)
+    // net driver tilt for an industry. Returns null net when no drivers resolve.
+    // Includes weighted net: (sum tailwind weights - sum headwind weights) / sum weights.
     driverTilt: (ind, indByKey) => {
-      const ps = (ind.drivers || []).map(d => analytics.posture(d, indByKey)).filter(p => p.found);
+      const ps = (ind.drivers || []).map(d => analytics.posture(d, indByKey)).filter(p => p.found && p.posture !== 'n/a');
+      if (ps.length === 0) return { net: null, weightedNet: null, tail: 0, head: 0, postures: [] };
       const t = ps.filter(p => p.posture === 'tailwind').length;
       const h = ps.filter(p => p.posture === 'headwind').length;
-      const tot = ps.length || 1;
-      return { net: (t - h) / tot, tail: t, head: h, postures: ps };
+      const tot = ps.length;
+      const net = (t - h) / tot;
+      // weighted net
+      let wTail = 0, wHead = 0, wTot = 0;
+      ps.forEach(p => {
+        const w = (p.driver && p.driver.weight) ? p.driver.weight : 1;
+        wTot += w;
+        if (p.posture === 'tailwind') wTail += w;
+        else if (p.posture === 'headwind') wHead += w;
+      });
+      const weightedNet = wTot ? (wTail - wHead) / wTot : 0;
+      return { net, weightedNet, tail: t, head: h, postures: ps };
     },
     // 6-dimension competitive score for a ticker within its peer set (0-100)
     // Macro 15 / Industry 15 / Technical 20 (proxied by 1D + 52w pos) /
@@ -197,9 +235,23 @@
     competitive: (row, peers, ctx) => {
       const peerMed = ctx.peerMed; // {pe,pb,roe,net_margin,rev_growth,div_yield,...}
       const sc = {};
-      // valuation: cheaper than peers = higher (PE, PB, EV/EBITDA)
+      // valuation: cheaper than peers = higher (PE, PB, EV/EBITDA).
+      // Non-positive multiple (<=0) = penalty (~20-25), not neutral — it signals distress/loss.
+      // Only positive multiples get the cheaper-than-peer green treatment.
       const valBits = [['pe', row.pe, peerMed.pe], ['pb', row.pb, peerMed.pb], ['ev_ebitda', row.ev_ebitda, peerMed.ev_ebitda]];
-      let val = 0, valN = 0; valBits.forEach(([, v, m]) => { if (isNum(v) && isNum(m) && m > 0 && v > 0) { val += clamp(50 + (m - v) / m * 60, 0, 100); valN++; } });
+      let val = 0, valN = 0;
+      valBits.forEach(([, v, m]) => {
+        if (!isNum(v)) return; // missing data: skip this metric
+        valN++;
+        if (Number(v) <= 0) {
+          // negative/zero multiple = distress penalty
+          val += 22;
+        } else if (isNum(m) && Number(m) > 0) {
+          val += clamp(50 + (Number(m) - Number(v)) / Number(m) * 60, 0, 100);
+        } else {
+          val += 50; // peer median missing, no signal
+        }
+      });
       sc.valuation = valN ? val / valN : 50;
       // fundamental: ROE, margins, growth vs peers
       const fBits = [['roe', row.roe, peerMed.roe], ['net_margin', row.net_margin, peerMed.net_margin], ['rev_growth', row.rev_growth, peerMed.rev_growth]];
@@ -220,25 +272,76 @@
       if (total >= 72) verdict = 'STRONG_BUY'; else if (total >= 62) verdict = 'BUY'; else if (total >= 52) verdict = 'ACCUMULATE'; else if (total >= 42) verdict = 'HOLD'; else if (total >= 32) verdict = 'REDUCE'; else verdict = 'AVOID';
       return { dims: sc, total: Math.round(total), verdict };
     },
-    // business-cycle phase from Indonesia macro (rate trend, inflation, growth)
+    // business-cycle phase from three inputs: BI rate direction, CPI level, UST yield spread.
+    // GDP (id_gdp_real_q.latest_value) is a LEVEL ~15.58T IDR, not a growth rate — not used here.
+    // Yield spread = UST 10Y - UST 3M (both live in indByKey):
+    //   <0  => inverted => contraction bias
+    //   0-1 => late-cycle
+    //   >1  => mid expansion
+    // Returns {phase, favored, note, infl, spread, rateRising, confidence}.
     cyclePhase: (indByKey) => {
-      const bi = indByKey['id_bi_rate'], cpi = indByKey['id_cpi_yoy'], gdp = indByKey['id_gdp_real_q'];
-      const rateRising = bi && Number(bi.change_abs) > 0;
-      const infl = cpi ? Number(cpi.latest_value) : null;
-      const growth = gdp ? Number(gdp.latest_value) : null;
-      let phase = 'Expansion', favored = ['banks', 'industrials', 'consumer'], note = 'Mid-cycle: cyclicals and financials favored.';
-      if (infl != null && infl > 4 && rateRising) { phase = 'Slowdown'; favored = ['staples', 'health', 'coal', 'oilgas']; note = 'Tightening into high inflation: defensives + energy/commodities favored.'; }
-      else if (growth != null && growth < 4.5) { phase = 'Recovery'; favored = ['property', 'consumer', 'banks', 'tech']; note = 'Below-trend growth, easing bias: rate-sensitives + early cyclicals favored.'; }
-      else if (rateRising) { phase = 'Expansion (late)'; favored = ['banks', 'coal', 'nickel', 'industrials']; note = 'Late expansion: financials + commodities favored.'; }
-      return { phase, favored, note, infl, growth, rateRising };
+      const bi = indByKey['id_bi_rate'], cpi = indByKey['id_cpi_yoy'];
+      const y10 = indByKey['ust_10y_y'], y3m = indByKey['ust_3m_y'];
+      // BI rate direction: guard null change_abs
+      const biChgAbs = bi && bi.change_abs != null ? Number(bi.change_abs) : null;
+      const rateRising = biChgAbs != null ? biChgAbs > 0 : null;
+      const infl = cpi && isNum(cpi.latest_value) ? Number(cpi.latest_value) : null;
+      // yield spread (pp)
+      const spread = (y10 && isNum(y10.latest_value) && y3m && isNum(y3m.latest_value))
+        ? Number(y10.latest_value) - Number(y3m.latest_value) : null;
+      // small vote: +1 expansion signal, -1 contraction signal
+      let votes = 0, totalVotes = 0;
+      if (rateRising != null) { totalVotes++; if (!rateRising) votes++; else votes--; } // easing = expansion
+      if (infl != null) { totalVotes++; if (infl < 4) votes++; else votes--; }          // low infl = expansion
+      if (spread != null) { totalVotes++; if (spread > 1) votes += 1; else if (spread > 0) votes += 0; else votes -= 1; } // inverted = contraction
+      const score = totalVotes ? votes / totalVotes : 0; // -1 to +1
+      const confidence = totalVotes >= 2 ? (totalVotes === 3 ? 'high' : 'medium') : 'low';
+      let phase, favored, note;
+      if (infl != null && infl > 4 && rateRising) {
+        phase = 'Slowdown'; favored = ['staples', 'health', 'coal', 'oilgas'];
+        note = 'Tightening into high inflation: defensives + energy/commodities favored.';
+      } else if (spread != null && spread < 0) {
+        phase = 'Contraction / Late-cycle'; favored = ['staples', 'health', 'goldmetal'];
+        note = 'Inverted yield curve signals late-cycle or contraction: defensives + gold favored.';
+      } else if (spread != null && spread <= 1) {
+        phase = 'Expansion (late)'; favored = ['banks', 'coal', 'nickel', 'industrials'];
+        note = 'Flat-to-modest yield spread, late expansion: financials + commodities favored.';
+      } else if (score > 0) {
+        phase = 'Expansion'; favored = ['banks', 'industrials', 'consumer'];
+        note = 'Mid-cycle: cyclicals and financials favored.';
+      } else {
+        phase = 'Recovery'; favored = ['property', 'consumer', 'banks', 'tech'];
+        note = 'Easing bias / below-trend signals: rate-sensitives + early cyclicals favored.';
+      }
+      return { phase, favored, note, infl, spread, rateRising, confidence };
     },
-    // computed "kesimpulan" (conclusion: who's up/down + why)
+    // computed "kesimpulan" (conclusion: who's up/down + why). Handles null tilt.net gracefully.
     kesimpulan: (ind, snap, conv, status, tilt) => {
       const dir = status === 'BULLISH' ? 'leading' : status === 'BEARISH' ? 'lagging' : status === 'ROTATION' ? 'rotating' : 'mixed';
-      const drv = tilt.net > 0.15 ? 'demand/price drivers are a net tailwind' : tilt.net < -0.15 ? 'drivers are a net headwind' : 'drivers are balanced';
+      let drv;
+      if (tilt.net == null) {
+        drv = 'driver data unavailable';
+      } else if (tilt.net > 0.15) {
+        drv = 'demand/price drivers are a net tailwind';
+      } else if (tilt.net < -0.15) {
+        drv = 'drivers are a net headwind';
+      } else {
+        drv = 'drivers are balanced';
+      }
       const br = Math.round(snap.breadth * 100);
       const movers = `${snap.up}/${snap.n} names up today (${br}% breadth), cap-weighted ${fmt.pct(snap.mcapChg)}`;
-      return `${ind.name} is ${dir} (conviction ${conv}). ${movers}. Currently ${drv} (${tilt.tail} tailwind / ${tilt.head} headwind). Thesis: ${ind.thesis}`;
+      const drvDetail = tilt.net != null ? ` (${tilt.tail} tailwind / ${tilt.head} headwind)` : '';
+      return `${ind.name} is ${dir} (conviction ${conv}). ${movers}. Currently ${drv}${drvDetail}. Thesis: ${ind.thesis}`;
+    },
+    // relative strength vs IHSG: sector mcap-weighted 1D change minus IHSG 1D proxy.
+    // Uses indByKey['id_share_price'].change_pct as IHSG proxy. Guards null.
+    // Returns a number (percentage points) or null if either side is missing.
+    rsVsMarket: (snap, indByKey) => {
+      const ihsgInd = indByKey['id_share_price'];
+      const ihsgChg = ihsgInd && ihsgInd.change_pct != null ? Number(ihsgInd.change_pct) : null;
+      if (ihsgChg == null) return null;
+      if (snap == null || snap.mcapChg == null) return null;
+      return Number(snap.mcapChg) - ihsgChg;
     },
   };
   INDUSTRY.an = analytics;

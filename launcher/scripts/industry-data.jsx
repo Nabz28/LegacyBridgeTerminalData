@@ -508,35 +508,32 @@
         // 2. Net tilt gauge
         h(TiltGauge, { tail: tilt.tail, head: tilt.head, net: tilt.net }),
 
-        // 3. Demand / Supply / Macro driver groups (the centerpiece)
-        h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 } },
-          // Left column: demand
-          h('div', null,
-            h(DriverGroup, {
-              title: 'DEMAND',
-              drivers: demandDrivers.length > 0 ? demandDrivers : (macroDrivers.length === 0 ? ind.drivers : []),
-              postures: allPostures,
-              onCardClick: handleCardClick
-            }),
-            macroDrivers.length > 0 && h(DriverGroup, {
-              title: 'MACRO',
-              drivers: macroDrivers,
-              postures: allPostures,
-              onCardClick: handleCardClick
-            })
-          ),
-          // Right column: supply
-          h('div', null,
-            h(DriverGroup, {
-              title: 'SUPPLY',
-              drivers: supplyDrivers,
-              postures: allPostures,
-              onCardClick: handleCardClick
-            }),
-            // If demand/supply was merged above, show a note
-            demandDrivers.length === 0 && supplyDrivers.length === 0 && h('div', { className: 'in-muted', style: { fontSize: 12, padding: 12 } },
-              'All drivers for this sector are classified as macro — shown in the left column.')
-          )
+        // 3. Demand / Supply / Macro driver groups (the centerpiece) — full-width stacked rows
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 20 } },
+          // Demand row — full width
+          h(DriverGroup, {
+            title: 'DEMAND',
+            drivers: demandDrivers.length > 0 ? demandDrivers : (macroDrivers.length === 0 ? ind.drivers : []),
+            postures: allPostures,
+            onCardClick: handleCardClick
+          }),
+          // Supply row — full width
+          h(DriverGroup, {
+            title: 'SUPPLY',
+            drivers: supplyDrivers,
+            postures: allPostures,
+            onCardClick: handleCardClick
+          }),
+          // Macro row — full width
+          macroDrivers.length > 0 && h(DriverGroup, {
+            title: 'MACRO',
+            drivers: macroDrivers,
+            postures: allPostures,
+            onCardClick: handleCardClick
+          }),
+          // If demand/supply/macro are all absent
+          demandDrivers.length === 0 && supplyDrivers.length === 0 && macroDrivers.length === 0 && h('div', { className: 'in-muted', style: { fontSize: 12, padding: 12 } },
+            'No demand, supply, or macro drivers mapped for this sector.')
         ),
 
         // No drivers at all

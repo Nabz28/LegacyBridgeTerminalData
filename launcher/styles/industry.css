@@ -64,7 +64,7 @@
 @media (max-width: 1200px) { .in-grid-5 { grid-template-columns: repeat(3,1fr); } .in-grid-4 { grid-template-columns: repeat(2,1fr); } }
 
 /* commodity tile + sector card */
-.in-tile { background: var(--bg-2, #111114); border: 1px solid var(--border-subtle, rgba(255,255,255,0.05)); border-radius: var(--r-3, 4px); padding: 11px 13px; cursor: pointer; transition: 0.12s; }
+.in-tile { background: var(--bg-2, #111114); border: 1px solid var(--border-subtle, rgba(255,255,255,0.05)); border-radius: var(--r-3, 4px); padding: 11px 13px; cursor: pointer; transition: 0.12s; min-height: 78px; }
 .in-tile:hover { border-color: var(--in-edge); background: var(--bg-3, #17171b); }
 .in-tile-lbl { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-tertiary, #8e9ab0); }
 .in-tile-val { font-family: var(--font-mono, monospace); font-weight: 600; font-size: 16px; color: var(--text-primary, #fff); margin-top: 4px; }
@@ -75,8 +75,8 @@
 .in-card-name { font-weight: 600; font-size: 13px; color: var(--text-primary, #fff); }
 .in-card-thesis { font-size: 11.5px; color: var(--text-tertiary, #8e9ab0); margin-top: 6px; line-height: 1.45; }
 /* conviction bar */
-.in-convbar { height: 6px; background: var(--bg-3, #17171b); border-radius: 3px; overflow: hidden; margin-top: 10px; }
-.in-convbar-fill { height: 100%; border-radius: 3px; }
+.in-convbar { height: 6px; background: var(--bg-3, #17171b); border-radius: var(--r-2, 3px); overflow: hidden; margin-top: 10px; }
+.in-convbar-fill { height: 100%; border-radius: var(--r-2, 3px); }
 
 /* status chips */
 .in-chip { display: inline-block; font-family: var(--font-mono, monospace); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: var(--r-2, 3px); }
@@ -102,7 +102,7 @@
 .in-table td { padding: 6px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-secondary, #d4dcea); vertical-align: middle; height: 34px; white-space: nowrap; }
 .in-table td.r, .in-table td.in-num { font-family: var(--font-mono, monospace); font-variant-numeric: tabular-nums; }
 .in-table tbody tr { transition: background 0.08s; }
-.in-table tbody tr:hover { background: var(--in-softer, rgba(245,166,35,0.06)); }
+.in-table tbody tr:hover { background: var(--bg-2, #111114); }
 .in-table tbody tr.click { cursor: pointer; }
 .in-table tbody tr:last-child td { border-bottom: none; }
 .in-sym { font-family: var(--font-mono, monospace); color: var(--in); font-weight: 600; }
@@ -115,7 +115,7 @@
 .in-driver-lbl { font-size: 11.5px; color: var(--text-secondary, #d4dcea); display: flex; justify-content: space-between; gap: 8px; }
 .in-driver-val { font-family: var(--font-mono, monospace); font-weight: 600; font-size: 15px; color: var(--text-primary, #fff); margin-top: 5px; }
 .in-driver-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
-.in-kind { font-family: var(--font-mono, monospace); font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; background: var(--bg-3, #17171b); color: var(--text-tertiary, #8e9ab0); }
+.in-kind { font-family: var(--font-mono, monospace); font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; padding: 1px 6px; border-radius: var(--r-2, 3px); background: var(--bg-3, #17171b); color: var(--text-tertiary, #8e9ab0); }
 
 /* kesimpulan / conclusion box */
 .in-concl { background: var(--in-softer, rgba(245,166,35,0.06)); border: 1px solid var(--in-edge); border-radius: var(--r-3, 4px); padding: 13px 15px; font-size: 13px; line-height: 1.55; color: var(--text-secondary, #d4dcea); }

@@ -112,8 +112,11 @@
     }, [peers]);
 
     const comp = an.competitive(row, peers, { peerMed, conviction, driverNet });
-    const w52pos = (row.w52_high > row.w52_low && row.price != null)
-      ? Math.round(((row.price - row.w52_low) / (row.w52_high - row.w52_low)) * 100)
+    const price52  = Number(row.price);
+    const w52h     = Number(row.w52_high);
+    const w52l     = Number(row.w52_low);
+    const w52pos = (w52h > w52l && !isNaN(price52) && !isNaN(w52h) && !isNaN(w52l))
+      ? Math.round(((price52 - w52l) / (w52h - w52l)) * 100)
       : null;
 
     const statRow = (label, val) => h('div', { style: { display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 12 } },
@@ -136,9 +139,9 @@
                 h('div', { style: { position: 'absolute', left: w52pos + '%', top: -5, width: 2, height: 16, background: 'var(--in-strong)', transform: 'translateX(-50%)' } })
               ),
               h('div', { style: { display: 'flex', justifyContent: 'space-between', marginTop: 4, fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' } },
-                h('span', null, 'L: ' + fmt.money(row.w52_low)),
+                h('span', null, 'L: ' + fmt.money(w52l)),
                 h('span', null, w52pos + '% of range'),
-                h('span', null, 'H: ' + fmt.money(row.w52_high))
+                h('span', null, 'H: ' + fmt.money(w52h))
               )
             )
           : null,
@@ -250,6 +253,16 @@
       [tickers]
     );
 
+    // Find the primary commodity driver for the proxy chart:
+    // first supply driver with a spark, else first supply driver, else first driver with spark
+    const primaryProxyPosture = useMemo(() => {
+      const supplyWithSpark = postures.find(p => p.driver && p.driver.kind === 'supply' && p.spark && p.spark.length > 1);
+      if (supplyWithSpark) return supplyWithSpark;
+      const firstSupply = postures.find(p => p.driver && p.driver.kind === 'supply');
+      if (firstSupply) return firstSupply;
+      return postures.find(p => p.spark && p.spark.length > 1) || null;
+    }, [postures]);
+
     return h('div', { className: 'in-work' },
       toast,
       tickerModal && h(TickerModal, {
@@ -269,13 +282,7 @@
         h('span', { className: 'in-muted', style: { fontSize: 11, fontFamily: 'var(--font-mono)', marginLeft: 'auto' } }, snap.n + ' tickers · ' + snap.up + ' up · ' + snap.down + ' dn')
       ),
 
-      /* kesimpulan */
-      h('div', { className: 'in-concl', style: { marginBottom: 16 } },
-        h('b', null, 'Kesimpulan: '),
-        kesimpulan
-      ),
-
-      /* driver panel — priority lens */
+      /* driver panel — HERO, placed first */
       h('div', { className: 'in-panel', style: { marginBottom: 16 } },
         h('div', { className: 'in-panel-h' },
           h('div', { className: 'in-panel-title' }, 'Demand / Supply Drivers'),
@@ -288,6 +295,38 @@
         h(DriversGroup, { title: 'Demand Drivers', items: demandDrivers }),
         h(DriversGroup, { title: 'Supply Drivers', items: supplyDrivers }),
         h(DriversGroup, { title: 'Macro Drivers', items: macroDrivers })
+      ),
+
+      /* sector performance proxy chart panel */
+      h('div', { className: 'in-panel', style: { marginBottom: 16 } },
+        h('div', { className: 'in-panel-h' },
+          h('div', { className: 'in-panel-title' }, 'Sector Performance'),
+          primaryProxyPosture
+            ? h('div', { className: 'in-panel-tag' }, 'Proxy: ' + primaryProxyPosture.label + ' (' + primaryProxyPosture.driver.kind + ' driver)')
+            : h('div', { className: 'in-panel-tag' }, 'commodity proxy')
+        ),
+        primaryProxyPosture && primaryProxyPosture.spark && primaryProxyPosture.spark.length > 1
+          ? h('div', null,
+              h('div', { style: { height: 120, width: '100%' } },
+                h(Spark, { data: primaryProxyPosture.spark, w: null, ht: 120, color: (primaryProxyPosture.chg || 0) >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' })
+              ),
+              h('div', { style: { display: 'flex', justifyContent: 'space-between', marginTop: 6, fontSize: 11, fontFamily: 'var(--font-mono)' } },
+                h('span', { className: 'in-muted' }, primaryProxyPosture.label),
+                h('div', { style: { display: 'flex', gap: 10 } },
+                  h('span', { style: { color: 'var(--text-primary)' } }, fmt.val(primaryProxyPosture.value, primaryProxyPosture.unit)),
+                  h('span', { className: fmt.cls(primaryProxyPosture.chg) }, fmt.pct(primaryProxyPosture.chg))
+                )
+              )
+            )
+          : h('div', { style: { padding: '32px 0', textAlign: 'center', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', fontSize: 12 } },
+              'Price history pending — commodity spark series not yet available for this sector.'
+            )
+      ),
+
+      /* kesimpulan */
+      h('div', { className: 'in-concl', style: { marginBottom: 16 } },
+        h('b', null, 'Kesimpulan: '),
+        kesimpulan
       ),
 
       /* ticker table */
@@ -356,9 +395,13 @@
     const convColor = status === 'BULLISH' ? 'var(--pos)' : status === 'BEARISH' ? 'var(--neg)' : status === 'ROTATION' ? 'var(--in)' : 'var(--text-tertiary)';
     const isFavored = cycleData && cycleData.favored && cycleData.favored.includes(ind.id);
 
+    const borderLeft = status === 'BULLISH' ? '2px solid var(--pos)' : status === 'BEARISH' ? '2px solid var(--neg)' : status === 'ROTATION' ? '2px solid var(--in)' : undefined;
+    const baseStyle = borderLeft ? { borderLeft } : {};
+    const cardStyle = isFavored ? { ...baseStyle, borderColor: 'var(--in-edge)', background: 'var(--in-softer)' } : baseStyle;
+
     return h('div', {
       className: 'in-card',
-      style: isFavored ? { borderColor: 'var(--in-edge)', background: 'var(--in-softer)' } : {},
+      style: cardStyle,
       onClick
     },
       h('div', { className: 'in-card-h' },
@@ -404,20 +447,50 @@
      MOVEMENT ALERTS
      ===================================================================== */
   function MovementAlerts({ indicators, indByKey }) {
-    const THRESH = 5;
-    const alerts = COMMODITY_TILES
-      .map(k => indByKey[k])
-      .filter(Boolean)
-      .filter(i => Math.abs(Number(i.change_pct)) >= THRESH)
-      .sort((a, b) => Math.abs(Number(b.change_pct)) - Math.abs(Number(a.change_pct)));
+    const HIGH_THRESH = 10;
+    const MED_THRESH  = 5;
 
-    if (!alerts.length) return null;
+    // Collect all driver keys referenced across TAXONOMY (deduplicated)
+    const allDriverKeys = useMemo(() => {
+      const seen = new Set();
+      TAXONOMY.forEach(ind => (ind.drivers || []).forEach(d => seen.add(d.key)));
+      return Array.from(seen);
+    }, []);
 
-    return h('div', { className: 'in-banner', style: { flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 12 } },
+    const bigAlerts = useMemo(() =>
+      allDriverKeys
+        .map(k => indByKey[k])
+        .filter(Boolean)
+        .filter(i => Math.abs(Number(i.change_pct)) >= HIGH_THRESH)
+        .sort((a, b) => Math.abs(Number(b.change_pct)) - Math.abs(Number(a.change_pct))),
+      [allDriverKeys, indByKey]
+    );
+
+    const medAlerts = useMemo(() =>
+      allDriverKeys
+        .map(k => indByKey[k])
+        .filter(Boolean)
+        .filter(i => { const abs = Math.abs(Number(i.change_pct)); return abs >= MED_THRESH && abs < HIGH_THRESH; })
+        .sort((a, b) => Math.abs(Number(b.change_pct)) - Math.abs(Number(a.change_pct))),
+      [allDriverKeys, indByKey]
+    );
+
+    if (!bigAlerts.length && !medAlerts.length) return null;
+
+    return h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 8, marginBottom: 12 } },
       h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', flexShrink: 0 } }, 'Movement Alerts'),
-      alerts.map(i =>
-        h('span', { key: i.key, style: { background: 'var(--bg-2)', border: '1px solid ' + (i.change_pct > 0 ? 'rgba(25,195,125,0.3)' : 'rgba(255,92,112,0.3)'), borderRadius: 3, padding: '2px 8px', fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: i.change_pct > 0 ? 'var(--pos)' : 'var(--neg)', whiteSpace: 'nowrap' } },
-          i.label + ' ' + fmt.pct(i.change_pct)
+      bigAlerts.length > 0 && h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6 } },
+        bigAlerts.map(i =>
+          h('span', { key: i.key, style: { background: i.change_pct > 0 ? 'rgba(25,195,125,0.14)' : 'rgba(255,92,112,0.14)', border: '1px solid ' + (i.change_pct > 0 ? 'rgba(25,195,125,0.4)' : 'rgba(255,92,112,0.4)'), borderRadius: 3, padding: '2px 8px', fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700, color: i.change_pct > 0 ? 'var(--pos)' : 'var(--neg)', whiteSpace: 'nowrap' } },
+            i.label + ' ' + fmt.pct(i.change_pct)
+          )
+        )
+      ),
+      medAlerts.length > 0 && h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6 } },
+        medAlerts.map(i =>
+          h('span', { key: i.key, style: { background: 'rgba(255,198,92,0.10)', border: '1px solid rgba(255,198,92,0.28)', borderRadius: 3, padding: '2px 8px', fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, color: 'var(--warn,#ffc65c)', whiteSpace: 'nowrap' } },
+            i.label + ' ' + fmt.pct(i.change_pct)
+          )
         )
       )
     );
@@ -538,7 +611,7 @@
               h('div', { className: 'in-tile-val' }, fmt.val(item.latest_value, item.unit)),
               h('div', { className: 'in-tile-chg ' + fmt.cls(item.change_pct) }, fmt.pct(item.change_pct)),
               item.spark && item.spark.length > 1
-                ? h('div', { style: { marginTop: 6 } }, h(Spark, { data: item.spark, w: 80, ht: 20 }))
+                ? h('div', { style: { marginTop: 6 } }, h(Spark, { data: item.spark, w: null, ht: 28 }))
                 : null
             );
           })

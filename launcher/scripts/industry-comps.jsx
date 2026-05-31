@@ -9,7 +9,7 @@
 (function () {
   const { useState, useEffect, useMemo, useCallback, useRef } = React;
   const { h, Spinner, Empty, useToast, Modal, fmt } = window.IND;
-  const { TAXONOMY, an, equity: fetchEquity } = window.INDUSTRY;
+  const { TAXONOMY, an, equity: fetchEquity, indicators: fetchIndicators } = window.INDUSTRY;
 
   /* ---- helpers ---------------------------------------------------------- */
   const isNum = (v) => v !== null && v !== undefined && v !== '' && !isNaN(v);
@@ -35,8 +35,10 @@
 
   // Color a cell vs peer median: green = better, red = worse
   // lowerBetter=true for valuation (PE, PB, EV/EBITDA)
+  // For lowerBetter metrics, negative/zero values are loss-makers — not a value signal.
   function cellCls(val, medVal, lowerBetter) {
     if (!isNum(val) || !isNum(medVal) || medVal === 0) return '';
+    if (lowerBetter && Number(val) <= 0) return 'in-neg'; // loss-maker: never color green
     const better = lowerBetter ? Number(val) < Number(medVal) : Number(val) > Number(medVal);
     return better ? 'in-pos' : 'in-neg';
   }
@@ -61,18 +63,48 @@
     return invert ? 1 - rank : rank;
   }
 
-  // Build per-ticker x/y for the positioning quadrant
-  // x = valuation (cheap = right = high x), y = quality (high ROE/margin = top = high y)
+  // Build per-ticker x/y for the positioning quadrant.
+  // x = valuation-adjusted: 70% valuation rank (cheap=right) + 15% rev_growth rank + 15% earnings_growth rank
+  //     so "cheap AND growing" sits right, not "value trap" right.
+  // y = quality: ROE + net_margin + 25% gross_margin tilt.
+  // noValuation=true if a ticker has no valid positive multiples (pe/pb/ev all null/<=0).
   function buildQuadrantCoords(rows) {
-    const pes   = rows.map(r => r.pe);
-    const pbs   = rows.map(r => r.pb);
-    const evs   = rows.map(r => r.ev_ebitda);
-    const roes  = rows.map(r => r.roe);
-    const nmgns = rows.map(r => r.net_margin);
+    const pes    = rows.map(r => r.pe);
+    const pbs    = rows.map(r => r.pb);
+    const evs    = rows.map(r => r.ev_ebitda);
+    const roes   = rows.map(r => r.roe);
+    const nmgns  = rows.map(r => r.net_margin);
+    const gmgns  = rows.map(r => r.gross_margin);
+    const revgs  = rows.map(r => r.rev_growth);
+    const earns  = rows.map(r => r.earnings_growth);
+
     return rows.map(r => {
-      const vx = (pctRank(r.pe, pes, true) + pctRank(r.pb, pbs, true) + pctRank(r.ev_ebitda, evs, true)) / 3;
-      const vy = (pctRank(r.roe, roes, false) + pctRank(r.net_margin, nmgns, false)) / 2;
-      return { ...r, qx: vx, qy: vy };
+      // Valuation rank: only meaningful for positive multiples
+      const hasPE = isNum(r.pe) && Number(r.pe) > 0;
+      const hasPB = isNum(r.pb) && Number(r.pb) > 0;
+      const hasEV = isNum(r.ev_ebitda) && Number(r.ev_ebitda) > 0;
+      const noValuation = !hasPE && !hasPB && !hasEV;
+
+      // For pctRank on valuation, treat non-positive as missing (pass null so it returns 0.5 neutral)
+      const peVal  = hasPE ? r.pe  : null;
+      const pbVal  = hasPB ? r.pb  : null;
+      const evVal  = hasEV ? r.ev_ebitda : null;
+
+      const valRank = (pctRank(peVal, pes, true) + pctRank(pbVal, pbs, true) + pctRank(evVal, evs, true)) / 3;
+
+      // Growth ranks (higher growth = better position, not inverted)
+      const revGrowthRank  = pctRank(r.rev_growth, revgs, false);
+      const earnGrowthRank = pctRank(r.earnings_growth, earns, false);
+
+      // Combined X: cheap + growing (guards: if both growth fields are null, defaults 0.5)
+      const vx = 0.70 * valRank + 0.15 * revGrowthRank + 0.15 * earnGrowthRank;
+
+      // Quality Y: ROE + net_margin + gross_margin tilt
+      const qBase = (pctRank(r.roe, roes, false) + pctRank(r.net_margin, nmgns, false)) / 2;
+      const gmRank = pctRank(r.gross_margin, gmgns, false);
+      const vy = 0.75 * qBase + 0.25 * gmRank;
+
+      return { ...r, qx: vx, qy: vy, noValuation };
     });
   }
 
@@ -94,7 +126,7 @@
      Sub-component: METHODOLOGY NOTE
      ========================================================================= */
   function MethodologyNote() {
-    return h('div', { style: { marginTop: 20, padding: '12px 14px', background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 4, fontSize: 11.5, lineHeight: 1.6, color: 'var(--text-tertiary,#8e9ab0)' } },
+    return h('div', { style: { marginTop: 20, padding: '12px 14px', background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 'var(--r-3,4px)', fontSize: 11.5, lineHeight: 1.6, color: 'var(--text-tertiary,#8e9ab0)' } },
       h('span', { style: { color: 'var(--in,#f5a623)', fontWeight: 600, fontFamily: 'var(--font-mono,monospace)', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', marginRight: 8 } }, 'Methodology'),
       'Score (0–100) = Macro 15% + Industry 15% + Technical 20% + Fundamental 20% + Valuation 15% + Risk 15%. ',
       'Valuation is ',
@@ -145,8 +177,8 @@
               ),
               h('span', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 12, fontWeight: 600, color: barColor } }, v),
             ),
-            h('div', { style: { height: 7, background: 'var(--bg-3,#17171b)', borderRadius: 4, overflow: 'hidden' } },
-              h('div', { style: { height: '100%', width: pct, background: barColor, borderRadius: 4, transition: 'width 0.4s ease' } })
+            h('div', { style: { height: 7, background: 'var(--bg-3,#17171b)', borderRadius: 'var(--r-3,4px)', overflow: 'hidden' } },
+              h('div', { style: { height: '100%', width: pct, background: barColor, borderRadius: 'var(--r-3,4px)', transition: 'width 0.4s ease' } })
             )
           );
         })
@@ -167,7 +199,7 @@
           ['Beta', fmt.num(row.beta, 2)],
           ['D/E', fmt.num(row.debt_equity, 2)],
         ].map(([label, val]) =>
-          h('div', { key: label, style: { background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 3, padding: '8px 10px' } },
+          h('div', { key: label, style: { background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--r-2,3px)', padding: '8px 10px' } },
             h('div', { style: { fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)', fontFamily: 'var(--font-mono,monospace)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 3 } }, label),
             h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 13, fontWeight: 600, color: 'var(--text-primary,#fff)' } }, val),
           )
@@ -278,32 +310,36 @@
           const s = scores[r.symbol];
           const score = s ? s.total : 50;
           const dotSize = Math.max(8, Math.min(28, Math.sqrt((Number(r.mcap) || 0) / maxMcap) * 38));
-          // x: 0=left cheap=right → left%=(1-qx)*available + PAD
-          const leftPct = PAD + r.qx * (100 - PAD * 2 / (window.innerWidth || 800) * 100);
-          // For absolute positioning use direct px from parent
           const xFrac = r.qx;
           const yFrac = 1 - r.qy; // invert: high quality = top
-          const dotColor = score >= 65 ? 'var(--pos,#19c37d)' : score <= 40 ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)';
+          // Fix: valid CSS calc — left = PAD + xFrac*(100% - 2*PAD px) - dotSize/2 to center the dot
+          const dotOff = Math.round(dotSize / 2);
+          const leftCalc = 'calc(' + PAD + 'px + ' + (xFrac * 100).toFixed(2) + '% - ' + (xFrac * PAD * 2 + dotOff) + 'px)';
+          const topCalc  = 'calc(' + PAD + 'px + ' + (yFrac * 100).toFixed(2) + '% - ' + (yFrac * PAD * 2 + dotOff) + 'px)';
+          const noVal = r.noValuation;
+          const dotColor = noVal
+            ? 'rgba(255,255,255,0.15)'
+            : score >= 65 ? 'var(--pos,#19c37d)' : score <= 40 ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)';
           const isHov = hovered === r.symbol;
           return h('div', {
             key: r.symbol,
             className: 'in-dot',
-            title: r.symbol + ' · Score ' + score,
+            title: r.symbol + ' · Score ' + score + (noVal ? ' · no valuation data' : ''),
             onMouseEnter: () => setHovered(r.symbol),
             onMouseLeave: () => setHovered(null),
             style: {
-              left: 'calc(' + PAD + 'px + ' + (xFrac * 100) + '% * ((100% - ' + (PAD * 2) + 'px) / 100%))',
-              top:  'calc(' + PAD + 'px + ' + (yFrac * 100) + '% * ((100% - ' + (PAD * 2) + 'px) / 100%))',
+              left:   leftCalc,
+              top:    topCalc,
               width:  dotSize,
               height: dotSize,
               background: dotColor,
-              border: isHov ? '2px solid #fff' : '1.5px solid rgba(0,0,0,0.3)',
-              opacity: hovered && !isHov ? 0.35 : 0.85,
+              border: noVal ? '1.5px dashed rgba(255,255,255,0.3)' : isHov ? '2px solid #fff' : '1.5px solid rgba(0,0,0,0.3)',
+              opacity: noVal ? 0.45 : hovered && !isHov ? 0.35 : 0.85,
               zIndex: isHov ? 10 : 1,
               transition: 'opacity 0.15s, border 0.1s',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: Math.max(7, Math.min(10, dotSize * 0.38)),
-              color: '#000',
+              color: noVal ? 'rgba(255,255,255,0.5)' : '#000',
               fontFamily: 'var(--font-mono,monospace)',
               fontWeight: 700,
               userSelect: 'none',
@@ -319,12 +355,12 @@
      Sub-component: MARKET-SHARE PROXY BAR
      ========================================================================= */
   function MarketShareBar({ peers, subSector }) {
-    const totalMcap = peers.reduce((s, r) => s + (Number(r.mcap) || 0), 0);
-    if (!totalMcap) return null;
-
+    // Use only positive-mcap rows for both the bar and the total so shares sum to 100%.
     const sorted = [...peers]
       .filter(r => isNum(r.mcap) && Number(r.mcap) > 0)
       .sort((a, b) => Number(b.mcap) - Number(a.mcap));
+    const totalMcap = sorted.reduce((s, r) => s + Number(r.mcap), 0);
+    if (!totalMcap) return null;
 
     const TOP = 8;
     const top8 = sorted.slice(0, TOP);
@@ -345,7 +381,7 @@
         h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, (subSector || 'sector') + ' · mcap weight · top 8 + others'),
       ),
       // stacked bar
-      h('div', { style: { display: 'flex', height: 28, borderRadius: 3, overflow: 'hidden', marginBottom: 10 } },
+      h('div', { style: { display: 'flex', height: 28, borderRadius: 'var(--r-2,3px)', overflow: 'hidden', marginBottom: 10 } },
         bars.map(b => h('div', { key: b.label, title: b.label + ' ' + ((b.mcap / totalMcap) * 100).toFixed(1) + '%', style: { width: ((b.mcap / totalMcap) * 100) + '%', background: b.color, transition: 'width 0.3s' } }))
       ),
       // legend rows
@@ -371,6 +407,7 @@
      ========================================================================= */
   function IndCompsWorkspace({ openTab }) {
     const [equity, setEquity] = useState(null);
+    const [indByKey, setIndByKey] = useState({});  // key->indicator row from live_indicators
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState(null);
     const [toastNode, pushToast] = useToast();
@@ -384,12 +421,16 @@
     const [modalScore, setModalScore] = useState(null);
     const [modalRankText, setModalRankText] = useState('');
 
-    // load equity once
+    // load equity + indicators in parallel once
     useEffect(() => {
       setLoading(true);
-      fetchEquity()
-        .then(rows => {
+      Promise.all([fetchEquity(), fetchIndicators()])
+        .then(([rows, inds]) => {
           setEquity(rows);
+          // Build key->indicator map for driver tilt lookup
+          const byKey = {};
+          (inds || []).forEach(ind => { if (ind.key) byKey[ind.key] = ind; });
+          setIndByKey(byKey);
           setLoading(false);
         })
         .catch(e => {
@@ -423,15 +464,26 @@
     const snap = useMemo(() => an.snapshot(peers), [peers]);
     const conviction = useMemo(() => an.conviction(snap), [snap]);
 
-    // 6-dim scores for all peers
+    // Real driverNet: find the TAXONOMY entry matching selSector (by idxSector) and compute net tilt
+    const driverNet = useMemo(() => {
+      if (!Object.keys(indByKey).length) return 0;
+      // Find TAXONOMY entry: prefer exact idxSector match, fall back to name match
+      const taxEntry = TAXONOMY.find(t => t.idxSector === selSector)
+        || TAXONOMY.find(t => t.name === selSector);
+      if (!taxEntry) return 0;
+      const tilt = an.driverTilt(taxEntry, indByKey);
+      return (tilt && tilt.net != null) ? tilt.net : 0;
+    }, [selSector, indByKey]);
+
+    // 6-dim scores for all peers — uses real driverNet from live indicators
     const scores = useMemo(() => {
       if (!peers.length || !peerMed) return {};
       const out = {};
       peers.forEach(r => {
-        out[r.symbol] = an.competitive(r, peers, { peerMed, conviction, driverNet: 0 });
+        out[r.symbol] = an.competitive(r, peers, { peerMed, conviction, driverNet });
       });
       return out;
-    }, [peers, peerMed, conviction]);
+    }, [peers, peerMed, conviction, driverNet]);
 
     // row click handler
     const handleRowClick = useCallback((row) => {
