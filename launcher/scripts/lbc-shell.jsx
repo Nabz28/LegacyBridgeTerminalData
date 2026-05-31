@@ -52,8 +52,8 @@ const LBC_TERMINALS = [
     desc: 'Sectors, peer comps and demand-supply structure across the IDX universe.',
     workspaces: [
       { kind: 'industry', label: 'Sector Map',    built: true },
-      { kind: 'ind-comps', label: 'Peer Comps',   built: false },
-      { kind: 'ind-data',  label: 'Industry Data', built: false },
+      { kind: 'ind-comps', label: 'Peer Comps',   built: true },
+      { kind: 'ind-data',  label: 'Industry Data', built: true },
     ] },
   { id: 'equity', num: 'T4', name: 'Equity', accent: '#83acf0', icon: LBC_ICONS.equity,
     desc: 'Bottom-up single-name deep dive, screeners, scanners and financials.',
@@ -105,7 +105,7 @@ const LBC_TERMINALS = [
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','portfolio','global','legion','finance']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-data','portfolio','global','legion','finance']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating — a terminal with `roles` is restricted to those user roles;

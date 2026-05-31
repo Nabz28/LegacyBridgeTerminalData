@@ -698,13 +698,17 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
         ) : activeTabObj?.kind === 'macro' ? (
           <MacroWorkspace />
         ) : activeTabObj?.kind === 'industry' ? (
-          <IndustryWorkspace
+          window.IndustryWorkspace ? <window.IndustryWorkspace
             openTab={(tabSpec) => {
               const id = `t${Date.now()}`;
               setTabs([...tabs, { id, ...tabSpec }]);
               setActiveTab(id);
             }}
-          />
+          /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'ind-comps' ? (
+          window.IndCompsWorkspace ? <window.IndCompsWorkspace openTab={(tabSpec)=>{const id=`t${Date.now()}`;setTabs([...tabs,{id,...tabSpec}]);setActiveTab(id);}} /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'ind-data' ? (
+          window.IndDataWorkspace ? <window.IndDataWorkspace openTab={(tabSpec)=>{const id=`t${Date.now()}`;setTabs([...tabs,{id,...tabSpec}]);setActiveTab(id);}} /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'portfolio' ? (
           <PortfolioWorkspace
             openTab={(tabSpec) => {
