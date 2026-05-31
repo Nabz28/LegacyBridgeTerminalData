@@ -21,6 +21,7 @@ const LBC_ICONS = {
   correlation:_svg(<><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></>),
   tools:     _svg(<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.9 2.9-2-2 2.9-2.9z"/>),
   legion:    _svg(<><path d="M12 2.5L20 7v10l-8 4.5L4 17V7z"/><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5V4M14.2 13.3L18 15.5M9.8 13.3L6 15.5"/></>),
+  finance:   _svg(<><path d="M12 2v20"/><path d="M17 6H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -92,11 +93,19 @@ const LBC_TERMINALS = [
     roles: ['admin', 'management'],
     selfNav: true,
     workspaces: [ { kind: 'legion', label: 'LEGION', built: true } ] },
+  // FINANCE — the CFO terminal. Native in-shell double-entry ledger over the
+  // `finance` schema (entities LBC/LAM/LHF, IDR). selfNav: carries its own
+  // section rail (Dashboard, Ledger, Accounts, Reports, Transfers, …).
+  { id: 'finance', num: 'T10', name: 'Finance', accent: '#5fd6a4', icon: LBC_ICONS.finance,
+    desc: 'CFO terminal — double-entry ledger, accounts, financial statements, reconciliation & period close.',
+    roles: ['admin', 'management', 'cfo'],
+    selfNav: true,
+    workspaces: [ { kind: 'finance', label: 'Finance', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','portfolio','global','legion']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','portfolio','global','legion','finance']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating — a terminal with `roles` is restricted to those user roles;

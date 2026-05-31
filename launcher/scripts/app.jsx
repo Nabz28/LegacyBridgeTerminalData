@@ -741,6 +741,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           window.AssetMgmt ? <window.AssetMgmt /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'legion' ? (
           window.LEGION ? <window.LEGION /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'finance' ? (
+          window.FINANCE_TERMINAL ? <window.FINANCE_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}
