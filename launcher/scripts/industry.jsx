@@ -11,6 +11,15 @@
   const { Spark, Spinner, Empty, useToast, Modal, fmt } = window.IND;
   const { TAXONOMY, COMMODITY_TILES, REGIONS, an } = window.INDUSTRY;
 
+  /* ---- favorability score (ML-free blend, 0-100) ---- */
+  // fav = conviction*0.5 + (50 + weightedNet*40)*0.3 + clamp(50 + rs*3, 0, 100)*0.2
+  const clampFav = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const calcFav = (conviction, tilt, rs) => {
+    const driverComp = 50 + (tilt && tilt.weightedNet != null ? tilt.weightedNet * 40 : 0);
+    const rsComp     = rs != null ? clampFav(50 + rs * 3, 0, 100) : 50;
+    return Math.round(clampFav(conviction * 0.5 + driverComp * 0.3 + rsComp * 0.2, 0, 100));
+  };
+
   /* =====================================================================
      HELPERS
      ===================================================================== */
@@ -185,6 +194,7 @@
   function SectorDetail({ ind, equity, indicators, onBack }) {
     const [toast, push] = useToast();
     const [tickerModal, setTickerModal] = useState(null);
+    const [subSort, setSubSort] = useState('chg1d'); // sub-industry table sort
 
     const indByKey = useMemo(() => {
       const m = {};
@@ -197,6 +207,7 @@
     const conviction = useMemo(() => an.conviction(snap), [snap]);
     const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
     const kesimpulan = useMemo(() => an.kesimpulan(ind, snap, conviction, status, tilt), [ind, snap, conviction, status, tilt]);
 
     const postures = useMemo(() => (ind.drivers || []).map(d => an.posture(d, indByKey)), [ind, indByKey]);
@@ -211,29 +222,65 @@
       return { pe: med(vals('pe')), roe: med(vals('roe')), net_margin: med(vals('net_margin')), rev_growth: med(vals('rev_growth')) };
     }, [tickers]);
 
+    // Sub-industry breakdown grouped by sub_sector
+    const subIndustryData = useMemo(() => {
+      const groups = {};
+      tickers.forEach(row => {
+        const key = (row.sub_sector && row.sub_sector.trim()) ? row.sub_sector.trim() : 'Uncategorized';
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(row);
+      });
+      return Object.entries(groups).map(([name, rows]) => {
+        const s = an.snapshot(rows);
+        return {
+          name,
+          n: rows.length,
+          chg1d: s.mcapChg,
+          breadth: s.breadth,
+          breadthStr: s.up + '/' + rows.length,
+          medPE: s.medPE,
+          medROE: s.medROE,
+          mcap: s.mcap,
+        };
+      });
+    }, [tickers]);
+
+    const sortedSubIndustry = useMemo(() => {
+      return subIndustryData.slice().sort((a, b) => {
+        if (subSort === 'chg1d')   { const va = a.chg1d == null ? -Infinity : a.chg1d;   const vb = b.chg1d == null ? -Infinity : b.chg1d;   return vb - va; }
+        if (subSort === 'breadth') { return b.breadth - a.breadth; }
+        if (subSort === 'n')       { return b.n - a.n; }
+        if (subSort === 'medPE')   { const va = a.medPE == null ? Infinity : a.medPE;    const vb = b.medPE == null ? Infinity : b.medPE;    return va - vb; }
+        if (subSort === 'medROE')  { const va = a.medROE == null ? -Infinity : a.medROE; const vb = b.medROE == null ? -Infinity : b.medROE; return vb - va; }
+        return 0;
+      });
+    }, [subIndustryData, subSort]);
+
     const chipCls = statusChipClass(status);
 
     const DriverCard = ({ p }) => {
       if (!p.found) {
         return h('div', { className: 'in-driver neutral' },
-          h('div', { className: 'in-driver-lbl' }, h('span', null, p.driver.label), h('span', { className: 'in-chip neu' }, 'N/A')),
+          h('div', { className: 'in-driver-lbl' }, h('span', null, p.driver.label), h('span', { className: 'in-chip neu', style: { fontSize: 9, padding: '1px 5px' } }, 'N/A')),
           h('div', { className: 'in-driver-val in-muted' }, '—'),
-          h('div', { className: 'in-driver-meta' }, h('span', { className: 'in-kind' }, p.driver.kind))
+          h('div', { className: 'in-driver-meta' }, h('span', { className: 'in-kind' }, p.driver.kind), h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono)', fontSize: 11 } }, '—'))
         );
       }
       const pCls = postureChipClass(p.posture);
+      const chgCls = p.chg != null ? (p.chg > 0 ? 'in-pos' : p.chg < 0 ? 'in-neg' : 'in-muted') : 'in-muted';
+      const sparkColor = p.posture === 'tailwind' ? 'var(--pos,#19c37d)' : p.posture === 'headwind' ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)';
       return h('div', { className: 'in-driver ' + pCls },
         h('div', { className: 'in-driver-lbl' },
-          h('span', null, p.label),
-          h('span', { className: 'in-chip ' + pCls }, postureLabel(p.posture))
+          h('span', null, p.label || p.driver.label),
+          h('span', { className: 'in-chip ' + pCls, style: { fontSize: 9, padding: '1px 5px', flexShrink: 0 } }, postureLabel(p.posture))
         ),
-        h('div', { className: 'in-driver-val' }, fmt.val(p.value, p.unit)),
+        h('div', { className: 'in-driver-val in-num' }, fmt.val(p.value, p.unit)),
         h('div', { className: 'in-driver-meta' },
-          h('span', { className: 'in-kind' }, p.driver.kind),
-          h('span', { className: fmt.cls(p.chg), style: { fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600 } }, fmt.pct(p.chg))
+          h('span', { className: chgCls + ' in-num', style: { fontFamily: 'var(--font-mono)', fontSize: 11.5, fontWeight: 700 } }, fmt.pct(p.chg)),
+          h('span', { className: 'in-kind' }, p.driver.kind)
         ),
         p.spark && p.spark.length > 1
-          ? h('div', { style: { marginTop: 8 } }, h(Spark, { data: p.spark, w: 100, ht: 22 }))
+          ? h('div', { className: 'in-driver-spark' }, h(Spark, { data: p.spark, w: null, ht: 26, color: sparkColor }))
           : null
       );
     };
@@ -241,7 +288,7 @@
     const DriversGroup = ({ title, items }) => {
       if (!items.length) return null;
       return h('div', { style: { marginBottom: 12 } },
-        h('div', { style: { fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-tertiary)', marginBottom: 8 } }, title),
+        h('div', { style: { fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-tertiary)', marginBottom: 7 } }, title),
         h('div', { className: 'in-grid in-grid-3', style: { gap: 8 } },
           items.map((p, i) => h(DriverCard, { key: p.driver.key + i, p }))
         )
@@ -274,12 +321,42 @@
       }),
 
       /* header */
-      h('div', { style: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, flexWrap: 'wrap' } },
-        h('button', { className: 'in-back', onClick: onBack }, '← Sector Map'),
-        h('div', { className: 'in-work-title' }, ind.name),
-        h('span', { className: 'in-chip ' + chipCls }, statusLabel(status)),
-        h('span', { className: 'in-muted', style: { fontSize: 11, fontFamily: 'var(--font-mono)' } }, 'Conviction ' + conviction + '/100'),
-        h('span', { className: 'in-muted', style: { fontSize: 11, fontFamily: 'var(--font-mono)', marginLeft: 'auto' } }, snap.n + ' tickers · ' + snap.up + ' up · ' + snap.down + ' dn')
+      h('div', { style: { marginBottom: 16 } },
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 8 } },
+          h('button', { className: 'in-back', onClick: onBack }, '← Sector Map'),
+          h('div', { className: 'in-work-title' }, ind.name),
+          h('span', { className: 'in-chip ' + chipCls }, statusLabel(status)),
+          h('span', { className: 'in-muted', style: { fontSize: 11, fontFamily: 'var(--font-mono)', marginLeft: 'auto' } }, snap.n + ' tickers · ' + snap.up + ' up · ' + snap.down + ' dn')
+        ),
+        /* tight stat row */
+        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 0, background: 'var(--bg-2)', borderRadius: 4, overflow: 'hidden' } },
+          h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
+            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Conviction'),
+            h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: conviction >= 65 ? 'var(--pos)' : conviction <= 35 ? 'var(--neg)' : 'var(--text-primary)' } }, conviction + '/100')
+          ),
+          h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
+            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Status'),
+            h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700 } }, h('span', { className: 'in-chip ' + chipCls, style: { fontSize: 11 } }, statusLabel(status)))
+          ),
+          h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
+            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'RS vs IHSG'),
+            rs != null
+              ? h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: rs > 0 ? 'var(--pos)' : rs < 0 ? 'var(--neg)' : 'var(--text-tertiary)' } }, (rs > 0 ? '+' : '') + rs.toFixed(1) + ' pp')
+              : h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' } }, '—')
+          ),
+          h('div', { style: { padding: '6px 14px' } },
+            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Driver Tilt'),
+            h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700 } },
+              tilt.net != null
+                ? h('span', {
+                    style: { color: tilt.net > 0.15 ? 'var(--pos)' : tilt.net < -0.15 ? 'var(--neg)' : 'var(--text-tertiary)' }
+                  },
+                  tilt.tail + 'T / ' + tilt.head + 'H · ' + (tilt.net > 0.15 ? 'Tail' : tilt.net < -0.15 ? 'Head' : 'Bal')
+                )
+                : h('span', { style: { color: 'var(--text-tertiary)' } }, '—')
+            )
+          )
+        )
       ),
 
       /* driver panel — HERO, placed first */
@@ -298,27 +375,36 @@
       ),
 
       /* sector performance proxy chart panel */
-      h('div', { className: 'in-panel', style: { marginBottom: 16 } },
-        h('div', { className: 'in-panel-h' },
-          h('div', { className: 'in-panel-title' }, 'Sector Performance'),
-          primaryProxyPosture
-            ? h('div', { className: 'in-panel-tag' }, 'Proxy: ' + primaryProxyPosture.label + ' (' + primaryProxyPosture.driver.kind + ' driver)')
-            : h('div', { className: 'in-panel-tag' }, 'commodity proxy')
+      h('div', { className: 'in-chart-panel', style: { marginBottom: 16 } },
+        h('div', { className: 'in-chart-header' },
+          h('div', null,
+            h('div', { className: 'in-chart-title' }, 'Sector Performance'),
+            primaryProxyPosture
+              ? h('div', { className: 'in-chart-subtitle' }, 'Proxy: ' + primaryProxyPosture.label + ' (' + primaryProxyPosture.driver.kind + ' driver)')
+              : h('div', { className: 'in-chart-subtitle' }, 'commodity proxy')
+          ),
+          primaryProxyPosture && h('div', { className: 'in-chart-kpis' },
+            h('div', { className: 'in-chart-kpi' },
+              h('span', { className: 'in-chart-kpi-lbl' }, 'Latest'),
+              h('span', { className: 'in-chart-kpi-val in-num' }, fmt.val(primaryProxyPosture.value, primaryProxyPosture.unit))
+            ),
+            h('div', { className: 'in-chart-kpi' },
+              h('span', { className: 'in-chart-kpi-lbl' }, 'W/W'),
+              h('span', { className: 'in-chart-kpi-val in-num ' + fmt.cls(primaryProxyPosture.chg) }, fmt.pct(primaryProxyPosture.chg))
+            )
+          )
         ),
         primaryProxyPosture && primaryProxyPosture.spark && primaryProxyPosture.spark.length > 1
-          ? h('div', null,
-              h('div', { style: { height: 120, width: '100%' } },
+          ? h(React.Fragment, null,
+              h('div', { className: 'in-chart-body' },
                 h(Spark, { data: primaryProxyPosture.spark, w: null, ht: 120, color: (primaryProxyPosture.chg || 0) >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' })
               ),
-              h('div', { style: { display: 'flex', justifyContent: 'space-between', marginTop: 6, fontSize: 11, fontFamily: 'var(--font-mono)' } },
-                h('span', { className: 'in-muted' }, primaryProxyPosture.label),
-                h('div', { style: { display: 'flex', gap: 10 } },
-                  h('span', { style: { color: 'var(--text-primary)' } }, fmt.val(primaryProxyPosture.value, primaryProxyPosture.unit)),
-                  h('span', { className: fmt.cls(primaryProxyPosture.chg) }, fmt.pct(primaryProxyPosture.chg))
-                )
+              h('div', { className: 'in-chart-footer' },
+                h('span', null, primaryProxyPosture.label),
+                h('span', null, ind.idxSector + ' · IDX')
               )
             )
-          : h('div', { style: { padding: '32px 0', textAlign: 'center', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', fontSize: 12 } },
+          : h('div', { className: 'in-chart-empty' },
               'Price history pending — commodity spark series not yet available for this sector.'
             )
       ),
@@ -372,6 +458,58 @@
             )
       ),
 
+      /* sub-industry drill */
+      subIndustryData.length > 1 && h('div', { className: 'in-panel', style: { marginBottom: 16 } },
+        h('div', { className: 'in-panel-h' },
+          h('div', { className: 'in-panel-title' }, 'Sub-Industry Breakdown'),
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 } },
+            h('span', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Sort'),
+            h('div', { className: 'in-seg' },
+              [
+                { id: 'chg1d',   label: '1D' },
+                { id: 'breadth', label: 'Breadth' },
+                { id: 'n',       label: 'Names' },
+                { id: 'medPE',   label: 'P/E' },
+                { id: 'medROE',  label: 'ROE' },
+              ].map(opt =>
+                h('button', {
+                  key: opt.id,
+                  className: subSort === opt.id ? 'on' : '',
+                  onClick: () => setSubSort(opt.id),
+                  style: { fontSize: 10 }
+                }, opt.label)
+              )
+            )
+          )
+        ),
+        h('div', { className: 'in-tablewrap' },
+          h('table', { className: 'in-table' },
+            h('thead', null,
+              h('tr', null,
+                h('th', null, 'Sub-Industry'),
+                h('th', { className: 'r' }, 'Names'),
+                h('th', { className: 'r' }, '1D Mcap-Wt'),
+                h('th', { className: 'r' }, 'Breadth'),
+                h('th', { className: 'r' }, 'Med P/E'),
+                h('th', { className: 'r' }, 'Med ROE')
+              )
+            ),
+            h('tbody', null,
+              sortedSubIndustry.map(sub =>
+                h('tr', { key: sub.name },
+                  h('td', { style: { fontWeight: 600, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' } }, sub.name),
+                  h('td', { className: 'r in-num' }, sub.n),
+                  h('td', { className: 'r in-num ' + fmt.cls(sub.chg1d) }, fmt.pct(sub.chg1d)),
+                  h('td', { className: 'r in-num' }, sub.breadthStr),
+                  h('td', { className: 'r in-num' }, fmt.num(sub.medPE)),
+                  h('td', { className: 'r in-num ' + (sub.medROE > 0 ? 'in-pos' : sub.medROE < 0 ? 'in-neg' : '') }, fmt.pct(sub.medROE))
+                )
+              )
+            )
+          )
+        )
+      ),
+
       /* peer comps note */
       h('div', { className: 'in-banner', style: { fontSize: 11 } },
         'Full peer comps, positioning quadrant, and 6-dim ticker rankings are in the ',
@@ -390,6 +528,8 @@
     const conviction = useMemo(() => an.conviction(snap), [snap]);
     const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
+    const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
 
     const chipCls = statusChipClass(status);
     const convColor = status === 'BULLISH' ? 'var(--pos)' : status === 'BEARISH' ? 'var(--neg)' : status === 'ROTATION' ? 'var(--in)' : 'var(--text-tertiary)';
@@ -398,6 +538,22 @@
     const borderLeft = status === 'BULLISH' ? '2px solid var(--pos)' : status === 'BEARISH' ? '2px solid var(--neg)' : status === 'ROTATION' ? '2px solid var(--in)' : undefined;
     const baseStyle = borderLeft ? { borderLeft } : {};
     const cardStyle = isFavored ? { ...baseStyle, borderColor: 'var(--in-edge)', background: 'var(--in-softer)' } : baseStyle;
+
+    // RS badge: "+x.x pp vs IHSG"
+    const rsBadge = rs != null
+      ? h('span', {
+          style: {
+            fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700,
+            padding: '1px 5px', borderRadius: 3,
+            background: rs > 0 ? 'rgba(25,195,125,0.13)' : rs < 0 ? 'rgba(255,92,112,0.13)' : 'var(--bg-3)',
+            color: rs > 0 ? 'var(--pos)' : rs < 0 ? 'var(--neg)' : 'var(--text-tertiary)',
+            border: '1px solid ' + (rs > 0 ? 'rgba(25,195,125,0.35)' : rs < 0 ? 'rgba(255,92,112,0.35)' : 'transparent'),
+            whiteSpace: 'nowrap',
+          }
+        },
+        (rs > 0 ? '+' : '') + rs.toFixed(1) + ' pp vs IHSG'
+      )
+      : null;
 
     return h('div', {
       className: 'in-card',
@@ -411,7 +567,10 @@
             ? h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--in)', letterSpacing: '0.06em', textTransform: 'uppercase' } }, 'Cycle Favored')
             : null
         ),
-        h('span', { className: 'in-chip ' + chipCls }, statusLabel(status))
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 } },
+          rsBadge,
+          h('span', { className: 'in-chip ' + chipCls }, statusLabel(status))
+        )
       ),
 
       h('div', { className: 'in-convbar' },
@@ -430,10 +589,12 @@
           )
         ),
         h('div', { style: { textAlign: 'right' } },
-          h('div', { className: 'in-muted', style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'Drivers'),
+          h('div', { className: 'in-muted', style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' } }, 'Fav / Drivers'),
           h('div', { style: { fontSize: 11, fontFamily: 'var(--font-mono)' } },
+            h('span', { style: { color: fav >= 60 ? 'var(--pos)' : fav <= 40 ? 'var(--neg)' : 'var(--text-secondary)', fontWeight: 700 } }, fav),
+            h('span', { className: 'in-muted' }, ' · '),
             h('span', { style: { color: 'var(--pos)' } }, tilt.tail + 'T'),
-            h('span', { className: 'in-muted' }, ' / '),
+            h('span', { className: 'in-muted' }, '/'),
             h('span', { style: { color: 'var(--neg)' } }, tilt.head + 'H')
           )
         )
@@ -516,17 +677,17 @@
     return h('div', { className: 'in-panel' },
       h('div', { className: 'in-panel-h' },
         h('div', { className: 'in-panel-title' }, 'News'),
-        h('div', { className: 'in-panel-tag' }, 'news feed integration pending')
+        h('div', { className: 'in-panel-tag' }, 'feed integration pending')
       ),
-      h('div', { className: 'in-banner', style: { fontSize: 11, marginBottom: 10 } },
-        'Live news feeds are not yet wired. The items below are placeholder headlines for layout purposes.'
+      h('div', { className: 'in-news-placeholder-note' },
+        '⚠ Placeholder headlines — live news feed not yet wired.'
       ),
       NEWS_PLACEHOLDER.map((item, i) =>
         h('div', { key: i, className: 'in-news-item' },
           h('div', { className: 'in-news-title' }, item.title),
           h('div', { className: 'in-news-src' },
             item.src,
-            h('span', { style: { marginLeft: 8, padding: '1px 5px', borderRadius: 2, background: 'var(--bg-3)', fontSize: 9, letterSpacing: '0.04em', textTransform: 'uppercase' } }, item.tag)
+            h('span', { className: 'in-news-tag' }, item.tag)
           )
         )
       )
@@ -536,8 +697,36 @@
   /* =====================================================================
      LANDING VIEW
      ===================================================================== */
+  // Sort keys for the sector grid
+  const SORT_OPTIONS = [
+    { id: 'fav',        label: 'Favorability' },
+    { id: 'conviction', label: 'Conviction' },
+    { id: 'rs',         label: 'RS vs IHSG' },
+    { id: 'chg1d',      label: '1D Chg' },
+    { id: 'mcap',       label: 'Mcap' },
+  ];
+
+  // Wrapper to pre-compute all sort metrics for one sector then render SectorCard
+  function SortableSectorCard({ ind, equity, indByKey, cycleData, onClick, onMetrics }) {
+    const tickers = useMemo(() => an.tickersFor(ind, equity), [ind, equity]);
+    const snap = useMemo(() => an.snapshot(tickers), [tickers]);
+    const conviction = useMemo(() => an.conviction(snap), [snap]);
+    const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
+    const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
+    const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
+
+    // Bubble metrics up to Landing so it can sort without re-computing
+    useEffect(() => {
+      if (onMetrics) onMetrics(ind.id, { fav, conviction, rs, chg1d: snap.mcapChg, mcap: snap.mcap });
+    }, [ind.id, fav, conviction, rs, snap.mcapChg, snap.mcap]);
+
+    return h(SectorCard, { ind, equity, indByKey, cycleData, onClick });
+  }
+
   function Landing({ equity, indicators, region, onSelectSector }) {
     const [commodityModal, setCommodityModal] = useState(null);
+    const [sortBy, setSortBy] = useState('fav');
+    const [metricsMap, setMetricsMap] = useState({});
 
     const indByKey = useMemo(() => {
       const m = {};
@@ -554,6 +743,36 @@
       region === 'id' ? TAXONOMY : TAXONOMY.filter(ind => ind.region === region || ind.region === 'id'),
       [region]
     );
+
+    // Stable metrics callback
+    const handleMetrics = useCallback((id, m) => {
+      setMetricsMap(prev => {
+        const cur = prev[id];
+        if (cur && cur.fav === m.fav && cur.conviction === m.conviction && cur.rs === m.rs && cur.chg1d === m.chg1d && cur.mcap === m.mcap) return prev;
+        return { ...prev, [id]: m };
+      });
+    }, []);
+
+    // Sort the taxonomy according to sortBy (desc; nulls last)
+    const sortedTaxonomy = useMemo(() => {
+      const get = (ind) => {
+        const m = metricsMap[ind.id];
+        if (!m) return null;
+        if (sortBy === 'fav')        return m.fav;
+        if (sortBy === 'conviction') return m.conviction;
+        if (sortBy === 'rs')         return m.rs;
+        if (sortBy === 'chg1d')      return m.chg1d;
+        if (sortBy === 'mcap')       return m.mcap;
+        return null;
+      };
+      return filteredTaxonomy.slice().sort((a, b) => {
+        const va = get(a), vb = get(b);
+        if (va == null && vb == null) return 0;
+        if (va == null) return 1;
+        if (vb == null) return -1;
+        return vb - va; // descending
+      });
+    }, [filteredTaxonomy, metricsMap, sortBy]);
 
     const regionNote = region !== 'id'
       ? h('div', { className: 'in-banner', style: { marginBottom: 12 } },
@@ -611,7 +830,7 @@
               h('div', { className: 'in-tile-val' }, fmt.val(item.latest_value, item.unit)),
               h('div', { className: 'in-tile-chg ' + fmt.cls(item.change_pct) }, fmt.pct(item.change_pct)),
               item.spark && item.spark.length > 1
-                ? h('div', { style: { marginTop: 6 } }, h(Spark, { data: item.spark, w: null, ht: 28 }))
+                ? h('div', { className: 'in-tile-spark' }, h(Spark, { data: item.spark, w: null, ht: 28, color: item.change_pct >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' }))
                 : null
             );
           })
@@ -621,17 +840,33 @@
       /* sector grid */
       h('div', { style: { marginBottom: 16 } },
         h('div', { className: 'in-panel-h', style: { marginBottom: 8 } },
-          h('div', { className: 'in-panel-title' }, 'Sector Grid'),
-          h('div', { className: 'in-panel-tag' }, filteredTaxonomy.length + ' sectors · click to drill in')
+          h('div', { style: { display: 'flex', flexDirection: 'column', gap: 4 } },
+            h('div', { className: 'in-panel-title' }, 'Sector Grid'),
+            h('div', { className: 'in-panel-tag' }, sortedTaxonomy.length + ' sectors · click to drill in')
+          ),
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 } },
+            h('span', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.06em' } }, 'Sort'),
+            h('div', { className: 'in-seg' },
+              SORT_OPTIONS.map(opt =>
+                h('button', {
+                  key: opt.id,
+                  className: sortBy === opt.id ? 'on' : '',
+                  onClick: () => setSortBy(opt.id),
+                  style: { fontSize: 10 }
+                }, opt.label)
+              )
+            )
+          )
         ),
         h('div', { className: 'in-grid in-grid-3', style: { gap: 10 } },
-          filteredTaxonomy.map(ind =>
-            h(SectorCard, {
+          sortedTaxonomy.map(ind =>
+            h(SortableSectorCard, {
               key: ind.id,
               ind,
               equity,
               indByKey,
               cycleData,
+              onMetrics: handleMetrics,
               onClick: () => onSelectSector(ind)
             })
           )

@@ -80,25 +80,27 @@
     return h('div', {
       className: 'in-driver ' + cls,
       onClick: () => onClick && onClick(p, driver),
-      style: { cursor: 'pointer' }
     },
+      /* label row: driver name + posture chip */
       h('div', { className: 'in-driver-lbl' },
         h('span', null, driver.label),
-        h('span', { className: 'in-chip ' + postureChipCls, style: { fontSize: 9, padding: '1px 6px' } }, postureLabel)
+        h('span', { className: 'in-chip ' + postureChipCls, style: { fontSize: 9, padding: '1px 5px', flexShrink: 0 } }, postureLabel)
       ),
+      /* prominent value */
       h('div', { className: 'in-driver-val in-num' }, p.found ? fmt.val(p.value, p.unit) : '—'),
+      /* meta: pct change + kind pill */
       h('div', { className: 'in-driver-meta' },
-        h('span', { className: chgCls + ' in-num', style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 12 } },
+        h('span', { className: chgCls + ' in-num', style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11.5, fontWeight: 700 } },
           p.chg != null ? (p.chg > 0 ? '+' : '') + p.chg.toFixed(1) + '%' : '—'),
         h('span', { className: 'in-kind' }, kindLabel)
       ),
-      sparkPts.length >= 2 && h('div', { style: { marginTop: 7, lineHeight: 0 } },
-        h(Spark, { data: sparkPts, w: null, ht: 22,
+      /* sparkline with baseline feel */
+      sparkPts.length >= 2 && h('div', { className: 'in-driver-spark' },
+        h(Spark, { data: sparkPts, w: null, ht: 26,
           color: p.posture === 'tailwind' ? 'var(--pos,#19c37d)' : p.posture === 'headwind' ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)' })
       ),
-      h('div', { style: { marginTop: 6, fontSize: 10.5, color: 'var(--text-tertiary,#8e9ab0)', lineHeight: 1.4 } },
-        postureOneLiner(p)
-      )
+      /* one-liner explanation */
+      h('div', { className: 'in-driver-hint' }, postureOneLiner(p))
     );
   }
 
@@ -261,13 +263,13 @@
     if (!drivers || drivers.length === 0) return null;
     const colorMap = { DEMAND: 'var(--pos,#19c37d)', SUPPLY: 'var(--neg,#ff5c70)', MACRO: 'var(--in,#f5a623)' };
     const accentColor = colorMap[title] || 'var(--in,#f5a623)';
-    return h('div', { style: { marginBottom: 20 } },
-      h('div', { style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 } },
-        h('div', { style: { width: 3, height: 16, borderRadius: 2, background: accentColor, flexShrink: 0 } }),
-        h('span', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: accentColor } }, title + ' DRIVERS'),
-        h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10 } }, '(' + drivers.length + ')')
+    return h('div', { style: { marginBottom: 16 } },
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 } },
+        h('div', { style: { width: 3, height: 14, borderRadius: 1, background: accentColor, flexShrink: 0 } }),
+        h('span', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: accentColor } }, title + ' DRIVERS'),
+        h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10 } }, '· ' + drivers.length)
       ),
-      h('div', { className: 'in-grid in-grid-3', style: { gap: 10 } },
+      h('div', { className: 'in-grid in-grid-3', style: { gap: 8 } },
         drivers.map(d => {
           const p = postures.find(p => p.driver.key === d.key) || { driver: d, found: false, posture: 'neutral', chg: null, value: null };
           return h(DriverCard, { key: d.key, posture: p, driver: d, onClick: onCardClick });

@@ -236,26 +236,26 @@
       { key: '_verdict',        label: 'Verdict',     cls: '',    render: (r) => { const s = scores[r.symbol]; if (!s) return null; const v = VERDICT_MAP[s.verdict] || { label: s.verdict, cls: 'hold' }; return h('span', { className: 'in-verdict ' + v.cls }, v.label); } },
     ];
 
-    // Median pseudo-row
-    const medRow = h('tr', { key: '__median', style: { background: 'rgba(245,166,35,0.08)', borderTop: '1px solid var(--in-edge,rgba(245,166,35,0.34))' } },
-      h('td', { colSpan: 2, style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--in,#f5a623)', fontWeight: 700, paddingLeft: 12, height: 34 } }, 'Peer Median'),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.mcap(peerMed.mcap)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.pct(peerMed.change_pct)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.num(peerMed.pe, 1)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.num(peerMed.pb, 2)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.num(peerMed.ev_ebitda, 1)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.pct(peerMed.roe, 1)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.pct(peerMed.net_margin, 1)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.pct(peerMed.rev_growth, 1)),
-      h('td', { className: 'r in-num', style: { height: 34 } }, fmt.pct(peerMed.div_yield, 2)),
-      h('td', { className: 'r', style: { height: 34 } }, '—'),
-      h('td', { style: { height: 34 } }, '—'),
+    // Median pseudo-row — uses .in-median CSS class for styling
+    const medRow = h('tr', { key: '__median', className: 'in-median' },
+      h('td', { colSpan: 2, style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--in,#f5a623)', fontWeight: 700, paddingLeft: 12 } }, 'Peer Median'),
+      h('td', { className: 'r in-num' }, fmt.mcap(peerMed.mcap)),
+      h('td', { className: 'r in-num' }, fmt.pct(peerMed.change_pct)),
+      h('td', { className: 'r in-num' }, fmt.num(peerMed.pe, 1)),
+      h('td', { className: 'r in-num' }, fmt.num(peerMed.pb, 2)),
+      h('td', { className: 'r in-num' }, fmt.num(peerMed.ev_ebitda, 1)),
+      h('td', { className: 'r in-num' }, fmt.pct(peerMed.roe, 1)),
+      h('td', { className: 'r in-num' }, fmt.pct(peerMed.net_margin, 1)),
+      h('td', { className: 'r in-num' }, fmt.pct(peerMed.rev_growth, 1)),
+      h('td', { className: 'r in-num' }, fmt.pct(peerMed.div_yield, 2)),
+      h('td', { className: 'r' }, '—'),
+      h('td', null, '—'),
     );
 
     return h('div', null,
-      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } },
+      h('div', { style: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8, gap: 10 } },
         h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary,#fff)' } }, 'Peer Comps'),
-        h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, sorted.length + ' names · sorted by score · green = better vs median'),
+        h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, sorted.length + ' names · ↓ score · green better vs median'),
       ),
       h('div', { className: 'in-tablewrap' },
         h('table', { className: 'in-table' },
@@ -280,39 +280,41 @@
      ========================================================================= */
   function PositioningQuadrant({ peers, scores }) {
     const [hovered, setHovered] = useState(null);
-    const BOX_H = 320;
+    const BOX_H = 340;
 
     const coordRows = useMemo(() => buildQuadrantCoords(peers), [peers]);
-    const totalMcap = peers.reduce((s, r) => s + (Number(r.mcap) || 0), 0);
     const maxMcap   = Math.max(...peers.map(r => Number(r.mcap) || 0), 1);
 
-    const PAD = 36; // padding inside scatter box for labels
+    // Padding inside scatter box for labels (axis label zones)
+    const PAD = 40;
 
     return h('div', null,
-      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 } },
+      /* panel header */
+      h('div', { style: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 } },
         h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary,#fff)' } }, 'Positioning Quadrant'),
         h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, 'x = cheaper (right) · y = higher quality (top) · size ~ mcap'),
       ),
-      h('div', { className: 'in-scatter', style: { height: BOX_H, overflow: 'hidden' } },
-        // quadrant background lines (center cross)
-        h('div', { style: { position: 'absolute', left: '50%', top: PAD, bottom: PAD, width: 1, background: 'rgba(255,255,255,0.05)' } }),
-        h('div', { style: { position: 'absolute', top: '50%', left: PAD, right: PAD, height: 1, background: 'rgba(255,255,255,0.05)' } }),
-        // quadrant labels
-        h('div', { className: 'in-axis-lbl', style: { top: PAD + 6, right: PAD + 4, color: 'var(--pos,#19c37d)', opacity: 0.6 } }, 'Quality Value'),
-        h('div', { className: 'in-axis-lbl', style: { top: PAD + 6, left: PAD + 4, opacity: 0.5 } }, 'Quality Premium'),
-        h('div', { className: 'in-axis-lbl', style: { bottom: PAD + 6, right: PAD + 4, opacity: 0.5 } }, 'Value Trap risk'),
-        h('div', { className: 'in-axis-lbl', style: { bottom: PAD + 6, left: PAD + 4, color: 'var(--neg,#ff5c70)', opacity: 0.6 } }, 'Avoid'),
-        // axis labels
-        h('div', { className: 'in-axis-lbl', style: { bottom: 4, left: '50%', transform: 'translateX(-50%)' } }, 'Valuation (cheap →)'),
-        h('div', { className: 'in-axis-lbl', style: { left: 4, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', transformOrigin: 'center center' } }, '← Quality →'),
-        // dots
+
+      /* scatter box — CSS ::before/::after handle the center cross */
+      h('div', { className: 'in-scatter', style: { height: BOX_H } },
+        /* quadrant corner labels */
+        h('div', { className: 'in-axis-lbl', style: { top: PAD - 18, right: PAD, color: 'var(--pos,#19c37d)', opacity: 0.75 } }, 'Quality Value'),
+        h('div', { className: 'in-axis-lbl', style: { top: PAD - 18, left: PAD, opacity: 0.55 } }, 'Quality Premium'),
+        h('div', { className: 'in-axis-lbl', style: { bottom: PAD - 18, right: PAD, opacity: 0.55 } }, 'Value Trap'),
+        h('div', { className: 'in-axis-lbl', style: { bottom: PAD - 18, left: PAD, color: 'var(--neg,#ff5c70)', opacity: 0.75 } }, 'Avoid'),
+        /* axis direction labels on the edges */
+        h('div', { className: 'in-axis-lbl', style: { bottom: 6, left: '50%', transform: 'translateX(-50%)', letterSpacing: '0.03em' } }, 'cheap ⟶'),
+        h('div', { className: 'in-axis-lbl', style: { top: 6, left: '50%', transform: 'translateX(-50%)', letterSpacing: '0.03em' } }, '⟵ expensive'),
+        h('div', { className: 'in-axis-lbl', style: { left: 6, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', transformOrigin: 'center center', letterSpacing: '0.03em' } }, 'low quality'),
+        h('div', { className: 'in-axis-lbl', style: { right: 6, top: '50%', transform: 'translateY(-50%) rotate(90deg)', transformOrigin: 'center center', letterSpacing: '0.03em' } }, 'high quality'),
+
+        /* dots */
         coordRows.map(r => {
           const s = scores[r.symbol];
           const score = s ? s.total : 50;
-          const dotSize = Math.max(8, Math.min(28, Math.sqrt((Number(r.mcap) || 0) / maxMcap) * 38));
+          const dotSize = Math.max(9, Math.min(30, Math.sqrt((Number(r.mcap) || 0) / maxMcap) * 40));
           const xFrac = r.qx;
           const yFrac = 1 - r.qy; // invert: high quality = top
-          // Fix: valid CSS calc — left = PAD + xFrac*(100% - 2*PAD px) - dotSize/2 to center the dot
           const dotOff = Math.round(dotSize / 2);
           const leftCalc = 'calc(' + PAD + 'px + ' + (xFrac * 100).toFixed(2) + '% - ' + (xFrac * PAD * 2 + dotOff) + 'px)';
           const topCalc  = 'calc(' + PAD + 'px + ' + (yFrac * 100).toFixed(2) + '% - ' + (yFrac * PAD * 2 + dotOff) + 'px)';
@@ -324,7 +326,6 @@
           return h('div', {
             key: r.symbol,
             className: 'in-dot',
-            title: r.symbol + ' · Score ' + score + (noVal ? ' · no valuation data' : ''),
             onMouseEnter: () => setHovered(r.symbol),
             onMouseLeave: () => setHovered(null),
             style: {
@@ -333,20 +334,38 @@
               width:  dotSize,
               height: dotSize,
               background: dotColor,
-              border: noVal ? '1.5px dashed rgba(255,255,255,0.3)' : isHov ? '2px solid #fff' : '1.5px solid rgba(0,0,0,0.3)',
-              opacity: noVal ? 0.45 : hovered && !isHov ? 0.35 : 0.85,
-              zIndex: isHov ? 10 : 1,
-              transition: 'opacity 0.15s, border 0.1s',
+              border: noVal
+                ? '1.5px dashed rgba(255,255,255,0.35)'
+                : isHov
+                  ? '2px solid rgba(255,255,255,0.9)'
+                  : '1.5px solid rgba(0,0,0,0.25)',
+              opacity: noVal ? 0.45 : (hovered && !isHov) ? 0.28 : 0.88,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: Math.max(7, Math.min(10, dotSize * 0.38)),
+              fontSize: Math.max(7, Math.min(10, dotSize * 0.36)),
               color: noVal ? 'rgba(255,255,255,0.5)' : '#000',
               fontFamily: 'var(--font-mono,monospace)',
               fontWeight: 700,
               userSelect: 'none',
               overflow: 'hidden',
             }
-          }, dotSize >= 16 ? r.symbol.slice(0, dotSize >= 22 ? 4 : 2) : null);
+          },
+            /* ticker label inside dot */
+            dotSize >= 16 ? r.symbol.slice(0, dotSize >= 24 ? 4 : 2) : null,
+            /* hover tooltip */
+            isHov && h('div', { className: 'in-dot-tip' },
+              r.symbol + ' · Score ' + score + (noVal ? ' · no val data' : '') + ' · ' + (s ? (VERDICT_MAP[s.verdict] || { label: s.verdict }).label : '—')
+            )
+          );
         })
+      ),
+
+      /* legend */
+      h('div', { className: 'in-qlg' },
+        h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--pos,#19c37d)' } }), 'Score ≥ 65'),
+        h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--in,#f5a623)' } }), 'Score 41–64'),
+        h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--neg,#ff5c70)' } }), 'Score ≤ 40'),
+        h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'transparent', border: '1.5px dashed rgba(255,255,255,0.35)' } }), 'No val data'),
+        h('div', { style: { marginLeft: 'auto', fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)' } }, 'Dot size ~ mcap')
       )
     );
   }
