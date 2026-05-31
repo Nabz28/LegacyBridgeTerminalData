@@ -374,7 +374,7 @@
     { group: 'Overview', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'dash', kbd: 'F1' }] },
     { group: 'Record', items: [{ id: 'ledger', label: 'Ledger', icon: 'ledger', kbd: 'F2' }, { id: 'transfers', label: 'Transfers', icon: 'transfer' }, { id: 'recurring', label: 'Recurring', icon: 'recurring' }] },
     { group: 'Structure', items: [{ id: 'accounts', label: 'Accounts', icon: 'accounts', kbd: 'F3' }, { id: 'tags', label: 'Tags', icon: 'tag' }] },
-    { group: 'Report', items: [{ id: 'reports', label: 'Statements', icon: 'report', kbd: 'F4' }] },
+    { group: 'Report', items: [{ id: 'reports', label: 'Statements', icon: 'report', kbd: 'F4' }, { id: 'fees', label: 'Perf. Fees', icon: 'coin' }] },
     { group: 'Control', items: [{ id: 'periods', label: 'Periods', icon: 'period' }, { id: 'audit', label: 'Audit log', icon: 'audit' }, { id: 'settings', label: 'Settings', icon: 'settings' }] },
   ];
 
@@ -466,6 +466,7 @@
         case 'ledger': return React.createElement(Ledger, { ctx });
         case 'accounts': return React.createElement(Accounts, { ctx });
         case 'reports': return window.FN_Reports ? React.createElement(window.FN_Reports.Reports, { ctx }) : React.createElement(FN.Spinner, { label: 'Loading reports…' });
+        case 'fees': return window.FN_Fees ? React.createElement(window.FN_Fees.PerfFees, { ctx }) : modLoading();
         case 'transfers': return window.FN_Ops ? React.createElement(window.FN_Ops.Transfers, { ctx }) : modLoading();
         case 'recurring': return window.FN_Ops ? React.createElement(window.FN_Ops.Recurring, { ctx }) : modLoading();
         case 'tags': return window.FN_Ops ? React.createElement(window.FN_Ops.Tags, { ctx }) : modLoading();
@@ -477,7 +478,7 @@
     };
     const modLoading = () => React.createElement(FN.Spinner, { label: 'Loading module…' });
 
-    const titleFor = { dashboard: 'Dashboard', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
+    const titleFor = { dashboard: 'Dashboard', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', fees: 'Performance fees (25% of AUM realized P&L)', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
 
     return React.createElement('div', { className: 'fn-root' },
       // header

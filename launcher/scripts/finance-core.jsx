@@ -265,6 +265,43 @@
   };
   FINANCE.report = report;
 
+  /* ---- performance fee engine (AM -> Finance bridge) ------------------ *
+   * LBC earns 25% of realized P&L on AUM (both funds), accrued even before
+   * transfer. Realized P&L lives in asset_mgmt and is read live in-browser via
+   * window.AM (avg-cost, FX'd). High-water mark is tracked in USD (fund base)
+   * in finance.performance_fee_recognitions so FX swings don't move the mark;
+   * the accrual is converted to IDR (LBC's books) at recognition.
+   *   accrued (unrecognised) fee = rate * max(0, cumRealizedUSD - hwmUSD) * USDIDR
+   * --------------------------------------------------------------------- */
+  FINANCE.perfFee = {
+    RATE: 0.25,
+    async compute() {
+      const AM = window.AM;
+      if (!AM || !AM.realized || !AM.fx) return { ok: false, reason: 'asset_mgmt terminal (window.AM) not loaded' };
+      const [fxRows, trades, recogs] = await Promise.all([
+        AM.get('/fx_rates?select=pair,rate,as_of&order=as_of.desc&limit=200').catch(() => []),
+        AM.get('/trades?select=fund_id,symbol,side,quantity,price,fees,currency,occurred_at&order=occurred_at.asc&limit=20000').catch(() => []),
+        FINANCE.get('/performance_fee_recognitions?select=fund_key,cum_realized_usd').catch(() => []),
+      ]);
+      const fx = { USD: 1 };
+      (fxRows || []).forEach(r => { const c = (r.pair || '').replace(/^USD/, ''); if (c && fx[c] === undefined) fx[c] = Number(r.rate); });
+      const usdidr = fx['IDR'] != null ? fx['IDR'] : null;
+      const usdcx = AM.fx.makeCx(fx, 'USD');
+      const hwm = {};
+      (recogs || []).forEach(r => { hwm[r.fund_key] = Math.max(hwm[r.fund_key] || 0, Number(r.cum_realized_usd) || 0); });
+      const funds = (AM.FUNDS || []).map(f => {
+        const ft = (trades || []).filter(t => t.fund_id === f.id);
+        const cumUsd = AM.realized(ft, usdcx) || 0;       // cumulative realized P&L, USD
+        const h = hwm[f.id] || 0;
+        const baseUsd = Math.max(0, cumUsd - h);          // gains above high-water mark only
+        const feeUsd = baseUsd * FINANCE.perfFee.RATE;
+        const accruedIdr = usdidr != null ? feeUsd * usdidr : null;
+        return { key: f.id, label: f.label, trades: ft.length, cumRealizedUsd: cumUsd, hwmUsd: h, baseUsd, feeUsd, accruedFeeIdr: accruedIdr };
+      });
+      return { ok: true, funds, usdidr, rate: FINANCE.perfFee.RATE, totalAccruedIdr: funds.reduce((s, x) => s + (x.accruedFeeIdr || 0), 0), totalCumUsd: funds.reduce((s, x) => s + x.cumRealizedUsd, 0) };
+    },
+  };
+
   window.FINANCE = FINANCE;
 
   /* =====================================================================
