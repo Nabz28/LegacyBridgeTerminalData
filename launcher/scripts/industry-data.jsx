@@ -698,14 +698,16 @@
     const [indics,  setIndics]        = useState([]);
     const [selectedId, setSelectedId] = useState('coal');
     const [detailState, setDetailState] = useState(null); // { posture, driver }
+    const [reloadKey, setReloadKey]   = useState(0);
 
     // Load live_indicators once
     useEffect(() => {
       setLoading(true);
+      setError(null);
       INDUSTRY_.indicators()
         .then(rows => { setIndics(Array.isArray(rows) ? rows : []); setLoading(false); })
         .catch(err => { setError(String(err)); setLoading(false); });
-    }, []);
+    }, [reloadKey]);
 
     // Build indByKey lookup — coerce numeric strings
     const indByKey = useMemo(() => {
@@ -751,7 +753,16 @@
       h('div', { className: 'in-work' }, h(Spinner, { label: 'Loading driver data…' }))
     );
     if (error) return h('div', { className: 'in-root' },
-      h('div', { className: 'in-work' }, h(Empty, { title: 'Failed to load indicators', sub: error }))
+      h('div', { className: 'in-work' },
+        h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
+          h('div', null, 'Failed to load indicators: ' + error),
+          h('button', {
+            className: 'in-btn',
+            onClick: () => setReloadKey(k => k + 1),
+            style: { marginTop: 4 }
+          }, 'Retry')
+        )
+      )
     );
 
     const hasNoDrivers = !ind || !ind.drivers || ind.drivers.length === 0;

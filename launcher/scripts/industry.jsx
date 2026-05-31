@@ -453,7 +453,7 @@
                       h('td', { className: 'r in-num ' + fmt.cls(row.change_pct) }, fmt.pct(row.change_pct)),
                       h('td', { className: 'r in-num' }, fmt.mcap(row.mcap)),
                       h('td', { className: 'r in-num' }, fmt.num(row.pe)),
-                      h('td', { className: 'r in-num ' + (row.roe > 0 ? 'in-pos' : row.roe < 0 ? 'in-neg' : '') }, fmt.pct(row.roe)),
+                      h('td', { className: 'r in-num ' + (Number(row.roe) > 0 ? 'in-pos' : Number(row.roe) < 0 ? 'in-neg' : '') }, fmt.pct(row.roe)),
                       h('td', { className: 'r in-num' }, fmt.pct(row.div_yield))
                     )
                   )
@@ -506,7 +506,7 @@
                   h('td', { className: 'r in-num ' + fmt.cls(sub.chg1d) }, fmt.pct(sub.chg1d)),
                   h('td', { className: 'r in-num' }, sub.breadthStr),
                   h('td', { className: 'r in-num' }, fmt.num(sub.medPE)),
-                  h('td', { className: 'r in-num ' + (sub.medROE > 0 ? 'in-pos' : sub.medROE < 0 ? 'in-neg' : '') }, fmt.pct(sub.medROE))
+                  h('td', { className: 'r in-num ' + (Number(sub.medROE) > 0 ? 'in-pos' : Number(sub.medROE) < 0 ? 'in-neg' : '') }, fmt.pct(sub.medROE))
                 )
               )
             )
@@ -839,6 +839,147 @@
     return h(SectorCard, { ind, equity, indByKey, cycleData, onClick });
   }
 
+  /* =====================================================================
+     GLOBAL / US DRIVER LENS — shown when region !== 'id'
+     Renders commodity tiles + commodity-driven industries (posture view)
+     + US macro indicators (US only). No empty IDX sector cards.
+     ===================================================================== */
+  // Commodity-industry mapping for the driver lens
+  const COMMODITY_INDUSTRIES = [
+    { id: 'coal',      label: 'Coal & Mining',         keys: ['wb_coal_au', 'wb_idx_energy', 'wb_natgas_eu'] },
+    { id: 'nickel',    label: 'Nickel & Battery Metals', keys: ['wb_nickel', 'wb_idx_metals', 'lithium_etf'] },
+    { id: 'cpo',       label: 'Plantation & CPO',       keys: ['wb_palm_oil', 'soybean_oil', 'wb_fert_idx'] },
+    { id: 'tin',       label: 'Tin',                    keys: ['wb_tin', 'wb_idx_metals'] },
+    { id: 'oilgas',    label: 'Oil & Gas',               keys: ['wti', 'brent', 'wb_lng_jp'] },
+    { id: 'goldmetal', label: 'Gold & Precious',         keys: ['gold', 'silver', 'copper'] },
+  ];
+  const US_MACRO_KEYS = ['ust_10y_y', 'ust_3m_y', 'fed_funds', 'dxy', 'sp500', 'vix', 'us_cpi_yoy', 'us_ism_mfg', 'natgas', 'wti', 'brent'];
+
+  function GlobalDriverLens({ indicators, region, setCommodityModal }) {
+    const indByKey = useMemo(() => {
+      const m = {};
+      indicators.forEach(i => { if (i && i.key) m[i.key] = i; });
+      return m;
+    }, [indicators]);
+
+    const usMacroItems = useMemo(() => {
+      if (region !== 'us') return [];
+      return US_MACRO_KEYS.map(k => indByKey[k]).filter(Boolean);
+    }, [region, indByKey]);
+
+    return h('div', { className: 'in-work' },
+      // region note
+      h('div', { className: 'in-banner', style: { marginBottom: 14, flexDirection: 'column', alignItems: 'flex-start', gap: 4 } },
+        h('b', null, region === 'us' ? 'US' : 'Global'), ' lens — commodity & macro driver view.',
+        h('span', { className: 'in-muted', style: { fontSize: 11 } },
+          'Single-name equity coverage: Indonesia (IDX). Global/US = commodity & macro driver lens only — switch to Indonesia for sector grid & stock data.')
+      ),
+
+      /* commodity strip */
+      h('div', { style: { marginBottom: 18 } },
+        h('div', { className: 'in-panel-h', style: { marginBottom: 8 } },
+          h('div', { className: 'in-panel-title' }, 'Commodity Prices'),
+          h('div', { className: 'in-panel-tag' }, 'click for detail')
+        ),
+        h('div', { className: 'in-grid in-grid-5', style: { gap: 8 } },
+          COMMODITY_TILES.map(key => {
+            const item = indByKey[key];
+            if (!item) return h('div', { key, className: 'in-tile' },
+              h('div', { className: 'in-tile-lbl' }, key),
+              h('div', { className: 'in-tile-val in-muted' }, '—')
+            );
+            return h('div', { key, className: 'in-tile', onClick: () => setCommodityModal(item) },
+              h('div', { className: 'in-tile-lbl' }, item.label),
+              h('div', { className: 'in-tile-val' }, fmt.val(item.latest_value, item.unit)),
+              h('div', { className: 'in-tile-chg ' + fmt.cls(item.change_pct) }, fmt.pct(item.change_pct)),
+              item.spark && item.spark.length > 1
+                ? h('div', { className: 'in-tile-spark' }, h(Spark, { data: item.spark, w: null, ht: 28, color: Number(item.change_pct) >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' }))
+                : null
+            );
+          })
+        )
+      ),
+
+      /* US macro indicators (US lens only) */
+      usMacroItems.length > 0 && h('div', { style: { marginBottom: 18 } },
+        h('div', { className: 'in-panel-h', style: { marginBottom: 8 } },
+          h('div', { className: 'in-panel-title' }, 'US Macro Indicators'),
+          h('div', { className: 'in-panel-tag' }, 'rates · inflation · risk')
+        ),
+        h('div', { className: 'in-grid in-grid-5', style: { gap: 8 } },
+          usMacroItems.map(item =>
+            h('div', { key: item.key, className: 'in-tile', onClick: () => setCommodityModal(item) },
+              h('div', { className: 'in-tile-lbl' }, item.label),
+              h('div', { className: 'in-tile-val' }, fmt.val(item.latest_value, item.unit)),
+              h('div', { className: 'in-tile-chg ' + fmt.cls(item.change_pct) }, fmt.pct(item.change_pct)),
+              item.spark && item.spark.length > 1
+                ? h('div', { className: 'in-tile-spark' }, h(Spark, { data: item.spark, w: null, ht: 28, color: Number(item.change_pct) >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' }))
+                : null
+            )
+          )
+        )
+      ),
+
+      /* commodity-driven industries view */
+      h('div', { className: 'in-panel', style: { marginBottom: 16 } },
+        h('div', { className: 'in-panel-h' },
+          h('div', { className: 'in-panel-title' }, 'Commodity-Driven Industries — Driver Postures'),
+          h('div', { className: 'in-panel-tag' }, 'based on live commodity moves')
+        ),
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
+          COMMODITY_INDUSTRIES.map(ci => {
+            // Calculate postures for this commodity-industry's drivers
+            const indEntry = TAXONOMY.find(t => t.id === ci.id);
+            if (!indEntry) return null;
+            const postures = (indEntry.drivers || []).map(d => {
+              const live = indByKey[d.key];
+              if (!live) return { driver: d, found: false, posture: 'n/a', chg: null };
+              let chg = live.change_pct != null ? Number(live.change_pct) : null;
+              if (chg == null) {
+                const lv = Number(live.latest_value), pv = Number(live.prev_value);
+                if (!isNaN(lv) && !isNaN(pv) && pv !== 0) chg = ((lv - pv) / Math.abs(pv)) * 100;
+              }
+              let posture = 'neutral';
+              if (chg != null && Math.abs(chg) > 0.2) {
+                if (d.upIs === 'tailwind') posture = chg > 0 ? 'tailwind' : 'headwind';
+                else if (d.upIs === 'headwind') posture = chg > 0 ? 'headwind' : 'tailwind';
+                else posture = 'mixed';
+              }
+              return { driver: d, found: true, posture, chg, value: live.latest_value, unit: live.unit, label: live.label || d.label };
+            });
+
+            const tailCount = postures.filter(p => p.posture === 'tailwind').length;
+            const headCount = postures.filter(p => p.posture === 'headwind').length;
+            const netPosture = tailCount > headCount ? 'tailwind' : headCount > tailCount ? 'headwind' : 'mixed';
+            const netCls = netPosture === 'tailwind' ? 'tail' : netPosture === 'headwind' ? 'head' : 'mix';
+
+            return h('div', { key: ci.id, style: { padding: '10px 12px', background: 'var(--bg-2)', borderRadius: 3, border: '1px solid rgba(255,255,255,0.05)' } },
+              h('div', { style: { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8, flexWrap: 'wrap' } },
+                h('div', { style: { fontWeight: 600, fontSize: 12.5, color: 'var(--text-primary)' } }, ci.label),
+                h('span', { className: 'in-chip ' + netCls, style: { fontSize: 9 } }, netPosture === 'tailwind' ? 'Net Tailwind' : netPosture === 'headwind' ? 'Net Headwind' : 'Mixed'),
+                h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono)', fontSize: 10, marginLeft: 'auto' } },
+                  tailCount + 'T / ' + headCount + 'H · ' + postures.filter(p => p.found).length + ' drivers live')
+              ),
+              h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6 } },
+                postures.filter(p => p.found).map(p =>
+                  h('div', { key: p.driver.key, style: { display: 'flex', alignItems: 'center', gap: 4, background: 'var(--bg-1)', borderRadius: 3, padding: '3px 8px', border: '1px solid rgba(255,255,255,0.04)' } },
+                    h('span', { style: { fontSize: 11, color: 'var(--text-secondary)' } }, p.label || p.driver.label),
+                    h('span', { className: 'in-chip ' + (p.posture === 'tailwind' ? 'tail' : p.posture === 'headwind' ? 'head' : 'mix'), style: { fontSize: 8, padding: '1px 4px' } },
+                      p.posture === 'tailwind' ? 'T/W' : p.posture === 'headwind' ? 'H/W' : 'Mix'),
+                    p.chg != null
+                      ? h('span', { className: (p.chg > 0 ? 'in-pos' : p.chg < 0 ? 'in-neg' : 'in-muted') + ' in-num', style: { fontFamily: 'var(--font-mono)', fontSize: 10 } },
+                          (p.chg > 0 ? '+' : '') + p.chg.toFixed(1) + '%')
+                      : null
+                  )
+                )
+              )
+            );
+          })
+        )
+      )
+    );
+  }
+
   function Landing({ equity, indicators, region, onSelectSector }) {
     const [commodityModal, setCommodityModal] = useState(null);
     const [sortBy, setSortBy] = useState('fav');
@@ -856,7 +997,7 @@
     }, [indByKey]);
 
     const filteredTaxonomy = useMemo(() =>
-      region === 'id' ? TAXONOMY : TAXONOMY.filter(ind => ind.region === region || ind.region === 'id'),
+      TAXONOMY.filter(ind => ind.region === 'id' || ind.region === region),
       [region]
     );
 
@@ -890,16 +1031,16 @@
       });
     }, [filteredTaxonomy, metricsMap, sortBy]);
 
-    const regionNote = region !== 'id'
-      ? h('div', { className: 'in-banner', style: { marginBottom: 12 } },
-          h('span', null, region === 'global' ? 'Global' : 'US'), ' lens: commodity and macro indicators are shown for this region. ',
-          h('b', null, 'IDX (Indonesia)'), ' is the data-complete lens for single-name equity prices and breadth.'
-        )
-      : null;
+    // Global/US lens: show commodity + driver view, not sector grid
+    if (region !== 'id') {
+      return h('div', null,
+        commodityModal && h(CommodityModal, { item: commodityModal, onClose: () => setCommodityModal(null) }),
+        h(GlobalDriverLens, { indicators, region, setCommodityModal })
+      );
+    }
 
     return h('div', { className: 'in-work' },
       commodityModal && h(CommodityModal, { item: commodityModal, onClose: () => setCommodityModal(null) }),
-      regionNote,
 
       /* cycle banner */
       cycleData && h('div', { className: 'in-cycle', style: { marginBottom: 14 } },
@@ -920,7 +1061,7 @@
         ),
         h('div', { style: { textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-tertiary)', whiteSpace: 'nowrap' } },
           cycleData.infl != null ? h('div', null, 'CPI ' + fmt.num(cycleData.infl, 1) + '%') : null,
-          cycleData.growth != null ? h('div', null, 'GDP ' + fmt.num(cycleData.growth, 1) + 'T') : null,
+          cycleData.spread != null ? h('div', null, 'Spread ' + (cycleData.spread >= 0 ? '+' : '') + Number(cycleData.spread).toFixed(2) + 'pp') : null,
           cycleData.rateRising != null ? h('div', null, cycleData.rateRising ? 'Rates Rising' : 'Rates Stable') : null
         )
       ),
@@ -949,7 +1090,7 @@
               h('div', { className: 'in-tile-val' }, fmt.val(item.latest_value, item.unit)),
               h('div', { className: 'in-tile-chg ' + fmt.cls(item.change_pct) }, fmt.pct(item.change_pct)),
               item.spark && item.spark.length > 1
-                ? h('div', { className: 'in-tile-spark' }, h(Spark, { data: item.spark, w: null, ht: 28, color: item.change_pct >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' }))
+                ? h('div', { className: 'in-tile-spark' }, h(Spark, { data: item.spark, w: null, ht: 28, color: Number(item.change_pct) >= 0 ? 'var(--pos,#19c37d)' : 'var(--neg,#ff5c70)' }))
                 : null
             );
           })
@@ -1036,6 +1177,7 @@
     const [indicators, setIndicators] = useState([]);
     const [region, setRegion] = useState('id');
     const [selectedSector, setSelectedSector] = useState(null);
+    const [reloadKey, setReloadKey] = useState(0);
     const [toast, push] = useToast();
 
     useEffect(() => {
@@ -1054,7 +1196,7 @@
           setError('Failed to load industry data. ' + (err && err.message ? err.message : 'Check network.'));
           setLoading(false);
         });
-    }, []);
+    }, [reloadKey]);
 
     const handleBack = useCallback(() => setSelectedSector(null), []);
     const handleSelectSector = useCallback((ind) => {
@@ -1069,7 +1211,14 @@
         ? h(Spinner, { label: 'Loading sector data…' })
         : error
           ? h('div', { className: 'in-work' },
-              h('div', { className: 'in-banner' }, error)
+              h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
+                h('div', null, error),
+                h('button', {
+                  className: 'in-btn',
+                  onClick: () => setReloadKey(k => k + 1),
+                  style: { marginTop: 4 }
+                }, 'Retry')
+              )
             )
           : selectedSector
             ? h(SectorDetail, {

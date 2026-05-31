@@ -715,6 +715,7 @@
     const [indByKey,  setIndByKey]  = useState({});
     const [loading,   setLoading]   = useState(true);
     const [err,       setErr]       = useState(null);
+    const [reloadKey, setReloadKey] = useState(0);
     const [toastNode, pushToast]    = useToast();
 
     // selector state
@@ -732,6 +733,7 @@
     // load equity + indicators in parallel once
     useEffect(() => {
       setLoading(true);
+      setErr(null);
       Promise.all([fetchEquity(), fetchIndicators()])
         .then(([rows, inds]) => {
           setEquity(rows || []);
@@ -744,7 +746,7 @@
           setErr(e.message || 'Failed to load equity data');
           setLoading(false);
         });
-    }, []);
+    }, [reloadKey]);
 
     // sector list derived from equity
     const sectorList = useMemo(() => equity ? buildSectorList(equity) : [], [equity]);
@@ -816,7 +818,18 @@
     }, []);
 
     if (loading) return h('div', { className: 'in-root' }, h(Spinner, { label: 'Loading equity data…' }));
-    if (err)     return h('div', { className: 'in-root' }, h(Empty, { title: 'Error', sub: err }));
+    if (err)     return h('div', { className: 'in-root' },
+      h('div', { className: 'in-work' },
+        h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
+          h('div', null, 'Failed to fetch: ' + err),
+          h('button', {
+            className: 'in-btn',
+            onClick: () => setReloadKey(k => k + 1),
+            style: { marginTop: 4 }
+          }, 'Retry')
+        )
+      )
+    );
     if (!equity) return h('div', { className: 'in-root' }, h(Empty, { title: 'No data' }));
 
     const hasPeers = peers.length > 0;
@@ -888,7 +901,7 @@
                 ),
                 h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontWeight: 700, fontSize: 13, color: 'var(--in,#f5a623)', minWidth: 32 } }, conviction),
                 h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11, color: 'var(--text-tertiary,#8e9ab0)' } },
-                  snap.up + '↑ ' + snap.down + '↓ · breadth ' + Math.round((snap.breadth || 0) * 100) + '% · mcap-wtd ' + fmt.pct(snap.mcapChg)
+                  snap.up + '↑ ' + snap.down + '↓ · breadth ' + Math.round((isNaN(snap.breadth) ? 0 : (snap.breadth || 0)) * 100) + '% · mcap-wtd ' + fmt.pct(snap.mcapChg)
                 ),
               ),
 
