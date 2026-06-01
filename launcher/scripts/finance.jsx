@@ -200,6 +200,18 @@
     const recent = ctx.txns.slice(0, 7);
     const netWorth = bs.totalAssets - bs.liabilities.total;
 
+    // All-time revenue/expense + payables (independent of the month picker so
+    // historical totals are always visible — what the principal asked for).
+    const today = new Date().toISOString().slice(0, 10);
+    const allFrom = ctx.txns.length ? ctx.txns.reduce((m, t) => (t.date < m ? t.date : m), ctx.txns[0].date) : (p.from || '2000-01-01');
+    const pnlAll = useMemo(() => F.report.incomeStatement(accs, ctx.txns, allFrom, today), [accs, ctx.txns, allFrom, today]);
+    const balToday = useMemo(() => F.report.balancesAtDate(ctx.txns, today), [ctx.txns, today]);
+    const liabRows = accs.filter(a => a.type === 'liability' && !a.is_root).map(a => ({ code: a.code, name: a.name, amount: F.acct.natural('liability', balToday[a.id] || 0) })).filter(r => Math.abs(r.amount) > 0.005).sort((x, y) => x.code.localeCompare(y.code));
+    const payTotal = liabRows.reduce((s, r) => s + r.amount, 0);
+    const lineRow = (label, amount, cls) => React.createElement('tr', { key: label },
+      React.createElement('td', null, label),
+      React.createElement('td', { className: 'r fn-num ' + (cls || '') }, fmt.money(amount)));
+
     const kpi = (lbl, val, sub, cls) => React.createElement('div', { className: 'fn-kpi' },
       React.createElement('div', { className: 'fn-kpi-lbl' }, lbl),
       React.createElement('div', { className: 'fn-kpi-val' + (cls ? ' ' + cls : '') }, val),
@@ -211,6 +223,33 @@
         kpi('Net income · ' + p.label, fmt.abbr(pnl.net), (pnl.net >= 0 ? 'Profit' : 'Loss'), fmt.cls(pnl.net)),
         kpi('Net worth', fmt.abbr(netWorth), 'Assets − liabilities', fmt.cls(netWorth)),
         kpi('Receivables / Payables', fmt.abbr(ar) + ' / ' + fmt.abbr(ap), 'AR / AP outstanding')),
+      React.createElement('div', { className: 'fn-grid fn-grid-2', style: { marginBottom: 14 } },
+        React.createElement('div', { className: 'fn-panel' },
+          React.createElement('div', { className: 'fn-panel-h' },
+            React.createElement('div', { className: 'fn-panel-title' }, 'Revenue & Expense'),
+            React.createElement('div', { className: 'fn-panel-tag' }, 'All-time')),
+          React.createElement('div', { className: 'fn-grid fn-grid-3', style: { marginBottom: 12 } },
+            kpi('Revenue', fmt.abbr(pnlAll.income.total), null, 'fn-pos'),
+            kpi('Expense', fmt.abbr(pnlAll.expense.total), null, 'fn-neg'),
+            kpi('Net', fmt.abbr(pnlAll.net), pnlAll.net >= 0 ? 'Profit' : 'Loss', fmt.cls(pnlAll.net))),
+          React.createElement('table', { className: 'fn-table' },
+            React.createElement('tbody', null,
+              React.createElement('tr', { key: 'rev-h' }, React.createElement('td', { colSpan: 2, className: 'fn-panel-tag', style: { paddingTop: 4 } }, 'Revenue')),
+              pnlAll.income.rows.length ? pnlAll.income.rows.map(r => lineRow(r.name, r.amount, 'fn-pos')) : React.createElement('tr', { key: 'rev-0' }, React.createElement('td', { colSpan: 2, className: 'fn-muted' }, 'No revenue yet')),
+              React.createElement('tr', { key: 'exp-h' }, React.createElement('td', { colSpan: 2, className: 'fn-panel-tag', style: { paddingTop: 10 } }, 'Expense')),
+              pnlAll.expense.rows.length ? pnlAll.expense.rows.map(r => lineRow(r.name, r.amount, 'fn-neg')) : React.createElement('tr', { key: 'exp-0' }, React.createElement('td', { colSpan: 2, className: 'fn-muted' }, 'No expense yet'))))),
+        React.createElement('div', { className: 'fn-panel' },
+          React.createElement('div', { className: 'fn-panel-h' },
+            React.createElement('div', { className: 'fn-panel-title' }, 'Payables — who LBC owes'),
+            React.createElement('div', { className: 'fn-panel-tag' }, fmt.abbr(payTotal))),
+          liabRows.length === 0
+            ? React.createElement(FN.Empty, { title: 'Nothing owed', sub: 'No outstanding liabilities.' })
+            : React.createElement('table', { className: 'fn-table' },
+                React.createElement('tbody', null,
+                  liabRows.map(r => lineRow(r.name, r.amount, null)).concat([
+                    React.createElement('tr', { key: 'pay-total' },
+                      React.createElement('td', { style: { fontWeight: 600, paddingTop: 8, borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.08))' } }, 'Total owed'),
+                      React.createElement('td', { className: 'r fn-num', style: { fontWeight: 600, paddingTop: 8, borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.08))' } }, fmt.money(payTotal)))])))) ),
       React.createElement('div', { className: 'fn-grid fn-grid-2' },
         React.createElement('div', { className: 'fn-panel' },
           React.createElement('div', { className: 'fn-panel-h' }, React.createElement('div', { className: 'fn-panel-title' }, 'Recent entries'), React.createElement('div', { className: 'fn-panel-tag' }, ctx.txns.length + ' total')),
