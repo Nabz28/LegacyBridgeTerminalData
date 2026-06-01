@@ -365,6 +365,58 @@
   }
 
   /* =====================================================================
+     INVESTOR AUM — mirror of The Book's per-partner NAV (reads asset_mgmt)
+     ===================================================================== */
+  function FinInvestors() {
+    const [rows, setRows] = useState(null);
+    useEffect(() => {
+      const ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
+      const s = F.session && F.session();
+      const tk = (s && s.token) || ANON;
+      fetch('https://adnubucjlezrtusbicja.supabase.co/rest/v1/investors?select=*&order=contributed_idr.desc',
+        { headers: { apikey: ANON, Authorization: 'Bearer ' + tk, 'Accept-Profile': 'asset_mgmt' } })
+        .then((r) => (r.ok ? r.json() : [])).then(setRows).catch(() => setRows([]));
+    }, []);
+    if (rows === null) return React.createElement(FN.Spinner, { label: 'Loading investor AUM…' });
+    if (!rows.length) return React.createElement(FN.Empty, { title: 'No investors recorded', sub: 'Set up the per-partner NAV ledger in The Book.' });
+    const totC = rows.reduce((s, r) => s + Number(r.contributed_idr), 0);
+    const totN = rows.reduce((s, r) => s + Number(r.current_nav_idr), 0);
+    const totPct = totC ? (totN - totC) / totC * 100 : 0;
+    const tr = (r) => React.createElement('tr', { key: r.name },
+      React.createElement('td', { style: { fontWeight: 600 } }, r.name),
+      React.createElement('td', { className: 'r fn-num' }, fmt.money(r.contributed_idr)),
+      React.createElement('td', { className: 'r fn-num' }, fmt.money(r.current_nav_idr)),
+      React.createElement('td', { className: 'r fn-num ' + fmt.cls(r.pnl_idr) }, fmt.money(r.pnl_idr)),
+      React.createElement('td', { className: 'r fn-num ' + fmt.cls(r.pnl_pct) }, (Number(r.pnl_pct) > 0 ? '+' : '') + Number(r.pnl_pct).toFixed(2) + '%'));
+    const kpi = (lbl, val, cls) => React.createElement('div', { className: 'fn-kpi' },
+      React.createElement('div', { className: 'fn-kpi-lbl' }, lbl),
+      React.createElement('div', { className: 'fn-kpi-val' + (cls ? ' ' + cls : '') }, val));
+    return React.createElement('div', null,
+      React.createElement('div', { className: 'fn-grid fn-grid-3', style: { marginBottom: 14 } },
+        kpi('Total injected (AUM)', fmt.abbr(totC)),
+        kpi('Current AUM', fmt.abbr(totN), fmt.cls(totN - totC)),
+        kpi('Blended P&L', (totPct > 0 ? '+' : '') + totPct.toFixed(1) + '%', fmt.cls(totPct))),
+      React.createElement('div', { className: 'fn-panel' },
+        React.createElement('div', { className: 'fn-panel-h' },
+          React.createElement('div', { className: 'fn-panel-title' }, 'Investor AUM — per partner'),
+          React.createElement('div', { className: 'fn-panel-tag' }, 'pro-rata · ' + (rows[0].as_of || ''))),
+        React.createElement('table', { className: 'fn-table' },
+          React.createElement('thead', null, React.createElement('tr', null,
+            React.createElement('th', null, 'Partner'),
+            React.createElement('th', { className: 'r' }, 'Total injected'),
+            React.createElement('th', { className: 'r' }, 'Current AUM'),
+            React.createElement('th', { className: 'r' }, 'P&L'),
+            React.createElement('th', { className: 'r' }, '±%'))),
+          React.createElement('tbody', null, rows.map(tr).concat([
+            React.createElement('tr', { key: '_t', style: { fontWeight: 700, borderTop: '1px solid var(--border-subtle, rgba(255,255,255,0.12))' } },
+              React.createElement('td', null, 'TOTAL'),
+              React.createElement('td', { className: 'r fn-num' }, fmt.money(totC)),
+              React.createElement('td', { className: 'r fn-num' }, fmt.money(totN)),
+              React.createElement('td', { className: 'r fn-num ' + fmt.cls(totN - totC) }, fmt.money(totN - totC)),
+              React.createElement('td', { className: 'r fn-num ' + fmt.cls(totPct) }, totPct.toFixed(2) + '%'))])))));
+  }
+
+  /* =====================================================================
      MONEY LISTS — clean per-category drill-downs (Revenue / Expense / Payables)
      ===================================================================== */
   function MoneyList({ ctx, kind }) {
@@ -496,7 +548,7 @@
      ===================================================================== */
   const NAV = [
     { group: 'Overview', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'dash', kbd: 'F1' }] },
-    { group: 'Money', items: [{ id: 'revenue', label: 'Revenue', icon: 'ledger' }, { id: 'expenses', label: 'Expenses', icon: 'ledger' }, { id: 'payables', label: 'Payables', icon: 'accounts' }] },
+    { group: 'Money', items: [{ id: 'revenue', label: 'Revenue', icon: 'ledger' }, { id: 'expenses', label: 'Expenses', icon: 'ledger' }, { id: 'payables', label: 'Payables', icon: 'accounts' }, { id: 'investors', label: 'Investor AUM', icon: 'accounts' }] },
     { group: 'Record', items: [{ id: 'ledger', label: 'Ledger', icon: 'ledger', kbd: 'F2' }, { id: 'transfers', label: 'Transfers', icon: 'transfer' }, { id: 'recurring', label: 'Recurring', icon: 'recurring' }] },
     { group: 'Structure', items: [{ id: 'accounts', label: 'Accounts', icon: 'accounts', kbd: 'F3' }, { id: 'tags', label: 'Tags', icon: 'tag' }] },
     { group: 'Report', items: [{ id: 'reports', label: 'Statements', icon: 'report', kbd: 'F4' }, { id: 'fees', label: 'Perf. Fees', icon: 'coin' }] },
@@ -592,6 +644,7 @@
         case 'revenue': return React.createElement(MoneyList, { ctx, kind: 'revenue' });
         case 'expenses': return React.createElement(MoneyList, { ctx, kind: 'expense' });
         case 'payables': return React.createElement(MoneyList, { ctx, kind: 'payables' });
+        case 'investors': return React.createElement(FinInvestors, {});
         case 'accounts': return React.createElement(Accounts, { ctx });
         case 'reports': return window.FN_Reports ? React.createElement(window.FN_Reports.Reports, { ctx }) : React.createElement(FN.Spinner, { label: 'Loading reports…' });
         case 'fees': return window.FN_Fees ? React.createElement(window.FN_Fees.PerfFees, { ctx }) : modLoading();
@@ -606,7 +659,7 @@
     };
     const modLoading = () => React.createElement(FN.Spinner, { label: 'Loading module…' });
 
-    const titleFor = { dashboard: 'Dashboard', revenue: 'Revenue', expenses: 'Expenses', payables: 'Payables — who LBC owes', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', fees: 'Performance fees (25% of AUM realized P&L)', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
+    const titleFor = { dashboard: 'Dashboard', revenue: 'Revenue', expenses: 'Expenses', payables: 'Payables — who LBC owes', investors: 'Investor AUM — per partner', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', fees: 'Performance fees (25% of AUM realized P&L)', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
 
     return React.createElement('div', { className: 'fn-root' },
       // header

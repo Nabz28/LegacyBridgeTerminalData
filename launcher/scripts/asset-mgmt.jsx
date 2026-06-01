@@ -520,8 +520,59 @@ window.AmCockpit = AmCockpit;
 // ================================================================
 // Root — The Book
 // ================================================================
+const AmInvestors = () => {
+  const [rows, setRows] = React.useState(null);
+  React.useEffect(() => { AM.get('/investors?select=*&order=contributed_idr.desc').then(setRows).catch(() => setRows([])); }, []);
+  if (rows === null) return <div className="am-empty">Loading investors…</div>;
+  if (!rows.length) return <div className="am-empty">No investors recorded yet.</div>;
+  const rp = (v) => 'Rp ' + Math.round(Number(v)).toLocaleString('en-US');
+  const NEG = 'var(--neg, #ff5c70)', POS = 'var(--pos, #19c37d)';
+  const col = (v) => ({ color: Number(v) < 0 ? NEG : POS, textAlign: 'right' });
+  const totC = rows.reduce((s, r) => s + Number(r.contributed_idr), 0);
+  const totN = rows.reduce((s, r) => s + Number(r.current_nav_idr), 0);
+  const totPct = totC ? (totN - totC) / totC * 100 : 0;
+  return (
+    <div className="am-panel">
+      <div className="am-panel-h">Investor AUM — per partner <span className="am-muted" style={{ fontWeight: 400 }}>pro-rata · as of {rows[0].as_of}</span></div>
+      <div className="am-table-wrap">
+        <table className="am-table">
+          <thead><tr>
+            <th>Partner</th>
+            <th style={{ textAlign: 'right' }}>Total injected</th>
+            <th style={{ textAlign: 'right' }}>Current AUM</th>
+            <th style={{ textAlign: 'right' }}>P&amp;L</th>
+            <th style={{ textAlign: 'right' }}>±%</th>
+          </tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.name}>
+                <td style={{ fontWeight: 600 }}>{r.name}</td>
+                <td style={{ textAlign: 'right' }}>{rp(r.contributed_idr)}</td>
+                <td style={{ textAlign: 'right' }}>{rp(r.current_nav_idr)}</td>
+                <td style={col(r.pnl_idr)}>{rp(r.pnl_idr)}</td>
+                <td style={col(r.pnl_pct)}>{Number(r.pnl_pct) > 0 ? '+' : ''}{Number(r.pnl_pct).toFixed(2)}%</td>
+              </tr>
+            ))}
+            <tr style={{ fontWeight: 700, borderTop: '1px solid rgba(255,255,255,0.12)' }}>
+              <td>TOTAL</td>
+              <td style={{ textAlign: 'right' }}>{rp(totC)}</td>
+              <td style={{ textAlign: 'right' }}>{rp(totN)}</td>
+              <td style={col(totN - totC)}>{rp(totN - totC)}</td>
+              <td style={col(totPct)}>{totPct > 0 ? '+' : ''}{totPct.toFixed(2)}%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="am-muted" style={{ marginTop: 10, fontSize: 12 }}>
+        Pooled-fund, pro-rata: each partner owns their share of the AUM and bears P&amp;L by that share. Blended figure (investment + operating). True time-weighted (first-in) attribution unlocks once NAV snapshots accrue.
+      </div>
+    </div>
+  );
+};
+
 const AM_TABS = [
   { id: 'cockpit', label: 'Cockpit' },
+  { id: 'investors', label: 'Investors' },
   { id: 'positions', label: 'Positions' },
   { id: 'watchlists', label: 'Watchlists' },
   { id: 'ideas', label: 'Ideas' },
@@ -593,6 +644,7 @@ const AssetMgmtBook = () => {
 
   const body = () => {
     if (tab === 'cockpit') return <AmCockpit fund={fund} positions={positions} cash={cash} quotes={quotes} ideas={ideas} trades={trades} tranchesByPos={tranchesByPos} platforms={platforms} cx={cx} onTab={setTab} onName={openName} />;
+    if (tab === 'investors') return <AmInvestors />;
     if (tab === 'positions') return <AmPositions fund={fund} rows={positions} quotes={quotes} platforms={platforms} restrictions={restrictions} tranchesByPos={tranchesByPos} navDisp={navDisp} cx={cx} loading={loading} onChange={refresh} onName={openName} />;
     if (tab === 'cash') return <AmCash fund={fund} rows={cash} platforms={platforms} cx={cx} loading={loading} onChange={refresh} />;
     if (tab === 'watchlists') return ext.Watchlists ? <ext.Watchlists fund={fund} onName={openName} /> : <div className="am-empty">Watchlists module not loaded.</div>;
