@@ -365,6 +365,91 @@
   }
 
   /* =====================================================================
+     MONEY LISTS — clean per-category drill-downs (Revenue / Expense / Payables)
+     ===================================================================== */
+  function MoneyList({ ctx, kind }) {
+    const CFG = {
+      revenue:  { types: ['income'],    label: 'Revenue',  cls: 'fn-pos', noun: 'revenue' },
+      expense:  { types: ['expense'],   label: 'Expense',  cls: 'fn-neg', noun: 'expense' },
+      payables: { types: ['liability'], label: 'Payable',  cls: '',       noun: 'liability' },
+    };
+    const cfg = CFG[kind];
+    const [from, setFrom] = useState('');
+    const [to, setTo] = useState('');
+    const [search, setSearch] = useState('');
+    const accs = ctx.scopedAccounts;
+    const catIds = useMemo(() => new Set(accs.filter(a => cfg.types.includes(a.type) && !a.is_root).map(a => a.id)), [accs, kind]);
+
+    // category impact (natural sign) of a txn + the category accounts it touches
+    const impact = (t) => {
+      let amt = 0; const names = [];
+      (t.journal_lines || []).forEach(l => {
+        if (!catIds.has(l.account_id)) return;
+        const a = ctx.byId[l.account_id]; if (!a) return;
+        amt += F.acct.natural(a.type, Number(l.debit_idr || 0) - Number(l.credit_idr || 0));
+        names.push(a.name);
+      });
+      return { amt, name: names.join(', ') || '—' };
+    };
+
+    const rows = useMemo(() => ctx.txns
+      .map(t => { const i = impact(t); return { t, amt: i.amt, name: i.name }; })
+      .filter(r => Math.abs(r.amt) > 0.005)
+      .filter(r => (!from || r.t.date >= from) && (!to || r.t.date <= to))
+      .filter(r => { if (!search) return true; const s = search.toLowerCase(); return (r.t.memo || '').toLowerCase().includes(s) || (r.t.ref || '').toLowerCase().includes(s) || r.name.toLowerCase().includes(s); })
+      .sort((a, b) => a.t.date < b.t.date ? 1 : a.t.date > b.t.date ? -1 : (a.t.ref < b.t.ref ? 1 : -1)),
+      [ctx.txns, catIds, from, to, search]);
+
+    const total = rows.reduce((s, r) => s + r.amt, 0);
+    const byAcct = {};
+    rows.forEach(r => (r.t.journal_lines || []).forEach(l => {
+      if (!catIds.has(l.account_id)) return; const a = ctx.byId[l.account_id]; if (!a) return;
+      const k = a.code; (byAcct[k] = byAcct[k] || { code: a.code, name: a.name, total: 0, count: 0 });
+      byAcct[k].total += F.acct.natural(a.type, Number(l.debit_idr || 0) - Number(l.credit_idr || 0)); byAcct[k].count += 1;
+    }));
+    const breakdown = Object.values(byAcct).sort((x, y) => y.total - x.total);
+
+    return React.createElement('div', null,
+      React.createElement('div', { className: 'fn-filterbar' },
+        React.createElement(FN.Field, { label: 'From' }, React.createElement('input', { type: 'date', className: 'fn-select', value: from, onChange: e => setFrom(e.target.value) })),
+        React.createElement(FN.Field, { label: 'To' }, React.createElement('input', { type: 'date', className: 'fn-select', value: to, onChange: e => setTo(e.target.value) })),
+        React.createElement(FN.Field, { label: 'Search' }, React.createElement('input', { className: 'fn-select', placeholder: 'memo, ref or account…', value: search, onChange: e => setSearch(e.target.value), style: { minWidth: 200 } })),
+        React.createElement('div', { style: { flex: 1 } }),
+        (from || to) ? React.createElement('button', { className: 'fn-btn-ghost fn-btn fn-btn-sm', style: { alignSelf: 'center' }, onClick: () => { setFrom(''); setTo(''); } }, 'All time') : React.createElement('span', { className: 'fn-kpi-sub', style: { alignSelf: 'center' } }, 'Showing all time')),
+      React.createElement('div', { className: 'fn-grid fn-grid-2', style: { marginBottom: 14 } },
+        React.createElement('div', { className: 'fn-kpi' },
+          React.createElement('div', { className: 'fn-kpi-lbl' }, 'Total ' + cfg.label.toLowerCase() + (from || to ? ' · filtered' : ' · all-time')),
+          React.createElement('div', { className: 'fn-kpi-val ' + cfg.cls }, fmt.money(total)),
+          React.createElement('div', { className: 'fn-kpi-sub' }, rows.length + ' entries')),
+        React.createElement('div', { className: 'fn-panel' },
+          React.createElement('div', { className: 'fn-panel-h' }, React.createElement('div', { className: 'fn-panel-title' }, 'By account'), React.createElement('div', { className: 'fn-panel-tag' }, breakdown.length + ' accounts')),
+          breakdown.length === 0 ? React.createElement('div', { className: 'fn-muted', style: { fontSize: 12 } }, 'Nothing yet')
+            : React.createElement('table', { className: 'fn-table' }, React.createElement('tbody', null, breakdown.map(b =>
+                React.createElement('tr', { key: b.code },
+                  React.createElement('td', { className: 'fn-mono fn-muted', style: { width: 56 } }, b.code),
+                  React.createElement('td', null, b.name),
+                  React.createElement('td', { className: 'r fn-num fn-muted', style: { width: 56 } }, b.count),
+                  React.createElement('td', { className: 'r fn-num ' + cfg.cls, style: { fontWeight: 600 } }, fmt.money(b.total)))))))),
+      rows.length === 0
+        ? React.createElement(FN.Empty, { title: 'No ' + cfg.noun + ' entries', sub: 'Nothing in this range.' })
+        : React.createElement('div', { className: 'fn-tablewrap' },
+            React.createElement('table', { className: 'fn-table' },
+              React.createElement('thead', null, React.createElement('tr', null,
+                React.createElement('th', { style: { width: 102 } }, 'Date'),
+                React.createElement('th', { style: { width: 128 } }, 'Ref'),
+                React.createElement('th', null, 'Memo'),
+                React.createElement('th', null, 'Account'),
+                React.createElement('th', { className: 'r' }, 'Amount (IDR)'))),
+              React.createElement('tbody', null, rows.map(r =>
+                React.createElement('tr', { key: r.t.id, className: 'click', onClick: () => ctx.openTxn(r.t) },
+                  React.createElement('td', { className: 'fn-mono fn-muted' }, fmt.date(r.t.date)),
+                  React.createElement('td', null, React.createElement('span', { className: 'fn-ref' }, r.t.ref)),
+                  React.createElement('td', null, r.t.memo || '—'),
+                  React.createElement('td', { className: 'fn-muted', style: { fontSize: 12 } }, r.name),
+                  React.createElement('td', { className: 'r fn-num ' + cfg.cls, style: { fontWeight: 600 } }, fmt.money(r.amt))))))));
+  }
+
+  /* =====================================================================
      ACCOUNTS — chart of accounts tree with balances as of period end
      ===================================================================== */
   function Accounts({ ctx }) {
@@ -411,6 +496,7 @@
      ===================================================================== */
   const NAV = [
     { group: 'Overview', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'dash', kbd: 'F1' }] },
+    { group: 'Money', items: [{ id: 'revenue', label: 'Revenue', icon: 'ledger' }, { id: 'expenses', label: 'Expenses', icon: 'ledger' }, { id: 'payables', label: 'Payables', icon: 'accounts' }] },
     { group: 'Record', items: [{ id: 'ledger', label: 'Ledger', icon: 'ledger', kbd: 'F2' }, { id: 'transfers', label: 'Transfers', icon: 'transfer' }, { id: 'recurring', label: 'Recurring', icon: 'recurring' }] },
     { group: 'Structure', items: [{ id: 'accounts', label: 'Accounts', icon: 'accounts', kbd: 'F3' }, { id: 'tags', label: 'Tags', icon: 'tag' }] },
     { group: 'Report', items: [{ id: 'reports', label: 'Statements', icon: 'report', kbd: 'F4' }, { id: 'fees', label: 'Perf. Fees', icon: 'coin' }] },
@@ -503,6 +589,9 @@
       switch (section) {
         case 'dashboard': return React.createElement(Dashboard, { ctx });
         case 'ledger': return React.createElement(Ledger, { ctx });
+        case 'revenue': return React.createElement(MoneyList, { ctx, kind: 'revenue' });
+        case 'expenses': return React.createElement(MoneyList, { ctx, kind: 'expense' });
+        case 'payables': return React.createElement(MoneyList, { ctx, kind: 'payables' });
         case 'accounts': return React.createElement(Accounts, { ctx });
         case 'reports': return window.FN_Reports ? React.createElement(window.FN_Reports.Reports, { ctx }) : React.createElement(FN.Spinner, { label: 'Loading reports…' });
         case 'fees': return window.FN_Fees ? React.createElement(window.FN_Fees.PerfFees, { ctx }) : modLoading();
@@ -517,7 +606,7 @@
     };
     const modLoading = () => React.createElement(FN.Spinner, { label: 'Loading module…' });
 
-    const titleFor = { dashboard: 'Dashboard', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', fees: 'Performance fees (25% of AUM realized P&L)', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
+    const titleFor = { dashboard: 'Dashboard', revenue: 'Revenue', expenses: 'Expenses', payables: 'Payables — who LBC owes', ledger: 'General ledger', accounts: 'Chart of accounts', reports: 'Financial statements', fees: 'Performance fees (25% of AUM realized P&L)', transfers: 'Inter-entity transfers', recurring: 'Recurring entries', tags: 'Tag dimensions', periods: 'Period close', audit: 'Audit log', settings: 'Settings' };
 
     return React.createElement('div', { className: 'fn-root' },
       // header
