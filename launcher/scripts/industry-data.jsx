@@ -8,19 +8,41 @@
      1. Industry Selector         — pick sector, see region/thesis note
      2. Driver Matrix             — demand vs supply vs macro groups; posture cards
                                     + net tilt gauge headline (uses weightedNet)
-     3. Driver Detail Modal       — real historical chart via INDUSTRY.obs(),
-                                    graceful spark fallback, cross-industry impact,
-                                    % off recent high stat
+     3. Driver Detail Modal       — real historical chart via fetchDriverHistory,
+                                    CSV download, graceful spark fallback,
+                                    cross-industry impact, % off recent high stat
      4. Cross-Map                 — driver → industry matrix, grouped by kind
                                     (demand / supply / macro), live posture colour
+                                    + CSV export of full matrix
      5. Business-Cycle strip      — current phase + favored industries
+     6. Sector RS Comparison      — multi-line SVG chart comparing sectors by
+                                    primary-driver spark/history
 
    Contracts:
      window.INDUSTRY  — .indicators(), .obs(), .TAXONOMY, .fmt, .an
-     window.IND       — { h, Spark, Spinner, Empty, useToast, Modal, fmt }
+                        .an.posture() may return {found:false,noSeries:true}
+                        .an.conviction() returns {score,signalLabel,driverNet}
+                        .an.competitive(row,peers,ctx) needs ctx.sectorAvgChg+driverNet
+                        .an.snapshot() has beta field
+                        .an.kesimpulan() 6th arg is indByKey
+     window.INDUSTRY.fetchDriverHistory(key) — tries macro.observations then
+                        falls back to spark JSONB on live_indicators
+     window.IND      — { h, Spark, Spinner, Empty, useToast, Modal, fmt }
 
    All classes: in-* (industry.css). Vanilla Babel-in-browser React, no imports.
    Exposes: window.IndDataWorkspace
+
+   CHANGELOG (round 5):
+   - Added INDUSTRY.fetchDriverHistory(key): observations first, spark fallback.
+   - DriverDetailModal: real time-series line chart (SVG AreaChart via ChartLib)
+     per driver + CSV download button (<driverkey>.csv). noSeries shows chip.
+   - DriverCard: noSeries renders an explicit "NO SERIES" chip (not silent N/A).
+   - postureOneLiner: guards noSeries case.
+   - CrossMap: CSV export button for full driver matrix (sector × driver posture).
+   - SectorRSChart: new multi-line SVG chart comparing all TAXONOMY sectors by
+     their primary-driver spark/history — shows rotation at a glance.
+   - IndDataWorkspace: wires SectorRSChart panel above the cross-map.
+   - All posture() call-sites: handle {found:false,noSeries:true}.
    ========================================================================= */
 (function () {
   const { useState, useEffect, useMemo, useCallback, useRef } = React;
@@ -47,11 +69,142 @@
     return n > 0 ? 'in-pos' : n < 0 ? 'in-neg' : 'in-muted';
   };
 
+  /* ---------- fetchDriverHistory ----------------------------------------
+     Tries macro.observations (real deep history) first; if empty falls back
+     to the driver's spark JSONB ([{d,v}]) from live_indicators.
+     Returns Promise<Array<{d:string, v:number}>> (sorted asc).
+     Exposed on window.INDUSTRY.fetchDriverHistory for reuse.
+     ----------------------------------------------------------------------- */
+  function buildFetchDriverHistory() {
+    return function fetchDriverHistory(key) {
+      const INDUSTRY_ = window.INDUSTRY;
+      // 1. Try observations (deep history backfilled into macro.observations)
+      return INDUSTRY_.obs(key, 500)
+        .then(function (rows) {
+          if (Array.isArray(rows) && rows.length >= 4) {
+            return rows
+              .slice()
+              .sort(function (a, b) { return a.date < b.date ? -1 : 1; })
+              .map(function (r) { return { d: r.date, v: safeNum(r.value) }; })
+              .filter(function (r) { return r.v != null; });
+          }
+          // 2. Fallback: spark JSONB on live_indicators (real recent history)
+          return INDUSTRY_.indicators().then(function (indics) {
+            const row = (indics || []).find(function (r) { return r.key === key; });
+            if (!row || !row.spark) return [];
+            var sp = Array.isArray(row.spark) ? row.spark : [];
+            return sp
+              .map(function (pt) {
+                if (pt == null) return null;
+                var val = typeof pt === 'object' ? (pt.v != null ? pt.v : pt.value) : pt;
+                var date = typeof pt === 'object' ? (pt.d || pt.date || '') : '';
+                var n = safeNum(val);
+                return n != null ? { d: String(date), v: n } : null;
+              })
+              .filter(Boolean);
+          });
+        });
+    };
+  }
+
+  /* ---------- CSV download helper --------------------------------------- */
+  function downloadCSV(filename, csvStr) {
+    try {
+      var blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+    } catch (e) { /* noop */ }
+  }
+
+  function historyToCSV(key, pts) {
+    var header = 'date,value\n';
+    var rows = pts.map(function (p) { return p.d + ',' + p.v; }).join('\n');
+    return header + rows;
+  }
+
+  /* ---------- Inline SVG line chart (no external dep) -------------------
+     Used for: driver history in modal, sector RS comparison.
+     Accepts pts=[{d,v}], width auto via ResizeObserver.
+     ----------------------------------------------------------------------- */
+  function InlineLine({ pts, color, height }) {
+    var containerRef = useRef(null);
+    var ht = height || 120;
+    var [width, setWidth] = useState(560);
+    useEffect(function () {
+      if (!containerRef.current) return;
+      var obs = new ResizeObserver(function (entries) {
+        var w = entries[0] && entries[0].contentRect && entries[0].contentRect.width;
+        if (w > 0) setWidth(Math.floor(w));
+      });
+      obs.observe(containerRef.current);
+      return function () { obs.disconnect(); };
+    }, []);
+
+    var values = pts.map(function (p) { return p.v; }).filter(function (v) { return v != null; });
+    if (values.length < 2) return h('div', { ref: containerRef }, null);
+
+    var W = width, H = ht;
+    var mn = Math.min.apply(null, values);
+    var mx = Math.max.apply(null, values);
+    var rng = (mx - mn) || 1;
+    var lineColor = color || 'var(--in,#f5a623)';
+
+    // area fill path
+    var pathPts = pts.map(function (p, i) {
+      var x = (i / (pts.length - 1) * W).toFixed(1);
+      var y = (H - ((p.v - mn) / rng) * (H - 10) - 5).toFixed(1);
+      return x + ',' + y;
+    }).join(' ');
+
+    var last = values[values.length - 1];
+    var pctOffHigh = mx > 0 ? (((last - mx) / mx) * 100) : null;
+    var firstDate = pts[0] && pts[0].d ? String(pts[0].d).slice(0, 10) : '';
+    var lastDate = pts[pts.length - 1] && pts[pts.length - 1].d ? String(pts[pts.length - 1].d).slice(0, 10) : '';
+
+    return h('div', { ref: containerRef, style: { width: '100%' } },
+      // stat bar
+      h('div', { style: { display: 'flex', gap: 18, marginBottom: 6, fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5, alignItems: 'baseline', flexWrap: 'wrap' } },
+        h('span', { className: 'in-muted' }, 'Low: ', h('b', { style: { color: 'var(--text-secondary,#d4dcea)' } }, mn.toLocaleString('en-US', { maximumFractionDigits: 3 }))),
+        h('span', { className: 'in-muted' }, 'High: ', h('b', { style: { color: 'var(--text-secondary,#d4dcea)' } }, mx.toLocaleString('en-US', { maximumFractionDigits: 3 }))),
+        h('span', { className: 'in-muted' }, 'Current: ', h('b', { style: { color: 'var(--text-primary,#fff)' } }, last.toLocaleString('en-US', { maximumFractionDigits: 3 }))),
+        pctOffHigh != null && h('span', {
+          className: pctOffHigh < -5 ? 'in-neg' : 'in-muted',
+          style: { marginLeft: 'auto', fontWeight: 700, fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5 }
+        }, pctOffHigh.toFixed(1) + '% off high')
+      ),
+      h('svg', { width: W, height: H, style: { display: 'block', width: '100%', overflow: 'visible' } },
+        // grid lines
+        h('line', { x1: 0, x2: W, y1: H - 5, y2: H - 5, stroke: 'rgba(255,255,255,0.05)', strokeWidth: 0.5 }),
+        h('line', { x1: 0, x2: W, y1: H / 2, y2: H / 2, stroke: 'rgba(255,255,255,0.05)', strokeWidth: 0.5 }),
+        // area fill (subtle)
+        h('polygon', {
+          points: '0,' + H + ' ' + pathPts + ' ' + W + ',' + H,
+          fill: lineColor, fillOpacity: 0.06
+        }),
+        // line
+        h('polyline', { points: pathPts, fill: 'none', stroke: lineColor, strokeWidth: 1.8 }),
+        // dot at end
+        h('circle', { cx: W, cy: (H - ((last - mn) / rng) * (H - 10) - 5).toFixed(1), r: 3, fill: lineColor }),
+        // date labels
+        firstDate && h('text', { x: 2, y: H + 2, fill: 'var(--text-tertiary,#8e9ab0)', fontSize: 9, fontFamily: 'monospace', dominantBaseline: 'hanging' }, firstDate),
+        lastDate && h('text', { x: W - 2, y: H + 2, textAnchor: 'end', fill: 'var(--text-tertiary,#8e9ab0)', fontSize: 9, fontFamily: 'monospace', dominantBaseline: 'hanging' }, lastDate)
+      )
+    );
+  }
+
   /* =========================================================================
      POSTURE ONE-LINER
      ========================================================================= */
   function postureOneLiner(p) {
-    if (!p || !p.found) return 'Data not yet available for this driver.';
+    if (!p || !p.found) {
+      if (p && p.noSeries) return 'This driver has no time series in macro.observations or live_indicators.';
+      return 'Data not yet available for this driver.';
+    }
     const chgFmt = p.chg != null ? fmtChg(p.chg) : '—';
     const dir = p.chg != null ? (p.chg > 0 ? 'rising' : 'falling') : 'flat';
     if (p.posture === 'tailwind') return p.label + ' ' + chgFmt + ' w/w — ' + dir + ' price is a tailwind.';
@@ -201,29 +354,47 @@
   }
 
   /* =========================================================================
-     DRIVER CARD — single posture card in the matrix
+     DRIVER CARD — single posture card in the matrix.
+     noSeries case: shows an explicit "NO SERIES" chip, not silent N/A.
      ========================================================================= */
   function DriverCard({ posture: p, driver, onClick }) {
     const IND_ = IND();
     const Spark = IND_.Spark;
     const fmt   = INDUSTRY().fmt;
-    const cls   = p && p.found ? (p.posture === 'n/a' ? 'neutral' : p.posture) : 'neutral';
-    const chgVal = p ? safeNum(p.chg) : null;
-    const chgClsStr = chgCls(chgVal);
-    const kindLabel = driver.kind === 'demand' ? 'DEMAND' : driver.kind === 'supply' ? 'SUPPLY' : 'MACRO';
-    const postureLabel = (!p || !p.found) ? 'N/A' : p.posture === 'tailwind' ? 'TAILWIND' : p.posture === 'headwind' ? 'HEADWIND' : p.posture === 'mixed' ? 'MIXED' : p.posture === 'n/a' ? 'NO DATA' : 'NEUTRAL';
-    const postureChipCls = (!p || !p.found || p.posture === 'n/a') ? 'neu' : p.posture === 'tailwind' ? 'tail' : p.posture === 'headwind' ? 'head' : 'mix';
-    const sparkRaw = p ? p.spark : null;
-    const sparkPts = Array.isArray(sparkRaw) ? sparkRaw.filter(v => safeNum(v) != null) : [];
-    const valueStr = (p && p.found && p.value != null) ? fmt.val(safeNum(p.value), p.unit) : '—';
+
+    // noSeries: driver intentionally absent — show distinct chip
+    var isNoSeries = (p && p.noSeries) || (driver && driver.noSeries && (!p || !p.found));
+    var cls   = (p && p.found && !isNoSeries) ? (p.posture === 'n/a' ? 'neutral' : p.posture) : 'neutral';
+    var chgVal = p ? safeNum(p.chg) : null;
+    var chgClsStr = chgCls(chgVal);
+    var kindLabel = driver.kind === 'demand' ? 'DEMAND' : driver.kind === 'supply' ? 'SUPPLY' : 'MACRO';
+
+    var postureLabel, postureChipCls;
+    if (isNoSeries) {
+      postureLabel = 'NO SERIES';
+      postureChipCls = 'neu';
+    } else if (!p || !p.found) {
+      postureLabel = 'N/A';
+      postureChipCls = 'neu';
+    } else {
+      postureLabel = p.posture === 'tailwind' ? 'TAILWIND' : p.posture === 'headwind' ? 'HEADWIND' : p.posture === 'mixed' ? 'MIXED' : p.posture === 'n/a' ? 'NO DATA' : 'NEUTRAL';
+      postureChipCls = p.posture === 'tailwind' ? 'tail' : p.posture === 'headwind' ? 'head' : p.posture === 'mixed' ? 'mix' : 'neu';
+    }
+
+    var sparkRaw = p ? p.spark : null;
+    var sparkPts = Array.isArray(sparkRaw) ? sparkRaw.filter(v => safeNum(v != null && typeof v === 'object' ? (v.v != null ? v.v : v.value) : v) != null) : [];
+    var valueStr = (p && p.found && !isNoSeries && p.value != null) ? fmt.val(safeNum(p.value), p.unit) : '—';
 
     return h('div', {
       className: 'in-driver ' + cls,
-      onClick: () => onClick && onClick(p || { driver, found: false, posture: 'n/a', chg: null, value: null }, driver),
+      onClick: () => onClick && onClick(p || { driver, found: false, posture: 'n/a', chg: null, value: null, noSeries: isNoSeries }, driver),
     },
       h('div', { className: 'in-driver-lbl' },
         h('span', null, driver.label),
-        h('span', { className: 'in-chip ' + postureChipCls, style: { fontSize: 9, padding: '1px 5px', flexShrink: 0 } }, postureLabel)
+        h('div', { style: { display: 'flex', gap: 3, alignItems: 'center', flexShrink: 0 } },
+          isNoSeries && h('span', { className: 'in-chip neu', style: { fontSize: 8, padding: '1px 4px', opacity: 0.75, letterSpacing: '0.04em' } }, 'NO SERIES'),
+          h('span', { className: 'in-chip ' + postureChipCls, style: { fontSize: 9, padding: '1px 5px' } }, postureLabel)
+        )
       ),
       h('div', { className: 'in-driver-val in-num' }, valueStr),
       h('div', { className: 'in-driver-meta' },
@@ -235,97 +406,64 @@
         h(Spark, { data: sparkPts, w: null, ht: 26,
           color: (p && p.posture === 'tailwind') ? 'var(--pos,#19c37d)' : (p && p.posture === 'headwind') ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)' })
       ),
-      h('div', { className: 'in-driver-hint' }, p ? postureOneLiner(p) : 'No data.')
-    );
-  }
-
-  /* =========================================================================
-     LARGE SPARKLINE for detail modal (SVG, responsive width)
-     ========================================================================= */
-  function LargeSparkLine({ pts, posture }) {
-    const containerRef = useRef(null);
-    const [width, setWidth] = useState(560);
-    useEffect(() => {
-      if (!containerRef.current) return;
-      const obs = new ResizeObserver(entries => {
-        const w = entries[0] && entries[0].contentRect && entries[0].contentRect.width;
-        if (w > 0) setWidth(Math.floor(w));
-      });
-      obs.observe(containerRef.current);
-      return () => obs.disconnect();
-    }, []);
-
-    const values = pts
-      .map(p => (p && typeof p === 'object' ? (p.v != null ? safeNum(p.v) : safeNum(p.value)) : safeNum(p)))
-      .filter(v => v != null);
-    if (values.length < 2) return null;
-
-    const W = width, H = 120;
-    const min = Math.min.apply(null, values);
-    const max = Math.max.apply(null, values);
-    const rng = (max - min) || 1;
-    const color = posture === 'tailwind' ? '#19c37d' : posture === 'headwind' ? '#ff5c70' : '#f5a623';
-    const d = values.map(function (v, i) {
-      return (i / (values.length - 1) * W).toFixed(1) + ',' + (H - ((v - min) / rng) * (H - 8) - 4).toFixed(1);
-    }).join(' ');
-
-    // % off recent high
-    const pctOffHigh = max > 0 ? (((values[values.length - 1] - max) / max) * 100) : null;
-
-    return h('div', { ref: containerRef, style: { width: '100%' } },
-      // stat bar: min / current / max + % off high
-      h('div', { style: { display: 'flex', gap: 18, marginBottom: 8, fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5, alignItems: 'baseline', flexWrap: 'wrap' } },
-        h('span', { className: 'in-muted' }, 'Low: ', h('b', { style: { color: 'var(--text-secondary,#d4dcea)' } }, min.toLocaleString('en-US', { maximumFractionDigits: 2 }))),
-        h('span', { className: 'in-muted' }, 'High: ', h('b', { style: { color: 'var(--text-secondary,#d4dcea)' } }, max.toLocaleString('en-US', { maximumFractionDigits: 2 }))),
-        h('span', { className: 'in-muted' }, 'Current: ', h('b', { style: { color: 'var(--text-primary,#fff)' } }, values[values.length - 1].toLocaleString('en-US', { maximumFractionDigits: 2 }))),
-        pctOffHigh != null && h('span', {
-          className: pctOffHigh < -5 ? 'in-neg' : 'in-muted',
-          style: { marginLeft: 'auto', fontWeight: 700 }
-        }, pctOffHigh.toFixed(1) + '% off high')
-      ),
-      h('svg', { width: W, height: H, style: { display: 'block', width: '100%' } },
-        h('polyline', { points: d, fill: 'none', stroke: color, strokeWidth: 1.8 }),
-        pts[0] && pts[0].d && h('text', { x: 4, y: H - 4, fill: 'var(--text-tertiary,#8e9ab0)', fontSize: 9, fontFamily: 'monospace' }, String(pts[0].d).slice(0, 7)),
-        pts[pts.length - 1] && pts[pts.length - 1].d && h('text', { x: W - 4, y: H - 4, textAnchor: 'end', fill: 'var(--text-tertiary,#8e9ab0)', fontSize: 9, fontFamily: 'monospace' }, String(pts[pts.length - 1].d).slice(0, 7))
+      h('div', { className: 'in-driver-hint' },
+        isNoSeries
+          ? 'No time series for this driver in macro.observations.'
+          : (p ? postureOneLiner(p) : 'No data.')
       )
     );
   }
 
   /* =========================================================================
-     DRIVER DETAIL MODAL — real historical chart + metadata + cross-industry
+     DRIVER DETAIL MODAL — real historical chart + CSV + metadata + cross-industry
+     Uses fetchDriverHistory: macro.observations first, spark fallback.
+     noSeries drivers show an explicit info panel.
      ========================================================================= */
   function DriverDetailModal({ posture: p, driver, ind, indByKey, onClose }) {
     const IND_ = IND();
     const { Spark, Spinner, Empty, Modal: ModalComp } = IND_;
     const fmt = INDUSTRY().fmt;
     const TAXONOMY = INDUSTRY().TAXONOMY;
-    const [obsData, setObsData] = useState(null); // null=loading, []=empty, rows=data
-    const [obsErr,  setObsErr]  = useState(null);
+    const [histData, setHistData] = useState(null); // null=loading, []=empty, pts=data
+    const [histErr,  setHistErr]  = useState(null);
+    const [histSource, setHistSource] = useState(''); // 'observations' | 'spark' | ''
+
+    var isNoSeries = (p && p.noSeries) || (driver && driver.noSeries && (!p || !p.found));
 
     useEffect(() => {
-      setObsData(null); setObsErr(null);
-      INDUSTRY().obs(driver.key, 260)
-        .then(rows => setObsData(Array.isArray(rows) ? rows : []))
-        .catch(() => { setObsErr('Could not load history'); setObsData([]); });
+      if (isNoSeries) { setHistData([]); return; }
+      setHistData(null); setHistErr(null); setHistSource('');
+
+      // Use fetchDriverHistory (observations → spark fallback)
+      var fetchFn = window.INDUSTRY.fetchDriverHistory || buildFetchDriverHistory();
+      fetchFn(driver.key)
+        .then(function (pts) {
+          setHistData(Array.isArray(pts) ? pts : []);
+          // Determine source label: if pts have real dates from observations they'll be YYYY-MM-DD
+          if (pts && pts.length >= 4) {
+            // Check if dates look like real DB dates (observations returns ISO date strings)
+            var hasRealDates = pts.some(function (p) { return p.d && /^\d{4}-\d{2}-\d{2}/.test(p.d); });
+            setHistSource(hasRealDates ? 'observations' : 'spark');
+          } else {
+            setHistSource('spark');
+          }
+        })
+        .catch(function (e) { setHistErr(String(e)); setHistData([]); });
     }, [driver.key]);
 
-    // Build chart pts: prefer obs (chronological), fall back to spark
-    const chartPts = useMemo(() => {
-      if (obsData && obsData.length >= 4) {
-        return obsData
-          .slice()
-          .sort((a, b) => (a.date < b.date ? -1 : 1))
-          .map(r => ({ d: r.date, v: safeNum(r.value) }))
-          .filter(r => r.v != null);
-      }
-      const sp = p && p.spark;
-      if (Array.isArray(sp)) return sp.filter(v => safeNum(typeof v === 'object' ? (v.v != null ? v.v : v.value) : v) != null);
-      return [];
-    }, [obsData, p && p.spark]);
+    var isLoading = histData === null;
+    var hasChart  = !isLoading && histData && histData.length >= 2;
+    var noChart   = !isLoading && (!histData || histData.length < 2);
 
-    const isLoading = obsData === null;
-    const hasObs    = !isLoading && obsData && obsData.length >= 4;
-    const noChart   = !isLoading && chartPts.length < 2;
+    // postureColor for chart line
+    var postureColor = (p && p.posture === 'tailwind') ? '#19c37d' : (p && p.posture === 'headwind') ? '#ff5c70' : '#f5a623';
+
+    // CSV download handler
+    var handleCSV = useCallback(function () {
+      if (!histData || histData.length === 0) return;
+      var csv = historyToCSV(driver.key, histData);
+      downloadCSV(driver.key + '.csv', csv);
+    }, [histData, driver.key]);
 
     // All industries this driver feeds — with live posture
     const impactedInds = useMemo(() => {
@@ -353,11 +491,11 @@
       return results;
     }, [driver.key, TAXONOMY, indByKey]);
 
-    const postureChipCls = (!p || !p.found || p.posture === 'n/a') ? 'neu' : p.posture === 'tailwind' ? 'tail' : p.posture === 'headwind' ? 'head' : 'mix';
+    const postureChipCls = isNoSeries ? 'neu' : ((!p || !p.found || p.posture === 'n/a') ? 'neu' : p.posture === 'tailwind' ? 'tail' : p.posture === 'headwind' ? 'head' : 'mix');
     const chgVal = p ? safeNum(p.chg) : null;
     const chgClsStr = chgCls(chgVal);
-    const valueStr = (p && p.found && p.value != null) ? fmt.val(safeNum(p.value), p.unit) : '—';
-    const postureStr = (p && p.posture) ? p.posture.toUpperCase() : 'N/A';
+    const valueStr = (p && p.found && !isNoSeries && p.value != null) ? fmt.val(safeNum(p.value), p.unit) : '—';
+    const postureStr = isNoSeries ? 'NO SERIES' : ((p && p.posture) ? p.posture.toUpperCase() : 'N/A');
 
     return h(ModalComp, { title: driver.label + ' — Driver Detail', onClose, wide: true },
       // top stat row
@@ -372,7 +510,7 @@
             chgVal != null ? fmtChg(chgVal, 2) : '—')
         ),
         h('div', null,
-          h('div', { className: 'in-panel-tag' }, 'POSTURE (THIS SECTOR)'),
+          h('div', { className: 'in-panel-tag' }, 'POSTURE'),
           h('span', { className: 'in-chip ' + postureChipCls, style: { fontSize: 11, padding: '4px 10px' } }, postureStr)
         ),
         p && p.tv && h('div', { style: { display: 'flex', alignItems: 'flex-end' } },
@@ -385,29 +523,47 @@
         )
       ),
 
-      // chart section
-      h('div', { className: 'in-panel', style: { marginBottom: 16 } },
+      // noSeries explicit info panel
+      isNoSeries && h('div', { className: 'in-panel', style: { marginBottom: 16, borderColor: 'rgba(255,92,112,0.2)' } },
+        h('div', { className: 'in-panel-h' },
+          h('span', { className: 'in-panel-title' }, 'Series Status'),
+          h('span', { className: 'in-chip neu', style: { fontSize: 9 } }, 'NO SERIES')
+        ),
+        h('div', { style: { padding: '10px 0', fontSize: 12, color: 'var(--text-tertiary,#8e9ab0)', fontFamily: 'var(--font-mono,monospace)' } },
+          'This driver key (' + driver.key + ') is not present in macro.live_indicators or macro.observations. ' +
+          'It is mapped in the taxonomy but its live feed is not yet active. No chart or CSV available.'
+        )
+      ),
+
+      // chart section (only if not noSeries)
+      !isNoSeries && h('div', { className: 'in-panel', style: { marginBottom: 16 } },
         h('div', { className: 'in-panel-h' },
           h('span', { className: 'in-panel-title' }, 'Historical Series'),
-          hasObs
-            ? h('span', { className: 'in-panel-tag in-pos' }, obsData.length + ' observations · from DB')
-            : (!isLoading && chartPts.length >= 2
-              ? h('span', { className: 'in-panel-tag in-warn' }, 'spark only · no DB history')
-              : null)
+          hasChart
+            ? h('span', { className: 'in-panel-tag ' + (histSource === 'observations' ? 'in-pos' : 'in-warn') },
+                histData.length + (histSource === 'observations' ? ' obs · DB' : ' pts · spark fallback'))
+            : null,
+          // CSV button — always shown when data available
+          hasChart && h('button', {
+            className: 'in-btn in-btn-ghost',
+            onClick: handleCSV,
+            style: { marginLeft: 'auto', fontSize: 10, padding: '3px 8px' },
+            title: 'Download ' + driver.key + '.csv'
+          }, '⤓ CSV')
         ),
         isLoading && h(Spinner, { label: 'Loading history…' }),
         !isLoading && noChart && h('div', { style: { padding: '20px 0', textAlign: 'center', color: 'var(--text-tertiary,#8e9ab0)', fontFamily: 'var(--font-mono,monospace)', fontSize: 12 } },
-          obsErr
-            ? h('span', { className: 'in-neg' }, obsErr)
-            : 'History pending — series not yet in observations table.'
+          histErr
+            ? h('span', { className: 'in-neg' }, histErr)
+            : 'History pending — series not yet in observations table or spark.'
         ),
-        !isLoading && !noChart && h('div', { style: { padding: '10px 0 4px' } },
-          h(LargeSparkLine, { pts: chartPts, posture: p ? p.posture : 'neutral' })
+        !isLoading && hasChart && h('div', { style: { padding: '10px 0 4px' } },
+          h(InlineLine, { pts: histData, color: postureColor, height: 130 })
         )
       ),
 
       // one-liner explanation
-      h('div', { className: 'in-concl', style: { marginBottom: 16 } },
+      !isNoSeries && h('div', { className: 'in-concl', style: { marginBottom: 16 } },
         h('b', null, driver.label + ': '),
         p ? postureOneLiner(p) : 'No live data for this driver.',
         ' upIs=', driver.upIs || '—', '.'
@@ -471,6 +627,7 @@
 
   /* =========================================================================
      CROSS-MAP — driver → industry matrix, grouped by kind (demand/supply/macro)
+     + CSV export of the full driver × sector posture matrix.
      ========================================================================= */
   function CrossMap({ indByKey }) {
     const INDUSTRY_ = INDUSTRY();
@@ -487,6 +644,7 @@
               key: d.key,
               label: d.label,
               kind: d.kind || 'macro',
+              noSeries: d.noSeries || false,
               entries: [],
             };
           }
@@ -500,7 +658,8 @@
             }
           }
           let posture = 'neutral';
-          if (chgN != null && Math.abs(chgN) > 0.2) {
+          if (d.noSeries) posture = 'no_series';
+          else if (chgN != null && Math.abs(chgN) > 0.2) {
             if (d.upIs === 'tailwind') posture = chgN > 0 ? 'tailwind' : 'headwind';
             else if (d.upIs === 'headwind') posture = chgN > 0 ? 'headwind' : 'tailwind';
             else posture = 'mixed';
@@ -518,10 +677,23 @@
         const k = (dm.kind === 'demand' || dm.kind === 'supply') ? dm.kind : 'macro';
         groups[k].push(dm);
       });
-      // sort each group by label
       Object.keys(groups).forEach(k => groups[k].sort((a, b) => a.label.localeCompare(b.label)));
       return groups;
     }, [driverMap]);
+
+    // CSV export: driver × sector matrix
+    const handleMatrixCSV = useCallback(function () {
+      var sectors = TAXONOMY.map(function (t) { return t.name; });
+      var header = 'driver_key,driver_label,kind,' + sectors.join(',');
+      var rows = driverMap.map(function (dm) {
+        var cells = sectors.map(function (sName) {
+          var entry = dm.entries.find(function (e) { return e.indName === sName; });
+          return entry ? entry.posture : '';
+        });
+        return [dm.key, dm.label, dm.kind].concat(cells).join(',');
+      });
+      downloadCSV('driver_matrix.csv', header + '\n' + rows.join('\n'));
+    }, [driverMap, TAXONOMY]);
 
     const kindConfig = [
       { key: 'demand', label: 'DEMAND', color: 'var(--pos,#19c37d)' },
@@ -533,13 +705,11 @@
       const drivers = byKind[cfg.key];
       if (!drivers || drivers.length === 0) return null;
       return h('div', { key: cfg.key, style: { marginBottom: 18 } },
-        // group header
         h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, padding: '0 0 4px', borderBottom: '1px solid rgba(255,255,255,0.05)' } },
           h('div', { style: { width: 3, height: 12, borderRadius: 1, background: cfg.color, flexShrink: 0 } }),
           h('span', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: cfg.color } }, cfg.label + ' DRIVERS'),
           h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5 } }, '· ' + drivers.length)
         ),
-        // driver rows
         drivers.map(dm => {
           const live = indByKey[dm.key];
           let chgN = null;
@@ -564,12 +734,14 @@
               border: '1px solid rgba(255,255,255,0.03)',
             }
           },
-            h('span', { style: { fontSize: 11.5, color: 'var(--text-secondary,#d4dcea)', fontFamily: 'var(--font-sans,sans-serif)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, dm.label),
+            h('div', { style: { display: 'flex', alignItems: 'center', gap: 4, minWidth: 0 } },
+              h('span', { style: { fontSize: 11.5, color: 'var(--text-secondary,#d4dcea)', fontFamily: 'var(--font-sans,sans-serif)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, dm.label),
+              dm.noSeries && h('span', { className: 'in-chip neu', style: { fontSize: 7.5, padding: '1px 3px', flexShrink: 0, opacity: 0.7 } }, 'NO SERIES')
+            ),
             h('span', { className: 'in-num', style: { fontSize: 11, color: 'var(--text-primary,#fff)', fontFamily: 'var(--font-mono,monospace)' } },
               live ? fmt.val(safeNum(live.latest_value), live.unit) : '—'),
             h('span', { className: chgCls(chgN) + ' in-num', style: { fontSize: 11, fontFamily: 'var(--font-mono,monospace)', fontWeight: 700 } },
               chgN != null ? fmtChg(chgN) : '—'),
-            // sector impact chips
             h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 3 } },
               dm.entries.map(e =>
                 h('span', {
@@ -578,8 +750,9 @@
                   style: {
                     fontSize: 9, padding: '1px 5px', borderRadius: 2,
                     fontFamily: 'var(--font-mono,monospace)',
-                    background: e.posture === 'tailwind' ? 'rgba(25,195,125,0.12)' : e.posture === 'headwind' ? 'rgba(255,92,112,0.12)' : 'var(--bg-3,#17171b)',
+                    background: e.posture === 'tailwind' ? 'rgba(25,195,125,0.12)' : e.posture === 'headwind' ? 'rgba(255,92,112,0.12)' : e.posture === 'no_series' ? 'rgba(100,100,120,0.08)' : 'var(--bg-3,#17171b)',
                     color: e.posture === 'tailwind' ? 'var(--pos,#19c37d)' : e.posture === 'headwind' ? 'var(--neg,#ff5c70)' : 'var(--text-tertiary,#8e9ab0)',
+                    opacity: e.posture === 'no_series' ? 0.5 : 1,
                   }
                 }, e.indName)
               )
@@ -592,9 +765,134 @@
     return h('div', { className: 'in-panel', style: { marginBottom: 20 } },
       h('div', { className: 'in-panel-h' },
         h('span', { className: 'in-panel-title' }, 'Cross-Industry Driver Map'),
-        h('span', { className: 'in-panel-tag' }, driverMap.length + ' drivers · ' + TAXONOMY.length + ' sectors')
+        h('span', { className: 'in-panel-tag' }, driverMap.length + ' drivers · ' + TAXONOMY.length + ' sectors'),
+        h('button', {
+          className: 'in-btn in-btn-ghost',
+          onClick: handleMatrixCSV,
+          style: { marginLeft: 'auto', fontSize: 10, padding: '3px 8px' },
+          title: 'Download full driver × sector matrix as CSV'
+        }, '⤓ Matrix CSV')
       ),
       kindConfig.map(renderGroup)
+    );
+  }
+
+  /* =========================================================================
+     SECTOR RS COMPARISON — multi-line SVG chart.
+     Each sector line = its primary driver's spark values (most recent common
+     window). Lets the CIO see rotation at a glance.
+     ========================================================================= */
+  function SectorRSChart({ indByKey }) {
+    const INDUSTRY_ = INDUSTRY();
+    const TAXONOMY  = INDUSTRY_.TAXONOMY;
+    var containerRef = useRef(null);
+    var [width, setWidth] = useState(700);
+
+    useEffect(function () {
+      if (!containerRef.current) return;
+      var obs = new ResizeObserver(function (entries) {
+        var w = entries[0] && entries[0].contentRect && entries[0].contentRect.width;
+        if (w > 0) setWidth(Math.floor(w));
+      });
+      obs.observe(containerRef.current);
+      return function () { obs.disconnect(); };
+    }, []);
+
+    // For each sector find its primary driver (highest weight), get spark values
+    var seriesData = useMemo(function () {
+      return TAXONOMY.map(function (t) {
+        if (!t.drivers || !t.drivers.length) return null;
+        // primary = highest weight
+        var primary = t.drivers.reduce(function (best, d) {
+          return ((d.weight || 1) > (best.weight || 1)) ? d : best;
+        }, t.drivers[0]);
+        var live = indByKey[primary.key];
+        if (!live || !live.spark) return null;
+        var sp = Array.isArray(live.spark) ? live.spark : [];
+        var vals = sp.map(function (pt) {
+          if (pt == null) return null;
+          var v = typeof pt === 'object' ? (pt.v != null ? pt.v : pt.value) : pt;
+          return safeNum(v);
+        }).filter(function (v) { return v != null; });
+        if (vals.length < 3) return null;
+        return {
+          id: t.id,
+          name: t.name,
+          accent: t.accent || '#f5a623',
+          primaryKey: primary.key,
+          primaryLabel: live.label || primary.label,
+          vals: vals,
+        };
+      }).filter(Boolean);
+    }, [TAXONOMY, indByKey]);
+
+    if (seriesData.length === 0) return null;
+
+    var W = width, H = 160;
+    var padL = 6, padR = 6, padT = 10, padB = 30;
+    var innerW = W - padL - padR;
+    var innerH = H - padT - padB;
+
+    // Normalize each series to 0-100 for comparison (index = (v-min)/(max-min)*100)
+    var normalizedSeries = seriesData.map(function (s) {
+      var mn = Math.min.apply(null, s.vals);
+      var mx = Math.max.apply(null, s.vals);
+      var rng = (mx - mn) || 1;
+      return Object.assign({}, s, {
+        norm: s.vals.map(function (v) { return (v - mn) / rng * 100; })
+      });
+    });
+
+    // Common x-axis: use the max series length (shorter series align to right)
+    var maxLen = Math.max.apply(null, normalizedSeries.map(function (s) { return s.norm.length; }));
+
+    function buildPolyline(normVals) {
+      var n = normVals.length;
+      // right-align shorter series
+      var offset = maxLen - n;
+      return normVals.map(function (nv, i) {
+        var x = padL + ((i + offset) / Math.max(1, maxLen - 1)) * innerW;
+        var y = padT + (1 - nv / 100) * innerH;
+        return x.toFixed(1) + ',' + y.toFixed(1);
+      }).join(' ');
+    }
+
+    return h('div', { className: 'in-panel', style: { marginBottom: 20 } },
+      h('div', { className: 'in-panel-h' },
+        h('span', { className: 'in-panel-title' }, 'Sector RS — Primary Driver Comparison'),
+        h('span', { className: 'in-panel-tag' }, seriesData.length + ' sectors · primary driver spark · normalized')
+      ),
+      h('div', { ref: containerRef, style: { width: '100%', position: 'relative' } },
+        h('svg', { width: W, height: H, style: { display: 'block', width: '100%', overflow: 'visible' } },
+          // grid
+          [0, 0.25, 0.5, 0.75, 1].map(function (p, i) {
+            var y = padT + p * innerH;
+            return h('line', { key: i, x1: padL, x2: padL + innerW, y1: y, y2: y,
+              stroke: 'rgba(255,255,255,0.04)', strokeWidth: 0.5 });
+          }),
+          // lines
+          normalizedSeries.map(function (s) {
+            var pts = buildPolyline(s.norm);
+            var lastNorm = s.norm[s.norm.length - 1];
+            var endX = padL + innerW;
+            var endY = padT + (1 - lastNorm / 100) * innerH;
+            return h('g', { key: s.id },
+              h('polyline', { points: pts, fill: 'none', stroke: s.accent, strokeWidth: 1.2, opacity: 0.85 }),
+              h('circle', { cx: endX, cy: endY.toFixed(1), r: 2.5, fill: s.accent })
+            );
+          })
+        ),
+        // legend strip below the chart
+        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', marginTop: 6 } },
+          normalizedSeries.map(function (s) {
+            return h('div', { key: s.id, style: { display: 'flex', alignItems: 'center', gap: 4 } },
+              h('div', { style: { width: 10, height: 2.5, borderRadius: 1, background: s.accent, flexShrink: 0 } }),
+              h('span', { style: { fontSize: 9.5, fontFamily: 'var(--font-mono,monospace)', color: 'var(--text-tertiary,#8e9ab0)', whiteSpace: 'nowrap' } },
+                s.name + ' (' + s.primaryLabel + ')')
+            );
+          })
+        )
+      )
     );
   }
 
@@ -700,6 +998,13 @@
     const [detailState, setDetailState] = useState(null); // { posture, driver }
     const [reloadKey, setReloadKey]   = useState(0);
 
+    // Attach fetchDriverHistory to window.INDUSTRY once (idempotent)
+    useEffect(function () {
+      if (!window.INDUSTRY.fetchDriverHistory) {
+        window.INDUSTRY.fetchDriverHistory = buildFetchDriverHistory();
+      }
+    }, []);
+
     // Load live_indicators once
     useEffect(() => {
       setLoading(true);
@@ -730,11 +1035,16 @@
     const macroDrivers  = useMemo(() => (ind && ind.drivers || []).filter(d => d.kind === 'macro'),  [ind]);
 
     // Postures for all drivers of selected industry
+    // Handles {found:false,noSeries:true} from posture() API
     const allPostures = useMemo(() => {
       if (!ind || !ind.drivers) return [];
       return ind.drivers.map(d => {
-        try { return INDUSTRY_.an.posture(d, indByKey); }
-        catch (e) { return { driver: d, found: false, posture: 'n/a', chg: null, value: null }; }
+        try {
+          var p = INDUSTRY_.an.posture(d, indByKey);
+          return p;
+        } catch (e) {
+          return { driver: d, found: false, posture: 'n/a', chg: null, value: null };
+        }
       });
     }, [ind, indByKey]);
 
@@ -773,7 +1083,10 @@
       h('div', { className: 'in-head' },
         h('div', { className: 'in-head-mark' },
           h('svg', { viewBox: '0 0 15 15', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 },
-            h('path', { d: 'M7.5 1.5v12M1.5 7.5h12M3.5 3.5l8 8M11.5 3.5l-8 8' }))
+            // gauge icon (distinct from other workspaces)
+            h('path', { d: 'M7.5 13A5.5 5.5 0 1 0 2 7.5' }),
+            h('path', { d: 'M7.5 7.5L10.5 4.5' }),
+            h('circle', { cx: 7.5, cy: 7.5, r: 1.2, fill: 'currentColor', stroke: 'none' }))
         ),
         h('div', null,
           h('div', { className: 'in-head-title' }, 'Industry Data'),
@@ -830,7 +1143,10 @@
         // 4. Business-Cycle strip
         h(CycleStrip, { indByKey }),
 
-        // 5. Cross-Map — grouped by kind
+        // 5. Sector RS Comparison — multi-line chart (rotation at a glance)
+        h(SectorRSChart, { indByKey }),
+
+        // 6. Cross-Map — grouped by kind + CSV export
         h(CrossMap, { indByKey })
       ),
 

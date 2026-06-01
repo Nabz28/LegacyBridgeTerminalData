@@ -65,26 +65,27 @@
      names for commodity-pure plays (used where a sector is broader than the
      theme). region: which lens it belongs to (id | global | us).
      ===================================================================== */
-  // D(key, label, upIs, kind, weight) — weight default 1; set 2 for primary commodity/rate driver
-  const D = (key, label, upIs, kind, weight) => ({ key, label, upIs, kind, weight: weight || 1 });
+  // D(key, label, upIs, kind, weight, noSeries) — weight default 1; set 2 for primary commodity/rate driver
+  // noSeries:true => key is not in verified live_indicators list; UI should show "no series" instead of silent N/A
+  const D = (key, label, upIs, kind, weight, noSeries) => ({ key, label, upIs, kind, weight: weight || 1, noSeries: noSeries || false });
   const TAXONOMY = [
     // ---- Commodity-linked Indonesian industries (the "booming sector" drill-downs) ----
     { id: 'coal', name: 'Coal & Mining', idxSector: 'Energy', region: 'id', accent: '#7a6b52',
       thesis: 'Thermal coal exporters levered to Newcastle price + China/India power demand.',
       tickers: ['ADRO', 'PTBA', 'ITMG', 'BUMI', 'INDY', 'HRUM', 'BYAN', 'GEMS', 'DOID', 'ABMM'],
-      drivers: [D('wb_coal_au', 'Newcastle Coal', 'tailwind', 'supply', 2), D('wb_idx_energy', 'Energy Index', 'tailwind', 'supply'), D('wb_natgas_eu', 'EU Nat Gas (supply)', 'tailwind', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand'), D('id_usdidr_m', 'USD/IDR', 'tailwind', 'macro')] },
+      drivers: [D('wb_coal_au', 'Newcastle Coal', 'tailwind', 'supply', 2), D('bcom', 'Commodity Index', 'tailwind', 'supply', 1), D('natgas', 'Natural Gas (substitute)', 'tailwind', 'supply', 1), D('id_exports', 'ID Exports', 'tailwind', 'demand'), D('id_usdidr_m', 'USD/IDR', 'tailwind', 'macro')] },
     { id: 'nickel', name: 'Nickel & Battery Metals', idxSector: 'Basic Materials', region: 'id', accent: '#9aa7b0',
       thesis: 'Nickel/ferronickel + EV battery supply chain; sensitive to LME nickel + China stainless/EV demand.',
       tickers: ['INCO', 'ANTM', 'NCKL', 'MBMA', 'NICL', 'PSAB'],
-      drivers: [D('wb_nickel', 'Nickel (LME)', 'tailwind', 'supply', 2), D('wb_idx_metals', 'Metals Index', 'tailwind', 'supply'), D('lithium_etf', 'Lithium/Battery', 'mixed', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
+      drivers: [D('wb_nickel', 'Nickel (LME)', 'tailwind', 'supply', 2), D('copper', 'Copper (metals proxy)', 'tailwind', 'supply', 1), D('lithium_etf', 'Lithium/Battery', 'mixed', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'cpo', name: 'Plantation & CPO', idxSector: 'Consumer Non-Cyclicals', region: 'id', accent: '#c9a227',
       thesis: 'Palm oil planters; CPO price + biodiesel mandate + soybean-oil substitution.',
       tickers: ['AALI', 'LSIP', 'DSNG', 'TAPG', 'SMAR', 'SSMS', 'SGRO', 'TBLA', 'ANJT', 'PALM'],
-      drivers: [D('wb_palm_oil', 'Palm Oil', 'tailwind', 'supply', 2), D('soybean_oil', 'Soybean Oil (sub)', 'mixed', 'supply'), D('wb_rapeseed_oil', 'Rapeseed Oil (sub)', 'mixed', 'supply'), D('wb_fert_idx', 'Fertilizers (cost)', 'headwind', 'supply'), D('wb_idx_food', 'Food Index', 'tailwind', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
+      drivers: [D('wb_palm_oil', 'Palm Oil (CPO)', 'tailwind', 'supply', 2), D('soybean_oil', 'Soybean Oil (sub)', 'mixed', 'supply'), D('wb_urea', 'Urea Fertilizer (cost)', 'headwind', 'supply'), D('corn', 'Corn (feed cost)', 'headwind', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'tin', name: 'Tin', idxSector: 'Basic Materials', region: 'id', accent: '#8c8c94',
       thesis: 'Tin miners levered to LME tin + global electronics/solder demand.',
       tickers: ['TINS', 'PSAB', 'CITA'],
-      drivers: [D('wb_tin', 'Tin (LME)', 'tailwind', 'supply'), D('wb_idx_metals', 'Metals Index', 'tailwind', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
+      drivers: [D('wb_tin', 'Tin (LME)', 'tailwind', 'supply', 2), D('copper', 'Copper (metals proxy)', 'tailwind', 'supply'), D('cn_ip_yoy', 'China Ind. Production', 'tailwind', 'demand'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'oilgas', name: 'Oil & Gas', idxSector: 'Energy', region: 'id', accent: '#5a8f6b',
       thesis: 'Upstream/midstream oil & gas; crude + LNG price exposure.',
       tickers: ['MEDC', 'PGAS', 'ENRG', 'ELSA', 'AKRA', 'RAJA'],
@@ -92,7 +93,7 @@
     { id: 'goldmetal', name: 'Gold & Precious', idxSector: 'Basic Materials', region: 'id', accent: '#d4af37',
       thesis: 'Gold miners; bullion price + real-rate / risk regime.',
       tickers: ['MDKA', 'ANTM', 'ARCI', 'BRMS', 'UNTR'],
-      drivers: [D('gold', 'Gold', 'tailwind', 'supply'), D('silver', 'Silver', 'mixed', 'supply'), D('copper', 'Copper', 'mixed', 'supply')] },
+      drivers: [D('gold', 'Gold', 'tailwind', 'supply', 2), D('copper', 'Copper', 'mixed', 'supply'), D('aluminum', 'Aluminum', 'mixed', 'supply'), D('dxy', 'DXY (USD strength)', 'headwind', 'macro')] },
     // ---- Broad IDX sectors (the sector grid) ----
     { id: 'banks', name: 'Banks & Financials', idxSector: 'Financials', region: 'id', accent: '#4f86e0',
       thesis: 'Indonesian banks; NIM expands with policy rate, credit growth drives volume.',
@@ -105,7 +106,7 @@
       drivers: [D('id_cpi_yoy', 'CPI Inflation', 'headwind', 'macro'), D('id_usdidr_m', 'USD/IDR', 'headwind', 'macro'), D('id_bank_credit', 'Consumer Credit', 'tailwind', 'demand')] },
     { id: 'staples', name: 'Consumer Staples', idxSector: 'Consumer Non-Cyclicals', region: 'id', accent: '#6bbf8a',
       thesis: 'Defensive staples; input costs (food/ag commodities) + domestic demand.',
-      drivers: [D('wb_idx_food', 'Food Index (cost)', 'headwind', 'supply'), D('wb_sugar_world', 'Sugar (cost)', 'headwind', 'supply'), D('id_cpi_yoy', 'CPI', 'mixed', 'macro')] },
+      drivers: [D('sugar', 'Sugar (cost)', 'headwind', 'supply'), D('wheat', 'Wheat (cost)', 'headwind', 'supply'), D('id_cpi_yoy', 'CPI', 'mixed', 'macro')] },
     { id: 'tech', name: 'Technology', idxSector: 'Technology', region: 'id', accent: '#5fd6d6',
       thesis: 'IDX tech/digital; rate-sensitive duration + funding + FX for hardware.',
       drivers: [D('id_bi_rate', 'BI Rate', 'headwind', 'macro'), D('id_usdidr_m', 'USD/IDR', 'headwind', 'macro')] },
@@ -114,10 +115,10 @@
       drivers: [D('id_usdidr_m', 'USD/IDR (imports)', 'headwind', 'macro'), D('id_cpi_yoy', 'CPI', 'mixed', 'macro')] },
     { id: 'industrials', name: 'Industrials', idxSector: 'Industrials', region: 'id', accent: '#a0a0b0',
       thesis: 'Heavy equipment/manufacturing; capex cycle + metals input + exports.',
-      drivers: [D('wb_idx_industrial', 'Industrial Index', 'tailwind', 'demand'), D('steel_hrc', 'Steel (input)', 'headwind', 'supply'), D('id_gdp_real_q', 'ID GDP', 'tailwind', 'demand')] },
+      drivers: [D('cn_pmi_mfg', 'China PMI Mfg (demand)', 'tailwind', 'demand'), D('steel_hrc', 'Steel (input)', 'headwind', 'supply'), D('iron_ore', 'Iron Ore', 'mixed', 'supply'), D('id_exports', 'ID Exports', 'tailwind', 'demand')] },
     { id: 'infra', name: 'Infrastructure', idxSector: 'Infrastructure', region: 'id', accent: '#8aa0c0',
       thesis: 'Toll/construction/utilities; govt capex + financing cost.',
-      drivers: [D('id_bi_rate', 'Financing Cost', 'headwind', 'macro'), D('steel_hrc', 'Steel (cost)', 'headwind', 'supply'), D('id_gdp_real_q', 'ID GDP', 'tailwind', 'demand')] },
+      drivers: [D('id_bi_rate', 'Financing Cost', 'headwind', 'macro'), D('steel_hrc', 'Steel (cost)', 'headwind', 'supply'), D('cn_pmi_mfg', 'China PMI (demand signal)', 'tailwind', 'demand')] },
     { id: 'transport', name: 'Transport & Logistics', idxSector: 'Transportation & Logistics', region: 'id', accent: '#c0a0c0',
       thesis: 'Shippers/airlines/logistics; fuel cost vs trade volume.',
       drivers: [D('brent', 'Brent (fuel cost)', 'headwind', 'supply'), D('wti', 'WTI (fuel cost)', 'headwind', 'supply'), D('id_exports', 'Trade Volume', 'tailwind', 'demand'), D('id_imports', 'Imports', 'tailwind', 'demand')] },
@@ -146,7 +147,7 @@
     },
     // sector snapshot: breadth (up/flat/down separate), avg + mcap-weighted 1D, valuation medians
     snapshot: (rows) => {
-      if (!rows || !rows.length) return { n: 0, up: 0, flat: 0, down: 0, nullChg: 0, breadth: 0, avgChg: null, mcapChg: null, mcap: 0, medPE: null, medROE: null, medGrowth: null };
+      if (!rows || !rows.length) return { n: 0, up: 0, flat: 0, down: 0, nullChg: 0, breadth: 0, avgChg: null, mcapChg: null, mcap: 0, medPE: null, medROE: null, medGrowth: null, beta: null };
       const n = rows.length;
       // PostgREST returns numeric columns as strings — coerce everywhere
       const up   = rows.filter(r => r.change_pct != null && Number(r.change_pct) > 0).length;
@@ -162,25 +163,39 @@
         ? rows.reduce((s, r) => r.change_pct != null ? s + Number(r.change_pct) * (Number(r.mcap) || 0) : s, 0) / totMcap
         : avg;
       // median: coerce field values to numbers before passing to median()
+      // beta: mean of constituent betas (skip nulls) — for the β pill on sector cards
+      const betaMean = mean(rows.filter(r => isNum(r.beta)).map(r => Number(r.beta)));
       return { n, up, flat, down, nullChg: n - counted, breadth, avgChg: avg, mcapChg: mcapW, mcap: totMcap,
-        medPE: median(rows.map(r => Number(r.pe))), medROE: median(rows.map(r => Number(r.roe))), medGrowth: median(rows.map(r => Number(r.earnings_growth))) };
+        medPE: median(rows.map(r => Number(r.pe))), medROE: median(rows.map(r => Number(r.roe))), medGrowth: median(rows.map(r => Number(r.earnings_growth))),
+        beta: betaMean };
     },
-    // conviction 0-100: centered 50, from mcap-weighted move, breadth, quality,
-    // and weighted driver tilt (modest component so a strong commodity tailwind lifts score).
+    // conviction 0-100: centered 50.
+    // Weights: driver tilt ±30 (CEO priority), 1D mcap move ±20, breadth ±14, quality ±6.
+    // Max swing from 50 = ±70, clamped to [0,100]. Labeled '1D Signal' (equity_screen is 1D snapshot).
+    // New fields in return: signalLabel, driverNet (raw weightedNet for views).
     conviction: (snap, tilt) => {
-      if (!snap || !snap.n) return 50;
-      const mv = clamp((snap.mcapChg != null ? Number(snap.mcapChg) : 0) / 3, -1, 1) * 28; // 1D mcap move
-      const br = clamp((snap.breadth - 0.5) * 2, -1, 1) * 22;          // breadth
-      const q = snap.medROE != null ? clamp((Number(snap.medROE) - 10) / 15, -1, 1) * 10 : 0; // quality tilt
-      // weighted driver contribution (max ±10): use weightedNet when available
+      if (!snap || !snap.n) return { score: 50, signalLabel: '1D Signal', driverNet: 0 };
+      const mv = clamp((snap.mcapChg != null ? Number(snap.mcapChg) : 0) / 3, -1, 1) * 20; // 1D mcap-wtd move (±20)
+      const br = clamp((snap.breadth - 0.5) * 2, -1, 1) * 14;          // breadth ±14
+      const q = snap.medROE != null ? clamp((Number(snap.medROE) - 10) / 15, -1, 1) * 6 : 0; // quality tilt ±6
+      // driver tilt ±30: CEO #1 priority — use weightedNet [-1,+1]
       const wn = (tilt && tilt.weightedNet != null) ? tilt.weightedNet : (tilt && tilt.net != null ? tilt.net : 0);
-      const dv = clamp(wn, -1, 1) * 10;
-      return Math.round(clamp(50 + mv + br + q + dv, 0, 100));
+      const dv = clamp(wn, -1, 1) * 30;
+      const score = Math.round(clamp(50 + mv + br + q + dv, 0, 100));
+      return { score, signalLabel: '1D Signal', driverNet: wn };
+    },
+    // Backward-compat: views that called conviction() and used the result as a number directly.
+    // They should read .score; this helper unwraps it so existing numeric comparisons still work.
+    convictionScore: (snap, tilt) => {
+      const r = analytics.conviction(snap, tilt);
+      return typeof r === 'object' ? r.score : r;
     },
     status: (conv, snap) => {
+      // conv may be a number (legacy) or the new {score, signalLabel, driverNet} object
+      const score = (conv && typeof conv === 'object') ? conv.score : (conv != null ? Number(conv) : 50);
       const chg = snap.mcapChg != null ? Number(snap.mcapChg) : 0;
-      if (conv >= 65 && chg > 0) return 'BULLISH';
-      if (conv <= 35 && chg < 0) return 'BEARISH';
+      if (score >= 65 && chg > 0) return 'BULLISH';
+      if (score <= 35 && chg < 0) return 'BEARISH';
       if ((snap.breadth > 0.55) !== (chg > 0)) return 'ROTATION';
       return 'NEUTRAL';
     },
@@ -188,6 +203,8 @@
     // If change_pct is null/missing, derive from prev_value/latest_value if both present;
     // else posture='n/a' with chgMissing:true (never silently treated as neutral/0).
     posture: (driver, indByKey) => {
+      // noSeries drivers are intentionally absent from live_indicators — show "no series" explicitly
+      if (driver.noSeries) return { driver, found: false, noSeries: true, chg: null, posture: 'n/a' };
       const ind = indByKey[driver.key];
       if (!ind) return { driver, found: false, chg: null, posture: 'n/a' };
       let chg = ind.change_pct;
@@ -236,22 +253,30 @@
     // 6-dimension competitive score for a ticker within its peer set (0-100)
     // Macro 15 / Industry 15 / Technical 20 (proxied by 1D + 52w pos) /
     // Fundamental 20 / Valuation 15 / Risk 15. Peer-relative.
+    //
+    // TICKER-LEVEL Industry dim: ticker's 1D change vs sector-average change (not uniform sector conviction).
+    // TICKER-LEVEL Macro dim: derived from ticker's beta (market/rate sensitivity) + debt_equity
+    //   (rate/refinancing sensitivity) + sub_sector commodity/FX exposure tag.
+    //   This ensures peers in the same sector differ on these two dims (30% no longer uniform).
+    //
+    // ctx: { peerMed, sectorAvgChg, driverNet }
+    //   peerMed: {pe,pb,roe,net_margin,rev_growth,...} — medians across peer set
+    //   sectorAvgChg: mean change_pct of all peers (for ticker-level Industry dim)
+    //   driverNet: sector-level weightedNet [-1,+1] (baseline macro direction)
     competitive: (row, peers, ctx) => {
-      const peerMed = ctx.peerMed; // {pe,pb,roe,net_margin,rev_growth,div_yield,...}
+      const peerMed = ctx.peerMed;
       const sc = {};
-      // valuation: cheaper than peers = higher (PE, PB, EV/EBITDA).
-      // Non-positive multiple (<=0) = penalty (~20-25), not neutral — it signals distress/loss.
-      // Only positive multiples get the cheaper-than-peer green treatment.
-      // PostgREST returns numerics as strings — coerce with Number() before any arithmetic.
+
+      // --- Valuation: cheaper than peers = higher (PE, PB, EV/EBITDA) ---
+      // Non-positive multiple (<=0) = distress penalty. PostgREST returns strings — coerce.
       const valBits = [['pe', row.pe, peerMed.pe], ['pb', row.pb, peerMed.pb], ['ev_ebitda', row.ev_ebitda, peerMed.ev_ebitda]];
       let val = 0, valN = 0;
       valBits.forEach(([, v, m]) => {
-        if (!isNum(v)) return; // missing data: skip this metric
+        if (!isNum(v)) return;
         const nv = Number(v), nm = Number(m);
         valN++;
         if (nv <= 0) {
-          // negative/zero multiple = distress penalty
-          val += 22;
+          val += 22; // distress penalty
         } else if (isNum(m) && nm > 0) {
           val += clamp(50 + (nm - nv) / nm * 60, 0, 100);
         } else {
@@ -259,105 +284,264 @@
         }
       });
       sc.valuation = valN ? val / valN : 50;
-      // fundamental: ROE, margins, growth vs peers — coerce PostgREST strings
+
+      // --- Fundamental: ROE, margins, growth vs peers ---
       const fBits = [['roe', row.roe, peerMed.roe], ['net_margin', row.net_margin, peerMed.net_margin], ['rev_growth', row.rev_growth, peerMed.rev_growth]];
       let fu = 0, fn = 0;
       fBits.forEach(([, v, m]) => {
         if (isNum(v) && isNum(m)) { fu += clamp(50 + (Number(v) - Number(m)) * 2, 0, 100); fn++; }
       });
       sc.fundamental = fn ? fu / fn : 50;
-      // technical proxy: 1D change + position vs 52w range — coerce PostgREST strings
-      const chgPct = Number(row.change_pct), price = Number(row.price);
+
+      // --- Technical: 1D change + 52w position ---
+      const chgPct = isNum(row.change_pct) ? Number(row.change_pct) : 0;
+      const price = Number(row.price);
       const w52h = Number(row.w52_high), w52l = Number(row.w52_low);
       let tech = 50;
       if (isNum(row.change_pct)) tech += clamp(chgPct * 4, -20, 20);
-      if (isNum(row.price) && isNum(row.w52_high) && isNum(row.w52_low) && w52h > w52l) tech += (((price - w52l) / (w52h - w52l)) - 0.5) * 30;
+      if (isNum(row.price) && isNum(row.w52_high) && isNum(row.w52_low) && w52h > w52l) {
+        tech += (((price - w52l) / (w52h - w52l)) - 0.5) * 30;
+      }
       sc.technical = clamp(tech, 0, 100);
-      // risk: lower beta + lower D/E + higher current ratio = higher (safer) — coerce strings
-      const beta = Number(row.beta), de = Number(row.debt_equity);
+
+      // --- Risk: lower beta + lower D/E = safer ---
+      const betaV = isNum(row.beta) ? Number(row.beta) : null;
+      const deV = isNum(row.debt_equity) ? Number(row.debt_equity) : null;
       let rk = 50;
-      if (isNum(row.beta)) rk += clamp((1.1 - beta) * 25, -20, 20);
-      if (isNum(row.debt_equity)) rk += clamp((1 - de) * 12, -15, 15);
+      if (betaV != null) rk += clamp((1.1 - betaV) * 25, -20, 20);
+      if (deV != null) rk += clamp((1 - deV) * 12, -15, 15);
       sc.risk = clamp(rk, 0, 100);
-      // industry + macro come from ctx (sector conviction + driver tilt)
-      sc.industry = clamp(ctx.conviction != null ? ctx.conviction : 50, 0, 100);
-      sc.macro = clamp(50 + (ctx.driverNet || 0) * 35, 0, 100);
+
+      // --- Industry dim: TICKER-LEVEL — ticker RS vs sector mean change ---
+      // sectorAvgChg: mean change_pct of peers. Ticker above = outperforming the group.
+      const sectorAvg = (ctx.sectorAvgChg != null && isNum(ctx.sectorAvgChg)) ? Number(ctx.sectorAvgChg) : null;
+      if (sectorAvg != null && isNum(row.change_pct)) {
+        const relChg = Number(row.change_pct) - sectorAvg; // pp above/below peer mean
+        sc.industry = clamp(50 + relChg * 8, 0, 100); // ±1pp = ±8 pts, ±6pp = full range
+      } else {
+        sc.industry = 50; // no peer data — neutral
+      }
+
+      // --- Macro dim: TICKER-LEVEL — sensitivity to rate/FX/commodity environment ---
+      // Combine: sector driverNet direction × ticker's beta (market sensitivity)
+      // + rate-sensitivity adjustment from D/E (high D/E = more hurt by high rates)
+      // This means two peers in the same sector differ if their beta/D/E differ.
+      const driverNet = (ctx.driverNet != null && isNum(ctx.driverNet)) ? Number(ctx.driverNet) : 0;
+      let macro = 50;
+      // Beta sensitivity: high beta amplifies the sector's driver direction
+      if (betaV != null) {
+        // driverNet > 0 (tailwind): high beta is a boost; driverNet < 0 (headwind): high beta = more hurt
+        macro += clamp(driverNet * betaV * 20, -18, 18);
+      } else {
+        macro += clamp(driverNet * 15, -15, 15); // no beta → use sector signal at lower weight
+      }
+      // Rate sensitivity: high D/E is hurt when BI rate is rising (driverNet headwind via rate drivers)
+      // Approximate: if driverNet < 0 and D/E high → extra penalty
+      if (deV != null && driverNet < -0.1) {
+        macro += clamp(driverNet * deV * 8, -10, 0); // only penalty direction
+      }
+      sc.macro = clamp(macro, 0, 100);
+
       const total = sc.macro * 0.15 + sc.industry * 0.15 + sc.technical * 0.20 + sc.fundamental * 0.20 + sc.valuation * 0.15 + sc.risk * 0.15;
       let verdict = 'HOLD';
-      if (total >= 72) verdict = 'STRONG_BUY'; else if (total >= 62) verdict = 'BUY'; else if (total >= 52) verdict = 'ACCUMULATE'; else if (total >= 42) verdict = 'HOLD'; else if (total >= 32) verdict = 'REDUCE'; else verdict = 'AVOID';
+      if (total >= 72) verdict = 'STRONG_BUY';
+      else if (total >= 62) verdict = 'BUY';
+      else if (total >= 52) verdict = 'ACCUMULATE';
+      else if (total >= 42) verdict = 'HOLD';
+      else if (total >= 32) verdict = 'REDUCE';
+      else verdict = 'AVOID';
       return { dims: sc, total: Math.round(total), verdict };
     },
-    // business-cycle phase from three inputs: BI rate direction, CPI level, UST yield spread.
-    // GDP (id_gdp_real_q.latest_value) is a LEVEL ~15.58T IDR, not a growth rate — not used here.
-    // Yield spread = UST 10Y - UST 3M (both live in indByKey):
-    //   <0  => inverted => contraction bias
-    //   0-1 => late-cycle
-    //   >1  => mid expansion
-    // Returns {phase, favored, note, infl, spread, rateRising, confidence}.
+    // business-cycle phase for INDONESIA — uses ID-domestic signals only (no US yield spread).
+    // THREE VOTES:
+    //   1. BI rate trend: change_abs > 0 => tightening (-1), < 0 => easing (+1), null => skip.
+    //   2. CPI vs Bank Indonesia upper band 3.5%: id_cpi_yoy >= 3.5 => above-band (-1), else (+1).
+    //   3. China demand / growth: cn_pmi_mfg latest_value >= 50 => expansionary (+1), else (-1).
+    // Requires >=2 usable votes or returns phase='Insufficient data'.
+    // Returns {phase, favored, note, infl, biRate, cnPmi, rateRising, confidence, votes, totalVotes}.
     cyclePhase: (indByKey) => {
-      const bi = indByKey['id_bi_rate'], cpi = indByKey['id_cpi_yoy'];
-      const y10 = indByKey['ust_10y_y'], y3m = indByKey['ust_3m_y'];
-      // BI rate direction: guard null change_abs
-      const biChgAbs = bi && bi.change_abs != null ? Number(bi.change_abs) : null;
-      const rateRising = biChgAbs != null ? biChgAbs > 0 : null;
-      const infl = cpi && isNum(cpi.latest_value) ? Number(cpi.latest_value) : null;
-      // yield spread (pp)
-      const spread = (y10 && isNum(y10.latest_value) && y3m && isNum(y3m.latest_value))
-        ? Number(y10.latest_value) - Number(y3m.latest_value) : null;
-      // small vote: +1 expansion signal, -1 contraction signal
+      const bi = indByKey['id_bi_rate'];
+      const cpi = indByKey['id_cpi_yoy'];
+      const cnPmiInd = indByKey['cn_pmi_mfg'];
+
+      // Vote 1: BI rate direction — guard null change_abs (not available for all snapshots)
+      const biChgAbs = (bi && bi.change_abs != null && isNum(bi.change_abs)) ? Number(bi.change_abs) : null;
+      const rateRising = biChgAbs != null ? (biChgAbs > 0 ? true : biChgAbs < 0 ? false : null) : null;
+
+      // Vote 2: CPI vs BI 3.5% upper target band (NOT 4%)
+      const infl = (cpi && isNum(cpi.latest_value)) ? Number(cpi.latest_value) : null;
+      const biRate = (bi && isNum(bi.latest_value)) ? Number(bi.latest_value) : null;
+
+      // Vote 3: China PMI manufacturing >= 50 => expansion demand signal
+      const cnPmi = (cnPmiInd && isNum(cnPmiInd.latest_value)) ? Number(cnPmiInd.latest_value) : null;
+
+      // Tally votes
       let votes = 0, totalVotes = 0;
-      if (rateRising != null) { totalVotes++; if (!rateRising) votes++; else votes--; } // easing = expansion
-      if (infl != null) { totalVotes++; if (infl < 4) votes++; else votes--; }          // low infl = expansion
-      if (spread != null) { totalVotes++; if (spread > 1) votes += 1; else if (spread > 0) votes += 0; else votes -= 1; } // inverted = contraction
-      const score = totalVotes ? votes / totalVotes : 0; // -1 to +1
-      const confidence = totalVotes >= 2 ? (totalVotes === 3 ? 'high' : 'medium') : 'low';
+      if (rateRising != null) {
+        totalVotes++;
+        votes += rateRising ? -1 : 1; // easing = expansion signal
+      }
+      if (infl != null) {
+        totalVotes++;
+        votes += (infl >= 3.5) ? -1 : 1; // above BI upper band = inflationary pressure
+      }
+      if (cnPmi != null) {
+        totalVotes++;
+        votes += (cnPmi >= 50) ? 1 : -1; // PMI >= 50 = China demand expanding
+      }
+
+      // Require at least 2 votes to render a confident phase
+      if (totalVotes < 2) {
+        return { phase: 'Insufficient data', favored: [], note: 'Fewer than 2 domestic cycle signals available — cannot determine phase.', infl, biRate, cnPmi, rateRising, confidence: 'none', votes, totalVotes };
+      }
+
+      const confidence = totalVotes === 3 ? 'high' : 'medium';
+      const score = votes / totalVotes; // -1 to +1
+
       let phase, favored, note;
-      if (infl != null && infl > 4 && rateRising) {
-        phase = 'Slowdown'; favored = ['staples', 'health', 'coal', 'oilgas'];
-        note = 'Tightening into high inflation: defensives + energy/commodities favored.';
-      } else if (spread != null && spread < 0) {
-        phase = 'Contraction / Late-cycle'; favored = ['staples', 'health', 'goldmetal'];
-        note = 'Inverted yield curve signals late-cycle or contraction: defensives + gold favored.';
-      } else if (spread != null && spread <= 1) {
-        phase = 'Expansion (late)'; favored = ['banks', 'coal', 'nickel', 'industrials'];
-        note = 'Flat-to-modest yield spread, late expansion: financials + commodities favored.';
-      } else if (score > 0) {
-        phase = 'Expansion'; favored = ['banks', 'industrials', 'consumer'];
-        note = 'Mid-cycle: cyclicals and financials favored.';
+      if (infl != null && infl >= 3.5 && rateRising === true) {
+        // Tightening cycle into above-band inflation
+        phase = 'Slowdown / Tightening';
+        favored = ['staples', 'health', 'coal', 'oilgas', 'goldmetal'];
+        note = 'BI tightening into above-band CPI (' + infl.toFixed(1) + '% ≥ 3.5%). Defensives + commodity exporters favored.';
+      } else if (score <= -0.33 && rateRising === false) {
+        // Easing but still weak demand
+        phase = 'Recovery / Early Expansion';
+        favored = ['property', 'consumer', 'banks', 'tech'];
+        note = 'BI easing with CPI within band — early-cycle rate sensitives favored.';
+      } else if (score >= 0.33 && cnPmi != null && cnPmi >= 50) {
+        // Strong expansion signals + China demand
+        phase = 'Expansion';
+        favored = ['banks', 'industrials', 'consumer', 'nickel', 'coal'];
+        note = 'Domestic easing with China PMI ' + cnPmi.toFixed(1) + ' (above 50) — cyclicals and financials favored.';
+      } else if (score <= -0.33) {
+        // Multiple contraction signals
+        phase = 'Contraction Bias';
+        favored = ['staples', 'health', 'goldmetal'];
+        note = 'Multiple domestic headwinds — defensives favored.';
       } else {
-        phase = 'Recovery'; favored = ['property', 'consumer', 'banks', 'tech'];
-        note = 'Easing bias / below-trend signals: rate-sensitives + early cyclicals favored.';
+        // Mixed signals
+        phase = 'Late Expansion / Mixed';
+        favored = ['banks', 'coal', 'nickel', 'industrials'];
+        note = 'Mixed cycle signals — financials and commodity plays remain supported.';
       }
-      return { phase, favored, note, infl, spread, rateRising, confidence };
+      return { phase, favored, note, infl, biRate, cnPmi, rateRising, confidence, votes, totalVotes };
     },
-    // computed "kesimpulan" (conclusion: who's up/down + why). Handles null tilt.net gracefully.
-    kesimpulan: (ind, snap, conv, status, tilt) => {
-      const dir = status === 'BULLISH' ? 'leading' : status === 'BEARISH' ? 'lagging' : status === 'ROTATION' ? 'rotating' : 'mixed';
-      let drv;
-      if (tilt.net == null) {
-        drv = 'driver data unavailable';
-      } else if (tilt.net > 0.15) {
-        drv = 'demand/price drivers are a net tailwind';
-      } else if (tilt.net < -0.15) {
-        drv = 'drivers are a net headwind';
+    // computed "kesimpulan" (conclusion) — rule-based and conditional, not a static template.
+    // Combines: RS vs IHSG direction, breadth, driver net posture + primary driver direction,
+    // valuation signal, and ends with a forward Watch / Lean line.
+    // conv may be a number or {score,signalLabel,driverNet} object.
+    kesimpulan: (ind, snap, conv, status, tilt, indByKey) => {
+      const convScore = (conv && typeof conv === 'object') ? conv.score : (conv != null ? Number(conv) : 50);
+
+      // 1. RS vs IHSG framing
+      const rs = (indByKey && analytics.rsVsMarket) ? analytics.rsVsMarket(snap, indByKey) : null;
+      let rsLine;
+      if (rs == null) {
+        rsLine = status === 'BULLISH' ? ind.name + ' is outperforming the broader market today' :
+                 status === 'BEARISH' ? ind.name + ' is underperforming' : ind.name + ' is moving in line with the market';
+      } else if (rs > 0.3) {
+        rsLine = ind.name + ' is leading IHSG by ' + fmt.pct(rs) + ' today';
+      } else if (rs < -0.3) {
+        rsLine = ind.name + ' is lagging IHSG by ' + fmt.pct(Math.abs(rs)) + ' today';
       } else {
-        drv = 'drivers are balanced';
+        rsLine = ind.name + ' is tracking IHSG closely (' + fmt.pct(rs) + ' relative)';
       }
-      const br = Math.round(snap.breadth * 100);
-      const movers = snap.n ? `${snap.up}/${snap.n} names up today (${br}% breadth), cap-weighted ${fmt.pct(snap.mcapChg)}` : 'no tickers matched';
-      const drvDetail = tilt.net != null ? ` (${tilt.tail} tailwind / ${tilt.head} headwind)` : '';
-      return `${ind.name} is ${dir} (conviction ${conv}). ${movers}. Currently ${drv}${drvDetail}. Thesis: ${ind.thesis}`;
+
+      // 2. Breadth description (vary wording by level)
+      const br = Math.round((snap.breadth || 0) * 100);
+      let breadthLine;
+      if (!snap.n) {
+        breadthLine = 'no tickers matched';
+      } else if (br >= 70) {
+        breadthLine = 'Broad participation: ' + snap.up + '/' + snap.n + ' names advancing (' + br + '% breadth), cap-weighted ' + fmt.pct(snap.mcapChg);
+      } else if (br >= 50) {
+        breadthLine = 'Mild advance: ' + snap.up + '/' + snap.n + ' names up (' + br + '% breadth), cap-weighted ' + fmt.pct(snap.mcapChg);
+      } else if (br >= 30) {
+        breadthLine = 'Narrow or mixed: only ' + snap.up + '/' + snap.n + ' up (' + br + '% breadth), cap-weighted ' + fmt.pct(snap.mcapChg);
+      } else {
+        breadthLine = 'Broad retreat: only ' + snap.up + '/' + snap.n + ' names holding (' + br + '% breadth), cap-weighted ' + fmt.pct(snap.mcapChg);
+      }
+
+      // 3. Driver net posture WITH primary driver direction (not just count)
+      let drvLine;
+      if (!tilt || tilt.net == null) {
+        drvLine = 'Driver data unavailable.';
+      } else {
+        // find primary driver (highest weight) in postures
+        const primaryPosture = tilt.postures && tilt.postures.length
+          ? tilt.postures.reduce((best, p) => ((p.driver && p.driver.weight || 1) > (best.driver && best.driver.weight || 1)) ? p : best, tilt.postures[0])
+          : null;
+        let primaryNote = '';
+        if (primaryPosture) {
+          const primChg = primaryPosture.chg;
+          const primLabel = primaryPosture.label || primaryPosture.driver.label;
+          if (primChg != null && Math.abs(primChg) > 0.5) {
+            const dir = primChg > 0 ? 'rising' : 'falling';
+            const mag = Math.abs(primChg) > 5 ? ' sharply' : Math.abs(primChg) > 2 ? ' moderately' : '';
+            // check if it's at a peak-like level (change falling from positive territory)
+            const fromPeak = primChg < 0 && isNum(primaryPosture.value) && Number(primaryPosture.value) > 0
+              ? ' from recent highs' : '';
+            primaryNote = primLabel + ' is ' + dir + mag + fromPeak + ' (' + fmt.pct(primChg) + ')';
+          }
+        }
+        if (tilt.weightedNet > 0.2) {
+          drvLine = 'Supply/demand drivers are a net tailwind — ' + tilt.tail + ' tailwind vs ' + tilt.head + ' headwind' +
+            (primaryNote ? '; ' + primaryNote : '') + '.';
+        } else if (tilt.weightedNet < -0.2) {
+          drvLine = 'Drivers are a net headwind — ' + tilt.head + ' headwind vs ' + tilt.tail + ' tailwind' +
+            (primaryNote ? '; ' + primaryNote : '') + '.';
+        } else {
+          drvLine = 'Drivers are balanced (' + tilt.tail + ' tailwind / ' + tilt.head + ' headwind)' +
+            (primaryNote ? '; ' + primaryNote : '') + '.';
+        }
+      }
+
+      // 4. Valuation signal (varies: cheap/fair/stretched vs peers)
+      let valLine = '';
+      if (snap.medPE != null && isNum(snap.medPE) && Number(snap.medPE) > 0) {
+        const pe = Number(snap.medPE);
+        if (pe < 10) valLine = 'Sector trades at ' + fmt.num(pe, 1) + 'x earnings — deeply discounted vs typical market multiples.';
+        else if (pe < 15) valLine = 'Median PE of ' + fmt.num(pe, 1) + 'x suggests reasonable value.';
+        else if (pe < 25) valLine = 'Median PE ' + fmt.num(pe, 1) + 'x — fairly priced; earnings delivery matters.';
+        else valLine = 'Stretched valuation at ' + fmt.num(pe, 1) + 'x PE; priced for growth continuation.';
+      }
+
+      // 5. Forward Watch / Lean line (conditional on conviction + driver + status)
+      let forwardLine;
+      if (convScore >= 65 && tilt && tilt.weightedNet > 0.15) {
+        forwardLine = 'Lean: constructive — drivers and price action align; consider accumulating leaders on pullbacks.';
+      } else if (convScore <= 35 && tilt && tilt.weightedNet < -0.15) {
+        forwardLine = 'Watch: defensive posture warranted — await driver stabilization before adding exposure.';
+      } else if (status === 'ROTATION') {
+        forwardLine = 'Watch: rotation underway — breadth and price diverge; monitor which sub-sectors are leading.';
+      } else if (convScore >= 55) {
+        forwardLine = 'Lean: mildly constructive — hold positions; wait for driver confirmation to add.';
+      } else if (convScore <= 45) {
+        forwardLine = 'Watch: neutral-to-cautious — no strong edge; reduce overweights if drivers deteriorate.';
+      } else {
+        forwardLine = 'Watch: mixed signals — maintain market-weight; reassess on next driver or macro update.';
+      }
+
+      const parts = [rsLine + '.', breadthLine + '.', drvLine, valLine, forwardLine].filter(Boolean);
+      return parts.join(' ');
     },
-    // relative strength vs IHSG: sector mcap-weighted 1D change minus IHSG 1D proxy.
-    // Uses indByKey['id_share_price'].change_pct as IHSG proxy. Guards null.
+    // relative strength vs IHSG: sector mcap-weighted 1D change minus IHSG 1D.
+    // Primary key: 'jci' (Jakarta Composite, daily equity index — verified live).
+    // Fallback: 'id_share_price' (monthly FRED proxy — coarser, less ideal).
     // Returns a number (percentage points) or null if either side is missing.
     rsVsMarket: (snap, indByKey) => {
-      const ihsgInd = indByKey['id_share_price'];
+      const ihsgInd = indByKey['jci'] || indByKey['id_share_price'];
       // PostgREST returns change_pct as string — coerce
       const ihsgChg = (ihsgInd && ihsgInd.change_pct != null && isNum(ihsgInd.change_pct)) ? Number(ihsgInd.change_pct) : null;
       if (ihsgChg == null) return null;
       if (snap == null || snap.mcapChg == null) return null;
       return Number(snap.mcapChg) - ihsgChg;
+    },
+    // Expose the resolved IHSG change_pct for views that need the raw market level.
+    ihsgChg: (indByKey) => {
+      const ihsgInd = indByKey['jci'] || indByKey['id_share_price'];
+      return (ihsgInd && ihsgInd.change_pct != null && isNum(ihsgInd.change_pct)) ? Number(ihsgInd.change_pct) : null;
     },
   };
   INDUSTRY.an = analytics;

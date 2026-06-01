@@ -6,18 +6,18 @@
    Exposes window.IndustryWorkspace.
    ========================================================================= */
 (function () {
-  const { useState, useEffect, useMemo, useCallback } = React;
+  const { useState, useEffect, useMemo, useCallback, useRef } = React;
   const h = window.IND.h;
   const { Spark, Spinner, Empty, useToast, Modal, fmt } = window.IND;
   const { TAXONOMY, COMMODITY_TILES, REGIONS, an } = window.INDUSTRY;
 
   /* ---- favorability score (ML-free blend, 0-100) ---- */
-  // fav = conviction*0.5 + (50 + weightedNet*40)*0.3 + clamp(50 + rs*3, 0, 100)*0.2
+  // fav = convScore*0.5 + (50 + weightedNet*40)*0.3 + clamp(50 + rs*3, 0, 100)*0.2
   const clampFav = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  const calcFav = (conviction, tilt, rs) => {
+  const calcFav = (convScore, tilt, rs) => {
     const driverComp = 50 + (tilt && tilt.weightedNet != null ? tilt.weightedNet * 40 : 0);
     const rsComp     = rs != null ? clampFav(50 + rs * 3, 0, 100) : 50;
-    return Math.round(clampFav(conviction * 0.5 + driverComp * 0.3 + rsComp * 0.2, 0, 100));
+    return Math.round(clampFav(convScore * 0.5 + driverComp * 0.3 + rsComp * 0.2, 0, 100));
   };
 
   /* =====================================================================
@@ -44,6 +44,26 @@
     if (p === 'tailwind') return 'Tailwind';
     if (p === 'headwind') return 'Headwind';
     return 'Mixed';
+  };
+
+  /* ---- CSV export helper ---- */
+  const downloadCsv = (filename, rows, cols) => {
+    const header = cols.map(c => c.label).join(',');
+    const body = rows.map(row => cols.map(c => {
+      const v = c.get(row);
+      if (v == null) return '';
+      const s = String(v);
+      return s.includes(',') || s.includes('"') || s.includes('\n') ? '"' + s.replace(/"/g, '""') + '"' : s;
+    }).join(',')).join('\n');
+    const blob = new Blob([header + '\n' + body], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   /* =====================================================================
@@ -112,15 +132,21 @@
   /* =====================================================================
      TICKER DETAIL MODAL
      ===================================================================== */
-  function TickerModal({ row, peers, conviction, driverNet, onClose }) {
+  function TickerModal({ row, peers, convResult, driverNet, onClose }) {
     if (!row) return null;
+    const conviction = convResult && typeof convResult === 'object' ? convResult.score : (convResult != null ? Number(convResult) : 50);
     const peerMed = useMemo(() => {
       const vals = (k) => peers.map(r => r[k]).filter(v => v != null && !isNaN(v)).map(Number);
       const med = (arr) => { if (!arr.length) return null; const s = arr.slice().sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
       return { pe: med(vals('pe')), pb: med(vals('pb')), ev_ebitda: med(vals('ev_ebitda')), roe: med(vals('roe')), net_margin: med(vals('net_margin')), rev_growth: med(vals('rev_growth')) };
     }, [peers]);
 
-    const comp = an.competitive(row, peers, { peerMed, conviction, driverNet });
+    const sectorAvgChg = useMemo(() => {
+      const vals = peers.map(r => r.change_pct).filter(v => v != null && !isNaN(v)).map(Number);
+      return vals.length ? vals.reduce((s, v) => s + v, 0) / vals.length : null;
+    }, [peers]);
+
+    const comp = an.competitive(row, peers, { peerMed, sectorAvgChg, driverNet, conviction });
     const price52  = Number(row.price);
     const w52h     = Number(row.w52_high);
     const w52l     = Number(row.w52_low);
@@ -206,10 +232,13 @@
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
     // tilt must be computed before conviction so the driver component can contribute
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
-    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
-    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
+    // conviction() now returns {score, signalLabel, driverNet}
+    const convResult = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    const convScore = convResult.score;
+    const status = useMemo(() => an.status(convResult, snap), [convResult, snap]);
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
-    const kesimpulan = useMemo(() => an.kesimpulan(ind, snap, conviction, status, tilt), [ind, snap, conviction, status, tilt]);
+    // kesimpulan now takes 6th arg indByKey
+    const kesimpulan = useMemo(() => an.kesimpulan(ind, snap, convResult, status, tilt, indByKey), [ind, snap, convResult, status, tilt, indByKey]);
 
     const postures = useMemo(() => (ind.drivers || []).map(d => an.posture(d, indByKey)), [ind, indByKey]);
 
@@ -260,6 +289,14 @@
     const chipCls = statusChipClass(status);
 
     const DriverCard = ({ p }) => {
+      // noSeries: key intentionally absent from live_indicators — show "no series" explicitly
+      if (!p.found && p.noSeries) {
+        return h('div', { className: 'in-driver neutral' },
+          h('div', { className: 'in-driver-lbl' }, h('span', null, p.driver.label), h('span', { className: 'in-chip neu', style: { fontSize: 9, padding: '1px 5px' } }, 'no series')),
+          h('div', { className: 'in-driver-val in-muted' }, '—'),
+          h('div', { className: 'in-driver-meta' }, h('span', { className: 'in-kind' }, p.driver.kind), h('span', { className: 'in-muted', style: { fontFamily: 'var(--font-mono)', fontSize: 11 } }, 'not in feed'))
+        );
+      }
       if (!p.found) {
         return h('div', { className: 'in-driver neutral' },
           h('div', { className: 'in-driver-lbl' }, h('span', null, p.driver.label), h('span', { className: 'in-chip neu', style: { fontSize: 9, padding: '1px 5px' } }, 'N/A')),
@@ -314,13 +351,31 @@
       return found.find(p => p.driver && p.driver.kind === 'supply') || null;
     }, [postures]);
 
+    // driverNet for the TickerModal (from convResult)
+    const driverNet = convResult.driverNet != null ? convResult.driverNet : (tilt.weightedNet != null ? tilt.weightedNet : 0);
+
+    // CSV export for ticker table
+    const handleTickerCsv = useCallback(() => {
+      downloadCsv(ind.id + '_tickers.csv', sortedTickers, [
+        { label: 'Symbol',    get: r => r.symbol },
+        { label: 'Name',      get: r => r.name || '' },
+        { label: 'Price',     get: r => r.price },
+        { label: 'Change%',   get: r => r.change_pct },
+        { label: 'Mcap_IDR',  get: r => r.mcap },
+        { label: 'PE',        get: r => r.pe },
+        { label: 'ROE%',      get: r => r.roe },
+        { label: 'DivYield%', get: r => r.div_yield },
+        { label: 'Beta',      get: r => r.beta },
+      ]);
+    }, [sortedTickers, ind.id]);
+
     return h('div', { className: 'in-work' },
       toast,
       tickerModal && h(TickerModal, {
         row: tickerModal,
         peers: tickers,
-        conviction,
-        driverNet: tilt.net,
+        convResult,
+        driverNet,
         onClose: () => setTickerModal(null)
       }),
 
@@ -335,8 +390,8 @@
         /* tight stat row */
         h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 0, background: 'var(--bg-2)', borderRadius: 4, overflow: 'hidden' } },
           h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
-            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Conviction'),
-            h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: conviction >= 65 ? 'var(--pos)' : conviction <= 35 ? 'var(--neg)' : 'var(--text-primary)' } }, conviction + '/100')
+            h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, convResult.signalLabel || '1D Signal'),
+            h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: convScore >= 65 ? 'var(--pos)' : convScore <= 35 ? 'var(--neg)' : 'var(--text-primary)' } }, convScore + '/100')
           ),
           h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
             h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Status'),
@@ -348,6 +403,12 @@
               ? h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: rs > 0 ? 'var(--pos)' : rs < 0 ? 'var(--neg)' : 'var(--text-tertiary)' } }, (rs > 0 ? '+' : '') + rs.toFixed(1) + ' pp')
               : h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)' } }, '—')
           ),
+          snap.beta != null
+            ? h('div', { style: { padding: '6px 14px', borderRight: '1px solid var(--border-subtle,rgba(255,255,255,0.05))' } },
+                h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Beta'),
+                h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700, color: snap.beta > 1.3 ? 'var(--warn,#ffc65c)' : 'var(--text-primary)' } }, 'β ' + snap.beta.toFixed(2))
+              )
+            : null,
           h('div', { style: { padding: '6px 14px' } },
             h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-tertiary)', marginBottom: 2 } }, 'Driver Tilt'),
             h('div', { style: { fontSize: 13, fontFamily: 'var(--font-mono)', fontWeight: 700 } },
@@ -378,13 +439,13 @@
         h(DriversGroup, { title: 'Macro Drivers', items: macroDrivers })
       ),
 
-      /* sector performance proxy chart panel */
+      /* primary driver chart panel — renamed from "Sector Performance" */
       h('div', { className: 'in-chart-panel', style: { marginBottom: 16 } },
         h('div', { className: 'in-chart-header' },
           h('div', null,
-            h('div', { className: 'in-chart-title' }, 'Sector Performance'),
+            h('div', { className: 'in-chart-title' }, 'Primary Driver Chart'),
             primaryProxyPosture
-              ? h('div', { className: 'in-chart-subtitle' }, 'Proxy: ' + primaryProxyPosture.label + ' (' + primaryProxyPosture.driver.kind + ' driver)')
+              ? h('div', { className: 'in-chart-subtitle' }, primaryProxyPosture.label + ' — ' + primaryProxyPosture.driver.kind + ' driver')
               : h('div', { className: 'in-chart-subtitle' }, 'commodity proxy')
           ),
           primaryProxyPosture && h('div', { className: 'in-chart-kpis' },
@@ -423,10 +484,18 @@
       h('div', { className: 'in-panel', style: { marginBottom: 16 } },
         h('div', { className: 'in-panel-h' },
           h('div', { className: 'in-panel-title' }, 'Tickers — ' + ind.name),
-          h('div', { className: 'in-panel-tag' }, 'sorted by mcap · click for detail')
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
+            h('div', { className: 'in-panel-tag' }, 'sorted by mcap · click for detail'),
+            tickers.length > 0 && h('button', {
+              className: 'in-btn in-btn-ghost in-btn-sm',
+              onClick: handleTickerCsv,
+              title: 'Download CSV',
+              style: { fontSize: 10, padding: '3px 8px' }
+            }, 'CSV')
+          )
         ),
-        h('div', { style: { fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--warn)', marginBottom: 8 } },
-          '7D and 30D returns are pending a price-history table (later round). 1D data is live.'
+        h('div', { className: 'in-note', style: { marginBottom: 8 } },
+          '1D data live. 7D/30D returns require a price-history table (pending).'
         ),
         tickers.length === 0
           ? h(Empty, { title: 'No tickers', sub: 'No equity_screen rows matched this sector.' })
@@ -514,8 +583,8 @@
         )
       ),
 
-      /* peer comps note */
-      h('div', { className: 'in-banner', style: { fontSize: 11 } },
+      /* peer comps note — quiet .in-note, not a yellow box */
+      h('div', { className: 'in-note' },
         'Full peer comps, positioning quadrant, and 6-dim ticker rankings are in the ',
         h('b', null, 'Peer Comps (W2)'),
         ' workspace.'
@@ -529,12 +598,14 @@
   function SectorCard({ ind, equity, indByKey, cycleData, onClick }) {
     const tickers = useMemo(() => an.tickersFor(ind, equity), [ind, equity]);
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
-    // tilt must be before conviction so driver component contributes to the score
+    // tilt before conviction so driver component contributes
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
-    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
-    const status = useMemo(() => an.status(conviction, snap), [conviction, snap]);
+    // conviction() returns {score, signalLabel, driverNet}
+    const convResult = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    const convScore = convResult.score;
+    const status = useMemo(() => an.status(convResult, snap), [convResult, snap]);
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
-    const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
+    const fav = useMemo(() => calcFav(convScore, tilt, rs), [convScore, tilt, rs]);
 
     const chipCls = statusChipClass(status);
     const convColor = status === 'BULLISH' ? 'var(--pos)' : status === 'BEARISH' ? 'var(--neg)' : status === 'ROTATION' ? 'var(--in)' : 'var(--text-tertiary)';
@@ -560,6 +631,20 @@
       )
       : null;
 
+    // β pill — amber if high beta (>1.3)
+    const betaPill = snap.beta != null
+      ? h('span', {
+          style: {
+            fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700,
+            padding: '1px 5px', borderRadius: 3,
+            background: snap.beta > 1.3 ? 'rgba(255,198,92,0.15)' : 'var(--bg-3)',
+            color: snap.beta > 1.3 ? 'var(--warn,#ffc65c)' : 'var(--text-tertiary)',
+            border: snap.beta > 1.3 ? '1px solid rgba(255,198,92,0.35)' : '1px solid transparent',
+            whiteSpace: 'nowrap',
+          }
+        }, 'β ' + snap.beta.toFixed(1))
+      : null;
+
     return h('div', {
       className: 'in-card',
       style: cardStyle,
@@ -573,13 +658,14 @@
             : null
         ),
         h('div', { style: { display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 } },
+          betaPill,
           rsBadge,
           h('span', { className: 'in-chip ' + chipCls }, statusLabel(status))
         )
       ),
 
       h('div', { className: 'in-convbar' },
-        h('div', { className: 'in-convbar-fill', style: { width: conviction + '%', background: convColor } })
+        h('div', { className: 'in-convbar-fill', style: { width: convScore + '%', background: convColor } })
       ),
 
       h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 8 } },
@@ -611,11 +697,29 @@
 
   /* =====================================================================
      MOVEMENT ALERTS
+     Per-commodity thresholds stored in TAXONOMY tile config.
      ===================================================================== */
-  function MovementAlerts({ indicators, indByKey }) {
-    const HIGH_THRESH = 10;
-    const MED_THRESH  = 5;
+  // Per-commodity alert thresholds (key -> {high, med}). Defaults fall through.
+  const COMMODITY_THRESHOLDS = {
+    'wb_coal_au':  { high: 8,  med: 4 },
+    'wb_nickel':   { high: 8,  med: 4 },
+    'wb_palm_oil': { high: 6,  med: 3 },
+    'wb_tin':      { high: 8,  med: 4 },
+    'wti':         { high: 5,  med: 2.5 },
+    'brent':       { high: 5,  med: 2.5 },
+    'natgas':      { high: 8,  med: 4 },
+    'gold':        { high: 3,  med: 1.5 },
+    'copper':      { high: 5,  med: 2.5 },
+    'iron_ore':    { high: 6,  med: 3 },
+    'aluminum':    { high: 5,  med: 2.5 },
+    'lithium_etf': { high: 8,  med: 4 },
+    'dxy':         { high: 1.5,med: 0.75 },
+    'id_bi_rate':  { high: 0.5,med: 0.25 },
+    'id_cpi_yoy':  { high: 0.5,med: 0.25 },
+  };
+  const DEFAULT_THRESH = { high: 10, med: 5 };
 
+  function MovementAlerts({ indicators, indByKey }) {
     // Collect all driver keys referenced across TAXONOMY (deduplicated)
     const allDriverKeys = useMemo(() => {
       const seen = new Set();
@@ -625,25 +729,35 @@
 
     const bigAlerts = useMemo(() =>
       allDriverKeys
-        .map(k => indByKey[k])
-        .filter(Boolean)
-        .filter(i => Math.abs(Number(i.change_pct)) >= HIGH_THRESH)
+        .map(k => ({ item: indByKey[k], key: k }))
+        .filter(x => x.item)
+        .filter(x => {
+          const t = COMMODITY_THRESHOLDS[x.key] || DEFAULT_THRESH;
+          return Math.abs(Number(x.item.change_pct)) >= t.high;
+        })
+        .map(x => x.item)
         .sort((a, b) => Math.abs(Number(b.change_pct)) - Math.abs(Number(a.change_pct))),
       [allDriverKeys, indByKey]
     );
 
     const medAlerts = useMemo(() =>
       allDriverKeys
-        .map(k => indByKey[k])
-        .filter(Boolean)
-        .filter(i => { const abs = Math.abs(Number(i.change_pct)); return abs >= MED_THRESH && abs < HIGH_THRESH; })
+        .map(k => ({ item: indByKey[k], key: k }))
+        .filter(x => x.item)
+        .filter(x => {
+          const t = COMMODITY_THRESHOLDS[x.key] || DEFAULT_THRESH;
+          const abs = Math.abs(Number(x.item.change_pct));
+          return abs >= t.med && abs < t.high;
+        })
+        .map(x => x.item)
         .sort((a, b) => Math.abs(Number(b.change_pct)) - Math.abs(Number(a.change_pct))),
       [allDriverKeys, indByKey]
     );
 
     if (!bigAlerts.length && !medAlerts.length) return null;
 
-    return h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 8, marginBottom: 12 } },
+    // Movement alerts use .in-alert (amber, bold border) — not .in-banner
+    return h('div', { className: 'in-alert', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 8, marginBottom: 12 } },
       h('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', flexShrink: 0 } }, 'Movement Alerts'),
       bigAlerts.length > 0 && h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6 } },
         bigAlerts.map(i =>
@@ -773,39 +887,99 @@
   }
 
   /* =====================================================================
-     NEWS PANEL
+     NEWS PANEL — live RSS via Google News JSON bridge
+     Cached in sessionStorage per sector keyword (5 min TTL).
      ===================================================================== */
-  const NEWS_PLACEHOLDER = [
-    { src: 'Financial Times', title: 'Indonesia commodity exports surge amid global demand recovery', tag: 'Global' },
-    { src: 'CNBC International', title: 'Asian equity markets mixed; coal and CPO lead emerging-market gains', tag: 'Global' },
-    { src: 'The Economist', title: 'Indonesia commodity windfall: structural reform or cyclical uplift?', tag: 'Global' },
-    { src: 'Forbes Asia', title: 'EV battery metals: nickel oversupply clouds Indonesian miner outlook', tag: 'Global' },
-    { src: 'NYT Business', title: 'Palm oil prices jump on supply disruptions and biodiesel mandates', tag: 'Global' },
-    { src: 'CNBC Indonesia', title: 'IHSG melemah di tengah aksi profit taking sektor energi dan perbankan', tag: 'Local' },
-    { src: 'Kontan', title: 'Emiten batu bara cetak kinerja memuaskan kuartal ini, kenaikan harga Newcastle jadi katalis', tag: 'Local' },
-    { src: 'Bisnis Indonesia', title: 'BI pertahankan suku bunga acuan; sektor properti dan konsumer berpotensi diuntungkan', tag: 'Local' },
-    { src: 'IDX News', title: 'Laporan keuangan Q1 2026: mayoritas emiten bank catat pertumbuhan kredit di atas 10%', tag: 'Local' },
-    { src: 'Kompas Bisnis', title: 'Pemerintah dorong hilirisasi nikel; saham INCO dan ANTM jadi sorotan analis', tag: 'Local' },
-  ];
+  // Sector keyword map for Google News query
+  const SECTOR_KEYWORDS = {
+    coal:       'coal Indonesia IDX ADRO PTBA',
+    nickel:     'nickel Indonesia LME INCO ANTM',
+    cpo:        'palm oil CPO Indonesia AALI LSIP',
+    tin:        'tin Indonesia TINS LME',
+    oilgas:     'oil gas Indonesia MEDC PGAS energy',
+    goldmetal:  'gold mining Indonesia MDKA ANTM',
+    banks:      'bank Indonesia BCA BRI MANDIRI BBRI',
+    property:   'property real estate Indonesia IDX',
+    consumer:   'consumer retail Indonesia IDX saham',
+    staples:    'consumer staples Indonesia UNVR ICBP MYOR',
+    tech:       'technology digital Indonesia IDX saham',
+    health:     'healthcare hospital pharma Indonesia IDX',
+    industrials:'industrials manufacturing Indonesia IDX INTP SMGR',
+    infra:      'infrastructure toll Indonesia IDX JSMR WSKT',
+    transport:  'transport logistics Indonesia IDX GIAA ASSA',
+  };
+  const DEFAULT_NEWS_KEYWORD = 'Indonesia IDX stock market saham IHSG';
+  const NEWS_CACHE_TTL = 300000; // 5 min
 
-  function NewsPanel() {
+  function NewsPanel({ sectorId }) {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+      const kw = (sectorId && SECTOR_KEYWORDS[sectorId]) ? SECTOR_KEYWORDS[sectorId] : DEFAULT_NEWS_KEYWORD;
+      const cacheKey = 'news:' + kw;
+      // Check sessionStorage cache
+      try {
+        const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+        if (cached && Date.now() - cached.t < NEWS_CACHE_TTL) {
+          setItems(cached.v);
+          setLoading(false);
+          return;
+        }
+      } catch (e) {}
+
+      setLoading(true);
+      setError(null);
+
+      // Use rss2json.com public API to convert Google News RSS to JSON
+      const rssUrl = encodeURIComponent('https://news.google.com/rss/search?q=' + encodeURIComponent(kw) + '&hl=en-ID&gl=ID&ceid=ID:en');
+      fetch('https://api.rss2json.com/v1/api.json?rss_url=' + rssUrl + '&count=10')
+        .then(r => r.ok ? r.json() : Promise.reject(new Error('news fetch failed')))
+        .then(data => {
+          const entries = (data && data.items) ? data.items.map(item => ({
+            title: item.title || '',
+            src: item.author || (item.source && item.source.name) || 'Google News',
+            url: item.link || item.guid || '',
+            pub: item.pubDate || '',
+          })) : [];
+          try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), v: entries })); } catch(e) {}
+          setItems(entries);
+          setLoading(false);
+        })
+        .catch(err => {
+          setError('News feed temporarily unavailable.');
+          setLoading(false);
+        });
+    }, [sectorId]);
+
     return h('div', { className: 'in-panel' },
       h('div', { className: 'in-panel-h' },
         h('div', { className: 'in-panel-title' }, 'News'),
-        h('div', { className: 'in-panel-tag' }, 'feed integration pending')
+        h('div', { className: 'in-panel-tag' }, sectorId ? (SECTOR_KEYWORDS[sectorId] ? sectorId + ' feed' : 'general feed') : 'general feed')
       ),
-      h('div', { className: 'in-news-placeholder-note' },
-        '⚠ Placeholder headlines — live news feed not yet wired.'
-      ),
-      NEWS_PLACEHOLDER.map((item, i) =>
-        h('div', { key: i, className: 'in-news-item' },
-          h('div', { className: 'in-news-title' }, item.title),
-          h('div', { className: 'in-news-src' },
-            item.src,
-            h('span', { className: 'in-news-tag' }, item.tag)
-          )
-        )
-      )
+      loading
+        ? h('div', { className: 'in-loading', style: { padding: 20 } }, h('span', { className: 'in-spin' }), 'Loading news…')
+        : error
+          ? h('div', { className: 'in-muted', style: { fontSize: 11, padding: '10px 0' } }, error)
+          : items.length === 0
+            ? h('div', { className: 'in-muted', style: { fontSize: 11, padding: '10px 0' } }, 'No news items found.')
+            : items.map((item, i) =>
+                h('a', {
+                  key: i,
+                  className: 'in-news-item',
+                  href: item.url || '#',
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  style: { textDecoration: 'none' }
+                },
+                  h('div', { className: 'in-news-title' }, item.title),
+                  h('div', { className: 'in-news-src' },
+                    item.src,
+                    item.pub && h('span', { className: 'in-news-tag' }, item.pub.slice(0, 10))
+                  )
+                )
+              )
     );
   }
 
@@ -815,7 +989,7 @@
   // Sort keys for the sector grid
   const SORT_OPTIONS = [
     { id: 'fav',        label: 'Favorability' },
-    { id: 'conviction', label: 'Conviction' },
+    { id: 'conviction', label: '1D Signal' },
     { id: 'rs',         label: 'RS vs IHSG' },
     { id: 'chg1d',      label: '1D Chg' },
     { id: 'mcap',       label: 'Mcap' },
@@ -827,14 +1001,16 @@
     const snap = useMemo(() => an.snapshot(tickers), [tickers]);
     // tilt before conviction so driver component contributes
     const tilt = useMemo(() => an.driverTilt(ind, indByKey), [ind, indByKey]);
-    const conviction = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    // conviction() returns {score, signalLabel, driverNet}
+    const convResult = useMemo(() => an.conviction(snap, tilt), [snap, tilt]);
+    const convScore = convResult.score;
     const rs = useMemo(() => an.rsVsMarket(snap, indByKey), [snap, indByKey]);
-    const fav = useMemo(() => calcFav(conviction, tilt, rs), [conviction, tilt, rs]);
+    const fav = useMemo(() => calcFav(convScore, tilt, rs), [convScore, tilt, rs]);
 
     // Bubble metrics up to Landing so it can sort without re-computing
     useEffect(() => {
-      if (onMetrics) onMetrics(ind.id, { fav, conviction, rs, chg1d: snap.mcapChg, mcap: snap.mcap });
-    }, [ind.id, fav, conviction, rs, snap.mcapChg, snap.mcap]);
+      if (onMetrics) onMetrics(ind.id, { fav, conviction: convScore, rs, chg1d: snap.mcapChg, mcap: snap.mcap });
+    }, [ind.id, fav, convScore, rs, snap.mcapChg, snap.mcap]);
 
     return h(SectorCard, { ind, equity, indByKey, cycleData, onClick });
   }
@@ -846,14 +1022,14 @@
      ===================================================================== */
   // Commodity-industry mapping for the driver lens
   const COMMODITY_INDUSTRIES = [
-    { id: 'coal',      label: 'Coal & Mining',         keys: ['wb_coal_au', 'wb_idx_energy', 'wb_natgas_eu'] },
-    { id: 'nickel',    label: 'Nickel & Battery Metals', keys: ['wb_nickel', 'wb_idx_metals', 'lithium_etf'] },
-    { id: 'cpo',       label: 'Plantation & CPO',       keys: ['wb_palm_oil', 'soybean_oil', 'wb_fert_idx'] },
-    { id: 'tin',       label: 'Tin',                    keys: ['wb_tin', 'wb_idx_metals'] },
+    { id: 'coal',      label: 'Coal & Mining',         keys: ['wb_coal_au', 'bcom', 'natgas'] },
+    { id: 'nickel',    label: 'Nickel & Battery Metals', keys: ['wb_nickel', 'copper', 'lithium_etf'] },
+    { id: 'cpo',       label: 'Plantation & CPO',       keys: ['wb_palm_oil', 'soybean_oil', 'wb_urea'] },
+    { id: 'tin',       label: 'Tin',                    keys: ['wb_tin', 'copper', 'cn_ip_yoy'] },
     { id: 'oilgas',    label: 'Oil & Gas',               keys: ['wti', 'brent', 'wb_lng_jp'] },
-    { id: 'goldmetal', label: 'Gold & Precious',         keys: ['gold', 'silver', 'copper'] },
+    { id: 'goldmetal', label: 'Gold & Precious',         keys: ['gold', 'copper', 'dxy'] },
   ];
-  const US_MACRO_KEYS = ['ust_10y_y', 'ust_3m_y', 'fed_funds', 'dxy', 'sp500', 'vix', 'us_cpi_yoy', 'us_ism_mfg', 'natgas', 'wti', 'brent'];
+  const US_MACRO_KEYS = ['us_2s10s', 'us_3m10y', 'us_fed_funds', 'us_10y', 'us_cpi', 'us_indpro', 'us_caputil', 'us_housing_starts', 'us_umich', 'dxy'];
 
   function GlobalDriverLens({ indicators, region, setCommodityModal }) {
     const indByKey = useMemo(() => {
@@ -868,11 +1044,10 @@
     }, [region, indByKey]);
 
     return h('div', { className: 'in-work' },
-      // region note
-      h('div', { className: 'in-banner', style: { marginBottom: 14, flexDirection: 'column', alignItems: 'flex-start', gap: 4 } },
-        h('b', null, region === 'us' ? 'US' : 'Global'), ' lens — commodity & macro driver view.',
-        h('span', { className: 'in-muted', style: { fontSize: 11 } },
-          'Single-name equity coverage: Indonesia (IDX). Global/US = commodity & macro driver lens only — switch to Indonesia for sector grid & stock data.')
+      // region note — quiet gray text, NOT a yellow box
+      h('div', { className: 'in-note', style: { marginBottom: 14 } },
+        h('b', null, region === 'us' ? 'US' : 'Global'),
+        ' lens — commodity & macro driver view. Single-name equity coverage: Indonesia (IDX) only. Switch to Indonesia for sector grid & stock data.'
       ),
 
       /* commodity strip */
@@ -996,9 +1171,11 @@
       return an.cyclePhase(indByKey);
     }, [indByKey]);
 
+    // FIXED: real region filter — 'id' shows only id-region taxonomy entries;
+    // non-'id' regions show the GlobalDriverLens component (no empty IDX cards)
     const filteredTaxonomy = useMemo(() =>
-      TAXONOMY.filter(ind => ind.region === 'id' || ind.region === region),
-      [region]
+      TAXONOMY.filter(ind => ind.region === 'id'),
+      []
     );
 
     // Stable metrics callback
@@ -1042,9 +1219,9 @@
     return h('div', { className: 'in-work' },
       commodityModal && h(CommodityModal, { item: commodityModal, onClose: () => setCommodityModal(null) }),
 
-      /* cycle banner */
+      /* cycle banner — graceful "Insufficient data" render */
       cycleData && h('div', { className: 'in-cycle', style: { marginBottom: 14 } },
-        h('div', { className: 'in-cycle-phase' }, cycleData.phase),
+        h('div', { className: 'in-cycle-phase', style: { color: cycleData.phase === 'Insufficient data' ? 'var(--text-tertiary)' : 'var(--in)' } }, cycleData.phase),
         h('div', { style: { flex: 1 } },
           h('div', { style: { fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 } }, cycleData.note),
           cycleData.favored && cycleData.favored.length > 0
@@ -1057,16 +1234,20 @@
                     : null;
                 })
               )
+            : null,
+          cycleData.confidence && cycleData.confidence !== 'none'
+            ? h('div', { style: { fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--text-tertiary)', marginTop: 4 } },
+                cycleData.votes + '/' + cycleData.totalVotes + ' signals · ' + cycleData.confidence + ' confidence')
             : null
         ),
         h('div', { style: { textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-tertiary)', whiteSpace: 'nowrap' } },
           cycleData.infl != null ? h('div', null, 'CPI ' + fmt.num(cycleData.infl, 1) + '%') : null,
-          cycleData.spread != null ? h('div', null, 'Spread ' + (cycleData.spread >= 0 ? '+' : '') + Number(cycleData.spread).toFixed(2) + 'pp') : null,
+          cycleData.biRate != null ? h('div', null, 'BI Rate ' + fmt.num(cycleData.biRate, 2) + '%') : null,
           cycleData.rateRising != null ? h('div', null, cycleData.rateRising ? 'Rates Rising' : 'Rates Stable') : null
         )
       ),
 
-      /* movement alerts */
+      /* movement alerts — uses .in-alert class */
       h(MovementAlerts, { indicators, indByKey }),
 
       /* top opportunities strip — leaders / laggards at a glance */
@@ -1133,17 +1314,18 @@
         )
       ),
 
-      /* news */
-      h(NewsPanel, null)
+      /* news — live feed, no sectorId on landing (general feed) */
+      h(NewsPanel, { sectorId: null })
     );
   }
 
   /* =====================================================================
-     HEADER
+     HEADER — distinct icons per region + terminal mark
      ===================================================================== */
   function Header({ region, onRegion }) {
     return h('div', { className: 'in-head' },
       h('div', { className: 'in-head-mark' },
+        /* Industry terminal mark: landscape/grid icon (4 rects) */
         h('svg', { viewBox: '0 0 15 15', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 },
           h('rect', { x: 1, y: 1, width: 5, height: 5, rx: 0.5 }),
           h('rect', { x: 9, y: 1, width: 5, height: 5, rx: 0.5 }),
@@ -1180,6 +1362,26 @@
     const [reloadKey, setReloadKey] = useState(0);
     const [toast, push] = useToast();
 
+    // Keyboard shortcuts: 1/2/3 → workspace tabs (if openTab available),
+    // I → Indonesia, G → Global, U → US, Esc → back to landing
+    useEffect(() => {
+      const handler = (e) => {
+        // Skip if user is in an input/textarea
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) return;
+        if (e.key === 'Escape' && selectedSector) {
+          setSelectedSector(null);
+        } else if (e.key === 'i' || e.key === 'I') {
+          setRegion('id'); setSelectedSector(null);
+        } else if (e.key === 'g' || e.key === 'G') {
+          setRegion('global'); setSelectedSector(null);
+        } else if (e.key === 'u' || e.key === 'U') {
+          setRegion('us'); setSelectedSector(null);
+        }
+      };
+      window.addEventListener('keydown', handler);
+      return () => window.removeEventListener('keydown', handler);
+    }, [selectedSector]);
+
     useEffect(() => {
       setLoading(true);
       setError(null);
@@ -1211,7 +1413,7 @@
         ? h(Spinner, { label: 'Loading sector data…' })
         : error
           ? h('div', { className: 'in-work' },
-              h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
+              h('div', { className: 'in-error-banner', style: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
                 h('div', null, error),
                 h('button', {
                   className: 'in-btn',

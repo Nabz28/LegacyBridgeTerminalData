@@ -4,17 +4,49 @@
    6-dimension score modal. Pure vanilla Babel-in-browser React.
    No imports — reads window.INDUSTRY, window.IND (from industry-core.jsx).
    Exposes window.IndCompsWorkspace.
-   Accent: amber via in- CSS classes. IDX data only (equity_screen).
+
+   CHANGELOG (Fix Round):
+   1. Region selector: Indonesia / US / Global toggle.
+      - Indonesia → public.equity_screen
+      - US → public.equity_screen_global (169 US large-caps, same schema + market/currency)
+      - Global → both combined
+   2. "View By" toggle: By IDX Sector vs By Commodity Industry (TAXONOMY tickers).
+   3. CSV export on peer comps table (client-side Blob download).
+   4. Ticker-level competitive scores: pass ctx.sectorAvgChg + ctx.driverNet so
+      peers differ on Industry/Macro dims (was sector-flat before).
+   5. SVG PositioningQuadrant: replaces fragile div calc() positioning with an
+      explicit SVG scatter (mcap-sized dots, axis labels, responsive viewBox).
+   6. conviction() now returns an OBJECT {score, signalLabel, driverNet}; all
+      call-sites updated to use .score / convictionScore(). status() handles
+      conviction object. kesimpulan() receives 6th arg indByKey.
    ========================================================================= */
 (function () {
   const { useState, useEffect, useMemo, useCallback, useRef } = React;
   const { h, Spinner, Empty, useToast, Modal, fmt } = window.IND;
   const { TAXONOMY, an, equity: fetchEquity, indicators: fetchIndicators } = window.INDUSTRY;
 
+  /* ---- US equity fetcher (equity_screen_global, same schema) ----------- */
+  const IND_BASE = 'https://adnubucjlezrtusbicja.supabase.co/rest/v1';
+  const IND_ANON = 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7';
+  const hdrPub = () => ({ apikey: IND_ANON, Authorization: 'Bearer ' + IND_ANON, 'Accept-Profile': 'public' });
+  const cacheGet = (k) => { try { const r = JSON.parse(sessionStorage.getItem('ind:' + k) || 'null'); return (r && Date.now() - r.t < 300000) ? r.v : null; } catch { return null; } };
+  const cacheSet = (k, v) => { try { sessionStorage.setItem('ind:' + k, JSON.stringify({ t: Date.now(), v })); } catch {} };
+
+  function fetchUsEquity() {
+    const c = cacheGet('equity_us');
+    if (c) return Promise.resolve(c);
+    return fetch(
+      IND_BASE + '/equity_screen_global?select=symbol,yahoo,name,sector,sub_sector,price,change_pct,mcap,pe,pb,ps,ev_ebitda,roe,roa,net_margin,gross_margin,rev_growth,earnings_growth,debt_equity,current_ratio,beta,div_yield,w52_high,w52_low,adv_value,avg_volume,market,currency&order=mcap.desc&limit=2000',
+      { headers: hdrPub() }
+    ).then(r => r.ok ? r.json() : Promise.reject(new Error('US equity ' + r.status)))
+     .then(v => { cacheSet('equity_us', v); return v; });
+  }
+
   /* ---- helpers ---------------------------------------------------------- */
   const isNum = (v) => v !== null && v !== undefined && v !== '' && !isNaN(Number(v));
   const toN   = (v) => Number(v);
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const mean  = (arr) => { const a = arr.filter(isNum).map(Number); return a.length ? a.reduce((s, x) => s + x, 0) / a.length : null; };
 
   // Build a peer-median object from an array of equity rows
   function computePeerMed(rows) {
@@ -40,10 +72,9 @@
 
   // Color a cell vs peer median: green = better, red = worse
   // lowerBetter=true for valuation (PE, PB, EV/EBITDA)
-  // For lowerBetter metrics, negative/zero values are loss-makers — not a value signal.
   function cellCls(val, medVal, lowerBetter) {
     if (!isNum(val) || !isNum(medVal) || toN(medVal) === 0) return '';
-    if (lowerBetter && toN(val) <= 0) return 'in-neg'; // loss-maker: never color green
+    if (lowerBetter && toN(val) <= 0) return 'in-neg';
     const better = lowerBetter ? toN(val) < toN(medVal) : toN(val) > toN(medVal);
     return better ? 'in-pos' : 'in-neg';
   }
@@ -58,11 +89,9 @@
     AVOID:      { label: 'Avoid',      cls: 'avoid' },
   };
 
-  // Percentile rank of value v within array vals (higher = better unless inverted).
-  // Returns 0.5 (neutral) when v is missing or non-positive for lowerBetter metrics.
+  // Percentile rank: higher = better unless inverted
   function pctRank(v, vals, invert) {
     if (!isNum(v)) return 0.5;
-    // For invert=true (valuation), non-positive multiples are not meaningful — neutral
     if (invert && toN(v) <= 0) return 0.5;
     const nums = vals
       .filter(x => isNum(x) && (!invert || toN(x) > 0))
@@ -74,9 +103,6 @@
   }
 
   // Build per-ticker x/y for the positioning quadrant.
-  // x = valuation-adjusted: 70% valuation rank (cheap=right) + 15% rev_growth + 15% earnings_growth.
-  // y = quality: ROE + net_margin tilt + gross_margin modifier.
-  // noValuation=true if a ticker has no valid positive multiples.
   function buildQuadrantCoords(rows) {
     const pes   = rows.map(r => r.pe);
     const pbs   = rows.map(r => r.pb);
@@ -109,6 +135,34 @@
     });
   }
 
+  /* ---- CSV export helper ----------------------------------------------- */
+  function exportCSV(rows, peerMed, scores, filename) {
+    const headers = ['Symbol','Name','Sector','Sub-Sector','Mcap','1D%','P/E','P/B','EV/EBITDA','ROE%','Net Margin%','Rev Growth%','Div Yield%','Score','Verdict'];
+    const esc = (v) => { const s = String(v == null ? '' : v); return s.includes(',') || s.includes('"') ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    const num = (v, d) => isNum(v) ? toN(v).toFixed(d == null ? 2 : d) : '';
+    const lines = [
+      headers.join(','),
+      // peer median row
+      ['MEDIAN','','','',num(peerMed.mcap,0),num(peerMed.change_pct,2),num(peerMed.pe,1),num(peerMed.pb,2),num(peerMed.ev_ebitda,1),num(peerMed.roe,1),num(peerMed.net_margin,1),num(peerMed.rev_growth,1),num(peerMed.div_yield,2),'',''].join(','),
+      ...rows.map(r => {
+        const s = scores[r.symbol];
+        return [
+          esc(r.symbol), esc(r.name || ''), esc(r.sector || ''), esc(r.sub_sector || ''),
+          num(r.mcap, 0), num(r.change_pct, 2),
+          num(r.pe, 1), num(r.pb, 2), num(r.ev_ebitda, 1),
+          num(r.roe, 1), num(r.net_margin, 1), num(r.rev_growth, 1), num(r.div_yield, 2),
+          s ? s.total : '', s ? s.verdict : '',
+        ].join(',');
+      }),
+    ];
+    const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename || 'peer_comps.csv';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+  }
+
   /* ---- build sector/sub_sector pick list from live equity --------------- */
   function buildSectorList(equityRows) {
     const sectorSet = {};
@@ -124,13 +178,11 @@
 
   /* =========================================================================
      Sub-component: STANDOUTS SUMMARY
-     Auto-surfaces cheapest quality names, most expensive, and value traps.
      ========================================================================= */
   function StandoutsSummary({ peers, scores, peerMed }) {
     const standouts = useMemo(() => {
       if (!peers.length || !Object.keys(scores).length) return null;
 
-      // Enrich peers with numeric coercion and score
       const enriched = peers.map(r => {
         const s = scores[r.symbol];
         const score   = s ? s.total : 50;
@@ -147,19 +199,16 @@
       const medPE  = peerMed.pe  && toN(peerMed.pe)  > 0 ? toN(peerMed.pe)  : null;
       const medROE = peerMed.roe != null ? toN(peerMed.roe) : null;
 
-      // Cheapest quality: top 2 by score among those with valuation score >= 60 (genuinely cheap)
       const cheapQ = enriched
         .filter(r => r._val >= 60 && r._score >= 55 && r._fun >= 50)
         .sort((a, b) => b._score - a._score)
         .slice(0, 2);
 
-      // Most expensive: lowest valuation score + highest score overall (quality premium)
       const expensive = enriched
         .filter(r => r._val < 40)
         .sort((a, b) => b._score - a._score)
         .slice(0, 1);
 
-      // Value traps: cheap valuation but weak quality + weak/negative growth
       const valueTrap = enriched
         .filter(r => r._val >= 60 && r._fun < 42 && (r._revg == null || r._revg < 5))
         .sort((a, b) => b._val - a._val)
@@ -228,19 +277,24 @@
   /* =========================================================================
      Sub-component: METHODOLOGY NOTE
      ========================================================================= */
-  function MethodologyNote() {
+  function MethodologyNote({ region }) {
+    const regionNote = region === 'us'
+      ? 'US data from equity_screen_global (169 large-caps). Scores are peer-relative within the selected US sector.'
+      : region === 'global'
+      ? 'Global view combines Indonesia + US equity universes. Peer comparison is cross-market.'
+      : 'All data from IDX equity_screen (daily snapshot).';
     return h('div', { style: { marginTop: 20, padding: '12px 14px', background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 'var(--r-3,4px)', fontSize: 11.5, lineHeight: 1.6, color: 'var(--text-tertiary,#8e9ab0)' } },
       h('span', { style: { color: 'var(--in,#f5a623)', fontWeight: 600, fontFamily: 'var(--font-mono,monospace)', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', marginRight: 8 } }, 'Methodology'),
       'Score (0–100) = Macro 15% + Industry 15% + Technical 20% + Fundamental 20% + Valuation 15% + Risk 15%. ',
       'Valuation is ',
       h('em', null, 'peer-relative'),
-      ': cheaper vs the selected peer set scores higher. Negative/zero multiples are penalised (distress). Fundamental quality (ROE, margins, growth) likewise peer-relative. Technical proxied by 1-day change and 52-week range position. Risk uses beta, D/E, and current ratio. Macro and Industry dimensions inherit the sector-level conviction. All data from IDX equity_screen (daily snapshot).'
+      ': cheaper vs the selected peer set scores higher. Negative/zero multiples are penalised (distress). Industry dim = ticker RS vs sector mean change (ticker-level, not uniform). Macro dim = sector driverNet × ticker beta/D/E sensitivity. ',
+      regionNote
     );
   }
 
   /* =========================================================================
      Sub-component: TICKER DETAIL MODAL
-     Includes 6-dim bars + percentile ranks within peer set for PE, ROE, growth.
      ========================================================================= */
   function TickerModal({ row, score, peers, peerRankText, onClose }) {
     if (!row || !score) return null;
@@ -254,7 +308,6 @@
       { key: 'risk',        label: 'Risk',        w: 15 },
     ];
 
-    // Percentile rank display helper
     const peerPctRankDisplay = useMemo(() => {
       if (!peers || !peers.length) return {};
       const pes   = peers.map(r => r.pe);
@@ -263,12 +316,8 @@
       const pbs   = peers.map(r => r.pb);
       const evs   = peers.map(r => r.ev_ebitda);
 
-      const fmtPct = (rank) => {
-        const pct = Math.round(rank * 100);
-        return pct + 'th pctl';
-      };
-
-      const peRank   = pctRank(row.pe,         pes,   true);   // cheaper = better rank
+      const fmtPct = (rank) => Math.round(rank * 100) + 'th pctl';
+      const peRank   = pctRank(row.pe,         pes,   true);
       const roeRank  = pctRank(row.roe,         roes,  false);
       const revgRank = pctRank(row.rev_growth,  revgs, false);
       const pbRank   = pctRank(row.pb,          pbs,   true);
@@ -286,7 +335,6 @@
     const vmap = VERDICT_MAP[score.verdict] || { label: score.verdict, cls: 'hold' };
 
     return h(Modal, { title: row.symbol + ' — Competitive Score', onClose, wide: false },
-      // header row
       h('div', { style: { display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 } },
         h('div', null,
           h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-tertiary,#8e9ab0)' } }, row.sector + (row.sub_sector ? ' · ' + row.sub_sector : '')),
@@ -297,10 +345,8 @@
           h('span', { className: 'in-verdict ' + vmap.cls }, vmap.label),
         ),
       ),
-      // peer rank note
       peerRankText && h('div', { style: { fontSize: 12, color: 'var(--text-tertiary,#8e9ab0)', marginBottom: 14, fontFamily: 'var(--font-mono,monospace)' } }, peerRankText),
 
-      // 6-dim bars
       h('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
         dims.map(d => {
           const v = Math.round(score.dims[d.key] || 0);
@@ -321,7 +367,6 @@
         })
       ),
 
-      // percentile rank panel
       h('div', { style: { marginTop: 16, padding: '10px 12px', background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--r-2,3px)' } },
         h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-tertiary,#8e9ab0)', marginBottom: 8 } }, 'Peer Percentile Ranks (' + (peers ? peers.length : 0) + ' names)'),
         h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
@@ -341,10 +386,9 @@
         )
       ),
 
-      // key stats grid
       h('div', { style: { marginTop: 14, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 } },
         [
-          ['Price',      fmt.money(row.price)],
+          ['Price',      fmt.money ? fmt.money(row.price) : fmt.num(row.price, 2)],
           ['Mkt Cap',    fmt.mcap(row.mcap)],
           ['1D Chg',     fmt.pct(row.change_pct)],
           ['P/E',        fmt.num(row.pe, 1)],
@@ -367,9 +411,9 @@
   }
 
   /* =========================================================================
-     Sub-component: PEER COMPS TABLE — sortable columns, pinned median row
+     Sub-component: PEER COMPS TABLE — sortable columns, pinned median row,
+     CSV export button.
      ========================================================================= */
-  // Sortable column definitions
   const COL_DEFS = [
     { key: 'symbol',     label: 'Symbol',    cls: '',  sortable: false, lowerBetter: false,
       render: (r) => h('span', { className: 'in-sym' }, r.symbol) },
@@ -422,10 +466,9 @@
     return h('span', { style: { marginLeft: 4, fontSize: 9, color: 'var(--in,#f5a623)' } }, direction === 'asc' ? '↑' : '↓');
   }
 
-  function PeerCompsTable({ peers, peerMed, scores, conviction, onRowClick, selectedSymbol, onQuadrantSync }) {
-    // sort state: default = score desc
-    const [sortKey, setSortKey]   = useState('_score');
-    const [sortDir, setSortDir]   = useState('desc');
+  function PeerCompsTable({ peers, peerMed, scores, convictionScore, onRowClick, selectedSymbol, onQuadrantSync, onExportCSV }) {
+    const [sortKey, setSortKey] = useState('_score');
+    const [sortDir, setSortDir] = useState('desc');
 
     const handleHeaderClick = useCallback((col) => {
       if (!col.sortable) return;
@@ -433,7 +476,6 @@
         setSortDir(d => d === 'asc' ? 'desc' : 'asc');
       } else {
         setSortKey(col.key);
-        // for lowerBetter cols (valuation) default asc (cheapest first); others desc
         setSortDir(col.lowerBetter ? 'asc' : 'desc');
       }
     }, [sortKey]);
@@ -445,7 +487,6 @@
       return [...peers].sort((a, b) => {
         const va = col.getValue(a, scores);
         const vb = col.getValue(b, scores);
-        // push nulls/Infinity to end regardless of direction
         if (va === Infinity  && vb === Infinity)  return 0;
         if (va === -Infinity && vb === -Infinity) return 0;
         if (va === Infinity  || va === -Infinity) return 1;
@@ -456,7 +497,6 @@
 
     const cols = COL_DEFS;
 
-    // Median pseudo-row — pinned at bottom, not affected by sort
     const medRow = h('tr', { key: '__median', className: 'in-median' },
       h('td', { colSpan: 2, style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--in,#f5a623)', fontWeight: 700, paddingLeft: 12 } }, 'Peer Median'),
       h('td', { className: 'r in-num' }, fmt.mcap(peerMed.mcap)),
@@ -479,8 +519,29 @@
     return h('div', null,
       h('div', { style: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8, gap: 10 } },
         h('div', { style: { fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary,#fff)' } }, 'Peer Comps'),
-        h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } },
-          sorted.length + ' names · ' + sortHintText + ' · click header to sort · green better vs median'
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: 10 } },
+          h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } },
+            sorted.length + ' names · ' + sortHintText + ' · click header to sort · green better vs median'
+          ),
+          // CSV export button
+          h('button', {
+            onClick: onExportCSV,
+            title: 'Download CSV',
+            style: {
+              background: 'rgba(245,166,35,0.10)',
+              border: '1px solid rgba(245,166,35,0.30)',
+              borderRadius: 'var(--r-2,3px)',
+              color: 'var(--in,#f5a623)',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono,monospace)',
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              padding: '3px 8px',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }
+          }, '↓ CSV'),
         ),
       ),
       h('div', { className: 'in-tablewrap' },
@@ -524,16 +585,32 @@
   }
 
   /* =========================================================================
-     Sub-component: POSITIONING QUADRANT (div-based scatter)
-     Supports: row-to-dot selection sync, color by verdict, overflow-safe labels.
+     Sub-component: POSITIONING QUADRANT — SVG scatter
+     Replaces fragile div calc() positioning with explicit SVG coords.
+     Dots sized by mcap; responsive viewBox; axis labels baked in.
      ========================================================================= */
   function PositioningQuadrant({ peers, scores, selectedSymbol, onDotClick }) {
     const [hovered, setHovered] = useState(null);
-    const BOX_H = 340;
-    const PAD   = 40; // inset so edge labels don't get clipped
+    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+
+    // SVG layout constants
+    const VW = 600, VH = 340;
+    const PAD_L = 36, PAD_R = 16, PAD_T = 20, PAD_B = 36;
+    const plotW = VW - PAD_L - PAD_R;
+    const plotH = VH - PAD_T - PAD_B;
 
     const coordRows = useMemo(() => buildQuadrantCoords(peers), [peers]);
     const maxMcap   = useMemo(() => Math.max(...peers.map(r => isNum(r.mcap) ? toN(r.mcap) : 0), 1), [peers]);
+
+    // Map fraction [0,1] to SVG px within plot area
+    const toSvgX = (frac) => PAD_L + clamp(frac, 0, 1) * plotW;
+    const toSvgY = (frac) => PAD_T + clamp(frac, 0, 1) * plotH; // frac=0 is top in SVG
+
+    const midX = PAD_L + plotW / 2;
+    const midY = PAD_T + plotH / 2;
+
+    // Quadrant label positions (inset from corners)
+    const qLabelStyle = { fontSize: 9, letterSpacing: '0.05em', textTransform: 'uppercase', fontFamily: 'var(--font-mono,monospace)' };
 
     return h('div', null,
       h('div', { style: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 } },
@@ -541,107 +618,146 @@
         h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, 'x = cheaper → · y = higher quality ↑ · size ~ mcap'),
       ),
 
-      h('div', { className: 'in-scatter', style: { height: BOX_H } },
-        /* quadrant corner labels — inset from edges to avoid overflow */
-        h('div', { className: 'in-axis-lbl', style: { top: PAD - 14, right: PAD, color: 'var(--pos,#19c37d)', opacity: 0.8 } }, 'Quality Value'),
-        h('div', { className: 'in-axis-lbl', style: { top: PAD - 14, left: PAD, opacity: 0.55 } }, 'Quality Premium'),
-        h('div', { className: 'in-axis-lbl', style: { bottom: PAD - 14, right: PAD, color: 'var(--in,#f5a623)', opacity: 0.65 } }, 'Value Trap?'),
-        h('div', { className: 'in-axis-lbl', style: { bottom: PAD - 14, left: PAD, color: 'var(--neg,#ff5c70)', opacity: 0.8 } }, 'Avoid'),
-        /* axis direction arrows — placed at the very edges, centered */
-        h('div', { className: 'in-axis-lbl', style: { bottom: 6, left: '50%', transform: 'translateX(-50%)' } }, '← expensive  |  cheap →'),
-        h('div', { className: 'in-axis-lbl', style: { left: 4, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', transformOrigin: 'center center', whiteSpace: 'nowrap' } }, 'low quality ↓'),
-        h('div', { className: 'in-axis-lbl', style: { right: 4, top: '50%', transform: 'translateY(-50%) rotate(90deg)', transformOrigin: 'center center', whiteSpace: 'nowrap' } }, '↑ high quality'),
+      h('svg', {
+        viewBox: '0 0 ' + VW + ' ' + VH,
+        style: { width: '100%', height: 'auto', display: 'block', overflow: 'visible' },
+        role: 'img',
+        'aria-label': 'Positioning quadrant scatter chart',
+      },
+        // border rect for plot area
+        h('rect', { x: PAD_L, y: PAD_T, width: plotW, height: plotH, fill: 'rgba(255,255,255,0.02)', stroke: 'rgba(255,255,255,0.07)', strokeWidth: 1, rx: 2 }),
 
-        /* dots */
+        // crosshair dividers
+        h('line', { x1: midX, y1: PAD_T, x2: midX, y2: PAD_T + plotH, stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1, strokeDasharray: '4 4' }),
+        h('line', { x1: PAD_L, y1: midY, x2: PAD_L + plotW, y2: midY, stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1, strokeDasharray: '4 4' }),
+
+        // Quadrant corner labels (inside plot, inset from edges)
+        h('text', { x: PAD_L + plotW - 8, y: PAD_T + 14, textAnchor: 'end', fill: 'var(--pos,#19c37d)', opacity: 0.85, ...qLabelStyle }, 'Quality Value'),
+        h('text', { x: PAD_L + 8,         y: PAD_T + 14, textAnchor: 'start', fill: 'rgba(255,255,255,0.45)', ...qLabelStyle }, 'Quality Premium'),
+        h('text', { x: PAD_L + plotW - 8, y: PAD_T + plotH - 8, textAnchor: 'end', fill: 'var(--in,#f5a623)', opacity: 0.7, ...qLabelStyle }, 'Value Trap?'),
+        h('text', { x: PAD_L + 8,         y: PAD_T + plotH - 8, textAnchor: 'start', fill: 'var(--neg,#ff5c70)', opacity: 0.85, ...qLabelStyle }, 'Avoid'),
+
+        // Axis labels
+        h('text', { x: PAD_L + plotW / 2, y: VH - 4, textAnchor: 'middle', fill: 'rgba(255,255,255,0.35)', fontSize: 9, fontFamily: 'var(--font-mono,monospace)' }, '← expensive  |  cheap →'),
+        h('text', {
+          x: 10, y: PAD_T + plotH / 2,
+          textAnchor: 'middle',
+          fill: 'rgba(255,255,255,0.35)',
+          fontSize: 9,
+          fontFamily: 'var(--font-mono,monospace)',
+          transform: 'rotate(-90, 10, ' + (PAD_T + plotH / 2) + ')',
+        }, 'low ↓  quality  ↑ high'),
+
+        // Dots
         coordRows.map(r => {
-          const s         = scores[r.symbol];
-          const score     = s ? s.total : 50;
-          const verdict   = s ? s.verdict : 'HOLD';
-          const dotSize   = Math.max(9, Math.min(30, Math.sqrt((isNum(r.mcap) ? toN(r.mcap) : 0) / maxMcap) * 40));
-          const xFrac     = clamp(r.qx, 0, 1);
-          const yFrac     = clamp(1 - r.qy, 0, 1); // invert: high quality = top
-          const dotOff    = Math.round(dotSize / 2);
-          // Position within the PAD-inset drawable area
-          const drawW     = 'calc(100% - ' + (PAD * 2) + 'px)';
-          const drawH     = BOX_H - PAD * 2;
-          const leftCalc  = 'calc(' + PAD + 'px + ' + (xFrac * 100).toFixed(2) + '% * ((100% - ' + (PAD * 2) + 'px) / 100%))';
-          const topPx     = PAD + yFrac * (BOX_H - PAD * 2);
-          const noVal     = r.noValuation;
-          const isHov     = hovered === r.symbol;
-          const isSel     = selectedSymbol === r.symbol;
+          const s       = scores[r.symbol];
+          const score   = s ? s.total : 50;
+          const noVal   = r.noValuation;
+          const isHov   = hovered === r.symbol;
+          const isSel   = selectedSymbol === r.symbol;
 
-          // Color by verdict
-          const dotColor  = noVal
-            ? 'rgba(255,255,255,0.15)'
+          const mcapRatio = isNum(r.mcap) ? toN(r.mcap) / maxMcap : 0;
+          const radius = Math.max(5, Math.min(18, Math.sqrt(mcapRatio) * 28));
+
+          const cx = toSvgX(r.qx);
+          const cy = toSvgY(1 - r.qy); // invert: high quality = top = low SVG y
+
+          const dotFill = noVal
+            ? 'rgba(255,255,255,0.12)'
             : score >= 65 ? 'var(--pos,#19c37d)'
             : score <= 40 ? 'var(--neg,#ff5c70)'
             : 'var(--in,#f5a623)';
 
-          const borderStyle = isSel
-            ? '2.5px solid rgba(255,255,255,1)'
-            : isHov
-              ? '2px solid rgba(255,255,255,0.85)'
-              : noVal
-                ? '1.5px dashed rgba(255,255,255,0.35)'
-                : '1.5px solid rgba(0,0,0,0.25)';
+          const strokeColor = isSel
+            ? 'rgba(255,255,255,1)'
+            : isHov ? 'rgba(255,255,255,0.8)' : noVal ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.3)';
 
-          return h('div', {
+          const strokeW = isSel ? 2.5 : isHov ? 2 : 1.5;
+          const strokeDash = noVal ? '3 2' : 'none';
+          const opacity = noVal ? 0.45 : (hovered && !isHov && !isSel) ? 0.22 : isSel ? 1 : 0.88;
+          const scale = isSel ? 'scale(1.25)' : 'scale(1)';
+
+          const labelFontSize = Math.max(7, Math.min(10, radius * 0.65));
+          const showLabel = radius >= 12;
+          const tickLabel = r.symbol.slice(0, radius >= 18 ? 4 : 3);
+
+          const vmap = s ? (VERDICT_MAP[s.verdict] || { label: s.verdict }) : null;
+
+          return h('g', {
             key: r.symbol,
-            className: 'in-dot',
-            onMouseEnter: () => setHovered(r.symbol),
-            onMouseLeave: () => setHovered(null),
+            style: { cursor: 'pointer' },
+            transform: 'translate(' + cx + ',' + cy + ')',
             onClick: () => onDotClick && onDotClick(r.symbol),
-            style: {
-              left:       PAD + xFrac * (coordRows.length > 1 ? (100 - 0) : 50) + '%', // fallback for single dot
-              top:        topPx + 'px',
-              width:      dotSize,
-              height:     dotSize,
-              background: dotColor,
-              border:     borderStyle,
-              opacity:    noVal ? 0.45 : (hovered && !isHov && !isSel) ? 0.25 : isSel ? 1 : 0.88,
-              transform:  isSel
-                ? 'translate(-50%, -50%) scale(1.22)'
-                : 'translate(-50%, -50%)',
-              display:    'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize:   Math.max(7, Math.min(10, dotSize * 0.36)),
-              color:      noVal ? 'rgba(255,255,255,0.5)' : '#000',
+            onMouseEnter: (e) => { setHovered(r.symbol); setTooltipPos({ x: cx, y: cy }); },
+            onMouseLeave: () => setHovered(null),
+          },
+            h('circle', {
+              cx: 0, cy: 0,
+              r: radius,
+              fill: dotFill,
+              stroke: strokeColor,
+              strokeWidth: strokeW,
+              strokeDasharray: strokeDash,
+              opacity,
+              style: { transform: scale, transformOrigin: '0 0', transition: 'transform 0.15s, opacity 0.15s' },
+            }),
+            showLabel && h('text', {
+              x: 0, y: labelFontSize * 0.38,
+              textAnchor: 'middle',
+              fontSize: labelFontSize,
               fontFamily: 'var(--font-mono,monospace)',
               fontWeight: 700,
-              userSelect: 'none',
-              overflow:   'hidden',
-              cursor:     'pointer',
-              zIndex:     isSel ? 15 : isHov ? 10 : 2,
-            }
-          },
-            dotSize >= 16 ? r.symbol.slice(0, dotSize >= 24 ? 4 : 2) : null,
-            /* hover tooltip */
-            isHov && h('div', { className: 'in-dot-tip' },
-              r.symbol + ' · Score ' + score +
-              (noVal ? ' · no val data' : '') +
-              ' · ' + (s ? (VERDICT_MAP[s.verdict] || { label: s.verdict }).label : '—')
-            )
+              fill: noVal ? 'rgba(255,255,255,0.6)' : (score >= 65 ? '#003' : score <= 40 ? '#fff' : '#000'),
+              pointerEvents: 'none',
+              style: { userSelect: 'none' },
+            }, tickLabel),
+
+            // Tooltip (SVG foreignObject for multi-line rich tip)
+            isHov && h('foreignObject', {
+              x: radius + 4,
+              y: -(28),
+              width: 160,
+              height: 60,
+              style: { overflow: 'visible', pointerEvents: 'none' },
+            },
+              h('div', {
+                xmlns: 'http://www.w3.org/1999/xhtml',
+                style: {
+                  background: 'var(--bg-1,#0a0a0b)',
+                  border: '1px solid rgba(245,166,35,0.4)',
+                  borderRadius: 4,
+                  color: 'var(--text-primary,#fff)',
+                  fontFamily: 'var(--font-mono,monospace)',
+                  fontSize: 10,
+                  lineHeight: 1.5,
+                  padding: '5px 8px',
+                  whiteSpace: 'nowrap',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.6)',
+                }
+              },
+                h('div', { style: { fontWeight: 700, color: 'var(--in,#f5a623)', marginBottom: 2 } }, r.symbol),
+                h('div', null, 'Score ' + score + (noVal ? ' · no val data' : '') + (vmap ? ' · ' + vmap.label : '')),
+              )
+            ),
           );
-        })
+        }),
       ),
 
-      /* legend */
+      // legend
       h('div', { className: 'in-qlg' },
         h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--pos,#19c37d)' } }), 'Score ≥ 65'),
         h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--in,#f5a623)' } }), 'Score 41–64'),
         h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'var(--neg,#ff5c70)' } }), 'Score ≤ 40'),
         h('div', { className: 'in-qlg-item' }, h('div', { className: 'in-qlg-dot', style: { background: 'transparent', border: '1.5px dashed rgba(255,255,255,0.35)' } }), 'No val data'),
-        h('div', { style: { marginLeft: 'auto', fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)' } }, 'Dot size ~ mcap · click dot to highlight row')
+        h('div', { style: { marginLeft: 'auto', fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)' } }, 'Dot size ~ mcap · click to highlight')
       )
     );
   }
 
   /* =========================================================================
      Sub-component: MARKET-SHARE PROXY BAR
-     Shares guaranteed to sum to 100% (positive-mcap denominator only).
-     Shows concentration label: Top-3 = X%.
      ========================================================================= */
   function MarketShareBar({ peers, subSector }) {
-    // Use only positive-mcap rows; totalMcap is the denominator so shares sum to 100%.
     const sorted = useMemo(() =>
       [...peers]
         .filter(r => isNum(r.mcap) && toN(r.mcap) > 0)
@@ -659,7 +775,6 @@
     const rest     = sorted.slice(TOP);
     const restMcap = rest.reduce((s, r) => s + toN(r.mcap), 0);
 
-    // Top-3 concentration
     const top3Mcap  = sorted.slice(0, 3).reduce((s, r) => s + toN(r.mcap), 0);
     const top3Pct   = totalMcap ? (top3Mcap / totalMcap * 100).toFixed(1) : null;
     const conc      = top3Pct ? 'Top-3 = ' + top3Pct + '%' : null;
@@ -682,14 +797,12 @@
           h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 10, color: 'var(--text-tertiary,#8e9ab0)' } }, (subSector || 'sector') + ' · mcap weight'),
         ),
       ),
-      // stacked bar — each segment width = share of positive-mcap total → sums to 100%
       h('div', { style: { display: 'flex', height: 28, borderRadius: 'var(--r-2,3px)', overflow: 'hidden', marginBottom: 10 } },
         bars.map(b => {
           const pct = (b.mcap / totalMcap) * 100;
           return h('div', { key: b.label, title: b.label + ' ' + pct.toFixed(1) + '%', style: { width: pct + '%', background: b.color, transition: 'width 0.3s', flexShrink: 0 } });
         })
       ),
-      // legend rows
       h('div', { style: { display: 'flex', flexDirection: 'column', gap: 4 } },
         bars.map(b => {
           const pct = (b.mcap / totalMcap) * 100;
@@ -711,32 +824,51 @@
      ROOT: IndCompsWorkspace
      ========================================================================= */
   function IndCompsWorkspace({ openTab }) {
-    const [equity,    setEquity]    = useState(null);
-    const [indByKey,  setIndByKey]  = useState({});
-    const [loading,   setLoading]   = useState(true);
-    const [err,       setErr]       = useState(null);
-    const [reloadKey, setReloadKey] = useState(0);
-    const [toastNode, pushToast]    = useToast();
+    // ---- data state -------------------------------------------------------
+    const [equityId,   setEquityId]   = useState(null); // Indonesia rows
+    const [equityUs,   setEquityUs]   = useState(null); // US rows
+    const [indByKey,   setIndByKey]   = useState({});
+    const [loading,    setLoading]    = useState(true);
+    const [err,        setErr]        = useState(null);
+    const [reloadKey,  setReloadKey]  = useState(0);
+    const [toastNode,  pushToast]     = useToast();
 
-    // selector state
+    // ---- selector state ---------------------------------------------------
+    // Region: 'id' | 'us' | 'global'
+    const [region,       setRegion]       = useState('id');
+    // View: 'sector' (IDX sector column grouping) | 'commodity' (TAXONOMY curated tickers)
+    const [viewBy,       setViewBy]       = useState('sector');
     const [selSector,    setSelSector]    = useState('Financials');
     const [selSubSector, setSelSubSector] = useState('');
+    // For viewBy=commodity: pick from TAXONOMY entries
+    const [selTaxEntry,  setSelTaxEntry]  = useState(null);
 
-    // modal state
+    // ---- modal state ------------------------------------------------------
     const [modalRow,      setModalRow]      = useState(null);
     const [modalScore,    setModalScore]    = useState(null);
     const [modalRankText, setModalRankText] = useState('');
 
-    // cross-highlight: selected symbol (table row ↔ quadrant dot)
+    // ---- cross-highlight state --------------------------------------------
     const [selectedSymbol, setSelectedSymbol] = useState(null);
 
-    // load equity + indicators in parallel once
+    // ---- load data --------------------------------------------------------
     useEffect(() => {
       setLoading(true);
       setErr(null);
-      Promise.all([fetchEquity(), fetchIndicators()])
-        .then(([rows, inds]) => {
-          setEquity(rows || []);
+
+      const needsUs = region === 'us' || region === 'global';
+      const needsId = region === 'id' || region === 'global';
+
+      const promises = [
+        needsId ? fetchEquity() : Promise.resolve([]),
+        needsUs ? fetchUsEquity() : Promise.resolve([]),
+        fetchIndicators(),
+      ];
+
+      Promise.all(promises)
+        .then(([rowsId, rowsUs, inds]) => {
+          setEquityId(rowsId || []);
+          setEquityUs(rowsUs || []);
           const byKey = {};
           (inds || []).forEach(ind => { if (ind && ind.key) byKey[ind.key] = ind; });
           setIndByKey(byKey);
@@ -746,13 +878,38 @@
           setErr(e.message || 'Failed to load equity data');
           setLoading(false);
         });
-    }, [reloadKey]);
+    }, [reloadKey, region]);
 
-    // sector list derived from equity
-    const sectorList = useMemo(() => equity ? buildSectorList(equity) : [], [equity]);
+    // ---- combined equity for the active region ----------------------------
+    const equity = useMemo(() => {
+      if (region === 'id') return equityId || [];
+      if (region === 'us') return equityUs || [];
+      // global: combine both; flag source
+      return [
+        ...(equityId || []).map(r => ({ ...r, _src: 'id' })),
+        ...(equityUs || []).map(r => ({ ...r, _src: 'us' })),
+      ];
+    }, [region, equityId, equityUs]);
+
+    // ---- sector list derived from equity ----------------------------------
+    const sectorList = useMemo(() => equity.length ? buildSectorList(equity) : [], [equity]);
 
     // reset sub_sector when sector changes
     useEffect(() => { setSelSubSector(''); }, [selSector]);
+
+    // Initialize selSector to first available sector when list changes
+    useEffect(() => {
+      if (sectorList.length && !sectorList.find(s => s.sector === selSector)) {
+        setSelSector(sectorList[0].sector);
+      }
+    }, [sectorList]);
+
+    // Initialize selTaxEntry to first TAXONOMY entry when viewBy=commodity
+    useEffect(() => {
+      if (viewBy === 'commodity' && !selTaxEntry) {
+        setSelTaxEntry(TAXONOMY[0] ? TAXONOMY[0].id : null);
+      }
+    }, [viewBy]);
 
     // sub-sectors for selected sector
     const subSectors = useMemo(() => {
@@ -760,55 +917,83 @@
       return found ? found.subSectors : [];
     }, [sectorList, selSector]);
 
-    // peer set
+    // ---- peer set ---------------------------------------------------------
     const peers = useMemo(() => {
-      if (!equity) return [];
+      if (!equity.length) return [];
+      if (viewBy === 'commodity') {
+        // Curated TAXONOMY ticker list for this industry
+        const taxEntry = selTaxEntry ? TAXONOMY.find(t => t.id === selTaxEntry) : TAXONOMY[0];
+        if (!taxEntry || !taxEntry.tickers) {
+          // fallback: filter by idxSector if no curated list
+          return taxEntry ? equity.filter(r => r.sector === taxEntry.idxSector) : [];
+        }
+        const tickerSet = new Set(taxEntry.tickers);
+        return equity.filter(r => tickerSet.has(r.symbol));
+      }
+      // By IDX sector
       return equity.filter(r => r.sector === selSector && (!selSubSector || r.sub_sector === selSubSector));
-    }, [equity, selSector, selSubSector]);
+    }, [equity, viewBy, selSector, selSubSector, selTaxEntry]);
 
-    // peer median
+    // ---- peer median ------------------------------------------------------
     const peerMed = useMemo(() => peers.length ? computePeerMed(peers) : {}, [peers]);
 
-    // sector snapshot + conviction
-    const snap       = useMemo(() => an.snapshot(peers), [peers]);
-    const conviction = useMemo(() => an.conviction(snap), [snap]);
+    // ---- sector average change (for ticker-level Industry dim) ------------
+    const sectorAvgChg = useMemo(() => mean(peers.filter(r => isNum(r.change_pct)).map(r => toN(r.change_pct))), [peers]);
 
-    // driver tilt (real from live indicators)
+    // ---- driver tilt for active sector (for Macro dim driverNet) ----------
+    const activeTaxEntry = useMemo(() => {
+      if (viewBy === 'commodity') {
+        return selTaxEntry ? TAXONOMY.find(t => t.id === selTaxEntry) : TAXONOMY[0];
+      }
+      return TAXONOMY.find(t => t.idxSector === selSector) || TAXONOMY.find(t => t.name === selSector);
+    }, [viewBy, selSector, selTaxEntry]);
+
+    const driverTilt = useMemo(() => {
+      if (!activeTaxEntry || !Object.keys(indByKey).length) return null;
+      return an.driverTilt(activeTaxEntry, indByKey);
+    }, [activeTaxEntry, indByKey]);
+
     const driverNet = useMemo(() => {
-      if (!Object.keys(indByKey).length) return 0;
-      const taxEntry = TAXONOMY.find(t => t.idxSector === selSector)
-        || TAXONOMY.find(t => t.name === selSector);
-      if (!taxEntry) return 0;
-      const tilt = an.driverTilt(taxEntry, indByKey);
-      return (tilt && tilt.net != null) ? tilt.net : 0;
-    }, [selSector, indByKey]);
+      if (!driverTilt) return 0;
+      return driverTilt.weightedNet != null ? driverTilt.weightedNet : (driverTilt.net != null ? driverTilt.net : 0);
+    }, [driverTilt]);
 
-    // 6-dim scores
+    // ---- sector snapshot + conviction object ------------------------------
+    const snap       = useMemo(() => an.snapshot(peers), [peers]);
+    const convObj    = useMemo(() => an.conviction(snap, driverTilt), [snap, driverTilt]);
+    const convScore  = useMemo(() => (convObj && typeof convObj === 'object') ? convObj.score : (convObj != null ? Number(convObj) : 50), [convObj]);
+    const status     = useMemo(() => an.status(convObj, snap), [convObj, snap]);
+
+    // ---- 6-dim scores: pass ctx.sectorAvgChg + ctx.driverNet -------------
     const scores = useMemo(() => {
       if (!peers.length || !peerMed) return {};
       const out = {};
       peers.forEach(r => {
         try {
-          out[r.symbol] = an.competitive(r, peers, { peerMed, conviction, driverNet });
-        } catch (_) {
-          // guard against any single-row crash
-        }
+          out[r.symbol] = an.competitive(r, peers, {
+            peerMed,
+            conviction: convObj,
+            sectorAvgChg: sectorAvgChg != null ? sectorAvgChg : 0,
+            driverNet,
+          });
+        } catch (_) {}
       });
       return out;
-    }, [peers, peerMed, conviction, driverNet]);
+    }, [peers, peerMed, convObj, sectorAvgChg, driverNet]);
 
-    // row click → open modal
+    // ---- row click → open modal -------------------------------------------
     const handleRowClick = useCallback((row) => {
       const score = scores[row.symbol];
       if (!score) return;
-      const sortedByScore = [...peers].sort((a, b) => (scores[b.symbol] ? scores[b.symbol].total : 0) - (scores[a.symbol] ? scores[a.symbol].total : 0));
+      const sortedByScore = [...peers].sort((a, b) =>
+        (scores[b.symbol] ? scores[b.symbol].total : 0) - (scores[a.symbol] ? scores[a.symbol].total : 0)
+      );
       const rank = sortedByScore.findIndex(r => r.symbol === row.symbol) + 1;
-      setModalRankText('Ranked #' + rank + ' of ' + peers.length + ' peers · Conviction ' + conviction + '/100');
+      setModalRankText('Ranked #' + rank + ' of ' + peers.length + ' peers · Conviction ' + convScore + '/100');
       setModalRow(row);
       setModalScore(score);
-    }, [scores, peers, conviction]);
+    }, [scores, peers, convScore]);
 
-    // dot click → highlight table row (and vice-versa via selectedSymbol)
     const handleDotClick = useCallback((symbol) => {
       setSelectedSymbol(prev => prev === symbol ? null : symbol);
     }, []);
@@ -817,10 +1002,23 @@
       setSelectedSymbol(prev => prev === symbol ? null : symbol);
     }, []);
 
+    const handleExportCSV = useCallback(() => {
+      const label = viewBy === 'commodity' && activeTaxEntry ? activeTaxEntry.name : selSector;
+      exportCSV(peers, peerMed, scores, 'peer_comps_' + label.replace(/\s+/g, '_').toLowerCase() + '.csv');
+    }, [peers, peerMed, scores, viewBy, activeTaxEntry, selSector]);
+
+    // ---- derived display info ---------------------------------------------
+    const regionLabel = region === 'id' ? 'IDX' : region === 'us' ? 'US' : 'Global';
+    const coverageNote = region === 'us'
+      ? 'US large-cap universe (equity_screen_global). Single-name coverage; scores peer-relative within sector.'
+      : region === 'global'
+      ? 'Indonesia + US combined universe. Peer comparison is cross-market.'
+      : null;
+
     if (loading) return h('div', { className: 'in-root' }, h(Spinner, { label: 'Loading equity data…' }));
-    if (err)     return h('div', { className: 'in-root' },
+    if (err) return h('div', { className: 'in-root' },
       h('div', { className: 'in-work' },
-        h('div', { className: 'in-banner', style: { flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
+        h('div', { style: { padding: '14px 16px', background: 'var(--bg-2,#111114)', border: '1px solid rgba(255,92,112,0.3)', borderRadius: 'var(--r-3,4px)', color: 'var(--neg,#ff5c70)', fontSize: 13, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 } },
           h('div', null, 'Failed to fetch: ' + err),
           h('button', {
             className: 'in-btn',
@@ -830,43 +1028,111 @@
         )
       )
     );
-    if (!equity) return h('div', { className: 'in-root' }, h(Empty, { title: 'No data' }));
+    if (!equity.length) return h('div', { className: 'in-root' }, h(Empty, { title: 'No data', sub: 'Select a region with coverage' }));
 
     const hasPeers = peers.length > 0;
     const statusMap = { BULLISH: 'bull', BEARISH: 'bear', ROTATION: 'rot', NEUTRAL: 'neu' };
-    const status = an.status(conviction, snap);
 
     return h('div', { className: 'in-root' },
       toastNode,
-      modalRow && h(TickerModal, { row: modalRow, score: modalScore, peers: peers, peerRankText: modalRankText, onClose: () => setModalRow(null) }),
+      modalRow && h(TickerModal, { row: modalRow, score: modalScore, peers, peerRankText: modalRankText, onClose: () => setModalRow(null) }),
 
       // ---- HEADER ----
       h('div', { className: 'in-head' },
+        // Workspace icon: scales/ranking bars
         h('div', { className: 'in-head-mark' },
           h('svg', { viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5 },
-            h('circle', { cx: 8, cy: 8, r: 6 }),
-            h('line', { x1: 8, y1: 2, x2: 8, y2: 5 }),
-            h('line', { x1: 8, y1: 11, x2: 8, y2: 14 }),
-            h('line', { x1: 2, y1: 8, x2: 5, y2: 8 }),
-            h('line', { x1: 11, y1: 8, x2: 14, y2: 8 }),
+            h('line', { x1: 8, y1: 2, x2: 8, y2: 14 }),
+            h('line', { x1: 3, y1: 5, x2: 8, y2: 5 }),
+            h('line', { x1: 3, y1: 8, x2: 8, y2: 8 }),
+            h('line', { x1: 3, y1: 11, x2: 8, y2: 11 }),
+            h('rect', { x: 10, y: 11, width: 3, height: 3, rx: 0.5 }),
+            h('rect', { x: 10, y: 7,  width: 3, height: 3, rx: 0.5 }),
+            h('rect', { x: 10, y: 3,  width: 3, height: 3, rx: 0.5 }),
           )
         ),
         h('div', null,
           h('div', { className: 'in-head-title' }, 'Competitive Positioning'),
-          h('div', { className: 'in-head-sub' }, 'T3 · Peer Comps · IDX'),
+          h('div', { className: 'in-head-sub' }, 'T3 · Peer Comps · ' + regionLabel),
         ),
         h('div', { className: 'in-head-spacer' }),
 
-        // sector selector
+        // ---- REGION TOGGLE ----
         h('div', { className: 'in-pick' },
-          h('span', { className: 'in-pick-lbl' }, 'Sector'),
-          h('select', { className: 'in-select', value: selSector, onChange: e => setSelSector(e.target.value) },
-            sectorList.map(s => h('option', { key: s.sector, value: s.sector }, s.sector))
-          ),
+          h('span', { className: 'in-pick-lbl' }, 'Region'),
+          h('div', { style: { display: 'flex', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--r-2,3px)', overflow: 'hidden' } },
+            ['id', 'us', 'global'].map(r =>
+              h('button', {
+                key: r,
+                onClick: () => setRegion(r),
+                style: {
+                  background: region === r ? 'rgba(245,166,35,0.18)' : 'transparent',
+                  border: 'none',
+                  borderRight: r !== 'global' ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                  color: region === r ? 'var(--in,#f5a623)' : 'var(--text-tertiary,#8e9ab0)',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-mono,monospace)',
+                  fontSize: 10,
+                  fontWeight: region === r ? 700 : 400,
+                  letterSpacing: '0.05em',
+                  padding: '4px 9px',
+                  textTransform: 'uppercase',
+                  transition: 'all 0.15s',
+                }
+              }, r === 'id' ? 'Indonesia' : r === 'us' ? 'US' : 'Global')
+            )
+          )
         ),
 
-        // sub-sector selector
-        subSectors.length > 0 && h('div', { className: 'in-pick' },
+        // ---- VIEW BY TOGGLE ----
+        h('div', { className: 'in-pick' },
+          h('span', { className: 'in-pick-lbl' }, 'View By'),
+          h('div', { style: { display: 'flex', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 'var(--r-2,3px)', overflow: 'hidden' } },
+            [['sector', 'IDX Sector'], ['commodity', 'Commodity Ind.']].map(([v, lbl]) =>
+              h('button', {
+                key: v,
+                onClick: () => setViewBy(v),
+                style: {
+                  background: viewBy === v ? 'rgba(245,166,35,0.18)' : 'transparent',
+                  border: 'none',
+                  borderRight: v === 'sector' ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                  color: viewBy === v ? 'var(--in,#f5a623)' : 'var(--text-tertiary,#8e9ab0)',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-mono,monospace)',
+                  fontSize: 10,
+                  fontWeight: viewBy === v ? 700 : 400,
+                  letterSpacing: '0.04em',
+                  padding: '4px 9px',
+                  textTransform: 'uppercase',
+                  transition: 'all 0.15s',
+                  whiteSpace: 'nowrap',
+                }
+              }, lbl)
+            )
+          )
+        ),
+
+        // ---- SECTOR or TAXONOMY SELECTOR ----
+        viewBy === 'sector'
+          ? h('div', { className: 'in-pick' },
+              h('span', { className: 'in-pick-lbl' }, 'Sector'),
+              h('select', { className: 'in-select', value: selSector, onChange: e => setSelSector(e.target.value) },
+                sectorList.map(s => h('option', { key: s.sector, value: s.sector }, s.sector))
+              ),
+            )
+          : h('div', { className: 'in-pick' },
+              h('span', { className: 'in-pick-lbl' }, 'Industry'),
+              h('select', {
+                className: 'in-select',
+                value: selTaxEntry || (TAXONOMY[0] ? TAXONOMY[0].id : ''),
+                onChange: e => setSelTaxEntry(e.target.value)
+              },
+                TAXONOMY.map(t => h('option', { key: t.id, value: t.id }, t.name))
+              ),
+            ),
+
+        // ---- SUB-SECTOR (only for viewBy=sector) ----
+        viewBy === 'sector' && subSectors.length > 0 && h('div', { className: 'in-pick' },
           h('span', { className: 'in-pick-lbl' }, 'Sub-Sector'),
           h('select', { className: 'in-select', value: selSubSector, onChange: e => setSelSubSector(e.target.value) },
             h('option', { value: '' }, 'All Sub-sectors'),
@@ -874,32 +1140,45 @@
           ),
         ),
 
-        // conviction badge
+        // ---- CONVICTION BADGE ----
         hasPeers && h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginLeft: 6 } },
           h('span', { className: 'in-chip ' + (statusMap[status] || 'neu') }, status),
           h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11, color: 'var(--text-tertiary,#8e9ab0)' } },
-            'Conv ' + conviction + ' · ' + peers.length + ' names'
+            'Conv ' + convScore + ' · ' + peers.length + ' names'
           ),
         ),
       ),
 
       // ---- BODY ----
       h('div', { className: 'in-work', style: { display: 'flex', flexDirection: 'column', gap: 20 } },
+
+        // Coverage note for non-Indonesia regions (subtle gray, not yellow banner)
+        coverageNote && h('div', { style: {
+          fontSize: 11.5, color: 'var(--text-tertiary,#8e9ab0)',
+          background: 'var(--bg-2,#111114)',
+          border: '1px solid rgba(255,255,255,0.06)',
+          borderRadius: 'var(--r-2,3px)',
+          padding: '7px 12px',
+          lineHeight: 1.5,
+        } }, coverageNote),
+
         !hasPeers
-          ? h(Empty, { title: 'No tickers', sub: 'Select a sector with IDX coverage' })
+          ? h(Empty, { title: 'No tickers', sub: viewBy === 'commodity' ? 'No curated tickers matched the selected region' : 'Select a sector with coverage' })
           : h(React.Fragment, null,
 
               // conviction bar strip
               h('div', { style: { display: 'flex', alignItems: 'center', gap: 12 } },
-                h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11, color: 'var(--text-tertiary,#8e9ab0)', whiteSpace: 'nowrap' } }, 'Conviction'),
+                h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11, color: 'var(--text-tertiary,#8e9ab0)', whiteSpace: 'nowrap' } },
+                  (convObj && convObj.signalLabel ? convObj.signalLabel : '1D Signal')
+                ),
                 h('div', { className: 'in-convbar', style: { flex: 1 } },
                   h('div', { className: 'in-convbar-fill', style: {
-                    width: conviction + '%',
-                    background: conviction >= 65 ? 'var(--pos,#19c37d)' : conviction <= 35 ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)',
+                    width: convScore + '%',
+                    background: convScore >= 65 ? 'var(--pos,#19c37d)' : convScore <= 35 ? 'var(--neg,#ff5c70)' : 'var(--in,#f5a623)',
                     transition: 'width 0.4s ease',
                   } })
                 ),
-                h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontWeight: 700, fontSize: 13, color: 'var(--in,#f5a623)', minWidth: 32 } }, conviction),
+                h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontWeight: 700, fontSize: 13, color: 'var(--in,#f5a623)', minWidth: 32 } }, convScore),
                 h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 11, color: 'var(--text-tertiary,#8e9ab0)' } },
                   snap.up + '↑ ' + snap.down + '↓ · breadth ' + Math.round((isNaN(snap.breadth) ? 0 : (snap.breadth || 0)) * 100) + '% · mcap-wtd ' + fmt.pct(snap.mcapChg)
                 ),
@@ -914,10 +1193,12 @@
               h('div', { className: 'in-panel', style: { padding: 0 } },
                 h('div', { style: { padding: '14px 16px' } },
                   h(PeerCompsTable, {
-                    peers, peerMed, scores, conviction,
+                    peers, peerMed, scores,
+                    convictionScore: convScore,
                     onRowClick: handleRowClick,
                     selectedSymbol,
                     onQuadrantSync: handleQuadrantSync,
+                    onExportCSV: handleExportCSV,
                   })
                 )
               ),
@@ -937,7 +1218,7 @@
               ),
 
               // METHODOLOGY NOTE
-              h(MethodologyNote, null),
+              h(MethodologyNote, { region }),
             )
       )
     );
