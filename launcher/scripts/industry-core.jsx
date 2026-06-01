@@ -34,6 +34,8 @@
   const INDUSTRY = {
     // public.equity_screen — the IDX universe (real fundamentals)
     equity: () => getCached('public', '/equity_screen?select=symbol,yahoo,name,sector,sub_sector,price,change_pct,mcap,pe,pb,ps,ev_ebitda,roe,roa,net_margin,gross_margin,rev_growth,earnings_growth,debt_equity,current_ratio,beta,div_yield,w52_high,w52_low,adv_value,avg_volume&order=mcap.desc&limit=2000', 'equity'),
+    // public.equity_screen_global — US large-cap universe (same schema + market,currency)
+    usEquity: () => getCached('public', '/equity_screen_global?select=symbol,yahoo,name,sector,sub_sector,price,change_pct,mcap,pe,pb,ps,ev_ebitda,roe,roa,net_margin,gross_margin,rev_growth,earnings_growth,debt_equity,current_ratio,beta,div_yield,w52_high,w52_low,adv_value,avg_volume,market,currency&order=mcap.desc&limit=2000', 'usEquity'),
     // macro.live_indicators — drivers (commodities/fx/rates/country macro)
     indicators: () => getCached('macro', '/live_indicators?select=key,region,category,label,unit,latest_value,prev_value,change_abs,change_pct,spark,tv_symbol,sort_order&order=region,sort_order', 'indic'),
     // historical series for a RIC (driver detail charts)

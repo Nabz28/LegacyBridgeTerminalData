@@ -1043,11 +1043,36 @@
       return US_MACRO_KEYS.map(k => indByKey[k]).filter(Boolean);
     }, [region, indByKey]);
 
+    // US single-name universe (public.equity_screen_global) -> live sector grid
+    const [usRows, setUsRows] = useState(null);
+    useEffect(() => {
+      if (region !== 'us') { setUsRows(null); return; }
+      let alive = true;
+      window.INDUSTRY.usEquity().then(rs => { if (alive) setUsRows(rs || []); }).catch(() => { if (alive) setUsRows([]); });
+      return () => { alive = false; };
+    }, [region]);
+    const usSectors = useMemo(() => {
+      if (!usRows || !usRows.length) return [];
+      const g = {};
+      usRows.forEach(r => { const s = r.sector || 'Other'; (g[s] = g[s] || []).push(r); });
+      const med = (arr) => { const v = arr.filter(x => x != null && !isNaN(x)).sort((a, b) => a - b); return v.length ? v[Math.floor(v.length / 2)] : null; };
+      return Object.keys(g).map(s => {
+        const rows = g[s];
+        const totMcap = rows.reduce((a, r) => a + (Number(r.mcap) || 0), 0);
+        const wChg = totMcap > 0 ? rows.reduce((a, r) => a + (Number(r.change_pct) || 0) * (Number(r.mcap) || 0), 0) / totMcap : 0;
+        const betas = rows.map(r => Number(r.beta)).filter(x => !isNaN(x));
+        const top = rows.slice().sort((a, b) => (Number(b.mcap) || 0) - (Number(a.mcap) || 0)).slice(0, 3).map(r => r.symbol);
+        return { sector: s, n: rows.length, wChg, medPE: med(rows.map(r => Number(r.pe))), avgBeta: betas.length ? betas.reduce((a, b) => a + b, 0) / betas.length : null, top };
+      }).sort((a, b) => b.wChg - a.wChg);
+    }, [usRows]);
+
     return h('div', { className: 'in-work' },
       // region note — quiet gray text, NOT a yellow box
       h('div', { className: 'in-note', style: { marginBottom: 14 } },
         h('b', null, region === 'us' ? 'US' : 'Global'),
-        ' lens — commodity & macro driver view. Single-name equity coverage: Indonesia (IDX) only. Switch to Indonesia for sector grid & stock data.'
+        region === 'us'
+          ? ' lens — US large-cap sector grid (live) + commodity & macro drivers. Per-name detail & peer ranking in Competitive Positioning.'
+          : ' lens — global commodity & macro driver view. Single-name equities in the Indonesia & US lenses.'
       ),
 
       /* commodity strip */
@@ -1093,6 +1118,29 @@
             )
           )
         )
+      ),
+
+      /* US live sector grid (single-name coverage from equity_screen_global) */
+      region === 'us' && h('div', { className: 'in-panel', style: { marginBottom: 16 } },
+        h('div', { className: 'in-panel-h' },
+          h('div', { className: 'in-panel-title' }, 'US Sectors — Live' + (usRows ? ' (' + usRows.length + ' large-caps)' : '')),
+          h('div', { className: 'in-panel-tag' }, 'cap-weighted 1D · sorted by performance')
+        ),
+        usRows === null
+          ? h('div', { className: 'in-muted', style: { padding: '10px 2px', fontSize: 12 } }, 'Loading US coverage…')
+          : usSectors.length === 0
+            ? h('div', { className: 'in-muted', style: { padding: '10px 2px', fontSize: 12 } }, 'US coverage unavailable.')
+            : h('div', { className: 'in-grid in-grid-3', style: { gap: 10 } },
+                usSectors.map(s => h('div', { key: s.sector, className: 'in-tile', style: { textAlign: 'left', padding: '11px 13px' } },
+                  h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 } },
+                    h('div', { style: { fontWeight: 600, fontSize: 12.5, color: 'var(--text-primary)' } }, s.sector),
+                    h('span', { className: fmt.cls(s.wChg), style: { fontFamily: 'var(--font-mono)', fontWeight: 600 } }, fmt.pct(s.wChg))
+                  ),
+                  h('div', { className: 'in-muted', style: { fontSize: 10.5, marginTop: 5, fontFamily: 'var(--font-mono)' } },
+                    s.n + ' names · PE ' + (s.medPE != null ? s.medPE.toFixed(1) : '—') + ' · β ' + (s.avgBeta != null ? s.avgBeta.toFixed(2) : '—')),
+                  h('div', { className: 'in-muted', style: { fontSize: 10.5, marginTop: 3 } }, s.top.join(' · '))
+                ))
+              )
       ),
 
       /* commodity-driven industries view */

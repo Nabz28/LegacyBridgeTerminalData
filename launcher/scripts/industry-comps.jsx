@@ -632,10 +632,10 @@
         h('line', { x1: PAD_L, y1: midY, x2: PAD_L + plotW, y2: midY, stroke: 'rgba(255,255,255,0.08)', strokeWidth: 1, strokeDasharray: '4 4' }),
 
         // Quadrant corner labels (inside plot, inset from edges)
-        h('text', { x: PAD_L + plotW - 8, y: PAD_T + 14, textAnchor: 'end', fill: 'var(--pos,#19c37d)', opacity: 0.85, ...qLabelStyle }, 'Quality Value'),
-        h('text', { x: PAD_L + 8,         y: PAD_T + 14, textAnchor: 'start', fill: 'rgba(255,255,255,0.45)', ...qLabelStyle }, 'Quality Premium'),
-        h('text', { x: PAD_L + plotW - 8, y: PAD_T + plotH - 8, textAnchor: 'end', fill: 'var(--in,#f5a623)', opacity: 0.7, ...qLabelStyle }, 'Value Trap?'),
-        h('text', { x: PAD_L + 8,         y: PAD_T + plotH - 8, textAnchor: 'start', fill: 'var(--neg,#ff5c70)', opacity: 0.85, ...qLabelStyle }, 'Avoid'),
+        h('text', { x: PAD_L + plotW - 8, y: PAD_T + 14, textAnchor: 'end', fill: 'var(--pos,#19c37d)', opacity: 0.85, style: qLabelStyle },'Quality Value'),
+        h('text', { x: PAD_L + 8,         y: PAD_T + 14, textAnchor: 'start', fill: 'rgba(255,255,255,0.45)', style: qLabelStyle },'Quality Premium'),
+        h('text', { x: PAD_L + plotW - 8, y: PAD_T + plotH - 8, textAnchor: 'end', fill: 'var(--in,#f5a623)', opacity: 0.7, style: qLabelStyle },'Value Trap?'),
+        h('text', { x: PAD_L + 8,         y: PAD_T + plotH - 8, textAnchor: 'start', fill: 'var(--neg,#ff5c70)', opacity: 0.85, style: qLabelStyle },'Avoid'),
 
         // Axis labels
         h('text', { x: PAD_L + plotW / 2, y: VH - 4, textAnchor: 'middle', fill: 'rgba(255,255,255,0.35)', fontSize: 9, fontFamily: 'var(--font-mono,monospace)' }, '← expensive  |  cheap →'),
