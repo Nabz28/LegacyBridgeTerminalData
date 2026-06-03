@@ -483,6 +483,9 @@
     },
     getSmoothing: function () { return smoothing; },
     getRange: function () { return rangeKey; },
+    // Force a re-render (used by the regime-shading toggle, which lives outside
+    // the engine but draws into the same chart).
+    redraw: function () { rebuild(); },
     // Apply the active transform/smoothing/range pipeline to an arbitrary
     // series shape ({observations:[{date,value}]}). Reused by derived series,
     // the economic calendar, and tests. Does not touch the live chart.

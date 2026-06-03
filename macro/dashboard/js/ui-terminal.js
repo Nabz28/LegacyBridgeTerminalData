@@ -502,6 +502,15 @@
       });
     });
 
+    // Recession / event shading toggle.
+    var shadingBtn = document.getElementById('shadingToggle');
+    if (shadingBtn && global.MacroShading) {
+      shadingBtn.addEventListener('click', function () {
+        var on = global.MacroShading.toggle();
+        shadingBtn.classList.toggle('active', on);
+      });
+    }
+
     var clearBtn = document.getElementById('clearAllBtn');
     var csvBtn = document.getElementById('exportCsvBtn');
     var pngBtn = document.getElementById('exportPngBtn');
