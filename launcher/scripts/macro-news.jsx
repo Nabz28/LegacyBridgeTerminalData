@@ -5,11 +5,42 @@
 // Fixtures live on window.MACRO_DATA.NEWS_FIXTURES
 // ================================================================
 
+// Map a live macro.news row to the shape this view renders.
+const mapNewsRow = (r) => {
+  const t = r.ts ? new Date(r.ts) : null;
+  const score = r.sent_score == null ? 0 : Math.round(r.sent_score);
+  const sent = r.sent_label || (score > 12 ? 'pos' : score < -12 ? 'neg' : 'flat');
+  return {
+    id: 'n' + r.id, time: t ? t.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '',
+    source: r.source || '—', headline: r.headline, region: r.region || 'World',
+    summary: r.summary || '', impact: r.impact || '', url: r.url || '', sent, net: score,
+  };
+};
+
 const MacroNews = () => {
-  const NEWS = (window.MACRO_DATA && window.MACRO_DATA.NEWS_FIXTURES) || [];
+  const FIX = (window.MACRO_DATA && window.MACRO_DATA.NEWS_FIXTURES) || [];
+  const [live, setLive]     = React.useState(null);   // null = not loaded → fall back to fixtures
   const [filter, setFilter] = React.useState('all');
   const [query, setQuery]   = React.useState('');
-  const [openId, setOpenId] = React.useState(NEWS[0]?.id ?? null);
+  const [openId, setOpenId] = React.useState(FIX[0]?.id ?? null);
+
+  React.useEffect(() => {
+    let on = true;
+    if (window.MACRO_LIVE) {
+      window.MACRO_LIVE.news(80).then((rows) => {
+        if (on && Array.isArray(rows) && rows.length) {
+          const mapped = rows.map(mapNewsRow);
+          setLive(mapped);
+          setOpenId(mapped[0].id);
+        }
+      }).catch(() => {});
+    }
+    return () => { on = false; };
+  }, []);
+
+  const NEWS = live || FIX;
+  const isLive = !!live;
+  const Sent = window.MacroSentiment;
 
   const filtered = NEWS.filter(n => {
     const okRegion = filter === 'all'
@@ -27,10 +58,11 @@ const MacroNews = () => {
   const net  = filtered.length ? Math.round(((bull - bear) / filtered.length) * 100) : 0;
 
   return (
+    <>
     <section className="mc-section mc-news-page">
       <div className="mc-section-h">
         <span>Macro · News</span>
-        <span className="mc-section-h-sub">{filtered.length} items · IndoBERT + GPT sentiment · last 24h · net {net >= 0 ? '+' : ''}{net}</span>
+        <span className="mc-section-h-sub">{filtered.length} items · {isLive ? 'live · model-scored sentiment' : 'sample feed'} · net {net >= 0 ? '+' : ''}{net}</span>
       </div>
       <div className="mc-news-page-layout">
         <div className="mc-news-page-list">
@@ -119,6 +151,8 @@ const MacroNews = () => {
         </aside>
       </div>
     </section>
+    {Sent ? <Sent /> : null}
+    </>
   );
 };
 
