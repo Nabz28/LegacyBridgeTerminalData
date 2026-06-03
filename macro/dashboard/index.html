@@ -268,6 +268,20 @@ body{
 .build-cancel:hover{color:var(--text);border-color:var(--text-dim)}
 .build-hint{margin-top:9px;font-size:10.5px;line-height:1.5;color:var(--text-faint)}
 .build-hint.err{color:var(--negative)}
+.build-hint strong{color:var(--text-dim)}
+
+/* Lead/Lag popover result */
+.ll-pop{width:330px}
+.ll-result{margin-top:11px;border-top:1px solid var(--border-strong);padding-top:11px}
+.ll-result[hidden]{display:none}
+.ll-summary{font-size:11.5px;color:var(--text);line-height:1.45;margin-bottom:10px}
+.ll-summary .accent{color:var(--accent);font-weight:600}
+.ll-chart{display:flex;align-items:flex-end;gap:2px;height:64px;padding:0 1px;border-bottom:1px solid var(--border-strong)}
+.ll-bar{flex:1;min-width:0;min-height:1px;background:var(--positive);opacity:.78;border-radius:1px 1px 0 0;transition:opacity .1s ease}
+.ll-bar.neg{background:var(--negative)}
+.ll-bar.peak{opacity:1;box-shadow:0 0 0 1px var(--accent)}
+.ll-bar:hover{opacity:1}
+.ll-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--text-faint);margin-top:3px}
 .chart-iconbtn{letter-spacing:.5px;font-weight:600}
 .chart-iconbtn-danger:hover:not(:disabled){color:var(--negative);border-color:var(--negative)}
 
@@ -353,6 +367,25 @@ body{
 .meta-section .related a:hover{border-color:var(--accent-dim)}
 
 .meta-empty{padding:60px 24px;text-align:center;color:var(--text-faint);font-size:12px;line-height:1.6}
+
+/* Cross-terminal link (→ correlation matrix) */
+.meta-actions{padding-top:12px;padding-bottom:12px}
+.meta-xlink{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:6px;
+  background:var(--bg-elev-2);border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:8px 10px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.4px;
+  border-radius:4px;cursor:pointer;transition:color .1s ease,border-color .1s ease,background .1s ease;
+}
+.meta-xlink:hover{color:var(--accent);border-color:var(--accent-dim);background:rgba(255,138,0,.06)}
+.xlink-arrow{font-size:13px;line-height:1}
+.search-xlink{
+  padding:9px 12px;border-top:1px solid var(--accent-dim);background:rgba(255,138,0,.05);
+  color:var(--text-dim);font-size:11px;cursor:pointer;letter-spacing:.2px;
+  position:sticky;bottom:0;
+}
+.search-xlink:hover{color:var(--accent);background:rgba(255,138,0,.10)}
+.search-xlink strong{color:var(--text)}
+.search-xlink .xlink-arrow{color:var(--accent)}
 
 /* ====== MINI-MAP (right panel) ====== */
 .mini-map{height:260px;background:#0b0e13;border:1px solid var(--border);border-radius:4px;margin-top:6px;position:relative;overflow:hidden}
@@ -649,6 +682,24 @@ body{
             <div class="build-hint" id="buildHint">Common use: 10Y − 2Y curve, copper ÷ gold, real = nominal − CPI.</div>
           </div>
         </div>
+        <div class="build-wrap">
+          <button class="chart-btn chart-iconbtn" id="leadlagBtn" title="Lead/Lag — does one series lead the other, and by how many months?" disabled>⇄ Lead/Lag</button>
+          <div class="build-pop ll-pop" id="llPop" hidden>
+            <div class="build-pop-title">Lead / lag analysis</div>
+            <label class="build-row"><span>Series A</span><select id="llA" class="build-select"></select></label>
+            <label class="build-row"><span>Series B</span><select id="llB" class="build-select"></select></label>
+            <div class="build-pop-actions">
+              <button class="build-add" id="llRun">Analyze</button>
+              <button class="build-cancel" id="llCancel">Close</button>
+            </div>
+            <div class="ll-result" id="llResult" hidden>
+              <div class="ll-summary" id="llSummary"></div>
+              <div class="ll-chart" id="llChart"></div>
+              <div class="ll-axis"><span>−12</span><span>0</span><span>+12</span></div>
+              <div class="build-hint">Bars = |correlation| of monthly changes at each lag (months). Green +, red −. <strong>k&gt;0 ⇒ A leads B.</strong></div>
+            </div>
+          </div>
+        </div>
         <span class="chart-actions-sep" aria-hidden="true"></span>
         <button class="chart-btn chart-iconbtn" id="exportCsvBtn" title="Download chart data as CSV" disabled>CSV</button>
         <button class="chart-btn chart-iconbtn" id="exportPngBtn" title="Download chart as PNG (paper-friendly: white background, black labels)" disabled>PNG</button>
@@ -800,6 +851,7 @@ body{
 <script src="js/catalog-loader.js"></script>
 <script src="js/chart-engine.js"></script>
 <script src="js/regime-shading.js"></script>
+<script src="js/lead-lag.js"></script>
 <script src="js/macro-map.js"></script>
 <script src="js/econ-calendar.js"></script>
 <script src="js/ui-terminal.js"></script>

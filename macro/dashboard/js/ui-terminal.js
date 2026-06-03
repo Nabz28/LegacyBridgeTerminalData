@@ -87,8 +87,15 @@
       '<span class="search-status-count">' + (searchHits.length ? searchHits.length + ' matches' : 'no matches') + '</span>' +
       '</div>';
 
+    var xlink = '<div class="search-xlink" data-q="' + escapeHtml(q) + '">⇄ Search the correlation matrix for <strong>“' + escapeHtml(q) + '”</strong> <span class="xlink-arrow">↗</span></div>';
+    function wireXlink() {
+      var el = box.querySelector('.search-xlink');
+      if (el) el.addEventListener('click', function () { openCorrelation(el.dataset.q); closeSearch(); });
+    }
+
     if (!searchHits.length) {
-      box.innerHTML = header + '<div class="search-empty">No RICs match <strong>"' + escapeHtml(q) + '"</strong>. Try a different keyword (e.g. CPI, NFP, GDP, BIS, M2).</div>';
+      box.innerHTML = header + '<div class="search-empty">No RICs match <strong>"' + escapeHtml(q) + '"</strong>. Try a different keyword (e.g. CPI, NFP, GDP, BIS, M2).</div>' + xlink;
+      wireXlink();
       return;
     }
 
@@ -104,13 +111,14 @@
         '</div>';
     }).join('');
 
-    box.innerHTML = header + rowsHtml;
+    box.innerHTML = header + rowsHtml + xlink;
     box.querySelectorAll('.search-result').forEach(function (el) {
       el.addEventListener('click', function () {
         loadRic(el.dataset.ric);
         closeSearch();
       });
     });
+    wireXlink();
   }
   function closeSearch() {
     var box = document.getElementById('searchResults');
@@ -522,6 +530,7 @@
     // Sync the enabled-state on chart changes — observe the legend element
     // (it's hidden when zero series, shown when ≥1) and update buttons.
     var buildBtn = document.getElementById('buildBtn');
+    var leadlagBtn = document.getElementById('leadlagBtn');
     var legend = document.getElementById('legend');
     if (legend && window.MutationObserver) {
       var refreshExportBtns = function () {
@@ -529,13 +538,78 @@
         if (clearBtn) clearBtn.disabled = n === 0;
         if (csvBtn) csvBtn.disabled = n === 0;
         if (pngBtn) pngBtn.disabled = n === 0;
-        if (buildBtn) buildBtn.disabled = n < 2;  // need two series to combine
+        if (buildBtn) buildBtn.disabled = n < 2;     // need two series to combine
+        if (leadlagBtn) leadlagBtn.disabled = n < 2; // need two series to correlate
       };
       new MutationObserver(refreshExportBtns).observe(legend, { childList: true, attributes: true, attributeFilter: ['style'] });
       // Initial sync
       refreshExportBtns();
     }
     setupBuildControls();
+    setupLeadLag();
+  }
+
+  // ============== LEAD / LAG ANALYSIS ==============
+  function setupLeadLag() {
+    var btn = document.getElementById('leadlagBtn');
+    var pop = document.getElementById('llPop');
+    var selA = document.getElementById('llA');
+    var selB = document.getElementById('llB');
+    var runBtn = document.getElementById('llRun');
+    var cancelBtn = document.getElementById('llCancel');
+    var result = document.getElementById('llResult');
+    var summary = document.getElementById('llSummary');
+    var chartEl = document.getElementById('llChart');
+    if (!btn || !pop || !global.LeadLag) return;
+
+    function options(sel) {
+      return global.ChartEngine.list().map(function (ric, i) {
+        var s = global.ChartEngine.get(ric);
+        var label = (s && s.label) || ric;
+        if (label.length > 42) label = label.slice(0, 41) + '…';
+        return '<option value="' + escapeHtml(ric) + '"' + (i === sel ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+      }).join('');
+    }
+    function openPop() {
+      var list = global.ChartEngine.list();
+      if (list.length < 2) return;
+      selA.innerHTML = options(0);
+      selB.innerHTML = options(1);
+      result.hidden = true;
+      pop.hidden = false;
+    }
+    function closePop() { pop.hidden = true; }
+
+    function run() {
+      var a = selA.value, b = selB.value;
+      var sa = global.ChartEngine.get(a), sb = global.ChartEngine.get(b);
+      if (!sa || !sb) return;
+      if (a === b) { result.hidden = false; summary.innerHTML = '<span style="color:var(--negative)">Pick two different series.</span>'; chartEl.innerHTML = ''; return; }
+      var res = global.LeadLag.compute(sa.observations, sb.observations, 12);
+      result.hidden = false;
+      if (res.error) { summary.innerHTML = '<span style="color:var(--negative)">' + escapeHtml(res.error) + '</span>'; chartEl.innerHTML = ''; return; }
+      summary.innerHTML = escapeHtml(global.LeadLag.interpret(res, shortLabel(sa), shortLabel(sb)))
+        .replace(/r (-?\d?\.\d+)/, 'r <span class="accent">$1</span>');
+      var maxAbs = res.lags.reduce(function (mx, l) { return l.r == null ? mx : Math.max(mx, Math.abs(l.r)); }, 0.0001);
+      chartEl.innerHTML = res.lags.map(function (l) {
+        var h = l.r == null ? 0 : Math.round(Math.abs(l.r) / maxAbs * 60);
+        var cls = 'll-bar' + (l.r != null && l.r < 0 ? ' neg' : '') + (l.lag === res.peak.lag ? ' peak' : '');
+        var tip = 'lag ' + (l.lag > 0 ? '+' : '') + l.lag + 'mo · r=' + (l.r == null ? 'n/a' : l.r.toFixed(2)) + ' · n=' + l.n;
+        return '<div class="' + cls + '" style="height:' + Math.max(1, h) + 'px" title="' + escapeHtml(tip) + '"></div>';
+      }).join('');
+    }
+
+    btn.addEventListener('click', function (e) { e.stopPropagation(); if (pop.hidden) openPop(); else closePop(); });
+    cancelBtn.addEventListener('click', closePop);
+    runBtn.addEventListener('click', run);
+    pop.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', function () { if (!pop.hidden) closePop(); });
+  }
+
+  // shortLabel mirror (chart-engine has its own; keep a local copy for popovers).
+  function shortLabel(s) {
+    var l = (s && (s.label || s.ric)) || '';
+    return l.length > 22 ? l.slice(0, 21) + '…' : l;
   }
 
   // ============== DERIVED SERIES (spread / ratio) ==============
@@ -760,6 +834,11 @@
       '<div><div class="meta-label">Last obs</div><div class="meta-value mono">' + (last ? last.date.toISOString().slice(0, 10) : '—') + '</div></div>' +
       '</div></div>';
 
+    html += '<div class="meta-section meta-actions">' +
+      '<button class="meta-xlink" id="metaCorrLink" data-q="' + escapeHtml(meta.description || meta.ric) + '" ' +
+      'title="Open this indicator in the cross-asset correlation matrix">⇄ Cross-asset correlations <span class="xlink-arrow">↗</span></button>' +
+      '</div>';
+
     if (meta.category) {
       html += '<div class="meta-section">' +
         '<div class="meta-label">Category</div>' +
@@ -801,6 +880,16 @@
     box.querySelectorAll('.related a').forEach(function (a) {
       a.addEventListener('click', function () { loadRic(a.dataset.ric); });
     });
+    var corrLink = document.getElementById('metaCorrLink');
+    if (corrLink) corrLink.addEventListener('click', function () { openCorrelation(corrLink.dataset.q); });
+  }
+
+  // Open the correlation terminal seeded with a search query (cross-terminal
+  // hand-off). New tab so the macro view is preserved.
+  function openCorrelation(q) {
+    var url = '/correlation/ui/static/';
+    if (q) url += '?q=' + encodeURIComponent(q);
+    window.open(url, '_blank');
   }
 
   // ============== MAP OVERLAY ==============
@@ -1219,11 +1308,35 @@
     setupCountrySwitcher();
     setupPollsToggle();
     setupCalendar();
+    var deepLinkHandled = false;
     global.Catalog.on('ready', function () {
       renderCategoryTree();
       renderWatchlist();
+      if (!deepLinkHandled) { deepLinkHandled = true; handleDeepLink(); }
     });
     global.Catalog.init();
+  }
+
+  // Cross-terminal hand-off: arrive from the correlation terminal with ?q=<name>
+  // and we auto-load the best matching series (or surface the search dropdown).
+  function handleDeepLink() {
+    try {
+      var q = new URLSearchParams(location.search).get('q');
+      if (!q) return;
+      var hits = global.Catalog.search(q, 6);
+      var status = document.getElementById('chartStatus');
+      if (hits && hits.length) {
+        loadRic(hits[0].ric, { replace: true });
+        if (status) {
+          var msg = 'Opened from search: “' + q + '”';
+          status.textContent = msg;
+          setTimeout(function () { if (status.textContent === msg) status.textContent = 'Ready'; }, 3000);
+        }
+      } else {
+        var input = document.getElementById('globalSearch');
+        if (input) { input.value = q; input.focus(); runSearch(q); }
+      }
+    } catch (e) {}
   }
 
   if (document.readyState === 'loading') {

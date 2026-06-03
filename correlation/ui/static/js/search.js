@@ -41,6 +41,16 @@
       this.modal.hidden = true;
     }
 
+    // Open the spotlight pre-filled with a query (used by cross-terminal
+    // hand-off: the macro terminal links here with ?q=<indicator name>).
+    openWith(q) {
+      this.modal.hidden = false;
+      this.input.value = q || '';
+      this.activeIdx = 0;
+      this._search();
+      setTimeout(() => this.input.focus(), 10);
+    }
+
     _search() {
       const q = this.input.value.trim();
       let mode = 'find', text = q;

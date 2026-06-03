@@ -423,10 +423,24 @@
   }
 
   // -------- event wiring --------------------------------------------
+  let lastFocusId = null;   // most recently inspected series (for the → Macro hand-off)
+  function nameForId(id) {
+    var s = (S.get().seriesById || {})[id];
+    return s ? (s.name || id) : id;
+  }
   heatmap.onCellClick = ({ id_a, id_b }) => {
+    lastFocusId = id_a;
     pair.load(id_a, id_b, S.get().freq, { start: S.get().startDate, end: S.get().endDate });
   };
-  heatmap.onCellSelect = ({ id_a, id_b }) => setStatus(`selected ${id_a} ↔ ${id_b}`);
+  heatmap.onCellSelect = ({ id_a, id_b }) => { lastFocusId = id_a; setStatus(`selected ${id_a} ↔ ${id_b}`); };
+
+  // Reverse cross-link → open the macro terminal, seeded with the last series.
+  var toMacroBtn = document.getElementById('to-macro-btn');
+  if (toMacroBtn) toMacroBtn.addEventListener('click', () => {
+    var url = '/macro/dashboard/';
+    if (lastFocusId) url += '?q=' + encodeURIComponent(nameForId(lastFocusId));
+    window.location.href = url;
+  });
 
   universe.onCompute = (ids) => computeFromSelection(ids);
   templates.onPick = (k) => loadTemplate(k);
@@ -582,6 +596,13 @@
     } else {
       await loadTemplate('us_macro_xa', { skipHash: true });
     }
+
+    // Cross-terminal hand-off: the macro terminal links here with ?q=<name>.
+    // Open the spotlight pre-filled so the user lands on the right series.
+    try {
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) setTimeout(() => search.openWith(q), 350);
+    } catch (_) {}
   }
 
   boot().catch(err => {
