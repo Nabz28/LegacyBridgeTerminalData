@@ -233,6 +233,7 @@
       borderWidth: 1.6,
       tension: 0.05,
       spanGaps: true,
+      hidden: !!s.hidden,
       ric: s.ric,
       yAxisID: s.axis === 'left' ? 'yLeft' : 'y',
       segment: type === 'bar' ? undefined : {
@@ -411,6 +412,11 @@
     renderLegend(pointsById);
   }
 
+  // Legend rows expose three explicit, keyboard-operable controls, so no single
+  // habitual click is overloaded:
+  //   • name button  → show / hide the series (mute)
+  //   • axis chip     → move between the right (default) and left axis
+  //   • ×             → remove
   function renderLegend(pointsById) {
     var el = document.getElementById('legend');
     if (!el) return;
@@ -424,32 +430,32 @@
       var pts = pointsById[id] || seriesPoints(s);
       var lastVal = null;
       for (var i = pts.length - 1; i >= 0; i--) { if (pts[i].value != null) { lastVal = pts[i].value; break; } }
+      var nm = escapeHtml(s.label);
+      var onLeft = s.axis === 'left';
       var item = document.createElement('div');
-      item.className = 'legend-item';
+      item.className = 'legend-item' + (s.hidden ? ' muted' : '');
       item.innerHTML =
-        '<span class="swatch" style="background:' + color + '"></span>' +
-        '<span class="label">' + escapeHtml(s.label) + (s.axis === 'left' ? ' <span class="axis-tag" title="Left axis">L</span>' : '') + '</span>' +
+        '<button class="legend-vis" data-ric="' + escapeAttr(s.ric) + '" aria-pressed="' + (s.hidden ? 'false' : 'true') + '" title="Show / hide ' + nm + '">' +
+          '<span class="swatch" style="background:' + color + '"></span>' +
+          '<span class="label">' + nm + '</span>' +
+        '</button>' +
         (lastVal != null ? '<span class="last">' + Number(lastVal).toLocaleString(undefined, { maximumFractionDigits: 2 }) + suffix + '</span>' : '') +
-        '<span class="x" data-ric="' + escapeAttr(s.ric) + '" title="Remove">×</span>';
+        '<button class="legend-axis' + (onLeft ? ' on' : '') + '" data-ric="' + escapeAttr(s.ric) + '" aria-pressed="' + (onLeft ? 'true' : 'false') + '" title="' + nm + ': on the ' + (onLeft ? 'left' : 'right') + ' axis — click to move to the ' + (onLeft ? 'right' : 'left') + '">' + (onLeft ? 'L' : 'R') + '</button>' +
+        '<button class="x" data-ric="' + escapeAttr(s.ric) + '" aria-label="Remove ' + nm + '" title="Remove">×</button>';
       el.appendChild(item);
     });
-    el.querySelectorAll('.x').forEach(function (x) {
-      x.addEventListener('click', function (e) {
+    el.querySelectorAll('.legend-vis').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.stopPropagation(); api.toggleVisibility(b.dataset.ric); });
+    });
+    el.querySelectorAll('.legend-axis').forEach(function (b) {
+      b.addEventListener('click', function (e) {
         e.stopPropagation();
-        api.remove(x.dataset.ric);
+        var s = seriesById[b.dataset.ric];
+        if (s) api.setAxis(b.dataset.ric, s.axis === 'left' ? 'right' : 'left');
       });
     });
-    // Click the swatch/label to move a series between the right (default) and
-    // left axis — the fastest way to make a different-unit overlay readable.
-    el.querySelectorAll('.legend-item').forEach(function (item, i) {
-      var ric = seriesOrder[i];
-      item.title = 'Click to move to the ' + (seriesById[ric] && seriesById[ric].axis === 'left' ? 'right' : 'left') + ' axis';
-      item.addEventListener('click', function (e) {
-        if (e.target.classList.contains('x')) return;
-        var s = seriesById[ric];
-        if (!s) return;
-        api.setAxis(ric, s.axis === 'left' ? 'right' : 'left');
-      });
+    el.querySelectorAll('.x').forEach(function (x) {
+      x.addEventListener('click', function (e) { e.stopPropagation(); api.remove(x.dataset.ric); });
     });
   }
 
@@ -529,6 +535,13 @@
       var s = seriesById[ric];
       if (!s) return;
       s.axis = (axis === 'left') ? 'left' : 'right';
+      rebuild();
+    },
+    // Show / hide (mute) a series without removing it.
+    toggleVisibility: function (ric) {
+      var s = seriesById[ric];
+      if (!s) return;
+      s.hidden = !s.hidden;
       rebuild();
     },
 

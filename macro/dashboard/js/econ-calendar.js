@@ -29,9 +29,16 @@
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
     });
   }
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function isoDay(d) {
     if (!(d instanceof Date)) d = new Date(d);
     return d.toISOString().slice(0, 10);
+  }
+  // Month-precision label for ESTIMATED dates — we never imply day-precision on
+  // a date we computed by adding a frequency cadence.
+  function monthYear(d) {
+    if (!(d instanceof Date)) d = new Date(d);
+    return MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
   }
   function addCadence(date, freq) {
     var d = new Date(date.getTime());
@@ -170,11 +177,13 @@
 
   function rowHtml(r, kind) {
     var today = new Date();
-    var dateStr, daysStr;
+    var dateStr, daysStr, estMark = '';
     if (kind === 'upcoming') {
-      dateStr = isoDay(r.nextEst);
+      // Estimated — month precision only, tilde-marked, never a crisp day.
+      dateStr = '~' + monthYear(r.nextEst);
       var dn = daysBetween(today, r.nextEst);
-      daysStr = dn <= 0 ? 'due' : ('in ' + dn + 'd');
+      daysStr = 'est · ' + (dn <= 0 ? 'due' : '~' + dn + 'd');
+      estMark = '<span class="cal-badge est" title="Estimated from the series\' release cadence — not an official schedule date">est</span>';
     } else {
       dateStr = isoDay(r.lastDate);
       var dp = daysBetween(r.lastDate, today);
@@ -194,7 +203,7 @@
     return '<div class="cal-row" data-ric="' + escapeHtml(r.ric) + '">' +
       '<div class="cal-row-date"><span class="cal-d">' + dateStr + '</span><span class="cal-rel">' + daysStr + '</span></div>' +
       '<div class="cal-row-main">' +
-        '<div class="cal-row-name">' + escapeHtml(r.label) + ' ' + surpriseBadge + '</div>' +
+        '<div class="cal-row-name">' + escapeHtml(r.label) + ' ' + estMark + surpriseBadge + '</div>' +
         '<div class="cal-row-meta">' + escapeHtml(r.freqLabel) + (r.units ? ' · ' + escapeHtml(r.units) : '') + ' · ' + escapeHtml(r.ric) + '</div>' +
       '</div>' +
       '<div class="cal-row-vals">' +

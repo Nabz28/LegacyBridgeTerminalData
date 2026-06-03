@@ -496,7 +496,11 @@
     // Transform segmented control — one active mode applied to every series.
     document.querySelectorAll('#xformBtns .seg-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        document.querySelectorAll('#xformBtns .seg-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+        document.querySelectorAll('#xformBtns .seg-btn').forEach(function (x) {
+          var on = x === b;
+          x.classList.toggle('active', on);
+          x.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
         global.ChartEngine.setTransform(b.dataset.xform);
         announceTransform();
       });
@@ -504,7 +508,11 @@
     // Smoothing segmented control.
     document.querySelectorAll('#smoothBtns .seg-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        document.querySelectorAll('#smoothBtns .seg-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+        document.querySelectorAll('#smoothBtns .seg-btn').forEach(function (x) {
+          var on = x === b;
+          x.classList.toggle('active', on);
+          x.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
         global.ChartEngine.setSmoothing(b.dataset.smooth);
         announceTransform();
       });
@@ -516,7 +524,10 @@
       shadingBtn.addEventListener('click', function () {
         var on = global.MacroShading.toggle();
         shadingBtn.classList.toggle('active', on);
+        shadingBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
+    } else if (shadingBtn) {
+      shadingBtn.disabled = true;  // shading module failed to load — don't leave a dead control
     }
 
     var clearBtn = document.getElementById('clearAllBtn');
@@ -573,12 +584,15 @@
     function openPop() {
       var list = global.ChartEngine.list();
       if (list.length < 2) return;
+      closeAllPopovers('llPop');
       selA.innerHTML = options(0);
       selB.innerHTML = options(1);
       result.hidden = true;
       pop.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      setTimeout(function () { selA.focus(); }, 10);
     }
-    function closePop() { pop.hidden = true; }
+    function closePop() { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
 
     function run() {
       var a = selA.value, b = selB.value;
@@ -600,10 +614,21 @@
     }
 
     btn.addEventListener('click', function (e) { e.stopPropagation(); if (pop.hidden) openPop(); else closePop(); });
-    cancelBtn.addEventListener('click', closePop);
+    cancelBtn.addEventListener('click', function () { closePop(); btn.focus(); });
     runBtn.addEventListener('click', run);
     pop.addEventListener('click', function (e) { e.stopPropagation(); });
+    pop.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closePop(); btn.focus(); } });
     document.addEventListener('click', function () { if (!pop.hidden) closePop(); });
+  }
+
+  // Close every chart-action popover except the one being opened (mutual
+  // exclusion) and reset their triggers' aria-expanded.
+  function closeAllPopovers(except) {
+    [['buildPop', 'buildBtn'], ['llPop', 'leadlagBtn']].forEach(function (pair) {
+      var p = document.getElementById(pair[0]);
+      var b = document.getElementById(pair[1]);
+      if (p && pair[0] !== except) { p.hidden = true; if (b) b.setAttribute('aria-expanded', 'false'); }
+    });
   }
 
   // shortLabel mirror (chart-engine has its own; keep a local copy for popovers).
@@ -635,20 +660,24 @@
     function openPop() {
       var list = global.ChartEngine.list();
       if (list.length < 2) return;
+      closeAllPopovers('buildPop');
       selA.innerHTML = optionsHtml(list[0]);
       selB.innerHTML = optionsHtml(list[1]);
       hint.classList.remove('err');
       hint.textContent = 'Common use: 10Y − 2Y curve, copper ÷ gold, real = nominal − CPI.';
       pop.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      setTimeout(function () { selA.focus(); }, 10);
     }
-    function closePop() { pop.hidden = true; }
+    function closePop() { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
 
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       if (pop.hidden) openPop(); else closePop();
     });
-    cancelBtn.addEventListener('click', closePop);
+    cancelBtn.addEventListener('click', function () { closePop(); btn.focus(); });
     pop.addEventListener('click', function (e) { e.stopPropagation(); });
+    pop.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closePop(); btn.focus(); } });
     document.addEventListener('click', function () { if (!pop.hidden) closePop(); });
 
     addBtn.addEventListener('click', function () {
