@@ -22,6 +22,7 @@ import json
 import math
 import os
 import sys
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
@@ -71,8 +72,21 @@ INDICATOR_MAP["US"]["liquidity"].append(("aUSFEDFUNDT", -1, "Fed funds target", 
 INDICATOR_MAP["ID"]["growth"].append(("aIDRSLSAR", +1, "Retail sales YoY", "rate"))
 # Self-sourced Indonesian series (scripts/scrape_bps.py) — fills Refinitiv gaps.
 INDICATOR_MAP["ID"]["inflation"].append(("ID_CPI_IDX_YOY", +1, "CPI YoY (self-sourced)", "rate"))
-INDICATOR_MAP["ID"]["external"].append(("ID_RESERVES_USD", +1, "FX reserves", "level"))
-INDICATOR_MAP["ID"]["external"].append(("ID_FX_IDRUSD", -1, "IDR/USD (weaker = risk-off)", "level"))
+# Liquidity = price (policy rate) + ONE quantity aggregate. The Refinitiv M2
+# (MS2YB) is dropped for ID to avoid triple-counting the monetary stance.
+INDICATOR_MAP["ID"]["liquidity"] = [
+    ("ID_POLICY_RATE", -1, "BI policy rate (self-sourced)", "level"),
+    ("ID_BROAD_MONEY_YOY", +1, "Broad money YoY (self-sourced)", "rate"),
+]
+# External = reserves + FX + trade balance + exports. Exports moved OUT of growth:
+# for a commodity exporter, exports-YoY is a terms-of-trade/external signal driven
+# by global prices, not domestic activity — counting it in growth mislabels the regime.
+INDICATOR_MAP["ID"]["external"] = [
+    ("ID_RESERVES_USD", +1, "FX reserves", "level"),
+    ("ID_FX_IDRUSD", -1, "IDR/USD (weaker = risk-off)", "level"),
+    ("ID_TRADE_BAL", +1, "Trade balance (self-sourced)", "level"),
+    ("ID_EXPORTS_YOY", +1, "Exports YoY (self-sourced)", "rate"),
+]
 
 # Positive pillars (renormalized over those with data). Inflation is handled
 # separately as a TWO-SIDED term (rewards disinflation, penalizes acceleration).
@@ -83,7 +97,9 @@ GLOBAL_WEIGHTS = {"US": 0.55, "CN": 0.30, "ID": 0.15}  # deliberate Indonesia ho
 TREND_YEARS = 5             # calendar trailing window for mean/std (critique #2)
 ACCEL_MONTHS = 3            # calendar horizon for the momentum term (critique #3)
 MIN_OBS = 16
-STALE_MONTHS = 14
+STALE_MONTHS_MONTHLY = 8    # a monthly series older than this is broken, not lagging
+STALE_MONTHS_LOWFREQ = 18   # quarterly/lower
+SQUASH = 2.0                # tanh saturation divisor (named; was a magic /2.0)
 
 # ── HTTP ─────────────────────────────────────────────────────────────────────
 def _req(path, method="GET", body=None, profile="macro", prefer=None):
@@ -103,11 +119,22 @@ def _req(path, method="GET", body=None, profile="macro", prefer=None):
         return json.loads(raw) if raw.strip() else []
 
 def get_observations(ric):
+    # Retry on transient network failure. CRITICAL: a swallowed fetch error must
+    # NOT masquerade as "no data" — that silently collapses a whole pillar and
+    # corrupts the read. After retries we RAISE so the caller marks fetch_error
+    # (visible) rather than treating it as an empty series.
     q = "/observations?select=date,value&ric=eq." + urllib.parse.quote(ric, safe="") + "&order=date.asc"
-    try:
-        rows = _req(q)
-    except Exception:
-        return []
+    last = None
+    for attempt in range(4):
+        try:
+            rows = _req(q)
+            break
+        except Exception as e:
+            last = e
+            if attempt < 3:
+                time.sleep(1.0 + attempt)
+    else:
+        raise RuntimeError("fetch_failed for %s: %s" % (ric, last))
     out = []
     for x in rows:
         v = x.get("value")
@@ -129,6 +156,21 @@ def _median(a):
     s = sorted(a); n = len(s)
     if not n: return 0.0
     return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2.0
+def _mad_sigma(a, med=None):
+    # Median absolute deviation, scaled to a normal-consistent sigma (×1.4826).
+    if len(a) < 2: return 0.0
+    m = med if med is not None else _median(a)
+    return 1.4826 * _median([abs(x - m) for x in a])
+def _robust_scale(sample):
+    """Robust dispersion (MAD-sigma, mean/std fallback). 0.0 if degenerate."""
+    if len(sample) < 2: return 0.0
+    sig = _mad_sigma(sample)
+    return sig if sig > 1e-9 else _std(sample, ddof=1)
+def _robust_z(x, sample):
+    """Median-centered robust z (for level-vs-history)."""
+    if len(sample) < 2: return 0.0
+    med = _median(sample); sc = _robust_scale(sample)
+    return (x - med) / sc if sc > 1e-9 else 0.0
 def _clip(x, lo, hi): return max(lo, min(hi, x))
 def _shift_years(d, yrs):
     try: return d.replace(year=d.year + yrs)
@@ -143,14 +185,17 @@ def score_indicator(ric, direction, mode):
     CALENDAR trailing window, sample std (ddof=1), and a frequency-adaptive
     momentum step normalized by its own diff-std.
     """
-    obs = get_observations(ric)
+    try:
+        obs = get_observations(ric)
+    except Exception:
+        info = {"ric": ric, "mode": mode, "skip": "fetch_error"}
+        return None, info
     info = {"ric": ric, "n": len(obs), "mode": mode}
     if len(obs) < MIN_OBS:
         info["skip"] = "insufficient_obs"; return None, info
     last_date, last_val = obs[-1]
     age_months = (datetime.now(timezone.utc).replace(tzinfo=None) - last_date).days / 30.4
-    if age_months > STALE_MONTHS:
-        info["skip"] = "stale"; info["asof"] = last_date.date().isoformat(); return None, info
+    info["asof"] = last_date.date().isoformat(); info["age_months"] = round(age_months, 1)
 
     # calendar window (last TREND_YEARS); fall back to all obs if too few in window
     cutoff = _shift_years(last_date, -TREND_YEARS)
@@ -163,31 +208,47 @@ def score_indicator(ric, direction, mode):
     med = _median(spac) if spac else 30.0
     step = max(1, round(ACCEL_MONTHS * 30.4 / med)) if med > 0 else 1
 
-    hist = [v for _, v in window[:-1]]                  # exclude the scored point
-    mu, sd = _mean(hist), _std(hist, ddof=1)
-    diffs = [window[i][1] - window[i - step][1] for i in range(step, len(window))]
-    sd_diff = _std(diffs, ddof=1)
-    last_diff = window[-1][1] - window[-1 - step][1] if len(window) > step else 0.0
+    # Per-frequency staleness: a MONTHLY series 13 months old is broken, not lagging.
+    stale_gate = STALE_MONTHS_MONTHLY if med < 45 else STALE_MONTHS_LOWFREQ
+    if age_months > stale_gate:
+        info["skip"] = "stale"; return None, info
 
-    z_level = (last_val - mu) / sd if sd > 1e-9 else 0.0
-    z_accel = last_diff / sd_diff if sd_diff > 1e-9 else 0.0
+    hist = [v for _, v in window[:-1]]                  # exclude the scored point
+    diffs = [window[i][1] - window[i - step][1] for i in range(step, len(window))]
+    last_diff = window[-1][1] - window[-1 - step][1] if len(window) > step else 0.0
+    scale_d = _robust_scale(diffs)
+
+    # Robust normalization. z_level is median-centered (where are we vs normal);
+    # z_accel is centered on ZERO (is the series moving now), scaled by the robust
+    # spread of its own k-step diffs. Both winsorized to tame fat tails.
+    z_level = _clip(_robust_z(last_val, hist), -3.5, 3.5)
+    z_accel = _clip(last_diff / scale_d, -3.5, 3.5) if scale_d > 1e-9 else 0.0
 
     if mode == "level":
-        raw = math.tanh(z_accel / 2.0)                  # direction of change only
-    else:
-        if sd <= 1e-9 and sd_diff <= 1e-9:
+        if scale_d <= 1e-9:                              # constant level → no signal
             info["skip"] = "flat"; return None, info
-        raw = math.tanh((0.65 * z_level + 0.35 * z_accel) / 2.0)
+        raw = math.tanh(z_accel / SQUASH)                # direction of change only
+    else:
+        if abs(z_level) < 1e-12 and abs(z_accel) < 1e-12:
+            info["skip"] = "flat"; return None, info
+        raw = math.tanh((0.65 * z_level + 0.35 * z_accel) / SQUASH)
     signed = raw * direction
-    info.update(asof=last_date.date().isoformat(), value=round(last_val, 3),
-                z_level=round(z_level, 2), z_accel=round(z_accel, 2),
-                step=step, score=round(signed, 3), dir=direction)
+    # Age-decay: full weight to ~3 months old, tapering to a floor of 0.3 by ~18m,
+    # so a lagging IFS print can't assert current-month conviction.
+    w_age = _clip(1.0 - max(0.0, age_months - 3.0) / 15.0, 0.3, 1.0)
+    info.update(value=round(last_val, 3), z_level=round(z_level, 2), z_accel=round(z_accel, 2),
+                step=step, score=round(signed, 3), dir=direction, w_age=round(w_age, 2))
     return signed, info
 
 # ── news ────────────────────────────────────────────────────────────────────
+NEWS_WINDOW_H = 168          # 7-day lookback
+NEWS_HALFLIFE_H = 72         # exponential decay, 3-day half-life
+
 def news_score(region):
-    """Confidence-weighted, 48h linearly-decayed mean of news sent_score."""
-    since = (datetime.now(timezone.utc) - timedelta(hours=48)).isoformat()
+    """Confidence-weighted, exponentially-decayed (3-day half-life) mean of
+    news sent_score over a 7-day window. Smoother than a hard 48h cliff and
+    keeps the news leg populated between bursts of headlines."""
+    since = (datetime.now(timezone.utc) - timedelta(hours=NEWS_WINDOW_H)).isoformat()
     regions = [region] if region != "Global" else None
     q = "/news?select=sent_score,confidence,ts,region&ts=gte." + urllib.parse.quote(since, safe="")
     if regions:
@@ -207,9 +268,9 @@ def news_score(region):
         except Exception:
             continue
         age_h = (now - ts).total_seconds() / 3600
-        if age_h < 0 or age_h > 48:          # skip future-dated (clock skew) or stale
+        if age_h < 0 or age_h > NEWS_WINDOW_H:   # skip future-dated (clock skew) or stale
             continue
-        decay = 1 - age_h / 48
+        decay = 0.5 ** (age_h / NEWS_HALFLIFE_H)
         conf = float(x.get("confidence") or 0.6)
         w = decay * conf
         num += w * float(s); den += w; n += 1
@@ -228,9 +289,13 @@ def compute_region(region):
             info["label"] = label
             components["indicators"][ric] = info
             if s is not None:
-                scores.append(s)
+                scores.append((s, info.get("w_age", 1.0)))   # age-weighted
         components["coverage"][pillar] = "%d/%d" % (len(scores), len(inds))
-        pv[pillar] = _mean(scores) if scores else None
+        if scores:
+            wsum_p = sum(w for _, w in scores)
+            pv[pillar] = (sum(s * w for s, w in scores) / wsum_p) if wsum_p > 0 else _mean([s for s, _ in scores])
+        else:
+            pv[pillar] = None
         pn[pillar] = len(scores)
 
     # Growth axis: weight growth pillar over labor (labor partly restates growth — critique #7).
@@ -258,12 +323,16 @@ def compute_region(region):
     # Two-sided inflation: accelerating (I>0) = tightening = risk-off; disinflation
     # (I<0) = easing impulse = risk-on (critique #4 — the engine now rewards disinflation).
     infl_term = -INFLATION_WEIGHT * _clip(I, -1, 1)
-    data_score = round(100 * math.tanh(base + infl_term), 1)
+    data_raw = base + infl_term                       # pre-squash
+    data_score = round(100 * math.tanh(data_raw), 1)
 
+    # News blends at the SAME pre-tanh raw scale as the data (news_score/100),
+    # so 0.35 means 0.35 of comparable variance — not a raw-±100 leg overwhelming
+    # a tanh-compressed data leg (critique: data/news scale mismatch).
     ns, n_news = news_score(region)
     if ns is not None:
         ns = _clip(ns, -100, 100)
-        composite = round(_clip(0.65 * data_score + 0.35 * ns, -100, 100), 1)
+        composite = round(100 * math.tanh(0.65 * data_raw + 0.35 * (ns / 100.0)), 1)
     else:
         composite = data_score
 

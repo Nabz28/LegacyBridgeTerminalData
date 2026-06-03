@@ -47,8 +47,47 @@ INDICATORS = [
     {"ric": "ID_IP_IDX", "dbn": "IMF/IFS/M.ID.AIP_IX", "freq": "P1M",
      "category": "Production", "slug": "id_production", "subcat": "Industrial production index",
      "units": "index", "desc": "Indonesia industrial production (index)",
-     "meaning": "Industrial production index for Indonesia (IMF IFS / BPS). Self-sourced via DBnomics.",
+     "meaning": "Industrial production index for Indonesia (IMF IFS). Self-sourced via DBnomics.",
      "derive_yoy": True},
+    {"ric": "ID_POLICY_RATE", "dbn": "IMF/IFS/M.ID.FPOLM_PA", "freq": "P1M",
+     "category": "Monetary", "slug": "id_monetary", "subcat": "Policy rate",
+     "units": "% p.a.", "desc": "Indonesia monetary policy rate (BI)",
+     "meaning": "Bank Indonesia monetary policy rate (IMF IFS). Self-sourced via DBnomics.",
+     "derive_yoy": False},
+    {"ric": "ID_LENDING_RATE", "dbn": "IMF/IFS/M.ID.FILR_PA", "freq": "P1M",
+     "category": "Monetary", "slug": "id_monetary", "subcat": "Lending rate",
+     "units": "% p.a.", "desc": "Indonesia commercial lending rate",
+     "meaning": "Average commercial bank lending rate, Indonesia (IMF IFS). Self-sourced via DBnomics.",
+     "derive_yoy": False},
+    {"ric": "ID_BROAD_MONEY", "dbn": "IMF/IFS/M.ID.FMB_XDC", "freq": "P1M",
+     "category": "Monetary", "slug": "id_monetary", "subcat": "Broad money",
+     "units": "IDR", "desc": "Indonesia broad money (M2-equivalent)",
+     "meaning": "Broad money, Indonesia (IMF IFS / Bank Indonesia). Self-sourced via DBnomics.",
+     "derive_yoy": True},
+    {"ric": "ID_EXPORTS", "dbn": "IMF/IFS/M.ID.TXG_FOB_USD", "freq": "P1M",
+     "category": "Trade", "slug": "id_trade", "subcat": "Exports (FOB)",
+     "units": "USD millions", "desc": "Indonesia goods exports, FOB",
+     "meaning": "Merchandise exports (FOB, USD), Indonesia (IMF IFS / BPS). Self-sourced via DBnomics.",
+     "derive_yoy": True},
+    {"ric": "ID_IMPORTS", "dbn": "IMF/IFS/M.ID.TMG_CIF_USD", "freq": "P1M",
+     "category": "Trade", "slug": "id_trade", "subcat": "Imports (CIF)",
+     "units": "USD millions", "desc": "Indonesia goods imports, CIF",
+     "meaning": "Merchandise imports (CIF, USD), Indonesia (IMF IFS / BPS). Self-sourced via DBnomics.",
+     "derive_yoy": True},
+    {"ric": "ID_UNEMP_RATE", "dbn": "IMF/IFS/Q.ID.LUR_PT", "freq": "P3M",
+     "category": "Labour", "slug": "id_labour", "subcat": "Unemployment rate",
+     "units": "%", "desc": "Indonesia unemployment rate",
+     "meaning": "Unemployment rate, Indonesia (IMF IFS / BPS). Quarterly; IFS lags the BPS release. Self-sourced via DBnomics.",
+     "derive_yoy": False},
+]
+
+# Derived series computed AFTER ingest from two fetched series: (ric, A, B, op, meta).
+DERIVED = [
+    ("ID_TRADE_BAL", "ID_EXPORTS", "ID_IMPORTS", "sub",
+     {"category": "Trade", "slug": "id_trade", "subcat": "Trade balance",
+      "units": "USD millions", "desc": "Indonesia trade balance (exports FOB - imports CIF)",
+      "meaning": "Goods trade balance = exports FOB - imports CIF (derived, IMF IFS). Note CIF inflates imports by freight/insurance (~3-8%), so the LEVEL is modestly biased; the engine uses it in momentum-mode where a constant bias cancels. Self-sourced.",
+      "freq": "P1M"}),
 ]
 
 def http_get_json(url):
@@ -97,17 +136,18 @@ def fetch_dbnomics(path):
 def yoy_series(obs, periods_per_year=12):
     """obs sorted ascending [(date,value)] -> YoY %% change companion.
 
-    Rebasing guard (critique: CPI index rebasings — BPS 2007/2012/2018/2022 —
-    create phantom double-digit YoY spikes if the index isn't back-spliced).
-    We flag implausible month-over-month jumps (>8%) as likely base breaks and
-    suppress the YoY across the affected 12-month window rather than publish a
-    spurious inflation print that would flip the regime.
+    Rebasing guard (critique: CPI index rebasings create phantom double-digit YoY
+    spikes if the index isn't back-spliced). We flag only GROSS month-over-month
+    discontinuities (>15%) as likely splice artifacts and suppress the YoY across
+    the affected 12-month window. The 15% threshold is deliberately high so that
+    genuine administered-price (fuel-subsidy) shocks — which can run ~5-9% m/m and
+    are REAL inflation signals — are preserved, not nuked.
     """
     obs = sorted(obs)
     breaks = set()
     for i in range(1, len(obs)):
         prev = obs[i - 1][1]
-        if prev and abs(prev) > 1e-9 and abs(obs[i][1] / prev - 1.0) > 0.08:
+        if prev and abs(prev) > 1e-9 and abs(obs[i][1] / prev - 1.0) > 0.15:
             breaks.add(i)
     out = []
     for i in range(periods_per_year, len(obs)):
@@ -146,11 +186,13 @@ def main():
         print("ERROR: set SUPABASE_SERVICE_ROLE_KEY", file=sys.stderr); sys.exit(2)
     src = "DBnomics:IMF/IFS"
     total = 0
+    fetched = {}
     for ind in INDICATORS:
         obs = fetch_dbnomics(ind["dbn"])
         if not obs:
             print("- %-16s SKIP (no data)" % ind["ric"]); continue
         obs = sorted(obs)
+        fetched[ind["ric"]] = obs
         upsert_series({
             "ric": ind["ric"], "country": "id", "slug": ind["slug"],
             "category": ind["category"], "category_slug": ind["slug"], "subcategory": ind["subcat"],
@@ -176,6 +218,30 @@ def main():
                 ny = upsert_obs(yric, yo)
                 total += ny
                 print("  +-%-14s %4d obs  (derived YoY)" % (yric, len(yo)))
+
+    # Derived combinations (e.g. trade balance = exports - imports), date-aligned.
+    for ric, a, b, op, meta in DERIVED:
+        oa, ob = fetched.get(a), fetched.get(b)
+        if not oa or not ob:
+            print("- %-16s SKIP (need %s & %s)" % (ric, a, b)); continue
+        bm = {d: v for d, v in ob}
+        out = []
+        for d, v in oa:
+            if d in bm:
+                out.append((d, v - bm[d] if op == "sub" else v / bm[d]))
+        if not out:
+            print("- %-16s SKIP (no overlap)" % ric); continue
+        upsert_series({
+            "ric": ric, "country": "id", "slug": meta["slug"], "category": meta["category"],
+            "category_slug": meta["slug"], "subcategory": meta["subcat"], "description": meta["desc"],
+            "frequency": meta["freq"], "units": meta["units"], "source": src + " (derived)",
+            "meaning": meta["meaning"], "how_to_use": "Derived series; cross-check components.",
+            "related_series": [a, b], "notes": "Derived by scripts/scrape_bps.py",
+        })
+        n = upsert_obs(ric, sorted(out))
+        total += n
+        print("- %-16s %4d obs  (derived %s)" % (ric, len(out), op))
+
     print("\n%s %d observations across Indonesian self-sourced series." % ("[dry-run] would write" if DRY else "Wrote", total))
 
 if __name__ == "__main__":
