@@ -485,6 +485,23 @@
       });
     });
 
+    // Transform segmented control — one active mode applied to every series.
+    document.querySelectorAll('#xformBtns .seg-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#xformBtns .seg-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+        global.ChartEngine.setTransform(b.dataset.xform);
+        announceTransform();
+      });
+    });
+    // Smoothing segmented control.
+    document.querySelectorAll('#smoothBtns .seg-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#smoothBtns .seg-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+        global.ChartEngine.setSmoothing(b.dataset.smooth);
+        announceTransform();
+      });
+    });
+
     var clearBtn = document.getElementById('clearAllBtn');
     var csvBtn = document.getElementById('exportCsvBtn');
     var pngBtn = document.getElementById('exportPngBtn');
@@ -568,6 +585,22 @@
       status.textContent = 'Downloaded ' + out.filename;
       setTimeout(function () { status.textContent = prev || 'Ready'; }, 2500);
     }
+  }
+
+  // Brief status hint describing the active transform + smoothing, so the
+  // change is legible even before the user reads the axis title.
+  function announceTransform() {
+    var status = document.getElementById('chartStatus');
+    if (!status || !global.ChartEngine) return;
+    var XF = { level: 'Level', yoy: 'YoY %', qoq: 'QoQ %', mom: 'Period %', diff: 'Δ change', index: 'Index = 100', zscore: 'Z-score' };
+    var t = global.ChartEngine.getTransform ? global.ChartEngine.getTransform() : 'level';
+    var s = global.ChartEngine.getSmoothing ? global.ChartEngine.getSmoothing() : 0;
+    var msg = 'Transform: ' + (XF[t] || t) + (s ? ' · ' + s + '-period MA' : '');
+    status.textContent = msg;
+    clearTimeout(announceTransform._t);
+    announceTransform._t = setTimeout(function () {
+      if (status.textContent === msg) status.textContent = 'Ready';
+    }, 2600);
   }
 
   // ============== LOAD A RIC ==============

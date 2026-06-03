@@ -238,10 +238,28 @@ body{
 .chart-iconbtn-danger:hover:not(:disabled){color:var(--negative);border-color:var(--negative)}
 
 .chart-controls{
-  display:flex;align-items:center;gap:14px;
+  display:flex;align-items:center;gap:14px 16px;flex-wrap:wrap;
   padding:8px 18px;border-bottom:1px solid var(--border);background:var(--bg-elev);
   font-family:var(--mono);font-size:11px;color:var(--text-dim);
 }
+.ctrl-group{display:flex;align-items:center;gap:7px}
+.ctrl-label{
+  color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;font-size:9.5px;
+  font-weight:600;
+}
+/* Segmented control — shared by Transform + Smooth. One connected pill so the
+   active mode reads as a single deliberate choice, not a row of loose buttons. */
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--border-strong);border-radius:4px;overflow:hidden}
+.seg-btn{
+  background:transparent;border:0;border-left:1px solid var(--border-strong);
+  color:var(--text-dim);padding:4px 9px;font-family:var(--mono);font-size:10.5px;
+  cursor:pointer;letter-spacing:.3px;line-height:1.4;transition:background .1s ease,color .1s ease;
+}
+.seg-btn:first-child{border-left:0}
+.seg-btn:hover{color:var(--text);background:var(--bg-elev-2)}
+.seg-btn.active{background:var(--accent-dim);color:#fff;font-weight:600}
+.seg-btn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
 .range-btns{display:flex;gap:2px}
 .range-btn{
   background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
@@ -249,6 +267,10 @@ body{
 }
 .range-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--text)}
 .range-btn:hover{color:var(--text)}
+.legend-item .axis-tag{
+  display:inline-block;font-size:8px;font-weight:700;color:var(--accent);
+  border:1px solid var(--accent-dim);border-radius:2px;padding:0 3px;margin-left:3px;vertical-align:middle;
+}
 .forecast-key{display:inline-flex;align-items:center;gap:6px;margin-left:14px;color:var(--text-faint);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
 .forecast-key-line{display:inline-block;width:18px;height:0;border-top:1.5px dashed var(--text-dim)}
 
@@ -529,6 +551,27 @@ body{
       </div>
     </div>
     <div class="chart-controls">
+      <div class="ctrl-group">
+        <span class="ctrl-label">Transform</span>
+        <div class="seg" id="xformBtns" role="group" aria-label="Series transform">
+          <button class="seg-btn active" data-xform="level" title="Raw level — the series as reported">Level</button>
+          <button class="seg-btn" data-xform="yoy" title="Year-over-year % change (vs ~12 months earlier)">YoY</button>
+          <button class="seg-btn" data-xform="qoq" title="Quarter-over-quarter % change (vs ~3 months earlier)">QoQ</button>
+          <button class="seg-btn" data-xform="mom" title="Period-over-period % change (vs the previous observation)">Δ%</button>
+          <button class="seg-btn" data-xform="diff" title="Absolute change vs the previous observation">Δ</button>
+          <button class="seg-btn" data-xform="index" title="Rebased to 100 at the start of the visible window — compare different units">=100</button>
+          <button class="seg-btn" data-xform="zscore" title="Standardized: σ from the mean over the visible window — how stretched vs its own history">Z</button>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">Smooth</span>
+        <div class="seg" id="smoothBtns" role="group" aria-label="Moving-average smoothing">
+          <button class="seg-btn active" data-smooth="0" title="No smoothing">·</button>
+          <button class="seg-btn" data-smooth="3" title="3-period moving average">3</button>
+          <button class="seg-btn" data-smooth="6" title="6-period moving average">6</button>
+          <button class="seg-btn" data-smooth="12" title="12-period moving average">12</button>
+        </div>
+      </div>
       <div class="range-btns" id="rangeBtns">
         <button class="range-btn" data-range="1Y">1Y</button>
         <button class="range-btn" data-range="3Y">3Y</button>
