@@ -26,7 +26,7 @@ def main():
         print("ERROR: set SUPABASE_SERVICE_ROLE_KEY", file=sys.stderr); sys.exit(2)
     if len(sys.argv) < 2:
         print("usage: post_news.py items.json", file=sys.stderr); sys.exit(2)
-    items = json.load(open(sys.argv[1], encoding="utf-8"))
+    items = json.load(open(sys.argv[1], encoding="utf-8-sig"))  # tolerate a BOM
     if isinstance(items, dict):
         items = [items]
     now = datetime.now(timezone.utc).isoformat()
