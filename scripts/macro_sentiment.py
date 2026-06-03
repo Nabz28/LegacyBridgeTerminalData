@@ -69,6 +69,10 @@ INDICATOR_MAP = {
 # Region-specific extras (validated codes that don't follow the YoY family).
 INDICATOR_MAP["US"]["liquidity"].append(("aUSFEDFUNDT", -1, "Fed funds target (level)"))
 INDICATOR_MAP["ID"]["growth"].append(("aIDRSLSAR", +1, "Retail sales YoY"))
+# Self-sourced Indonesian series (scripts/scrape_bps.py) — fills Refinitiv gaps.
+INDICATOR_MAP["ID"]["inflation"].append(("ID_CPI_IDX_YOY", +1, "CPI YoY (self-sourced, BPS/IMF)"))
+INDICATOR_MAP["ID"]["external"].append(("ID_RESERVES_USD", +1, "FX reserves (self-sourced)"))
+INDICATOR_MAP["ID"]["external"].append(("ID_FX_IDRUSD", -1, "IDR/USD — weaker = risk-off (self-sourced)"))
 
 PILLAR_WEIGHTS = {"growth": 0.40, "labor": 0.15, "liquidity": 0.20, "external": 0.10}
 INFLATION_PENALTY = 0.15  # accelerating inflation = tightening pressure = risk-off
