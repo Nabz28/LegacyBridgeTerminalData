@@ -97,8 +97,13 @@ GLOBAL_WEIGHTS = {"US": 0.55, "CN": 0.30, "ID": 0.15}  # deliberate Indonesia ho
 TREND_YEARS = 5             # calendar trailing window for mean/std (critique #2)
 ACCEL_MONTHS = 3            # calendar horizon for the momentum term (critique #3)
 MIN_OBS = 16
-STALE_MONTHS_MONTHLY = 8    # a monthly series older than this is broken, not lagging
-STALE_MONTHS_LOWFREQ = 18   # quarterly/lower
+# Staleness gates are deliberately LENIENT because IFS-via-DBnomics (Indonesia)
+# legitimately lags 3–12 months — that data isn't "broken," just slow, and is the
+# best freely available. Truly dead series still drop; everything surviving is
+# AGE-WEIGHTED (full→0.3 past ~3mo), so a lagging print contributes at reduced,
+# not full, conviction. (Timely Refinitiv US/CN data gets full weight.)
+STALE_MONTHS_MONTHLY = 15
+STALE_MONTHS_LOWFREQ = 30   # quarterly/lower (GDP, unemployment)
 SQUASH = 2.0                # tanh saturation divisor (named; was a magic /2.0)
 
 # ── HTTP ─────────────────────────────────────────────────────────────────────
