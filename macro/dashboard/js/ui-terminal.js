@@ -512,18 +512,83 @@
 
     // Sync the enabled-state on chart changes — observe the legend element
     // (it's hidden when zero series, shown when ≥1) and update buttons.
+    var buildBtn = document.getElementById('buildBtn');
     var legend = document.getElementById('legend');
     if (legend && window.MutationObserver) {
       var refreshExportBtns = function () {
-        var hasSeries = global.ChartEngine.list().length > 0;
-        if (clearBtn) clearBtn.disabled = !hasSeries;
-        if (csvBtn) csvBtn.disabled = !hasSeries;
-        if (pngBtn) pngBtn.disabled = !hasSeries;
+        var n = global.ChartEngine.list().length;
+        if (clearBtn) clearBtn.disabled = n === 0;
+        if (csvBtn) csvBtn.disabled = n === 0;
+        if (pngBtn) pngBtn.disabled = n === 0;
+        if (buildBtn) buildBtn.disabled = n < 2;  // need two series to combine
       };
       new MutationObserver(refreshExportBtns).observe(legend, { childList: true, attributes: true, attributeFilter: ['style'] });
       // Initial sync
       refreshExportBtns();
     }
+    setupBuildControls();
+  }
+
+  // ============== DERIVED SERIES (spread / ratio) ==============
+  function setupBuildControls() {
+    var btn = document.getElementById('buildBtn');
+    var pop = document.getElementById('buildPop');
+    var selA = document.getElementById('buildA');
+    var selB = document.getElementById('buildB');
+    var selOp = document.getElementById('buildOp');
+    var addBtn = document.getElementById('buildAdd');
+    var cancelBtn = document.getElementById('buildCancel');
+    var hint = document.getElementById('buildHint');
+    if (!btn || !pop) return;
+
+    function optionsHtml(selectedRic) {
+      return global.ChartEngine.list().map(function (ric) {
+        var s = global.ChartEngine.get(ric);
+        var label = (s && s.label) || ric;
+        if (label.length > 42) label = label.slice(0, 41) + '…';
+        return '<option value="' + escapeHtml(ric) + '"' + (ric === selectedRic ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+      }).join('');
+    }
+    function openPop() {
+      var list = global.ChartEngine.list();
+      if (list.length < 2) return;
+      selA.innerHTML = optionsHtml(list[0]);
+      selB.innerHTML = optionsHtml(list[1]);
+      hint.classList.remove('err');
+      hint.textContent = 'Common use: 10Y − 2Y curve, copper ÷ gold, real = nominal − CPI.';
+      pop.hidden = false;
+    }
+    function closePop() { pop.hidden = true; }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (pop.hidden) openPop(); else closePop();
+    });
+    cancelBtn.addEventListener('click', closePop);
+    pop.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', function () { if (!pop.hidden) closePop(); });
+
+    addBtn.addEventListener('click', function () {
+      var a = selA.value, b = selB.value, op = selOp.value;
+      if (a === b) {
+        hint.classList.add('err');
+        hint.textContent = 'Pick two different series.';
+        return;
+      }
+      var res = global.ChartEngine.buildDerived(op, a, b);
+      if (!res.ok) {
+        hint.classList.add('err');
+        hint.textContent = res.reason || 'Could not build that series.';
+        return;
+      }
+      closePop();
+      var status = document.getElementById('chartStatus');
+      if (status) {
+        var msg = (op === 'ratio' ? 'Ratio' : 'Spread') + ' added · ' + res.n + ' aligned points';
+        status.textContent = msg;
+        setTimeout(function () { if (status.textContent === msg) status.textContent = 'Ready'; }, 2600);
+      }
+    });
   }
 
   function clearAllSeries() {

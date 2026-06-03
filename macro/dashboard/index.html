@@ -234,6 +234,40 @@ body{
 .chart-actions-sep{
   display:inline-block;width:1px;height:18px;background:var(--border-strong);margin:0 4px;
 }
+
+/* ── Derived-series build popover ───────────────────────────────────────── */
+.build-wrap{position:relative;display:inline-block}
+.build-pop{
+  position:absolute;top:calc(100% + 8px);right:0;z-index:60;width:280px;
+  background:var(--bg-elev-2);border:1px solid var(--border-strong);border-radius:6px;
+  box-shadow:0 12px 32px rgba(0,0,0,.5);padding:12px;
+  font-family:'Segoe UI',system-ui,sans-serif;
+}
+.build-pop[hidden]{display:none}
+.build-pop-title{
+  font-family:var(--mono);font-size:10px;color:var(--text-faint);text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:10px;font-weight:600;
+}
+.build-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:11px;color:var(--text-dim)}
+.build-row>span{width:62px;flex-shrink:0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-faint)}
+.build-select{
+  flex:1;min-width:0;background:var(--bg);border:1px solid var(--border-strong);color:var(--text);
+  font-family:var(--mono);font-size:11px;border-radius:3px;padding:5px 6px;outline:none;cursor:pointer;
+}
+.build-select:focus{border-color:var(--accent)}
+.build-pop-actions{display:flex;gap:6px;margin-top:10px}
+.build-add{
+  flex:1;background:var(--accent-dim);border:1px solid var(--accent);color:#fff;
+  padding:6px 10px;font-size:11px;font-weight:600;border-radius:3px;cursor:pointer;font-family:inherit;letter-spacing:.3px;
+}
+.build-add:hover{background:var(--accent);color:#0e1116}
+.build-cancel{
+  background:transparent;border:1px solid var(--border-strong);color:var(--text-dim);
+  padding:6px 10px;font-size:11px;border-radius:3px;cursor:pointer;font-family:inherit;
+}
+.build-cancel:hover{color:var(--text);border-color:var(--text-dim)}
+.build-hint{margin-top:9px;font-size:10.5px;line-height:1.5;color:var(--text-faint)}
+.build-hint.err{color:var(--negative)}
 .chart-iconbtn{letter-spacing:.5px;font-weight:600}
 .chart-iconbtn-danger:hover:not(:disabled){color:var(--negative);border-color:var(--negative)}
 
@@ -544,6 +578,26 @@ body{
         <button class="chart-btn active" data-type="line">Line</button>
         <button class="chart-btn" data-type="area">Area</button>
         <button class="chart-btn" data-type="bar">Bar</button>
+        <span class="chart-actions-sep" aria-hidden="true"></span>
+        <div class="build-wrap">
+          <button class="chart-btn chart-iconbtn" id="buildBtn" title="Build a derived series — spread (A−B) or ratio (A÷B) of two loaded series" disabled>ƒ Build</button>
+          <div class="build-pop" id="buildPop" hidden>
+            <div class="build-pop-title">Derived series</div>
+            <label class="build-row"><span>Operation</span>
+              <select id="buildOp" class="build-select">
+                <option value="spread">Spread &nbsp;(A − B)</option>
+                <option value="ratio">Ratio &nbsp;(A ÷ B)</option>
+              </select>
+            </label>
+            <label class="build-row"><span>Series A</span><select id="buildA" class="build-select"></select></label>
+            <label class="build-row"><span>Series B</span><select id="buildB" class="build-select"></select></label>
+            <div class="build-pop-actions">
+              <button class="build-add" id="buildAdd">Add to chart</button>
+              <button class="build-cancel" id="buildCancel">Cancel</button>
+            </div>
+            <div class="build-hint" id="buildHint">Common use: 10Y − 2Y curve, copper ÷ gold, real = nominal − CPI.</div>
+          </div>
+        </div>
         <span class="chart-actions-sep" aria-hidden="true"></span>
         <button class="chart-btn chart-iconbtn" id="exportCsvBtn" title="Download chart data as CSV" disabled>CSV</button>
         <button class="chart-btn chart-iconbtn" id="exportPngBtn" title="Download chart as PNG (paper-friendly: white background, black labels)" disabled>PNG</button>

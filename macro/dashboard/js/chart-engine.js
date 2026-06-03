@@ -439,10 +439,28 @@
         api.remove(x.dataset.ric);
       });
     });
+    // Click the swatch/label to move a series between the right (default) and
+    // left axis — the fastest way to make a different-unit overlay readable.
+    el.querySelectorAll('.legend-item').forEach(function (item, i) {
+      var ric = seriesOrder[i];
+      item.title = 'Click to move to the ' + (seriesById[ric] && seriesById[ric].axis === 'left' ? 'right' : 'left') + ' axis';
+      item.addEventListener('click', function (e) {
+        if (e.target.classList.contains('x')) return;
+        var s = seriesById[ric];
+        if (!s) return;
+        api.setAxis(ric, s.axis === 'left' ? 'right' : 'left');
+      });
+    });
   }
 
   function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
   function escapeAttr(s) { return escapeHtml(s); }
+
+  // Compact label for derived-series names (keeps the legend readable).
+  function shortLabel(s) {
+    var l = (s && (s.label || s.ric)) || '';
+    return l.length > 22 ? l.slice(0, 21) + '…' : l;
+  }
 
   var api = {
     setType: function (type) {
@@ -509,6 +527,62 @@
       if (!s) return;
       s.axis = (axis === 'left') ? 'left' : 'right';
       rebuild();
+    },
+
+    // Build a derived series from two loaded series:
+    //   op 'spread' → A − B   ·   op 'ratio' → A ÷ B
+    // Aligns on exact day; if too few exact matches (mixed frequencies),
+    // falls back to nearest-prior within 45 days. Adds it as a normal series.
+    // Returns { ok, n, ric } or { ok:false, reason }.
+    buildDerived: function (op, ricA, ricB, label) {
+      var a = seriesById[ricA], b = seriesById[ricB];
+      if (!a || !b) return { ok: false, reason: 'Both series must be loaded.' };
+      var aObs = a.observations || [], bObs = b.observations || [];
+      if (!aObs.length || !bObs.length) return { ok: false, reason: 'A loaded series has no data.' };
+
+      function combine(av, bv) {
+        if (av == null || bv == null) return null;
+        if (op === 'ratio') return Math.abs(bv) < 1e-12 ? null : av / bv;
+        return av - bv;
+      }
+
+      // 1) exact-day alignment
+      var bByDay = {};
+      bObs.forEach(function (o) { bByDay[isoDay(o.date)] = o.value; });
+      var out = [];
+      aObs.forEach(function (o) {
+        var bv = bByDay[isoDay(o.date)];
+        if (bv === undefined) return;
+        var v = combine(o.value, bv);
+        if (v != null) out.push({ date: o.date, value: v });
+      });
+
+      // 2) fallback — nearest-prior within 45 days (mixed-frequency case)
+      if (out.length < 5) {
+        var tol = 45 * ONE_DAY;
+        var j = 0;
+        out = [];
+        for (var i = 0; i < aObs.length; i++) {
+          var t = aObs[i].date.getTime();
+          while (j + 1 < bObs.length && bObs[j + 1].date.getTime() <= t) j++;
+          var cand = bObs[j];
+          if (cand && Math.abs(cand.date.getTime() - t) <= tol) {
+            var vv = combine(aObs[i].value, cand.value);
+            if (vv != null) out.push({ date: aObs[i].date, value: vv });
+          }
+        }
+      }
+
+      if (out.length < 2) return { ok: false, reason: 'Series do not overlap in time.' };
+      var sym = op === 'ratio' ? ' ÷ ' : ' − ';
+      var ric = '~' + op + ':' + ricA + ':' + ricB;
+      api.add({
+        ric: ric,
+        label: label || (shortLabel(a) + sym + shortLabel(b)),
+        observations: out,
+        derived: { op: op, a: ricA, b: ricB }
+      });
+      return { ok: true, n: out.length, ric: ric };
     },
 
     // ============================================================
