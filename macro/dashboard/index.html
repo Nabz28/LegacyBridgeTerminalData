@@ -512,6 +512,56 @@ body{
 .status .item.err .dot{background:var(--negative)}
 .status .spacer{flex:1}
 
+/* ====== ECONOMIC CALENDAR OVERLAY ====== */
+.cal-overlay{position:fixed;inset:0;background:rgba(8,11,15,.96);z-index:110;display:flex;flex-direction:column;backdrop-filter:blur(3px)}
+.cal-overlay.hidden{display:none}
+.cal-head{
+  display:flex;align-items:center;gap:16px;padding:12px 18px;
+  background:var(--bg-elev);border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.cal-title{font-family:var(--mono);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:1.5px;flex-shrink:0}
+.cal-sub{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.5px}
+.cal-legend{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap}
+.cal-note{font-size:10px;color:var(--text-faint);font-style:italic;letter-spacing:.3px}
+.cal-body{
+  flex:1;min-height:0;overflow-y:auto;padding:18px;
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;align-content:start;
+}
+@media (max-width:900px){ .cal-body{grid-template-columns:1fr} }
+.cal-col{min-width:0}
+.cal-col-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border-strong);position:sticky;top:0;background:rgba(8,11,15,.98);z-index:1}
+.cal-col-title{font-family:var(--mono);font-size:12px;color:var(--text);font-weight:700;letter-spacing:.5px}
+.cal-col-note{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px}
+.cal-row{
+  display:grid;grid-template-columns:74px minmax(0,1fr) auto;gap:12px;align-items:center;
+  padding:9px 10px;border:1px solid var(--border);border-radius:5px;margin-bottom:6px;cursor:pointer;
+  background:var(--bg-elev);transition:border-color .1s ease,background .1s ease;
+}
+.cal-row:hover{border-color:var(--accent-dim);background:var(--bg-elev-2)}
+.cal-row-date{display:flex;flex-direction:column;gap:1px}
+.cal-row-date .cal-d{font-family:var(--mono);font-size:11px;color:var(--text);font-weight:600}
+.cal-row-date .cal-rel{font-family:var(--mono);font-size:9px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.5px}
+.cal-row-main{min-width:0}
+.cal-row-name{font-size:12.5px;color:var(--text);font-weight:600;line-height:1.25;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cal-row-meta{font-family:var(--mono);font-size:9.5px;color:var(--text-faint);margin-top:2px;letter-spacing:.3px}
+.cal-row-vals{display:flex;gap:14px;flex-shrink:0}
+.cal-val{display:flex;flex-direction:column;align-items:flex-end;gap:1px}
+.cal-val-num{font-family:var(--mono);font-size:12px;color:var(--text)}
+.cal-val-lbl{font-family:var(--mono);font-size:8.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.5px}
+.cal-val.up .cal-val-num{color:var(--positive)}
+.cal-val.down .cal-val-num{color:var(--negative)}
+.cal-badge{
+  font-family:var(--mono);font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;
+  letter-spacing:.3px;text-transform:none;white-space:nowrap;
+}
+.cal-badge.above{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
+.cal-badge.below{background:rgba(239,68,68,.16);color:#f87171;border:1px solid rgba(239,68,68,.4)}
+.cal-badge.inline{background:var(--bg-elev-2);color:var(--text-dim);border:1px solid var(--border-strong)}
+.cal-badge.poll{background:rgba(250,204,21,.12);color:#facc15;border:1px solid rgba(250,204,21,.35)}
+.cal-loading,.cal-empty{grid-column:1 / -1;padding:36px 18px;text-align:center;color:var(--text-faint);font-size:12px}
+.cal-empty{padding:18px;font-size:11px}
+.cal-loading.err{color:var(--negative)}
+
 /* scrollbars */
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -543,6 +593,7 @@ body{
     </select>
   </label>
   <button class="topbar-link polls-toggle" id="pollsToggle" title="Show Reuters Economic Indicator Polls (Median consensus, distribution, and forecaster surprise) — US only">📊 Polls</button>
+  <button class="topbar-link" id="calToggle" title="Economic calendar — recent + estimated-upcoming releases with consensus & surprise">📅 Calendar</button>
   <button class="topbar-link" id="mapToggle" title="Open the macro influence map">⊕ Map</button>
 </div>
 
@@ -723,6 +774,21 @@ body{
   </div>
 </div>
 
+<div class="cal-overlay hidden" id="calOverlay">
+  <div class="cal-head">
+    <div class="cal-title">📅 ECONOMIC CALENDAR</div>
+    <div class="cal-sub" id="calSub"></div>
+    <div class="cal-legend">
+      <span class="cal-badge above">+ vs cons</span>
+      <span class="cal-badge below">− vs cons</span>
+      <span class="cal-badge poll">poll</span>
+      <span class="cal-note">Upcoming dates are estimated from each series' release cadence.</span>
+    </div>
+    <button class="map-iconbtn" id="calClose" title="Close (Esc)">×</button>
+  </div>
+  <div class="cal-body" id="calBody"></div>
+</div>
+
 <!-- Config layers (last one to assign window.MACROTERM_CONFIG wins):
        1. js/config.vercel.js   (public defaults, committed — used by the deployed build)
        2. js/config.js          (gitignored local override — present only in dev)
@@ -735,6 +801,7 @@ body{
 <script src="js/chart-engine.js"></script>
 <script src="js/regime-shading.js"></script>
 <script src="js/macro-map.js"></script>
+<script src="js/econ-calendar.js"></script>
 <script src="js/ui-terminal.js"></script>
 </body>
 </html>

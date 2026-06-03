@@ -1192,14 +1192,33 @@
     paint();
   }
 
+  // ============== ECONOMIC CALENDAR ==============
+  function setupCalendar() {
+    var btn = document.getElementById('calToggle');
+    var closeBtn = document.getElementById('calClose');
+    var overlay = document.getElementById('calOverlay');
+    if (!btn || !overlay || !global.EconCalendar) return;
+    btn.addEventListener('click', function () { global.EconCalendar.open(); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { global.EconCalendar.close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) global.EconCalendar.close();
+    });
+    // Rebuild the calendar against the new country's data on switch.
+    global.Catalog.on('ready', function () { global.EconCalendar.invalidate(); });
+  }
+
   // ============== BOOT ==============
   function boot() {
+    // Expose a minimal hook so sibling modules (calendar, future widgets) can
+    // chart a series without re-implementing loadRic.
+    global.MacroTerminal = { loadRic: loadRic };
     setupSearch();
     setupTabs();
     setupChartControls();
     setupMap();
     setupCountrySwitcher();
     setupPollsToggle();
+    setupCalendar();
     global.Catalog.on('ready', function () {
       renderCategoryTree();
       renderWatchlist();
