@@ -95,10 +95,25 @@ def fetch_dbnomics(path):
     return out
 
 def yoy_series(obs, periods_per_year=12):
-    """obs sorted ascending [(date,value)] → YoY %% change companion."""
+    """obs sorted ascending [(date,value)] -> YoY %% change companion.
+
+    Rebasing guard (critique: CPI index rebasings — BPS 2007/2012/2018/2022 —
+    create phantom double-digit YoY spikes if the index isn't back-spliced).
+    We flag implausible month-over-month jumps (>8%) as likely base breaks and
+    suppress the YoY across the affected 12-month window rather than publish a
+    spurious inflation print that would flip the regime.
+    """
     obs = sorted(obs)
+    breaks = set()
+    for i in range(1, len(obs)):
+        prev = obs[i - 1][1]
+        if prev and abs(prev) > 1e-9 and abs(obs[i][1] / prev - 1.0) > 0.08:
+            breaks.add(i)
     out = []
     for i in range(periods_per_year, len(obs)):
+        # skip if any rebasing break falls inside the trailing 12-month window
+        if any((i - periods_per_year) < b <= i for b in breaks):
+            continue
         base = obs[i - periods_per_year][1]
         if base and abs(base) > 1e-9:
             out.append((obs[i][0], (obs[i][1] / base - 1.0) * 100.0))
