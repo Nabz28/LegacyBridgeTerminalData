@@ -26,6 +26,7 @@ const SentSpectrum = ({ score, big = false }) => {
         </div>
       )}
       <div className="ns-spectrum">
+        <div className="ns-spectrum-fill" style={{ left: Math.min(50, cpct) + '%', width: Math.abs(cpct - 50) + '%' }} />
         <div className="ns-spectrum-mid" />
         <div className="ns-needle" style={{ left: cpct + '%' }} title={txt} />
       </div>
@@ -39,24 +40,35 @@ const SentSpectrum = ({ score, big = false }) => {
 };
 
 const NS_STRENGTH = ['—', 'minor', 'moderate', 'large', 'very large', 'extreme'];
-// Impact row: target + a 5-pip magnitude bar (level 1..5) + direction + note.
+const NS_UNIT = { bp: ' bp', pct: '%', pp: ' pp', usdm: 'm', qual: '' };
+// Format the engine's quantitative expected move in the asset's natural unit.
+const nsMove = (a) => {
+  if (a.move == null) return a.sigma_x ? a.sigma_x.toFixed(1) + 'σ' : '—';
+  const u = a.unit || '';
+  const sign = a.move > 0 ? '+' : a.move < 0 ? '-' : '';
+  const cur = u === 'usdm' ? '$' : '';
+  return sign + cur + Math.abs(a.move) + (NS_UNIT[u] || '');
+};
+// Impact row: target + the EXPECTED MOVE (quantitative) + a σ-scaled bar + note.
 const ImpactRow = ({ a }) => {
   // new shape uses signed `level` (−5..+5); legacy shape used `dir`.
   const lvl = a.level != null ? a.level : (a.dir || 0) * 2;
-  const mag = Math.min(5, Math.abs(Math.round(lvl)));
+  const sx = a.sigma_x != null ? a.sigma_x : Math.min(5, Math.abs(Math.round(lvl))) * 0.7;
   const up = lvl > 0, down = lvl < 0;
   const col = up ? 'var(--pos)' : down ? 'var(--neg)' : 'var(--text-tertiary)';
   const arrow = up ? '▲' : down ? '▼' : '■';
   const lab = a.label || a.target;
+  const fill = Math.max(6, Math.min(100, (sx / 3.5) * 100));     // σ multiple → bar length
   return (
-    <div className="ns-impact-row" title={(a.note || '') + (mag ? '  (' + NS_STRENGTH[mag] + ')' : '')}>
+    <div className="ns-impact-row" title={(a.note || '') + '  (' + (sx ? sx.toFixed(2) + 'σ' : 'n/a') + ')'}>
       <span className="ns-impact-arrow" style={{ color: col }}>{arrow}</span>
       <span className="ns-impact-label" title={lab}>{lab}</span>
-      <span className="ns-mag" title={NS_STRENGTH[mag] || '—'}>
-        <span className="ns-mag-track">
-          <span className="ns-mag-fill" style={{ width: (mag / 5 * 100) + '%', background: col }} />
+      <span className="ns-mag">
+        <span className="ns-mag-move" style={{ color: col }}>{nsMove(a)}</span>
+        <span className="ns-mag-track" title={sx ? sx.toFixed(2) + 'σ expected move' : ''}>
+          <span className="ns-mag-fill" style={{ width: fill + '%', background: col }} />
         </span>
-        <span className="ns-mag-word" style={{ color: col }}>{NS_STRENGTH[mag] || '—'}</span>
+        <span className="ns-mag-sig">{sx ? sx.toFixed(1) + 'σ' : ''}</span>
       </span>
       <span className="ns-impact-note">{a.note || ''}</span>
     </div>

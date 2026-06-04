@@ -45,9 +45,28 @@ FLAT = _ROLL.get("flat_threshold", 12)
 GL_HAIRCUT = _ROLL.get("gl_correlation_haircut", 0.5)
 _IMP = _ROLL["importance_thresholds"]
 _DEFAULT_SURP = _SURP.get("partial", 0.45)
+# integer level (1..5) -> midpoint of its σ band, so a level becomes an expected move.
+_LVL_SIG = {int(k): v for k, v in _ROLL.get("level_sigma", {"1":0.35,"2":0.85,"3":1.6,"4":2.5,"5":3.5}).items()}
 
 def validate_type(t):
     return t if t in TYPES else "other"
+
+def expected_move(target_key, level, surprise_mult=1.0):
+    """Quantitative expected move for one target at a signed level, in the target's
+    natural unit. Returns (value, unit, sigma_multiple). value=None for qualitative
+    targets (no clean cardinal unit). σ multiple is scaled by surprise (a priced-in
+    event moves the asset less than a true surprise of the same headline magnitude)."""
+    t = TARGETS.get(target_key)
+    if not t:
+        return (None, "qual", 0.0)
+    mag = min(5, abs(int(round(level))))
+    sgn = 1 if level > 0 else -1 if level < 0 else 0
+    sig_mult = _LVL_SIG.get(mag, 0.0) * surprise_mult
+    unit = t.get("unit", "qual")
+    sig = t.get("sig", 0)
+    if unit == "qual" or not sig:
+        return (None, "qual", round(sig_mult, 2))
+    return (round(sgn * sig * sig_mult, 1 if unit in ("pct", "pp") else 0), unit, round(sig_mult, 2))
 
 def score_impacts(impacts, surprise_key="partial"):
     """impacts: [{target, level (-5..5), note?}], surprise_key in {priced,partial,likely,surprise}.
@@ -92,7 +111,12 @@ def score_impacts(impacts, surprise_key="partial"):
     importance = "high" if severity >= _IMP["high"] else "med" if severity >= _IMP["med"] else "low"
     label = "pos" if score > FLAT else "neg" if score < -FLAT else "flat"
 
-    clean = [{k: r[k] for k in ("target", "label", "level", "risk_sign", "tier", "weight", "note")} for r in rows]
+    clean = []
+    for r in rows:
+        c = {k: r[k] for k in ("target", "label", "level", "risk_sign", "tier", "weight", "note")}
+        mv, unit, sx = expected_move(r["target"], r["level"], s)
+        c["move"], c["unit"], c["sigma_x"] = mv, unit, sx   # quantitative expected move
+        clean.append(c)
     clean.sort(key=lambda c: c["weight"] * abs(c["level"]), reverse=True)
     return {
         "sent_score": score, "sent_label": label, "importance": importance,

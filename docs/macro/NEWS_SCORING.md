@@ -37,6 +37,14 @@ Each target carries its `sigma` anchor (IDR ≈0.5%/day, JCI ≈1%/day, 10Y SBN 
 …) so "≈1.5% rupiah move" → ~2.5σ → **level 4**, deterministically. Sign is the
 asset's natural up/down; the risk translation is separate (§3).
 
+**Quantitative expected move (per asset).** The level isn't just shown as a word —
+the engine turns it back into a concrete move in the asset's natural unit. Each
+target has a numeric `sig` (1σ size) and `unit` (`bp` / `pct` / `pp` / `usdm`); a
+level maps to a σ midpoint (`1→0.35, 2→0.85, 3→1.6, 4→2.5, 5→3.5`) scaled by the
+overall surprise. So a level-3 surprise on the 10Y SBN renders as **+8 bp (1.6σ)**,
+on foreign SBN flows as **−$240m**, on the rupiah as **−0.4%** — not "moderate".
+Qualitative targets (ratings, reserves, US-trade stance) show the σ multiple only.
+
 ## 3. Targets, tiers, and risk transmission
 ~47 targets, grouped and **tier-weighted** by how much each *defines Indonesia
 country risk*:
