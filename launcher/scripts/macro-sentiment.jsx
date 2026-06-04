@@ -20,6 +20,11 @@ window.MACRO_LIVE = {
     return byRegion;
   }),
   news: (limit) => mlGet('/news?select=*&order=ts.desc&limit=' + (limit || 60)),
+  // economic / corporate-event calendar (macro.calendar). Pulls a wide window
+  // (recent past + everything ahead) ordered chronologically.
+  calendar: (fromISO, limit) =>
+    mlGet('/calendar?select=*&event_date=gte.' + (fromISO || '2026-04-01') +
+          '&order=event_date.asc&limit=' + (limit || 4000)),
 };
 
 const scoreColor = (v) => (v == null ? 'var(--text-tertiary)' : v > 12 ? 'var(--pos)' : v < -12 ? 'var(--neg)' : '#d8a13a');
