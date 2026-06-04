@@ -1,97 +1,178 @@
 // ================================================================
-// Macro · News sub-page
-// Full-bleed news view: list (left ~60%) + drawer (right ~40%)
-// Region chips: All / US / IDX / World · MiroFish placeholder per article
-// Fixtures live on window.MACRO_DATA.NEWS_FIXTURES
+// Macro · News  (window.MacroNews)  — revamped newswire
+// Reads live macro.news (via window.MACRO_LIVE). Each item: explicit date,
+// full source, clickable link, a single bear↔bull sentiment spectrum with a
+// position needle, and a market-impact breakdown (what it moves, which way).
+// Falls back to MACRO_DATA.NEWS_FIXTURES only if the live feed is empty.
 // ================================================================
 
-// Map a live macro.news row to the shape this view renders.
+const nsScoreColor = (v) => (v == null ? 'var(--text-tertiary)' : v > 12 ? 'var(--pos)' : v < -12 ? 'var(--neg)' : '#d8a13a');
+const nsSentOf = (score, label) => label || (score > 12 ? 'pos' : score < -12 ? 'neg' : 'flat');
+const nsSentWord = (s) => (s === 'pos' ? 'Bullish' : s === 'neg' ? 'Bearish' : 'Mixed');
+
+// Single bear↔bull spectrum with a needle at `score` (−100..+100).
+const SentSpectrum = ({ score, showScale = true }) => {
+  const v = Math.max(-100, Math.min(100, Number(score) || 0));
+  const pct = (v + 100) / 2;
+  return (
+    <div className="ns-spectrum-wrap">
+      <div className="ns-spectrum">
+        <div className="ns-spectrum-mid" />
+        <div className="ns-needle" style={{ left: pct + '%' }} title={(v >= 0 ? '+' : '') + v} />
+      </div>
+      {showScale && (
+        <div className="ns-spectrum-scale">
+          <span>Bearish</span>
+          <span className="ns-spectrum-val" style={{ color: nsScoreColor(v) }}>{v >= 0 ? '+' : ''}{v}</span>
+          <span>Bullish</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ImpactRow = ({ a }) => {
+  const up = a.dir > 0, down = a.dir < 0;
+  const arrow = up ? '▲' : down ? '▼' : '■';
+  const col = up ? 'var(--pos)' : down ? 'var(--neg)' : 'var(--text-tertiary)';
+  return (
+    <div className="ns-impact-row">
+      <span className="ns-impact-arrow" style={{ color: col }}>{arrow}</span>
+      <span className="ns-impact-label">{a.label}</span>
+      {a.note ? <span className="ns-impact-note">{a.note}</span> : <span />}
+    </div>
+  );
+};
+
 const mapNewsRow = (r) => {
   const t = r.ts ? new Date(r.ts) : null;
   const score = r.sent_score == null ? 0 : Math.round(r.sent_score);
-  const sent = r.sent_label || (score > 12 ? 'pos' : score < -12 ? 'neg' : 'flat');
   return {
-    id: 'n' + r.id, time: t ? t.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '',
-    source: r.source || '—', headline: r.headline, region: r.region || 'World',
-    summary: r.summary || '', impact: r.impact || '', url: r.url || '', sent, net: score,
+    id: 'n' + r.id, dt: t, source: r.source || '—', region: r.region || 'World',
+    headline: r.headline, summary: r.summary || '', analysis: r.analysis || r.impact || '',
+    url: r.url || '', sent: nsSentOf(score, r.sent_label), net: score,
+    importance: r.importance || 'med', affects: Array.isArray(r.affects) ? r.affects : [],
   };
+};
+
+const nsFmtTime = (d) => d ? d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '';
+const nsFmtDate = (d) => d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) : '';
+const nsDayKey = (d) => {
+  if (!d) return 'Earlier';
+  const now = new Date(); const a = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const b = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diff = Math.round((b - a) / 86400000);
+  if (diff <= 0) return 'Today';
+  if (diff === 1) return 'Yesterday';
+  return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
 };
 
 const MacroNews = () => {
   const FIX = (window.MACRO_DATA && window.MACRO_DATA.NEWS_FIXTURES) || [];
-  const [live, setLive]     = React.useState(null);   // null = not loaded → fall back to fixtures
+  const [live, setLive] = React.useState(null);
   const [filter, setFilter] = React.useState('all');
-  const [query, setQuery]   = React.useState('');
-  const [openId, setOpenId] = React.useState(FIX[0]?.id ?? null);
+  const [query, setQuery] = React.useState('');
+  const [openId, setOpenId] = React.useState(null);
 
   React.useEffect(() => {
     let on = true;
     if (window.MACRO_LIVE) {
-      window.MACRO_LIVE.news(80).then((rows) => {
+      window.MACRO_LIVE.news(120).then((rows) => {
         if (on && Array.isArray(rows) && rows.length) {
           const mapped = rows.map(mapNewsRow);
-          setLive(mapped);
-          setOpenId(mapped[0].id);
+          setLive(mapped); setOpenId(mapped[0].id);
         }
       }).catch(() => {});
     }
     return () => { on = false; };
   }, []);
 
-  const NEWS = live || FIX;
+  const NEWS = live || FIX.map((f) => ({ ...f, dt: null, affects: [], analysis: f.impact || '', importance: 'med' }));
   const isLive = !!live;
 
-  const filtered = NEWS.filter(n => {
-    const okRegion = filter === 'all'
-      || (filter === 'us'    && n.region === 'US')
-      || (filter === 'idx'   && n.region === 'ID')
-      || (filter === 'world' && n.region === 'World');
-    const okQuery = !query || (n.headline + ' ' + n.source + ' ' + n.summary).toLowerCase().includes(query.toLowerCase());
-    return okRegion && okQuery;
+  const filtered = NEWS.filter((n) => {
+    const okR = filter === 'all'
+      || (filter === 'us' && n.region === 'US')
+      || (filter === 'idx' && n.region === 'ID')
+      || (filter === 'world' && (n.region === 'World' || n.region === 'CN' || n.region === 'EU'));
+    const okQ = !query || (n.headline + ' ' + n.source + ' ' + (n.summary || '')).toLowerCase().includes(query.toLowerCase());
+    return okR && okQ;
   });
-  const selected = filtered.find(n => n.id === openId) || filtered[0] || null;
+  const selected = filtered.find((n) => n.id === openId) || filtered[0] || null;
 
-  const bull = filtered.filter(n => n.sent === 'pos').length;
-  const bear = filtered.filter(n => n.sent === 'neg').length;
-  const flat = filtered.filter(n => n.sent === 'flat').length;
-  const net  = filtered.length ? Math.round(((bull - bear) / filtered.length) * 100) : 0;
+  const bull = filtered.filter((n) => n.sent === 'pos').length;
+  const bear = filtered.filter((n) => n.sent === 'neg').length;
+  const mixed = filtered.filter((n) => n.sent === 'flat').length;
+  const net = filtered.length ? Math.round(filtered.reduce((s, n) => s + (n.net || 0), 0) / filtered.length) : 0;
+  const latest = NEWS.reduce((m, n) => (n.dt && (!m || n.dt > m) ? n.dt : m), null);
+
+  // group filtered by day (filtered is already ts-desc from the query)
+  const groups = [];
+  filtered.forEach((n) => {
+    const k = nsDayKey(n.dt);
+    let g = groups.find((x) => x.k === k);
+    if (!g) { g = { k, items: [] }; groups.push(g); }
+    g.items.push(n);
+  });
+
+  const openSentiment = () => {
+    const ev = new CustomEvent('macro:navtool', { detail: { tool: 'sentiment' } });
+    window.dispatchEvent(ev);
+  };
 
   return (
     <section className="mc-section mc-news-page">
       <div className="mc-section-h">
         <span>Macro · News</span>
-        <span className="mc-section-h-sub">{filtered.length} items · {isLive ? 'live · model-scored sentiment' : 'sample feed'} · net {net >= 0 ? '+' : ''}{net}</span>
+        <span className="mc-section-h-sub">
+          {filtered.length} items · {isLive ? 'live · RSS + model-scored' : 'sample feed'}
+          {latest ? ' · updated ' + nsFmtDate(latest) + ' ' + nsFmtTime(latest) : ''}
+        </span>
       </div>
+
       <div className="mc-news-page-layout">
         <div className="mc-news-page-list">
           <div className="mc-news-tabs">
-            {[['all','All'],['us','US'],['idx','IDX'],['world','World']].map(([k, l]) => (
+            {[['all', 'All'], ['us', 'US'], ['idx', 'IDX'], ['world', 'World']].map(([k, l]) => (
               <button key={k} className={`mc-news-tab ${filter === k ? 'is-on' : ''}`} onClick={() => setFilter(k)}>{l}</button>
             ))}
             <div className="mc-news-search">
-              <input placeholder="Search headlines, sources, regions…" value={query} onChange={e => setQuery(e.target.value)} />
+              <input placeholder="Search headlines, sources…" value={query} onChange={(e) => setQuery(e.target.value)} />
             </div>
           </div>
-          <ul className="nf-feed mc-news-page-feed">
-            {filtered.map(n => (
-              <li
-                key={n.id}
-                className={`nf-row is-${n.sent} ${selected && selected.id === n.id ? 'is-open' : ''}`}
-                onClick={() => setOpenId(n.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <span className="nf-row__time">{n.time}</span>
-                <span className="nf-row__source">{n.source}</span>
-                <span className="nf-row__headline">
-                  <span className="nf-row__region">{n.region}</span>
-                  {n.headline}
-                </span>
-                <span className={`db-mini__sent db-mini__sent--${n.sent}`}>
-                  <span className="db-mini__sent-dot" />
-                  {n.sent === 'pos' ? 'Bull' : n.sent === 'neg' ? 'Bear' : 'Mixed'}
-                  <span className="db-mini__sent-net">{n.net >= 0 ? '+' : ''}{n.net}</span>
-                </span>
-              </li>
+
+          {/* aggregate bear↔bull for the current filter */}
+          <div className="ns-aggregate">
+            <div className="ns-agg-head">
+              <span className="ns-agg-title">Net sentiment · {filter === 'all' ? 'all regions' : filter.toUpperCase()}</span>
+              <button className="ns-agg-link" onClick={openSentiment} title="Open the macro Sentiment engine">Full macro read →</button>
+            </div>
+            <SentSpectrum score={net} />
+            <div className="ns-agg-counts">
+              <span className="up">▲ {bull} bullish</span>
+              <span className="mid">■ {mixed} mixed</span>
+              <span className="dn">▼ {bear} bearish</span>
+            </div>
+          </div>
+
+          <ul className="nf-feed ns-feed">
+            {groups.map((g) => (
+              <React.Fragment key={g.k}>
+                <li className="ns-daygroup">{g.k}</li>
+                {g.items.map((n) => (
+                  <li key={n.id} className={`ns-row is-${n.sent} imp-${n.importance} ${selected && selected.id === n.id ? 'is-open' : ''}`} onClick={() => setOpenId(n.id)}>
+                    <div className="ns-row-meta">
+                      <span className="ns-row-time">{nsFmtTime(n.dt) || '—'}</span>
+                      <span className="ns-row-src">{n.source}</span>
+                      <span className="ns-row-region">{n.region}</span>
+                    </div>
+                    <div className="ns-row-head">{n.headline}</div>
+                    <div className={`ns-pill ns-pill--${n.sent}`}>
+                      {nsSentWord(n.sent)} <b>{n.net >= 0 ? '+' : ''}{n.net}</b>
+                    </div>
+                  </li>
+                ))}
+              </React.Fragment>
             ))}
             {!filtered.length && <li className="mc-news-empty">No articles match your filter.</li>}
           </ul>
@@ -99,50 +180,45 @@ const MacroNews = () => {
 
         <aside className="mc-news-page-drawer">
           {selected ? (
-            <>
-              <div className="mc-news-drawer-h">
-                <div className="mc-news-drawer-h-tags">
-                  <span className="mc-tag">{selected.region}</span>
-                  <span className="mc-tag src">{selected.source}</span>
-                  <span className="mc-tag">{selected.time} WIB</span>
-                  <span className={`db-mini__sent db-mini__sent--${selected.sent}`}>
-                    <span className="db-mini__sent-dot" />
-                    {selected.sent === 'pos' ? 'Bullish' : selected.sent === 'neg' ? 'Bearish' : 'Mixed'}
-                    <span className="db-mini__sent-net">{selected.net >= 0 ? '+' : ''}{selected.net}</span>
-                  </span>
-                </div>
+            <div className="ns-detail">
+              <div className="ns-detail-meta">
+                <span className="mc-tag">{selected.region}</span>
+                <span className="mc-tag src">{selected.source}</span>
+                <span className="mc-tag">{nsFmtDate(selected.dt)} · {nsFmtTime(selected.dt)} WIB</span>
+                {selected.importance === 'high' && <span className="ns-tag-high">HIGH IMPACT</span>}
               </div>
-              <h2 className="mc-news-drawer-title">{selected.headline}</h2>
-              <p className="mc-news-drawer-body">{selected.summary}</p>
-              <div className="mc-news-drawer-h-sub">Where it leads</div>
-              <p className="mc-news-drawer-impact">{selected.impact}</p>
+              {selected.url
+                ? <a className="ns-detail-title ns-detail-title--link" href={selected.url} target="_blank" rel="noopener noreferrer">{selected.headline} <span className="ns-ext">↗</span></a>
+                : <div className="ns-detail-title">{selected.headline}</div>}
 
-              <div className="mc-news-drawer-h-sub">MiroFish · simulate this story</div>
-              <div className="mf-drop">
-                <span className="mf-drop-rule" />
-                <div>
-                  Run multi-agent simulation seeded by this article.{' '}
-                  <span style={{ color: 'var(--text-tertiary)' }}>Returns prediction report + branching simulation timeline.</span>
-                </div>
-              </div>
-              <div className="mc-news-drawer-actions">
-                <button className="sw-tf is-active">▶ Run swarm simulation</button>
-                <button className="sw-tf">⤓ Save to research</button>
-                <button className="sw-tf">↗ Open source</button>
+              {/* the single bear↔bull spectrum with position needle */}
+              <div className="ns-detail-spectrum">
+                <SentSpectrum score={selected.net} />
               </div>
 
-              <div className="mc-news-drawer-h-sub">Sentiment summary · current filter</div>
-              <div className="mc-sent-bar">
-                <span className="mc-sent-seg pos"  style={{ width: `${(bull / Math.max(filtered.length, 1)) * 100}%` }} />
-                <span className="mc-sent-seg flat" style={{ width: `${(flat / Math.max(filtered.length, 1)) * 100}%` }} />
-                <span className="mc-sent-seg neg"  style={{ width: `${(bear / Math.max(filtered.length, 1)) * 100}%` }} />
+              {selected.summary && <p className="ns-detail-summary">{selected.summary}</p>}
+
+              {selected.analysis && (
+                <>
+                  <div className="ns-detail-h">Where it leads</div>
+                  <p className="ns-detail-analysis">{selected.analysis}</p>
+                </>
+              )}
+
+              {selected.affects && selected.affects.length > 0 && (
+                <>
+                  <div className="ns-detail-h">Market impact</div>
+                  <div className="ns-impact">
+                    {selected.affects.map((a, i) => <ImpactRow key={i} a={a} />)}
+                  </div>
+                </>
+              )}
+
+              <div className="ns-detail-actions">
+                {selected.url && <a className="sw-tf" href={selected.url} target="_blank" rel="noopener noreferrer">↗ Open source</a>}
+                <button className="sw-tf" onClick={openSentiment}>◑ Open in Sentiment</button>
               </div>
-              <ul className="mc-sent-stats mc-sent-stats--inline">
-                <li><span className="dot pos" />Bullish<b>{bull}</b></li>
-                <li><span className="dot flat" />Mixed<b>{flat}</b></li>
-                <li><span className="dot neg" />Bearish<b>{bear}</b></li>
-              </ul>
-            </>
+            </div>
           ) : (
             <div className="mc-news-empty">Select an article to read.</div>
           )}

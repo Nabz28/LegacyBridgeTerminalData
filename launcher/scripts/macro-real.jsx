@@ -1075,6 +1075,12 @@ const MacroTerminal = () => {
   const [tool, setTool] = React.useState('data');
   const [opened, setOpened] = React.useState(['data']);   // keep-alive set
   const open = (id) => { setTool(id); setOpened((o) => (o.includes(id) ? o : [...o, id])); };
+  // Cross-tool navigation (e.g. News → Sentiment via "Open in Sentiment").
+  React.useEffect(() => {
+    const h = (e) => { if (e.detail && e.detail.tool) open(e.detail.tool); };
+    window.addEventListener('macro:navtool', h);
+    return () => window.removeEventListener('macro:navtool', h);
+  }, []);
   return (
     <div className="mtool-shell">
       {/* Keep-alive: each tool mounts on first open and stays mounted (hidden when

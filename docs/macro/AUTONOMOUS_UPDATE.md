@@ -12,30 +12,38 @@ redeploy needed for data; see §4).
 
 ## Each run, in order
 
-### 1. Gather macro news (last ~6h)
-Use web search for fresh, market-moving macro news across these beats:
-- **US**: Fed / rates, CPI/PCE, jobs, growth, Treasury, USD.
-- **ID (Indonesia)**: BI policy, rupiah, inflation, BPS releases, fiscal, trade.
-- **CN (China)**: PBoC, growth, property, trade, yuan.
-- **Global / commodities / risk**: oil, gold, geopolitics, broad risk sentiment.
-
-For each genuinely relevant item (target 12–24 total, quality over volume),
-produce a record:
+### 1. Gather candidates from RSS (Stage A — deterministic, real links)
 ```
-{ ts, region (US|ID|CN|World), source, headline, url, summary (1–2 sentences),
-  impact ("where it leads" — 1 sentence), sent_label (pos|neg|flat),
+python fetch_news_rss.py --days 4 --limit 50 > candidates.json
+```
+This pulls curated macro RSS feeds (Fed, MarketWatch, Investing.com, BBC,
+Guardian) → fresh, real, **clickable** items, already region-tagged and
+macro-filtered. No web-search needed for the core feed. (You MAY add a few
+breaking items via web search for beats RSS misses — esp. Indonesia/BI — using
+the same record shape.)
+
+### 2. Score each candidate (Stage B) → write to Supabase
+Read `candidates.json`. For each item, ADD the scoring fields and write an
+`items.json` array of records:
+```
+{ ts, region (US|ID|CN|World), source, headline, url, summary,
+  analysis ("where it leads" — 2-3 sentences, the transmission read),
   sent_score (-100..+100, risk-on positive), confidence (0..1),
-  topics (string[]), hash }
+  importance (high|med|low),
+  affects [ {label, dir (+1/-1/0), note}, ... ]   // market-impact breakdown
+}
 ```
-- `sent_score`: score the item's implication for **risk assets / growth**, not
-  whether the news is "good." (e.g. hot CPI → likely hawkish → negative.)
-- `hash`: `sha1(source|headline|YYYY-MM-DD)` lowercased — used to dedup.
+- `sent_score`: implication for **risk assets / growth**, not "good vs bad news"
+  (hot CPI → hawkish → negative; oil supply shock → negative; disinflation → positive).
+- `affects`: 3-6 markets the item moves and the direction — e.g.
+  `{label:"USD",dir:1,note:"haven bid"}`, `{label:"UST 10Y",dir:1}`, `{label:"Equities",dir:-1}`.
+- `importance`: `high` for rate decisions, major data surprises, supply shocks.
+- Keep the strongest ~18-24 items; skip low-signal/duplicate headlines.
 
-### 2. Write news to Supabase
-`POST {SUPABASE_URL}/rest/v1/news` with headers
-`apikey/Authorization: <service_role>`, `Content-Profile: macro`,
-`Prefer: resolution=merge-duplicates,return=minimal`, `?on_conflict=hash`.
-Send as a batch array. Duplicates (same `hash`) are ignored.
+Then upsert (dedup by hash is automatic):
+```
+python post_news.py items.json
+```
 
 ### 3. Recompute sentiment + refresh self-sourced data
 ```

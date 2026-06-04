@@ -47,6 +47,9 @@ def main():
             "headline": it["headline"], "url": it.get("url"), "summary": it.get("summary"),
             "impact": it.get("impact"), "sent_label": label, "sent_score": score,
             "confidence": it.get("confidence"), "topics": it.get("topics") or [], "hash": h,
+            # revamp fields (migration 0049)
+            "affects": it.get("affects") or [], "analysis": it.get("analysis"),
+            "importance": it.get("importance") or "med",
         })
     if not clean:
         print("no valid items"); return
