@@ -1646,7 +1646,15 @@
 /* ================================================================
  * DATA SUB-PAGE — extra room for the rail + main detail
  * ================================================================ */
-.mc-data-shell--page { min-height: 640px; }
+/* Data Gatherer page: fill the available height and let the LEFT rail's list
+   scroll on its own, instead of growing the whole page (which left the right
+   detail pane stranded in empty space when scrolling the category list). */
+.mc-data-page { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.mc-data-page > .mc-section-h { flex-shrink: 0; }
+.mc-data-shell--page { flex: 1; min-height: 0; }                 /* fill, don't grow */
+.mc-data-shell--page .mc-data-rail { overflow: hidden; min-height: 0; }
+.mc-data-shell--page .mc-data-rail .mc-list { flex: 1; min-height: 0; overflow-y: auto; }
+.mc-data-shell--page .mc-data-main { min-height: 0; overflow: auto; }
 .mc-list--page { max-height: none; }
 
 /* ================================================================

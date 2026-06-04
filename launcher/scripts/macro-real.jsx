@@ -926,9 +926,10 @@ const MacroMarketsTool = () => {
 };
 
 const MACRO_TOOLS = [
-  { id: 'data',     label: 'Markets & Macro', glyph: '◧' },
-  { id: 'news',     label: 'News',            glyph: '❏' },
-  { id: 'gather',   label: 'Data Gatherer',   glyph: '▤' },
+  { id: 'data',      label: 'Markets & Macro', glyph: '◧' },
+  { id: 'news',      label: 'News',            glyph: '❏' },
+  { id: 'sentiment', label: 'Sentiment',       glyph: '◑' },
+  { id: 'gather',    label: 'Data Gatherer',   glyph: '▤' },
   { id: 'analysis', label: 'Analysis',        glyph: 'Σ' },
   { id: 'forecast', label: 'Forecast',        glyph: '⤳' },
   { id: 'connect',  label: 'Connections',     glyph: '⊚' },
@@ -1060,6 +1061,7 @@ class MtoolBoundary extends React.Component {
 const macroToolNode = (id) => {
   if (id === 'data')      return <MacroMarketsTool />;
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
+  if (id === 'sentiment') return window.MacroSentiment   ? <window.MacroSentiment />           : <div className="mc-section mc-news-empty">Sentiment engine not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
   if (id === 'analysis')  return window.AnalysisLab    ? <window.AnalysisLab />              : <div className="mc-section mc-news-empty">Analysis tool not loaded.</div>;
   if (id === 'forecast')  return window.ForecastLab   ? <window.ForecastLab />              : <div className="mc-section mc-news-empty">Forecast tool not loaded.</div>;

@@ -40,7 +40,6 @@ const MacroNews = () => {
 
   const NEWS = live || FIX;
   const isLive = !!live;
-  const Sent = window.MacroSentiment;
 
   const filtered = NEWS.filter(n => {
     const okRegion = filter === 'all'
@@ -58,7 +57,6 @@ const MacroNews = () => {
   const net  = filtered.length ? Math.round(((bull - bear) / filtered.length) * 100) : 0;
 
   return (
-    <>
     <section className="mc-section mc-news-page">
       <div className="mc-section-h">
         <span>Macro · News</span>
@@ -151,8 +149,6 @@ const MacroNews = () => {
         </aside>
       </div>
     </section>
-    {Sent ? <Sent /> : null}
-    </>
   );
 };
 
