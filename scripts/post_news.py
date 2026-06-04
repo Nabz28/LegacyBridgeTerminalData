@@ -50,6 +50,8 @@ def main():
             # revamp fields (migration 0049)
             "affects": it.get("affects") or [], "analysis": it.get("analysis"),
             "importance": it.get("importance") or "med",
+            # news-type dimension (migration 0050)
+            "category": it.get("category") or "other",
         })
     if not clean:
         print("no valid items"); return

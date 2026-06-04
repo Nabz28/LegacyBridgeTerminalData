@@ -44,6 +44,10 @@ const ImpactRow = ({ a }) => {
   );
 };
 
+const NS_CAT_LABELS = { monetary: 'Monetary', inflation: 'Inflation', growth: 'Growth', markets: 'Markets', fx: 'FX', commodities: 'Commodities', geopolitics: 'Geopolitics', fiscal: 'Fiscal', banking: 'Banking', trade: 'Trade', other: 'Other' };
+// Stable display order for the type filter.
+const NS_CAT_ORDER = ['monetary', 'inflation', 'growth', 'markets', 'fx', 'fiscal', 'trade', 'commodities', 'banking', 'geopolitics', 'other'];
+
 const mapNewsRow = (r) => {
   const t = r.ts ? new Date(r.ts) : null;
   const score = r.sent_score == null ? 0 : Math.round(r.sent_score);
@@ -52,6 +56,7 @@ const mapNewsRow = (r) => {
     headline: r.headline, summary: r.summary || '', analysis: r.analysis || r.impact || '',
     url: r.url || '', sent: nsSentOf(score, r.sent_label), net: score,
     importance: r.importance || 'med', affects: Array.isArray(r.affects) ? r.affects : [],
+    category: r.category || 'other',
   };
 };
 
@@ -71,6 +76,7 @@ const MacroNews = () => {
   const FIX = (window.MACRO_DATA && window.MACRO_DATA.NEWS_FIXTURES) || [];
   const [live, setLive] = React.useState(null);
   const [filter, setFilter] = React.useState('all');
+  const [cat, setCat] = React.useState('all');
   const [query, setQuery] = React.useState('');
   const [openId, setOpenId] = React.useState(null);
 
@@ -90,14 +96,16 @@ const MacroNews = () => {
   const NEWS = live || FIX.map((f) => ({ ...f, dt: null, affects: [], analysis: f.impact || '', importance: 'med' }));
   const isLive = !!live;
 
-  const filtered = NEWS.filter((n) => {
-    const okR = filter === 'all'
-      || (filter === 'us' && n.region === 'US')
-      || (filter === 'idx' && n.region === 'ID')
-      || (filter === 'world' && (n.region === 'World' || n.region === 'CN' || n.region === 'EU'));
-    const okQ = !query || (n.headline + ' ' + n.source + ' ' + (n.summary || '')).toLowerCase().includes(query.toLowerCase());
-    return okR && okQ;
-  });
+  const regionPass = (n) => filter === 'all'
+    || (filter === 'us' && n.region === 'US')
+    || (filter === 'idx' && n.region === 'ID')
+    || (filter === 'world' && (n.region === 'World' || n.region === 'CN' || n.region === 'EU'));
+  const queryPass = (n) => !query || (n.headline + ' ' + n.source + ' ' + (n.summary || '')).toLowerCase().includes(query.toLowerCase());
+  // First filter = region (+search); second filter = news type (category).
+  const base = NEWS.filter((n) => regionPass(n) && queryPass(n));
+  const cats = NS_CAT_ORDER.filter((c) => base.some((n) => n.category === c));
+  const effCat = (cat !== 'all' && !cats.includes(cat)) ? 'all' : cat;   // auto-reset if region hides it
+  const filtered = base.filter((n) => effCat === 'all' || n.category === effCat);
   const selected = filtered.find((n) => n.id === openId) || filtered[0] || null;
 
   const bull = filtered.filter((n) => n.sent === 'pos').length;
@@ -141,6 +149,15 @@ const MacroNews = () => {
             </div>
           </div>
 
+          {/* second filter — news TYPE (reflects the current region) */}
+          <div className="ns-cattabs">
+            <span className="ns-cattabs-label">Type</span>
+            <button className={`ns-cattab ${effCat === 'all' ? 'is-on' : ''}`} onClick={() => setCat('all')}>All</button>
+            {cats.map((c) => (
+              <button key={c} className={`ns-cattab ${effCat === c ? 'is-on' : ''}`} onClick={() => setCat(c)}>{NS_CAT_LABELS[c]}</button>
+            ))}
+          </div>
+
           {/* aggregate bear↔bull for the current filter */}
           <div className="ns-aggregate">
             <div className="ns-agg-head">
@@ -165,6 +182,7 @@ const MacroNews = () => {
                       <span className="ns-row-time">{nsFmtTime(n.dt) || '—'}</span>
                       <span className="ns-row-src">{n.source}</span>
                       <span className="ns-row-region">{n.region}</span>
+                      <span className="ns-row-cat">{NS_CAT_LABELS[n.category] || n.category}</span>
                     </div>
                     <div className="ns-row-head">{n.headline}</div>
                     <div className={`ns-pill ns-pill--${n.sent}`}>
@@ -183,6 +201,7 @@ const MacroNews = () => {
             <div className="ns-detail">
               <div className="ns-detail-meta">
                 <span className="mc-tag">{selected.region}</span>
+                <span className="mc-tag">{NS_CAT_LABELS[selected.category] || selected.category}</span>
                 <span className="mc-tag src">{selected.source}</span>
                 <span className="mc-tag">{nsFmtDate(selected.dt)} · {nsFmtTime(selected.dt)} WIB</span>
                 {selected.importance === 'high' && <span className="ns-tag-high">HIGH IMPACT</span>}
