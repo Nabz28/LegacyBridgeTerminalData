@@ -14,20 +14,24 @@ const nsSentWord = (s) => (s === 'pos' ? 'Bullish' : s === 'neg' ? 'Bearish' : '
 const SentSpectrum = ({ score, big = false }) => {
   const v = Math.max(-100, Math.min(100, Number(score) || 0));
   const pct = (v + 100) / 2;
+  // Clamp the floating readout/needle position so the pill never clips off the
+  // ends or collides with the Bearish/Bullish labels at extreme scores.
+  const cpct = Math.max(7, Math.min(93, pct));
+  const txt = (v >= 0 ? '+' : '') + v;
   return (
     <div className={'ns-spectrum-wrap' + (big ? ' big' : '')}>
       {big && (
-        <div className="ns-spectrum-floatval" style={{ left: pct + '%', color: nsScoreColor(v) }}>
-          {v >= 0 ? '+' : ''}{v}
+        <div className="ns-spectrum-floatval" style={{ left: cpct + '%', color: nsScoreColor(v) }}>
+          {txt}
         </div>
       )}
       <div className="ns-spectrum">
         <div className="ns-spectrum-mid" />
-        <div className="ns-needle" style={{ left: pct + '%' }} title={(v >= 0 ? '+' : '') + v} />
+        <div className="ns-needle" style={{ left: cpct + '%' }} title={txt} />
       </div>
       <div className="ns-spectrum-scale">
         <span>Bearish</span>
-        {!big && <span className="ns-spectrum-val" style={{ left: pct + '%', color: nsScoreColor(v) }}>{v >= 0 ? '+' : ''}{v}</span>}
+        {!big && <span className="ns-spectrum-val" style={{ left: cpct + '%', color: nsScoreColor(v) }}>{txt}</span>}
         <span>Bullish</span>
       </div>
     </div>
@@ -43,14 +47,16 @@ const ImpactRow = ({ a }) => {
   const up = lvl > 0, down = lvl < 0;
   const col = up ? 'var(--pos)' : down ? 'var(--neg)' : 'var(--text-tertiary)';
   const arrow = up ? '▲' : down ? '▼' : '■';
+  const lab = a.label || a.target;
   return (
     <div className="ns-impact-row" title={(a.note || '') + (mag ? '  (' + NS_STRENGTH[mag] + ')' : '')}>
       <span className="ns-impact-arrow" style={{ color: col }}>{arrow}</span>
-      <span className="ns-impact-label">{a.label || a.target}</span>
-      <span className="ns-pips">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <span key={i} className={'ns-pip' + (i <= mag ? (up ? ' up' : down ? ' down' : ' flat') : '')} />
-        ))}
+      <span className="ns-impact-label" title={lab}>{lab}</span>
+      <span className="ns-mag" title={NS_STRENGTH[mag] || '—'}>
+        <span className="ns-mag-track">
+          <span className="ns-mag-fill" style={{ width: (mag / 5 * 100) + '%', background: col }} />
+        </span>
+        <span className="ns-mag-word" style={{ color: col }}>{NS_STRENGTH[mag] || '—'}</span>
       </span>
       <span className="ns-impact-note">{a.note || ''}</span>
     </div>
@@ -221,14 +227,15 @@ const MacroNews = () => {
                 {selected.surprise && <span className="ns-detail-surprise">{NS_SURPRISE_LABEL[selected.surprise] || selected.surprise}</span>}
                 {selected.importance === 'high' && <span className="ns-tag-high">HIGH IMPACT</span>}
               </div>
-              {selected.url
-                ? <a className="ns-detail-title ns-detail-title--link" href={selected.url} target="_blank" rel="noopener noreferrer">{selected.headline} <span className="ns-ext">↗</span></a>
-                : <div className="ns-detail-title">{selected.headline}</div>}
 
-              {/* the single bear↔bull spectrum — score sits AT the needle */}
+              {/* orientation first: the single bear↔bull spectrum — score sits AT the needle */}
               <div className="ns-detail-spectrum">
                 <SentSpectrum score={selected.net} big />
               </div>
+
+              {selected.url
+                ? <a className="ns-detail-title ns-detail-title--link" href={selected.url} target="_blank" rel="noopener noreferrer">{selected.headline} <span className="ns-ext">↗</span></a>
+                : <div className="ns-detail-title">{selected.headline}</div>}
 
               {selected.summary && <p className="ns-detail-summary">{selected.summary}</p>}
 

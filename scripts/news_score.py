@@ -9,8 +9,15 @@ own NATURAL direction), and an overall surprise (priced/partial/surprise). This
 engine then computes the standardized score deterministically:
 
     contribution_t = weight(tier_t) * risk_sign_t * (level_t / 5)
-    raw   = surprise * sum(contribution_t) / sum(weight_t)
+    num   = Σ local_contrib + gl_scale * Σ gl_contrib   # gl_scale=0.5 haircut when GL & local agree
+    den   = Σ weight over signal-bearing targets (GL weights also × gl_scale)
+    raw   = surprise * num / sqrt(den)                  # sqrt → breadth adds signal
     score = 100 * tanh(GAIN * raw)        # bounded, no false saturation
+
+    NOTE: `surprise` is one overall per-headline multiplier (not per-target), and
+    importance is severity-by-magnitude (ignores sign — a big two-sided move is
+    still "high"). Neutral targets (risk_sign 0, e.g. OIL for ID) carry no signal
+    and are excluded from both numerator and denominator.
 
 `risk_sign` maps each target's natural move to Indonesia risk-on/off (e.g. oil
 up = risk-off => risk_sign -1), so the agent thinks in intuitive asset terms
@@ -70,12 +77,17 @@ def score_impacts(impacts, surprise_key="partial"):
     if local_sum and gl_sum and (local_sum > 0) == (gl_sum > 0):
         gl_scale = GL_HAIRCUT                          # USD already explains the IDR move
     num = local_sum + gl_scale * gl_sum
-    den = sum(r["weight"] for r in rows)
+    # Denominator mirrors the numerator: neutral (risk_sign==0, e.g. OIL) targets
+    # carry NO signal so they must not consume denominator weight, and GL weights
+    # are scaled by the same haircut so the haircut's net effect is the intended 50%.
+    den = sum(r["weight"] * (gl_scale if r["_gl"] else 1.0)
+              for r in rows if r["risk_sign"] != 0)
     raw = (num / math.sqrt(den)) * s if den > 0 else 0.0
     score = round(100 * math.tanh(GAIN * raw))
 
     # Importance from the top-3 weighted impacts (credits breadth, not just the peak).
-    sev = sorted((r["_sev"] for r in rows), reverse=True) + [0.0, 0.0, 0.0]
+    # Neutral-sign targets are excluded (a no-signal target can't make a story "high").
+    sev = sorted((r["_sev"] for r in rows if r["risk_sign"] != 0), reverse=True) + [0.0, 0.0, 0.0]
     severity = (sev[0] + 0.5 * sev[1] + 0.25 * sev[2]) * s
     importance = "high" if severity >= _IMP["high"] else "med" if severity >= _IMP["med"] else "low"
     label = "pos" if score > FLAT else "neg" if score < -FLAT else "flat"
