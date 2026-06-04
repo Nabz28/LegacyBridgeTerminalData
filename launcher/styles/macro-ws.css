@@ -1655,6 +1655,10 @@
 .mc-data-shell--page .mc-data-rail { overflow: hidden; min-height: 0; }
 .mc-data-shell--page .mc-data-rail .mc-list { flex: 1; min-height: 0; overflow-y: auto; }
 .mc-data-shell--page .mc-data-main { min-height: 0; overflow: auto; }
+/* .mc-data-main is a flex column; with a bounded height its children would
+   SHRINK to fit (squishing the chart + Meaning cards). Pin them to natural
+   height so the pane scrolls instead. */
+.mc-data-shell--page .mc-data-main > * { flex-shrink: 0; }
 .mc-list--page { max-height: none; }
 
 /* ================================================================
