@@ -2542,3 +2542,45 @@ a.ns-detail-title--link:hover { color: var(--brand); }
 .mcal-src { color: var(--brand); text-decoration: none; font-size: 10.5px; white-space: nowrap; }
 .mcal-src:hover { text-decoration: underline; }
 .mcal-impdot { width: 7px; height: 7px; border-radius: 50%; margin-top: 5px; }
+
+/* ---- Calendar · month grid view ---- */
+.mcal-viewseg { display: inline-flex; border: 1px solid var(--border-default); border-radius: 7px; overflow: hidden; }
+.mcal-segbtn { background: transparent; border: 0; color: var(--text-secondary); font-size: 11px; font-family: var(--font-mono); padding: 5px 11px; cursor: pointer; }
+.mcal-segbtn + .mcal-segbtn { border-left: 1px solid var(--border-default); }
+.mcal-segbtn:hover { color: var(--paper); }
+.mcal-segbtn.is-on { background: rgba(151,170,197,0.16); color: var(--paper); }
+
+.mcal-month { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.mcal-monthbar { display: flex; align-items: center; gap: 10px; padding: 10px 16px 6px; flex-shrink: 0; }
+.mcal-navbtn { background: var(--bg-2); border: 1px solid var(--border-default); color: var(--paper); width: 26px; height: 26px; border-radius: 6px; font-size: 16px; line-height: 1; cursor: pointer; }
+.mcal-navbtn:hover { border-color: var(--brand); }
+.mcal-month-title { font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--paper); min-width: 128px; text-align: center; letter-spacing: 0.02em; }
+.mcal-today-btn { margin-left: 6px; background: transparent; border: 1px solid var(--border-default); color: var(--text-secondary); border-radius: 999px; padding: 4px 12px; font-size: 11px; font-family: var(--font-mono); cursor: pointer; }
+.mcal-today-btn:hover { color: var(--paper); border-color: var(--text-tertiary); }
+
+.mcal-wkhead { display: grid; grid-template-columns: repeat(7, 1fr); padding: 0 16px; flex-shrink: 0; }
+.mcal-wk { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); padding: 4px 6px; }
+.mcal-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(0, 1fr); margin: 0 16px; border-top: 1px solid var(--border-default); border-left: 1px solid var(--border-subtle); }
+.mcal-cell { border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 3px 4px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; gap: 2px; min-height: 0; }
+.mcal-cell:hover { background: rgba(151,170,197,0.05); }
+.mcal-cell.dim { opacity: 0.38; }
+.mcal-cell.is-today { background: rgba(224,130,58,0.07); }
+.mcal-cell.is-sel { outline: 1.5px solid var(--brand); outline-offset: -1.5px; }
+.mcal-cell.has-high .mcal-cell-date { color: #e9a35b; }
+.mcal-cell-top { display: flex; align-items: center; justify-content: space-between; }
+.mcal-cell-date { font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); }
+.mcal-cell.is-today .mcal-cell-date { color: #e0823a; font-weight: 700; }
+.mcal-cell-n { font-family: var(--font-mono); font-size: 8.5px; color: var(--text-tertiary); background: rgba(255,255,255,0.06); border-radius: 6px; padding: 0 5px; }
+.mcal-cell-evts { display: flex; flex-direction: column; gap: 1px; overflow: hidden; }
+.mcal-evt { display: flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 9.5px; white-space: nowrap; overflow: hidden; }
+.mcal-evt-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.mcal-evt-txt { color: var(--paper); overflow: hidden; text-overflow: ellipsis; }
+.mcal-evt.imp-low .mcal-evt-txt { color: var(--text-secondary); }
+.mcal-evt-sub { color: var(--text-tertiary); }
+.mcal-more { font-family: var(--font-mono); font-size: 8.5px; color: var(--text-tertiary); padding-left: 9px; }
+
+.mcal-daydetail { flex-shrink: 0; height: 224px; display: flex; flex-direction: column; border-top: 1px solid var(--border-default); background: var(--bg-2); }
+.mcal-dd-head { display: flex; align-items: center; gap: 10px; padding: 9px 16px 6px; flex-shrink: 0; }
+.mcal-dd-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 4px; }
+.mcal-dd-list .mcal-row { padding-left: 16px; padding-right: 16px; }
+.mcal-empty--sm { padding: 26px 16px; font-size: 12px; }
