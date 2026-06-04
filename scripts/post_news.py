@@ -17,6 +17,13 @@ dedup, so re-running the same day is idempotent. Stdlib only.
 import hashlib, json, os, sys, urllib.request
 from datetime import datetime, timezone
 
+# The standardized scoring engine lives alongside this script.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import news_score as ns
+except Exception:
+    ns = None
+
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://adnubucjlezrtusbicja.supabase.co").rstrip("/")
 KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 REST = SUPABASE_URL + "/rest/v1"
@@ -38,20 +45,35 @@ def main():
         day = str(ts)[:10]
         src = it.get("source") or "news"
         h = it.get("hash") or hashlib.sha1(("%s|%s|%s" % (src, it["headline"], day)).lower().encode()).hexdigest()
-        score = it.get("sent_score")
-        label = it.get("sent_label")
-        if label is None and score is not None:
-            label = "pos" if score > 12 else "neg" if score < -12 else "flat"
+        # Standardized path: if the item carries structured `impacts`, the score,
+        # label, importance and affects are COMPUTED deterministically by the
+        # engine (the agent does not supply sent_score). Legacy items that bring
+        # their own sent_score/affects still work.
+        if it.get("impacts") is not None and ns is not None:
+            res = ns.score_impacts(it.get("impacts"), it.get("surprise") or "partial")
+            score = res["sent_score"]; label = res["sent_label"]
+            affects = res["affects"]; importance = res["importance"]
+            surprise = res["surprise"]; components = res["score_components"]
+            category = ns.validate_type(it.get("type") or it.get("category") or "other")
+        else:
+            score = it.get("sent_score")
+            label = it.get("sent_label")
+            if label is None and score is not None:
+                label = "pos" if score > 12 else "neg" if score < -12 else "flat"
+            affects = it.get("affects") or []
+            importance = it.get("importance") or "med"
+            surprise = it.get("surprise")
+            components = it.get("score_components")
+            category = it.get("category") or "other"
         clean.append({
             "ts": ts, "region": it.get("region") or "World", "source": src,
             "headline": it["headline"], "url": it.get("url"), "summary": it.get("summary"),
             "impact": it.get("impact"), "sent_label": label, "sent_score": score,
             "confidence": it.get("confidence"), "topics": it.get("topics") or [], "hash": h,
-            # revamp fields (migration 0049)
-            "affects": it.get("affects") or [], "analysis": it.get("analysis"),
-            "importance": it.get("importance") or "med",
-            # news-type dimension (migration 0050)
-            "category": it.get("category") or "other",
+            "affects": affects, "analysis": it.get("analysis"), "importance": importance,
+            "category": category,
+            # standardized-engine fields (migration 0051)
+            "surprise": surprise, "score_components": components,
         })
     if not clean:
         print("no valid items"); return

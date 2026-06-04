@@ -1,0 +1,117 @@
+{
+  "version": "1.0",
+  "doc": "Single source of truth for the macro news scoring infrastructure. Agents MATCH news to this taxonomy; news_score.py computes the standardized score deterministically. Methodology: docs/macro/NEWS_SCORING.md.",
+
+  "news_types": [
+    {"key": "monetary",    "label": "Monetary & Rates"},
+    {"key": "inflation",   "label": "Inflation"},
+    {"key": "growth",      "label": "Growth & Activity"},
+    {"key": "fiscal",      "label": "Fiscal & Budget"},
+    {"key": "politics",    "label": "Politics & Policy"},
+    {"key": "industrial_policy", "label": "Industrial & Structural Policy"},
+    {"key": "subsidy_energy",    "label": "Subsidy & Energy Policy"},
+    {"key": "trade",       "label": "Trade & External"},
+    {"key": "commodities", "label": "Commodities & Energy"},
+    {"key": "markets",     "label": "Markets & Flows"},
+    {"key": "fx",          "label": "FX / Currency"},
+    {"key": "banking",     "label": "Banking & Credit"},
+    {"key": "corporate",   "label": "Corporate & Earnings"},
+    {"key": "geopolitics", "label": "Geopolitics & Risk"}
+  ],
+
+  "tiers": {
+    "T1": {"weight": 1.00, "label": "Systemic barometer (defines country risk)"},
+    "T2": {"weight": 0.55, "label": "Key sub-market / macro aggregate"},
+    "T3": {"weight": 0.30, "label": "Sector / single-name"},
+    "GL": {"weight": 0.50, "label": "Global spillover into Indonesia risk"}
+  },
+
+  "level_scale": {
+    "doc": "Magnitude of the expected 1-5 day move, VOL-NORMALIZED to the target's own daily sigma. The agent estimates the move and maps it via each target's `sigma` anchor. Sign = the target's NATURAL direction (up=+); risk transmission is applied separately via `risk_sign`.",
+    "5": ">3 sigma  (tail / extreme, regime-shifting)",
+    "4": "2-3 sigma (very large, dominant driver of the day)",
+    "3": "1.25-2 sigma (large, clear first-order move)",
+    "2": "0.5-1.25 sigma (moderate, noticeable)",
+    "1": "<0.5 sigma (minor / second-order)",
+    "0": "negligible or already fully priced"
+  },
+
+  "surprise": {
+    "doc": "What actually moves markets is the surprise vs what is priced. Multiplies the aggregate magnitude. Four buckets so the agent isn't forced into a binary on ambiguous cases.",
+    "priced": 0.10,
+    "partial": 0.45,
+    "likely": 0.70,
+    "surprise": 1.00
+  },
+
+  "rollup": {
+    "doc": "raw = surprise * sum(weight*risk_sign*level/5) / SQRT(sum(weight)); the sqrt denominator (not a plain average) REWARDS breadth — a 5-asset crisis outscores a 1-asset move — while still penalising a pile of marginal noise targets. GL (global) contributions are halved when their net sign matches T1 (correlation haircut: USD already explains the IDR move). score = 100*tanh(GAIN*raw). importance from top-3 weighted severity, not the single peak.",
+    "gain": 1.00,
+    "flat_threshold": 20,
+    "gl_correlation_haircut": 0.5,
+    "importance_thresholds": {"high": 3.0, "med": 1.5}
+  },
+
+  "targets": [
+    {"key": "IDR",        "tier": "T1", "risk_sign":  1, "label": "Rupiah (IDR)",            "sigma": "~0.5%/day; +=stronger rupiah", "group": "id_macro"},
+    {"key": "SBN10Y",     "tier": "T1", "risk_sign": -1, "label": "10Y SBN yield",           "sigma": "~5bp/day; +=yield up",          "group": "id_macro"},
+    {"key": "JCI",        "tier": "T1", "risk_sign":  1, "label": "JCI / IHSG",              "sigma": "~1.0%/day; +=index up",         "group": "id_macro"},
+    {"key": "BIRATE",     "tier": "T1", "risk_sign": -1, "label": "BI policy rate",          "sigma": "25bp meeting step = level 4; +=hike", "group": "id_macro"},
+    {"key": "IDFLOWEQ",   "tier": "T1", "risk_sign":  1, "label": "Foreign equity flows",    "sigma": "+=net inflow; ~$200m/day=level3", "group": "id_macro"},
+    {"key": "IDFLOWBOND", "tier": "T1", "risk_sign":  1, "label": "Foreign SBN flows",       "sigma": "~$150m/day; $500m one-day swing = level 3; +=net inflow", "group": "id_macro"},
+    {"key": "IDRATING",   "tier": "T1", "risk_sign":  1, "label": "Sovereign rating/outlook","sigma": "neg outlook=level3, downgrade=level5; +=upgrade", "group": "id_macro"},
+    {"key": "IDCDS",      "tier": "T1", "risk_sign": -1, "label": "Indonesia 5Y CDS",        "sigma": "~3bp/day; +=spread wider",      "group": "id_macro"},
+    {"key": "IDCPI",      "tier": "T1", "risk_sign": -1, "label": "Indonesia inflation",     "sigma": "0.2pp surprise=level3; +=higher", "group": "id_macro"},
+    {"key": "IDRESERVES", "tier": "T1", "risk_sign":  1, "label": "BI FX reserves",          "sigma": "+=reserves rising",             "group": "id_macro"},
+    {"key": "IDCA",       "tier": "T1", "risk_sign":  1, "label": "Current account",         "sigma": "0.5% of GDP surprise = level 3; +=balance improving", "group": "id_macro"},
+
+    {"key": "SBN2Y",      "tier": "T2", "risk_sign": -1, "label": "2Y SBN yield",            "sigma": "~6bp/day; +=yield up",          "group": "id_submkt"},
+    {"key": "IDRNDF",     "tier": "T2", "risk_sign":  1, "label": "IDR NDF / forwards",      "sigma": "+=implied rupiah stronger",     "group": "id_submkt"},
+    {"key": "INDON",      "tier": "T2", "risk_sign":  1, "label": "INDON USD sovereign bonds","sigma": "+=price up / spread tighter",  "group": "id_submkt"},
+    {"key": "JIBOR",      "tier": "T2", "risk_sign": -1, "label": "Money-market rate (JIBOR)","sigma": "+=rate up",                    "group": "id_submkt"},
+    {"key": "IDLOAN",     "tier": "T2", "risk_sign":  1, "label": "Credit / loan growth",    "sigma": "1pp surprise=level3; +=faster",  "group": "id_submkt"},
+    {"key": "IDGDP",      "tier": "T2", "risk_sign":  1, "label": "Real GDP growth",         "sigma": "0.3pp surprise=level3; +=stronger", "group": "id_submkt"},
+    {"key": "IDTRADE",    "tier": "T2", "risk_sign":  1, "label": "Trade balance",           "sigma": "+=surplus wider/deficit narrower", "group": "id_submkt"},
+    {"key": "IDFISCAL",   "tier": "T2", "risk_sign":  1, "label": "Fiscal balance/debt",     "sigma": "0.2% of GDP miss = level 3; +=deficit narrower", "group": "id_submkt"},
+    {"key": "IDPMI",      "tier": "T2", "risk_sign":  1, "label": "Manufacturing PMI",       "sigma": "1.5pt surprise=level3; +=higher", "group": "id_submkt"},
+    {"key": "IDM2",       "tier": "T2", "risk_sign": -1, "label": "Money supply (M2)",       "sigma": "0.5pp growth surprise = level 3; +=faster (INFLATIONARY/credit-overheat risk for IDR)", "group": "id_submkt"},
+    {"key": "SRBI",       "tier": "T2", "risk_sign": -1, "label": "SRBI yield / BI term repo","sigma": "~5bp/day; +=yield up (BI draining liquidity / carry). Primary BI liquidity tool since 2023.", "group": "id_submkt"},
+    {"key": "IDFDI",      "tier": "T2", "risk_sign":  1, "label": "Foreign direct investment","sigma": "+=higher FDI",                 "group": "id_submkt"},
+    {"key": "IDCONF",     "tier": "T2", "risk_sign":  1, "label": "Consumer confidence",     "sigma": "+=higher",                      "group": "id_submkt"},
+    {"key": "IDRETAIL",   "tier": "T2", "risk_sign":  1, "label": "Retail sales",            "sigma": "+=stronger",                    "group": "id_submkt"},
+
+    {"key": "BANKS",      "tier": "T3", "risk_sign":  1, "label": "Banks (BBCA/BBRI/BMRI/BBNI)", "sigma": "~1.3%/day; +=sector up",     "group": "id_sector"},
+    {"key": "COAL",       "tier": "T2", "risk_sign":  1, "label": "Coal (ADRO/ITMG/PTBA)",   "sigma": "~2%/day; +=sector up. T2: terms-of-trade systemic for Indonesia.", "group": "id_sector"},
+    {"key": "METALS",     "tier": "T2", "risk_sign":  1, "label": "Metals/Nickel (INCO/ANTM/MDKA/NCKL)", "sigma": "~2.5%/day; +=up. T2: downstreaming/terms-of-trade systemic.", "group": "id_sector"},
+    {"key": "CPO",        "tier": "T3", "risk_sign":  1, "label": "Palm oil (AALI/LSIP/DSNG)","sigma": "~1.8%/day; +=up",               "group": "id_sector"},
+    {"key": "OILGAS",     "tier": "T3", "risk_sign":  1, "label": "Energy O&G (PGAS/MEDC)",  "sigma": "~2%/day; +=up",                 "group": "id_sector"},
+    {"key": "TELCO",      "tier": "T3", "risk_sign":  1, "label": "Telco (TLKM/ISAT/EXCL)",  "sigma": "~1.5%/day; +=up",               "group": "id_sector"},
+    {"key": "CONSUMER",   "tier": "T3", "risk_sign":  1, "label": "Consumer (ICBP/INDF/UNVR)","sigma": "~1.3%/day; +=up",              "group": "id_sector"},
+    {"key": "PROPERTY",   "tier": "T3", "risk_sign":  1, "label": "Property (BSDE/CTRA)",    "sigma": "~1.8%/day; +=up",               "group": "id_sector"},
+    {"key": "AUTOS",      "tier": "T3", "risk_sign":  1, "label": "Autos (ASII)",            "sigma": "~1.6%/day; +=up",               "group": "id_sector"},
+    {"key": "CEMENT",     "tier": "T3", "risk_sign":  1, "label": "Cement (INTP/SMGR)",      "sigma": "~1.8%/day; +=up",               "group": "id_sector"},
+    {"key": "TECH",       "tier": "T3", "risk_sign":  1, "label": "Tech/digital (GOTO/BUKA)","sigma": "~3%/day; +=up",                 "group": "id_sector"},
+    {"key": "HEALTHCARE", "tier": "T3", "risk_sign":  1, "label": "Healthcare (KLBF/SIDO)",  "sigma": "~1.5%/day; +=up",               "group": "id_sector"},
+    {"key": "INFRA",      "tier": "T3", "risk_sign":  1, "label": "Infra/construction (WIKA/ADHI/JSMR)", "sigma": "~2%/day; +=up",      "group": "id_sector"},
+    {"key": "POULTRY",    "tier": "T3", "risk_sign":  1, "label": "Poultry/agri (CPIN/JPFA)","sigma": "~1.8%/day; +=up",               "group": "id_sector"},
+
+    {"key": "USD",        "tier": "GL", "risk_sign": -1, "label": "US dollar (DXY)",         "sigma": "~0.4%/day; +=stronger USD",     "group": "global"},
+    {"key": "UST10Y",     "tier": "GL", "risk_sign": -1, "label": "US 10Y Treasury yield",   "sigma": "~5bp/day; +=yield up",          "group": "global"},
+    {"key": "FED",        "tier": "GL", "risk_sign": -1, "label": "Fed policy stance",       "sigma": "25bp/hawkish shift=level3; +=hawkish", "group": "global"},
+    {"key": "OIL",        "tier": "GL", "risk_sign":  0, "label": "Oil (Brent)",             "sigma": "~2%/day; +=oil up. NEUTRAL sign: Indonesia is an oil importer (fiscal/CA drag) AND a major coal/CPO/LNG exporter — route the directional read via IDFISCAL (subsidy bill) for supply shocks, or via COAL_SPOT/CPO_PRICE for a commodity-demand rally.", "group": "global"},
+    {"key": "GOLD",       "tier": "GL", "risk_sign":  1, "label": "Gold",                    "sigma": "~1.2%/day; +=gold up. +1: the dominant EM channel is gold-up-on-USD-weakness = carry inflows (IDR/JCI positive); the fear channel is carried by VIX/USD.", "group": "global"},
+    {"key": "COAL_SPOT",  "tier": "GL", "risk_sign":  1, "label": "Newcastle coal price",    "sigma": "~3%/day; +=price up. Indonesia's #1 goods export — drives CA, fiscal royalties, IDR.", "group": "global"},
+    {"key": "CPO_PRICE",  "tier": "GL", "risk_sign":  1, "label": "Palm oil price (CPO)",    "sigma": "~2.5%/day; +=price up. #2 export earner; drives CA + biodiesel/subsidy calculus.", "group": "global"},
+    {"key": "NICKEL_LME", "tier": "GL", "risk_sign":  1, "label": "LME nickel price",        "sigma": "~3%/day; +=price up. Centrepiece of downstreaming policy; drives FDI + revenue.", "group": "global"},
+    {"key": "USTRADE",    "tier": "GL", "risk_sign": -1, "label": "US-Indonesia tariff/trade","sigma": "tariff hike = level 3-4; +=more protectionist. ID exports textiles/footwear/electronics to US.", "group": "global"},
+    {"key": "CNY",        "tier": "GL", "risk_sign":  1, "label": "China activity / CNY",    "sigma": "+=stronger China/CNY",          "group": "global"},
+    {"key": "EMRISK",     "tier": "GL", "risk_sign":  1, "label": "EM risk appetite",        "sigma": "+=risk-on",                     "group": "global"},
+    {"key": "SPX",        "tier": "GL", "risk_sign":  1, "label": "US equities (S&P 500)",   "sigma": "~1%/day; +=up",                 "group": "global"},
+    {"key": "VIX",        "tier": "GL", "risk_sign": -1, "label": "Volatility (VIX)",        "sigma": "+=vol up",                      "group": "global"}
+  ],
+
+  "sources": {
+    "indonesia": ["Kompas", "CNBC Indonesia", "Bisnis.com", "Kontan", "Detik Finance", "Tempo", "Katadata", "Investor Daily", "The Jakarta Post", "Jakarta Globe", "Antara", "IDN Financials", "Bloomberg", "Reuters"],
+    "global": ["Bloomberg", "Reuters", "CNBC", "Financial Times", "Wall Street Journal", "Nikkei Asia", "The Guardian", "MarketWatch"]
+  }
+}

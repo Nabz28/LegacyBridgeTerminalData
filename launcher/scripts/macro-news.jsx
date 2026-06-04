@@ -10,43 +10,57 @@ const nsScoreColor = (v) => (v == null ? 'var(--text-tertiary)' : v > 12 ? 'var(
 const nsSentOf = (score, label) => label || (score > 12 ? 'pos' : score < -12 ? 'neg' : 'flat');
 const nsSentWord = (s) => (s === 'pos' ? 'Bullish' : s === 'neg' ? 'Bearish' : 'Mixed');
 
-// Single bear↔bull spectrum with a needle at `score` (−100..+100).
-const SentSpectrum = ({ score, showScale = true }) => {
+// Single bear↔bull spectrum with the needle AND the score value AT its position.
+const SentSpectrum = ({ score, big = false }) => {
   const v = Math.max(-100, Math.min(100, Number(score) || 0));
   const pct = (v + 100) / 2;
   return (
-    <div className="ns-spectrum-wrap">
+    <div className={'ns-spectrum-wrap' + (big ? ' big' : '')}>
+      {big && (
+        <div className="ns-spectrum-floatval" style={{ left: pct + '%', color: nsScoreColor(v) }}>
+          {v >= 0 ? '+' : ''}{v}
+        </div>
+      )}
       <div className="ns-spectrum">
         <div className="ns-spectrum-mid" />
         <div className="ns-needle" style={{ left: pct + '%' }} title={(v >= 0 ? '+' : '') + v} />
       </div>
-      {showScale && (
-        <div className="ns-spectrum-scale">
-          <span>Bearish</span>
-          <span className="ns-spectrum-val" style={{ color: nsScoreColor(v) }}>{v >= 0 ? '+' : ''}{v}</span>
-          <span>Bullish</span>
-        </div>
-      )}
+      <div className="ns-spectrum-scale">
+        <span>Bearish</span>
+        {!big && <span className="ns-spectrum-val" style={{ left: pct + '%', color: nsScoreColor(v) }}>{v >= 0 ? '+' : ''}{v}</span>}
+        <span>Bullish</span>
+      </div>
     </div>
   );
 };
 
+const NS_STRENGTH = ['—', 'minor', 'moderate', 'large', 'very large', 'extreme'];
+// Impact row: target + a 5-pip magnitude bar (level 1..5) + direction + note.
 const ImpactRow = ({ a }) => {
-  const up = a.dir > 0, down = a.dir < 0;
-  const arrow = up ? '▲' : down ? '▼' : '■';
+  // new shape uses signed `level` (−5..+5); legacy shape used `dir`.
+  const lvl = a.level != null ? a.level : (a.dir || 0) * 2;
+  const mag = Math.min(5, Math.abs(Math.round(lvl)));
+  const up = lvl > 0, down = lvl < 0;
   const col = up ? 'var(--pos)' : down ? 'var(--neg)' : 'var(--text-tertiary)';
+  const arrow = up ? '▲' : down ? '▼' : '■';
   return (
-    <div className="ns-impact-row">
+    <div className="ns-impact-row" title={(a.note || '') + (mag ? '  (' + NS_STRENGTH[mag] + ')' : '')}>
       <span className="ns-impact-arrow" style={{ color: col }}>{arrow}</span>
-      <span className="ns-impact-label">{a.label}</span>
-      {a.note ? <span className="ns-impact-note">{a.note}</span> : <span />}
+      <span className="ns-impact-label">{a.label || a.target}</span>
+      <span className="ns-pips">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <span key={i} className={'ns-pip' + (i <= mag ? (up ? ' up' : down ? ' down' : ' flat') : '')} />
+        ))}
+      </span>
+      <span className="ns-impact-note">{a.note || ''}</span>
     </div>
   );
 };
 
-const NS_CAT_LABELS = { monetary: 'Monetary', inflation: 'Inflation', growth: 'Growth', markets: 'Markets', fx: 'FX', commodities: 'Commodities', geopolitics: 'Geopolitics', fiscal: 'Fiscal', banking: 'Banking', trade: 'Trade', other: 'Other' };
-// Stable display order for the type filter.
-const NS_CAT_ORDER = ['monetary', 'inflation', 'growth', 'markets', 'fx', 'fiscal', 'trade', 'commodities', 'banking', 'geopolitics', 'other'];
+const NS_CAT_LABELS = { monetary: 'Monetary', inflation: 'Inflation', growth: 'Growth', fiscal: 'Fiscal', politics: 'Politics', trade: 'Trade', commodities: 'Commodities', markets: 'Markets', fx: 'FX', banking: 'Banking', corporate: 'Corporate', geopolitics: 'Geopolitics', other: 'Other' };
+// Stable display order for the type filter (matches news_taxonomy.json).
+const NS_CAT_ORDER = ['monetary', 'inflation', 'growth', 'fiscal', 'politics', 'trade', 'commodities', 'markets', 'fx', 'banking', 'corporate', 'geopolitics', 'other'];
+const NS_SURPRISE_LABEL = { priced: 'Priced in', partial: 'Partly priced', surprise: 'Surprise' };
 
 const mapNewsRow = (r) => {
   const t = r.ts ? new Date(r.ts) : null;
@@ -56,7 +70,7 @@ const mapNewsRow = (r) => {
     headline: r.headline, summary: r.summary || '', analysis: r.analysis || r.impact || '',
     url: r.url || '', sent: nsSentOf(score, r.sent_label), net: score,
     importance: r.importance || 'med', affects: Array.isArray(r.affects) ? r.affects : [],
-    category: r.category || 'other',
+    category: r.category || 'other', surprise: r.surprise || null,
   };
 };
 
@@ -204,15 +218,16 @@ const MacroNews = () => {
                 <span className="mc-tag">{NS_CAT_LABELS[selected.category] || selected.category}</span>
                 <span className="mc-tag src">{selected.source}</span>
                 <span className="mc-tag">{nsFmtDate(selected.dt)} · {nsFmtTime(selected.dt)} WIB</span>
+                {selected.surprise && <span className="ns-detail-surprise">{NS_SURPRISE_LABEL[selected.surprise] || selected.surprise}</span>}
                 {selected.importance === 'high' && <span className="ns-tag-high">HIGH IMPACT</span>}
               </div>
               {selected.url
                 ? <a className="ns-detail-title ns-detail-title--link" href={selected.url} target="_blank" rel="noopener noreferrer">{selected.headline} <span className="ns-ext">↗</span></a>
                 : <div className="ns-detail-title">{selected.headline}</div>}
 
-              {/* the single bear↔bull spectrum with position needle */}
+              {/* the single bear↔bull spectrum — score sits AT the needle */}
               <div className="ns-detail-spectrum">
-                <SentSpectrum score={selected.net} />
+                <SentSpectrum score={selected.net} big />
               </div>
 
               {selected.summary && <p className="ns-detail-summary">{selected.summary}</p>}

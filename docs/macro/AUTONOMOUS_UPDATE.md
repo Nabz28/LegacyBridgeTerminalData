@@ -22,25 +22,25 @@ macro-filtered. No web-search needed for the core feed. (You MAY add a few
 breaking items via web search for beats RSS misses — esp. Indonesia/BI — using
 the same record shape.)
 
-### 2. Score each candidate (Stage B) → write to Supabase
-Read `candidates.json`. For each item, ADD the scoring fields and write an
-`items.json` array of records:
+### 2. Match each candidate to the taxonomy (Stage B) → write to Supabase
+The bear/bull score is **computed**, not eyeballed (see `docs/macro/NEWS_SCORING.md`).
+First read the taxonomy `news_taxonomy.json` (fetched in setup). Then for the
+strongest ~18-24 candidates, write an `items.json` array of records — you only
+MATCH; you do NOT supply a score/importance:
 ```
-{ ts, region (US|ID|CN|World), source, headline, url, summary,
-  analysis ("where it leads" — 2-3 sentences, the transmission read),
-  sent_score (-100..+100, risk-on positive), confidence (0..1),
-  importance (high|med|low),
-  affects [ {label, dir (+1/-1/0), note}, ... ]   // market-impact breakdown
-}
+{ ts, region, source (single clean outlet), headline, url, summary,
+  analysis ("where it leads" — 2-3 sentences),
+  type      (one news_type key from the taxonomy),
+  surprise  (priced | partial | likely | surprise),
+  impacts: [ {target (a TARGET KEY from the taxonomy), level (-5..5), note}, ... 3-6 ] }
 ```
-- `sent_score`: implication for **risk assets / growth**, not "good vs bad news"
-  (hot CPI → hawkish → negative; oil supply shock → negative; disinflation → positive).
-- `affects`: 3-6 markets the item moves and the direction — e.g.
-  `{label:"USD",dir:1,note:"haven bid"}`, `{label:"UST 10Y",dir:1}`, `{label:"Equities",dir:-1}`.
-- `importance`: `high` for rate decisions, major data surprises, supply shocks.
-- Keep the strongest ~18-24 items; skip low-signal/duplicate headlines.
+- `level`: the asset's NATURAL direction (rupiah weakens → IDR negative; yields up
+  → SBN10Y positive; a hike → BIRATE positive), sized via the target's σ anchor +
+  the level_scale. `post_news.py` validates targets and **computes** sent_score,
+  sent_label, importance and the affects breakdown via `news_score.py`.
+- Skip low-signal/duplicate headlines; keep sources to single clean outlet names.
 
-Then upsert (dedup by hash is automatic):
+Then upsert (dedup by hash is automatic; off-taxonomy targets are dropped):
 ```
 python post_news.py items.json
 ```
