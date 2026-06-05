@@ -2562,7 +2562,10 @@ a.ns-detail-title--link:hover { color: var(--brand); }
 
 .mcal-wkhead { display: grid; grid-template-columns: repeat(7, 1fr); padding: 0 16px; flex-shrink: 0; }
 .mcal-wk { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); padding: 4px 8px; }
-.mcal-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(78px, 1fr);
+/* 6 rows divide the available height EXACTLY (minmax(0,1fr)) so the last week
+   never overflows / clips. The grid fills its column; cells handle their own
+   overflow via '+N more'. */
+.mcal-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(6, minmax(0, 1fr));
   margin: 0 16px 14px; border-top: 1px solid var(--border-default); border-left: 1px solid var(--border-subtle); overflow: hidden; border-radius: 2px; }
 .mcal-cell { position: relative; border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);
   padding: 5px 6px 4px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; gap: 3px; min-height: 0; }

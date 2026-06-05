@@ -237,7 +237,7 @@ const MacroCalendar = () => {
                   <div key={c.iso} className={cls} onClick={() => setSelDay(c.iso)}>
                     <span className="mcal-cell-date">{c.day}</span>
                     <div className="mcal-cell-evts">
-                      {c.items.slice(0, 4).map((e) => {
+                      {c.items.slice(0, 3).map((e) => {
                         const chip = MCAL_REGION_CHIP[e.region];
                         return (
                           <div key={e.id} className={'mcal-evt imp-' + e.importance} title={(e.ticker ? e.ticker + ' · ' : '') + e.title}>
@@ -246,7 +246,7 @@ const MacroCalendar = () => {
                           </div>
                         );
                       })}
-                      {c.items.length > 4 && <div className="mcal-more">+{c.items.length - 4} more</div>}
+                      {c.items.length > 3 && <div className="mcal-more">+{c.items.length - 3} more</div>}
                     </div>
                   </div>
                 );
