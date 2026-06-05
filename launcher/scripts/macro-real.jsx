@@ -1064,7 +1064,7 @@ const macroToolNode = (id) => {
   if (id === 'news')      return window.MacroNews        ? wrapWs(<window.MacroNews />)        : <div className="mc-section mc-news-empty">News not loaded.</div>;
   if (id === 'sentiment') return window.MacroSentiment   ? <window.MacroSentiment />           : <div className="mc-section mc-news-empty">Sentiment engine not loaded.</div>;
   if (id === 'gather')    return <DataGatherer />;
-  if (id === 'calendar')  return window.MacroCalendar    ? wrapWs(<window.MacroCalendar />)    : <div className="mc-section mc-news-empty">Calendar not loaded.</div>;
+  if (id === 'calendar')  return window.MacroCalendar    ? <window.MacroCalendar />            : <div className="mc-section mc-news-empty">Calendar not loaded.</div>;
   if (id === 'analysis')  return window.AnalysisLab    ? <window.AnalysisLab />              : <div className="mc-section mc-news-empty">Analysis tool not loaded.</div>;
   if (id === 'forecast')  return window.ForecastLab   ? <window.ForecastLab />              : <div className="mc-section mc-news-empty">Forecast tool not loaded.</div>;
   if (id === 'connect')   return <MacroConnectionsMap />;

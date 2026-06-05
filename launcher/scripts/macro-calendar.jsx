@@ -216,45 +216,44 @@ const MacroCalendar = () => {
         </div>
       )}
 
-      {/* ---- MONTH GRID ---- */}
+      {/* ---- MONTH GRID (left) + selected-day panel (right) ---- */}
       {status === 'ok' && view === 'month' && (
         <div className="mcal-month">
-          <div className="mcal-monthbar">
-            <button className="mcal-navbtn" onClick={() => shiftMonth(-1)} title="Previous month">‹</button>
-            <span className="mcal-month-title">{monthTitle}</span>
-            <button className="mcal-navbtn" onClick={() => shiftMonth(1)} title="Next month">›</button>
-            <button className="mcal-today-btn" onClick={gotoToday}>Today</button>
-          </div>
-          <div className="mcal-wkhead">
-            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((w) => <span key={w} className="mcal-wk">{w}</span>)}
-          </div>
-          <div className="mcal-grid">
-            {monthGrid.map((c) => {
-              const hi = c.items.some((e) => e.importance === 'high');
-              const cls = 'mcal-cell' + (c.inMonth ? '' : ' dim') + (c.iso === todayISO ? ' is-today' : '') + (c.iso === selDay ? ' is-sel' : '') + (hi ? ' has-high' : '');
-              return (
-                <div key={c.iso} className={cls} onClick={() => setSelDay(c.iso)}>
-                  <div className="mcal-cell-top">
+          <div className="mcal-cal">
+            <div className="mcal-monthbar">
+              <button className="mcal-navbtn" onClick={() => shiftMonth(-1)} title="Previous month">‹</button>
+              <span className="mcal-month-title">{monthTitle}</span>
+              <button className="mcal-navbtn" onClick={() => shiftMonth(1)} title="Next month">›</button>
+              <button className="mcal-today-btn" onClick={gotoToday}>Today</button>
+            </div>
+            <div className="mcal-wkhead">
+              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((w) => <span key={w} className="mcal-wk">{w}</span>)}
+            </div>
+            <div className="mcal-grid">
+              {monthGrid.map((c) => {
+                const hi = c.items.some((e) => e.importance === 'high');
+                const cls = 'mcal-cell' + (c.inMonth ? '' : ' dim') + (c.iso === todayISO ? ' is-today' : '') + (c.iso === selDay ? ' is-sel' : '') + (hi ? ' has-high' : '');
+                return (
+                  <div key={c.iso} className={cls} onClick={() => setSelDay(c.iso)}>
                     <span className="mcal-cell-date">{c.day}</span>
-                    {c.items.length > 0 && <span className="mcal-cell-n">{c.items.length}</span>}
+                    <div className="mcal-cell-evts">
+                      {c.items.slice(0, 4).map((e) => {
+                        const chip = MCAL_REGION_CHIP[e.region];
+                        return (
+                          <div key={e.id} className={'mcal-evt imp-' + e.importance} title={(e.ticker ? e.ticker + ' · ' : '') + e.title}>
+                            <span className="mcal-evt-dot" style={{ background: chip ? chip.c : 'var(--text-tertiary)' }} />
+                            <span className="mcal-evt-txt"><b>{e.ticker || mcalCat(e.category).label}</b>{e.ticker ? <span className="mcal-evt-sub"> {mcalCat(e.category).label}</span> : <span className="mcal-evt-sub"> {e.title}</span>}</span>
+                          </div>
+                        );
+                      })}
+                      {c.items.length > 4 && <div className="mcal-more">+{c.items.length - 4} more</div>}
+                    </div>
                   </div>
-                  <div className="mcal-cell-evts">
-                    {c.items.slice(0, 3).map((e) => {
-                      const chip = MCAL_REGION_CHIP[e.region];
-                      return (
-                        <div key={e.id} className={'mcal-evt imp-' + e.importance} title={(e.ticker ? e.ticker + ' · ' : '') + e.title}>
-                          <span className="mcal-evt-dot" style={{ background: chip ? chip.c : 'var(--text-tertiary)' }} />
-                          <span className="mcal-evt-txt">{e.ticker || mcalCat(e.category).label}{e.ticker ? '' : ''} <span className="mcal-evt-sub">{e.ticker ? mcalCat(e.category).label : e.title}</span></span>
-                        </div>
-                      );
-                    })}
-                    {c.items.length > 3 && <div className="mcal-more">+{c.items.length - 3} more</div>}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-          <div className="mcal-daydetail">
+          <aside className="mcal-side">
             <div className="mcal-dd-head">
               {(() => { const dl = mcalDayLabel(selDay, todayISO); return (<>
                 <span className="mcal-dayname">{dl.label}</span>
@@ -266,7 +265,7 @@ const MacroCalendar = () => {
               {selItems.length ? selItems.map((e) => <MCalRow key={e.id} e={e} />)
                 : <div className="mcal-empty mcal-empty--sm">No events on this day.</div>}
             </div>
-          </div>
+          </aside>
         </div>
       )}
 
