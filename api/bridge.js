@@ -52,6 +52,34 @@ async function loadConfig() {
   const rows = await sb('/bridge_config?select=key,value', { profile: 'brain' });
   const c = {}; for (const r of rows) c[r.key] = r.value; return c;
 }
+
+// ---------- the BRAIN (LBC's live memory) — brain.notes only, never brain.vault ----------
+async function loadBrainContext(isOwner) {
+  try {
+    const notes = await sb('/notes?select=title,type,data,updated_at,pinned&type=in.(goal,kpi,milestone,risk,status_snapshot,initiative)&order=updated_at.desc&limit=90', { profile: 'brain' });
+    const by = {}; notes.forEach((n) => { (by[n.type] = by[n.type] || []).push(n); });
+    let s = '## LBC BRAIN — your live memory of the firm (use brain_* tools for detail)\n';
+    const snap = (by.status_snapshot || [])[0];
+    if (snap && snap.data) {
+      s += `LATEST STATUS — ${snap.title}: ${snap.data.headline || ''}\n`;
+      if (Array.isArray(snap.data.behind) && snap.data.behind.length) s += 'Behind: ' + snap.data.behind.slice(0, 4).join('; ') + '\n';
+      if (Array.isArray(snap.data.next_actions) && snap.data.next_actions.length) s += 'Open next-actions: ' + snap.data.next_actions.slice(0, 5).join('; ') + '\n';
+    }
+    const g = by.goal || [];
+    if (g.length) s += 'GOALS:\n' + g.map((n) => ' - ' + n.title + (n.data ? ` — ${n.data.current ?? '?'}/${n.data.target ?? '?'} ${n.data.unit || ''} (${n.data.progress ?? '?'}%, ${n.data.status || ''})` : '')).join('\n') + '\n';
+    const k = by.kpi || [];
+    if (k.length) s += 'KPIs:\n' + k.map((n) => ' - ' + n.title + (n.data ? ` ${n.data.value}/${n.data.target} ${n.data.unit || ''} ${n.data.trend || ''}` : '')).join('\n') + '\n';
+    const m = by.milestone || [];
+    if (m.length) s += 'MILESTONES:\n' + m.map((n) => ' - ' + n.title + (n.data ? ` (due ${n.data.due || '?'}, ${n.data.status || ''})` : '')).join('\n') + '\n';
+    const r = by.risk || [];
+    if (r.length) s += 'OPEN RISKS: ' + r.map((n) => n.title).join(' · ') + '\n';
+    const ini = (by.initiative || []).slice(0, 10);
+    if (ini.length) s += 'INITIATIVES: ' + ini.map((n) => n.title).join(' · ') + '\n';
+    s += 'For people, decisions, inbox, todos, meetings or any specifics, call brain_search / brain_get. ' +
+      (isOwner ? 'Capture new facts/decisions/status with brain_write (owner).' : '') + '\n';
+    return s;
+  } catch (e) { return ''; }
+}
 async function loadUser(sub) {
   const rows = await sb('/users?select=id,username,full_name,role,active&id=eq.' + encodeURIComponent(sub), { profile: 'management' });
   return rows && rows[0];
@@ -81,6 +109,10 @@ function toolDefs(isOwner) {
     { type: 'function', function: { name: 'data_macro_overview', description: 'Latest per-region sentiment composites + the most recent scored news headlines. Best first call for "how do markets look".', parameters: { type: 'object', properties: {} } } },
     { type: 'function', function: { name: 'data_search_news', description: 'Search scored macro news.', parameters: { type: 'object', properties: { q: { type: 'string' }, region: { type: 'string', enum: ['US', 'IDX', 'World'] }, limit: { type: 'integer' } } } } },
     { type: 'function', function: { name: 'data_calendar', description: 'Economic/corporate calendar events (BI, Fed, data, RUPS, earnings...).', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, from: { type: 'string' }, to: { type: 'string' }, category: { type: 'string' }, limit: { type: 'integer' } } } } },
+    // brain.* — LBC's institutional memory (brain.notes): goals, KPIs, people, decisions, inbox, status.
+    { type: 'function', function: { name: 'brain_search', description: 'Search LBC brain notes (memory) by keyword across title + body. Use for people, decisions, history, "what did we say about X".', parameters: { type: 'object', properties: { q: { type: 'string' }, type: { type: 'string', description: 'optional filter: goal|kpi|milestone|initiative|risk|todo|person|meeting|note|inbox|status_snapshot' }, limit: { type: 'integer' } }, required: ['q'] } } },
+    { type: 'function', function: { name: 'brain_get', description: 'Fetch the full body of a brain note by exact title (or id).', parameters: { type: 'object', properties: { title: { type: 'string' }, id: { type: 'integer' } } } } },
+    { type: 'function', function: { name: 'brain_index', description: 'List brain notes (titles only, no bodies) optionally filtered by type or folder — to see what the firm knows.', parameters: { type: 'object', properties: { type: { type: 'string' }, folder: { type: 'string' }, limit: { type: 'integer' } } } } },
     // ui.* are executed in the browser; declared so the model can drive the terminal.
     { type: 'function', function: { name: 'ui_navigate', description: 'Open a macro terminal tool.', parameters: { type: 'object', properties: { tool: { type: 'string', enum: ['data', 'news', 'sentiment', 'gather', 'calendar', 'analysis', 'forecast', 'connect', 'map', 'corr'] } }, required: ['tool'] } } },
     { type: 'function', function: { name: 'ui_search', description: 'Run the terminal global search.', parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } } },
@@ -91,6 +123,7 @@ function toolDefs(isOwner) {
     t.push(
       { type: 'function', function: { name: 'write_add_calendar_event', description: 'OWNER ONLY. Add an event to macro.calendar.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, event_date: { type: 'string' }, category: { type: 'string' }, title: { type: 'string' }, entity: { type: 'string' }, ticker: { type: 'string' }, importance: { type: 'string', enum: ['high', 'med', 'low'] }, detail: { type: 'string' }, status: { type: 'string', enum: ['confirmed', 'tentative', 'estimated'] } }, required: ['region', 'event_date', 'category', 'title'] } } },
       { type: 'function', function: { name: 'write_delete_calendar_event', description: 'OWNER ONLY. Delete a macro.calendar event by id.', parameters: { type: 'object', properties: { id: { type: 'integer' } }, required: ['id'] } } },
+      { type: 'function', function: { name: 'brain_write', description: 'OWNER ONLY. Write to LBC brain memory — upsert a note by title (capture a fact, decision, goal, KPI, risk, todo, person, or a status snapshot). Use this so the firm remembers.', parameters: { type: 'object', properties: { title: { type: 'string' }, type: { type: 'string', description: 'note|goal|kpi|milestone|initiative|risk|todo|person|meeting|status_snapshot' }, folder: { type: 'string', description: 'home|strategy|operations|hr|investments|people|growth|knowledge|inbox' }, body: { type: 'string', description: 'markdown' }, data: { type: 'object', description: 'typed extras per the note type' }, status: { type: 'string' } }, required: ['title', 'type', 'body'] } } },
     );
   }
   return t;
@@ -126,8 +159,30 @@ async function runTool(name, args, ctx) {
     if (args.to) q += '&event_date=lte.' + args.to;
     return await sb('/calendar?' + q, { profile: 'macro' });
   }
+  // ---- brain (LBC memory) reads — never touches brain.vault ----
+  if (name === 'brain_search') {
+    const lim = Math.min(args.limit || 12, 30);
+    const q = encodeURIComponent('*' + (args.q || '') + '*');
+    let path = `/notes?select=id,title,type,folder,status,updated_at&or=(title.ilike.${q},body.ilike.${q})&order=updated_at.desc&limit=${lim}`;
+    if (args.type) path += '&type=eq.' + encodeURIComponent(args.type);
+    return await sb(path, { profile: 'brain' });
+  }
+  if (name === 'brain_get') {
+    const sel = 'select=id,title,type,folder,status,tags,data,body,updated_at';
+    const filt = args.id ? 'id=eq.' + parseInt(args.id, 10) : 'title=eq.' + encodeURIComponent(args.title || '');
+    const rows = await sb(`/notes?${sel}&${filt}&limit=1`, { profile: 'brain' });
+    return (rows && rows[0]) || { error: 'note not found' };
+  }
+  if (name === 'brain_index') {
+    const lim = Math.min(args.limit || 80, 200);
+    let path = `/notes?select=id,title,type,folder,status,pinned,updated_at&order=updated_at.desc&limit=${lim}`;
+    if (args.type) path += '&type=eq.' + encodeURIComponent(args.type);
+    if (args.folder) path += '&folder=eq.' + encodeURIComponent(args.folder);
+    return await sb(path, { profile: 'brain' });
+  }
+
   // ---- writes: owner only ----
-  if (name.startsWith('write_')) {
+  if (name.startsWith('write_') || name === 'brain_write') {
     if (!ctx.isOwner) throw new Error('not authorized: writes are owner-only');
     if (name === 'write_add_calendar_event') {
       const tick = args.ticker || '';
@@ -139,6 +194,13 @@ async function runTool(name, args, ctx) {
     if (name === 'write_delete_calendar_event') {
       await sb('/calendar?id=eq.' + parseInt(args.id, 10), { method: 'DELETE', profile: 'macro', prefer: 'return=minimal' });
       return { ok: true, deleted: args.id };
+    }
+    if (name === 'brain_write') {
+      const existing = await sb('/notes?select=id&title=eq.' + encodeURIComponent(args.title) + '&limit=1', { profile: 'brain' });
+      const row = { title: args.title, type: args.type || 'note', folder: args.folder || 'home', body: args.body || '', data: args.data || null, status: args.status || 'filed', created_by: ctx.username || 'LEGION' };
+      if (existing && existing[0]) { await sb('/notes?id=eq.' + existing[0].id, { method: 'PATCH', profile: 'brain', body: row, prefer: 'return=minimal' }); return { ok: true, updated: args.title }; }
+      await sb('/notes', { method: 'POST', profile: 'brain', body: [row], prefer: 'return=minimal' });
+      return { ok: true, created: args.title };
     }
     throw new Error('unknown write tool: ' + name);
   }
@@ -202,7 +264,8 @@ module.exports = async (req, res) => {
         ? `WRITES: as owner the user may change data. For a PRECISE, unambiguous instruction (all required fields present), CALL the write_* tool immediately and report it done — the UI shows the user a confirm step, so you do not need to ask again. Only pause to ask when the instruction is ambiguous or destructive.`
         : `WRITES: this user is NOT an owner — you cannot change any data. If asked to add/edit, tell them plainly that only the principal (Nabil) can write, and offer to draft it for his approval instead.`,
     ].join(' ');
-    const sys = [cfg.persona || 'You are LEGION, LBC\'s AI chief of staff.', '', heat, '', ops].join('\n');
+    const brainCtx = await loadBrainContext(isOwner);
+    const sys = [cfg.persona || 'You are LEGION, LBC\'s AI chief of staff.', '', heat, '', ops, '', brainCtx].join('\n');
     const messages = [{ role: 'system', content: sys }, ...(body.messages || [])];
     try {
       const r = await fetch(OR_URL, {
