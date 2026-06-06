@@ -197,7 +197,7 @@ async function runTool(name, args, ctx) {
     }
     if (name === 'brain_write') {
       const existing = await sb('/notes?select=id&title=eq.' + encodeURIComponent(args.title) + '&limit=1', { profile: 'brain' });
-      const row = { title: args.title, type: args.type || 'note', folder: args.folder || 'home', body: args.body || '', data: args.data || null, status: args.status || 'filed', created_by: ctx.username || 'LEGION' };
+      const row = { title: args.title, type: args.type || 'note', folder: args.folder || 'home', body: args.body || '', data: args.data || {}, status: args.status || 'filed', created_by: ctx.username || 'LEGION' };
       if (existing && existing[0]) { await sb('/notes?id=eq.' + existing[0].id, { method: 'PATCH', profile: 'brain', body: row, prefer: 'return=minimal' }); return { ok: true, updated: args.title }; }
       await sb('/notes', { method: 'POST', profile: 'brain', body: [row], prefer: 'return=minimal' });
       return { ok: true, created: args.title };
