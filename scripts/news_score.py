@@ -47,6 +47,10 @@ _IMP = _ROLL["importance_thresholds"]
 _DEFAULT_SURP = _SURP.get("partial", 0.45)
 # integer level (1..5) -> midpoint of its σ band, so a level becomes an expected move.
 _LVL_SIG = {int(k): v for k, v in _ROLL.get("level_sigma", {"1":0.35,"2":0.85,"3":1.6,"4":2.5,"5":3.5}).items()}
+# Per-news-type transmission to the equity/risk composite. Backtest (n=40, 2026-06)
+# showed IDX equity shrugs domestic politics/geopolitics — country risk repricing
+# shows up in FX/CDS/bonds, not the index — so those types are damped here.
+_TRANS = _ROLL.get("type_transmission", {})
 
 def validate_type(t):
     return t if t in TYPES else "other"
@@ -68,7 +72,7 @@ def expected_move(target_key, level, surprise_mult=1.0):
         return (None, "qual", round(sig_mult, 2))
     return (round(sgn * sig * sig_mult, 1 if unit in ("pct", "pp") else 0), unit, round(sig_mult, 2))
 
-def score_impacts(impacts, surprise_key="partial"):
+def score_impacts(impacts, surprise_key="partial", news_type=None):
     """impacts: [{target, level (-5..5), note?}], surprise_key in {priced,partial,likely,surprise}.
     Returns {sent_score, sent_label, importance, surprise, affects, score_components}."""
     s = _SURP.get(surprise_key, _DEFAULT_SURP)
@@ -102,6 +106,7 @@ def score_impacts(impacts, surprise_key="partial"):
     den = sum(r["weight"] * (gl_scale if r["_gl"] else 1.0)
               for r in rows if r["risk_sign"] != 0)
     raw = (num / math.sqrt(den)) * s if den > 0 else 0.0
+    raw *= _TRANS.get(news_type, 1.0) if news_type else 1.0   # type transmission to the composite
     score = round(100 * math.tanh(GAIN * raw))
 
     # Importance from the top-3 weighted impacts (credits breadth, not just the peak).

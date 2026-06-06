@@ -50,7 +50,7 @@ def main():
         # engine (the agent does not supply sent_score). Legacy items that bring
         # their own sent_score/affects still work.
         if it.get("impacts") is not None and ns is not None:
-            res = ns.score_impacts(it.get("impacts"), it.get("surprise") or "partial")
+            res = ns.score_impacts(it.get("impacts"), it.get("surprise") or "partial", it.get("type"))
             score = res["sent_score"]; label = res["sent_label"]
             affects = res["affects"]; importance = res["importance"]
             surprise = res["surprise"]; components = res["score_components"]

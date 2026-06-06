@@ -114,3 +114,36 @@ raw −0.52, **score −52, importance high** — and every point is explainable
 - `scripts/news_score.py` — the engine (importable; `score_impacts`).
 - `scripts/post_news.py` — validates + scores on ingest.
 - `launcher/scripts/macro-news.jsx` — renders the score (at the needle) + impact bars.
+
+## 9. Backtest / predictive validity (2026-06, n=40)
+
+Scored 40 real historical events (last 12 months, 60% ID / 30% US / 10% global) with
+the live engine and checked the bull/bear call vs the **actual forward market move**
+(region index ± rupiah at +1/+3/+5 trading days, Yahoo daily closes). Two independent
+critics (a quant validator + an Indonesian buy-side strategist) reviewed the misses.
+
+**What holds up.** Genuine *directional* edge above coin-flip — **~60% @+1d, 67% @+3d**
+(US 75%, ID 65%) — and it nails the clean unpriced catalysts (BI surprise hikes, the
+Sri Mulyani exit, the rupiah crash). Treat the score as a **directional conviction
+signal, strongest at +1d.**
+
+**What does NOT.**
+- **Magnitude is not a return forecast.** Rank-corr of |score| vs |move| ≈ 0. The number
+  is a *conviction* label, not a predicted return.
+- **The rupiah is context-only.** USDIDR's median 3-day move is ~0.4% (below the
+  tradeable noise floor) and local headlines explain little — it's a DXY/UST/EM-flows
+  instrument. Don't size off the rupiah read.
+- **High-profile, telegraphed bad news is "buy-the-news."** Moody's-outlook / protests /
+  monthly-reserve prints preceded JCI *rallies* — the engine must not confuse "shocking
+  to read" with "unpriced."
+
+**Fixes applied (calibration, not curve-fitting — n=40 is not significant):**
+- Added a **`telegraphed` surprise tier (0.05)** so the engine *abstains* on fully-
+  anticipated news instead of making a loud wrong call.
+- Added **per-news-type transmission** (`rollup.type_transmission`): politics 0.35,
+  geopolitics 0.40, fiscal 0.70… — country-risk repricing shows up in FX/CDS/bonds, not
+  the equity index, so those types are damped in the composite (sign kept, magnitude cut).
+- Rupiah demoted to **context-only** in validation (sub-0.5% moves graded "no call").
+
+These improve *honesty/calibration*, not the headline directional rate. Gather more
+events before any hard tuning.

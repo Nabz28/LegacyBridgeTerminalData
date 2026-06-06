@@ -91,7 +91,8 @@
     "priced": 0.1,
     "partial": 0.45,
     "likely": 0.7,
-    "surprise": 1.0
+    "surprise": 1.0,
+    "telegraphed": 0.05
   },
   "rollup": {
     "doc": "raw = surprise * sum(weight*risk_sign*level/5) / SQRT(sum(weight)); the sqrt denominator (not a plain average) REWARDS breadth — a 5-asset crisis outscores a 1-asset move — while still penalising a pile of marginal noise targets. GL (global) contributions are halved when their net sign matches T1 (correlation haircut: USD already explains the IDR move). score = 100*tanh(GAIN*raw). importance from top-3 weighted severity, not the single peak.",
@@ -108,7 +109,25 @@
       "3": 1.6,
       "4": 2.5,
       "5": 3.5
-    }
+    },
+    "type_transmission": {
+      "monetary": 1.0,
+      "inflation": 1.0,
+      "growth": 0.85,
+      "fiscal": 0.7,
+      "politics": 0.35,
+      "industrial_policy": 0.7,
+      "subsidy_energy": 0.8,
+      "trade": 0.85,
+      "commodities": 1.0,
+      "markets": 1.0,
+      "fx": 1.0,
+      "banking": 0.9,
+      "corporate": 0.9,
+      "geopolitics": 0.4,
+      "other": 0.8
+    },
+    "_backtest_note": "Validated 2026-06 vs forward prices (n=40): directional edge ~60-67% best at +1d; score is a CONVICTION signal not a return forecast; rupiah is context-only (below noise floor). type_transmission damps headline types that historically do not move IDX equity."
   },
   "targets": [
     {
