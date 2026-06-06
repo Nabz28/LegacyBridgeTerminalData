@@ -27,6 +27,42 @@
     return r.json();
   }
 
+  // ---- minimal, safe markdown -> HTML (LEGION replies are markdown) ----
+  const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const mdInline = (s) => esc(s)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  function mdToHtml(src) {
+    const lines = String(src || '').split('\n');
+    let html = '', i = 0, inUl = false, inOl = false;
+    const closeLists = () => { if (inUl) { html += '</ul>'; inUl = false; } if (inOl) { html += '</ol>'; inOl = false; } };
+    while (i < lines.length) {
+      const ln = lines[i];
+      if (/^\s*\|.*\|/.test(ln) && i + 1 < lines.length && /^\s*\|?[\s:|-]+\|/.test(lines[i + 1]) && lines[i + 1].includes('-')) {
+        closeLists();
+        const head = ln.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
+        i += 2;
+        html += '<table class="bridge-tbl"><thead><tr>' + head.map((h) => '<th>' + mdInline(h) + '</th>').join('') + '</tr></thead><tbody>';
+        while (i < lines.length && /^\s*\|.*\|/.test(lines[i])) {
+          const cells = lines[i].trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
+          html += '<tr>' + cells.map((c) => '<td>' + mdInline(c) + '</td>').join('') + '</tr>'; i++;
+        }
+        html += '</tbody></table>'; continue;
+      }
+      const h = ln.match(/^(#{1,4})\s+(.*)$/);
+      if (h) { closeLists(); html += '<div class="bridge-h">' + mdInline(h[2]) + '</div>'; i++; continue; }
+      const ul = ln.match(/^\s*[-*•]\s+(.*)$/);
+      if (ul) { if (!inUl) { closeLists(); html += '<ul>'; inUl = true; } html += '<li>' + mdInline(ul[1]) + '</li>'; i++; continue; }
+      const ol = ln.match(/^\s*\d+\.\s+(.*)$/);
+      if (ol) { if (!inOl) { closeLists(); html += '<ol>'; inOl = true; } html += '<li>' + mdInline(ol[1]) + '</li>'; i++; continue; }
+      if (ln.trim() === '') { closeLists(); i++; continue; }
+      closeLists(); html += '<p>' + mdInline(ln) + '</p>'; i++;
+    }
+    closeLists(); return html;
+  }
+
   const TOOL_LABEL = {
     data_query: 'Reading data', data_macro_overview: 'Reading market overview', data_search_news: 'Searching news',
     data_calendar: 'Reading calendar', ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
@@ -91,9 +127,9 @@
 
     return (
       <React.Fragment>
-        <button className={'bridge-fab' + (open ? ' is-open' : '')} onClick={() => setOpen((o) => !o)} title="Bridge Copilot">
-          {open ? '×' : '✦'}
-        </button>
+        {!open && (
+          <button className="bridge-fab" onClick={() => setOpen(true)} title="Ask LEGION">✦</button>
+        )}
         {open && (
           <div className="bridge-panel">
             <div className="bridge-head">
@@ -115,6 +151,7 @@
               )}
               {turns.map((t, i) => {
                 if (t.tool) return <div key={i} className={'bridge-tool st-' + t.status}><span className="bridge-tool-dot" />{t.label}{t.status === 'cancelled' ? ' (cancelled)' : ''}</div>;
+                if (t.role === 'assistant') return <div key={i} className="bridge-msg bridge-assistant bridge-md" dangerouslySetInnerHTML={{ __html: mdToHtml(t.text) }} />;
                 return <div key={i} className={'bridge-msg bridge-' + t.role}>{t.text}</div>;
               })}
               {busy && <div className="bridge-thinking"><span /><span /><span /></div>}

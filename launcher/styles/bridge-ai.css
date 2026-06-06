@@ -55,3 +55,21 @@
 .bridge-input textarea:focus { outline: none; border-color: var(--brand, #97aac5); }
 .bridge-input button { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; border: 0; background: var(--brand, #97aac5); color: #06121f; font-size: 15px; cursor: pointer; }
 .bridge-input button:disabled { opacity: 0.4; cursor: default; }
+
+/* rendered markdown in LEGION replies */
+.bridge-md { font-size: 13px; line-height: 1.55; color: var(--paper, #e8e4d9); }
+.bridge-md p { margin: 0 0 8px; }
+.bridge-md p:last-child { margin-bottom: 0; }
+.bridge-md strong { color: #fff; font-weight: 700; }
+.bridge-md em { color: var(--text-secondary, #c7cedb); font-style: italic; }
+.bridge-md code { font-family: var(--font-mono, monospace); font-size: 11.5px; background: rgba(255,255,255,0.07); padding: 1px 4px; border-radius: 3px; }
+.bridge-md a { color: var(--brand, #97aac5); }
+.bridge-md ul, .bridge-md ol { margin: 4px 0 8px; padding-left: 18px; }
+.bridge-md li { margin: 2px 0; }
+.bridge-md .bridge-h { font-weight: 700; color: #fff; font-size: 13.5px; margin: 10px 0 5px; letter-spacing: 0.01em; }
+.bridge-md .bridge-h:first-child { margin-top: 0; }
+.bridge-tbl { width: 100%; border-collapse: collapse; margin: 6px 0 9px; font-size: 11.5px; }
+.bridge-tbl th, .bridge-tbl td { text-align: left; padding: 4px 7px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.bridge-tbl th { color: var(--text-tertiary, #8a93a6); font-family: var(--font-mono, monospace); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.bridge-tbl td { color: var(--paper, #e8e4d9); font-variant-numeric: tabular-nums; }
+.bridge-tbl tr:last-child td { border-bottom: 0; }
