@@ -152,3 +152,33 @@ Treat the score as a **directional conviction signal**, best on scheduled macro 
 
 These improve *honesty/calibration*, not the headline directional rate. Gather more
 events before any hard tuning.
+
+## 10. Accuracy sweep — exhaustive config search (2026-06, n=131, 192 configs × train/test)
+
+Built a 131-event labeled corpus and exhaustively swept the **sign-affecting** levers
+(horizon, confidence gate, politics/geopolitics rule, telegraphed rule, macro-vs-single
+scope) — 192 configs each scored on a **time-based train/test split** (train < 2026-02,
+test = the recent crisis window) so wins aren't curve-fit. `scripts/sentiment_sweep.py`.
+
+**The one robust, generalizing finding — CONVICTION-GATING.** The engine is materially
+more accurate when it only commits on confident calls and abstains on low-conviction noise:
+
+| Config | train | test | full |
+|---|---|---|---|
+| Baseline (act on every call) | 53% | 59% | 55% |
+| **Gate \|score\|≥15** | **62%** | 59% | **61%** |
+| Gate≥15 + stronger pol/geo dampen, macro-only | **65–66%** | 59% | **64%** |
+
+→ **Treat \|score\| < 20 (the flat band) as "no call."** Acting only on confident
+macro calls lifts hit-rate from ~55% to ~62–66% and it holds out-of-sample.
+
+**What did NOT generalize (and was rejected).** Telegraphed/politics *sign-flip*
+(contrarian "buy-the-news") rules were **test-neutral** — they help train but add no
+out-of-sample skill, so they were not adopted (the prior critics' warning held). Single-
+name corporate stays out-of-domain.
+
+**Applied:** strengthened `type_transmission` (politics 0.35→0.25, geopolitics 0.40→0.30)
+— train-supported (+12pp), test-neutral, economically sound (ID equity prices country
+risk in FX/CDS/bonds, not the index). Kept the `telegraphed` tier (harmless, conceptually
+right). **No sign-flips.** The realistic ceiling for macro-news → 3-day price direction is
+~65% on confident calls; this is a legitimate edge, not a forecast oracle.

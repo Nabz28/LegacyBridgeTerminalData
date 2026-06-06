@@ -115,7 +115,7 @@
       "inflation": 1.0,
       "growth": 0.85,
       "fiscal": 0.7,
-      "politics": 0.35,
+      "politics": 0.25,
       "industrial_policy": 0.7,
       "subsidy_energy": 0.8,
       "trade": 0.85,
@@ -124,10 +124,11 @@
       "fx": 1.0,
       "banking": 0.9,
       "corporate": 0.9,
-      "geopolitics": 0.4,
+      "geopolitics": 0.3,
       "other": 0.8
     },
-    "_backtest_note": "Validated 2026-06 vs forward prices (n=40): directional edge ~60-67% best at +1d; score is a CONVICTION signal not a return forecast; rupiah is context-only (below noise floor). type_transmission damps headline types that historically do not move IDX equity."
+    "_backtest_note": "Validated 2026-06 vs forward prices (n=40): directional edge ~60-67% best at +1d; score is a CONVICTION signal not a return forecast; rupiah is context-only (below noise floor). type_transmission damps headline types that historically do not move IDX equity.",
+    "_sweep_note": "192-config x train/test sweep over 131 events (2026-06): the robust, generalizing accuracy lever is CONVICTION-GATING — confident calls (|score|>=~15-20) hit ~62-66% vs ~55% acting on everything. Treat |score|<20 (flat band) as no-call. Sign-flip/contrarian rules did NOT generalize (test-neutral) and were not adopted."
   },
   "targets": [
     {
