@@ -97,7 +97,7 @@
         {open && (
           <div className="bridge-panel">
             <div className="bridge-head">
-              <span className="bridge-title">✦ Bridge Copilot</span>
+              <span className="bridge-title">✦ LEGION</span>
               <span className="bridge-sub">{sess.user ? (sess.user.full_name || sess.user.username) : ''} · {sess.user ? sess.user.role : ''}</span>
               <button className="bridge-x" onClick={() => setOpen(false)}>×</button>
             </div>
