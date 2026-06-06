@@ -27,16 +27,28 @@
   const MARKET_ID = 'IDX:COMPOSITE';   // JCI / IHSG — the IDX market benchmark
   const MARKET_LABEL = 'JCI (IDX Composite)';
 
-  // Damodaran-style Indonesia defaults (all editable in the UI).
+  // Damodaran-style Indonesia defaults (all editable in the UI). Baselines refreshed
+  // post the 2026 BI emergency hike / IDR stress — these are a NON-CRISIS baseline;
+  // refresh Rf to the live INDOGB 10Y in a stress regime (sensitivity grid shows the band).
   const DEF = {
-    rf: 6.6,           // Indonesia 10Y govt yield (IDR), %
+    rf: 7.0,           // Indonesia 10Y govt yield (IDR), % — post-hike baseline (was 6.6)
     matureERP: 4.6,    // mature-market equity risk premium, %
-    crp: 3.0,          // Indonesia country risk premium, %
+    crp: 3.5,          // Indonesia country risk premium, % — stress-adjusted (was 3.0)
     sizePremium: 0.0,  // %
     taxRate: 22.0,     // Indonesia statutory corporate tax, %
-    creditSpread: 2.0, // spread over Rf for cost of debt, %
+    creditSpread: 3.0, // spread over Rf for cost of debt, % — IG corp baseline (was 2.0)
   };
   const MAX_PEERS = 5;
+  const STAT_TAX = 0.22;          // statutory rate — caps the debt tax shield (effective rates can be one-off-distorted)
+  const RD_FLOOR = 9.0;           // realistic IDR-nominal pre-tax cost of debt floor, %
+  const BETA_FIT_MIN = 0.10;      // min regression R² for a single-name OLS beta to be trusted
+  const BETA_CORR_MIN = 0.30;     // ...or min |correlation|
+  // Sector credit-spread tiers over Rf (bps→%): leveraged/cyclical pay wider in IDR.
+  const SECTOR_SPREAD = {
+    Banks: 1.5, Telco: 3.0, Consumer: 2.5, Coal: 4.0, Energy: 4.0, Metals: 4.0,
+    Industrials: 3.0, Property: 5.5, Tech: 5.0, Plantation: 4.0,
+  };
+  const FINANCIAL_RE = /financ|bank|insur|capital market|asset manage/i;
 
   // ---------- math ----------
   const median = (a) => {
@@ -98,7 +110,9 @@
     const last = (o) => { if (!o) return null; const ks = Object.keys(o).sort(); return ks.length ? o[ks[ks.length - 1]] : null; };
     const pretax = last(inc.PretaxIncome), tax = last(inc.TaxProvision), interest = last(inc.InterestExpense);
     let effTax = (pretax && tax != null && pretax !== 0) ? tax / pretax : null;
-    if (effTax != null && (!isFinite(effTax) || effTax < 0 || effTax > 0.6)) effTax = null;
+    // Tighter sanity band: one-off / deferred-tax true-ups (e.g. MDKA 49.9%, BREN 46%) are
+    // not sustainable marginal rates — reject outside 10–35% and fall back to statutory 22%.
+    if (effTax != null && (!isFinite(effTax) || effTax < 0.10 || effTax > 0.35)) effTax = null;
     return {
       ticker: yt,
       fetchedAt: j.fetchedAt || null,
@@ -250,9 +264,16 @@
     const medBU = peerBU.length ? median(peerBU) : null;
     const betaBottomUp = medBU != null ? relever(medBU, deTarget, taxFrac) : null;
 
+    // Beta confidence gate: a low-R²/low-ρ single-name OLS vs the (bank-heavy) JCI is
+    // statistically meaningless — commodity/illiquid names regress near-zero (ITMG, PTBA,
+    // BDMN). When the fit is weak we prefer the bottom-up peer beta and warn the analyst.
+    const betaLowFit = betaCalc ? (betaCalc.r2 < BETA_FIT_MIN || Math.abs(betaCalc.corr) < BETA_CORR_MIN) : false;
+    const effSource = (betaLowFit && betaSource === 'adjusted' && betaBottomUp != null) ? 'bottomup' : betaSource;
+    const usingFallback = effSource !== betaSource;     // auto-switched away from a noisy OLS
+
     const betaUsed =
-      betaSource === 'raw' ? betaRaw :
-      betaSource === 'bottomup' ? (betaBottomUp != null ? betaBottomUp : betaAdj) :
+      effSource === 'raw' ? betaRaw :
+      effSource === 'bottomup' ? (betaBottomUp != null ? betaBottomUp : betaAdj) :
       betaAdj;
 
     // ---- derived: WACC ----
@@ -261,20 +282,30 @@
     const size = parseFloat(inp.sizePremium) || 0;
     const Re = (betaUsed != null) ? rf + betaUsed * erp + size : null; // %
 
-    // cost of debt
+    // Financials are valued on COST OF EQUITY, not WACC — for a bank, deposits/borrowings
+    // are raw material, not capital structure. Treating Yahoo 'totalDebt' as cheap tax-
+    // shielded debt produced indefensible sub-Re bank WACCs (BBTN 8.4, BDMN 8.1). So for
+    // financials the discount rate = Re and the debt/leverage block is suppressed.
+    const isFinancial = FINANCIAL_RE.test((fund && fund.sector) || '') || (t && /bank|financ/i.test(t.sector || ''));
+
+    // cost of debt — shield capped at statutory (effective rates can be one-off-distorted),
+    // pre-tax floored to a realistic IDR-nominal level; implied mode only when sane (3–20%).
     const interestExp = fund && fund.interestExpense;
-    const rdImplied = (interestExp && D > 0) ? (interestExp / D) * 100 : null;
+    const rdImpliedRaw = (interestExp && D > 0) ? (interestExp / D) * 100 : null;
+    const rdImplied = (rdImpliedRaw != null && rdImpliedRaw >= 3 && rdImpliedRaw <= 20) ? rdImpliedRaw : null;
+    const rdSpreadMode = Math.max(rf + (parseFloat(inp.creditSpread) || 0), RD_FLOOR);
     const rdPreTax = inp.rdMode === 'manual'
       ? (parseFloat(inp.rdManual) || 0)
       : inp.rdMode === 'implied' && rdImplied != null
         ? rdImplied
-        : rf + (parseFloat(inp.creditSpread) || 0);
-    const rdAfterTax = rdPreTax * (1 - taxFrac);
+        : rdSpreadMode;
+    const shieldTax = Math.min(taxFrac, STAT_TAX);       // cap the debt tax shield at 22% statutory
+    const rdAfterTax = rdPreTax * (1 - shieldTax);
 
     const V = E + D;
-    const wE = V > 0 ? E / V : 1;
-    const wD = V > 0 ? D / V : 0;
-    const wacc = (Re != null) ? wE * Re + wD * rdAfterTax : null;
+    const wE = isFinancial ? 1 : (V > 0 ? E / V : 1);
+    const wD = isFinancial ? 0 : (V > 0 ? D / V : 0);
+    const wacc = (Re == null) ? null : isFinancial ? Re : (wE * Re + wD * rdAfterTax);
 
     // ---- sensitivity: WACC across Rf (rows) × ERP (cols) ----
     const sens = React.useMemo(() => {
@@ -300,10 +331,10 @@
         {/* ---- hero ---- */}
         <div className="wacc-hero">
           <div className="wacc-hero-l">
-            <div className="wacc-hero-label">Weighted Average Cost of Capital</div>
+            <div className="wacc-hero-label">{isFinancial ? 'Cost of Equity (Ke)' : 'Weighted Average Cost of Capital'}</div>
             <div className="wacc-hero-val">{wacc != null ? pct(wacc) : '—'}</div>
             <div className="wacc-hero-sub">
-              {symbol} · {sectorLabel} · {ccy} · β source: <b>{betaSource === 'bottomup' ? 'bottom-up peer' : betaSource}</b>
+              {symbol} · {sectorLabel} · {ccy} · β source: <b>{effSource === 'bottomup' ? 'bottom-up peer' : effSource}{usingFallback ? ' (auto — low fit)' : ''}</b>
             </div>
             <div className="wacc-prov">
               <span className="prov-badge live"><span className="prov-dot" />LIVE</span>
@@ -333,6 +364,16 @@
 
         {betaErr && <div className="wacc-banner err">Beta engine: {betaErr}</div>}
         {fundErr && <div className="wacc-banner warn">{fundErr}</div>}
+        {isFinancial && <div className="wacc-banner info">Financial — shown as <b>cost of equity (Ke)</b>. Banks fund with deposits/borrowings (raw material, not capital structure), so the WACC debt term is suppressed; value on Ke / P-B vs ROE.</div>}
+        {!isFinancial && betaLowFit && betaCalc && (
+          <div className="wacc-banner warn">Low-fit β (R²={betaCalc.r2.toFixed(2)}, ρ={betaCalc.corr.toFixed(2)}): single-name OLS vs the bank-heavy JCI is unreliable here{usingFallback ? ' — auto-switched to bottom-up peer β.' : ' — prefer bottom-up peer β or verify.'}</div>
+        )}
+        {fund && fund.currency && fund.currency !== 'IDR' && (
+          <div className="wacc-banner warn">Reports in <b>{fund.currency}</b> — the IDR risk-free/ERP may mismatch USD economics. Verify the currency basis (use a USD Rf/ERP for USD cash flows).</div>
+        )}
+        {!isFinancial && Number.isFinite(wD) && wD < 0.02 && (
+          <div className="wacc-banner warn">Debt weight ≈ 0 — Yahoo <code>totalDebt</code> may be USD-scaled or stale, so WACC collapses to Re. Verify D against the latest filing if this name is levered.</div>
+        )}
 
         <div className="wacc-grid">
           {/* ---------- LEFT: assumptions ---------- */}

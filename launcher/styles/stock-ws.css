@@ -1442,6 +1442,9 @@
 }
 .wacc-banner.err  { color: var(--neg); background: var(--neg-bg); border-left: 2px solid var(--neg); }
 .wacc-banner.warn { color: #FFC65C; background: rgba(255,198,92,0.08); border-left: 2px solid #FFC65C; }
+.wacc-banner.info { color: var(--brand, #97AAC5); background: rgba(151,170,197,0.08); border-left: 2px solid var(--brand, #97AAC5); }
+.wacc-banner + .wacc-banner { margin-top: 6px; }
+.wacc-banner code { font-family: var(--font-mono); opacity: 0.85; }
 
 /* layout */
 .wacc-grid { display: grid; grid-template-columns: minmax(300px, 360px) 1fr; gap: 12px; align-items: start; }
