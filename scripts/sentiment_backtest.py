@@ -82,6 +82,9 @@ def backtest(events):
         score = res["sent_score"]
         region = e.get("region", "ID")
         idx_sym = REGION_INDEX.get(region, "^JKSE")
+        if e.get("ticker"):              # single-name event -> grade vs the actual stock
+            tk = e["ticker"].strip().upper()
+            idx_sym = tk + ".JK" if region in ("ID", "IDX") and not tk.endswith(".JK") else tk
         idx_ret = fwd_returns(idx_sym, e["date"])
         idr_ret = fwd_returns("USDIDR=X", e["date"]) if region in ("ID", "IDX") else {}
         # engine-expected directions

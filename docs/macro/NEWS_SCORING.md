@@ -115,17 +115,18 @@ raw −0.52, **score −52, importance high** — and every point is explainable
 - `scripts/post_news.py` — validates + scores on ingest.
 - `launcher/scripts/macro-news.jsx` — renders the score (at the needle) + impact bars.
 
-## 9. Backtest / predictive validity (2026-06, n=40)
+## 9. Backtest / predictive validity (2026-06, n=76)
 
-Scored 40 real historical events (last 12 months, 60% ID / 30% US / 10% global) with
-the live engine and checked the bull/bear call vs the **actual forward market move**
-(region index ± rupiah at +1/+3/+5 trading days, Yahoo daily closes). Two independent
+Scored **76** real historical events (last 12 months, ~60% ID / 30% US / 10% global,
+incl. single-name corporate) with the live engine and checked the bull/bear call vs the
+**actual forward market move** (region index / the named stock ± rupiah at +1/+3/+5
+trading days, Yahoo daily closes — the same OHLC TradingView shows). Two independent
 critics (a quant validator + an Indonesian buy-side strategist) reviewed the misses.
 
-**What holds up.** Genuine *directional* edge above coin-flip — **~60% @+1d, 67% @+3d**
-(US 75%, ID 65%) — and it nails the clean unpriced catalysts (BI surprise hikes, the
-Sri Mulyani exit, the rupiah crash). Treat the score as a **directional conviction
-signal, strongest at +1d.**
+**What holds up — a genuine directional edge on MACRO events (n=65): 65% @+3d**
+(vs 50% coin-flip), **strongest on US/global-macro prints — US 84% @+3d, 74% @+1d**
+(CPI/NFP/FOMC and other mechanical catalysts). Indonesian *macro* is a modest 59% @+3d.
+Treat the score as a **directional conviction signal**, best on scheduled macro catalysts.
 
 **What does NOT.**
 - **Magnitude is not a return forecast.** Rank-corr of |score| vs |move| ≈ 0. The number
@@ -136,6 +137,10 @@ signal, strongest at +1d.**
 - **High-profile, telegraphed bad news is "buy-the-news."** Moody's-outlook / protests /
   monthly-reserve prints preceded JCI *rallies* — the engine must not confuse "shocking
   to read" with "unpriced."
+- **Not built for single-name corporate.** Single-stock earnings/M&A/index-add events
+  scored only **29% @+3d** (GoTo's first profit +36→−4.4%, BRMS MSCI-add +26→−3.9% —
+  classic sell-the-news). The macro engine should be treated as out-of-domain for
+  idiosyncratic single-name reactions; flag/exclude `type=corporate` single names.
 
 **Fixes applied (calibration, not curve-fitting — n=40 is not significant):**
 - Added a **`telegraphed` surprise tier (0.05)** so the engine *abstains* on fully-
