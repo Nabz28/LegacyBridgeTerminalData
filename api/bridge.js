@@ -77,20 +77,20 @@ function scrub(rows) {
 // ---------- tool catalog ----------
 function toolDefs(isOwner) {
   const t = [
-    { type: 'function', function: { name: 'data.query', description: 'Read rows from any whitelisted table. schemas: macro, correlation, network, asset_mgmt, management, finance, public. Use PostgREST filters.', parameters: { type: 'object', properties: { schema: { type: 'string' }, table: { type: 'string' }, select: { type: 'string', description: 'comma cols or *' }, filters: { type: 'string', description: 'PostgREST query string e.g. region=eq.ID&order=event_date.asc' }, limit: { type: 'integer' } }, required: ['schema', 'table'] } } },
-    { type: 'function', function: { name: 'data.macro_overview', description: 'Latest per-region sentiment composites + the most recent scored news headlines. Best first call for "how do markets look".', parameters: { type: 'object', properties: {} } } },
-    { type: 'function', function: { name: 'data.search_news', description: 'Search scored macro news.', parameters: { type: 'object', properties: { q: { type: 'string' }, region: { type: 'string', enum: ['US', 'IDX', 'World'] }, limit: { type: 'integer' } } } } },
-    { type: 'function', function: { name: 'data.calendar', description: 'Economic/corporate calendar events (BI, Fed, data, RUPS, earnings...).', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, from: { type: 'string' }, to: { type: 'string' }, category: { type: 'string' }, limit: { type: 'integer' } } } } },
+    { type: 'function', function: { name: 'data_query', description: 'Read rows from any whitelisted table. schemas: macro, correlation, network, asset_mgmt, management, finance, public. Use PostgREST filters.', parameters: { type: 'object', properties: { schema: { type: 'string' }, table: { type: 'string' }, select: { type: 'string', description: 'comma cols or *' }, filters: { type: 'string', description: 'PostgREST query string e.g. region=eq.ID&order=event_date.asc' }, limit: { type: 'integer' } }, required: ['schema', 'table'] } } },
+    { type: 'function', function: { name: 'data_macro_overview', description: 'Latest per-region sentiment composites + the most recent scored news headlines. Best first call for "how do markets look".', parameters: { type: 'object', properties: {} } } },
+    { type: 'function', function: { name: 'data_search_news', description: 'Search scored macro news.', parameters: { type: 'object', properties: { q: { type: 'string' }, region: { type: 'string', enum: ['US', 'IDX', 'World'] }, limit: { type: 'integer' } } } } },
+    { type: 'function', function: { name: 'data_calendar', description: 'Economic/corporate calendar events (BI, Fed, data, RUPS, earnings...).', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, from: { type: 'string' }, to: { type: 'string' }, category: { type: 'string' }, limit: { type: 'integer' } } } } },
     // ui.* are executed in the browser; declared so the model can drive the terminal.
-    { type: 'function', function: { name: 'ui.navigate', description: 'Open a macro terminal tool.', parameters: { type: 'object', properties: { tool: { type: 'string', enum: ['data', 'news', 'sentiment', 'gather', 'calendar', 'analysis', 'forecast', 'connect', 'map', 'corr'] } }, required: ['tool'] } } },
-    { type: 'function', function: { name: 'ui.search', description: 'Run the terminal global search.', parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } } },
-    { type: 'function', function: { name: 'ui.set_news_filter', description: 'Filter the News panel.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'US', 'IDX', 'World'] }, type: { type: 'string' }, highOnly: { type: 'boolean' } } } } },
-    { type: 'function', function: { name: 'ui.set_calendar', description: 'Set the Calendar view.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'ID', 'US', 'Global'] }, month: { type: 'string', description: 'YYYY-MM' }, view: { type: 'string', enum: ['month', 'agenda'] }, highOnly: { type: 'boolean' } } } } },
+    { type: 'function', function: { name: 'ui_navigate', description: 'Open a macro terminal tool.', parameters: { type: 'object', properties: { tool: { type: 'string', enum: ['data', 'news', 'sentiment', 'gather', 'calendar', 'analysis', 'forecast', 'connect', 'map', 'corr'] } }, required: ['tool'] } } },
+    { type: 'function', function: { name: 'ui_search', description: 'Run the terminal global search.', parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } } },
+    { type: 'function', function: { name: 'ui_set_news_filter', description: 'Filter the News panel.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'US', 'IDX', 'World'] }, type: { type: 'string' }, highOnly: { type: 'boolean' } } } } },
+    { type: 'function', function: { name: 'ui_set_calendar', description: 'Set the Calendar view.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'ID', 'US', 'Global'] }, month: { type: 'string', description: 'YYYY-MM' }, view: { type: 'string', enum: ['month', 'agenda'] }, highOnly: { type: 'boolean' } } } } },
   ];
   if (isOwner) {
     t.push(
-      { type: 'function', function: { name: 'write.add_calendar_event', description: 'OWNER ONLY. Add an event to macro.calendar.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, event_date: { type: 'string' }, category: { type: 'string' }, title: { type: 'string' }, entity: { type: 'string' }, ticker: { type: 'string' }, importance: { type: 'string', enum: ['high', 'med', 'low'] }, detail: { type: 'string' }, status: { type: 'string', enum: ['confirmed', 'tentative', 'estimated'] } }, required: ['region', 'event_date', 'category', 'title'] } } },
-      { type: 'function', function: { name: 'write.delete_calendar_event', description: 'OWNER ONLY. Delete a macro.calendar event by id.', parameters: { type: 'object', properties: { id: { type: 'integer' } }, required: ['id'] } } },
+      { type: 'function', function: { name: 'write_add_calendar_event', description: 'OWNER ONLY. Add an event to macro.calendar.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, event_date: { type: 'string' }, category: { type: 'string' }, title: { type: 'string' }, entity: { type: 'string' }, ticker: { type: 'string' }, importance: { type: 'string', enum: ['high', 'med', 'low'] }, detail: { type: 'string' }, status: { type: 'string', enum: ['confirmed', 'tentative', 'estimated'] } }, required: ['region', 'event_date', 'category', 'title'] } } },
+      { type: 'function', function: { name: 'write_delete_calendar_event', description: 'OWNER ONLY. Delete a macro.calendar event by id.', parameters: { type: 'object', properties: { id: { type: 'integer' } }, required: ['id'] } } },
     );
   }
   return t;
@@ -99,26 +99,26 @@ function toolDefs(isOwner) {
 // ---------- server-executed tools (data.* / write.*) ----------
 async function runTool(name, args, ctx) {
   args = args || {};
-  if (name === 'data.query') {
+  if (name === 'data_query') {
     if (!READ_SCHEMAS.has(args.schema)) throw new Error('schema not allowed: ' + args.schema);
     const sel = args.select || '*';
     const lim = Math.min(args.limit || 50, 200);
     const qs = (args.filters ? args.filters + '&' : '') + 'select=' + encodeURIComponent(sel) + '&limit=' + lim;
     return scrub(await sb('/' + args.table + '?' + qs, { profile: args.schema }));
   }
-  if (name === 'data.macro_overview') {
+  if (name === 'data_macro_overview') {
     const sent = await sb('/sentiment?select=region,composite,regime,data_score,news_score,ts&order=ts.desc&limit=8', { profile: 'macro' });
     const seen = {}; const latest = []; for (const s of sent) if (!seen[s.region]) { seen[s.region] = 1; latest.push(s); }
     const news = await sb('/news?select=region,headline,sent_score,importance,ts&order=ts.desc&limit=12', { profile: 'macro' });
     return { sentiment: latest, latest_news: news };
   }
-  if (name === 'data.search_news') {
+  if (name === 'data_search_news') {
     let q = 'select=ts,region,source,headline,sent_score,sent_label,importance,url&order=ts.desc&limit=' + Math.min(args.limit || 20, 60);
     if (args.region) q += '&region=eq.' + args.region;
     if (args.q) q += '&headline=ilike.*' + encodeURIComponent(args.q) + '*';
     return await sb('/news?' + q, { profile: 'macro' });
   }
-  if (name === 'data.calendar') {
+  if (name === 'data_calendar') {
     let q = 'select=event_date,event_time,region,category,title,entity,ticker,importance,status,detail&order=event_date.asc&limit=' + Math.min(args.limit || 60, 200);
     if (args.region) q += '&region=eq.' + args.region;
     if (args.category) q += '&category=eq.' + args.category;
@@ -127,16 +127,16 @@ async function runTool(name, args, ctx) {
     return await sb('/calendar?' + q, { profile: 'macro' });
   }
   // ---- writes: owner only ----
-  if (name.startsWith('write.')) {
+  if (name.startsWith('write_')) {
     if (!ctx.isOwner) throw new Error('not authorized: writes are owner-only');
-    if (name === 'write.add_calendar_event') {
+    if (name === 'write_add_calendar_event') {
       const tick = args.ticker || '';
       const hash = crypto.createHash('sha1').update(`${args.region}|${(args.category || '').toLowerCase()}|${args.event_date}|${args.title.toLowerCase()}|${tick}`).digest('hex');
       const row = { region: args.region, event_date: args.event_date, category: (args.category || 'other').toLowerCase(), title: args.title, entity: args.entity || null, ticker: args.ticker || null, importance: args.importance || 'med', detail: args.detail || null, status: args.status || 'confirmed', source: 'Bridge Copilot', hash };
       await sb('/calendar?on_conflict=hash', { method: 'POST', profile: 'macro', body: [row], prefer: 'resolution=merge-duplicates,return=minimal' });
       return { ok: true, added: row.title };
     }
-    if (name === 'write.delete_calendar_event') {
+    if (name === 'write_delete_calendar_event') {
       await sb('/calendar?id=eq.' + parseInt(args.id, 10), { method: 'DELETE', profile: 'macro', prefer: 'return=minimal' });
       return { ok: true, deleted: args.id };
     }
