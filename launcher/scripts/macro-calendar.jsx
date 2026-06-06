@@ -105,6 +105,19 @@ const MacroCalendar = () => {
     return () => { dead = true; };
   }, []);
 
+  // Bridge Copilot can drive this panel (ui_set_calendar).
+  React.useEffect(() => {
+    const h = (e) => {
+      const d = e.detail || {};
+      if (d.region) setRegion(d.region);
+      if (d.view) setView(d.view);
+      if (typeof d.highOnly === 'boolean') setHighOnly(d.highOnly);
+      if (d.month) setMonthISO(d.month.length === 7 ? d.month + '-01' : d.month);
+    };
+    window.addEventListener('macro:cal-filter', h);
+    return () => window.removeEventListener('macro:cal-filter', h);
+  }, []);
+
   const todayISO = mcalISO(new Date());
 
   // categories that actually exist for the current region (drives the chip row)

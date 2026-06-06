@@ -125,6 +125,18 @@ const MacroNews = () => {
     return () => { on = false; };
   }, []);
 
+  // Bridge Copilot can drive this panel (ui_set_news_filter).
+  React.useEffect(() => {
+    const h = (e) => {
+      const d = e.detail || {};
+      if (d.region) setFilter(String(d.region).toLowerCase());
+      if (d.type) setCat(d.type);
+      if (typeof d.q === 'string') setQuery(d.q);
+    };
+    window.addEventListener('macro:news-filter', h);
+    return () => window.removeEventListener('macro:news-filter', h);
+  }, []);
+
   const NEWS = live || FIX.map((f) => ({ ...f, dt: null, affects: [], analysis: f.impact || '', importance: 'med' }));
   const isLive = !!live;
 
