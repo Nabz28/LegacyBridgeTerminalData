@@ -155,6 +155,7 @@ function toolDefs(isOwner) {
     { type: 'function', function: { name: 'brain_search', description: 'Ranked search of the ACTIVE LBC brain (people, decisions, divisions like QRD/IRD, history, "what do we know about X"). Returns the best matches WITH a snippet — usually enough to answer without a follow-up fetch. Multi-word, fuzzy and concept queries all work. pass archived:true only to dig into old raw capture.', parameters: { type: 'object', properties: { q: { type: 'string' }, type: { type: 'string', description: 'optional filter: goal|kpi|milestone|initiative|risk|todo|person|meeting|note|status_snapshot' }, archived: { type: 'boolean', description: 'include archived provenance (default false)' }, limit: { type: 'integer' } }, required: ['q'] } } },
     { type: 'function', function: { name: 'brain_get', description: 'Fetch the full body of ONE brain note by exact title (or uuid id).', parameters: { type: 'object', properties: { title: { type: 'string' }, id: { type: 'string', description: 'uuid' } } } } },
     { type: 'function', function: { name: 'brain_get_many', description: 'Fetch full bodies of SEVERAL notes in one call (pass ids[] uuids or titles[]). Use to read the top brain_search hits at once instead of many brain_get calls.', parameters: { type: 'object', properties: { ids: { type: 'array', items: { type: 'string' } }, titles: { type: 'array', items: { type: 'string' } } } } } },
+    { type: 'function', function: { name: 'brain_backlinks', description: 'List notes that LINK TO a given note (by exact title or uuid id) — graph backlinks. Use to find what references a person, initiative, or decision ("what mentions Narin / the QRD plan").', parameters: { type: 'object', properties: { title: { type: 'string' }, id: { type: 'string', description: 'uuid' } } } } },
     { type: 'function', function: { name: 'brain_index', description: 'List active brain notes (titles only, no bodies) optionally filtered by type or folder — to see what the firm knows.', parameters: { type: 'object', properties: { type: { type: 'string' }, folder: { type: 'string' }, archived: { type: 'boolean', description: 'include archived provenance (default false)' }, limit: { type: 'integer' } } } } },
     // ui.* are executed in the browser; declared so the model can drive the terminal.
     { type: 'function', function: { name: 'ui_open_terminal', description: 'Open an LBC terminal in a tab — like a native assistant opening an app. Use whenever the user asks to open / show / go to / pull up a terminal. asset=The Book, macro=Markets&Macro, industry=sectors/comps, equity=single-name/screener, management=research lifecycle, network=relationship map, yggdrasil=thesis tree, tools=Autocharter, legion=the brain/HQ, finance=CFO ledger.', parameters: { type: 'object', properties: { terminal: { type: 'string', enum: ['asset', 'macro', 'industry', 'equity', 'management', 'network', 'yggdrasil', 'tools', 'legion', 'finance'] }, tool: { type: 'string', description: 'optional macro sub-tool to open after (data,news,sentiment,gather,calendar,analysis,forecast,connect,map,corr)' } }, required: ['terminal'] } } },
@@ -256,7 +257,12 @@ async function runTool(name, args, ctx) {
     const rows = await sb(`/notes?${sel}&${filt}&limit=1`, { profile: 'brain' });
     const note = (rows && rows[0]) || { error: 'note not found' };
     if (note.body) note.body = wrapUntrusted(note.body, note);
+    if (note.id) { try { const bl = await sb('/rpc/backlinks', { method: 'POST', profile: 'brain', body: { p_id: note.id } }); note.backlinks = (bl || []).map((b) => b.title); } catch (e) {} }
     return note;
+  }
+  if (name === 'brain_backlinks') {
+    if (args.id && /^[0-9a-f-]{36}$/i.test(String(args.id))) return await sb('/rpc/backlinks', { method: 'POST', profile: 'brain', body: { p_id: args.id } });
+    return await sb('/rpc/backlinks_by_title', { method: 'POST', profile: 'brain', body: { p_title: args.title || '' } });
   }
   if (name === 'brain_get_many') {
     const ids = Array.isArray(args.ids) ? args.ids.filter((x) => /^[0-9a-f-]{36}$/i.test(String(x))) : [];

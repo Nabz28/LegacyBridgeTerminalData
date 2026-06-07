@@ -67,7 +67,7 @@
 
   const TOOL_LABEL = {
     data_query: 'Reading data', data_macro_overview: 'Reading market overview', data_search_news: 'Searching news',
-    data_calendar: 'Reading calendar', brain_search: 'Searching memory', brain_get: 'Reading note', brain_get_many: 'Reading notes', brain_index: 'Scanning memory', brain_write: 'Saving to memory',
+    data_calendar: 'Reading calendar', brain_search: 'Searching memory', brain_get: 'Reading note', brain_get_many: 'Reading notes', brain_backlinks: 'Tracing links', brain_index: 'Scanning memory', brain_write: 'Saving to memory',
     ui_open_terminal: 'Opening terminal', ui_home: 'Going home',
     ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
     ui_set_calendar: 'Setting calendar', write_add_calendar_event: 'Adding calendar event', write_delete_calendar_event: 'Deleting event',
