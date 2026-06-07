@@ -102,9 +102,9 @@ function toolDefs(isOwner) {
     { type: 'function', function: { name: 'data_search_news', description: 'Search scored macro news.', parameters: { type: 'object', properties: { q: { type: 'string' }, region: { type: 'string', enum: ['US', 'IDX', 'World'] }, limit: { type: 'integer' } } } } },
     { type: 'function', function: { name: 'data_calendar', description: 'Economic/corporate calendar events (BI, Fed, data, RUPS, earnings...).', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['US', 'ID', 'Global'] }, from: { type: 'string' }, to: { type: 'string' }, category: { type: 'string' }, limit: { type: 'integer' } } } } },
     // brain.* — LBC's institutional memory (brain.notes): goals, KPIs, people, decisions, inbox, status.
-    { type: 'function', function: { name: 'brain_search', description: 'Search LBC brain notes (memory) by keyword across title + body. Use for people, decisions, history, "what did we say about X".', parameters: { type: 'object', properties: { q: { type: 'string' }, type: { type: 'string', description: 'optional filter: goal|kpi|milestone|initiative|risk|todo|person|meeting|note|inbox|status_snapshot' }, limit: { type: 'integer' } }, required: ['q'] } } },
+    { type: 'function', function: { name: 'brain_search', description: 'Search the ACTIVE LBC brain notes (memory) by keyword across title + body. Use for people, decisions, divisions (QRD/IRD/...), history, "what did we say about X". Returns the curated active set; pass archived:true only to dig into old raw capture.', parameters: { type: 'object', properties: { q: { type: 'string' }, type: { type: 'string', description: 'optional filter: goal|kpi|milestone|initiative|risk|todo|person|meeting|note|status_snapshot' }, archived: { type: 'boolean', description: 'include archived provenance (default false)' }, limit: { type: 'integer' } }, required: ['q'] } } },
     { type: 'function', function: { name: 'brain_get', description: 'Fetch the full body of a brain note by exact title (or id).', parameters: { type: 'object', properties: { title: { type: 'string' }, id: { type: 'integer' } } } } },
-    { type: 'function', function: { name: 'brain_index', description: 'List brain notes (titles only, no bodies) optionally filtered by type or folder — to see what the firm knows.', parameters: { type: 'object', properties: { type: { type: 'string' }, folder: { type: 'string' }, limit: { type: 'integer' } } } } },
+    { type: 'function', function: { name: 'brain_index', description: 'List active brain notes (titles only, no bodies) optionally filtered by type or folder — to see what the firm knows.', parameters: { type: 'object', properties: { type: { type: 'string' }, folder: { type: 'string' }, archived: { type: 'boolean', description: 'include archived provenance (default false)' }, limit: { type: 'integer' } } } } },
     // ui.* are executed in the browser; declared so the model can drive the terminal.
     { type: 'function', function: { name: 'ui_open_terminal', description: 'Open an LBC terminal in a tab — like a native assistant opening an app. Use whenever the user asks to open / show / go to / pull up a terminal. asset=The Book, macro=Markets&Macro, industry=sectors/comps, equity=single-name/screener, management=research lifecycle, network=relationship map, yggdrasil=thesis tree, tools=Autocharter, legion=the brain/HQ, finance=CFO ledger.', parameters: { type: 'object', properties: { terminal: { type: 'string', enum: ['asset', 'macro', 'industry', 'equity', 'management', 'network', 'yggdrasil', 'tools', 'legion', 'finance'] }, tool: { type: 'string', description: 'optional macro sub-tool to open after (data,news,sentiment,gather,calendar,analysis,forecast,connect,map,corr)' } }, required: ['terminal'] } } },
     { type: 'function', function: { name: 'ui_home', description: 'Return to the launcher Home (the terminal grid).', parameters: { type: 'object', properties: {} } } },
@@ -177,7 +177,10 @@ async function runTool(name, args, ctx) {
   if (name === 'brain_search') {
     const lim = Math.min(args.limit || 12, 30);
     const q = encodeURIComponent('*' + (args.q || '') + '*');
+    // default to the ACTIVE brain (status=filed) so archived raw capture doesn't pollute results;
+    // pass archived:true to include the provenance archive.
     let path = `/notes?select=id,title,type,folder,status,updated_at&or=(title.ilike.${q},body.ilike.${q})&order=updated_at.desc&limit=${lim}`;
+    if (!args.archived) path += '&status=eq.filed';
     if (args.type) path += '&type=eq.' + encodeURIComponent(args.type);
     return await sb(path, { profile: 'brain' });
   }
@@ -189,7 +192,9 @@ async function runTool(name, args, ctx) {
   }
   if (name === 'brain_index') {
     const lim = Math.min(args.limit || 80, 200);
+    // active brain only by default (status=filed); pass archived:true for the provenance archive.
     let path = `/notes?select=id,title,type,folder,status,pinned,updated_at&order=updated_at.desc&limit=${lim}`;
+    if (!args.archived) path += '&status=eq.filed';
     if (args.type) path += '&type=eq.' + encodeURIComponent(args.type);
     if (args.folder) path += '&folder=eq.' + encodeURIComponent(args.folder);
     return await sb(path, { profile: 'brain' });
