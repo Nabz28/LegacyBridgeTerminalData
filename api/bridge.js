@@ -56,6 +56,18 @@ async function sb(path, opts = {}) {
 let _cfgCache = null, _cfgAt = 0;
 const _userCache = new Map();
 const CACHE_TTL = 30000;
+// ---------- embeddings (semantic search) — openai/text-embedding-3-small via OpenRouter ----------
+const OR_EMB_URL = 'https://openrouter.ai/api/v1/embeddings';
+async function embedText(text) {
+  try {
+    const r = await fetch(OR_EMB_URL, { method: 'POST', headers: { Authorization: 'Bearer ' + OR_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'openai/text-embedding-3-small', input: String(text || '').slice(0, 7000) }) });
+    if (!r.ok) return null;
+    const d = await r.json();
+    const v = d && d.data && d.data[0] && d.data[0].embedding;
+    return Array.isArray(v) ? '[' + v.join(',') + ']' : null;   // pgvector text literal; null => lexical-only
+  } catch (e) { return null; }
+}
+
 async function loadConfig() {
   if (_cfgCache && Date.now() - _cfgAt < CACHE_TTL) return _cfgCache;
   const rows = await sb('/bridge_config?select=key,value', { profile: 'brain' });
@@ -219,11 +231,13 @@ async function runTool(name, args, ctx) {
   // ---- brain (LBC memory) reads — /notes only, never brain.vault ----
   if (name === 'brain_search') {
     const lim = Math.min(args.limit || 12, 30);
-    // ranked HYBRID search (FTS + OR-expansion + trigram + title boost, type-aware) via the
-    // search_notes RPC (0038). Returns a snippet so broad questions resolve in ONE round.
+    // ranked HYBRID search: lexical (FTS+trigram+title) FUSED with vector cosine via RRF
+    // (search_notes RPC, 0039). Embed the query best-effort; null => lexical-only fallback.
+    // Returns a snippet so broad questions resolve in ONE round.
     try {
+      const qemb = await embedText(args.q || '');
       const rows = await sb('/rpc/search_notes', { method: 'POST', profile: 'brain',
-        body: { q: args.q || '', want_type: args.type || null, include_archived: !!args.archived, lim } });
+        body: { q: args.q || '', q_embedding: qemb, want_type: args.type || null, include_archived: !!args.archived, lim } });
       if (rows && rows.length) return rows.map((r) => ({ id: r.id, title: r.title, type: r.type, folder: r.folder, status: r.status, updated_at: r.updated_at, snippet: wrapUntrusted(r.snippet, r) }));
     } catch (e) { /* fall through to ilike */ }
     const q = encodeURIComponent('*' + (args.q || '') + '*');
@@ -285,6 +299,10 @@ async function runTool(name, args, ctx) {
         data: args.data, status: args.status, tags: args.tags, links: args.links,
         source_id: args.source_id, pinned: args.pinned };
       const row = {}; for (const k in sets) if (sets[k] !== undefined) row[k] = sets[k];
+      if (args.title !== undefined || args.body !== undefined) {   // keep the embedding in sync with content
+        const e = await embedText((args.title || '') + '\n' + (args.body || ''));
+        if (e) row.embedding = e;
+      }
       if (args.id) {
         if (!/^[0-9a-f-]{36}$/i.test(String(args.id))) throw new Error('invalid id');
         await sb('/notes?id=eq.' + args.id, { method: 'PATCH', profile: 'brain', body: row, prefer: 'return=minimal' });
