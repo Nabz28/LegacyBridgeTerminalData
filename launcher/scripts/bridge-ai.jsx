@@ -72,6 +72,9 @@
     ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
     ui_set_calendar: 'Setting calendar', write_add_calendar_event: 'Adding calendar event', write_delete_calendar_event: 'Deleting event',
   };
+  // reads that, if they precede a brain_write in the same turn, escalate it to a
+  // confirm — defence against an untrusted note steering the model into a write.
+  const READ_TOOLS = new Set(['brain_search', 'brain_get', 'brain_get_many', 'brain_index', 'data_query', 'data_macro_overview', 'data_search_news', 'data_calendar']);
 
   const BridgeAI = () => {
     const [open, setOpen] = React.useState(false);
@@ -94,6 +97,7 @@
       setInput(''); setBusy(true);
       pushTurn({ role: 'user', text: q });
       convRef.current.push({ role: 'user', content: q });
+      let readHappened = false;   // did a read tool run earlier this turn?
       try {
         for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
           const res = await callProxy(sess.token, { mode: 'chat', messages: convRef.current });
@@ -109,16 +113,26 @@
             try { args = JSON.parse(tc.function.arguments || '{}'); } catch {}
             const label = TOOL_LABEL[name] || name;
             let result;
+            const isCalWrite = name.startsWith('write_');
+            const isBrainWrite = name === 'brain_write';
+            // confirm calendar mutations always; confirm a brain_write only when a read
+            // preceded it this turn (the injection vector) — plain saves stay one-click.
+            const needsConfirm = isCalWrite || (isBrainWrite && readHappened);
             if (name.startsWith('ui_')) {
               pushTurn({ tool: name, label, status: 'done' });
               result = runUiTool(name, args);
-            } else if (name.startsWith('write_')) {
-              const ok = window.confirm(`Bridge wants to ${label.toLowerCase()}:\n\n${JSON.stringify(args, null, 2)}\n\nConfirm?`);
-              if (!ok) { pushTurn({ tool: name, label, status: 'cancelled' }); result = { error: 'user cancelled the write' }; }
-              else { pushTurn({ tool: name, label, status: 'done' }); const r = await callProxy(sess.token, { mode: 'tool', tool: name, args }); result = r.result || r; }
+            } else if (needsConfirm) {
+              const preview = isBrainWrite
+                ? `"${args.title || '(untitled)'}"` + (args.links && args.links.length ? `\nlinks: ${args.links.join(', ')}` : '') + `\n\n${String(args.body || '').slice(0, 300)}`
+                : JSON.stringify(args, null, 2);
+              const warn = (isBrainWrite && readHappened) ? '⚠ This save comes AFTER reading other notes/data this turn. Make sure it wasn’t steered by untrusted content.\n\n' : '';
+              const ok = window.confirm(`${warn}LEGION wants to ${label.toLowerCase()}:\n\n${preview}\n\nConfirm?`);
+              if (!ok) { pushTurn({ tool: name, label, status: 'cancelled' }); result = { error: 'user declined the write' }; }
+              else { pushTurn({ tool: name, label, status: 'done' }); const r = await callProxy(sess.token, { mode: 'tool', tool: name, args }); result = r.result !== undefined ? r.result : r; }
             } else {
               pushTurn({ tool: name, label, status: 'done' });
               const r = await callProxy(sess.token, { mode: 'tool', tool: name, args }); result = r.result !== undefined ? r.result : r;
+              if (READ_TOOLS.has(name)) readHappened = true;
             }
             const rawResult = JSON.stringify(result);
             const toolContent = rawResult.length > 8000 ? rawResult.slice(0, 8000) + ' …[truncated, narrow your query or fetch fewer items]' : rawResult;
