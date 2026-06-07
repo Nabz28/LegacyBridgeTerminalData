@@ -123,6 +123,26 @@ function toolDefs(isOwner) {
   return t;
 }
 
+// ---------- model routing (lean): cheap turns -> fast model, reasoning -> main ----------
+// Greetings/acks, pure terminal-navigation, and ui_* result-summaries run on the
+// fast model (claude-haiku-4.5). Any turn that has touched data_/brain_/write_
+// tools, or a non-trivial prose request, stays on model_main. Kill-switch:
+// brain.bridge_config.model_router = false.
+const FAST_RE = /^\s*(hi|hey|halo|hello|yo|oi|p|thanks|thank you|thx|makasih|ok(ay)?|sip|noted|got it|cool|nice|you (there|up|live|wired|on)\b|are you (there|up|live|wired|on)\b|u (there|up|wired)\b|open (the )?[\w\s-]+ ?(terminal|tab|panel)?|go (to|home|back)\b|take me (to|home)\b|pull up (the )?[\w\s-]+|back home|home)\b[\s\S]{0,80}$/i;
+function pickModel(messages, cfg) {
+  const main = cfg.model_main || 'anthropic/claude-sonnet-4.6';
+  const fast = cfg.model_fast;
+  if (!fast || cfg.model_router === false) return main;
+  // any non-ui tool already used in this conversation => needs the smart model
+  const toolNames = (messages || []).flatMap((m) => (m.role === 'assistant' && Array.isArray(m.tool_calls)) ? m.tool_calls.map((t) => (t.function && t.function.name) || '') : []);
+  if (toolNames.some((n) => n && !n.startsWith('ui_'))) return main;
+  const last = (messages || [])[messages.length - 1];
+  if (last && last.role === 'tool') return fast;            // summarizing a ui_* result
+  const lastUser = [...(messages || [])].reverse().find((m) => m.role === 'user');
+  const txt = (lastUser && typeof lastUser.content === 'string') ? lastUser.content.trim() : '';
+  return (txt.length <= 90 && FAST_RE.test(txt)) ? fast : main;
+}
+
 // ---------- server-executed tools (data.* / write.*) ----------
 async function runTool(name, args, ctx) {
   args = args || {};
@@ -242,7 +262,7 @@ module.exports = async (req, res) => {
 
   // ---- chat turn ----
   if (body.mode === 'chat') {
-    const model = body.model || cfg.model_main || 'anthropic/claude-sonnet-4.6';   // fallback only; brain.bridge_config.model_main is authoritative
+    const model = body.model || pickModel(body.messages || [], cfg);   // fast for greetings/nav, main for reasoning; brain.bridge_config is authoritative
     const who = user.full_name || user.username;
     const heat = isOwner
       ? `WHO YOU'RE TALKING TO: ${who} — this is NABIL, the principal and CEO. Address him as Nabil. Standing instruction: do NOT soften your language when he is actually slacking — when he ducks a decision, makes excuses, repeats a mistake, or bullshits himself, land at least one line with REAL profanity ("that's a soft fucking excuse and you know it — stop", "quit bullshitting yourself"), aimed at the BEHAVIOUR and the stakes, always paired with the exact fix. But heat is CONDITIONAL: on a greeting, a neutral question, banter, or good execution there is ZERO profanity and ZERO heat — you're just present, warm, sharp. Never manufacture heat where there's no slack. Hold him to the $1B standard.`
