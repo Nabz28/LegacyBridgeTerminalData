@@ -56,10 +56,15 @@ def validate_type(t):
     return t if t in TYPES else "other"
 
 def expected_move(target_key, level, surprise_mult=1.0):
-    """Quantitative expected move for one target at a signed level, in the target's
+    """ILLUSTRATIVE expected move for one target at a signed level, in the target's
     natural unit. Returns (value, unit, sigma_multiple). value=None for qualitative
-    targets (no clean cardinal unit). σ multiple is scaled by surprise (a priced-in
-    event moves the asset less than a true surprise of the same headline magnitude)."""
+    targets (no clean cardinal unit). σ multiple is scaled by surprise.
+
+    WARNING — NOT a calibrated forecast. The σ anchors (`sig`) and level→σ midpoints
+    are hand-set priors, and the backtest found |score| vs |move| rank-corr ≈ 0
+    (magnitude has no demonstrated forecast skill). Treat the cardinal value as an
+    ordinal/illustrative rendering of the analyst's level tag, NOT a predicted return.
+    Do not size positions off it. (critique L4/L8 fix.)"""
     t = TARGETS.get(target_key)
     if not t:
         return (None, "qual", 0.0)
@@ -100,11 +105,12 @@ def score_impacts(impacts, surprise_key="partial", news_type=None):
     if local_sum and gl_sum and (local_sum > 0) == (gl_sum > 0):
         gl_scale = GL_HAIRCUT                          # USD already explains the IDR move
     num = local_sum + gl_scale * gl_sum
-    # Denominator mirrors the numerator: neutral (risk_sign==0, e.g. OIL) targets
-    # carry NO signal so they must not consume denominator weight, and GL weights
-    # are scaled by the same haircut so the haircut's net effect is the intended 50%.
-    den = sum(r["weight"] * (gl_scale if r["_gl"] else 1.0)
-              for r in rows if r["risk_sign"] != 0)
+    # Denominator: neutral (risk_sign==0, e.g. OIL) targets carry NO signal so they
+    # must not consume denominator weight. The GL haircut is applied to the NUMERATOR
+    # ONLY (don't double-count a correlated global driver) — NOT to the denominator.
+    # (Prior code scaled den by gl_scale too, which partially cancelled the haircut so
+    # its net effect was not the intended ~50%; critique L5/L7 fix.)
+    den = sum(r["weight"] for r in rows if r["risk_sign"] != 0)
     raw = (num / math.sqrt(den)) * s if den > 0 else 0.0
     raw *= _TRANS.get(news_type, 1.0) if news_type else 1.0   # type transmission to the composite
     score = round(100 * math.tanh(GAIN * raw))

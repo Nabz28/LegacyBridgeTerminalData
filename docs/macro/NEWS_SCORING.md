@@ -41,9 +41,12 @@ asset's natural up/down; the risk translation is separate (§3).
 the engine turns it back into a concrete move in the asset's natural unit. Each
 target has a numeric `sig` (1σ size) and `unit` (`bp` / `pct` / `pp` / `usdm`); a
 level maps to a σ midpoint (`1→0.35, 2→0.85, 3→1.6, 4→2.5, 5→3.5`) scaled by the
-overall surprise. So a level-3 surprise on the 10Y SBN renders as **+8 bp (1.6σ)**,
-on foreign SBN flows as **−$240m**, on the rupiah as **−0.4%** — not "moderate".
-Qualitative targets (ratings, reserves, US-trade stance) show the σ multiple only.
+overall surprise — e.g. a level-3 SBN print renders as ~+8 bp (1.6σ).
+
+> **ILLUSTRATIVE ONLY — not a forecast.** The σ anchors (`sig`) are hand-set priors and the
+> backtest found |score| vs |move| rank-corr ≈ 0 (§9): **magnitude has no demonstrated
+> forecast skill.** Read the cardinal value as an ordinal rendering of the analyst's level
+> tag, not a predicted return. Do not size positions off it. (critique L4)
 
 ## 3. Targets, tiers, and risk transmission
 ~47 targets, grouped and **tier-weighted** by how much each *defines Indonesia
@@ -115,70 +118,94 @@ raw −0.52, **score −52, importance high** — and every point is explainable
 - `scripts/post_news.py` — validates + scores on ingest.
 - `launcher/scripts/macro-news.jsx` — renders the score (at the needle) + impact bars.
 
-## 9. Backtest / predictive validity (2026-06, n=76)
+## 9. Backtest / predictive validity — HONEST re-measurement (2026-06)
 
-Scored **76** real historical events (last 12 months, ~60% ID / 30% US / 10% global,
-incl. single-name corporate) with the live engine and checked the bull/bear call vs the
-**actual forward market move** (region index / the named stock ± rupiah at +1/+3/+5
-trading days, Yahoo daily closes — the same OHLC TradingView shows). Two independent
-critics (a quant validator + an Indonesian buy-side strategist) reviewed the misses.
+> **CORRECTION NOTICE.** Earlier versions of this section quoted **~65% on macro / US 84% /
+> ID 59%**. Those numbers were **wrong** — inflated by four measurement flaws caught in a
+> 9-level critique (see `.bt/engine_dossier.md`): (1) **same-day event clustering** — one
+> JCI move counted 2–3× as independent "hits"; (2) **no market-beta adjustment** —
+> single-name and ID events credited for moves that were just index drift; (3) a **survivorship
+> subset** — accuracy quoted on 76 clean-price rows out of 132 raw; (4) **wrong null** — "vs 50%"
+> when ID actually drifted down ~59% of windows. The corrected harness is
+> `scripts/sentiment_backtest_v2.py` (cluster-collapse → 101 independent (date,region) obs;
+> market-adjusted abnormal returns for single names; drift null; Wilson 95% CIs; a
+> human-tag-only control arm). **The numbers below supersede all prior claims.**
 
-**What holds up — a genuine directional edge on MACRO events (n=65): 65% @+3d**
-(vs 50% coin-flip), **strongest on US/global-macro prints — US 84% @+3d, 74% @+1d**
-(CPI/NFP/FOMC and other mechanical catalysts). Indonesian *macro* is a modest 59% @+3d.
-Treat the score as a **directional conviction signal**, best on scheduled macro catalysts.
+**Honest directional hit-rate @+3d** (cluster-collapsed, market-adjusted, n given per row):
 
-**What does NOT.**
-- **Magnitude is not a return forecast.** Rank-corr of |score| vs |move| ≈ 0. The number
-  is a *conviction* label, not a predicted return.
-- **The rupiah is context-only.** USDIDR's median 3-day move is ~0.4% (below the
-  tradeable noise floor) and local headlines explain little — it's a DXY/UST/EM-flows
-  instrument. Don't size off the rupiah read.
-- **High-profile, telegraphed bad news is "buy-the-news."** Moody's-outlook / protests /
-  monthly-reserve prints preceded JCI *rallies* — the engine must not confuse "shocking
-  to read" with "unpriced."
-- **Not built for single-name corporate.** Single-stock earnings/M&A/index-add events
-  scored only **29% @+3d** (GoTo's first profit +36→−4.4%, BRMS MSCI-add +26→−3.9% —
-  classic sell-the-news). The macro engine should be treated as out-of-domain for
-  idiosyncratic single-name reactions; flag/exclude `type=corporate` single names.
-
-**Fixes applied (calibration, not curve-fitting — n=40 is not significant):**
-- Added a **`telegraphed` surprise tier (0.05)** so the engine *abstains* on fully-
-  anticipated news instead of making a loud wrong call.
-- Added **per-news-type transmission** (`rollup.type_transmission`): politics 0.35,
-  geopolitics 0.40, fiscal 0.70… — country-risk repricing shows up in FX/CDS/bonds, not
-  the equity index, so those types are damped in the composite (sign kept, magnitude cut).
-- Rupiah demoted to **context-only** in validation (sub-0.5% moves graded "no call").
-
-These improve *honesty/calibration*, not the headline directional rate. Gather more
-events before any hard tuning.
-
-## 10. Accuracy sweep — exhaustive config search (2026-06, n=131, 192 configs × train/test)
-
-Built a 131-event labeled corpus and exhaustively swept the **sign-affecting** levers
-(horizon, confidence gate, politics/geopolitics rule, telegraphed rule, macro-vs-single
-scope) — 192 configs each scored on a **time-based train/test split** (train < 2026-02,
-test = the recent crisis window) so wins aren't curve-fit. `scripts/sentiment_sweep.py`.
-
-**The one robust, generalizing finding — CONVICTION-GATING.** The engine is materially
-more accurate when it only commits on confident calls and abstains on low-conviction noise:
-
-| Config | train | test | full |
+| Arm | hit-rate | n | 95% CI |
 |---|---|---|---|
-| Baseline (act on every call) | 53% | 59% | 55% |
-| **Gate \|score\|≥15** | **62%** | 59% | **61%** |
-| Gate≥15 + stronger pol/geo dampen, macro-only | **65–66%** | 59% | **64%** |
+| **Engine (full math)** | **53%** | 95 | 43–62% |
+| **Human tags only** (control) | 52% | 91 | 42–62% |
+| Drift null (predict prior trend) | 46% | 98 | 36–56% |
+| US macro | 67% | 27 | 48–81% |
+| ID macro | 47% | 55 | 35–60% |
+| Global | 46% | 13 | 23–71% |
 
-→ **Treat \|score\| < 20 (the flat band) as "no call."** Acting only on confident
-macro calls lifts hit-rate from ~55% to ~62–66% and it holds out-of-sample.
+**Two findings that matter most:**
 
-**What did NOT generalize (and was rejected).** Telegraphed/politics *sign-flip*
-(contrarian "buy-the-news") rules were **test-neutral** — they help train but add no
-out-of-sample skill, so they were not adopted (the prior critics' warning held). Single-
-name corporate stays out-of-domain.
+1. **The engine's math adds ≈ +1pp over the analyst's raw tags.** The control arm — just
+   `sign(Σ risk_sign·level)`, surprise-gated, with **no tiers, no √den, no tanh, no
+   transmission** — scores 52% vs the engine's 53%. **The skill is in the human tagging
+   (the `surprise` flag + signed level), not in the formula.** The elaborate rollup is a
+   presentation layer, not an alpha source. Spend effort on tag quality, not on tuning math.
+2. **The blended directional edge is ≈ coin-flip (53%, CI straddles 50%).** Only the
+   **US-scheduled-macro** cell shows a real-looking edge (67%), and even that is n=27 with a
+   CI from 48% to 81% — *not yet statistically established*.
 
-**Applied:** strengthened `type_transmission` (politics 0.35→0.25, geopolitics 0.40→0.30)
-— train-supported (+12pp), test-neutral, economically sound (ID equity prices country
-risk in FX/CDS/bonds, not the index). Kept the `telegraphed` tier (harmless, conceptually
-right). **No sign-flips.** The realistic ceiling for macro-news → 3-day price direction is
-~65% on confident calls; this is a legitimate edge, not a forecast oracle.
+**What does NOT work (unchanged, all confirmed):**
+- **Magnitude is not a return forecast.** |score| vs |move| rank-corr ≈ 0. The cardinal
+  `expected_move` ("+8 bp") is **illustrative only** — flagged in code (§ `news_score.py`).
+- **The rupiah is not predictable from local news** (≈46%, median 3d move ~0.4%, below the
+  tradeable noise floor) — context-only, never size off it.
+- **Single-name corporate is out-of-domain** (~29% raw / near-coin-flip market-adjusted;
+  GoTo first-profit +36→fade, BRMS MSCI-add +26→fade — classic sell-the-news).
+
+**Honest fixes applied this round (none claim an accuracy gain):**
+- GL correlation haircut now applies to the **numerator only** (it was wrongly scaling the
+  denominator too, partly cancelling itself) — `news_score.py`.
+- `expected_move` explicitly tagged **illustrative / not a forecast** (magnitude has no skill).
+- `growth` transmission 0.85 → 0.55 (sector growth ≠ index; JCI is flow/rates-led); FED `sig`
+  12 → 10 to match BIRATE's 25bp central-bank convention. *Both scale magnitude, not sign — so
+  the 53% is unchanged; these are calibration/honesty fixes.*
+- Documented near-collinear commodity pairs (COAL~COAL_SPOT, CPO~CPO_PRICE, METALS~NICKEL_LME)
+  — tag only one per headline; and that 44/52 targets are unvalidated priors.
+
+## 10. Accuracy sweep — what it does and does NOT show (2026-06)
+
+> **CORRECTION NOTICE.** This section previously claimed conviction-gating "lifts hit-rate
+> to 62–66% **and it holds out-of-sample**." **That claim was false and is retracted.** In the
+> sweep the gating lift appeared in the *train/full* columns but the **TEST column was flat**
+> (≈59% across all gate levels at +3d); the 65–66% configs were n≈13 with −15 to −24pp
+> train→test gaps — **overfit, not generalizing.** Conviction-gating is *plausible* but
+> **not demonstrated** out-of-sample on this corpus.
+
+The 192-config × train/test sweep (`scripts/sentiment_sweep.py`) is retained as an
+exploratory tool, with these honest caveats (critique L1/L7):
+- It **ranks by the test column alone** → multiple-comparisons / p-hacking across 192 configs.
+- The test block is a **single crisis window** (one regime), with **no multiple-comparisons
+  control** and **no human-tag-only control arm**.
+- Many configs are **degenerate duplicates** (levers that don't bind for a given scope).
+
+**What genuinely held (and was kept):** the `telegraphed` surprise tier (0.05) so the engine
+*abstains* on fully-priced news — conceptually right, harmless. **No sign-flips** (contrarian
+rules were test-neutral and rejected — that discipline held).
+
+**What was wrongly adopted and is now flagged:** the politics/geopolitics transmission tweak
+(0.35→0.25, 0.40→0.30) was justified as "+12pp train-supported, test-neutral." That is the
+**same train-only/test-neutral pattern used to reject the sign-flips** — inconsistent
+discipline (critique L9). It is retained only because it is **sign-preserving** (cannot change
+the directional rate) and economically defensible, and is now labelled a **prior, not a
+validated gain.**
+
+### Honest ceiling & the path to a real 80%
+- **Broad 80% is mathematically impossible** here: single-name ~coin-flip and rupiah ~46%
+  cannot average up to 80%. The honest blended edge is **~53% (CI 43–62%)**.
+- **80% is only conceivable on a narrow corridor:** *confident + unpriced + scheduled
+  US/global macro*, measured as **market-adjusted abnormal returns at decision-time**. Today
+  that cell is **67% on n=27 (CI 48–81%)** — suggestive, not established.
+- **To certify it** (the only honest route, not tuning): curate that scheduled-macro subset to
+  **n ≥ 40** pre-registered events, grade abnormal returns from the first close *after* the
+  announcement, and require the edge to hold in both up- and down-regimes. Until then the
+  product claim must be: *"a directional conviction tag, best on scheduled macro, ~mid-50s
+  broadly — not a forecast oracle."*
