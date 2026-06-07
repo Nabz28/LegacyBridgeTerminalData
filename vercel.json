@@ -4,6 +4,9 @@
   "trailingSlash": true,
   "buildCommand": "bash scripts/vercel-build.sh",
   "outputDirectory": ".",
+  "crons": [
+    { "path": "/api/reembed", "schedule": "0 18 * * *" }
+  ],
   "redirects": [
     { "source": "/", "destination": "/launcher/", "permanent": false },
     { "source": "/macro", "destination": "/macro/dashboard/", "permanent": false },
