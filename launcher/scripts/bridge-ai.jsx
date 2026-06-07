@@ -7,7 +7,7 @@
 // ================================================================
 (function () {
   const API = '/api/bridge/';                       // trailing slash (vercel trailingSlash:true)
-  const MAX_TOOL_ROUNDS = 6;
+  const MAX_TOOL_ROUNDS = 8;   // headroom for multi-note digs; snippet-in-search keeps most answers to 1-2 rounds
 
   const session = () => { try { const s = JSON.parse(localStorage.getItem('lbc_auth') || 'null'); return (s && s.token && s.exp && Date.now() < s.exp) ? s : null; } catch { return null; } };
 
@@ -67,7 +67,8 @@
 
   const TOOL_LABEL = {
     data_query: 'Reading data', data_macro_overview: 'Reading market overview', data_search_news: 'Searching news',
-    data_calendar: 'Reading calendar', ui_open_terminal: 'Opening terminal', ui_home: 'Going home',
+    data_calendar: 'Reading calendar', brain_search: 'Searching memory', brain_get: 'Reading note', brain_get_many: 'Reading notes', brain_index: 'Scanning memory', brain_write: 'Saving to memory',
+    ui_open_terminal: 'Opening terminal', ui_home: 'Going home',
     ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
     ui_set_calendar: 'Setting calendar', write_add_calendar_event: 'Adding calendar event', write_delete_calendar_event: 'Deleting event',
   };
@@ -119,7 +120,9 @@
               pushTurn({ tool: name, label, status: 'done' });
               const r = await callProxy(sess.token, { mode: 'tool', tool: name, args }); result = r.result !== undefined ? r.result : r;
             }
-            convRef.current.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(result).slice(0, 8000) });
+            const rawResult = JSON.stringify(result);
+            const toolContent = rawResult.length > 8000 ? rawResult.slice(0, 8000) + ' …[truncated, narrow your query or fetch fewer items]' : rawResult;
+            convRef.current.push({ role: 'tool', tool_call_id: tc.id, content: toolContent });
           }
         }
       } catch (e) { pushTurn({ role: 'error', text: 'Bridge error: ' + (e.message || e) }); }
