@@ -1,7 +1,7 @@
 // ================================================================
 // LEGION — T9, LBC's AI chief of staff (the brain). Native in-shell.
-// Legacy Bridge Capital's Engine for Growth, Intelligence &
-// Operational Networks. Management-only (RLS admin|management).
+// Legacy Bridge Capital's Engine For Growth, Investment,
+// Operations, and Networks. Management-only (RLS admin|management).
 //
 // Two modes:
 //   Brain — Obsidian-like wiki over Supabase `brain.notes` (folders,
@@ -332,7 +332,7 @@ const Legion = () => {
       <div className="lg-head">
         <div className="lg-brand">
           <div className="lg-mark"><span className="lg-word">LEGION</span></div>
-          <div className="lg-tag-sub">Engine for Growth, Intelligence &amp; Operational Networks</div>
+          <div className="lg-tag-sub">Engine For Growth, Investment, Operations &amp; Networks</div>
         </div>
         <div className="lg-head-status">
           {snapshot

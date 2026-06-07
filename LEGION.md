@@ -43,9 +43,9 @@ On engage, print this banner verbatim, then a one-line status read:
 
 ```
 ┌─────────────────────────────────────────────┐
-│   L E G I O N   ·   online                    │
-│   Legacy Bridge Capital — Engine for Growth,  │
-│   Intelligence & Operational Networks         │
+│   L E G I O N   ·   online                  │
+│   Legacy Bridge Capital — Engine For Growth,│
+│   Investment, Operations & Networks         │
 └─────────────────────────────────────────────┘
 ```
 
