@@ -427,6 +427,26 @@ const LBCShell = () => {
     return () => window.removeEventListener('message', onMsg);
   }, [tabs, activeId]);
 
+  // LEGION (Bridge Copilot) drives the shell: it dispatches window CustomEvents
+  // so the AI can open terminals / go home like a native assistant. ui_* tools
+  // in bridge-ai.jsx fire these; we translate them into the same tab actions a
+  // click would. For a macro sub-tool, open Macro first, then re-broadcast the
+  // sub-tool once the workspace has mounted its own nav listener.
+  React.useEffect(() => {
+    const onOpenTerminal = (e) => {
+      const d = (e && e.detail) || {};
+      if (!d.termId) return;
+      openTerminal(d.termId);
+      if (d.tool && d.termId === 'macro') {
+        setTimeout(() => window.dispatchEvent(new CustomEvent('macro:navtool', { detail: { tool: d.tool } })), 450);
+      }
+    };
+    const onGoHome = () => goHome();
+    window.addEventListener('lbc:open-terminal', onOpenTerminal);
+    window.addEventListener('lbc:go-home', onGoHome);
+    return () => { window.removeEventListener('lbc:open-terminal', onOpenTerminal); window.removeEventListener('lbc:go-home', onGoHome); };
+  }, [tabs, activeId, user]);
+
   if (!authed) return <LoginPage onAuthed={onAuthed} />;
 
   return (

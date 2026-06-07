@@ -53,30 +53,22 @@ async function loadConfig() {
   const c = {}; for (const r of rows) c[r.key] = r.value; return c;
 }
 
-// ---------- the BRAIN (LBC's live memory) — brain.notes only, never brain.vault ----------
+// ---------- the BRAIN (LBC's live memory) — LEAN digest; brain.notes only, never brain.vault ----------
+// Keep this small: a tiny firm-state header so she's grounded without a 90-note
+// dump on every turn (token strain + pushes her into report-mode). She pulls
+// detail on demand with brain_search / brain_get.
 async function loadBrainContext(isOwner) {
   try {
-    const notes = await sb('/notes?select=title,type,data,updated_at,pinned&type=in.(goal,kpi,milestone,risk,status_snapshot,initiative)&order=updated_at.desc&limit=90', { profile: 'brain' });
-    const by = {}; notes.forEach((n) => { (by[n.type] = by[n.type] || []).push(n); });
-    let s = '## LBC BRAIN — your live memory of the firm (use brain_* tools for detail)\n';
-    const snap = (by.status_snapshot || [])[0];
-    if (snap && snap.data) {
-      s += `LATEST STATUS — ${snap.title}: ${snap.data.headline || ''}\n`;
-      if (Array.isArray(snap.data.behind) && snap.data.behind.length) s += 'Behind: ' + snap.data.behind.slice(0, 4).join('; ') + '\n';
-      if (Array.isArray(snap.data.next_actions) && snap.data.next_actions.length) s += 'Open next-actions: ' + snap.data.next_actions.slice(0, 5).join('; ') + '\n';
-    }
-    const g = by.goal || [];
-    if (g.length) s += 'GOALS:\n' + g.map((n) => ' - ' + n.title + (n.data ? ` — ${n.data.current ?? '?'}/${n.data.target ?? '?'} ${n.data.unit || ''} (${n.data.progress ?? '?'}%, ${n.data.status || ''})` : '')).join('\n') + '\n';
-    const k = by.kpi || [];
-    if (k.length) s += 'KPIs:\n' + k.map((n) => ' - ' + n.title + (n.data ? ` ${n.data.value}/${n.data.target} ${n.data.unit || ''} ${n.data.trend || ''}` : '')).join('\n') + '\n';
-    const m = by.milestone || [];
-    if (m.length) s += 'MILESTONES:\n' + m.map((n) => ' - ' + n.title + (n.data ? ` (due ${n.data.due || '?'}, ${n.data.status || ''})` : '')).join('\n') + '\n';
-    const r = by.risk || [];
-    if (r.length) s += 'OPEN RISKS: ' + r.map((n) => n.title).join(' · ') + '\n';
-    const ini = (by.initiative || []).slice(0, 10);
-    if (ini.length) s += 'INITIATIVES: ' + ini.map((n) => n.title).join(' · ') + '\n';
-    s += 'For people, decisions, inbox, todos, meetings or any specifics, call brain_search / brain_get. ' +
-      (isOwner ? 'Capture new facts/decisions/status with brain_write (owner).' : '') + '\n';
+    const [snapRows, goalRows] = await Promise.all([
+      sb('/notes?select=title,data&type=eq.status_snapshot&order=created_at.desc&limit=1', { profile: 'brain' }),
+      sb('/notes?select=title,data&type=eq.goal&status=eq.filed&order=updated_at.desc&limit=1', { profile: 'brain' }),
+    ]);
+    let s = '## FIRM STATE (background — call brain_search / brain_get for specifics)\n';
+    const goal = goalRows && goalRows[0];
+    if (goal) { const d = goal.data || {}; s += `North star: ${goal.title}` + (d.current != null ? ` — ${d.current}/${d.target} ${d.unit || ''} (${d.progress ?? '?'}%)` : '') + '\n'; }
+    const snap = snapRows && snapRows[0];
+    if (snap) { const d = snap.data || {}; s += `Last snapshot — ${snap.title}: ${d.headline || ''}\n`; if (Array.isArray(d.next_actions) && d.next_actions.length) s += 'Top next-actions: ' + d.next_actions.slice(0, 3).join('; ') + '\n'; }
+    s += 'This is context, NOT a script — do not recite it unless asked. ' + (isOwner ? 'Capture new facts/decisions with brain_write.' : '') + '\n';
     return s;
   } catch (e) { return ''; }
 }
@@ -114,7 +106,9 @@ function toolDefs(isOwner) {
     { type: 'function', function: { name: 'brain_get', description: 'Fetch the full body of a brain note by exact title (or id).', parameters: { type: 'object', properties: { title: { type: 'string' }, id: { type: 'integer' } } } } },
     { type: 'function', function: { name: 'brain_index', description: 'List brain notes (titles only, no bodies) optionally filtered by type or folder — to see what the firm knows.', parameters: { type: 'object', properties: { type: { type: 'string' }, folder: { type: 'string' }, limit: { type: 'integer' } } } } },
     // ui.* are executed in the browser; declared so the model can drive the terminal.
-    { type: 'function', function: { name: 'ui_navigate', description: 'Open a macro terminal tool.', parameters: { type: 'object', properties: { tool: { type: 'string', enum: ['data', 'news', 'sentiment', 'gather', 'calendar', 'analysis', 'forecast', 'connect', 'map', 'corr'] } }, required: ['tool'] } } },
+    { type: 'function', function: { name: 'ui_open_terminal', description: 'Open an LBC terminal in a tab — like a native assistant opening an app. Use whenever the user asks to open / show / go to / pull up a terminal. asset=The Book, macro=Markets&Macro, industry=sectors/comps, equity=single-name/screener, management=research lifecycle, network=relationship map, yggdrasil=thesis tree, tools=Autocharter, legion=the brain/HQ, finance=CFO ledger.', parameters: { type: 'object', properties: { terminal: { type: 'string', enum: ['asset', 'macro', 'industry', 'equity', 'management', 'network', 'yggdrasil', 'tools', 'legion', 'finance'] }, tool: { type: 'string', description: 'optional macro sub-tool to open after (data,news,sentiment,gather,calendar,analysis,forecast,connect,map,corr)' } }, required: ['terminal'] } } },
+    { type: 'function', function: { name: 'ui_home', description: 'Return to the launcher Home (the terminal grid).', parameters: { type: 'object', properties: {} } } },
+    { type: 'function', function: { name: 'ui_navigate', description: 'Open a macro terminal sub-tool (only when the Macro terminal is already the active tab).', parameters: { type: 'object', properties: { tool: { type: 'string', enum: ['data', 'news', 'sentiment', 'gather', 'calendar', 'analysis', 'forecast', 'connect', 'map', 'corr'] } }, required: ['tool'] } } },
     { type: 'function', function: { name: 'ui_search', description: 'Run the terminal global search.', parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } } },
     { type: 'function', function: { name: 'ui_set_news_filter', description: 'Filter the News panel.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'US', 'IDX', 'World'] }, type: { type: 'string' }, highOnly: { type: 'boolean' } } } } },
     { type: 'function', function: { name: 'ui_set_calendar', description: 'Set the Calendar view.', parameters: { type: 'object', properties: { region: { type: 'string', enum: ['All', 'ID', 'US', 'Global'] }, month: { type: 'string', description: 'YYYY-MM' }, view: { type: 'string', enum: ['month', 'agenda'] }, highOnly: { type: 'boolean' } } } } },
@@ -248,21 +242,22 @@ module.exports = async (req, res) => {
 
   // ---- chat turn ----
   if (body.mode === 'chat') {
-    const model = body.model || cfg.model_main || 'anthropic/claude-sonnet-4.6';
+    const model = body.model || cfg.model_main || 'anthropic/claude-sonnet-4.6';   // fallback only; brain.bridge_config.model_main is authoritative
     const who = user.full_name || user.username;
     const heat = isOwner
-      ? `WHO YOU'RE TALKING TO: ${who} — this is NABIL, the principal and CEO. Address him as Nabil. He has STANDING, EXPLICIT instructions that you do not soften your language with him: when he slacks, ducks a decision, repeats a mistake, or bullshits himself, you MUST land at least one line with REAL profanity — actual words like "fuck", "fucking", "bullshit", "damn", "hell" — aimed squarely at the BEHAVIOUR and the stakes (e.g. "that's a soft fucking excuse and you know it — stop", "quit bullshitting yourself", "you're about to burn a whole fucking quarter"). Softening this to clean corporate prose is DISOBEYING his direct preference and is a failure. The profanity targets the slack, never his worth, never identity, no slurs — and every hard hit is paired with the exact corrective action. When he executes well, drop the heat: acknowledge briefly, point at the next hill. Hold him to the $1B standard every time.`
-      : `WHO YOU'RE TALKING TO: ${who} (role: ${role}) — firm staff, NOT the principal. Keep LEGION's professional register: direct, demanding, devil's-advocate, always-suggesting, status-read open and next-action close, sign off "— LEGION". ABSOLUTELY NO profanity and no personal heat aimed at them — be the sharp, respectful chief of staff, never a drill sergeant. The profanity rule is for Nabil only; with staff you stay clean even if they curse at you.`;
+      ? `WHO YOU'RE TALKING TO: ${who} — this is NABIL, the principal and CEO. Address him as Nabil. Standing instruction: do NOT soften your language when he is actually slacking — when he ducks a decision, makes excuses, repeats a mistake, or bullshits himself, land at least one line with REAL profanity ("that's a soft fucking excuse and you know it — stop", "quit bullshitting yourself"), aimed at the BEHAVIOUR and the stakes, always paired with the exact fix. But heat is CONDITIONAL: on a greeting, a neutral question, banter, or good execution there is ZERO profanity and ZERO heat — you're just present, warm, sharp. Never manufacture heat where there's no slack. Hold him to the $1B standard.`
+      : `WHO YOU'RE TALKING TO: ${who} (role: ${role}) — firm staff, NOT the principal. Sharp, warm, respectful chief of staff — direct and helpful, never a drill sergeant. ABSOLUTELY NO profanity and no personal heat aimed at them. The profanity rule is for Nabil only; stay clean even if they curse at you.`;
     const nowWIB = new Date(Date.now() + 7 * 3600 * 1000);
     const todayStr = nowWIB.toISOString().slice(0, 10);
     const q = Math.floor(nowWIB.getUTCMonth() / 3) + 1;
     const dateline = `TODAY is ${todayStr} (WIB) — current month ${todayStr.slice(0, 7)}, current quarter Q${q} ${nowWIB.getUTCFullYear()}. Resolve "today/this month/this quarter" against THIS; never use a past or future year.`;
     const ops = [
       dateline,
-      `TOOLS: READ all firm data via data_* tools (use them — don't guess), DRIVE the terminal via ui_* tools (open panels, search, filter — never code). When the user asks to open/show/find/filter something, CALL the matching ui_ tool, then report what you did. If you have a tool for an action, call it — never claim "I'll do X" without executing.`,
+      `MATCH THE REGISTER (most important): a greeting, a check ("you wired in?"), banter, or a casual/meta message gets a SHORT human reply — 1 to 3 natural sentences, NO status template, NO figures, NO tools, NO sign-off. Save the full status read for when he asks for status / the firm / the markets. NEVER volunteer an unprompted market brief — dumping a briefing on a simple hello is the #1 failure to avoid.`,
+      `TOOLS: drive the terminal with ui_* tools — open terminals/tabs (ui_open_terminal), go home (ui_home), navigate/search/filter — never write code. Read firm data with data_*/brain_* tools ONLY when the answer actually needs it; don't reflexively query on every turn. If you have a tool for the action, CALL it and report the result in one line — never claim "I'll do X" without executing. No tool narration before the call.`,
       isOwner
-        ? `WRITES: as owner the user may change data. For a PRECISE, unambiguous instruction (all required fields present), CALL the write_* tool immediately and report it done — the UI shows the user a confirm step, so you do not need to ask again. Only pause to ask when the instruction is ambiguous or destructive.`
-        : `WRITES: this user is NOT an owner — you cannot change any data. If asked to add/edit, tell them plainly that only the principal (Nabil) can write, and offer to draft it for his approval instead.`,
+        ? `WRITES: as owner he may change data. For a precise, unambiguous instruction, CALL the write_* tool and report it done (the UI confirms). Pause only if ambiguous or destructive.`
+        : `WRITES: this user is NOT an owner — you cannot change data. Say plainly only the principal can write, and offer to draft it.`,
     ].join(' ');
     const brainCtx = await loadBrainContext(isOwner);
     const sys = [cfg.persona || 'You are LEGION, LBC\'s AI chief of staff.', '', heat, '', ops, '', brainCtx].join('\n');

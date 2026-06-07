@@ -15,6 +15,8 @@
   function runUiTool(name, args) {
     args = args || {};
     const ev = (n, d) => window.dispatchEvent(new CustomEvent(n, { detail: d }));
+    if (name === 'ui_open_terminal') { ev('lbc:open-terminal', { termId: args.terminal, tool: args.tool || null }); return { ok: true, opened: args.terminal, tool: args.tool || null }; }
+    if (name === 'ui_home') { ev('lbc:go-home', {}); return { ok: true, home: true }; }
     if (name === 'ui_navigate') { ev('macro:navtool', { tool: args.tool }); return { ok: true, opened: args.tool }; }
     if (name === 'ui_search') { ev('lbc:search', { query: args.query }); return { ok: true, searched: args.query }; }
     if (name === 'ui_set_news_filter') { ev('macro:navtool', { tool: 'news' }); ev('macro:news-filter', args); return { ok: true, applied: args }; }
@@ -65,7 +67,8 @@
 
   const TOOL_LABEL = {
     data_query: 'Reading data', data_macro_overview: 'Reading market overview', data_search_news: 'Searching news',
-    data_calendar: 'Reading calendar', ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
+    data_calendar: 'Reading calendar', ui_open_terminal: 'Opening terminal', ui_home: 'Going home',
+    ui_navigate: 'Opening', ui_search: 'Searching', ui_set_news_filter: 'Filtering news',
     ui_set_calendar: 'Setting calendar', write_add_calendar_event: 'Adding calendar event', write_delete_calendar_event: 'Deleting event',
   };
 
