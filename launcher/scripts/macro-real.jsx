@@ -220,7 +220,7 @@ const DataGatherer = () => {
     if (!search.trim()) { setResults(null); return; }
     let cancelled = false;
     const t = setTimeout(() => {
-      sbGet(`/series_lite?country=eq.${country}&is_poll=eq.false&description=ilike.*${encodeURIComponent(search.trim())}*&select=ric,description,subcategory,category_slug,units&order=description.asc&limit=200`, 'macro')
+      sbGet(`/series?country=eq.${country}&is_poll=eq.false&description=ilike.*${encodeURIComponent(search.trim())}*&select=ric,description,subcategory,category_slug,units&order=description.asc&limit=200`, 'macro')
         .then((r) => { if (!cancelled) setResults(r); }).catch(() => {});
     }, 250);
     return () => { cancelled = true; clearTimeout(t); };
@@ -229,7 +229,7 @@ const DataGatherer = () => {
   const toggleCat = (slug) => {
     if (expanded[slug]) { const e = { ...expanded }; delete e[slug]; setExpanded(e); return; }
     setExpanded({ ...expanded, [slug]: 'loading' });
-    sbGet(`/series_lite?country=eq.${country}&category_slug=eq.${slug}&is_poll=eq.false&select=ric,description,subcategory,units&order=description.asc&limit=1000`, 'macro')
+    sbGet(`/series?country=eq.${country}&category_slug=eq.${slug}&is_poll=eq.false&select=ric,description,subcategory,units&order=description.asc&limit=1000`, 'macro')
       .then((rows) => setExpanded((e) => ({ ...e, [slug]: rows }))).catch(() => setExpanded((e) => ({ ...e, [slug]: [] })));
   };
 
