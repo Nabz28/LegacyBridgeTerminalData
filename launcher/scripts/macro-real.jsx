@@ -220,7 +220,7 @@ const DataGatherer = () => {
     if (!search.trim()) { setResults(null); return; }
     let cancelled = false;
     const t = setTimeout(() => {
-      sbGet(`/series_lite?country=eq.${country}&is_poll=eq.false&description=ilike.*${encodeURIComponent(search.trim())}*&select=ric,description,subcategory,category_slug&order=description.asc&limit=200`, 'macro')
+      sbGet(`/series_lite?country=eq.${country}&is_poll=eq.false&description=ilike.*${encodeURIComponent(search.trim())}*&select=ric,description,subcategory,category_slug,units&order=description.asc&limit=200`, 'macro')
         .then((r) => { if (!cancelled) setResults(r); }).catch(() => {});
     }, 250);
     return () => { cancelled = true; clearTimeout(t); };
@@ -229,7 +229,7 @@ const DataGatherer = () => {
   const toggleCat = (slug) => {
     if (expanded[slug]) { const e = { ...expanded }; delete e[slug]; setExpanded(e); return; }
     setExpanded({ ...expanded, [slug]: 'loading' });
-    sbGet(`/series_lite?country=eq.${country}&category_slug=eq.${slug}&is_poll=eq.false&select=ric,description,subcategory&order=description.asc&limit=1000`, 'macro')
+    sbGet(`/series_lite?country=eq.${country}&category_slug=eq.${slug}&is_poll=eq.false&select=ric,description,subcategory,units&order=description.asc&limit=1000`, 'macro')
       .then((rows) => setExpanded((e) => ({ ...e, [slug]: rows }))).catch(() => setExpanded((e) => ({ ...e, [slug]: [] })));
   };
 
@@ -284,7 +284,7 @@ const DataGatherer = () => {
   const SeriesRow = ({ s }) => (
     <div className={`mc-list-item ${activeRic === s.ric ? 'active' : ''}`} onClick={() => setActiveRic(s.ric)}>
       <div className="mc-li-top"><span className="mc-li-label">{s.description}</span></div>
-      {s.subcategory && <div className="mc-li-bot"><span className="mc-li-val" style={{ color: 'var(--text-tertiary)' }}>{s.subcategory}</span></div>}
+      {(s.subcategory || s.units) && <div className="mc-li-bot"><span className="mc-li-val" style={{ color: 'var(--text-tertiary)' }}>{[s.subcategory, s.units].filter(Boolean).join(' · ')}</span></div>}
     </div>
   );
 
@@ -339,10 +339,12 @@ const DataGatherer = () => {
                     <span className="mc-tag">{country.toUpperCase()}</span>
                     {detail && detail.category && <span className="mc-tag">{detail.category}</span>}
                     <span className="mc-tag src">{(detail && detail.source) || 'Refinitiv'}</span>
+                    {String(activeRic).startsWith('CEIC') && <span className="mc-tag" style={{ background: 'rgba(91,141,239,0.18)', color: '#9db8f5', borderColor: 'rgba(91,141,239,0.35)' }}>CEIC</span>}
+                    {detail && detail.units && <span className="mc-tag">{detail.units}</span>}
                     <span className="mc-tag" style={{ fontFamily: 'var(--font-mono)' }}>{activeRic}</span>
                   </div>
                   <div className="mc-detail-title">{(detail && detail.description) || activeRic}</div>
-                  <div className="mc-detail-sub">{obs.length ? `${obs.length} obs · latest ${obs[obs.length - 1].date}` : 'Loading…'}{detail && detail.frequency ? ` · ${detail.frequency}` : ''}</div>
+                  <div className="mc-detail-sub">{obs.length ? `${obs.length} obs · latest ${obs[obs.length - 1].date}` : 'Loading…'}{detail && detail.frequency ? ` · ${detail.frequency}` : ''}{detail && detail.units ? ` · ${detail.units}` : ''}{detail && detail.source ? ` · src: ${detail.source}` : ''}</div>
                 </div>
                 <div className="mc-detail-quote">
                   <div className="qv">{latest != null ? fmt.num(latest, Math.abs(latest) < 10 ? 2 : 0) : '—'}<span>{unit}</span></div>
