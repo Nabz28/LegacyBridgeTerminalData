@@ -95,10 +95,14 @@
 .lbc-sec .st{color:#5f779e}
 .lbc-sec .st b{color:var(--lbc-blue);font-weight:500}
 
+/* Flex (not grid) so an incomplete final row centers instead of leaving an
+   empty trailing cell — keeps the management-tier row (LEGION/Finance/Accounts)
+   balanced rather than orphaned bottom-left with a hole at bottom-right. */
 .lbc-grid{max-width:1160px;margin:18px auto 0;padding:0 40px 56px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:980px){.lbc-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.lbc-grid{grid-template-columns:1fr}}
+  display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.lbc-grid .lbc-tile{flex:0 1 calc((100% - 43px)/4)}
+@media(max-width:980px){.lbc-grid .lbc-tile{flex-basis:calc((100% - 15px)/2)}}
+@media(max-width:560px){.lbc-grid .lbc-tile{flex-basis:100%}}
 
 .lbc-tile{--ac:var(--lbc-blue);position:relative;overflow:hidden;cursor:pointer;
   display:flex;flex-direction:column;min-height:166px;padding:20px 20px 18px;border-radius:0;
