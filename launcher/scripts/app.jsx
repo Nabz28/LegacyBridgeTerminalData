@@ -749,6 +749,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           window.LEGION ? <window.LEGION /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'finance' ? (
           window.FINANCE_TERMINAL ? <window.FINANCE_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'accounts' ? (
+          window.ACCOUNTS_TERMINAL ? <window.ACCOUNTS_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}

@@ -1,0 +1,223 @@
+/* ================================================================
+   Accounts (T11) + ChangePasswordModal styling.
+   Matches the dark terminal palette (tokens.css).
+   ================================================================ */
+
+.acct-wrap {
+  height: 100%;
+  overflow: auto;
+  padding: 22px 26px 40px;
+  background: var(--bg-0);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+/* ---- header ---- */
+.acct-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.acct-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.acct-sub {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  max-width: 560px;
+  line-height: 1.45;
+}
+.acct-kpis { display: flex; gap: 10px; }
+.acct-kpi {
+  min-width: 78px;
+  padding: 9px 13px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  background: var(--bg-2);
+  text-align: center;
+}
+.acct-kpi .n { font-size: 19px; font-weight: 700; font-family: var(--font-mono); }
+.acct-kpi .l { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+.acct-kpi.warn .n { color: #e0a23a; }
+
+/* ---- toolbar ---- */
+.acct-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.acct-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--bg-2);
+  min-width: 260px;
+  flex: 0 1 320px;
+}
+.acct-search svg { width: 15px; height: 15px; color: var(--text-tertiary); }
+.acct-search input {
+  border: none; background: transparent; outline: none;
+  color: var(--text-primary); font-size: 13px; width: 100%; font-family: var(--font-sans);
+}
+.acct-roletabs { display: flex; gap: 4px; }
+.acct-roletab {
+  padding: 6px 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-2);
+  color: var(--text-secondary);
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .14s ease;
+}
+.acct-roletab:hover { border-color: var(--border-strong); color: var(--text-primary); }
+.acct-roletab.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.acct-toolbar-sp { flex: 1 1 auto; }
+
+/* ---- buttons ---- */
+.acct-btn {
+  border: 1px solid var(--border-default);
+  background: var(--bg-3);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .14s ease;
+  font-family: var(--font-sans);
+}
+.acct-btn:hover { border-color: var(--border-strong); }
+.acct-btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.acct-btn.primary:hover { background: var(--brand-strong, var(--brand)); }
+.acct-btn.ghost { background: transparent; }
+.acct-btn.xs { padding: 4px 11px; font-size: 11.5px; border-radius: 6px; }
+.acct-btn:disabled { opacity: .55; cursor: default; }
+
+/* ---- banners / toast ---- */
+.acct-banner { padding: 9px 13px; border-radius: 8px; font-size: 12.5px; margin-bottom: 12px; }
+.acct-banner.err { background: var(--neg-bg); color: var(--neg); border: 1px solid var(--neg-border); }
+.acct-toast {
+  position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);
+  background: var(--bg-4); color: var(--text-primary);
+  border: 1px solid var(--border-strong); border-radius: 9px;
+  padding: 9px 16px; font-size: 12.5px; display: flex; align-items: center; gap: 8px;
+  z-index: 60; box-shadow: 0 8px 28px rgba(0,0,0,.45);
+}
+.acct-toast .d { width: 7px; height: 7px; border-radius: 50%; background: var(--pos); }
+
+/* ---- table ---- */
+.acct-tablewrap {
+  border: 1px solid var(--border-subtle);
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--bg-1);
+}
+.acct-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.acct-table thead th {
+  text-align: left;
+  padding: 11px 14px;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-tertiary);
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border-subtle);
+  font-weight: 600;
+}
+.acct-table td { padding: 11px 14px; border-bottom: 1px solid var(--border-subtle); vertical-align: middle; }
+.acct-table tbody tr:last-child td { border-bottom: none; }
+.acct-table tbody tr:hover { background: var(--bg-2); }
+.acct-table tr.inactive { opacity: .5; }
+.acct-table .ta-r { text-align: right; }
+.acct-table .mono { font-family: var(--font-mono); }
+.acct-table .dim { color: var(--text-tertiary); }
+
+.acct-name { font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.acct-you {
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em;
+  background: var(--brand); color: #fff; border-radius: 4px; padding: 1px 5px;
+}
+.acct-pos { color: var(--text-secondary); }
+.acct-div {
+  display: inline-block; margin-left: 7px; font-size: 10px;
+  color: var(--text-tertiary); border: 1px solid var(--border-subtle);
+  border-radius: 4px; padding: 0 5px;
+}
+
+.acct-badge {
+  display: inline-block; font-size: 10.5px; font-weight: 600;
+  padding: 2px 9px; border-radius: 20px; border: 1px solid transparent;
+}
+.acct-badge.admin   { background: rgba(212,160,79,.16);  color: #e0a23a; border-color: rgba(212,160,79,.4); }
+.acct-badge.mgmt    { background: rgba(111,156,242,.16); color: #8fb2f5; border-color: rgba(111,156,242,.4); }
+.acct-badge.analyst { background: rgba(120,140,170,.16); color: var(--text-secondary); border-color: var(--border-strong); }
+.acct-badge.advisor { background: rgba(95,214,164,.14);  color: #5fd6a4; border-color: rgba(95,214,164,.36); }
+
+.acct-pw { display: inline-flex; align-items: center; gap: 8px; }
+.acct-pw .pwval { letter-spacing: .03em; }
+.acct-iconbtn {
+  border: 1px solid var(--border-subtle); background: var(--bg-3);
+  color: var(--text-secondary); border-radius: 5px; cursor: pointer;
+  width: 22px; height: 22px; font-size: 12px; line-height: 1;
+}
+.acct-iconbtn:hover { color: var(--text-primary); border-color: var(--border-strong); }
+
+.acct-pill { font-size: 10.5px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
+.acct-pill.default { background: rgba(224,162,58,.15); color: #e0a23a; }
+.acct-pill.changed { background: var(--pos-bg); color: var(--pos); }
+
+.acct-empty { text-align: center; color: var(--text-tertiary); padding: 28px !important; }
+.acct-foot { margin-top: 14px; font-size: 11.5px; color: var(--text-tertiary); line-height: 1.5; }
+
+/* ================================================================
+   ChangePasswordModal
+   ================================================================ */
+.acct-pw-backdrop {
+  position: fixed; inset: 0; z-index: 4000;
+  background: rgba(4, 8, 16, .72);
+  backdrop-filter: blur(7px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.acct-pw-card {
+  width: min(420px, 94vw);
+  background: var(--bg-1);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.6);
+  text-align: center;
+}
+.acct-pw-glyph { font-size: 34px; margin-bottom: 6px; }
+.acct-pw-card h2 { font-size: 19px; font-weight: 700; margin: 2px 0 6px; }
+.acct-pw-sub { font-size: 12.5px; color: var(--text-tertiary); line-height: 1.5; margin-bottom: 18px; }
+.acct-field { display: block; text-align: left; margin-bottom: 12px; }
+.acct-field span { display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 5px; letter-spacing: .02em; }
+.acct-field input {
+  width: 100%; box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  background: var(--bg-3);
+  color: var(--text-primary);
+  font-size: 13.5px; font-family: var(--font-mono);
+  outline: none;
+}
+.acct-field input:focus { border-color: var(--border-focus, var(--brand)); }
+.acct-pw-err { background: var(--neg-bg); color: var(--neg); border: 1px solid var(--neg-border); border-radius: 8px; padding: 8px 11px; font-size: 12px; margin: 4px 0 12px; text-align: left; }
+.acct-pw-ok { color: var(--pos); font-size: 14px; font-weight: 600; padding: 14px 0; }
+.acct-pw-actions { display: flex; gap: 10px; margin-top: 6px; }
+.acct-pw-actions .acct-btn { flex: 1; padding: 11px; }
+.acct-pw-note { font-size: 11px; color: var(--text-tertiary); margin-top: 12px; }

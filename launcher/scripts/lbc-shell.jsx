@@ -22,6 +22,7 @@ const LBC_ICONS = {
   tools:     _svg(<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.9 2.9-2-2 2.9-2.9z"/>),
   legion:    _svg(<><path d="M12 2.5L20 7v10l-8 4.5L4 17V7z"/><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5V4M14.2 13.3L18 15.5M9.8 13.3L6 15.5"/></>),
   finance:   _svg(<><path d="M12 2v20"/><path d="M17 6H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></>),
+  accounts:  _svg(<><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17.5 7.5l2 2 3-3"/></>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -30,6 +31,7 @@ const LBC_AUTH = {
   anon: 'sb_publishable_vTzPWHQ1hn16NMQVmmxPZA_DgV41wt7',
   storeKey: 'lbc_auth',
 };
+const LBC_REST = 'https://adnubucjlezrtusbicja.supabase.co/rest/v1';
 
 // ================================================================
 // The 7 terminals + per-terminal workspace manifests.
@@ -40,7 +42,8 @@ const LBC_AUTH = {
 const LBC_TERMINALS = [
   { id: 'asset', num: 'T1', name: 'Asset Management', accent: '#6f9cf2', icon: LBC_ICONS.asset,
     desc: 'The book — positions, watchlists, conviction memos, journal & performance.',
-    roles: ['admin', 'management'],   // ACCESS MATRIX: management tier only (refine later)
+    // ACCESS MATRIX: open to all authenticated (management + analysts + advisors).
+    // Analysts get everything except Finance and LEGION (principal directive).
     workspaces: [ { kind: 'am-book', label: 'The Book', built: true } ] },
   { id: 'macro', num: 'T2', name: 'Macro', accent: '#5b8def', icon: LBC_ICONS.macro,
     desc: 'Refinitiv macro across US, Indonesia & China — 9,310 indicators, live from Supabase.',
@@ -99,20 +102,40 @@ const LBC_TERMINALS = [
   // section rail (Dashboard, Ledger, Accounts, Reports, Transfers, …).
   { id: 'finance', num: 'T10', name: 'Finance', accent: '#5fd6a4', icon: LBC_ICONS.finance,
     desc: 'CFO terminal — double-entry ledger, accounts, financial statements, reconciliation & period close.',
-    roles: ['admin', 'management', 'cfo'],
+    roles: ['admin', 'management'],   // analysts & advisors blocked
     selfNav: true,
     workspaces: [ { kind: 'finance', label: 'Finance', built: true } ] },
+  // ACCOUNTS — account administration. Hidden from everyone except the
+  // principal (nabil) and the administrator (aldee). `users` allowlist gates by
+  // username, not role; HomePage also HIDES (not just locks) the tile for others.
+  { id: 'accounts', num: 'T11', name: 'Accounts', accent: '#d4a04f', icon: LBC_ICONS.accounts,
+    desc: 'Account administration — roster, roles, credentials & password resets. Principal & administrator only.',
+    users: ['nabil', 'aldee'],
+    selfNav: true,
+    workspaces: [ { kind: 'accounts', label: 'Accounts', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','portfolio','global','legion','finance']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','portfolio','global','legion','finance','accounts']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
-// Access gating — a terminal with `roles` is restricted to those user roles;
-// no `roles` = open to any authenticated user.
-const lbcCanAccess = (t, user) => !t || !t.roles || (!!user && t.roles.includes(user.role));
+// Access gating, in precedence order:
+//   t.users  → username allowlist (most specific; e.g. Accounts = nabil/aldee)
+//   t.roles  → role allowlist     (e.g. Finance/LEGION = admin/management)
+//   neither  → open to any authenticated user
+const lbcCanAccess = (t, user) => {
+  if (!t) return true;
+  if (t.users) return !!user && t.users.includes(String(user.username || '').toLowerCase());
+  if (t.roles) return !!user && t.roles.includes(user.role);
+  return true;
+};
 window.lbcCanAccess = lbcCanAccess;
+
+// Tiles gated by a `users` allowlist are HIDDEN entirely for everyone else
+// (Accounts must not even be visible). Role-gated tiles stay visible-but-locked.
+const lbcVisibleTerminals = (user) => LBC_TERMINALS.filter(t => !(t.users && !lbcCanAccess(t, user)));
+window.lbcVisibleTerminals = lbcVisibleTerminals;
 
 // ================================================================
 // NotYet — placeholder shown for unbuilt workspaces / external apps.
@@ -224,7 +247,10 @@ const BRIDGE_SEGS = [
 const BRIDGE_FLOW_D = BRIDGE_SEGS.map(s => s.d).join(' ');
 
 const HomePage = ({ onSelect, user, onLogout }) => {
-  const liveCount = LBC_TERMINALS.filter(t => t.external || t.workspaces.some(w => w.built)).length;
+  // Hide tiles the user isn't even allowed to see (Accounts). Role-locked tiles
+  // (Finance / LEGION) stay visible but show a lock.
+  const terminals = lbcVisibleTerminals(user);
+  const liveCount = terminals.filter(t => t.external || t.workspaces.some(w => w.built)).length;
   const stageRef = React.useRef(null);
   const glowRef = React.useRef(null);
   const gridhiRef = React.useRef(null);
@@ -307,11 +333,11 @@ const HomePage = ({ onSelect, user, onLogout }) => {
         <div className="lbc-sec">
           <span className="lbc-sec-title">Terminals</span>
           <span className="sp"></span>
-          <span className="st"><b>{liveCount}</b> / {LBC_TERMINALS.length} active</span>
+          <span className="st"><b>{liveCount}</b> / {terminals.length} active</span>
         </div>
 
         <div className="lbc-grid">
-          {LBC_TERMINALS.map(t => {
+          {terminals.map(t => {
             const live = t.workspaces.some(w => w.built);
             const locked = !lbcCanAccess(t, user);
             return (
@@ -364,6 +390,33 @@ const LBCShell = () => {
   const [authed, setAuthed] = React.useState(!!existing);
   const [tabs, setTabs] = React.useState(() => [{ id: newTabId(), type: 'home' }]);
   const [activeId, setActiveId] = React.useState(() => tabs[0].id);
+  // Forced first-login password change: null = unknown, true = must change.
+  const [mustChange, setMustChange] = React.useState(false);
+  const [pwOpen, setPwOpen] = React.useState(false); // voluntary change
+
+  // After auth, ask Postgres whether this account is still on the base password.
+  // users_lite exposes must_change_password (NOT the cleartext). Read with the
+  // user's own JWT; if it's true we block every terminal behind the modal.
+  React.useEffect(() => {
+    if (!authed || !user) { setMustChange(false); return; }
+    let cancelled = false;
+    (async () => {
+      try {
+        const s = readLbcSession();
+        const tok = s && s.token;
+        if (!tok) return;
+        const res = await fetch(
+          LBC_REST + '/users_lite?select=must_change_password&username=eq.' +
+          encodeURIComponent(String(user.username || '').toLowerCase()),
+          { headers: { apikey: LBC_AUTH.anon, Authorization: 'Bearer ' + tok, 'Accept-Profile': 'management' } }
+        );
+        if (!res.ok) return;
+        const rows = await res.json();
+        if (!cancelled && rows && rows[0]) setMustChange(!!rows[0].must_change_password);
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, [authed, user]);
 
   // Session bridge for embedded apps: the Management terminal reads its session
   // from its OWN localStorage keys (lbc.mgmt.token/user/exp), not lbc_auth. Same
@@ -471,6 +524,7 @@ const LBCShell = () => {
         <div className="lbc-tabstrip-sp"></div>
         {user && <span className="lbc-tabstrip-user">{user.full_name || user.username}{user.role ? ' · ' + user.role : ''}</span>}
         <span className="lbc-pip"></span>
+        <button className="lbc-logout" onClick={() => setPwOpen(true)} title="Change your password" style={{ marginRight: 6 }}>Change password</button>
         <button className="lbc-logout" onClick={onLogout}>Sign out</button>
       </div>
       <div className="lbc-browser-body">
@@ -494,6 +548,15 @@ const LBCShell = () => {
           );
         })}
       </div>
+
+      {/* Forced first-login password change — blocks every terminal until done. */}
+      {mustChange && window.ChangePasswordModal && (
+        <window.ChangePasswordModal forced user={user} onDone={() => setMustChange(false)} />
+      )}
+      {/* Voluntary change from the user menu. */}
+      {pwOpen && window.ChangePasswordModal && (
+        <window.ChangePasswordModal user={user} onDone={() => setPwOpen(false)} onClose={() => setPwOpen(false)} />
+      )}
     </div>
   );
 };
