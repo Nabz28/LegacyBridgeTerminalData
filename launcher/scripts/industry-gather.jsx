@@ -116,6 +116,10 @@ const IndustryGather = () => {
   const chg    = latest != null && prev != null ? latest - prev : null;
   const unit   = (detail && detail.units) || '';
   const exportCsv = () => igDownloadCsv(`${activeRic}.csv`, [['date', 'value'], ...obs.map((o) => [o.date, o.value])]);
+  const exportChart = () => window.downloadLineChartPNG && window.downloadLineChartPNG(`${activeRic}.png`, {
+    values, labels: dates, title: (detail && detail.description) || activeRic, unit,
+    color: detail ? sideMeta(detail.stat_role).color : '#5B8DEF',
+  });
 
   const sideMeta = (id) => IG_SIDES.find((x) => x.id === id) || IG_SIDES[1];
 
@@ -259,7 +263,10 @@ const IndustryGather = () => {
               <div className="mc-chart-card">
                 <div className="mc-chart-h">
                   <span>{(detail && detail.description) || activeRic} · {values.length} points</span>
-                  <button className="sw-tf" onClick={exportCsv} disabled={!obs.length}>⤓ CSV</button>
+                  <span style={{ display: 'inline-flex', gap: 6 }}>
+                    <button className="sw-tf" onClick={exportChart} disabled={!values.length}>⤓ Chart</button>
+                    <button className="sw-tf" onClick={exportCsv} disabled={!obs.length}>⤓ CSV</button>
+                  </span>
                 </div>
                 {AreaChart && values.length ? <AreaChart data={values} labels={dates} unit={unit} height={250} color={detail ? sideMeta(detail.stat_role).color : '#5B8DEF'} /> : <div className="mc-news-empty" style={{ padding: 40 }}>No data</div>}
               </div>

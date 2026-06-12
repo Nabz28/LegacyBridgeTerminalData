@@ -97,6 +97,9 @@ const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) 
   const dates = shown.map((o) => o.date);
   const latest = all.length ? all[all.length - 1].value : null;
   const exportCsv = () => downloadCsv(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.csv`, [['date', 'value'], ...series.map((o) => [o.date, o.value])]);
+  const exportChart = () => window.downloadLineChartPNG && window.downloadLineChartPNG(`${(id || 'series').replace(/[^a-z0-9_.-]/gi, '_')}.png`, {
+    values, labels: dates, title, unit, color: '#5B8DEF',
+  });
   // Some TradingView symbols (non-US sovereign yields + a few data symbols) are
   // restricted in the free embed widget ("only available on TradingView"). A
   // personal Premium account can't unlock the anonymous embed, so we skip the
@@ -124,6 +127,7 @@ const SeriesDetailModal = ({ title, sub, source, id, unit, tvSymbol, onClose }) 
           <div className="mtv-range">{SERIES_INTERVALS.map((iv) => <button key={iv.k} className={`mtv-range-btn ${interval === iv.k ? 'active' : ''}`} onClick={() => setIntervalState(iv.k)}>{iv.l}</button>)}</div>
           <span style={{ flex: 1 }} />
           {tvUrl && <a href={tvUrl} target="_blank" rel="noopener" className="sw-tf" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }} title={tvBlocked ? 'This symbol charts on TradingView (free embed restricted) — opens in your TV session' : 'Open this symbol on TradingView'}>Open in TradingView ↗</a>}
+          <button className="sw-tf" onClick={exportChart} disabled={!obs || !series.length}>⤓ Chart</button>
           <button className="sw-tf" onClick={exportCsv} disabled={!obs || !series.length}>⤓ CSV</button>
         </div>
         <div style={{ flex: 1, minHeight: 0, display: 'flex', gap: 12, padding: '14px 18px' }}>
@@ -280,6 +284,9 @@ const DataGatherer = () => {
   const chg    = latest != null && prev != null ? latest - prev : null;
   const unit   = (detail && detail.units) || '';
   const exportCsv = () => downloadCsv(`${activeRic}.csv`, [['date', 'value'], ...obs.map((o) => [o.date, o.value])]);
+  const exportChart = () => window.downloadLineChartPNG && window.downloadLineChartPNG(`${activeRic}.png`, {
+    values, labels: dates, title: (detail && detail.description) || activeRic, unit, color: '#5B8DEF',
+  });
 
   const SeriesRow = ({ s }) => (
     <div className={`mc-list-item ${activeRic === s.ric ? 'active' : ''}`} onClick={() => setActiveRic(s.ric)}>
@@ -355,7 +362,10 @@ const DataGatherer = () => {
               <div className="mc-chart-card">
                 <div className="mc-chart-h">
                   <span>{(detail && detail.description) || activeRic} · {values.length} points</span>
-                  <button className="sw-tf" onClick={exportCsv} disabled={!obs.length}>⤓ CSV</button>
+                  <span style={{ display: 'inline-flex', gap: 6 }}>
+                    <button className="sw-tf" onClick={exportChart} disabled={!values.length}>⤓ Chart</button>
+                    <button className="sw-tf" onClick={exportCsv} disabled={!obs.length}>⤓ CSV</button>
+                  </span>
                 </div>
                 {AreaChart && values.length ? <AreaChart data={values} labels={dates} unit={unit} height={250} color="#5B8DEF" /> : <div className="mc-news-empty" style={{ padding: 40 }}>No data</div>}
               </div>
