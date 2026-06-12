@@ -317,14 +317,25 @@
   };
 
   // ================= peer comps =================
+  // Peer set is shared + editable (window.PeerStore) — the analyst adds/removes
+  // tickers here and in WACC against the same per-symbol list. Columns sort so
+  // the comp set can be ranked by any financial metric.
+  const PEER_COLS = [
+    ['mc', 'Mkt cap', scaleNum], ['rev', 'Revenue', scaleNum], ['revG', 'Rev growth', fmtPct],
+    ['niMargin', 'Net margin', fmtPct], ['roe', 'ROE', fmtPct], ['pe', 'P/E', fmtX], ['pb', 'P/B', fmtX],
+  ];
   const PeersPanel = ({ symbol }) => {
+    const peerSet = window.usePeerSet ? window.usePeerSet(symbol) : { peers: [] };
+    const peerKey = peerSet.peers.join(',');
     const [rows, setRows] = React.useState(null);
+    const [sort, setSort] = React.useState({ key: null, dir: -1 });
+
     React.useEffect(() => {
       let alive = true;
+      setRows(null);
       const uni = window.IDX_UNIVERSE || [];
-      const self = uni.find((u) => u.sym === symbol);
-      const peers = self ? uni.filter((u) => u.sector === self.sector) : (self ? [self] : []);
-      const list = (self ? [self, ...peers.filter((p) => p.sym !== symbol)] : peers).slice(0, 8);
+      const self = uni.find((u) => u.sym === symbol) || { sym: symbol, name: symbol };
+      const list = [self, ...peerSet.peers.map((s) => uni.find((u) => u.sym === s) || { sym: s, name: s })];
       Promise.all(list.map(async (p) => {
         try {
           const r = await fetch(`${STMT_FN}?ticker=${encodeURIComponent(yahooTicker(p.sym))}`, { headers: HDRS });
@@ -343,25 +354,45 @@
         } catch { return null; }
       })).then((res) => { if (alive) setRows(res.filter(Boolean)); });
       return () => { alive = false; };
-    }, [symbol]);
+    }, [symbol, peerKey]);
 
-    if (!rows) return <div className="fin-loading">Loading peer comps…</div>;
-    if (!rows.length) return <div className="fin-empty">No same-sector peers found.</div>;
+    const onSort = (key) => setSort((s) => (s.key === key ? { key, dir: -s.dir } : { key, dir: -1 }));
+    const sorted = React.useMemo(() => {
+      if (!rows || !sort.key) return rows;
+      return rows.slice().sort((a, b) => {
+        const av = a[sort.key], bv = b[sort.key];
+        if (av == null && bv == null) return 0; if (av == null) return 1; if (bv == null) return -1;
+        return (av - bv) * sort.dir;
+      });
+    }, [rows, sort]);
+
     return (
-      <div className="fin-table-wrap">
-        <table className="fin-table">
-          <thead><tr><th className="fin-line-h">Company</th><th className="num">Mkt cap</th><th className="num">Revenue</th><th className="num">Rev growth</th><th className="num">Net margin</th><th className="num">ROE</th><th className="num">P/E</th><th className="num">P/B</th></tr></thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.sym} className={`fin-row ${r.isSelf ? 'fin-self' : ''}`}>
-                <td className="fin-line"><b>{r.sym}</b> <span className="dim">{r.name}</span></td>
-                <td className="num">{scaleNum(r.mc)}</td><td className="num">{scaleNum(r.rev)}</td>
-                <td className="num">{fmtPct(r.revG)}</td><td className="num">{fmtPct(r.niMargin)}</td>
-                <td className="num">{fmtPct(r.roe)}</td><td className="num">{fmtX(r.pe)}</td><td className="num">{fmtX(r.pb)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="fin-peers">
+        {window.PeerEditor && <window.PeerEditor symbol={symbol} />}
+        {!rows ? <div className="fin-loading">Loading peer comps…</div>
+          : !rows.length ? <div className="fin-empty">No peer data — add tickers above.</div>
+            : (
+              <div className="fin-table-wrap">
+                <table className="fin-table">
+                  <thead><tr>
+                    <th className="fin-line-h">Company</th>
+                    {PEER_COLS.map(([k, l]) => (
+                      <th key={k} className={`num fin-sortable ${sort.key === k ? 'on' : ''}`} onClick={() => onSort(k)}>
+                        {l}{sort.key === k ? (sort.dir < 0 ? ' ▾' : ' ▴') : ''}
+                      </th>
+                    ))}
+                  </tr></thead>
+                  <tbody>
+                    {sorted.map((r) => (
+                      <tr key={r.sym} className={`fin-row ${r.isSelf ? 'fin-self' : ''}`}>
+                        <td className="fin-line"><b>{r.sym}</b> <span className="dim">{r.name}</span></td>
+                        {PEER_COLS.map(([k, l, fmt]) => <td key={k} className="num">{fmt(r[k])}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
       </div>
     );
   };

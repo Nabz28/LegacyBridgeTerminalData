@@ -38,7 +38,6 @@
     taxRate: 22.0,     // Indonesia statutory corporate tax, %
     creditSpread: 3.0, // spread over Rf for cost of debt, % — IG corp baseline (was 2.0)
   };
-  const MAX_PEERS = 5;
   const STAT_TAX = 0.22;          // statutory rate — caps the debt tax shield (effective rates can be one-off-distorted)
   const RD_FLOOR = 9.0;           // realistic IDR-nominal pre-tax cost of debt floor, %
   const BETA_FIT_MIN = 0.10;      // min regression R² for a single-name OLS beta to be trusted
@@ -148,15 +147,6 @@
     return weeks && rows.length > weeks ? rows.slice(rows.length - weeks) : rows;
   }
 
-  function peersFor(symbol) {
-    const uni = window.IDX_UNIVERSE || [];
-    const self = uni.find((u) => u.sym === symbol);
-    if (!self) return [];
-    return uni.filter((u) => u.sym !== symbol && u.sector === self.sector)
-      .sort((a, b) => (b.mcap || 0) - (a.mcap || 0))
-      .slice(0, MAX_PEERS);
-  }
-
   const cutoff5y = () => new Date(Date.now() - 5 * 365 * 24 * 3600 * 1000).toISOString().slice(0, 10);
 
   // ---------- small UI atoms ----------
@@ -195,6 +185,9 @@
     });
     const set = (k, v) => setInp((p) => ({ ...p, [k]: v }));
 
+    // shared, editable peer set (also drives Financials › Peer Comps)
+    const { peers: peerSet } = window.usePeerSet(symbol);
+
     // ---- load on symbol change ----
     React.useEffect(() => {
       let alive = true;
@@ -224,8 +217,17 @@
         })
         .catch(() => { if (alive) setFundErr('Yahoo fundamentals unavailable — using defaults (editable).'); });
 
-      // Peer betas (correlation) + peer fundamentals (for D/E), best-effort.
-      const plist = peersFor(symbol);
+      return () => { alive = false; };
+    }, [symbol]);
+
+    // ---- peer betas — own effect so it re-runs when the (editable) peer set changes ----
+    const peerKey = peerSet.join(',');
+    React.useEffect(() => {
+      let alive = true;
+      setPeers([]);
+      const from = cutoff5y();
+      const uni = window.IDX_UNIVERSE || [];
+      const plist = peerSet.map((s) => uni.find((u) => u.sym === s) || { sym: s, name: s });
       Promise.all(plist.map(async (p) => {
         let beta = null, fd = null;
         try {
@@ -241,9 +243,8 @@
         const bu = (bAdj != null && de != null) ? unlever(bAdj, de, tax) : null;
         return { sym: p.sym, name: p.name, beta, betaAdj: bAdj, de, tax, bu };
       })).then((rows) => { if (alive) setPeers(rows); });
-
       return () => { alive = false; };
-    }, [symbol]);
+    }, [symbol, peerKey]);
 
     // ---- derived: beta ----
     const betaCalc = React.useMemo(() => {
@@ -464,13 +465,14 @@
                 <span className="sub-h">unlever → median → relever</span>
               </div>
               <div className="sw-panel-body" style={{ padding: 0 }}>
+                {window.PeerEditor && <div className="wacc-peer-edit"><window.PeerEditor symbol={symbol} /></div>}
                 <table className="sw-tbl wacc-peer-tbl">
                   <thead><tr>
                     <th>Peer</th><th className="num">Raw β</th><th className="num">Adj β</th>
                     <th className="num">D/E</th><th className="num">Tax</th><th className="num">Unlev β</th>
                   </tr></thead>
                   <tbody>
-                    {peers.length === 0 && <tr><td colSpan={6} className="wacc-empty">No same-sector peers in the IDX universe.</td></tr>}
+                    {peers.length === 0 && <tr><td colSpan={6} className="wacc-empty">No peers selected — add tickers above.</td></tr>}
                     {peers.map((p) => (
                       <tr key={p.sym}>
                         <td><b>{p.sym}</b> <span className="dim">{p.name}</span></td>

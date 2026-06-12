@@ -1694,3 +1694,60 @@
 .news-title { color: var(--text-secondary); font-size: 13px; text-decoration: none; line-height: 1.35; }
 .news-title:hover { color: var(--accent); text-decoration: underline; }
 .news-src { font-family: var(--font-mono); font-size: 9px; color: var(--text-tertiary); white-space: nowrap; }
+
+/* ============================================================
+   Editable peer set — Financials › Peer Comps + WACC bottom-up.
+   Chips (add/remove), type-ahead, quick-add. Shared component.
+   ============================================================ */
+.peeredit { padding: 10px 12px; border: 1px solid var(--border-subtle); border-radius: 6px; background: var(--bg-1); margin-bottom: 10px; }
+.peeredit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.peeredit-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-tertiary); margin-right: 2px; }
+.peeredit-count { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); margin-right: 6px; display: inline-flex; align-items: center; gap: 5px; }
+.peeredit-badge { font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand-steel); border: 1px solid var(--brand-steel-dim, var(--border-default)); border-radius: 3px; padding: 1px 4px; }
+.peeredit-chip {
+  display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: var(--text-secondary); background: var(--bg-3); border: 1px solid var(--border-default);
+  border-radius: 4px; padding: 2px 4px 2px 7px; line-height: 1.5;
+}
+.peeredit-chip.self { color: var(--text-primary, #fff); background: var(--brand-soft); border-color: var(--brand-steel-dim, var(--border-strong)); padding-right: 7px; }
+.peeredit-x {
+  border: 0; background: transparent; color: var(--text-tertiary); cursor: pointer; font-size: 13px; line-height: 1;
+  padding: 0 2px; border-radius: 3px; transition: color 0.12s, background 0.12s;
+}
+.peeredit-x:hover { color: var(--neg, #e2554f); background: var(--neg-bg, rgba(226,85,79,0.12)); }
+.peeredit-empty { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); font-style: italic; }
+.peeredit-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 9px; }
+.peeredit-add { position: relative; flex: 1 1 200px; min-width: 170px; }
+.peeredit-add input {
+  width: 100%; box-sizing: border-box; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-primary, #fff);
+  background: var(--bg-2); border: 1px solid var(--border-default); border-radius: 4px; padding: 5px 9px; outline: none; transition: border-color 0.12s;
+}
+.peeredit-add input:focus { border-color: var(--border-focus, var(--brand-steel)); }
+.peeredit-add input:disabled { opacity: 0.55; cursor: not-allowed; }
+.peeredit-add input::placeholder { color: var(--text-tertiary); }
+.peeredit-drop {
+  position: absolute; top: calc(100% + 3px); left: 0; right: 0; z-index: 40; max-height: 240px; overflow: auto;
+  background: var(--bg-3); border: 1px solid var(--border-strong, var(--border-default)); border-radius: 5px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45); padding: 3px;
+}
+.peeredit-opt {
+  display: flex; align-items: baseline; gap: 7px; width: 100%; text-align: left; cursor: pointer;
+  border: 0; background: transparent; border-radius: 4px; padding: 5px 8px; color: var(--text-secondary); font-size: 11.5px;
+}
+.peeredit-opt:hover { background: var(--brand-soft); color: var(--text-primary, #fff); }
+.peeredit-opt b { font-family: var(--font-mono); font-weight: 700; color: var(--text-primary, #fff); }
+.peeredit-opt-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-secondary); }
+.peeredit-opt-sec { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-tertiary); white-space: nowrap; }
+.peeredit-quick {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: var(--text-secondary); cursor: pointer;
+  background: var(--bg-2); border: 1px solid var(--border-default); border-radius: 4px; padding: 5px 9px; transition: border-color 0.12s, color 0.12s;
+}
+.peeredit-quick:hover:not(:disabled) { color: var(--text-primary, #fff); border-color: var(--brand-steel); }
+.peeredit-quick:disabled { opacity: 0.4; cursor: not-allowed; }
+.peeredit-quick.reset { color: var(--text-tertiary); }
+.wacc-peer-edit { padding: 12px 12px 2px; }
+
+/* Sortable comp headers (Financials › Peer Comps) */
+.fin-sortable { cursor: pointer; user-select: none; transition: color 0.12s; }
+.fin-sortable:hover { color: var(--text-secondary); }
+.fin-sortable.on { color: var(--brand-steel, var(--text-primary)); }
