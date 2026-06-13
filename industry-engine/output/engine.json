@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:48:14",
-  "n_baskets": 47,
+  "generated_at": "2026-06-14T00:48:16",
+  "n_baskets": 48,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -13578,6 +13578,253 @@
         }
       ],
       "generated_at": "2026-06-14T00:48:14"
+    },
+    {
+      "id": "infrastructure_tower",
+      "sub_sector": "Tower",
+      "sector": "Infrastructure",
+      "priority": 48,
+      "status": "done",
+      "grade": "partial",
+      "verdict": "MILDLY BEARISH",
+      "score": 40,
+      "confidence": {
+        "level": "low",
+        "score": 22,
+        "reasons": [
+          "max|corr|=0.12",
+          "theory_agree=43%",
+          "stable=29%",
+          "mvR2=0.04",
+          "OOS=47%"
+        ]
+      },
+      "net_tilt": -0.204,
+      "demand_tilt": -0.179,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "CEICI313913902",
+          "CEICI479934987",
+          "CEICI313915002",
+          "CEICI313915202",
+          "CEICI479936327",
+          "CEICI313915302"
+        ],
+        "n": 158,
+        "r2": 0.042,
+        "adj_r2": 0.004,
+        "betas": {
+          "CEICI313913902": {
+            "std_beta": -0.0367,
+            "t": -1.83,
+            "p": 0.0679
+          },
+          "CEICI479934987": {
+            "std_beta": 0.0375,
+            "t": 0.6,
+            "p": 0.5515
+          },
+          "CEICI313915002": {
+            "std_beta": 0.4415,
+            "t": 1.03,
+            "p": 0.3027
+          },
+          "CEICI313915202": {
+            "std_beta": -0.4335,
+            "t": -1.02,
+            "p": 0.3067
+          },
+          "CEICI479936327": {
+            "std_beta": 0.0026,
+            "t": 0.23,
+            "p": 0.816
+          },
+          "CEICI313915302": {
+            "std_beta": -0.0317,
+            "t": -0.51,
+            "p": 0.6099
+          }
+        },
+        "oos_hit_rate": 0.469,
+        "oos_n": 98,
+        "expected_monthly_ret": -0.0387
+      },
+      "narrative": "Tower (Infrastructure) screens MILDLY BEARISH [40/100, low confidence]. Top drivers: ATM and Debit Card: Value: Cash Withdrawal (corr -0.12, lead 0m, now headwind); Credit Card: Value: Purchase: Domestic (corr -0.04, lead 3m, now headwind); Credit Card: Volume: Purchase (corr +0.00, lead 3m, now tailwind). A 6-driver model explains 4% of monthly variance (adj 0%), 47% out-of-sample directional hit-rate; current read ~-3.9%/mo.",
+      "n_kept": 7,
+      "n_tested": 33,
+      "n_used": 2,
+      "members_used": [
+        "CENT",
+        "LCKM"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "CEICI313913902",
+          "label": "ATM and Debit Card: Value: Cash Withdrawal",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.125,
+          "excess_pearson": -0.1334,
+          "best_lag": 0,
+          "ic": 0.0917,
+          "beta": -9.110812703897233e-07,
+          "r2": 0.015626997242210505,
+          "p": 0.06003821733712567,
+          "n": 182,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "ATM and Debit Card: Value: Cash Withdrawal",
+          "posture": "headwind",
+          "last_chg_z": 2.91,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI479934987",
+          "label": "Credit Card: Value: Purchase: Domestic",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0436,
+          "excess_pearson": -0.0758,
+          "best_lag": 3,
+          "ic": 0.1211,
+          "beta": -2.895157599908956e-06,
+          "r2": 0.0018997292725395631,
+          "p": 0.4889202844387507,
+          "n": 158,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "Credit Card: Value: Purchase: Domestic",
+          "posture": "headwind",
+          "last_chg_z": 1.66,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313915002",
+          "label": "Credit Card: Volume: Purchase",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.001,
+          "excess_pearson": -0.018,
+          "best_lag": 3,
+          "ic": 0.0657,
+          "beta": 1.0008535482409077e-07,
+          "r2": 9.791091082345105e-07,
+          "p": 0.984560779922554,
+          "n": 182,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Credit Card: Volume: Purchase",
+          "posture": "tailwind",
+          "last_chg_z": 2.63,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313915202",
+          "label": "Credit Card: Volume",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0006,
+          "excess_pearson": -0.0184,
+          "best_lag": 3,
+          "ic": 0.0649,
+          "beta": 5.996394164652417e-08,
+          "r2": 3.5966328659764457e-07,
+          "p": 0.9906546389358843,
+          "n": 182,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Credit Card: Volume",
+          "posture": "tailwind",
+          "last_chg_z": 2.58,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI479936327",
+          "label": "Value: Electronic Money Transfer Transactions",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0115,
+          "excess_pearson": 0.0261,
+          "best_lag": 3,
+          "ic": 0.0048,
+          "beta": 0.003785804810172805,
+          "r2": 0.00013326503884658614,
+          "p": 0.8862920991624759,
+          "n": 158,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Value: Electronic Money Transfer Transactions",
+          "posture": "neutral",
+          "last_chg_z": 0.21,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313915302",
+          "label": "Credit Card: Value",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0155,
+          "excess_pearson": -0.0348,
+          "best_lag": 3,
+          "ic": 0.0767,
+          "beta": -1.330496852178097e-06,
+          "r2": 0.00024018385449031676,
+          "p": 0.7292785300103308,
+          "n": 182,
+          "theory_agree": false,
+          "stable": false,
+          "sign": -1,
+          "why": "Credit Card: Value",
+          "posture": "headwind",
+          "last_chg_z": 1.94,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313915102",
+          "label": "Credit Card: Value: Purchase",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.015,
+          "excess_pearson": -0.0345,
+          "best_lag": 3,
+          "ic": 0.0763,
+          "beta": -1.3099306492093972e-06,
+          "r2": 0.0002255517651219563,
+          "p": 0.7369570369271863,
+          "n": 182,
+          "theory_agree": false,
+          "stable": false,
+          "sign": -1,
+          "why": "Credit Card: Value: Purchase",
+          "posture": "headwind",
+          "last_chg_z": 1.97,
+          "last_obs": "2026-03-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:48:16"
     }
   ]
 }
