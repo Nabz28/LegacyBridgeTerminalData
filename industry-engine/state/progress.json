@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:37:29",
+  "updated_at": "2026-06-14T00:37:41",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -52,12 +52,12 @@
       "sub_sector": "Mining",
       "sector": "Basic Materials",
       "priority": 4,
-      "status": "pending",
-      "grade": null,
-      "score": null,
-      "verdict": null,
-      "attempts": 0,
-      "last_run": null,
+      "status": "done",
+      "grade": "perfected",
+      "score": 33,
+      "verdict": "BEARISH",
+      "attempts": 1,
+      "last_run": "2026-06-14T00:37:30",
       "reasons": []
     },
     "energy_alternative_energy": {
@@ -686,11 +686,11 @@
     }
   },
   "summary": {
-    "perfected": 1,
+    "perfected": 2,
     "partial": 0,
     "needs_review": 2,
     "blocked": 0,
-    "pending": 49,
+    "pending": 48,
     "error": 0
   }
 }

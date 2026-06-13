@@ -1,0 +1,886 @@
+{
+  "id": "basic_materials_mining",
+  "sub_sector": "Mining",
+  "sector": "Basic Materials",
+  "priority": 4,
+  "generated_at": "2026-06-14T00:37:41",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 13,
+    "n_used": 13,
+    "members_used": [
+      "AMMN",
+      "ARCI",
+      "BRMS",
+      "CITA",
+      "DKFT",
+      "IFSH",
+      "MDKA",
+      "MINE",
+      "NCKL",
+      "NICL",
+      "PSAB",
+      "SQMI",
+      "ZINC"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 492263417577472.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "BEARISH",
+    "score": 33,
+    "net_tilt": -0.335,
+    "demand_tilt": -0.474,
+    "supply_tilt": -0.296,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "high",
+      "score": 99,
+      "reasons": [
+        "max|corr|=0.31",
+        "theory_agree=100%",
+        "stable=100%",
+        "mvR2=0.25",
+        "OOS=68%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI357008177",
+        "gold",
+        "CEICI14080301",
+        "CEICI388026027",
+        "CEICI14523001",
+        "CEICI357055702"
+      ],
+      "n": 91,
+      "r2": 0.247,
+      "adj_r2": 0.194,
+      "betas": {
+        "CEICI357008177": {
+          "std_beta": -0.0044,
+          "t": -0.63,
+          "p": 0.5299
+        },
+        "gold": {
+          "std_beta": 0.0188,
+          "t": 1.27,
+          "p": 0.2026
+        },
+        "CEICI14080301": {
+          "std_beta": 0.0155,
+          "t": 0.74,
+          "p": 0.4564
+        },
+        "CEICI388026027": {
+          "std_beta": -0.0081,
+          "t": -1.63,
+          "p": 0.1025
+        },
+        "CEICI14523001": {
+          "std_beta": 0.003,
+          "t": 0.32,
+          "p": 0.7456
+        },
+        "CEICI357055702": {
+          "std_beta": 0.0067,
+          "t": 0.9,
+          "p": 0.3674
+        }
+      },
+      "oos_hit_rate": 0.677,
+      "oos_n": 31,
+      "expected_monthly_ret": -0.1339
+    },
+    "narrative": "Mining (Basic Materials) screens BEARISH [33/100, high confidence]. Top drivers: Nickel · LME (corr +0.31, lead 2m, now flat); Bauxite (corr -0.14, lead 3m, now flat); Mining Products: Copper Ore (corr -0.17, lead 3m, now headwind). A 6-driver model explains 25% of monthly variance (adj 19%), 68% out-of-sample directional hit-rate; current read ~-13.4%/mo.",
+    "drivers": [
+      {
+        "key": "wb_nickel",
+        "role": "supply",
+        "why": "nickel = key revenue metal",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.3065,
+        "pearson_p": 0.1549,
+        "spearman": 0.3202,
+        "spearman_p": 0.1364,
+        "best_lag": 2,
+        "corr_at_best": -0.4655,
+        "ic": 0.1383,
+        "ic_t": 0.634,
+        "ols": {
+          "beta": 0.5180463961062836,
+          "t": 2.695249294266414,
+          "p": 0.007033598562398262,
+          "r2": 0.09395463068005716,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.7730386275703524,
+          "t": -1.8593033602240465,
+          "p": 0.0629841509801123,
+          "r2": 0.21669913376828664,
+          "n": 21,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.3811,
+        "last_chg": -0.005653,
+        "last_chg_z": -0.05,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 66.3,
+        "source": "spark",
+        "shallow": true,
+        "label": "Nickel · LME",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.025
+        }
+      },
+      {
+        "key": "CEICI294140302",
+        "role": "supply",
+        "why": "Bauxite",
+        "test_freq": "Q",
+        "transform": "yoy",
+        "native_freq": "Q",
+        "last_obs": "2025-06-01",
+        "n": 54,
+        "min_n": 12,
+        "pearson": -0.141,
+        "pearson_p": 0.3091,
+        "spearman": -0.0285,
+        "spearman_p": 0.8381,
+        "best_lag": 3,
+        "corr_at_best": -0.1918,
+        "ic": 0.3034,
+        "ic_t": 2.209,
+        "ols": {
+          "beta": -0.013334660065339156,
+          "t": -2.578113467479623,
+          "p": 0.009934137156267902,
+          "r2": 0.019890074092352328,
+          "n": 54,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.018255934133469244,
+          "t": -2.9198983106649834,
+          "p": 0.003501456198215786,
+          "r2": 0.0367989726184057,
+          "n": 54,
+          "hac_lag": 3
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1205,
+        "last_chg": 0.866575,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2025-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 55.0,
+        "source": "ceic",
+        "label": "Bauxite",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
+      {
+        "key": "CEICI357008177",
+        "role": "supply",
+        "why": "Mining Products: Copper Ore",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 165,
+        "min_n": 24,
+        "pearson": -0.1666,
+        "pearson_p": 0.0325,
+        "spearman": -0.1817,
+        "spearman_p": 0.0195,
+        "best_lag": 3,
+        "corr_at_best": -0.375,
+        "ic": 0.2111,
+        "ic_t": 2.703,
+        "ols": {
+          "beta": -0.019606961040097484,
+          "t": -2.0621042448325713,
+          "p": 0.039197812317832856,
+          "r2": 0.027756809188993592,
+          "n": 165,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.04661699424083017,
+          "t": -1.6051695779709614,
+          "p": 0.10845649051156803,
+          "r2": 0.1405938470031841,
+          "n": 165,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1693,
+        "last_chg": 3.322114,
+        "last_chg_z": 3.28,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 50.8,
+        "source": "ceic",
+        "label": "Mining Products: Copper Ore",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.927
+        }
+      },
+      {
+        "key": "gold",
+        "role": "supply",
+        "why": "gold miners (ANTM/MDKA)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.2416,
+        "pearson_p": 0.001,
+        "spearman": 0.302,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.2416,
+        "ic": 0.0392,
+        "ic_t": 0.529,
+        "ols": {
+          "beta": 0.6228217869691423,
+          "t": 4.8213015837888715,
+          "p": 1.4262453953380725e-06,
+          "r2": 0.058354053991769406,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.6228217869691423,
+          "t": 4.8213015837888715,
+          "p": 1.4262453953380725e-06,
+          "r2": 0.058354053991769406,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1817,
+        "last_chg": -0.016612,
+        "last_chg_z": -0.51,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 49.0,
+        "source": "corr:COMEX:GC1!",
+        "shallow": false,
+        "label": "Gold",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.25
+        }
+      },
+      {
+        "key": "CEICI502593537",
+        "role": "supply",
+        "why": "Value: Nails, Tacks, Drawing Pins, Staples (Other",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": -0.2007,
+        "pearson_p": 0.0623,
+        "spearman": -0.1876,
+        "spearman_p": 0.0818,
+        "best_lag": 6,
+        "corr_at_best": -0.3054,
+        "ic": 0.1284,
+        "ic_t": 1.184,
+        "ols": {
+          "beta": -0.022838923297603942,
+          "t": -2.2591161533736686,
+          "p": 0.023876160589818406,
+          "r2": 0.04027882638442826,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.03436217552916958,
+          "t": -3.759176817706182,
+          "p": 0.00017047333050122172,
+          "r2": 0.09328253173219014,
+          "n": 81,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.2219,
+        "last_chg": -0.07077,
+        "last_chg_z": -0.13,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 48.6,
+        "source": "ceic",
+        "label": "Value: Nails, Tacks, Drawing Pins, Staples (Other",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.065
+        }
+      },
+      {
+        "key": "CEICI14080301",
+        "role": "supply",
+        "why": "Gold, incl Gold Deposits",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.2737,
+        "pearson_p": 0.0002,
+        "spearman": 0.3299,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.2737,
+        "ic": 0.0508,
+        "ic_t": 0.687,
+        "ols": {
+          "beta": 0.6800479282097083,
+          "t": 5.287771048580836,
+          "p": 1.2381581388722536e-07,
+          "r2": 0.07489092609803316,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.6800479282097083,
+          "t": 5.287771048580836,
+          "p": 1.2381581388722536e-07,
+          "r2": 0.07489092609803316,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.2186,
+        "last_chg": -0.016729,
+        "last_chg_z": -0.52,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 47.0,
+        "source": "ceic",
+        "label": "Gold, incl Gold Deposits",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.254
+        }
+      },
+      {
+        "key": "CEICI388026027",
+        "role": "supply",
+        "why": "Export value: Ferro alloy nickel",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 111,
+        "min_n": 24,
+        "pearson": -0.1332,
+        "pearson_p": 0.1635,
+        "spearman": -0.0875,
+        "spearman_p": 0.3609,
+        "best_lag": 6,
+        "corr_at_best": -0.191,
+        "ic": 0.1796,
+        "ic_t": 1.875,
+        "ols": {
+          "beta": -0.026667020772777227,
+          "t": -2.6055078930019637,
+          "p": 0.009173815986532932,
+          "r2": 0.017732613326569502,
+          "n": 111,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.03784523762118727,
+          "t": -2.4764764975453883,
+          "p": 0.013268636059291183,
+          "r2": 0.036475748450338075,
+          "n": 105,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1648,
+        "last_chg": 0.016907,
+        "last_chg_z": -0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.3,
+        "source": "ceic",
+        "label": "Export value: Ferro alloy nickel",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.025
+        }
+      },
+      {
+        "key": "CEICI447391617",
+        "role": "demand",
+        "why": "Gold/ Jewelry",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 89,
+        "min_n": 24,
+        "pearson": 0.2063,
+        "pearson_p": 0.0525,
+        "spearman": 0.093,
+        "spearman_p": 0.3863,
+        "best_lag": 2,
+        "corr_at_best": -0.2296,
+        "ic": 0.0025,
+        "ic_t": 0.023,
+        "ols": {
+          "beta": 0.011677724103171269,
+          "t": 1.782733723641935,
+          "p": 0.074629658941078,
+          "r2": 0.042541420240367,
+          "n": 89,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.013376799357608063,
+          "t": -2.161160909482741,
+          "p": 0.030682911858980963,
+          "r2": 0.052735813864868586,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1603,
+        "last_chg": -2.491944,
+        "last_chg_z": -1.99,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.0,
+        "source": "ceic",
+        "label": "Gold/ Jewelry",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.759
+        }
+      },
+      {
+        "key": "CEICI14523001",
+        "role": "demand",
+        "why": "Local Gold: 24 Caret",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 173,
+        "min_n": 24,
+        "pearson": 0.1604,
+        "pearson_p": 0.035,
+        "spearman": 0.1431,
+        "spearman_p": 0.0603,
+        "best_lag": 0,
+        "corr_at_best": 0.1604,
+        "ic": -0.025,
+        "ic_t": -0.328,
+        "ols": {
+          "beta": 3.5734163281594857e-07,
+          "t": 5.499302747676292,
+          "p": 3.8129598063280894e-08,
+          "r2": 0.025737261303547032,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 3.5734163281594857e-07,
+          "t": 5.499302747676292,
+          "p": 3.8129598063280894e-08,
+          "r2": 0.025737261303547032,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1816,
+        "last_chg": -199333.0,
+        "last_chg_z": -6.04,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.4,
+        "source": "ceic",
+        "label": "Local Gold: 24 Caret",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.995
+        }
+      },
+      {
+        "key": "CEICI357055702",
+        "role": "demand",
+        "why": "USA: Copper and articles thereof",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1314,
+        "pearson_p": 0.0867,
+        "spearman": 0.1075,
+        "spearman_p": 0.1616,
+        "best_lag": 6,
+        "corr_at_best": 0.1816,
+        "ic": -0.0122,
+        "ic_t": -0.158,
+        "ols": {
+          "beta": 0.028909239979365856,
+          "t": 1.6435659045743154,
+          "p": 0.10026590157616191,
+          "r2": 0.017263512064223052,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.028304007051509816,
+          "t": 2.466953590464318,
+          "p": 0.013626801774442301,
+          "r2": 0.03298809093117139,
+          "n": 165,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1327,
+        "last_chg": -0.225142,
+        "last_chg_z": -0.4,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.6,
+        "source": "ceic",
+        "label": "USA: Copper and articles thereof",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.197
+        }
+      },
+      {
+        "key": "CEICI502633517",
+        "role": "demand",
+        "why": "Silver (Including Silver Plated With Gold or Pl...",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 76,
+        "min_n": 24,
+        "pearson": 0.0203,
+        "pearson_p": 0.8617,
+        "spearman": 0.0473,
+        "spearman_p": 0.6851,
+        "best_lag": 1,
+        "corr_at_best": -0.1711,
+        "ic": -0.1256,
+        "ic_t": -1.08,
+        "ols": {
+          "beta": 3.097598451617354e-05,
+          "t": 1.3962767412977553,
+          "p": 0.1626311749841679,
+          "r2": 0.00041280538809651546,
+          "n": 76,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.0002607138816346797,
+          "t": -11.544766171202268,
+          "p": 7.845453910974347e-31,
+          "r2": 0.029264883550252807,
+          "n": 75,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0148,
+        "last_chg": 0.754906,
+        "last_chg_z": -0.11,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.2,
+        "source": "ceic",
+        "label": "Silver (Including Silver Plated With Gold or Pl...",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.055
+        }
+      },
+      {
+        "key": "CEICI653856287",
+        "role": "supply",
+        "why": "World: Copper; Plates, Sheets and Strip, of A Thic",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-12-01",
+        "n": 116,
+        "min_n": 24,
+        "pearson": -0.0974,
+        "pearson_p": 0.2984,
+        "spearman": -0.0078,
+        "spearman_p": 0.9337,
+        "best_lag": 1,
+        "corr_at_best": -0.1644,
+        "ic": -0.136,
+        "ic_t": -1.452,
+        "ols": {
+          "beta": -0.002667159682305409,
+          "t": -1.2598563789876873,
+          "p": 0.2077211771086639,
+          "r2": 0.0094837004753624,
+          "n": 116,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.004564150185283142,
+          "t": -2.575540537984143,
+          "p": 0.010008354058140944,
+          "r2": 0.02704200626736819,
+          "n": 115,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0173,
+        "last_chg": 8.179243,
+        "last_chg_z": 2.64,
+        "last_chg_date": "2025-12-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.6,
+        "source": "ceic",
+        "label": "World: Copper; Plates, Sheets and Strip, of A Thic",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.867
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 47
+  },
+  "unscored": [
+    {
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "role": "macro",
+      "source": "spark",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "wb_tin",
+      "label": "Tin · LME",
+      "role": "supply",
+      "pearson": 0.2231,
+      "p": 0.3671918827562143,
+      "theory_agree": true,
+      "score": 47.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "copper",
+      "label": "Copper",
+      "role": "supply",
+      "pearson": 0.0926,
+      "p": 0.12048445046286756,
+      "theory_agree": true,
+      "score": 38.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502593437",
+      "label": "Value: Copper Waste and Scrap",
+      "role": "supply",
+      "pearson": 0.1495,
+      "p": 0.11646770489355464,
+      "theory_agree": null,
+      "score": 36.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1625,
+      "p": 0.07940575333151981,
+      "theory_agree": null,
+      "score": 33.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI294140102",
+      "label": "Aneka Tambang Tbk, PT: Gold",
+      "role": "supply",
+      "pearson": -0.0988,
+      "p": 0.24593932426530707,
+      "theory_agree": null,
+      "score": 32.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI648786927",
+      "label": "World: Copper Mattes; Cement Copper (Precipitated",
+      "role": "supply",
+      "pearson": -0.1243,
+      "p": 0.15235464894562226,
+      "theory_agree": null,
+      "score": 32.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502593517",
+      "label": "Value: Copper Tube or Pipe Fittings (For Example,",
+      "role": "supply",
+      "pearson": 0.0907,
+      "p": 0.3604340173155194,
+      "theory_agree": null,
+      "score": 31.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502593547",
+      "label": "Value: Table, Kitchen or Other Household Articles",
+      "role": "supply",
+      "pearson": 0.0735,
+      "p": 0.4612163812446477,
+      "theory_agree": null,
+      "score": 31.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502593477",
+      "label": "Value: Copper Wire",
+      "role": "supply",
+      "pearson": 0.1089,
+      "p": 0.37228772863456705,
+      "theory_agree": null,
+      "score": 31.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI224743301",
+      "label": "Total Reserves Minus Gold",
+      "role": "supply",
+      "pearson": 0.0828,
+      "p": 0.1281292195225553,
+      "theory_agree": null,
+      "score": 30.7,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 47,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 11.3,
+  "grade": "perfected",
+  "grade_reasons": []
+}
