@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:46:43",
-  "n_baskets": 21,
+  "generated_at": "2026-06-14T00:46:47",
+  "n_baskets": 22,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -6010,6 +6010,224 @@
         }
       ],
       "generated_at": "2026-06-14T00:46:43"
+    },
+    {
+      "id": "healthcare_pharma",
+      "sub_sector": "Pharma",
+      "sector": "Healthcare",
+      "priority": 22,
+      "status": "done",
+      "grade": "needs_review",
+      "verdict": "NEUTRAL",
+      "score": 47,
+      "confidence": {
+        "level": "high",
+        "score": 72,
+        "reasons": [
+          "max|corr|=0.33",
+          "theory_agree=100%",
+          "stable=67%",
+          "mvR2=0.06",
+          "OOS=54%"
+        ]
+      },
+      "net_tilt": -0.055,
+      "demand_tilt": null,
+      "supply_tilt": -0.116,
+      "cost_tilt": null,
+      "macro_tilt": -0.022,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "usdidr",
+          "id_bi_rate",
+          "CEICI324047402"
+        ],
+        "n": 160,
+        "r2": 0.061,
+        "adj_r2": 0.043,
+        "betas": {
+          "usdidr": {
+            "std_beta": -0.0085,
+            "t": -1.29,
+            "p": 0.1958
+          },
+          "id_bi_rate": {
+            "std_beta": -0.0123,
+            "t": -2.46,
+            "p": 0.014
+          },
+          "CEICI324047402": {
+            "std_beta": -0.0044,
+            "t": -3.32,
+            "p": 0.0009
+          }
+        },
+        "oos_hit_rate": 0.54,
+        "oos_n": 100,
+        "expected_monthly_ret": 0.0018
+      },
+      "narrative": "Pharma (Healthcare) screens NEUTRAL [47/100, high confidence]. Top drivers: Business survey (corr +0.33, lead 3m, now headwind); GDP value added (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.16, lead 0m, now flat). A 3-driver model explains 6% of monthly variance (adj 4%), 54% out-of-sample directional hit-rate; current read ~+0.2%/mo.",
+      "n_kept": 6,
+      "n_tested": 14,
+      "n_used": 13,
+      "members_used": [
+        "DVLA",
+        "INAF",
+        "KAEF",
+        "KLBF",
+        "MDLA",
+        "MERK",
+        "OBAT",
+        "PEHA",
+        "PYFA",
+        "SCPI",
+        "SIDO",
+        "SOHO",
+        "TSPC"
+      ],
+      "coverage": {
+        "W": 804,
+        "M": 185,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-06-12"
+      },
+      "drivers": [
+        {
+          "key": "CEICI506661997",
+          "label": "Business survey",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "Q",
+          "pearson": 0.3336,
+          "excess_pearson": 0.2358,
+          "best_lag": 3,
+          "ic": -0.0769,
+          "beta": 0.27469424814956356,
+          "r2": 0.11130683643216033,
+          "p": 0.030193835229416696,
+          "n": 13,
+          "theory_agree": null,
+          "stable": false,
+          "sign": 1,
+          "why": "Business survey",
+          "posture": "headwind",
+          "last_chg_z": -0.31,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI365765317",
+          "label": "GDP value added",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "Q",
+          "pearson": 0.2484,
+          "excess_pearson": 0.1985,
+          "best_lag": 0,
+          "ic": 0.1628,
+          "beta": 1.0643611213349362,
+          "r2": 0.06170971863939556,
+          "p": 0.0511249507006971,
+          "n": 60,
+          "theory_agree": null,
+          "stable": true,
+          "sign": 1,
+          "why": "GDP value added",
+          "posture": "neutral",
+          "last_chg_z": 0.14,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "usdidr",
+          "label": "USD/IDR",
+          "role": "macro",
+          "source": "corr:FX_IDC:USDIDR",
+          "freq": "M",
+          "pearson": -0.1555,
+          "excess_pearson": 0.0696,
+          "best_lag": 0,
+          "ic": -0.1596,
+          "beta": -0.3372454451273126,
+          "r2": 0.02416527081324049,
+          "p": 0.1443709529133114,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "imported APIs (~90% of inputs)",
+          "posture": "neutral",
+          "last_chg_z": -0.09,
+          "last_obs": "2026-05-08"
+        },
+        {
+          "key": "id_bi_rate",
+          "label": "BI Policy Rate",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDINTR",
+          "freq": "M",
+          "pearson": -0.1586,
+          "excess_pearson": -0.0937,
+          "best_lag": 0,
+          "ic": -0.0914,
+          "beta": -0.05696538512976036,
+          "r2": 0.025146139633210884,
+          "p": 0.03040542259252263,
+          "n": 181,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "policy rate: sector-specific NIM/discount effect",
+          "posture": "neutral",
+          "last_chg_z": 0.05,
+          "last_obs": "2026-04-24"
+        },
+        {
+          "key": "CEICI324047402",
+          "label": "Export volume",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0737,
+          "excess_pearson": -0.0728,
+          "best_lag": 1,
+          "ic": -0.0628,
+          "beta": -0.004076330129913175,
+          "r2": 0.00542601949032695,
+          "p": 0.0009133590090963847,
+          "n": 160,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "Export volume",
+          "posture": "neutral",
+          "last_chg_z": 0.15,
+          "last_obs": "2026-04-01"
+        },
+        {
+          "key": "CEICI412185367",
+          "label": "Investment realization",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "Q",
+          "pearson": 0.0069,
+          "excess_pearson": -0.0082,
+          "best_lag": 3,
+          "ic": -0.1073,
+          "beta": 0.0017520113053866339,
+          "r2": 4.76789576629999e-05,
+          "p": 0.9399015125589603,
+          "n": 60,
+          "theory_agree": null,
+          "stable": false,
+          "sign": 1,
+          "why": "Investment realization",
+          "posture": "headwind",
+          "last_chg_z": -0.63,
+          "last_obs": "2026-03-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:46:47"
     }
   ]
 }

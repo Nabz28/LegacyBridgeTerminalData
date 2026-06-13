@@ -1,0 +1,516 @@
+{
+  "id": "healthcare_pharma",
+  "sub_sector": "Pharma",
+  "sector": "Healthcare",
+  "priority": 22,
+  "generated_at": "2026-06-14T00:46:47",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 13,
+    "n_used": 13,
+    "members_used": [
+      "DVLA",
+      "INAF",
+      "KAEF",
+      "KLBF",
+      "MDLA",
+      "MERK",
+      "OBAT",
+      "PEHA",
+      "PYFA",
+      "SCPI",
+      "SIDO",
+      "SOHO",
+      "TSPC"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 91866730872832.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 47,
+    "net_tilt": -0.055,
+    "demand_tilt": null,
+    "supply_tilt": -0.116,
+    "cost_tilt": null,
+    "macro_tilt": -0.022,
+    "confidence": {
+      "level": "high",
+      "score": 72,
+      "reasons": [
+        "max|corr|=0.33",
+        "theory_agree=100%",
+        "stable=67%",
+        "mvR2=0.06",
+        "OOS=54%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "usdidr",
+        "id_bi_rate",
+        "CEICI324047402"
+      ],
+      "n": 160,
+      "r2": 0.061,
+      "adj_r2": 0.043,
+      "betas": {
+        "usdidr": {
+          "std_beta": -0.0085,
+          "t": -1.29,
+          "p": 0.1958
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0123,
+          "t": -2.46,
+          "p": 0.014
+        },
+        "CEICI324047402": {
+          "std_beta": -0.0044,
+          "t": -3.32,
+          "p": 0.0009
+        }
+      },
+      "oos_hit_rate": 0.54,
+      "oos_n": 100,
+      "expected_monthly_ret": 0.0018
+    },
+    "narrative": "Pharma (Healthcare) screens NEUTRAL [47/100, high confidence]. Top drivers: Business survey (corr +0.33, lead 3m, now headwind); GDP value added (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.16, lead 0m, now flat). A 3-driver model explains 6% of monthly variance (adj 4%), 54% out-of-sample directional hit-rate; current read ~+0.2%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI506661997",
+        "role": "supply",
+        "why": "Business survey",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 13,
+        "min_n": 12,
+        "pearson": 0.3336,
+        "pearson_p": 0.2653,
+        "spearman": 0.2857,
+        "spearman_p": 0.344,
+        "best_lag": 3,
+        "corr_at_best": 0.4873,
+        "ic": -0.0769,
+        "ic_t": -0.255,
+        "ols": {
+          "beta": 0.27469424814956356,
+          "t": 2.167538265424541,
+          "p": 0.030193835229416696,
+          "r2": 0.11130683643216033,
+          "n": 13,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.41227736919697977,
+          "t": 3.717418172845548,
+          "p": 0.00020126914531315229,
+          "r2": 0.23742930614892144,
+          "n": 10,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.2358,
+        "last_chg": -0.057046,
+        "last_chg_z": -0.31,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 53.0,
+        "source": "ceic",
+        "label": "Business survey",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.154
+        }
+      },
+      {
+        "key": "CEICI365765317",
+        "role": "supply",
+        "why": "GDP value added",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.2484,
+        "pearson_p": 0.0556,
+        "spearman": 0.2831,
+        "spearman_p": 0.0284,
+        "best_lag": 0,
+        "corr_at_best": 0.2484,
+        "ic": 0.1628,
+        "ic_t": 1.25,
+        "ols": {
+          "beta": 1.0643611213349362,
+          "t": 1.950429482558384,
+          "p": 0.0511249507006971,
+          "r2": 0.06170971863939556,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.0643611213349362,
+          "t": 1.950429482558384,
+          "p": 0.0511249507006971,
+          "r2": 0.06170971863939556,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1985,
+        "last_chg": 0.018089,
+        "last_chg_z": 0.14,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.1,
+        "source": "ceic",
+        "label": "GDP value added",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.07
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "imported APIs (~90% of inputs)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1555,
+        "pearson_p": 0.0351,
+        "spearman": -0.2369,
+        "spearman_p": 0.0012,
+        "best_lag": 0,
+        "corr_at_best": -0.1555,
+        "ic": -0.1596,
+        "ic_t": -2.153,
+        "ols": {
+          "beta": -0.3372454451273126,
+          "t": -1.4597057791839605,
+          "p": 0.1443709529133114,
+          "r2": 0.02416527081324049,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.3372454451273126,
+          "t": -1.4597057791839605,
+          "p": 0.1443709529133114,
+          "r2": 0.02416527081324049,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0696,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.8,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1586,
+        "pearson_p": 0.033,
+        "spearman": -0.1537,
+        "spearman_p": 0.0389,
+        "best_lag": 0,
+        "corr_at_best": -0.1586,
+        "ic": -0.0914,
+        "ic_t": -1.222,
+        "ols": {
+          "beta": -0.05696538512976036,
+          "t": -2.164768443451709,
+          "p": 0.03040542259252263,
+          "r2": 0.025146139633210884,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.05696538512976036,
+          "t": -2.164768443451709,
+          "p": 0.03040542259252263,
+          "r2": 0.025146139633210884,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0937,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.2,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI324047402",
+        "role": "supply",
+        "why": "Export volume",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.0737,
+        "pearson_p": 0.3546,
+        "spearman": -0.0584,
+        "spearman_p": 0.4635,
+        "best_lag": 1,
+        "corr_at_best": 0.2026,
+        "ic": -0.0628,
+        "ic_t": -0.789,
+        "ols": {
+          "beta": -0.004076330129913175,
+          "t": -3.3159385773884544,
+          "p": 0.0009133590090963847,
+          "r2": 0.00542601949032695,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.011191995969225597,
+          "t": 3.8614222033219954,
+          "p": 0.00011272890816777504,
+          "r2": 0.04106476185775887,
+          "n": 159,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0728,
+        "last_chg": 0.345473,
+        "last_chg_z": 0.15,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.0,
+        "source": "ceic",
+        "label": "Export volume",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.075
+        }
+      },
+      {
+        "key": "CEICI412185367",
+        "role": "supply",
+        "why": "Investment realization",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.0069,
+        "pearson_p": 0.9582,
+        "spearman": -0.0011,
+        "spearman_p": 0.9936,
+        "best_lag": 3,
+        "corr_at_best": 0.1604,
+        "ic": -0.1073,
+        "ic_t": -0.824,
+        "ols": {
+          "beta": 0.0017520113053866339,
+          "t": 0.0753936485404642,
+          "p": 0.9399015125589603,
+          "r2": 4.76789576629999e-05,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.02704573692436833,
+          "t": 2.572478755910277,
+          "p": 0.010097315266708953,
+          "r2": 0.025729194020616797,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0082,
+        "last_chg": -0.885019,
+        "last_chg_z": -0.63,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 12.5,
+        "source": "ceic",
+        "label": "Investment realization",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.305
+        }
+      }
+    ],
+    "n_kept": 6,
+    "n_candidates": 14
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI527094247",
+      "label": "Producer price index",
+      "role": "supply",
+      "pearson": -0.2019,
+      "p": 0.3228428698473712,
+      "theory_agree": null,
+      "score": 36.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI506661587",
+      "label": "PMI subsector",
+      "role": "supply",
+      "pearson": 0.1559,
+      "p": 0.13521508700829987,
+      "theory_agree": null,
+      "score": 35.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.3093,
+      "p": 0.1345694520295594,
+      "theory_agree": false,
+      "score": 35.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "cost",
+      "pearson": -0.1063,
+      "p": 0.2852947243690739,
+      "theory_agree": true,
+      "score": 34.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "role": "demand",
+      "pearson": 0.0301,
+      "p": 6.340063305010325e-05,
+      "theory_agree": true,
+      "score": 32.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI506662937",
+      "label": "Capacity utilization",
+      "role": "supply",
+      "pearson": 0.1259,
+      "p": 0.2380322191553389,
+      "theory_agree": null,
+      "score": 26.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324037702",
+      "label": "Export value",
+      "role": "supply",
+      "pearson": 0.048,
+      "p": 0.4587386836705152,
+      "theory_agree": null,
+      "score": 19.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323782002",
+      "label": "Import value",
+      "role": "demand",
+      "pearson": -0.0112,
+      "p": 0.8618497271526913,
+      "theory_agree": false,
+      "score": 3.9,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 14,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.4,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
