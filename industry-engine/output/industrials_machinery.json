@@ -1,0 +1,899 @@
+{
+  "id": "industrials_machinery",
+  "sub_sector": "Machinery",
+  "sector": "Industrials",
+  "priority": 20,
+  "generated_at": "2026-06-14T00:46:29",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 19,
+    "n_used": 19,
+    "members_used": [
+      "AMIN",
+      "ARKA",
+      "ASGR",
+      "CTTH",
+      "HEXA",
+      "INTA",
+      "JTPE",
+      "KIAS",
+      "KOBX",
+      "KOIN",
+      "KONI",
+      "KUAS",
+      "LABA",
+      "MARK",
+      "SKRN",
+      "SMIL",
+      "SPTO",
+      "TIRA",
+      "UNTR"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 107543781236736.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 48,
+    "net_tilt": -0.04,
+    "demand_tilt": 0.157,
+    "supply_tilt": -0.095,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "medium",
+      "score": 57,
+      "reasons": [
+        "max|corr|=0.18",
+        "theory_agree=67%",
+        "stable=83%",
+        "mvR2=0.11",
+        "OOS=66%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "id_bi_rate",
+        "CEICI323568502",
+        "CEICI323568602",
+        "CEICI323568302",
+        "CEICI323568202",
+        "CEICI323567802"
+      ],
+      "n": 165,
+      "r2": 0.113,
+      "adj_r2": 0.079,
+      "betas": {
+        "id_bi_rate": {
+          "std_beta": -0.0095,
+          "t": -2.46,
+          "p": 0.014
+        },
+        "CEICI323568502": {
+          "std_beta": -0.0118,
+          "t": -1.76,
+          "p": 0.0788
+        },
+        "CEICI323568602": {
+          "std_beta": 0.0135,
+          "t": 2.61,
+          "p": 0.0091
+        },
+        "CEICI323568302": {
+          "std_beta": -0.0007,
+          "t": -0.15,
+          "p": 0.8779
+        },
+        "CEICI323568202": {
+          "std_beta": -0.0084,
+          "t": -1.61,
+          "p": 0.108
+        },
+        "CEICI323567802": {
+          "std_beta": 0.0053,
+          "t": 1.42,
+          "p": 0.1559
+        }
+      },
+      "oos_hit_rate": 0.657,
+      "oos_n": 105,
+      "expected_monthly_ret": -0.0107
+    },
+    "narrative": "Machinery (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.17, lead 5m, now flat); FDI: Machinery & electronics (corr +0.12, lead 2m, now flat); Manufacturing: Electrical Equipment (corr -0.12, lead 1m, now flat). A 6-driver model explains 11% of monthly variance (adj 8%), 66% out-of-sample directional hit-rate; current read ~-1.1%/mo.",
+    "drivers": [
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1722,
+        "pearson_p": 0.0205,
+        "spearman": -0.1837,
+        "spearman_p": 0.0133,
+        "best_lag": 5,
+        "corr_at_best": -0.2,
+        "ic": -0.2027,
+        "ic_t": -2.712,
+        "ols": {
+          "beta": -0.052810848080288304,
+          "t": -2.4085975053101922,
+          "p": 0.016013947962184062,
+          "r2": 0.02964285081146434,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.06076199539714109,
+          "t": -2.6970585144910415,
+          "p": 0.006995497667093961,
+          "r2": 0.039991660691498176,
+          "n": 176,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0938,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.1,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI410108517",
+        "role": "demand",
+        "why": "FDI: Machinery & electronics",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.1198,
+        "pearson_p": 0.362,
+        "spearman": 0.1404,
+        "spearman_p": 0.2847,
+        "best_lag": 2,
+        "corr_at_best": 0.2867,
+        "ic": -0.1726,
+        "ic_t": -1.326,
+        "ols": {
+          "beta": 0.01993387370772259,
+          "t": 1.1760127927566633,
+          "p": 0.23958976405001964,
+          "r2": 0.01434593278470575,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.047244904988361654,
+          "t": 2.9297616481174025,
+          "p": 0.0033922209343535937,
+          "r2": 0.08220804462485365,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0897,
+        "last_chg": -0.086505,
+        "last_chg_z": -0.12,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 47.3,
+        "source": "ceic",
+        "label": "FDI: Machinery & electronics",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.06
+        }
+      },
+      {
+        "key": "CEICI323568502",
+        "role": "supply",
+        "why": "Manufacturing: Electrical Equipment",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.1203,
+        "pearson_p": 0.1214,
+        "spearman": -0.0813,
+        "spearman_p": 0.2961,
+        "best_lag": 1,
+        "corr_at_best": 0.1851,
+        "ic": 0.185,
+        "ic_t": 2.384,
+        "ols": {
+          "beta": -0.07471393422826901,
+          "t": -1.5379361063104795,
+          "p": 0.12406423797352453,
+          "r2": 0.014475418963220132,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.11468338155119816,
+          "t": 2.029593609052525,
+          "p": 0.042397865075171515,
+          "r2": 0.034279800756143675,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0585,
+        "last_chg": 0.029788,
+        "last_chg_z": 0.28,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 43.9,
+        "source": "ceic",
+        "label": "Manufacturing: Electrical Equipment",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.139
+        }
+      },
+      {
+        "key": "CEICI365765387",
+        "role": "demand",
+        "why": "GDP: Furniture",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.0834,
+        "pearson_p": 0.5263,
+        "spearman": 0.0715,
+        "spearman_p": 0.5871,
+        "best_lag": 3,
+        "corr_at_best": 0.2425,
+        "ic": -0.1139,
+        "ic_t": -0.875,
+        "ols": {
+          "beta": 0.23666893207341438,
+          "t": 0.916299513703882,
+          "p": 0.359509823010834,
+          "r2": 0.006957852525175001,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.7178571754528107,
+          "t": 3.453400969832287,
+          "p": 0.0005535655111883876,
+          "r2": 0.05881537856666419,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.046,
+        "last_chg": 0.074458,
+        "last_chg_z": 1.85,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.8,
+        "source": "ceic",
+        "label": "GDP: Furniture",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.728
+        }
+      },
+      {
+        "key": "CEICI323568602",
+        "role": "supply",
+        "why": "Manufacturing: Machinery and Equipments",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.1367,
+        "pearson_p": 0.0782,
+        "spearman": 0.1129,
+        "spearman_p": 0.1462,
+        "best_lag": 0,
+        "corr_at_best": 0.1367,
+        "ic": 0.1214,
+        "ic_t": 1.564,
+        "ols": {
+          "beta": 0.07653079624104903,
+          "t": 1.697208161602252,
+          "p": 0.08965731264660351,
+          "r2": 0.018682839874446633,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.07653079624104903,
+          "t": 1.697208161602252,
+          "p": 0.08965731264660351,
+          "r2": 0.018682839874446633,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.127,
+        "last_chg": -0.047986,
+        "last_chg_z": -0.54,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 37.5,
+        "source": "ceic",
+        "label": "Manufacturing: Machinery and Equipments",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.264
+        }
+      },
+      {
+        "key": "CEICI323568302",
+        "role": "supply",
+        "why": "Manufacturing: Fabricated Metal Prod except Machin",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0889,
+        "pearson_p": 0.2531,
+        "spearman": -0.1108,
+        "spearman_p": 0.154,
+        "best_lag": 1,
+        "corr_at_best": 0.1627,
+        "ic": 0.1432,
+        "ic_t": 1.844,
+        "ols": {
+          "beta": -0.05588994611445193,
+          "t": -1.2072694380469087,
+          "p": 0.22732839647709668,
+          "r2": 0.007909990068530437,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.10253666306670534,
+          "t": 1.9441038912504027,
+          "p": 0.05188292412416059,
+          "r2": 0.026475246024146415,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1428,
+        "last_chg": 0.09534,
+        "last_chg_z": 1.05,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 37.1,
+        "source": "ceic",
+        "label": "Manufacturing: Fabricated Metal Prod except Machin",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.482
+        }
+      },
+      {
+        "key": "CEICI410108537",
+        "role": "demand",
+        "why": "DDI: Basic metals & metal goods",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": -0.1784,
+        "pearson_p": 0.1726,
+        "spearman": -0.0641,
+        "spearman_p": 0.6267,
+        "best_lag": 3,
+        "corr_at_best": 0.1945,
+        "ic": 0.098,
+        "ic_t": 0.753,
+        "ols": {
+          "beta": -0.02864970621907938,
+          "t": -1.7262575035530716,
+          "p": 0.08430109699649592,
+          "r2": 0.031836820013949385,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.026150597008853207,
+          "t": 1.4747458828071336,
+          "p": 0.14028087548569712,
+          "r2": 0.03784559365413698,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1244,
+        "last_chg": 0.748646,
+        "last_chg_z": 0.4,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.6,
+        "source": "ceic",
+        "label": "DDI: Basic metals & metal goods",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.197
+        }
+      },
+      {
+        "key": "CEICI323568202",
+        "role": "supply",
+        "why": "Manufacturing: Basic Metals",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.1387,
+        "pearson_p": 0.0739,
+        "spearman": -0.0809,
+        "spearman_p": 0.2986,
+        "best_lag": 0,
+        "corr_at_best": -0.1387,
+        "ic": -0.041,
+        "ic_t": -0.528,
+        "ols": {
+          "beta": -0.12794879429051592,
+          "t": -1.8718286658903835,
+          "p": 0.06123031103704975,
+          "r2": 0.019235441552660215,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.12794879429051592,
+          "t": -1.8718286658903835,
+          "p": 0.06123031103704975,
+          "r2": 0.019235441552660215,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1168,
+        "last_chg": 0.030637,
+        "last_chg_z": 0.45,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 32.7,
+        "source": "ceic",
+        "label": "Manufacturing: Basic Metals",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.221
+        }
+      },
+      {
+        "key": "CEICI323567802",
+        "role": "supply",
+        "why": "Manufacturing: Chemicals and Chemical Products",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.0382,
+        "pearson_p": 0.6244,
+        "spearman": 0.0343,
+        "spearman_p": 0.6601,
+        "best_lag": 5,
+        "corr_at_best": -0.1606,
+        "ic": 0.0845,
+        "ic_t": 1.088,
+        "ols": {
+          "beta": 0.037847495801477685,
+          "t": 0.5490588603039016,
+          "p": 0.582965056729416,
+          "r2": 0.001456617610463673,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.15967439803188174,
+          "t": -1.928631707059114,
+          "p": 0.053776599887470744,
+          "r2": 0.025793286984941655,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1151,
+        "last_chg": -0.053639,
+        "last_chg_z": -1.01,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 24.3,
+        "source": "ceic",
+        "label": "Manufacturing: Chemicals and Chemical Products",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.466
+        }
+      },
+      {
+        "key": "CEICI323567902",
+        "role": "supply",
+        "why": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.036,
+        "pearson_p": 0.6445,
+        "spearman": 0.0105,
+        "spearman_p": 0.8928,
+        "best_lag": 1,
+        "corr_at_best": 0.1735,
+        "ic": 0.157,
+        "ic_t": 2.023,
+        "ols": {
+          "beta": -0.02309407161073139,
+          "t": -0.41584643714387265,
+          "p": 0.6775223760874729,
+          "r2": 0.001293699333167142,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.11197892743342489,
+          "t": 3.0106339478801605,
+          "p": 0.00260702931802755,
+          "r2": 0.030116107924133106,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0125,
+        "last_chg": -0.103483,
+        "last_chg_z": -1.29,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 21.6,
+        "source": "ceic",
+        "label": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.568
+        }
+      },
+      {
+        "key": "CEICI323568402",
+        "role": "supply",
+        "why": "Manufacturing: Computers, Electronics and Optical",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0269,
+        "pearson_p": 0.7296,
+        "spearman": 0.0072,
+        "spearman_p": 0.9265,
+        "best_lag": 3,
+        "corr_at_best": -0.2179,
+        "ic": 0.0647,
+        "ic_t": 0.833,
+        "ols": {
+          "beta": -0.017113638101574548,
+          "t": -0.4198918231189683,
+          "p": 0.6745644814449792,
+          "r2": 0.000726137380791414,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.13832699712352364,
+          "t": -2.7900475923823516,
+          "p": 0.0052700294214190575,
+          "r2": 0.047468728785548975,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.052,
+        "last_chg": -0.184122,
+        "last_chg_z": -2.07,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 20.9,
+        "source": "ceic",
+        "label": "Manufacturing: Computers, Electronics and Optical",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.776
+        }
+      },
+      {
+        "key": "CEICI323567702",
+        "role": "supply",
+        "why": "Manufacturing: Printing and Reproduction of Record",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0725,
+        "pearson_p": 0.352,
+        "spearman": -0.0429,
+        "spearman_p": 0.582,
+        "best_lag": 4,
+        "corr_at_best": -0.1867,
+        "ic": 0.0225,
+        "ic_t": 0.29,
+        "ols": {
+          "beta": -0.02909843917953196,
+          "t": -1.0305136522249956,
+          "p": 0.3027689468662629,
+          "r2": 0.005250903148284802,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.07456281311491551,
+          "t": -2.5154384215815995,
+          "p": 0.01188844431809343,
+          "r2": 0.034875023234378966,
+          "n": 164,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.044,
+        "last_chg": 0.215141,
+        "last_chg_z": 1.18,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 20.7,
+        "source": "ceic",
+        "label": "Manufacturing: Printing and Reproduction of Record",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.53
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 42
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.2475,
+      "p": 0.0004942892075939466,
+      "theory_agree": false,
+      "score": 39.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.1764,
+      "p": 0.13099116780103687,
+      "theory_agree": null,
+      "score": 39.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567502",
+      "label": "Manufacturing: Wood and Prod of Woods and Cork exc",
+      "role": "supply",
+      "pearson": -0.1136,
+      "p": 0.1052503322218876,
+      "theory_agree": null,
+      "score": 38.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323568702",
+      "label": "Manufacturing: Motor vehicles, Trailers and Semitr",
+      "role": "supply",
+      "pearson": -0.1106,
+      "p": 0.11912190793347233,
+      "theory_agree": null,
+      "score": 37.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13516001",
+      "label": "Mfg production: Tea",
+      "role": "supply",
+      "pearson": 0.1144,
+      "p": 0.15345462484465489,
+      "theory_agree": null,
+      "score": 33.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "role": "cost",
+      "pearson": -0.0453,
+      "p": 0.4412269302261641,
+      "theory_agree": true,
+      "score": 32.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "role": "demand",
+      "pearson": -0.1911,
+      "p": 0.40007466364875965,
+      "theory_agree": false,
+      "score": 32.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.1459,
+      "p": 0.10969167927970126,
+      "theory_agree": null,
+      "score": 30.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "role": "demand",
+      "pearson": 0.0587,
+      "p": 0.4808170035406256,
+      "theory_agree": true,
+      "score": 29.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323787402",
+      "label": "Import value: electrical machinery",
+      "role": "demand",
+      "pearson": 0.087,
+      "p": 0.3361216240718773,
+      "theory_agree": true,
+      "score": 29.3,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 42,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 10.8,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
