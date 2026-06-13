@@ -436,7 +436,8 @@ SEED = {
     "IT Services": {
         "ceic": [("Technology", None)],
         "globals": [],
-        "macro": [("us_10y", "macro", -1, "duration/discount-rate sensitivity"),
+        "macro": [("id_10y", "macro", -1, "data-center/IT-infra duration (DCII) rate-sensitivity"),
+                  ("us_10y", "macro", -1, "global duration/discount-rate sensitivity"),
                   ("ndx", "demand", +1, "global tech beta"),
                   ("id_gdp_real_q", "demand", +1, "digital spend")],
     },
