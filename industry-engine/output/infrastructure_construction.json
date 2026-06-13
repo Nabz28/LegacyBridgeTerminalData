@@ -1,0 +1,904 @@
+{
+  "id": "infrastructure_construction",
+  "sub_sector": "Construction",
+  "sector": "Infrastructure",
+  "priority": 29,
+  "generated_at": "2026-06-14T00:47:17",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 16,
+    "n_used": 16,
+    "members_used": [
+      "ACST",
+      "ADHI",
+      "BUKK",
+      "DGIK",
+      "IDPR",
+      "JKON",
+      "MTRA",
+      "NRCA",
+      "PPRE",
+      "PTPP",
+      "PTPW",
+      "SSIA",
+      "TOTL",
+      "WEGE",
+      "WIKA",
+      "WSKT"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 37295650996224.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 55,
+    "net_tilt": 0.095,
+    "demand_tilt": -0.076,
+    "supply_tilt": -0.005,
+    "cost_tilt": 0.806,
+    "macro_tilt": 0.378,
+    "confidence": {
+      "level": "medium",
+      "score": 46,
+      "reasons": [
+        "max|corr|=0.31",
+        "theory_agree=25%",
+        "stable=42%",
+        "mvR2=0.14",
+        "OOS=56%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "usdidr",
+        "CEICI323569102",
+        "CEICI323568202",
+        "CEICI323567702",
+        "id_cpi_yoy",
+        "CEICI323568102"
+      ],
+      "n": 145,
+      "r2": 0.135,
+      "adj_r2": 0.097,
+      "betas": {
+        "usdidr": {
+          "std_beta": -0.0289,
+          "t": -1.9,
+          "p": 0.0569
+        },
+        "CEICI323569102": {
+          "std_beta": 0.008,
+          "t": 1.58,
+          "p": 0.1139
+        },
+        "CEICI323568202": {
+          "std_beta": -0.0132,
+          "t": -1.69,
+          "p": 0.0915
+        },
+        "CEICI323567702": {
+          "std_beta": -0.008,
+          "t": -1.1,
+          "p": 0.2712
+        },
+        "id_cpi_yoy": {
+          "std_beta": -0.0054,
+          "t": -0.5,
+          "p": 0.6177
+        },
+        "CEICI323568102": {
+          "std_beta": 0.0102,
+          "t": 1.03,
+          "p": 0.3042
+        }
+      },
+      "oos_hit_rate": 0.565,
+      "oos_n": 85,
+      "expected_monthly_ret": -0.0214
+    },
+    "narrative": "Construction (Infrastructure) screens NEUTRAL [55/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); FDI: Machinery & electronics (corr +0.08, lead 3m, now flat); Manufacturing: Repair and Installation of Machiner (corr +0.13, lead 0m, now tailwind). A 6-driver model explains 14% of monthly variance (adj 10%), 56% out-of-sample directional hit-rate; current read ~-2.1%/mo.",
+    "drivers": [
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.3145,
+        "pearson_p": 0.0,
+        "spearman": -0.3336,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": -0.3145,
+        "ic": -0.0824,
+        "ic_t": -1.111,
+        "ols": {
+          "beta": -0.9974495012464935,
+          "t": -2.057450028208408,
+          "p": 0.0396429570796054,
+          "r2": 0.0988887802739844,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.9974495012464935,
+          "t": -2.057450028208408,
+          "p": 0.0396429570796054,
+          "r2": 0.0988887802739844,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.2196,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 53.0,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI410108517",
+        "role": "demand",
+        "why": "FDI: Machinery & electronics",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.0812,
+        "pearson_p": 0.5372,
+        "spearman": 0.1498,
+        "spearman_p": 0.2532,
+        "best_lag": 3,
+        "corr_at_best": -0.3379,
+        "ic": -0.2288,
+        "ic_t": -1.758,
+        "ols": {
+          "beta": 0.024632323445086785,
+          "t": 0.707872594477839,
+          "p": 0.4790243799441084,
+          "r2": 0.0065993071638486,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.10145573298924687,
+          "t": -2.9489432159960667,
+          "p": 0.003188625574277049,
+          "r2": 0.1142086220206533,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0764,
+        "last_chg": -0.086505,
+        "last_chg_z": -0.12,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.5,
+        "source": "ceic",
+        "label": "FDI: Machinery & electronics",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.06
+        }
+      },
+      {
+        "key": "CEICI323569102",
+        "role": "supply",
+        "why": "Manufacturing: Repair and Installation of Machiner",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.1265,
+        "pearson_p": 0.1033,
+        "spearman": 0.1494,
+        "spearman_p": 0.054,
+        "best_lag": 0,
+        "corr_at_best": 0.1265,
+        "ic": -0.1343,
+        "ic_t": -1.731,
+        "ols": {
+          "beta": 0.05967007793572586,
+          "t": 1.780300671707799,
+          "p": 0.07502676726869739,
+          "r2": 0.01599917755061897,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.05967007793572586,
+          "t": 1.780300671707799,
+          "p": 0.07502676726869739,
+          "r2": 0.01599917755061897,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1485,
+        "last_chg": 0.175738,
+        "last_chg_z": 0.88,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 37.8,
+        "source": "ceic",
+        "label": "Manufacturing: Repair and Installation of Machiner",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.414
+        }
+      },
+      {
+        "key": "CEICI323568202",
+        "role": "supply",
+        "why": "Manufacturing: Basic Metals",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.1206,
+        "pearson_p": 0.1206,
+        "spearman": -0.1152,
+        "spearman_p": 0.1383,
+        "best_lag": 6,
+        "corr_at_best": -0.1825,
+        "ic": 0.0138,
+        "ic_t": 0.178,
+        "ols": {
+          "beta": -0.19716318763758586,
+          "t": -1.8182733093266403,
+          "p": 0.06902237012810016,
+          "r2": 0.014544174793448161,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.29582109405452894,
+          "t": -2.23771301553637,
+          "p": 0.025239775938800335,
+          "r2": 0.03331865530035971,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1291,
+        "last_chg": 0.030637,
+        "last_chg_z": 0.45,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 33.3,
+        "source": "ceic",
+        "label": "Manufacturing: Basic Metals",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.221
+        }
+      },
+      {
+        "key": "CEICI410108507",
+        "role": "demand",
+        "why": "FDI: Basic metals & metal goods",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": -0.1746,
+        "pearson_p": 0.1821,
+        "spearman": -0.2057,
+        "spearman_p": 0.1148,
+        "best_lag": 3,
+        "corr_at_best": -0.2991,
+        "ic": 0.0672,
+        "ic_t": 0.516,
+        "ols": {
+          "beta": -0.07448354933168573,
+          "t": -1.2194353615266447,
+          "p": 0.22267899534405844,
+          "r2": 0.030486400603025987,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.1218229287613139,
+          "t": -2.865413261329927,
+          "p": 0.004164653481305198,
+          "r2": 0.08948893304658112,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1532,
+        "last_chg": -0.04086,
+        "last_chg_z": -0.06,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.2,
+        "source": "ceic",
+        "label": "FDI: Basic metals & metal goods",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.03
+        }
+      },
+      {
+        "key": "wb_coal_au",
+        "role": "cost",
+        "why": "cement/energy input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.2242,
+        "pearson_p": 0.3038,
+        "spearman": 0.2708,
+        "spearman_p": 0.2115,
+        "best_lag": 6,
+        "corr_at_best": -0.4499,
+        "ic": -0.0762,
+        "ic_t": -0.349,
+        "ols": {
+          "beta": 0.3438742322433437,
+          "t": 0.980580695124414,
+          "p": 0.3267995580816837,
+          "r2": 0.050254266819046545,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.6476033102719694,
+          "t": -2.2303769128975643,
+          "p": 0.025722430957108654,
+          "r2": 0.20237193602388515,
+          "n": 17,
+          "hac_lag": 3
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": 0.3618,
+        "last_chg": 0.136308,
+        "last_chg_z": 2.23,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 28.8,
+        "source": "spark",
+        "shallow": true,
+        "label": "Coal · Australia (Newcastle)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.806
+        }
+      },
+      {
+        "key": "CEICI323567702",
+        "role": "supply",
+        "why": "Manufacturing: Printing and Reproduction of Record",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0589,
+        "pearson_p": 0.4496,
+        "spearman": -0.0045,
+        "spearman_p": 0.9544,
+        "best_lag": 4,
+        "corr_at_best": -0.1999,
+        "ic": 0.0979,
+        "ic_t": 1.261,
+        "ols": {
+          "beta": -0.041912048494308324,
+          "t": -0.732661018396586,
+          "p": 0.4637652050069979,
+          "r2": 0.0034688063358742083,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.1417837449398977,
+          "t": -2.0786379001977546,
+          "p": 0.03765064470476512,
+          "r2": 0.039967471044307534,
+          "n": 164,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0514,
+        "last_chg": 0.215141,
+        "last_chg_z": 1.18,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 28.4,
+        "source": "ceic",
+        "label": "Manufacturing: Printing and Reproduction of Record",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.53
+        }
+      },
+      {
+        "key": "id_cpi_yoy",
+        "role": "macro",
+        "why": "inflation regime",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-03",
+        "n": 159,
+        "min_n": 24,
+        "pearson": -0.0762,
+        "pearson_p": 0.3396,
+        "spearman": 0.0062,
+        "spearman_p": 0.9382,
+        "best_lag": 4,
+        "corr_at_best": -0.1712,
+        "ic": 0.1,
+        "ic_t": 1.254,
+        "ols": {
+          "beta": -0.012864377556196752,
+          "t": -0.6726753652002032,
+          "p": 0.5011538433417126,
+          "r2": 0.005810992152040728,
+          "n": 159,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.029913673974217313,
+          "t": -2.370837203164504,
+          "p": 0.01774784639327181,
+          "r2": 0.029303418826332472,
+          "n": 155,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0445,
+        "last_chg": -1.28,
+        "last_chg_z": -2.2,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 23.2,
+        "source": "corr:ECONOMICS:IDIRYY",
+        "shallow": false,
+        "label": "Indonesia CPI (YoY)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.8
+        }
+      },
+      {
+        "key": "CEICI323568102",
+        "role": "supply",
+        "why": "Manufacturing: Non- Metallic Mineral Products",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.0261,
+        "pearson_p": 0.7377,
+        "spearman": 0.0454,
+        "spearman_p": 0.5602,
+        "best_lag": 2,
+        "corr_at_best": 0.1507,
+        "ic": 0.0773,
+        "ic_t": 0.996,
+        "ols": {
+          "beta": 0.02857580864396819,
+          "t": 0.35525349081143,
+          "p": 0.7223996948216835,
+          "r2": 0.000681660486779756,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.16518805005635312,
+          "t": 2.0942218405733173,
+          "p": 0.03624022306230256,
+          "r2": 0.022713392265296117,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.013,
+        "last_chg": -0.069688,
+        "last_chg_z": -0.79,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 14.9,
+        "source": "ceic",
+        "label": "Manufacturing: Non- Metallic Mineral Products",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.376
+        }
+      },
+      {
+        "key": "CEICI323567002",
+        "role": "supply",
+        "why": "Manufacturing: Beverages",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0366,
+        "pearson_p": 0.6385,
+        "spearman": -0.0288,
+        "spearman_p": 0.7114,
+        "best_lag": 5,
+        "corr_at_best": 0.1979,
+        "ic": -0.006,
+        "ic_t": -0.077,
+        "ols": {
+          "beta": -0.050866067940577776,
+          "t": -0.596811731477522,
+          "p": 0.5506330845644347,
+          "r2": 0.001340727252415741,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.2697345178202824,
+          "t": 2.9706973258896454,
+          "p": 0.0029712445632212986,
+          "r2": 0.039172142888547534,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0332,
+        "last_chg": 0.015362,
+        "last_chg_z": 0.19,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 13.4,
+        "source": "ceic",
+        "label": "Manufacturing: Beverages",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.095
+        }
+      },
+      {
+        "key": "CEICI323568402",
+        "role": "supply",
+        "why": "Manufacturing: Computers, Electronics and Optical",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": -0.0087,
+        "pearson_p": 0.9111,
+        "spearman": 0.0129,
+        "spearman_p": 0.8686,
+        "best_lag": 6,
+        "corr_at_best": -0.1934,
+        "ic": 0.0087,
+        "ic_t": 0.112,
+        "ols": {
+          "beta": -0.009799566561510764,
+          "t": -0.12770523606704207,
+          "p": 0.8983822462431671,
+          "r2": 7.581506290277318e-05,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.2175860840048339,
+          "t": -2.1791365131579283,
+          "p": 0.029321528495607915,
+          "r2": 0.037405293391998495,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0241,
+        "last_chg": -0.184122,
+        "last_chg_z": -2.07,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 6.6,
+        "source": "ceic",
+        "label": "Manufacturing: Computers, Electronics and Optical",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.776
+        }
+      },
+      {
+        "key": "CEICI410108537",
+        "role": "demand",
+        "why": "DDI: Basic metals & metal goods",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": -0.0124,
+        "pearson_p": 0.9252,
+        "spearman": -0.0237,
+        "spearman_p": 0.8575,
+        "best_lag": 3,
+        "corr_at_best": 0.2962,
+        "ic": 0.0402,
+        "ic_t": 0.309,
+        "ols": {
+          "beta": -0.003620913749423707,
+          "t": -0.10887699902623135,
+          "p": 0.9133000502916493,
+          "r2": 0.0001532032206642553,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0725345534503441,
+          "t": 2.7718606993586667,
+          "p": 0.005573688286175004,
+          "r2": 0.08771708447214033,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": 0.0392,
+        "last_chg": 0.748646,
+        "last_chg_z": 0.4,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 0.7,
+        "source": "ceic",
+        "label": "DDI: Basic metals & metal goods",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.197
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 41
+  },
+  "unscored": [
+    {
+      "key": "id_govt_debt",
+      "label": "Govt Debt (% GDP)",
+      "role": "demand",
+      "source": "spark",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1213,
+      "p": 0.15649030598464572,
+      "theory_agree": true,
+      "score": 36.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323568902",
+      "label": "Manufacturing: Furniture",
+      "role": "supply",
+      "pearson": 0.0739,
+      "p": 0.31516809742316887,
+      "theory_agree": null,
+      "score": 25.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "role": "cost",
+      "pearson": -0.0434,
+      "p": 0.5916677922481199,
+      "theory_agree": true,
+      "score": 25.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI365765387",
+      "label": "GDP: Furniture",
+      "role": "demand",
+      "pearson": 0.0197,
+      "p": 0.8166895898455806,
+      "theory_agree": true,
+      "score": 24.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567302",
+      "label": "Manufacturing: Wearing Apparel",
+      "role": "supply",
+      "pearson": 0.034,
+      "p": 0.6026466471527794,
+      "theory_agree": null,
+      "score": 24.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323568502",
+      "label": "Manufacturing: Electrical Equipment",
+      "role": "supply",
+      "pearson": -0.0399,
+      "p": 0.5888172895235292,
+      "theory_agree": null,
+      "score": 23.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567402",
+      "label": "Manufacturing: Leather and Related Products and Fo",
+      "role": "supply",
+      "pearson": -0.043,
+      "p": 0.42945906291201286,
+      "theory_agree": null,
+      "score": 23.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13516001",
+      "label": "Mfg production: Tea",
+      "role": "supply",
+      "pearson": -0.0941,
+      "p": 0.14000180641967505,
+      "theory_agree": null,
+      "score": 23.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567602",
+      "label": "Manufacturing: Paper and Paper Products",
+      "role": "supply",
+      "pearson": -0.0367,
+      "p": 0.5641628212699938,
+      "theory_agree": null,
+      "score": 22.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324043102",
+      "label": "Export value: electrical machinery",
+      "role": "supply",
+      "pearson": 0.0579,
+      "p": 0.4376069195721298,
+      "theory_agree": null,
+      "score": 22.6,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 41,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 2.3,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
