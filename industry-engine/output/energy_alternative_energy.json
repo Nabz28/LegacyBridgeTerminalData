@@ -1,0 +1,848 @@
+{
+  "id": "energy_alternative_energy",
+  "sub_sector": "Alternative Energy",
+  "sector": "Energy",
+  "priority": 5,
+  "generated_at": "2026-06-14T00:37:45",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 6,
+    "n_used": 6,
+    "members_used": [
+      "ARKO",
+      "BREN",
+      "KEEN",
+      "OASA",
+      "PGEO",
+      "POWR"
+    ],
+    "coverage": {
+      "W": 514,
+      "M": 119,
+      "Q": 40,
+      "first": "2016-06-24",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 401837450854400.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 50,
+    "net_tilt": 0.0,
+    "demand_tilt": 0.0,
+    "supply_tilt": null,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "medium",
+      "score": 48,
+      "reasons": [
+        "max|corr|=0.17",
+        "theory_agree=36%",
+        "stable=8%",
+        "mvR2=0.05",
+        "OOS=61%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI385762117",
+        "CEICI385762187",
+        "CEICI385762217",
+        "CEICI385762177",
+        "CEICI385762077",
+        "CEICI385762017"
+      ],
+      "n": 119,
+      "r2": 0.051,
+      "adj_r2": 0.018,
+      "betas": {
+        "CEICI385762117": {
+          "std_beta": 0.0016,
+          "t": 0.12,
+          "p": 0.9014
+        },
+        "CEICI385762187": {
+          "std_beta": 0.0047,
+          "t": 1.07,
+          "p": 0.2849
+        },
+        "CEICI385762217": {
+          "std_beta": 0.0047,
+          "t": 1.07,
+          "p": 0.2849
+        },
+        "CEICI385762177": {
+          "std_beta": 0.0047,
+          "t": 1.07,
+          "p": 0.2849
+        },
+        "CEICI385762077": {
+          "std_beta": -0.1931,
+          "t": -4.25,
+          "p": 0.0
+        },
+        "CEICI385762017": {
+          "std_beta": 0.1723,
+          "t": 3.57,
+          "p": 0.0004
+        }
+      },
+      "oos_hit_rate": 0.61,
+      "oos_n": 59,
+      "expected_monthly_ret": 0.0171
+    },
+    "narrative": "Alternative Energy (Energy) screens NEUTRAL [50/100, medium confidence]. Top drivers: Tariff: Government (corr +0.12, lead 2m, now flat); > 6,600 VA: Prepaid (corr +0.10, lead 2m, now flat); P3 Category: Prepaid (corr +0.10, lead 2m, now flat). A 6-driver model explains 5% of monthly variance (adj 2%), 61% out-of-sample directional hit-rate; current read ~+1.7%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI385762117",
+        "role": "demand",
+        "why": "Tariff: Government",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": 0.1243,
+        "pearson_p": 0.1779,
+        "spearman": -0.0132,
+        "spearman_p": 0.8871,
+        "best_lag": 2,
+        "corr_at_best": 0.1837,
+        "ic": 0.0641,
+        "ic_t": 0.696,
+        "ols": {
+          "beta": 0.4440418081472209,
+          "t": 3.9475198768362247,
+          "p": 7.896496390408041e-05,
+          "r2": 0.01546079554359392,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.6557994555007792,
+          "t": 12.211559793937841,
+          "p": 2.696690939722528e-34,
+          "r2": 0.03373252914043945,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1366,
+        "last_chg": 0.0,
+        "last_chg_z": -0.07,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.0,
+        "source": "ceic",
+        "label": "Tariff: Government",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762187",
+        "role": "demand",
+        "why": "> 6,600 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": 0.0978,
+        "pearson_p": 0.29,
+        "spearman": -0.0052,
+        "spearman_p": 0.9552,
+        "best_lag": 2,
+        "corr_at_best": 0.1881,
+        "ic": 0.0175,
+        "ic_t": 0.19,
+        "ols": {
+          "beta": 0.6465893428498402,
+          "t": 1.427443202306671,
+          "p": 0.15345218562744095,
+          "r2": 0.009565974934865107,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.241957417396284,
+          "t": 6.497728982952818,
+          "p": 8.154152592502976e-11,
+          "r2": 0.035377964014832064,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1069,
+        "last_chg": 0.0,
+        "last_chg_z": -0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 30.5,
+        "source": "ceic",
+        "label": "> 6,600 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762217",
+        "role": "demand",
+        "why": "P3 Category: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": 0.0978,
+        "pearson_p": 0.29,
+        "spearman": -0.0052,
+        "spearman_p": 0.9552,
+        "best_lag": 2,
+        "corr_at_best": 0.1881,
+        "ic": 0.0175,
+        "ic_t": 0.19,
+        "ols": {
+          "beta": 0.6465893428498402,
+          "t": 1.427443202306671,
+          "p": 0.15345218562744095,
+          "r2": 0.009565974934865107,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.241957417396284,
+          "t": 6.497728982952818,
+          "p": 8.154152592502976e-11,
+          "r2": 0.035377964014832064,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1069,
+        "last_chg": 0.0,
+        "last_chg_z": -0.06,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 30.5,
+        "source": "ceic",
+        "label": "P3 Category: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762177",
+        "role": "demand",
+        "why": "3,500 VA - 5,500 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": 0.0978,
+        "pearson_p": 0.29,
+        "spearman": -0.0052,
+        "spearman_p": 0.9552,
+        "best_lag": 2,
+        "corr_at_best": 0.1881,
+        "ic": 0.0175,
+        "ic_t": 0.19,
+        "ols": {
+          "beta": 0.6465893428498402,
+          "t": 1.427443202306671,
+          "p": 0.15345218562744095,
+          "r2": 0.009565974934865107,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.241957417396284,
+          "t": 6.497728982952818,
+          "p": 8.154152592502976e-11,
+          "r2": 0.035377964014832064,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1069,
+        "last_chg": 0.0,
+        "last_chg_z": -0.06,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 30.5,
+        "source": "ceic",
+        "label": "3,500 VA - 5,500 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762077",
+        "role": "demand",
+        "why": "Regular: Peak Load and Off Peak Load Time",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.165,
+        "pearson_p": 0.0729,
+        "spearman": -0.071,
+        "spearman_p": 0.4426,
+        "best_lag": 4,
+        "corr_at_best": 0.2247,
+        "ic": 0.0276,
+        "ic_t": 0.3,
+        "ols": {
+          "beta": -4.364381206424995,
+          "t": -7.951378937304745,
+          "p": 1.844468122108008e-15,
+          "r2": 0.02723657228954801,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 4.802368395789286,
+          "t": 9.242431160084841,
+          "p": 2.4095896771749112e-20,
+          "r2": 0.050498044714605506,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.2185,
+        "last_chg": 0.0,
+        "last_chg_z": 0.01,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.0,
+        "source": "ceic",
+        "label": "Regular: Peak Load and Off Peak Load Time",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762017",
+        "role": "demand",
+        "why": "Regular: Peak Load Time",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1638,
+        "pearson_p": 0.0751,
+        "spearman": -0.071,
+        "spearman_p": 0.4426,
+        "best_lag": 4,
+        "corr_at_best": 0.2237,
+        "ic": 0.0276,
+        "ic_t": 0.3,
+        "ols": {
+          "beta": -4.343431673887586,
+          "t": -7.673361133994732,
+          "p": 1.6754690581163067e-14,
+          "r2": 0.026816666008372292,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 4.789224010650849,
+          "t": 9.228283077396073,
+          "p": 2.7500443456951074e-20,
+          "r2": 0.0500397825169,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.2172,
+        "last_chg": 0.0,
+        "last_chg_z": 0.07,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.9,
+        "source": "ceic",
+        "label": "Regular: Peak Load Time",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762027",
+        "role": "demand",
+        "why": "Regular: Off Peak Load Time",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1638,
+        "pearson_p": 0.0751,
+        "spearman": -0.071,
+        "spearman_p": 0.4426,
+        "best_lag": 4,
+        "corr_at_best": 0.2237,
+        "ic": 0.0276,
+        "ic_t": 0.3,
+        "ols": {
+          "beta": -4.343431673887586,
+          "t": -7.673361133994732,
+          "p": 1.6754690581163067e-14,
+          "r2": 0.026816666008372292,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 4.789224010650849,
+          "t": 9.228283077396073,
+          "p": 2.7500443456951074e-20,
+          "r2": 0.0500397825169,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.2172,
+        "last_chg": 0.0,
+        "last_chg_z": 0.07,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.9,
+        "source": "ceic",
+        "label": "Regular: Off Peak Load Time",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762047",
+        "role": "demand",
+        "why": "Tariff: Industry",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1638,
+        "pearson_p": 0.0751,
+        "spearman": -0.071,
+        "spearman_p": 0.4426,
+        "best_lag": 4,
+        "corr_at_best": 0.2237,
+        "ic": 0.0276,
+        "ic_t": 0.3,
+        "ols": {
+          "beta": -4.343431673887586,
+          "t": -7.673361133994732,
+          "p": 1.6754690581163067e-14,
+          "r2": 0.026816666008372292,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 4.789224010650849,
+          "t": 9.228283077396073,
+          "p": 2.7500443456951074e-20,
+          "r2": 0.0500397825169,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.2172,
+        "last_chg": 0.0,
+        "last_chg_z": 0.03,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.9,
+        "source": "ceic",
+        "label": "Tariff: Industry",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.0449,
+        "pearson_p": 0.6291,
+        "spearman": -0.0974,
+        "spearman_p": 0.2939,
+        "best_lag": 5,
+        "corr_at_best": 0.1978,
+        "ic": -0.0999,
+        "ic_t": -1.081,
+        "ols": {
+          "beta": -0.028412636241486395,
+          "t": -0.4634560358720024,
+          "p": 0.6430375208084627,
+          "r2": 0.002017830616777183,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.10068402309826327,
+          "t": 2.336519676815516,
+          "p": 0.01946417330317401,
+          "r2": 0.039125287363702466,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0017,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.9,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762197",
+        "role": "demand",
+        "why": "6,600 VA - 200 kVA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1442,
+        "pearson_p": 0.1176,
+        "spearman": -0.0586,
+        "spearman_p": 0.5268,
+        "best_lag": 6,
+        "corr_at_best": 0.1859,
+        "ic": -0.0197,
+        "ic_t": -0.214,
+        "ols": {
+          "beta": -3.176481188399958,
+          "t": -3.535193711620667,
+          "p": 0.0004074763270252954,
+          "r2": 0.020807154771511627,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 2.2685570237177743,
+          "t": 3.0919329380205385,
+          "p": 0.0019885776846482314,
+          "r2": 0.034552146413557416,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.1764,
+        "last_chg": 0.0,
+        "last_chg_z": 0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.7,
+        "source": "ceic",
+        "label": "6,600 VA - 200 kVA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762167",
+        "role": "demand",
+        "why": "2,200 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1442,
+        "pearson_p": 0.1176,
+        "spearman": -0.0586,
+        "spearman_p": 0.5268,
+        "best_lag": 6,
+        "corr_at_best": 0.1859,
+        "ic": -0.0197,
+        "ic_t": -0.214,
+        "ols": {
+          "beta": -3.176481188399958,
+          "t": -3.535193711620667,
+          "p": 0.0004074763270252954,
+          "r2": 0.020807154771511627,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 2.2685570237177743,
+          "t": 3.0919329380205385,
+          "p": 0.0019885776846482314,
+          "r2": 0.034552146413557416,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.1764,
+        "last_chg": 0.0,
+        "last_chg_z": -0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.7,
+        "source": "ceic",
+        "label": "2,200 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762157",
+        "role": "demand",
+        "why": "1,300 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 119,
+        "min_n": 24,
+        "pearson": -0.1442,
+        "pearson_p": 0.1176,
+        "spearman": -0.0586,
+        "spearman_p": 0.5268,
+        "best_lag": 6,
+        "corr_at_best": 0.1859,
+        "ic": -0.0197,
+        "ic_t": -0.214,
+        "ols": {
+          "beta": -3.176481188399958,
+          "t": -3.535193711620667,
+          "p": 0.0004074763270252954,
+          "r2": 0.020807154771511627,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 2.2685570237177743,
+          "t": 3.0919329380205385,
+          "p": 0.0019885776846482314,
+          "r2": 0.034552146413557416,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.1764,
+        "last_chg": 0.0,
+        "last_chg_z": -0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.7,
+        "source": "ceic",
+        "label": "1,300 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 19
+  },
+  "unscored": [
+    {
+      "key": "CEICI388615967",
+      "label": "900 VA-RTM: Prepaid",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "ndx",
+      "label": "Nasdaq 100",
+      "role": "demand",
+      "pearson": 0.0466,
+      "p": 0.6240323264929304,
+      "theory_agree": true,
+      "score": 28.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": 0.0852,
+      "p": 0.5475291116979562,
+      "theory_agree": null,
+      "score": 26.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0931,
+      "p": 0.32290649532140236,
+      "theory_agree": null,
+      "score": 24.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "role": "macro",
+      "pearson": 0.0847,
+      "p": 0.35982672116683345,
+      "theory_agree": false,
+      "score": 23.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "role": "cost",
+      "pearson": -0.0443,
+      "p": 0.879404920139281,
+      "theory_agree": true,
+      "score": 20.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "lithium_etf",
+      "label": "Lithium/Battery (LIT ETF)",
+      "role": "demand",
+      "pearson": 0.0067,
+      "p": 0.9433708598383044,
+      "theory_agree": true,
+      "score": 17.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "macro",
+      "pearson": -0.0009,
+      "p": 0.9905121343242838,
+      "theory_agree": false,
+      "score": 3.3,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 19,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.7,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.18, p<0.05)"
+  ]
+}
