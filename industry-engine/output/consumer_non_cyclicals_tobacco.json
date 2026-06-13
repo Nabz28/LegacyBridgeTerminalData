@@ -3,7 +3,7 @@
   "sub_sector": "Tobacco",
   "sector": "Consumer Non-Cyclicals",
   "priority": 18,
-  "generated_at": "2026-06-14T00:46:17",
+  "generated_at": "2026-06-14T02:52:09",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -949,7 +949,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 15.8,
+  "runtime_s": 7.8,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

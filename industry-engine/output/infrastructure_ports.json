@@ -3,7 +3,7 @@
   "sub_sector": "Ports",
   "sector": "Infrastructure",
   "priority": 36,
-  "generated_at": "2026-06-14T01:52:15",
+  "generated_at": "2026-06-14T02:52:51",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -223,7 +223,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.2,
+  "runtime_s": 1.4,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

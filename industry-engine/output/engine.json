@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:32:15",
+  "generated_at": "2026-06-14T02:53:22",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -124,9 +124,9 @@
           "excess_pearson": 0.0858,
           "best_lag": 0,
           "ic": -0.2483,
-          "beta": -0.42670304989392094,
-          "r2": 0.1435691079954441,
-          "p": 3.6297013160346745e-22,
+          "beta": -0.4267030430641394,
+          "r2": 0.14356910320334237,
+          "p": 3.629697584332087e-22,
           "n": 62,
           "theory_agree": null,
           "stable": true,
@@ -146,9 +146,9 @@
           "excess_pearson": -0.1941,
           "best_lag": 0,
           "ic": -0.0803,
-          "beta": -0.679620051733283,
-          "r2": 0.11721838890723502,
-          "p": 0.07004411447180947,
+          "beta": -0.6796200524468874,
+          "r2": 0.11721838895794279,
+          "p": 0.07004411422888993,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -168,9 +168,9 @@
           "excess_pearson": 0.0825,
           "best_lag": 2,
           "ic": -0.159,
-          "beta": 0.19088372339479556,
-          "r2": 0.024072102024821018,
-          "p": 0.00511201276676239,
+          "beta": 0.1908837179831989,
+          "r2": 0.024072100593719892,
+          "p": 0.00511201428393728,
           "n": 109,
           "theory_agree": true,
           "stable": true,
@@ -190,9 +190,9 @@
           "excess_pearson": -0.1892,
           "best_lag": 3,
           "ic": -0.3438,
-          "beta": -0.017112133686420356,
-          "r2": 0.030955296348551542,
-          "p": 0.03144445326378645,
+          "beta": -0.017112134191569518,
+          "r2": 0.030955298133848452,
+          "p": 0.03144446201461814,
           "n": 62,
           "theory_agree": false,
           "stable": true,
@@ -212,9 +212,9 @@
           "excess_pearson": 0.1924,
           "best_lag": 0,
           "ic": -0.1231,
-          "beta": 0.16390907124453039,
-          "r2": 0.03661303532905169,
-          "p": 0.07726608740554076,
+          "beta": 0.16390906800672372,
+          "r2": 0.03661303377498348,
+          "p": 0.07726609823252728,
           "n": 92,
           "theory_agree": true,
           "stable": true,
@@ -234,9 +234,9 @@
           "excess_pearson": -0.3405,
           "best_lag": 3,
           "ic": 0.0725,
-          "beta": -0.1390969232386887,
-          "r2": 0.05679447502302437,
-          "p": 0.07573571243846948,
+          "beta": -0.13909694155167457,
+          "r2": 0.056794489900116596,
+          "p": 0.07573566832835958,
           "n": 62,
           "theory_agree": null,
           "stable": true,
@@ -256,9 +256,9 @@
           "excess_pearson": 0.1019,
           "best_lag": 0,
           "ic": 0.1117,
-          "beta": 0.028413147053690944,
-          "r2": 0.05536957240709084,
-          "p": 0.004513746537201244,
+          "beta": 0.028413147302902463,
+          "r2": 0.05536957328461212,
+          "p": 0.0045137455953961035,
           "n": 182,
           "theory_agree": null,
           "stable": true,
@@ -278,9 +278,9 @@
           "excess_pearson": 0.2164,
           "best_lag": 3,
           "ic": 0.0718,
-          "beta": 0.004878105512033457,
-          "r2": 0.040658295346251316,
-          "p": 0.0681032194436794,
+          "beta": 0.0048781055924592,
+          "r2": 0.04065829658515718,
+          "p": 0.0681032137469561,
           "n": 60,
           "theory_agree": null,
           "stable": true,
@@ -300,9 +300,9 @@
           "excess_pearson": -0.1546,
           "best_lag": 5,
           "ic": 0.2885,
-          "beta": -0.05223163092125525,
-          "r2": 0.01537305394887245,
-          "p": 0.21495214417126585,
+          "beta": -0.052231633905190415,
+          "r2": 0.015373055684356651,
+          "p": 0.21495209851031516,
           "n": 62,
           "theory_agree": null,
           "stable": false,
@@ -322,9 +322,9 @@
           "excess_pearson": -0.126,
           "best_lag": 0,
           "ic": -0.1402,
-          "beta": -0.07799132122091361,
-          "r2": 0.06027036082168269,
-          "p": 0.07275310166377073,
+          "beta": -0.0779913207547555,
+          "r2": 0.06027036014877385,
+          "p": 0.07275309882947441,
           "n": 56,
           "theory_agree": null,
           "stable": false,
@@ -344,9 +344,9 @@
           "excess_pearson": 0.1188,
           "best_lag": 1,
           "ic": 0.2102,
-          "beta": -0.009791721969046218,
-          "r2": 0.015508207267465046,
-          "p": 0.20061367576922406,
+          "beta": -0.00979172030708532,
+          "r2": 0.015508202076253252,
+          "p": 0.20061378262026952,
           "n": 52,
           "theory_agree": null,
           "stable": false,
@@ -366,9 +366,9 @@
           "excess_pearson": -0.2566,
           "best_lag": 2,
           "ic": -0.168,
-          "beta": -2.11087973324872e-05,
-          "r2": 0.04564801402723606,
-          "p": 0.03862183001753847,
+          "beta": -2.1108796704158492e-05,
+          "r2": 0.045648011175567715,
+          "p": 0.03862183984084876,
           "n": 92,
           "theory_agree": false,
           "stable": false,
@@ -379,7 +379,7 @@
           "last_obs": "2025-11-01"
         }
       ],
-      "generated_at": "2026-06-14T00:40:24"
+      "generated_at": "2026-06-14T02:51:26"
     },
     {
       "id": "technology_it_services",
@@ -389,7 +389,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 46,
+      "score": 48,
       "confidence": {
         "level": "medium",
         "score": 42,
@@ -455,7 +455,7 @@
         "oos_n": 47,
         "expected_monthly_ret": 0.0508
       },
-      "narrative": "IT Services (Technology) screens NEUTRAL [46/100, medium confidence]. Top drivers: Device vendor share (Tablet): Others (corr +0.13, lead 0m, now headwind); Real GDP (SA) (corr +0.10, lead 6m, now flat); Search engine share (Mobile): Others (corr -0.16, lead 0m, now tailwind). A 6-driver model explains 6% of monthly variance (adj 0%), 40% out-of-sample directional hit-rate; current read ~+5.1%/mo.",
+      "narrative": "IT Services (Technology) screens NEUTRAL [48/100, medium confidence]. Top drivers: Device vendor share (Tablet): Others (corr +0.13, lead 0m, now headwind); Real GDP (SA) (corr +0.10, lead 6m, now flat); Search engine share (Mobile): Others (corr -0.16, lead 0m, now tailwind). A 6-driver model explains 6% of monthly variance (adj 0%), 40% out-of-sample directional hit-rate; current read ~+5.1%/mo.",
       "n_kept": 9,
       "n_tested": 33,
       "n_used": 15,
@@ -683,7 +683,7 @@
           "last_obs": "2026-06-07"
         }
       ],
-      "generated_at": "2026-06-14T00:40:30"
+      "generated_at": "2026-06-14T02:51:29"
     },
     {
       "id": "energy_coal",
@@ -1060,7 +1060,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:36:20"
+      "generated_at": "2026-06-14T02:51:31"
     },
     {
       "id": "basic_materials_mining",
@@ -1428,7 +1428,7 @@
           "last_obs": "2025-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:37:41"
+      "generated_at": "2026-06-14T02:51:34"
     },
     {
       "id": "energy_alternative_energy",
@@ -1789,7 +1789,7 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T00:40:34"
+      "generated_at": "2026-06-14T02:51:35"
     },
     {
       "id": "consumer_non_cyclicals_food_beverage",
@@ -1799,7 +1799,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 46,
+      "score": 48,
       "confidence": {
         "level": "medium",
         "score": 49,
@@ -1865,7 +1865,7 @@
         "oos_n": 56,
         "expected_monthly_ret": -0.0074
       },
-      "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [46/100, medium confidence]. Top drivers: USD/IDR (corr -0.19, lead 0m, now flat); Rice: Producer (corr +0.12, lead 6m, now flat); Coffee Bean (corr +0.17, lead 0m, now headwind). A 6-driver model explains 13% of monthly variance (adj 8%), 54% out-of-sample directional hit-rate; current read ~-0.7%/mo.",
+      "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: USD/IDR (corr -0.19, lead 0m, now flat); Rice: Producer (corr +0.12, lead 6m, now flat); Coffee Bean (corr +0.17, lead 0m, now headwind). A 6-driver model explains 13% of monthly variance (adj 8%), 54% out-of-sample directional hit-rate; current read ~-0.7%/mo.",
       "n_kept": 12,
       "n_tested": 55,
       "n_used": 30,
@@ -1919,9 +1919,9 @@
           "excess_pearson": 0.1239,
           "best_lag": 0,
           "ic": -0.038,
-          "beta": -0.29793889248281125,
-          "r2": 0.03650397468201105,
-          "p": 0.030216717673225865,
+          "beta": -0.29793889293826464,
+          "r2": 0.03650397480751899,
+          "p": 0.030216717617306824,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -1941,9 +1941,9 @@
           "excess_pearson": -0.0064,
           "best_lag": 6,
           "ic": -0.165,
-          "beta": 0.24026238114946247,
-          "r2": 0.01414124981321807,
-          "p": 0.25635442648004403,
+          "beta": 0.24026238788166354,
+          "r2": 0.014141250622807244,
+          "p": 0.2563544113915903,
           "n": 87,
           "theory_agree": null,
           "stable": true,
@@ -1963,9 +1963,9 @@
           "excess_pearson": 0.0733,
           "best_lag": 0,
           "ic": 0.0698,
-          "beta": 0.040060553468258216,
-          "r2": 0.028360476619762487,
-          "p": 0.012217501373512055,
+          "beta": 0.04006055371528965,
+          "r2": 0.02836047698120714,
+          "p": 0.012217500617640908,
           "n": 182,
           "theory_agree": null,
           "stable": true,
@@ -1985,9 +1985,9 @@
           "excess_pearson": 0.0482,
           "best_lag": 0,
           "ic": -0.0018,
-          "beta": 0.16103834052889976,
-          "r2": 0.023841375774550144,
-          "p": 0.08804609134308272,
+          "beta": 0.16103833848236382,
+          "r2": 0.023841375191985814,
+          "p": 0.08804609644285058,
           "n": 119,
           "theory_agree": true,
           "stable": true,
@@ -2007,9 +2007,9 @@
           "excess_pearson": 0.0535,
           "best_lag": 0,
           "ic": -0.0111,
-          "beta": 0.15123298081575332,
-          "r2": 0.02185777902440622,
-          "p": 0.09876032612052195,
+          "beta": 0.15123297884705522,
+          "r2": 0.021857778476791045,
+          "p": 0.09876033157126522,
           "n": 119,
           "theory_agree": true,
           "stable": true,
@@ -2029,9 +2029,9 @@
           "excess_pearson": -0.0782,
           "best_lag": 1,
           "ic": 0.1676,
-          "beta": -0.19967109750579887,
-          "r2": 0.0174424846428316,
-          "p": 0.04862560538044641,
+          "beta": -0.19967109964133625,
+          "r2": 0.017442485033059896,
+          "p": 0.048625603421223275,
           "n": 119,
           "theory_agree": false,
           "stable": true,
@@ -2051,9 +2051,9 @@
           "excess_pearson": -0.2166,
           "best_lag": 4,
           "ic": 0.0163,
-          "beta": -0.02918842359269485,
-          "r2": 0.024627795074364855,
-          "p": 0.08645037521302743,
+          "beta": -0.029188423610493543,
+          "r2": 0.02462779513419444,
+          "p": 0.08645037505906734,
           "n": 87,
           "theory_agree": null,
           "stable": true,
@@ -2073,9 +2073,9 @@
           "excess_pearson": -0.0294,
           "best_lag": 0,
           "ic": -0.0825,
-          "beta": -0.033803051166464676,
-          "r2": 0.018426744174038334,
-          "p": 0.03147855749075286,
+          "beta": -0.033803051417472495,
+          "r2": 0.01842674445533976,
+          "p": 0.03147855579416108,
           "n": 181,
           "theory_agree": null,
           "stable": true,
@@ -2095,9 +2095,9 @@
           "excess_pearson": -0.0962,
           "best_lag": 1,
           "ic": -0.2624,
-          "beta": -0.12474168500163886,
-          "r2": 0.005991146367955169,
-          "p": 0.45078026087056144,
+          "beta": -0.12474167902286219,
+          "r2": 0.005991145800900655,
+          "p": 0.45078028072666787,
           "n": 87,
           "theory_agree": null,
           "stable": false,
@@ -2117,9 +2117,9 @@
           "excess_pearson": -0.0894,
           "best_lag": 3,
           "ic": -0.0422,
-          "beta": 0.08181988125997763,
-          "r2": 0.0020153606552167913,
-          "p": 0.5519684437291752,
+          "beta": 0.08181988515827361,
+          "r2": 0.002015360849238257,
+          "p": 0.5519684262717661,
           "n": 119,
           "theory_agree": true,
           "stable": true,
@@ -2139,9 +2139,9 @@
           "excess_pearson": -0.0005,
           "best_lag": 6,
           "ic": -0.1314,
-          "beta": -0.007800098260261068,
-          "r2": 0.00017310166434625351,
-          "p": 0.8839079407405833,
+          "beta": -0.007800098236530183,
+          "r2": 0.0001731016633585991,
+          "p": 0.8839079410936961,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -2161,9 +2161,9 @@
           "excess_pearson": -0.1976,
           "best_lag": 3,
           "ic": 0.1182,
-          "beta": -0.044681782097794984,
-          "r2": 0.006244117805430327,
-          "p": 0.3548896245615897,
+          "beta": -0.04468178000041974,
+          "r2": 0.006244117226783308,
+          "p": 0.3548896534161632,
           "n": 87,
           "theory_agree": null,
           "stable": false,
@@ -2174,7 +2174,7 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T00:39:32"
+      "generated_at": "2026-06-14T02:51:38"
     },
     {
       "id": "properties_real_estate_property",
@@ -2184,7 +2184,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BEARISH",
-      "score": 35,
+      "score": 39,
       "confidence": {
         "level": "medium",
         "score": 55,
@@ -2226,7 +2226,7 @@
         "oos_n": 124,
         "expected_monthly_ret": 0.0098
       },
-      "narrative": "Property (Properties & Real Estate) screens MILDLY BEARISH [35/100, medium confidence]. Top drivers: USD/IDR (corr -0.25, lead 0m, now flat); US HRC Steel (corr -0.13, lead 0m, now headwind); Coal · Australia (Newcastle) (corr -0.05, lead 6m, now headwind). A 2-driver model explains 8% of monthly variance (adj 7%), 58% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+      "narrative": "Property (Properties & Real Estate) screens MILDLY BEARISH [39/100, medium confidence]. Top drivers: USD/IDR (corr -0.25, lead 0m, now flat); US HRC Steel (corr -0.13, lead 0m, now headwind); Coal · Australia (Newcastle) (corr -0.05, lead 6m, now headwind). A 2-driver model explains 8% of monthly variance (adj 7%), 58% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
       "n_kept": 3,
       "n_tested": 8,
       "n_used": 30,
@@ -2337,7 +2337,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:39:33"
+      "generated_at": "2026-06-14T02:51:39"
     },
     {
       "id": "basic_materials_chemicals",
@@ -2703,7 +2703,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:30"
+      "generated_at": "2026-06-14T02:51:45"
     },
     {
       "id": "energy_energy_services",
@@ -2713,7 +2713,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 46,
       "confidence": {
         "level": "high",
         "score": 73,
@@ -2779,7 +2779,7 @@
         "oos_n": 44,
         "expected_monthly_ret": 0.0414
       },
-      "narrative": "Energy Services (Energy) screens NEUTRAL [45/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 2%), 70% out-of-sample directional hit-rate; current read ~+4.1%/mo.",
+      "narrative": "Energy Services (Energy) screens NEUTRAL [46/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 2%), 70% out-of-sample directional hit-rate; current read ~+4.1%/mo.",
       "n_kept": 12,
       "n_tested": 47,
       "n_used": 10,
@@ -3068,7 +3068,7 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:32"
+      "generated_at": "2026-06-14T02:51:48"
     },
     {
       "id": "infrastructure_telco",
@@ -3078,7 +3078,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 46,
       "confidence": {
         "level": "high",
         "score": 74,
@@ -3138,7 +3138,7 @@
         "oos_n": 56,
         "expected_monthly_ret": -0.0143
       },
-      "narrative": "Telco (Infrastructure) screens NEUTRAL [45/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
+      "narrative": "Telco (Infrastructure) screens NEUTRAL [46/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
       "n_kept": 5,
       "n_tested": 32,
       "n_used": 3,
@@ -3266,7 +3266,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:45:29"
+      "generated_at": "2026-06-14T02:51:50"
     },
     {
       "id": "healthcare_hospitals",
@@ -3275,8 +3275,8 @@
       "priority": 11,
       "status": "done",
       "grade": "partial",
-      "verdict": "BEARISH",
-      "score": 31,
+      "verdict": "MILDLY BEARISH",
+      "score": 41,
       "confidence": {
         "level": "low",
         "score": 36,
@@ -3324,7 +3324,7 @@
         "oos_n": 95,
         "expected_monthly_ret": -0.0049
       },
-      "narrative": "Hospitals (Healthcare) screens BEARISH [31/100, low confidence]. Top drivers: Financing: hospital services (corr +0.10, lead 3m, now flat); Hospital beds per 1000 (corr +0.14, lead 3m, now headwind); Hospital beds per 1000 (corr -0.04, lead 2m, now headwind). A 3-driver model explains 4% of monthly variance (adj 2%), 58% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+      "narrative": "Hospitals (Healthcare) screens MILDLY BEARISH [41/100, low confidence]. Top drivers: Financing: hospital services (corr +0.10, lead 3m, now flat); Hospital beds per 1000 (corr +0.14, lead 3m, now headwind); Hospital beds per 1000 (corr -0.04, lead 2m, now headwind). A 3-driver model explains 4% of monthly variance (adj 2%), 58% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
       "n_kept": 5,
       "n_tested": 12,
       "n_used": 11,
@@ -3460,7 +3460,7 @@
           "last_obs": "2026-05-18"
         }
       ],
-      "generated_at": "2026-06-14T00:48:34"
+      "generated_at": "2026-06-14T02:51:51"
     },
     {
       "id": "consumer_non_cyclicals_plantation",
@@ -3845,7 +3845,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:45:47"
+      "generated_at": "2026-06-14T02:51:54"
     },
     {
       "id": "industrials_conglomerate",
@@ -4179,7 +4179,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:49:55"
+      "generated_at": "2026-06-14T02:51:56"
     },
     {
       "id": "basic_materials_metals_mining",
@@ -4460,7 +4460,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:45:50"
+      "generated_at": "2026-06-14T02:51:57"
     },
     {
       "id": "technology_internet",
@@ -4470,7 +4470,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 52,
+      "score": 51,
       "confidence": {
         "level": "medium",
         "score": 58,
@@ -4530,7 +4530,7 @@
         "oos_n": 56,
         "expected_monthly_ret": -0.0091
       },
-      "narrative": "Internet (Technology) screens NEUTRAL [52/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Volume: Finance (corr +0.12, lead 4m, now flat). A 5-driver model explains 10% of monthly variance (adj 6%), 50% out-of-sample directional hit-rate; current read ~-0.9%/mo.",
+      "narrative": "Internet (Technology) screens NEUTRAL [51/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Volume: Finance (corr +0.12, lead 4m, now flat). A 5-driver model explains 10% of monthly variance (adj 6%), 50% out-of-sample directional hit-rate; current read ~-0.9%/mo.",
       "n_kept": 12,
       "n_tested": 33,
       "n_used": 7,
@@ -4816,7 +4816,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:45:58"
+      "generated_at": "2026-06-14T02:51:59"
     },
     {
       "id": "energy_oil_gas",
@@ -5048,7 +5048,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:45:59"
+      "generated_at": "2026-06-14T02:52:00"
     },
     {
       "id": "financials_insurance",
@@ -5058,7 +5058,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BEARISH",
-      "score": 40,
+      "score": 42,
       "confidence": {
         "level": "high",
         "score": 87,
@@ -5106,7 +5106,7 @@
         "oos_n": 58,
         "expected_monthly_ret": -0.0048
       },
-      "narrative": "Insurance (Financials) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+      "narrative": "Insurance (Financials) screens MILDLY BEARISH [42/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
       "n_kept": 3,
       "n_tested": 7,
       "n_used": 16,
@@ -5146,9 +5146,9 @@
           "excess_pearson": -0.2203,
           "best_lag": 0,
           "ic": 0.1206,
-          "beta": 0.7237549396195808,
-          "r2": 0.259265998575565,
-          "p": 4.5774612411777755e-10,
+          "beta": 0.7237549603180403,
+          "r2": 0.25926600722388937,
+          "p": 4.577453174040402e-10,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -5168,9 +5168,9 @@
           "excess_pearson": 0.0876,
           "best_lag": 0,
           "ic": -0.1636,
-          "beta": -0.3205436364765245,
-          "r2": 0.027310689478879935,
-          "p": 0.17679453720392535,
+          "beta": -0.32054361791233965,
+          "r2": 0.02731068566440087,
+          "p": 0.1767945489362841,
           "n": 184,
           "theory_agree": null,
           "stable": true,
@@ -5190,9 +5190,9 @@
           "excess_pearson": 0.0814,
           "best_lag": 2,
           "ic": 0.2127,
-          "beta": 2.2023296030608236e-05,
-          "r2": 2.616723765447304e-07,
-          "p": 0.9949180524313376,
+          "beta": 2.2022445291338416e-05,
+          "r2": 2.61652147282021e-07,
+          "p": 0.9949182496939618,
           "n": 118,
           "theory_agree": true,
           "stable": false,
@@ -5203,7 +5203,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:46:01"
+      "generated_at": "2026-06-14T02:52:01"
     },
     {
       "id": "consumer_non_cyclicals_tobacco",
@@ -5562,7 +5562,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:46:17"
+      "generated_at": "2026-06-14T02:52:09"
     },
     {
       "id": "basic_materials_containers_packaging",
@@ -5572,7 +5572,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 53,
+      "score": 51,
       "confidence": {
         "level": "low",
         "score": 23,
@@ -5614,7 +5614,7 @@
         "oos_n": 121,
         "expected_monthly_ret": 0.0123
       },
-      "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [53/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
+      "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [51/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
       "n_kept": 2,
       "n_tested": 6,
       "n_used": 11,
@@ -5684,7 +5684,7 @@
           "last_obs": "2026-05-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:35"
+      "generated_at": "2026-06-14T02:52:09"
     },
     {
       "id": "industrials_machinery",
@@ -5694,7 +5694,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 48,
+      "score": 49,
       "confidence": {
         "level": "medium",
         "score": 57,
@@ -5760,7 +5760,7 @@
         "oos_n": 105,
         "expected_monthly_ret": -0.0107
       },
-      "narrative": "Machinery (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.17, lead 5m, now flat); FDI: Machinery & electronics (corr +0.12, lead 2m, now flat); Manufacturing: Electrical Equipment (corr -0.12, lead 1m, now flat). A 6-driver model explains 11% of monthly variance (adj 8%), 66% out-of-sample directional hit-rate; current read ~-1.1%/mo.",
+      "narrative": "Machinery (Industrials) screens NEUTRAL [49/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.17, lead 5m, now flat); FDI: Machinery & electronics (corr +0.12, lead 2m, now flat); Manufacturing: Electrical Equipment (corr -0.12, lead 1m, now flat). A 6-driver model explains 11% of monthly variance (adj 8%), 66% out-of-sample directional hit-rate; current read ~-1.1%/mo.",
       "n_kept": 12,
       "n_tested": 42,
       "n_used": 19,
@@ -5803,9 +5803,9 @@
           "excess_pearson": -0.0938,
           "best_lag": 5,
           "ic": -0.2027,
-          "beta": -0.0528108486494584,
-          "r2": 0.0296428512249044,
-          "p": 0.016013947372828748,
+          "beta": -0.052810849204066486,
+          "r2": 0.0296428520290567,
+          "p": 0.016013946202824793,
           "n": 181,
           "theory_agree": null,
           "stable": true,
@@ -5825,9 +5825,9 @@
           "excess_pearson": 0.0897,
           "best_lag": 2,
           "ic": -0.1726,
-          "beta": 0.01993387286284969,
-          "r2": 0.014345931497019349,
-          "p": 0.23958977979961127,
+          "beta": 0.019933871600104854,
+          "r2": 0.01434592978692395,
+          "p": 0.23958979155942828,
           "n": 60,
           "theory_agree": true,
           "stable": true,
@@ -5847,9 +5847,9 @@
           "excess_pearson": -0.0585,
           "best_lag": 1,
           "ic": 0.185,
-          "beta": -0.07471393319291403,
-          "r2": 0.014475418484893754,
-          "p": 0.12406425185928145,
+          "beta": -0.07471394083233336,
+          "r2": 0.014475421489475115,
+          "p": 0.12406419553063276,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -5869,9 +5869,9 @@
           "excess_pearson": 0.046,
           "best_lag": 3,
           "ic": -0.1139,
-          "beta": 0.23666893396606425,
-          "r2": 0.006957852601724324,
-          "p": 0.35950982691810585,
+          "beta": 0.23666893900780284,
+          "r2": 0.00695785295027862,
+          "p": 0.35950980583342584,
           "n": 60,
           "theory_agree": true,
           "stable": true,
@@ -5891,9 +5891,9 @@
           "excess_pearson": 0.127,
           "best_lag": 0,
           "ic": 0.1214,
-          "beta": 0.07653079345271739,
-          "r2": 0.0186828384135036,
-          "p": 0.0896573376523374,
+          "beta": 0.07653078883639723,
+          "r2": 0.018682836216905363,
+          "p": 0.08965734607415382,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -5913,9 +5913,9 @@
           "excess_pearson": -0.1428,
           "best_lag": 1,
           "ic": 0.1432,
-          "beta": -0.05588994163044151,
-          "r2": 0.007909988757153541,
-          "p": 0.22732844337890123,
+          "beta": -0.05588994736586097,
+          "r2": 0.007909990404854073,
+          "p": 0.2273283849119243,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -5935,9 +5935,9 @@
           "excess_pearson": -0.1244,
           "best_lag": 3,
           "ic": 0.098,
-          "beta": -0.02864970558951127,
-          "r2": 0.03183681845580766,
-          "p": 0.084301104852052,
+          "beta": -0.028649704881107328,
+          "r2": 0.03183681711981856,
+          "p": 0.08430111115149254,
           "n": 60,
           "theory_agree": false,
           "stable": true,
@@ -5957,9 +5957,9 @@
           "excess_pearson": -0.1168,
           "best_lag": 0,
           "ic": -0.041,
-          "beta": -0.12794878053849446,
-          "r2": 0.019235437315281878,
-          "p": 0.061230348622972046,
+          "beta": -0.12794879031843157,
+          "r2": 0.019235440314840813,
+          "p": 0.061230322046296456,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -5979,9 +5979,9 @@
           "excess_pearson": 0.1151,
           "best_lag": 5,
           "ic": 0.0845,
-          "beta": 0.03784749629634134,
-          "r2": 0.0014566176407926346,
-          "p": 0.5829650575272074,
+          "beta": 0.037847485498676836,
+          "r2": 0.0014566168141311175,
+          "p": 0.5829651573107787,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -6001,9 +6001,9 @@
           "excess_pearson": -0.0125,
           "best_lag": 1,
           "ic": 0.157,
-          "beta": -0.023094084604150748,
-          "r2": 0.0012937007820216229,
-          "p": 0.6775222032629938,
+          "beta": -0.02309407540832082,
+          "r2": 0.001293699755711808,
+          "p": 0.6775223201701077,
           "n": 167,
           "theory_agree": null,
           "stable": false,
@@ -6023,9 +6023,9 @@
           "excess_pearson": -0.052,
           "best_lag": 3,
           "ic": 0.0647,
-          "beta": -0.017113633250847082,
-          "r2": 0.0007261369652863392,
-          "p": 0.6745645773090914,
+          "beta": -0.017113638079788676,
+          "r2": 0.0007261373772996516,
+          "p": 0.6745644891280074,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -6045,9 +6045,9 @@
           "excess_pearson": -0.044,
           "best_lag": 4,
           "ic": 0.0225,
-          "beta": -0.029098441780288007,
-          "r2": 0.00525090405893236,
-          "p": 0.30276890459948036,
+          "beta": -0.029098442804261847,
+          "r2": 0.005250904444592641,
+          "p": 0.3027688772601761,
           "n": 167,
           "theory_agree": null,
           "stable": false,
@@ -6058,7 +6058,7 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:38"
+      "generated_at": "2026-06-14T02:52:17"
     },
     {
       "id": "consumer_cyclicals_retail",
@@ -6068,7 +6068,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 46,
       "confidence": {
         "level": "high",
         "score": 73,
@@ -6134,7 +6134,7 @@
         "oos_n": 100,
         "expected_monthly_ret": -0.0484
       },
-      "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [45/100, high confidence]. Top drivers: USD/IDR (corr -0.22, lead 0m, now flat); Mazda (corr +0.13, lead 3m, now flat); Volume: Other made up textile articles; sets; worn (corr -0.15, lead 1m, now headwind). A 6-driver model explains 10% of monthly variance (adj 7%), 56% out-of-sample directional hit-rate; current read ~-4.8%/mo.",
+      "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [46/100, high confidence]. Top drivers: USD/IDR (corr -0.22, lead 0m, now flat); Mazda (corr +0.13, lead 3m, now flat); Volume: Other made up textile articles; sets; worn (corr -0.15, lead 1m, now headwind). A 6-driver model explains 10% of monthly variance (adj 7%), 56% out-of-sample directional hit-rate; current read ~-4.8%/mo.",
       "n_kept": 6,
       "n_tested": 51,
       "n_used": 29,
@@ -6310,7 +6310,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:46:43"
+      "generated_at": "2026-06-14T02:52:20"
     },
     {
       "id": "healthcare_pharma",
@@ -6405,9 +6405,9 @@
           "excess_pearson": 0.2358,
           "best_lag": 3,
           "ic": -0.0769,
-          "beta": 0.27469424814956356,
-          "r2": 0.11130683643216033,
-          "p": 0.030193835229416696,
+          "beta": 0.27469424815097515,
+          "r2": 0.11130683673647401,
+          "p": 0.030193835425455114,
           "n": 13,
           "theory_agree": null,
           "stable": false,
@@ -6427,9 +6427,9 @@
           "excess_pearson": 0.1985,
           "best_lag": 0,
           "ic": 0.1628,
-          "beta": 1.0643611213349362,
-          "r2": 0.06170971863939556,
-          "p": 0.0511249507006971,
+          "beta": 1.0643611205874897,
+          "r2": 0.06170971857077168,
+          "p": 0.05112495086566957,
           "n": 60,
           "theory_agree": null,
           "stable": true,
@@ -6449,9 +6449,9 @@
           "excess_pearson": 0.0696,
           "best_lag": 0,
           "ic": -0.1596,
-          "beta": -0.3372454451273126,
-          "r2": 0.02416527081324049,
-          "p": 0.1443709529133114,
+          "beta": -0.3372454449414524,
+          "r2": 0.02416527079020936,
+          "p": 0.14437095299531796,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -6471,9 +6471,9 @@
           "excess_pearson": -0.0937,
           "best_lag": 0,
           "ic": -0.0914,
-          "beta": -0.05696538512976036,
-          "r2": 0.025146139633210884,
-          "p": 0.03040542259252263,
+          "beta": -0.05696538508818273,
+          "r2": 0.025146139600219053,
+          "p": 0.030405422661697743,
           "n": 181,
           "theory_agree": null,
           "stable": true,
@@ -6493,9 +6493,9 @@
           "excess_pearson": -0.0728,
           "best_lag": 1,
           "ic": -0.0628,
-          "beta": -0.004076330129913175,
-          "r2": 0.00542601949032695,
-          "p": 0.0009133590090963847,
+          "beta": -0.004076330127242772,
+          "r2": 0.005426019484262357,
+          "p": 0.0009133590103420311,
           "n": 160,
           "theory_agree": null,
           "stable": true,
@@ -6515,9 +6515,9 @@
           "excess_pearson": -0.0082,
           "best_lag": 3,
           "ic": -0.1073,
-          "beta": 0.0017520113053866339,
-          "r2": 4.76789576629999e-05,
-          "p": 0.9399015125589603,
+          "beta": 0.0017520113315683122,
+          "r2": 4.767895910184894e-05,
+          "p": 0.9399015116758304,
           "n": 60,
           "theory_agree": null,
           "stable": false,
@@ -6528,7 +6528,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:39"
+      "generated_at": "2026-06-14T02:52:21"
     },
     {
       "id": "basic_materials_paper",
@@ -6538,7 +6538,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 59,
+      "score": 57,
       "confidence": {
         "level": "medium",
         "score": 46,
@@ -6580,7 +6580,7 @@
         "oos_n": 121,
         "expected_monthly_ret": 0.0189
       },
-      "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.18, lead 6m, now headwind); Bloomberg Commodity Idx (corr +0.18, lead 0m, now tailwind); Coal · Australia (Newcastle) (corr +0.24, lead 4m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 61% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
+      "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [57/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.18, lead 6m, now headwind); Bloomberg Commodity Idx (corr +0.18, lead 0m, now tailwind); Coal · Australia (Newcastle) (corr +0.24, lead 4m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 61% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
       "n_kept": 4,
       "n_tested": 10,
       "n_used": 12,
@@ -6695,7 +6695,7 @@
           "last_obs": "2026-04-24"
         }
       ],
-      "generated_at": "2026-06-14T00:46:51"
+      "generated_at": "2026-06-14T02:52:22"
     },
     {
       "id": "consumer_cyclicals_media",
@@ -7068,7 +7068,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:46:55"
+      "generated_at": "2026-06-14T02:52:25"
     },
     {
       "id": "consumer_non_cyclicals_household",
@@ -7078,7 +7078,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 47,
+      "score": 49,
       "confidence": {
         "level": "medium",
         "score": 64,
@@ -7144,7 +7144,7 @@
         "oos_n": 57,
         "expected_monthly_ret": 0.0238
       },
-      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [47/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); id_10y (corr -0.07, lead 2m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 60% out-of-sample directional hit-rate; current read ~+2.4%/mo.",
+      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); id_10y (corr -0.07, lead 2m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 60% out-of-sample directional hit-rate; current read ~+2.4%/mo.",
       "n_kept": 12,
       "n_tested": 53,
       "n_used": 6,
@@ -7429,7 +7429,7 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T00:59:04"
+      "generated_at": "2026-06-14T02:52:28"
     },
     {
       "id": "financials_investment",
@@ -7793,7 +7793,7 @@
           "last_obs": "2025-08-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:01"
+      "generated_at": "2026-06-14T02:52:31"
     },
     {
       "id": "consumer_cyclicals_leisure",
@@ -7803,7 +7803,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 59,
+      "score": 56,
       "confidence": {
         "level": "medium",
         "score": 62,
@@ -7869,7 +7869,7 @@
         "oos_n": 123,
         "expected_monthly_ret": 0.0151
       },
-      "narrative": "Leisure (Consumer Cyclicals) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Export: world (UN comtrade) (corr -0.19, lead 4m, now flat); By residence: Canada (corr +0.14, lead 0m, now flat); By residence: China (corr +0.17, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 5%), 58% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
+      "narrative": "Leisure (Consumer Cyclicals) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Export: world (UN comtrade) (corr -0.19, lead 4m, now flat); By residence: Canada (corr +0.14, lead 0m, now flat); By residence: China (corr +0.17, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 5%), 58% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
       "n_kept": 12,
       "n_tested": 32,
       "n_used": 22,
@@ -8170,7 +8170,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:47:12"
+      "generated_at": "2026-06-14T02:52:33"
     },
     {
       "id": "basic_materials_cement",
@@ -8530,7 +8530,7 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:53:17"
+      "generated_at": "2026-06-14T02:52:35"
     },
     {
       "id": "infrastructure_construction",
@@ -8901,7 +8901,7 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:53:22"
+      "generated_at": "2026-06-14T02:52:38"
     },
     {
       "id": "financials_multifinance",
@@ -8911,7 +8911,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 47,
+      "score": 48,
       "confidence": {
         "level": "high",
         "score": 67,
@@ -8977,7 +8977,7 @@
         "oos_n": 30,
         "expected_monthly_ret": 0.0088
       },
-      "narrative": "Multifinance (Financials) screens NEUTRAL [47/100, high confidence]. Top drivers: id_10y (corr -0.21, lead 0m, now flat); USD/IDR (corr -0.22, lead 0m, now flat); Consumer Goods: New Four-Wheeled Vehicle (corr +0.09, lead 1m, now headwind). A 6-driver model explains 22% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
+      "narrative": "Multifinance (Financials) screens NEUTRAL [48/100, high confidence]. Top drivers: id_10y (corr -0.21, lead 0m, now flat); USD/IDR (corr -0.22, lead 0m, now flat); Consumer Goods: New Four-Wheeled Vehicle (corr +0.09, lead 1m, now headwind). A 6-driver model explains 22% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
       "n_kept": 12,
       "n_tested": 22,
       "n_used": 11,
@@ -9012,9 +9012,9 @@
           "excess_pearson": 0.1668,
           "best_lag": 0,
           "ic": -0.1651,
-          "beta": -0.23922439264089165,
-          "r2": 0.044987353805271524,
-          "p": 0.008393072756722682,
+          "beta": -0.23922439552038893,
+          "r2": 0.04498735399280962,
+          "p": 0.008393072025172131,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -9034,9 +9034,9 @@
           "excess_pearson": 0.0429,
           "best_lag": 0,
           "ic": -0.1058,
-          "beta": -0.4033870847329816,
-          "r2": 0.04677905760250389,
-          "p": 0.08481810767944534,
+          "beta": -0.40338709215901336,
+          "r2": 0.04677905839369956,
+          "p": 0.08481810591521015,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -9056,9 +9056,9 @@
           "excess_pearson": 0.0742,
           "best_lag": 1,
           "ic": -0.21,
-          "beta": 0.39497452873122363,
-          "r2": 0.008723910395790457,
-          "p": 0.212293883206627,
+          "beta": 0.3949745591126127,
+          "r2": 0.008723911369872273,
+          "p": 0.21229383181505201,
           "n": 90,
           "theory_agree": true,
           "stable": true,
@@ -9078,9 +9078,9 @@
           "excess_pearson": -0.0643,
           "best_lag": 3,
           "ic": -0.2727,
-          "beta": -0.5417038452501625,
-          "r2": 0.02201375638881964,
-          "p": 0.08407930188919166,
+          "beta": -0.5417038378565907,
+          "r2": 0.022013754859288803,
+          "p": 0.0840793120716046,
           "n": 90,
           "theory_agree": false,
           "stable": true,
@@ -9100,9 +9100,9 @@
           "excess_pearson": -0.0604,
           "best_lag": 6,
           "ic": -0.2338,
-          "beta": 0.07776891276724959,
-          "r2": 0.005508979305519746,
-          "p": 0.2504182751290037,
+          "beta": 0.07776891069028527,
+          "r2": 0.00550897879269896,
+          "p": 0.25041826462958783,
           "n": 109,
           "theory_agree": true,
           "stable": false,
@@ -9122,9 +9122,9 @@
           "excess_pearson": -0.1276,
           "best_lag": 0,
           "ic": -0.1482,
-          "beta": -0.32093041065943717,
-          "r2": 0.03282631323546337,
-          "p": 0.006334460064144511,
+          "beta": -0.32093043531555615,
+          "r2": 0.032826316894637886,
+          "p": 0.00633445774667064,
           "n": 90,
           "theory_agree": false,
           "stable": true,
@@ -9144,9 +9144,9 @@
           "excess_pearson": -0.1104,
           "best_lag": 2,
           "ic": 0.0649,
-          "beta": -0.007714905443771908,
-          "r2": 0.029376879434967584,
-          "p": 1.4560176183930077e-34,
+          "beta": -0.0077149045934996625,
+          "r2": 0.029376871870209542,
+          "p": 1.4559433095349313e-34,
           "n": 118,
           "theory_agree": false,
           "stable": true,
@@ -9166,9 +9166,9 @@
           "excess_pearson": 0.0437,
           "best_lag": 6,
           "ic": -0.1042,
-          "beta": -0.14856690260451627,
-          "r2": 0.01780048361819042,
-          "p": 0.03981769852519519,
+          "beta": -0.1485668998923436,
+          "r2": 0.017800482365217807,
+          "p": 0.039817700720188316,
           "n": 129,
           "theory_agree": false,
           "stable": true,
@@ -9188,9 +9188,9 @@
           "excess_pearson": -0.1107,
           "best_lag": 4,
           "ic": -0.0263,
-          "beta": -0.5162843613480375,
-          "r2": 0.04411170356084548,
-          "p": 0.02533708560856281,
+          "beta": -0.5162843675467624,
+          "r2": 0.044111702759319193,
+          "p": 0.025337085100323557,
           "n": 90,
           "theory_agree": false,
           "stable": false,
@@ -9210,9 +9210,9 @@
           "excess_pearson": 0.0102,
           "best_lag": 6,
           "ic": -0.102,
-          "beta": -0.46882363021730666,
-          "r2": 0.007920070938310486,
-          "p": 0.1459665647184617,
+          "beta": -0.4688236383758978,
+          "r2": 0.00792007094538727,
+          "p": 0.14596656009994669,
           "n": 127,
           "theory_agree": false,
           "stable": true,
@@ -9232,9 +9232,9 @@
           "excess_pearson": -0.0763,
           "best_lag": 0,
           "ic": -0.0038,
-          "beta": -0.3459492463496383,
-          "r2": 0.02698241764566156,
-          "p": 0.00983184838065526,
+          "beta": -0.3459492647061402,
+          "r2": 0.02698241943859636,
+          "p": 0.009831848897477001,
           "n": 109,
           "theory_agree": false,
           "stable": true,
@@ -9254,9 +9254,9 @@
           "excess_pearson": -0.031,
           "best_lag": 1,
           "ic": -0.1684,
-          "beta": 0.019016317670626268,
-          "r2": 9.664459891811639e-05,
-          "p": 0.8976962027185534,
+          "beta": 0.01901630749900184,
+          "r2": 9.664449169632938e-05,
+          "p": 0.8976962566113997,
           "n": 110,
           "theory_agree": true,
           "stable": false,
@@ -9267,7 +9267,7 @@
           "last_obs": "2025-11-01"
         }
       ],
-      "generated_at": "2026-06-14T00:53:27"
+      "generated_at": "2026-06-14T02:52:39"
     },
     {
       "id": "consumer_cyclicals_apparel",
@@ -9479,7 +9479,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T01:11:19"
+      "generated_at": "2026-06-14T02:52:41"
     },
     {
       "id": "transportation_logistics_shipping",
@@ -9488,8 +9488,8 @@
       "priority": 32,
       "status": "done",
       "grade": "perfected",
-      "verdict": "MILDLY BULLISH",
-      "score": 59,
+      "verdict": "NEUTRAL",
+      "score": 55,
       "confidence": {
         "level": "medium",
         "score": 60,
@@ -9543,7 +9543,7 @@
         "oos_n": 48,
         "expected_monthly_ret": 0.0131
       },
-      "narrative": "Shipping (Transportation & Logistics) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
+      "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [55/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
       "n_kept": 5,
       "n_tested": 18,
       "n_used": 10,
@@ -9678,7 +9678,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:26"
+      "generated_at": "2026-06-14T02:52:42"
     },
     {
       "id": "transportation_logistics_airlines",
@@ -9688,7 +9688,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 49,
+      "score": 50,
       "confidence": {
         "level": "medium",
         "score": 55,
@@ -9748,7 +9748,7 @@
         "oos_n": 120,
         "expected_monthly_ret": 0.0051
       },
-      "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat); International: Arrival: Ngurah Rai-Denpasar (corr +0.03, lead 2m, now flat). A 5-driver model explains 7% of monthly variance (adj 4%), 55% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
+      "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [50/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat); International: Arrival: Ngurah Rai-Denpasar (corr +0.03, lead 2m, now flat). A 5-driver model explains 7% of monthly variance (adj 4%), 55% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
       "n_kept": 5,
       "n_tested": 32,
       "n_used": 3,
@@ -9876,7 +9876,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:33"
+      "generated_at": "2026-06-14T02:52:45"
     },
     {
       "id": "financials_securities",
@@ -9982,9 +9982,9 @@
           "excess_pearson": 0.174,
           "best_lag": 1,
           "ic": -0.3102,
-          "beta": 1.0068035801343247,
-          "r2": 0.03486854709206477,
-          "p": 0.024807386805798533,
+          "beta": 1.0068036232983808,
+          "r2": 0.034868550294990586,
+          "p": 0.024807380088474874,
           "n": 90,
           "theory_agree": true,
           "stable": true,
@@ -10004,9 +10004,9 @@
           "excess_pearson": 0.3418,
           "best_lag": 0,
           "ic": 0.0837,
-          "beta": 0.016505443928484402,
-          "r2": 0.07273575965282175,
-          "p": 1.295091021423655e-06,
+          "beta": 0.016505444896012106,
+          "r2": 0.07273576852330887,
+          "p": 1.2950923140549133e-06,
           "n": 118,
           "theory_agree": true,
           "stable": true,
@@ -10026,9 +10026,9 @@
           "excess_pearson": -0.2423,
           "best_lag": 0,
           "ic": 0.0045,
-          "beta": 0.48099442112170976,
-          "r2": 0.050852802938077035,
-          "p": 0.002568928262478004,
+          "beta": 0.48099442562587447,
+          "r2": 0.05085280398759162,
+          "p": 0.002568927905026621,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -10048,9 +10048,9 @@
           "excess_pearson": 0.2196,
           "best_lag": 1,
           "ic": -0.1939,
-          "beta": 0.6078297398861718,
-          "r2": 0.01704926032900944,
-          "p": 0.3615049311359322,
+          "beta": 0.6078296390867157,
+          "r2": 0.017049254778493284,
+          "p": 0.3615050175717994,
           "n": 90,
           "theory_agree": true,
           "stable": false,
@@ -10070,9 +10070,9 @@
           "excess_pearson": 0.0082,
           "best_lag": 1,
           "ic": -0.2657,
-          "beta": 0.05366763232177112,
-          "r2": 0.001264925942453421,
-          "p": 0.6352014719696926,
+          "beta": 0.05366763128692627,
+          "r2": 0.0012649259000373503,
+          "p": 0.6352014855452897,
           "n": 109,
           "theory_agree": true,
           "stable": true,
@@ -10092,9 +10092,9 @@
           "excess_pearson": 0.1553,
           "best_lag": 4,
           "ic": 0.1007,
-          "beta": 0.11609230419599004,
-          "r2": 0.019630845110346296,
-          "p": 0.044219568735252554,
+          "beta": 0.11609231294965028,
+          "r2": 0.0196308472030704,
+          "p": 0.04421954302005,
           "n": 62,
           "theory_agree": null,
           "stable": true,
@@ -10114,9 +10114,9 @@
           "excess_pearson": 0.1441,
           "best_lag": 0,
           "ic": -0.1097,
-          "beta": -0.271232585829165,
-          "r2": 0.028784210951441014,
-          "p": 0.0034830629502331806,
+          "beta": -0.27123257861483496,
+          "r2": 0.0287842081479186,
+          "p": 0.0034830640931790657,
           "n": 62,
           "theory_agree": null,
           "stable": true,
@@ -10136,9 +10136,9 @@
           "excess_pearson": -0.0861,
           "best_lag": 1,
           "ic": -0.1008,
-          "beta": -0.6331328006293224,
-          "r2": 0.02843498511986653,
-          "p": 0.07754191115199145,
+          "beta": -0.6331327699463224,
+          "r2": 0.02843498250539822,
+          "p": 0.07754192297968995,
           "n": 110,
           "theory_agree": false,
           "stable": true,
@@ -10158,9 +10158,9 @@
           "excess_pearson": -0.0011,
           "best_lag": 2,
           "ic": 0.0229,
-          "beta": 0.02157876964950877,
-          "r2": 0.014697695595605076,
-          "p": 0.009101639021871158,
+          "beta": 0.021578770214660696,
+          "r2": 0.014697696393667026,
+          "p": 0.009101636187641766,
           "n": 182,
           "theory_agree": null,
           "stable": true,
@@ -10180,9 +10180,9 @@
           "excess_pearson": 0.1128,
           "best_lag": 0,
           "ic": -0.0682,
-          "beta": 0.014644313121641332,
-          "r2": 0.015821219280011567,
-          "p": 0.02222129422189747,
+          "beta": 0.014644313637229607,
+          "r2": 0.015821219694741484,
+          "p": 0.02222126064671301,
           "n": 62,
           "theory_agree": true,
           "stable": false,
@@ -10202,9 +10202,9 @@
           "excess_pearson": -0.1378,
           "best_lag": 3,
           "ic": 0.1767,
-          "beta": -0.06853166527740015,
-          "r2": 0.014169781283087546,
-          "p": 0.20000049939580222,
+          "beta": -0.06853165833569337,
+          "r2": 0.014169777786195104,
+          "p": 0.20000049587773572,
           "n": 62,
           "theory_agree": false,
           "stable": true,
@@ -10224,9 +10224,9 @@
           "excess_pearson": 0.0128,
           "best_lag": 5,
           "ic": -0.0343,
-          "beta": -0.05288622887416935,
-          "r2": 0.025308766309460218,
-          "p": 0.08329429760702901,
+          "beta": -0.05288623286856935,
+          "r2": 0.02530877139412535,
+          "p": 0.08329425854091088,
           "n": 56,
           "theory_agree": null,
           "stable": false,
@@ -10237,7 +10237,7 @@
           "last_obs": "2025-06-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:36"
+      "generated_at": "2026-06-14T02:52:48"
     },
     {
       "id": "basic_materials_metals",
@@ -10247,7 +10247,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 60,
+      "score": 57,
       "confidence": {
         "level": "medium",
         "score": 61,
@@ -10313,7 +10313,7 @@
         "oos_n": 57,
         "expected_monthly_ret": 0.0009
       },
-      "narrative": "Metals (Basic Materials) screens MILDLY BULLISH [60/100, medium confidence]. Top drivers: id_10y (corr -0.20, lead 0m, now flat); USD/IDR (corr -0.19, lead 0m, now flat); US HRC Steel (corr +0.13, lead 4m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 6%), 58% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+      "narrative": "Metals (Basic Materials) screens MILDLY BULLISH [57/100, medium confidence]. Top drivers: id_10y (corr -0.20, lead 0m, now flat); USD/IDR (corr -0.19, lead 0m, now flat); US HRC Steel (corr +0.13, lead 4m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 6%), 58% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
       "n_kept": 12,
       "n_tested": 26,
       "n_used": 15,
@@ -10352,9 +10352,9 @@
           "excess_pearson": 0.0826,
           "best_lag": 0,
           "ic": -0.1492,
-          "beta": -0.29054933546912415,
-          "r2": 0.03989851801433841,
-          "p": 0.00195000813443404,
+          "beta": -0.2905493342683496,
+          "r2": 0.0398985176239417,
+          "p": 0.0019500083646969446,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -10374,9 +10374,9 @@
           "excess_pearson": 0.0034,
           "best_lag": 0,
           "ic": -0.1621,
-          "beta": -0.4631843250180838,
-          "r2": 0.037081104516253904,
-          "p": 0.06575734819461415,
+          "beta": -0.4631843279739861,
+          "r2": 0.03708110493320127,
+          "p": 0.06575734852415699,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -10396,9 +10396,9 @@
           "excess_pearson": 0.2023,
           "best_lag": 4,
           "ic": 0.1285,
-          "beta": 0.11083838311739776,
-          "r2": 0.017571833057906328,
-          "p": 0.14269257894858373,
+          "beta": 0.11083838585671858,
+          "r2": 0.01757183389977135,
+          "p": 0.14269256651061343,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -10418,9 +10418,9 @@
           "excess_pearson": -0.1222,
           "best_lag": 0,
           "ic": -0.1482,
-          "beta": -0.01924393365738971,
-          "r2": 0.029044460609449096,
-          "p": 0.009197137454905071,
+          "beta": -0.019243933468265258,
+          "r2": 0.029044459989761684,
+          "p": 0.009197138351135122,
           "n": 160,
           "theory_agree": null,
           "stable": true,
@@ -10440,9 +10440,9 @@
           "excess_pearson": -0.0995,
           "best_lag": 3,
           "ic": -0.1195,
-          "beta": -0.0621771059004173,
-          "r2": 0.024534723910111356,
-          "p": 0.21249581863340816,
+          "beta": -0.062177106244910345,
+          "r2": 0.024534724143494557,
+          "p": 0.21249581684504104,
           "n": 181,
           "theory_agree": null,
           "stable": true,
@@ -10462,9 +10462,9 @@
           "excess_pearson": 0.1035,
           "best_lag": 5,
           "ic": 0.0683,
-          "beta": 0.013898380371866094,
-          "r2": 0.009771520398416111,
-          "p": 0.30605729076710897,
+          "beta": 0.01389838038717702,
+          "r2": 0.009771520390994937,
+          "p": 0.30605728596468973,
           "n": 87,
           "theory_agree": null,
           "stable": true,
@@ -10484,9 +10484,9 @@
           "excess_pearson": -0.025,
           "best_lag": 4,
           "ic": 0.062,
-          "beta": -0.004932934916292466,
-          "r2": 0.005443071304956804,
-          "p": 0.05261811609473428,
+          "beta": -0.004932935684594744,
+          "r2": 0.0054430729884962226,
+          "p": 0.05261808648173542,
           "n": 118,
           "theory_agree": false,
           "stable": true,
@@ -10506,9 +10506,9 @@
           "excess_pearson": 0.1524,
           "best_lag": 3,
           "ic": -0.0811,
-          "beta": 0.0370814193720342,
-          "r2": 0.011092850993334569,
-          "p": 0.44397951470935393,
+          "beta": 0.037081422757253,
+          "r2": 0.011092852985836288,
+          "p": 0.4439794602124625,
           "n": 87,
           "theory_agree": null,
           "stable": false,
@@ -10528,9 +10528,9 @@
           "excess_pearson": -0.0494,
           "best_lag": 4,
           "ic": -0.0569,
-          "beta": -0.015223344126666573,
-          "r2": 0.007796705742830312,
-          "p": 0.3053624667142276,
+          "beta": -0.015223343659934795,
+          "r2": 0.007796705251651548,
+          "p": 0.3053624780753401,
           "n": 160,
           "theory_agree": false,
           "stable": true,
@@ -10550,9 +10550,9 @@
           "excess_pearson": 0.0126,
           "best_lag": 3,
           "ic": 0.1204,
-          "beta": -0.005717656108952288,
-          "r2": 0.00200836829884099,
-          "p": 0.518714741020579,
+          "beta": -0.00571765625004823,
+          "r2": 0.002008368398425664,
+          "p": 0.5187147294317973,
           "n": 159,
           "theory_agree": null,
           "stable": false,
@@ -10572,9 +10572,9 @@
           "excess_pearson": 0.0505,
           "best_lag": 3,
           "ic": -0.0314,
-          "beta": 0.012131595008153714,
-          "r2": 0.008958348363477642,
-          "p": 0.39186248761643305,
+          "beta": 0.012131595407156883,
+          "r2": 0.008958348926209614,
+          "p": 0.3918624703919791,
           "n": 87,
           "theory_agree": null,
           "stable": false,
@@ -10594,9 +10594,9 @@
           "excess_pearson": 0.1921,
           "best_lag": 4,
           "ic": -0.1824,
-          "beta": 0.14956593866892054,
+          "beta": 0.14956593866892082,
           "r2": 0.012735700095053093,
-          "p": 0.6584836312601399,
+          "p": 0.6584836312601383,
           "n": 23,
           "theory_agree": false,
           "stable": false,
@@ -10607,7 +10607,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T01:32:12"
+      "generated_at": "2026-06-14T02:52:50"
     },
     {
       "id": "infrastructure_ports",
@@ -10681,7 +10681,7 @@
           "last_obs": "2026-04-03"
         }
       ],
-      "generated_at": "2026-06-14T01:52:15"
+      "generated_at": "2026-06-14T02:52:51"
     },
     {
       "id": "basic_materials_construction_materials",
@@ -10691,7 +10691,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 57,
+      "score": 56,
       "confidence": {
         "level": "medium",
         "score": 55,
@@ -10757,7 +10757,7 @@
         "oos_n": 35,
         "expected_monthly_ret": -0.0199
       },
-      "narrative": "Construction Materials (Basic Materials) screens MILDLY BULLISH [57/100, medium confidence]. Top drivers: DDI: Basic metals & metal goods (corr +0.20, lead 0m, now tailwind); GDP: Furniture (corr +0.18, lead 4m, now tailwind); USD/IDR (corr -0.27, lead 0m, now flat). A 6-driver model explains 20% of monthly variance (adj 14%), 54% out-of-sample directional hit-rate; current read ~-2.0%/mo.",
+      "narrative": "Construction Materials (Basic Materials) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: DDI: Basic metals & metal goods (corr +0.20, lead 0m, now tailwind); GDP: Furniture (corr +0.18, lead 4m, now tailwind); USD/IDR (corr -0.27, lead 0m, now flat). A 6-driver model explains 20% of monthly variance (adj 14%), 54% out-of-sample directional hit-rate; current read ~-2.0%/mo.",
       "n_kept": 12,
       "n_tested": 41,
       "n_used": 6,
@@ -10787,9 +10787,9 @@
           "excess_pearson": 0.3187,
           "best_lag": 0,
           "ic": 0.0962,
-          "beta": 0.044418785895999596,
-          "r2": 0.04174714044475547,
-          "p": 0.04128420936284617,
+          "beta": 0.04441878544917738,
+          "r2": 0.041747138983866505,
+          "p": 0.04128420806296905,
           "n": 60,
           "theory_agree": true,
           "stable": true,
@@ -10809,9 +10809,9 @@
           "excess_pearson": 0.1757,
           "best_lag": 4,
           "ic": -0.0754,
-          "beta": 0.6786927634349524,
-          "r2": 0.031213551334604128,
-          "p": 0.19236128166834465,
+          "beta": 0.678692726320102,
+          "r2": 0.031213547456422686,
+          "p": 0.1923612972261739,
           "n": 60,
           "theory_agree": true,
           "stable": true,
@@ -10831,9 +10831,9 @@
           "excess_pearson": -0.0853,
           "best_lag": 0,
           "ic": -0.0004,
-          "beta": -0.634130156756209,
-          "r2": 0.07481848474493935,
-          "p": 0.03585159296735059,
+          "beta": -0.6341301749441866,
+          "r2": 0.07481848729174267,
+          "p": 0.035851593602115345,
           "n": 184,
           "theory_agree": null,
           "stable": true,
@@ -10853,9 +10853,9 @@
           "excess_pearson": 0.1525,
           "best_lag": 0,
           "ic": -0.0793,
-          "beta": 0.056229146465161514,
-          "r2": 0.021016020653191525,
-          "p": 0.02785223697772512,
+          "beta": 0.056229156974958006,
+          "r2": 0.021016027732054465,
+          "p": 0.027852215064855128,
           "n": 110,
           "theory_agree": true,
           "stable": true,
@@ -10875,9 +10875,9 @@
           "excess_pearson": 0.051,
           "best_lag": 5,
           "ic": -0.0957,
-          "beta": 0.04716125140697193,
-          "r2": 0.006780091317689196,
-          "p": 0.20995393330395262,
+          "beta": 0.04716125641661735,
+          "r2": 0.006780092586442854,
+          "p": 0.20995389161806077,
           "n": 171,
           "theory_agree": null,
           "stable": true,
@@ -10897,9 +10897,9 @@
           "excess_pearson": 0.0585,
           "best_lag": 4,
           "ic": -0.0555,
-          "beta": 0.07331979536114848,
-          "r2": 0.004186798149262594,
-          "p": 0.16492059522760028,
+          "beta": 0.07331979346077613,
+          "r2": 0.00418679782511322,
+          "p": 0.1649206125306525,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -10919,9 +10919,9 @@
           "excess_pearson": -0.0314,
           "best_lag": 3,
           "ic": 0.1261,
-          "beta": -0.034409938060455045,
-          "r2": 0.011781891980451431,
-          "p": 0.3416986464606916,
+          "beta": -0.034409937163449436,
+          "r2": 0.011781891190928762,
+          "p": 0.3416986596944981,
           "n": 60,
           "theory_agree": false,
           "stable": true,
@@ -10941,9 +10941,9 @@
           "excess_pearson": -0.029,
           "best_lag": 2,
           "ic": -0.1347,
-          "beta": -0.02047846238031627,
-          "r2": 0.0008010474476641827,
-          "p": 0.5546938776890744,
+          "beta": -0.020478452604402494,
+          "r2": 0.0008010466623697976,
+          "p": 0.5546940829519948,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -10963,9 +10963,9 @@
           "excess_pearson": -0.2313,
           "best_lag": 3,
           "ic": 0.0492,
-          "beta": -0.03494328167165922,
-          "r2": 0.024047879884109502,
-          "p": 0.11955868407575727,
+          "beta": -0.03494328127026786,
+          "r2": 0.024047878973920578,
+          "p": 0.11955868124665592,
           "n": 60,
           "theory_agree": false,
           "stable": false,
@@ -10985,9 +10985,9 @@
           "excess_pearson": -0.0417,
           "best_lag": 5,
           "ic": 0.0048,
-          "beta": -0.01893736847742947,
-          "r2": 0.0015490126415352856,
-          "p": 0.4980900815631105,
+          "beta": -0.018937363436273287,
+          "r2": 0.001549011777206788,
+          "p": 0.49809020540127147,
           "n": 167,
           "theory_agree": null,
           "stable": true,
@@ -11007,9 +11007,9 @@
           "excess_pearson": -0.0637,
           "best_lag": 4,
           "ic": -0.0164,
-          "beta": -0.0410611784667233,
-          "r2": 0.006428301710223794,
-          "p": 0.3696301808063198,
+          "beta": -0.04106116681018957,
+          "r2": 0.006428297896003521,
+          "p": 0.36963031611970565,
           "n": 167,
           "theory_agree": null,
           "stable": false,
@@ -11029,9 +11029,9 @@
           "excess_pearson": -0.0456,
           "best_lag": 6,
           "ic": 0.0009,
-          "beta": -0.08101191048320096,
-          "r2": 0.004740960386932613,
-          "p": 0.29325863908815586,
+          "beta": -0.08101191461653806,
+          "r2": 0.00474096074942032,
+          "p": 0.29325861288754906,
           "n": 167,
           "theory_agree": null,
           "stable": false,
@@ -11042,7 +11042,7 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:45"
+      "generated_at": "2026-06-14T02:52:54"
     },
     {
       "id": "technology_electronics",
@@ -11052,7 +11052,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 46,
       "confidence": {
         "level": "high",
         "score": 74,
@@ -11112,7 +11112,7 @@
         "oos_n": 48,
         "expected_monthly_ret": -0.0298
       },
-      "narrative": "Electronics (Technology) screens NEUTRAL [45/100, high confidence]. Top drivers: Volume: Desktop (corr +0.08, lead 5m, now headwind); Volume (corr +0.05, lead 5m, now headwind); USD/IDR (corr -0.24, lead 0m, now flat). A 5-driver model explains 15% of monthly variance (adj 10%), 62% out-of-sample directional hit-rate; current read ~-3.0%/mo.",
+      "narrative": "Electronics (Technology) screens NEUTRAL [46/100, high confidence]. Top drivers: Volume: Desktop (corr +0.08, lead 5m, now headwind); Volume (corr +0.05, lead 5m, now headwind); USD/IDR (corr -0.24, lead 0m, now flat). A 5-driver model explains 15% of monthly variance (adj 10%), 62% out-of-sample directional hit-rate; current read ~-3.0%/mo.",
       "n_kept": 12,
       "n_tested": 34,
       "n_used": 6,
@@ -11397,7 +11397,7 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T00:47:48"
+      "generated_at": "2026-06-14T02:52:56"
     },
     {
       "id": "healthcare_healthcare_equipment",
@@ -11745,7 +11745,7 @@
           "last_obs": "2026-05-18"
         }
       ],
-      "generated_at": "2026-06-14T00:47:50"
+      "generated_at": "2026-06-14T02:52:57"
     },
     {
       "id": "transportation_logistics_logistics",
@@ -11755,7 +11755,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 58,
+      "score": 56,
       "confidence": {
         "level": "medium",
         "score": 54,
@@ -11821,7 +11821,7 @@
         "oos_n": 48,
         "expected_monthly_ret": 0.0049
       },
-      "narrative": "Logistics (Transportation & Logistics) screens MILDLY BULLISH [58/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.23, lead 1m, now flat); GDP: Transport & Storage (corr -0.15, lead 6m, now tailwind); GDP nominal: Transport & Storage (corr -0.18, lead 6m, now tailwind). A 6-driver model explains 9% of monthly variance (adj 4%), 44% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
+      "narrative": "Logistics (Transportation & Logistics) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.23, lead 1m, now flat); GDP: Transport & Storage (corr -0.15, lead 6m, now tailwind); GDP nominal: Transport & Storage (corr -0.18, lead 6m, now tailwind). A 6-driver model explains 9% of monthly variance (adj 4%), 44% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
       "n_kept": 12,
       "n_tested": 28,
       "n_used": 12,
@@ -12112,7 +12112,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:47:54"
+      "generated_at": "2026-06-14T02:52:59"
     },
     {
       "id": "consumer_cyclicals_restaurants",
@@ -12476,7 +12476,7 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T02:12:29"
+      "generated_at": "2026-06-14T02:53:02"
     },
     {
       "id": "consumer_non_cyclicals_poultry",
@@ -12828,7 +12828,7 @@
           "last_obs": "2026-02-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:05"
+      "generated_at": "2026-06-14T02:53:03"
     },
     {
       "id": "industrials_electrical_equipment",
@@ -12917,9 +12917,9 @@
           "excess_pearson": -0.1367,
           "best_lag": 4,
           "ic": -0.0762,
-          "beta": -0.0806172206738163,
-          "r2": 0.04156036121543483,
-          "p": 0.0005760891911610209,
+          "beta": -0.0806172211561507,
+          "r2": 0.04156036191924817,
+          "p": 0.0005760891160257655,
           "n": 181,
           "theory_agree": true,
           "stable": true,
@@ -12939,9 +12939,9 @@
           "excess_pearson": 0.1277,
           "best_lag": 3,
           "ic": -0.0175,
-          "beta": -0.21507162642975905,
-          "r2": 0.02211118663713374,
-          "p": 0.05952951026432404,
+          "beta": -0.2150716277636189,
+          "r2": 0.02211118701966397,
+          "p": 0.059529508675620214,
           "n": 184,
           "theory_agree": true,
           "stable": true,
@@ -12961,9 +12961,9 @@
           "excess_pearson": -0.0443,
           "best_lag": 4,
           "ic": 0.0098,
-          "beta": 0.03468772156604402,
-          "r2": 0.0008534406541081951,
-          "p": 0.5668188858721322,
+          "beta": 0.03468772055224388,
+          "r2": 0.0008534406104163672,
+          "p": 0.5668188938667836,
           "n": 144,
           "theory_agree": false,
           "stable": false,
@@ -12974,7 +12974,7 @@
           "last_obs": "2026-05-01"
         }
       ],
-      "generated_at": "2026-06-14T02:32:15"
+      "generated_at": "2026-06-14T02:53:05"
     },
     {
       "id": "technology_software",
@@ -12984,7 +12984,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 52,
+      "score": 51,
       "confidence": {
         "level": "medium",
         "score": 47,
@@ -13032,7 +13032,7 @@
         "oos_n": 58,
         "expected_monthly_ret": 0.023
       },
-      "narrative": "Software (Technology) screens NEUTRAL [52/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat); AOV: Arts & Entertainment (corr +0.08, lead 5m, now flat). A 3-driver model explains 6% of monthly variance (adj 3%), 47% out-of-sample directional hit-rate; current read ~+2.3%/mo.",
+      "narrative": "Software (Technology) screens NEUTRAL [51/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat); AOV: Arts & Entertainment (corr +0.08, lead 5m, now flat). A 3-driver model explains 6% of monthly variance (adj 3%), 47% out-of-sample directional hit-rate; current read ~+2.3%/mo.",
       "n_kept": 9,
       "n_tested": 33,
       "n_used": 8,
@@ -13253,7 +13253,7 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T00:48:09"
+      "generated_at": "2026-06-14T02:53:07"
     },
     {
       "id": "consumer_cyclicals_durables",
@@ -13532,7 +13532,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:53:37"
+      "generated_at": "2026-06-14T02:53:10"
     },
     {
       "id": "infrastructure_toll_road",
@@ -13542,7 +13542,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 47,
       "confidence": {
         "level": "low",
         "score": 33,
@@ -13602,7 +13602,7 @@
         "oos_n": 56,
         "expected_monthly_ret": -0.0257
       },
-      "narrative": "Toll Road (Infrastructure) screens NEUTRAL [45/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 23% out-of-sample directional hit-rate; current read ~-2.6%/mo.",
+      "narrative": "Toll Road (Infrastructure) screens NEUTRAL [47/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 23% out-of-sample directional hit-rate; current read ~-2.6%/mo.",
       "n_kept": 11,
       "n_tested": 26,
       "n_used": 1,
@@ -13860,7 +13860,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:50:00"
+      "generated_at": "2026-06-14T02:53:11"
     },
     {
       "id": "healthcare_healthcare_services",
@@ -14217,7 +14217,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:14"
+      "generated_at": "2026-06-14T02:53:12"
     },
     {
       "id": "infrastructure_tower",
@@ -14226,8 +14226,8 @@
       "priority": 48,
       "status": "done",
       "grade": "partial",
-      "verdict": "MILDLY BEARISH",
-      "score": 40,
+      "verdict": "NEUTRAL",
+      "score": 46,
       "confidence": {
         "level": "low",
         "score": 22,
@@ -14293,7 +14293,7 @@
         "oos_n": 98,
         "expected_monthly_ret": -0.0387
       },
-      "narrative": "Tower (Infrastructure) screens MILDLY BEARISH [40/100, low confidence]. Top drivers: ATM and Debit Card: Value: Cash Withdrawal (corr -0.12, lead 0m, now headwind); Credit Card: Value: Purchase: Domestic (corr -0.04, lead 3m, now headwind); Credit Card: Volume: Purchase (corr +0.00, lead 3m, now tailwind). A 6-driver model explains 4% of monthly variance (adj 0%), 47% out-of-sample directional hit-rate; current read ~-3.9%/mo.",
+      "narrative": "Tower (Infrastructure) screens NEUTRAL [46/100, low confidence]. Top drivers: ATM and Debit Card: Value: Cash Withdrawal (corr -0.12, lead 0m, now headwind); Credit Card: Value: Purchase: Domestic (corr -0.04, lead 3m, now headwind); Credit Card: Volume: Purchase (corr +0.00, lead 3m, now tailwind). A 6-driver model explains 4% of monthly variance (adj 0%), 47% out-of-sample directional hit-rate; current read ~-3.9%/mo.",
       "n_kept": 7,
       "n_tested": 33,
       "n_used": 2,
@@ -14464,7 +14464,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:16"
+      "generated_at": "2026-06-14T02:53:14"
     },
     {
       "id": "industrials_services",
@@ -14474,7 +14474,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 47,
       "confidence": {
         "level": "medium",
         "score": 45,
@@ -14540,7 +14540,7 @@
         "oos_n": 95,
         "expected_monthly_ret": -0.0021
       },
-      "narrative": "Services (Industrials) screens NEUTRAL [45/100, medium confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Export value: electrical machinery (corr -0.13, lead 0m, now headwind). A 6-driver model explains 6% of monthly variance (adj 2%), 47% out-of-sample directional hit-rate; current read ~-0.2%/mo.",
+      "narrative": "Services (Industrials) screens NEUTRAL [47/100, medium confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Export value: electrical machinery (corr -0.13, lead 0m, now headwind). A 6-driver model explains 6% of monthly variance (adj 2%), 47% out-of-sample directional hit-rate; current read ~-0.2%/mo.",
       "n_kept": 12,
       "n_tested": 39,
       "n_used": 4,
@@ -14823,7 +14823,7 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:19"
+      "generated_at": "2026-06-14T02:53:16"
     },
     {
       "id": "consumer_cyclicals_auto",
@@ -14833,7 +14833,7 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BULLISH",
-      "score": 58,
+      "score": 57,
       "confidence": {
         "level": "high",
         "score": 69,
@@ -14899,7 +14899,7 @@
         "oos_n": 57,
         "expected_monthly_ret": 0.0145
       },
-      "narrative": "Auto (Consumer Cyclicals) screens MILDLY BULLISH [58/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.26, lead 4m, now flat); Wholesale: Below 1500cc (corr +0.13, lead 6m, now flat); 4x2 Type (corr +0.12, lead 6m, now flat). A 6-driver model explains 9% of monthly variance (adj 4%), 46% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
+      "narrative": "Auto (Consumer Cyclicals) screens MILDLY BULLISH [57/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.26, lead 4m, now flat); Wholesale: Below 1500cc (corr +0.13, lead 6m, now flat); 4x2 Type (corr +0.12, lead 6m, now flat). A 6-driver model explains 9% of monthly variance (adj 4%), 46% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
       "n_kept": 12,
       "n_tested": 52,
       "n_used": 7,
@@ -15185,7 +15185,7 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:23"
+      "generated_at": "2026-06-14T02:53:19"
     },
     {
       "id": "consumer_non_cyclicals_staple_retail",
@@ -15195,7 +15195,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "MILDLY BEARISH",
-      "score": 36,
+      "score": 44,
       "confidence": {
         "level": "low",
         "score": 26,
@@ -15243,7 +15243,7 @@
         "oos_n": 58,
         "expected_monthly_ret": 0.0158
       },
-      "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [36/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
+      "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [44/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
       "n_kept": 4,
       "n_tested": 16,
       "n_used": 3,
@@ -15349,7 +15349,7 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T00:48:26"
+      "generated_at": "2026-06-14T02:53:20"
     },
     {
       "id": "infrastructure_utilities",
@@ -15359,7 +15359,7 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 52,
+      "score": 51,
       "confidence": {
         "level": "low",
         "score": 28,
@@ -15425,7 +15425,7 @@
         "oos_n": 33,
         "expected_monthly_ret": 0.034
       },
-      "narrative": "Utilities (Infrastructure) screens NEUTRAL [52/100, low confidence]. Top drivers: USD/IDR (corr -0.10, lead 1m, now flat); Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind); 6,600 VA - 200 kVA: Prepaid (corr +0.06, lead 6m, now flat). A 6-driver model explains 2% of monthly variance (adj -2%), 52% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
+      "narrative": "Utilities (Infrastructure) screens NEUTRAL [51/100, low confidence]. Top drivers: USD/IDR (corr -0.10, lead 1m, now flat); Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind); 6,600 VA - 200 kVA: Prepaid (corr +0.06, lead 6m, now flat). A 6-driver model explains 2% of monthly variance (adj -2%), 52% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
       "n_kept": 6,
       "n_tested": 17,
       "n_used": 2,
@@ -15574,7 +15574,7 @@
           "last_obs": "2026-04-03"
         }
       ],
-      "generated_at": "2026-06-14T00:49:50"
+      "generated_at": "2026-06-14T02:53:21"
     }
   ]
 }

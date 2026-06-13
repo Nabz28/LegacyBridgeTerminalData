@@ -3,7 +3,7 @@
   "sub_sector": "Paper",
   "sector": "Basic Materials",
   "priority": 23,
-  "generated_at": "2026-06-14T00:46:51",
+  "generated_at": "2026-06-14T02:52:22",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,7 +36,7 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 59,
+    "score": 57,
     "net_tilt": 0.177,
     "demand_tilt": null,
     "supply_tilt": 0.027,
@@ -78,7 +78,7 @@
       "oos_n": 121,
       "expected_monthly_ret": 0.0189
     },
-    "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.18, lead 6m, now headwind); Bloomberg Commodity Idx (corr +0.18, lead 0m, now tailwind); Coal · Australia (Newcastle) (corr +0.24, lead 4m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 61% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
+    "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [57/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.18, lead 6m, now headwind); Bloomberg Commodity Idx (corr +0.18, lead 0m, now tailwind); Coal · Australia (Newcastle) (corr +0.24, lead 4m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 61% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
     "drivers": [
       {
         "key": "CEICI323565302",
@@ -378,7 +378,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 4.6,
+  "runtime_s": 1.0,
   "grade": "perfected",
   "grade_reasons": []
 }

@@ -3,7 +3,7 @@
   "sub_sector": "Household",
   "sector": "Consumer Non-Cyclicals",
   "priority": 25,
-  "generated_at": "2026-06-14T00:59:04",
+  "generated_at": "2026-06-14T02:52:28",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,7 +30,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 47,
+    "score": 49,
     "net_tilt": -0.053,
     "demand_tilt": -0.001,
     "supply_tilt": -0.139,
@@ -96,7 +96,7 @@
       "oos_n": 57,
       "expected_monthly_ret": 0.0238
     },
-    "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [47/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); id_10y (corr -0.07, lead 2m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 60% out-of-sample directional hit-rate; current read ~+2.4%/mo.",
+    "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); id_10y (corr -0.07, lead 2m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 60% out-of-sample directional hit-rate; current read ~+2.4%/mo.",
     "drivers": [
       {
         "key": "CEICI432413187",
@@ -863,7 +863,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.8,
+  "runtime_s": 3.0,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

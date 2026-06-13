@@ -3,7 +3,7 @@
   "sub_sector": "Shipping",
   "sector": "Transportation & Logistics",
   "priority": 32,
-  "generated_at": "2026-06-14T00:47:26",
+  "generated_at": "2026-06-14T02:52:42",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -33,8 +33,8 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 59,
+    "verdict": "NEUTRAL",
+    "score": 55,
     "net_tilt": 0.181,
     "demand_tilt": 0.125,
     "supply_tilt": null,
@@ -88,7 +88,7 @@
       "oos_n": 48,
       "expected_monthly_ret": 0.0131
     },
-    "narrative": "Shipping (Transportation & Logistics) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
+    "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [55/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
     "drivers": [
       {
         "key": "CEICI14575001",
@@ -479,7 +479,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.4,
+  "runtime_s": 1.6,
   "grade": "perfected",
   "grade_reasons": []
 }

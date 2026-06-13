@@ -3,7 +3,7 @@
   "sub_sector": "IT Services",
   "sector": "Technology",
   "priority": 2,
-  "generated_at": "2026-06-14T00:40:30",
+  "generated_at": "2026-06-14T02:51:29",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -39,7 +39,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 46,
+    "score": 48,
     "net_tilt": -0.086,
     "demand_tilt": -0.019,
     "supply_tilt": null,
@@ -105,7 +105,7 @@
       "oos_n": 47,
       "expected_monthly_ret": 0.0508
     },
-    "narrative": "IT Services (Technology) screens NEUTRAL [46/100, medium confidence]. Top drivers: Device vendor share (Tablet): Others (corr +0.13, lead 0m, now headwind); Real GDP (SA) (corr +0.10, lead 6m, now flat); Search engine share (Mobile): Others (corr -0.16, lead 0m, now tailwind). A 6-driver model explains 6% of monthly variance (adj 0%), 40% out-of-sample directional hit-rate; current read ~+5.1%/mo.",
+    "narrative": "IT Services (Technology) screens NEUTRAL [48/100, medium confidence]. Top drivers: Device vendor share (Tablet): Others (corr +0.13, lead 0m, now headwind); Real GDP (SA) (corr +0.10, lead 6m, now flat); Search engine share (Mobile): Others (corr -0.16, lead 0m, now tailwind). A 6-driver model explains 6% of monthly variance (adj 0%), 40% out-of-sample directional hit-rate; current read ~+5.1%/mo.",
     "drivers": [
       {
         "key": "CEICI499347947",
@@ -711,7 +711,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.2,
+  "runtime_s": 2.4,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

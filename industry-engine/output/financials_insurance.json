@@ -3,7 +3,7 @@
   "sub_sector": "Insurance",
   "sector": "Financials",
   "priority": 17,
-  "generated_at": "2026-06-14T00:46:01",
+  "generated_at": "2026-06-14T02:52:01",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -40,7 +40,7 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 40,
+    "score": 42,
     "net_tilt": -0.198,
     "demand_tilt": -0.164,
     "supply_tilt": null,
@@ -88,7 +88,7 @@
       "oos_n": 58,
       "expected_monthly_ret": -0.0048
     },
-    "narrative": "Insurance (Financials) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+    "narrative": "Insurance (Financials) screens MILDLY BEARISH [42/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
     "drivers": [
       {
         "key": "jci",
@@ -109,18 +109,18 @@
         "ic": 0.1206,
         "ic_t": 1.627,
         "ols": {
-          "beta": 0.7237549396195808,
-          "t": 6.232945271891369,
-          "p": 4.5774612411777755e-10,
-          "r2": 0.259265998575565,
+          "beta": 0.7237549603180403,
+          "t": 6.232945547863156,
+          "p": 4.577453174040402e-10,
+          "r2": 0.25926600722388937,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": 0.7237549396195808,
-          "t": 6.232945271891369,
-          "p": 4.5774612411777755e-10,
-          "r2": 0.259265998575565,
+          "beta": 0.7237549603180403,
+          "t": 6.232945547863156,
+          "p": 4.577453174040402e-10,
+          "r2": 0.25926600722388937,
           "n": 184,
           "hac_lag": 5
         },
@@ -164,18 +164,18 @@
         "ic": -0.1636,
         "ic_t": -2.208,
         "ols": {
-          "beta": -0.3205436364765245,
-          "t": -1.3506906857122372,
-          "p": 0.17679453720392535,
-          "r2": 0.027310689478879935,
+          "beta": -0.32054361791233965,
+          "t": -1.3506906491021167,
+          "p": 0.1767945489362841,
+          "r2": 0.02731068566440087,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.3205436364765245,
-          "t": -1.3506906857122372,
-          "p": 0.17679453720392535,
-          "r2": 0.027310689478879935,
+          "beta": -0.32054361791233965,
+          "t": -1.3506906491021167,
+          "p": 0.1767945489362841,
+          "r2": 0.02731068566440087,
           "n": 184,
           "hac_lag": 5
         },
@@ -219,18 +219,18 @@
         "ic": 0.2127,
         "ic_t": 2.291,
         "ols": {
-          "beta": 2.2023296030608236e-05,
-          "t": 0.0063693197979821144,
-          "p": 0.9949180524313376,
-          "r2": 2.616723765447304e-07,
+          "beta": 2.2022445291338416e-05,
+          "t": 0.0063690725609316596,
+          "p": 0.9949182496939618,
+          "r2": 2.61652147282021e-07,
           "n": 118,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": 0.008206044728183497,
-          "t": 1.9523684840440634,
-          "p": 0.050894471986334656,
-          "r2": 0.036344433810041266,
+          "beta": 0.008206047694246469,
+          "t": 1.9523686609203081,
+          "p": 0.050894451001764124,
+          "r2": 0.03634445818410881,
           "n": 116,
           "hac_lag": 4
         },
@@ -266,7 +266,7 @@
       "label": "US 10Y Treasury",
       "role": "macro",
       "pearson": 0.1226,
-      "p": 0.2119720128681497,
+      "p": 0.2119719480534873,
       "theory_agree": true,
       "score": 34.4,
       "reason": "below_gate"
@@ -276,7 +276,7 @@
       "label": "BI Policy Rate",
       "role": "macro",
       "pearson": 0.0166,
-      "p": 0.8243371028837079,
+      "p": 0.8243370634991369,
       "theory_agree": true,
       "score": 14.4,
       "reason": "below_gate"
@@ -286,7 +286,7 @@
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
       "pearson": 0.0352,
-      "p": 0.6907699820921345,
+      "p": 0.6907699014065831,
       "theory_agree": null,
       "score": 13.5,
       "reason": "below_gate"
@@ -296,7 +296,7 @@
       "label": "Life: net premium income",
       "role": "demand",
       "pearson": -0.0184,
-      "p": 0.8717418155781451,
+      "p": 0.871741992745367,
       "theory_agree": false,
       "score": 3.9,
       "reason": "below_gate"

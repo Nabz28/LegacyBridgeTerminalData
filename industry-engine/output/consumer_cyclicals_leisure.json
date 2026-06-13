@@ -3,7 +3,7 @@
   "sub_sector": "Leisure",
   "sector": "Consumer Cyclicals",
   "priority": 27,
-  "generated_at": "2026-06-14T00:47:12",
+  "generated_at": "2026-06-14T02:52:33",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -46,7 +46,7 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 59,
+    "score": 56,
     "net_tilt": 0.178,
     "demand_tilt": 0.198,
     "supply_tilt": 0.0,
@@ -112,7 +112,7 @@
       "oos_n": 123,
       "expected_monthly_ret": 0.0151
     },
-    "narrative": "Leisure (Consumer Cyclicals) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Export: world (UN comtrade) (corr -0.19, lead 4m, now flat); By residence: Canada (corr +0.14, lead 0m, now flat); By residence: China (corr +0.17, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 5%), 58% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
+    "narrative": "Leisure (Consumer Cyclicals) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Export: world (UN comtrade) (corr -0.19, lead 4m, now flat); By residence: Canada (corr +0.14, lead 0m, now flat); By residence: China (corr +0.17, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 5%), 58% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
     "drivers": [
       {
         "key": "CEICI655700197",
@@ -907,7 +907,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 10.7,
+  "runtime_s": 2.2,
   "grade": "perfected",
   "grade_reasons": []
 }

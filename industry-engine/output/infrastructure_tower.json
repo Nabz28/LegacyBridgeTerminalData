@@ -3,7 +3,7 @@
   "sub_sector": "Tower",
   "sector": "Infrastructure",
   "priority": 48,
-  "generated_at": "2026-06-14T00:48:16",
+  "generated_at": "2026-06-14T02:53:14",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -25,8 +25,8 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 40,
+    "verdict": "NEUTRAL",
+    "score": 46,
     "net_tilt": -0.204,
     "demand_tilt": -0.179,
     "supply_tilt": null,
@@ -92,7 +92,7 @@
       "oos_n": 98,
       "expected_monthly_ret": -0.0387
     },
-    "narrative": "Tower (Infrastructure) screens MILDLY BEARISH [40/100, low confidence]. Top drivers: ATM and Debit Card: Value: Cash Withdrawal (corr -0.12, lead 0m, now headwind); Credit Card: Value: Purchase: Domestic (corr -0.04, lead 3m, now headwind); Credit Card: Volume: Purchase (corr +0.00, lead 3m, now tailwind). A 6-driver model explains 4% of monthly variance (adj 0%), 47% out-of-sample directional hit-rate; current read ~-3.9%/mo.",
+    "narrative": "Tower (Infrastructure) screens NEUTRAL [46/100, low confidence]. Top drivers: ATM and Debit Card: Value: Cash Withdrawal (corr -0.12, lead 0m, now headwind); Credit Card: Value: Purchase: Domestic (corr -0.04, lead 3m, now headwind); Credit Card: Volume: Purchase (corr +0.00, lead 3m, now tailwind). A 6-driver model explains 4% of monthly variance (adj 0%), 47% out-of-sample directional hit-rate; current read ~-3.9%/mo.",
     "drivers": [
       {
         "key": "CEICI313913902",
@@ -587,7 +587,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.1,
+  "runtime_s": 1.8,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

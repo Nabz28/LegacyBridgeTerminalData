@@ -3,7 +3,7 @@
   "sub_sector": "Airlines",
   "sector": "Transportation & Logistics",
   "priority": 33,
-  "generated_at": "2026-06-14T00:47:33",
+  "generated_at": "2026-06-14T02:52:45",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -27,7 +27,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 49,
+    "score": 50,
     "net_tilt": -0.011,
     "demand_tilt": -0.09,
     "supply_tilt": null,
@@ -87,7 +87,7 @@
       "oos_n": 120,
       "expected_monthly_ret": 0.0051
     },
-    "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat); International: Arrival: Ngurah Rai-Denpasar (corr +0.03, lead 2m, now flat). A 5-driver model explains 7% of monthly variance (adj 4%), 55% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
+    "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [50/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat); International: Arrival: Ngurah Rai-Denpasar (corr +0.03, lead 2m, now flat). A 5-driver model explains 7% of monthly variance (adj 4%), 55% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -476,7 +476,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 6.5,
+  "runtime_s": 2.8,
   "grade": "perfected",
   "grade_reasons": []
 }

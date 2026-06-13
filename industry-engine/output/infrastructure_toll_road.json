@@ -3,7 +3,7 @@
   "sub_sector": "Toll Road",
   "sector": "Infrastructure",
   "priority": 46,
-  "generated_at": "2026-06-14T00:50:00",
+  "generated_at": "2026-06-14T02:53:11",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -25,7 +25,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 45,
+    "score": 47,
     "net_tilt": -0.106,
     "demand_tilt": -0.112,
     "supply_tilt": -0.048,
@@ -85,7 +85,7 @@
       "oos_n": 56,
       "expected_monthly_ret": -0.0257
     },
-    "narrative": "Toll Road (Infrastructure) screens NEUTRAL [45/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 23% out-of-sample directional hit-rate; current read ~-2.6%/mo.",
+    "narrative": "Toll Road (Infrastructure) screens NEUTRAL [47/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 23% out-of-sample directional hit-rate; current read ~-2.6%/mo.",
     "drivers": [
       {
         "key": "CEICI365764267",
@@ -797,7 +797,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.7,
+  "runtime_s": 1.5,
   "grade": "partial",
   "grade_reasons": [
     "confidence low",

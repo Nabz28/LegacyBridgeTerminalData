@@ -3,7 +3,7 @@
   "sub_sector": "Staple Retail",
   "sector": "Consumer Non-Cyclicals",
   "priority": 51,
-  "generated_at": "2026-06-14T00:48:26",
+  "generated_at": "2026-06-14T02:53:20",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -27,7 +27,7 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 36,
+    "score": 44,
     "net_tilt": -0.289,
     "demand_tilt": -0.246,
     "supply_tilt": null,
@@ -75,7 +75,7 @@
       "oos_n": 58,
       "expected_monthly_ret": 0.0158
     },
-    "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [36/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
+    "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [44/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
     "drivers": [
       {
         "key": "CEICI541367887",
@@ -416,7 +416,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.8,
+  "runtime_s": 1.3,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

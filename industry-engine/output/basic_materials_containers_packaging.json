@@ -3,7 +3,7 @@
   "sub_sector": "Containers & Packaging",
   "sector": "Basic Materials",
   "priority": 19,
-  "generated_at": "2026-06-14T00:48:35",
+  "generated_at": "2026-06-14T02:52:09",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -35,7 +35,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 53,
+    "score": 51,
     "net_tilt": 0.051,
     "demand_tilt": null,
     "supply_tilt": null,
@@ -77,7 +77,7 @@
       "oos_n": 121,
       "expected_monthly_ret": 0.0123
     },
-    "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [53/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
+    "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [51/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
     "drivers": [
       {
         "key": "id_bi_rate",
@@ -280,7 +280,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 0.8,
+  "runtime_s": 0.7,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

@@ -3,7 +3,7 @@
   "sub_sector": "Telco",
   "sector": "Infrastructure",
   "priority": 10,
-  "generated_at": "2026-06-14T00:45:29",
+  "generated_at": "2026-06-14T02:51:50",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -27,7 +27,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 45,
+    "score": 46,
     "net_tilt": -0.092,
     "demand_tilt": -0.103,
     "supply_tilt": null,
@@ -87,7 +87,7 @@
       "oos_n": 56,
       "expected_monthly_ret": -0.0143
     },
-    "narrative": "Telco (Infrastructure) screens NEUTRAL [45/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
+    "narrative": "Telco (Infrastructure) screens NEUTRAL [46/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -475,7 +475,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 8.6,
+  "runtime_s": 1.8,
   "grade": "perfected",
   "grade_reasons": []
 }

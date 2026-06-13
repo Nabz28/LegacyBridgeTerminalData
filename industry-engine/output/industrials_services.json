@@ -3,7 +3,7 @@
   "sub_sector": "Services",
   "sector": "Industrials",
   "priority": 49,
-  "generated_at": "2026-06-14T00:48:19",
+  "generated_at": "2026-06-14T02:53:16",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -28,7 +28,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 45,
+    "score": 47,
     "net_tilt": -0.1,
     "demand_tilt": 0.069,
     "supply_tilt": -0.167,
@@ -94,7 +94,7 @@
       "oos_n": 95,
       "expected_monthly_ret": -0.0021
     },
-    "narrative": "Services (Industrials) screens NEUTRAL [45/100, medium confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Export value: electrical machinery (corr -0.13, lead 0m, now headwind). A 6-driver model explains 6% of monthly variance (adj 2%), 47% out-of-sample directional hit-rate; current read ~-0.2%/mo.",
+    "narrative": "Services (Industrials) screens NEUTRAL [47/100, medium confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Export value: electrical machinery (corr -0.13, lead 0m, now headwind). A 6-driver model explains 6% of monthly variance (adj 2%), 47% out-of-sample directional hit-rate; current read ~-0.2%/mo.",
     "drivers": [
       {
         "key": "CEICI410108517",
@@ -876,7 +876,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.4,
+  "runtime_s": 2.2,
   "grade": "perfected",
   "grade_reasons": []
 }

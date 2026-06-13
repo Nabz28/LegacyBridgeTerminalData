@@ -3,7 +3,7 @@
   "sub_sector": "Utilities",
   "sector": "Infrastructure",
   "priority": 52,
-  "generated_at": "2026-06-14T00:49:50",
+  "generated_at": "2026-06-14T02:53:21",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -26,7 +26,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 52,
+    "score": 51,
     "net_tilt": 0.04,
     "demand_tilt": 0.0,
     "supply_tilt": null,
@@ -92,7 +92,7 @@
       "oos_n": 33,
       "expected_monthly_ret": 0.034
     },
-    "narrative": "Utilities (Infrastructure) screens NEUTRAL [52/100, low confidence]. Top drivers: USD/IDR (corr -0.10, lead 1m, now flat); Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind); 6,600 VA - 200 kVA: Prepaid (corr +0.06, lead 6m, now flat). A 6-driver model explains 2% of monthly variance (adj -2%), 52% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
+    "narrative": "Utilities (Infrastructure) screens NEUTRAL [51/100, low confidence]. Top drivers: USD/IDR (corr -0.10, lead 1m, now flat); Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind); 6,600 VA - 200 kVA: Prepaid (corr +0.06, lead 6m, now flat). A 6-driver model explains 2% of monthly variance (adj -2%), 52% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -523,7 +523,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.3,
+  "runtime_s": 1.0,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

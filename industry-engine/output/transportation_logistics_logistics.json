@@ -3,7 +3,7 @@
   "sub_sector": "Logistics",
   "sector": "Transportation & Logistics",
   "priority": 40,
-  "generated_at": "2026-06-14T00:47:54",
+  "generated_at": "2026-06-14T02:52:59",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,7 +36,7 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 58,
+    "score": 56,
     "net_tilt": 0.158,
     "demand_tilt": 0.081,
     "supply_tilt": 0.236,
@@ -102,7 +102,7 @@
       "oos_n": 48,
       "expected_monthly_ret": 0.0049
     },
-    "narrative": "Logistics (Transportation & Logistics) screens MILDLY BULLISH [58/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.23, lead 1m, now flat); GDP: Transport & Storage (corr -0.15, lead 6m, now tailwind); GDP nominal: Transport & Storage (corr -0.18, lead 6m, now tailwind). A 6-driver model explains 9% of monthly variance (adj 4%), 44% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
+    "narrative": "Logistics (Transportation & Logistics) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.23, lead 1m, now flat); GDP: Transport & Storage (corr -0.15, lead 6m, now tailwind); GDP nominal: Transport & Storage (corr -0.18, lead 6m, now tailwind). A 6-driver model explains 9% of monthly variance (adj 4%), 44% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
     "drivers": [
       {
         "key": "CEICI14575001",
@@ -869,7 +869,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 4.5,
+  "runtime_s": 1.7,
   "grade": "perfected",
   "grade_reasons": []
 }

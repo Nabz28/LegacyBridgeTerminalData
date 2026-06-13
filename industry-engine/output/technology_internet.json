@@ -3,7 +3,7 @@
   "sub_sector": "Internet",
   "sector": "Technology",
   "priority": 15,
-  "generated_at": "2026-06-14T00:45:58",
+  "generated_at": "2026-06-14T02:51:59",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,7 +31,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 52,
+    "score": 51,
     "net_tilt": 0.037,
     "demand_tilt": 0.04,
     "supply_tilt": null,
@@ -91,7 +91,7 @@
       "oos_n": 56,
       "expected_monthly_ret": -0.0091
     },
-    "narrative": "Internet (Technology) screens NEUTRAL [52/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Volume: Finance (corr +0.12, lead 4m, now flat). A 5-driver model explains 10% of monthly variance (adj 6%), 50% out-of-sample directional hit-rate; current read ~-0.9%/mo.",
+    "narrative": "Internet (Technology) screens NEUTRAL [51/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Volume: Finance (corr +0.12, lead 4m, now flat). A 5-driver model explains 10% of monthly variance (adj 6%), 50% out-of-sample directional hit-rate; current read ~-0.9%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -859,7 +859,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 7.2,
+  "runtime_s": 1.9,
   "grade": "perfected",
   "grade_reasons": []
 }

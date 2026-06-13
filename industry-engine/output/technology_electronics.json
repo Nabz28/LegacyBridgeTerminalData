@@ -3,7 +3,7 @@
   "sub_sector": "Electronics",
   "sector": "Technology",
   "priority": 38,
-  "generated_at": "2026-06-14T00:47:48",
+  "generated_at": "2026-06-14T02:52:56",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,7 +30,7 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 45,
+    "score": 46,
     "net_tilt": -0.105,
     "demand_tilt": -0.064,
     "supply_tilt": null,
@@ -90,7 +90,7 @@
       "oos_n": 48,
       "expected_monthly_ret": -0.0298
     },
-    "narrative": "Electronics (Technology) screens NEUTRAL [45/100, high confidence]. Top drivers: Volume: Desktop (corr +0.08, lead 5m, now headwind); Volume (corr +0.05, lead 5m, now headwind); USD/IDR (corr -0.24, lead 0m, now flat). A 5-driver model explains 15% of monthly variance (adj 10%), 62% out-of-sample directional hit-rate; current read ~-3.0%/mo.",
+    "narrative": "Electronics (Technology) screens NEUTRAL [46/100, high confidence]. Top drivers: Volume: Desktop (corr +0.08, lead 5m, now headwind); Volume (corr +0.05, lead 5m, now headwind); USD/IDR (corr -0.24, lead 0m, now flat). A 5-driver model explains 15% of monthly variance (adj 10%), 62% out-of-sample directional hit-rate; current read ~-3.0%/mo.",
     "drivers": [
       {
         "key": "CEICI517801417",
@@ -856,7 +856,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.7,
+  "runtime_s": 2.0,
   "grade": "perfected",
   "grade_reasons": []
 }

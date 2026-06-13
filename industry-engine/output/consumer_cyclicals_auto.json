@@ -3,7 +3,7 @@
   "sub_sector": "Auto",
   "sector": "Consumer Cyclicals",
   "priority": 50,
-  "generated_at": "2026-06-14T00:48:23",
+  "generated_at": "2026-06-14T02:53:19",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,7 +31,7 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 58,
+    "score": 57,
     "net_tilt": 0.161,
     "demand_tilt": 0.189,
     "supply_tilt": 0.158,
@@ -97,7 +97,7 @@
       "oos_n": 57,
       "expected_monthly_ret": 0.0145
     },
-    "narrative": "Auto (Consumer Cyclicals) screens MILDLY BULLISH [58/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.26, lead 4m, now flat); Wholesale: Below 1500cc (corr +0.13, lead 6m, now flat); 4x2 Type (corr +0.12, lead 6m, now flat). A 6-driver model explains 9% of monthly variance (adj 4%), 46% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
+    "narrative": "Auto (Consumer Cyclicals) screens MILDLY BULLISH [57/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.26, lead 4m, now flat); Wholesale: Below 1500cc (corr +0.13, lead 6m, now flat); 4x2 Type (corr +0.12, lead 6m, now flat). A 6-driver model explains 9% of monthly variance (adj 4%), 46% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -864,7 +864,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.6,
+  "runtime_s": 2.7,
   "grade": "perfected",
   "grade_reasons": []
 }
