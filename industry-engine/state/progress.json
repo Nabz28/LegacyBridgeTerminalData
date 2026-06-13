@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:48:34",
+  "updated_at": "2026-06-14T00:48:35",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -264,16 +264,17 @@
       "sub_sector": "Containers & Packaging",
       "sector": "Basic Materials",
       "priority": 19,
-      "status": "needs_review",
-      "grade": "needs_review",
+      "status": "done",
+      "grade": "partial",
       "score": 53,
       "verdict": "NEUTRAL",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:46:17",
+      "attempts": 2,
+      "last_run": "2026-06-14T00:48:34",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "only 2 validated drivers (<3)",
-        "confidence low"
+        "confidence low",
+        "parked after 2 attempts"
       ]
     },
     "industrials_machinery": {
@@ -750,8 +751,8 @@
   },
   "summary": {
     "perfected": 28,
-    "partial": 8,
-    "needs_review": 13,
+    "partial": 9,
+    "needs_review": 12,
     "blocked": 2,
     "pending": 0,
     "error": 1
