@@ -3,7 +3,7 @@
   "sub_sector": "Metals",
   "sector": "Basic Materials",
   "priority": 35,
-  "generated_at": "2026-06-14T00:47:39",
+  "generated_at": "2026-06-14T01:32:12",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -39,74 +39,184 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 61,
-    "net_tilt": 0.22,
+    "score": 60,
+    "net_tilt": 0.196,
     "demand_tilt": 0.141,
-    "supply_tilt": 0.168,
+    "supply_tilt": 0.238,
     "cost_tilt": 0.806,
-    "macro_tilt": 0.252,
+    "macro_tilt": 0.168,
     "confidence": {
       "level": "medium",
-      "score": 52,
+      "score": 61,
       "reasons": [
-        "max|corr|=0.19",
-        "theory_agree=25%",
-        "stable=58%",
+        "max|corr|=0.20",
+        "theory_agree=50%",
+        "stable=67%",
         "mvR2=0.11",
-        "OOS=54%"
+        "OOS=58%"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
-        "steel_hrc",
+        "id_10y",
         "usdidr",
+        "steel_hrc",
         "CEICI324051702",
         "id_bi_rate",
-        "id_gdp_real_q",
-        "CEICI323796002"
+        "id_gdp_real_q"
       ],
       "n": 117,
-      "r2": 0.114,
-      "adj_r2": 0.066,
+      "r2": 0.107,
+      "adj_r2": 0.058,
       "betas": {
-        "steel_hrc": {
-          "std_beta": 0.0073,
-          "t": 1.08,
-          "p": 0.2804
+        "id_10y": {
+          "std_beta": 0.0007,
+          "t": 0.1,
+          "p": 0.9178
         },
         "usdidr": {
-          "std_beta": -0.0196,
-          "t": -3.5,
-          "p": 0.0005
+          "std_beta": -0.0206,
+          "t": -3.33,
+          "p": 0.0009
+        },
+        "steel_hrc": {
+          "std_beta": 0.0072,
+          "t": 1.0,
+          "p": 0.3158
         },
         "CEICI324051702": {
-          "std_beta": -0.0091,
-          "t": -1.58,
-          "p": 0.1147
+          "std_beta": -0.0086,
+          "t": -1.47,
+          "p": 0.1422
         },
         "id_bi_rate": {
-          "std_beta": 0.0043,
-          "t": 0.53,
-          "p": 0.5974
+          "std_beta": 0.0034,
+          "t": 0.42,
+          "p": 0.6749
         },
         "id_gdp_real_q": {
-          "std_beta": -0.0079,
-          "t": -3.25,
-          "p": 0.0012
-        },
-        "CEICI323796002": {
-          "std_beta": -0.0069,
-          "t": -0.96,
-          "p": 0.3381
+          "std_beta": -0.0075,
+          "t": -2.72,
+          "p": 0.0065
         }
       },
-      "oos_hit_rate": 0.544,
+      "oos_hit_rate": 0.579,
       "oos_n": 57,
-      "expected_monthly_ret": 0.0067
+      "expected_monthly_ret": 0.0009
     },
-    "narrative": "Metals (Basic Materials) screens MILDLY BULLISH [61/100, medium confidence]. Top drivers: US HRC Steel (corr +0.13, lead 4m, now tailwind); USD/IDR (corr -0.19, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.17, lead 0m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 7%), 54% out-of-sample directional hit-rate; current read ~+0.7%/mo.",
+    "narrative": "Metals (Basic Materials) screens MILDLY BULLISH [60/100, medium confidence]. Top drivers: id_10y (corr -0.20, lead 0m, now flat); USD/IDR (corr -0.19, lead 0m, now flat); US HRC Steel (corr +0.13, lead 4m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 6%), 58% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "construction-demand rate sensitivity",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1997,
+        "pearson_p": 0.0066,
+        "spearman": -0.2127,
+        "spearman_p": 0.0037,
+        "best_lag": 0,
+        "corr_at_best": -0.1997,
+        "ic": -0.1492,
+        "ic_t": -2.013,
+        "ols": {
+          "beta": -0.29054933546912415,
+          "t": -3.0977424542603953,
+          "p": 0.00195000813443404,
+          "r2": 0.03989851801433841,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.29054933546912415,
+          "t": -3.0977424542603953,
+          "p": 0.00195000813443404,
+          "r2": 0.03989851801433841,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0826,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 52.2,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "imported slab/scrap feedstock cost",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1926,
+        "pearson_p": 0.0088,
+        "spearman": -0.2265,
+        "spearman_p": 0.002,
+        "best_lag": 0,
+        "corr_at_best": -0.1926,
+        "ic": -0.1621,
+        "ic_t": -2.186,
+        "ols": {
+          "beta": -0.4631843250180838,
+          "t": -1.8400741747696152,
+          "p": 0.06575734819461415,
+          "r2": 0.037081104516253904,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.4631843250180838,
+          "t": -1.8400741747696152,
+          "p": 0.06575734819461415,
+          "r2": 0.037081104516253904,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0034,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.5,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
       {
         "key": "steel_hrc",
         "role": "supply",
@@ -160,61 +270,6 @@
         "live": {
           "posture": "tailwind",
           "impulse": 0.422
-        }
-      },
-      {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.1926,
-        "pearson_p": 0.0088,
-        "spearman": -0.2265,
-        "spearman_p": 0.002,
-        "best_lag": 0,
-        "corr_at_best": -0.1926,
-        "ic": -0.1621,
-        "ic_t": -2.186,
-        "ols": {
-          "beta": -0.4631843250180838,
-          "t": -1.8400741747696152,
-          "p": 0.06575734819461415,
-          "r2": 0.037081104516253904,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.4631843250180838,
-          "t": -1.8400741747696152,
-          "p": 0.06575734819461415,
-          "r2": 0.037081104516253904,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.0034,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 45.5,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
         }
       },
       {
@@ -708,64 +763,10 @@
           "posture": "tailwind",
           "impulse": 0.806
         }
-      },
-      {
-        "key": "CEICI502592917",
-        "role": "supply",
-        "why": "Export value: Semi-Finished Products of Iron or No",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 87,
-        "min_n": 24,
-        "pearson": -0.0721,
-        "pearson_p": 0.5068,
-        "spearman": 0.0832,
-        "spearman_p": 0.4437,
-        "best_lag": 1,
-        "corr_at_best": 0.2115,
-        "ic": 0.0697,
-        "ic_t": 0.643,
-        "ols": {
-          "beta": -0.004059544550440007,
-          "t": -0.5588715411032783,
-          "p": 0.5762493930994292,
-          "r2": 0.005201634213611639,
-          "n": 87,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.01190436905590739,
-          "t": 2.344137374781099,
-          "p": 0.01907114557404229,
-          "r2": 0.04472420842966185,
-          "n": 86,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": -0.1678,
-        "last_chg": 0.513834,
-        "last_chg_z": 0.36,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 19.8,
-        "source": "ceic",
-        "label": "Export value: Semi-Finished Products of Iron or No",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.178
-        }
       }
     ],
     "n_kept": 12,
-    "n_candidates": 25
+    "n_candidates": 26
   },
   "unscored": [
     {
@@ -828,6 +829,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI502592917",
+      "label": "Export value: Semi-Finished Products of Iron or No",
+      "role": "supply",
+      "pearson": -0.0721,
+      "p": 0.5762493930994292,
+      "theory_agree": null,
+      "score": 19.8,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI323786202",
       "label": "Import value: Iron and Steel",
       "role": "demand",
@@ -866,19 +877,9 @@
       "theory_agree": false,
       "score": 15.1,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323977502",
-      "label": "Export: Value",
-      "role": "supply",
-      "pearson": -0.0083,
-      "p": 0.9119680409997892,
-      "theory_agree": null,
-      "score": 14.3,
-      "reason": "below_gate"
     }
   ],
-  "n_tested": 25,
+  "n_tested": 26,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -886,9 +887,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.5,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-  ]
+  "runtime_s": 2.8,
+  "grade": "perfected",
+  "grade_reasons": []
 }

@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T01:11:19",
+  "updated_at": "2026-06-14T01:32:12",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -488,15 +488,13 @@
       "sub_sector": "Metals",
       "sector": "Basic Materials",
       "priority": 35,
-      "status": "needs_review",
-      "grade": "needs_review",
-      "score": 61,
+      "status": "done",
+      "grade": "perfected",
+      "score": 60,
       "verdict": "MILDLY BULLISH",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:47:36",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-      ]
+      "attempts": 2,
+      "last_run": "2026-06-14T01:32:09",
+      "reasons": []
     },
     "infrastructure_ports": {
       "id": "infrastructure_ports",
@@ -746,9 +744,9 @@
     }
   },
   "summary": {
-    "perfected": 33,
+    "perfected": 34,
     "partial": 15,
-    "needs_review": 4,
+    "needs_review": 3,
     "blocked": 0,
     "pending": 0,
     "error": 0

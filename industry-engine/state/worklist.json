@@ -39572,22 +39572,28 @@
       ],
       "macro_hints": [
         {
+          "key": "usdidr",
+          "role": "macro",
+          "sign": -1,
+          "why": "imported slab/scrap feedstock cost"
+        },
+        {
           "key": "cn_ppi_idx",
           "role": "demand",
           "sign": 1,
           "why": "China PPI/steel cycle"
         },
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "construction-demand rate sensitivity"
+        },
+        {
           "key": "id_gdp_real_q",
           "role": "demand",
           "sign": 1,
           "why": "domestic construction"
-        },
-        {
-          "key": "usdidr",
-          "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
         },
         {
           "key": "id_bi_rate",
