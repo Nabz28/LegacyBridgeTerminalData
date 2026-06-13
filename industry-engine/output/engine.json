@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:48:12",
-  "n_baskets": 45,
+  "generated_at": "2026-06-14T00:48:13",
+  "n_baskets": 46,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -13188,6 +13188,39 @@
         }
       ],
       "generated_at": "2026-06-14T00:48:12"
+    },
+    {
+      "id": "infrastructure_toll_road",
+      "sub_sector": "Toll Road",
+      "sector": "Infrastructure",
+      "priority": 46,
+      "status": "blocked",
+      "grade": "blocked",
+      "verdict": null,
+      "score": null,
+      "confidence": null,
+      "net_tilt": null,
+      "demand_tilt": null,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": null,
+      "narrative": null,
+      "n_kept": null,
+      "n_tested": 0,
+      "n_used": 1,
+      "members_used": [
+        "META"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [],
+      "generated_at": "2026-06-14T00:48:13"
     }
   ]
 }
