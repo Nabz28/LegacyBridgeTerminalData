@@ -1,0 +1,873 @@
+{
+  "id": "healthcare_healthcare_services",
+  "sub_sector": "Healthcare Services",
+  "sector": "Healthcare",
+  "priority": 47,
+  "generated_at": "2026-06-14T00:48:14",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 2,
+    "n_used": 2,
+    "members_used": [
+      "DGNS",
+      "PRDA"
+    ],
+    "coverage": {
+      "W": 489,
+      "M": 113,
+      "Q": 38,
+      "first": "2016-12-16",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 2519978508288.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 56,
+    "net_tilt": 0.123,
+    "demand_tilt": -0.05,
+    "supply_tilt": 0.13,
+    "cost_tilt": null,
+    "macro_tilt": -0.045,
+    "confidence": {
+      "level": "medium",
+      "score": 65,
+      "reasons": [
+        "max|corr|=0.43",
+        "theory_agree=33%",
+        "stable=58%",
+        "mvR2=0.14",
+        "OOS=46%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI324047402",
+        "usdidr",
+        "id_gdp_real_q",
+        "CEICI324037702",
+        "CEICI580306527",
+        "CEICI580035297"
+      ],
+      "n": 110,
+      "r2": 0.14,
+      "adj_r2": 0.09,
+      "betas": {
+        "CEICI324047402": {
+          "std_beta": -0.01,
+          "t": -1.59,
+          "p": 0.1117
+        },
+        "usdidr": {
+          "std_beta": -0.026,
+          "t": -2.19,
+          "p": 0.0288
+        },
+        "id_gdp_real_q": {
+          "std_beta": 0.0186,
+          "t": 1.68,
+          "p": 0.0927
+        },
+        "CEICI324037702": {
+          "std_beta": -0.0188,
+          "t": -1.49,
+          "p": 0.1355
+        },
+        "CEICI580306527": {
+          "std_beta": -0.0077,
+          "t": -0.64,
+          "p": 0.5245
+        },
+        "CEICI580035297": {
+          "std_beta": -0.0021,
+          "t": -0.21,
+          "p": 0.8352
+        }
+      },
+      "oos_hit_rate": 0.46,
+      "oos_n": 50,
+      "expected_monthly_ret": 0.0032
+    },
+    "narrative": "Healthcare Services (Healthcare) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Capacity utilization (corr -0.43, lead 2m, now tailwind); PMI subsector (corr -0.42, lead 4m, now flat); Job postings (removed): hospitals (corr +0.21, lead 6m, now flat). A 6-driver model explains 14% of monthly variance (adj 9%), 46% out-of-sample directional hit-rate; current read ~+0.3%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI506662937",
+        "role": "supply",
+        "why": "Capacity utilization",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 13,
+        "min_n": 12,
+        "pearson": -0.4261,
+        "pearson_p": 0.1466,
+        "spearman": -0.6538,
+        "spearman_p": 0.0153,
+        "best_lag": 2,
+        "corr_at_best": -0.4913,
+        "ic": 0.5175,
+        "ic_t": 1.716,
+        "ols": {
+          "beta": -0.04877555930117957,
+          "t": -2.915466854769428,
+          "p": 0.0035515682944917853,
+          "r2": 0.18151898392941956,
+          "n": 13,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.062451698175752385,
+          "t": -2.261399167323607,
+          "p": 0.023734550285255243,
+          "r2": 0.24134950625564044,
+          "n": 11,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.5387,
+        "last_chg": -3.198249,
+        "last_chg_z": -1.45,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 79.6,
+        "source": "ceic",
+        "label": "Capacity utilization",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.62
+        }
+      },
+      {
+        "key": "CEICI506661587",
+        "role": "supply",
+        "why": "PMI subsector",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-06-01",
+        "n": 14,
+        "min_n": 12,
+        "pearson": -0.4208,
+        "pearson_p": 0.1341,
+        "spearman": -0.6571,
+        "spearman_p": 0.0107,
+        "best_lag": 4,
+        "corr_at_best": -0.5743,
+        "ic": 0.533,
+        "ic_t": 1.846,
+        "ols": {
+          "beta": -0.028784999834704346,
+          "t": -3.4990209195516697,
+          "p": 0.00046696994220649264,
+          "r2": 0.177034690898357,
+          "n": 14,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.04213377518790662,
+          "t": -2.3407728404196324,
+          "p": 0.01924387176919504,
+          "r2": 0.32978156716761176,
+          "n": 10,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.5268,
+        "last_chg": -0.406977,
+        "last_chg_z": 0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 79.0,
+        "source": "ceic",
+        "label": "PMI subsector",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.02
+        }
+      },
+      {
+        "key": "CEICI803947177",
+        "role": "supply",
+        "why": "Job postings (removed): hospitals",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "W",
+        "last_obs": "2026-05-18",
+        "n": 28,
+        "min_n": 24,
+        "pearson": 0.2078,
+        "pearson_p": 0.2886,
+        "spearman": 0.1345,
+        "spearman_p": 0.4951,
+        "best_lag": 6,
+        "corr_at_best": -0.3646,
+        "ic": -0.1513,
+        "ic_t": -0.786,
+        "ols": {
+          "beta": 0.0019456854829609032,
+          "t": 2.308696816536312,
+          "p": 0.020960411129587127,
+          "r2": 0.04318373010152454,
+          "n": 28,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.003389956446219603,
+          "t": -6.651226585902976,
+          "p": 2.9066040086768737e-11,
+          "r2": 0.1329363704653167,
+          "n": 28,
+          "hac_lag": 3
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.2886,
+        "last_chg": 0.666667,
+        "last_chg_z": -0.16,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 50.8,
+        "source": "ceic",
+        "label": "Job postings (removed): hospitals",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.08
+        }
+      },
+      {
+        "key": "CEICI527094247",
+        "role": "supply",
+        "why": "Producer price index",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 12,
+        "min_n": 12,
+        "pearson": 0.1923,
+        "pearson_p": 0.5493,
+        "spearman": 0.1259,
+        "spearman_p": 0.6967,
+        "best_lag": 1,
+        "corr_at_best": -0.4238,
+        "ic": -0.3,
+        "ic_t": -0.949,
+        "ols": {
+          "beta": 12.025458236359622,
+          "t": 1.1062323009113062,
+          "p": 0.268625985398269,
+          "r2": 0.03699168103462713,
+          "n": 12,
+          "hac_lag": 2
+        },
+        "ols_pred": {
+          "beta": -32.20132130800815,
+          "t": -3.5312815195538456,
+          "p": 0.000413551345761898,
+          "r2": 0.17962146089643727,
+          "n": 11,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.3877,
+        "last_chg": 0.010114,
+        "last_chg_z": 1.83,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 49.6,
+        "source": "ceic",
+        "label": "Producer price index",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.724
+        }
+      },
+      {
+        "key": "CEICI324047402",
+        "role": "supply",
+        "why": "Export volume",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 112,
+        "min_n": 24,
+        "pearson": -0.1327,
+        "pearson_p": 0.163,
+        "spearman": -0.1123,
+        "spearman_p": 0.2384,
+        "best_lag": 3,
+        "corr_at_best": -0.1483,
+        "ic": -0.1484,
+        "ic_t": -1.564,
+        "ols": {
+          "beta": -0.024855423033210304,
+          "t": -2.647604226565869,
+          "p": 0.008106436676883953,
+          "r2": 0.017617142359738436,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.027806858680901984,
+          "t": -2.997823940974781,
+          "p": 0.002719147070159835,
+          "r2": 0.022005482106788765,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1355,
+        "last_chg": 0.345473,
+        "last_chg_z": 0.15,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 44.2,
+        "source": "ceic",
+        "label": "Export volume",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.075
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 113,
+        "min_n": 24,
+        "pearson": -0.2555,
+        "pearson_p": 0.0063,
+        "spearman": -0.1338,
+        "spearman_p": 0.1578,
+        "best_lag": 0,
+        "corr_at_best": -0.2555,
+        "ic": -0.0344,
+        "ic_t": -0.364,
+        "ols": {
+          "beta": -1.2892597117963966,
+          "t": -2.661367545414475,
+          "p": 0.007782395373454927,
+          "r2": 0.06526870480294267,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.2892597117963966,
+          "t": -2.661367545414475,
+          "p": 0.007782395373454927,
+          "r2": 0.06526870480294267,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0674,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.9,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI506661997",
+        "role": "supply",
+        "why": "Business survey",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 13,
+        "min_n": 12,
+        "pearson": -0.1783,
+        "pearson_p": 0.56,
+        "spearman": -0.2692,
+        "spearman_p": 0.3737,
+        "best_lag": 3,
+        "corr_at_best": 0.7251,
+        "ic": 0.2168,
+        "ic_t": 0.719,
+        "ols": {
+          "beta": -0.2815633433986915,
+          "t": -1.0701246291325524,
+          "p": 0.28456321440327004,
+          "r2": 0.03180016159961241,
+          "n": 13,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 1.1652526004891053,
+          "t": 7.774414975292418,
+          "p": 7.579688067315087e-15,
+          "r2": 0.5257521924110029,
+          "n": 10,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.2634,
+        "last_chg": -0.057046,
+        "last_chg_z": -0.31,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.5,
+        "source": "ceic",
+        "label": "Business survey",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.154
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "service utilisation",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 113,
+        "min_n": 24,
+        "pearson": 0.1677,
+        "pearson_p": 0.0758,
+        "spearman": 0.0727,
+        "spearman_p": 0.4443,
+        "best_lag": 6,
+        "corr_at_best": -0.2816,
+        "ic": -0.0055,
+        "ic_t": -0.058,
+        "ols": {
+          "beta": 0.01639784964424144,
+          "t": 1.7020202492584244,
+          "p": 0.0887515724202258,
+          "r2": 0.028125824245500253,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.027538823610470636,
+          "t": -1.3140478361014456,
+          "p": 0.1888301067960485,
+          "r2": 0.07931119956415855,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1981,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.4,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI324037702",
+        "role": "supply",
+        "why": "Export value",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 112,
+        "min_n": 24,
+        "pearson": -0.2281,
+        "pearson_p": 0.0156,
+        "spearman": -0.1507,
+        "spearman_p": 0.1127,
+        "best_lag": 0,
+        "corr_at_best": -0.2281,
+        "ic": 0.0256,
+        "ic_t": 0.27,
+        "ols": {
+          "beta": -0.11347937149004028,
+          "t": -1.9632593965820895,
+          "p": 0.049616040832020834,
+          "r2": 0.05201570680740486,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.11347937149004028,
+          "t": -1.9632593965820895,
+          "p": 0.049616040832020834,
+          "r2": 0.05201570680740486,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.2265,
+        "last_chg": 0.176572,
+        "last_chg_z": 0.8,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.0,
+        "source": "ceic",
+        "label": "Export value",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.38
+        }
+      },
+      {
+        "key": "CEICI803874357",
+        "role": "supply",
+        "why": "Hospital count (LinkUp)",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "W",
+        "last_obs": "2026-05-18",
+        "n": 61,
+        "min_n": 24,
+        "pearson": -0.1247,
+        "pearson_p": 0.3384,
+        "spearman": -0.0762,
+        "spearman_p": 0.5597,
+        "best_lag": 1,
+        "corr_at_best": -0.1656,
+        "ic": -0.242,
+        "ic_t": -1.875,
+        "ols": {
+          "beta": -0.013291215283275955,
+          "t": -1.0461900453079378,
+          "p": 0.29547329801757793,
+          "r2": 0.015541455935285553,
+          "n": 61,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01762838466707776,
+          "t": -1.508816273009179,
+          "p": 0.13134574097581334,
+          "r2": 0.02743070133994041,
+          "n": 61,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0526,
+        "last_chg": 0.5,
+        "last_chg_z": 0.21,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.5,
+        "source": "ceic",
+        "label": "Hospital count (LinkUp)",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.105
+        }
+      },
+      {
+        "key": "CEICI580306527",
+        "role": "demand",
+        "why": "Hospital beds per 1000",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 110,
+        "min_n": 24,
+        "pearson": -0.1113,
+        "pearson_p": 0.2469,
+        "spearman": -0.026,
+        "spearman_p": 0.7877,
+        "best_lag": 1,
+        "corr_at_best": 0.172,
+        "ic": 0.1634,
+        "ic_t": 1.706,
+        "ols": {
+          "beta": -0.03480669585449801,
+          "t": -1.1037625638419981,
+          "p": 0.2696961481443496,
+          "r2": 0.012394308757371464,
+          "n": 110,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.052934420366856555,
+          "t": 1.9851931958839488,
+          "p": 0.047122981040413923,
+          "r2": 0.029578480619718572,
+          "n": 110,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0907,
+        "last_chg": -0.254655,
+        "last_chg_z": -0.6,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.6,
+        "source": "ceic",
+        "label": "Hospital beds per 1000",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.291
+        }
+      },
+      {
+        "key": "CEICI580035297",
+        "role": "demand",
+        "why": "Import: world (UN comtrade)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 112,
+        "min_n": 24,
+        "pearson": -0.1145,
+        "pearson_p": 0.2295,
+        "spearman": -0.0741,
+        "spearman_p": 0.4372,
+        "best_lag": 4,
+        "corr_at_best": 0.2036,
+        "ic": 0.0709,
+        "ic_t": 0.747,
+        "ols": {
+          "beta": -0.0587775926748855,
+          "t": -1.4256423109260155,
+          "p": 0.15397161648204125,
+          "r2": 0.01310274329309069,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.10558536582279233,
+          "t": 2.2841999819148078,
+          "p": 0.022359780639611235,
+          "r2": 0.04145404884617321,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1067,
+        "last_chg": 0.242647,
+        "last_chg_z": 0.95,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 27.4,
+        "source": "ceic",
+        "label": "Import: world (UN comtrade)",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.442
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 22
+  },
+  "unscored": [
+    {
+      "key": "CEICI523280047",
+      "label": "CPI weight: Hospital Fees",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "CEICI323782002",
+      "label": "Import value",
+      "role": "demand",
+      "pearson": 0.1805,
+      "p": 0.24987041734948756,
+      "theory_agree": true,
+      "score": 36.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI655003157",
+      "label": "Hospital beds per 1000",
+      "role": "supply",
+      "pearson": 0.0827,
+      "p": 0.34850613536987907,
+      "theory_agree": null,
+      "score": 29.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI804158347",
+      "label": "Job postings (active): hospitals",
+      "role": "supply",
+      "pearson": -0.2112,
+      "p": 0.158271933597963,
+      "theory_agree": null,
+      "score": 29.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "role": "demand",
+      "pearson": -0.1047,
+      "p": 2.90863062519978e-21,
+      "theory_agree": false,
+      "score": 27.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462441447",
+      "label": "Financing: hospital services",
+      "role": "demand",
+      "pearson": 0.0511,
+      "p": 0.6087034241512292,
+      "theory_agree": true,
+      "score": 26.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI365765317",
+      "label": "GDP value added",
+      "role": "supply",
+      "pearson": 0.1076,
+      "p": 0.4115649489498867,
+      "theory_agree": null,
+      "score": 21.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0404,
+      "p": 0.4710828608019523,
+      "theory_agree": null,
+      "score": 20.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI804067407",
+      "label": "Job postings (new): hospitals",
+      "role": "supply",
+      "pearson": 0.0347,
+      "p": 0.7671303099195671,
+      "theory_agree": null,
+      "score": 19.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0224,
+      "p": 0.8075209898178486,
+      "theory_agree": null,
+      "score": 18.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412185367",
+      "label": "Investment realization",
+      "role": "supply",
+      "pearson": -0.0086,
+      "p": 0.9616251509664939,
+      "theory_agree": null,
+      "score": 8.5,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 22,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 1.3,
+  "grade": "perfected",
+  "grade_reasons": []
+}
