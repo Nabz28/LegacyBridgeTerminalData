@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:59:04",
+  "generated_at": "2026-06-14T01:11:19",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -9275,24 +9275,24 @@
       "sector": "Consumer Cyclicals",
       "priority": 31,
       "status": "done",
-      "grade": "needs_review",
-      "verdict": "MILDLY BEARISH",
-      "score": 42,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 50,
       "confidence": {
         "level": "low",
-        "score": 32,
+        "score": 27,
         "reasons": [
           "max|corr|=0.15",
-          "theory_agree=67%",
+          "theory_agree=33%",
           "stable=40%",
           "mvR2=0.05",
           "OOS=53%"
         ]
       },
-      "net_tilt": -0.151,
+      "net_tilt": 0.009,
       "demand_tilt": null,
       "supply_tilt": -0.124,
-      "cost_tilt": -0.376,
+      "cost_tilt": 0.041,
       "macro_tilt": -0.045,
       "multivariate": {
         "available": true,
@@ -9300,7 +9300,6 @@
           "CEICI324049702",
           "CEICI324050302",
           "cotton",
-          "wb_cotton",
           "usdidr"
         ],
         "n": 160,
@@ -9318,12 +9317,7 @@
             "p": 0.0435
           },
           "cotton": {
-            "std_beta": 0.0022,
-            "t": 1.05,
-            "p": 0.2915
-          },
-          "wb_cotton": {
-            "std_beta": 0.0022,
+            "std_beta": 0.0044,
             "t": 1.05,
             "p": 0.2915
           },
@@ -9337,9 +9331,9 @@
         "oos_n": 100,
         "expected_monthly_ret": 0.0012
       },
-      "narrative": "Apparel (Consumer Cyclicals) screens MILDLY BEARISH [42/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Cotton No.2 (corr -0.05, lead 1m, now headwind). A 5-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+      "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [50/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Rubber · SGP/MYS (corr +0.09, lead 1m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
       "n_kept": 5,
-      "n_tested": 17,
+      "n_tested": 18,
       "n_used": 23,
       "members_used": [
         "ACRO",
@@ -9419,30 +9413,30 @@
           "last_obs": "2026-04-01"
         },
         {
-          "key": "cotton",
-          "label": "Cotton No.2",
+          "key": "wb_rubber",
+          "label": "Rubber · SGP/MYS",
           "role": "cost",
-          "source": "corr:ICE:CT1!",
+          "source": "spark",
           "freq": "M",
-          "pearson": -0.0499,
-          "excess_pearson": -0.1324,
+          "pearson": 0.0933,
+          "excess_pearson": 0.0872,
           "best_lag": 1,
-          "ic": 0.1216,
-          "beta": -0.04347938056183458,
-          "r2": 0.0024929461764113814,
-          "p": 0.6555307860981996,
-          "n": 184,
-          "theory_agree": true,
+          "ic": -0.5709,
+          "beta": 0.15514690501688594,
+          "r2": 0.008708540685799515,
+          "p": 0.5346024667215397,
+          "n": 23,
+          "theory_agree": false,
           "stable": false,
-          "sign": -1,
-          "why": "cotton input",
-          "posture": "headwind",
-          "last_chg_z": 0.79,
-          "last_obs": "2026-05-01"
+          "sign": 1,
+          "why": "footwear/elastomer input",
+          "posture": "tailwind",
+          "last_chg_z": 0.99,
+          "last_obs": "2026-03-01"
         },
         {
-          "key": "wb_cotton",
-          "label": "Cotton · A Index",
+          "key": "cotton",
+          "label": "Cotton No.2",
           "role": "cost",
           "source": "corr:ICE:CT1!",
           "freq": "M",
@@ -9485,7 +9479,7 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T00:47:22"
+      "generated_at": "2026-06-14T01:11:19"
     },
     {
       "id": "transportation_logistics_shipping",

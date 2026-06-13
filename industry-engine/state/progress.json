@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:59:04",
+  "updated_at": "2026-06-14T01:11:19",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -432,15 +432,16 @@
       "sub_sector": "Apparel",
       "sector": "Consumer Cyclicals",
       "priority": 31,
-      "status": "needs_review",
-      "grade": "needs_review",
-      "score": 42,
-      "verdict": "MILDLY BEARISH",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:47:19",
+      "status": "done",
+      "grade": "partial",
+      "score": 50,
+      "verdict": "NEUTRAL",
+      "attempts": 2,
+      "last_run": "2026-06-14T01:11:18",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "confidence low"
+        "confidence low",
+        "parked after 2 attempts"
       ]
     },
     "transportation_logistics_shipping": {
@@ -746,8 +747,8 @@
   },
   "summary": {
     "perfected": 33,
-    "partial": 14,
-    "needs_review": 5,
+    "partial": 15,
+    "needs_review": 4,
     "blocked": 0,
     "pending": 0,
     "error": 0

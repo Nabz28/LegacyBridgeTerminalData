@@ -3,7 +3,7 @@
   "sub_sector": "Apparel",
   "sector": "Consumer Cyclicals",
   "priority": 31,
-  "generated_at": "2026-06-14T00:47:22",
+  "generated_at": "2026-06-14T01:11:19",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -46,19 +46,19 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 42,
-    "net_tilt": -0.151,
+    "verdict": "NEUTRAL",
+    "score": 50,
+    "net_tilt": 0.009,
     "demand_tilt": null,
     "supply_tilt": -0.124,
-    "cost_tilt": -0.376,
+    "cost_tilt": 0.041,
     "macro_tilt": -0.045,
     "confidence": {
       "level": "low",
-      "score": 32,
+      "score": 27,
       "reasons": [
         "max|corr|=0.15",
-        "theory_agree=67%",
+        "theory_agree=33%",
         "stable=40%",
         "mvR2=0.05",
         "OOS=53%"
@@ -70,7 +70,6 @@
         "CEICI324049702",
         "CEICI324050302",
         "cotton",
-        "wb_cotton",
         "usdidr"
       ],
       "n": 160,
@@ -88,12 +87,7 @@
           "p": 0.0435
         },
         "cotton": {
-          "std_beta": 0.0022,
-          "t": 1.05,
-          "p": 0.2915
-        },
-        "wb_cotton": {
-          "std_beta": 0.0022,
+          "std_beta": 0.0044,
           "t": 1.05,
           "p": 0.2915
         },
@@ -107,7 +101,7 @@
       "oos_n": 100,
       "expected_monthly_ret": 0.0012
     },
-    "narrative": "Apparel (Consumer Cyclicals) screens MILDLY BEARISH [42/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Cotton No.2 (corr -0.05, lead 1m, now headwind). A 5-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+    "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [50/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Rubber · SGP/MYS (corr +0.09, lead 1m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
     "drivers": [
       {
         "key": "CEICI324049702",
@@ -218,6 +212,63 @@
         }
       },
       {
+        "key": "wb_rubber",
+        "role": "cost",
+        "why": "footwear/elastomer input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.0933,
+        "pearson_p": 0.6719,
+        "spearman": 0.1097,
+        "spearman_p": 0.6183,
+        "best_lag": 1,
+        "corr_at_best": -0.3546,
+        "ic": -0.5709,
+        "ic_t": -2.616,
+        "ols": {
+          "beta": 0.15514690501688594,
+          "t": 0.6209956782452327,
+          "p": 0.5346024667215397,
+          "r2": 0.008708540685799515,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.5934490140358362,
+          "t": -3.2960155774535687,
+          "p": 0.0009806657745796538,
+          "r2": 0.1257258207002927,
+          "n": 22,
+          "hac_lag": 3
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": 0.0872,
+        "last_chg": 0.066923,
+        "last_chg_z": 0.99,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 29.3,
+        "source": "spark",
+        "shallow": true,
+        "label": "Rubber · SGP/MYS",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.458
+        }
+      },
+      {
         "key": "cotton",
         "role": "cost",
         "why": "cotton input",
@@ -267,61 +318,6 @@
         "source": "corr:ICE:CT1!",
         "shallow": false,
         "label": "Cotton No.2",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.376
-        }
-      },
-      {
-        "key": "wb_cotton",
-        "role": "cost",
-        "why": "cotton input",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.0499,
-        "pearson_p": 0.5009,
-        "spearman": 0.0435,
-        "spearman_p": 0.5575,
-        "best_lag": 1,
-        "corr_at_best": 0.1528,
-        "ic": 0.1216,
-        "ic_t": 1.64,
-        "ols": {
-          "beta": -0.04347938056183458,
-          "t": -0.4460920072655141,
-          "p": 0.6555307860981996,
-          "r2": 0.0024929461764113814,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.1320664155465399,
-          "t": 2.3015934827183426,
-          "p": 0.021358108022922564,
-          "r2": 0.02333355381447455,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": -1,
-        "emp_sign": -1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": -0.1324,
-        "last_chg": 0.061083,
-        "last_chg_z": 0.79,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 26.5,
-        "source": "corr:ICE:CT1!",
-        "shallow": false,
-        "label": "Cotton · A Index",
         "live": {
           "posture": "headwind",
           "impulse": -0.376
@@ -384,7 +380,7 @@
       }
     ],
     "n_kept": 5,
-    "n_candidates": 17
+    "n_candidates": 18
   },
   "unscored": [],
   "rejected_top": [
@@ -439,6 +435,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "cost",
+      "pearson": 0.1049,
+      "p": 0.28794959238017337,
+      "theory_agree": false,
+      "score": 24.5,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI323794602",
       "label": "Volume: Impregnated, Coated, Covered Or Laminated",
       "role": "demand",
@@ -459,6 +465,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "demand",
+      "pearson": -0.0214,
+      "p": 0.7409647667656598,
+      "theory_agree": true,
+      "score": 17.9,
+      "reason": "below_gate"
+    },
+    {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "role": "macro",
@@ -467,29 +483,9 @@
       "theory_agree": null,
       "score": 11.9,
       "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "macro",
-      "pearson": -0.0214,
-      "p": 0.7409647667656598,
-      "theory_agree": null,
-      "score": 11.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323794402",
-      "label": "Volume: Carpets and Other Textile Floor Coverings",
-      "role": "demand",
-      "pearson": -0.0467,
-      "p": 0.5719676061781074,
-      "theory_agree": false,
-      "score": 10.0,
-      "reason": "below_gate"
     }
   ],
-  "n_tested": 17,
+  "n_tested": 18,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -497,10 +493,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.8,
-  "grade": "needs_review",
+  "runtime_s": 1.6,
+  "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "confidence low"
+    "confidence low",
+    "parked after 2 attempts"
   ]
 }
