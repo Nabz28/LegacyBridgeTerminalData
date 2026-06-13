@@ -3,7 +3,7 @@
   "sub_sector": "Durables",
   "sector": "Consumer Cyclicals",
   "priority": 45,
-  "generated_at": "2026-06-14T00:48:12",
+  "generated_at": "2026-06-14T00:53:37",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,78 +36,133 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 51,
-    "net_tilt": 0.021,
+    "score": 50,
+    "net_tilt": -0.002,
     "demand_tilt": -0.064,
     "supply_tilt": 0.362,
     "cost_tilt": -0.336,
-    "macro_tilt": 0.0,
+    "macro_tilt": -0.043,
     "confidence": {
-      "level": "medium",
-      "score": 60,
+      "level": "high",
+      "score": 70,
       "reasons": [
-        "max|corr|=0.15",
-        "theory_agree=40%",
-        "stable=86%",
+        "max|corr|=0.24",
+        "theory_agree=50%",
+        "stable=88%",
         "mvR2=0.17",
-        "OOS=55%"
+        "OOS=57%"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "id_10y",
         "id_bi_rate",
         "CEICI322851802",
         "CEICI391913257",
         "CEICI324050102",
-        "id_gdp_real_q",
-        "aluminum"
+        "id_gdp_real_q"
       ],
       "n": 116,
-      "r2": 0.173,
-      "adj_r2": 0.127,
+      "r2": 0.168,
+      "adj_r2": 0.122,
       "betas": {
+        "id_10y": {
+          "std_beta": -0.0047,
+          "t": -1.1,
+          "p": 0.2715
+        },
         "id_bi_rate": {
           "std_beta": -0.0068,
-          "t": -1.43,
-          "p": 0.1522
+          "t": -1.42,
+          "p": 0.1556
         },
         "CEICI322851802": {
-          "std_beta": 0.0066,
-          "t": 1.26,
-          "p": 0.2088
+          "std_beta": 0.0073,
+          "t": 1.43,
+          "p": 0.1515
         },
         "CEICI391913257": {
-          "std_beta": 0.012,
-          "t": 12.5,
+          "std_beta": 0.0122,
+          "t": 12.68,
           "p": 0.0
         },
         "CEICI324050102": {
-          "std_beta": 0.0106,
-          "t": 1.82,
-          "p": 0.0684
+          "std_beta": 0.0102,
+          "t": 1.79,
+          "p": 0.0737
         },
         "id_gdp_real_q": {
-          "std_beta": -0.0034,
-          "t": -0.73,
-          "p": 0.4663
-        },
-        "aluminum": {
-          "std_beta": 0.006,
-          "t": 1.51,
-          "p": 0.1323
+          "std_beta": -0.0028,
+          "t": -0.61,
+          "p": 0.5389
         }
       },
-      "oos_hit_rate": 0.554,
+      "oos_hit_rate": 0.571,
       "oos_n": 56,
-      "expected_monthly_ret": 0.0339
+      "expected_monthly_ret": 0.0214
     },
-    "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [51/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.15, lead 4m, now flat); Retail sales index: auto parts (corr +0.12, lead 4m, now headwind); Daihatsu (corr +0.15, lead 0m, now flat). A 6-driver model explains 17% of monthly variance (adj 13%), 55% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
+    "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [50/100, high confidence]. Top drivers: id_10y (corr -0.24, lead 0m, now flat); BI Policy Rate (corr -0.15, lead 4m, now flat); Retail sales index: auto parts (corr +0.12, lead 4m, now headwind). A 6-driver model explains 17% of monthly variance (adj 12%), 57% out-of-sample directional hit-rate; current read ~+2.1%/mo.",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "durables financing rate-elastic",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.242,
+        "pearson_p": 0.0009,
+        "spearman": -0.1666,
+        "spearman_p": 0.0238,
+        "best_lag": 0,
+        "corr_at_best": -0.242,
+        "ic": -0.1886,
+        "ic_t": -2.545,
+        "ols": {
+          "beta": -0.32542129042373896,
+          "t": -2.5508211833785186,
+          "p": 0.010746944964567315,
+          "r2": 0.05855466905854445,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.32542129042373896,
+          "t": -2.5508211833785186,
+          "p": 0.010746944964567315,
+          "r2": 0.05855466905854445,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0588,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 58.8,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
       {
         "key": "id_bi_rate",
         "role": "macro",
-        "why": "durables financing",
+        "why": "policy rate",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "M",
@@ -486,8 +541,8 @@
         }
       }
     ],
-    "n_kept": 7,
-    "n_candidates": 52
+    "n_kept": 8,
+    "n_candidates": 53
   },
   "unscored": [],
   "rejected_top": [
@@ -592,7 +647,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 52,
+  "n_tested": 53,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -600,9 +655,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.1,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-  ]
+  "runtime_s": 6.7,
+  "grade": "perfected",
+  "grade_reasons": []
 }
