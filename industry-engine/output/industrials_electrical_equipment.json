@@ -1,0 +1,269 @@
+{
+  "id": "industrials_electrical_equipment",
+  "sub_sector": "Electrical Equipment",
+  "sector": "Industrials",
+  "priority": 43,
+  "generated_at": "2026-06-14T00:48:07",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 7,
+    "n_used": 7,
+    "members_used": [
+      "CCSI",
+      "IKBI",
+      "JECC",
+      "KBLI",
+      "KBLM",
+      "SCCO",
+      "VOKS"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 5967918039040.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 48,
+    "net_tilt": -0.033,
+    "demand_tilt": null,
+    "supply_tilt": null,
+    "cost_tilt": -0.336,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "medium",
+      "score": 46,
+      "reasons": [
+        "max|corr|=0.20",
+        "theory_agree=0%",
+        "stable=50%",
+        "mvR2=0.04",
+        "OOS=57%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "id_bi_rate",
+        "aluminum"
+      ],
+      "n": 143,
+      "r2": 0.043,
+      "adj_r2": 0.029,
+      "betas": {
+        "id_bi_rate": {
+          "std_beta": -0.0138,
+          "t": -3.37,
+          "p": 0.0008
+        },
+        "aluminum": {
+          "std_beta": 0.0001,
+          "t": 0.02,
+          "p": 0.9838
+        }
+      },
+      "oos_hit_rate": 0.566,
+      "oos_n": 83,
+      "expected_monthly_ret": 0.0099
+    },
+    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 2-driver model explains 4% of monthly variance (adj 3%), 57% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+    "drivers": [
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.2039,
+        "pearson_p": 0.0059,
+        "spearman": -0.2066,
+        "spearman_p": 0.0053,
+        "best_lag": 4,
+        "corr_at_best": -0.2285,
+        "ic": -0.0762,
+        "ic_t": -1.02,
+        "ols": {
+          "beta": -0.0806172206738163,
+          "t": -3.4426289268031685,
+          "p": 0.0005760891911610209,
+          "r2": 0.04156036121543483,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.08945797389408222,
+          "t": -3.2813606940135847,
+          "p": 0.0010330754149880483,
+          "r2": 0.05222807881562397,
+          "n": 177,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1367,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.8,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "aluminum",
+        "role": "cost",
+        "why": "aluminium input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 144,
+        "min_n": 24,
+        "pearson": 0.0292,
+        "pearson_p": 0.7282,
+        "spearman": 0.0198,
+        "spearman_p": 0.8136,
+        "best_lag": 4,
+        "corr_at_best": 0.1527,
+        "ic": 0.0098,
+        "ic_t": 0.117,
+        "ols": {
+          "beta": 0.03468772156604402,
+          "t": 0.5727427522336609,
+          "p": 0.5668188858721322,
+          "r2": 0.0008534406541081951,
+          "n": 144,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.18491788929122008,
+          "t": 2.251360723447581,
+          "p": 0.024362699653200637,
+          "r2": 0.02331653400031386,
+          "n": 140,
+          "hac_lag": 4
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.0443,
+        "last_chg": -0.036627,
+        "last_chg_z": -0.7,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 5.0,
+        "source": "corr:COMEX:ALI1!",
+        "shallow": false,
+        "label": "Aluminum",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.336
+        }
+      }
+    ],
+    "n_kept": 2,
+    "n_candidates": 8
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI536976317",
+      "label": "Electrical equipment",
+      "role": "supply",
+      "pearson": 0.1626,
+      "p": 0.1417572277025191,
+      "theory_agree": null,
+      "score": 39.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "copper",
+      "label": "Copper",
+      "role": "cost",
+      "pearson": -0.1206,
+      "p": 0.23190925431605836,
+      "theory_agree": true,
+      "score": 34.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "role": "demand",
+      "pearson": 0.1065,
+      "p": 0.31339429929656637,
+      "theory_agree": true,
+      "score": 30.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.0851,
+      "p": 0.11704968390228031,
+      "theory_agree": false,
+      "score": 27.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0371,
+      "p": 0.5321142063648832,
+      "theory_agree": null,
+      "score": 23.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": 0.0389,
+      "p": 0.6738605541219035,
+      "theory_agree": null,
+      "score": 17.7,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 8,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 1.0,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "only 2 validated drivers (<3)"
+  ]
+}

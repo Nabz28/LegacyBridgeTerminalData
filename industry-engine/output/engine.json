@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:48:05",
-  "n_baskets": 42,
+  "generated_at": "2026-06-14T00:48:07",
+  "n_baskets": 43,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -12534,6 +12534,124 @@
         }
       ],
       "generated_at": "2026-06-14T00:48:05"
+    },
+    {
+      "id": "industrials_electrical_equipment",
+      "sub_sector": "Electrical Equipment",
+      "sector": "Industrials",
+      "priority": 43,
+      "status": "done",
+      "grade": "needs_review",
+      "verdict": "NEUTRAL",
+      "score": 48,
+      "confidence": {
+        "level": "medium",
+        "score": 46,
+        "reasons": [
+          "max|corr|=0.20",
+          "theory_agree=0%",
+          "stable=50%",
+          "mvR2=0.04",
+          "OOS=57%"
+        ]
+      },
+      "net_tilt": -0.033,
+      "demand_tilt": null,
+      "supply_tilt": null,
+      "cost_tilt": -0.336,
+      "macro_tilt": 0.0,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "id_bi_rate",
+          "aluminum"
+        ],
+        "n": 143,
+        "r2": 0.043,
+        "adj_r2": 0.029,
+        "betas": {
+          "id_bi_rate": {
+            "std_beta": -0.0138,
+            "t": -3.37,
+            "p": 0.0008
+          },
+          "aluminum": {
+            "std_beta": 0.0001,
+            "t": 0.02,
+            "p": 0.9838
+          }
+        },
+        "oos_hit_rate": 0.566,
+        "oos_n": 83,
+        "expected_monthly_ret": 0.0099
+      },
+      "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 2-driver model explains 4% of monthly variance (adj 3%), 57% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+      "n_kept": 2,
+      "n_tested": 8,
+      "n_used": 7,
+      "members_used": [
+        "CCSI",
+        "IKBI",
+        "JECC",
+        "KBLI",
+        "KBLM",
+        "SCCO",
+        "VOKS"
+      ],
+      "coverage": {
+        "W": 804,
+        "M": 185,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-06-12"
+      },
+      "drivers": [
+        {
+          "key": "id_bi_rate",
+          "label": "BI Policy Rate",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDINTR",
+          "freq": "M",
+          "pearson": -0.2039,
+          "excess_pearson": -0.1367,
+          "best_lag": 4,
+          "ic": -0.0762,
+          "beta": -0.0806172206738163,
+          "r2": 0.04156036121543483,
+          "p": 0.0005760891911610209,
+          "n": 181,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "policy rate: sector-specific NIM/discount effect",
+          "posture": "neutral",
+          "last_chg_z": 0.05,
+          "last_obs": "2026-04-24"
+        },
+        {
+          "key": "aluminum",
+          "label": "Aluminum",
+          "role": "cost",
+          "source": "corr:COMEX:ALI1!",
+          "freq": "M",
+          "pearson": 0.0292,
+          "excess_pearson": -0.0443,
+          "best_lag": 4,
+          "ic": 0.0098,
+          "beta": 0.03468772156604402,
+          "r2": 0.0008534406541081951,
+          "p": 0.5668188858721322,
+          "n": 144,
+          "theory_agree": false,
+          "stable": false,
+          "sign": 1,
+          "why": "aluminium input",
+          "posture": "headwind",
+          "last_chg_z": -0.7,
+          "last_obs": "2026-05-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:48:07"
     }
   ]
 }
