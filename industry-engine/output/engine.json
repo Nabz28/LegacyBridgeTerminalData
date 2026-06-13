@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:12:29",
+  "generated_at": "2026-06-14T02:32:15",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -12836,53 +12836,59 @@
       "sector": "Industrials",
       "priority": 43,
       "status": "done",
-      "grade": "needs_review",
+      "grade": "perfected",
       "verdict": "NEUTRAL",
       "score": 48,
       "confidence": {
         "level": "medium",
-        "score": 46,
+        "score": 61,
         "reasons": [
           "max|corr|=0.20",
-          "theory_agree=0%",
-          "stable=50%",
-          "mvR2=0.04",
+          "theory_agree=67%",
+          "stable=67%",
+          "mvR2=0.07",
           "OOS=57%"
         ]
       },
-      "net_tilt": -0.033,
+      "net_tilt": -0.053,
       "demand_tilt": null,
       "supply_tilt": null,
       "cost_tilt": -0.336,
-      "macro_tilt": 0.0,
+      "macro_tilt": -0.043,
       "multivariate": {
         "available": true,
         "drivers": [
           "id_bi_rate",
+          "id_10y",
           "aluminum"
         ],
         "n": 143,
-        "r2": 0.043,
-        "adj_r2": 0.029,
+        "r2": 0.069,
+        "adj_r2": 0.049,
         "betas": {
           "id_bi_rate": {
-            "std_beta": -0.0138,
-            "t": -3.37,
-            "p": 0.0008
+            "std_beta": -0.0128,
+            "t": -3.47,
+            "p": 0.0005
+          },
+          "id_10y": {
+            "std_beta": -0.011,
+            "t": -1.99,
+            "p": 0.0464
           },
           "aluminum": {
-            "std_beta": 0.0001,
-            "t": 0.02,
-            "p": 0.9838
+            "std_beta": -0.0009,
+            "t": -0.24,
+            "p": 0.8129
           }
         },
         "oos_hit_rate": 0.566,
         "oos_n": 83,
-        "expected_monthly_ret": 0.0099
+        "expected_monthly_ret": 0.0095
       },
-      "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 2-driver model explains 4% of monthly variance (adj 3%), 57% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
-      "n_kept": 2,
-      "n_tested": 8,
+      "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 3-driver model explains 7% of monthly variance (adj 5%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
+      "n_kept": 3,
+      "n_tested": 9,
       "n_used": 7,
       "members_used": [
         "CCSI",
@@ -12915,13 +12921,35 @@
           "r2": 0.04156036121543483,
           "p": 0.0005760891911610209,
           "n": 181,
-          "theory_agree": null,
+          "theory_agree": true,
           "stable": true,
           "sign": -1,
-          "why": "policy rate: sector-specific NIM/discount effect",
+          "why": "cable demand = construction/infra, rate-elastic",
           "posture": "neutral",
           "last_chg_z": 0.05,
           "last_obs": "2026-04-24"
+        },
+        {
+          "key": "id_10y",
+          "label": "id_10y",
+          "role": "macro",
+          "source": "corr:TVC:ID10Y",
+          "freq": "M",
+          "pearson": -0.1487,
+          "excess_pearson": 0.1277,
+          "best_lag": 3,
+          "ic": -0.0175,
+          "beta": -0.21507162642975905,
+          "r2": 0.02211118663713374,
+          "p": 0.05952951026432404,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "infrastructure-capex rate sensitivity",
+          "posture": "neutral",
+          "last_chg_z": 0.17,
+          "last_obs": "2026-05-01"
         },
         {
           "key": "aluminum",
@@ -12940,13 +12968,13 @@
           "theory_agree": false,
           "stable": false,
           "sign": 1,
-          "why": "aluminium input",
+          "why": "aluminium conductor input",
           "posture": "headwind",
           "last_chg_z": -0.7,
           "last_obs": "2026-05-01"
         }
       ],
-      "generated_at": "2026-06-14T00:48:07"
+      "generated_at": "2026-06-14T02:32:15"
     },
     {
       "id": "technology_software",

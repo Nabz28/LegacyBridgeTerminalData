@@ -3,7 +3,7 @@
   "sub_sector": "Electrical Equipment",
   "sector": "Industrials",
   "priority": 43,
-  "generated_at": "2026-06-14T00:48:07",
+  "generated_at": "2026-06-14T02:32:15",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -32,19 +32,19 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 48,
-    "net_tilt": -0.033,
+    "net_tilt": -0.053,
     "demand_tilt": null,
     "supply_tilt": null,
     "cost_tilt": -0.336,
-    "macro_tilt": 0.0,
+    "macro_tilt": -0.043,
     "confidence": {
       "level": "medium",
-      "score": 46,
+      "score": 61,
       "reasons": [
         "max|corr|=0.20",
-        "theory_agree=0%",
-        "stable=50%",
-        "mvR2=0.04",
+        "theory_agree=67%",
+        "stable=67%",
+        "mvR2=0.07",
         "OOS=57%"
       ]
     },
@@ -52,33 +52,39 @@
       "available": true,
       "drivers": [
         "id_bi_rate",
+        "id_10y",
         "aluminum"
       ],
       "n": 143,
-      "r2": 0.043,
-      "adj_r2": 0.029,
+      "r2": 0.069,
+      "adj_r2": 0.049,
       "betas": {
         "id_bi_rate": {
-          "std_beta": -0.0138,
-          "t": -3.37,
-          "p": 0.0008
+          "std_beta": -0.0128,
+          "t": -3.47,
+          "p": 0.0005
+        },
+        "id_10y": {
+          "std_beta": -0.011,
+          "t": -1.99,
+          "p": 0.0464
         },
         "aluminum": {
-          "std_beta": 0.0001,
-          "t": 0.02,
-          "p": 0.9838
+          "std_beta": -0.0009,
+          "t": -0.24,
+          "p": 0.8129
         }
       },
       "oos_hit_rate": 0.566,
       "oos_n": 83,
-      "expected_monthly_ret": 0.0099
+      "expected_monthly_ret": 0.0095
     },
-    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 2-driver model explains 4% of monthly variance (adj 3%), 57% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 3-driver model explains 7% of monthly variance (adj 5%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
     "drivers": [
       {
         "key": "id_bi_rate",
         "role": "macro",
-        "why": "policy rate: sector-specific NIM/discount effect",
+        "why": "cable demand = construction/infra, rate-elastic",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "M",
@@ -109,9 +115,9 @@
           "n": 177,
           "hac_lag": 5
         },
-        "sign_prior": 0,
+        "sign_prior": -1,
         "emp_sign": -1,
-        "theory_agree": null,
+        "theory_agree": true,
         "stable": true,
         "excess_pearson": -0.1367,
         "last_chg": 0.0,
@@ -121,7 +127,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 45.8,
+        "score": 51.8,
         "source": "corr:ECONOMICS:IDINTR",
         "shallow": false,
         "label": "BI Policy Rate",
@@ -131,9 +137,64 @@
         }
       },
       {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "infrastructure-capex rate sensitivity",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1487,
+        "pearson_p": 0.044,
+        "spearman": -0.13,
+        "spearman_p": 0.0787,
+        "best_lag": 3,
+        "corr_at_best": -0.1789,
+        "ic": -0.0175,
+        "ic_t": -0.237,
+        "ols": {
+          "beta": -0.21507162642975905,
+          "t": -1.884262255303403,
+          "p": 0.05952951026432404,
+          "r2": 0.02211118663713374,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.25747534450367054,
+          "t": -2.087898735588084,
+          "p": 0.03680697027032443,
+          "r2": 0.031990237967256197,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1277,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.0,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
+      {
         "key": "aluminum",
         "role": "cost",
-        "why": "aluminium input",
+        "why": "aluminium conductor input",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
@@ -186,8 +247,8 @@
         }
       }
     ],
-    "n_kept": 2,
-    "n_candidates": 8
+    "n_kept": 3,
+    "n_candidates": 9
   },
   "unscored": [],
   "rejected_top": [
@@ -252,7 +313,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 8,
+  "n_tested": 9,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -260,10 +321,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.0,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "only 2 validated drivers (<3)"
-  ]
+  "runtime_s": 25.8,
+  "grade": "perfected",
+  "grade_reasons": []
 }

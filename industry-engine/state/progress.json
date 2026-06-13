@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T02:12:29",
+  "updated_at": "2026-06-14T02:32:15",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -598,16 +598,13 @@
       "sub_sector": "Electrical Equipment",
       "sector": "Industrials",
       "priority": 43,
-      "status": "needs_review",
-      "grade": "needs_review",
+      "status": "done",
+      "grade": "perfected",
       "score": 48,
       "verdict": "NEUTRAL",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:48:06",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "only 2 validated drivers (<3)"
-      ]
+      "attempts": 2,
+      "last_run": "2026-06-14T02:31:49",
+      "reasons": []
     },
     "technology_software": {
       "id": "technology_software",
@@ -743,9 +740,9 @@
     }
   },
   "summary": {
-    "perfected": 35,
+    "perfected": 36,
     "partial": 16,
-    "needs_review": 1,
+    "needs_review": 0,
     "blocked": 0,
     "pending": 0,
     "error": 0

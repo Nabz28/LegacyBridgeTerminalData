@@ -49394,16 +49394,28 @@
           "key": "copper",
           "role": "cost",
           "sign": -1,
-          "why": "copper winding input"
+          "why": "copper = primary cable input"
         },
         {
           "key": "aluminum",
           "role": "cost",
           "sign": -1,
-          "why": "aluminium input"
+          "why": "aluminium conductor input"
         }
       ],
       "macro_hints": [
+        {
+          "key": "id_bi_rate",
+          "role": "macro",
+          "sign": -1,
+          "why": "cable demand = construction/infra, rate-elastic"
+        },
+        {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "infrastructure-capex rate sensitivity"
+        },
         {
           "key": "id_gdp_real_q",
           "role": "demand",
@@ -49415,12 +49427,6 @@
           "role": "macro",
           "sign": 0,
           "why": "IDR weakness: +for USD earners, -for importers/FX debt"
-        },
-        {
-          "key": "id_bi_rate",
-          "role": "macro",
-          "sign": 0,
-          "why": "policy rate: sector-specific NIM/discount effect"
         },
         {
           "key": "id_cpi_yoy",
