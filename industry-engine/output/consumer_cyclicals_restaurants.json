@@ -1,0 +1,873 @@
+{
+  "id": "consumer_cyclicals_restaurants",
+  "sub_sector": "Restaurants",
+  "sector": "Consumer Cyclicals",
+  "priority": 41,
+  "generated_at": "2026-06-14T00:47:58",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 9,
+    "n_used": 9,
+    "members_used": [
+      "BAIK",
+      "CSMI",
+      "DUCK",
+      "ENAK",
+      "FAST",
+      "MAPB",
+      "PTSP",
+      "PZZA",
+      "RAFI"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 7054436294656.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 53,
+    "net_tilt": 0.053,
+    "demand_tilt": 0.09,
+    "supply_tilt": 0.026,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "medium",
+      "score": 53,
+      "reasons": [
+        "max|corr|=0.19",
+        "theory_agree=60%",
+        "stable=92%",
+        "mvR2=0.03",
+        "OOS=42%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI432467117",
+        "CEICI13515901",
+        "CEICI432469687",
+        "id_bi_rate",
+        "CEICI432477457",
+        "CEICI356597802"
+      ],
+      "n": 91,
+      "r2": 0.026,
+      "adj_r2": -0.043,
+      "betas": {
+        "CEICI432467117": {
+          "std_beta": 0.0123,
+          "t": 1.15,
+          "p": 0.2507
+        },
+        "CEICI13515901": {
+          "std_beta": 0.0016,
+          "t": 0.26,
+          "p": 0.7979
+        },
+        "CEICI432469687": {
+          "std_beta": -0.007,
+          "t": -0.67,
+          "p": 0.5053
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0044,
+          "t": -0.62,
+          "p": 0.5347
+        },
+        "CEICI432477457": {
+          "std_beta": 0.0005,
+          "t": 0.08,
+          "p": 0.9361
+        },
+        "CEICI356597802": {
+          "std_beta": 0.0041,
+          "t": 0.6,
+          "p": 0.5505
+        }
+      },
+      "oos_hit_rate": 0.419,
+      "oos_n": 31,
+      "expected_monthly_ret": 0.0074
+    },
+    "narrative": "Restaurants (Consumer Cyclicals) screens NEUTRAL [53/100, medium confidence]. Top drivers: Retail: Curly: Modern market (corr +0.07, lead 1m, now tailwind); Rice: Super Quality I: Producer (corr -0.19, lead 4m, now flat); Coffee (corr +0.14, lead 0m, now flat). A 6-driver model explains 3% of monthly variance (adj -4%), 42% out-of-sample directional hit-rate; current read ~+0.7%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI432467117",
+        "role": "demand",
+        "why": "Retail: Curly: Modern market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.0697,
+        "pearson_p": 0.4531,
+        "spearman": 0.0635,
+        "spearman_p": 0.4944,
+        "best_lag": 1,
+        "corr_at_best": 0.1582,
+        "ic": 0.2139,
+        "ic_t": 2.304,
+        "ols": {
+          "beta": 0.042165420925464395,
+          "t": 1.0730224807505542,
+          "p": 0.28326102969535927,
+          "r2": 0.004860663717331737,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.09552561733899309,
+          "t": 2.101618696634766,
+          "p": 0.03558669073032922,
+          "r2": 0.025035195867858406,
+          "n": 117,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.094,
+        "last_chg": 0.046909,
+        "last_chg_z": 0.37,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.6,
+        "source": "ceic",
+        "label": "Retail: Curly: Modern market",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.183
+        }
+      },
+      {
+        "key": "CEICI454653087",
+        "role": "supply",
+        "why": "Rice: Super Quality I: Producer",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 86,
+        "min_n": 24,
+        "pearson": -0.1872,
+        "pearson_p": 0.0843,
+        "spearman": -0.2193,
+        "spearman_p": 0.0424,
+        "best_lag": 4,
+        "corr_at_best": -0.2096,
+        "ic": -0.0643,
+        "ic_t": -0.589,
+        "ols": {
+          "beta": -0.7740320344384235,
+          "t": -2.3191836708397764,
+          "p": 0.02038507948095632,
+          "r2": 0.035055344312174164,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.8640615127572073,
+          "t": -3.2086971398306856,
+          "p": 0.0013333786401683026,
+          "r2": 0.04393034317533906,
+          "n": 82,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1862,
+        "last_chg": 0.0,
+        "last_chg_z": -0.22,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.1,
+        "source": "ceic",
+        "label": "Rice: Super Quality I: Producer",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI13515901",
+        "role": "supply",
+        "why": "Coffee",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2025-10-01",
+        "n": 157,
+        "min_n": 24,
+        "pearson": 0.1436,
+        "pearson_p": 0.0728,
+        "spearman": 0.0826,
+        "spearman_p": 0.304,
+        "best_lag": 0,
+        "corr_at_best": 0.1436,
+        "ic": 0.0915,
+        "ic_t": 1.143,
+        "ols": {
+          "beta": 0.0023698322061627398,
+          "t": 5.866251701288352,
+          "p": 4.457569665941733e-09,
+          "r2": 0.020622337828745785,
+          "n": 157,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0023698322061627398,
+          "t": 5.866251701288352,
+          "p": 4.457569665941733e-09,
+          "r2": 0.020622337828745785,
+          "n": 157,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0938,
+        "last_chg": 0.0,
+        "last_chg_z": -0.24,
+        "last_chg_date": "2025-10-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.4,
+        "source": "ceic",
+        "label": "Coffee",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI432469687",
+        "role": "demand",
+        "why": "Cayenne Pepper: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.0379,
+        "pearson_p": 0.6839,
+        "spearman": 0.0629,
+        "spearman_p": 0.4987,
+        "best_lag": 1,
+        "corr_at_best": 0.162,
+        "ic": 0.1611,
+        "ic_t": 1.736,
+        "ols": {
+          "beta": 0.019762412241993526,
+          "t": 0.6216429536758227,
+          "p": 0.5341766701508945,
+          "r2": 0.0014344160850564558,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.08440191125796408,
+          "t": 2.245229688579255,
+          "p": 0.024753391122107136,
+          "r2": 0.026251809501072643,
+          "n": 117,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0535,
+        "last_chg": 0.025711,
+        "last_chg_z": 0.15,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.1,
+        "source": "ceic",
+        "label": "Cayenne Pepper: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.075
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.171,
+        "pearson_p": 0.0213,
+        "spearman": -0.0967,
+        "spearman_p": 0.1952,
+        "best_lag": 0,
+        "corr_at_best": -0.171,
+        "ic": -0.0187,
+        "ic_t": -0.25,
+        "ols": {
+          "beta": -0.07551729548642543,
+          "t": -2.5495510772040633,
+          "p": 0.01078617097842818,
+          "r2": 0.02924758461913024,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.07551729548642543,
+          "t": -2.5495510772040633,
+          "p": 0.01078617097842818,
+          "r2": 0.02924758461913024,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1199,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.8,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI454643547",
+        "role": "supply",
+        "why": "Rice: Low Quality II: Producer",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 86,
+        "min_n": 24,
+        "pearson": -0.0893,
+        "pearson_p": 0.4137,
+        "spearman": -0.1435,
+        "spearman_p": 0.1874,
+        "best_lag": 3,
+        "corr_at_best": -0.2612,
+        "ic": -0.1116,
+        "ic_t": -1.023,
+        "ols": {
+          "beta": -0.3042453235177164,
+          "t": -0.9878634875918525,
+          "p": 0.3232195094486763,
+          "r2": 0.007970496460079524,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.9194364157065821,
+          "t": -3.2005205767952765,
+          "p": 0.0013717957402877721,
+          "r2": 0.06822626175710766,
+          "n": 83,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.2151,
+        "last_chg": 0.0,
+        "last_chg_z": -0.17,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 33.6,
+        "source": "ceic",
+        "label": "Rice: Low Quality II: Producer",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI432477457",
+        "role": "demand",
+        "why": "Cooking Oil: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.0503,
+        "pearson_p": 0.5886,
+        "spearman": -0.007,
+        "spearman_p": 0.9398,
+        "best_lag": 4,
+        "corr_at_best": 0.1625,
+        "ic": 0.087,
+        "ic_t": 0.937,
+        "ols": {
+          "beta": 0.09003802457323529,
+          "t": 0.7189332028842177,
+          "p": 0.47218207742540164,
+          "r2": 0.0025289159557049246,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.28996162628710564,
+          "t": 3.891523208407868,
+          "p": 9.961685822313322e-05,
+          "r2": 0.02641591409864197,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0214,
+        "last_chg": 0.010695,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 32.9,
+        "source": "ceic",
+        "label": "Cooking Oil: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.085
+        }
+      },
+      {
+        "key": "CEICI454649907",
+        "role": "supply",
+        "why": "Rice: Medium Quality II: Producer",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 86,
+        "min_n": 24,
+        "pearson": -0.0562,
+        "pearson_p": 0.6074,
+        "spearman": -0.0924,
+        "spearman_p": 0.3974,
+        "best_lag": 4,
+        "corr_at_best": -0.1851,
+        "ic": -0.2365,
+        "ic_t": -2.168,
+        "ols": {
+          "beta": -0.1841971512090348,
+          "t": -0.6904874963376647,
+          "p": 0.4898876703530971,
+          "r2": 0.0031556133038396217,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.6095129667018123,
+          "t": -2.772940557332974,
+          "p": 0.0055552267183501345,
+          "r2": 0.03427690667561356,
+          "n": 82,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0825,
+        "last_chg": 0.0,
+        "last_chg_z": -0.19,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.1,
+        "source": "ceic",
+        "label": "Rice: Medium Quality II: Producer",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI356597802",
+        "role": "supply",
+        "why": "China: Coffee, Tea, Mate, and Spices",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.0753,
+        "pearson_p": 0.3278,
+        "spearman": 0.0846,
+        "spearman_p": 0.2712,
+        "best_lag": 6,
+        "corr_at_best": 0.1777,
+        "ic": 0.0752,
+        "ic_t": 0.977,
+        "ols": {
+          "beta": 0.010850130588234039,
+          "t": 1.114827472179437,
+          "p": 0.26492436149520204,
+          "r2": 0.0056671181748708666,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.023596323135464004,
+          "t": 2.5619356721056787,
+          "p": 0.010409059616556209,
+          "r2": 0.031588455857033515,
+          "n": 165,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0816,
+        "last_chg": 0.187527,
+        "last_chg_z": 0.31,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.0,
+        "source": "ceic",
+        "label": "China: Coffee, Tea, Mate, and Spices",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.154
+        }
+      },
+      {
+        "key": "CEICI454640367",
+        "role": "supply",
+        "why": "Rice: Low Quality I: Producer",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 86,
+        "min_n": 24,
+        "pearson": -0.0937,
+        "pearson_p": 0.3909,
+        "spearman": -0.1106,
+        "spearman_p": 0.3109,
+        "best_lag": 3,
+        "corr_at_best": -0.3242,
+        "ic": -0.0148,
+        "ic_t": -0.136,
+        "ols": {
+          "beta": -0.32754011628761737,
+          "t": -1.0533018911605467,
+          "p": 0.2922026524489044,
+          "r2": 0.008777381615477697,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.1591578380613772,
+          "t": -3.3087189530195165,
+          "p": 0.00093723868180908,
+          "r2": 0.10511102007299655,
+          "n": 83,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1902,
+        "last_chg": 0.0,
+        "last_chg_z": -0.18,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 28.0,
+        "source": "ceic",
+        "label": "Rice: Low Quality I: Producer",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI430921117",
+        "role": "demand",
+        "why": "Rice: Medium Quality I: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.0985,
+        "pearson_p": 0.2884,
+        "spearman": -0.1754,
+        "spearman_p": 0.0574,
+        "best_lag": 5,
+        "corr_at_best": -0.2155,
+        "ic": 0.0367,
+        "ic_t": 0.395,
+        "ols": {
+          "beta": -0.49897073756707494,
+          "t": -1.827320082908827,
+          "p": 0.06765165738646203,
+          "r2": 0.009711245403231317,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.082772799135621,
+          "t": -2.8198073174954987,
+          "p": 0.004805249369174113,
+          "r2": 0.04642574257463539,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1223,
+        "last_chg": -0.003044,
+        "last_chg_z": -0.21,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.2,
+        "source": "ceic",
+        "label": "Rice: Medium Quality I: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.105
+        }
+      },
+      {
+        "key": "CEICI430923647",
+        "role": "demand",
+        "why": "Rice: Medium Quality II: Traditional Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.122,
+        "pearson_p": 0.188,
+        "spearman": -0.2033,
+        "spearman_p": 0.0273,
+        "best_lag": 0,
+        "corr_at_best": -0.122,
+        "ic": -0.035,
+        "ic_t": -0.377,
+        "ols": {
+          "beta": -0.3098464970486333,
+          "t": -1.7489492615342506,
+          "p": 0.08029979028719995,
+          "r2": 0.014891544946082913,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.3098464970486333,
+          "t": -1.7489492615342506,
+          "p": 0.08029979028719995,
+          "r2": 0.014891544946082913,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1423,
+        "last_chg": 0.00312,
+        "last_chg_z": 0.0,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.7,
+        "source": "ceic",
+        "label": "Rice: Medium Quality II: Traditional Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.0
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 52
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": 0.0825,
+      "p": 0.08246614181074939,
+      "theory_agree": true,
+      "score": 41.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI432461977",
+      "label": "Red Chili Pepper: Modern Market",
+      "role": "demand",
+      "pearson": 0.0412,
+      "p": 0.5611091583995103,
+      "theory_agree": true,
+      "score": 38.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI279225403",
+      "label": "Robusta Coffee",
+      "role": "supply",
+      "pearson": -0.0763,
+      "p": 0.20603577574141219,
+      "theory_agree": null,
+      "score": 35.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wb_palm_oil",
+      "label": "Palm Oil (CPO)",
+      "role": "cost",
+      "pearson": -0.0594,
+      "p": 0.35603089764530627,
+      "theory_agree": true,
+      "score": 35.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324037102",
+      "label": "Export value: Tobacco and Manufactured Tobacco Sub",
+      "role": "supply",
+      "pearson": 0.1162,
+      "p": 0.11852380294753832,
+      "theory_agree": null,
+      "score": 29.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI430938177",
+      "label": "Rice: Super Quality II: Modern Market",
+      "role": "demand",
+      "pearson": -0.084,
+      "p": 0.20153737603944866,
+      "theory_agree": false,
+      "score": 27.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI454646727",
+      "label": "Rice: Medium Quality I: Producer",
+      "role": "supply",
+      "pearson": -0.0398,
+      "p": 0.634820000602734,
+      "theory_agree": null,
+      "score": 26.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI430914587",
+      "label": "Rice: Low Quality II: Modern Market",
+      "role": "demand",
+      "pearson": 0.081,
+      "p": 0.383925298652928,
+      "theory_agree": true,
+      "score": 24.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324035602",
+      "label": "Coffee, Tea, Mate, and Spices",
+      "role": "supply",
+      "pearson": 0.0645,
+      "p": 0.362690379506852,
+      "theory_agree": null,
+      "score": 24.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13516201",
+      "label": "Volume: Cane Sugar",
+      "role": "supply",
+      "pearson": 0.0825,
+      "p": 0.3045810734903046,
+      "theory_agree": null,
+      "score": 23.6,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 52,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 2.8,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
