@@ -55,10 +55,24 @@ that is fine — but what is done must be **rigorous and honest**.
          strong stable driver usually means the prior was wrong — correct it),
        * drop endogenous "drivers" that are really outcomes (a basket's own
          balance-sheet/NIM/asset series) if they crowd out real exogenous drivers.
-     Then re-run just that basket and commit:
+     **IMPORTANT:** after editing `mapping.py` you MUST rebuild the worklist
+     (it embeds the driver hints) BEFORE re-running, then re-run just that basket:
      ```
+     python industry-engine/engine/build_worklist.py
      python industry-engine/engine/controller.py --only "<Sub Sector>"
      ```
+     (`build_worklist.py` only regenerates `worklist.json`; it does NOT touch
+     `progress.json`, so progress is preserved. Commit `engine/mapping.py` too —
+     the controller only auto-commits output/state/JS, not the code.)
+
+     Proven enrichment examples (mirror these):
+       * rate-sensitive baskets (property/construction/financing/durables/autos):
+         add `("id_10y","macro",-1,...)` — the Indo 10Y yield (`TVC:ID10Y`) is a
+         strong, liquid, theory-clean driver where BI-rate *changes* are too sparse
+         monthly. This flipped Cement/Construction/Multifinance/Durables to perfected.
+       * exporters earning USD: ensure `usdidr` (+1) is present; importers (-1).
+       * metal processors (steel/apparel/electronics): add the right input
+         commodity (`steel_hrc`, `iron_ore`, `cotton`, `copper`) as a `cost` (-1).
      Confirm it reached `perfected` (or is honestly `partial` because the data
      ceiling is reached). One basket per fire. STOP.
 

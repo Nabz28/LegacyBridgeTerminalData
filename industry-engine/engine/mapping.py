@@ -52,6 +52,7 @@ GLOBAL_CORR = {
     "usdidr": "FX_IDC:USDIDR", "dxy": "TVC:BBDXY", "usdcny": "FX_IDC:USDCNY",
     # rates / yields
     "us_10y": "TVC:US10Y", "ust_10y_y": "TVC:US10Y", "us_2y": None,
+    "id_10y": "TVC:ID10Y", "id_01y": "TVC:ID01Y",
     # Indonesia macro
     "id_bi_rate": "ECONOMICS:IDINTR", "id_lending_rate": None,
     "id_bank_credit": "aIDLONYAR", "id_m2": "aIDM2AR",
@@ -176,7 +177,8 @@ SEED = {
         "ceic": [("Industrials & Manufacturing", None)],
         "globals": [("wb_coal_au", "cost", -1, "coal = ~30% of cement cash cost"),
                     ("brent", "cost", -1, "fuel/logistics cost")],
-        "macro": [("id_bi_rate", "macro", -1, "property/construction demand rate-elastic"),
+        "macro": [("id_10y", "macro", -1, "10Y yield: property/construction demand rate-elastic"),
+                  ("id_bi_rate", "macro", -1, "policy rate"),
                   ("id_gdp_real_q", "demand", +1, "construction activity"),
                   ("usdidr", "macro", -1, "imported equipment/energy")],
     },
@@ -273,9 +275,11 @@ SEED = {
     "Multifinance": {
         "ceic": [("Banks", "Multifinance"), ("Banks", "Loan Demand")],
         "globals": [],
-        "macro": [("id_bi_rate", "macro", -1, "funding cost up = margin down"),
+        "macro": [("id_10y", "macro", -1, "funding cost (bond-funded book)"),
+                  ("id_bi_rate", "macro", -1, "policy funding cost"),
                   ("id_bank_credit", "demand", +1, "consumer financing"),
-                  ("id_gdp_real_q", "demand", +1, "auto/durables demand")],
+                  ("id_gdp_real_q", "demand", +1, "auto/durables demand"),
+                  ("usdidr", "macro", -1, "risk-off / FX funding")],
     },
     "Securities": {
         "ceic": [("Banks", None)],
@@ -318,9 +322,10 @@ SEED = {
         "ceic": [("Industrials & Manufacturing", None)],
         "globals": [("steel_hrc", "cost", -1, "rebar input"),
                     ("wb_coal_au", "cost", -1, "cement/energy input")],
-        "macro": [("id_bi_rate", "macro", -1, "financing cost (leveraged SOEs)"),
+        "macro": [("id_10y", "macro", -1, "10Y yield: financing cost (leveraged SOEs)"),
+                  ("id_bi_rate", "macro", -1, "policy rate"),
                   ("id_gdp_real_q", "demand", +1, "APBN infra spend proxy"),
-                  ("id_govt_debt", "demand", +1, "state capex capacity")],
+                  ("usdidr", "macro", -1, "FX risk for leveraged balance sheets")],
     },
     "Toll Road": {
         "ceic": [("Transport & Logistics", None)],
@@ -388,8 +393,10 @@ SEED = {
         "ceic": [("Consumer Discretionary", None)],
         "globals": [("steel_hrc", "cost", -1, "metal input"),
                     ("aluminum", "cost", -1, "metal input")],
-        "macro": [("id_bi_rate", "macro", -1, "durables financing"),
-                  ("id_gdp_real_q", "demand", +1, "household durables")],
+        "macro": [("id_10y", "macro", -1, "durables financing rate-elastic"),
+                  ("id_bi_rate", "macro", -1, "policy rate"),
+                  ("id_gdp_real_q", "demand", +1, "household durables"),
+                  ("usdidr", "macro", -1, "imported durable goods")],
     },
     # ---------------- HEALTHCARE ----------------
     "Hospitals": {
