@@ -1,0 +1,482 @@
+{
+  "id": "transportation_logistics_airlines",
+  "sub_sector": "Airlines",
+  "sector": "Transportation & Logistics",
+  "priority": 33,
+  "generated_at": "2026-06-14T00:47:33",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 3,
+    "n_used": 3,
+    "members_used": [
+      "CMPP",
+      "GIAA",
+      "HELI"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 24111121039360.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 49,
+    "net_tilt": -0.011,
+    "demand_tilt": -0.09,
+    "supply_tilt": null,
+    "cost_tilt": null,
+    "macro_tilt": -0.022,
+    "confidence": {
+      "level": "medium",
+      "score": 55,
+      "reasons": [
+        "max|corr|=0.20",
+        "theory_agree=50%",
+        "stable=60%",
+        "mvR2=0.07",
+        "OOS=55%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "usdidr",
+        "id_bi_rate",
+        "CEICI14580001",
+        "CEICI14579801",
+        "CEICI14580601"
+      ],
+      "n": 180,
+      "r2": 0.07,
+      "adj_r2": 0.043,
+      "betas": {
+        "usdidr": {
+          "std_beta": -0.0255,
+          "t": -2.16,
+          "p": 0.0308
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0287,
+          "t": -2.54,
+          "p": 0.0111
+        },
+        "CEICI14580001": {
+          "std_beta": 0.012,
+          "t": 1.25,
+          "p": 0.2116
+        },
+        "CEICI14579801": {
+          "std_beta": -0.0077,
+          "t": -0.63,
+          "p": 0.5312
+        },
+        "CEICI14580601": {
+          "std_beta": 0.0006,
+          "t": 0.09,
+          "p": 0.9267
+        }
+      },
+      "oos_hit_rate": 0.55,
+      "oos_n": 120,
+      "expected_monthly_ret": 0.0051
+    },
+    "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat); International: Arrival: Ngurah Rai-Denpasar (corr +0.03, lead 2m, now flat). A 5-driver model explains 7% of monthly variance (adj 4%), 55% out-of-sample directional hit-rate; current read ~+0.5%/mo.",
+    "drivers": [
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "USD leases/fuel",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1703,
+        "pearson_p": 0.0208,
+        "spearman": -0.2137,
+        "spearman_p": 0.0036,
+        "best_lag": 0,
+        "corr_at_best": -0.1703,
+        "ic": -0.0778,
+        "ic_t": -1.05,
+        "ols": {
+          "beta": -0.837804623843863,
+          "t": -2.124354258405993,
+          "p": 0.03364053182954075,
+          "r2": 0.028992204259393084,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.837804623843863,
+          "t": -2.124354258405993,
+          "p": 0.03364053182954075,
+          "r2": 0.028992204259393084,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0787,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 44.3,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1991,
+        "pearson_p": 0.0072,
+        "spearman": -0.1997,
+        "spearman_p": 0.007,
+        "best_lag": 0,
+        "corr_at_best": -0.1991,
+        "ic": -0.0914,
+        "ic_t": -1.222,
+        "ols": {
+          "beta": -0.16291428125847177,
+          "t": -2.6641101095941395,
+          "p": 0.007719229124812185,
+          "r2": 0.039647772280980154,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.16291428125847177,
+          "t": -2.6641101095941395,
+          "p": 0.007719229124812185,
+          "r2": 0.039647772280980154,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1748,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.2,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI14580001",
+        "role": "demand",
+        "why": "International: Arrival: Ngurah Rai-Denpasar",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.03,
+        "pearson_p": 0.6881,
+        "spearman": -0.0005,
+        "spearman_p": 0.9941,
+        "best_lag": 2,
+        "corr_at_best": -0.1512,
+        "ic": 0.0318,
+        "ic_t": 0.428,
+        "ols": {
+          "beta": 0.009132486548585794,
+          "t": 0.6276979750522997,
+          "p": 0.5302018121330729,
+          "r2": 0.0008972360921900568,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.046090594041501884,
+          "t": -6.370553820549309,
+          "p": 1.8834683280994094e-10,
+          "r2": 0.022856547253704562,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0093,
+        "last_chg": 0.024564,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 27.0,
+        "source": "ceic",
+        "label": "International: Arrival: Ngurah Rai-Denpasar",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.025
+        }
+      },
+      {
+        "key": "CEICI14579801",
+        "role": "demand",
+        "why": "International: Arrival: Soekarno Hatta-Tangerang",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": -0.0112,
+        "pearson_p": 0.8811,
+        "spearman": 0.0228,
+        "spearman_p": 0.7599,
+        "best_lag": 2,
+        "corr_at_best": -0.1687,
+        "ic": 0.0217,
+        "ic_t": 0.292,
+        "ols": {
+          "beta": -0.006928596650919159,
+          "t": -0.19595043277653862,
+          "p": 0.8446489627010524,
+          "r2": 0.00012463780731664098,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.10485651228760837,
+          "t": -4.018127476008527,
+          "p": 5.86624605106456e-05,
+          "r2": 0.028468951551438026,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.0647,
+        "last_chg": -0.015485,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 0.5,
+        "source": "ceic",
+        "label": "International: Arrival: Soekarno Hatta-Tangerang",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.045
+        }
+      },
+      {
+        "key": "CEICI14580601",
+        "role": "demand",
+        "why": "Domestic: Arrival: Ngurah Rai-Denpasar",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": -0.0006,
+        "pearson_p": 0.9933,
+        "spearman": 0.0265,
+        "spearman_p": 0.7221,
+        "best_lag": 4,
+        "corr_at_best": 0.1524,
+        "ic": 0.0491,
+        "ic_t": 0.661,
+        "ols": {
+          "beta": -0.0002525668142226733,
+          "t": -0.016391489865288753,
+          "p": 0.9869220689423533,
+          "r2": 3.9516204553002865e-07,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.0613486520187216,
+          "t": 2.8624924707243977,
+          "p": 0.004203232470695747,
+          "r2": 0.023224826552444067,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.0254,
+        "last_chg": 0.220101,
+        "last_chg_z": 0.71,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 0.0,
+        "source": "ceic",
+        "label": "Domestic: Arrival: Ngurah Rai-Denpasar",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.341
+        }
+      }
+    ],
+    "n_kept": 5,
+    "n_candidates": 32
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI14579901",
+      "label": "International: Arrival: Juanda-Surabaya",
+      "role": "demand",
+      "pearson": 0.073,
+      "p": 0.07634229382337503,
+      "theory_agree": true,
+      "score": 33.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": 0.0302,
+      "p": 0.5776299126444342,
+      "theory_agree": true,
+      "score": 33.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14581601",
+      "label": "Domestic: Departure: Hasanuddin-Makassar",
+      "role": "demand",
+      "pearson": 0.0173,
+      "p": 0.6583816282309949,
+      "theory_agree": true,
+      "score": 29.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14580401",
+      "label": "Domestic: Arrival: Juanda-Surabaya",
+      "role": "demand",
+      "pearson": 0.0203,
+      "p": 0.5440654422114362,
+      "theory_agree": true,
+      "score": 23.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14582501",
+      "label": "Domestic: Transit: Hasanuddin-Makassar",
+      "role": "demand",
+      "pearson": 0.0206,
+      "p": 0.5197606478072077,
+      "theory_agree": true,
+      "score": 23.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wti",
+      "label": "WTI Crude",
+      "role": "cost",
+      "pearson": 0.0769,
+      "p": 0.140409686577586,
+      "theory_agree": false,
+      "score": 21.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14582401",
+      "label": "Domestic: Transit: Juanda-Surabaya",
+      "role": "demand",
+      "pearson": 0.0336,
+      "p": 0.5132820527171389,
+      "theory_agree": true,
+      "score": 19.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14579701",
+      "label": "International: Arrival: Kualanamu-Medan",
+      "role": "demand",
+      "pearson": -0.038,
+      "p": 0.5094801575539186,
+      "theory_agree": false,
+      "score": 19.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14580501",
+      "label": "Domestic: Arrival: Hasanuddin-Makassar",
+      "role": "demand",
+      "pearson": 0.016,
+      "p": 0.659274740207122,
+      "theory_agree": true,
+      "score": 18.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0761,
+      "p": 0.26565852153787994,
+      "theory_agree": null,
+      "score": 18.1,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 32,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 6.5,
+  "grade": "perfected",
+  "grade_reasons": []
+}
