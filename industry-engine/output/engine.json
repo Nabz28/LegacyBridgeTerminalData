@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:46:17",
-  "n_baskets": 18,
+  "generated_at": "2026-06-14T00:46:19",
+  "n_baskets": 19,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -5262,6 +5262,128 @@
         }
       ],
       "generated_at": "2026-06-14T00:46:17"
+    },
+    {
+      "id": "basic_materials_containers_packaging",
+      "sub_sector": "Containers & Packaging",
+      "sector": "Basic Materials",
+      "priority": 19,
+      "status": "done",
+      "grade": "needs_review",
+      "verdict": "NEUTRAL",
+      "score": 53,
+      "confidence": {
+        "level": "low",
+        "score": 23,
+        "reasons": [
+          "max|corr|=0.09",
+          "theory_agree=0%",
+          "stable=100%",
+          "mvR2=0.01",
+          "OOS=52%"
+        ]
+      },
+      "net_tilt": 0.051,
+      "demand_tilt": null,
+      "supply_tilt": null,
+      "cost_tilt": 0.119,
+      "macro_tilt": 0.0,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "id_bi_rate",
+          "brent"
+        ],
+        "n": 181,
+        "r2": 0.013,
+        "adj_r2": 0.001,
+        "betas": {
+          "id_bi_rate": {
+            "std_beta": -0.0056,
+            "t": -1.12,
+            "p": 0.2628
+          },
+          "brent": {
+            "std_beta": 0.0041,
+            "t": 0.66,
+            "p": 0.5097
+          }
+        },
+        "oos_hit_rate": 0.521,
+        "oos_n": 121,
+        "expected_monthly_ret": 0.0123
+      },
+      "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [53/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
+      "n_kept": 2,
+      "n_tested": 6,
+      "n_used": 11,
+      "members_used": [
+        "AKPI",
+        "APLI",
+        "BRNA",
+        "FPNI",
+        "IGAR",
+        "IMPC",
+        "PBID",
+        "SMKL",
+        "TALF",
+        "TRST",
+        "YPAS"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "id_bi_rate",
+          "label": "BI Policy Rate",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDINTR",
+          "freq": "M",
+          "pearson": -0.0922,
+          "excess_pearson": -0.0162,
+          "best_lag": 3,
+          "ic": -0.0494,
+          "beta": -0.03229256528337999,
+          "r2": 0.008506367236445933,
+          "p": 0.2191508860707999,
+          "n": 181,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "policy rate: sector-specific NIM/discount effect",
+          "posture": "neutral",
+          "last_chg_z": 0.05,
+          "last_obs": "2026-04-24"
+        },
+        {
+          "key": "brent",
+          "label": "Brent Crude",
+          "role": "cost",
+          "source": "corr:ICEEUR:BRN1!",
+          "freq": "M",
+          "pearson": 0.0904,
+          "excess_pearson": -0.0646,
+          "best_lag": 3,
+          "ic": -0.0818,
+          "beta": 0.05366816399063261,
+          "r2": 0.008165448782827545,
+          "p": 0.31473424538680284,
+          "n": 184,
+          "theory_agree": false,
+          "stable": true,
+          "sign": 1,
+          "why": "resin/plastics feedstock",
+          "posture": "neutral",
+          "last_chg_z": 0.24,
+          "last_obs": "2026-05-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:46:19"
     }
   ]
 }
