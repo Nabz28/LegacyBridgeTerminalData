@@ -1,0 +1,873 @@
+{
+  "id": "financials_investment",
+  "sub_sector": "Investment",
+  "sector": "Financials",
+  "priority": 26,
+  "generated_at": "2026-06-14T00:47:01",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 9,
+    "n_used": 9,
+    "members_used": [
+      "ARTA",
+      "BCAP",
+      "BHAT",
+      "BHIT",
+      "BNBR",
+      "GSMF",
+      "NICK",
+      "SRTG",
+      "VICO"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 61960905228288.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 56,
+    "net_tilt": 0.122,
+    "demand_tilt": -0.124,
+    "supply_tilt": 0.444,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "high",
+      "score": 90,
+      "reasons": [
+        "max|corr|=0.36",
+        "theory_agree=33%",
+        "stable=100%",
+        "mvR2=0.21",
+        "OOS=67%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "jci",
+        "id_gdp_real_q",
+        "CEICI462344547",
+        "id_bi_rate",
+        "CEICI462344687",
+        "CEICI462344567"
+      ],
+      "n": 109,
+      "r2": 0.212,
+      "adj_r2": 0.166,
+      "betas": {
+        "jci": {
+          "std_beta": 0.028,
+          "t": 3.66,
+          "p": 0.0002
+        },
+        "id_gdp_real_q": {
+          "std_beta": 0.017,
+          "t": 7.33,
+          "p": 0.0
+        },
+        "CEICI462344547": {
+          "std_beta": -0.0024,
+          "t": -0.44,
+          "p": 0.6599
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0054,
+          "t": -1.18,
+          "p": 0.2376
+        },
+        "CEICI462344687": {
+          "std_beta": -0.0078,
+          "t": -1.36,
+          "p": 0.1725
+        },
+        "CEICI462344567": {
+          "std_beta": -0.0124,
+          "t": -1.09,
+          "p": 0.2742
+        }
+      },
+      "oos_hit_rate": 0.673,
+      "oos_n": 49,
+      "expected_monthly_ret": 0.0271
+    },
+    "narrative": "Investment (Financials) screens MILDLY BULLISH [56/100, high confidence]. Top drivers: Jakarta Composite (corr +0.36, lead 0m, now headwind); PT Bank Syariah Indonesia: Assets: Placements to B (corr -0.27, lead 6m, now tailwind); PT Bank Syariah Indonesia: Assets: Impairment on P (corr -0.25, lead 0m, now headwind). A 6-driver model explains 21% of monthly variance (adj 17%), 67% out-of-sample directional hit-rate; current read ~+2.7%/mo.",
+    "drivers": [
+      {
+        "key": "jci",
+        "role": "demand",
+        "why": "NAV beta",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.3588,
+        "pearson_p": 0.0,
+        "spearman": 0.3062,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.3588,
+        "ic": 0.0707,
+        "ic_t": 0.954,
+        "ols": {
+          "beta": 0.6567237700696872,
+          "t": 5.191575020806928,
+          "p": 2.0852253413027057e-07,
+          "r2": 0.128763530107866,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.6567237700696872,
+          "t": 5.191575020806928,
+          "p": 2.0852253413027057e-07,
+          "r2": 0.128763530107866,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.197,
+        "last_chg": -0.02452,
+        "last_chg_z": -0.68,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 64.0,
+        "source": "corr:IDX:COMPOSITE",
+        "shallow": false,
+        "label": "Jakarta Composite",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.327
+        }
+      },
+      {
+        "key": "CEICI462208447",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Assets: Placements to B",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 62,
+        "min_n": 24,
+        "pearson": -0.2704,
+        "pearson_p": 0.0335,
+        "spearman": -0.2875,
+        "spearman_p": 0.0235,
+        "best_lag": 6,
+        "corr_at_best": -0.297,
+        "ic": 0.0698,
+        "ic_t": 0.54,
+        "ols": {
+          "beta": -0.0906811262932697,
+          "t": -3.166252582482358,
+          "p": 0.001544166463350945,
+          "r2": 0.07313213976303845,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.10260465978567201,
+          "t": -3.018276835135605,
+          "p": 0.002542165601489995,
+          "r2": 0.08820698580132513,
+          "n": 56,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.2145,
+        "last_chg": -0.452147,
+        "last_chg_z": -1.67,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.9,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Assets: Placements to B",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.683
+        }
+      },
+      {
+        "key": "CEICI462208667",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Assets: Impairment on P",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 62,
+        "min_n": 24,
+        "pearson": -0.2513,
+        "pearson_p": 0.0488,
+        "spearman": -0.2067,
+        "spearman_p": 0.107,
+        "best_lag": 0,
+        "corr_at_best": -0.2513,
+        "ic": 0.0555,
+        "ic_t": 0.43,
+        "ols": {
+          "beta": -0.5775426938476469,
+          "t": -7.929086803030532,
+          "p": 2.2076320397547254e-15,
+          "r2": 0.06315651635254216,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.5775426938476469,
+          "t": -7.929086803030532,
+          "p": 2.2076320397547254e-15,
+          "r2": 0.06315651635254216,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0421,
+        "last_chg": 0.000246,
+        "last_chg_z": -0.32,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.0,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Assets: Impairment on P",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.159
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "portfolio earnings",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.1585,
+        "pearson_p": 0.0864,
+        "spearman": 0.2281,
+        "spearman_p": 0.013,
+        "best_lag": 0,
+        "corr_at_best": 0.1585,
+        "ic": 0.0816,
+        "ic_t": 0.879,
+        "ols": {
+          "beta": 0.010701265649145916,
+          "t": 7.329046109420727,
+          "p": 2.3179663168555316e-13,
+          "r2": 0.025129065792994232,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.010701265649145916,
+          "t": 7.329046109420727,
+          "p": 2.3179663168555316e-13,
+          "r2": 0.025129065792994232,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2213,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 44.0,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI462208867",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Assets: Total",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 62,
+        "min_n": 24,
+        "pearson": -0.1897,
+        "pearson_p": 0.1397,
+        "spearman": -0.1989,
+        "spearman_p": 0.1213,
+        "best_lag": 6,
+        "corr_at_best": -0.3213,
+        "ic": 0.0614,
+        "ic_t": 0.476,
+        "ols": {
+          "beta": -0.6943247985775665,
+          "t": -2.1009910752290977,
+          "p": 0.03564174969627572,
+          "r2": 0.03599360888409642,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.1508012448275542,
+          "t": -3.3207465720251843,
+          "p": 0.0008977701744613231,
+          "r2": 0.10323950462281573,
+          "n": 56,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1503,
+        "last_chg": -0.018434,
+        "last_chg_z": -1.15,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.9,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Assets: Total",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.519
+        }
+      },
+      {
+        "key": "CEICI462209077",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Liabilities: Total",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 62,
+        "min_n": 24,
+        "pearson": -0.1905,
+        "pearson_p": 0.138,
+        "spearman": -0.1968,
+        "spearman_p": 0.1253,
+        "best_lag": 6,
+        "corr_at_best": -0.3233,
+        "ic": 0.0471,
+        "ic_t": 0.365,
+        "ols": {
+          "beta": -0.6313332660924482,
+          "t": -2.0123795947833796,
+          "p": 0.04417993780388713,
+          "r2": 0.03629030650078413,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.065171628459213,
+          "t": -3.32548618410396,
+          "p": 0.0008826447451463242,
+          "r2": 0.10453455669295686,
+          "n": 56,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1464,
+        "last_chg": -0.022214,
+        "last_chg_z": -1.17,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.9,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Liabilities: Total",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.526
+        }
+      },
+      {
+        "key": "CEICI462344547",
+        "role": "demand",
+        "why": "Financing Receivables: Transportation and Storage",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-11-01",
+        "n": 109,
+        "min_n": 24,
+        "pearson": -0.1395,
+        "pearson_p": 0.1479,
+        "spearman": -0.2686,
+        "spearman_p": 0.0047,
+        "best_lag": 6,
+        "corr_at_best": -0.217,
+        "ic": -0.218,
+        "ic_t": -2.256,
+        "ols": {
+          "beta": -0.42525015117913295,
+          "t": -1.9754148058651302,
+          "p": 0.048221093950000876,
+          "r2": 0.01946405808162588,
+          "n": 109,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.6628946116452918,
+          "t": -2.84818605451155,
+          "p": 0.004396921105867776,
+          "r2": 0.04707812539588718,
+          "n": 103,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0741,
+        "last_chg": -0.004354,
+        "last_chg_z": -0.42,
+        "last_chg_date": "2025-11-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.8,
+        "source": "ceic",
+        "label": "Financing Receivables: Transportation and Storage",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.207
+        }
+      },
+      {
+        "key": "CEICI462208437",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Assets: Cash",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 62,
+        "min_n": 24,
+        "pearson": -0.1787,
+        "pearson_p": 0.1645,
+        "spearman": -0.1077,
+        "spearman_p": 0.4049,
+        "best_lag": 3,
+        "corr_at_best": -0.2242,
+        "ic": -0.0386,
+        "ic_t": -0.299,
+        "ols": {
+          "beta": -0.08336343378150063,
+          "t": -2.1192617391064066,
+          "p": 0.03406835321196691,
+          "r2": 0.03195045840818633,
+          "n": 62,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.10736382604422093,
+          "t": -1.440832150027692,
+          "p": 0.14963210827003023,
+          "r2": 0.0502456269158299,
+          "n": 59,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1673,
+        "last_chg": -0.288207,
+        "last_chg_z": -1.55,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.4,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Assets: Cash",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.65
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.0954,
+        "pearson_p": 0.2016,
+        "spearman": -0.1024,
+        "spearman_p": 0.1702,
+        "best_lag": 4,
+        "corr_at_best": -0.1597,
+        "ic": -0.143,
+        "ic_t": -1.913,
+        "ols": {
+          "beta": -0.038845735423137094,
+          "t": -1.2030111653369735,
+          "p": 0.2289719998770996,
+          "r2": 0.009095111788235077,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.06492140027878487,
+          "t": -1.6108613334051283,
+          "p": 0.10720994934688231,
+          "r2": 0.025505989278027386,
+          "n": 177,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0299,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.6,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI462344687",
+        "role": "demand",
+        "why": "Financing Receivables: Household",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-11-01",
+        "n": 109,
+        "min_n": 24,
+        "pearson": -0.09,
+        "pearson_p": 0.3519,
+        "spearman": -0.1659,
+        "spearman_p": 0.0847,
+        "best_lag": 2,
+        "corr_at_best": -0.1504,
+        "ic": -0.2624,
+        "ic_t": -2.714,
+        "ols": {
+          "beta": -0.1365016466649006,
+          "t": -1.2397118610048397,
+          "p": 0.21508198847384263,
+          "r2": 0.008102578046127906,
+          "n": 109,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.23508922461710763,
+          "t": -2.3616693631008174,
+          "p": 0.01819285981704299,
+          "r2": 0.022605164698666913,
+          "n": 107,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.184,
+        "last_chg": 0.006718,
+        "last_chg_z": 0.19,
+        "last_chg_date": "2025-11-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.3,
+        "source": "ceic",
+        "label": "Financing Receivables: Household",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.095
+        }
+      },
+      {
+        "key": "CEICI462344567",
+        "role": "demand",
+        "why": "Financing Receivables: Information and Communic...",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-11-01",
+        "n": 109,
+        "min_n": 24,
+        "pearson": -0.1734,
+        "pearson_p": 0.0713,
+        "spearman": -0.1059,
+        "spearman_p": 0.2732,
+        "best_lag": 5,
+        "corr_at_best": -0.1961,
+        "ic": -0.1655,
+        "ic_t": -1.712,
+        "ols": {
+          "beta": -0.27805714517353736,
+          "t": -1.1460246674075476,
+          "p": 0.2517849456150746,
+          "r2": 0.030079311729599767,
+          "n": 109,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.3183275817251575,
+          "t": -1.9448479523783215,
+          "p": 0.05179328081190539,
+          "r2": 0.03847248083814225,
+          "n": 104,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.2071,
+        "last_chg": 0.041002,
+        "last_chg_z": 0.84,
+        "last_chg_date": "2025-11-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.2,
+        "source": "ceic",
+        "label": "Financing Receivables: Information and Communic...",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.397
+        }
+      },
+      {
+        "key": "CEICI462344467",
+        "role": "demand",
+        "why": "Financing Receivables: Total",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-08-01",
+        "n": 127,
+        "min_n": 24,
+        "pearson": -0.118,
+        "pearson_p": 0.1865,
+        "spearman": -0.1917,
+        "spearman_p": 0.0309,
+        "best_lag": 6,
+        "corr_at_best": -0.2093,
+        "ic": -0.2084,
+        "ic_t": -2.33,
+        "ols": {
+          "beta": -0.8556834108350638,
+          "t": -1.327784298811379,
+          "p": 0.18424937537898167,
+          "r2": 0.013917090644151364,
+          "n": 127,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -1.5169276152565467,
+          "t": -2.202415060607511,
+          "p": 0.027636002997921565,
+          "r2": 0.04379668314575147,
+          "n": 121,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0477,
+        "last_chg": 0.005229,
+        "last_chg_z": 0.27,
+        "last_chg_date": "2025-08-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.4,
+        "source": "ceic",
+        "label": "Financing Receivables: Total",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.134
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 52
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI479948257",
+      "label": "Life: net premium income",
+      "role": "demand",
+      "pearson": 0.0753,
+      "p": 0.13384866913771373,
+      "theory_agree": true,
+      "score": 37.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462208847",
+      "label": "PT Bank Syariah Indonesia: Assets: Other Financial",
+      "role": "supply",
+      "pearson": -0.1148,
+      "p": 0.004583871250228352,
+      "theory_agree": null,
+      "score": 37.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462208887",
+      "label": "PT Bank Syariah Indonesia: Liabilities: Wadiah Fun",
+      "role": "supply",
+      "pearson": 0.1691,
+      "p": 0.12782617023423753,
+      "theory_agree": null,
+      "score": 35.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI65803201",
+      "label": "Loan-to-deposit ratio",
+      "role": "supply",
+      "pearson": -0.1164,
+      "p": 0.12667850216826557,
+      "theory_agree": null,
+      "score": 34.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462439957",
+      "label": "Financing Receivables Based On Locations: Outsi...",
+      "role": "demand",
+      "pearson": 0.0598,
+      "p": 0.14017213915750118,
+      "theory_agree": true,
+      "score": 33.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462440047",
+      "label": "Productive Goods: Freight Car",
+      "role": "demand",
+      "pearson": -0.0914,
+      "p": 0.40486572562575773,
+      "theory_agree": false,
+      "score": 32.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462208577",
+      "label": "PT Bank Syariah Indonesia: Assets: Profit Sharing",
+      "role": "demand",
+      "pearson": -0.1041,
+      "p": 0.33532318229527436,
+      "theory_agree": false,
+      "score": 32.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI419361027",
+      "label": "Capital adequacy ratio",
+      "role": "supply",
+      "pearson": 0.0609,
+      "p": 0.22186017388235413,
+      "theory_agree": null,
+      "score": 28.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462440357",
+      "label": "Consumer Goods: New Four-Wheeled Vehicle",
+      "role": "demand",
+      "pearson": -0.0964,
+      "p": 0.21730803929365472,
+      "theory_agree": false,
+      "score": 28.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462208457",
+      "label": "PT Bank Syariah Indonesia: Assets: Interbank Place",
+      "role": "supply",
+      "pearson": 0.043,
+      "p": 0.5729340465625533,
+      "theory_agree": null,
+      "score": 28.5,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 52,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 2.7,
+  "grade": "perfected",
+  "grade_reasons": []
+}
