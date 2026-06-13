@@ -228,7 +228,9 @@ SEED = {
         "ceic": [("Consumer Staples", None)],
         "globals": [("brent", "cost", -1, "surfactant/packaging feedstock"),
                     ("wb_palm_oil", "cost", -1, "oleochemical input")],
-        "macro": [("id_gdp_real_q", "demand", +1, "household spend"),
+        "macro": [("id_10y", "macro", -1, "defensive bond-proxy (UNVR) re-rates on yields"),
+                  ("id_cpi_yoy", "demand", -1, "high inflation erodes real volumes"),
+                  ("id_gdp_real_q", "demand", +1, "household spend"),
                   ("usdidr", "macro", -1, "imported inputs")],
     },
     "Tobacco": {
