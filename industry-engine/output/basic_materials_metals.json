@@ -1,0 +1,894 @@
+{
+  "id": "basic_materials_metals",
+  "sub_sector": "Metals",
+  "sector": "Basic Materials",
+  "priority": 35,
+  "generated_at": "2026-06-14T00:47:39",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 15,
+    "n_used": 15,
+    "members_used": [
+      "ALKA",
+      "BAJA",
+      "BTON",
+      "CTBN",
+      "GDST",
+      "GGRP",
+      "INAI",
+      "ISSP",
+      "JKSW",
+      "KRAS",
+      "LION",
+      "LMSH",
+      "NIKL",
+      "PICO",
+      "TBMS"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 19428725972992.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 61,
+    "net_tilt": 0.22,
+    "demand_tilt": 0.141,
+    "supply_tilt": 0.168,
+    "cost_tilt": 0.806,
+    "macro_tilt": 0.252,
+    "confidence": {
+      "level": "medium",
+      "score": 52,
+      "reasons": [
+        "max|corr|=0.19",
+        "theory_agree=25%",
+        "stable=58%",
+        "mvR2=0.11",
+        "OOS=54%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "steel_hrc",
+        "usdidr",
+        "CEICI324051702",
+        "id_bi_rate",
+        "id_gdp_real_q",
+        "CEICI323796002"
+      ],
+      "n": 117,
+      "r2": 0.114,
+      "adj_r2": 0.066,
+      "betas": {
+        "steel_hrc": {
+          "std_beta": 0.0073,
+          "t": 1.08,
+          "p": 0.2804
+        },
+        "usdidr": {
+          "std_beta": -0.0196,
+          "t": -3.5,
+          "p": 0.0005
+        },
+        "CEICI324051702": {
+          "std_beta": -0.0091,
+          "t": -1.58,
+          "p": 0.1147
+        },
+        "id_bi_rate": {
+          "std_beta": 0.0043,
+          "t": 0.53,
+          "p": 0.5974
+        },
+        "id_gdp_real_q": {
+          "std_beta": -0.0079,
+          "t": -3.25,
+          "p": 0.0012
+        },
+        "CEICI323796002": {
+          "std_beta": -0.0069,
+          "t": -0.96,
+          "p": 0.3381
+        }
+      },
+      "oos_hit_rate": 0.544,
+      "oos_n": 57,
+      "expected_monthly_ret": 0.0067
+    },
+    "narrative": "Metals (Basic Materials) screens MILDLY BULLISH [61/100, medium confidence]. Top drivers: US HRC Steel (corr +0.13, lead 4m, now tailwind); USD/IDR (corr -0.19, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.17, lead 0m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 7%), 54% out-of-sample directional hit-rate; current read ~+0.7%/mo.",
+    "drivers": [
+      {
+        "key": "steel_hrc",
+        "role": "supply",
+        "why": "HRC steel price = revenue",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.1326,
+        "pearson_p": 0.0728,
+        "spearman": 0.0818,
+        "spearman_p": 0.2695,
+        "best_lag": 4,
+        "corr_at_best": 0.1915,
+        "ic": 0.1285,
+        "ic_t": 1.734,
+        "ols": {
+          "beta": 0.11083838311739776,
+          "t": 1.4658374385157482,
+          "p": 0.14269257894858373,
+          "r2": 0.017571833057906328,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1594679268673741,
+          "t": 3.242193890399294,
+          "p": 0.0011861329521594903,
+          "r2": 0.036683833340813154,
+          "n": 180,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2023,
+        "last_chg": 0.081076,
+        "last_chg_z": 0.9,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.8,
+        "source": "corr:NYMEX:HRC1!",
+        "shallow": false,
+        "label": "US HRC Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.422
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1926,
+        "pearson_p": 0.0088,
+        "spearman": -0.2265,
+        "spearman_p": 0.002,
+        "best_lag": 0,
+        "corr_at_best": -0.1926,
+        "ic": -0.1621,
+        "ic_t": -2.186,
+        "ols": {
+          "beta": -0.4631843250180838,
+          "t": -1.8400741747696152,
+          "p": 0.06575734819461415,
+          "r2": 0.037081104516253904,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.4631843250180838,
+          "t": -1.8400741747696152,
+          "p": 0.06575734819461415,
+          "r2": 0.037081104516253904,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0034,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.5,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI324051702",
+        "role": "supply",
+        "why": "Export volume: Articles of Iro and Steel",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.1704,
+        "pearson_p": 0.0312,
+        "spearman": -0.1922,
+        "spearman_p": 0.0149,
+        "best_lag": 0,
+        "corr_at_best": -0.1704,
+        "ic": -0.1482,
+        "ic_t": -1.863,
+        "ols": {
+          "beta": -0.01924393365738971,
+          "t": -2.6046380019060567,
+          "p": 0.009197137454905071,
+          "r2": 0.029044460609449096,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01924393365738971,
+          "t": -2.6046380019060567,
+          "p": 0.009197137454905071,
+          "r2": 0.029044460609449096,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1222,
+        "last_chg": -0.307556,
+        "last_chg_z": -0.63,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.4,
+        "source": "ceic",
+        "label": "Export volume: Articles of Iro and Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.305
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1566,
+        "pearson_p": 0.0352,
+        "spearman": -0.1378,
+        "spearman_p": 0.0644,
+        "best_lag": 3,
+        "corr_at_best": -0.2314,
+        "ic": -0.1195,
+        "ic_t": -1.599,
+        "ols": {
+          "beta": -0.0621771059004173,
+          "t": -1.2467318981428366,
+          "p": 0.21249581863340816,
+          "r2": 0.024534723910111356,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.09127677977669506,
+          "t": -3.364588818261115,
+          "p": 0.0007665780677712923,
+          "r2": 0.053525146228322606,
+          "n": 178,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0995,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.2,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI502592927",
+        "role": "supply",
+        "why": "Export value: Flat-Rolled Products of Iron or Non-",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": 0.0989,
+        "pearson_p": 0.3623,
+        "spearman": 0.0615,
+        "spearman_p": 0.5714,
+        "best_lag": 5,
+        "corr_at_best": 0.171,
+        "ic": 0.0683,
+        "ic_t": 0.63,
+        "ols": {
+          "beta": 0.013898380371866094,
+          "t": 1.0235300681941915,
+          "p": 0.30605729076710897,
+          "r2": 0.009771520398416111,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.02383084638588245,
+          "t": 1.6669291239609592,
+          "p": 0.09552849896379138,
+          "r2": 0.029232473423651095,
+          "n": 82,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1035,
+        "last_chg": 0.208957,
+        "last_chg_z": 0.35,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.7,
+        "source": "ceic",
+        "label": "Export value: Flat-Rolled Products of Iron or Non-",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.173
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "domestic construction",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.0738,
+        "pearson_p": 0.4272,
+        "spearman": 0.0331,
+        "spearman_p": 0.7217,
+        "best_lag": 4,
+        "corr_at_best": -0.1789,
+        "ic": 0.062,
+        "ic_t": 0.668,
+        "ols": {
+          "beta": -0.004932934916292466,
+          "t": -1.9380418569518025,
+          "p": 0.05261811609473428,
+          "r2": 0.005443071304956804,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.011522144308411083,
+          "t": -1.4638929478592506,
+          "p": 0.1432232005537585,
+          "r2": 0.03201876475866017,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.025,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.2,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI502593037",
+        "role": "supply",
+        "why": "Export value: Flat-Rolled Products of Stainless St",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": 0.1053,
+        "pearson_p": 0.3316,
+        "spearman": 0.086,
+        "spearman_p": 0.4282,
+        "best_lag": 3,
+        "corr_at_best": 0.2087,
+        "ic": -0.0811,
+        "ic_t": -0.748,
+        "ols": {
+          "beta": 0.0370814193720342,
+          "t": 0.7654905110241077,
+          "p": 0.44397951470935393,
+          "r2": 0.011092850993334569,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.07343514361098882,
+          "t": 1.6845774836278269,
+          "p": 0.09207011856332076,
+          "r2": 0.0435568196633731,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.1524,
+        "last_chg": 0.058595,
+        "last_chg_z": 0.22,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.0,
+        "source": "ceic",
+        "label": "Export value: Flat-Rolled Products of Stainless St",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.11
+        }
+      },
+      {
+        "key": "CEICI323796002",
+        "role": "demand",
+        "why": "Import volume: Articles of Iro and Steel",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.0883,
+        "pearson_p": 0.2669,
+        "spearman": -0.1138,
+        "spearman_p": 0.152,
+        "best_lag": 4,
+        "corr_at_best": -0.1664,
+        "ic": -0.0569,
+        "ic_t": -0.715,
+        "ols": {
+          "beta": -0.015223344126666573,
+          "t": -1.025001527942269,
+          "p": 0.3053624667142276,
+          "r2": 0.007796705742830312,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.028766469635956672,
+          "t": -2.744287870822165,
+          "p": 0.006064233343673425,
+          "r2": 0.027680954533833346,
+          "n": 156,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0494,
+        "last_chg": -0.185809,
+        "last_chg_z": -0.58,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.2,
+        "source": "ceic",
+        "label": "Import volume: Articles of Iro and Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.282
+        }
+      },
+      {
+        "key": "id_cpi_yoy",
+        "role": "macro",
+        "why": "inflation regime",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-03",
+        "n": 159,
+        "min_n": 24,
+        "pearson": -0.0448,
+        "pearson_p": 0.5749,
+        "spearman": 0.0116,
+        "spearman_p": 0.8846,
+        "best_lag": 3,
+        "corr_at_best": -0.1748,
+        "ic": 0.1204,
+        "ic_t": 1.509,
+        "ols": {
+          "beta": -0.005717656108952288,
+          "t": -0.6453278615027057,
+          "p": 0.518714741020579,
+          "r2": 0.00200836829884099,
+          "n": 159,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.0229484225360404,
+          "t": -1.8438040920739789,
+          "p": 0.06521169615050762,
+          "r2": 0.030569840887487598,
+          "n": 156,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.0126,
+        "last_chg": -1.28,
+        "last_chg_z": -2.2,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.1,
+        "source": "corr:ECONOMICS:IDIRYY",
+        "shallow": false,
+        "label": "Indonesia CPI (YoY)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.8
+        }
+      },
+      {
+        "key": "CEICI502592977",
+        "role": "supply",
+        "why": "Export value: Bars and Rods, Hot-Rolled, in Irregu",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": 0.0946,
+        "pearson_p": 0.3832,
+        "spearman": 0.0345,
+        "spearman_p": 0.7508,
+        "best_lag": 3,
+        "corr_at_best": 0.1811,
+        "ic": -0.0314,
+        "ic_t": -0.29,
+        "ols": {
+          "beta": 0.012131595008153714,
+          "t": 0.8562446180950263,
+          "p": 0.39186248761643305,
+          "r2": 0.008958348363477642,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.02311487377724644,
+          "t": 1.8078495752756074,
+          "p": 0.07062991554772957,
+          "r2": 0.032804086544159894,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.0505,
+        "last_chg": 0.268092,
+        "last_chg_z": 0.36,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 21.6,
+        "source": "ceic",
+        "label": "Export value: Bars and Rods, Hot-Rolled, in Irregu",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.178
+        }
+      },
+      {
+        "key": "wb_coal_au",
+        "role": "cost",
+        "why": "coking coal input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.1129,
+        "pearson_p": 0.6082,
+        "spearman": 0.2362,
+        "spearman_p": 0.278,
+        "best_lag": 4,
+        "corr_at_best": -0.4167,
+        "ic": -0.1824,
+        "ic_t": -0.836,
+        "ols": {
+          "beta": 0.14956593866892054,
+          "t": 0.4420077037531071,
+          "p": 0.6584836312601399,
+          "r2": 0.012735700095053093,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.5787137732279413,
+          "t": -1.7460546016893705,
+          "p": 0.08080146440920244,
+          "r2": 0.17368021184420301,
+          "n": 19,
+          "hac_lag": 3
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": 0.1921,
+        "last_chg": 0.136308,
+        "last_chg_z": 2.23,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 21.1,
+        "source": "spark",
+        "shallow": true,
+        "label": "Coal · Australia (Newcastle)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.806
+        }
+      },
+      {
+        "key": "CEICI502592917",
+        "role": "supply",
+        "why": "Export value: Semi-Finished Products of Iron or No",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": -0.0721,
+        "pearson_p": 0.5068,
+        "spearman": 0.0832,
+        "spearman_p": 0.4437,
+        "best_lag": 1,
+        "corr_at_best": 0.2115,
+        "ic": 0.0697,
+        "ic_t": 0.643,
+        "ols": {
+          "beta": -0.004059544550440007,
+          "t": -0.5588715411032783,
+          "p": 0.5762493930994292,
+          "r2": 0.005201634213611639,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.01190436905590739,
+          "t": 2.344137374781099,
+          "p": 0.01907114557404229,
+          "r2": 0.04472420842966185,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.1678,
+        "last_chg": 0.513834,
+        "last_chg_z": 0.36,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 19.8,
+        "source": "ceic",
+        "label": "Export value: Semi-Finished Products of Iron or No",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.178
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 25
+  },
+  "unscored": [
+    {
+      "key": "iron_ore",
+      "label": "Iron Ore 62% CFR",
+      "role": "cost",
+      "source": "spark",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "cn_ppi_idx",
+      "label": "China PPI (NBS)",
+      "role": "demand",
+      "pearson": 0.117,
+      "p": 0.07724535113456013,
+      "theory_agree": true,
+      "score": 44.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324051602",
+      "label": "Export volume: Iron and Steel",
+      "role": "supply",
+      "pearson": 0.0694,
+      "p": 0.19009578236369318,
+      "theory_agree": null,
+      "score": 29.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502593027",
+      "label": "Export value: Stainless Steel in Ingots or Other P",
+      "role": "supply",
+      "pearson": -0.0437,
+      "p": 0.41074759840332187,
+      "theory_agree": null,
+      "score": 27.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324041902",
+      "label": "Export value: Iron and Steel",
+      "role": "supply",
+      "pearson": 0.0379,
+      "p": 0.5677531176094548,
+      "theory_agree": null,
+      "score": 25.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI534839897",
+      "label": "BoP export (IMF BPM6)",
+      "role": "supply",
+      "pearson": -0.0251,
+      "p": 0.8437439727528987,
+      "theory_agree": null,
+      "score": 21.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323786202",
+      "label": "Import value: Iron and Steel",
+      "role": "demand",
+      "pearson": -0.0618,
+      "p": 0.37141279898640167,
+      "theory_agree": false,
+      "score": 18.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324042002",
+      "label": "Export value: Articles of Iron and Steel",
+      "role": "supply",
+      "pearson": -0.0255,
+      "p": 0.7341977142823708,
+      "theory_agree": null,
+      "score": 16.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323804802",
+      "label": "Import: Value",
+      "role": "demand",
+      "pearson": -0.0622,
+      "p": 0.40724527652575204,
+      "theory_agree": false,
+      "score": 16.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323786302",
+      "label": "Import value: Articles of Iro and Steel",
+      "role": "demand",
+      "pearson": -0.0596,
+      "p": 0.44176138496265105,
+      "theory_agree": false,
+      "score": 15.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323977502",
+      "label": "Export: Value",
+      "role": "supply",
+      "pearson": -0.0083,
+      "p": 0.9119680409997892,
+      "theory_agree": null,
+      "score": 14.3,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 25,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.5,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
