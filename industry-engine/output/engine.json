@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:47:39",
-  "n_baskets": 35,
+  "generated_at": "2026-06-14T00:47:42",
+  "n_baskets": 36,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -10313,6 +10313,80 @@
         }
       ],
       "generated_at": "2026-06-14T00:47:39"
+    },
+    {
+      "id": "infrastructure_ports",
+      "sub_sector": "Ports",
+      "sector": "Infrastructure",
+      "priority": 36,
+      "status": "done",
+      "grade": "needs_review",
+      "verdict": "BULLISH",
+      "score": 90,
+      "confidence": {
+        "level": "low",
+        "score": 25,
+        "reasons": [
+          "max|corr|=0.04",
+          "theory_agree=50%",
+          "stable=100%",
+          "mvR2=0.00",
+          "OOS=na"
+        ]
+      },
+      "net_tilt": 0.8,
+      "demand_tilt": null,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": 0.8,
+      "multivariate": {
+        "available": false,
+        "reason": "too_few_long_monthly_drivers"
+      },
+      "narrative": "Ports (Infrastructure) screens BULLISH [90/100, low confidence]. Top drivers: Indonesia CPI (YoY) (corr -0.04, lead 2m, now tailwind). ",
+      "n_kept": 1,
+      "n_tested": 17,
+      "n_used": 6,
+      "members_used": [
+        "CASS",
+        "GMFI",
+        "IPCC",
+        "IPCM",
+        "KARW",
+        "PORT"
+      ],
+      "coverage": {
+        "W": 804,
+        "M": 185,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-06-12"
+      },
+      "drivers": [
+        {
+          "key": "id_cpi_yoy",
+          "label": "Indonesia CPI (YoY)",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDIRYY",
+          "freq": "M",
+          "pearson": -0.0403,
+          "excess_pearson": -0.0098,
+          "best_lag": 2,
+          "ic": 0.0426,
+          "beta": -0.0093712486910167,
+          "r2": 0.001624356068879118,
+          "p": 0.7063825937002892,
+          "n": 159,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "inflation regime",
+          "posture": "tailwind",
+          "last_chg_z": -2.2,
+          "last_obs": "2026-04-03"
+        }
+      ],
+      "generated_at": "2026-06-14T00:47:41"
     }
   ]
 }
