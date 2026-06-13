@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T01:52:15",
+  "updated_at": "2026-06-14T02:12:29",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -572,15 +572,13 @@
       "sub_sector": "Restaurants",
       "sector": "Consumer Cyclicals",
       "priority": 41,
-      "status": "needs_review",
-      "grade": "needs_review",
-      "score": 53,
+      "status": "done",
+      "grade": "perfected",
+      "score": 51,
       "verdict": "NEUTRAL",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:47:55",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-      ]
+      "attempts": 2,
+      "last_run": "2026-06-14T02:12:26",
+      "reasons": []
     },
     "consumer_non_cyclicals_poultry": {
       "id": "consumer_non_cyclicals_poultry",
@@ -745,9 +743,9 @@
     }
   },
   "summary": {
-    "perfected": 34,
+    "perfected": 35,
     "partial": 16,
-    "needs_review": 2,
+    "needs_review": 1,
     "blocked": 0,
     "pending": 0,
     "error": 0

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:52:15",
+  "generated_at": "2026-06-14T02:12:29",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -12120,77 +12120,77 @@
       "sector": "Consumer Cyclicals",
       "priority": 41,
       "status": "done",
-      "grade": "needs_review",
+      "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 53,
+      "score": 51,
       "confidence": {
         "level": "medium",
-        "score": 53,
+        "score": 60,
         "reasons": [
           "max|corr|=0.19",
-          "theory_agree=60%",
+          "theory_agree=83%",
           "stable=92%",
-          "mvR2=0.03",
-          "OOS=42%"
+          "mvR2=0.08",
+          "OOS=36%"
         ]
       },
-      "net_tilt": 0.053,
-      "demand_tilt": 0.09,
+      "net_tilt": 0.043,
+      "demand_tilt": 0.112,
       "supply_tilt": 0.026,
       "cost_tilt": null,
-      "macro_tilt": 0.0,
+      "macro_tilt": -0.043,
       "multivariate": {
         "available": true,
         "drivers": [
           "CEICI432467117",
-          "CEICI13515901",
-          "CEICI432469687",
           "id_bi_rate",
-          "CEICI432477457",
-          "CEICI356597802"
+          "CEICI13515901",
+          "id_10y",
+          "CEICI432469687",
+          "CEICI432477457"
         ],
         "n": 91,
-        "r2": 0.026,
-        "adj_r2": -0.043,
+        "r2": 0.08,
+        "adj_r2": 0.014,
         "betas": {
           "CEICI432467117": {
-            "std_beta": 0.0123,
-            "t": 1.15,
-            "p": 0.2507
-          },
-          "CEICI13515901": {
-            "std_beta": 0.0016,
-            "t": 0.26,
-            "p": 0.7979
-          },
-          "CEICI432469687": {
-            "std_beta": -0.007,
-            "t": -0.67,
-            "p": 0.5053
+            "std_beta": 0.0144,
+            "t": 1.34,
+            "p": 0.1787
           },
           "id_bi_rate": {
-            "std_beta": -0.0044,
-            "t": -0.62,
-            "p": 0.5347
+            "std_beta": -0.0041,
+            "t": -0.58,
+            "p": 0.5614
+          },
+          "CEICI13515901": {
+            "std_beta": -0.0005,
+            "t": -0.07,
+            "p": 0.9428
+          },
+          "id_10y": {
+            "std_beta": -0.0166,
+            "t": -1.4,
+            "p": 0.162
+          },
+          "CEICI432469687": {
+            "std_beta": -0.0063,
+            "t": -0.55,
+            "p": 0.5796
           },
           "CEICI432477457": {
-            "std_beta": 0.0005,
-            "t": 0.08,
-            "p": 0.9361
-          },
-          "CEICI356597802": {
-            "std_beta": 0.0041,
-            "t": 0.6,
-            "p": 0.5505
+            "std_beta": -0.0001,
+            "t": -0.02,
+            "p": 0.9809
           }
         },
-        "oos_hit_rate": 0.419,
+        "oos_hit_rate": 0.355,
         "oos_n": 31,
-        "expected_monthly_ret": 0.0074
+        "expected_monthly_ret": 0.0261
       },
-      "narrative": "Restaurants (Consumer Cyclicals) screens NEUTRAL [53/100, medium confidence]. Top drivers: Retail: Curly: Modern market (corr +0.07, lead 1m, now tailwind); Rice: Super Quality I: Producer (corr -0.19, lead 4m, now flat); Coffee (corr +0.14, lead 0m, now flat). A 6-driver model explains 3% of monthly variance (adj -4%), 42% out-of-sample directional hit-rate; current read ~+0.7%/mo.",
+      "narrative": "Restaurants (Consumer Cyclicals) screens NEUTRAL [51/100, medium confidence]. Top drivers: Retail: Curly: Modern market (corr +0.07, lead 1m, now tailwind); Rice: Super Quality I: Producer (corr -0.19, lead 4m, now flat); BI Policy Rate (corr -0.17, lead 0m, now flat). A 6-driver model explains 8% of monthly variance (adj 1%), 36% out-of-sample directional hit-rate; current read ~+2.6%/mo.",
       "n_kept": 12,
-      "n_tested": 52,
+      "n_tested": 53,
       "n_used": 9,
       "members_used": [
         "BAIK",
@@ -12256,6 +12256,28 @@
           "last_obs": "2026-06-08"
         },
         {
+          "key": "id_bi_rate",
+          "label": "BI Policy Rate",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDINTR",
+          "freq": "M",
+          "pearson": -0.171,
+          "excess_pearson": -0.1199,
+          "best_lag": 0,
+          "ic": -0.0187,
+          "beta": -0.07551729548642543,
+          "r2": 0.02924758461913024,
+          "p": 0.01078617097842818,
+          "n": 181,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "discretionary dining is rate/credit-elastic",
+          "posture": "neutral",
+          "last_chg_z": 0.05,
+          "last_obs": "2026-04-24"
+        },
+        {
           "key": "CEICI13515901",
           "label": "Coffee",
           "role": "supply",
@@ -12278,6 +12300,28 @@
           "last_obs": "2025-10-01"
         },
         {
+          "key": "id_10y",
+          "label": "id_10y",
+          "role": "macro",
+          "source": "corr:TVC:ID10Y",
+          "freq": "M",
+          "pearson": -0.1441,
+          "excess_pearson": 0.1115,
+          "best_lag": 0,
+          "ic": -0.0033,
+          "beta": -0.23267782488299074,
+          "r2": 0.020761016100534935,
+          "p": 0.07748410398794862,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "consumer discretionary rate sensitivity",
+          "posture": "neutral",
+          "last_chg_z": 0.17,
+          "last_obs": "2026-05-01"
+        },
+        {
           "key": "CEICI432469687",
           "label": "Cayenne Pepper: Modern Market",
           "role": "demand",
@@ -12298,28 +12342,6 @@
           "posture": "neutral",
           "last_chg_z": 0.15,
           "last_obs": "2026-06-08"
-        },
-        {
-          "key": "id_bi_rate",
-          "label": "BI Policy Rate",
-          "role": "macro",
-          "source": "corr:ECONOMICS:IDINTR",
-          "freq": "M",
-          "pearson": -0.171,
-          "excess_pearson": -0.1199,
-          "best_lag": 0,
-          "ic": -0.0187,
-          "beta": -0.07551729548642543,
-          "r2": 0.02924758461913024,
-          "p": 0.01078617097842818,
-          "n": 181,
-          "theory_agree": null,
-          "stable": true,
-          "sign": -1,
-          "why": "policy rate: sector-specific NIM/discount effect",
-          "posture": "neutral",
-          "last_chg_z": 0.05,
-          "last_obs": "2026-04-24"
         },
         {
           "key": "CEICI454643547",
@@ -12452,31 +12474,9 @@
           "posture": "neutral",
           "last_chg_z": -0.21,
           "last_obs": "2026-06-08"
-        },
-        {
-          "key": "CEICI430923647",
-          "label": "Rice: Medium Quality II: Traditional Market",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.122,
-          "excess_pearson": -0.1423,
-          "best_lag": 0,
-          "ic": -0.035,
-          "beta": -0.3098464970486333,
-          "r2": 0.014891544946082913,
-          "p": 0.08029979028719995,
-          "n": 118,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Rice: Medium Quality II: Traditional Market",
-          "posture": "neutral",
-          "last_chg_z": 0.0,
-          "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T00:47:58"
+      "generated_at": "2026-06-14T02:12:29"
     },
     {
       "id": "consumer_non_cyclicals_poultry",
