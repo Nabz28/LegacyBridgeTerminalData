@@ -149,7 +149,12 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
     # net tilt: score-weighted current impulse
     wsum = sum(r["score"] for r in kept) or 1
     net = sum(r["score"] * r["live"]["impulse"] for r in kept) / wsum
-    score = round(50 + 50 * max(-1, min(1, net)))
+    # conviction shrinkage: a thin/weak model must not emit an extreme verdict.
+    # Shrink the score toward neutral (50) when the strongest correlation is weak
+    # or there are too few validated drivers (e.g. Ports: 1 noisy driver !-> "90").
+    max_corr = max((abs(r["pearson"]) for r in kept), default=0.0)
+    conv_w = min(1.0, max_corr / 0.30) * (0.4 + 0.6 * min(len(kept) / 4.0, 1.0))
+    score = round(50 + 50 * max(-1, min(1, net)) * conv_w)
     if score >= 66:
         verdict = "BULLISH"
     elif score >= 56:
