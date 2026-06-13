@@ -3,7 +3,7 @@
   "sub_sector": "Ports",
   "sector": "Infrastructure",
   "priority": 36,
-  "generated_at": "2026-06-14T00:47:41",
+  "generated_at": "2026-06-14T01:52:15",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,8 +29,8 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "BULLISH",
-    "score": 90,
+    "verdict": "NEUTRAL",
+    "score": 53,
     "net_tilt": 0.8,
     "demand_tilt": null,
     "supply_tilt": null,
@@ -51,7 +51,7 @@
       "available": false,
       "reason": "too_few_long_monthly_drivers"
     },
-    "narrative": "Ports (Infrastructure) screens BULLISH [90/100, low confidence]. Top drivers: Indonesia CPI (YoY) (corr -0.04, lead 2m, now tailwind). ",
+    "narrative": "Ports (Infrastructure) screens NEUTRAL [53/100, low confidence]. Top drivers: Indonesia CPI (YoY) (corr -0.04, lead 2m, now tailwind). ",
     "drivers": [
       {
         "key": "id_cpi_yoy",
@@ -223,12 +223,13 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.8,
-  "grade": "needs_review",
+  "runtime_s": 2.2,
+  "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
     "only 1 validated drivers (<3)",
     "multivariate model unavailable / no OOS",
-    "confidence low"
+    "confidence low",
+    "parked after 2 attempts"
   ]
 }

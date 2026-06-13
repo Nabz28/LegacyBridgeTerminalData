@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T01:32:12",
+  "generated_at": "2026-06-14T01:52:15",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -10615,9 +10615,9 @@
       "sector": "Infrastructure",
       "priority": 36,
       "status": "done",
-      "grade": "needs_review",
-      "verdict": "BULLISH",
-      "score": 90,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 53,
       "confidence": {
         "level": "low",
         "score": 25,
@@ -10638,7 +10638,7 @@
         "available": false,
         "reason": "too_few_long_monthly_drivers"
       },
-      "narrative": "Ports (Infrastructure) screens BULLISH [90/100, low confidence]. Top drivers: Indonesia CPI (YoY) (corr -0.04, lead 2m, now tailwind). ",
+      "narrative": "Ports (Infrastructure) screens NEUTRAL [53/100, low confidence]. Top drivers: Indonesia CPI (YoY) (corr -0.04, lead 2m, now tailwind). ",
       "n_kept": 1,
       "n_tested": 17,
       "n_used": 6,
@@ -10681,7 +10681,7 @@
           "last_obs": "2026-04-03"
         }
       ],
-      "generated_at": "2026-06-14T00:47:41"
+      "generated_at": "2026-06-14T01:52:15"
     },
     {
       "id": "basic_materials_construction_materials",

@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T01:32:12",
+  "updated_at": "2026-06-14T01:52:15",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -501,17 +501,18 @@
       "sub_sector": "Ports",
       "sector": "Infrastructure",
       "priority": 36,
-      "status": "needs_review",
-      "grade": "needs_review",
-      "score": 90,
-      "verdict": "BULLISH",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:47:40",
+      "status": "done",
+      "grade": "partial",
+      "score": 53,
+      "verdict": "NEUTRAL",
+      "attempts": 2,
+      "last_run": "2026-06-14T01:52:13",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "only 1 validated drivers (<3)",
         "multivariate model unavailable / no OOS",
-        "confidence low"
+        "confidence low",
+        "parked after 2 attempts"
       ]
     },
     "basic_materials_construction_materials": {
@@ -745,8 +746,8 @@
   },
   "summary": {
     "perfected": 34,
-    "partial": 15,
-    "needs_review": 3,
+    "partial": 16,
+    "needs_review": 2,
     "blocked": 0,
     "pending": 0,
     "error": 0
