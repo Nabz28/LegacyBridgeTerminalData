@@ -1,0 +1,895 @@
+{
+  "id": "consumer_non_cyclicals_plantation",
+  "sub_sector": "Plantation",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 12,
+  "generated_at": "2026-06-14T00:45:47",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 35,
+    "n_used": 30,
+    "members_used": [
+      "AALI",
+      "ANJT",
+      "BISI",
+      "BTEK",
+      "BWPT",
+      "CBUT",
+      "CSRA",
+      "DSNG",
+      "FAPA",
+      "FISH",
+      "GULA",
+      "GUNA",
+      "GZCO",
+      "JARR",
+      "JAWA",
+      "LSIP",
+      "MAGP",
+      "MGRO",
+      "MKTR",
+      "NSSS",
+      "PALM",
+      "PGUN",
+      "PSGO",
+      "PTPS",
+      "SGRO",
+      "SIMP",
+      "SMAR",
+      "SSMS",
+      "STAA",
+      "TAPG"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 244242306252800.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 51,
+    "net_tilt": 0.025,
+    "demand_tilt": -0.077,
+    "supply_tilt": 0.329,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "high",
+      "score": 87,
+      "reasons": [
+        "max|corr|=0.34",
+        "theory_agree=60%",
+        "stable=92%",
+        "mvR2=0.17",
+        "OOS=66%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI481148447",
+        "wb_palm_oil",
+        "brent",
+        "CEICI232343602",
+        "soybean_oil",
+        "CEICI323804302"
+      ],
+      "n": 147,
+      "r2": 0.169,
+      "adj_r2": 0.133,
+      "betas": {
+        "CEICI481148447": {
+          "std_beta": 0.0197,
+          "t": 3.09,
+          "p": 0.002
+        },
+        "wb_palm_oil": {
+          "std_beta": 0.0081,
+          "t": 0.95,
+          "p": 0.3427
+        },
+        "brent": {
+          "std_beta": 0.0108,
+          "t": 1.88,
+          "p": 0.0606
+        },
+        "CEICI232343602": {
+          "std_beta": -0.0052,
+          "t": -0.78,
+          "p": 0.4341
+        },
+        "soybean_oil": {
+          "std_beta": 0.0006,
+          "t": 0.07,
+          "p": 0.9458
+        },
+        "CEICI323804302": {
+          "std_beta": -0.0107,
+          "t": -2.44,
+          "p": 0.0146
+        }
+      },
+      "oos_hit_rate": 0.655,
+      "oos_n": 87,
+      "expected_monthly_ret": 0.0059
+    },
+    "narrative": "Plantation (Consumer Non-Cyclicals) screens NEUTRAL [51/100, high confidence]. Top drivers: International Indicators: International Commodi... (corr +0.34, lead 0m, now tailwind); Palm Oil (CPO) (corr +0.27, lead 0m, now flat); FDI: Fishery (corr +0.12, lead 6m, now flat). A 6-driver model explains 17% of monthly variance (adj 13%), 66% out-of-sample directional hit-rate; current read ~+0.6%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI481148447",
+        "role": "demand",
+        "why": "International Indicators: International Commodi...",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 147,
+        "min_n": 24,
+        "pearson": 0.3409,
+        "pearson_p": 0.0,
+        "spearman": 0.4018,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.3409,
+        "ic": 0.1019,
+        "ic_t": 1.228,
+        "ols": {
+          "beta": 0.3316851314180973,
+          "t": 3.7250284088217223,
+          "p": 0.0001952932273559641,
+          "r2": 0.11619172254841836,
+          "n": 147,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.3316851314180973,
+          "t": 3.7250284088217223,
+          "p": 0.0001952932273559641,
+          "r2": 0.11619172254841836,
+          "n": 147,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2656,
+        "last_chg": 0.032103,
+        "last_chg_z": 0.39,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 63.9,
+        "source": "ceic",
+        "label": "International Indicators: International Commodi...",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.193
+        }
+      },
+      {
+        "key": "wb_palm_oil",
+        "role": "supply",
+        "why": "CPO price = revenue",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.274,
+        "pearson_p": 0.0002,
+        "spearman": 0.3162,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.274,
+        "ic": 0.1542,
+        "ic_t": 2.08,
+        "ols": {
+          "beta": 0.25683119211500893,
+          "t": 4.930869624244254,
+          "p": 8.186435935666485e-07,
+          "r2": 0.07507925034072505,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.25683119211500893,
+          "t": 4.930869624244254,
+          "p": 8.186435935666485e-07,
+          "r2": 0.07507925034072505,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2904,
+        "last_chg": -0.005891,
+        "last_chg_z": -0.1,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 60.0,
+        "source": "corr:MYX:FCPO1!",
+        "shallow": false,
+        "label": "Palm Oil (CPO)",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.05
+        }
+      },
+      {
+        "key": "CEICI235843602",
+        "role": "demand",
+        "why": "FDI: Fishery",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 59,
+        "min_n": 12,
+        "pearson": 0.1173,
+        "pearson_p": 0.3763,
+        "spearman": 0.2447,
+        "spearman_p": 0.0618,
+        "best_lag": 6,
+        "corr_at_best": 0.2304,
+        "ic": -0.2291,
+        "ic_t": -1.745,
+        "ols": {
+          "beta": 0.013383391344927286,
+          "t": 1.5562354598820285,
+          "p": 0.11965211217060476,
+          "r2": 0.013760186408577568,
+          "n": 59,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.021767044489995294,
+          "t": 1.5873519641342133,
+          "p": 0.1124329522320802,
+          "r2": 0.053072308467668416,
+          "n": 59,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0675,
+        "last_chg": -0.344554,
+        "last_chg_z": -0.22,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 52.7,
+        "source": "ceic",
+        "label": "FDI: Fishery",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.11
+        }
+      },
+      {
+        "key": "brent",
+        "role": "demand",
+        "why": "biodiesel/energy linkage",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.2636,
+        "pearson_p": 0.0003,
+        "spearman": 0.3063,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.2636,
+        "ic": -0.0499,
+        "ic_t": -0.674,
+        "ols": {
+          "beta": 0.16497978165149405,
+          "t": 4.124851518208547,
+          "p": 3.70974005985917e-05,
+          "r2": 0.06948631401779748,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.16497978165149405,
+          "t": 4.124851518208547,
+          "p": 3.70974005985917e-05,
+          "r2": 0.06948631401779748,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.134,
+        "last_chg": 0.026606,
+        "last_chg_z": 0.24,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.9,
+        "source": "corr:ICEEUR:BRN1!",
+        "shallow": false,
+        "label": "Brent Crude",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.119
+        }
+      },
+      {
+        "key": "CEICI232343602",
+        "role": "supply",
+        "why": "Bappebti: CPO: Spot: Medan",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.2252,
+        "pearson_p": 0.0021,
+        "spearman": 0.2932,
+        "spearman_p": 0.0001,
+        "best_lag": 0,
+        "corr_at_best": 0.2252,
+        "ic": 0.1165,
+        "ic_t": 1.576,
+        "ols": {
+          "beta": 0.1555159934751703,
+          "t": 3.002987545915377,
+          "p": 0.0026734337158786274,
+          "r2": 0.050699235923576946,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1555159934751703,
+          "t": 3.002987545915377,
+          "p": 0.0026734337158786274,
+          "r2": 0.050699235923576946,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1955,
+        "last_chg": 0.078362,
+        "last_chg_z": 0.73,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.5,
+        "source": "ceic",
+        "label": "Bappebti: CPO: Spot: Medan",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.35
+        }
+      },
+      {
+        "key": "soybean_oil",
+        "role": "demand",
+        "why": "veg-oil substitute sets price floor",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.1856,
+        "pearson_p": 0.0117,
+        "spearman": 0.2829,
+        "spearman_p": 0.0001,
+        "best_lag": 0,
+        "corr_at_best": 0.1856,
+        "ic": 0.0359,
+        "ic_t": 0.484,
+        "ols": {
+          "beta": 0.18171119176719136,
+          "t": 2.343201722501831,
+          "p": 0.019119042879319363,
+          "r2": 0.034434403522213164,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.18171119176719136,
+          "t": 2.343201722501831,
+          "p": 0.019119042879319363,
+          "r2": 0.034434403522213164,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0598,
+        "last_chg": 0.044204,
+        "last_chg_z": 0.6,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.1,
+        "source": "corr:CBOT:ZL1!",
+        "shallow": false,
+        "label": "Soybean Oil",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.291
+        }
+      },
+      {
+        "key": "CEICI412186217",
+        "role": "demand",
+        "why": "Rubber and Plastic Industry: 22 Rubber industry...",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": -0.1485,
+        "pearson_p": 0.2574,
+        "spearman": -0.1351,
+        "spearman_p": 0.3032,
+        "best_lag": 1,
+        "corr_at_best": 0.2653,
+        "ic": 0.2161,
+        "ic_t": 1.66,
+        "ols": {
+          "beta": -0.028206470244343876,
+          "t": -1.5134943190311276,
+          "p": 0.13015414309966505,
+          "r2": 0.022061703813040068,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.04970300100651151,
+          "t": 2.0297891494540243,
+          "p": 0.04237797636743629,
+          "r2": 0.07036006477585777,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0953,
+        "last_chg": 1.191119,
+        "last_chg_z": 0.92,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.2,
+        "source": "ceic",
+        "label": "Rubber and Plastic Industry: 22 Rubber industry...",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.43
+        }
+      },
+      {
+        "key": "CEICI235841802",
+        "role": "demand",
+        "why": "Secondary Sector: Rubber & Plastic Industry",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": -0.1485,
+        "pearson_p": 0.2574,
+        "spearman": -0.1351,
+        "spearman_p": 0.3032,
+        "best_lag": 1,
+        "corr_at_best": 0.2653,
+        "ic": 0.2161,
+        "ic_t": 1.66,
+        "ols": {
+          "beta": -0.028206470244343876,
+          "t": -1.5134943190311276,
+          "p": 0.13015414309966505,
+          "r2": 0.022061703813040068,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.04970300100651151,
+          "t": 2.0297891494540243,
+          "p": 0.04237797636743629,
+          "r2": 0.07036006477585777,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0953,
+        "last_chg": 1.191119,
+        "last_chg_z": 0.97,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.2,
+        "source": "ceic",
+        "label": "Secondary Sector: Rubber & Plastic Industry",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.45
+        }
+      },
+      {
+        "key": "CEICI323804302",
+        "role": "demand",
+        "why": "Value: Rubber Manufactured, Nes",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": -0.1411,
+        "pearson_p": 0.0657,
+        "spearman": -0.1474,
+        "spearman_p": 0.0544,
+        "best_lag": 1,
+        "corr_at_best": 0.1624,
+        "ic": 0.1931,
+        "ic_t": 2.51,
+        "ols": {
+          "beta": -0.043110501886738935,
+          "t": -2.5733161902268953,
+          "p": 0.010072913612125102,
+          "r2": 0.01989750175946081,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.04967870752430819,
+          "t": 2.670535700941287,
+          "p": 0.007573031782304499,
+          "r2": 0.026373950083487974,
+          "n": 170,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1707,
+        "last_chg": 0.132826,
+        "last_chg_z": 0.57,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.8,
+        "source": "ceic",
+        "label": "Value: Rubber Manufactured, Nes",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.278
+        }
+      },
+      {
+        "key": "cn_retail_yoy",
+        "role": "demand",
+        "why": "China veg-oil demand",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 121,
+        "min_n": 24,
+        "pearson": 0.1348,
+        "pearson_p": 0.1405,
+        "spearman": 0.1504,
+        "spearman_p": 0.0996,
+        "best_lag": 0,
+        "corr_at_best": 0.1348,
+        "ic": -0.0237,
+        "ic_t": -0.259,
+        "ols": {
+          "beta": 0.0009972015239751257,
+          "t": 2.475375791754721,
+          "p": 0.013309604853103237,
+          "r2": 0.01816364332617748,
+          "n": 121,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0009972015239751257,
+          "t": 2.475375791754721,
+          "p": 0.013309604853103237,
+          "r2": 0.01816364332617748,
+          "n": 121,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0227,
+        "last_chg": 0.0,
+        "last_chg_z": 0.01,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.0,
+        "source": "corr:aCNCRETYF",
+        "shallow": false,
+        "label": "Retail Sales (YoY)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI476140827",
+        "role": "demand",
+        "why": "Imports",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 55,
+        "min_n": 24,
+        "pearson": -0.1443,
+        "pearson_p": 0.2933,
+        "spearman": -0.2611,
+        "spearman_p": 0.0541,
+        "best_lag": 2,
+        "corr_at_best": -0.1673,
+        "ic": -0.146,
+        "ic_t": -1.063,
+        "ols": {
+          "beta": -0.009276994343223837,
+          "t": -3.047729611866298,
+          "p": 0.002305772958932173,
+          "r2": 0.020811525186099633,
+          "n": 55,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.010733549965402012,
+          "t": -2.040068858834666,
+          "p": 0.04134346786181086,
+          "r2": 0.02799245530124872,
+          "n": 53,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1418,
+        "last_chg": 0.333333,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.1,
+        "source": "ceic",
+        "label": "Imports",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.025
+        }
+      },
+      {
+        "key": "CEICI356598702",
+        "role": "supply",
+        "why": "China: Cocoa and cocoa preparations",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1154,
+        "pearson_p": 0.133,
+        "spearman": 0.112,
+        "spearman_p": 0.1448,
+        "best_lag": 3,
+        "corr_at_best": 0.1781,
+        "ic": -0.1039,
+        "ic_t": -1.351,
+        "ols": {
+          "beta": 1.3388103233827167e-06,
+          "t": 1.924294251784764,
+          "p": 0.054317710696225284,
+          "r2": 0.013307910515028443,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 2.1433334812527594e-06,
+          "t": 3.2372396503960226,
+          "p": 0.001206920102787769,
+          "r2": 0.03171708774157933,
+          "n": 168,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.0529,
+        "last_chg": 10074.050659,
+        "last_chg_z": 1.68,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 33.1,
+        "source": "ceic",
+        "label": "China: Cocoa and cocoa preparations",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.686
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 52
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI13515601",
+      "label": "Palm Oil",
+      "role": "supply",
+      "pearson": 0.1073,
+      "p": 0.12749119359717467,
+      "theory_agree": null,
+      "score": 38.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1506,
+      "p": 0.18675126825756783,
+      "theory_agree": null,
+      "score": 35.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323783002",
+      "label": "Value: Rubber and Articles Thereof",
+      "role": "demand",
+      "pearson": -0.111,
+      "p": 0.03418781678390266,
+      "theory_agree": false,
+      "score": 34.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.1013,
+      "p": 0.2147041138588377,
+      "theory_agree": false,
+      "score": 33.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI232344202",
+      "label": "Spot: Palembang",
+      "role": "supply",
+      "pearson": 0.1364,
+      "p": 0.004109671740363827,
+      "theory_agree": null,
+      "score": 31.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI652856197",
+      "label": "World: Cocoa; Paste, Not Defatted",
+      "role": "supply",
+      "pearson": 0.0615,
+      "p": 0.3408595030763558,
+      "theory_agree": null,
+      "score": 30.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI411922167",
+      "label": "Domestic consumption",
+      "role": "demand",
+      "pearson": -0.1306,
+      "p": 0.281523021381357,
+      "theory_agree": false,
+      "score": 29.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323981002",
+      "label": "Volume: Crude Rubber",
+      "role": "supply",
+      "pearson": -0.0843,
+      "p": 0.17869778738775832,
+      "theory_agree": null,
+      "score": 29.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13515801",
+      "label": "Volume: Cocoa",
+      "role": "supply",
+      "pearson": -0.0772,
+      "p": 0.23504185325464344,
+      "theory_agree": null,
+      "score": 27.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324031202",
+      "label": "Value: Plastics, Rubber and Articles Thereof",
+      "role": "supply",
+      "pearson": -0.0754,
+      "p": 0.1468539558056233,
+      "theory_agree": null,
+      "score": 27.2,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 52,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 15.1,
+  "grade": "perfected",
+  "grade_reasons": []
+}
