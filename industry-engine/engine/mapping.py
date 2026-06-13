@@ -384,7 +384,10 @@ SEED = {
         "ceic": [("Tourism", None), ("Consumer Staples", None)],
         "globals": [("wb_palm_oil", "cost", -1, "cooking oil"),
                     ("wheat", "cost", -1, "flour input")],
-        "macro": [("id_gdp_real_q", "demand", +1, "dining spend")],
+        "macro": [("id_bi_rate", "macro", -1, "discretionary dining is rate/credit-elastic"),
+                  ("id_10y", "macro", -1, "consumer discretionary rate sensitivity"),
+                  ("id_cpi_yoy", "demand", -1, "food inflation squeezes dining-out"),
+                  ("id_gdp_real_q", "demand", +1, "dining spend")],
     },
     "Apparel": {
         "ceic": [("Consumer Discretionary", "Textile & Apparel")],
