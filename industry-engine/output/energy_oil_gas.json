@@ -1,0 +1,531 @@
+{
+  "id": "energy_oil_gas",
+  "sub_sector": "Oil & Gas",
+  "sector": "Energy",
+  "priority": 16,
+  "generated_at": "2026-06-14T00:45:59",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 9,
+    "n_used": 9,
+    "members_used": [
+      "CGAS",
+      "ENRG",
+      "ESSA",
+      "MEDC",
+      "PGAS",
+      "RAJA",
+      "RATU",
+      "SICO",
+      "SUNI"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 156878727749632.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 54,
+    "net_tilt": 0.074,
+    "demand_tilt": null,
+    "supply_tilt": 0.062,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "high",
+      "score": 86,
+      "reasons": [
+        "max|corr|=0.31",
+        "theory_agree=67%",
+        "stable=67%",
+        "mvR2=0.21",
+        "OOS=67%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "brent",
+        "wti",
+        "CEICI403931877",
+        "CEICI520528227",
+        "id_gdp_real_q",
+        "CEICI520526857"
+      ],
+      "n": 96,
+      "r2": 0.211,
+      "adj_r2": 0.158,
+      "betas": {
+        "brent": {
+          "std_beta": 0.1198,
+          "t": 2.71,
+          "p": 0.0068
+        },
+        "wti": {
+          "std_beta": -0.0713,
+          "t": -1.61,
+          "p": 0.1077
+        },
+        "CEICI403931877": {
+          "std_beta": -0.0146,
+          "t": -1.19,
+          "p": 0.2344
+        },
+        "CEICI520528227": {
+          "std_beta": 0.0043,
+          "t": 0.32,
+          "p": 0.7522
+        },
+        "id_gdp_real_q": {
+          "std_beta": -0.0075,
+          "t": -1.14,
+          "p": 0.2524
+        },
+        "CEICI520526857": {
+          "std_beta": -0.0013,
+          "t": -0.13,
+          "p": 0.8989
+        }
+      },
+      "oos_hit_rate": 0.667,
+      "oos_n": 36,
+      "expected_monthly_ret": -0.0062
+    },
+    "narrative": "Oil & Gas (Energy) screens NEUTRAL [54/100, high confidence]. Top drivers: Brent Crude (corr +0.31, lead 0m, now flat); WTI Crude (corr +0.29, lead 0m, now tailwind); Production: crude oil & condensate (corr -0.14, lead 0m, now headwind). A 6-driver model explains 21% of monthly variance (adj 16%), 67% out-of-sample directional hit-rate; current read ~-0.6%/mo.",
+    "drivers": [
+      {
+        "key": "brent",
+        "role": "supply",
+        "why": "Brent = upstream revenue",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.3071,
+        "pearson_p": 0.0,
+        "spearman": 0.2622,
+        "spearman_p": 0.0003,
+        "best_lag": 0,
+        "corr_at_best": 0.3071,
+        "ic": 0.0619,
+        "ic_t": 0.835,
+        "ols": {
+          "beta": 0.29834806692155885,
+          "t": 3.5507780350565903,
+          "p": 0.0003840942010475188,
+          "r2": 0.09432706754125086,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.29834806692155885,
+          "t": 3.5507780350565903,
+          "p": 0.0003840942010475188,
+          "r2": 0.09432706754125086,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.253,
+        "last_chg": 0.026606,
+        "last_chg_z": 0.24,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 57.4,
+        "source": "corr:ICEEUR:BRN1!",
+        "shallow": false,
+        "label": "Brent Crude",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.119
+        }
+      },
+      {
+        "key": "wti",
+        "role": "supply",
+        "why": "crude price",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.2945,
+        "pearson_p": 0.0,
+        "spearman": 0.2544,
+        "spearman_p": 0.0005,
+        "best_lag": 0,
+        "corr_at_best": 0.2945,
+        "ic": 0.0664,
+        "ic_t": 0.896,
+        "ols": {
+          "beta": 0.2608543615201736,
+          "t": 3.5862554301163576,
+          "p": 0.0003354603846885148,
+          "r2": 0.08672253490052195,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.2608543615201736,
+          "t": 3.5862554301163576,
+          "p": 0.0003354603846885148,
+          "r2": 0.08672253490052195,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2324,
+        "last_chg": 0.076843,
+        "last_chg_z": 0.63,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 56.3,
+        "source": "corr:NYMEX:CL1!",
+        "shallow": false,
+        "label": "WTI Crude",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.305
+        }
+      },
+      {
+        "key": "CEICI403931877",
+        "role": "supply",
+        "why": "Production: crude oil & condensate",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 155,
+        "min_n": 24,
+        "pearson": -0.1396,
+        "pearson_p": 0.0831,
+        "spearman": -0.1783,
+        "spearman_p": 0.0264,
+        "best_lag": 0,
+        "corr_at_best": -0.1396,
+        "ic": -0.1738,
+        "ic_t": -2.157,
+        "ols": {
+          "beta": -0.39278421957458826,
+          "t": -2.1790432197032543,
+          "p": 0.029328457681133825,
+          "r2": 0.01949701624538247,
+          "n": 155,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.39278421957458826,
+          "t": -2.1790432197032543,
+          "p": 0.029328457681133825,
+          "r2": 0.01949701624538247,
+          "n": 155,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1454,
+        "last_chg": 0.006887,
+        "last_chg_z": 0.57,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 42.1,
+        "source": "ceic",
+        "label": "Production: crude oil & condensate",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.278
+        }
+      },
+      {
+        "key": "CEICI520528227",
+        "role": "supply",
+        "why": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.1621,
+        "pearson_p": 0.0364,
+        "spearman": 0.0656,
+        "spearman_p": 0.3999,
+        "best_lag": 1,
+        "corr_at_best": 0.1665,
+        "ic": 0.023,
+        "ic_t": 0.297,
+        "ols": {
+          "beta": 0.06377755778775637,
+          "t": 2.471863941525749,
+          "p": 0.013441066081073575,
+          "r2": 0.02626545727691265,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.06554564673061558,
+          "t": 2.765234288507302,
+          "p": 0.005688192521816631,
+          "r2": 0.027729252453557063,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.1364,
+        "last_chg": 0.014489,
+        "last_chg_z": 0.31,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 32.2,
+        "source": "ceic",
+        "label": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.154
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "macro",
+        "why": "domestic demand backdrop",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.0764,
+        "pearson_p": 0.4111,
+        "spearman": -0.0497,
+        "spearman_p": 0.593,
+        "best_lag": 4,
+        "corr_at_best": -0.245,
+        "ic": 0.1612,
+        "ic_t": 1.737,
+        "ols": {
+          "beta": -0.007732505785188889,
+          "t": -2.0581118659746016,
+          "p": 0.03957939621446248,
+          "r2": 0.00583130321062153,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.024636615656442307,
+          "t": -2.802835064653323,
+          "p": 0.005065556755460843,
+          "r2": 0.06001752004733529,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0483,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 32.2,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI520526857",
+        "role": "supply",
+        "why": "Energy balance",
+        "test_freq": "M",
+        "transform": "diff(nonpos)",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": -0.0387,
+        "pearson_p": 0.6041,
+        "spearman": -0.0407,
+        "spearman_p": 0.585,
+        "best_lag": 3,
+        "corr_at_best": -0.1839,
+        "ic": 0.0217,
+        "ic_t": 0.293,
+        "ols": {
+          "beta": -0.00022446007411861769,
+          "t": -0.5908880718955146,
+          "p": 0.5545954186951458,
+          "r2": 0.0014963633591004166,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.0011351726468550915,
+          "t": -2.3269522679516372,
+          "p": 0.019967805855324112,
+          "r2": 0.033833287777235155,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0786,
+        "last_chg": -3.03,
+        "last_chg_z": -0.02,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 14.6,
+        "source": "ceic",
+        "label": "Energy balance",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.01
+        }
+      }
+    ],
+    "n_kept": 6,
+    "n_candidates": 14
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "wb_lng_jp",
+      "label": "LNG · Japan import",
+      "role": "supply",
+      "pearson": -0.2919,
+      "p": 2.9548937581612847e-06,
+      "theory_agree": false,
+      "score": 59.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0957,
+      "p": 0.20406073586322715,
+      "theory_agree": null,
+      "score": 35.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": 0.0827,
+      "p": 0.3601481988350962,
+      "theory_agree": null,
+      "score": 35.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "role": "macro",
+      "pearson": 0.2051,
+      "p": 0.031198808884728334,
+      "theory_agree": false,
+      "score": 32.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI519964777",
+      "label": "Energy Balance: Primary: Total Crude: Crude Oil: D",
+      "role": "supply",
+      "pearson": -0.0503,
+      "p": 0.24030552914692238,
+      "theory_agree": null,
+      "score": 27.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.1149,
+      "p": 0.297474586320986,
+      "theory_agree": false,
+      "score": 24.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI468154637",
+      "label": "Daily oil lifting",
+      "role": "supply",
+      "pearson": 0.0735,
+      "p": 0.5408153069632589,
+      "theory_agree": null,
+      "score": 20.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "natgas",
+      "label": "Natural Gas (Henry Hub)",
+      "role": "supply",
+      "pearson": -0.035,
+      "p": 0.6707105023474778,
+      "theory_agree": false,
+      "score": 10.3,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 14,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 1.1,
+  "grade": "perfected",
+  "grade_reasons": []
+}
