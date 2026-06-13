@@ -3,7 +3,7 @@
   "sub_sector": "Chemicals",
   "sector": "Basic Materials",
   "priority": 8,
-  "generated_at": "2026-06-14T02:51:45",
+  "generated_at": "2026-06-14T04:11:33",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -885,10 +885,10 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 5.9,
+  "runtime_s": 4.5,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "parked after 2 attempts"
+    "parked after 3 attempts"
   ]
 }
