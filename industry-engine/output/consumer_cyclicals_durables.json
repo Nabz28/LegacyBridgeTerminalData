@@ -1,0 +1,608 @@
+{
+  "id": "consumer_cyclicals_durables",
+  "sub_sector": "Durables",
+  "sector": "Consumer Cyclicals",
+  "priority": 45,
+  "generated_at": "2026-06-14T00:48:12",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 12,
+    "n_used": 12,
+    "members_used": [
+      "BIKE",
+      "CBMF",
+      "CINT",
+      "GEMA",
+      "KICI",
+      "LIVE",
+      "LMPI",
+      "MICE",
+      "SCNP",
+      "TOYS",
+      "UNTD",
+      "WOOD"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 5051541793792.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 51,
+    "net_tilt": 0.021,
+    "demand_tilt": -0.064,
+    "supply_tilt": 0.362,
+    "cost_tilt": -0.336,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "medium",
+      "score": 60,
+      "reasons": [
+        "max|corr|=0.15",
+        "theory_agree=40%",
+        "stable=86%",
+        "mvR2=0.17",
+        "OOS=55%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "id_bi_rate",
+        "CEICI322851802",
+        "CEICI391913257",
+        "CEICI324050102",
+        "id_gdp_real_q",
+        "aluminum"
+      ],
+      "n": 116,
+      "r2": 0.173,
+      "adj_r2": 0.127,
+      "betas": {
+        "id_bi_rate": {
+          "std_beta": -0.0068,
+          "t": -1.43,
+          "p": 0.1522
+        },
+        "CEICI322851802": {
+          "std_beta": 0.0066,
+          "t": 1.26,
+          "p": 0.2088
+        },
+        "CEICI391913257": {
+          "std_beta": 0.012,
+          "t": 12.5,
+          "p": 0.0
+        },
+        "CEICI324050102": {
+          "std_beta": 0.0106,
+          "t": 1.82,
+          "p": 0.0684
+        },
+        "id_gdp_real_q": {
+          "std_beta": -0.0034,
+          "t": -0.73,
+          "p": 0.4663
+        },
+        "aluminum": {
+          "std_beta": 0.006,
+          "t": 1.51,
+          "p": 0.1323
+        }
+      },
+      "oos_hit_rate": 0.554,
+      "oos_n": 56,
+      "expected_monthly_ret": 0.0339
+    },
+    "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [51/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.15, lead 4m, now flat); Retail sales index: auto parts (corr +0.12, lead 4m, now headwind); Daihatsu (corr +0.15, lead 0m, now flat). A 6-driver model explains 17% of monthly variance (adj 13%), 55% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
+    "drivers": [
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "durables financing",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1463,
+        "pearson_p": 0.0493,
+        "spearman": -0.146,
+        "spearman_p": 0.0499,
+        "best_lag": 4,
+        "corr_at_best": -0.1542,
+        "ic": -0.0672,
+        "ic_t": -0.899,
+        "ols": {
+          "beta": -0.05331737808958691,
+          "t": -2.7540385350884153,
+          "p": 0.005886483683056467,
+          "r2": 0.021414639012845127,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.055519367028054545,
+          "t": -2.329682189598591,
+          "p": 0.019822954562665706,
+          "r2": 0.023780410797964113,
+          "n": 177,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0792,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.0,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI322851802",
+        "role": "demand",
+        "why": "Retail sales index: auto parts",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.121,
+        "pearson_p": 0.1029,
+        "spearman": 0.0672,
+        "spearman_p": 0.3664,
+        "best_lag": 4,
+        "corr_at_best": 0.1375,
+        "ic": 0.0397,
+        "ic_t": 0.535,
+        "ols": {
+          "beta": 0.14036780877439214,
+          "t": 1.626765134476103,
+          "p": 0.10378698917429478,
+          "r2": 0.014631861044807737,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.15975345610573058,
+          "t": 2.571854641785452,
+          "p": 0.01011553529089301,
+          "r2": 0.018912888361824143,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0764,
+        "last_chg": -0.030331,
+        "last_chg_z": -0.57,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.6,
+        "source": "ceic",
+        "label": "Retail sales index: auto parts",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.278
+        }
+      },
+      {
+        "key": "CEICI391913257",
+        "role": "supply",
+        "why": "Daihatsu",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1473,
+        "pearson_p": 0.0545,
+        "spearman": 0.0348,
+        "spearman_p": 0.6518,
+        "best_lag": 0,
+        "corr_at_best": 0.1473,
+        "ic": -0.0591,
+        "ic_t": -0.768,
+        "ols": {
+          "beta": 0.0027143223865914875,
+          "t": 12.335589621549987,
+          "p": 5.826086957255724e-35,
+          "r2": 0.021706422464072728,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.0027143223865914875,
+          "t": 12.335589621549987,
+          "p": 5.826086957255724e-35,
+          "r2": 0.021706422464072728,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1302,
+        "last_chg": 0.499774,
+        "last_chg_z": 0.04,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.6,
+        "source": "ceic",
+        "label": "Daihatsu",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.02
+        }
+      },
+      {
+        "key": "CEICI324050102",
+        "role": "supply",
+        "why": "Volume: Carpets and Other Textile Floor Coverings",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1276,
+        "pearson_p": 0.0962,
+        "spearman": 0.1472,
+        "spearman_p": 0.0547,
+        "best_lag": 0,
+        "corr_at_best": 0.1276,
+        "ic": -0.0891,
+        "ic_t": -1.158,
+        "ols": {
+          "beta": 0.02274937303453416,
+          "t": 1.7044600904609781,
+          "p": 0.0882951659402016,
+          "r2": 0.01628511183256931,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.02274937303453416,
+          "t": 1.7044600904609781,
+          "p": 0.0882951659402016,
+          "r2": 0.01628511183256931,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0918,
+        "last_chg": 0.622615,
+        "last_chg_z": 1.75,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.6,
+        "source": "ceic",
+        "label": "Volume: Carpets and Other Textile Floor Coverings",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.704
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "household durables",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.1093,
+        "pearson_p": 0.2389,
+        "spearman": 0.0625,
+        "spearman_p": 0.5012,
+        "best_lag": 4,
+        "corr_at_best": -0.1662,
+        "ic": 0.1022,
+        "ic_t": 1.101,
+        "ols": {
+          "beta": -0.005029667270793756,
+          "t": -1.4394259982864404,
+          "p": 0.1500298627185408,
+          "r2": 0.011936267840973458,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.007525527535707654,
+          "t": -1.7884871307639687,
+          "p": 0.07369745009992136,
+          "r2": 0.027623827860685735,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.033,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 29.1,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "aluminum",
+        "role": "cost",
+        "why": "metal input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 144,
+        "min_n": 24,
+        "pearson": 0.1104,
+        "pearson_p": 0.1878,
+        "spearman": 0.1155,
+        "spearman_p": 0.168,
+        "best_lag": 6,
+        "corr_at_best": 0.212,
+        "ic": 0.0885,
+        "ic_t": 1.055,
+        "ols": {
+          "beta": 0.09942840566468891,
+          "t": 1.4515896648273665,
+          "p": 0.14661573418012044,
+          "r2": 0.012187047041488541,
+          "n": 144,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.1940973892348458,
+          "t": 2.9855371454498134,
+          "p": 0.0028308075512633478,
+          "r2": 0.04494323586973337,
+          "n": 138,
+          "hac_lag": 4
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": 0.0134,
+        "last_chg": -0.036627,
+        "last_chg_z": -0.7,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 28.3,
+        "source": "corr:COMEX:ALI1!",
+        "shallow": false,
+        "label": "Aluminum",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.336
+        }
+      },
+      {
+        "key": "CEICI391912467",
+        "role": "demand",
+        "why": "Honda",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 172,
+        "min_n": 24,
+        "pearson": -0.0018,
+        "pearson_p": 0.9818,
+        "spearman": -0.1238,
+        "spearman_p": 0.1057,
+        "best_lag": 1,
+        "corr_at_best": 0.1706,
+        "ic": -0.0697,
+        "ic_t": -0.909,
+        "ols": {
+          "beta": -2.5653487252500737e-05,
+          "t": -0.09985547195051198,
+          "p": 0.9204590678295675,
+          "r2": 3.063777899603437e-06,
+          "n": 172,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.0024527275771031045,
+          "t": 5.38468656173568,
+          "p": 7.25709980565719e-08,
+          "r2": 0.029113205285079213,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": 0.0328,
+        "last_chg": -0.212333,
+        "last_chg_z": -0.17,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 1.9,
+        "source": "ceic",
+        "label": "Honda",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.085
+        }
+      }
+    ],
+    "n_kept": 7,
+    "n_candidates": 52
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI13538901",
+      "label": "Sedan",
+      "role": "supply",
+      "pearson": -0.0627,
+      "p": 0.0183568860264175,
+      "theory_agree": null,
+      "score": 39.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391912547",
+      "label": "Mazda",
+      "role": "demand",
+      "pearson": 0.0756,
+      "p": 0.14983776322658912,
+      "theory_agree": true,
+      "score": 34.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13842201",
+      "label": "Double Cabin: Less than 5 Ton",
+      "role": "demand",
+      "pearson": 0.0328,
+      "p": 0.5066344145561079,
+      "theory_agree": true,
+      "score": 33.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13842101",
+      "label": "Wholesale: Over 24 Ton",
+      "role": "demand",
+      "pearson": 0.0367,
+      "p": 0.49425700640239,
+      "theory_agree": true,
+      "score": 30.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412545837",
+      "label": "Wholesale motor vehicle sales",
+      "role": "demand",
+      "pearson": 0.0157,
+      "p": 0.6602139749218445,
+      "theory_agree": true,
+      "score": 29.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412546147",
+      "label": "Bus",
+      "role": "supply",
+      "pearson": -0.0413,
+      "p": 0.4134569288904061,
+      "theory_agree": null,
+      "score": 29.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412545817",
+      "label": "4x4 Type",
+      "role": "demand",
+      "pearson": -0.0917,
+      "p": 0.04646054783594759,
+      "theory_agree": false,
+      "score": 28.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13841501",
+      "label": "Wholesale: 1501 to 3000cc",
+      "role": "demand",
+      "pearson": -0.0514,
+      "p": 0.3052549727271666,
+      "theory_agree": false,
+      "score": 28.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391912527",
+      "label": "Nissan",
+      "role": "demand",
+      "pearson": -0.0801,
+      "p": 0.03790916769802682,
+      "theory_agree": false,
+      "score": 27.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412546137",
+      "label": "4x4 Type",
+      "role": "supply",
+      "pearson": -0.0281,
+      "p": 0.17823440851868122,
+      "theory_agree": null,
+      "score": 27.8,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 52,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.1,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
