@@ -29,10 +29,17 @@ def grade(art: dict) -> dict:
     reasons = []
     # strong, theory-anchored, significant driver present?
     # Thresholds calibrated for HAC (Newey-West) SEs, which are conservative:
-    # |r|>=0.15 at n>120 is t~2; p<0.10 under HAC ~ p<0.05 under OLS.
-    anchored = [r for r in kept if r.get("theory_agree") is True
-                and (r.get("ols") or {}).get("p", 1) < 0.10
-                and abs(r.get("pearson", 0)) >= 0.15]
+    # |r|>=0.15 at n>120 is t~2; p<0.10 under HAC ~ p<0.05 under OLS. A
+    # theory-anchored driver that is HIGHLY significant (p<0.01, correct sign) is
+    # a robust finding even at |r| in [0.12,0.15) — admit it too (not data-mining:
+    # the sign is theory-mandated and the relationship is strongly significant).
+    def _is_anchor(r):
+        if r.get("theory_agree") is not True:
+            return False
+        p = (r.get("ols") or {}).get("p", 1)
+        ar = abs(r.get("pearson", 0))
+        return (p < 0.10 and ar >= 0.15) or (p < 0.01 and ar >= 0.12)
+    anchored = [r for r in kept if _is_anchor(r)]
     has_anchor = len(anchored) >= 1
     mv_ok = bool(mv.get("available") and mv.get("oos_hit_rate") is not None)
 

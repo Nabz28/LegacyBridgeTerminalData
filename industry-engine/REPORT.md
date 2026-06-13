@@ -1,17 +1,18 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T02:53:22._  
-**36 perfected · 16 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
+_Auto-generated from output/engine.json — 2026-06-14T03:51:49._  
+**37 perfected · 15 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
 
-## PERFECTED (36)
+## PERFECTED (37)
 
 | Basket | Sector | Verdict | Score | Conf | #drv | MV R2 | OOS | Top driver (corr) |
 |---|---|---|---|---|---|---|---|---|
 | Banks | Financials | MILDLY BEARISH | 41 | high | 12 | 0.40 | 66% | PT Bank Syariah Indonesi (-0.3789) |
 | Coal | Energy | MILDLY BEARISH | 43 | high | 12 | 0.20 | 60% | Bloomberg Commodity Idx (0.345) |
 | Mining | Basic Materials | BEARISH | 33 | high | 12 | 0.25 | 68% | Nickel  LME (0.3065) |
+| Alternative Energy | Energy | NEUTRAL | 50 | medium | 12 | 0.05 | 61% | Tariff: Government (0.1243) |
 | Food & Beverage | Consumer Non-Cyclicals | NEUTRAL | 48 | medium | 12 | 0.13 | 54% | USD/IDR (-0.1911) |
 | Property | Properties & Real Estate | MILDLY BEARISH | 39 | medium | 3 | 0.08 | 58% | USD/IDR (-0.2466) |
 | Telco | Infrastructure | NEUTRAL | 46 | high | 5 | 0.16 | 46% | Real GDP (SA) (0.2674) |
@@ -46,12 +47,11 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Services | Industrials | NEUTRAL | 47 | medium | 12 | 0.06 | 47% | FDI: Machinery & electro (0.2022) |
 | Auto | Consumer Cyclicals | MILDLY BULLISH | 57 | high | 12 | 0.09 | 46% | Real GDP (SA) (0.2562) |
 
-## PARTIAL (16)
+## PARTIAL (15)
 
 | Basket | Sector | Verdict | Score | Conf | #drv | MV R2 | OOS | Top driver (corr) |
 |---|---|---|---|---|---|---|---|---|
 | IT Services | Technology | NEUTRAL | 48 | medium | 9 | 0.06 | 40% | Device vendor share (Tab (0.1299) |
-| Alternative Energy | Energy | NEUTRAL | 50 | medium | 12 | 0.05 | 61% | Tariff: Government (0.1243) |
 | Chemicals | Basic Materials | NEUTRAL | 48 | high | 12 | 0.11 | 57% | USD/IDR (-0.1888) |
 | Energy Services | Energy | NEUTRAL | 46 | high | 12 | 0.08 | 70% | Mining & Quarrying: Coal (0.2884) |
 | Hospitals | Healthcare | MILDLY BEARISH | 41 | low | 5 | 0.04 | 58% | Financing: hospital serv (0.0953) |
