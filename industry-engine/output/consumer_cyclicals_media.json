@@ -1,0 +1,883 @@
+{
+  "id": "consumer_cyclicals_media",
+  "sub_sector": "Media",
+  "sector": "Consumer Cyclicals",
+  "priority": 24,
+  "generated_at": "2026-06-14T00:46:55",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 18,
+    "n_used": 18,
+    "members_used": [
+      "ABBA",
+      "DIGI",
+      "DOOH",
+      "FILM",
+      "FORU",
+      "FUTR",
+      "IPTV",
+      "MARI",
+      "MDIA",
+      "MNCN",
+      "MSIN",
+      "MSKY",
+      "NETV",
+      "RAAM",
+      "SCMA",
+      "TMPO",
+      "VERN",
+      "VIVA"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 86912844738560.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 59,
+    "net_tilt": 0.186,
+    "demand_tilt": 0.148,
+    "supply_tilt": 0.474,
+    "cost_tilt": null,
+    "macro_tilt": -0.022,
+    "confidence": {
+      "level": "high",
+      "score": 98,
+      "reasons": [
+        "max|corr|=0.36",
+        "theory_agree=100%",
+        "stable=92%",
+        "mvR2=0.25",
+        "OOS=64%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "jci",
+        "id_gdp_real_q",
+        "CEICI499788697",
+        "CEICI324050102",
+        "CEICI499347947",
+        "id_bi_rate"
+      ],
+      "n": 107,
+      "r2": 0.25,
+      "adj_r2": 0.205,
+      "betas": {
+        "jci": {
+          "std_beta": 0.0324,
+          "t": 4.58,
+          "p": 0.0
+        },
+        "id_gdp_real_q": {
+          "std_beta": 0.0217,
+          "t": 3.04,
+          "p": 0.0024
+        },
+        "CEICI499788697": {
+          "std_beta": 0.01,
+          "t": 1.52,
+          "p": 0.1297
+        },
+        "CEICI324050102": {
+          "std_beta": 0.0002,
+          "t": 0.03,
+          "p": 0.9778
+        },
+        "CEICI499347947": {
+          "std_beta": 0.0266,
+          "t": 4.06,
+          "p": 0.0
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0148,
+          "t": -2.02,
+          "p": 0.0433
+        }
+      },
+      "oos_hit_rate": 0.638,
+      "oos_n": 47,
+      "expected_monthly_ret": -0.0506
+    },
+    "narrative": "Media (Consumer Cyclicals) screens MILDLY BULLISH [59/100, high confidence]. Top drivers: Jakarta Composite (corr +0.36, lead 0m, now headwind); AOV: Mobile (corr +0.30, lead 0m, now tailwind); Average Order Value (AOV) (corr +0.21, lead 4m, now tailwind). A 6-driver model explains 25% of monthly variance (adj 20%), 64% out-of-sample directional hit-rate; current read ~-5.1%/mo.",
+    "drivers": [
+      {
+        "key": "jci",
+        "role": "demand",
+        "why": "risk appetite",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.3619,
+        "pearson_p": 0.0,
+        "spearman": 0.3708,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": 0.3619,
+        "ic": 0.178,
+        "ic_t": 2.401,
+        "ols": {
+          "beta": 0.8323530400726376,
+          "t": 4.897038615208891,
+          "p": 9.729172502108768e-07,
+          "r2": 0.13095974542300748,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.8323530400726376,
+          "t": 4.897038615208891,
+          "p": 9.729172502108768e-07,
+          "r2": 0.13095974542300748,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0779,
+        "last_chg": -0.02452,
+        "last_chg_z": -0.68,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 71.5,
+        "source": "corr:IDX:COMPOSITE",
+        "shallow": false,
+        "label": "Jakarta Composite",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.327
+        }
+      },
+      {
+        "key": "CEICI517830907",
+        "role": "demand",
+        "why": "AOV: Mobile",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 84,
+        "min_n": 24,
+        "pearson": 0.3019,
+        "pearson_p": 0.0053,
+        "spearman": 0.1355,
+        "spearman_p": 0.2192,
+        "best_lag": 0,
+        "corr_at_best": 0.3019,
+        "ic": -0.1335,
+        "ic_t": -1.209,
+        "ols": {
+          "beta": 0.11359348171720762,
+          "t": 2.3506832504993684,
+          "p": 0.018738978000588085,
+          "r2": 0.09115488407323036,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.11359348171720762,
+          "t": 2.3506832504993684,
+          "p": 0.018738978000588085,
+          "r2": 0.09115488407323036,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2469,
+        "last_chg": 0.325446,
+        "last_chg_z": 1.19,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 61.3,
+        "source": "ceic",
+        "label": "AOV: Mobile",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.533
+        }
+      },
+      {
+        "key": "CEICI517710097",
+        "role": "demand",
+        "why": "Average Order Value (AOV)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 84,
+        "min_n": 24,
+        "pearson": 0.2136,
+        "pearson_p": 0.051,
+        "spearman": 0.0338,
+        "spearman_p": 0.7599,
+        "best_lag": 4,
+        "corr_at_best": 0.2614,
+        "ic": -0.1441,
+        "ic_t": -1.305,
+        "ols": {
+          "beta": 0.07846802744255336,
+          "t": 1.6947521620852382,
+          "p": 0.09012244586552777,
+          "r2": 0.045637531324919434,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.10426216284881132,
+          "t": 2.713288008881708,
+          "p": 0.006661917804908687,
+          "r2": 0.06835304632206574,
+          "n": 80,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1493,
+        "last_chg": 0.398545,
+        "last_chg_z": 1.4,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 55.9,
+        "source": "ceic",
+        "label": "Average Order Value (AOV)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.604
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "ad spend pro-cyclical",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.18,
+        "pearson_p": 0.0511,
+        "spearman": 0.1302,
+        "spearman_p": 0.1601,
+        "best_lag": 0,
+        "corr_at_best": 0.18,
+        "ic": 0.0996,
+        "ic_t": 1.073,
+        "ols": {
+          "beta": 0.01670126594967586,
+          "t": 2.384479710312767,
+          "p": 0.01710329111563896,
+          "r2": 0.03240290883324548,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.01670126594967586,
+          "t": 2.384479710312767,
+          "p": 0.01710329111563896,
+          "r2": 0.03240290883324548,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2305,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.9,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI499788697",
+        "role": "demand",
+        "why": "Browser share (Desktop): Chrome",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2025-06-05",
+        "n": 173,
+        "min_n": 24,
+        "pearson": 0.1243,
+        "pearson_p": 0.1033,
+        "spearman": 0.1451,
+        "spearman_p": 0.0568,
+        "best_lag": 3,
+        "corr_at_best": -0.1322,
+        "ic": 0.0803,
+        "ic_t": 1.053,
+        "ols": {
+          "beta": 0.003990719467681609,
+          "t": 2.146924433179425,
+          "p": 0.03179929809660637,
+          "r2": 0.015443224642508913,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.004244707547910271,
+          "t": -1.992488010781653,
+          "p": 0.046317539346960965,
+          "r2": 0.017481409660523473,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0952,
+        "last_chg": 0.02,
+        "last_chg_z": -0.15,
+        "last_chg_date": "2025-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 44.6,
+        "source": "ceic",
+        "label": "Browser share (Desktop): Chrome",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.075
+        }
+      },
+      {
+        "key": "CEICI324050102",
+        "role": "supply",
+        "why": "Volume: Carpets and Other Textile Floor Coverings",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1629,
+        "pearson_p": 0.0332,
+        "spearman": 0.1591,
+        "spearman_p": 0.0377,
+        "best_lag": 0,
+        "corr_at_best": 0.1629,
+        "ic": -0.1575,
+        "ic_t": -2.047,
+        "ols": {
+          "beta": 0.04419796030039655,
+          "t": 1.702174746687438,
+          "p": 0.0887226152410551,
+          "r2": 0.02654857140507072,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.04419796030039655,
+          "t": 1.702174746687438,
+          "p": 0.0887226152410551,
+          "r2": 0.02654857140507072,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1463,
+        "last_chg": 0.622615,
+        "last_chg_z": 1.75,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.2,
+        "source": "ceic",
+        "label": "Volume: Carpets and Other Textile Floor Coverings",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.704
+        }
+      },
+      {
+        "key": "CEICI499347947",
+        "role": "demand",
+        "why": "Device vendor share (Tablet): Others",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-06-07",
+        "n": 166,
+        "min_n": 24,
+        "pearson": 0.1882,
+        "pearson_p": 0.0152,
+        "spearman": 0.1002,
+        "spearman_p": 0.199,
+        "best_lag": 0,
+        "corr_at_best": 0.1882,
+        "ic": 0.0098,
+        "ic_t": 0.125,
+        "ols": {
+          "beta": 0.17140820507057886,
+          "t": 3.161447945914688,
+          "p": 0.001569868744502597,
+          "r2": 0.0354039799870175,
+          "n": 166,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.17140820507057886,
+          "t": 3.161447945914688,
+          "p": 0.001569868744502597,
+          "r2": 0.0354039799870175,
+          "n": 166,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2748,
+        "last_chg": -0.1,
+        "last_chg_z": -0.93,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.9,
+        "source": "ceic",
+        "label": "Device vendor share (Tablet): Others",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.434
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.1936,
+        "pearson_p": 0.009,
+        "spearman": -0.1578,
+        "spearman_p": 0.0338,
+        "best_lag": 0,
+        "corr_at_best": -0.1936,
+        "ic": -0.0764,
+        "ic_t": -1.022,
+        "ols": {
+          "beta": -0.10072674016224474,
+          "t": -2.6437497190829005,
+          "p": 0.008199325892803094,
+          "r2": 0.03746398746621926,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.10072674016224474,
+          "t": -2.6437497190829005,
+          "p": 0.008199325892803094,
+          "r2": 0.03746398746621926,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1513,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.7,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI517743197",
+        "role": "demand",
+        "why": "AOV: Desktop",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 84,
+        "min_n": 24,
+        "pearson": 0.0844,
+        "pearson_p": 0.4454,
+        "spearman": 0.0131,
+        "spearman_p": 0.9058,
+        "best_lag": 4,
+        "corr_at_best": 0.2127,
+        "ic": -0.1264,
+        "ic_t": -1.144,
+        "ols": {
+          "beta": 0.02390991326289209,
+          "t": 0.5778285043278703,
+          "p": 0.5633799087728786,
+          "r2": 0.007121048740353353,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0630480912587833,
+          "t": 2.0710762371499034,
+          "p": 0.03835167213647742,
+          "r2": 0.045257058144759,
+          "n": 80,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0284,
+        "last_chg": 0.495478,
+        "last_chg_z": 1.34,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.6,
+        "source": "ceic",
+        "label": "AOV: Desktop",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.585
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1884,
+        "pearson_p": 0.0104,
+        "spearman": -0.1583,
+        "spearman_p": 0.0318,
+        "best_lag": 0,
+        "corr_at_best": -0.1884,
+        "ic": -0.0027,
+        "ic_t": -0.037,
+        "ols": {
+          "beta": -0.5913741525233234,
+          "t": -2.96904279200621,
+          "p": 0.0029872899288584023,
+          "r2": 0.03550121537146089,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.5913741525233234,
+          "t": -2.96904279200621,
+          "p": 0.0029872899288584023,
+          "r2": 0.03550121537146089,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0412,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.4,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI391913267",
+        "role": "supply",
+        "why": "Honda",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.0925,
+        "pearson_p": 0.2286,
+        "spearman": 0.0261,
+        "spearman_p": 0.7345,
+        "best_lag": 6,
+        "corr_at_best": 0.2511,
+        "ic": 0.0555,
+        "ic_t": 0.722,
+        "ols": {
+          "beta": 0.0005965351973761983,
+          "t": 3.742764179755907,
+          "p": 0.00018200702165821817,
+          "r2": 0.008565155305765626,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.001609943386999171,
+          "t": 10.755096777332637,
+          "p": 5.607512740213659e-27,
+          "r2": 0.06306463164384257,
+          "n": 165,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0778,
+        "last_chg": 0.291271,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.0,
+        "source": "ceic",
+        "label": "Honda",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.045
+        }
+      },
+      {
+        "key": "CEICI324049702",
+        "role": "supply",
+        "why": "Volume: Other vegetable textile fibres; paper yarn",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": 0.1428,
+        "pearson_p": 0.0717,
+        "spearman": 0.0304,
+        "spearman_p": 0.7023,
+        "best_lag": 4,
+        "corr_at_best": 0.187,
+        "ic": 0.0969,
+        "ic_t": 1.218,
+        "ols": {
+          "beta": 0.03631045094198881,
+          "t": 1.3957996529658339,
+          "p": 0.16277483492551914,
+          "r2": 0.020386880378963745,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0482519679281853,
+          "t": 2.595535913874966,
+          "p": 0.009444353234812563,
+          "r2": 0.034972159018635374,
+          "n": 156,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.1696,
+        "last_chg": 0.702871,
+        "last_chg_z": 1.63,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 33.3,
+        "source": "ceic",
+        "label": "Volume: Other vegetable textile fibres; paper yarn",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.672
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 51
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI517775437",
+      "label": "Value: Desktop",
+      "role": "demand",
+      "pearson": -0.2174,
+      "p": 0.022371750849509695,
+      "theory_agree": false,
+      "score": 41.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI519405647",
+      "label": "Value: Arts & Entertainment",
+      "role": "demand",
+      "pearson": -0.2625,
+      "p": 0.005852250689166885,
+      "theory_agree": false,
+      "score": 39.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI499362307",
+      "label": "Browser share (Mobile): Firefox",
+      "role": "demand",
+      "pearson": 0.0607,
+      "p": 0.2202537384412493,
+      "theory_agree": true,
+      "score": 38.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391913257",
+      "label": "Daihatsu",
+      "role": "supply",
+      "pearson": 0.0621,
+      "p": 0.002218077017878111,
+      "theory_agree": null,
+      "score": 29.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13540501",
+      "label": "Truck: Over 24 Ton",
+      "role": "supply",
+      "pearson": 0.138,
+      "p": 0.10772227362421381,
+      "theory_agree": null,
+      "score": 29.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517698487",
+      "label": "Value",
+      "role": "demand",
+      "pearson": -0.1438,
+      "p": 0.09343759234384073,
+      "theory_agree": false,
+      "score": 28.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI519431507",
+      "label": "AOV: Arts & Entertainment",
+      "role": "demand",
+      "pearson": -0.092,
+      "p": 0.18088450931559807,
+      "theory_agree": false,
+      "score": 26.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0863,
+      "p": 0.4191104603024869,
+      "theory_agree": null,
+      "score": 25.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412546157",
+      "label": "Truck",
+      "role": "supply",
+      "pearson": 0.0327,
+      "p": 0.5898779517879726,
+      "theory_agree": null,
+      "score": 24.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI499409377",
+      "label": "Browser share (Tablet): Opera",
+      "role": "demand",
+      "pearson": 0.0103,
+      "p": 0.8697488505869431,
+      "theory_agree": true,
+      "score": 23.0,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 51,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.1,
+  "grade": "perfected",
+  "grade_reasons": []
+}
