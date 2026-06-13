@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:48:32",
+  "updated_at": "2026-06-14T00:48:34",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -151,15 +151,16 @@
       "sub_sector": "Hospitals",
       "sector": "Healthcare",
       "priority": 11,
-      "status": "needs_review",
-      "grade": "needs_review",
+      "status": "done",
+      "grade": "partial",
       "score": 31,
       "verdict": "BEARISH",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:45:29",
+      "attempts": 2,
+      "last_run": "2026-06-14T00:48:33",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "confidence low"
+        "confidence low",
+        "parked after 2 attempts"
       ]
     },
     "consumer_non_cyclicals_plantation": {
@@ -749,8 +750,8 @@
   },
   "summary": {
     "perfected": 28,
-    "partial": 7,
-    "needs_review": 14,
+    "partial": 8,
+    "needs_review": 13,
     "blocked": 2,
     "pending": 0,
     "error": 1

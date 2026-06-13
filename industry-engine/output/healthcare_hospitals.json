@@ -3,7 +3,7 @@
   "sub_sector": "Hospitals",
   "sector": "Healthcare",
   "priority": 11,
-  "generated_at": "2026-06-14T00:45:32",
+  "generated_at": "2026-06-14T00:48:34",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -448,7 +448,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.9,
+  "runtime_s": 1.0,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
