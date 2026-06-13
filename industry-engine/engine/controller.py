@@ -161,6 +161,36 @@ def advance_one(pg: dict, only: str | None = None) -> dict | None:
     return st
 
 
+def rerun_all(pg: dict) -> int:
+    """Refresh every resolved basket's model/score (e.g. to propagate a scoring
+    change) while PRESERVING the grade decided earlier. One commit at the end."""
+    wl = C.read_json(C.STATE_DIR / "worklist.json")
+    n = 0
+    for b in sorted(wl["baskets"], key=lambda x: x["priority"]):
+        st = pg["baskets"].get(b["id"])
+        if not st or st["status"] == "pending":
+            continue
+        try:
+            art = RB.run(b)
+            art["grade"] = st.get("grade")          # preserve prior grade
+            art["grade_reasons"] = st.get("reasons", [])
+            C.write_json(C.OUTPUT_DIR / f"{art['id']}.json", art)
+            m = art.get("model") or {}
+            st["score"] = m.get("score")
+            st["verdict"] = m.get("verdict")
+            n += 1
+        except Exception as e:  # noqa: BLE001
+            C.log(f"  rerun ERROR {b['sub_sector']}: {e}", level="WARN")
+    pg["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    pg["summary"] = _summary(pg)
+    C.write_json(PROGRESS, pg)
+    P.compile_engine()
+    cm = _git_commit(f"chore(industry-engine): full-book rerun — refresh {n} models "
+                     f"(propagate conviction-shrinkage), grades preserved")
+    C.log(f"  rerun_all: {n} baskets, commit: {cm}")
+    return n
+
+
 def main(argv: list) -> None:
     pg = _load_progress()
     if "--status" in argv:
@@ -169,6 +199,11 @@ def main(argv: list) -> None:
     if "--recompile" in argv:
         eng = P.compile_engine()
         print(f"recompiled engine.json: {eng['n_baskets']} baskets")
+        return
+    if "--rerun-all" in argv:
+        n = rerun_all(pg)
+        print(_status_text(pg))
+        print(f"\nrefreshed {n} basket models (grades preserved).")
         return
     only = None
     if "--only" in argv:
