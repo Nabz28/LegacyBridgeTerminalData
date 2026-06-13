@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T03:31:48",
+  "updated_at": "2026-06-14T03:51:49",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -65,15 +65,12 @@
       "sector": "Energy",
       "priority": 5,
       "status": "done",
-      "grade": "partial",
+      "grade": "perfected",
       "score": 50,
       "verdict": "NEUTRAL",
-      "attempts": 2,
-      "last_run": "2026-06-14T00:40:33",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "parked after 2 attempts"
-      ]
+      "attempts": 3,
+      "last_run": "2026-06-14T03:51:47",
+      "reasons": []
     },
     "consumer_non_cyclicals_food_beverage": {
       "id": "consumer_non_cyclicals_food_beverage",
@@ -740,8 +737,8 @@
     }
   },
   "summary": {
-    "perfected": 36,
-    "partial": 16,
+    "perfected": 37,
+    "partial": 15,
     "needs_review": 0,
     "blocked": 0,
     "pending": 0,
