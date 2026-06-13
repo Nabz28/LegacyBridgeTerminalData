@@ -119,16 +119,33 @@ that is fine — but what is done must be **rigorous and honest**.
 - `durable`: true, `recurring`: true
 - `prompt`: see `industry-engine/state/cron_prompt.txt`
 
-## FINALISATION (only once all baskets resolved; one item per fire)
-1. Wire the engine into the terminal UI: add a "Statistical Evidence" read path
-   in `launcher/scripts/industry-data.jsx` that overlays `window.INDUSTRY_ENGINE`
-   (load `industry-engine-data.js` via an `index.html` script tag) — per driver
-   show empirical sign, |r|/IC, lead, p, stability, and the basket verdict +
-   confidence; keep the existing hand-set taxonomy as graceful fallback.
-2. Re-run the whole book (`controller.py --n 52`) to refresh with latest prices.
-3. Write a short `industry-engine/REPORT.md` ranking baskets by model quality and
-   listing each verdict — the morning brief.
-4. Re-attempt `partial` baskets once more with any new driver ideas.
+## FINALISATION (all baskets resolved; one item per fire, in this order)
+1. [DONE] Full-book refresh: `python industry-engine/engine/controller.py --rerun-all`
+   (refreshes every model, preserves grades). Re-run only if mapping/scoring changed.
+2. [DONE] `python industry-engine/engine/report.py` — regenerate REPORT.md. Re-run
+   after any basket changes.
+3. **DEFAULT ONGOING SAFE WORK — lift a `partial` basket toward `perfected`.**
+   Pick the highest-priority `partial` that is NOT data-limited (n_used>=5 and not
+   a single idiosyncratic mega-cap). Inspect `output/<id>.json` (`rejected_top`,
+   kept drivers): is there a real economic driver missing or mis-signed? Common
+   wins seen so far: set the right input-commodity `cost` prior, give `usdidr` an
+   importer(-1)/exporter(+1) prior, add `id_10y`/`id_bi_rate` (-1) for
+   construction/financing/discretionary/durables demand. Edit `mapping.py` →
+   `build_worklist.py` → `controller.py --only "<Sub Sector>"`. **Only keep the
+   change if it legitimately crosses the bar (theory-anchored, not data-mined).**
+   If it stays partial, that is the honest ceiling — `git checkout` the mapping
+   edit (or leave it if the drivers are economically sound) and move on. Commit
+   `mapping.py` + worklist if kept. Then run report.py + commit. This is the
+   productive work for every finalisation fire until partials are exhausted.
+4. **UI wiring (CAUTION — needs browser verification; do not rush headless).**
+   The launcher is Babel-in-browser React with no build step, so a syntax error
+   in a live `.jsx` breaks that terminal. Do this as a NEW, additive,
+   defensively-coded workspace (new `launcher/scripts/industry-engine-panel.jsx`
+   exposing `window.IndustryEnginePanel`, reading `window.INDUSTRY_ENGINE` via a
+   new `index.html` script tag), and VERIFY it renders (Claude Preview / Chrome MCP,
+   or hand it to the principal to confirm) BEFORE flipping any `built:true`. Until
+   verified, leave the terminal UI untouched — the engine outputs are fully usable
+   via REPORT.md + output/engine.json + window.INDUSTRY_ENGINE.
 
 ## SANITY / DEBUG
 - `python industry-engine/engine/controller.py --status` — progress summary.
