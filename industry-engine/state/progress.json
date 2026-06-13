@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T04:52:22",
+  "updated_at": "2026-06-14T04:52:31",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -275,15 +275,12 @@
       "sector": "Industrials",
       "priority": 20,
       "status": "done",
-      "grade": "partial",
+      "grade": "perfected",
       "score": 49,
       "verdict": "NEUTRAL",
-      "attempts": 2,
-      "last_run": "2026-06-14T00:48:35",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "parked after 2 attempts"
-      ]
+      "attempts": 3,
+      "last_run": "2026-06-14T04:52:25",
+      "reasons": []
     },
     "consumer_cyclicals_retail": {
       "id": "consumer_cyclicals_retail",
@@ -734,8 +731,8 @@
     }
   },
   "summary": {
-    "perfected": 38,
-    "partial": 14,
+    "perfected": 39,
+    "partial": 13,
     "needs_review": 0,
     "blocked": 0,
     "pending": 0,
