@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:45:29",
-  "n_baskets": 10,
+  "generated_at": "2026-06-14T00:45:32",
+  "n_baskets": 11,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -3267,6 +3267,200 @@
         }
       ],
       "generated_at": "2026-06-14T00:45:29"
+    },
+    {
+      "id": "healthcare_hospitals",
+      "sub_sector": "Hospitals",
+      "sector": "Healthcare",
+      "priority": 11,
+      "status": "done",
+      "grade": "needs_review",
+      "verdict": "BEARISH",
+      "score": 31,
+      "confidence": {
+        "level": "low",
+        "score": 36,
+        "reasons": [
+          "max|corr|=0.14",
+          "theory_agree=67%",
+          "stable=40%",
+          "mvR2=0.04",
+          "OOS=58%"
+        ]
+      },
+      "net_tilt": -0.377,
+      "demand_tilt": -0.25,
+      "supply_tilt": -0.683,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "CEICI580306527",
+          "CEICI655003157",
+          "CEICI580671437"
+        ],
+        "n": 155,
+        "r2": 0.035,
+        "adj_r2": 0.016,
+        "betas": {
+          "CEICI580306527": {
+            "std_beta": 0.0143,
+            "t": 1.21,
+            "p": 0.2246
+          },
+          "CEICI655003157": {
+            "std_beta": -0.0044,
+            "t": -0.9,
+            "p": 0.3697
+          },
+          "CEICI580671437": {
+            "std_beta": -0.0094,
+            "t": -1.29,
+            "p": 0.1966
+          }
+        },
+        "oos_hit_rate": 0.579,
+        "oos_n": 95,
+        "expected_monthly_ret": -0.0049
+      },
+      "narrative": "Hospitals (Healthcare) screens BEARISH [31/100, low confidence]. Top drivers: Financing: hospital services (corr +0.10, lead 3m, now flat); Hospital beds per 1000 (corr +0.14, lead 3m, now headwind); Hospital beds per 1000 (corr -0.04, lead 2m, now headwind). A 3-driver model explains 4% of monthly variance (adj 2%), 58% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+      "n_kept": 5,
+      "n_tested": 12,
+      "n_used": 11,
+      "members_used": [
+        "BMHS",
+        "CARE",
+        "HEAL",
+        "MIKA",
+        "MTMH",
+        "PRAY",
+        "RSCH",
+        "RSGK",
+        "SAME",
+        "SILO",
+        "SRAJ"
+      ],
+      "coverage": {
+        "W": 784,
+        "M": 181,
+        "Q": 60,
+        "first": "2011-04-22",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "CEICI462441447",
+          "label": "Financing: hospital services",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0953,
+          "excess_pearson": 0.175,
+          "best_lag": 3,
+          "ic": -0.2133,
+          "beta": 0.08544272477963098,
+          "r2": 0.009084127645167195,
+          "p": 0.06714574255550937,
+          "n": 84,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Financing: hospital services",
+          "posture": "neutral",
+          "last_chg_z": -0.25,
+          "last_obs": "2025-08-01"
+        },
+        {
+          "key": "CEICI580306527",
+          "label": "Hospital beds per 1000",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.1381,
+          "excess_pearson": 0.1586,
+          "best_lag": 3,
+          "ic": 0.0854,
+          "beta": 0.0282136076838503,
+          "r2": 0.01907217965253205,
+          "p": 0.29815063685328647,
+          "n": 155,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "Hospital beds per 1000",
+          "posture": "headwind",
+          "last_chg_z": -0.6,
+          "last_obs": "2026-02-01"
+        },
+        {
+          "key": "CEICI655003157",
+          "label": "Hospital beds per 1000",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0423,
+          "excess_pearson": -0.0387,
+          "best_lag": 2,
+          "ic": 0.1876,
+          "beta": -0.008468495143990572,
+          "r2": 0.00179201721803679,
+          "p": 0.4928707274194446,
+          "n": 155,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "Hospital beds per 1000",
+          "posture": "headwind",
+          "last_chg_z": 1.09,
+          "last_obs": "2026-02-01"
+        },
+        {
+          "key": "CEICI580671437",
+          "label": "Import: world (UN comtrade)",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.09,
+          "excess_pearson": -0.0617,
+          "best_lag": 1,
+          "ic": 0.2737,
+          "beta": -0.012448133301673178,
+          "r2": 0.008105092399521174,
+          "p": 0.17501644941067296,
+          "n": 155,
+          "theory_agree": false,
+          "stable": false,
+          "sign": -1,
+          "why": "Import: world (UN comtrade)",
+          "posture": "headwind",
+          "last_chg_z": 0.7,
+          "last_obs": "2026-02-01"
+        },
+        {
+          "key": "CEICI804067407",
+          "label": "Job postings (new): hospitals",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0058,
+          "excess_pearson": 0.0952,
+          "best_lag": 2,
+          "ic": 0.3151,
+          "beta": -0.00011442203632501329,
+          "r2": 3.378649235574738e-05,
+          "p": 0.9558680931214228,
+          "n": 35,
+          "theory_agree": null,
+          "stable": false,
+          "sign": -1,
+          "why": "Job postings (new): hospitals",
+          "posture": "headwind",
+          "last_chg_z": 2.66,
+          "last_obs": "2026-05-18"
+        }
+      ],
+      "generated_at": "2026-06-14T00:45:32"
     }
   ]
 }
