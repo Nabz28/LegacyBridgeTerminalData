@@ -1,0 +1,8 @@
+# Local-only secrets and scratch — NEVER commit
+.env.local
+cache/
+logs/
+*.log
+__pycache__/
+*.pyc
+.ie_tmp/
