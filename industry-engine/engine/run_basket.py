@@ -25,7 +25,7 @@ def run(basket_def: dict) -> dict:
     C.log(f"=== RUN basket: {basket_def['sub_sector']} "
           f"(prio {basket_def.get('priority')}) ===")
     br = B.build_basket(basket_def)
-    if br["n_used"] < 2 or br["coverage"]["M"] < 36:
+    if br["n_used"] < 1 or br["coverage"]["M"] < 36:
         C.log(f"  ABORT: insufficient price history "
               f"(n_used={br['n_used']}, M={br['coverage']['M']})", level="WARN")
         art = _artifact(basket_def, br, None, None, None,

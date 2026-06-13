@@ -297,10 +297,22 @@ def read_json(path: Path, default=None):
         return default
 
 
+def _scrub(o):
+    """Replace NaN/Inf with None so artifacts stay strict-JSON valid."""
+    import math as _m
+    if isinstance(o, float):
+        return None if (_m.isnan(o) or _m.isinf(o)) else o
+    if isinstance(o, dict):
+        return {k: _scrub(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_scrub(v) for v in o]
+    return o
+
+
 def write_json(path: Path, obj) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(obj, indent=2, ensure_ascii=False),
-                          encoding="utf-8")
+    Path(path).write_text(json.dumps(_scrub(obj), indent=2, ensure_ascii=False,
+                                     allow_nan=False), encoding="utf-8")
 
 
 def slugify(s: str) -> str:

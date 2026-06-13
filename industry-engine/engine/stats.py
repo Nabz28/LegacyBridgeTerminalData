@@ -206,8 +206,15 @@ def analyze_pair(basket_ret: dict, driver: dict, sign_prior: int,
     sign1 = np.sign(s1["beta"]) if s1 else 0
     sign2 = np.sign(s2["beta"]) if s2 else 0
     stable = bool(sign1 != 0 and sign1 == sign2)
-    emp_sign = int(np.sign(contemp["beta"])) if contemp else int(np.sign(pr))
-    theory_agree = (emp_sign == sign_prior) if sign_prior != 0 else None
+    def _isign(v) -> int:
+        try:
+            if v is None or (isinstance(v, float) and math.isnan(v)):
+                return 0
+            return int(np.sign(v))
+        except Exception:  # noqa: BLE001
+            return 0
+    emp_sign = _isign(contemp["beta"] if contemp else pr)
+    theory_agree = (emp_sign == sign_prior) if (sign_prior != 0 and emp_sign != 0) else None
 
     # current signal: latest driver change + its z-score (for live posture)
     xs_hist = x.dropna()

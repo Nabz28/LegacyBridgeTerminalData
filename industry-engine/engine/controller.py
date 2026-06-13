@@ -86,11 +86,19 @@ def _summary(pg: dict) -> dict:
 
 
 def _next_basket(pg: dict) -> dict | None:
-    """Depth-first by priority: first pending, then needs_review under MAX_ATTEMPTS."""
+    """Next PENDING basket by priority. needs_review baskets are NOT auto-retried
+    here — they require deliberate enrichment via --only (see RUN.md DEPTH mode),
+    so a plain `--n` fire can never silently park a basket as 'partial'."""
     items = sorted(pg["baskets"].values(), key=lambda x: x["priority"])
     for st in items:
         if st["status"] == "pending":
             return st
+    return None
+
+
+def _next_enrich(pg: dict) -> dict | None:
+    """Highest-priority needs_review basket still under the attempt cap."""
+    items = sorted(pg["baskets"].values(), key=lambda x: x["priority"])
     for st in items:
         if st["grade"] == "needs_review" and st["attempts"] < MAX_ATTEMPTS:
             return st
@@ -192,7 +200,15 @@ def main(argv: list) -> None:
                   f"{st.get('verdict') or ''} {st.get('score') or ''} "
                   f"| {('; '.join(st['reasons']))[:80]}")
     nxt = _next_basket(pg)
-    print(f"\nNEXT: {nxt['sub_sector'] + ' (prio ' + str(nxt['priority']) + ')' if nxt else 'ALL DONE'}")
+    if nxt:
+        print(f"\nNEXT (breadth, pending): {nxt['sub_sector']} (prio {nxt['priority']})")
+    else:
+        enr = _next_enrich(pg)
+        if enr:
+            print(f"\nNEXT (DEPTH/enrich a needs_review basket per RUN.md): "
+                  f"{enr['sub_sector']} (prio {enr['priority']})")
+        else:
+            print("\nNEXT: all baskets resolved -> FINALISATION mode (see RUN.md)")
 
 
 def _status_text(pg: dict) -> str:
