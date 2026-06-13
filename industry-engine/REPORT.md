@@ -1,6 +1,6 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T04:11:33._  
+_Auto-generated from output/engine.json — 2026-06-14T04:31:41._  
 **37 perfected · 15 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
@@ -53,7 +53,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 |---|---|---|---|---|---|---|---|---|
 | IT Services | Technology | NEUTRAL | 48 | medium | 9 | 0.06 | 40% | Device vendor share (Tab (0.1299) |
 | Chemicals | Basic Materials | NEUTRAL | 48 | high | 12 | 0.11 | 57% | USD/IDR (-0.1888) |
-| Energy Services | Energy | NEUTRAL | 46 | high | 12 | 0.08 | 70% | Mining & Quarrying: Coal (0.2884) |
+| Energy Services | Energy | NEUTRAL | 47 | medium | 12 | 0.07 | 58% | Mining & Quarrying: Coal (0.2884) |
 | Hospitals | Healthcare | MILDLY BEARISH | 41 | low | 5 | 0.04 | 58% | Financing: hospital serv (0.0953) |
 | Tobacco | Consumer Non-Cyclicals | NEUTRAL | 52 | high | 12 | 0.07 | 56% | Prompt manufacturing ind (0.6208) |
 | Containers & Packaging | Basic Materials | NEUTRAL | 51 | low | 2 | 0.01 | 52% | BI Policy Rate (-0.0922) |

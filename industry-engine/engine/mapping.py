@@ -119,12 +119,13 @@ SEED = {
         "macro": [("usdidr", "macro", +1, "USD-priced output"),
                   ("us_10y", "macro", -1, "discount-rate sensitivity")],
     },
-    "Energy Services": {
+    "Energy Services": {  # mostly coal-mining contractors (DOID/PTRO/DEWA/ABMM)
         "ceic": [("Energy", None)],
-        "globals": [("brent", "demand", +1, "upstream capex follows crude"),
+        "globals": [("bcom", "demand", +1, "commodity cycle -> coal-miner capex -> contractor demand"),
+                    ("brent", "demand", +1, "upstream capex follows crude"),
                     ("wb_coal_au", "demand", +1, "coal services demand")],
-        "macro": [("usdidr", "macro", +1, "USD contracts"),
-                  ("cn_ip_yoy", "demand", +1, "regional energy demand")],
+        "macro": [("cn_ip_yoy", "demand", +1, "China demand -> coal volumes -> services"),
+                  ("usdidr", "macro", +1, "USD-denominated contracts")],
     },
     "Alternative Energy": {
         "ceic": [("Energy", "Electricity")],
