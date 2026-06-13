@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:45:20",
+  "updated_at": "2026-06-14T00:45:29",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -136,12 +136,12 @@
       "sub_sector": "Telco",
       "sector": "Infrastructure",
       "priority": 10,
-      "status": "pending",
-      "grade": null,
-      "score": null,
-      "verdict": null,
-      "attempts": 0,
-      "last_run": null,
+      "status": "done",
+      "grade": "perfected",
+      "score": 45,
+      "verdict": "NEUTRAL",
+      "attempts": 1,
+      "last_run": "2026-06-14T00:45:20",
       "reasons": []
     },
     "healthcare_hospitals": {
@@ -692,11 +692,11 @@
     }
   },
   "summary": {
-    "perfected": 5,
+    "perfected": 6,
     "partial": 2,
     "needs_review": 2,
     "blocked": 0,
-    "pending": 43,
+    "pending": 42,
     "error": 0
   }
 }

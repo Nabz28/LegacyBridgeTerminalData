@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:45:20",
-  "n_baskets": 9,
+  "generated_at": "2026-06-14T00:45:29",
+  "n_baskets": 10,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -3069,6 +3069,204 @@
         }
       ],
       "generated_at": "2026-06-14T00:45:20"
+    },
+    {
+      "id": "infrastructure_telco",
+      "sub_sector": "Telco",
+      "sector": "Infrastructure",
+      "priority": 10,
+      "status": "done",
+      "grade": "perfected",
+      "verdict": "NEUTRAL",
+      "score": 45,
+      "confidence": {
+        "level": "high",
+        "score": 74,
+        "reasons": [
+          "max|corr|=0.27",
+          "theory_agree=100%",
+          "stable=100%",
+          "mvR2=0.16",
+          "OOS=46%"
+        ]
+      },
+      "net_tilt": -0.092,
+      "demand_tilt": -0.103,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "id_gdp_real_q",
+          "CEICI313914302",
+          "CEICI479934927",
+          "CEICI313914202",
+          "CEICI313914802"
+        ],
+        "n": 116,
+        "r2": 0.157,
+        "adj_r2": 0.119,
+        "betas": {
+          "id_gdp_real_q": {
+            "std_beta": 0.0373,
+            "t": 8.28,
+            "p": 0.0
+          },
+          "CEICI313914302": {
+            "std_beta": 0.0147,
+            "t": 0.97,
+            "p": 0.3311
+          },
+          "CEICI479934927": {
+            "std_beta": -0.4998,
+            "t": -2.73,
+            "p": 0.0063
+          },
+          "CEICI313914202": {
+            "std_beta": -0.0042,
+            "t": -0.27,
+            "p": 0.7853
+          },
+          "CEICI313914802": {
+            "std_beta": 0.5295,
+            "t": 2.87,
+            "p": 0.0041
+          }
+        },
+        "oos_hit_rate": 0.464,
+        "oos_n": 56,
+        "expected_monthly_ret": -0.0143
+      },
+      "narrative": "Telco (Infrastructure) screens NEUTRAL [45/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
+      "n_kept": 5,
+      "n_tested": 32,
+      "n_used": 3,
+      "members_used": [
+        "JAST",
+        "KBLV",
+        "TLKM"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "id_gdp_real_q",
+          "label": "Real GDP (SA)",
+          "role": "demand",
+          "source": "corr:aIDGDPAR1",
+          "freq": "M",
+          "pearson": 0.2674,
+          "excess_pearson": 0.3067,
+          "best_lag": 0,
+          "ic": -0.0659,
+          "beta": 0.029976036116754777,
+          "r2": 0.07150126202179674,
+          "p": 3.3714395302605416e-10,
+          "n": 118,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "data ARPU/consumption",
+          "posture": "neutral",
+          "last_chg_z": -0.0,
+          "last_obs": "2026-05-08"
+        },
+        {
+          "key": "CEICI313914302",
+          "label": "ATM and Debit Card: Value: Intrabank",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.1225,
+          "excess_pearson": 0.1054,
+          "best_lag": 3,
+          "ic": 0.0367,
+          "beta": 8.906732327648071e-07,
+          "r2": 0.015001018039711322,
+          "p": 0.012517677270208106,
+          "n": 182,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "ATM and Debit Card: Value: Intrabank",
+          "posture": "tailwind",
+          "last_chg_z": 0.37,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI479934927",
+          "label": "Credit Card: Volume: Cash Withdrawal: Domestic",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.1766,
+          "excess_pearson": 0.1754,
+          "best_lag": 0,
+          "ic": -0.0189,
+          "beta": 0.00038492373287576974,
+          "r2": 0.031172100100488764,
+          "p": 0.041552758549142886,
+          "n": 158,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "Credit Card: Volume: Cash Withdrawal: Domestic",
+          "posture": "headwind",
+          "last_chg_z": -0.7,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313914202",
+          "label": "ATM and Debit Card: Volume: Intrabank",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0997,
+          "excess_pearson": 0.0918,
+          "best_lag": 3,
+          "ic": 0.0588,
+          "beta": 1.5822132870479896e-06,
+          "r2": 0.009934819374130321,
+          "p": 0.13056708297595004,
+          "n": 182,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "ATM and Debit Card: Volume: Intrabank",
+          "posture": "neutral",
+          "last_chg_z": -0.07,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI313914802",
+          "label": "Credit Card: Volume: Cash Withdrawal",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.1494,
+          "excess_pearson": 0.1445,
+          "best_lag": 0,
+          "ic": 0.0052,
+          "beta": 0.0003261477734542743,
+          "r2": 0.022322121347816415,
+          "p": 0.08889327551404116,
+          "n": 182,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "Credit Card: Volume: Cash Withdrawal",
+          "posture": "headwind",
+          "last_chg_z": -0.68,
+          "last_obs": "2026-03-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:45:29"
     }
   ]
 }
