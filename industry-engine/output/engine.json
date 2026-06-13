@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T04:31:41",
+  "generated_at": "2026-06-14T04:52:22",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -2711,23 +2711,23 @@
       "sector": "Energy",
       "priority": 9,
       "status": "done",
-      "grade": "partial",
+      "grade": "perfected",
       "verdict": "NEUTRAL",
       "score": 47,
       "confidence": {
-        "level": "medium",
-        "score": 65,
+        "level": "high",
+        "score": 68,
         "reasons": [
           "max|corr|=0.29",
-          "theory_agree=50%",
+          "theory_agree=71%",
           "stable=67%",
           "mvR2=0.07",
           "OOS=58%"
         ]
       },
-      "net_tilt": -0.063,
-      "demand_tilt": 0.071,
-      "supply_tilt": -0.089,
+      "net_tilt": -0.072,
+      "demand_tilt": -0.077,
+      "supply_tilt": 0.022,
       "cost_tilt": null,
       "macro_tilt": null,
       "multivariate": {
@@ -2735,9 +2735,9 @@
         "drivers": [
           "CEICI403931887",
           "CEICI520528227",
+          "CEICI520234107",
           "CEICI354326367",
           "bcom",
-          "CEICI520234107",
           "CEICI357008197"
         ],
         "n": 152,
@@ -2754,6 +2754,11 @@
             "t": 1.68,
             "p": 0.0921
           },
+          "CEICI520234107": {
+            "std_beta": 0.0032,
+            "t": 0.48,
+            "p": 0.6286
+          },
           "CEICI354326367": {
             "std_beta": 0.0038,
             "t": 0.59,
@@ -2763,11 +2768,6 @@
             "std_beta": 0.0111,
             "t": 1.86,
             "p": 0.0628
-          },
-          "CEICI520234107": {
-            "std_beta": 0.0032,
-            "t": 0.48,
-            "p": 0.6286
           },
           "CEICI357008197": {
             "std_beta": 0.0025,
@@ -2779,7 +2779,7 @@
         "oos_n": 92,
         "expected_monthly_ret": 0.0191
       },
-      "narrative": "Energy Services (Energy) screens NEUTRAL [47/100, medium confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 7% of monthly variance (adj 3%), 58% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
+      "narrative": "Energy Services (Energy) screens NEUTRAL [47/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 7% of monthly variance (adj 3%), 58% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
       "n_kept": 12,
       "n_tested": 48,
       "n_used": 10,
@@ -2806,7 +2806,7 @@
         {
           "key": "CEICI365765217",
           "label": "Mining & Quarrying: Coal & Lignite",
-          "role": "supply",
+          "role": "demand",
           "source": "ceic",
           "freq": "Q",
           "pearson": 0.2884,
@@ -2817,7 +2817,7 @@
           "r2": 0.08315717934051237,
           "p": 0.00016842159077013868,
           "n": 60,
-          "theory_agree": null,
+          "theory_agree": true,
           "stable": true,
           "sign": 1,
           "why": "Mining & Quarrying: Coal & Lignite",
@@ -2828,7 +2828,7 @@
         {
           "key": "CEICI403931887",
           "label": "Production: Natural gas (scf)",
-          "role": "supply",
+          "role": "demand",
           "source": "ceic",
           "freq": "M",
           "pearson": 0.1406,
@@ -2839,7 +2839,7 @@
           "r2": 0.01976857892355155,
           "p": 0.041260246253271717,
           "n": 155,
-          "theory_agree": null,
+          "theory_agree": true,
           "stable": true,
           "sign": 1,
           "why": "Production: Natural gas (scf)",
@@ -2867,6 +2867,28 @@
           "why": "Energy Balance: Primary: Total Crude: Crude Oil: R",
           "posture": "tailwind",
           "last_chg_z": 0.31,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI520234107",
+          "label": "Production: Natural gas (Cub m)",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0835,
+          "excess_pearson": 0.0969,
+          "best_lag": 3,
+          "ic": 0.1125,
+          "beta": 0.08630939608989946,
+          "r2": 0.006973299534669297,
+          "p": 0.18546565432823658,
+          "n": 182,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "Production: Natural gas (Cub m)",
+          "posture": "neutral",
+          "last_chg_z": -0.25,
           "last_obs": "2026-03-01"
         },
         {
@@ -2934,28 +2956,6 @@
           "posture": "headwind",
           "last_chg_z": 0.69,
           "last_obs": "2026-06-01"
-        },
-        {
-          "key": "CEICI520234107",
-          "label": "Production: Natural gas (Cub m)",
-          "role": "supply",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": 0.0835,
-          "excess_pearson": 0.0969,
-          "best_lag": 3,
-          "ic": 0.1125,
-          "beta": 0.08630939608989946,
-          "r2": 0.006973299534669297,
-          "p": 0.18546565432823658,
-          "n": 182,
-          "theory_agree": null,
-          "stable": true,
-          "sign": 1,
-          "why": "Production: Natural gas (Cub m)",
-          "posture": "neutral",
-          "last_chg_z": -0.25,
-          "last_obs": "2026-03-01"
         },
         {
           "key": "CEICI502615757",
@@ -3068,7 +3068,7 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T04:31:41"
+      "generated_at": "2026-06-14T04:52:22"
     },
     {
       "id": "infrastructure_telco",

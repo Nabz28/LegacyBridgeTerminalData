@@ -3,7 +3,7 @@
   "sub_sector": "Energy Services",
   "sector": "Energy",
   "priority": 9,
-  "generated_at": "2026-06-14T04:31:41",
+  "generated_at": "2026-06-14T04:52:22",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -35,17 +35,17 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 47,
-    "net_tilt": -0.063,
-    "demand_tilt": 0.071,
-    "supply_tilt": -0.089,
+    "net_tilt": -0.072,
+    "demand_tilt": -0.077,
+    "supply_tilt": 0.022,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "medium",
-      "score": 65,
+      "level": "high",
+      "score": 68,
       "reasons": [
         "max|corr|=0.29",
-        "theory_agree=50%",
+        "theory_agree=71%",
         "stable=67%",
         "mvR2=0.07",
         "OOS=58%"
@@ -56,9 +56,9 @@
       "drivers": [
         "CEICI403931887",
         "CEICI520528227",
+        "CEICI520234107",
         "CEICI354326367",
         "bcom",
-        "CEICI520234107",
         "CEICI357008197"
       ],
       "n": 152,
@@ -75,6 +75,11 @@
           "t": 1.68,
           "p": 0.0921
         },
+        "CEICI520234107": {
+          "std_beta": 0.0032,
+          "t": 0.48,
+          "p": 0.6286
+        },
         "CEICI354326367": {
           "std_beta": 0.0038,
           "t": 0.59,
@@ -84,11 +89,6 @@
           "std_beta": 0.0111,
           "t": 1.86,
           "p": 0.0628
-        },
-        "CEICI520234107": {
-          "std_beta": 0.0032,
-          "t": 0.48,
-          "p": 0.6286
         },
         "CEICI357008197": {
           "std_beta": 0.0025,
@@ -100,11 +100,11 @@
       "oos_n": 92,
       "expected_monthly_ret": 0.0191
     },
-    "narrative": "Energy Services (Energy) screens NEUTRAL [47/100, medium confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 7% of monthly variance (adj 3%), 58% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
+    "narrative": "Energy Services (Energy) screens NEUTRAL [47/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 7% of monthly variance (adj 3%), 58% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
     "drivers": [
       {
         "key": "CEICI365765217",
-        "role": "supply",
+        "role": "demand",
         "why": "Mining & Quarrying: Coal & Lignite",
         "test_freq": "Q",
         "transform": "logret",
@@ -136,9 +136,9 @@
           "n": 60,
           "hac_lag": 4
         },
-        "sign_prior": 0,
+        "sign_prior": 1,
         "emp_sign": 1,
-        "theory_agree": null,
+        "theory_agree": true,
         "stable": true,
         "excess_pearson": 0.1816,
         "last_chg": -0.174556,
@@ -148,7 +148,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 52.2,
+        "score": 58.2,
         "source": "ceic",
         "label": "Mining & Quarrying: Coal & Lignite",
         "live": {
@@ -158,7 +158,7 @@
       },
       {
         "key": "CEICI403931887",
-        "role": "supply",
+        "role": "demand",
         "why": "Production: Natural gas (scf)",
         "test_freq": "M",
         "transform": "yoy",
@@ -190,9 +190,9 @@
           "n": 155,
           "hac_lag": 4
         },
-        "sign_prior": 0,
+        "sign_prior": 1,
         "emp_sign": 1,
-        "theory_agree": null,
+        "theory_agree": true,
         "stable": true,
         "excess_pearson": 0.1699,
         "last_chg": 0.014834,
@@ -204,7 +204,7 @@
             "stale(18m)"
           ]
         },
-        "score": 47.2,
+        "score": 53.2,
         "source": "ceic",
         "label": "Production: Natural gas (scf)",
         "live": {
@@ -264,6 +264,60 @@
         "live": {
           "posture": "tailwind",
           "impulse": 0.154
+        }
+      },
+      {
+        "key": "CEICI520234107",
+        "role": "demand",
+        "why": "Production: Natural gas (Cub m)",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.0835,
+        "pearson_p": 0.2624,
+        "spearman": 0.1232,
+        "spearman_p": 0.0975,
+        "best_lag": 3,
+        "corr_at_best": 0.1972,
+        "ic": 0.1125,
+        "ic_t": 1.514,
+        "ols": {
+          "beta": 0.08630939608989946,
+          "t": 1.3241125916416512,
+          "p": 0.18546565432823658,
+          "r2": 0.006973299534669297,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1991245196110632,
+          "t": 2.7421185900468195,
+          "p": 0.0061044298022526625,
+          "r2": 0.038880531626327874,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0969,
+        "last_chg": -0.036771,
+        "last_chg_z": -0.25,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.3,
+        "source": "ceic",
+        "label": "Production: Natural gas (Cub m)",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.124
         }
       },
       {
@@ -427,60 +481,6 @@
         "live": {
           "posture": "headwind",
           "impulse": -0.332
-        }
-      },
-      {
-        "key": "CEICI520234107",
-        "role": "supply",
-        "why": "Production: Natural gas (Cub m)",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 182,
-        "min_n": 24,
-        "pearson": 0.0835,
-        "pearson_p": 0.2624,
-        "spearman": 0.1232,
-        "spearman_p": 0.0975,
-        "best_lag": 3,
-        "corr_at_best": 0.1972,
-        "ic": 0.1125,
-        "ic_t": 1.514,
-        "ols": {
-          "beta": 0.08630939608989946,
-          "t": 1.3241125916416512,
-          "p": 0.18546565432823658,
-          "r2": 0.006973299534669297,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.1991245196110632,
-          "t": 2.7421185900468195,
-          "p": 0.0061044298022526625,
-          "r2": 0.038880531626327874,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.0969,
-        "last_chg": -0.036771,
-        "last_chg_z": -0.25,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.3,
-        "source": "ceic",
-        "label": "Production: Natural gas (Cub m)",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.124
         }
       },
       {
@@ -890,10 +890,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 3.5,
-  "grade": "partial",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "parked after 3 attempts"
-  ]
+  "runtime_s": 7.0,
+  "grade": "perfected",
+  "grade_reasons": []
 }

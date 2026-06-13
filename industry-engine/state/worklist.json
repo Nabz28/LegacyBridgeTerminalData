@@ -1551,6 +1551,7 @@
           "sub": "Banking — Prudential"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -2445,6 +2446,7 @@
           "sub": "Internet"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -3163,6 +3165,7 @@
           "sub": "Coal"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_coal_au",
@@ -4374,6 +4377,7 @@
           "sub": "Copper"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_nickel",
@@ -4882,6 +4886,7 @@
           "sub": "Electricity"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "lithium_etf",
@@ -8363,6 +8368,7 @@
           "sub": "Cooking Oil Prices"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_palm_oil",
@@ -8645,6 +8651,7 @@
       ],
       "n_ceic_candidates": 0,
       "ceic_candidates": [],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -10490,6 +10497,7 @@
           "sub": "Cement"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_urea",
@@ -12125,6 +12133,23 @@
           "sub": "Crude Oil"
         }
       ],
+      "ceic_override": [
+        [
+          "mining & quarrying: coal",
+          "demand",
+          1
+        ],
+        [
+          "coal production",
+          "demand",
+          1
+        ],
+        [
+          "production: natural gas",
+          "demand",
+          1
+        ]
+      ],
       "global_hints": [
         {
           "key": "bcom",
@@ -12978,6 +13003,7 @@
           "sub": "Telecom Subscribers & Internet"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -13367,6 +13393,7 @@
           "sub": "Hospitals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -15302,6 +15329,7 @@
           "sub": "Tea"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_palm_oil",
@@ -17356,6 +17384,7 @@
           "sub": "Chemicals & Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_coal_au",
@@ -17940,6 +17969,7 @@
           "sub": "Nickel"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_nickel",
@@ -18479,6 +18509,7 @@
           "sub": "E-Money & Card Payments"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -18893,6 +18924,7 @@
           "sub": "Crude Oil"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -19348,6 +19380,7 @@
           "sub": "Insurance Premiums"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -19851,6 +19884,7 @@
           "sub": "Tobacco & Cigarette"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -20048,6 +20082,7 @@
           "sub": "Rubber & Plastic Products"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -20233,7 +20268,7 @@
           "beta": 0.099
         }
       ],
-      "n_ceic_candidates": 220,
+      "n_ceic_candidates": 276,
       "ceic_candidates": [
         {
           "ric": "CEICI375447217",
@@ -22214,9 +22249,541 @@
           "units": "Unit",
           "n_obs": 18,
           "sub": "Chemicals & Pharmaceuticals"
+        },
+        {
+          "ric": "CEICI365765247",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365765217",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI323975402",
+          "role": "supply",
+          "topic": "Value: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI354326367",
+          "role": "demand",
+          "topic": "Coal",
+          "freq": "P1M",
+          "units": "USD/Ton",
+          "n_obs": 210,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365764807",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI357008197",
+          "role": "supply",
+          "topic": "Mining Products: Coal",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 195,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763677",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502587247",
+          "role": "supply",
+          "topic": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763647",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365764777",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI323802602",
+          "role": "demand",
+          "topic": "Value: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502599527",
+          "role": "supply",
+          "topic": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502615757",
+          "role": "demand",
+          "topic": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412185207",
+          "role": "supply",
+          "topic": "Mining: 05 Coal and Lignite mining",
+          "freq": "P3M",
+          "units": "USD mn",
+          "n_obs": 87,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412185357",
+          "role": "supply",
+          "topic": "Chemical and Pharmaceutical Industry: 19 Manufactu",
+          "freq": "P3M",
+          "units": "USD mn",
+          "n_obs": 76,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412186037",
+          "role": "supply",
+          "topic": "Mining: 05 Coal and Lignite mining",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 85,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412186187",
+          "role": "supply",
+          "topic": "Chemical and Pharmaceutical Industry: 19 Manufactu",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 78,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502628037",
+          "role": "demand",
+          "topic": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763237",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763207",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI323981702",
+          "role": "supply",
+          "topic": "Volume: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI212665302",
+          "role": "supply",
+          "topic": "Natural Resources: Mineral & Coal Mining",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI324715601",
+          "role": "supply",
+          "topic": "Value: Coal",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 171,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI387174987",
+          "role": "supply",
+          "topic": "Mining Products: Coal",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 195,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI13515501",
+          "role": "supply",
+          "topic": "Volume: Dry Rubber",
+          "freq": "P1M",
+          "units": "Ton th",
+          "n_obs": 513,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158102",
+          "role": "demand",
+          "topic": "Energy Sector: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 14,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254161702",
+          "role": "demand",
+          "topic": "Energy Sector: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 12,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158502",
+          "role": "demand",
+          "topic": "Final Consumption: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162102",
+          "role": "demand",
+          "topic": "Final Consumption: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158702",
+          "role": "demand",
+          "topic": "Iron and Steel Industry: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158302",
+          "role": "demand",
+          "topic": "Non Energy Uses: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 11,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158602",
+          "role": "demand",
+          "topic": "Industry & Construction: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158902",
+          "role": "demand",
+          "topic": "Others: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158402",
+          "role": "demand",
+          "topic": "Statistical Differences: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 14,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254156902",
+          "role": "demand",
+          "topic": "Total Energy Requirements: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158202",
+          "role": "demand",
+          "topic": "Losses in Transport and Distribution: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 14,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158802",
+          "role": "demand",
+          "topic": "Chemical Industry: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254156802",
+          "role": "demand",
+          "topic": "Stock Change: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254161902",
+          "role": "demand",
+          "topic": "Non Energy Uses: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 17,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162502",
+          "role": "demand",
+          "topic": "Others: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254163202",
+          "role": "demand",
+          "topic": "Households and Other Consumers: Briquettes and Cok",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162002",
+          "role": "demand",
+          "topic": "Statistical Differences: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 15,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162202",
+          "role": "demand",
+          "topic": "Industry & Construction: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254161802",
+          "role": "demand",
+          "topic": "Losses in Transport and Distribution: Briquettes a",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 13,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254163402",
+          "role": "demand",
+          "topic": "Agriculture: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254163502",
+          "role": "demand",
+          "topic": "Other Consumers: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254160502",
+          "role": "demand",
+          "topic": "Total Energy Requirements: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254163302",
+          "role": "demand",
+          "topic": "Households: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI391910527",
+          "role": "supply",
+          "topic": "Production volume",
+          "freq": "P1M",
+          "units": "Ton mn",
+          "n_obs": 232,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI391910437",
+          "role": "supply",
+          "topic": "YTD production",
+          "freq": "P1M",
+          "units": "Ton mn",
+          "n_obs": 232,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI293558802",
+          "role": "supply",
+          "topic": "Production volume",
+          "freq": "P1Y",
+          "units": "Ton th",
+          "n_obs": 20,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI252985002",
+          "role": "supply",
+          "topic": "Production volume",
+          "freq": "P1Y",
+          "units": "Ton",
+          "n_obs": 28,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI391910547",
+          "role": "supply",
+          "topic": "Overburden removal",
+          "freq": "P1M",
+          "units": "bcm mn",
+          "n_obs": 232,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI506620947",
+          "role": "supply",
+          "topic": "Coal reference price: HBA II",
+          "freq": "P1M",
+          "units": "USD/Ton",
+          "n_obs": 40,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI506620937",
+          "role": "supply",
+          "topic": "Coal reference price: HBA I",
+          "freq": "P1M",
+          "units": "USD/Ton",
+          "n_obs": 40,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI522153977",
+          "role": "supply",
+          "topic": "Coal reference price: HBA III",
+          "freq": "P1M",
+          "units": "USD/Ton",
+          "n_obs": 35,
+          "sub": "Coal"
         }
       ],
+      "ceic_override": [
+        [
+          "coal production",
+          "demand",
+          1
+        ],
+        [
+          "pamapersada",
+          "demand",
+          1
+        ],
+        [
+          "united tractors",
+          "demand",
+          1
+        ],
+        [
+          "mining & quarrying: coal",
+          "demand",
+          1
+        ]
+      ],
       "global_hints": [
+        {
+          "key": "bcom",
+          "role": "demand",
+          "sign": 1,
+          "why": "commodity cycle -> mining capex -> equipment"
+        },
         {
           "key": "wb_coal_au",
           "role": "demand",
@@ -23389,6 +23956,7 @@
           "sub": "Motorcycles & Retail Trade"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -23771,6 +24339,7 @@
           "sub": "Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -24005,6 +24574,7 @@
           "sub": "Paper & Pulp"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_logs",
@@ -25836,6 +26406,7 @@
           "sub": "Internet"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -29130,6 +29701,7 @@
           "sub": "Cooking Oil Prices"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -30577,6 +31149,7 @@
           "sub": "Banking — Prudential"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "bcom",
@@ -31884,6 +32457,7 @@
           "sub": "Hotels"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -33941,6 +34515,7 @@
           "sub": "Chemicals & Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_coal_au",
@@ -36094,6 +36669,7 @@
           "sub": "Chemicals & Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -36664,6 +37240,7 @@
           "sub": "Loan Demand"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -36987,6 +37564,7 @@
           "sub": "Textile & Apparel"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -37280,6 +37858,7 @@
           "sub": "Sea Cargo"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -37638,6 +38217,7 @@
           "sub": "Air Passenger Traffic"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -39058,6 +39638,7 @@
           "sub": "Banking — Prudential"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -39562,6 +40143,7 @@
           "sub": "Basic Metals Manufacturing"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -39839,6 +40421,7 @@
           "sub": "Sea Cargo"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "bcom",
@@ -41922,6 +42505,7 @@
           "sub": "Chemicals & Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -42829,6 +43413,7 @@
           "sub": "Internet"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "copper",
@@ -43475,6 +44060,7 @@
           "sub": "Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -44132,6 +44718,7 @@
           "sub": "Road Safety"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "brent",
@@ -48552,6 +49139,7 @@
           "sub": "Cooking Oil Prices"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_palm_oil",
@@ -49216,6 +49804,7 @@
           "sub": "Livestock & Animal Husbandry"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "corn",
@@ -49401,6 +49990,7 @@
           "sub": "Electrical Equipment"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "copper",
@@ -50247,6 +50837,7 @@
           "sub": "Internet"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -51294,6 +51885,7 @@
           "sub": "Motorcycles & Retail Trade"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -51893,6 +52485,7 @@
           "sub": "Road Safety"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -52498,6 +53091,7 @@
           "sub": "Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -53049,6 +53643,7 @@
           "sub": "Network Infrastructure"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -55105,6 +55700,7 @@
           "sub": "Chemicals & Pharmaceuticals"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -55853,6 +56449,7 @@
           "sub": "Auto Production"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "steel_hrc",
@@ -56046,6 +56643,7 @@
           "sub": "Food Retail Prices"
         }
       ],
+      "ceic_override": [],
       "global_hints": [],
       "macro_hints": [
         {
@@ -56489,6 +57087,7 @@
           "sub": "Electricity"
         }
       ],
+      "ceic_override": [],
       "global_hints": [
         {
           "key": "wb_coal_au",

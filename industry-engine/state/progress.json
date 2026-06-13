@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T04:31:41",
+  "updated_at": "2026-06-14T04:52:22",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -120,15 +120,12 @@
       "sector": "Energy",
       "priority": 9,
       "status": "done",
-      "grade": "partial",
+      "grade": "perfected",
       "score": 47,
       "verdict": "NEUTRAL",
-      "attempts": 3,
-      "last_run": "2026-06-14T04:31:38",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "parked after 3 attempts"
-      ]
+      "attempts": 4,
+      "last_run": "2026-06-14T04:52:15",
+      "reasons": []
     },
     "infrastructure_telco": {
       "id": "infrastructure_telco",
@@ -737,8 +734,8 @@
     }
   },
   "summary": {
-    "perfected": 37,
-    "partial": 15,
+    "perfected": 38,
+    "partial": 14,
     "needs_review": 0,
     "blocked": 0,
     "pending": 0,
