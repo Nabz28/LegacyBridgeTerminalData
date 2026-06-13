@@ -160,7 +160,9 @@ SEED = {
         "globals": [("steel_hrc", "supply", +1, "HRC steel price = revenue"),
                     ("iron_ore", "cost", -1, "iron ore input cost"),
                     ("wb_coal_au", "cost", -1, "coking coal input")],
-        "macro": [("cn_ppi_idx", "demand", +1, "China PPI/steel cycle"),
+        "macro": [("usdidr", "macro", -1, "imported slab/scrap feedstock cost"),
+                  ("cn_ppi_idx", "demand", +1, "China PPI/steel cycle"),
+                  ("id_10y", "macro", -1, "construction-demand rate sensitivity"),
                   ("id_gdp_real_q", "demand", +1, "domestic construction")],
     },
     "Chemicals": {
