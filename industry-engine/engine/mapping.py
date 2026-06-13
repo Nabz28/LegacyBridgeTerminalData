@@ -386,10 +386,12 @@ SEED = {
     },
     "Apparel": {
         "ceic": [("Consumer Discretionary", "Textile & Apparel")],
-        "globals": [("cotton", "cost", -1, "cotton input"),
-                    ("wb_cotton", "cost", -1, "cotton input")],
+        "globals": [("brent", "cost", -1, "polyester/synthetic feedstock (ID textile is synthetic-heavy)"),
+                    ("cotton", "cost", -1, "cotton input"),
+                    ("wb_rubber", "cost", -1, "footwear/elastomer input")],
         "macro": [("usdidr", "macro", +1, "garment export competitiveness"),
-                  ("id_gdp_real_q", "demand", +1, "domestic apparel demand")],
+                  ("id_gdp_real_q", "demand", +1, "domestic apparel demand"),
+                  ("id_cpi_yoy", "demand", -1, "discretionary squeeze")],
     },
     "Durables": {
         "ceic": [("Consumer Discretionary", None)],
