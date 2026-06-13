@@ -3,7 +3,7 @@
   "sub_sector": "IT Services",
   "sector": "Technology",
   "priority": 2,
-  "generated_at": "2026-06-14T00:37:29",
+  "generated_at": "2026-06-14T00:40:30",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -711,9 +711,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 35.9,
+  "runtime_s": 3.2,
   "grade": "needs_review",
   "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.18, p<0.05)"
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
   ]
 }
