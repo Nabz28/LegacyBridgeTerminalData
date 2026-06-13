@@ -1,0 +1,893 @@
+{
+  "id": "basic_materials_chemicals",
+  "sub_sector": "Chemicals",
+  "sector": "Basic Materials",
+  "priority": 8,
+  "generated_at": "2026-06-14T00:39:43",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 11,
+    "n_used": 11,
+    "members_used": [
+      "AGII",
+      "BRPT",
+      "DPNS",
+      "EKAD",
+      "ETWA",
+      "INCI",
+      "MOLI",
+      "SMLE",
+      "SRSN",
+      "TPIA",
+      "UNIC"
+    ],
+    "coverage": {
+      "W": 804,
+      "M": 185,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-06-12"
+    },
+    "total_mcap": 339878024151040.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 48,
+    "net_tilt": -0.038,
+    "demand_tilt": 0.04,
+    "supply_tilt": 0.064,
+    "cost_tilt": 0.119,
+    "macro_tilt": -0.282,
+    "confidence": {
+      "level": "high",
+      "score": 68,
+      "reasons": [
+        "max|corr|=0.32",
+        "theory_agree=33%",
+        "stable=83%",
+        "mvR2=0.11",
+        "OOS=57%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "usdidr",
+        "CEICI224743301",
+        "CEICI324051702",
+        "CEICI14080301",
+        "id_bi_rate",
+        "CEICI324051602"
+      ],
+      "n": 159,
+      "r2": 0.109,
+      "adj_r2": 0.074,
+      "betas": {
+        "usdidr": {
+          "std_beta": -0.0069,
+          "t": -1.27,
+          "p": 0.2032
+        },
+        "CEICI224743301": {
+          "std_beta": 0.0099,
+          "t": 1.94,
+          "p": 0.0527
+        },
+        "CEICI324051702": {
+          "std_beta": -0.0081,
+          "t": -1.81,
+          "p": 0.07
+        },
+        "CEICI14080301": {
+          "std_beta": 0.003,
+          "t": 0.65,
+          "p": 0.5172
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0036,
+          "t": -0.89,
+          "p": 0.3714
+        },
+        "CEICI324051602": {
+          "std_beta": 0.0029,
+          "t": 0.99,
+          "p": 0.3204
+        }
+      },
+      "oos_hit_rate": 0.566,
+      "oos_n": 99,
+      "expected_monthly_ret": 0.0015
+    },
+    "narrative": "Chemicals (Basic Materials) screens NEUTRAL [48/100, high confidence]. Top drivers: USD/IDR (corr -0.19, lead 0m, now flat); Total Reserves Minus Gold (corr +0.32, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.18, lead 0m, now tailwind). A 6-driver model explains 11% of monthly variance (adj 7%), 57% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+    "drivers": [
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "imported feedstock cost",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1888,
+        "pearson_p": 0.0103,
+        "spearman": -0.1685,
+        "spearman_p": 0.0222,
+        "best_lag": 0,
+        "corr_at_best": -0.1888,
+        "ic": -0.2013,
+        "ic_t": -2.715,
+        "ols": {
+          "beta": -0.3633739543136434,
+          "t": -1.5028760115295157,
+          "p": 0.13287102000227333,
+          "r2": 0.03562840691163316,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.3633739543136434,
+          "t": -1.5028760115295157,
+          "p": 0.13287102000227333,
+          "r2": 0.03562840691163316,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.063,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 52.7,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI224743301",
+        "role": "supply",
+        "why": "Total Reserves Minus Gold",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.3171,
+        "pearson_p": 0.0,
+        "spearman": 0.2519,
+        "spearman_p": 0.0006,
+        "best_lag": 0,
+        "corr_at_best": 0.3171,
+        "ic": 0.0251,
+        "ic_t": 0.338,
+        "ols": {
+          "beta": 0.7067549589291642,
+          "t": 3.8458954097308182,
+          "p": 0.000120112993868763,
+          "r2": 0.10056745984021487,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.7067549589291642,
+          "t": 3.8458954097308182,
+          "p": 0.000120112993868763,
+          "r2": 0.10056745984021487,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0549,
+        "last_chg": -0.014902,
+        "last_chg_z": -0.1,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 50.1,
+        "source": "ceic",
+        "label": "Total Reserves Minus Gold",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.05
+        }
+      },
+      {
+        "key": "CEICI324051702",
+        "role": "supply",
+        "why": "Export volume: Articles of Iro and Steel",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.1835,
+        "pearson_p": 0.0202,
+        "spearman": -0.169,
+        "spearman_p": 0.0326,
+        "best_lag": 0,
+        "corr_at_best": -0.1835,
+        "ic": -0.1321,
+        "ic_t": -1.66,
+        "ols": {
+          "beta": -0.015466999458343077,
+          "t": -2.0668086671740715,
+          "p": 0.03875218646941623,
+          "r2": 0.033686135536875494,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.015466999458343077,
+          "t": -2.0668086671740715,
+          "p": 0.03875218646941623,
+          "r2": 0.033686135536875494,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1102,
+        "last_chg": -0.307556,
+        "last_chg_z": -0.63,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.0,
+        "source": "ceic",
+        "label": "Export volume: Articles of Iro and Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.305
+        }
+      },
+      {
+        "key": "CEICI14080301",
+        "role": "supply",
+        "why": "Gold, incl Gold Deposits",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.1033,
+        "pearson_p": 0.1631,
+        "spearman": 0.0764,
+        "spearman_p": 0.3027,
+        "best_lag": 2,
+        "corr_at_best": 0.1586,
+        "ic": 0.0689,
+        "ic_t": 0.932,
+        "ols": {
+          "beta": 0.12715293075457443,
+          "t": 1.458679997654027,
+          "p": 0.1446532039351422,
+          "r2": 0.010661030773821523,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.19414305046170272,
+          "t": 1.9948717465939285,
+          "p": 0.046056869715068935,
+          "r2": 0.025164365359481966,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.02,
+        "last_chg": -0.016729,
+        "last_chg_z": -0.52,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.5,
+        "source": "ceic",
+        "label": "Gold, incl Gold Deposits",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.254
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.0714,
+        "pearson_p": 0.3398,
+        "spearman": -0.1227,
+        "spearman_p": 0.1,
+        "best_lag": 4,
+        "corr_at_best": -0.2942,
+        "ic": -0.0953,
+        "ic_t": -1.275,
+        "ols": {
+          "beta": -0.02211280437171371,
+          "t": -1.0156109622345177,
+          "p": 0.3098146825744985,
+          "r2": 0.005091754879166577,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.08914708938524367,
+          "t": -3.5173630475600297,
+          "p": 0.0004358572009825969,
+          "r2": 0.08657962912262251,
+          "n": 177,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0187,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.4,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI324051602",
+        "role": "supply",
+        "why": "Export volume: Iron and Steel",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": 0.0574,
+        "pearson_p": 0.4713,
+        "spearman": 0.0854,
+        "spearman_p": 0.2829,
+        "best_lag": 6,
+        "corr_at_best": -0.1506,
+        "ic": 0.0496,
+        "ic_t": 0.624,
+        "ols": {
+          "beta": 0.004226299886945382,
+          "t": 0.9919460451811978,
+          "p": 0.32122384597701625,
+          "r2": 0.0032899418213010456,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.011100266641282311,
+          "t": -2.233685745219014,
+          "p": 0.02550375758387935,
+          "r2": 0.02269476027669537,
+          "n": 154,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0055,
+        "last_chg": 0.039041,
+        "last_chg_z": -0.52,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 27.2,
+        "source": "ceic",
+        "label": "Export volume: Iron and Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.254
+        }
+      },
+      {
+        "key": "CEICI14523001",
+        "role": "demand",
+        "why": "Local Gold: 24 Caret",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 173,
+        "min_n": 24,
+        "pearson": 0.0605,
+        "pearson_p": 0.429,
+        "spearman": -0.051,
+        "spearman_p": 0.5052,
+        "best_lag": 2,
+        "corr_at_best": -0.1577,
+        "ic": -0.0387,
+        "ic_t": -0.508,
+        "ols": {
+          "beta": 6.377626695499964e-08,
+          "t": 0.8642567635364122,
+          "p": 0.3874468559481101,
+          "r2": 0.003661650506585512,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -1.7875119962719456e-07,
+          "t": -2.4648491711849516,
+          "p": 0.013707093743655635,
+          "r2": 0.02488187832774602,
+          "n": 173,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1117,
+        "last_chg": -199333.0,
+        "last_chg_z": -6.04,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.7,
+        "source": "ceic",
+        "label": "Local Gold: 24 Caret",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.995
+        }
+      },
+      {
+        "key": "CEICI323796002",
+        "role": "demand",
+        "why": "Import volume: Articles of Iro and Steel",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.1364,
+        "pearson_p": 0.0855,
+        "spearman": -0.1608,
+        "spearman_p": 0.0422,
+        "best_lag": 0,
+        "corr_at_best": -0.1364,
+        "ic": -0.0002,
+        "ic_t": -0.002,
+        "ols": {
+          "beta": -0.01754657887891212,
+          "t": -2.1516618174087307,
+          "p": 0.03142399949699244,
+          "r2": 0.018596848703637647,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01754657887891212,
+          "t": -2.1516618174087307,
+          "p": 0.03142399949699244,
+          "r2": 0.018596848703637647,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0843,
+        "last_chg": -0.185809,
+        "last_chg_z": -0.58,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.3,
+        "source": "ceic",
+        "label": "Import volume: Articles of Iro and Steel",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.282
+        }
+      },
+      {
+        "key": "brent",
+        "role": "cost",
+        "why": "petrochemical feedstock cost",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.0908,
+        "pearson_p": 0.2205,
+        "spearman": 0.0693,
+        "spearman_p": 0.35,
+        "best_lag": 5,
+        "corr_at_best": 0.1557,
+        "ic": 0.0763,
+        "ic_t": 1.03,
+        "ols": {
+          "beta": 0.048223025577243575,
+          "t": 0.847951742191668,
+          "p": 0.3964648467605487,
+          "r2": 0.00823711934225213,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.08528714644839028,
+          "t": 2.4475111695980303,
+          "p": 0.01438466665363423,
+          "r2": 0.024236888215860453,
+          "n": 179,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": 1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0854,
+        "last_chg": 0.026606,
+        "last_chg_z": 0.24,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 22.3,
+        "source": "corr:ICEEUR:BRN1!",
+        "shallow": false,
+        "label": "Brent Crude",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.119
+        }
+      },
+      {
+        "key": "id_cpi_yoy",
+        "role": "macro",
+        "why": "inflation regime",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-03",
+        "n": 159,
+        "min_n": 24,
+        "pearson": 0.0261,
+        "pearson_p": 0.7443,
+        "spearman": 0.0811,
+        "spearman_p": 0.3094,
+        "best_lag": 2,
+        "corr_at_best": -0.1544,
+        "ic": 0.0567,
+        "ic_t": 0.711,
+        "ols": {
+          "beta": 0.002654634331758111,
+          "t": 0.30880155673680737,
+          "p": 0.7574724848783363,
+          "r2": 0.0006794734796976565,
+          "n": 159,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.016101769563018238,
+          "t": -1.7757823986498984,
+          "p": 0.07576878991882115,
+          "r2": 0.023824294655919953,
+          "n": 157,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1082,
+        "last_chg": -1.28,
+        "last_chg_z": -2.2,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 19.0,
+        "source": "corr:ECONOMICS:IDIRYY",
+        "shallow": false,
+        "label": "Indonesia CPI (YoY)",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.8
+        }
+      },
+      {
+        "key": "CEICI447391617",
+        "role": "demand",
+        "why": "Gold/ Jewelry",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 89,
+        "min_n": 24,
+        "pearson": -0.0594,
+        "pearson_p": 0.5802,
+        "spearman": -0.0707,
+        "spearman_p": 0.5106,
+        "best_lag": 5,
+        "corr_at_best": -0.2638,
+        "ic": -0.0299,
+        "ic_t": -0.279,
+        "ols": {
+          "beta": -0.0024793164271647767,
+          "t": -0.6124850274999566,
+          "p": 0.5402169011267952,
+          "r2": 0.0035308012940944433,
+          "n": 89,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.012044160318224202,
+          "t": -2.115323093521196,
+          "p": 0.03440241951776347,
+          "r2": 0.06959131425620169,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.165,
+        "last_chg": -2.491944,
+        "last_chg_z": -1.99,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 14.7,
+        "source": "ceic",
+        "label": "Gold/ Jewelry",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.759
+        }
+      },
+      {
+        "key": "CEICI323794002",
+        "role": "demand",
+        "why": "Import volume",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.0333,
+        "pearson_p": 0.6763,
+        "spearman": -0.0405,
+        "spearman_p": 0.6111,
+        "best_lag": 2,
+        "corr_at_best": -0.161,
+        "ic": -0.0936,
+        "ic_t": -1.176,
+        "ols": {
+          "beta": -0.0024580474663708374,
+          "t": -0.42551914838364413,
+          "p": 0.6704582657745987,
+          "r2": 0.0011065270266260585,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01185359665769789,
+          "t": -3.0638329552472388,
+          "p": 0.0021852088904886114,
+          "r2": 0.025905220797631467,
+          "n": 158,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.0444,
+        "last_chg": -0.024563,
+        "last_chg_z": -0.23,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 9.3,
+        "source": "ceic",
+        "label": "Import volume",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.114
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 53
+  },
+  "unscored": [
+    {
+      "key": "wb_urea",
+      "label": "Urea (E. Europe bulk)",
+      "role": "supply",
+      "source": "spark",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "wb_potash",
+      "label": "Potassium Chloride (Potash)",
+      "role": "supply",
+      "source": "spark",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "CEICI502633517",
+      "label": "Silver (Including Silver Plated With Gold or Pl...",
+      "role": "demand",
+      "pearson": 0.0573,
+      "p": 3.2890794592422964e-06,
+      "theory_agree": true,
+      "score": 45.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323775802",
+      "label": "Import value",
+      "role": "demand",
+      "pearson": 0.1146,
+      "p": 0.08375380812528488,
+      "theory_agree": true,
+      "score": 34.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI357055702",
+      "label": "USA: Copper and articles thereof",
+      "role": "demand",
+      "pearson": 0.0661,
+      "p": 0.275388496269524,
+      "theory_agree": true,
+      "score": 33.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI357369702",
+      "label": "Import volume: Nickel and articles thereof",
+      "role": "demand",
+      "pearson": 0.0163,
+      "p": 0.028045866696593234,
+      "theory_agree": true,
+      "score": 32.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI357178802",
+      "label": "China: Fertilizers",
+      "role": "demand",
+      "pearson": 0.1154,
+      "p": 0.1941543777023983,
+      "theory_agree": true,
+      "score": 30.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324042002",
+      "label": "Export value: Articles of Iron and Steel",
+      "role": "supply",
+      "pearson": 0.0502,
+      "p": 0.460707763159795,
+      "theory_agree": null,
+      "score": 30.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323795902",
+      "label": "Import volume: Iron and Steel",
+      "role": "demand",
+      "pearson": 0.069,
+      "p": 0.3438222982474616,
+      "theory_agree": true,
+      "score": 27.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI357183102",
+      "label": "China: Copper and articles thereof",
+      "role": "demand",
+      "pearson": 0.1111,
+      "p": 0.09914758896608411,
+      "theory_agree": true,
+      "score": 27.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI356925402",
+      "label": "China: Copper and articles thereof",
+      "role": "supply",
+      "pearson": 0.0959,
+      "p": 0.13937409791494773,
+      "theory_agree": null,
+      "score": 27.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324047502",
+      "label": "Volume: Fertilizers",
+      "role": "supply",
+      "pearson": -0.0515,
+      "p": 0.43126842654857156,
+      "theory_agree": null,
+      "score": 24.5,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 53,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 10.2,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.18, p<0.05)"
+  ]
+}
