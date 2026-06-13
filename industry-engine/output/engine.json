@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:47:22",
-  "n_baskets": 31,
+  "generated_at": "2026-06-14T00:47:26",
+  "n_baskets": 32,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -9185,6 +9185,205 @@
         }
       ],
       "generated_at": "2026-06-14T00:47:22"
+    },
+    {
+      "id": "transportation_logistics_shipping",
+      "sub_sector": "Shipping",
+      "sector": "Transportation & Logistics",
+      "priority": 32,
+      "status": "done",
+      "grade": "perfected",
+      "verdict": "MILDLY BULLISH",
+      "score": 59,
+      "confidence": {
+        "level": "medium",
+        "score": 60,
+        "reasons": [
+          "max|corr|=0.18",
+          "theory_agree=60%",
+          "stable=60%",
+          "mvR2=0.05",
+          "OOS=60%"
+        ]
+      },
+      "net_tilt": 0.181,
+      "demand_tilt": 0.125,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "CEICI14575001",
+          "CEICI14576001",
+          "id_exports",
+          "CEICI14574901"
+        ],
+        "n": 108,
+        "r2": 0.053,
+        "adj_r2": 0.016,
+        "betas": {
+          "CEICI14575001": {
+            "std_beta": 0.0191,
+            "t": 2.28,
+            "p": 0.0225
+          },
+          "CEICI14576001": {
+            "std_beta": -0.0025,
+            "t": -0.35,
+            "p": 0.7264
+          },
+          "id_exports": {
+            "std_beta": 0.003,
+            "t": 1.06,
+            "p": 0.2911
+          },
+          "CEICI14574901": {
+            "std_beta": -0.0016,
+            "t": -0.43,
+            "p": 0.6646
+          }
+        },
+        "oos_hit_rate": 0.604,
+        "oos_n": 48,
+        "expected_monthly_ret": 0.0131
+      },
+      "narrative": "Shipping (Transportation & Logistics) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
+      "n_kept": 5,
+      "n_tested": 18,
+      "n_used": 10,
+      "members_used": [
+        "BLTA",
+        "ELPI",
+        "GTRA",
+        "HAIS",
+        "HATM",
+        "KLAS",
+        "NELY",
+        "PSSI",
+        "SMDR",
+        "TMAS"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "CEICI14575001",
+          "label": "International: Tanjung Priok",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.1791,
+          "excess_pearson": 0.1442,
+          "best_lag": 2,
+          "ic": 0.2084,
+          "beta": 0.01709373303848114,
+          "r2": 0.032089674500347165,
+          "p": 0.000674360220587472,
+          "n": 182,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "International: Tanjung Priok",
+          "posture": "neutral",
+          "last_chg_z": -0.19,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "wb_coal_au",
+          "label": "Coal · Australia (Newcastle)",
+          "role": "demand",
+          "source": "spark",
+          "freq": "M",
+          "pearson": 0.1089,
+          "excess_pearson": 0.1763,
+          "best_lag": 2,
+          "ic": 0.0536,
+          "beta": 0.09417016009347169,
+          "r2": 0.011862619542882147,
+          "p": 0.6791532823159283,
+          "n": 23,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "bulk coal cargo volume",
+          "posture": "tailwind",
+          "last_chg_z": 2.23,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "CEICI14576001",
+          "label": "Domestic: Tanjung Priok",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0166,
+          "excess_pearson": 0.024,
+          "best_lag": 3,
+          "ic": -0.1696,
+          "beta": 0.007162742358570004,
+          "r2": 0.0002749675826512199,
+          "p": 0.8277820792544923,
+          "n": 183,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Domestic: Tanjung Priok",
+          "posture": "tailwind",
+          "last_chg_z": 0.71,
+          "last_obs": "2026-04-01"
+        },
+        {
+          "key": "id_exports",
+          "label": "Exports (FOB)",
+          "role": "demand",
+          "source": "corr:aIDEXGAR",
+          "freq": "M",
+          "pearson": -0.0439,
+          "excess_pearson": -0.0879,
+          "best_lag": 1,
+          "ic": 0.0777,
+          "beta": -0.000144167811575026,
+          "r2": 0.0019280766182118159,
+          "p": 0.015912091484269704,
+          "n": 110,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "export shipping volume",
+          "posture": "neutral",
+          "last_chg_z": 0.13,
+          "last_obs": "2026-05-08"
+        },
+        {
+          "key": "CEICI14574901",
+          "label": "International: Belawan",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.0132,
+          "excess_pearson": -0.0209,
+          "best_lag": 2,
+          "ic": 0.0889,
+          "beta": -0.0004956760582193754,
+          "r2": 0.00017302920657180643,
+          "p": 0.6314935879322952,
+          "n": 182,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "International: Belawan",
+          "posture": "headwind",
+          "last_chg_z": 1.67,
+          "last_obs": "2026-03-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:47:26"
     }
   ]
 }

@@ -1,0 +1,485 @@
+{
+  "id": "transportation_logistics_shipping",
+  "sub_sector": "Shipping",
+  "sector": "Transportation & Logistics",
+  "priority": 32,
+  "generated_at": "2026-06-14T00:47:26",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 10,
+    "n_used": 10,
+    "members_used": [
+      "BLTA",
+      "ELPI",
+      "GTRA",
+      "HAIS",
+      "HATM",
+      "KLAS",
+      "NELY",
+      "PSSI",
+      "SMDR",
+      "TMAS"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 31749833113600.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 59,
+    "net_tilt": 0.181,
+    "demand_tilt": 0.125,
+    "supply_tilt": null,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "medium",
+      "score": 60,
+      "reasons": [
+        "max|corr|=0.18",
+        "theory_agree=60%",
+        "stable=60%",
+        "mvR2=0.05",
+        "OOS=60%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI14575001",
+        "CEICI14576001",
+        "id_exports",
+        "CEICI14574901"
+      ],
+      "n": 108,
+      "r2": 0.053,
+      "adj_r2": 0.016,
+      "betas": {
+        "CEICI14575001": {
+          "std_beta": 0.0191,
+          "t": 2.28,
+          "p": 0.0225
+        },
+        "CEICI14576001": {
+          "std_beta": -0.0025,
+          "t": -0.35,
+          "p": 0.7264
+        },
+        "id_exports": {
+          "std_beta": 0.003,
+          "t": 1.06,
+          "p": 0.2911
+        },
+        "CEICI14574901": {
+          "std_beta": -0.0016,
+          "t": -0.43,
+          "p": 0.6646
+        }
+      },
+      "oos_hit_rate": 0.604,
+      "oos_n": 48,
+      "expected_monthly_ret": 0.0131
+    },
+    "narrative": "Shipping (Transportation & Logistics) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.18, lead 2m, now flat); Coal · Australia (Newcastle) (corr +0.11, lead 2m, now tailwind); Domestic: Tanjung Priok (corr +0.02, lead 3m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 60% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI14575001",
+        "role": "demand",
+        "why": "International: Tanjung Priok",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.1791,
+        "pearson_p": 0.0155,
+        "spearman": 0.2484,
+        "spearman_p": 0.0007,
+        "best_lag": 2,
+        "corr_at_best": 0.2572,
+        "ic": 0.2084,
+        "ic_t": 2.804,
+        "ols": {
+          "beta": 0.01709373303848114,
+          "t": 3.399796498987451,
+          "p": 0.000674360220587472,
+          "r2": 0.032089674500347165,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.0244991937646269,
+          "t": 4.280898735566035,
+          "p": 1.861400499371354e-05,
+          "r2": 0.06615971092807726,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1442,
+        "last_chg": 0.049868,
+        "last_chg_z": -0.19,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 58.3,
+        "source": "ceic",
+        "label": "International: Tanjung Priok",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.095
+        }
+      },
+      {
+        "key": "wb_coal_au",
+        "role": "demand",
+        "why": "bulk coal cargo volume",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.1089,
+        "pearson_p": 0.6208,
+        "spearman": 0.1265,
+        "spearman_p": 0.5652,
+        "best_lag": 2,
+        "corr_at_best": 0.2966,
+        "ic": 0.0536,
+        "ic_t": 0.246,
+        "ols": {
+          "beta": 0.09417016009347169,
+          "t": 0.41361882788138893,
+          "p": 0.6791532823159283,
+          "r2": 0.011862619542882147,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.2961092198217845,
+          "t": 2.9009310577188456,
+          "p": 0.0037205572505768867,
+          "r2": 0.08796230808824246,
+          "n": 21,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1763,
+        "last_chg": 0.136308,
+        "last_chg_z": 2.23,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 25.9,
+        "source": "spark",
+        "shallow": true,
+        "label": "Coal · Australia (Newcastle)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.806
+        }
+      },
+      {
+        "key": "CEICI14576001",
+        "role": "demand",
+        "why": "Domestic: Tanjung Priok",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.0166,
+        "pearson_p": 0.8237,
+        "spearman": -0.0623,
+        "spearman_p": 0.402,
+        "best_lag": 3,
+        "corr_at_best": -0.1669,
+        "ic": -0.1696,
+        "ic_t": -2.289,
+        "ols": {
+          "beta": 0.007162742358570004,
+          "t": 0.2175470050732771,
+          "p": 0.8277820792544923,
+          "r2": 0.0002749675826512199,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.07249791040096704,
+          "t": -4.085241936050167,
+          "p": 4.403091356927685e-05,
+          "r2": 0.027866543197750282,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.024,
+        "last_chg": 0.355342,
+        "last_chg_z": 0.71,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.9,
+        "source": "ceic",
+        "label": "Domestic: Tanjung Priok",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.341
+        }
+      },
+      {
+        "key": "id_exports",
+        "role": "demand",
+        "why": "export shipping volume",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 110,
+        "min_n": 24,
+        "pearson": -0.0439,
+        "pearson_p": 0.6488,
+        "spearman": 0.2819,
+        "spearman_p": 0.0028,
+        "best_lag": 1,
+        "corr_at_best": -0.4823,
+        "ic": 0.0777,
+        "ic_t": 0.808,
+        "ols": {
+          "beta": -0.000144167811575026,
+          "t": -2.4109256581290355,
+          "p": 0.015912091484269704,
+          "r2": 0.0019280766182118159,
+          "n": 110,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.0015835948093112328,
+          "t": -14.576252047565852,
+          "p": 3.97762587390529e-48,
+          "r2": 0.23262455077764466,
+          "n": 109,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0879,
+        "last_chg": -0.895661,
+        "last_chg_z": 0.13,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.7,
+        "source": "corr:aIDEXGAR",
+        "shallow": false,
+        "label": "Exports (FOB)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.065
+        }
+      },
+      {
+        "key": "CEICI14574901",
+        "role": "demand",
+        "why": "International: Belawan",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": -0.0132,
+        "pearson_p": 0.8601,
+        "spearman": 0.0012,
+        "spearman_p": 0.987,
+        "best_lag": 2,
+        "corr_at_best": -0.1537,
+        "ic": 0.0889,
+        "ic_t": 1.196,
+        "ols": {
+          "beta": -0.0004956760582193754,
+          "t": -0.4796256727994158,
+          "p": 0.6314935879322952,
+          "r2": 0.00017302920657180643,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.005835073426300413,
+          "t": -5.07416106072257,
+          "p": 3.892092978972124e-07,
+          "r2": 0.023631586800514914,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0209,
+        "last_chg": 3.106791,
+        "last_chg_z": 1.67,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 14.3,
+        "source": "ceic",
+        "label": "International: Belawan",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.683
+        }
+      }
+    ],
+    "n_kept": 5,
+    "n_candidates": 18
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.075,
+      "p": 0.058192130786635606,
+      "theory_agree": null,
+      "score": 41.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1685,
+      "p": 0.1299016080797761,
+      "theory_agree": null,
+      "score": 36.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI454752297",
+      "label": "Cargo unloaded: domestic",
+      "role": "demand",
+      "pearson": 0.0074,
+      "p": 0.8112988764728966,
+      "theory_agree": true,
+      "score": 25.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "cost",
+      "pearson": 0.1025,
+      "p": 0.04053806605814028,
+      "theory_agree": false,
+      "score": 24.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
+      "role": "demand",
+      "pearson": -0.0491,
+      "p": 0.17007586059922497,
+      "theory_agree": false,
+      "score": 24.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14577201",
+      "label": "International: Makassar",
+      "role": "demand",
+      "pearson": 0.0373,
+      "p": 0.43554895958619066,
+      "theory_agree": true,
+      "score": 23.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "role": "demand",
+      "pearson": 0.0436,
+      "p": 0.49173746069675406,
+      "theory_agree": true,
+      "score": 21.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14578101",
+      "label": "Domestic: Tanjung Perak",
+      "role": "demand",
+      "pearson": -0.102,
+      "p": 0.03991836377254595,
+      "theory_agree": false,
+      "score": 20.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "macro",
+      "pearson": 0.001,
+      "p": 0.9797822439457305,
+      "theory_agree": true,
+      "score": 20.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14574801",
+      "label": "Cargo loaded: international",
+      "role": "supply",
+      "pearson": -0.001,
+      "p": 0.9890256108010815,
+      "theory_agree": null,
+      "score": 15.4,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 18,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 3.4,
+  "grade": "perfected",
+  "grade_reasons": []
+}
