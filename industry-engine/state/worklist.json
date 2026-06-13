@@ -29134,6 +29134,18 @@
       ],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "defensive bond-proxy (UNVR) re-rates on yields"
+        },
+        {
+          "key": "id_cpi_yoy",
+          "role": "demand",
+          "sign": -1,
+          "why": "high inflation erodes real volumes"
+        },
+        {
           "key": "id_gdp_real_q",
           "role": "demand",
           "sign": 1,
@@ -29150,12 +29162,6 @@
           "role": "macro",
           "sign": 0,
           "why": "policy rate: sector-specific NIM/discount effect"
-        },
-        {
-          "key": "id_cpi_yoy",
-          "role": "macro",
-          "sign": 0,
-          "why": "inflation regime"
         }
       ],
       "has_seed": true,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:55:40",
+  "generated_at": "2026-06-14T00:59:04",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -7076,77 +7076,77 @@
       "sector": "Consumer Non-Cyclicals",
       "priority": 25,
       "status": "done",
-      "grade": "needs_review",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 48,
+      "score": 47,
       "confidence": {
         "level": "medium",
-        "score": 60,
+        "score": 64,
         "reasons": [
           "max|corr|=0.16",
-          "theory_agree=50%",
+          "theory_agree=62%",
           "stable=75%",
-          "mvR2=0.11",
-          "OOS=58%"
+          "mvR2=0.12",
+          "OOS=60%"
         ]
       },
-      "net_tilt": -0.047,
+      "net_tilt": -0.053,
       "demand_tilt": -0.001,
       "supply_tilt": -0.139,
       "cost_tilt": 0.05,
-      "macro_tilt": null,
+      "macro_tilt": -0.085,
       "multivariate": {
         "available": true,
         "drivers": [
           "CEICI432413187",
           "wb_palm_oil",
+          "id_10y",
           "CEICI432438867",
           "CEICI432436297",
-          "CEICI356597802",
-          "CEICI324037102"
+          "CEICI356597802"
         ],
         "n": 117,
-        "r2": 0.112,
-        "adj_r2": 0.063,
+        "r2": 0.122,
+        "adj_r2": 0.074,
         "betas": {
           "CEICI432413187": {
-            "std_beta": 0.0083,
-            "t": 0.72,
-            "p": 0.4741
+            "std_beta": 0.0099,
+            "t": 0.94,
+            "p": 0.3447
           },
           "wb_palm_oil": {
-            "std_beta": -0.0177,
-            "t": -1.57,
-            "p": 0.1154
+            "std_beta": -0.0174,
+            "t": -1.67,
+            "p": 0.0947
+          },
+          "id_10y": {
+            "std_beta": -0.0121,
+            "t": -1.54,
+            "p": 0.1239
           },
           "CEICI432438867": {
-            "std_beta": 1.0447,
-            "t": 4.19,
-            "p": 0.0
+            "std_beta": 0.9611,
+            "t": 3.98,
+            "p": 0.0001
           },
           "CEICI432436297": {
-            "std_beta": -1.0626,
-            "t": -4.31,
+            "std_beta": -0.9773,
+            "t": -4.08,
             "p": 0.0
           },
           "CEICI356597802": {
             "std_beta": 0.0276,
-            "t": 2.02,
-            "p": 0.0431
-          },
-          "CEICI324037102": {
-            "std_beta": -0.0042,
-            "t": -0.42,
-            "p": 0.6709
+            "t": 2.05,
+            "p": 0.0401
           }
         },
-        "oos_hit_rate": 0.579,
+        "oos_hit_rate": 0.596,
         "oos_n": 57,
-        "expected_monthly_ret": 0.0141
+        "expected_monthly_ret": 0.0238
       },
-      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); Rice: Super Quality II: Producer (corr -0.16, lead 0m, now flat). A 6-driver model explains 11% of monthly variance (adj 6%), 58% out-of-sample directional hit-rate; current read ~+1.4%/mo.",
+      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [47/100, medium confidence]. Top drivers: Beef: Modern Market (corr +0.11, lead 3m, now headwind); Palm Oil (CPO) (corr -0.15, lead 4m, now flat); id_10y (corr -0.07, lead 2m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 60% out-of-sample directional hit-rate; current read ~+2.4%/mo.",
       "n_kept": 12,
-      "n_tested": 52,
+      "n_tested": 53,
       "n_used": 6,
       "members_used": [
         "EURO",
@@ -7206,6 +7206,28 @@
           "why": "oleochemical input",
           "posture": "neutral",
           "last_chg_z": -0.1,
+          "last_obs": "2026-05-01"
+        },
+        {
+          "key": "id_10y",
+          "label": "id_10y",
+          "role": "macro",
+          "source": "corr:TVC:ID10Y",
+          "freq": "M",
+          "pearson": -0.0698,
+          "excess_pearson": 0.1259,
+          "best_lag": 2,
+          "ic": -0.0925,
+          "beta": -0.14143605824331595,
+          "r2": 0.004875888397968486,
+          "p": 0.3196175583442391,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "defensive bond-proxy (UNVR) re-rates on yields",
+          "posture": "neutral",
+          "last_chg_z": 0.17,
           "last_obs": "2026-05-01"
         },
         {
@@ -7405,31 +7427,9 @@
           "posture": "neutral",
           "last_chg_z": -0.2,
           "last_obs": "2026-06-08"
-        },
-        {
-          "key": "CEICI432487747",
-          "label": "Sugar: Modern Market",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.0717,
-          "excess_pearson": -0.0449,
-          "best_lag": 1,
-          "ic": 0.0089,
-          "beta": -0.08618111920605094,
-          "r2": 0.005144864287632167,
-          "p": 0.25448710490809623,
-          "n": 118,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Sugar: Modern Market",
-          "posture": "neutral",
-          "last_chg_z": -0.01,
-          "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T00:46:58"
+      "generated_at": "2026-06-14T00:59:04"
     },
     {
       "id": "financials_investment",
