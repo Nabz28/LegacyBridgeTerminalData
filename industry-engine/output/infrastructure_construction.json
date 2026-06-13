@@ -3,7 +3,7 @@
   "sub_sector": "Construction",
   "sector": "Infrastructure",
   "priority": 29,
-  "generated_at": "2026-06-14T00:47:17",
+  "generated_at": "2026-06-14T00:53:22",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -40,78 +40,133 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 55,
-    "net_tilt": 0.095,
-    "demand_tilt": -0.076,
+    "score": 53,
+    "net_tilt": 0.058,
+    "demand_tilt": -0.015,
     "supply_tilt": -0.005,
     "cost_tilt": 0.806,
-    "macro_tilt": 0.378,
+    "macro_tilt": 0.223,
     "confidence": {
-      "level": "medium",
-      "score": 46,
+      "level": "high",
+      "score": 83,
       "reasons": [
-        "max|corr|=0.31",
-        "theory_agree=25%",
-        "stable=42%",
-        "mvR2=0.14",
-        "OOS=56%"
+        "max|corr|=0.41",
+        "theory_agree=60%",
+        "stable=50%",
+        "mvR2=0.21",
+        "OOS=60%"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "id_10y",
         "usdidr",
         "CEICI323569102",
         "CEICI323568202",
         "CEICI323567702",
-        "id_cpi_yoy",
-        "CEICI323568102"
+        "id_cpi_yoy"
       ],
       "n": 145,
-      "r2": 0.135,
-      "adj_r2": 0.097,
+      "r2": 0.214,
+      "adj_r2": 0.18,
       "betas": {
+        "id_10y": {
+          "std_beta": -0.0306,
+          "t": -2.92,
+          "p": 0.0034
+        },
         "usdidr": {
-          "std_beta": -0.0289,
-          "t": -1.9,
-          "p": 0.0569
+          "std_beta": -0.0216,
+          "t": -2.17,
+          "p": 0.0302
         },
         "CEICI323569102": {
-          "std_beta": 0.008,
-          "t": 1.58,
-          "p": 0.1139
+          "std_beta": 0.0079,
+          "t": 1.54,
+          "p": 0.1232
         },
         "CEICI323568202": {
-          "std_beta": -0.0132,
-          "t": -1.69,
-          "p": 0.0915
+          "std_beta": -0.009,
+          "t": -1.4,
+          "p": 0.163
         },
         "CEICI323567702": {
-          "std_beta": -0.008,
-          "t": -1.1,
-          "p": 0.2712
+          "std_beta": -0.0046,
+          "t": -0.72,
+          "p": 0.4732
         },
         "id_cpi_yoy": {
-          "std_beta": -0.0054,
-          "t": -0.5,
-          "p": 0.6177
-        },
-        "CEICI323568102": {
-          "std_beta": 0.0102,
-          "t": 1.03,
-          "p": 0.3042
+          "std_beta": -0.0034,
+          "t": -0.39,
+          "p": 0.6989
         }
       },
-      "oos_hit_rate": 0.565,
+      "oos_hit_rate": 0.6,
       "oos_n": 85,
-      "expected_monthly_ret": -0.0214
+      "expected_monthly_ret": -0.0181
     },
-    "narrative": "Construction (Infrastructure) screens NEUTRAL [55/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); FDI: Machinery & electronics (corr +0.08, lead 3m, now flat); Manufacturing: Repair and Installation of Machiner (corr +0.13, lead 0m, now tailwind). A 6-driver model explains 14% of monthly variance (adj 10%), 56% out-of-sample directional hit-rate; current read ~-2.1%/mo.",
+    "narrative": "Construction (Infrastructure) screens NEUTRAL [53/100, high confidence]. Top drivers: id_10y (corr -0.41, lead 0m, now flat); USD/IDR (corr -0.31, lead 0m, now flat); FDI: Machinery & electronics (corr +0.08, lead 3m, now flat). A 6-driver model explains 21% of monthly variance (adj 18%), 60% out-of-sample directional hit-rate; current read ~-1.8%/mo.",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "10Y yield: financing cost (leveraged SOEs)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.4133,
+        "pearson_p": 0.0,
+        "spearman": -0.3421,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": -0.4133,
+        "ic": -0.1446,
+        "ic_t": -1.951,
+        "ols": {
+          "beta": -0.7928204309873819,
+          "t": -5.3683669144675,
+          "p": 7.945278757669533e-08,
+          "r2": 0.1708389482901319,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.7928204309873819,
+          "t": -5.3683669144675,
+          "p": 7.945278757669533e-08,
+          "r2": 0.1708389482901319,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.2727,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 75.7,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
       {
         "key": "usdidr",
         "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "why": "FX risk for leveraged balance sheets",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
@@ -142,9 +197,9 @@
           "n": 184,
           "hac_lag": 5
         },
-        "sign_prior": 0,
+        "sign_prior": -1,
         "emp_sign": -1,
-        "theory_agree": null,
+        "theory_agree": true,
         "stable": true,
         "excess_pearson": -0.2196,
         "last_chg": 0.000923,
@@ -154,7 +209,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 53.0,
+        "score": 59.0,
         "source": "corr:FX_IDC:USDIDR",
         "shallow": false,
         "label": "USD/IDR",
@@ -718,74 +773,12 @@
           "posture": "tailwind",
           "impulse": 0.776
         }
-      },
-      {
-        "key": "CEICI410108537",
-        "role": "demand",
-        "why": "DDI: Basic metals & metal goods",
-        "test_freq": "Q",
-        "transform": "logret",
-        "native_freq": "Q",
-        "last_obs": "2026-03-01",
-        "n": 60,
-        "min_n": 12,
-        "pearson": -0.0124,
-        "pearson_p": 0.9252,
-        "spearman": -0.0237,
-        "spearman_p": 0.8575,
-        "best_lag": 3,
-        "corr_at_best": 0.2962,
-        "ic": 0.0402,
-        "ic_t": 0.309,
-        "ols": {
-          "beta": -0.003620913749423707,
-          "t": -0.10887699902623135,
-          "p": 0.9133000502916493,
-          "r2": 0.0001532032206642553,
-          "n": 60,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.0725345534503441,
-          "t": 2.7718606993586667,
-          "p": 0.005573688286175004,
-          "r2": 0.08771708447214033,
-          "n": 60,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": 0.0392,
-        "last_chg": 0.748646,
-        "last_chg_z": 0.4,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 0.7,
-        "source": "ceic",
-        "label": "DDI: Basic metals & metal goods",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.197
-        }
       }
     ],
     "n_kept": 12,
-    "n_candidates": 41
+    "n_candidates": 42
   },
-  "unscored": [
-    {
-      "key": "id_govt_debt",
-      "label": "Govt Debt (% GDP)",
-      "role": "demand",
-      "source": "spark",
-      "reason": "insufficient_history"
-    }
-  ],
+  "unscored": [],
   "rejected_top": [
     {
       "key": "id_bi_rate",
@@ -888,7 +881,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 41,
+  "n_tested": 42,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -896,9 +889,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.3,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-  ]
+  "runtime_s": 2.5,
+  "grade": "perfected",
+  "grade_reasons": []
 }

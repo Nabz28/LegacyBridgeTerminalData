@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T00:53:17",
+  "generated_at": "2026-06-14T00:53:22",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -8538,77 +8538,77 @@
       "sector": "Infrastructure",
       "priority": 29,
       "status": "done",
-      "grade": "needs_review",
+      "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 55,
+      "score": 53,
       "confidence": {
-        "level": "medium",
-        "score": 46,
+        "level": "high",
+        "score": 83,
         "reasons": [
-          "max|corr|=0.31",
-          "theory_agree=25%",
-          "stable=42%",
-          "mvR2=0.14",
-          "OOS=56%"
+          "max|corr|=0.41",
+          "theory_agree=60%",
+          "stable=50%",
+          "mvR2=0.21",
+          "OOS=60%"
         ]
       },
-      "net_tilt": 0.095,
-      "demand_tilt": -0.076,
+      "net_tilt": 0.058,
+      "demand_tilt": -0.015,
       "supply_tilt": -0.005,
       "cost_tilt": 0.806,
-      "macro_tilt": 0.378,
+      "macro_tilt": 0.223,
       "multivariate": {
         "available": true,
         "drivers": [
+          "id_10y",
           "usdidr",
           "CEICI323569102",
           "CEICI323568202",
           "CEICI323567702",
-          "id_cpi_yoy",
-          "CEICI323568102"
+          "id_cpi_yoy"
         ],
         "n": 145,
-        "r2": 0.135,
-        "adj_r2": 0.097,
+        "r2": 0.214,
+        "adj_r2": 0.18,
         "betas": {
+          "id_10y": {
+            "std_beta": -0.0306,
+            "t": -2.92,
+            "p": 0.0034
+          },
           "usdidr": {
-            "std_beta": -0.0289,
-            "t": -1.9,
-            "p": 0.0569
+            "std_beta": -0.0216,
+            "t": -2.17,
+            "p": 0.0302
           },
           "CEICI323569102": {
-            "std_beta": 0.008,
-            "t": 1.58,
-            "p": 0.1139
+            "std_beta": 0.0079,
+            "t": 1.54,
+            "p": 0.1232
           },
           "CEICI323568202": {
-            "std_beta": -0.0132,
-            "t": -1.69,
-            "p": 0.0915
+            "std_beta": -0.009,
+            "t": -1.4,
+            "p": 0.163
           },
           "CEICI323567702": {
-            "std_beta": -0.008,
-            "t": -1.1,
-            "p": 0.2712
+            "std_beta": -0.0046,
+            "t": -0.72,
+            "p": 0.4732
           },
           "id_cpi_yoy": {
-            "std_beta": -0.0054,
-            "t": -0.5,
-            "p": 0.6177
-          },
-          "CEICI323568102": {
-            "std_beta": 0.0102,
-            "t": 1.03,
-            "p": 0.3042
+            "std_beta": -0.0034,
+            "t": -0.39,
+            "p": 0.6989
           }
         },
-        "oos_hit_rate": 0.565,
+        "oos_hit_rate": 0.6,
         "oos_n": 85,
-        "expected_monthly_ret": -0.0214
+        "expected_monthly_ret": -0.0181
       },
-      "narrative": "Construction (Infrastructure) screens NEUTRAL [55/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); FDI: Machinery & electronics (corr +0.08, lead 3m, now flat); Manufacturing: Repair and Installation of Machiner (corr +0.13, lead 0m, now tailwind). A 6-driver model explains 14% of monthly variance (adj 10%), 56% out-of-sample directional hit-rate; current read ~-2.1%/mo.",
+      "narrative": "Construction (Infrastructure) screens NEUTRAL [53/100, high confidence]. Top drivers: id_10y (corr -0.41, lead 0m, now flat); USD/IDR (corr -0.31, lead 0m, now flat); FDI: Machinery & electronics (corr +0.08, lead 3m, now flat). A 6-driver model explains 21% of monthly variance (adj 18%), 60% out-of-sample directional hit-rate; current read ~-1.8%/mo.",
       "n_kept": 12,
-      "n_tested": 41,
+      "n_tested": 42,
       "n_used": 16,
       "members_used": [
         "ACST",
@@ -8637,6 +8637,28 @@
       },
       "drivers": [
         {
+          "key": "id_10y",
+          "label": "id_10y",
+          "role": "macro",
+          "source": "corr:TVC:ID10Y",
+          "freq": "M",
+          "pearson": -0.4133,
+          "excess_pearson": -0.2727,
+          "best_lag": 0,
+          "ic": -0.1446,
+          "beta": -0.7928204309873819,
+          "r2": 0.1708389482901319,
+          "p": 7.945278757669533e-08,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "10Y yield: financing cost (leveraged SOEs)",
+          "posture": "neutral",
+          "last_chg_z": 0.17,
+          "last_obs": "2026-05-01"
+        },
+        {
           "key": "usdidr",
           "label": "USD/IDR",
           "role": "macro",
@@ -8650,10 +8672,10 @@
           "r2": 0.0988887802739844,
           "p": 0.0396429570796054,
           "n": 184,
-          "theory_agree": null,
+          "theory_agree": true,
           "stable": true,
           "sign": -1,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+          "why": "FX risk for leveraged balance sheets",
           "posture": "neutral",
           "last_chg_z": -0.09,
           "last_obs": "2026-05-08"
@@ -8877,31 +8899,9 @@
           "posture": "tailwind",
           "last_chg_z": -2.07,
           "last_obs": "2024-12-01"
-        },
-        {
-          "key": "CEICI410108537",
-          "label": "DDI: Basic metals & metal goods",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "Q",
-          "pearson": -0.0124,
-          "excess_pearson": 0.0392,
-          "best_lag": 3,
-          "ic": 0.0402,
-          "beta": -0.003620913749423707,
-          "r2": 0.0001532032206642553,
-          "p": 0.9133000502916493,
-          "n": 60,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "DDI: Basic metals & metal goods",
-          "posture": "headwind",
-          "last_chg_z": 0.4,
-          "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T00:47:17"
+      "generated_at": "2026-06-14T00:53:22"
     },
     {
       "id": "financials_multifinance",
