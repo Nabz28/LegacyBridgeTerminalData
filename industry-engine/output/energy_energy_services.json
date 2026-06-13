@@ -1,0 +1,897 @@
+{
+  "id": "energy_energy_services",
+  "sub_sector": "Energy Services",
+  "sector": "Energy",
+  "priority": 9,
+  "generated_at": "2026-06-14T00:45:20",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 11,
+    "n_used": 10,
+    "members_used": [
+      "ABMM",
+      "BIPI",
+      "DEWA",
+      "DOID",
+      "DSSA",
+      "ELSA",
+      "PTRO",
+      "SGER",
+      "SURE",
+      "TCPI"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 320767205834752.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 45,
+    "net_tilt": -0.093,
+    "demand_tilt": -0.004,
+    "supply_tilt": -0.089,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "high",
+      "score": 73,
+      "reasons": [
+        "max|corr|=0.29",
+        "theory_agree=25%",
+        "stable=58%",
+        "mvR2=0.08",
+        "OOS=70%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI403931887",
+        "CEICI520528227",
+        "CEICI354326367",
+        "CEICI520234107",
+        "CEICI357008197",
+        "CEICI385762167"
+      ],
+      "n": 104,
+      "r2": 0.08,
+      "adj_r2": 0.023,
+      "betas": {
+        "CEICI403931887": {
+          "std_beta": 0.0143,
+          "t": 0.8,
+          "p": 0.4253
+        },
+        "CEICI520528227": {
+          "std_beta": 0.0168,
+          "t": 4.03,
+          "p": 0.0001
+        },
+        "CEICI354326367": {
+          "std_beta": 0.006,
+          "t": 0.89,
+          "p": 0.3718
+        },
+        "CEICI520234107": {
+          "std_beta": -0.0018,
+          "t": -0.1,
+          "p": 0.9181
+        },
+        "CEICI357008197": {
+          "std_beta": 0.0029,
+          "t": 0.57,
+          "p": 0.57
+        },
+        "CEICI385762167": {
+          "std_beta": -0.0094,
+          "t": -1.08,
+          "p": 0.2818
+        }
+      },
+      "oos_hit_rate": 0.705,
+      "oos_n": 44,
+      "expected_monthly_ret": 0.0414
+    },
+    "narrative": "Energy Services (Energy) screens NEUTRAL [45/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 2%), 70% out-of-sample directional hit-rate; current read ~+4.1%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI365765217",
+        "role": "supply",
+        "why": "Mining & Quarrying: Coal & Lignite",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.2884,
+        "pearson_p": 0.0255,
+        "spearman": 0.3584,
+        "spearman_p": 0.0049,
+        "best_lag": 2,
+        "corr_at_best": -0.2906,
+        "ic": 0.0444,
+        "ic_t": 0.341,
+        "ols": {
+          "beta": 0.6314938267715171,
+          "t": 3.7622054710349007,
+          "p": 0.00016842159077013868,
+          "r2": 0.08315717934051237,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.7202768171368639,
+          "t": -2.4981934146259497,
+          "p": 0.012482806595158609,
+          "r2": 0.08444646886047613,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1816,
+        "last_chg": -0.174556,
+        "last_chg_z": -2.58,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 52.2,
+        "source": "ceic",
+        "label": "Mining & Quarrying: Coal & Lignite",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.859
+        }
+      },
+      {
+        "key": "CEICI403931887",
+        "role": "supply",
+        "why": "Production: Natural gas (scf)",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2024-12-01",
+        "n": 155,
+        "min_n": 24,
+        "pearson": 0.1406,
+        "pearson_p": 0.081,
+        "spearman": 0.2054,
+        "spearman_p": 0.0104,
+        "best_lag": 3,
+        "corr_at_best": 0.2228,
+        "ic": 0.1903,
+        "ic_t": 2.361,
+        "ols": {
+          "beta": 0.1738207585060957,
+          "t": 2.0409052463145763,
+          "p": 0.041260246253271717,
+          "r2": 0.01976857892355155,
+          "n": 155,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.2735363983656531,
+          "t": 2.1812589037869237,
+          "p": 0.029164272233830047,
+          "r2": 0.049626925751655726,
+          "n": 155,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1699,
+        "last_chg": 0.014834,
+        "last_chg_z": 0.32,
+        "last_chg_date": "2024-12-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(18m)"
+          ]
+        },
+        "score": 47.2,
+        "source": "ceic",
+        "label": "Production: Natural gas (scf)",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.159
+        }
+      },
+      {
+        "key": "CEICI520528227",
+        "role": "supply",
+        "why": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.1503,
+        "pearson_p": 0.0526,
+        "spearman": 0.1346,
+        "spearman_p": 0.0829,
+        "best_lag": 0,
+        "corr_at_best": 0.1503,
+        "ic": 0.171,
+        "ic_t": 2.203,
+        "ols": {
+          "beta": 0.04323855185710535,
+          "t": 2.9399621352722827,
+          "p": 0.003282523579876526,
+          "r2": 0.022586743275175625,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.04323855185710535,
+          "t": 2.9399621352722827,
+          "p": 0.003282523579876526,
+          "r2": 0.022586743275175625,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.094,
+        "last_chg": 0.014489,
+        "last_chg_z": 0.31,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.3,
+        "source": "ceic",
+        "label": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.154
+        }
+      },
+      {
+        "key": "CEICI354326367",
+        "role": "demand",
+        "why": "Coal",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": 0.0635,
+        "pearson_p": 0.3915,
+        "spearman": 0.1524,
+        "spearman_p": 0.0389,
+        "best_lag": 1,
+        "corr_at_best": 0.1554,
+        "ic": 0.1663,
+        "ic_t": 2.249,
+        "ols": {
+          "beta": 0.060277680641209516,
+          "t": 0.787699315692775,
+          "p": 0.4308726059461061,
+          "r2": 0.004037059254367925,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.14780413697326578,
+          "t": 2.564772931555123,
+          "p": 0.010324334528211881,
+          "r2": 0.024140524193937418,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0308,
+        "last_chg": 0.046282,
+        "last_chg_z": 0.54,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.8,
+        "source": "ceic",
+        "label": "Coal",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.264
+        }
+      },
+      {
+        "key": "CEICI506620937",
+        "role": "supply",
+        "why": "Coal reference price: HBA I",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 38,
+        "min_n": 24,
+        "pearson": -0.1775,
+        "pearson_p": 0.2863,
+        "spearman": -0.1294,
+        "spearman_p": 0.4386,
+        "best_lag": 5,
+        "corr_at_best": -0.2747,
+        "ic": -0.1124,
+        "ic_t": -0.674,
+        "ols": {
+          "beta": -0.13514147049123731,
+          "t": -1.260989405923035,
+          "p": 0.20731266409166493,
+          "r2": 0.03151629686414459,
+          "n": 38,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.20350122041878607,
+          "t": -2.0327879994658296,
+          "p": 0.042073946073620104,
+          "r2": 0.07548660742391511,
+          "n": 33,
+          "hac_lag": 3
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.1387,
+        "last_chg": 0.050839,
+        "last_chg_z": 0.69,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.7,
+        "source": "ceic",
+        "label": "Coal reference price: HBA I",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.332
+        }
+      },
+      {
+        "key": "CEICI520234107",
+        "role": "supply",
+        "why": "Production: Natural gas (Cub m)",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.0835,
+        "pearson_p": 0.2624,
+        "spearman": 0.1232,
+        "spearman_p": 0.0975,
+        "best_lag": 3,
+        "corr_at_best": 0.1972,
+        "ic": 0.1125,
+        "ic_t": 1.514,
+        "ols": {
+          "beta": 0.08630939608989946,
+          "t": 1.3241125916416512,
+          "p": 0.18546565432823658,
+          "r2": 0.006973299534669297,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1991245196110632,
+          "t": 2.7421185900468195,
+          "p": 0.0061044298022526625,
+          "r2": 0.038880531626327874,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0969,
+        "last_chg": -0.036771,
+        "last_chg_z": -0.25,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.3,
+        "source": "ceic",
+        "label": "Production: Natural gas (Cub m)",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.124
+        }
+      },
+      {
+        "key": "CEICI502615757",
+        "role": "demand",
+        "why": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": -0.1767,
+        "pearson_p": 0.1015,
+        "spearman": -0.1783,
+        "spearman_p": 0.0985,
+        "best_lag": 5,
+        "corr_at_best": 0.229,
+        "ic": 0.0815,
+        "ic_t": 0.752,
+        "ols": {
+          "beta": -0.025761786603334218,
+          "t": -1.8651796753954624,
+          "p": 0.06215622344232417,
+          "r2": 0.031234890343070698,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.032487387757199206,
+          "t": 2.612611795950112,
+          "p": 0.008985329965492173,
+          "r2": 0.05245102741942276,
+          "n": 82,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0353,
+        "last_chg": 0.270014,
+        "last_chg_z": 0.58,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.7,
+        "source": "ceic",
+        "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.282
+        }
+      },
+      {
+        "key": "CEICI506620947",
+        "role": "supply",
+        "why": "Coal reference price: HBA II",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 38,
+        "min_n": 24,
+        "pearson": -0.0795,
+        "pearson_p": 0.6353,
+        "spearman": 0.0334,
+        "spearman_p": 0.8423,
+        "best_lag": 6,
+        "corr_at_best": 0.2052,
+        "ic": 0.2025,
+        "ic_t": 1.215,
+        "ols": {
+          "beta": -0.08659194781640937,
+          "t": -0.489341626299396,
+          "p": 0.6245998554759804,
+          "r2": 0.006314474356042266,
+          "n": 38,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.24019869032196586,
+          "t": 3.663119938465058,
+          "p": 0.0002491618000044002,
+          "r2": 0.04212396026112719,
+          "n": 32,
+          "hac_lag": 3
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0818,
+        "last_chg": 0.020616,
+        "last_chg_z": 0.54,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 28.4,
+        "source": "ceic",
+        "label": "Coal reference price: HBA II",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.264
+        }
+      },
+      {
+        "key": "CEICI357008197",
+        "role": "supply",
+        "why": "Mining Products: Coal",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.0189,
+        "pearson_p": 0.8003,
+        "spearman": 0.0175,
+        "spearman_p": 0.8147,
+        "best_lag": 1,
+        "corr_at_best": 0.1506,
+        "ic": 0.1905,
+        "ic_t": 2.563,
+        "ols": {
+          "beta": 0.010398713316061953,
+          "t": 0.2675753260993525,
+          "p": 0.7890262255304439,
+          "r2": 0.00035640842751649693,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.08330596051349669,
+          "t": 2.55896567778091,
+          "p": 0.010498410593986082,
+          "r2": 0.022670548013901448,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0209,
+        "last_chg": 0.198244,
+        "last_chg_z": 1.4,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 27.0,
+        "source": "ceic",
+        "label": "Mining Products: Coal",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.604
+        }
+      },
+      {
+        "key": "CEICI502587247",
+        "role": "supply",
+        "why": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": -0.0128,
+        "pearson_p": 0.9061,
+        "spearman": 0.0322,
+        "spearman_p": 0.767,
+        "best_lag": 1,
+        "corr_at_best": 0.214,
+        "ic": 0.2787,
+        "ic_t": 2.569,
+        "ols": {
+          "beta": -0.004527873968769929,
+          "t": -0.11268430976890625,
+          "p": 0.9102808410029014,
+          "r2": 0.0001647830002444728,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.07543630445492817,
+          "t": 2.1779089592969094,
+          "p": 0.029412815365435437,
+          "r2": 0.04578316997303278,
+          "n": 86,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0795,
+        "last_chg": 0.020692,
+        "last_chg_z": 0.1,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.7,
+        "source": "ceic",
+        "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.05
+        }
+      },
+      {
+        "key": "CEICI385762167",
+        "role": "demand",
+        "why": "2,200 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 136,
+        "min_n": 24,
+        "pearson": -0.1276,
+        "pearson_p": 0.1387,
+        "spearman": -0.1687,
+        "spearman_p": 0.0496,
+        "best_lag": 4,
+        "corr_at_best": 0.1505,
+        "ic": -0.0697,
+        "ic_t": -0.807,
+        "ols": {
+          "beta": -0.849026766494583,
+          "t": -2.7599594496171984,
+          "p": 0.005780853646826561,
+          "r2": 0.01628360635284465,
+          "n": 136,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.9909753337795475,
+          "t": 1.5610416266265363,
+          "p": 0.11851392954691894,
+          "r2": 0.022665225496630748,
+          "n": 132,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.124,
+        "last_chg": 0.0,
+        "last_chg_z": -0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.6,
+        "source": "ceic",
+        "label": "2,200 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI385762157",
+        "role": "demand",
+        "why": "1,300 VA: Prepaid",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-06-01",
+        "n": 136,
+        "min_n": 24,
+        "pearson": -0.1276,
+        "pearson_p": 0.1387,
+        "spearman": -0.1687,
+        "spearman_p": 0.0496,
+        "best_lag": 4,
+        "corr_at_best": 0.1505,
+        "ic": -0.0697,
+        "ic_t": -0.807,
+        "ols": {
+          "beta": -0.849026766494583,
+          "t": -2.7599594496171984,
+          "p": 0.005780853646826561,
+          "r2": 0.01628360635284465,
+          "n": 136,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.9909753337795475,
+          "t": 1.5610416266265363,
+          "p": 0.11851392954691894,
+          "r2": 0.022665225496630748,
+          "n": 132,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.124,
+        "last_chg": 0.0,
+        "last_chg_z": -0.04,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.6,
+        "source": "ceic",
+        "label": "1,300 VA: Prepaid",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 47
+  },
+  "unscored": [
+    {
+      "key": "CEICI388615967",
+      "label": "900 VA-RTM: Prepaid",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI548604507",
+      "label": "Renewable cap: Biomass",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI548604527",
+      "label": "Renewable cap: Waste",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1145,
+      "p": 0.012776014940286457,
+      "theory_agree": null,
+      "score": 36.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "demand",
+      "pearson": 0.0707,
+      "p": 0.389015131655464,
+      "theory_agree": true,
+      "score": 32.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI520526857",
+      "label": "Energy balance",
+      "role": "supply",
+      "pearson": -0.1607,
+      "p": 0.2109256901936345,
+      "theory_agree": null,
+      "score": 32.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323975402",
+      "label": "Value: Coal, Coke, and Briquettes",
+      "role": "supply",
+      "pearson": 0.0577,
+      "p": 0.3693565490928159,
+      "theory_agree": null,
+      "score": 31.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324715601",
+      "label": "Value: Coal",
+      "role": "supply",
+      "pearson": 0.06,
+      "p": 0.3757239156931388,
+      "theory_agree": null,
+      "score": 30.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323981702",
+      "label": "Volume: Coal, Coke, and Briquettes",
+      "role": "supply",
+      "pearson": 0.091,
+      "p": 0.2637422170979804,
+      "theory_agree": null,
+      "score": 28.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI468154637",
+      "label": "Daily oil lifting",
+      "role": "supply",
+      "pearson": 0.0165,
+      "p": 0.8674239292565198,
+      "theory_agree": null,
+      "score": 25.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI412186187",
+      "label": "Chemical and Pharmaceutical Industry: 19 Manufactu",
+      "role": "supply",
+      "pearson": -0.0611,
+      "p": 0.5451018206466297,
+      "theory_agree": null,
+      "score": 24.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391910547",
+      "label": "Overburden removal",
+      "role": "supply",
+      "pearson": 0.0428,
+      "p": 0.5600328734342896,
+      "theory_agree": null,
+      "score": 23.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI522153977",
+      "label": "Coal reference price: HBA III",
+      "role": "supply",
+      "pearson": 0.005,
+      "p": 0.9465193567695074,
+      "theory_agree": null,
+      "score": 22.8,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 47,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 6.3,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+  ]
+}
