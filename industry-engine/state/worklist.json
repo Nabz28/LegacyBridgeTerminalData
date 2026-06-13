@@ -2448,10 +2448,16 @@
       "global_hints": [],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "data-center/IT-infra duration (DCII) rate-sensitivity"
+        },
+        {
           "key": "us_10y",
           "role": "macro",
           "sign": -1,
-          "why": "duration/discount-rate sensitivity"
+          "why": "global duration/discount-rate sensitivity"
         },
         {
           "key": "ndx",

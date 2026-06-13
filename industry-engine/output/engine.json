@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T02:53:22",
+  "generated_at": "2026-06-14T03:31:48",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -457,7 +457,7 @@
       },
       "narrative": "IT Services (Technology) screens NEUTRAL [48/100, medium confidence]. Top drivers: Device vendor share (Tablet): Others (corr +0.13, lead 0m, now headwind); Real GDP (SA) (corr +0.10, lead 6m, now flat); Search engine share (Mobile): Others (corr -0.16, lead 0m, now tailwind). A 6-driver model explains 6% of monthly variance (adj 0%), 40% out-of-sample directional hit-rate; current read ~+5.1%/mo.",
       "n_kept": 9,
-      "n_tested": 33,
+      "n_tested": 34,
       "n_used": 15,
       "members_used": [
         "ATIC",
@@ -683,7 +683,7 @@
           "last_obs": "2026-06-07"
         }
       ],
-      "generated_at": "2026-06-14T02:51:29"
+      "generated_at": "2026-06-14T03:31:48"
     },
     {
       "id": "energy_coal",

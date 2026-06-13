@@ -3,7 +3,7 @@
   "sub_sector": "IT Services",
   "sector": "Technology",
   "priority": 2,
-  "generated_at": "2026-06-14T02:51:29",
+  "generated_at": "2026-06-14T03:31:48",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -598,7 +598,7 @@
       }
     ],
     "n_kept": 9,
-    "n_candidates": 33
+    "n_candidates": 34
   },
   "unscored": [],
   "rejected_top": [
@@ -703,7 +703,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 33,
+  "n_tested": 34,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -711,10 +711,10 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.4,
+  "runtime_s": 3.4,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "parked after 2 attempts"
+    "parked after 3 attempts"
   ]
 }
