@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:39:32",
-  "n_baskets": 6,
+  "generated_at": "2026-06-14T00:39:33",
+  "n_baskets": 7,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -2175,6 +2175,169 @@
         }
       ],
       "generated_at": "2026-06-14T00:39:32"
+    },
+    {
+      "id": "properties_real_estate_property",
+      "sub_sector": "Property",
+      "sector": "Properties & Real Estate",
+      "priority": 7,
+      "status": "done",
+      "grade": "perfected",
+      "verdict": "MILDLY BEARISH",
+      "score": 35,
+      "confidence": {
+        "level": "medium",
+        "score": 55,
+        "reasons": [
+          "max|corr|=0.25",
+          "theory_agree=100%",
+          "stable=67%",
+          "mvR2=0.08",
+          "OOS=58%"
+        ]
+      },
+      "net_tilt": -0.31,
+      "demand_tilt": null,
+      "supply_tilt": null,
+      "cost_tilt": -0.614,
+      "macro_tilt": -0.045,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "usdidr",
+          "steel_hrc"
+        ],
+        "n": 184,
+        "r2": 0.081,
+        "adj_r2": 0.07,
+        "betas": {
+          "usdidr": {
+            "std_beta": -0.0163,
+            "t": -1.72,
+            "p": 0.0851
+          },
+          "steel_hrc": {
+            "std_beta": -0.0091,
+            "t": -2.18,
+            "p": 0.0292
+          }
+        },
+        "oos_hit_rate": 0.581,
+        "oos_n": 124,
+        "expected_monthly_ret": 0.0098
+      },
+      "narrative": "Property (Properties & Real Estate) screens MILDLY BEARISH [35/100, medium confidence]. Top drivers: USD/IDR (corr -0.25, lead 0m, now flat); US HRC Steel (corr -0.13, lead 0m, now headwind); Coal · Australia (Newcastle) (corr -0.05, lead 6m, now headwind). A 2-driver model explains 8% of monthly variance (adj 7%), 58% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+      "n_kept": 3,
+      "n_tested": 8,
+      "n_used": 30,
+      "members_used": [
+        "ADCP",
+        "AMAN",
+        "APLN",
+        "ASRI",
+        "BEST",
+        "BKSL",
+        "BSDE",
+        "CBDK",
+        "CTRA",
+        "DILD",
+        "DMAS",
+        "DUTI",
+        "ELTY",
+        "FMII",
+        "INPP",
+        "JRPT",
+        "KIJA",
+        "LPCK",
+        "LPKR",
+        "MDLN",
+        "MKPI",
+        "MMLP",
+        "MTLA",
+        "OMRE",
+        "PANI",
+        "PWON",
+        "RISE",
+        "RODA",
+        "SMRA",
+        "TRIN"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "usdidr",
+          "label": "USD/IDR",
+          "role": "macro",
+          "source": "corr:FX_IDC:USDIDR",
+          "freq": "M",
+          "pearson": -0.2466,
+          "excess_pearson": -0.0323,
+          "best_lag": 0,
+          "ic": -0.0316,
+          "beta": -0.524274594740804,
+          "r2": 0.060797819017794796,
+          "p": 0.08864985144613595,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "FX debt + import sentiment",
+          "posture": "neutral",
+          "last_chg_z": -0.09,
+          "last_obs": "2026-05-08"
+        },
+        {
+          "key": "steel_hrc",
+          "label": "US HRC Steel",
+          "role": "cost",
+          "source": "corr:NYMEX:HRC1!",
+          "freq": "M",
+          "pearson": -0.1318,
+          "excess_pearson": -0.1006,
+          "best_lag": 0,
+          "ic": -0.0694,
+          "beta": -0.09740402866003967,
+          "r2": 0.01736664648914532,
+          "p": 0.05677418021128593,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "rebar/construction cost",
+          "posture": "headwind",
+          "last_chg_z": 0.9,
+          "last_obs": "2026-05-01"
+        },
+        {
+          "key": "wb_coal_au",
+          "label": "Coal · Australia (Newcastle)",
+          "role": "cost",
+          "source": "spark",
+          "freq": "M",
+          "pearson": -0.0536,
+          "excess_pearson": -0.0171,
+          "best_lag": 6,
+          "ic": 0.0141,
+          "beta": -0.06654627314220768,
+          "r2": 0.002872771007479624,
+          "p": 0.870667682667077,
+          "n": 23,
+          "theory_agree": true,
+          "stable": false,
+          "sign": -1,
+          "why": "cement/energy cost",
+          "posture": "headwind",
+          "last_chg_z": 2.23,
+          "last_obs": "2026-03-01"
+        }
+      ],
+      "generated_at": "2026-06-14T00:39:33"
     }
   ]
 }
