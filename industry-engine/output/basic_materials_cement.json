@@ -3,7 +3,7 @@
   "sub_sector": "Cement",
   "sector": "Basic Materials",
   "priority": 28,
-  "generated_at": "2026-06-14T00:47:15",
+  "generated_at": "2026-06-14T00:53:17",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -28,75 +28,130 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
-    "net_tilt": 0.128,
+    "verdict": "NEUTRAL",
+    "score": 55,
+    "net_tilt": 0.099,
     "demand_tilt": 0.224,
-    "supply_tilt": 0.116,
+    "supply_tilt": 0.151,
     "cost_tilt": null,
-    "macro_tilt": 0.0,
+    "macro_tilt": -0.043,
     "confidence": {
-      "level": "low",
-      "score": 38,
+      "level": "high",
+      "score": 90,
       "reasons": [
-        "max|corr|=0.19",
-        "theory_agree=80%",
-        "stable=50%",
-        "mvR2=0.08",
-        "OOS=50%"
+        "max|corr|=0.41",
+        "theory_agree=83%",
+        "stable=58%",
+        "mvR2=0.24",
+        "OOS=61%"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "id_10y",
         "CEICI323567702",
         "id_bi_rate",
         "CEICI323568802",
         "CEICI323568302",
-        "CEICI323568402",
-        "CEICI323568702"
+        "CEICI323568402"
       ],
       "n": 165,
-      "r2": 0.081,
-      "adj_r2": 0.046,
+      "r2": 0.244,
+      "adj_r2": 0.215,
       "betas": {
+        "id_10y": {
+          "std_beta": -0.0343,
+          "t": -6.23,
+          "p": 0.0
+        },
         "CEICI323567702": {
-          "std_beta": -0.0136,
-          "t": -1.84,
-          "p": 0.0658
+          "std_beta": -0.0111,
+          "t": -1.71,
+          "p": 0.0881
         },
         "id_bi_rate": {
-          "std_beta": -0.0098,
-          "t": -1.48,
-          "p": 0.1394
+          "std_beta": -0.005,
+          "t": -1.06,
+          "p": 0.2906
         },
         "CEICI323568802": {
           "std_beta": -0.0118,
-          "t": -0.84,
-          "p": 0.402
+          "t": -1.17,
+          "p": 0.2433
         },
         "CEICI323568302": {
-          "std_beta": 0.0164,
-          "t": 2.08,
-          "p": 0.0378
+          "std_beta": 0.0188,
+          "t": 2.6,
+          "p": 0.0093
         },
         "CEICI323568402": {
-          "std_beta": -0.0071,
-          "t": -0.8,
-          "p": 0.4228
-        },
-        "CEICI323568702": {
-          "std_beta": -0.0019,
-          "t": -0.14,
-          "p": 0.8915
+          "std_beta": -0.0105,
+          "t": -1.42,
+          "p": 0.1548
         }
       },
-      "oos_hit_rate": 0.505,
+      "oos_hit_rate": 0.61,
       "oos_n": 105,
-      "expected_monthly_ret": 0.0245
+      "expected_monthly_ret": 0.0219
     },
-    "narrative": "Cement (Basic Materials) screens MILDLY BULLISH [56/100, low confidence]. Top drivers: Manufacturing: Printing and Reproduction of Record (corr -0.19, lead 4m, now headwind); BI Policy Rate (corr -0.12, lead 4m, now flat); FDI: Basic metals & metal goods (corr -0.18, lead 3m, now flat). A 6-driver model explains 8% of monthly variance (adj 5%), 50% out-of-sample directional hit-rate; current read ~+2.5%/mo.",
+    "narrative": "Cement (Basic Materials) screens NEUTRAL [55/100, high confidence]. Top drivers: id_10y (corr -0.41, lead 0m, now flat); Manufacturing: Printing and Reproduction of Record (corr -0.19, lead 4m, now headwind); BI Policy Rate (corr -0.12, lead 4m, now flat). A 6-driver model explains 24% of monthly variance (adj 22%), 61% out-of-sample directional hit-rate; current read ~+2.2%/mo.",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "10Y yield: property/construction demand rate-elastic",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.4079,
+        "pearson_p": 0.0,
+        "spearman": -0.3683,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": -0.4079,
+        "ic": -0.1133,
+        "ic_t": -1.529,
+        "ols": {
+          "beta": -0.6576817022763055,
+          "t": -6.191618997207294,
+          "p": 5.95493550405585e-10,
+          "r2": 0.16634908868126397,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.6576817022763055,
+          "t": -6.191618997207294,
+          "p": 5.95493550405585e-10,
+          "r2": 0.16634908868126397,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.2155,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 72.9,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
       {
         "key": "CEICI323567702",
         "role": "supply",
@@ -156,7 +211,7 @@
       {
         "key": "id_bi_rate",
         "role": "macro",
-        "why": "property/construction demand rate-elastic",
+        "why": "policy rate",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "M",
@@ -703,66 +758,10 @@
           "posture": "headwind",
           "impulse": -0.221
         }
-      },
-      {
-        "key": "CEICI323567002",
-        "role": "supply",
-        "why": "Manufacturing: Beverages",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.0731,
-        "pearson_p": 0.3475,
-        "spearman": -0.02,
-        "spearman_p": 0.7971,
-        "best_lag": 5,
-        "corr_at_best": 0.2634,
-        "ic": 0.0094,
-        "ic_t": 0.121,
-        "ols": {
-          "beta": -0.08562883116118442,
-          "t": -0.7954979442821292,
-          "p": 0.4263239062909101,
-          "r2": 0.005350715221684621,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.3025423519840257,
-          "t": 3.279099281714768,
-          "p": 0.0010413899164007311,
-          "r2": 0.06940077767081654,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": -0.079,
-        "last_chg": 0.015362,
-        "last_chg_z": 0.19,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 18.1,
-        "source": "ceic",
-        "label": "Manufacturing: Beverages",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.095
-        }
       }
     ],
     "n_kept": 12,
-    "n_candidates": 41
+    "n_candidates": 42
   },
   "unscored": [],
   "rejected_top": [
@@ -867,7 +866,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 41,
+  "n_tested": 42,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -875,10 +874,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.5,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "confidence low"
-  ]
+  "runtime_s": 2.3,
+  "grade": "perfected",
+  "grade_reasons": []
 }

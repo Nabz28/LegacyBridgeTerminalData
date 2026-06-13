@@ -33939,10 +33939,16 @@
       ],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "10Y yield: property/construction demand rate-elastic"
+        },
+        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
-          "why": "property/construction demand rate-elastic"
+          "why": "policy rate"
         },
         {
           "key": "id_gdp_real_q",
@@ -36086,10 +36092,16 @@
       ],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "10Y yield: financing cost (leveraged SOEs)"
+        },
+        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
-          "why": "financing cost (leveraged SOEs)"
+          "why": "policy rate"
         },
         {
           "key": "id_gdp_real_q",
@@ -36098,16 +36110,10 @@
           "why": "APBN infra spend proxy"
         },
         {
-          "key": "id_govt_debt",
-          "role": "demand",
-          "sign": 1,
-          "why": "state capex capacity"
-        },
-        {
           "key": "usdidr",
           "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
+          "sign": -1,
+          "why": "FX risk for leveraged balance sheets"
         },
         {
           "key": "id_cpi_yoy",
@@ -36643,10 +36649,16 @@
       "global_hints": [],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "funding cost (bond-funded book)"
+        },
+        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
-          "why": "funding cost up = margin down"
+          "why": "policy funding cost"
         },
         {
           "key": "id_bank_credit",
@@ -36663,8 +36675,8 @@
         {
           "key": "usdidr",
           "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
+          "sign": -1,
+          "why": "risk-off / FX funding"
         },
         {
           "key": "id_cpi_yoy",
@@ -51256,10 +51268,16 @@
       ],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "durables financing rate-elastic"
+        },
+        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
-          "why": "durables financing"
+          "why": "policy rate"
         },
         {
           "key": "id_gdp_real_q",
@@ -51270,8 +51288,8 @@
         {
           "key": "usdidr",
           "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
+          "sign": -1,
+          "why": "imported durable goods"
         },
         {
           "key": "id_cpi_yoy",
