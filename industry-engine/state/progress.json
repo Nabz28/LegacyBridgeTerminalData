@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:45:47",
+  "updated_at": "2026-06-14T00:45:48",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -178,13 +178,15 @@
       "sub_sector": "Conglomerate",
       "sector": "Industrials",
       "priority": 13,
-      "status": "pending",
-      "grade": null,
+      "status": "done",
+      "grade": "blocked",
       "score": null,
       "verdict": null,
-      "attempts": 0,
-      "last_run": null,
-      "reasons": []
+      "attempts": 1,
+      "last_run": "2026-06-14T00:45:48",
+      "reasons": [
+        "insufficient_price_history"
+      ]
     },
     "basic_materials_metals_mining": {
       "id": "basic_materials_metals_mining",
@@ -698,8 +700,8 @@
     "perfected": 7,
     "partial": 2,
     "needs_review": 3,
-    "blocked": 0,
-    "pending": 40,
+    "blocked": 1,
+    "pending": 39,
     "error": 0
   }
 }

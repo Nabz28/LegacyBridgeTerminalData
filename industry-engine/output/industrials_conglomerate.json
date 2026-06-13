@@ -1,0 +1,41 @@
+{
+  "id": "industrials_conglomerate",
+  "sub_sector": "Conglomerate",
+  "sector": "Industrials",
+  "priority": 13,
+  "generated_at": "2026-06-14T00:45:48",
+  "status": "blocked",
+  "reason": "insufficient_price_history",
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 1,
+    "n_used": 1,
+    "members_used": [
+      "ASII"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 216344599461888.0,
+    "weight_cap": 0.12
+  },
+  "model": null,
+  "unscored": [],
+  "rejected_top": [],
+  "n_tested": 0,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "grade": "blocked",
+  "grade_reasons": [
+    "insufficient_price_history"
+  ]
+}
