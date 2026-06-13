@@ -469,11 +469,13 @@ SEED = {
         "macro": [("cn_ip_yoy", "demand", +1, "capex cycle"),
                   ("id_gdp_real_q", "demand", +1, "domestic capex")],
     },
-    "Electrical Equipment": {
+    "Electrical Equipment": {  # IDX basket = cable makers (KBLI/SCCO/JECC/VOKS)
         "ceic": [("Industrials & Manufacturing", "Electrical Equipment")],
-        "globals": [("copper", "cost", -1, "copper winding input"),
-                    ("aluminum", "cost", -1, "aluminium input")],
-        "macro": [("id_gdp_real_q", "demand", +1, "electrification capex")],
+        "globals": [("copper", "cost", -1, "copper = primary cable input"),
+                    ("aluminum", "cost", -1, "aluminium conductor input")],
+        "macro": [("id_bi_rate", "macro", -1, "cable demand = construction/infra, rate-elastic"),
+                  ("id_10y", "macro", -1, "infrastructure-capex rate sensitivity"),
+                  ("id_gdp_real_q", "demand", +1, "electrification capex")],
     },
     "Conglomerate": {
         "ceic": [("Industrials & Manufacturing", None)],
