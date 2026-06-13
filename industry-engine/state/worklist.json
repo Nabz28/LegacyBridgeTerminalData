@@ -12127,6 +12127,12 @@
       ],
       "global_hints": [
         {
+          "key": "bcom",
+          "role": "demand",
+          "sign": 1,
+          "why": "commodity cycle -> coal-miner capex -> contractor demand"
+        },
+        {
           "key": "brent",
           "role": "demand",
           "sign": 1,
@@ -12141,16 +12147,16 @@
       ],
       "macro_hints": [
         {
-          "key": "usdidr",
-          "role": "macro",
-          "sign": 1,
-          "why": "USD contracts"
-        },
-        {
           "key": "cn_ip_yoy",
           "role": "demand",
           "sign": 1,
-          "why": "regional energy demand"
+          "why": "China demand -> coal volumes -> services"
+        },
+        {
+          "key": "usdidr",
+          "role": "macro",
+          "sign": 1,
+          "why": "USD-denominated contracts"
         },
         {
           "key": "id_bi_rate",

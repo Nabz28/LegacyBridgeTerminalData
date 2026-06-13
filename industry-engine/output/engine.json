@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T04:11:33",
+  "generated_at": "2026-06-14T04:31:41",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -2713,20 +2713,20 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 46,
+      "score": 47,
       "confidence": {
-        "level": "high",
-        "score": 73,
+        "level": "medium",
+        "score": 65,
         "reasons": [
           "max|corr|=0.29",
-          "theory_agree=25%",
-          "stable=58%",
-          "mvR2=0.08",
-          "OOS=70%"
+          "theory_agree=50%",
+          "stable=67%",
+          "mvR2=0.07",
+          "OOS=58%"
         ]
       },
-      "net_tilt": -0.093,
-      "demand_tilt": -0.004,
+      "net_tilt": -0.063,
+      "demand_tilt": 0.071,
       "supply_tilt": -0.089,
       "cost_tilt": null,
       "macro_tilt": null,
@@ -2736,52 +2736,52 @@
           "CEICI403931887",
           "CEICI520528227",
           "CEICI354326367",
+          "bcom",
           "CEICI520234107",
-          "CEICI357008197",
-          "CEICI385762167"
+          "CEICI357008197"
         ],
-        "n": 104,
-        "r2": 0.08,
-        "adj_r2": 0.023,
+        "n": 152,
+        "r2": 0.067,
+        "adj_r2": 0.028,
         "betas": {
           "CEICI403931887": {
-            "std_beta": 0.0143,
-            "t": 0.8,
-            "p": 0.4253
+            "std_beta": 0.0104,
+            "t": 1.4,
+            "p": 0.1612
           },
           "CEICI520528227": {
-            "std_beta": 0.0168,
-            "t": 4.03,
-            "p": 0.0001
+            "std_beta": 0.0086,
+            "t": 1.68,
+            "p": 0.0921
           },
           "CEICI354326367": {
-            "std_beta": 0.006,
-            "t": 0.89,
-            "p": 0.3718
+            "std_beta": 0.0038,
+            "t": 0.59,
+            "p": 0.556
+          },
+          "bcom": {
+            "std_beta": 0.0111,
+            "t": 1.86,
+            "p": 0.0628
           },
           "CEICI520234107": {
-            "std_beta": -0.0018,
-            "t": -0.1,
-            "p": 0.9181
+            "std_beta": 0.0032,
+            "t": 0.48,
+            "p": 0.6286
           },
           "CEICI357008197": {
-            "std_beta": 0.0029,
-            "t": 0.57,
-            "p": 0.57
-          },
-          "CEICI385762167": {
-            "std_beta": -0.0094,
-            "t": -1.08,
-            "p": 0.2818
+            "std_beta": 0.0025,
+            "t": 0.6,
+            "p": 0.5501
           }
         },
-        "oos_hit_rate": 0.705,
-        "oos_n": 44,
-        "expected_monthly_ret": 0.0414
+        "oos_hit_rate": 0.576,
+        "oos_n": 92,
+        "expected_monthly_ret": 0.0191
       },
-      "narrative": "Energy Services (Energy) screens NEUTRAL [46/100, high confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 2%), 70% out-of-sample directional hit-rate; current read ~+4.1%/mo.",
+      "narrative": "Energy Services (Energy) screens NEUTRAL [47/100, medium confidence]. Top drivers: Mining & Quarrying: Coal & Lignite (corr +0.29, lead 2m, now headwind); Production: Natural gas (scf) (corr +0.14, lead 3m, now tailwind); Energy Balance: Primary: Total Crude: Crude Oil: R (corr +0.15, lead 0m, now tailwind). A 6-driver model explains 7% of monthly variance (adj 3%), 58% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
       "n_kept": 12,
-      "n_tested": 47,
+      "n_tested": 48,
       "n_used": 10,
       "members_used": [
         "ABMM",
@@ -2890,6 +2890,28 @@
           "posture": "tailwind",
           "last_chg_z": 0.54,
           "last_obs": "2026-06-01"
+        },
+        {
+          "key": "bcom",
+          "label": "Bloomberg Commodity Idx",
+          "role": "demand",
+          "source": "corr:AMEX:DBC",
+          "freq": "M",
+          "pearson": 0.1344,
+          "excess_pearson": -0.0003,
+          "best_lag": 0,
+          "ic": 0.0467,
+          "beta": 0.21295351525525547,
+          "r2": 0.018060790939838145,
+          "p": 0.07693585626034749,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "commodity cycle -> coal-miner capex -> contractor demand",
+          "posture": "tailwind",
+          "last_chg_z": 0.62,
+          "last_obs": "2026-05-01"
         },
         {
           "key": "CEICI506620937",
@@ -3044,31 +3066,9 @@
           "posture": "neutral",
           "last_chg_z": -0.04,
           "last_obs": "2026-06-01"
-        },
-        {
-          "key": "CEICI385762157",
-          "label": "1,300 VA: Prepaid",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1276,
-          "excess_pearson": -0.124,
-          "best_lag": 4,
-          "ic": -0.0697,
-          "beta": -0.849026766494583,
-          "r2": 0.01628360635284465,
-          "p": 0.005780853646826561,
-          "n": 136,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "1,300 VA: Prepaid",
-          "posture": "neutral",
-          "last_chg_z": -0.04,
-          "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T02:51:48"
+      "generated_at": "2026-06-14T04:31:41"
     },
     {
       "id": "infrastructure_telco",
