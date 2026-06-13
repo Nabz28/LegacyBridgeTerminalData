@@ -1,0 +1,910 @@
+{
+  "id": "consumer_non_cyclicals_poultry",
+  "sub_sector": "Poultry",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 42,
+  "generated_at": "2026-06-14T00:48:05",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 9,
+    "n_used": 9,
+    "members_used": [
+      "ASHA",
+      "CRAB",
+      "DEWI",
+      "DPUM",
+      "ENZO",
+      "IKAN",
+      "ISEA",
+      "NEST",
+      "UDNG"
+    ],
+    "coverage": {
+      "W": 541,
+      "M": 125,
+      "Q": 42,
+      "first": "2015-12-18",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 6324151447552.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 52,
+    "net_tilt": 0.045,
+    "demand_tilt": 0.612,
+    "supply_tilt": -0.136,
+    "cost_tilt": -0.35,
+    "macro_tilt": -0.045,
+    "confidence": {
+      "level": "medium",
+      "score": 62,
+      "reasons": [
+        "max|corr|=0.26",
+        "theory_agree=100%",
+        "stable=67%",
+        "mvR2=0.05",
+        "OOS=43%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "corn",
+        "usdidr",
+        "CEICI650319287",
+        "CEICI653412247"
+      ],
+      "n": 81,
+      "r2": 0.051,
+      "adj_r2": 0.001,
+      "betas": {
+        "corn": {
+          "std_beta": -0.0112,
+          "t": -0.95,
+          "p": 0.3415
+        },
+        "usdidr": {
+          "std_beta": -0.0187,
+          "t": -2.58,
+          "p": 0.0099
+        },
+        "CEICI650319287": {
+          "std_beta": 0.0029,
+          "t": 0.3,
+          "p": 0.7647
+        },
+        "CEICI653412247": {
+          "std_beta": 0.0083,
+          "t": 0.89,
+          "p": 0.3711
+        }
+      },
+      "oos_hit_rate": 0.429,
+      "oos_n": 21,
+      "expected_monthly_ret": -0.0108
+    },
+    "narrative": "Poultry (Consumer Non-Cyclicals) screens NEUTRAL [52/100, medium confidence]. Top drivers: World: Meat Preparations; of Poultry (Excluding Tu (corr +0.26, lead 6m, now headwind); Corn (CBOT) (corr -0.17, lead 4m, now headwind); Value: Other Agricultural, Horticultural, Forestry (corr +0.20, lead 0m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 0%), 43% out-of-sample directional hit-rate; current read ~-1.1%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI648469367",
+        "role": "supply",
+        "why": "World: Meat Preparations; of Poultry (Excluding Tu",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2025-06-01",
+        "n": 18,
+        "min_n": 12,
+        "pearson": 0.2552,
+        "pearson_p": 0.3067,
+        "spearman": -0.2664,
+        "spearman_p": 0.2853,
+        "best_lag": 6,
+        "corr_at_best": 0.6491,
+        "ic": 0.3176,
+        "ic_t": 1.27,
+        "ols": {
+          "beta": 7.156694124689516e-06,
+          "t": 4.77182890354164,
+          "p": 1.8256055905752242e-06,
+          "r2": 0.06514768987874542,
+          "n": 18,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.0002612345151334188,
+          "t": 9.89233969312009,
+          "p": 4.4939979983079475e-23,
+          "r2": 0.42135449984328677,
+          "n": 12,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.3293,
+        "last_chg": -1881.0,
+        "last_chg_z": -0.44,
+        "last_chg_date": "2025-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 65.7,
+        "source": "ceic",
+        "label": "World: Meat Preparations; of Poultry (Excluding Tu",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.217
+        }
+      },
+      {
+        "key": "corn",
+        "role": "cost",
+        "why": "corn = ~50% of feed cost",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 125,
+        "min_n": 24,
+        "pearson": -0.1682,
+        "pearson_p": 0.0608,
+        "spearman": -0.1632,
+        "spearman_p": 0.069,
+        "best_lag": 4,
+        "corr_at_best": 0.1882,
+        "ic": -0.0861,
+        "ic_t": -0.958,
+        "ols": {
+          "beta": -0.29947762869609995,
+          "t": -1.9493951921873025,
+          "p": 0.05124824825187343,
+          "r2": 0.02828574996595734,
+          "n": 125,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.33419004825354687,
+          "t": 2.4360400656168193,
+          "p": 0.014849039707922465,
+          "r2": 0.03540799437632958,
+          "n": 125,
+          "hac_lag": 4
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.1776,
+        "last_chg": 0.054009,
+        "last_chg_z": 0.73,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 48.4,
+        "source": "corr:CBOT:ZC1!",
+        "shallow": false,
+        "label": "Corn (CBOT)",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.35
+        }
+      },
+      {
+        "key": "CEICI502623187",
+        "role": "demand",
+        "why": "Value: Other Agricultural, Horticultural, Forestry",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 87,
+        "min_n": 24,
+        "pearson": 0.2019,
+        "pearson_p": 0.0608,
+        "spearman": 0.1723,
+        "spearman_p": 0.1105,
+        "best_lag": 0,
+        "corr_at_best": 0.2019,
+        "ic": -0.0622,
+        "ic_t": -0.574,
+        "ols": {
+          "beta": 0.0669167409095725,
+          "t": 2.1076106807263075,
+          "p": 0.035064678950658436,
+          "r2": 0.04075056003022537,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.0669167409095725,
+          "t": 2.1076106807263075,
+          "p": 0.035064678950658436,
+          "r2": 0.04075056003022537,
+          "n": 87,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.2033,
+        "last_chg": 0.662874,
+        "last_chg_z": 1.84,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 46.1,
+        "source": "ceic",
+        "label": "Value: Other Agricultural, Horticultural, Forestry",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.726
+        }
+      },
+      {
+        "key": "CEICI502635467",
+        "role": "demand",
+        "why": "Volume: Other Agricultural, Horticultural, Forestr",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 76,
+        "min_n": 24,
+        "pearson": 0.0993,
+        "pearson_p": 0.3934,
+        "spearman": 0.1849,
+        "spearman_p": 0.1098,
+        "best_lag": 6,
+        "corr_at_best": 0.2119,
+        "ic": 0.3041,
+        "ic_t": 2.616,
+        "ols": {
+          "beta": 0.017182963589066003,
+          "t": 0.837956188711641,
+          "p": 0.4020553096511531,
+          "r2": 0.009862293824636548,
+          "n": 76,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.03839622807955343,
+          "t": 1.3164502485027452,
+          "p": 0.18802296651783834,
+          "r2": 0.04490776996410584,
+          "n": 70,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.1151,
+        "last_chg": 1.617477,
+        "last_chg_z": 1.89,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.7,
+        "source": "ceic",
+        "label": "Volume: Other Agricultural, Horticultural, Forestr",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.738
+        }
+      },
+      {
+        "key": "CEICI650886297",
+        "role": "supply",
+        "why": "World: Poultry Fat; Other Than That of Heading 020",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 68,
+        "min_n": 24,
+        "pearson": 0.1048,
+        "pearson_p": 0.3952,
+        "spearman": 0.0086,
+        "spearman_p": 0.9445,
+        "best_lag": 1,
+        "corr_at_best": -0.2187,
+        "ic": -0.2228,
+        "ic_t": -1.81,
+        "ols": {
+          "beta": 0.004967064564745514,
+          "t": 0.9245963220644448,
+          "p": 0.35517592690746735,
+          "r2": 0.010974612432111619,
+          "n": 68,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.010342151618700593,
+          "t": -2.9381125452976162,
+          "p": 0.0033021712497635653,
+          "r2": 0.04783490625255671,
+          "n": 67,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1345,
+        "last_chg": 0.701091,
+        "last_chg_z": 0.29,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.7,
+        "source": "ceic",
+        "label": "World: Poultry Fat; Other Than That of Heading 020",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.144
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 125,
+        "min_n": 24,
+        "pearson": -0.157,
+        "pearson_p": 0.0805,
+        "spearman": -0.1594,
+        "spearman_p": 0.0759,
+        "best_lag": 0,
+        "corr_at_best": -0.157,
+        "ic": 0.134,
+        "ic_t": 1.493,
+        "ols": {
+          "beta": -0.8443636297935168,
+          "t": -2.0402348035413804,
+          "p": 0.04132694485858965,
+          "r2": 0.024635777116615465,
+          "n": 125,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.8443636297935168,
+          "t": -2.0402348035413804,
+          "p": 0.04132694485858965,
+          "r2": 0.024635777116615465,
+          "n": 125,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0162,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.8,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI650319287",
+        "role": "supply",
+        "why": "World: Meat Preparations; of The Poultry of Headin",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 92,
+        "min_n": 24,
+        "pearson": 0.0716,
+        "pearson_p": 0.4973,
+        "spearman": -0.0304,
+        "spearman_p": 0.7733,
+        "best_lag": 2,
+        "corr_at_best": 0.1637,
+        "ic": -0.172,
+        "ic_t": -1.641,
+        "ols": {
+          "beta": 9.986309166573211e-08,
+          "t": 0.8607805902269261,
+          "p": 0.38935889712321015,
+          "r2": 0.005133633878178001,
+          "n": 92,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 2.2948428445398146e-07,
+          "t": 1.5752158700896526,
+          "p": 0.11520662522851703,
+          "r2": 0.026795471495969392,
+          "n": 92,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0508,
+        "last_chg": -48644.2,
+        "last_chg_z": -0.66,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.4,
+        "source": "ceic",
+        "label": "World: Meat Preparations; of The Poultry of Headin",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.319
+        }
+      },
+      {
+        "key": "CEICI656748757",
+        "role": "supply",
+        "why": "World: Tools, Hand; One-Handed Secateurs (Includin",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 69,
+        "min_n": 24,
+        "pearson": 0.1558,
+        "pearson_p": 0.2011,
+        "spearman": -0.0685,
+        "spearman_p": 0.5757,
+        "best_lag": 4,
+        "corr_at_best": 0.1909,
+        "ic": -0.0177,
+        "ic_t": -0.146,
+        "ols": {
+          "beta": 0.004684757137465274,
+          "t": 1.3101593056016403,
+          "p": 0.19014194916066818,
+          "r2": 0.024277820391732652,
+          "n": 69,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.005971495628055804,
+          "t": 1.9879022262502133,
+          "p": 0.04682250449605195,
+          "r2": 0.03646144669454365,
+          "n": 69,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1633,
+        "last_chg": 2.264224,
+        "last_chg_z": 0.67,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.7,
+        "source": "ceic",
+        "label": "World: Tools, Hand; One-Handed Secateurs (Includin",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.323
+        }
+      },
+      {
+        "key": "CEICI508723157",
+        "role": "supply",
+        "why": "Value: Poultry Fat, Other than That of Heading 020",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 68,
+        "min_n": 24,
+        "pearson": 0.0997,
+        "pearson_p": 0.4185,
+        "spearman": -0.0183,
+        "spearman_p": 0.882,
+        "best_lag": 1,
+        "corr_at_best": -0.2132,
+        "ic": -0.2,
+        "ic_t": -1.625,
+        "ols": {
+          "beta": 0.00474280384762736,
+          "t": 0.8729307326231508,
+          "p": 0.3827008338721136,
+          "r2": 0.009944124565215762,
+          "n": 68,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01014493240238805,
+          "t": -2.881549145504942,
+          "p": 0.003957255168530661,
+          "r2": 0.04547475842283044,
+          "n": 67,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.1297,
+        "last_chg": -0.555751,
+        "last_chg_z": -0.24,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 33.4,
+        "source": "ceic",
+        "label": "Value: Poultry Fat, Other than That of Heading 020",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.119
+        }
+      },
+      {
+        "key": "CEICI653412247",
+        "role": "supply",
+        "why": "World: Poultry; Live, Fowls of The Species Gallus",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 93,
+        "min_n": 24,
+        "pearson": 0.0775,
+        "pearson_p": 0.46,
+        "spearman": 0.1552,
+        "spearman_p": 0.1375,
+        "best_lag": 3,
+        "corr_at_best": -0.1807,
+        "ic": -0.0953,
+        "ic_t": -0.914,
+        "ols": {
+          "beta": 0.005015889813158264,
+          "t": 1.0021093923655242,
+          "p": 0.3162907621216403,
+          "r2": 0.00601332066442517,
+          "n": 93,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.011655984381989296,
+          "t": -1.7963928361197734,
+          "p": 0.07243206239847363,
+          "r2": 0.032644827291807066,
+          "n": 93,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.0837,
+        "last_chg": -3.307175,
+        "last_chg_z": -1.81,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.8,
+        "source": "ceic",
+        "label": "World: Poultry; Live, Fowls of The Species Gallus",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.719
+        }
+      },
+      {
+        "key": "CEICI654979267",
+        "role": "supply",
+        "why": "World: Poultry-Keeping Machinery; Other Than Incub",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 55,
+        "min_n": 24,
+        "pearson": 0.0429,
+        "pearson_p": 0.7557,
+        "spearman": 0.0279,
+        "spearman_p": 0.8398,
+        "best_lag": 1,
+        "corr_at_best": -0.3216,
+        "ic": -0.2687,
+        "ic_t": -1.974,
+        "ols": {
+          "beta": 0.0015385926504355141,
+          "t": 0.487576628566967,
+          "p": 0.6258497532842394,
+          "r2": 0.0018414851236275842,
+          "n": 55,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.011027813416609546,
+          "t": -3.523664468256589,
+          "p": 0.0004256228548346824,
+          "r2": 0.1034036252080317,
+          "n": 55,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.105,
+        "last_chg": -0.227241,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 30.3,
+        "source": "ceic",
+        "label": "World: Poultry-Keeping Machinery; Other Than Incub",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
+      {
+        "key": "CEICI581221417",
+        "role": "demand",
+        "why": "World: Pig Fat (Including Lard) and Poultry Fat, O",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 72,
+        "min_n": 24,
+        "pearson": 0.0668,
+        "pearson_p": 0.5774,
+        "spearman": 0.0064,
+        "spearman_p": 0.9577,
+        "best_lag": 3,
+        "corr_at_best": 0.1925,
+        "ic": 0.0277,
+        "ic_t": 0.233,
+        "ols": {
+          "beta": 0.0031083624863677507,
+          "t": 0.9244209596062254,
+          "p": 0.35526718626682174,
+          "r2": 0.004456570974407659,
+          "n": 72,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.008928795804187345,
+          "t": 1.7664654016255616,
+          "p": 0.07731780114770374,
+          "r2": 0.03704870296070706,
+          "n": 70,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0914,
+        "last_chg": 1.922297,
+        "last_chg_z": 0.78,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.9,
+        "source": "ceic",
+        "label": "World: Pig Fat (Including Lard) and Poultry Fat, O",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.371
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 27
+  },
+  "unscored": [
+    {
+      "key": "CEICI581390147",
+      "label": "World: Pig Fat, Free of Lean Meat, and Poultry Fat",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI581392707",
+      "label": "Indonesia: Agricultural, Horticultural, Forestry,",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI651896727",
+      "label": "World: Fat; Poultry Fat, Not Rendered or Otherwise",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI649477877",
+      "label": "World: Poultry; Live, Guinea Fowls, Weighing Not M",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI700899137",
+      "label": "Mexico: Machinery; Parts of Poultry-Keeping Machin",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI701679867",
+      "label": "World: Poultry; Live, Turkeys, Weighing Not More T",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI508717867",
+      "label": "Value: Poultry Fat, Free of Lean Meat, Not Rendere",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0994,
+      "p": 0.13533802740113643,
+      "theory_agree": null,
+      "score": 39.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI581153167",
+      "label": "World: Meat and Edible Offal of Poultry; of The Po",
+      "role": "demand",
+      "pearson": -0.0746,
+      "p": 0.33777322324081394,
+      "theory_agree": false,
+      "score": 29.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "soybean_meal",
+      "label": "Soybean Meal",
+      "role": "cost",
+      "pearson": -0.0769,
+      "p": 0.31870547449685893,
+      "theory_agree": true,
+      "score": 28.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI508819887",
+      "label": "Volume: Poultry Fat, Other than That of Heading 02",
+      "role": "supply",
+      "pearson": -0.0444,
+      "p": 0.20618616552299007,
+      "theory_agree": null,
+      "score": 24.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502594677",
+      "label": "Value: Other Agricultural, Horticultural, Forestry",
+      "role": "supply",
+      "pearson": 0.0602,
+      "p": 0.38521929306244185,
+      "theory_agree": null,
+      "score": 24.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI581264897",
+      "label": "World: Agricultural, Horticultural, Forestry, Poul",
+      "role": "demand",
+      "pearson": 0.0494,
+      "p": 0.42088321063876155,
+      "theory_agree": true,
+      "score": 22.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI653549397",
+      "label": "World: Machinery; Parts of Poultry-Keeping Machine",
+      "role": "supply",
+      "pearson": -0.0758,
+      "p": 0.4230090700826965,
+      "theory_agree": null,
+      "score": 22.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI388063807",
+      "label": "Volume: Complete feed of a kind suitable for poult",
+      "role": "supply",
+      "pearson": -0.0545,
+      "p": 0.5432710914758615,
+      "theory_agree": null,
+      "score": 21.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI502606957",
+      "label": "Volume: Other Agricultural, Horticultural, Forestr",
+      "role": "supply",
+      "pearson": -0.0182,
+      "p": 0.2768301283720238,
+      "theory_agree": null,
+      "score": 21.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.0568,
+      "p": 0.23757414551390588,
+      "theory_agree": false,
+      "score": 21.2,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 27,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 7.5,
+  "grade": "perfected",
+  "grade_reasons": []
+}
