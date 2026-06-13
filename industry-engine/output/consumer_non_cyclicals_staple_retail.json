@@ -1,0 +1,426 @@
+{
+  "id": "consumer_non_cyclicals_staple_retail",
+  "sub_sector": "Staple Retail",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 51,
+  "generated_at": "2026-06-14T00:48:26",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 3,
+    "n_used": 3,
+    "members_used": [
+      "KMDS",
+      "PCAR",
+      "WICO"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 767259721728.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BEARISH",
+    "score": 36,
+    "net_tilt": -0.289,
+    "demand_tilt": -0.246,
+    "supply_tilt": null,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "low",
+      "score": 26,
+      "reasons": [
+        "max|corr|=0.13",
+        "theory_agree=50%",
+        "stable=50%",
+        "mvR2=0.03",
+        "OOS=34%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI432469687",
+        "CEICI432423457",
+        "CEICI431282997"
+      ],
+      "n": 118,
+      "r2": 0.027,
+      "adj_r2": 0.002,
+      "betas": {
+        "CEICI432469687": {
+          "std_beta": -0.0305,
+          "t": -2.06,
+          "p": 0.0395
+        },
+        "CEICI432423457": {
+          "std_beta": 0.022,
+          "t": 0.63,
+          "p": 0.5255
+        },
+        "CEICI431282997": {
+          "std_beta": -0.0037,
+          "t": -0.12,
+          "p": 0.9029
+        }
+      },
+      "oos_hit_rate": 0.345,
+      "oos_n": 58,
+      "expected_monthly_ret": 0.0158
+    },
+    "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [36/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI541367887",
+        "role": "demand",
+        "why": "Wholesale Price Index: General",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-05-01",
+        "n": 28,
+        "min_n": 24,
+        "pearson": -0.102,
+        "pearson_p": 0.6056,
+        "spearman": -0.1423,
+        "spearman_p": 0.4701,
+        "best_lag": 3,
+        "corr_at_best": -0.469,
+        "ic": -0.2167,
+        "ic_t": -1.105,
+        "ols": {
+          "beta": -1.2156867369934565,
+          "t": -0.683768815477042,
+          "p": 0.4941211613098251,
+          "r2": 0.010398504931962371,
+          "n": 28,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -7.525340887524051,
+          "t": -2.355923818238363,
+          "p": 0.018476706508541853,
+          "r2": 0.21991937512522353,
+          "n": 25,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": 0.0197,
+        "last_chg": 0.014201,
+        "last_chg_z": 2.29,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 31.0,
+        "source": "ceic",
+        "label": "Wholesale Price Index: General",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.816
+        }
+      },
+      {
+        "key": "CEICI432469687",
+        "role": "demand",
+        "why": "Cayenne Pepper: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.1334,
+        "pearson_p": 0.1497,
+        "spearman": -0.1242,
+        "spearman_p": 0.1802,
+        "best_lag": 4,
+        "corr_at_best": -0.2587,
+        "ic": -0.0345,
+        "ic_t": -0.371,
+        "ols": {
+          "beta": -0.2027270718558715,
+          "t": -1.9219222054194751,
+          "p": 0.054615547279359265,
+          "r2": 0.017803989086231375,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.39325326269700367,
+          "t": -2.7038093582624283,
+          "p": 0.006854960547151244,
+          "r2": 0.0669154052088915,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1311,
+        "last_chg": 0.025711,
+        "last_chg_z": 0.15,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 28.0,
+        "source": "ceic",
+        "label": "Cayenne Pepper: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.075
+        }
+      },
+      {
+        "key": "CEICI432423457",
+        "role": "demand",
+        "why": "Egg: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.0734,
+        "pearson_p": 0.4297,
+        "spearman": 0.0098,
+        "spearman_p": 0.9162,
+        "best_lag": 5,
+        "corr_at_best": 0.2047,
+        "ic": 0.0354,
+        "ic_t": 0.381,
+        "ols": {
+          "beta": 0.4176270934106225,
+          "t": 0.6541796726289505,
+          "p": 0.5129960561163389,
+          "r2": 0.005384479124606156,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.1716243905150243,
+          "t": 1.69792681001714,
+          "p": 0.0895215764529104,
+          "r2": 0.041882652405348164,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0583,
+        "last_chg": 0.0,
+        "last_chg_z": -0.07,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 24.5,
+        "source": "ceic",
+        "label": "Egg: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI431282997",
+        "role": "demand",
+        "why": "Chicken Meat: Modern Market",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.023,
+        "pearson_p": 0.8044,
+        "spearman": -0.0206,
+        "spearman_p": 0.8252,
+        "best_lag": 5,
+        "corr_at_best": 0.2542,
+        "ic": 0.041,
+        "ic_t": 0.442,
+        "ols": {
+          "beta": 0.14237111695359222,
+          "t": 0.22547183319151667,
+          "p": 0.821612235102744,
+          "r2": 0.0005310987385380717,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.5802871225401285,
+          "t": 2.6862317598795387,
+          "p": 0.007226294544314317,
+          "r2": 0.06463798044001912,
+          "n": 113,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0134,
+        "last_chg": -0.004111,
+        "last_chg_z": -0.19,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 16.8,
+        "source": "ceic",
+        "label": "Chicken Meat: Modern Market",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.095
+        }
+      }
+    ],
+    "n_kept": 4,
+    "n_candidates": 16
+  },
+  "unscored": [
+    {
+      "key": "CEICI207177702",
+      "label": "Fuel: Subsidized: LPG 3 KG",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "CEICI541367967",
+      "label": "Wholesale Price Index: YoY: General",
+      "role": "demand",
+      "pearson": 0.0457,
+      "p": 0.7174302166937423,
+      "theory_agree": true,
+      "score": 43.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI432413187",
+      "label": "Beef: Modern Market",
+      "role": "demand",
+      "pearson": 0.0803,
+      "p": 0.37639055894055307,
+      "theory_agree": true,
+      "score": 38.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI432461977",
+      "label": "Red Chili Pepper: Modern Market",
+      "role": "demand",
+      "pearson": -0.2058,
+      "p": 0.029111657833833706,
+      "theory_agree": false,
+      "score": 36.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI432415757",
+      "label": "Chicken Meat",
+      "role": "demand",
+      "pearson": 0.0664,
+      "p": 0.3352235163224452,
+      "theory_agree": true,
+      "score": 33.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI359137107",
+      "label": "Fuel: Pertamina Dex",
+      "role": "demand",
+      "pearson": 0.0938,
+      "p": 0.2704617648059159,
+      "theory_agree": true,
+      "score": 32.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "demand",
+      "pearson": 0.0976,
+      "p": 0.12315515588181651,
+      "theory_agree": false,
+      "score": 28.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0249,
+      "p": 0.5423849527675136,
+      "theory_agree": null,
+      "score": 20.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.0985,
+      "p": 0.24275243679812908,
+      "theory_agree": false,
+      "score": 19.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI432487747",
+      "label": "Sugar: Modern Market",
+      "role": "demand",
+      "pearson": -0.1276,
+      "p": 0.3295714538327851,
+      "theory_agree": false,
+      "score": 19.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0263,
+      "p": 0.5176212541868046,
+      "theory_agree": null,
+      "score": 14.9,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 16,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 2.8,
+  "grade": "partial",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "confidence low",
+    "data-limited basket"
+  ]
+}

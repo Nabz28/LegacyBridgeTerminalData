@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:48:23",
+  "updated_at": "2026-06-14T00:48:26",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -717,13 +717,17 @@
       "sub_sector": "Staple Retail",
       "sector": "Consumer Non-Cyclicals",
       "priority": 51,
-      "status": "pending",
-      "grade": null,
-      "score": null,
-      "verdict": null,
-      "attempts": 0,
-      "last_run": null,
-      "reasons": []
+      "status": "done",
+      "grade": "partial",
+      "score": 36,
+      "verdict": "MILDLY BEARISH",
+      "attempts": 1,
+      "last_run": "2026-06-14T00:48:23",
+      "reasons": [
+        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+        "confidence low",
+        "data-limited basket"
+      ]
     },
     "infrastructure_utilities": {
       "id": "infrastructure_utilities",
@@ -741,10 +745,10 @@
   },
   "summary": {
     "perfected": 28,
-    "partial": 4,
+    "partial": 5,
     "needs_review": 16,
     "blocked": 2,
-    "pending": 2,
+    "pending": 1,
     "error": 0
   }
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:48:23",
-  "n_baskets": 50,
+  "generated_at": "2026-06-14T00:48:26",
+  "n_baskets": 51,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -14546,6 +14546,170 @@
         }
       ],
       "generated_at": "2026-06-14T00:48:23"
+    },
+    {
+      "id": "consumer_non_cyclicals_staple_retail",
+      "sub_sector": "Staple Retail",
+      "sector": "Consumer Non-Cyclicals",
+      "priority": 51,
+      "status": "done",
+      "grade": "partial",
+      "verdict": "MILDLY BEARISH",
+      "score": 36,
+      "confidence": {
+        "level": "low",
+        "score": 26,
+        "reasons": [
+          "max|corr|=0.13",
+          "theory_agree=50%",
+          "stable=50%",
+          "mvR2=0.03",
+          "OOS=34%"
+        ]
+      },
+      "net_tilt": -0.289,
+      "demand_tilt": -0.246,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": null,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "CEICI432469687",
+          "CEICI432423457",
+          "CEICI431282997"
+        ],
+        "n": 118,
+        "r2": 0.027,
+        "adj_r2": 0.002,
+        "betas": {
+          "CEICI432469687": {
+            "std_beta": -0.0305,
+            "t": -2.06,
+            "p": 0.0395
+          },
+          "CEICI432423457": {
+            "std_beta": 0.022,
+            "t": 0.63,
+            "p": 0.5255
+          },
+          "CEICI431282997": {
+            "std_beta": -0.0037,
+            "t": -0.12,
+            "p": 0.9029
+          }
+        },
+        "oos_hit_rate": 0.345,
+        "oos_n": 58,
+        "expected_monthly_ret": 0.0158
+      },
+      "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [36/100, low confidence]. Top drivers: Wholesale Price Index: General (corr -0.10, lead 3m, now headwind); Cayenne Pepper: Modern Market (corr -0.13, lead 4m, now flat); Egg: Modern Market (corr +0.07, lead 5m, now flat). A 3-driver model explains 3% of monthly variance (adj 0%), 34% out-of-sample directional hit-rate; current read ~+1.6%/mo.",
+      "n_kept": 4,
+      "n_tested": 16,
+      "n_used": 3,
+      "members_used": [
+        "KMDS",
+        "PCAR",
+        "WICO"
+      ],
+      "coverage": {
+        "W": 798,
+        "M": 184,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-05-01"
+      },
+      "drivers": [
+        {
+          "key": "CEICI541367887",
+          "label": "Wholesale Price Index: General",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.102,
+          "excess_pearson": 0.0197,
+          "best_lag": 3,
+          "ic": -0.2167,
+          "beta": -1.2156867369934565,
+          "r2": 0.010398504931962371,
+          "p": 0.4941211613098251,
+          "n": 28,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "Wholesale Price Index: General",
+          "posture": "headwind",
+          "last_chg_z": 2.29,
+          "last_obs": "2026-05-01"
+        },
+        {
+          "key": "CEICI432469687",
+          "label": "Cayenne Pepper: Modern Market",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": -0.1334,
+          "excess_pearson": -0.1311,
+          "best_lag": 4,
+          "ic": -0.0345,
+          "beta": -0.2027270718558715,
+          "r2": 0.017803989086231375,
+          "p": 0.054615547279359265,
+          "n": 118,
+          "theory_agree": false,
+          "stable": true,
+          "sign": -1,
+          "why": "Cayenne Pepper: Modern Market",
+          "posture": "neutral",
+          "last_chg_z": 0.15,
+          "last_obs": "2026-06-08"
+        },
+        {
+          "key": "CEICI432423457",
+          "label": "Egg: Modern Market",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.0734,
+          "excess_pearson": 0.0583,
+          "best_lag": 5,
+          "ic": 0.0354,
+          "beta": 0.4176270934106225,
+          "r2": 0.005384479124606156,
+          "p": 0.5129960561163389,
+          "n": 118,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Egg: Modern Market",
+          "posture": "neutral",
+          "last_chg_z": -0.07,
+          "last_obs": "2026-06-08"
+        },
+        {
+          "key": "CEICI431282997",
+          "label": "Chicken Meat: Modern Market",
+          "role": "demand",
+          "source": "ceic",
+          "freq": "M",
+          "pearson": 0.023,
+          "excess_pearson": 0.0134,
+          "best_lag": 5,
+          "ic": 0.041,
+          "beta": 0.14237111695359222,
+          "r2": 0.0005310987385380717,
+          "p": 0.821612235102744,
+          "n": 118,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Chicken Meat: Modern Market",
+          "posture": "neutral",
+          "last_chg_z": -0.19,
+          "last_obs": "2026-06-08"
+        }
+      ],
+      "generated_at": "2026-06-14T00:48:26"
     }
   ]
 }
