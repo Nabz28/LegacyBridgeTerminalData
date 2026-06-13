@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:49:55",
+  "updated_at": "2026-06-14T00:50:00",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -651,13 +651,14 @@
       "sector": "Infrastructure",
       "priority": 46,
       "status": "done",
-      "grade": "blocked",
-      "score": null,
-      "verdict": null,
-      "attempts": 1,
-      "last_run": "2026-06-14T00:48:12",
+      "grade": "partial",
+      "score": 45,
+      "verdict": "NEUTRAL",
+      "attempts": 2,
+      "last_run": "2026-06-14T00:49:58",
       "reasons": [
-        "insufficient_price_history"
+        "confidence low",
+        "data-limited basket"
       ]
     },
     "healthcare_healthcare_services": {
@@ -753,9 +754,9 @@
   },
   "summary": {
     "perfected": 29,
-    "partial": 12,
+    "partial": 13,
     "needs_review": 10,
-    "blocked": 1,
+    "blocked": 0,
     "pending": 0,
     "error": 0
   }
