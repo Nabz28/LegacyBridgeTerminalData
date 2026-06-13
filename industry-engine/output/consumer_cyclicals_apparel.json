@@ -1,0 +1,506 @@
+{
+  "id": "consumer_cyclicals_apparel",
+  "sub_sector": "Apparel",
+  "sector": "Consumer Cyclicals",
+  "priority": 31,
+  "generated_at": "2026-06-14T00:47:22",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 23,
+    "n_used": 23,
+    "members_used": [
+      "ACRO",
+      "ARGO",
+      "BATA",
+      "BELL",
+      "BIMA",
+      "CNTX",
+      "ERTX",
+      "ESTI",
+      "HDTX",
+      "HRTA",
+      "INDR",
+      "INOV",
+      "MYTX",
+      "PBRX",
+      "POLU",
+      "POLY",
+      "RICY",
+      "SBAT",
+      "SRIL",
+      "SSTM",
+      "TFCO",
+      "TRIS",
+      "UNIT"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 32079635653120.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BEARISH",
+    "score": 42,
+    "net_tilt": -0.151,
+    "demand_tilt": null,
+    "supply_tilt": -0.124,
+    "cost_tilt": -0.376,
+    "macro_tilt": -0.045,
+    "confidence": {
+      "level": "low",
+      "score": 32,
+      "reasons": [
+        "max|corr|=0.15",
+        "theory_agree=67%",
+        "stable=40%",
+        "mvR2=0.05",
+        "OOS=53%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI324049702",
+        "CEICI324050302",
+        "cotton",
+        "wb_cotton",
+        "usdidr"
+      ],
+      "n": 160,
+      "r2": 0.05,
+      "adj_r2": 0.025,
+      "betas": {
+        "CEICI324049702": {
+          "std_beta": 0.0084,
+          "t": 1.6,
+          "p": 0.1095
+        },
+        "CEICI324050302": {
+          "std_beta": -0.0102,
+          "t": -2.02,
+          "p": 0.0435
+        },
+        "cotton": {
+          "std_beta": 0.0022,
+          "t": 1.05,
+          "p": 0.2915
+        },
+        "wb_cotton": {
+          "std_beta": 0.0022,
+          "t": 1.05,
+          "p": 0.2915
+        },
+        "usdidr": {
+          "std_beta": -0.0065,
+          "t": -1.25,
+          "p": 0.2128
+        }
+      },
+      "oos_hit_rate": 0.53,
+      "oos_n": 100,
+      "expected_monthly_ret": 0.0012
+    },
+    "narrative": "Apparel (Consumer Cyclicals) screens MILDLY BEARISH [42/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Cotton No.2 (corr -0.05, lead 1m, now headwind). A 5-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI324049702",
+        "role": "supply",
+        "why": "Volume: Other vegetable textile fibres; paper yarn",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": 0.115,
+        "pearson_p": 0.1475,
+        "spearman": 0.1084,
+        "spearman_p": 0.1724,
+        "best_lag": 1,
+        "corr_at_best": 0.2129,
+        "ic": 0.1183,
+        "ic_t": 1.487,
+        "ols": {
+          "beta": 0.020642661682098995,
+          "t": 1.432077232378655,
+          "p": 0.1521217194934203,
+          "r2": 0.01323450364434553,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.03851836346586001,
+          "t": 1.7635483815411799,
+          "p": 0.07780804483513111,
+          "r2": 0.04533509786207468,
+          "n": 159,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1346,
+        "last_chg": 0.702871,
+        "last_chg_z": 1.63,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.6,
+        "source": "ceic",
+        "label": "Volume: Other vegetable textile fibres; paper yarn",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.672
+        }
+      },
+      {
+        "key": "CEICI324050302",
+        "role": "supply",
+        "why": "Volume: Impregnated, Coated, Covered or Laminated",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": -0.1473,
+        "pearson_p": 0.063,
+        "spearman": -0.0989,
+        "spearman_p": 0.2134,
+        "best_lag": 6,
+        "corr_at_best": -0.1587,
+        "ic": -0.0072,
+        "ic_t": -0.091,
+        "ols": {
+          "beta": -0.033943957103861264,
+          "t": -1.9164170994098335,
+          "p": 0.055312026016197245,
+          "r2": 0.021701901889725872,
+          "n": 160,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.038069286589175064,
+          "t": -1.479277471184173,
+          "p": 0.13906617148717354,
+          "r2": 0.025186869525253508,
+          "n": 154,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0779,
+        "last_chg": 0.976036,
+        "last_chg_z": 3.18,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 29.3,
+        "source": "ceic",
+        "label": "Volume: Impregnated, Coated, Covered or Laminated",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.92
+        }
+      },
+      {
+        "key": "cotton",
+        "role": "cost",
+        "why": "cotton input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.0499,
+        "pearson_p": 0.5009,
+        "spearman": 0.0435,
+        "spearman_p": 0.5575,
+        "best_lag": 1,
+        "corr_at_best": 0.1528,
+        "ic": 0.1216,
+        "ic_t": 1.64,
+        "ols": {
+          "beta": -0.04347938056183458,
+          "t": -0.4460920072655141,
+          "p": 0.6555307860981996,
+          "r2": 0.0024929461764113814,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1320664155465399,
+          "t": 2.3015934827183426,
+          "p": 0.021358108022922564,
+          "r2": 0.02333355381447455,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.1324,
+        "last_chg": 0.061083,
+        "last_chg_z": 0.79,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 26.5,
+        "source": "corr:ICE:CT1!",
+        "shallow": false,
+        "label": "Cotton No.2",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.376
+        }
+      },
+      {
+        "key": "wb_cotton",
+        "role": "cost",
+        "why": "cotton input",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.0499,
+        "pearson_p": 0.5009,
+        "spearman": 0.0435,
+        "spearman_p": 0.5575,
+        "best_lag": 1,
+        "corr_at_best": 0.1528,
+        "ic": 0.1216,
+        "ic_t": 1.64,
+        "ols": {
+          "beta": -0.04347938056183458,
+          "t": -0.4460920072655141,
+          "p": 0.6555307860981996,
+          "r2": 0.0024929461764113814,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1320664155465399,
+          "t": 2.3015934827183426,
+          "p": 0.021358108022922564,
+          "r2": 0.02333355381447455,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.1324,
+        "last_chg": 0.061083,
+        "last_chg_z": 0.79,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 26.5,
+        "source": "corr:ICE:CT1!",
+        "shallow": false,
+        "label": "Cotton · A Index",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.376
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "garment export competitiveness",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.118,
+        "pearson_p": 0.1107,
+        "spearman": -0.0901,
+        "spearman_p": 0.2237,
+        "best_lag": 6,
+        "corr_at_best": -0.1624,
+        "ic": -0.0368,
+        "ic_t": -0.496,
+        "ols": {
+          "beta": -0.27483144665707776,
+          "t": -1.4608790222033088,
+          "p": 0.14404864453967509,
+          "r2": 0.0139209926346483,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.36072040119394433,
+          "t": -2.4380654170969986,
+          "p": 0.014766101570766858,
+          "r2": 0.02638341051694071,
+          "n": 178,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": 0.0855,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 25.5,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      }
+    ],
+    "n_kept": 5,
+    "n_candidates": 17
+  },
+  "unscored": [],
+  "rejected_top": [
+    {
+      "key": "CEICI235841302",
+      "label": "Secondary Sector: Textile Industry",
+      "role": "supply",
+      "pearson": 0.0999,
+      "p": 0.4157651430137569,
+      "theory_agree": null,
+      "score": 32.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323795002",
+      "label": "Volume: Other Made Up Textile Articles; Sets; Worn",
+      "role": "demand",
+      "pearson": 0.0853,
+      "p": 0.30290873061465007,
+      "theory_agree": true,
+      "score": 30.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050102",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "role": "supply",
+      "pearson": -0.0711,
+      "p": 0.32900118632385533,
+      "theory_agree": null,
+      "score": 28.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050202",
+      "label": "Volume: Special woven fabrics; tufted textile fabr",
+      "role": "supply",
+      "pearson": 0.1085,
+      "p": 0.275174076442677,
+      "theory_agree": null,
+      "score": 26.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050702",
+      "label": "Volume: Other made up textile articles; sets; worn",
+      "role": "supply",
+      "pearson": -0.0552,
+      "p": 0.3573149549013147,
+      "theory_agree": null,
+      "score": 25.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323794602",
+      "label": "Volume: Impregnated, Coated, Covered Or Laminated",
+      "role": "demand",
+      "pearson": 0.029,
+      "p": 0.6208626283475887,
+      "theory_agree": true,
+      "score": 20.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323975002",
+      "label": "Value: Textile Fibres and Their Waste",
+      "role": "supply",
+      "pearson": 0.0474,
+      "p": 0.4133861081181296,
+      "theory_agree": null,
+      "score": 18.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0147,
+      "p": 0.8531474599007379,
+      "theory_agree": null,
+      "score": 11.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0214,
+      "p": 0.7409647667656598,
+      "theory_agree": null,
+      "score": 11.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323794402",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "role": "demand",
+      "pearson": -0.0467,
+      "p": 0.5719676061781074,
+      "theory_agree": false,
+      "score": 10.0,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 17,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 2.8,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "confidence low"
+  ]
+}
