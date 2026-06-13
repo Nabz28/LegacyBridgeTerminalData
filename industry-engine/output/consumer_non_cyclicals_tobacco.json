@@ -1,0 +1,958 @@
+{
+  "id": "consumer_non_cyclicals_tobacco",
+  "sub_sector": "Tobacco",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 18,
+  "generated_at": "2026-06-14T00:46:17",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 5,
+    "n_used": 4,
+    "members_used": [
+      "GGRM",
+      "HMSP",
+      "ITIC",
+      "WIIM"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 120401383096320.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "NEUTRAL",
+    "score": 52,
+    "net_tilt": 0.039,
+    "demand_tilt": 0.021,
+    "supply_tilt": -0.155,
+    "cost_tilt": null,
+    "macro_tilt": 0.0,
+    "confidence": {
+      "level": "high",
+      "score": 70,
+      "reasons": [
+        "max|corr|=0.62",
+        "theory_agree=25%",
+        "stable=83%",
+        "mvR2=0.07",
+        "OOS=56%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI581544987",
+        "id_bi_rate",
+        "CEICI580098147",
+        "id_bank_credit",
+        "id_gdp_real_q",
+        "CEICI324030902"
+      ],
+      "n": 94,
+      "r2": 0.071,
+      "adj_r2": 0.007,
+      "betas": {
+        "CEICI581544987": {
+          "std_beta": 0.0052,
+          "t": 0.3,
+          "p": 0.7643
+        },
+        "id_bi_rate": {
+          "std_beta": -0.0176,
+          "t": -1.21,
+          "p": 0.2245
+        },
+        "CEICI580098147": {
+          "std_beta": -0.015,
+          "t": -1.8,
+          "p": 0.0721
+        },
+        "id_bank_credit": {
+          "std_beta": -0.0037,
+          "t": -0.4,
+          "p": 0.691
+        },
+        "id_gdp_real_q": {
+          "std_beta": -0.0118,
+          "t": -1.71,
+          "p": 0.0878
+        },
+        "CEICI324030902": {
+          "std_beta": -0.0072,
+          "t": -0.88,
+          "p": 0.3779
+        }
+      },
+      "oos_hit_rate": 0.559,
+      "oos_n": 34,
+      "expected_monthly_ret": 0.0199
+    },
+    "narrative": "Tobacco (Consumer Non-Cyclicals) screens NEUTRAL [52/100, high confidence]. Top drivers: Prompt manufacturing index (corr +0.62, lead 3m, now tailwind); Manufacture of Tobacco Products (corr +0.38, lead 3m, now flat); Import: Indonesia (corr -0.15, lead 2m, now flat). A 6-driver model explains 7% of monthly variance (adj 1%), 56% out-of-sample directional hit-rate; current read ~+2.0%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI506661537",
+        "role": "supply",
+        "why": "Prompt manufacturing index",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-06-01",
+        "n": 14,
+        "min_n": 12,
+        "pearson": 0.6208,
+        "pearson_p": 0.0178,
+        "spearman": 0.7407,
+        "spearman_p": 0.0024,
+        "best_lag": 3,
+        "corr_at_best": -0.6513,
+        "ic": 0.0604,
+        "ic_t": 0.209,
+        "ols": {
+          "beta": 0.01976355618758156,
+          "t": 2.6885223326861314,
+          "p": 0.007176903480554697,
+          "r2": 0.3853496014597385,
+          "n": 14,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.02135379824772785,
+          "t": -1.8563429316607176,
+          "p": 0.06340469343766421,
+          "r2": 0.42417897654814174,
+          "n": 11,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.5576,
+        "last_chg": 4.875,
+        "last_chg_z": 0.65,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 77.9,
+        "source": "ceic",
+        "label": "Prompt manufacturing index",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.314
+        }
+      },
+      {
+        "key": "CEICI506662887",
+        "role": "supply",
+        "why": "Manufacture of Tobacco Products",
+        "test_freq": "Q",
+        "transform": "diff",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 13,
+        "min_n": 12,
+        "pearson": 0.3779,
+        "pearson_p": 0.203,
+        "spearman": 0.522,
+        "spearman_p": 0.0673,
+        "best_lag": 3,
+        "corr_at_best": -0.7795,
+        "ic": 0.4615,
+        "ic_t": 1.531,
+        "ols": {
+          "beta": 0.011259179153654708,
+          "t": 3.4874114420771565,
+          "p": 0.0004877204139705787,
+          "r2": 0.14282186049434076,
+          "n": 13,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.021289886883923515,
+          "t": -2.4124998092421492,
+          "p": 0.015843545733286904,
+          "r2": 0.6076085754428084,
+          "n": 10,
+          "hac_lag": 2
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": 0.3747,
+        "last_chg": -0.5525,
+        "last_chg_z": -0.1,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 73.6,
+        "source": "ceic",
+        "label": "Manufacture of Tobacco Products",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.05
+        }
+      },
+      {
+        "key": "CEICI580151817",
+        "role": "demand",
+        "why": "Import: Indonesia",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2025-12-01",
+        "n": 29,
+        "min_n": 12,
+        "pearson": -0.1539,
+        "pearson_p": 0.4255,
+        "spearman": -0.2365,
+        "spearman_p": 0.2169,
+        "best_lag": 2,
+        "corr_at_best": -0.498,
+        "ic": 0.3268,
+        "ic_t": 1.698,
+        "ols": {
+          "beta": -0.006594968962052332,
+          "t": -0.9691382971016346,
+          "p": 0.33247619201258405,
+          "r2": 0.023677064422088834,
+          "n": 29,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -0.020620017620516552,
+          "t": -2.086197021650795,
+          "p": 0.03696077992802546,
+          "r2": 0.24796149339705387,
+          "n": 27,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1261,
+        "last_chg": 1.117764,
+        "last_chg_z": 0.21,
+        "last_chg_date": "2025-12-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.2,
+        "source": "ceic",
+        "label": "Import: Indonesia",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.105
+        }
+      },
+      {
+        "key": "CEICI581544987",
+        "role": "demand",
+        "why": "Import: Japan",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 120,
+        "min_n": 24,
+        "pearson": 0.0752,
+        "pearson_p": 0.4143,
+        "spearman": 0.0043,
+        "spearman_p": 0.9631,
+        "best_lag": 1,
+        "corr_at_best": -0.2227,
+        "ic": -0.2352,
+        "ic_t": -2.555,
+        "ols": {
+          "beta": 0.002913736281387448,
+          "t": 0.5411915431121375,
+          "p": 0.5883755659044905,
+          "r2": 0.00565640785661059,
+          "n": 120,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.008644476599656264,
+          "t": -2.111264392036778,
+          "p": 0.03474959285102821,
+          "r2": 0.04960014405869595,
+          "n": 119,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0213,
+        "last_chg": 2.034243,
+        "last_chg_z": 0.79,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 42.8,
+        "source": "ceic",
+        "label": "Import: Japan",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.376
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.185,
+        "pearson_p": 0.0127,
+        "spearman": -0.1709,
+        "spearman_p": 0.0215,
+        "best_lag": 0,
+        "corr_at_best": -0.185,
+        "ic": -0.052,
+        "ic_t": -0.696,
+        "ols": {
+          "beta": -0.0892495478552639,
+          "t": -2.248958426665068,
+          "p": 0.024515141184194355,
+          "r2": 0.03422380693073768,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.0892495478552639,
+          "t": -2.248958426665068,
+          "p": 0.024515141184194355,
+          "r2": 0.03422380693073768,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.1382,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.1,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI521547527",
+        "role": "demand",
+        "why": "Tobacco",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-05-01",
+        "n": 40,
+        "min_n": 24,
+        "pearson": 0.1407,
+        "pearson_p": 0.3866,
+        "spearman": 0.0839,
+        "spearman_p": 0.6069,
+        "best_lag": 0,
+        "corr_at_best": 0.1407,
+        "ic": 0.0142,
+        "ic_t": 0.087,
+        "ols": {
+          "beta": 6.9581618509788985,
+          "t": 2.2376741301590535,
+          "p": 0.025242313467514228,
+          "r2": 0.019785971615691178,
+          "n": 40,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 6.9581618509788985,
+          "t": 2.2376741301590535,
+          "p": 0.025242313467514228,
+          "r2": 0.019785971615691178,
+          "n": 40,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1497,
+        "last_chg": 0.005238,
+        "last_chg_z": 0.33,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.7,
+        "source": "ceic",
+        "label": "Tobacco",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.164
+        }
+      },
+      {
+        "key": "CEICI580098147",
+        "role": "demand",
+        "why": "Import: Switzerland",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-02-01",
+        "n": 145,
+        "min_n": 24,
+        "pearson": -0.1781,
+        "pearson_p": 0.0321,
+        "spearman": -0.194,
+        "spearman_p": 0.0194,
+        "best_lag": 0,
+        "corr_at_best": -0.1781,
+        "ic": 0.1638,
+        "ic_t": 1.959,
+        "ols": {
+          "beta": -0.006216949486111467,
+          "t": -2.29180132422963,
+          "p": 0.021917110237503673,
+          "r2": 0.031702665226884696,
+          "n": 145,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.006216949486111467,
+          "t": -2.29180132422963,
+          "p": 0.021917110237503673,
+          "r2": 0.031702665226884696,
+          "n": 145,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1431,
+        "last_chg": -0.415044,
+        "last_chg_z": -0.17,
+        "last_chg_date": "2026-02-28",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.9,
+        "source": "ceic",
+        "label": "Import: Switzerland",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.085
+        }
+      },
+      {
+        "key": "CEICI456545587",
+        "role": "demand",
+        "why": "Excise duty: tobacco",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-02-01",
+        "n": 74,
+        "min_n": 24,
+        "pearson": -0.1797,
+        "pearson_p": 0.1256,
+        "spearman": -0.0025,
+        "spearman_p": 0.9833,
+        "best_lag": 0,
+        "corr_at_best": -0.1797,
+        "ic": 0.1992,
+        "ic_t": 1.69,
+        "ols": {
+          "beta": -0.012041488307327057,
+          "t": -1.2326554043103475,
+          "p": 0.21770435665953236,
+          "r2": 0.0322808998075067,
+          "n": 74,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.012041488307327057,
+          "t": -1.2326554043103475,
+          "p": 0.21770435665953236,
+          "r2": 0.0322808998075067,
+          "n": 74,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1403,
+        "last_chg": 0.681239,
+        "last_chg_z": 0.46,
+        "last_chg_date": "2025-02-28",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "stale(16m)"
+          ]
+        },
+        "score": 36.5,
+        "source": "ceic",
+        "label": "Excise duty: tobacco",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.226
+        }
+      },
+      {
+        "key": "CEICI521547547",
+        "role": "demand",
+        "why": "Non Alcohol Beverage",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-05-01",
+        "n": 40,
+        "min_n": 24,
+        "pearson": -0.1752,
+        "pearson_p": 0.2797,
+        "spearman": -0.2178,
+        "spearman_p": 0.1769,
+        "best_lag": 3,
+        "corr_at_best": -0.2016,
+        "ic": -0.0565,
+        "ic_t": -0.348,
+        "ols": {
+          "beta": -9.338051186583002,
+          "t": -1.533326485208681,
+          "p": 0.12519543204438716,
+          "r2": 0.030680763632465857,
+          "n": 40,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": -10.753721996317601,
+          "t": -1.8244374776164307,
+          "p": 0.06808596044193287,
+          "r2": 0.04063194428174555,
+          "n": 37,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.2054,
+        "last_chg": 0.003513,
+        "last_chg_z": 0.25,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 32.0,
+        "source": "ceic",
+        "label": "Non Alcohol Beverage",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.124
+        }
+      },
+      {
+        "key": "id_bank_credit",
+        "role": "demand",
+        "why": "consumer liquidity",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 121,
+        "min_n": 24,
+        "pearson": -0.0639,
+        "pearson_p": 0.4863,
+        "spearman": -0.0696,
+        "spearman_p": 0.448,
+        "best_lag": 5,
+        "corr_at_best": -0.1985,
+        "ic": -0.1365,
+        "ic_t": -1.489,
+        "ols": {
+          "beta": -0.006991451089853768,
+          "t": -1.1857240464491656,
+          "p": 0.23573129505014023,
+          "r2": 0.0040810244590478995,
+          "n": 121,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.02230666147017334,
+          "t": -2.1233808899589772,
+          "p": 0.033721947252903756,
+          "r2": 0.03939363558102238,
+          "n": 116,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0302,
+        "last_chg": 0.0,
+        "last_chg_z": -0.01,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 26.7,
+        "source": "corr:aIDLONYAR",
+        "shallow": false,
+        "label": "Bank Credit (claims)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "disposable income",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.1011,
+        "pearson_p": 0.276,
+        "spearman": -0.0468,
+        "spearman_p": 0.6146,
+        "best_lag": 2,
+        "corr_at_best": 0.1646,
+        "ic": -0.0498,
+        "ic_t": -0.537,
+        "ols": {
+          "beta": -0.008909218859661712,
+          "t": -1.970543833656323,
+          "p": 0.04877607648082968,
+          "r2": 0.010222423440227835,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.014499885981379457,
+          "t": 3.6981892860599572,
+          "p": 0.00021714294181837053,
+          "r2": 0.02710841151701293,
+          "n": 116,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0656,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 26.5,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI324030902",
+        "role": "supply",
+        "why": "Export value: Foodstuffs, Beverages, Spirits and T",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": -0.0158,
+        "pearson_p": 0.8374,
+        "spearman": -0.0599,
+        "spearman_p": 0.4361,
+        "best_lag": 4,
+        "corr_at_best": 0.179,
+        "ic": -0.0027,
+        "ic_t": -0.035,
+        "ols": {
+          "beta": -0.009295212753645836,
+          "t": -0.2895602351947999,
+          "p": 0.7721526919365649,
+          "r2": 0.00025000476103997915,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.10650630018748115,
+          "t": 2.2106929974396214,
+          "p": 0.027057103783774936,
+          "r2": 0.03204241319793133,
+          "n": 167,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.052,
+        "last_chg": 0.2904,
+        "last_chg_z": 1.85,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 14.6,
+        "source": "ceic",
+        "label": "Export value: Foodstuffs, Beverages, Spirits and T",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.728
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 31
+  },
+  "unscored": [
+    {
+      "key": "CEICI522348057",
+      "label": "CPI weight: Food, Beverage and Tobacco",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI522348067",
+      "label": "CPI weight: Food",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI522348077",
+      "label": "CPI weight: Non Alcohol Beverage",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI522348087",
+      "label": "CPI weight: Alcohol Beverage",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI522348097",
+      "label": "CPI weight: Cigarettes and Tobacco",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI581051157",
+      "label": "Import: Argentina",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI580911537",
+      "label": "Import: Italy",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI741085357",
+      "label": "Import: Colombia",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI741650197",
+      "label": "Import: Sweden",
+      "role": "demand",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI744698307",
+      "label": "Export: Iraq",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI577980137",
+      "label": "Export: Italy",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI745355737",
+      "label": "Export: Peru",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "CEICI521547557",
+      "label": "Food",
+      "role": "demand",
+      "pearson": -0.1172,
+      "p": 0.22347536218901853,
+      "theory_agree": false,
+      "score": 37.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI521347877",
+      "label": "Food, Beverage and Tobacco",
+      "role": "demand",
+      "pearson": -0.1181,
+      "p": 0.21651676480854187,
+      "theory_agree": false,
+      "score": 37.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.102,
+      "p": 0.13149897013826445,
+      "theory_agree": null,
+      "score": 37.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI745798737",
+      "label": "Export: Iran",
+      "role": "supply",
+      "pearson": -0.1312,
+      "p": 0.24794620264495182,
+      "theory_agree": null,
+      "score": 35.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI581225477",
+      "label": "Import: Singapore",
+      "role": "demand",
+      "pearson": 0.0468,
+      "p": 0.2284661916711329,
+      "theory_agree": true,
+      "score": 35.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "cost",
+      "pearson": -0.0958,
+      "p": 0.16702498323463721,
+      "theory_agree": true,
+      "score": 34.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324046802",
+      "label": "Export volume: Tobacco and Manufactured Tobacco Su",
+      "role": "supply",
+      "pearson": -0.0653,
+      "p": 0.1265069969160702,
+      "theory_agree": null,
+      "score": 33.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI521547537",
+      "label": "Alcohol Beverage",
+      "role": "demand",
+      "pearson": -0.1223,
+      "p": 0.2002179326015353,
+      "theory_agree": false,
+      "score": 32.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI580512107",
+      "label": "Import: Malaysia",
+      "role": "demand",
+      "pearson": -0.1924,
+      "p": 0.14640077624650205,
+      "theory_agree": false,
+      "score": 27.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324054302",
+      "label": "Export: Value",
+      "role": "supply",
+      "pearson": 0.0505,
+      "p": 0.4191069815067545,
+      "theory_agree": null,
+      "score": 25.8,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 31,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 15.8,
+  "grade": "partial",
+  "grade_reasons": [
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "data-limited basket"
+  ]
+}
