@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:45:59",
-  "n_baskets": 16,
+  "generated_at": "2026-06-14T00:46:01",
+  "n_baskets": 17,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -4748,6 +4748,161 @@
         }
       ],
       "generated_at": "2026-06-14T00:45:59"
+    },
+    {
+      "id": "financials_insurance",
+      "sub_sector": "Insurance",
+      "sector": "Financials",
+      "priority": 17,
+      "status": "done",
+      "grade": "perfected",
+      "verdict": "MILDLY BEARISH",
+      "score": 40,
+      "confidence": {
+        "level": "high",
+        "score": 87,
+        "reasons": [
+          "max|corr|=0.51",
+          "theory_agree=100%",
+          "stable=67%",
+          "mvR2=0.18",
+          "OOS=57%"
+        ]
+      },
+      "net_tilt": -0.198,
+      "demand_tilt": -0.164,
+      "supply_tilt": null,
+      "cost_tilt": null,
+      "macro_tilt": -0.045,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "jci",
+          "usdidr",
+          "id_gdp_real_q"
+        ],
+        "n": 118,
+        "r2": 0.184,
+        "adj_r2": 0.163,
+        "betas": {
+          "jci": {
+            "std_beta": 0.0203,
+            "t": 5.53,
+            "p": 0.0
+          },
+          "usdidr": {
+            "std_beta": -0.002,
+            "t": -0.44,
+            "p": 0.6581
+          },
+          "id_gdp_real_q": {
+            "std_beta": 0.0019,
+            "t": 0.4,
+            "p": 0.6881
+          }
+        },
+        "oos_hit_rate": 0.569,
+        "oos_n": 58,
+        "expected_monthly_ret": -0.0048
+      },
+      "narrative": "Insurance (Financials) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+      "n_kept": 3,
+      "n_tested": 7,
+      "n_used": 16,
+      "members_used": [
+        "ABDA",
+        "AHAP",
+        "AMAG",
+        "ASBI",
+        "ASDM",
+        "ASJT",
+        "ASRM",
+        "LIFE",
+        "LPGI",
+        "MREI",
+        "MTWI",
+        "PNIN",
+        "PNLF",
+        "SMMA",
+        "TUGU",
+        "VINS"
+      ],
+      "coverage": {
+        "W": 804,
+        "M": 185,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-06-12"
+      },
+      "drivers": [
+        {
+          "key": "jci",
+          "label": "Jakarta Composite",
+          "role": "demand",
+          "source": "corr:IDX:COMPOSITE",
+          "freq": "M",
+          "pearson": 0.5092,
+          "excess_pearson": -0.2203,
+          "best_lag": 0,
+          "ic": 0.1206,
+          "beta": 0.7237549396195808,
+          "r2": 0.259265998575565,
+          "p": 4.5774612411777755e-10,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "equity book/UL fee income",
+          "posture": "headwind",
+          "last_chg_z": -0.68,
+          "last_obs": "2026-05-01"
+        },
+        {
+          "key": "usdidr",
+          "label": "USD/IDR",
+          "role": "macro",
+          "source": "corr:FX_IDC:USDIDR",
+          "freq": "M",
+          "pearson": -0.1653,
+          "excess_pearson": 0.0876,
+          "best_lag": 0,
+          "ic": -0.1636,
+          "beta": -0.3205436364765245,
+          "r2": 0.027310689478879935,
+          "p": 0.17679453720392535,
+          "n": 184,
+          "theory_agree": null,
+          "stable": true,
+          "sign": -1,
+          "why": "IDR weakness: +for USD earners, -for importers/FX debt",
+          "posture": "neutral",
+          "last_chg_z": -0.09,
+          "last_obs": "2026-05-08"
+        },
+        {
+          "key": "id_gdp_real_q",
+          "label": "Real GDP (SA)",
+          "role": "demand",
+          "source": "corr:aIDGDPAR1",
+          "freq": "M",
+          "pearson": 0.0005,
+          "excess_pearson": 0.0814,
+          "best_lag": 2,
+          "ic": 0.2127,
+          "beta": 2.2023296030608236e-05,
+          "r2": 2.616723765447304e-07,
+          "p": 0.9949180524313376,
+          "n": 118,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "premium growth",
+          "posture": "neutral",
+          "last_chg_z": -0.0,
+          "last_obs": "2026-05-08"
+        }
+      ],
+      "generated_at": "2026-06-14T00:46:01"
     }
   ]
 }
