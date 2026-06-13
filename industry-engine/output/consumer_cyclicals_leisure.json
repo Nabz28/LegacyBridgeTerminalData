@@ -1,0 +1,913 @@
+{
+  "id": "consumer_cyclicals_leisure",
+  "sub_sector": "Leisure",
+  "sector": "Consumer Cyclicals",
+  "priority": 27,
+  "generated_at": "2026-06-14T00:47:12",
+  "status": "done",
+  "reason": null,
+  "benchmark": "jci",
+  "basket": {
+    "n_members": 22,
+    "n_used": 22,
+    "members_used": [
+      "BAYU",
+      "BLTZ",
+      "BUVA",
+      "CNMA",
+      "DFAM",
+      "EAST",
+      "FITT",
+      "GOLF",
+      "HAJJ",
+      "HRME",
+      "INPS",
+      "JIHD",
+      "JSPT",
+      "KPIG",
+      "MABA",
+      "PANR",
+      "PDES",
+      "PGLI",
+      "PJAA",
+      "PNSE",
+      "PSKT",
+      "SHID"
+    ],
+    "coverage": {
+      "W": 798,
+      "M": 184,
+      "Q": 61,
+      "first": "2011-01-14",
+      "last": "2026-05-01"
+    },
+    "total_mcap": 51691625340928.0,
+    "weight_cap": 0.12
+  },
+  "model": {
+    "verdict": "MILDLY BULLISH",
+    "score": 59,
+    "net_tilt": 0.178,
+    "demand_tilt": 0.198,
+    "supply_tilt": 0.0,
+    "cost_tilt": null,
+    "macro_tilt": null,
+    "confidence": {
+      "level": "medium",
+      "score": 62,
+      "reasons": [
+        "max|corr|=0.20",
+        "theory_agree=91%",
+        "stable=33%",
+        "mvR2=0.08",
+        "OOS=58%"
+      ]
+    },
+    "multivariate": {
+      "available": true,
+      "drivers": [
+        "CEICI14539501",
+        "CEICI14537201",
+        "CEICI14538001",
+        "CEICI14536701",
+        "CEICI14538101",
+        "CEICI14537101"
+      ],
+      "n": 183,
+      "r2": 0.083,
+      "adj_r2": 0.051,
+      "betas": {
+        "CEICI14539501": {
+          "std_beta": 0.0094,
+          "t": 1.23,
+          "p": 0.2202
+        },
+        "CEICI14537201": {
+          "std_beta": 0.0027,
+          "t": 0.83,
+          "p": 0.4065
+        },
+        "CEICI14538001": {
+          "std_beta": -0.0113,
+          "t": -1.0,
+          "p": 0.3152
+        },
+        "CEICI14536701": {
+          "std_beta": 0.0233,
+          "t": 2.96,
+          "p": 0.0031
+        },
+        "CEICI14538101": {
+          "std_beta": -0.0137,
+          "t": -1.04,
+          "p": 0.3007
+        },
+        "CEICI14537101": {
+          "std_beta": -0.0005,
+          "t": -0.08,
+          "p": 0.9393
+        }
+      },
+      "oos_hit_rate": 0.577,
+      "oos_n": 123,
+      "expected_monthly_ret": 0.0151
+    },
+    "narrative": "Leisure (Consumer Cyclicals) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Export: world (UN comtrade) (corr -0.19, lead 4m, now flat); By residence: Canada (corr +0.14, lead 0m, now flat); By residence: China (corr +0.17, lead 0m, now tailwind). A 6-driver model explains 8% of monthly variance (adj 5%), 58% out-of-sample directional hit-rate; current read ~+1.5%/mo.",
+    "drivers": [
+      {
+        "key": "CEICI655700197",
+        "role": "supply",
+        "why": "Export: world (UN comtrade)",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2025-07-01",
+        "n": 18,
+        "min_n": 12,
+        "pearson": -0.1879,
+        "pearson_p": 0.4553,
+        "spearman": -0.062,
+        "spearman_p": 0.8071,
+        "best_lag": 4,
+        "corr_at_best": 0.5771,
+        "ic": 0.4951,
+        "ic_t": 1.98,
+        "ols": {
+          "beta": -0.0038882388572340663,
+          "t": -1.6270244650826227,
+          "p": 0.10373190188374935,
+          "r2": 0.035307018111594646,
+          "n": 18,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.012469584245589452,
+          "t": 2.294460001335905,
+          "p": 0.02176409006901852,
+          "r2": 0.333073623361942,
+          "n": 14,
+          "hac_lag": 3
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.1447,
+        "last_chg": 0.0,
+        "last_chg_z": -0.01,
+        "last_chg_date": "2025-09-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 51.7,
+        "source": "ceic",
+        "label": "Export: world (UN comtrade)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      },
+      {
+        "key": "CEICI14539501",
+        "role": "demand",
+        "why": "By residence: Canada",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.1408,
+        "pearson_p": 0.0573,
+        "spearman": 0.062,
+        "spearman_p": 0.4042,
+        "best_lag": 0,
+        "corr_at_best": 0.1408,
+        "ic": 0.0409,
+        "ic_t": 0.552,
+        "ols": {
+          "beta": 0.016309421481856597,
+          "t": 2.6283008383074447,
+          "p": 0.008581258818129052,
+          "r2": 0.019826950508206598,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.016309421481856597,
+          "t": 2.6283008383074447,
+          "p": 0.008581258818129052,
+          "r2": 0.019826950508206598,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0112,
+        "last_chg": -0.00595,
+        "last_chg_z": -0.03,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.7,
+        "source": "ceic",
+        "label": "By residence: Canada",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.015
+        }
+      },
+      {
+        "key": "CEICI14537201",
+        "role": "demand",
+        "why": "By residence: China",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.1686,
+        "pearson_p": 0.0225,
+        "spearman": 0.1153,
+        "spearman_p": 0.1202,
+        "best_lag": 0,
+        "corr_at_best": 0.1686,
+        "ic": -0.0905,
+        "ic_t": -1.221,
+        "ols": {
+          "beta": 0.02443879458126136,
+          "t": 2.8957970768357644,
+          "p": 0.003781968699324689,
+          "r2": 0.028426806967192242,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.02443879458126136,
+          "t": 2.8957970768357644,
+          "p": 0.003781968699324689,
+          "r2": 0.028426806967192242,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.0355,
+        "last_chg": 0.33396,
+        "last_chg_z": 0.69,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.5,
+        "source": "ceic",
+        "label": "By residence: China",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.332
+        }
+      },
+      {
+        "key": "CEICI14538001",
+        "role": "demand",
+        "why": "By residence: France",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.0793,
+        "pearson_p": 0.286,
+        "spearman": 0.0024,
+        "spearman_p": 0.9738,
+        "best_lag": 4,
+        "corr_at_best": 0.2148,
+        "ic": -0.1718,
+        "ic_t": -2.318,
+        "ols": {
+          "beta": 0.006146870730825862,
+          "t": 1.4017982575373233,
+          "p": 0.16097549895100016,
+          "r2": 0.006286393746980479,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.016630289808683883,
+          "t": 2.263014144600142,
+          "p": 0.023634817368252424,
+          "r2": 0.04611765368243559,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.0637,
+        "last_chg": 0.59221,
+        "last_chg_z": 1.1,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.3,
+        "source": "ceic",
+        "label": "By residence: France",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.501
+        }
+      },
+      {
+        "key": "CEICI14536701",
+        "role": "demand",
+        "why": "By residence: South Korea",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.2039,
+        "pearson_p": 0.0056,
+        "spearman": 0.1794,
+        "spearman_p": 0.0151,
+        "best_lag": 0,
+        "corr_at_best": 0.2039,
+        "ic": 0.0312,
+        "ic_t": 0.421,
+        "ols": {
+          "beta": 0.028404606608891384,
+          "t": 3.241032048691423,
+          "p": 0.0011909779343245875,
+          "r2": 0.04158265193104993,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.028404606608891384,
+          "t": 3.241032048691423,
+          "p": 0.0011909779343245875,
+          "r2": 0.04158265193104993,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0176,
+        "last_chg": 0.154885,
+        "last_chg_z": 0.41,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 38.8,
+        "source": "ceic",
+        "label": "By residence: South Korea",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.202
+        }
+      },
+      {
+        "key": "CEICI14538101",
+        "role": "demand",
+        "why": "By residence: Germany",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.075,
+        "pearson_p": 0.3129,
+        "spearman": -0.0365,
+        "spearman_p": 0.6242,
+        "best_lag": 4,
+        "corr_at_best": 0.2056,
+        "ic": -0.1602,
+        "ic_t": -2.161,
+        "ols": {
+          "beta": 0.006725821504915797,
+          "t": 1.2490457697951667,
+          "p": 0.21164833380188308,
+          "r2": 0.005625352081660484,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.018416123863655168,
+          "t": 2.453344219084176,
+          "p": 0.014153482866330006,
+          "r2": 0.042271825173399225,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.0203,
+        "last_chg": -0.003666,
+        "last_chg_z": -0.01,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 37.5,
+        "source": "ceic",
+        "label": "By residence: Germany",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.005
+        }
+      },
+      {
+        "key": "CEICI14537101",
+        "role": "demand",
+        "why": "By residence: Taiwan",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.1543,
+        "pearson_p": 0.037,
+        "spearman": 0.1099,
+        "spearman_p": 0.1387,
+        "best_lag": 0,
+        "corr_at_best": 0.1543,
+        "ic": -0.0495,
+        "ic_t": -0.668,
+        "ols": {
+          "beta": 0.022482054542366906,
+          "t": 2.6746934180667123,
+          "p": 0.007479761623556003,
+          "r2": 0.023801465901038377,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.022482054542366906,
+          "t": 2.6746934180667123,
+          "p": 0.007479761623556003,
+          "r2": 0.023801465901038377,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.0115,
+        "last_chg": 0.312568,
+        "last_chg_z": 1.0,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 35.4,
+        "source": "ceic",
+        "label": "By residence: Taiwan",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.462
+        }
+      },
+      {
+        "key": "CEICI14536601",
+        "role": "demand",
+        "why": "By residence: Japan",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.1284,
+        "pearson_p": 0.0833,
+        "spearman": -0.0637,
+        "spearman_p": 0.3915,
+        "best_lag": 4,
+        "corr_at_best": 0.1534,
+        "ic": -0.0026,
+        "ic_t": -0.035,
+        "ols": {
+          "beta": 0.013655353206651451,
+          "t": 2.508058328523411,
+          "p": 0.01213966261565107,
+          "r2": 0.01648403703197754,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.016354095484866608,
+          "t": 3.1289576272674697,
+          "p": 0.0017542760388368204,
+          "r2": 0.02353960647367137,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0302,
+        "last_chg": -0.060728,
+        "last_chg_z": -0.16,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 34.1,
+        "source": "ceic",
+        "label": "By residence: Japan",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.08
+        }
+      },
+      {
+        "key": "CEICI14538201",
+        "role": "demand",
+        "why": "By residence: Italy",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.1223,
+        "pearson_p": 0.099,
+        "spearman": 0.0363,
+        "spearman_p": 0.6257,
+        "best_lag": 5,
+        "corr_at_best": 0.2136,
+        "ic": -0.0214,
+        "ic_t": -0.289,
+        "ols": {
+          "beta": 0.013182394120149816,
+          "t": 1.5491122619852349,
+          "p": 0.1213547357410767,
+          "r2": 0.014961870949916745,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.02254527816358221,
+          "t": 3.2616664434006686,
+          "p": 0.0011075938806540567,
+          "r2": 0.045611784155489166,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0143,
+        "last_chg": 0.349067,
+        "last_chg_z": 0.75,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 33.2,
+        "source": "ceic",
+        "label": "By residence: Italy",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.358
+        }
+      },
+      {
+        "key": "CEICI14538701",
+        "role": "demand",
+        "why": "By residence: United Kingdom",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.0639,
+        "pearson_p": 0.3901,
+        "spearman": -0.0039,
+        "spearman_p": 0.9587,
+        "best_lag": 4,
+        "corr_at_best": 0.1548,
+        "ic": 0.0225,
+        "ic_t": 0.303,
+        "ols": {
+          "beta": 0.007341098455542465,
+          "t": 1.0573396994032838,
+          "p": 0.2903565811390889,
+          "r2": 0.00408358728257896,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.01775811387594733,
+          "t": 2.147842898761546,
+          "p": 0.031726237813089066,
+          "r2": 0.023975266492111458,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0368,
+        "last_chg": 0.035915,
+        "last_chg_z": 0.09,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 32.3,
+        "source": "ceic",
+        "label": "By residence: United Kingdom",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.045
+        }
+      },
+      {
+        "key": "CEICI14538601",
+        "role": "demand",
+        "why": "By residence: Switzerland",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 183,
+        "min_n": 24,
+        "pearson": 0.0519,
+        "pearson_p": 0.485,
+        "spearman": -0.0099,
+        "spearman_p": 0.8939,
+        "best_lag": 4,
+        "corr_at_best": 0.1868,
+        "ic": -0.0512,
+        "ic_t": -0.691,
+        "ols": {
+          "beta": 0.004036133330575705,
+          "t": 0.7264149960899975,
+          "p": 0.46758440076218133,
+          "r2": 0.0026978508004760204,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.014445050055215528,
+          "t": 2.3897173819065847,
+          "p": 0.01686134220048169,
+          "r2": 0.03491130715976887,
+          "n": 183,
+          "hac_lag": 5
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0866,
+        "last_chg": 0.436687,
+        "last_chg_z": 0.79,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 30.7,
+        "source": "ceic",
+        "label": "By residence: Switzerland",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.376
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "discretionary leisure",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": -0.1153,
+        "pearson_p": 0.2139,
+        "spearman": 0.0071,
+        "spearman_p": 0.9388,
+        "best_lag": 6,
+        "corr_at_best": 0.163,
+        "ic": -0.0809,
+        "ic_t": -0.871,
+        "ols": {
+          "beta": -0.006099541668356274,
+          "t": -1.7396250477834296,
+          "p": 0.08192487810043281,
+          "r2": 0.013284403407243461,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.008199543527085013,
+          "t": 6.063896571519813,
+          "p": 1.3286261322935172e-09,
+          "r2": 0.0265763270407382,
+          "n": 112,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0498,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 29.2,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
+        }
+      }
+    ],
+    "n_kept": 12,
+    "n_candidates": 32
+  },
+  "unscored": [
+    {
+      "key": "CEICI700858127",
+      "label": "Export: China",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI585659057",
+      "label": "Export: Philippines",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI585751857",
+      "label": "Export: Malaysia",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    },
+    {
+      "key": "CEICI585797647",
+      "label": "Export: Singapore",
+      "role": "supply",
+      "source": "ceic",
+      "reason": "insufficient_history"
+    }
+  ],
+  "rejected_top": [
+    {
+      "key": "CEICI14536101",
+      "label": "By residence: Thailand",
+      "role": "demand",
+      "pearson": 0.0806,
+      "p": 0.26573970841248806,
+      "theory_agree": true,
+      "score": 39.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14535901",
+      "label": "By residence: Philippines",
+      "role": "demand",
+      "pearson": 0.1186,
+      "p": 0.05052413312255322,
+      "theory_agree": true,
+      "score": 35.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14536501",
+      "label": "By residence: India",
+      "role": "demand",
+      "pearson": 0.1144,
+      "p": 0.17863046657046422,
+      "theory_agree": true,
+      "score": 34.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0935,
+      "p": 0.22726147818402276,
+      "theory_agree": null,
+      "score": 31.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14579601",
+      "label": "International: Arrival",
+      "role": "demand",
+      "pearson": 0.0709,
+      "p": 0.23485141402704346,
+      "theory_agree": true,
+      "score": 30.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14580701",
+      "label": "International: Departure",
+      "role": "demand",
+      "pearson": 0.0531,
+      "p": 0.32476500767705074,
+      "theory_agree": true,
+      "score": 26.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14539901",
+      "label": "By residence: Australia",
+      "role": "demand",
+      "pearson": 0.0375,
+      "p": 0.57603891230473,
+      "theory_agree": true,
+      "score": 26.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14579401",
+      "label": "International: Arrival and Departure",
+      "role": "demand",
+      "pearson": 0.0658,
+      "p": 0.22438158275904674,
+      "theory_agree": true,
+      "score": 26.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0737,
+      "p": 0.3357831621185581,
+      "theory_agree": null,
+      "score": 26.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14535801",
+      "label": "By residence: Malaysia",
+      "role": "demand",
+      "pearson": 0.0359,
+      "p": 0.6166850988122623,
+      "theory_agree": true,
+      "score": 24.5,
+      "reason": "below_gate"
+    }
+  ],
+  "n_tested": 32,
+  "provenance": {
+    "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
+    "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
+    "ceic": "macro.observations (country=idind, demand/supply tagged)",
+    "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
+    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+  },
+  "runtime_s": 10.7,
+  "grade": "perfected",
+  "grade_reasons": []
+}
