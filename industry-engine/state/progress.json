@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:39:43",
+  "updated_at": "2026-06-14T00:40:24",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -9,15 +9,13 @@
       "sub_sector": "Banks",
       "sector": "Financials",
       "priority": 1,
-      "status": "needs_review",
-      "grade": "needs_review",
+      "status": "done",
+      "grade": "perfected",
       "score": 41,
       "verdict": "MILDLY BEARISH",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:36:35",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.18, p<0.05)"
-      ]
+      "attempts": 2,
+      "last_run": "2026-06-14T00:40:19",
+      "reasons": []
     },
     "technology_it_services": {
       "id": "technology_it_services",
@@ -690,9 +688,9 @@
     }
   },
   "summary": {
-    "perfected": 4,
+    "perfected": 5,
     "partial": 0,
-    "needs_review": 4,
+    "needs_review": 3,
     "blocked": 0,
     "pending": 44,
     "error": 0
