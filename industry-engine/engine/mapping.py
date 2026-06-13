@@ -121,6 +121,11 @@ SEED = {
     },
     "Energy Services": {  # mostly coal-mining contractors (DOID/PTRO/DEWA/ABMM)
         "ceic": [("Energy", None)],
+        # coal/gas PRODUCTION activity is CEIC-'supply' but is DEMAND for a
+        # services basket (more mining -> more contractor work).
+        "ceic_override": [("mining & quarrying: coal", "demand", +1),
+                          ("coal production", "demand", +1),
+                          ("production: natural gas", "demand", +1)],
         "globals": [("bcom", "demand", +1, "commodity cycle -> coal-miner capex -> contractor demand"),
                     ("brent", "demand", +1, "upstream capex follows crude"),
                     ("wb_coal_au", "demand", +1, "coal services demand")],
@@ -464,9 +469,14 @@ SEED = {
                   ("cn_ip_yoy", "demand", +1, "electronics supply chain")],
     },
     # ---------------- INDUSTRIALS ----------------
-    "Machinery": {
-        "ceic": [("Industrials & Manufacturing", None)],
-        "globals": [("wb_coal_au", "demand", +1, "mining-equipment demand (UNTR)"),
+    "Machinery": {  # UNTR-dominated: Komatsu dealer + Pamapersada coal mining
+        "ceic": [("Industrials & Manufacturing", None), ("Energy", "Coal")],
+        "ceic_override": [("coal production", "demand", +1),
+                          ("pamapersada", "demand", +1),
+                          ("united tractors", "demand", +1),
+                          ("mining & quarrying: coal", "demand", +1)],
+        "globals": [("bcom", "demand", +1, "commodity cycle -> mining capex -> equipment"),
+                    ("wb_coal_au", "demand", +1, "mining-equipment demand (UNTR)"),
                     ("steel_hrc", "cost", -1, "steel input")],
         "macro": [("cn_ip_yoy", "demand", +1, "capex cycle"),
                   ("id_gdp_real_q", "demand", +1, "domestic capex")],

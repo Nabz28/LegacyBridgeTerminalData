@@ -99,6 +99,7 @@ def build() -> dict:
             ],
             "n_ceic_candidates": len(ceic_series),
             "ceic_candidates": ceic_series,
+            "ceic_override": seed.get("ceic_override", []),
             "global_hints": globals_h,
             "macro_hints": macro_h,
             "has_seed": bool(seed),

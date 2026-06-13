@@ -107,13 +107,26 @@ def assemble_and_analyze(basket: dict, br: dict) -> dict:
     prepped: dict = {}     # key -> prepped driver (chg Series etc.) for multivariate
 
     # ---- CEIC drivers --------------------------------------------------- #
+    # Per-basket CEIC role/sign overrides: a CEIC series CEIC-tags as 'supply'
+    # (e.g. coal production) but is economically a DEMAND driver for THIS basket
+    # (coal-mining contractors / equipment). Each override = [substr, role, sign].
+    overrides = basket.get("ceic_override", [])
+
+    def _ceic_role_sign(rec: dict) -> tuple:
+        hay = (str(rec.get("topic") or "") + " " + str(rec.get("sub") or "")).lower()
+        for sub, role, sign in overrides:
+            if str(sub).lower() in hay:
+                return role, int(sign)
+        rl = rec.get("role") or "macro"
+        return rl, (+1 if rl == "demand" else 0)
+
     ceic = _curate_ceic(basket.get("ceic_candidates", []))
     C.log(f"  CEIC candidates: {len(basket.get('ceic_candidates', []))} -> "
-          f"{len(ceic)} curated")
+          f"{len(ceic)} curated"
+          + (f" ({len(overrides)} overrides)" if overrides else ""))
     for rec in ceic:
         ric = rec["ric"]
-        role = rec.get("role") or "macro"
-        sign_prior = +1 if role == "demand" else 0
+        role, sign_prior = _ceic_role_sign(rec)
         obs = C.get_observations(ric, limit=6000)
         drv = S.prep_driver(obs, ric, rec.get("units") or "",
                             rec.get("topic") or "")

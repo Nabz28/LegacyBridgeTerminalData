@@ -1,11 +1,11 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T04:31:41._  
-**37 perfected · 15 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
+_Auto-generated from output/engine.json — 2026-06-14T04:52:31._  
+**39 perfected · 13 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
 
-## PERFECTED (37)
+## PERFECTED (39)
 
 | Basket | Sector | Verdict | Score | Conf | #drv | MV R2 | OOS | Top driver (corr) |
 |---|---|---|---|---|---|---|---|---|
@@ -15,6 +15,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Alternative Energy | Energy | NEUTRAL | 50 | medium | 12 | 0.05 | 61% | Tariff: Government (0.1243) |
 | Food & Beverage | Consumer Non-Cyclicals | NEUTRAL | 48 | medium | 12 | 0.13 | 54% | USD/IDR (-0.1911) |
 | Property | Properties & Real Estate | MILDLY BEARISH | 39 | medium | 3 | 0.08 | 58% | USD/IDR (-0.2466) |
+| Energy Services | Energy | NEUTRAL | 47 | high | 12 | 0.07 | 58% | Mining & Quarrying: Coal (0.2884) |
 | Telco | Infrastructure | NEUTRAL | 46 | high | 5 | 0.16 | 46% | Real GDP (SA) (0.2674) |
 | Plantation | Consumer Non-Cyclicals | NEUTRAL | 51 | high | 12 | 0.17 | 66% | International Indicators (0.3409) |
 | Conglomerate | Industrials | NEUTRAL | 53 | high | 11 | 0.46 | 66% | Jakarta Composite (0.663) |
@@ -22,6 +23,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Internet | Technology | NEUTRAL | 51 | medium | 12 | 0.10 | 50% | Real GDP (SA) (0.191) |
 | Oil & Gas | Energy | NEUTRAL | 54 | high | 6 | 0.21 | 67% | Brent Crude (0.3071) |
 | Insurance | Financials | MILDLY BEARISH | 42 | high | 3 | 0.18 | 57% | Jakarta Composite (0.5092) |
+| Machinery | Industrials | NEUTRAL | 49 | high | 12 | 0.27 | 68% | Bloomberg Commodity Idx (0.4024) |
 | Retail | Consumer Cyclicals | NEUTRAL | 46 | high | 6 | 0.10 | 56% | USD/IDR (-0.2236) |
 | Paper | Basic Materials | MILDLY BULLISH | 57 | medium | 4 | 0.04 | 61% | Manufacturing: Paper and (0.1835) |
 | Media | Consumer Cyclicals | MILDLY BULLISH | 59 | high | 12 | 0.25 | 64% | Jakarta Composite (0.3619) |
@@ -47,17 +49,15 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Services | Industrials | NEUTRAL | 47 | medium | 12 | 0.06 | 47% | FDI: Machinery & electro (0.2022) |
 | Auto | Consumer Cyclicals | MILDLY BULLISH | 57 | high | 12 | 0.09 | 46% | Real GDP (SA) (0.2562) |
 
-## PARTIAL (15)
+## PARTIAL (13)
 
 | Basket | Sector | Verdict | Score | Conf | #drv | MV R2 | OOS | Top driver (corr) |
 |---|---|---|---|---|---|---|---|---|
 | IT Services | Technology | NEUTRAL | 48 | medium | 9 | 0.06 | 40% | Device vendor share (Tab (0.1299) |
 | Chemicals | Basic Materials | NEUTRAL | 48 | high | 12 | 0.11 | 57% | USD/IDR (-0.1888) |
-| Energy Services | Energy | NEUTRAL | 47 | medium | 12 | 0.07 | 58% | Mining & Quarrying: Coal (0.2884) |
 | Hospitals | Healthcare | MILDLY BEARISH | 41 | low | 5 | 0.04 | 58% | Financing: hospital serv (0.0953) |
 | Tobacco | Consumer Non-Cyclicals | NEUTRAL | 52 | high | 12 | 0.07 | 56% | Prompt manufacturing ind (0.6208) |
 | Containers & Packaging | Basic Materials | NEUTRAL | 51 | low | 2 | 0.01 | 52% | BI Policy Rate (-0.0922) |
-| Machinery | Industrials | NEUTRAL | 49 | medium | 12 | 0.11 | 66% | BI Policy Rate (-0.1722) |
 | Pharma | Healthcare | NEUTRAL | 47 | high | 6 | 0.06 | 54% | Business survey (0.3336) |
 | Household | Consumer Non-Cyclicals | NEUTRAL | 49 | medium | 12 | 0.12 | 60% | Beef: Modern Market (0.1136) |
 | Apparel | Consumer Cyclicals | NEUTRAL | 50 | low | 5 | 0.05 | 53% | Volume: Other vegetable  (0.115) |
