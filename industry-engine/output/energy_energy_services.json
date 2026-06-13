@@ -3,7 +3,7 @@
   "sub_sector": "Energy Services",
   "sector": "Energy",
   "priority": 9,
-  "generated_at": "2026-06-14T00:45:20",
+  "generated_at": "2026-06-14T00:48:32",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -889,7 +889,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 6.3,
+  "runtime_s": 2.6,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
