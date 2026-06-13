@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:36:53",
+  "updated_at": "2026-06-14T00:37:29",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -24,13 +24,15 @@
       "sub_sector": "IT Services",
       "sector": "Technology",
       "priority": 2,
-      "status": "pending",
-      "grade": null,
-      "score": null,
-      "verdict": null,
-      "attempts": 0,
-      "last_run": null,
-      "reasons": []
+      "status": "needs_review",
+      "grade": "needs_review",
+      "score": 46,
+      "verdict": "NEUTRAL",
+      "attempts": 1,
+      "last_run": "2026-06-14T00:36:54",
+      "reasons": [
+        "no theory-anchored significant driver (|r|>=0.18, p<0.05)"
+      ]
     },
     "energy_coal": {
       "id": "energy_coal",
@@ -686,9 +688,9 @@
   "summary": {
     "perfected": 1,
     "partial": 0,
-    "needs_review": 1,
+    "needs_review": 2,
     "blocked": 0,
-    "pending": 50,
+    "pending": 49,
     "error": 0
   }
 }
