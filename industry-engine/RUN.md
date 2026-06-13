@@ -126,7 +126,13 @@ that is fine — but what is done must be **rigorous and honest**.
    after any basket changes.
 3. **DEFAULT ONGOING SAFE WORK — lift a `partial` basket toward `perfected`.**
    Pick the highest-priority `partial` that is NOT data-limited (n_used>=5 and not
-   a single idiosyncratic mega-cap). Inspect `output/<id>.json` (`rejected_top`,
+   a single idiosyncratic mega-cap) **AND has `attempts < 3`** (attempts>=3 means it
+   was already finalisation-reviewed and confirmed at its honest ceiling — skip it).
+   If every partial is either data-limited or already reviewed (attempts>=3), this
+   item is EXHAUSTED: there is no safe heavy work left, so just confirm state is
+   consistent (`controller.py --status`) and STOP — do not re-churn reviewed
+   baskets. (Only item #4 UI wiring remains, which needs browser verification.)
+   Inspect `output/<id>.json` (`rejected_top`,
    kept drivers): is there a real economic driver missing or mis-signed? Common
    wins seen so far: set the right input-commodity `cost` prior, give `usdidr` an
    importer(-1)/exporter(+1) prior, add `id_10y`/`id_bi_rate` (-1) for
