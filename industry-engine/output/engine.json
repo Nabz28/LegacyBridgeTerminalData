@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-14T00:46:47",
-  "n_baskets": 22,
+  "generated_at": "2026-06-14T00:46:52",
+  "n_baskets": 23,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
     {
@@ -6228,6 +6228,173 @@
         }
       ],
       "generated_at": "2026-06-14T00:46:47"
+    },
+    {
+      "id": "basic_materials_paper",
+      "sub_sector": "Paper",
+      "sector": "Basic Materials",
+      "priority": 23,
+      "status": "done",
+      "grade": "perfected",
+      "verdict": "MILDLY BULLISH",
+      "score": 59,
+      "confidence": {
+        "level": "medium",
+        "score": 46,
+        "reasons": [
+          "max|corr|=0.24",
+          "theory_agree=50%",
+          "stable=50%",
+          "mvR2=0.04",
+          "OOS=61%"
+        ]
+      },
+      "net_tilt": 0.177,
+      "demand_tilt": null,
+      "supply_tilt": 0.027,
+      "cost_tilt": 0.806,
+      "macro_tilt": 0.0,
+      "multivariate": {
+        "available": true,
+        "drivers": [
+          "bcom",
+          "id_bi_rate"
+        ],
+        "n": 181,
+        "r2": 0.045,
+        "adj_r2": 0.034,
+        "betas": {
+          "bcom": {
+            "std_beta": 0.0103,
+            "t": 2.26,
+            "p": 0.0236
+          },
+          "id_bi_rate": {
+            "std_beta": -0.0071,
+            "t": -1.26,
+            "p": 0.2062
+          }
+        },
+        "oos_hit_rate": 0.612,
+        "oos_n": 121,
+        "expected_monthly_ret": 0.0189
+      },
+      "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [59/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.18, lead 6m, now headwind); Bloomberg Commodity Idx (corr +0.18, lead 0m, now tailwind); Coal · Australia (Newcastle) (corr +0.24, lead 4m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 61% out-of-sample directional hit-rate; current read ~+1.9%/mo.",
+      "n_kept": 4,
+      "n_tested": 10,
+      "n_used": 12,
+      "members_used": [
+        "ALDO",
+        "FASW",
+        "IFII",
+        "INKP",
+        "INRU",
+        "KBRI",
+        "KDSI",
+        "SPMA",
+        "SULI",
+        "SWAT",
+        "TIRT",
+        "TKIM"
+      ],
+      "coverage": {
+        "W": 804,
+        "M": 185,
+        "Q": 61,
+        "first": "2011-01-14",
+        "last": "2026-06-12"
+      },
+      "drivers": [
+        {
+          "key": "CEICI323565302",
+          "label": "Manufacturing: Paper and Paper Products",
+          "role": "supply",
+          "source": "ceic",
+          "freq": "Q",
+          "pearson": 0.1835,
+          "excess_pearson": 0.0935,
+          "best_lag": 6,
+          "ic": -0.2022,
+          "beta": 0.49755027484252573,
+          "r2": 0.03368436872988689,
+          "p": 0.05435749196477336,
+          "n": 55,
+          "theory_agree": null,
+          "stable": true,
+          "sign": 1,
+          "why": "Manufacturing: Paper and Paper Products",
+          "posture": "headwind",
+          "last_chg_z": -0.5,
+          "last_obs": "2024-12-01"
+        },
+        {
+          "key": "bcom",
+          "label": "Bloomberg Commodity Idx",
+          "role": "supply",
+          "source": "corr:AMEX:DBC",
+          "freq": "M",
+          "pearson": 0.1755,
+          "excess_pearson": 0.0075,
+          "best_lag": 0,
+          "ic": 0.0509,
+          "beta": 0.22247135064272472,
+          "r2": 0.030801574289242684,
+          "p": 0.01085886553431504,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": 1,
+          "why": "pulp/paper price proxy",
+          "posture": "tailwind",
+          "last_chg_z": 0.62,
+          "last_obs": "2026-05-01"
+        },
+        {
+          "key": "wb_coal_au",
+          "label": "Coal · Australia (Newcastle)",
+          "role": "cost",
+          "source": "spark",
+          "freq": "M",
+          "pearson": 0.2399,
+          "excess_pearson": 0.3406,
+          "best_lag": 4,
+          "ic": -0.1496,
+          "beta": 0.21952423389868353,
+          "r2": 0.05754433228070699,
+          "p": 0.32554061336978823,
+          "n": 23,
+          "theory_agree": false,
+          "stable": false,
+          "sign": 1,
+          "why": "energy input",
+          "posture": "tailwind",
+          "last_chg_z": 2.23,
+          "last_obs": "2026-03-01"
+        },
+        {
+          "key": "id_bi_rate",
+          "label": "BI Policy Rate",
+          "role": "macro",
+          "source": "corr:ECONOMICS:IDINTR",
+          "freq": "M",
+          "pearson": -0.1354,
+          "excess_pearson": -0.0588,
+          "best_lag": 6,
+          "ic": -0.0963,
+          "beta": -0.0461018862193522,
+          "r2": 0.01833693674439585,
+          "p": 0.13462656230357162,
+          "n": 181,
+          "theory_agree": null,
+          "stable": false,
+          "sign": -1,
+          "why": "policy rate: sector-specific NIM/discount effect",
+          "posture": "neutral",
+          "last_chg_z": 0.05,
+          "last_obs": "2026-04-24"
+        }
+      ],
+      "generated_at": "2026-06-14T00:46:51"
     }
   ]
 }
