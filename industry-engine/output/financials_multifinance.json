@@ -3,7 +3,7 @@
   "sub_sector": "Multifinance",
   "sector": "Financials",
   "priority": 30,
-  "generated_at": "2026-06-14T00:47:19",
+  "generated_at": "2026-06-14T00:53:27",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,73 +36,183 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 47,
-    "net_tilt": -0.061,
-    "demand_tilt": -0.067,
+    "net_tilt": -0.052,
+    "demand_tilt": -0.028,
     "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": -0.045,
+    "macro_tilt": -0.065,
     "confidence": {
       "level": "high",
-      "score": 71,
+      "score": 67,
       "reasons": [
         "max|corr|=0.22",
-        "theory_agree=27%",
-        "stable=67%",
-        "mvR2=0.23",
-        "OOS=63%"
+        "theory_agree=42%",
+        "stable=75%",
+        "mvR2=0.22",
+        "OOS=57%"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "id_10y",
+        "usdidr",
         "CEICI462440357",
         "CEICI462440337",
-        "usdidr",
         "CEICI462344687",
-        "CEICI462440347",
-        "id_gdp_real_q"
+        "CEICI462440347"
       ],
       "n": 90,
-      "r2": 0.227,
-      "adj_r2": 0.171,
+      "r2": 0.22,
+      "adj_r2": 0.163,
       "betas": {
-        "CEICI462440357": {
-          "std_beta": 0.0106,
-          "t": 1.92,
-          "p": 0.0543
-        },
-        "CEICI462440337": {
-          "std_beta": -0.0113,
-          "t": -1.74,
-          "p": 0.0814
+        "id_10y": {
+          "std_beta": -0.0122,
+          "t": -2.51,
+          "p": 0.012
         },
         "usdidr": {
-          "std_beta": -0.0176,
-          "t": -2.19,
-          "p": 0.0289
+          "std_beta": -0.009,
+          "t": -1.01,
+          "p": 0.3123
+        },
+        "CEICI462440357": {
+          "std_beta": 0.0109,
+          "t": 2.14,
+          "p": 0.0323
+        },
+        "CEICI462440337": {
+          "std_beta": -0.0108,
+          "t": -1.81,
+          "p": 0.0703
         },
         "CEICI462344687": {
-          "std_beta": 0.0055,
-          "t": 1.07,
-          "p": 0.2826
+          "std_beta": 0.0052,
+          "t": 1.04,
+          "p": 0.3004
         },
         "CEICI462440347": {
-          "std_beta": -0.01,
-          "t": -3.04,
-          "p": 0.0024
-        },
-        "id_gdp_real_q": {
-          "std_beta": -0.0099,
-          "t": -8.34,
-          "p": 0.0
+          "std_beta": -0.0105,
+          "t": -3.32,
+          "p": 0.0009
         }
       },
-      "oos_hit_rate": 0.633,
+      "oos_hit_rate": 0.567,
       "oos_n": 30,
-      "expected_monthly_ret": -0.0008
+      "expected_monthly_ret": 0.0088
     },
-    "narrative": "Multifinance (Financials) screens NEUTRAL [47/100, high confidence]. Top drivers: Consumer Goods: New Four-Wheeled Vehicle (corr +0.09, lead 1m, now headwind); Consumer Goods: New Two-Wheeled Vehicle (corr -0.15, lead 3m, now headwind); USD/IDR (corr -0.22, lead 0m, now flat). A 6-driver model explains 23% of monthly variance (adj 17%), 63% out-of-sample directional hit-rate; current read ~-0.1%/mo.",
+    "narrative": "Multifinance (Financials) screens NEUTRAL [47/100, high confidence]. Top drivers: id_10y (corr -0.21, lead 0m, now flat); USD/IDR (corr -0.22, lead 0m, now flat); Consumer Goods: New Four-Wheeled Vehicle (corr +0.09, lead 1m, now headwind). A 6-driver model explains 22% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "funding cost (bond-funded book)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.2121,
+        "pearson_p": 0.0038,
+        "spearman": -0.1889,
+        "spearman_p": 0.0102,
+        "best_lag": 0,
+        "corr_at_best": -0.2121,
+        "ic": -0.1651,
+        "ic_t": -2.227,
+        "ols": {
+          "beta": -0.23922439264089165,
+          "t": -2.635834211785474,
+          "p": 0.008393072756722682,
+          "r2": 0.044987353805271524,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.23922439264089165,
+          "t": -2.635834211785474,
+          "p": 0.008393072756722682,
+          "r2": 0.044987353805271524,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.1668,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 54.4,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
+      {
+        "key": "usdidr",
+        "role": "macro",
+        "why": "risk-off / FX funding",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.2163,
+        "pearson_p": 0.0032,
+        "spearman": -0.2521,
+        "spearman_p": 0.0006,
+        "best_lag": 0,
+        "corr_at_best": -0.2163,
+        "ic": -0.1058,
+        "ic_t": -1.427,
+        "ols": {
+          "beta": -0.4033870847329816,
+          "t": -1.7233895262375571,
+          "p": 0.08481810767944534,
+          "r2": 0.04677905760250389,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.4033870847329816,
+          "t": -1.7233895262375571,
+          "p": 0.08481810767944534,
+          "r2": 0.04677905760250389,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0429,
+        "last_chg": 0.000923,
+        "last_chg_z": -0.09,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 49.7,
+        "source": "corr:FX_IDC:USDIDR",
+        "shallow": false,
+        "label": "USD/IDR",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.045
+        }
+      },
       {
         "key": "CEICI462440357",
         "role": "demand",
@@ -122,18 +232,18 @@
         "ic": -0.21,
         "ic_t": -1.97,
         "ols": {
-          "beta": 0.39497451382551335,
-          "t": 1.2472826200570917,
-          "p": 0.21229388782801173,
-          "r2": 0.008723909669527852,
+          "beta": 0.39497452873122363,
+          "t": 1.247282632665233,
+          "p": 0.212293883206627,
+          "r2": 0.008723910395790457,
           "n": 90,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -1.0117078271230668,
-          "t": -3.3959079655631497,
-          "p": 0.000684013548804411,
-          "r2": 0.05758862537581355,
+          "beta": -1.0117078768748744,
+          "t": -3.395908045229535,
+          "p": 0.0006840133497225562,
+          "r2": 0.05758863149197191,
           "n": 89,
           "hac_lag": 4
         },
@@ -176,18 +286,18 @@
         "ic": -0.2727,
         "ic_t": -2.558,
         "ols": {
-          "beta": -0.5417038566446015,
-          "t": -1.7274922560407102,
-          "p": 0.08407929475913813,
-          "r2": 0.022013757143804713,
+          "beta": -0.5417038452501625,
+          "t": -1.7274922163060122,
+          "p": 0.08407930188919166,
+          "r2": 0.02201375638881964,
           "n": 90,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -1.4914432472669348,
-          "t": -7.353791125720404,
-          "p": 1.926627214557529e-13,
-          "r2": 0.1746720471493819,
+          "beta": -1.4914432897650527,
+          "t": -7.353791612033675,
+          "p": 1.926620201394382e-13,
+          "r2": 0.17467205853866086,
           "n": 87,
           "hac_lag": 4
         },
@@ -212,61 +322,6 @@
         }
       },
       {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.2163,
-        "pearson_p": 0.0032,
-        "spearman": -0.2521,
-        "spearman_p": 0.0006,
-        "best_lag": 0,
-        "corr_at_best": -0.2163,
-        "ic": -0.1058,
-        "ic_t": -1.427,
-        "ols": {
-          "beta": -0.4033870869047425,
-          "t": -1.723389535763864,
-          "p": 0.0848181059578867,
-          "r2": 0.046779057933927115,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.4033870869047425,
-          "t": -1.723389535763864,
-          "p": 0.0848181059578867,
-          "r2": 0.046779057933927115,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.0429,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 43.7,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
-        }
-      },
-      {
         "key": "CEICI462344687",
         "role": "demand",
         "why": "Financing Receivables: Household",
@@ -285,18 +340,18 @@
         "ic": -0.2338,
         "ic_t": -2.418,
         "ols": {
-          "beta": 0.0777688968206422,
-          "t": 1.1493338424486794,
-          "p": 0.25041834837744936,
-          "r2": 0.005508977006334126,
+          "beta": 0.07776891276724959,
+          "t": 1.1493340201550568,
+          "p": 0.2504182751290037,
+          "r2": 0.005508979305519746,
           "n": 109,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.2700919102179786,
-          "t": -2.0685922996181008,
-          "p": 0.03858436114551944,
-          "r2": 0.06312727918041072,
+          "beta": -0.2700919121630544,
+          "t": -2.0685923414506076,
+          "p": 0.03858435721667534,
+          "r2": 0.06312728055483774,
           "n": 103,
           "hac_lag": 4
         },
@@ -339,18 +394,18 @@
         "ic": -0.1482,
         "ic_t": -1.391,
         "ols": {
-          "beta": -0.3209304024039015,
-          "t": -2.7299464788271006,
-          "p": 0.006334460856856152,
-          "r2": 0.032826311291477506,
+          "beta": -0.32093041065943717,
+          "t": -2.729946520083224,
+          "p": 0.006334460064144511,
+          "r2": 0.03282631323546337,
           "n": 90,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.3209304024039015,
-          "t": -2.7299464788271006,
-          "p": 0.006334460856856152,
-          "r2": 0.032826311291477506,
+          "beta": -0.32093041065943717,
+          "t": -2.729946520083224,
+          "p": 0.006334460064144511,
+          "r2": 0.03282631323546337,
           "n": 90,
           "hac_lag": 4
         },
@@ -393,18 +448,18 @@
         "ic": 0.0649,
         "ic_t": 0.699,
         "ols": {
-          "beta": -0.007714905672249343,
-          "t": -12.261593859155322,
-          "p": 1.4560739492704253e-34,
-          "r2": 0.029376880975471975,
+          "beta": -0.007714905443771908,
+          "t": -12.261596993757351,
+          "p": 1.4560176183930077e-34,
+          "r2": 0.029376879434967584,
           "n": 118,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": 0.009340414394537904,
-          "t": 4.327905254708417,
-          "p": 1.5053419504663308e-05,
-          "r2": 0.04412987125301859,
+          "beta": 0.009340415048587477,
+          "t": 4.327905573808295,
+          "p": 1.5053397700837733e-05,
+          "r2": 0.0441298777418625,
           "n": 116,
           "hac_lag": 4
         },
@@ -448,18 +503,18 @@
         "ic": -0.1042,
         "ic_t": -1.175,
         "ols": {
-          "beta": -0.14856688469929308,
-          "t": -2.0556349904326456,
-          "p": 0.03981771244849258,
-          "r2": 0.01780047921718031,
+          "beta": -0.14856690260451627,
+          "t": -2.0556351347727886,
+          "p": 0.03981769852519519,
+          "r2": 0.01780048361819042,
           "n": 129,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": 0.22040498573293435,
-          "t": 1.9517654187731523,
-          "p": 0.0509660617023842,
-          "r2": 0.03971709005180046,
+          "beta": 0.22040498427392075,
+          "t": 1.9517654316755197,
+          "p": 0.050966060169846,
+          "r2": 0.03971708977519617,
           "n": 123,
           "hac_lag": 4
         },
@@ -502,18 +557,18 @@
         "ic": -0.0263,
         "ic_t": -0.246,
         "ols": {
-          "beta": -0.5162843477557061,
-          "t": -2.2362242936597063,
-          "p": 0.02533708264076433,
-          "r2": 0.04411170089529559,
+          "beta": -0.5162843613480375,
+          "t": -2.2362242483300596,
+          "p": 0.02533708560856281,
+          "r2": 0.04411170356084548,
           "n": 90,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.5789470248091276,
-          "t": -3.837576681875282,
-          "p": 0.00012425443992807234,
-          "r2": 0.058443108291328705,
+          "beta": -0.578947030032767,
+          "t": -3.8375766278261207,
+          "p": 0.0001242544672683411,
+          "r2": 0.058443109831286644,
           "n": 86,
           "hac_lag": 4
         },
@@ -556,18 +611,18 @@
         "ic": -0.102,
         "ic_t": -1.14,
         "ols": {
-          "beta": -0.468823623136714,
-          "t": -1.4539269211553023,
-          "p": 0.14596656810217315,
-          "r2": 0.007920070649924282,
+          "beta": -0.46882363021730666,
+          "t": -1.4539269333587228,
+          "p": 0.1459665647184617,
+          "r2": 0.007920070938310486,
           "n": 127,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -1.1571321197907152,
-          "t": -3.537432335950728,
-          "p": 0.00040403769760884086,
-          "r2": 0.047715349884386526,
+          "beta": -1.157132129207229,
+          "t": -3.5374323855571,
+          "p": 0.0004040376217124317,
+          "r2": 0.04771535096060142,
           "n": 121,
           "hac_lag": 4
         },
@@ -610,18 +665,18 @@
         "ic": -0.0038,
         "ic_t": -0.039,
         "ols": {
-          "beta": -0.3459492445555336,
-          "t": -2.5816876242723596,
-          "p": 0.009831853202123814,
-          "r2": 0.026982417170174466,
+          "beta": -0.3459492463496383,
+          "t": -2.581687793530605,
+          "p": 0.00983184838065526,
+          "r2": 0.02698241764566156,
           "n": 109,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.3459492445555336,
-          "t": -2.5816876242723596,
-          "p": 0.009831853202123814,
-          "r2": 0.026982417170174466,
+          "beta": -0.3459492463496383,
+          "t": -2.581687793530605,
+          "p": 0.00983184838065526,
+          "r2": 0.02698241764566156,
           "n": 109,
           "hac_lag": 4
         },
@@ -664,18 +719,18 @@
         "ic": -0.1684,
         "ic_t": -1.75,
         "ols": {
-          "beta": 0.0190163070494931,
-          "t": 0.1285720806309285,
-          "p": 0.8976962593379227,
-          "r2": 9.664449026092203e-05,
+          "beta": 0.019016317670626268,
+          "t": 0.12857215218174298,
+          "p": 0.8976962027185534,
+          "r2": 9.664459891811639e-05,
           "n": 110,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.33620463522294247,
-          "t": -2.098291769547826,
-          "p": 0.035879379138449685,
-          "r2": 0.03017024632745169,
+          "beta": -0.336204636896796,
+          "t": -2.0982917679457502,
+          "p": 0.03587937927988607,
+          "r2": 0.030170246846594084,
           "n": 109,
           "hac_lag": 4
         },
@@ -698,64 +753,10 @@
           "posture": "tailwind",
           "impulse": 0.231
         }
-      },
-      {
-        "key": "CEICI462440047",
-        "role": "demand",
-        "why": "Productive Goods: Freight Car",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2025-11-01",
-        "n": 92,
-        "min_n": 24,
-        "pearson": -0.0492,
-        "pearson_p": 0.6411,
-        "spearman": -0.0129,
-        "spearman_p": 0.9027,
-        "best_lag": 2,
-        "corr_at_best": -0.2013,
-        "ic": -0.1117,
-        "ic_t": -1.059,
-        "ols": {
-          "beta": -4.170988858447642e-06,
-          "t": -0.5858933989166445,
-          "p": 0.5579471535512165,
-          "r2": 0.002425410111919324,
-          "n": 92,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -1.6918924072827714e-05,
-          "t": -2.0019635880825533,
-          "p": 0.045288647794487616,
-          "r2": 0.040506767300411584,
-          "n": 90,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": 0.0323,
-        "last_chg": 874.238219,
-        "last_chg_z": 1.0,
-        "last_chg_date": "2025-11-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 13.2,
-        "source": "ceic",
-        "label": "Productive Goods: Freight Car",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.462
-        }
       }
     ],
     "n_kept": 12,
-    "n_candidates": 21
+    "n_candidates": 22
   },
   "unscored": [],
   "rejected_top": [
@@ -764,7 +765,7 @@
       "label": "Financing Receivables Based On Financing Object...",
       "role": "demand",
       "pearson": 0.1385,
-      "p": 0.12872994901101106,
+      "p": 0.12872993519199763,
       "theory_agree": true,
       "score": 42.6,
       "reason": "below_gate"
@@ -774,7 +775,7 @@
       "label": "BI Policy Rate",
       "role": "macro",
       "pearson": -0.0987,
-      "p": 0.09003946099317633,
+      "p": 0.09003945779872988,
       "theory_agree": true,
       "score": 35.9,
       "reason": "below_gate"
@@ -784,7 +785,7 @@
       "label": "Bank Credit (claims)",
       "role": "demand",
       "pearson": -0.1042,
-      "p": 0.17019170564549624,
+      "p": 0.17019168144311547,
       "theory_agree": false,
       "score": 27.0,
       "reason": "below_gate"
@@ -794,7 +795,7 @@
       "label": "Loan demand survey",
       "role": "demand",
       "pearson": -0.1673,
-      "p": 0.16934814381251517,
+      "p": 0.169348114797238,
       "theory_agree": false,
       "score": 24.4,
       "reason": "below_gate"
@@ -804,7 +805,7 @@
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
       "pearson": -0.049,
-      "p": 0.46588311388468406,
+      "p": 0.465883120070938,
       "theory_agree": null,
       "score": 23.3,
       "reason": "below_gate"
@@ -814,9 +815,19 @@
       "label": "Financing Receivables: Information and Communic...",
       "role": "demand",
       "pearson": -0.112,
-      "p": 0.2373157519367617,
+      "p": 0.23731582606347756,
       "theory_agree": false,
       "score": 22.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462440047",
+      "label": "Productive Goods: Freight Car",
+      "role": "demand",
+      "pearson": -0.0492,
+      "p": 0.5579471714782482,
+      "theory_agree": false,
+      "score": 13.2,
       "reason": "below_gate"
     },
     {
@@ -824,7 +835,7 @@
       "label": "Assets: Financing Receivables",
       "role": "demand",
       "pearson": -0.0418,
-      "p": 0.5414049337717288,
+      "p": 0.5414049284952535,
       "theory_agree": false,
       "score": 12.2,
       "reason": "below_gate"
@@ -834,7 +845,7 @@
       "label": "Financing Receivables Based On Locations: Outsi...",
       "role": "demand",
       "pearson": -0.0369,
-      "p": 0.7017456329276752,
+      "p": 0.7017455702156913,
       "theory_agree": false,
       "score": 8.8,
       "reason": "below_gate"
@@ -844,13 +855,13 @@
       "label": "Financing Receivables: Investment Financing",
       "role": "demand",
       "pearson": -0.0275,
-      "p": 0.7964691310939404,
+      "p": 0.7964691117216609,
       "theory_agree": false,
       "score": 1.4,
       "reason": "below_gate"
     }
   ],
-  "n_tested": 21,
+  "n_tested": 22,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -858,9 +869,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.7,
-  "grade": "needs_review",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-  ]
+  "runtime_s": 2.4,
+  "grade": "perfected",
+  "grade_reasons": []
 }

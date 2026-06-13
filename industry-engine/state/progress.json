@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T00:53:22",
+  "updated_at": "2026-06-14T00:53:27",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -418,15 +418,13 @@
       "sub_sector": "Multifinance",
       "sector": "Financials",
       "priority": 30,
-      "status": "needs_review",
-      "grade": "needs_review",
+      "status": "done",
+      "grade": "perfected",
       "score": 47,
       "verdict": "NEUTRAL",
-      "attempts": 1,
-      "last_run": "2026-06-14T00:47:18",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
-      ]
+      "attempts": 2,
+      "last_run": "2026-06-14T00:53:25",
+      "reasons": []
     },
     "consumer_cyclicals_apparel": {
       "id": "consumer_cyclicals_apparel",
@@ -748,9 +746,9 @@
     }
   },
   "summary": {
-    "perfected": 31,
+    "perfected": 32,
     "partial": 13,
-    "needs_review": 8,
+    "needs_review": 7,
     "blocked": 0,
     "pending": 0,
     "error": 0
