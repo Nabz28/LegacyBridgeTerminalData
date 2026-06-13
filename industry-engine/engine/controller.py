@@ -149,6 +149,10 @@ def advance_one(pg: dict, only: str | None = None) -> dict | None:
             st["status"] = "done"
             st["grade"] = "partial"
             st["reasons"] = gr["reasons"] + [f"parked after {st['attempts']} attempts"]
+            # keep the artifact (terminal-facing) grade consistent with state
+            art["grade"] = "partial"
+            art["grade_reasons"] = st["reasons"]
+            C.write_json(C.OUTPUT_DIR / f"{art['id']}.json", art)
     except Exception as e:  # noqa: BLE001
         st["status"] = "error"
         st["grade"] = "error"

@@ -509,8 +509,9 @@
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
   "runtime_s": 1.2,
-  "grade": "needs_review",
+  "grade": "partial",
   "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "parked after 2 attempts"
   ]
 }
