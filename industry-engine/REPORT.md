@@ -1,6 +1,6 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T03:51:49._  
+_Auto-generated from output/engine.json — 2026-06-14T04:11:33._  
 **37 perfected · 15 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
