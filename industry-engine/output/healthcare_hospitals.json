@@ -3,7 +3,7 @@
   "sub_sector": "Hospitals",
   "sector": "Healthcare",
   "priority": 11,
-  "generated_at": "2026-06-14T02:51:51",
+  "generated_at": "2026-06-14T10:09:58",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -357,7 +357,7 @@
       }
     ],
     "n_kept": 5,
-    "n_candidates": 12
+    "n_candidates": 13
   },
   "unscored": [
     {
@@ -410,6 +410,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "id_10y",
+      "label": "id_10y",
+      "role": "macro",
+      "pearson": 0.1071,
+      "p": 0.2106218957364988,
+      "theory_agree": false,
+      "score": 18.4,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI804158347",
       "label": "Job postings (active): hospitals",
       "role": "supply",
@@ -440,7 +450,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 12,
+  "n_tested": 13,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -448,11 +458,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 0.9,
+  "runtime_s": 1.9,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
     "confidence low",
-    "parked after 2 attempts"
+    "parked after 3 attempts"
   ]
 }
