@@ -15422,2023 +15422,969 @@
           "beta": 0.064
         }
       ],
-      "n_ceic_candidates": 220,
+      "n_ceic_candidates": 101,
       "ceic_candidates": [
         {
-          "ric": "CEICI375447217",
-          "role": "supply",
-          "topic": "Production Volume",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 66,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI459826077",
-          "role": "supply",
-          "topic": "sa: Total Manufacturing",
+          "ric": "CEICI13839901",
+          "role": "demand",
+          "topic": "Wholesales",
           "freq": "P1M",
-          "units": "2015=100",
-          "n_obs": 480,
-          "sub": "Manufacturing Production Index"
+          "units": "Unit",
+          "n_obs": 448,
+          "sub": "Auto Sales"
         },
         {
-          "ric": "CEICI224798001",
-          "role": "supply",
-          "topic": "Manufacturing",
-          "freq": "P3M",
+          "ric": "CEICI13839601",
+          "role": "demand",
+          "topic": "Local",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 425,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13840501",
+          "role": "demand",
+          "topic": "Sedan",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 448,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841901",
+          "role": "demand",
+          "topic": "Pick Up: Below 5 Ton",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13842201",
+          "role": "demand",
+          "topic": "Double Cabin: Less than 5 Ton",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 292,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13834801",
+          "role": "demand",
+          "topic": "Local",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 424,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412545807",
+          "role": "demand",
+          "topic": "4x2 Type",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412545817",
+          "role": "demand",
+          "topic": "4x4 Type",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412545847",
+          "role": "demand",
+          "topic": "Affordable Energy Saving Cars 4x2",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 154,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI495782657",
+          "role": "demand",
+          "topic": "Hyundai - HMID (Hyundai Motors Indonesia)",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 68,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI495782787",
+          "role": "demand",
+          "topic": "Morris Garage",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 52,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912457",
+          "role": "demand",
+          "topic": "Daihatsu",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 183,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912577",
+          "role": "demand",
+          "topic": "BMW",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912597",
+          "role": "demand",
+          "topic": "Lexus",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 181,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912687",
+          "role": "demand",
+          "topic": "Audi",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 180,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912487",
+          "role": "demand",
+          "topic": "Mitusbishi Motors",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 124,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912497",
+          "role": "demand",
+          "topic": "Mitsubishi Fuso",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 124,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912507",
+          "role": "demand",
+          "topic": "Hino",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912677",
+          "role": "demand",
+          "topic": "Faw",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 171,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912467",
+          "role": "demand",
+          "topic": "Honda",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912517",
+          "role": "demand",
+          "topic": "Isuzu",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912547",
+          "role": "demand",
+          "topic": "Mazda",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412376797",
+          "role": "demand",
+          "topic": "DFSK",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 100,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912527",
+          "role": "demand",
+          "topic": "Nissan",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912447",
+          "role": "demand",
+          "topic": "Toyota",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912477",
+          "role": "demand",
+          "topic": "Suzuki",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI391912757",
+          "role": "demand",
+          "topic": "Wuling",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 106,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI495782777",
+          "role": "demand",
+          "topic": "Mercedes-Benz PC",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 75,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841601",
+          "role": "demand",
+          "topic": "4x4 Type: Over 3000cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 327,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841101",
+          "role": "demand",
+          "topic": "4x2 Type: 1501 to 2500cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI322851802",
+          "role": "demand",
+          "topic": "Retail sales index: auto parts",
+          "freq": "P1M",
           "units": "2010=100",
+          "n_obs": 196,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412545837",
+          "role": "demand",
+          "topic": "Wholesale motor vehicle sales",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412545827",
+          "role": "demand",
+          "topic": "Wholesale motor vehicle sales",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13842001",
+          "role": "demand",
+          "topic": "Wholesale: 5 to 24 Ton",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13842101",
+          "role": "demand",
+          "topic": "Wholesale: Over 24 Ton",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13840701",
+          "role": "demand",
+          "topic": "Wholesale: Below 1500 cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841001",
+          "role": "demand",
+          "topic": "Wholesale: Below 1500cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13840801",
+          "role": "demand",
+          "topic": "Wholesale: 1500 to 3000 cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841501",
+          "role": "demand",
+          "topic": "Wholesale: 1501 to 3000cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 327,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841201",
+          "role": "demand",
+          "topic": "Wholesale: 2501 to 3000cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 286,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841701",
+          "role": "demand",
+          "topic": "Wholesale: 5 to 24 Ton",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 328,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13840901",
+          "role": "demand",
+          "topic": "Wholesale: Over 3000 cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 303,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI13841301",
+          "role": "demand",
+          "topic": "Wholesale: Over 3000cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 285,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI412546117",
+          "role": "demand",
+          "topic": "Retail motor vehicle sales",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 184,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI299300504",
+          "role": "demand",
+          "topic": "Wholesale: 1200cc",
+          "freq": "P1M",
+          "units": "Unit",
+          "n_obs": 154,
+          "sub": "Auto Sales"
+        },
+        {
+          "ric": "CEICI365765247",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365765217",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI323975402",
+          "role": "supply",
+          "topic": "Value: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI354326367",
+          "role": "demand",
+          "topic": "Coal",
+          "freq": "P1M",
+          "units": "USD/Ton",
+          "n_obs": 210,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365764807",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI357008197",
+          "role": "supply",
+          "topic": "Mining Products: Coal",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 195,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763677",
+          "role": "supply",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502587247",
+          "role": "supply",
+          "topic": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365763647",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI365764777",
+          "role": "supply",
+          "topic": "Mining & Quarrying: Coal & Lignite",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 73,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI323802602",
+          "role": "demand",
+          "topic": "Value: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502599527",
+          "role": "supply",
+          "topic": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502615757",
+          "role": "demand",
+          "topic": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412185207",
+          "role": "supply",
+          "topic": "Mining: 05 Coal and Lignite mining",
+          "freq": "P3M",
+          "units": "USD mn",
           "n_obs": 87,
-          "sub": "Manufacturing Production Index"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI460068337",
+          "ric": "CEICI412185357",
           "role": "supply",
-          "topic": "Total Manufacturing",
+          "topic": "Chemical and Pharmaceutical Industry: 19 Manufactu",
+          "freq": "P3M",
+          "units": "USD mn",
+          "n_obs": 76,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412186037",
+          "role": "supply",
+          "topic": "Mining: 05 Coal and Lignite mining",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 85,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI412186187",
+          "role": "supply",
+          "topic": "Chemical and Pharmaceutical Industry: 19 Manufactu",
+          "freq": "P3M",
+          "units": "IDR bn",
+          "n_obs": 78,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI502628037",
+          "role": "demand",
+          "topic": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
           "freq": "P1M",
-          "units": "2015=100",
-          "n_obs": 480,
-          "sub": "Manufacturing Production Index"
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323566702",
+          "ric": "CEICI365763237",
           "role": "supply",
-          "topic": "Manufacturing: Other Manufacturing",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323565902",
-          "role": "supply",
-          "topic": "Manufacturing: Basic Metals",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323565602",
-          "role": "supply",
-          "topic": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323565302",
-          "role": "supply",
-          "topic": "Manufacturing: Paper and Paper Products",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297615704",
-          "role": "supply",
-          "topic": "Paper and Paper Products: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297618204",
-          "role": "supply",
-          "topic": "Paper and Paper Products: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297611404",
-          "role": "supply",
-          "topic": "Paper and Paper Products: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297606404",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297613904",
-          "role": "supply",
-          "topic": "Paper and Paper Products: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297621904",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI359240437",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
+          "topic": "Manufacturing Industry: Coal; Oil & Gas Refinery",
           "freq": "P1Y",
           "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI359239937",
-          "role": "supply",
-          "topic": "17: Paper and paper industry",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI359240187",
-          "role": "demand",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI359239197",
-          "role": "supply",
-          "topic": "Paper & Paper Product: No. of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
           "n_obs": 18,
-          "sub": "Paper & Pulp"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI506662927",
+          "ric": "CEICI365763207",
           "role": "supply",
-          "topic": "Manufacturing Industry: Manufacture of Paper and P",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 14,
-          "sub": "Paper & Pulp"
-        },
-        {
-          "ric": "CEICI297616404",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI297618904",
-          "role": "supply",
-          "topic": "Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI297612104",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI297607104",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI297614604",
-          "role": "supply",
-          "topic": "Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI297622604",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI359240007",
-          "role": "supply",
-          "topic": "Basic metal industry",
+          "topic": "Mining & Quarrying: Coal & Lignite",
           "freq": "P1Y",
           "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI359240507",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI359240257",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Basic Metals Manufacturing"
-        },
-        {
-          "ric": "CEICI359239267",
-          "role": "supply",
-          "topic": "No. of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
           "n_obs": 18,
-          "sub": "Basic Metals Manufacturing"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI537025287",
-          "role": "demand",
-          "topic": "Electrical equipment",
+          "ric": "CEICI323981702",
+          "role": "supply",
+          "topic": "Volume: Coal, Coke, and Briquettes",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 172,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI212665302",
+          "role": "supply",
+          "topic": "Natural Resources: Mineral & Coal Mining",
+          "freq": "P1Y",
+          "units": "IDR bn",
+          "n_obs": 18,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI324715601",
+          "role": "supply",
+          "topic": "Value: Coal",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 171,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI387174987",
+          "role": "supply",
+          "topic": "Mining Products: Coal",
           "freq": "P1M",
           "units": "USD th",
-          "n_obs": 111,
-          "sub": "Electrical Equipment"
+          "n_obs": 195,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI536976317",
+          "ric": "CEICI13515501",
           "role": "supply",
-          "topic": "Electrical equipment",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 111,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI297616704",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI297619204",
-          "role": "supply",
-          "topic": "Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI297612404",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI359240537",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI359240287",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI323566202",
-          "role": "supply",
-          "topic": "Electrical Equipment",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI359239297",
-          "role": "supply",
-          "topic": "No. of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Electrical Equipment"
-        },
-        {
-          "ric": "CEICI297618704",
-          "role": "supply",
-          "topic": "Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI297616204",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI297611904",
-          "role": "supply",
-          "topic": "Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI359240487",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI297606904",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI297614404",
-          "role": "supply",
-          "topic": "Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI297622404",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI359239987",
-          "role": "supply",
-          "topic": "Rubber industry, rubber and plastic goods",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Rubber & Plastic Products"
-        },
-        {
-          "ric": "CEICI323567802",
-          "role": "supply",
-          "topic": "Manufacturing: Chemicals and Chemical Products",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568102",
-          "role": "supply",
-          "topic": "Manufacturing: Non- Metallic Mineral Products",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568002",
-          "role": "supply",
-          "topic": "Manufacturing: Rubber and Plastics Products",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568202",
-          "role": "supply",
-          "topic": "Manufacturing: Basic Metals",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568402",
-          "role": "supply",
-          "topic": "Manufacturing: Computers, Electronics and Optical",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568702",
-          "role": "supply",
-          "topic": "Manufacturing: Motor vehicles, Trailers and Semitr",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567202",
-          "role": "supply",
-          "topic": "Manufacturing: Textiles",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568502",
-          "role": "supply",
-          "topic": "Manufacturing: Electrical Equipment",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567102",
-          "role": "supply",
-          "topic": "Manufacturing: Tobacco",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568902",
-          "role": "supply",
-          "topic": "Manufacturing: Furniture",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568602",
-          "role": "supply",
-          "topic": "Manufacturing: Machinery and Equipments",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567002",
-          "role": "supply",
-          "topic": "Manufacturing: Beverages",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567602",
-          "role": "supply",
-          "topic": "Manufacturing: Paper and Paper Products",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323569002",
-          "role": "supply",
-          "topic": "Manufacturing: Other Manufacturing",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567302",
-          "role": "supply",
-          "topic": "Manufacturing: Wearing Apparel",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323566902",
-          "role": "supply",
-          "topic": "Manufacturing: Food Products",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568802",
-          "role": "supply",
-          "topic": "Manufacturing: Other Transport Equipment",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567902",
-          "role": "supply",
-          "topic": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323568302",
-          "role": "supply",
-          "topic": "Manufacturing: Fabricated Metal Prod except Machin",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567402",
-          "role": "supply",
-          "topic": "Manufacturing: Leather and Related Products and Fo",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567502",
-          "role": "supply",
-          "topic": "Manufacturing: Wood and Prod of Woods and Cork exc",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323567702",
-          "role": "supply",
-          "topic": "Manufacturing: Printing and Reproduction of Record",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323569102",
-          "role": "supply",
-          "topic": "Manufacturing: Repair and Installation of Machiner",
-          "freq": "P1M",
-          "units": "2010=100",
-          "n_obs": 180,
-          "sub": "Manufacturing Production Index"
-        },
-        {
-          "ric": "CEICI323564702",
-          "role": "supply",
-          "topic": "IPI (quarterly): Beverages",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297615004",
-          "role": "supply",
-          "topic": "Micro mfg: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297610704",
-          "role": "supply",
-          "topic": "Small mfg: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297620004",
-          "role": "supply",
-          "topic": "Micro mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297617504",
-          "role": "demand",
-          "topic": "Micro mfg: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297621204",
-          "role": "supply",
-          "topic": "Small mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI297613204",
-          "role": "demand",
-          "topic": "Small mfg: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI359239867",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Food Industry",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI359240367",
-          "role": "supply",
-          "topic": "L/M mfg: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI323564602",
-          "role": "supply",
-          "topic": "IPI (quarterly): Food Products",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI323564802",
-          "role": "supply",
-          "topic": "IPI (quarterly): Tobacco",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI359240117",
-          "role": "supply",
-          "topic": "L/M mfg: Market Price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI13516001",
-          "role": "supply",
-          "topic": "Mfg production: Tea",
+          "topic": "Volume: Dry Rubber",
           "freq": "P1M",
           "units": "Ton th",
           "n_obs": 513,
-          "sub": "Food, Beverage & Tobacco Mfg"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI404870137",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Food industry and refined",
-          "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI404869387",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Meat processing and preser",
-          "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI404869637",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Fruit and vegetable proces",
-          "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI404873497",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Manufacture of food proces",
-          "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI506662877",
-          "role": "supply",
-          "topic": "Capacity utilization",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 14,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI359239127",
+          "ric": "CEICI254158102",
           "role": "demand",
-          "topic": "L/M mfg: No. of Establishments",
+          "topic": "Energy Sector: Hard Coal",
           "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Food, Beverage & Tobacco Mfg"
-        },
-        {
-          "ric": "CEICI536976467",
-          "role": "supply",
-          "topic": "BoP export (Bank Indonesia)",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 111,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI297617104",
-          "role": "supply",
-          "topic": "Micro mfg: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
+          "units": "TJ",
           "n_obs": 14,
-          "sub": "Furniture Mfg"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI297612804",
-          "role": "supply",
-          "topic": "Small mfg: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI297619604",
+          "ric": "CEICI254161702",
           "role": "demand",
-          "topic": "Micro mfg: Gross Output",
+          "topic": "Energy Sector: Briquettes and Cokes",
           "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
+          "units": "TJ",
+          "n_obs": 12,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI506661657",
-          "role": "supply",
-          "topic": "Prompt manufacturing index",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 15,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI297607804",
-          "role": "supply",
-          "topic": "Micro mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI297620804",
+          "ric": "CEICI254158502",
           "role": "demand",
-          "topic": "Small mfg: Gross Output",
+          "topic": "Final Consumption: Hard Coal",
           "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI297610304",
-          "role": "supply",
-          "topic": "Micro mfg: Market Price",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI297623304",
-          "role": "supply",
-          "topic": "Small mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI365763817",
+          "ric": "CEICI254162102",
           "role": "demand",
-          "topic": "GDP: Furniture",
+          "topic": "Final Consumption: Briquettes and Cokes",
           "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 18,
-          "sub": "Furniture Mfg"
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI365765387",
+          "ric": "CEICI254158702",
           "role": "demand",
-          "topic": "GDP: Furniture",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Furniture Mfg"
-        },
-        {
-          "ric": "CEICI323566002",
-          "role": "supply",
-          "topic": "IPI (quarterly): Fabricated Metal Prod except Mach",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI297616504",
-          "role": "supply",
-          "topic": "Micro mfg: Number of Establishments",
+          "topic": "Iron and Steel Industry: Hard Coal",
           "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI297619004",
+          "ric": "CEICI254158302",
           "role": "demand",
-          "topic": "Micro mfg: Gross Output",
+          "topic": "Non Energy Uses: Hard Coal",
           "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI297612204",
-          "role": "supply",
-          "topic": "Small mfg: Number of Establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI297614704",
-          "role": "demand",
-          "topic": "Small mfg: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI297607204",
-          "role": "supply",
-          "topic": "Micro mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI297622704",
-          "role": "supply",
-          "topic": "Small mfg: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI359240517",
-          "role": "supply",
-          "topic": "L/M mfg: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI359240017",
-          "role": "supply",
-          "topic": "Gross output (L/M mfg): Industrial metal goods, no",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Fabricated Metal Mfg"
-        },
-        {
-          "ric": "CEICI323566102",
-          "role": "supply",
-          "topic": "Manufacturing: Computers, Electronics and Optic...",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297616604",
-          "role": "supply",
-          "topic": "Computers, Electronic and Optical Products: Num...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297614804",
-          "role": "supply",
-          "topic": "Computers, Electronic and Optical Products: Gro...",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297607304",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297612304",
-          "role": "supply",
-          "topic": "Computers, Electronic and Optical Products: Num...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297619104",
-          "role": "supply",
-          "topic": "Computers, Electronic and Optical Products: Gro...",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI359240527",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297622804",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI359240027",
-          "role": "supply",
-          "topic": "26: Manufacture of computers, electronic goods ...",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI404872767",
-          "role": "supply",
-          "topic": "26210: Computer industry and / or computer asse...",
-          "freq": "P1Y",
-          "units": "IDR th",
+          "units": "TJ",
           "n_obs": 11,
-          "sub": "Computer & Electronics Mfg"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI404872777",
-          "role": "supply",
-          "topic": "26220: Computer equipment industry",
+          "ric": "CEICI254158602",
+          "role": "demand",
+          "topic": "Industry & Construction: Hard Coal",
           "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Computer & Electronics Mfg"
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI404872787",
-          "role": "supply",
-          "topic": "262: Computer industry and its equipment",
+          "ric": "CEICI254158902",
+          "role": "demand",
+          "topic": "Others: Hard Coal",
           "freq": "P1Y",
-          "units": "IDR th",
-          "n_obs": 11,
-          "sub": "Computer & Electronics Mfg"
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI359240277",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
+          "ric": "CEICI254158402",
+          "role": "demand",
+          "topic": "Statistical Differences: Hard Coal",
           "freq": "P1Y",
-          "units": "IDR bn",
+          "units": "TJ",
+          "n_obs": 14,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254156902",
+          "role": "demand",
+          "topic": "Total Energy Requirements: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158202",
+          "role": "demand",
+          "topic": "Losses in Transport and Distribution: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 14,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254158802",
+          "role": "demand",
+          "topic": "Chemical Industry: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254156802",
+          "role": "demand",
+          "topic": "Stock Change: Hard Coal",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254161902",
+          "role": "demand",
+          "topic": "Non Energy Uses: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
           "n_obs": 17,
-          "sub": "Computer & Electronics Mfg"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI527094297",
-          "role": "supply",
-          "topic": "Manufacturing: Computer, Electronic, and Optica...",
-          "freq": "P3M",
-          "units": "2016=100",
+          "ric": "CEICI254162502",
+          "role": "demand",
+          "topic": "Others: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254163202",
+          "role": "demand",
+          "topic": "Households and Other Consumers: Briquettes and Cok",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162002",
+          "role": "demand",
+          "topic": "Statistical Differences: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 15,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254162202",
+          "role": "demand",
+          "topic": "Industry & Construction: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI254161802",
+          "role": "demand",
+          "topic": "Losses in Transport and Distribution: Briquettes a",
+          "freq": "P1Y",
+          "units": "TJ",
           "n_obs": 13,
-          "sub": "Computer & Electronics Mfg"
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI359239287",
-          "role": "supply",
-          "topic": "Computer, Electronic & Optical Product: No. of ...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297609804",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297625304",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Computer & Electronics Mfg"
-        },
-        {
-          "ric": "CEICI297616304",
-          "role": "supply",
-          "topic": "Other Non Metallic Mineral Products: Number of ...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI297618804",
-          "role": "supply",
-          "topic": "Other Non Metallic Mineral Products: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI297612004",
-          "role": "supply",
-          "topic": "Other Non Metallic Mineral Products: Number of ...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI297614504",
-          "role": "supply",
-          "topic": "Other Non Metallic Mineral Products: Gross Output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI297607004",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI297622504",
-          "role": "supply",
-          "topic": "Value Added: Input Cost",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI359240497",
-          "role": "supply",
-          "topic": "Value Added: Factor Cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI359239997",
-          "role": "supply",
-          "topic": "23: Non-metallic minerals industry",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI359239257",
-          "role": "supply",
-          "topic": "Other Non Metallic Mineral Produc: No. of Estab...",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI359240247",
-          "role": "supply",
-          "topic": "Value Added: Market Price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Non-Metallic Mineral Mfg"
-        },
-        {
-          "ric": "CEICI506662897",
-          "role": "supply",
-          "topic": "Capacity utilization: Textiles",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI323564902",
-          "role": "supply",
-          "topic": "IPI Qtrly: Textiles",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI323565002",
-          "role": "supply",
-          "topic": "IPI Qtrly: Wearing Apparel",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI323565102",
-          "role": "supply",
-          "topic": "IPI Qtrly: Leather & Footwear",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297615304",
-          "role": "supply",
-          "topic": "Micro: Textiles: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297617804",
-          "role": "supply",
-          "topic": "Micro: Textiles: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297611004",
-          "role": "supply",
-          "topic": "Small: Textiles: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297620304",
-          "role": "supply",
-          "topic": "Micro: Textiles: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297613504",
-          "role": "supply",
-          "topic": "Small: Textiles: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297621504",
-          "role": "supply",
-          "topic": "Small: Textiles: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI359239897",
-          "role": "supply",
-          "topic": "Large: Textiles: gross output",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI359240397",
-          "role": "supply",
-          "topic": "Large: Textiles: VA factor cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI359240147",
-          "role": "supply",
-          "topic": "Large: Textiles: VA market price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI359239157",
-          "role": "supply",
-          "topic": "Large: Textiles: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297615404",
-          "role": "supply",
-          "topic": "Micro: Apparel: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297615504",
-          "role": "supply",
-          "topic": "Micro: Footwear: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297617904",
-          "role": "supply",
-          "topic": "Micro: Apparel: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297611104",
-          "role": "supply",
-          "topic": "Small: Apparel: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297618004",
-          "role": "supply",
-          "topic": "Micro: Footwear: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297611204",
-          "role": "supply",
-          "topic": "Small: Footwear: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297613604",
-          "role": "supply",
-          "topic": "Small: Apparel: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297606104",
-          "role": "supply",
-          "topic": "Micro: Apparel: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297621604",
-          "role": "supply",
-          "topic": "Small: Apparel: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297606204",
-          "role": "supply",
-          "topic": "Micro: Footwear: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297613704",
-          "role": "supply",
-          "topic": "Small: Footwear: gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI297621704",
-          "role": "supply",
-          "topic": "Small: Footwear: value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI359240417",
-          "role": "supply",
-          "topic": "Large: Footwear: VA factor cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Textile & Apparel"
-        },
-        {
-          "ric": "CEICI365765297",
-          "role": "supply",
-          "topic": "GDP: Wood & Cork mfg",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI365763727",
-          "role": "supply",
-          "topic": "GDP annual: Wood & Cork mfg",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 18,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI365764857",
-          "role": "supply",
-          "topic": "GDP nominal: Wood & Cork mfg",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI359239927",
-          "role": "supply",
-          "topic": "Large: Wood: gross output",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI359240427",
-          "role": "supply",
-          "topic": "Large: Wood: VA factor cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI359240177",
-          "role": "supply",
-          "topic": "Large: Wood: VA market price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI297615604",
-          "role": "supply",
-          "topic": "Micro: Wood: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI359239187",
-          "role": "supply",
-          "topic": "Large: Wood: establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI506661567",
-          "role": "supply",
-          "topic": "PMI: Wood & cork",
-          "freq": "P3M",
-          "units": "%",
-          "n_obs": 15,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI297608804",
-          "role": "supply",
-          "topic": "Micro: Wood: VA market price",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI297624304",
-          "role": "supply",
-          "topic": "Small: Wood: VA market price",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Wood & Cork"
-        },
-        {
-          "ric": "CEICI365765367",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: 2010p: Manufactu",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI365765397",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: 2010p: Manufactu",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI324043102",
-          "role": "supply",
-          "topic": "Export value: electrical machinery",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI324043002",
-          "role": "supply",
-          "topic": "Export value: mechanical machinery",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI324032102",
-          "role": "supply",
-          "topic": "Export value: machinery/electronics",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI323787402",
+          "ric": "CEICI254163402",
           "role": "demand",
-          "topic": "Import value: electrical machinery",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "topic": "Agriculture: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323787302",
+          "ric": "CEICI254163502",
           "role": "demand",
-          "topic": "Import value: mechanical machinery",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "topic": "Other Consumers: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI365764097",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: GFCF: Machinery",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 65,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI324054902",
-          "role": "supply",
-          "topic": "Export value: machinery & transport",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI410108507",
+          "ric": "CEICI254160502",
           "role": "demand",
-          "topic": "FDI: Basic metals & metal goods",
-          "freq": "P3M",
-          "units": "USD mn",
-          "n_obs": 141,
-          "sub": "Machinery & Equipment"
+          "topic": "Total Energy Requirements: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 19,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323978402",
-          "role": "supply",
-          "topic": "Export value: electrical apparatus",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI410108517",
+          "ric": "CEICI254163302",
           "role": "demand",
-          "topic": "FDI: Machinery & electronics",
-          "freq": "P3M",
-          "units": "USD mn",
-          "n_obs": 145,
-          "sub": "Machinery & Equipment"
+          "topic": "Households: Briquettes and Cokes",
+          "freq": "P1Y",
+          "units": "TJ",
+          "n_obs": 4,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323978202",
+          "ric": "CEICI391910527",
           "role": "supply",
-          "topic": "Export value: office machinery",
+          "topic": "Production volume",
           "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "units": "Ton mn",
+          "n_obs": 232,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI324052802",
+          "ric": "CEICI391910437",
           "role": "supply",
-          "topic": "Export vol: electrical machinery",
+          "topic": "YTD production",
           "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "units": "Ton mn",
+          "n_obs": 232,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI324052702",
+          "ric": "CEICI293558802",
           "role": "supply",
-          "topic": "Export vol: mechanical machinery",
+          "topic": "Production volume",
+          "freq": "P1Y",
+          "units": "Ton th",
+          "n_obs": 20,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI252985002",
+          "role": "supply",
+          "topic": "Production volume",
+          "freq": "P1Y",
+          "units": "Ton",
+          "n_obs": 28,
+          "sub": "Coal"
+        },
+        {
+          "ric": "CEICI391910547",
+          "role": "supply",
+          "topic": "Overburden removal",
           "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "units": "bcm mn",
+          "n_obs": 232,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI365764927",
+          "ric": "CEICI506620947",
           "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: Manufacturing In",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI365764957",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: Manufacturing In",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 73,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI365763797",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: 2010p: Annual: M",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 18,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI323978102",
-          "role": "supply",
-          "topic": "Export value: general industrial mach",
+          "topic": "Coal reference price: HBA II",
           "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "units": "USD/Ton",
+          "n_obs": 40,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323977902",
-          "role": "demand",
-          "topic": "Export value: specialized machinery",
+          "ric": "CEICI506620937",
+          "role": "supply",
+          "topic": "Coal reference price: HBA I",
           "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
+          "units": "USD/Ton",
+          "n_obs": 40,
+          "sub": "Coal"
         },
         {
-          "ric": "CEICI323978002",
+          "ric": "CEICI522153977",
           "role": "supply",
-          "topic": "Export value: metalworking machinery",
+          "topic": "Coal reference price: HBA III",
           "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI365763827",
-          "role": "supply",
-          "topic": "Gross Domestic Product: SNA 2008: 2010p: Annual: M",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 18,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI412369207",
-          "role": "demand",
-          "topic": "FDI: Basic metals & metal goods (ann)",
-          "freq": "P1Y",
-          "units": "USD mn",
-          "n_obs": 29,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI410108537",
-          "role": "demand",
-          "topic": "DDI: Basic metals & metal goods",
-          "freq": "P3M",
-          "units": "IDR bn",
-          "n_obs": 140,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI412369217",
-          "role": "demand",
-          "topic": "FDI: Machinery & electronics (ann)",
-          "freq": "P1Y",
-          "units": "USD mn",
-          "n_obs": 29,
-          "sub": "Machinery & Equipment"
-        },
-        {
-          "ric": "CEICI323565502",
-          "role": "supply",
-          "topic": "IPI: Chemicals (quarterly)",
-          "freq": "P3M",
-          "units": "2010=100",
-          "n_obs": 60,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297616004",
-          "role": "supply",
-          "topic": "Micro mfg: chemicals establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297611704",
-          "role": "supply",
-          "topic": "Small mfg: chemicals establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297618504",
-          "role": "supply",
-          "topic": "Micro mfg: chemicals gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297606704",
-          "role": "supply",
-          "topic": "Micro mfg: chemicals value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297614204",
-          "role": "supply",
-          "topic": "Small mfg: chemicals gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297622204",
-          "role": "supply",
-          "topic": "Small mfg: chemicals value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359239967",
-          "role": "supply",
-          "topic": "Large mfg: chemicals gross output",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359240467",
-          "role": "supply",
-          "topic": "Large mfg: chemicals VA factor cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359240217",
-          "role": "supply",
-          "topic": "Large mfg: chemicals VA market price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359239227",
-          "role": "demand",
-          "topic": "Large mfg: chemicals establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297616104",
-          "role": "supply",
-          "topic": "Micro mfg: pharma establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297618604",
-          "role": "supply",
-          "topic": "Micro mfg: pharma gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297611804",
-          "role": "supply",
-          "topic": "Small mfg: pharma establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297614304",
-          "role": "supply",
-          "topic": "Small mfg: pharma gross output",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297606804",
-          "role": "supply",
-          "topic": "Micro mfg: pharma value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI297622304",
-          "role": "supply",
-          "topic": "Small mfg: pharma value added",
-          "freq": "P1Y",
-          "units": "IDR mn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359240477",
-          "role": "supply",
-          "topic": "Large mfg: pharma VA factor cost",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 14,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359239977",
-          "role": "supply",
-          "topic": "Large mfg: pharma gross output",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 15,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359240227",
-          "role": "supply",
-          "topic": "Large mfg: pharma VA market price",
-          "freq": "P1Y",
-          "units": "IDR bn",
-          "n_obs": 17,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI324031102",
-          "role": "supply",
-          "topic": "Export value: chemicals",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Chemicals & Pharmaceuticals"
-        },
-        {
-          "ric": "CEICI359239237",
-          "role": "demand",
-          "topic": "Large mfg: pharma establishments",
-          "freq": "P1Y",
-          "units": "Unit",
-          "n_obs": 18,
-          "sub": "Chemicals & Pharmaceuticals"
+          "units": "USD/Ton",
+          "n_obs": 35,
+          "sub": "Coal"
         }
       ],
-      "ceic_override": [],
+      "ceic_override": [
+        [
+          "coal production",
+          "demand",
+          1
+        ],
+        [
+          "mining & quarrying: coal",
+          "demand",
+          1
+        ]
+      ],
       "ceic_exclude": [],
       "global_hints": [
-        {
-          "key": "wb_coal_au",
-          "role": "demand",
-          "sign": 1,
-          "why": "diversified commodity exposure"
-        },
         {
           "key": "bcom",
           "role": "demand",
           "sign": 1,
-          "why": "commodity beta"
+          "why": "UNTR coal/equipment + commodity beta"
+        },
+        {
+          "key": "wb_palm_oil",
+          "role": "demand",
+          "sign": 1,
+          "why": "AALI palm-oil exposure"
+        },
+        {
+          "key": "steel_hrc",
+          "role": "cost",
+          "sign": -1,
+          "why": "auto steel input"
         }
       ],
       "macro_hints": [
         {
-          "key": "id_gdp_real_q",
-          "role": "demand",
-          "sign": 1,
-          "why": "broad economy"
-        },
-        {
-          "key": "jci",
-          "role": "demand",
-          "sign": 1,
-          "why": "market beta"
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "auto financing + holding rate-sensitivity"
         },
         {
           "key": "usdidr",
           "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
+          "sign": -1,
+          "why": "CKD auto-part imports"
+        },
+        {
+          "key": "id_gdp_real_q",
+          "role": "demand",
+          "sign": 1,
+          "why": "broad domestic economy"
         },
         {
           "key": "id_bi_rate",
