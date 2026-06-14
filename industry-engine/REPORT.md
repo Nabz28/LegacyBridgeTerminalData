@@ -1,6 +1,6 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T10:15:45._  
+_Auto-generated from output/engine.json — 2026-06-14T10:32:44._  
 **40 perfected · 12 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
@@ -9,7 +9,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 
 | Basket | Sector | Verdict | Score | Conf | #drv | MV R2 | OOS | Top driver (corr) |
 |---|---|---|---|---|---|---|---|---|
-| Banks | Financials | MILDLY BEARISH | 41 | high | 12 | 0.40 | 66% | PT Bank Syariah Indonesi (-0.3789) |
+| Banks | Financials | NEUTRAL | 46 | high | 12 | 0.40 | 69% | USD/IDR (-0.3424) |
 | Coal | Energy | MILDLY BEARISH | 43 | high | 12 | 0.20 | 60% | Bloomberg Commodity Idx (0.345) |
 | Mining | Basic Materials | BEARISH | 33 | high | 12 | 0.25 | 68% | Nickel  LME (0.3065) |
 | Alternative Energy | Energy | NEUTRAL | 50 | medium | 12 | 0.05 | 61% | Tariff: Government (0.1243) |

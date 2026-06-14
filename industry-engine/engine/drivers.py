@@ -30,12 +30,21 @@ SPARK_MIN = 10          # min spark points to attempt a (shallow) fit
 _OK_FREQ = {"P1D", "P7D", "P1M", "P3M"}
 
 
-def _curate_ceic(cands: list) -> list:
+def _curate_ceic(cands: list, exclude: list | None = None) -> list:
+    exclude = [str(e).lower() for e in (exclude or [])]
+
     def is_province(rec):
         t = (rec.get("topic") or "").lower()
         return t.startswith("by province") or "province" in t
+
+    def is_excluded(rec):
+        # drop ENDOGENOUS series — e.g. a single constituent company's own
+        # balance sheet ("PT Bank X: Assets…") is an outcome, not a driver.
+        hay = (str(rec.get("topic") or "") + " " + str(rec.get("sub") or "")).lower()
+        return any(e in hay for e in exclude)
+
     # keep only sufficiently high-frequency series (drop annual/semiannual)
-    freq_ok = [r for r in cands if (r.get("freq") in _OK_FREQ)]
+    freq_ok = [r for r in cands if (r.get("freq") in _OK_FREQ) and not is_excluded(r)]
     nat = [r for r in freq_ok if not is_province(r)]
     pool = nat or freq_ok or cands
     # dedup by (topic, role); prefer higher n_obs
@@ -120,7 +129,8 @@ def assemble_and_analyze(basket: dict, br: dict) -> dict:
         rl = rec.get("role") or "macro"
         return rl, (+1 if rl == "demand" else 0)
 
-    ceic = _curate_ceic(basket.get("ceic_candidates", []))
+    ceic = _curate_ceic(basket.get("ceic_candidates", []),
+                        exclude=basket.get("ceic_exclude", []))
     C.log(f"  CEIC candidates: {len(basket.get('ceic_candidates', []))} -> "
           f"{len(ceic)} curated"
           + (f" ({len(overrides)} overrides)" if overrides else ""))

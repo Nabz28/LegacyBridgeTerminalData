@@ -266,6 +266,9 @@ SEED = {
     # ---------------- FINANCIALS ----------------
     "Banks": {
         "ceic": [("Banks", None)],
+        # drop ENDOGENOUS single-constituent balance-sheet series (a listed bank's
+        # own assets/impairments are an outcome, not an exogenous driver).
+        "ceic_exclude": ["pt bank", "syariah indonesia"],
         "globals": [],
         "macro": [("id_bi_rate", "macro", +1, "policy rate -> NIM (asset-sensitive)"),
                   ("id_lending_rate", "macro", +1, "loan yields"),
