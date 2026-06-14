@@ -24349,6 +24349,18 @@
       "global_hints": [],
       "macro_hints": [
         {
+          "key": "id_bi_rate",
+          "role": "macro",
+          "sign": -1,
+          "why": "quality defensives (KLBF/SIDO) = bond-proxy, re-rate on rates"
+        },
+        {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "defensive duration"
+        },
+        {
           "key": "usdidr",
           "role": "macro",
           "sign": -1,
@@ -24365,12 +24377,6 @@
           "role": "cost",
           "sign": -1,
           "why": "input cost inflation"
-        },
-        {
-          "key": "id_bi_rate",
-          "role": "macro",
-          "sign": 0,
-          "why": "policy rate: sector-specific NIM/discount effect"
         }
       ],
       "has_seed": true,

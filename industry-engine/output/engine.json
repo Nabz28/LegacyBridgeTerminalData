@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T10:14:33",
+  "generated_at": "2026-06-14T10:15:45",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS, theory-reconciled. Primary target = weight-capped basket return; benchmark = IHSG.",
   "baskets": [
@@ -6318,59 +6318,65 @@
       "sector": "Healthcare",
       "priority": 22,
       "status": "done",
-      "grade": "partial",
+      "grade": "perfected",
       "verdict": "NEUTRAL",
       "score": 47,
       "confidence": {
         "level": "high",
-        "score": 72,
+        "score": 74,
         "reasons": [
           "max|corr|=0.33",
           "theory_agree=100%",
-          "stable=67%",
-          "mvR2=0.06",
-          "OOS=54%"
+          "stable=71%",
+          "mvR2=0.09",
+          "OOS=53%"
         ]
       },
-      "net_tilt": -0.055,
+      "net_tilt": -0.06,
       "demand_tilt": null,
       "supply_tilt": -0.116,
       "cost_tilt": null,
-      "macro_tilt": -0.022,
+      "macro_tilt": -0.043,
       "multivariate": {
         "available": true,
         "drivers": [
+          "id_10y",
           "usdidr",
           "id_bi_rate",
           "CEICI324047402"
         ],
         "n": 160,
-        "r2": 0.061,
-        "adj_r2": 0.043,
+        "r2": 0.094,
+        "adj_r2": 0.07,
         "betas": {
+          "id_10y": {
+            "std_beta": -0.0125,
+            "t": -2.43,
+            "p": 0.0151
+          },
           "usdidr": {
-            "std_beta": -0.0085,
-            "t": -1.29,
-            "p": 0.1958
+            "std_beta": -0.0051,
+            "t": -1.15,
+            "p": 0.249
           },
           "id_bi_rate": {
-            "std_beta": -0.0123,
-            "t": -2.46,
-            "p": 0.014
+            "std_beta": -0.0101,
+            "t": -2.42,
+            "p": 0.0157
           },
           "CEICI324047402": {
-            "std_beta": -0.0044,
-            "t": -3.32,
-            "p": 0.0009
+            "std_beta": -0.004,
+            "t": -3.01,
+            "p": 0.0026
           }
         },
-        "oos_hit_rate": 0.54,
+        "oos_hit_rate": 0.53,
         "oos_n": 100,
-        "expected_monthly_ret": 0.0018
+        "expected_monthly_ret": 0.0063
       },
-      "narrative": "Pharma (Healthcare) screens NEUTRAL [47/100, high confidence]. Top drivers: Business survey (corr +0.33, lead 3m, now headwind); GDP value added (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.16, lead 0m, now flat). A 3-driver model explains 6% of monthly variance (adj 4%), 54% out-of-sample directional hit-rate; current read ~+0.2%/mo.",
-      "n_kept": 6,
-      "n_tested": 14,
+      "narrative": "Pharma (Healthcare) screens NEUTRAL [47/100, high confidence]. Top drivers: id_10y (corr -0.29, lead 0m, now flat); Business survey (corr +0.33, lead 3m, now headwind); GDP value added (corr +0.25, lead 0m, now flat). A 4-driver model explains 9% of monthly variance (adj 7%), 53% out-of-sample directional hit-rate; current read ~+0.6%/mo.",
+      "n_kept": 7,
+      "n_tested": 15,
       "n_used": 13,
       "members_used": [
         "DVLA",
@@ -6395,6 +6401,28 @@
         "last": "2026-06-12"
       },
       "drivers": [
+        {
+          "key": "id_10y",
+          "label": "id_10y",
+          "role": "macro",
+          "source": "corr:TVC:ID10Y",
+          "freq": "M",
+          "pearson": -0.2887,
+          "excess_pearson": 0.0158,
+          "best_lag": 0,
+          "ic": -0.0774,
+          "beta": -0.37878005003980925,
+          "r2": 0.08335769795635872,
+          "p": 4.2018982715610916e-05,
+          "n": 184,
+          "theory_agree": true,
+          "stable": true,
+          "sign": -1,
+          "why": "defensive duration",
+          "posture": "neutral",
+          "last_chg_z": 0.17,
+          "last_obs": "2026-05-01"
+        },
         {
           "key": "CEICI506661997",
           "label": "Business survey",
@@ -6475,10 +6503,10 @@
           "r2": 0.025146139600219053,
           "p": 0.030405422661697743,
           "n": 181,
-          "theory_agree": null,
+          "theory_agree": true,
           "stable": true,
           "sign": -1,
-          "why": "policy rate: sector-specific NIM/discount effect",
+          "why": "quality defensives (KLBF/SIDO) = bond-proxy, re-rate on rates",
           "posture": "neutral",
           "last_chg_z": 0.05,
           "last_obs": "2026-04-24"
@@ -6528,7 +6556,7 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T02:52:21"
+      "generated_at": "2026-06-14T10:15:44"
     },
     {
       "id": "basic_materials_paper",
