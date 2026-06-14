@@ -3,7 +3,7 @@
   "sub_sector": "Containers & Packaging",
   "sector": "Basic Materials",
   "priority": 19,
-  "generated_at": "2026-06-14T02:52:09",
+  "generated_at": "2026-06-14T10:14:32",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -280,12 +280,12 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 0.7,
+  "runtime_s": 2.6,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
     "only 2 validated drivers (<3)",
     "confidence low",
-    "parked after 2 attempts"
+    "parked after 3 attempts"
   ]
 }
