@@ -3,7 +3,7 @@
   "sub_sector": "Logistics",
   "sector": "Transportation & Logistics",
   "priority": 40,
-  "generated_at": "2026-06-14T12:00:04",
+  "generated_at": "2026-06-14T12:20:23",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -32,55 +32,56 @@
       "last": "2026-05-01"
     },
     "total_mcap": 7733369190400.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
-    "net_tilt": 0.219,
-    "demand_tilt": 0.218,
-    "supply_tilt": 0.286,
+    "verdict": "NEUTRAL",
+    "score": 48,
+    "net_tilt": -0.069,
+    "demand_tilt": 0.154,
+    "supply_tilt": -0.191,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "medium",
-      "score": 43,
+      "level": "high",
+      "score": 67,
       "reasons": [
-        "max|corr|=0.17",
-        "theory_agree=33%",
-        "stable=100%",
-        "mvR2=0.05",
-        "OOS=62%",
-        "mt_penalty=0.94(n=28)"
+        "max|corr|=0.21",
+        "theory_agree=100%",
+        "stable=86%",
+        "mvR2=0.07",
+        "OOS=66%",
+        "mt_penalty=0.87(n=28)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "CEICI14575001",
-        "CEICI421786467"
+        "CEICI14574801"
       ],
       "n": 182,
-      "r2": 0.054,
-      "adj_r2": 0.043,
+      "r2": 0.066,
+      "adj_r2": 0.056,
       "betas": {
         "CEICI14575001": {
-          "std_beta": 0.0132,
-          "t": 1.86,
-          "p": 0.0625
+          "std_beta": 0.0138,
+          "t": 2.05,
+          "p": 0.0405
         },
-        "CEICI421786467": {
-          "std_beta": -0.0119,
-          "t": -2.73,
-          "p": 0.0063
+        "CEICI14574801": {
+          "std_beta": 0.0112,
+          "t": 3.1,
+          "p": 0.0019
         }
       },
-      "oos_hit_rate": 0.623,
+      "oos_hit_rate": 0.656,
       "oos_n": 122,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0027
+      "expected_monthly_ret": -0.0251
     },
-    "narrative": "Logistics (Transportation & Logistics) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.17, lead 1m, now flat); GDP nominal: Transport & Storage (corr -0.12, lead 6m, now tailwind); Monthly: Sumatera (corr -0.15, lead 0m, now tailwind). A 2-driver model explains 5% of monthly variance (adj 4%), 62% out-of-sample directional hit-rate; current read ~+0.3%/mo.",
+    "narrative": "Logistics (Transportation & Logistics) screens NEUTRAL [48/100, high confidence]. Top drivers: International: Tanjung Priok (corr +0.21, lead 0m, now flat); Cargo loaded: international (corr +0.18, lead 0m, now headwind); GDP: Transport & Storage (corr +0.14, lead 5m, now flat). A 2-driver model explains 7% of monthly variance (adj 6%), 66% pseudo-OOS directional hit-rate; in-sample OLS read ~-2.5%/mo.",
     "drivers": [
       {
         "key": "CEICI14575001",
@@ -92,19 +93,19 @@
         "last_obs": "2026-03-01",
         "n": 182,
         "min_n": 24,
-        "pearson": 0.1682,
-        "pearson_p": 0.0233,
-        "spearman": 0.2535,
-        "spearman_p": 0.0006,
-        "best_lag": 1,
+        "pearson": 0.2086,
+        "pearson_p": 0.0047,
+        "spearman": 0.3133,
+        "spearman_p": 0.0,
+        "best_lag": 0,
         "corr_at_best": 0.2086,
-        "ic": 0.3133,
-        "ic_t": 1.169,
+        "ic": 0.2409,
+        "ic_t": 0.899,
         "ols": {
-          "beta": 0.012470795488621726,
-          "t": 2.5515356682067574,
-          "p": 0.010724934569442034,
-          "r2": 0.028276482707829453,
+          "beta": 0.015472180022487658,
+          "t": 2.8364283999770707,
+          "p": 0.004562120631730743,
+          "r2": 0.043525903632354535,
           "n": 182,
           "hac_lag": 12
         },
@@ -120,20 +121,128 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.2105,
-        "last_chg": 0.049868,
-        "last_chg_z": -0.19,
+        "excess_pearson": 0.1561,
+        "last_chg": 0.105903,
+        "last_chg_z": -0.12,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 59.3,
+        "score": 59.1,
         "source": "ceic",
         "label": "International: Tanjung Priok",
         "live": {
           "posture": "neutral",
-          "impulse": 0.095
+          "impulse": 0.06
+        }
+      },
+      {
+        "key": "CEICI14574801",
+        "role": "supply",
+        "why": "Cargo loaded: international",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": 0.1779,
+        "pearson_p": 0.0163,
+        "spearman": 0.2271,
+        "spearman_p": 0.002,
+        "best_lag": 0,
+        "corr_at_best": 0.1779,
+        "ic": -0.107,
+        "ic_t": -1.439,
+        "ols": {
+          "beta": 4.43379722717678e-08,
+          "t": 3.382618996025457,
+          "p": 0.0007179816523251813,
+          "r2": 0.0316372481245456,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 4.43379722717678e-08,
+          "t": 3.382618996025457,
+          "p": 0.0007179816523251813,
+          "r2": 0.0316372481245456,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1849,
+        "last_chg": -592388.0,
+        "last_chg_z": -2.29,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.4,
+        "source": "ceic",
+        "label": "Cargo loaded: international",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.816
+        }
+      },
+      {
+        "key": "CEICI365752077",
+        "role": "supply",
+        "why": "GDP: Transport & Storage",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.1371,
+        "pearson_p": 0.2961,
+        "spearman": 0.1228,
+        "spearman_p": 0.3499,
+        "best_lag": 5,
+        "corr_at_best": -0.2153,
+        "ic": -0.1317,
+        "ic_t": -1.012,
+        "ols": {
+          "beta": 0.35342611961089593,
+          "t": 1.2266925241591724,
+          "p": 0.21993817858870746,
+          "r2": 0.018804675470466603,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.5557291467739258,
+          "t": -2.616418808208078,
+          "p": 0.008885749400466639,
+          "r2": 0.0463479965097795,
+          "n": 60,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.042,
+        "last_chg": 0.017895,
+        "last_chg_z": 0.03,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.3,
+        "source": "ceic",
+        "label": "GDP: Transport & Storage",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.015
         }
       },
       {
@@ -146,19 +255,19 @@
         "last_obs": "2026-03-01",
         "n": 60,
         "min_n": 12,
-        "pearson": -0.1229,
-        "pearson_p": 0.3493,
-        "spearman": -0.1835,
-        "spearman_p": 0.1605,
-        "best_lag": 6,
+        "pearson": 0.1045,
+        "pearson_p": 0.4267,
+        "spearman": 0.0824,
+        "spearman_p": 0.5316,
+        "best_lag": 5,
         "corr_at_best": -0.2297,
-        "ic": 0.0824,
-        "ic_t": 0.633,
+        "ic": -0.0993,
+        "ic_t": -0.763,
         "ols": {
-          "beta": -0.23088890853411645,
-          "t": -1.5687329440060633,
-          "p": 0.1167101788990335,
-          "r2": 0.015115895220079834,
+          "beta": 0.19644832392991157,
+          "t": 1.163307499065068,
+          "p": 0.24470476419346732,
+          "r2": 0.010928632065961508,
           "n": 60,
           "hac_lag": 4
         },
@@ -171,77 +280,77 @@
           "hac_lag": 4
         },
         "sign_prior": 0,
-        "emp_sign": -1,
+        "emp_sign": 1,
         "theory_agree": null,
         "stable": true,
-        "excess_pearson": -0.2182,
-        "last_chg": -0.011043,
-        "last_chg_z": -0.51,
+        "excess_pearson": 0.0409,
+        "last_chg": 0.033377,
+        "last_chg_z": 0.04,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 37.4,
+        "score": 35.1,
         "source": "ceic",
         "label": "GDP nominal: Transport & Storage",
         "live": {
-          "posture": "tailwind",
-          "impulse": 0.25
+          "posture": "neutral",
+          "impulse": 0.02
         }
       },
       {
-        "key": "CEICI421786467",
+        "key": "CEICI365765497",
         "role": "supply",
-        "why": "Monthly: Sumatera",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": -0.1535,
-        "pearson_p": 0.0381,
-        "spearman": -0.2178,
-        "spearman_p": 0.0031,
-        "best_lag": 0,
-        "corr_at_best": -0.1535,
-        "ic": 0.0389,
-        "ic_t": 0.145,
+        "why": "GDP: Storage & Support",
+        "test_freq": "Q",
+        "transform": "logret",
+        "native_freq": "Q",
+        "last_obs": "2026-03-01",
+        "n": 60,
+        "min_n": 12,
+        "pearson": 0.1365,
+        "pearson_p": 0.2985,
+        "spearman": 0.1692,
+        "spearman_p": 0.1963,
+        "best_lag": 1,
+        "corr_at_best": -0.1923,
+        "ic": -0.0517,
+        "ic_t": -0.397,
         "ols": {
-          "beta": -0.08176609863443958,
-          "t": -2.532355575969761,
-          "p": 0.011329903282941074,
-          "r2": 0.02355386449418284,
-          "n": 183,
-          "hac_lag": 12
+          "beta": 0.23527656583668038,
+          "t": 1.6147235942073932,
+          "p": 0.1063705657007317,
+          "r2": 0.018620006039603787,
+          "n": 60,
+          "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.08176609863443958,
-          "t": -2.532355575969761,
-          "p": 0.011329903282941074,
-          "r2": 0.02355386449418284,
-          "n": 183,
-          "hac_lag": 12
+          "beta": -0.33161660900054524,
+          "t": -2.8113139868380497,
+          "p": 0.00493396107717557,
+          "r2": 0.0369942870450648,
+          "n": 60,
+          "hac_lag": 4
         },
         "sign_prior": 0,
-        "emp_sign": -1,
+        "emp_sign": 1,
         "theory_agree": null,
         "stable": true,
-        "excess_pearson": -0.1271,
-        "last_chg": -0.002401,
-        "last_chg_z": -0.67,
-        "last_chg_date": "2026-04-30",
+        "excess_pearson": 0.0386,
+        "last_chg": 0.021206,
+        "last_chg_z": 0.03,
+        "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 34.6,
+        "score": 32.6,
         "source": "ceic",
-        "label": "Monthly: Sumatera",
+        "label": "GDP: Storage & Support",
         "live": {
-          "posture": "tailwind",
-          "impulse": 0.323
+          "posture": "neutral",
+          "impulse": 0.015
         }
       },
       {
@@ -254,19 +363,19 @@
         "last_obs": "2026-03-01",
         "n": 60,
         "min_n": 12,
-        "pearson": -0.107,
-        "pearson_p": 0.4157,
-        "spearman": -0.1229,
-        "spearman_p": 0.3494,
-        "best_lag": 6,
+        "pearson": 0.0806,
+        "pearson_p": 0.5404,
+        "spearman": 0.0345,
+        "spearman_p": 0.7938,
+        "best_lag": 5,
         "corr_at_best": -0.3276,
-        "ic": 0.0345,
-        "ic_t": 0.265,
+        "ic": -0.0209,
+        "ic_t": -0.16,
         "ols": {
-          "beta": -0.43285076956350155,
-          "t": -1.0714396490597373,
-          "p": 0.28397179313966603,
-          "r2": 0.011454318332602242,
+          "beta": 0.32676958091241937,
+          "t": 0.8689238168497649,
+          "p": 0.3848888016078238,
+          "r2": 0.006497986746047513,
           "n": 60,
           "hac_lag": 4
         },
@@ -279,23 +388,23 @@
           "hac_lag": 4
         },
         "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
+        "emp_sign": 1,
+        "theory_agree": true,
         "stable": true,
-        "excess_pearson": -0.1865,
-        "last_chg": -0.002809,
-        "last_chg_z": -0.58,
+        "excess_pearson": 0.029,
+        "last_chg": 0.031072,
+        "last_chg_z": 0.28,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 22.4,
+        "score": 32.0,
         "source": "ceic",
         "label": "HH consumption nominal: Transp.",
         "live": {
-          "posture": "tailwind",
-          "impulse": 0.282
+          "posture": "neutral",
+          "impulse": 0.139
         }
       },
       {
@@ -308,19 +417,19 @@
         "last_obs": "2026-03-01",
         "n": 60,
         "min_n": 12,
-        "pearson": -0.1131,
-        "pearson_p": 0.3895,
-        "spearman": -0.1337,
-        "spearman_p": 0.3085,
-        "best_lag": 6,
+        "pearson": 0.0678,
+        "pearson_p": 0.607,
+        "spearman": 0.007,
+        "spearman_p": 0.9577,
+        "best_lag": 5,
         "corr_at_best": -0.2446,
-        "ic": 0.007,
-        "ic_t": 0.054,
+        "ic": 0.0218,
+        "ic_t": 0.167,
         "ols": {
-          "beta": -0.6087634023235317,
-          "t": -1.0199268628375568,
-          "p": 0.3077631483554595,
-          "r2": 0.012794620947790158,
+          "beta": 0.36541224952630663,
+          "t": 0.6687118338466062,
+          "p": 0.5036793172179066,
+          "r2": 0.004591484941369961,
           "n": 60,
           "hac_lag": 4
         },
@@ -333,49 +442,39 @@
           "hac_lag": 4
         },
         "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.2199,
-        "last_chg": -0.004397,
-        "last_chg_z": -0.57,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0004,
+        "last_chg": 0.027837,
+        "last_chg_z": 0.54,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 20.7,
+        "score": 23.3,
         "source": "ceic",
         "label": "HH consumption: Transport & Comm",
         "live": {
           "posture": "tailwind",
-          "impulse": 0.278
+          "impulse": 0.264
         }
       }
     ],
-    "n_kept": 5,
+    "n_kept": 7,
     "n_candidates": 28
   },
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI14574901",
-      "label": "International: Belawan",
-      "role": "demand",
-      "pearson": 0.0902,
-      "p": 0.007149719586494258,
-      "theory_agree": true,
-      "score": 36.1,
-      "reason": "below_gate"
-    },
-    {
       "key": "CEICI14577901",
       "label": "Domestic: Belawan",
       "role": "demand",
-      "pearson": 0.0958,
-      "p": 0.004437747277445967,
+      "pearson": 0.0586,
+      "p": 0.07835867304781122,
       "theory_agree": true,
-      "score": 35.6,
+      "score": 35.7,
       "reason": "below_gate"
     },
     {
@@ -389,73 +488,83 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI14577201",
-      "label": "International: Makassar",
+      "key": "CEICI14574901",
+      "label": "International: Belawan",
       "role": "demand",
-      "pearson": 0.0638,
-      "p": 0.08040119871545191,
+      "pearson": 0.0786,
+      "p": 0.03561878766817671,
       "theory_agree": true,
-      "score": 34.4,
+      "score": 33.7,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI454752297",
-      "label": "Cargo unloaded: domestic",
-      "role": "demand",
-      "pearson": 0.0639,
-      "p": 0.050149456439874535,
-      "theory_agree": true,
-      "score": 34.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI365752077",
-      "label": "GDP: Transport & Storage",
+      "key": "CEICI421786467",
+      "label": "Monthly: Sumatera",
       "role": "supply",
-      "pearson": -0.0954,
-      "p": 0.12577001392869128,
+      "pearson": 0.0836,
+      "p": 0.27253091103377114,
       "theory_agree": null,
-      "score": 33.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14582301",
-      "label": "By airport: Soekarno Hatta-Tangerang",
-      "role": "demand",
-      "pearson": 0.0294,
-      "p": 0.5727867385508003,
-      "theory_agree": true,
-      "score": 31.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI365765497",
-      "label": "GDP: Storage & Support",
-      "role": "supply",
-      "pearson": -0.0711,
-      "p": 0.4000426517489547,
-      "theory_agree": null,
-      "score": 31.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI421786477",
-      "label": "Monthly: Java and Sumatera",
-      "role": "supply",
-      "pearson": -0.1118,
-      "p": 0.059444427811358336,
-      "theory_agree": null,
-      "score": 30.5,
+      "score": 29.9,
       "reason": "below_gate"
     },
     {
       "key": "CEICI365765057",
       "label": "GDP nominal: Storage & Support",
       "role": "supply",
-      "pearson": -0.091,
-      "p": 0.2916740513459639,
+      "pearson": 0.0985,
+      "p": 0.13386483674084293,
       "theory_agree": null,
-      "score": 26.9,
+      "score": 26.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": 0.0542,
+      "p": 0.3935203638518938,
+      "theory_agree": true,
+      "score": 25.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1009,
+      "p": 0.3086879047282671,
+      "theory_agree": null,
+      "score": 25.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI421786477",
+      "label": "Monthly: Java and Sumatera",
+      "role": "supply",
+      "pearson": 0.054,
+      "p": 0.4845878476062362,
+      "theory_agree": null,
+      "score": 24.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "cost",
+      "pearson": 0.1136,
+      "p": 0.2690932518763769,
+      "theory_agree": false,
+      "score": 24.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14582301",
+      "label": "By airport: Soekarno Hatta-Tangerang",
+      "role": "demand",
+      "pearson": -0.1244,
+      "p": 0.02391847504328981,
+      "theory_agree": false,
+      "score": 22.1,
       "reason": "below_gate"
     }
   ],
@@ -465,9 +574,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.6,
+  "runtime_s": 4.6,
   "grade": "perfected",
   "grade_reasons": []
 }

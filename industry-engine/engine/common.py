@@ -237,22 +237,31 @@ def get_observations(ric: str, limit: int = 6000, use_cache: bool = True,
                      max_age_h: float = 18.0) -> list:
     """Return [{date,value}] ascending for a RIC, cached on disk."""
     safe = urllib.parse.quote(ric, safe="")
-    cf = CACHE_DIR / f"obs_{safe}.json"
+    # `limit` (the pagination cap) is part of the key — a small-limit call must
+    # not poison a later full-history read with a truncated copy.
+    cf = CACHE_DIR / f"obs_{safe}_{int(limit)}.json"
     if use_cache and cf.exists():
         age_h = (time.time() - cf.stat().st_mtime) / 3600.0
         if age_h < max_age_h:
             try:
-                return json.loads(cf.read_text(encoding="utf-8"))
+                cached = json.loads(cf.read_text(encoding="utf-8"))
+                if isinstance(cached, list):     # validate shape before trusting
+                    return cached
             except Exception:  # noqa: BLE001
-                pass
+                try:
+                    cf.unlink()                  # drop a corrupt/half-written file
+                except Exception:  # noqa: BLE001
+                    pass
     rows = rest_get_all(
         "observations",
         {"ric": f"eq.{ric}", "select": "date,value", "order": "date.asc"},
         schema="macro", page=1000, cap=limit)
     rows = [{"date": r["date"], "value": r["value"]} for r in rows
             if r.get("value") is not None]
-    try:
-        cf.write_text(json.dumps(rows), encoding="utf-8")
+    try:                                          # atomic write (temp + replace)
+        tmp = cf.with_suffix(".tmp")
+        tmp.write_text(json.dumps(rows), encoding="utf-8")
+        os.replace(tmp, cf)
     except Exception:  # noqa: BLE001
         pass
     return rows

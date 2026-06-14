@@ -3,7 +3,7 @@
   "sub_sector": "Airlines",
   "sector": "Transportation & Logistics",
   "priority": 33,
-  "generated_at": "2026-06-14T11:59:45",
+  "generated_at": "2026-06-14T12:19:57",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -23,7 +23,8 @@
       "last": "2026-05-01"
     },
     "total_mcap": 24111121039360.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "NEUTRAL",
@@ -35,14 +36,14 @@
     "macro_tilt": -0.022,
     "confidence": {
       "level": "medium",
-      "score": 62,
+      "score": 59,
       "reasons": [
         "max|corr|=0.20",
         "theory_agree=100%",
         "stable=100%",
         "mvR2=0.07",
         "OOS=54%",
-        "mt_penalty=0.92(n=32)"
+        "mt_penalty=0.84(n=32)"
       ]
     },
     "multivariate": {
@@ -71,7 +72,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0068
     },
-    "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat). A 2-driver model explains 7% of monthly variance (adj 6%), 54% out-of-sample directional hit-rate; current read ~-0.7%/mo.",
+    "narrative": "Airlines (Transportation & Logistics) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.20, lead 0m, now flat). A 2-driver model explains 7% of monthly variance (adj 6%), 54% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.7%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -190,16 +191,6 @@
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI14579901",
-      "label": "International: Arrival: Juanda-Surabaya",
-      "role": "demand",
-      "pearson": 0.073,
-      "p": 0.07634229382337503,
-      "theory_agree": true,
-      "score": 29.6,
-      "reason": "below_gate"
-    },
-    {
       "key": "id_gdp_real_q",
       "label": "Real GDP (SA)",
       "role": "demand",
@@ -210,43 +201,53 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI14579801",
+      "label": "International: Arrival: Soekarno Hatta-Tangerang",
+      "role": "demand",
+      "pearson": 0.0294,
+      "p": 0.6769455153498153,
+      "theory_agree": true,
+      "score": 24.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14580801",
+      "label": "International: Departure: Kualanamu-Medan",
+      "role": "demand",
+      "pearson": -0.0997,
+      "p": 0.001352258577715392,
+      "theory_agree": false,
+      "score": 23.4,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI14581601",
       "label": "Domestic: Departure: Hasanuddin-Makassar",
       "role": "demand",
-      "pearson": 0.0173,
-      "p": 0.6583816282309949,
-      "theory_agree": true,
-      "score": 25.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14580001",
-      "label": "International: Arrival: Ngurah Rai-Denpasar",
-      "role": "demand",
-      "pearson": 0.03,
-      "p": 0.5302018121330729,
-      "theory_agree": true,
-      "score": 23.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14580401",
-      "label": "Domestic: Arrival: Juanda-Surabaya",
-      "role": "demand",
-      "pearson": 0.0203,
-      "p": 0.5440654422114362,
-      "theory_agree": true,
-      "score": 19.5,
+      "pearson": -0.1236,
+      "p": 0.02045974338386441,
+      "theory_agree": false,
+      "score": 22.7,
       "reason": "below_gate"
     },
     {
       "key": "CEICI14582501",
       "label": "Domestic: Transit: Hasanuddin-Makassar",
       "role": "demand",
-      "pearson": 0.0206,
-      "p": 0.5197606478072077,
-      "theory_agree": true,
-      "score": 19.4,
+      "pearson": -0.1231,
+      "p": 2.1592198126291065e-05,
+      "theory_agree": false,
+      "score": 21.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14582201",
+      "label": "Domestic: Transit: Kualanamu-Medan",
+      "role": "demand",
+      "pearson": -0.0777,
+      "p": 0.12190798079445328,
+      "theory_agree": false,
+      "score": 20.8,
       "reason": "below_gate"
     },
     {
@@ -257,6 +258,16 @@
       "p": 0.26565852153787994,
       "theory_agree": null,
       "score": 18.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14580501",
+      "label": "Domestic: Arrival: Hasanuddin-Makassar",
+      "role": "demand",
+      "pearson": -0.1166,
+      "p": 0.0006571235496895205,
+      "theory_agree": false,
+      "score": 17.5,
       "reason": "below_gate"
     },
     {
@@ -278,16 +289,6 @@
       "theory_agree": false,
       "score": 16.4,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14582401",
-      "label": "Domestic: Transit: Juanda-Surabaya",
-      "role": "demand",
-      "pearson": 0.0336,
-      "p": 0.5132820527171389,
-      "theory_agree": true,
-      "score": 15.7,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 32,
@@ -296,9 +297,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.9,
+  "runtime_s": 8.9,
   "grade": "partial",
   "grade_reasons": [
     "only 2 validated drivers (<3)",

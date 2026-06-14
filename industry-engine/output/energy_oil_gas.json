@@ -3,7 +3,7 @@
   "sub_sector": "Oil & Gas",
   "sector": "Energy",
   "priority": 16,
-  "generated_at": "2026-06-14T11:58:54",
+  "generated_at": "2026-06-14T12:18:03",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,73 +29,68 @@
       "last": "2026-05-01"
     },
     "total_mcap": 156878727749632.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "NEUTRAL",
-    "score": 53,
-    "net_tilt": 0.051,
+    "verdict": "MILDLY BULLISH",
+    "score": 56,
+    "net_tilt": 0.124,
     "demand_tilt": null,
-    "supply_tilt": 0.075,
+    "supply_tilt": 0.207,
     "cost_tilt": null,
     "macro_tilt": -0.043,
     "confidence": {
       "level": "high",
-      "score": 86,
+      "score": 77,
       "reasons": [
         "max|corr|=0.31",
         "theory_agree=75%",
-        "stable=83%",
-        "mvR2=0.20",
-        "OOS=64%",
-        "mt_penalty=1.00(n=14)"
+        "stable=100%",
+        "mvR2=0.13",
+        "OOS=55%",
+        "mt_penalty=0.98(n=14)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "brent",
-        "CEICI403931877",
         "id_10y",
-        "id_gdp_real_q",
-        "CEICI520528227"
+        "CEICI520528227",
+        "id_gdp_real_q"
       ],
-      "n": 96,
-      "r2": 0.197,
-      "adj_r2": 0.153,
+      "n": 111,
+      "r2": 0.129,
+      "adj_r2": 0.096,
       "betas": {
         "brent": {
-          "std_beta": 0.0501,
-          "t": 4.4,
-          "p": 0.0
-        },
-        "CEICI403931877": {
-          "std_beta": -0.0129,
-          "t": -1.06,
-          "p": 0.2881
+          "std_beta": 0.0398,
+          "t": 3.16,
+          "p": 0.0016
         },
         "id_10y": {
-          "std_beta": 0.0013,
-          "t": 0.1,
-          "p": 0.9223
-        },
-        "id_gdp_real_q": {
-          "std_beta": -0.0082,
-          "t": -1.43,
-          "p": 0.1514
+          "std_beta": -0.0054,
+          "t": -0.45,
+          "p": 0.6499
         },
         "CEICI520528227": {
-          "std_beta": 0.0034,
-          "t": 0.24,
-          "p": 0.8093
+          "std_beta": 0.0083,
+          "t": 0.76,
+          "p": 0.4453
+        },
+        "id_gdp_real_q": {
+          "std_beta": -0.0089,
+          "t": -1.71,
+          "p": 0.0864
         }
       },
-      "oos_hit_rate": 0.639,
-      "oos_n": 36,
+      "oos_hit_rate": 0.549,
+      "oos_n": 51,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0061
+      "expected_monthly_ret": 0.1534
     },
-    "narrative": "Oil & Gas (Energy) screens NEUTRAL [53/100, high confidence]. Top drivers: Brent Crude (corr +0.31, lead 0m, now flat); WTI Crude (corr +0.30, lead 0m, now tailwind); Production: crude oil & condensate (corr -0.14, lead 0m, now headwind). A 5-driver model explains 20% of monthly variance (adj 15%), 64% out-of-sample directional hit-rate; current read ~+0.6%/mo.",
+    "narrative": "Oil & Gas (Energy) screens MILDLY BULLISH [56/100, high confidence]. Top drivers: Brent Crude (corr +0.31, lead 0m, now flat); WTI Crude (corr +0.30, lead 0m, now tailwind); id_10y (corr -0.17, lead 0m, now flat). A 4-driver model explains 13% of monthly variance (adj 10%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+15.3%/mo.",
     "drivers": [
       {
         "key": "brent",
@@ -135,7 +130,7 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.253,
+        "excess_pearson": 0.2574,
         "last_chg": 0.026606,
         "last_chg_z": 0.24,
         "last_chg_date": "2026-05-31",
@@ -190,7 +185,7 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.2324,
+        "excess_pearson": 0.2367,
         "last_chg": 0.076843,
         "last_chg_z": 0.63,
         "last_chg_date": "2026-05-31",
@@ -205,62 +200,6 @@
         "live": {
           "posture": "tailwind",
           "impulse": 0.305
-        }
-      },
-      {
-        "key": "CEICI403931877",
-        "role": "supply",
-        "why": "Production: crude oil & condensate",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 155,
-        "min_n": 24,
-        "pearson": -0.1383,
-        "pearson_p": 0.0862,
-        "spearman": -0.1805,
-        "spearman_p": 0.0246,
-        "best_lag": 0,
-        "corr_at_best": -0.1383,
-        "ic": -0.1712,
-        "ic_t": -0.589,
-        "ols": {
-          "beta": -0.38401640248363517,
-          "t": -2.2703749204153936,
-          "p": 0.02318484483089732,
-          "r2": 0.019123309620286855,
-          "n": 155,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.38401640248363517,
-          "t": -2.2703749204153936,
-          "p": 0.02318484483089732,
-          "r2": 0.019123309620286855,
-          "n": 155,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.1454,
-        "last_chg": 0.006887,
-        "last_chg_z": 0.57,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 42.0,
-        "source": "ceic",
-        "label": "Production: crude oil & condensate",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.278
         }
       },
       {
@@ -301,7 +240,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.0225,
+        "excess_pearson": 0.0233,
         "last_chg": 0.007349,
         "last_chg_z": 0.17,
         "last_chg_date": "2026-05-31",
@@ -316,6 +255,60 @@
         "live": {
           "posture": "neutral",
           "impulse": -0.085
+        }
+      },
+      {
+        "key": "CEICI520528227",
+        "role": "supply",
+        "why": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 167,
+        "min_n": 24,
+        "pearson": 0.1649,
+        "pearson_p": 0.0332,
+        "spearman": 0.0198,
+        "spearman_p": 0.7995,
+        "best_lag": 0,
+        "corr_at_best": 0.1649,
+        "ic": 0.0999,
+        "ic_t": 0.357,
+        "ols": {
+          "beta": 0.06378875558511685,
+          "t": 3.3084202038797517,
+          "p": 0.000938239178512814,
+          "r2": 0.027179655856500062,
+          "n": 167,
+          "hac_lag": 12
+        },
+        "ols_pred": {
+          "beta": 0.06378875558511685,
+          "t": 3.3084202038797517,
+          "p": 0.000938239178512814,
+          "r2": 0.027179655856500062,
+          "n": 167,
+          "hac_lag": 12
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": 0.1626,
+        "last_chg": 0.038818,
+        "last_chg_z": 0.4,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 39.8,
+        "source": "ceic",
+        "label": "Energy Balance: Primary: Total Crude: Crude Oil: R",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.197
         }
       },
       {
@@ -356,7 +349,7 @@
         "emp_sign": -1,
         "theory_agree": false,
         "stable": true,
-        "excess_pearson": -0.0483,
+        "excess_pearson": -0.0497,
         "last_chg": 0.0,
         "last_chg_z": -0.0,
         "last_chg_date": "2026-05-31",
@@ -372,67 +365,23 @@
           "posture": "neutral",
           "impulse": 0.0
         }
-      },
-      {
-        "key": "CEICI520528227",
-        "role": "supply",
-        "why": "Energy Balance: Primary: Total Crude: Crude Oil: R",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": 0.1629,
-        "pearson_p": 0.0354,
-        "spearman": 0.0628,
-        "spearman_p": 0.4204,
-        "best_lag": 1,
-        "corr_at_best": 0.1649,
-        "ic": 0.0198,
-        "ic_t": 0.071,
-        "ols": {
-          "beta": 0.0630332305164551,
-          "t": 2.8844277161105008,
-          "p": 0.0039212576805370755,
-          "r2": 0.026551775400585953,
-          "n": 167,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": 0.06378875558511685,
-          "t": 3.3084202038797517,
-          "p": 0.000938239178512814,
-          "r2": 0.027179655856500062,
-          "n": 167,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": 0.1364,
-        "last_chg": 0.014489,
-        "last_chg_z": 0.31,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 28.2,
-        "source": "ceic",
-        "label": "Energy Balance: Primary: Total Crude: Crude Oil: R",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.154
-        }
       }
     ],
-    "n_kept": 6,
+    "n_kept": 5,
     "n_candidates": 14
   },
   "unscored": [],
   "rejected_top": [
+    {
+      "key": "CEICI403931877",
+      "label": "Production: crude oil & condensate",
+      "role": "supply",
+      "pearson": -0.1202,
+      "p": 0.05681986132708332,
+      "theory_agree": null,
+      "score": 40.8,
+      "reason": "below_gate"
+    },
     {
       "key": "us_10y",
       "label": "US 10Y Treasury",
@@ -464,6 +413,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI468154637",
+      "label": "Daily oil lifting",
+      "role": "supply",
+      "pearson": -0.0897,
+      "p": 0.6186025991408848,
+      "theory_agree": null,
+      "score": 24.5,
+      "reason": "below_gate"
+    },
+    {
       "key": "usdidr",
       "label": "USD/IDR",
       "role": "macro",
@@ -471,16 +430,6 @@
       "p": 0.29927292885739754,
       "theory_agree": false,
       "score": 24.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI519964777",
-      "label": "Energy Balance: Primary: Total Crude: Crude Oil: D",
-      "role": "supply",
-      "pearson": -0.0511,
-      "p": 0.23466303060282678,
-      "theory_agree": null,
-      "score": 24.0,
       "reason": "below_gate"
     },
     {
@@ -494,23 +443,23 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI468154637",
-      "label": "Daily oil lifting",
+      "key": "CEICI519964777",
+      "label": "Energy Balance: Primary: Total Crude: Crude Oil: D",
       "role": "supply",
-      "pearson": 0.0655,
-      "p": 0.6145594954874574,
+      "pearson": 0.1036,
+      "p": 3.1499393361684744e-25,
       "theory_agree": null,
-      "score": 12.4,
+      "score": 22.7,
       "reason": "below_gate"
     },
     {
       "key": "CEICI520526857",
       "label": "Energy balance",
       "role": "supply",
-      "pearson": -0.0342,
-      "p": 0.5954635501012369,
+      "pearson": 0.0274,
+      "p": 0.7366090126630156,
       "theory_agree": null,
-      "score": 9.8,
+      "score": 6.4,
       "reason": "below_gate"
     }
   ],
@@ -520,9 +469,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.5,
+  "runtime_s": 1.4,
   "grade": "perfected",
   "grade_reasons": []
 }

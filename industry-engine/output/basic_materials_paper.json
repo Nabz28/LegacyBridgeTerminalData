@@ -3,13 +3,13 @@
   "sub_sector": "Paper",
   "sector": "Basic Materials",
   "priority": 23,
-  "generated_at": "2026-06-14T11:59:15",
+  "generated_at": "2026-06-14T12:19:04",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
   "basket": {
     "n_members": 12,
-    "n_used": 12,
+    "n_used": 11,
     "members_used": [
       "ALDO",
       "FASW",
@@ -20,37 +20,37 @@
       "KDSI",
       "SPMA",
       "SULI",
-      "SWAT",
       "TIRT",
       "TKIM"
     ],
     "coverage": {
-      "W": 804,
-      "M": 185,
+      "W": 798,
+      "M": 184,
       "Q": 61,
       "first": "2011-01-14",
-      "last": "2026-06-12"
+      "last": "2026-05-01"
     },
     "total_mcap": 88472695332864.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
-    "net_tilt": 0.117,
+    "verdict": "MILDLY BEARISH",
+    "score": 44,
+    "net_tilt": -0.182,
     "demand_tilt": null,
-    "supply_tilt": 0.186,
+    "supply_tilt": -0.15,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
       "level": "medium",
-      "score": 59,
+      "score": 55,
       "reasons": [
-        "max|corr|=0.30",
+        "max|corr|=0.22",
         "theory_agree=100%",
-        "stable=75%",
+        "stable=67%",
         "mvR2=0.04",
-        "OOS=60%",
+        "OOS=59%",
         "mt_penalty=1.00(n=10)"
       ]
     },
@@ -61,26 +61,26 @@
         "id_bi_rate"
       ],
       "n": 181,
-      "r2": 0.039,
-      "adj_r2": 0.028,
+      "r2": 0.036,
+      "adj_r2": 0.025,
       "betas": {
         "bcom": {
-          "std_beta": 0.0077,
-          "t": 1.77,
-          "p": 0.0768
+          "std_beta": 0.0078,
+          "t": 1.79,
+          "p": 0.0727
         },
         "id_bi_rate": {
-          "std_beta": -0.0084,
-          "t": -1.63,
-          "p": 0.1031
+          "std_beta": -0.0078,
+          "t": -1.39,
+          "p": 0.1641
         }
       },
-      "oos_hit_rate": 0.595,
+      "oos_hit_rate": 0.587,
       "oos_n": 121,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0167
+      "expected_monthly_ret": 0.0175
     },
-    "narrative": "Paper (Basic Materials) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr +0.24, lead 6m, now headwind); Manufacturing Industry: Manufacture of Paper and P (corr +0.30, lead 2m, now tailwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind). A 2-driver model explains 4% of monthly variance (adj 3%), 60% out-of-sample directional hit-rate; current read ~+1.7%/mo.",
+    "narrative": "Paper (Basic Materials) screens MILDLY BEARISH [44/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr -0.22, lead 5m, now headwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind); BI Policy Rate (corr -0.14, lead 6m, now flat). A 2-driver model explains 4% of monthly variance (adj 2%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI323565302",
@@ -92,37 +92,37 @@
         "last_obs": "2024-12-01",
         "n": 55,
         "min_n": 12,
-        "pearson": 0.2442,
-        "pearson_p": 0.0724,
-        "spearman": 0.2797,
-        "spearman_p": 0.0386,
-        "best_lag": 6,
-        "corr_at_best": -0.3062,
-        "ic": -0.2367,
-        "ic_t": -1.739,
+        "pearson": -0.2202,
+        "pearson_p": 0.1062,
+        "spearman": -0.2118,
+        "spearman_p": 0.1205,
+        "best_lag": 5,
+        "corr_at_best": -0.3111,
+        "ic": -0.2514,
+        "ic_t": -1.847,
         "ols": {
-          "beta": 0.6504762687204388,
-          "t": 2.091837352715676,
-          "p": 0.03645306773160886,
-          "r2": 0.05961191888774375,
+          "beta": -0.5695747531268732,
+          "t": -1.6486522335185954,
+          "p": 0.09921890119281865,
+          "r2": 0.04850305616394901,
           "n": 55,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.8255918038147825,
-          "t": -2.8759665744002354,
-          "p": 0.004027923632748968,
-          "r2": 0.09374463370739683,
+          "beta": -0.8121882009810991,
+          "t": -2.9050622516436264,
+          "p": 0.003671800636061341,
+          "r2": 0.09680841948108776,
           "n": 53,
           "hac_lag": 3
         },
         "sign_prior": 0,
-        "emp_sign": 1,
+        "emp_sign": -1,
         "theory_agree": null,
         "stable": true,
-        "excess_pearson": 0.0935,
-        "last_chg": -0.022081,
-        "last_chg_z": -0.5,
+        "excess_pearson": -0.3239,
+        "last_chg": 0.061149,
+        "last_chg_z": 1.39,
         "last_chg_date": "2024-12-31",
         "quality": {
           "ok": true,
@@ -130,66 +130,12 @@
             "stale(18m)"
           ]
         },
-        "score": 59.9,
+        "score": 57.5,
         "source": "ceic",
         "label": "Manufacturing: Paper and Paper Products",
         "live": {
           "posture": "headwind",
-          "impulse": -0.245
-        }
-      },
-      {
-        "key": "CEICI506662927",
-        "role": "supply",
-        "why": "Manufacturing Industry: Manufacture of Paper and P",
-        "test_freq": "Q",
-        "transform": "diff",
-        "native_freq": "Q",
-        "last_obs": "2026-03-01",
-        "n": 13,
-        "min_n": 12,
-        "pearson": 0.2959,
-        "pearson_p": 0.3263,
-        "spearman": 0.2143,
-        "spearman_p": 0.4821,
-        "best_lag": 2,
-        "corr_at_best": 0.4602,
-        "ic": -0.1049,
-        "ic_t": -0.348,
-        "ols": {
-          "beta": 0.009377090355166753,
-          "t": 1.535596705088592,
-          "p": 0.12463732280433017,
-          "r2": 0.08756233708219407,
-          "n": 13,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": 0.015304548463966295,
-          "t": 1.8964988134411278,
-          "p": 0.05789411674423464,
-          "r2": 0.211828108737125,
-          "n": 11,
-          "hac_lag": 2
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": 0.4376,
-        "last_chg": 3.952153,
-        "last_chg_z": 1.11,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 49.2,
-        "source": "ceic",
-        "label": "Manufacturing Industry: Manufacture of Paper and P",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.504
+          "impulse": -0.601
         }
       },
       {
@@ -202,27 +148,27 @@
         "last_obs": "2026-05-01",
         "n": 184,
         "min_n": 24,
-        "pearson": 0.1387,
-        "pearson_p": 0.0603,
-        "spearman": 0.1533,
-        "spearman_p": 0.0377,
+        "pearson": 0.1388,
+        "pearson_p": 0.0602,
+        "spearman": 0.1681,
+        "spearman_p": 0.0226,
         "best_lag": 0,
-        "corr_at_best": 0.1387,
-        "ic": 0.0354,
-        "ic_t": 0.477,
+        "corr_at_best": 0.1388,
+        "ic": 0.0378,
+        "ic_t": 0.509,
         "ols": {
-          "beta": 0.1728501929191272,
-          "t": 2.0910720274559305,
-          "p": 0.03652160778455727,
-          "r2": 0.019250423849894616,
+          "beta": 0.17378504217536664,
+          "t": 2.071618943237009,
+          "p": 0.03830099189270978,
+          "r2": 0.019274442820830573,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": 0.1728501929191272,
-          "t": 2.0910720274559305,
-          "p": 0.03652160778455727,
-          "r2": 0.019250423849894616,
+          "beta": 0.17378504217536664,
+          "t": 2.071618943237009,
+          "p": 0.03830099189270978,
+          "r2": 0.019274442820830573,
           "n": 184,
           "hac_lag": 5
         },
@@ -230,7 +176,7 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.0075,
+        "excess_pearson": -0.0334,
         "last_chg": 0.031319,
         "last_chg_z": 0.62,
         "last_chg_date": "2026-05-31",
@@ -238,7 +184,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 38.7,
+        "score": 38.9,
         "source": "corr:AMEX:DBC",
         "shallow": false,
         "label": "Bloomberg Commodity Idx",
@@ -257,35 +203,35 @@
         "last_obs": "2026-04-24",
         "n": 181,
         "min_n": 24,
-        "pearson": -0.153,
-        "pearson_p": 0.0397,
-        "spearman": -0.0917,
-        "spearman_p": 0.2196,
+        "pearson": -0.1426,
+        "pearson_p": 0.0556,
+        "spearman": -0.0853,
+        "spearman_p": 0.2536,
         "best_lag": 6,
-        "corr_at_best": -0.1747,
-        "ic": -0.0994,
-        "ic_t": -1.33,
+        "corr_at_best": -0.1829,
+        "ic": -0.09,
+        "ic_t": -1.204,
         "ols": {
-          "beta": -0.05122241776993802,
-          "t": -1.835405338898484,
-          "p": 0.0664456532547767,
-          "r2": 0.023418373204420306,
+          "beta": -0.0479427426563982,
+          "t": -1.5789678839787722,
+          "p": 0.11434342374090233,
+          "r2": 0.02032458554875649,
           "n": 181,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.05791767738182839,
-          "t": -2.8947937602769525,
-          "p": 0.003794077197405257,
-          "r2": 0.030512974624863687,
+          "beta": -0.06092575523753245,
+          "t": -2.9994817253589767,
+          "p": 0.002704393465493292,
+          "r2": 0.033445060021654816,
           "n": 175,
           "hac_lag": 5
         },
         "sign_prior": 0,
         "emp_sign": -1,
         "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0588,
+        "stable": false,
+        "excess_pearson": -0.065,
         "last_chg": 0.0,
         "last_chg_z": 0.05,
         "last_chg_date": "2026-04-30",
@@ -293,7 +239,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 37.8,
+        "score": 29.5,
         "source": "corr:ECONOMICS:IDINTR",
         "shallow": false,
         "label": "BI Policy Rate",
@@ -303,7 +249,7 @@
         }
       }
     ],
-    "n_kept": 4,
+    "n_kept": 3,
     "n_candidates": 10
   },
   "unscored": [],
@@ -312,60 +258,70 @@
       "key": "usdidr",
       "label": "USD/IDR",
       "role": "macro",
-      "pearson": -0.2421,
-      "p": 0.0044756312785403365,
+      "pearson": -0.2434,
+      "p": 0.004835826636347664,
       "theory_agree": false,
-      "score": 40.0,
+      "score": 38.7,
       "reason": "below_gate"
     },
     {
       "key": "wb_coal_au",
       "label": "Coal · Australia (Newcastle)",
       "role": "cost",
-      "pearson": -0.0437,
-      "p": 0.48629289561349154,
+      "pearson": -0.0582,
+      "p": 0.3795652653612456,
       "theory_agree": true,
-      "score": 24.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
-      "role": "macro",
-      "pearson": -0.0631,
-      "p": 0.15353083441807663,
-      "theory_agree": false,
-      "score": 17.8,
+      "score": 25.7,
       "reason": "below_gate"
     },
     {
       "key": "wb_logs",
       "label": "Hardwood Logs",
       "role": "cost",
-      "pearson": -0.0014,
-      "p": 0.9933284734070916,
+      "pearson": -0.0566,
+      "p": 0.6561052346783953,
       "theory_agree": true,
-      "score": 16.4,
+      "score": 22.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "macro",
+      "pearson": -0.0469,
+      "p": 0.2569148447496832,
+      "theory_agree": false,
+      "score": 16.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI506662927",
+      "label": "Manufacturing Industry: Manufacture of Paper and P",
+      "role": "supply",
+      "pearson": 0.0446,
+      "p": 0.8731394921925892,
+      "theory_agree": null,
+      "score": 14.2,
       "reason": "below_gate"
     },
     {
       "key": "cn_ip_yoy",
       "label": "Industrial Production (YoY)",
       "role": "demand",
-      "pearson": 0.0221,
-      "p": 0.7483831282080566,
+      "pearson": 0.0081,
+      "p": 0.9119189168071838,
       "theory_agree": true,
-      "score": 15.2,
+      "score": 9.5,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
-      "pearson": -0.0064,
-      "p": 0.939562028578688,
+      "pearson": -0.0019,
+      "p": 0.9810842453785841,
       "theory_agree": null,
-      "score": 4.4,
+      "score": 4.9,
       "reason": "below_gate"
     }
   ],
@@ -375,9 +331,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.7,
+  "runtime_s": 2.0,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)"

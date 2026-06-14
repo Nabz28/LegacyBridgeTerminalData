@@ -3,7 +3,7 @@
   "sub_sector": "Property",
   "sector": "Properties & Real Estate",
   "priority": 7,
-  "generated_at": "2026-06-14T11:58:26",
+  "generated_at": "2026-06-14T12:16:50",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -50,7 +50,8 @@
       "last": "2026-05-01"
     },
     "total_mcap": 341322920888320.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "NEUTRAL",
@@ -98,7 +99,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0103
     },
-    "narrative": "Property (Properties & Real Estate) screens NEUTRAL [54/100, medium confidence]. Top drivers: USD/IDR (corr -0.29, lead 0m, now flat); Bank Lending Rate (corr -0.15, lead 4m, now tailwind); Real GDP (SA) (corr +0.00, lead 4m, now flat). A 2-driver model explains 18% of monthly variance (adj 17%), 64% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+    "narrative": "Property (Properties & Real Estate) screens NEUTRAL [54/100, medium confidence]. Top drivers: USD/IDR (corr -0.29, lead 0m, now flat); Bank Lending Rate (corr -0.15, lead 4m, now tailwind); Real GDP (SA) (corr +0.00, lead 4m, now flat). A 2-driver model explains 18% of monthly variance (adj 17%), 64% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.0%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -138,7 +139,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": -0.0323,
+        "excess_pearson": -0.0863,
         "last_chg": 0.000923,
         "last_chg_z": -0.09,
         "last_chg_date": "2026-05-31",
@@ -193,7 +194,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": false,
-        "excess_pearson": 0.2163,
+        "excess_pearson": 0.0923,
         "last_chg": -0.0437,
         "last_chg_z": -0.54,
         "last_chg_date": "2025-05-31",
@@ -250,7 +251,7 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": false,
-        "excess_pearson": -0.0047,
+        "excess_pearson": 0.0924,
         "last_chg": 0.0,
         "last_chg_z": -0.0,
         "last_chg_date": "2026-05-31",
@@ -330,9 +331,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.3,
+  "runtime_s": 1.4,
   "grade": "perfected",
   "grade_reasons": []
 }

@@ -11,6 +11,8 @@ benchmark (IHSG = live_indicators 'jci' -> its observations) aligned the same wa
 """
 from __future__ import annotations
 
+import os
+
 import numpy as np
 import pandas as pd
 
@@ -43,7 +45,11 @@ def _load_member_prices(members: list) -> dict:
             out[m["symbol"]] = _series_from_pairs(pairs)
         else:
             missing.append(m)
-    if missing:
+    # The yfinance fallback hits the LIVE network and returns auto-adjusted (i.e.
+    # retroactively restated) history, which makes a backtest/regrade non-
+    # deterministic and is a subtle look-ahead. Off by default; opt in with
+    # IE_ALLOW_NETWORK=1. When off, missing members are simply dropped.
+    if missing and os.environ.get("IE_ALLOW_NETWORK") == "1":
         out.update(_yf_fallback(missing))
     return out
 
@@ -166,7 +172,7 @@ def build_basket(basket: dict) -> dict:
 
     excess = {}
     for f in ("W", "M", "Q"):
-        a, b = cap[f], bret[f]
+        a, b = eqw[f], bret[f]      # excess vs IHSG on the EQUAL-WEIGHT primary
         if a.empty or b.empty:
             excess[f] = a.copy()
         else:

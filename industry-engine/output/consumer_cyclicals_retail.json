@@ -3,7 +3,7 @@
   "sub_sector": "Retail",
   "sector": "Consumer Cyclicals",
   "priority": 21,
-  "generated_at": "2026-06-14T11:59:11",
+  "generated_at": "2026-06-14T12:18:57",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -49,61 +49,34 @@
       "last": "2026-05-01"
     },
     "total_mcap": 100830481717248.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 41,
-    "net_tilt": -0.229,
-    "demand_tilt": 0.055,
-    "supply_tilt": -0.824,
+    "verdict": "NEUTRAL",
+    "score": 49,
+    "net_tilt": -0.045,
+    "demand_tilt": null,
+    "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": -0.045,
     "confidence": {
       "level": "medium",
-      "score": 61,
+      "score": 48,
       "reasons": [
         "max|corr|=0.27",
         "theory_agree=100%",
         "stable=100%",
-        "mvR2=0.11",
-        "OOS=54%",
-        "mt_penalty=0.82(n=51)"
+        "mvR2=0.00",
+        "OOS=na",
+        "mt_penalty=0.69(n=51)"
       ]
     },
     "multivariate": {
-      "available": true,
-      "drivers": [
-        "usdidr",
-        "CEICI391912547",
-        "CEICI324050702"
-      ],
-      "n": 160,
-      "r2": 0.11,
-      "adj_r2": 0.093,
-      "betas": {
-        "usdidr": {
-          "std_beta": -0.0188,
-          "t": -2.64,
-          "p": 0.0082
-        },
-        "CEICI391912547": {
-          "std_beta": 0.0081,
-          "t": 2.69,
-          "p": 0.0072
-        },
-        "CEICI324050702": {
-          "std_beta": -0.012,
-          "t": -1.98,
-          "p": 0.0471
-        }
-      },
-      "oos_hit_rate": 0.54,
-      "oos_n": 100,
-      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": -0.0292
+      "available": false,
+      "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Retail (Consumer Cyclicals) screens MILDLY BEARISH [41/100, medium confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat); Mazda (corr +0.10, lead 3m, now flat); Volume: Other made up textile articles; sets; worn (corr -0.17, lead 0m, now headwind). A 3-driver model explains 11% of monthly variance (adj 9%), 54% out-of-sample directional hit-rate; current read ~-2.9%/mo.",
+    "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat). ",
     "drivers": [
       {
         "key": "usdidr",
@@ -143,7 +116,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": -0.0866,
+        "excess_pearson": -0.0763,
         "last_chg": 0.000923,
         "last_chg_z": -0.09,
         "last_chg_date": "2026-05-31",
@@ -159,151 +132,13 @@
           "posture": "neutral",
           "impulse": -0.045
         }
-      },
-      {
-        "key": "CEICI391912547",
-        "role": "demand",
-        "why": "Mazda",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 172,
-        "min_n": 24,
-        "pearson": 0.0951,
-        "pearson_p": 0.2147,
-        "spearman": 0.0623,
-        "spearman_p": 0.4167,
-        "best_lag": 3,
-        "corr_at_best": 0.2574,
-        "ic": 0.0559,
-        "ic_t": 0.202,
-        "ols": {
-          "beta": 0.004609915276336317,
-          "t": 2.3680587725344724,
-          "p": 0.01788169505527858,
-          "r2": 0.009040932122598488,
-          "n": 172,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": 0.012468767791916838,
-          "t": 1.297630311480113,
-          "p": 0.1944144010648523,
-          "r2": 0.06624906760533633,
-          "n": 169,
-          "hac_lag": 12
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.1707,
-        "last_chg": 0.420513,
-        "last_chg_z": 0.11,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 40.9,
-        "source": "ceic",
-        "label": "Mazda",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.055
-        }
-      },
-      {
-        "key": "CEICI324050702",
-        "role": "supply",
-        "why": "Volume: Other made up textile articles; sets; worn",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 160,
-        "min_n": 24,
-        "pearson": -0.1735,
-        "pearson_p": 0.0282,
-        "spearman": -0.1697,
-        "spearman_p": 0.0319,
-        "best_lag": 0,
-        "corr_at_best": -0.1735,
-        "ic": -0.0426,
-        "ic_t": -0.148,
-        "ols": {
-          "beta": -0.06644755200730083,
-          "t": -1.9885638025110484,
-          "p": 0.04674937010637899,
-          "r2": 0.030099046427769394,
-          "n": 160,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.06644755200730083,
-          "t": -1.9885638025110484,
-          "p": 0.04674937010637899,
-          "r2": 0.030099046427769394,
-          "n": 160,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0848,
-        "last_chg": 0.37625,
-        "last_chg_z": 2.34,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.1,
-        "source": "ceic",
-        "label": "Volume: Other made up textile articles; sets; worn",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.824
-        }
       }
     ],
-    "n_kept": 3,
+    "n_kept": 1,
     "n_candidates": 51
   },
   "unscored": [],
   "rejected_top": [
-    {
-      "key": "CEICI13842001",
-      "label": "Wholesale: 5 to 24 Ton",
-      "role": "demand",
-      "pearson": 0.0535,
-      "p": 0.10975597825533223,
-      "theory_agree": true,
-      "score": 39.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI412545837",
-      "label": "Wholesale motor vehicle sales",
-      "role": "demand",
-      "pearson": 0.0549,
-      "p": 0.17158568178020095,
-      "theory_agree": true,
-      "score": 37.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI391912517",
-      "label": "Isuzu",
-      "role": "demand",
-      "pearson": 0.0997,
-      "p": 0.08299525961045649,
-      "theory_agree": true,
-      "score": 37.4,
-      "reason": "below_gate"
-    },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
@@ -325,53 +160,83 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI391912507",
-      "label": "Hino",
-      "role": "demand",
-      "pearson": 0.0732,
-      "p": 0.1230958163127344,
-      "theory_agree": true,
-      "score": 32.8,
+      "key": "CEICI391913267",
+      "label": "Honda",
+      "role": "supply",
+      "pearson": 0.0287,
+      "p": 0.002321888036301828,
+      "theory_agree": null,
+      "score": 32.7,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI13841901",
-      "label": "Pick Up: Below 5 Ton",
-      "role": "demand",
-      "pearson": 0.0262,
-      "p": 0.3545691509407175,
-      "theory_agree": true,
-      "score": 30.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13842201",
-      "label": "Double Cabin: Less than 5 Ton",
-      "role": "demand",
-      "pearson": 0.0493,
-      "p": 0.3406841028767369,
-      "theory_agree": true,
-      "score": 30.3,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13841301",
-      "label": "Wholesale: Over 3000cc",
-      "role": "demand",
-      "pearson": 0.0622,
-      "p": 0.3336426611691018,
-      "theory_agree": true,
-      "score": 30.2,
+      "key": "CEICI412546147",
+      "label": "Bus",
+      "role": "supply",
+      "pearson": -0.1047,
+      "p": 0.0028676692441837242,
+      "theory_agree": null,
+      "score": 31.2,
       "reason": "below_gate"
     },
     {
       "key": "CEICI13538901",
       "label": "Sedan",
       "role": "supply",
-      "pearson": -0.0957,
-      "p": 0.00026368646258368523,
+      "pearson": -0.1106,
+      "p": 2.4656343317824737e-06,
       "theory_agree": null,
-      "score": 30.1,
+      "score": 29.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.093,
+      "p": 0.2993924554197587,
+      "theory_agree": null,
+      "score": 29.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13841301",
+      "label": "Wholesale: Over 3000cc",
+      "role": "demand",
+      "pearson": 0.0882,
+      "p": 0.004366609088464122,
+      "theory_agree": true,
+      "score": 29.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050102",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "role": "supply",
+      "pearson": -0.1064,
+      "p": 0.09050742929568757,
+      "theory_agree": null,
+      "score": 28.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391912467",
+      "label": "Honda",
+      "role": "demand",
+      "pearson": 0.0203,
+      "p": 0.4997703694674267,
+      "theory_agree": true,
+      "score": 28.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391913257",
+      "label": "Daihatsu",
+      "role": "supply",
+      "pearson": 0.0295,
+      "p": 0.0020428566962709042,
+      "theory_agree": null,
+      "score": 28.3,
       "reason": "below_gate"
     }
   ],
@@ -381,9 +246,12 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.6,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 31.1,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "only 1 validated drivers (<3)",
+    "multivariate model unavailable / no OOS"
+  ]
 }

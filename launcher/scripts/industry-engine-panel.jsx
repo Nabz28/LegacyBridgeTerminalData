@@ -130,7 +130,7 @@
           mv.available
             ? h('div', { style: { display: 'flex', flexDirection: 'column', gap: 6, padding: '8px 2px', fontFamily: 'var(--font-mono,monospace)', fontSize: 12 } },
               h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, h('span', { className: 'in-muted' }, 'Joint R²'), h('b', null, fix(mv.r2) + '  (adj ' + fix(mv.adj_r2) + ')')),
-              h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, h('span', { className: 'in-muted' }, 'OOS hit-rate'), h('b', { className: (safe(mv.oos_hit_rate) || 0) > 0.5 ? 'in-pos' : 'in-neg' }, pct(mv.oos_hit_rate))),
+              h('div', { style: { display: 'flex', justifyContent: 'space-between' }, title: mv.oos_kind || '' }, h('span', { className: 'in-muted' }, 'OOS hit-rate (pseudo)'), h('b', { className: (safe(mv.oos_hit_rate) || 0) > 0.5 ? 'in-pos' : 'in-neg' }, pct(mv.oos_hit_rate))),
               h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, h('span', { className: 'in-muted' }, 'Model read'), h('b', { className: (safe(mv.expected_monthly_ret) || 0) >= 0 ? 'in-pos' : 'in-neg' }, pct(mv.expected_monthly_ret, 1) + '/mo')))
             : h('div', { className: 'in-muted', style: { padding: 12, fontSize: 12 } }, 'No multivariate model (too few long-history drivers).')
         )
@@ -153,7 +153,7 @@
         h('b', { style: { color: 'var(--text-secondary,#d4dcea)' } }, 'Basket (' + (b.n_used || 0) + '): '),
         (b.members_used || []).join(', ')),
       h('div', { key: 'lg', style: { marginTop: 8, fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)', fontFamily: 'var(--font-mono,monospace)', lineHeight: 1.5 } },
-        'corr = contemporaneous Pearson vs basket return · lead = best predictive lag · IC = rank info-coefficient · thy ✓/✗ = empirical sign vs economic theory · now = current driver posture. Drivers are weight-capped, HAC-estimated, OOS-validated.')
+        'corr = contemporaneous Pearson vs basket return · lead = best predictive lag · IC = rank info-coefficient · thy ✓/✗ = empirical sign vs economic theory · now = current driver posture. Equal-weight basket return (no mcap look-ahead), overlap-aware HAC-estimated, pseudo-OOS-validated; CEIC drivers publication-lagged.')
     ].filter(Boolean);
 
     if (Modal) return h(Modal, { title: b.sub_sector + ' — ' + b.sector + ' · Driver Engine', onClose, wide: true }, body);

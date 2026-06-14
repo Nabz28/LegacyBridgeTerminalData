@@ -322,13 +322,17 @@ def compute_region(region):
     G = (sum(v * w for v, w in gparts) / sum(w for _, w in gparts)) if gparts else 0.0
     I = pv.get("inflation") if pv.get("inflation") is not None else 0.0
 
-    dead = 0.12  # Neutral deadband (calibrated by eye on the score scale; documented)
-    if abs(G) < dead and abs(I) < dead:
-        regime = "Neutral"
-    elif G >= 0 and I >= 0: regime = "Reflation"
-    elif G >= 0 and I < 0:  regime = "Goldilocks"
-    elif G < 0 and I >= 0:  regime = "Stagflation"
-    else:                   regime = "Risk-off"
+    # Deadband applied PER AXIS (not just the Neutral corner) so a G or I drifting
+    # through zero inside the noise band doesn't whipsaw the directional regime
+    # (critique: bare sign cuts flip Reflation<->Stagflation on a non-event).
+    dead = 0.12
+    gs = 0 if abs(G) < dead else (1 if G > 0 else -1)
+    isn = 0 if abs(I) < dead else (1 if I > 0 else -1)
+    if gs == 0 and isn == 0:   regime = "Neutral"
+    elif gs >= 0 and isn >= 0:  regime = "Reflation"
+    elif gs >= 0 and isn < 0:   regime = "Goldilocks"
+    elif gs < 0 and isn >= 0:   regime = "Stagflation"
+    else:                       regime = "Risk-off"
 
     # Positive pillars, renormalized; single-indicator pillars contribute at reduced weight.
     contrib, wsum = 0.0, 0.0
@@ -387,7 +391,12 @@ def compute_global(regions):
     ns, n_news = news_score("Global")
     if ns is not None:
         ns = _clip(ns, -100, 100)
-        composite = round(_clip(0.65 * data_score + 0.35 * ns, -100, 100), 1)
+        # Blend on the SAME (pre-tanh) scale as compute_region: recover the data
+        # leg's raw signal via atanh, blend 0.65/0.35 with news/100, re-squash.
+        # The old linear `0.65*data_score + 0.35*ns` mixed a tanh-compressed
+        # -100..100 number with a raw ±100 news mean (critique: scale mismatch).
+        data_raw = math.atanh(_clip(data_score / 100.0, -0.999, 0.999))
+        composite = round(100 * math.tanh(0.65 * data_raw + 0.35 * (ns / 100.0)), 1)
     else:
         composite = data_score
     return {

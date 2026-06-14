@@ -283,22 +283,6 @@ def _quality(rec: dict) -> dict:
     return {"ok": ok, "flags": flags}
 
 
-def _score(rec: dict) -> float:
-    """Composite 0..100 driver importance: blend of magnitude, significance,
-    lead, stability, theory agreement."""
-    r2 = (rec["ols"] or {}).get("r2", 0) or 0
-    p = (rec["ols"] or {}).get("p", 1) or 1
-    absr = abs(rec["pearson"])
-    ic = abs(rec["ic"] or 0)
-    sig = max(0.0, 1.0 - min(p, 1.0))                      # significance
-    base = 100 * (0.30 * min(absr / 0.5, 1) + 0.25 * min(r2 / 0.3, 1) +
-                  0.20 * min(ic / 0.3, 1) + 0.15 * sig)
-    if rec["stable"]:
-        base += 6
-    if rec["theory_agree"]:
-        base += 6
-    elif rec["theory_agree"] is False:
-        base -= 8
 # Lead-lag is a MAX over (MAX_LAG+1) lags — a maximally-selected statistic. The
 # Šidák-equivalent single-lag |r| threshold that preserves a ~0.15 effective bar
 # across 7 lags is ~0.22 at n~120; below this the "lead" clears on noise alone.

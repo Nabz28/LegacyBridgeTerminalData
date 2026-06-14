@@ -1,6 +1,6 @@
 {
   "started_at": "2026-06-14T00:36:16",
-  "updated_at": "2026-06-14T12:00:38",
+  "updated_at": "2026-06-14T12:21:01",
   "n_baskets": 52,
   "version": 1,
   "baskets": {
@@ -11,10 +11,10 @@
       "priority": 1,
       "status": "done",
       "grade": "perfected",
-      "score": 50,
-      "verdict": "NEUTRAL",
+      "score": 43,
+      "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:05",
+      "last_run": "2026-06-14T12:15:02",
       "reasons": []
     },
     "technology_it_services": {
@@ -24,10 +24,10 @@
       "priority": 2,
       "status": "done",
       "grade": "needs_review",
-      "score": 49,
+      "score": 54,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:11",
+      "last_run": "2026-06-14T12:16:00",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "confidence low"
@@ -40,10 +40,10 @@
       "priority": 3,
       "status": "done",
       "grade": "perfected",
-      "score": 47,
+      "score": 55,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:13",
+      "last_run": "2026-06-14T12:16:03",
       "reasons": []
     },
     "basic_materials_mining": {
@@ -53,10 +53,10 @@
       "priority": 4,
       "status": "done",
       "grade": "perfected",
-      "score": 39,
+      "score": 44,
       "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:17",
+      "last_run": "2026-06-14T12:16:13",
       "reasons": []
     },
     "energy_alternative_energy": {
@@ -69,9 +69,10 @@
       "score": 50,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:19",
+      "last_run": "2026-06-14T12:16:17",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+        "multivariate model unavailable / no OOS",
         "confidence low"
       ]
     },
@@ -82,10 +83,10 @@
       "priority": 6,
       "status": "done",
       "grade": "perfected",
-      "score": 47,
+      "score": 48,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:24",
+      "last_run": "2026-06-14T12:16:49",
       "reasons": []
     },
     "properties_real_estate_property": {
@@ -98,7 +99,7 @@
       "score": 54,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:26",
+      "last_run": "2026-06-14T12:16:50",
       "reasons": []
     },
     "basic_materials_chemicals": {
@@ -108,12 +109,13 @@
       "priority": 8,
       "status": "done",
       "grade": "needs_review",
-      "score": 58,
+      "score": 56,
       "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:30",
+      "last_run": "2026-06-14T12:17:02",
       "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+        "confidence low"
       ]
     },
     "energy_energy_services": {
@@ -123,10 +125,10 @@
       "priority": 9,
       "status": "done",
       "grade": "perfected",
-      "score": 46,
-      "verdict": "NEUTRAL",
+      "score": 56,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:34",
+      "last_run": "2026-06-14T12:17:07",
       "reasons": []
     },
     "infrastructure_telco": {
@@ -135,12 +137,16 @@
       "sector": "Infrastructure",
       "priority": 10,
       "status": "done",
-      "grade": "perfected",
-      "score": 43,
-      "verdict": "MILDLY BEARISH",
+      "grade": "partial",
+      "score": 50,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:37",
-      "reasons": []
+      "last_run": "2026-06-14T12:17:17",
+      "reasons": [
+        "only 1 validated drivers (<3)",
+        "multivariate model unavailable / no OOS",
+        "data-limited basket"
+      ]
     },
     "healthcare_hospitals": {
       "id": "healthcare_hospitals",
@@ -148,17 +154,12 @@
       "sector": "Healthcare",
       "priority": 11,
       "status": "done",
-      "grade": "needs_review",
-      "score": 49,
-      "verdict": "NEUTRAL",
+      "grade": "perfected",
+      "score": 44,
+      "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:39",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "only 1 validated drivers (<3)",
-        "multivariate model unavailable / no OOS",
-        "confidence low"
-      ]
+      "last_run": "2026-06-14T12:17:22",
+      "reasons": []
     },
     "consumer_non_cyclicals_plantation": {
       "id": "consumer_non_cyclicals_plantation",
@@ -167,10 +168,10 @@
       "priority": 12,
       "status": "done",
       "grade": "perfected",
-      "score": 50,
-      "verdict": "NEUTRAL",
+      "score": 56,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:43",
+      "last_run": "2026-06-14T12:17:39",
       "reasons": []
     },
     "industrials_conglomerate": {
@@ -180,10 +181,10 @@
       "priority": 13,
       "status": "done",
       "grade": "perfected",
-      "score": 40,
-      "verdict": "MILDLY BEARISH",
+      "score": 47,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:47",
+      "last_run": "2026-06-14T12:17:49",
       "reasons": []
     },
     "basic_materials_metals_mining": {
@@ -193,10 +194,10 @@
       "priority": 14,
       "status": "done",
       "grade": "perfected",
-      "score": 48,
+      "score": 45,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:49",
+      "last_run": "2026-06-14T12:17:52",
       "reasons": []
     },
     "technology_internet": {
@@ -205,14 +206,12 @@
       "sector": "Technology",
       "priority": 15,
       "status": "done",
-      "grade": "partial",
-      "score": 52,
-      "verdict": "NEUTRAL",
+      "grade": "perfected",
+      "score": 56,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:52",
-      "reasons": [
-        "multivariate model unavailable / no OOS"
-      ]
+      "last_run": "2026-06-14T12:18:02",
+      "reasons": []
     },
     "energy_oil_gas": {
       "id": "energy_oil_gas",
@@ -221,10 +220,10 @@
       "priority": 16,
       "status": "done",
       "grade": "perfected",
-      "score": 53,
-      "verdict": "NEUTRAL",
+      "score": 56,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:54",
+      "last_run": "2026-06-14T12:18:03",
       "reasons": []
     },
     "financials_insurance": {
@@ -237,7 +236,7 @@
       "score": 41,
       "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:55",
+      "last_run": "2026-06-14T12:18:04",
       "reasons": [
         "only 1 validated drivers (<3)",
         "multivariate model unavailable / no OOS"
@@ -249,15 +248,12 @@
       "sector": "Consumer Non-Cyclicals",
       "priority": 18,
       "status": "done",
-      "grade": "partial",
-      "score": 55,
+      "grade": "perfected",
+      "score": 45,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:58:59",
-      "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "data-limited basket"
-      ]
+      "last_run": "2026-06-14T12:18:14",
+      "reasons": []
     },
     "basic_materials_containers_packaging": {
       "id": "basic_materials_containers_packaging",
@@ -269,7 +265,7 @@
       "score": 50,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:01",
+      "last_run": "2026-06-14T12:18:16",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "only 0 validated drivers (<3)",
@@ -286,7 +282,7 @@
       "score": 61,
       "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:07",
+      "last_run": "2026-06-14T12:18:26",
       "reasons": []
     },
     "consumer_cyclicals_retail": {
@@ -295,12 +291,15 @@
       "sector": "Consumer Cyclicals",
       "priority": 21,
       "status": "done",
-      "grade": "perfected",
-      "score": 41,
-      "verdict": "MILDLY BEARISH",
+      "grade": "needs_review",
+      "score": 49,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:11",
-      "reasons": []
+      "last_run": "2026-06-14T12:18:57",
+      "reasons": [
+        "only 1 validated drivers (<3)",
+        "multivariate model unavailable / no OOS"
+      ]
     },
     "healthcare_pharma": {
       "id": "healthcare_pharma",
@@ -309,10 +308,10 @@
       "priority": 22,
       "status": "done",
       "grade": "perfected",
-      "score": 48,
-      "verdict": "NEUTRAL",
+      "score": 57,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:13",
+      "last_run": "2026-06-14T12:19:02",
       "reasons": []
     },
     "basic_materials_paper": {
@@ -322,10 +321,10 @@
       "priority": 23,
       "status": "done",
       "grade": "needs_review",
-      "score": 56,
-      "verdict": "MILDLY BULLISH",
+      "score": 44,
+      "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:15",
+      "last_run": "2026-06-14T12:19:04",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
       ]
@@ -337,10 +336,10 @@
       "priority": 24,
       "status": "done",
       "grade": "perfected",
-      "score": 64,
-      "verdict": "MILDLY BULLISH",
+      "score": 46,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:19",
+      "last_run": "2026-06-14T12:19:08",
       "reasons": []
     },
     "consumer_non_cyclicals_household": {
@@ -349,13 +348,13 @@
       "sector": "Consumer Non-Cyclicals",
       "priority": 25,
       "status": "done",
-      "grade": "needs_review",
-      "score": 51,
+      "grade": "partial",
+      "score": 48,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:23",
+      "last_run": "2026-06-14T12:19:13",
       "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+        "confidence low"
       ]
     },
     "financials_investment": {
@@ -365,10 +364,10 @@
       "priority": 26,
       "status": "done",
       "grade": "perfected",
-      "score": 47,
+      "score": 52,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:26",
+      "last_run": "2026-06-14T12:19:17",
       "reasons": []
     },
     "consumer_cyclicals_leisure": {
@@ -377,12 +376,17 @@
       "sector": "Consumer Cyclicals",
       "priority": 27,
       "status": "done",
-      "grade": "perfected",
-      "score": 61,
-      "verdict": "MILDLY BULLISH",
+      "grade": "needs_review",
+      "score": 50,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:29",
-      "reasons": []
+      "last_run": "2026-06-14T12:19:28",
+      "reasons": [
+        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+        "only 1 validated drivers (<3)",
+        "multivariate model unavailable / no OOS",
+        "confidence low"
+      ]
     },
     "basic_materials_cement": {
       "id": "basic_materials_cement",
@@ -391,10 +395,10 @@
       "priority": 28,
       "status": "done",
       "grade": "perfected",
-      "score": 44,
-      "verdict": "MILDLY BEARISH",
+      "score": 45,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:32",
+      "last_run": "2026-06-14T12:19:33",
       "reasons": []
     },
     "infrastructure_construction": {
@@ -404,10 +408,10 @@
       "priority": 29,
       "status": "done",
       "grade": "perfected",
-      "score": 43,
+      "score": 37,
       "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:36",
+      "last_run": "2026-06-14T12:19:36",
       "reasons": []
     },
     "financials_multifinance": {
@@ -417,10 +421,10 @@
       "priority": 30,
       "status": "done",
       "grade": "perfected",
-      "score": 49,
+      "score": 46,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:38",
+      "last_run": "2026-06-14T12:19:38",
       "reasons": []
     },
     "consumer_cyclicals_apparel": {
@@ -430,10 +434,10 @@
       "priority": 31,
       "status": "done",
       "grade": "perfected",
-      "score": 69,
-      "verdict": "BULLISH",
+      "score": 47,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:40",
+      "last_run": "2026-06-14T12:19:42",
       "reasons": []
     },
     "transportation_logistics_shipping": {
@@ -443,10 +447,10 @@
       "priority": 32,
       "status": "done",
       "grade": "partial",
-      "score": 52,
+      "score": 51,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:42",
+      "last_run": "2026-06-14T12:19:49",
       "reasons": [
         "only 2 validated drivers (<3)"
       ]
@@ -461,7 +465,7 @@
       "score": 49,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:45",
+      "last_run": "2026-06-14T12:19:57",
       "reasons": [
         "only 2 validated drivers (<3)",
         "data-limited basket"
@@ -474,10 +478,10 @@
       "priority": 34,
       "status": "done",
       "grade": "perfected",
-      "score": 49,
-      "verdict": "NEUTRAL",
+      "score": 56,
+      "verdict": "MILDLY BULLISH",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:49",
+      "last_run": "2026-06-14T12:20:05",
       "reasons": []
     },
     "basic_materials_metals": {
@@ -487,10 +491,10 @@
       "priority": 35,
       "status": "done",
       "grade": "perfected",
-      "score": 51,
+      "score": 52,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:51",
+      "last_run": "2026-06-14T12:20:09",
       "reasons": []
     },
     "infrastructure_ports": {
@@ -503,7 +507,7 @@
       "score": 50,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:53",
+      "last_run": "2026-06-14T12:20:11",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "only 0 validated drivers (<3)",
@@ -516,12 +520,15 @@
       "sector": "Basic Materials",
       "priority": 37,
       "status": "done",
-      "grade": "perfected",
-      "score": 57,
-      "verdict": "MILDLY BULLISH",
+      "grade": "needs_review",
+      "score": 50,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T11:59:57",
-      "reasons": []
+      "last_run": "2026-06-14T12:20:14",
+      "reasons": [
+        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+        "confidence low"
+      ]
     },
     "technology_electronics": {
       "id": "technology_electronics",
@@ -530,10 +537,10 @@
       "priority": 38,
       "status": "done",
       "grade": "perfected",
-      "score": 48,
+      "score": 55,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:00",
+      "last_run": "2026-06-14T12:20:17",
       "reasons": []
     },
     "healthcare_healthcare_equipment": {
@@ -542,14 +549,12 @@
       "sector": "Healthcare",
       "priority": 39,
       "status": "done",
-      "grade": "partial",
-      "score": 57,
-      "verdict": "MILDLY BULLISH",
+      "grade": "perfected",
+      "score": 52,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:02",
-      "reasons": [
-        "multivariate model unavailable / no OOS"
-      ]
+      "last_run": "2026-06-14T12:20:19",
+      "reasons": []
     },
     "transportation_logistics_logistics": {
       "id": "transportation_logistics_logistics",
@@ -558,10 +563,10 @@
       "priority": 40,
       "status": "done",
       "grade": "perfected",
-      "score": 56,
-      "verdict": "MILDLY BULLISH",
+      "score": 48,
+      "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:05",
+      "last_run": "2026-06-14T12:20:23",
       "reasons": []
     },
     "consumer_cyclicals_restaurants": {
@@ -571,10 +576,10 @@
       "priority": 41,
       "status": "done",
       "grade": "perfected",
-      "score": 50,
+      "score": 53,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:09",
+      "last_run": "2026-06-14T12:20:27",
       "reasons": []
     },
     "consumer_non_cyclicals_poultry": {
@@ -584,10 +589,10 @@
       "priority": 42,
       "status": "done",
       "grade": "perfected",
-      "score": 51,
+      "score": 46,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:12",
+      "last_run": "2026-06-14T12:20:35",
       "reasons": []
     },
     "industrials_electrical_equipment": {
@@ -600,7 +605,7 @@
       "score": 49,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:13",
+      "last_run": "2026-06-14T12:20:36",
       "reasons": [
         "only 2 validated drivers (<3)"
       ]
@@ -612,10 +617,10 @@
       "priority": 44,
       "status": "done",
       "grade": "perfected",
-      "score": 52,
+      "score": 48,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:16",
+      "last_run": "2026-06-14T12:20:38",
       "reasons": []
     },
     "consumer_cyclicals_durables": {
@@ -625,10 +630,10 @@
       "priority": 45,
       "status": "done",
       "grade": "perfected",
-      "score": 47,
+      "score": 49,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:20",
+      "last_run": "2026-06-14T12:20:42",
       "reasons": []
     },
     "infrastructure_toll_road": {
@@ -637,15 +642,12 @@
       "sector": "Infrastructure",
       "priority": 46,
       "status": "done",
-      "grade": "partial",
-      "score": 46,
+      "grade": "perfected",
+      "score": 53,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:23",
-      "reasons": [
-        "confidence low",
-        "data-limited basket"
-      ]
+      "last_run": "2026-06-14T12:20:44",
+      "reasons": []
     },
     "healthcare_healthcare_services": {
       "id": "healthcare_healthcare_services",
@@ -654,10 +656,10 @@
       "priority": 47,
       "status": "done",
       "grade": "perfected",
-      "score": 59,
-      "verdict": "MILDLY BULLISH",
+      "score": 40,
+      "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:25",
+      "last_run": "2026-06-14T12:20:46",
       "reasons": []
     },
     "infrastructure_tower": {
@@ -667,12 +669,11 @@
       "priority": 48,
       "status": "done",
       "grade": "partial",
-      "score": 47,
-      "verdict": "NEUTRAL",
+      "score": 39,
+      "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:28",
+      "last_run": "2026-06-14T12:20:48",
       "reasons": [
-        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "only 1 validated drivers (<3)",
         "multivariate model unavailable / no OOS",
         "confidence low",
@@ -686,11 +687,12 @@
       "priority": 49,
       "status": "done",
       "grade": "partial",
-      "score": 53,
+      "score": 47,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:31",
+      "last_run": "2026-06-14T12:20:51",
       "reasons": [
+        "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "multivariate model unavailable / no OOS",
         "confidence low",
         "data-limited basket"
@@ -703,10 +705,10 @@
       "priority": 50,
       "status": "done",
       "grade": "perfected",
-      "score": 52,
+      "score": 45,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:35",
+      "last_run": "2026-06-14T12:20:56",
       "reasons": []
     },
     "consumer_non_cyclicals_staple_retail": {
@@ -719,7 +721,7 @@
       "score": 43,
       "verdict": "MILDLY BEARISH",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:37",
+      "last_run": "2026-06-14T12:21:00",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
         "confidence low",
@@ -733,23 +735,21 @@
       "priority": 52,
       "status": "done",
       "grade": "partial",
-      "score": 49,
+      "score": 46,
       "verdict": "NEUTRAL",
       "attempts": 1,
-      "last_run": "2026-06-14T12:00:38",
+      "last_run": "2026-06-14T12:21:01",
       "reasons": [
         "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-        "only 1 validated drivers (<3)",
-        "multivariate model unavailable / no OOS",
         "confidence low",
         "data-limited basket"
       ]
     }
   },
   "summary": {
-    "perfected": 32,
-    "partial": 11,
-    "needs_review": 9,
+    "perfected": 33,
+    "partial": 9,
+    "needs_review": 10,
     "blocked": 0,
     "pending": 0,
     "error": 0

@@ -3,7 +3,7 @@
   "sub_sector": "Shipping",
   "sector": "Transportation & Logistics",
   "priority": 32,
-  "generated_at": "2026-06-14T11:59:42",
+  "generated_at": "2026-06-14T12:19:49",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,13 +30,14 @@
       "last": "2026-05-01"
     },
     "total_mcap": 31749833113600.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 52,
-    "net_tilt": 0.086,
-    "demand_tilt": 0.08,
+    "score": 51,
+    "net_tilt": 0.062,
+    "demand_tilt": 0.062,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
@@ -44,12 +45,12 @@
       "level": "high",
       "score": 66,
       "reasons": [
-        "max|corr|=0.17",
+        "max|corr|=0.20",
         "theory_agree=50%",
         "stable=100%",
-        "mvR2=0.05",
+        "mvR2=0.09",
         "OOS=65%",
-        "mt_penalty=0.98(n=18)"
+        "mt_penalty=0.95(n=18)"
       ]
     },
     "multivariate": {
@@ -59,26 +60,26 @@
         "id_exports"
       ],
       "n": 108,
-      "r2": 0.047,
-      "adj_r2": 0.029,
+      "r2": 0.088,
+      "adj_r2": 0.071,
       "betas": {
         "CEICI14575001": {
-          "std_beta": 0.0183,
-          "t": 2.22,
-          "p": 0.0263
+          "std_beta": 0.027,
+          "t": 2.54,
+          "p": 0.011
         },
         "id_exports": {
-          "std_beta": 0.0024,
-          "t": 0.88,
-          "p": 0.3765
+          "std_beta": 0.0089,
+          "t": 1.94,
+          "p": 0.0518
         }
       },
       "oos_hit_rate": 0.646,
       "oos_n": 48,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0129
+      "expected_monthly_ret": 0.012
     },
-    "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [52/100, high confidence]. Top drivers: International: Tanjung Priok (corr +0.17, lead 2m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 5% of monthly variance (adj 3%), 65% out-of-sample directional hit-rate; current read ~+1.3%/mo.",
+    "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [51/100, high confidence]. Top drivers: International: Tanjung Priok (corr +0.20, lead 1m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 65% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo.",
     "drivers": [
       {
         "key": "CEICI14575001",
@@ -90,19 +91,19 @@
         "last_obs": "2026-03-01",
         "n": 182,
         "min_n": 24,
-        "pearson": 0.1723,
-        "pearson_p": 0.02,
-        "spearman": 0.2325,
-        "spearman_p": 0.0016,
-        "best_lag": 2,
+        "pearson": 0.202,
+        "pearson_p": 0.0062,
+        "spearman": 0.2032,
+        "spearman_p": 0.0059,
+        "best_lag": 1,
         "corr_at_best": 0.249,
-        "ic": 0.2032,
-        "ic_t": 0.758,
+        "ic": 0.2211,
+        "ic_t": 0.825,
         "ols": {
-          "beta": 0.016283985154035462,
-          "t": 3.7941577311112282,
-          "p": 0.0001481454808820828,
-          "r2": 0.029687491226295104,
+          "beta": 0.019090015706047157,
+          "t": 5.333530561898856,
+          "p": 9.632134266878616e-08,
+          "r2": 0.040801147588464426,
           "n": 182,
           "hac_lag": 12
         },
@@ -118,20 +119,20 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.1442,
-        "last_chg": 0.049868,
-        "last_chg_z": -0.19,
+        "excess_pearson": 0.1511,
+        "last_chg": 0.105903,
+        "last_chg_z": -0.12,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 57.4,
+        "score": 61.3,
         "source": "ceic",
         "label": "International: Tanjung Priok",
         "live": {
           "posture": "neutral",
-          "impulse": 0.095
+          "impulse": 0.06
         }
       },
       {
@@ -172,7 +173,7 @@
         "emp_sign": -1,
         "theory_agree": false,
         "stable": true,
-        "excess_pearson": -0.0879,
+        "excess_pearson": -0.0906,
         "last_chg": -0.895661,
         "last_chg_z": 0.13,
         "last_chg_date": "2026-05-31",
@@ -216,6 +217,46 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI14575801",
+      "label": "Cargo loaded: domestic (4 ports)",
+      "role": "supply",
+      "pearson": -0.1007,
+      "p": 0.19786638777022114,
+      "theory_agree": null,
+      "score": 34.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI454752297",
+      "label": "Cargo unloaded: domestic",
+      "role": "demand",
+      "pearson": 0.051,
+      "p": 0.20344175558496147,
+      "theory_agree": true,
+      "score": 27.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14574801",
+      "label": "Cargo loaded: international",
+      "role": "supply",
+      "pearson": 0.058,
+      "p": 0.18816708083001632,
+      "theory_agree": null,
+      "score": 26.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14576001",
+      "label": "Domestic: Tanjung Priok",
+      "role": "demand",
+      "pearson": -0.1032,
+      "p": 0.16830875399155099,
+      "theory_agree": false,
+      "score": 26.4,
+      "reason": "below_gate"
+    },
+    {
       "key": "wb_coal_au",
       "label": "Coal · Australia (Newcastle)",
       "role": "demand",
@@ -226,13 +267,23 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI14576001",
-      "label": "Domestic: Tanjung Priok",
+      "key": "CEICI14577901",
+      "label": "Domestic: Belawan",
       "role": "demand",
-      "pearson": 0.021,
-      "p": 0.7896215297556894,
-      "theory_agree": true,
-      "score": 21.9,
+      "pearson": -0.0809,
+      "p": 0.019134413977565035,
+      "theory_agree": false,
+      "score": 25.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
+      "role": "demand",
+      "pearson": -0.083,
+      "p": 0.11253365201372756,
+      "theory_agree": false,
+      "score": 22.3,
       "reason": "below_gate"
     },
     {
@@ -244,56 +295,6 @@
       "theory_agree": true,
       "score": 21.4,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14578101",
-      "label": "Domestic: Tanjung Perak",
-      "role": "demand",
-      "pearson": -0.0955,
-      "p": 0.018477829382621953,
-      "theory_agree": false,
-      "score": 21.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI454752297",
-      "label": "Cargo unloaded: domestic",
-      "role": "demand",
-      "pearson": 0.0065,
-      "p": 0.834095335805866,
-      "theory_agree": true,
-      "score": 21.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "brent",
-      "label": "Brent Crude",
-      "role": "cost",
-      "pearson": 0.0962,
-      "p": 0.06276874591559208,
-      "theory_agree": false,
-      "score": 20.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14577201",
-      "label": "International: Makassar",
-      "role": "demand",
-      "pearson": 0.0373,
-      "p": 0.4539929188626033,
-      "theory_agree": true,
-      "score": 19.1,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14577101",
-      "label": "International: Tanjung Perak",
-      "role": "demand",
-      "pearson": -0.0425,
-      "p": 0.22372675031491007,
-      "theory_agree": false,
-      "score": 18.3,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 18,
@@ -302,9 +303,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.8,
+  "runtime_s": 6.1,
   "grade": "partial",
   "grade_reasons": [
     "only 2 validated drivers (<3)"

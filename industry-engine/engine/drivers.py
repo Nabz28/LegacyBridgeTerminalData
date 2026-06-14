@@ -147,6 +147,17 @@ def assemble_and_analyze(basket: dict, br: dict) -> dict:
             unscored.append({"key": ric, "label": rec.get("topic"), "role": role,
                              "source": "ceic", "reason": "insufficient_history"})
             continue
+        # PUBLICATION LAG: CEIC industry series carry REFERENCE-period dates, but
+        # the print isn't public until ~the next period. Shift the change series
+        # forward one period so the contemporaneous join uses the value AS KNOWN,
+        # not as-of its reference date (critique: release-lag look-ahead). Market/
+        # FX/yield drivers (the global loop below) are real-time — not lagged.
+        drv["chg"] = drv["chg"].shift(1).dropna()
+        drv["pub_lag"] = 1
+        if len(drv["chg"]) < 10:
+            unscored.append({"key": ric, "label": rec.get("topic"), "role": role,
+                             "source": "ceic", "reason": "short_after_pub_lag"})
+            continue
         r = S.analyze_pair(basket_ret, drv, sign_prior, role,
                            rec.get("topic") or ric, excess_ret=excess_ret)
         if r:

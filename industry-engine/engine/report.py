@@ -42,10 +42,12 @@ def build() -> None:
          "",
          "Each row: which CEIC/macro/commodity series statistically drive the "
          "basket's stock returns, the live verdict, and model quality (monthly R^2 "
-         "+ out-of-sample directional hit-rate). Method: weight-capped basket return "
-         "vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, "
-         "reconciled against economic theory. Verdict scores are conviction-shrunk "
-         "toward neutral when evidence is thin. See PLAN.md / RUN.md.", ""]
+         "+ pseudo-OOS directional hit-rate). Method: EQUAL-WEIGHT basket return "
+         "(no mcap look-ahead) vs overlap-aware HAC-OLS + Šidák lead-lag + "
+         "autocorr-deflated IC + collinearity-pruned multivariate + pseudo-OOS, "
+         "reconciled against economic theory; confidence multiple-testing-penalised "
+         "and conviction-shrunk when evidence is thin. CEIC drivers are "
+         "publication-lagged (as-known). See PLAN.md / RUN.md / CRITIQUE_LOG.md.", ""]
     for g in ("perfected", "partial", "needs_review", "blocked"):
         gg = rows.get(g) or []
         if not gg:

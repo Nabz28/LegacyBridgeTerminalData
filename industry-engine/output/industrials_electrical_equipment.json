@@ -3,15 +3,14 @@
   "sub_sector": "Electrical Equipment",
   "sector": "Industrials",
   "priority": 43,
-  "generated_at": "2026-06-14T12:00:13",
+  "generated_at": "2026-06-14T12:20:36",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
   "basket": {
     "n_members": 7,
-    "n_used": 7,
+    "n_used": 6,
     "members_used": [
-      "CCSI",
       "IKBI",
       "JECC",
       "KBLI",
@@ -20,19 +19,20 @@
       "VOKS"
     ],
     "coverage": {
-      "W": 804,
-      "M": 185,
+      "W": 798,
+      "M": 184,
       "Q": 61,
       "first": "2011-01-14",
-      "last": "2026-06-12"
+      "last": "2026-05-01"
     },
     "total_mcap": 5967918039040.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "NEUTRAL",
     "score": 49,
-    "net_tilt": -0.036,
+    "net_tilt": -0.039,
     "demand_tilt": null,
     "supply_tilt": null,
     "cost_tilt": null,
@@ -41,11 +41,11 @@
       "level": "high",
       "score": 70,
       "reasons": [
-        "max|corr|=0.20",
+        "max|corr|=0.21",
         "theory_agree=100%",
         "stable=100%",
         "mvR2=0.06",
-        "OOS=56%",
+        "OOS=53%",
         "mt_penalty=1.00(n=9)"
       ]
     },
@@ -56,26 +56,26 @@
         "id_10y"
       ],
       "n": 181,
-      "r2": 0.055,
+      "r2": 0.056,
       "adj_r2": 0.045,
       "betas": {
         "id_bi_rate": {
-          "std_beta": -0.0136,
-          "t": -3.66,
+          "std_beta": -0.014,
+          "t": -3.6,
           "p": 0.0003
         },
         "id_10y": {
-          "std_beta": -0.0086,
-          "t": -1.54,
-          "p": 0.1232
+          "std_beta": -0.0085,
+          "t": -1.53,
+          "p": 0.1272
         }
       },
-      "oos_hit_rate": 0.562,
+      "oos_hit_rate": 0.529,
       "oos_n": 121,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0136
+      "expected_monthly_ret": 0.0132
     },
-    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [49/100, high confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 56% out-of-sample directional hit-rate; current read ~+1.4%/mo.",
+    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [49/100, high confidence]. Top drivers: BI Policy Rate (corr -0.21, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.3%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "id_bi_rate",
@@ -87,27 +87,27 @@
         "last_obs": "2026-04-24",
         "n": 181,
         "min_n": 24,
-        "pearson": -0.2039,
-        "pearson_p": 0.0059,
-        "spearman": -0.2066,
-        "spearman_p": 0.0053,
+        "pearson": -0.2061,
+        "pearson_p": 0.0054,
+        "spearman": -0.2069,
+        "spearman_p": 0.0052,
         "best_lag": 4,
-        "corr_at_best": -0.2285,
-        "ic": -0.0762,
-        "ic_t": -1.02,
+        "corr_at_best": -0.2134,
+        "ic": -0.0496,
+        "ic_t": -0.664,
         "ols": {
-          "beta": -0.08061722071443167,
-          "t": -3.4426289336258704,
-          "p": 0.000576089176628739,
-          "r2": 0.04156036137921437,
+          "beta": -0.0822972810369136,
+          "t": -3.4234054147351185,
+          "p": 0.000618417692930492,
+          "r2": 0.042488345887862544,
           "n": 181,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.08945797474892023,
-          "t": -3.2813607331299477,
-          "p": 0.001033075271702319,
-          "r2": 0.0522280799701238,
+          "beta": -0.08434176029073458,
+          "t": -3.0108341205573765,
+          "p": 0.0026053113721351408,
+          "r2": 0.045528831980358064,
           "n": 177,
           "hac_lag": 5
         },
@@ -115,7 +115,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": -0.1367,
+        "excess_pearson": -0.1406,
         "last_chg": 0.0,
         "last_chg_z": 0.05,
         "last_chg_date": "2026-04-30",
@@ -123,7 +123,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 51.8,
+        "score": 46.2,
         "source": "corr:ECONOMICS:IDINTR",
         "shallow": false,
         "label": "BI Policy Rate",
@@ -142,27 +142,27 @@
         "last_obs": "2026-05-01",
         "n": 184,
         "min_n": 24,
-        "pearson": -0.1487,
-        "pearson_p": 0.044,
-        "spearman": -0.13,
-        "spearman_p": 0.0787,
+        "pearson": -0.1466,
+        "pearson_p": 0.047,
+        "spearman": -0.1209,
+        "spearman_p": 0.102,
         "best_lag": 3,
-        "corr_at_best": -0.1789,
-        "ic": -0.0175,
-        "ic_t": -0.237,
+        "corr_at_best": -0.187,
+        "ic": -0.0269,
+        "ic_t": -0.363,
         "ols": {
-          "beta": -0.21507162727409185,
-          "t": -1.8842622615025562,
-          "p": 0.05952950942620976,
-          "r2": 0.02211118687473057,
+          "beta": -0.21293124916383727,
+          "t": -1.8651373990026077,
+          "p": 0.062162147545452524,
+          "r2": 0.021497846061123482,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.2574753436730831,
-          "t": -2.0878987304807555,
-          "p": 0.036806970731131664,
-          "r2": 0.03199023785516886,
+          "beta": -0.2703011412888561,
+          "t": -2.1676985679568066,
+          "p": 0.030181628508343824,
+          "r2": 0.03496528901397278,
           "n": 181,
           "hac_lag": 5
         },
@@ -170,7 +170,7 @@
         "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.1277,
+        "excess_pearson": 0.1292,
         "last_chg": 0.007349,
         "last_chg_z": 0.17,
         "last_chg_date": "2026-05-31",
@@ -178,7 +178,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 38.0,
+        "score": 38.4,
         "source": "corr:TVC:ID10Y",
         "shallow": false,
         "label": "id_10y",
@@ -194,73 +194,73 @@
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI536976317",
-      "label": "Electrical equipment",
-      "role": "supply",
-      "pearson": 0.1626,
-      "p": 0.14175722659677328,
-      "theory_agree": null,
-      "score": 39.2,
-      "reason": "below_gate"
-    },
-    {
       "key": "copper",
       "label": "Copper",
       "role": "cost",
-      "pearson": -0.1206,
-      "p": 0.23190924726051643,
+      "pearson": -0.1278,
+      "p": 0.2031861334557925,
       "theory_agree": true,
-      "score": 34.7,
+      "score": 35.1,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI537025287",
+      "key": "CEICI536976317",
       "label": "Electrical equipment",
-      "role": "demand",
-      "pearson": 0.1065,
-      "p": 0.31339430409907276,
-      "theory_agree": true,
-      "score": 26.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
-      "role": "demand",
-      "pearson": -0.0851,
-      "p": 0.11704968191092174,
-      "theory_agree": false,
-      "score": 23.4,
+      "role": "supply",
+      "pearson": -0.0936,
+      "p": 0.2362716631831444,
+      "theory_agree": null,
+      "score": 28.5,
       "reason": "below_gate"
     },
     {
       "key": "usdidr",
       "label": "USD/IDR",
       "role": "macro",
-      "pearson": -0.0371,
-      "p": 0.5321141841144063,
+      "pearson": -0.043,
+      "p": 0.49175337127513574,
       "theory_agree": null,
-      "score": 19.3,
+      "score": 26.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": -0.0899,
+      "p": 0.0832484161272721,
+      "theory_agree": false,
+      "score": 22.1,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
-      "pearson": 0.0389,
-      "p": 0.6738605558400291,
+      "pearson": 0.0502,
+      "p": 0.5881858724792666,
       "theory_agree": null,
-      "score": 13.7,
+      "score": 16.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "role": "demand",
+      "pearson": -0.0535,
+      "p": 0.5873466462981283,
+      "theory_agree": false,
+      "score": 2.9,
       "reason": "below_gate"
     },
     {
       "key": "aluminum",
       "label": "Aluminum",
       "role": "cost",
-      "pearson": 0.0292,
-      "p": 0.5668189042089522,
+      "pearson": 0.0043,
+      "p": 0.9381662477473435,
       "theory_agree": false,
-      "score": 1.0,
+      "score": 0.0,
       "reason": "below_gate"
     }
   ],
@@ -270,9 +270,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.4,
+  "runtime_s": 1.0,
   "grade": "partial",
   "grade_reasons": [
     "only 2 validated drivers (<3)"

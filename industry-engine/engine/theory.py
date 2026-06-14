@@ -56,10 +56,15 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
     # collinearity prune: skip a driver |corr|>0.7 with an already-kept higher-
     # score driver. Correlated commodity/rate drivers (e.g. BCOM & Brent)
     # otherwise yield unstable, sign-flipped joint betas (critique: no VIF control).
+    def _collinear(a, b):
+        c = a.corr(b)
+        return (c == c) and abs(c) > 0.7      # NaN-safe (NaN corr != certified-indep)
     cols, use = {}, []
     for r in ranked:
         s = prepped[r["key"]]["chg"]
-        if any(abs(s.corr(prev)) > 0.7 for prev in cols.values()):
+        if s.std(ddof=0) <= 1e-12 or s.dropna().nunique() < 4:
+            continue                          # drop constant/degenerate on this overlap
+        if any(_collinear(s, prev) for prev in cols.values()):
             continue
         cols[r["key"]] = s
         use.append(r)
@@ -151,13 +156,16 @@ def _confidence(kept: list, mv: dict, n_tested: int = 0) -> dict:
     stable_frac = sum(1 for r in kept if r["stable"]) / len(kept)
     r2 = mv.get("r2", 0) if mv.get("available") else 0
     oos = mv.get("oos_hit_rate") or 0.5
-    score = (28 * min(max_corr / 0.4, 1) + 16 * (1 if any_sig else 0) +
-             16 * agree + 14 * stable_frac + 14 * min(r2 / 0.25, 1) +
-             12 * max(0, (oos - 0.5) / 0.12))
-    # multiple-testing haircut: screening many candidates inflates the chance the
-    # kept set contains false positives. Penalise confidence as the candidate pool
-    # grows beyond ~15 (tested 15 -> ×1.0, ~45 -> ×0.85, ~75 -> ×0.70).
-    mt_penalty = max(0.70, min(1.0, 1.0 - 0.30 * max(0.0, (n_tested - 15) / 60.0)))
+    # Reweighted (critique): the OOS is only a PSEUDO-OOS (driver set chosen on
+    # full sample), so it is down-weighted; the genuinely harder-to-game signals
+    # — theory-sign agreement and split-sample stability — are up-weighted.
+    score = (30 * min(max_corr / 0.4, 1) + 14 * (1 if any_sig else 0) +
+             20 * agree + 16 * stable_frac + 12 * min(r2 / 0.25, 1) +
+             8 * min(1.5, max(0, (oos - 0.5) / 0.12)))
+    # multiple-testing haircut: each kept driver was selected from a pool of tests;
+    # a larger pool inflates false-positive risk. Steeper than before (tested 12
+    # -> ×1.0, ~26 -> ×0.89, ~46 -> ×0.73, floor 0.65).
+    mt_penalty = max(0.65, min(1.0, 1.0 - 0.40 * max(0.0, (n_tested - 12) / 50.0)))
     score = round(min(100, score) * mt_penalty)
     level = "high" if score >= 66 else "medium" if score >= 42 else "low"
     reasons = [f"max|corr|={max_corr:.2f}", f"theory_agree={agree:.0%}",
@@ -222,9 +230,13 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
                       f"{mv['r2']*100:.0f}% of monthly variance "
                       f"(adj {mv['adj_r2']*100:.0f}%)")
         if mv.get("oos_hit_rate") is not None:
-            narrative += f", {mv['oos_hit_rate']*100:.0f}% out-of-sample directional hit-rate"
-        if mv.get("expected_monthly_ret") is not None:
-            narrative += f"; current read ~{mv['expected_monthly_ret']*100:+.1f}%/mo"
+            narrative += f", {mv['oos_hit_rate']*100:.0f}% pseudo-OOS directional hit-rate"
+        em = mv.get("expected_monthly_ret")
+        if em is not None:
+            agree = (em >= 0) == (net >= 0)
+            narrative += f"; in-sample OLS read ~{em*100:+.1f}%/mo"
+            if not agree:
+                narrative += " (diverges from the driver-posture verdict — discount it)"
         narrative += "."
 
     return {

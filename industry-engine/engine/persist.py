@@ -65,10 +65,13 @@ def compile_engine() -> dict:
     engine = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "n_baskets": len(arts),
-        "method": "Per-IDX-sub-industry demand/supply driver engine: HAC-OLS + "
-                  "lead-lag + Spearman-IC + split-sample stability + multivariate "
-                  "+ expanding-window OOS, theory-reconciled. Primary target = "
-                  "weight-capped basket return; benchmark = IHSG.",
+        "method": "Per-IDX-sub-industry demand/supply driver engine. Primary "
+                  "target = EQUAL-WEIGHT basket return (no mcap look-ahead). "
+                  "Overlap-aware HAC-OLS + Šidák-corrected lead-lag + "
+                  "autocorr-deflated IC + split-sample stability + "
+                  "collinearity-pruned multivariate + pseudo-OOS (params-only); "
+                  "theory-reconciled; multiple-testing-penalised confidence. "
+                  "Benchmark = IHSG.",
         "baskets": [_compact(a) for a in arts],
     }
     C.write_json(C.OUTPUT_DIR / "engine.json", engine)

@@ -3,7 +3,7 @@
   "sub_sector": "Containers & Packaging",
   "sector": "Basic Materials",
   "priority": 19,
-  "generated_at": "2026-06-14T11:59:01",
+  "generated_at": "2026-06-14T12:18:16",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,7 +31,8 @@
       "last": "2026-05-01"
     },
     "total_mcap": 108492012027904.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "NEUTRAL",
@@ -162,9 +163,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.8,
+  "runtime_s": 1.7,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

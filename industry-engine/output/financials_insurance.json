@@ -3,13 +3,13 @@
   "sub_sector": "Insurance",
   "sector": "Financials",
   "priority": 17,
-  "generated_at": "2026-06-14T11:58:55",
+  "generated_at": "2026-06-14T12:18:04",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
   "basket": {
     "n_members": 16,
-    "n_used": 16,
+    "n_used": 12,
     "members_used": [
       "ABDA",
       "AHAP",
@@ -18,25 +18,22 @@
       "ASDM",
       "ASJT",
       "ASRM",
-      "LIFE",
-      "LPGI",
-      "MREI",
       "MTWI",
       "PNIN",
       "PNLF",
-      "SMMA",
       "TUGU",
       "VINS"
     ],
     "coverage": {
-      "W": 804,
-      "M": 185,
+      "W": 798,
+      "M": 184,
       "Q": 61,
       "first": "2011-01-14",
-      "last": "2026-06-12"
+      "last": "2026-05-01"
     },
     "total_mcap": 151738880851968.0,
-    "weight_cap": 0.12
+    "weight_cap": 0.12,
+    "primary_weighting": "equal_weight"
   },
   "model": {
     "verdict": "MILDLY BEARISH",
@@ -48,9 +45,9 @@
     "macro_tilt": null,
     "confidence": {
       "level": "high",
-      "score": 74,
+      "score": 80,
       "reasons": [
-        "max|corr|=0.42",
+        "max|corr|=0.43",
         "theory_agree=100%",
         "stable=100%",
         "mvR2=0.00",
@@ -62,7 +59,7 @@
       "available": false,
       "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, high confidence]. Top drivers: Jakarta Composite (corr +0.42, lead 0m, now headwind). ",
+    "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, high confidence]. Top drivers: Jakarta Composite (corr +0.43, lead 0m, now headwind). ",
     "drivers": [
       {
         "key": "jci",
@@ -74,27 +71,27 @@
         "last_obs": "2026-05-01",
         "n": 184,
         "min_n": 24,
-        "pearson": 0.4189,
+        "pearson": 0.4254,
         "pearson_p": 0.0,
-        "spearman": 0.4116,
+        "spearman": 0.4074,
         "spearman_p": 0.0,
         "best_lag": 0,
-        "corr_at_best": 0.4189,
-        "ic": 0.1382,
-        "ic_t": 1.864,
+        "corr_at_best": 0.4254,
+        "ic": 0.1215,
+        "ic_t": 1.64,
         "ols": {
-          "beta": 0.5322151987972776,
-          "t": 6.053426306825795,
-          "p": 1.4179695588767199e-09,
-          "r2": 0.1754799139529829,
+          "beta": 0.5621897567445081,
+          "t": 6.205119005126061,
+          "p": 5.465552780061025e-10,
+          "r2": 0.18099337680239214,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": 0.5322151987972776,
-          "t": 6.053426306825795,
-          "p": 1.4179695588767199e-09,
-          "r2": 0.1754799139529829,
+          "beta": 0.5621897567445081,
+          "t": 6.205119005126061,
+          "p": 5.465552780061025e-10,
+          "r2": 0.18099337680239214,
           "n": 184,
           "hac_lag": 5
         },
@@ -102,7 +99,7 @@
         "emp_sign": 1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": -0.2203,
+        "excess_pearson": -0.3438,
         "last_chg": -0.02452,
         "last_chg_z": -0.68,
         "last_chg_date": "2026-05-31",
@@ -110,7 +107,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 76.0,
+        "score": 75.7,
         "source": "corr:IDX:COMPOSITE",
         "shallow": false,
         "label": "Jakarta Composite",
@@ -126,63 +123,63 @@
   "unscored": [],
   "rejected_top": [
     {
-      "key": "usdidr",
-      "label": "USD/IDR",
-      "role": "macro",
-      "pearson": -0.0991,
-      "p": 0.20287990676702117,
-      "theory_agree": null,
-      "score": 36.4,
-      "reason": "below_gate"
-    },
-    {
       "key": "us_10y",
       "label": "US 10Y Treasury",
       "role": "macro",
-      "pearson": 0.0921,
-      "p": 0.25980654124586255,
+      "pearson": 0.1163,
+      "p": 0.16093185911837726,
       "theory_agree": true,
-      "score": 29.5,
+      "score": 34.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0857,
+      "p": 0.23969920917925125,
+      "theory_agree": null,
+      "score": 32.9,
       "reason": "below_gate"
     },
     {
       "key": "id_gdp_real_q",
       "label": "Real GDP (SA)",
       "role": "demand",
-      "pearson": 0.0458,
-      "p": 0.6379441545273263,
+      "pearson": 0.0062,
+      "p": 0.9242890165790387,
       "theory_agree": true,
-      "score": 29.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_bi_rate",
-      "label": "BI Policy Rate",
-      "role": "macro",
-      "pearson": 0.024,
-      "p": 0.7575664913845642,
-      "theory_agree": true,
-      "score": 14.0,
+      "score": 23.6,
       "reason": "below_gate"
     },
     {
       "key": "CEICI479948257",
       "label": "Life: net premium income",
       "role": "demand",
-      "pearson": 0.0276,
-      "p": 0.7617260496739722,
+      "pearson": -0.0599,
+      "p": 0.5284068548194442,
+      "theory_agree": false,
+      "score": 18.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": 0.0255,
+      "p": 0.7449486704581914,
       "theory_agree": true,
-      "score": 11.9,
+      "score": 15.0,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
-      "pearson": -0.001,
-      "p": 0.9922101914757271,
+      "pearson": -0.0267,
+      "p": 0.7830776398753778,
       "theory_agree": null,
-      "score": 2.9,
+      "score": 7.9,
       "reason": "below_gate"
     }
   ],
@@ -192,9 +189,9 @@
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
     "ceic": "macro.observations (country=idind, demand/supply tagged)",
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-    "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
+    "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.4,
+  "runtime_s": 0.9,
   "grade": "needs_review",
   "grade_reasons": [
     "only 1 validated drivers (<3)",
