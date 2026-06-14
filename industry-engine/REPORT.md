@@ -1,6 +1,6 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T10:32:44._  
+_Auto-generated from output/engine.json — 2026-06-14T10:48:04._  
 **40 perfected · 12 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
@@ -28,7 +28,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Pharma | Healthcare | NEUTRAL | 47 | high | 7 | 0.09 | 53% | id_10y (-0.2887) |
 | Paper | Basic Materials | MILDLY BULLISH | 57 | medium | 4 | 0.04 | 61% | Manufacturing: Paper and (0.1835) |
 | Media | Consumer Cyclicals | MILDLY BULLISH | 59 | high | 12 | 0.25 | 64% | Jakarta Composite (0.3619) |
-| Investment | Financials | MILDLY BULLISH | 56 | high | 12 | 0.21 | 67% | Jakarta Composite (0.3588) |
+| Investment | Financials | MILDLY BEARISH | 43 | high | 12 | 0.21 | 67% | Jakarta Composite (0.3588) |
 | Leisure | Consumer Cyclicals | MILDLY BULLISH | 56 | medium | 12 | 0.08 | 58% | Export: world (UN comtra (-0.1879) |
 | Cement | Basic Materials | NEUTRAL | 55 | high | 12 | 0.24 | 61% | id_10y (-0.4079) |
 | Construction | Infrastructure | NEUTRAL | 53 | high | 12 | 0.21 | 60% | id_10y (-0.4133) |

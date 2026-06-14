@@ -302,6 +302,7 @@ SEED = {
     },
     "Investment": {
         "ceic": [("Banks", None)],
+        "ceic_exclude": ["pt bank", "syariah indonesia"],  # endogenous single-bank
         "globals": [("bcom", "demand", +1, "diversified asset beta")],
         "macro": [("jci", "demand", +1, "NAV beta"),
                   ("id_gdp_real_q", "demand", +1, "portfolio earnings")],
