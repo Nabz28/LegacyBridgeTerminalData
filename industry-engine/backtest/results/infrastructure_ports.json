@@ -1,0 +1,120 @@
+{
+  "id": "infrastructure_ports",
+  "sub_sector": "Ports",
+  "sector": "Infrastructure",
+  "priority": 36,
+  "n_used": 5,
+  "n_members": 6,
+  "n_months": 184,
+  "n_anchored_drivers": 12,
+  "anchored": [
+    {
+      "key": "CEICI14577901",
+      "label": "Domestic: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14578101",
+      "label": "Domestic: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14576001",
+      "label": "Domestic: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577201",
+      "label": "International: Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14575001",
+      "label": "International: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14574901",
+      "label": "International: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI454752297",
+      "label": "Cargo unloaded: domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "bcom",
+      "label": "Bloomberg Commodity Idx",
+      "sign": 1,
+      "source": "corr:AMEX:DBC"
+    },
+    {
+      "key": "id_exports",
+      "label": "Exports (FOB)",
+      "sign": 1,
+      "source": "corr:aIDEXGAR"
+    },
+    {
+      "key": "id_imports",
+      "label": "Imports (CIF)",
+      "sign": 1,
+      "source": "corr:aIDIMGAR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.519,
+    "up_rate": 0.473,
+    "edge": 0.047,
+    "fwd_ic": 0.037,
+    "fwd_pearson": 0.082,
+    "long_short_mo": 0.0266,
+    "binom_p_vs_uprate": 0.1658,
+    "placebo": {
+      "ic_mean": -0.008714967203339299,
+      "ic_std": 0.10356822420834509,
+      "ic_pctile": 0.6166666666666667,
+      "hit_mean": 0.4961240310077519
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.543,
+    "up_rate": 0.473,
+    "edge": 0.07,
+    "fwd_ic": 0.023,
+    "fwd_pearson": 0.035,
+    "long_short_mo": 0.0386,
+    "binom_p_vs_uprate": 0.0669,
+    "placebo": {
+      "ic_mean": 0.00030439400715563507,
+      "ic_std": 0.09533438805773041,
+      "ic_pctile": 0.6166666666666667,
+      "hit_mean": 0.49974160206718354
+    }
+  },
+  "latest_signal": 0.0
+}

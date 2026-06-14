@@ -29,7 +29,10 @@ Results -> industry-engine/backtest/results/<id>.json
 from __future__ import annotations
 
 import sys
+import warnings
 from pathlib import Path
+
+warnings.filterwarnings("ignore")   # benign degenerate-series warnings on tiny baskets
 
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))

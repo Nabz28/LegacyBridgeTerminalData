@@ -1,0 +1,108 @@
+{
+  "id": "consumer_non_cyclicals_poultry",
+  "sub_sector": "Poultry",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 42,
+  "n_used": 9,
+  "n_members": 9,
+  "n_months": 125,
+  "n_anchored_drivers": 10,
+  "anchored": [
+    {
+      "key": "CEICI581264897",
+      "label": "World: Agricultural, Horticultural, Forestry, Poul",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580848067",
+      "label": "World: Poultry; Live, Fowls of The Species Gallus",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI581153167",
+      "label": "World: Meat and Edible Offal of Poultry; of The Po",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502623187",
+      "label": "Value: Other Agricultural, Horticultural, Forestry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502635467",
+      "label": "Volume: Other Agricultural, Horticultural, Forestr",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI581221417",
+      "label": "World: Pig Fat (Including Lard) and Poultry Fat, O",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "corn",
+      "label": "Corn (CBOT)",
+      "sign": -1,
+      "source": "corr:CBOT:ZC1!"
+    },
+    {
+      "key": "soybean_meal",
+      "label": "Soybean Meal",
+      "sign": -1,
+      "source": "corr:CBOT:ZM1!"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": 1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 70,
+    "enough": true,
+    "hit_rate": 0.543,
+    "up_rate": 0.424,
+    "edge": 0.119,
+    "fwd_ic": 0.216,
+    "fwd_pearson": 0.207,
+    "long_short_mo": 0.0705,
+    "binom_p_vs_uprate": 0.03,
+    "placebo": {
+      "ic_mean": -0.028616918904732738,
+      "ic_std": 0.10646469560563233,
+      "ic_pctile": 0.9833333333333333,
+      "hit_mean": 0.4895238095238094
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 70,
+    "enough": true,
+    "hit_rate": 0.557,
+    "up_rate": 0.424,
+    "edge": 0.133,
+    "fwd_ic": 0.132,
+    "fwd_pearson": 0.134,
+    "long_short_mo": 0.041,
+    "binom_p_vs_uprate": 0.017,
+    "placebo": {
+      "ic_mean": -0.020282856559647743,
+      "ic_std": 0.1077241979841874,
+      "ic_pctile": 0.9,
+      "hit_mean": 0.4938095238095238
+    }
+  },
+  "latest_signal": -0.175
+}

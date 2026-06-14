@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T12:39:00",
+  "generated_at": "2026-06-14T13:34:30",
   "n_baskets": 52,
   "method": "Per-IDX-sub-industry demand/supply driver engine. Primary target = EQUAL-WEIGHT basket return (no mcap look-ahead). Overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence. Benchmark = IHSG. xs_band = cross-sectional OW/UW rank on raw net_tilt. NOTE: pseudo-OOS only — no clean specification-search OOS or verdict-level backtest yet (see CRITIQUE_LOG).",
   "baskets": [
@@ -183,6 +183,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:17",
+      "oos": {
+        "fwd_ic": -0.151,
+        "edge": -0.106,
+        "n": 129,
+        "placebo_pctile": 0.05,
+        "flag": "none"
+      },
       "xs_rank": 43,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -337,6 +344,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:19",
+      "oos": {
+        "fwd_ic": 0.115,
+        "edge": 0.022,
+        "n": 99,
+        "placebo_pctile": 0.9333333333333333,
+        "flag": "skill"
+      },
       "xs_rank": 2,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -714,6 +728,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:21",
+      "oos": {
+        "fwd_ic": 0.226,
+        "edge": 0.04,
+        "n": 129,
+        "placebo_pctile": 1.0,
+        "flag": "skill"
+      },
       "xs_rank": 11,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -1089,6 +1110,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:24",
+      "oos": {
+        "fwd_ic": -0.148,
+        "edge": -0.142,
+        "n": 129,
+        "placebo_pctile": 0.05,
+        "flag": "none"
+      },
       "xs_rank": 41,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -1235,6 +1263,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:25",
+      "oos": {
+        "fwd_ic": 0.228,
+        "edge": -0.031,
+        "n": 64,
+        "placebo_pctile": 1.0,
+        "flag": "skill"
+      },
       "xs_rank": 20,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -1626,6 +1661,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:28",
+      "oos": {
+        "fwd_ic": 0.117,
+        "edge": -0.074,
+        "n": 129,
+        "placebo_pctile": 0.8833333333333333,
+        "flag": "marginal"
+      },
       "xs_rank": 29,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -1796,6 +1838,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:29",
+      "oos": {
+        "fwd_ic": -0.081,
+        "edge": -0.115,
+        "n": 129,
+        "placebo_pctile": 0.21666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 12,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -1974,6 +2023,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:32",
+      "oos": {
+        "fwd_ic": 0.034,
+        "edge": -0.041,
+        "n": 129,
+        "placebo_pctile": 0.65,
+        "flag": "none"
+      },
       "xs_rank": 3,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -2341,6 +2397,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:35",
+      "oos": {
+        "fwd_ic": 0.121,
+        "edge": -0.028,
+        "n": 129,
+        "placebo_pctile": 0.9166666666666666,
+        "flag": "skill"
+      },
       "xs_rank": 6,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -2418,6 +2481,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:37",
+      "oos": {
+        "fwd_ic": 0.042,
+        "edge": 0.054,
+        "n": 129,
+        "placebo_pctile": 0.8166666666666667,
+        "flag": "none"
+      },
       "xs_rank": 21,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -2591,6 +2661,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:38",
+      "oos": {
+        "fwd_ic": -0.023,
+        "edge": -0.074,
+        "n": 126,
+        "placebo_pctile": 0.4666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 40,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -2984,6 +3061,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:42",
+      "oos": {
+        "fwd_ic": 0.068,
+        "edge": 0.008,
+        "n": 129,
+        "placebo_pctile": 0.85,
+        "flag": "marginal"
+      },
       "xs_rank": 8,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -3198,6 +3282,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:45",
+      "oos": {
+        "fwd_ic": -0.143,
+        "edge": -0.054,
+        "n": 125,
+        "placebo_pctile": 0.06666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 27,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -3437,6 +3528,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:47",
+      "oos": {
+        "fwd_ic": 0.035,
+        "edge": 0.048,
+        "n": 129,
+        "placebo_pctile": 0.6666666666666666,
+        "flag": "none"
+      },
       "xs_rank": 37,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -3629,6 +3727,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:50",
+      "oos": {
+        "fwd_ic": -0.098,
+        "edge": -0.031,
+        "n": 128,
+        "placebo_pctile": 0.16666666666666666,
+        "flag": "none"
+      },
       "xs_rank": 17,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -3834,6 +3939,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:51",
+      "oos": {
+        "fwd_ic": 0.028,
+        "edge": -0.025,
+        "n": 129,
+        "placebo_pctile": 0.65,
+        "flag": "none"
+      },
       "xs_rank": 9,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -3920,6 +4032,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:52",
+      "oos": {
+        "fwd_ic": 0.154,
+        "edge": 0.006,
+        "n": 129,
+        "placebo_pctile": 0.9333333333333333,
+        "flag": "skill"
+      },
       "xs_rank": 48,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -4108,6 +4227,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:54",
+      "oos": {
+        "fwd_ic": 0.004,
+        "edge": -0.018,
+        "n": 129,
+        "placebo_pctile": 0.4666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 38,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -4164,7 +4290,14 @@
         "last": "2026-05-01"
       },
       "drivers": [],
-      "generated_at": "2026-06-14T12:37:54"
+      "generated_at": "2026-06-14T12:37:54",
+      "oos": {
+        "fwd_ic": 0.089,
+        "edge": 0.014,
+        "n": 129,
+        "placebo_pctile": 0.9,
+        "flag": "skill"
+      }
     },
     {
       "id": "industrials_machinery",
@@ -4443,6 +4576,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:37:57",
+      "oos": {
+        "fwd_ic": 0.148,
+        "edge": 0.029,
+        "n": 129,
+        "placebo_pctile": 0.9833333333333333,
+        "flag": "skill"
+      },
       "xs_rank": 1,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -4546,6 +4686,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:00",
+      "oos": {
+        "fwd_ic": -0.067,
+        "edge": -0.144,
+        "n": 129,
+        "placebo_pctile": 0.26666666666666666,
+        "flag": "none"
+      },
       "xs_rank": 30,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -4754,6 +4901,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:01",
+      "oos": {
+        "fwd_ic": 0.17,
+        "edge": 0.05,
+        "n": 129,
+        "placebo_pctile": 0.9666666666666667,
+        "flag": "skill"
+      },
       "xs_rank": 4,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -4906,6 +5060,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:02",
+      "oos": {
+        "fwd_ic": -0.003,
+        "edge": -0.088,
+        "n": 129,
+        "placebo_pctile": 0.45,
+        "flag": "none"
+      },
       "xs_rank": 44,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -5237,6 +5398,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:05",
+      "oos": {
+        "fwd_ic": 0.015,
+        "edge": -0.113,
+        "n": 129,
+        "placebo_pctile": 0.48333333333333334,
+        "flag": "none"
+      },
       "xs_rank": 34,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -5417,6 +5585,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:08",
+      "oos": {
+        "fwd_ic": 0.022,
+        "edge": -0.019,
+        "n": 129,
+        "placebo_pctile": 0.5333333333333333,
+        "flag": "none"
+      },
       "xs_rank": 28,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -5631,6 +5806,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:10",
+      "oos": {
+        "fwd_ic": -0.132,
+        "edge": -0.035,
+        "n": 129,
+        "placebo_pctile": 0.1,
+        "flag": "none"
+      },
       "xs_rank": 24,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -5727,6 +5909,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:12",
+      "oos": {
+        "fwd_ic": 0.094,
+        "edge": -0.096,
+        "n": 129,
+        "placebo_pctile": 0.85,
+        "flag": "marginal"
+      },
       "xs_rank": 22,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -5950,6 +6139,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:15",
+      "oos": {
+        "fwd_ic": 0.067,
+        "edge": 0.037,
+        "n": 129,
+        "placebo_pctile": 0.8333333333333334,
+        "flag": "marginal"
+      },
       "xs_rank": 18,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -6212,6 +6408,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:17",
+      "oos": {
+        "fwd_ic": 0.045,
+        "edge": -0.047,
+        "n": 129,
+        "placebo_pctile": 0.7666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 45,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -6417,6 +6620,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:18",
+      "oos": {
+        "fwd_ic": -0.021,
+        "edge": -0.049,
+        "n": 129,
+        "placebo_pctile": 0.36666666666666664,
+        "flag": "none"
+      },
       "xs_rank": 47,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -6609,6 +6819,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:20",
+      "oos": {
+        "fwd_ic": 0.105,
+        "edge": -0.042,
+        "n": 129,
+        "placebo_pctile": 0.8833333333333333,
+        "flag": "marginal"
+      },
       "xs_rank": 31,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -6737,6 +6954,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:21",
+      "oos": {
+        "fwd_ic": 0.026,
+        "edge": -0.097,
+        "n": 129,
+        "placebo_pctile": 0.55,
+        "flag": "none"
+      },
       "xs_rank": 14,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -6858,6 +7082,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:24",
+      "oos": {
+        "fwd_ic": -0.025,
+        "edge": 0.027,
+        "n": 129,
+        "placebo_pctile": 0.38333333333333336,
+        "flag": "none"
+      },
       "xs_rank": 23,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -7206,6 +7437,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:26",
+      "oos": {
+        "fwd_ic": -0.113,
+        "edge": -0.155,
+        "n": 129,
+        "placebo_pctile": 0.11666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 7,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -7444,6 +7682,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:28",
+      "oos": {
+        "fwd_ic": 0.144,
+        "edge": 0.012,
+        "n": 129,
+        "placebo_pctile": 0.9666666666666667,
+        "flag": "skill"
+      },
       "xs_rank": 15,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -7494,7 +7739,14 @@
         "last": "2026-05-01"
       },
       "drivers": [],
-      "generated_at": "2026-06-14T12:38:29"
+      "generated_at": "2026-06-14T12:38:29",
+      "oos": {
+        "fwd_ic": 0.037,
+        "edge": 0.047,
+        "n": 129,
+        "placebo_pctile": 0.6166666666666667,
+        "flag": "none"
+      }
     },
     {
       "id": "basic_materials_construction_materials",
@@ -7681,6 +7933,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:32",
+      "oos": {
+        "fwd_ic": 0.065,
+        "edge": 0.002,
+        "n": 129,
+        "placebo_pctile": 0.8,
+        "flag": "marginal"
+      },
       "xs_rank": 19,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -7905,6 +8164,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:34",
+      "oos": {
+        "fwd_ic": 0.074,
+        "edge": -0.061,
+        "n": 129,
+        "placebo_pctile": 0.85,
+        "flag": "marginal"
+      },
       "xs_rank": 5,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -8255,6 +8521,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:35",
+      "oos": {
+        "fwd_ic": 0.29,
+        "edge": 0.186,
+        "n": 24,
+        "placebo_pctile": 0.9166666666666666,
+        "flag": "skill"
+      },
       "xs_rank": 16,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -8495,6 +8768,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:37",
+      "oos": {
+        "fwd_ic": 0.0,
+        "edge": 0.032,
+        "n": 129,
+        "placebo_pctile": 0.5,
+        "flag": "none"
+      },
       "xs_rank": 32,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -8866,6 +9146,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:40",
+      "oos": {
+        "fwd_ic": -0.006,
+        "edge": -0.026,
+        "n": 129,
+        "placebo_pctile": 0.4666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 10,
       "xs_of": 50,
       "xs_band": "Overweight"
@@ -9215,6 +9502,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:42",
+      "oos": {
+        "fwd_ic": 0.216,
+        "edge": 0.119,
+        "n": 70,
+        "placebo_pctile": 0.9833333333333333,
+        "flag": "skill"
+      },
       "xs_rank": 35,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -9340,6 +9634,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:42",
+      "oos": {
+        "fwd_ic": 0.101,
+        "edge": 0.012,
+        "n": 129,
+        "placebo_pctile": 0.8333333333333334,
+        "flag": "marginal"
+      },
       "xs_rank": 26,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -9511,6 +9812,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:44",
+      "oos": {
+        "fwd_ic": -0.014,
+        "edge": 0.153,
+        "n": 112,
+        "placebo_pctile": 0.5,
+        "flag": "none"
+      },
       "xs_rank": 33,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -9885,6 +10193,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:47",
+      "oos": {
+        "fwd_ic": 0.002,
+        "edge": 0.017,
+        "n": 129,
+        "placebo_pctile": 0.4,
+        "flag": "none"
+      },
       "xs_rank": 25,
       "xs_of": 50,
       "xs_band": "Neutral"
@@ -10164,6 +10479,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:49",
+      "oos": {
+        "fwd_ic": 0.1,
+        "edge": 0.147,
+        "n": 94,
+        "placebo_pctile": 0.8666666666666667,
+        "flag": "marginal"
+      },
       "xs_rank": 13,
       "xs_of": 50,
       "xs_band": "Slight OW"
@@ -10510,6 +10832,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:51",
+      "oos": {
+        "fwd_ic": -0.032,
+        "edge": -0.029,
+        "n": 58,
+        "placebo_pctile": 0.4166666666666667,
+        "flag": "none"
+      },
       "xs_rank": 46,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -10586,6 +10915,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:52",
+      "oos": {
+        "fwd_ic": -0.195,
+        "edge": -0.062,
+        "n": 127,
+        "placebo_pctile": 0.016666666666666666,
+        "flag": "none"
+      },
       "xs_rank": 50,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -10728,6 +11064,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:55",
+      "oos": {
+        "fwd_ic": -0.06,
+        "edge": -0.029,
+        "n": 128,
+        "placebo_pctile": 0.21666666666666667,
+        "flag": "none"
+      },
       "xs_rank": 36,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -11091,6 +11434,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:58",
+      "oos": {
+        "fwd_ic": -0.087,
+        "edge": -0.061,
+        "n": 129,
+        "placebo_pctile": 0.23333333333333334,
+        "flag": "none"
+      },
       "xs_rank": 39,
       "xs_of": 50,
       "xs_band": "Slight UW"
@@ -11256,6 +11606,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:38:59",
+      "oos": {
+        "fwd_ic": 0.116,
+        "edge": 0.233,
+        "n": 124,
+        "placebo_pctile": 0.9333333333333333,
+        "flag": "skill"
+      },
       "xs_rank": 49,
       "xs_of": 50,
       "xs_band": "Underweight"
@@ -11426,6 +11783,13 @@
         }
       ],
       "generated_at": "2026-06-14T12:39:00",
+      "oos": {
+        "fwd_ic": -0.218,
+        "edge": -0.058,
+        "n": 53,
+        "placebo_pctile": 0.05,
+        "flag": "none"
+      },
       "xs_rank": 42,
       "xs_of": 50,
       "xs_band": "Underweight"

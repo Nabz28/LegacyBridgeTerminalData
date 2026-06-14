@@ -1,0 +1,198 @@
+{
+  "id": "energy_energy_services",
+  "sub_sector": "Energy Services",
+  "sector": "Energy",
+  "priority": 9,
+  "n_used": 10,
+  "n_members": 11,
+  "n_months": 184,
+  "n_anchored_drivers": 25,
+  "anchored": [
+    {
+      "key": "CEICI354326367",
+      "label": "Coal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323802602",
+      "label": "Value: Coal, Coke, and Briquettes",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762017",
+      "label": "Regular: Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762027",
+      "label": "Regular: Off Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762187",
+      "label": "> 6,600 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762197",
+      "label": "6,600 VA - 200 kVA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762077",
+      "label": "Regular: Peak Load and Off Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762217",
+      "label": "P3 Category: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762167",
+      "label": "2,200 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762157",
+      "label": "1,300 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762177",
+      "label": "3,500 VA - 5,500 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762117",
+      "label": "Tariff: Government",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762047",
+      "label": "Tariff: Industry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502615757",
+      "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502628037",
+      "label": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI403931887",
+      "label": "Production: Natural gas (scf)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI520234107",
+      "label": "Production: Natural gas (Cub m)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI520300407",
+      "label": "Production: Natural gas (TJ)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365765217",
+      "label": "Mining & Quarrying: Coal & Lignite",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "bcom",
+      "label": "Bloomberg Commodity Idx",
+      "sign": 1,
+      "source": "corr:AMEX:DBC"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": 1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": 1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.543,
+    "up_rate": 0.571,
+    "edge": -0.028,
+    "fwd_ic": 0.121,
+    "fwd_pearson": 0.185,
+    "long_short_mo": 0.025,
+    "binom_p_vs_uprate": 0.7684,
+    "placebo": {
+      "ic_mean": -0.004479073494335123,
+      "ic_std": 0.0875824772354143,
+      "ic_pctile": 0.9166666666666666,
+      "hit_mean": 0.5206718346253231
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.574,
+    "up_rate": 0.571,
+    "edge": 0.003,
+    "fwd_ic": 0.17,
+    "fwd_pearson": 0.168,
+    "long_short_mo": 0.0202,
+    "binom_p_vs_uprate": 0.5098,
+    "placebo": {
+      "ic_mean": -0.011387895050685753,
+      "ic_std": 0.09180188571626231,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5139534883720931
+    }
+  },
+  "latest_signal": 0.034
+}

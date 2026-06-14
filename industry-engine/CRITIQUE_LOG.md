@@ -63,13 +63,27 @@ fix had mislabelled Stagflation as Reflation). **Product:** cross-sectional
 allocation bands (OW/UW on raw net_tilt) since conviction-shrinkage compresses
 absolute scores; UI surfaces pseudo-OOS, model-conflict, equal-weight honestly.
 
+## Blindfolded OOS backtest — 2026-06-14 (ADDRESSES the #1 gap)
+`industry-engine/backtest/bt.py` — walk-forward, zero-look-ahead test (signal =
+a-priori theory-anchored driver posture, standardised on [0:t] only, vs the unseen
+return at t+1) with a 60× circular-shift PLACEBO null. Full readout in
+`industry-engine/BACKTEST.md`; per-basket results in `backtest/results/*.json`;
+each basket's forward IC + skill flag is surfaced in `engine.json` / the UI card
+(`OOS✓/✗`). **Placebo IC centres at ~0 → harness verified leak-free.**
+Headline: **21/52 baskets show genuine forward OOS skill** (beat ≥80% of placebos);
+32/52 positive forward IC; skill concentrates in physical-commodity/cost-pass-
+through baskets (Coal/Alt-Energy/Pharma/Machinery/Metals/Poultry). **Financials
+(Banks/Investment/Securities) and diversified/mean-reverting baskets are forward-
+uninformative or ANTI-predictive** — read their verdicts as contemporaneous
+attribution, not forecasts. Crucially: **only 8/21 'perfected' baskets show OOS
+skill** — in-sample confidence is a weak guide to forward predictability.
+
 ### KNOWN REMAINING LIMITATIONS (do not over-claim)
-- **No CLEAN out-of-sample validation.** The only OOS is a *pseudo*-OOS (params
-  re-fit walk-forward, but the driver SET is chosen on the full sample). A true
-  nested OOS (re-select drivers inside each window) is the #1 remaining build.
-- **No verdict-level backtest.** Per-driver stats exist; whether 'BULLISH 60'
-  actually precedes higher forward returns than 'NEUTRAL 49' is untested. Treat
-  verdicts as a structured hypothesis, not a validated signal.
+- The blindfolded backtest validates the **anchored-driver POSTURE** (the engine's
+  core claim, zero params fit). The full multivariate VERDICT adds in-sample
+  driver selection + fitting on top and is NOT separately OOS-validated — a nested
+  driver-RE-selection OOS is the remaining build.
+- **Use the OOS✓/✗ flag, not the grade, to judge a verdict's forward value.**
 - **Researcher degrees of freedom.** mapping.py priors/overrides/excludes were
   tuned while viewing outputs — in-sample-tuning risk. Freeze mapping.py before
   any real OOS window.

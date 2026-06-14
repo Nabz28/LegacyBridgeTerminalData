@@ -1,0 +1,84 @@
+{
+  "id": "healthcare_hospitals",
+  "sub_sector": "Hospitals",
+  "sector": "Healthcare",
+  "priority": 11,
+  "n_used": 11,
+  "n_members": 11,
+  "n_months": 181,
+  "n_anchored_drivers": 6,
+  "anchored": [
+    {
+      "key": "CEICI580306527",
+      "label": "Hospital beds per 1000",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580671437",
+      "label": "Import: world (UN comtrade)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462441447",
+      "label": "Financing: hospital services",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 126,
+    "enough": true,
+    "hit_rate": 0.484,
+    "up_rate": 0.558,
+    "edge": -0.074,
+    "fwd_ic": -0.023,
+    "fwd_pearson": -0.005,
+    "long_short_mo": -0.0016,
+    "binom_p_vs_uprate": 0.9604,
+    "placebo": {
+      "ic_mean": -0.006286414198225224,
+      "ic_std": 0.09284935503154769,
+      "ic_pctile": 0.4666666666666667,
+      "hit_mean": 0.5013227513227513
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 126,
+    "enough": true,
+    "hit_rate": 0.619,
+    "up_rate": 0.558,
+    "edge": 0.061,
+    "fwd_ic": 0.263,
+    "fwd_pearson": 0.254,
+    "long_short_mo": 0.0209,
+    "binom_p_vs_uprate": 0.098,
+    "placebo": {
+      "ic_mean": 2.879640044994349e-05,
+      "ic_std": 0.08709447452487554,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5042328042328041
+    }
+  },
+  "latest_signal": -0.083
+}

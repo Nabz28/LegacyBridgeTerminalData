@@ -1,0 +1,84 @@
+{
+  "id": "healthcare_healthcare_services",
+  "sub_sector": "Healthcare Services",
+  "sector": "Healthcare",
+  "priority": 47,
+  "n_used": 2,
+  "n_members": 2,
+  "n_months": 113,
+  "n_anchored_drivers": 6,
+  "anchored": [
+    {
+      "key": "CEICI323782002",
+      "label": "Import value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580035297",
+      "label": "Import: world (UN comtrade)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580306527",
+      "label": "Hospital beds per 1000",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462441447",
+      "label": "Financing: hospital services",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 58,
+    "enough": true,
+    "hit_rate": 0.414,
+    "up_rate": 0.442,
+    "edge": -0.029,
+    "fwd_ic": -0.032,
+    "fwd_pearson": -0.025,
+    "long_short_mo": -0.0368,
+    "binom_p_vs_uprate": 0.715,
+    "placebo": {
+      "ic_mean": 0.009932634039804366,
+      "ic_std": 0.13136204852518002,
+      "ic_pctile": 0.4166666666666667,
+      "hit_mean": 0.5137931034482759
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 58,
+    "enough": true,
+    "hit_rate": 0.552,
+    "up_rate": 0.442,
+    "edge": 0.109,
+    "fwd_ic": 0.166,
+    "fwd_pearson": 0.25,
+    "long_short_mo": 0.0304,
+    "binom_p_vs_uprate": 0.0619,
+    "placebo": {
+      "ic_mean": 0.0014652352681821515,
+      "ic_std": 0.13209798314474827,
+      "ic_pctile": 0.8166666666666667,
+      "hit_mean": 0.5114942528735632
+    }
+  },
+  "latest_signal": -0.107
+}

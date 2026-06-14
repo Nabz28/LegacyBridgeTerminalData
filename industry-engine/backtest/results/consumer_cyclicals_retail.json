@@ -1,0 +1,234 @@
+{
+  "id": "consumer_cyclicals_retail",
+  "sub_sector": "Retail",
+  "sector": "Consumer Cyclicals",
+  "priority": 21,
+  "n_used": 29,
+  "n_members": 29,
+  "n_months": 184,
+  "n_anchored_drivers": 31,
+  "anchored": [
+    {
+      "key": "CEICI13839901",
+      "label": "Wholesales",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13840501",
+      "label": "Sedan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13839601",
+      "label": "Local",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841901",
+      "label": "Pick Up: Below 5 Ton",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI412545807",
+      "label": "4x2 Type",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI412545817",
+      "label": "4x4 Type",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841101",
+      "label": "4x2 Type: 1501 to 2500cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI412545837",
+      "label": "Wholesale motor vehicle sales",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13842001",
+      "label": "Wholesale: 5 to 24 Ton",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13842101",
+      "label": "Wholesale: Over 24 Ton",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13840701",
+      "label": "Wholesale: Below 1500 cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841001",
+      "label": "Wholesale: Below 1500cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13840801",
+      "label": "Wholesale: 1500 to 3000 cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841601",
+      "label": "4x4 Type: Over 3000cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841501",
+      "label": "Wholesale: 1501 to 3000cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13840901",
+      "label": "Wholesale: Over 3000 cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13842201",
+      "label": "Double Cabin: Less than 5 Ton",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841201",
+      "label": "Wholesale: 2501 to 3000cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI13841301",
+      "label": "Wholesale: Over 3000cc",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI322851802",
+      "label": "Retail sales index: auto parts",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912577",
+      "label": "BMW",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912507",
+      "label": "Hino",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912467",
+      "label": "Honda",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912517",
+      "label": "Isuzu",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912547",
+      "label": "Mazda",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912527",
+      "label": "Nissan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI391912447",
+      "label": "Toyota",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    },
+    {
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "sign": 1,
+      "source": "corr:aIDLONYAR"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.426,
+    "up_rate": 0.571,
+    "edge": -0.144,
+    "fwd_ic": -0.067,
+    "fwd_pearson": -0.011,
+    "long_short_mo": -0.0091,
+    "binom_p_vs_uprate": 0.9996,
+    "placebo": {
+      "ic_mean": 0.011678406380441264,
+      "ic_std": 0.10068453339456555,
+      "ic_pctile": 0.26666666666666666,
+      "hit_mean": 0.4863049095607234
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.512,
+    "up_rate": 0.571,
+    "edge": -0.059,
+    "fwd_ic": 0.076,
+    "fwd_pearson": 0.078,
+    "long_short_mo": 0.0186,
+    "binom_p_vs_uprate": 0.925,
+    "placebo": {
+      "ic_mean": -7.798524150268438e-05,
+      "ic_std": 0.11006130945180725,
+      "ic_pctile": 0.7833333333333333,
+      "hit_mean": 0.4839793281653747
+    }
+  },
+  "latest_signal": -0.059
+}

@@ -1,0 +1,132 @@
+{
+  "id": "consumer_non_cyclicals_staple_retail",
+  "sub_sector": "Staple Retail",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 51,
+  "n_used": 3,
+  "n_members": 3,
+  "n_months": 184,
+  "n_anchored_drivers": 14,
+  "anchored": [
+    {
+      "key": "CEICI432477457",
+      "label": "Cooking Oil: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI431282997",
+      "label": "Chicken Meat: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432413187",
+      "label": "Beef: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432469687",
+      "label": "Cayenne Pepper: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432423457",
+      "label": "Egg: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432487747",
+      "label": "Sugar: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432461977",
+      "label": "Red Chili Pepper: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432415757",
+      "label": "Chicken Meat",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14459401",
+      "label": "Crude Oil: Indonesia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI359137107",
+      "label": "Fuel: Pertamina Dex",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI541367887",
+      "label": "Wholesale Price Index: General",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI541367967",
+      "label": "Wholesale Price Index: YoY: General",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 124,
+    "enough": true,
+    "hit_rate": 0.597,
+    "up_rate": 0.364,
+    "edge": 0.233,
+    "fwd_ic": 0.116,
+    "fwd_pearson": 0.026,
+    "long_short_mo": 0.0181,
+    "binom_p_vs_uprate": 0.0,
+    "placebo": {
+      "ic_mean": -0.002983429819195646,
+      "ic_std": 0.08735531149671268,
+      "ic_pctile": 0.9333333333333333,
+      "hit_mean": 0.49731182795698925
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 123,
+    "enough": true,
+    "hit_rate": 0.463,
+    "up_rate": 0.364,
+    "edge": 0.099,
+    "fwd_ic": -0.101,
+    "fwd_pearson": -0.027,
+    "long_short_mo": -0.0538,
+    "binom_p_vs_uprate": 0.015,
+    "placebo": {
+      "ic_mean": 0.0006157224460585795,
+      "ic_std": 0.09316993835205604,
+      "ic_pctile": 0.11666666666666667,
+      "hit_mean": 0.48943089430894304
+    }
+  },
+  "latest_signal": 0.282
+}

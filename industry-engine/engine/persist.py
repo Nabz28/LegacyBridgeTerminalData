@@ -63,6 +63,23 @@ def compile_engine() -> dict:
             arts.append(a)
     arts.sort(key=lambda a: a.get("priority") or 999)
     compacts = [_compact(a) for a in arts]
+    # attach blindfolded OOS backtest skill (industry-engine/backtest/results) so
+    # the terminal shows which verdicts are forward-VALIDATED, not just in-sample.
+    btdir = C.ROOT / "backtest" / "results"
+    for c in compacts:
+        bt = C.read_json(btdir / f"{c['id']}.json") if btdir.exists() else None
+        f = (bt or {}).get("forward") if (bt or {}).get("available") else None
+        if f and f.get("enough"):
+            pl = f.get("placebo") or {}
+            pct = pl.get("ic_pctile", 0.0)
+            c["oos"] = {
+                "fwd_ic": f["fwd_ic"], "edge": f["edge"], "n": f["n"],
+                "placebo_pctile": pct,
+                "flag": ("skill" if (f["fwd_ic"] >= 0.08 and pct >= 0.90)
+                         else "marginal" if (f["fwd_ic"] >= 0.05 and pct >= 0.80)
+                         else "none")}
+        else:
+            c["oos"] = None
     # Cross-sectional allocation view (CIO): conviction-shrinkage compresses the
     # absolute scores toward NEUTRAL, so rank baskets by the RAW net_tilt and cut
     # into OW/UW quintile bands — a ranked cross-section is what you allocate from.

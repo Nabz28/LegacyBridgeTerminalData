@@ -1,0 +1,156 @@
+{
+  "id": "basic_materials_metals_mining",
+  "sub_sector": "Metals & Mining",
+  "sector": "Basic Materials",
+  "priority": 14,
+  "n_used": 4,
+  "n_members": 4,
+  "n_months": 184,
+  "n_anchored_drivers": 18,
+  "anchored": [
+    {
+      "key": "CEICI357183202",
+      "label": "Import value: Nickel and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI357369702",
+      "label": "Import volume: Nickel and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI356799402",
+      "label": "Export value: Nickel and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI388026027",
+      "label": "Export value: Ferro alloy nickel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI294139602",
+      "label": "Mineral production: Antam nickel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593637",
+      "label": "Export value: Other Articles of Nickel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593587",
+      "label": "Export value: Nickel Waste and Scrap",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593617",
+      "label": "Export value: Nickel Plates, Sheets, Strip and Foi",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593627",
+      "label": "Export value: Nickel Tubes, Pipes and Tube or Pipe",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI650271397",
+      "label": "Export: world (UN comtrade)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593607",
+      "label": "Export value: Nickel Bars, Rods, Profiles and Wire",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502593577",
+      "label": "Export value: Unwrought Nickel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "wb_nickel",
+      "label": "Nickel · LME",
+      "sign": 1,
+      "source": "spark"
+    },
+    {
+      "key": "aluminum",
+      "label": "Aluminum",
+      "sign": 1,
+      "source": "corr:COMEX:ALI1!"
+    },
+    {
+      "key": "cn_pmi_mfg",
+      "label": "Mfg PMI (NBS)",
+      "sign": 1,
+      "source": "corr:aCNPMIMT"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.488,
+    "up_rate": 0.44,
+    "edge": 0.048,
+    "fwd_ic": 0.035,
+    "fwd_pearson": -0.011,
+    "long_short_mo": 0.0057,
+    "binom_p_vs_uprate": 0.1555,
+    "placebo": {
+      "ic_mean": -0.009582122093023256,
+      "ic_std": 0.09344810093019447,
+      "ic_pctile": 0.6666666666666666,
+      "hit_mean": 0.4963824289405684
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.457,
+    "up_rate": 0.44,
+    "edge": 0.017,
+    "fwd_ic": -0.082,
+    "fwd_pearson": -0.023,
+    "long_short_mo": -0.0357,
+    "binom_p_vs_uprate": 0.3795,
+    "placebo": {
+      "ic_mean": 0.003788573345259393,
+      "ic_std": 0.07692880006643485,
+      "ic_pctile": 0.11666666666666667,
+      "hit_mean": 0.5018087855297158
+    }
+  },
+  "latest_signal": 0.042
+}

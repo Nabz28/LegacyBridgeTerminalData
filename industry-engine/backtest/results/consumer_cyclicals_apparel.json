@@ -1,0 +1,102 @@
+{
+  "id": "consumer_cyclicals_apparel",
+  "sub_sector": "Apparel",
+  "sector": "Consumer Cyclicals",
+  "priority": 31,
+  "n_used": 23,
+  "n_members": 23,
+  "n_months": 184,
+  "n_anchored_drivers": 9,
+  "anchored": [
+    {
+      "key": "CEICI323795002",
+      "label": "Volume: Other Made Up Textile Articles; Sets; Worn",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323794402",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323794602",
+      "label": "Volume: Impregnated, Coated, Covered Or Laminated",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": -1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "cotton",
+      "label": "Cotton No.2",
+      "sign": -1,
+      "source": "corr:ICE:CT1!"
+    },
+    {
+      "key": "wb_rubber",
+      "label": "Rubber · SGP/MYS",
+      "sign": -1,
+      "source": "spark"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.55,
+    "up_rate": 0.592,
+    "edge": -0.042,
+    "fwd_ic": 0.105,
+    "fwd_pearson": 0.061,
+    "long_short_mo": 0.0148,
+    "binom_p_vs_uprate": 0.8554,
+    "placebo": {
+      "ic_mean": -0.007950860912343472,
+      "ic_std": 0.09249841794109885,
+      "ic_pctile": 0.8833333333333333,
+      "hit_mean": 0.4987080103359173
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.512,
+    "up_rate": 0.592,
+    "edge": -0.081,
+    "fwd_ic": 0.047,
+    "fwd_pearson": 0.06,
+    "long_short_mo": 0.0153,
+    "binom_p_vs_uprate": 0.9741,
+    "placebo": {
+      "ic_mean": -0.005808549493142515,
+      "ic_std": 0.09832122424263569,
+      "ic_pctile": 0.7,
+      "hit_mean": 0.49664082687338507
+    }
+  },
+  "latest_signal": 0.034
+}

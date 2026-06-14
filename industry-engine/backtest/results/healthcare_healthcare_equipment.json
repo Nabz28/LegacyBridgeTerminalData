@@ -1,0 +1,90 @@
+{
+  "id": "healthcare_healthcare_equipment",
+  "sub_sector": "Healthcare Equipment",
+  "sector": "Healthcare",
+  "priority": 39,
+  "n_used": 5,
+  "n_members": 6,
+  "n_months": 79,
+  "n_anchored_drivers": 7,
+  "anchored": [
+    {
+      "key": "CEICI323782002",
+      "label": "Import value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580035297",
+      "label": "Import: world (UN comtrade)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580306527",
+      "label": "Hospital beds per 1000",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462441447",
+      "label": "Financing: hospital services",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 24,
+    "enough": true,
+    "hit_rate": 0.667,
+    "up_rate": 0.481,
+    "edge": 0.186,
+    "fwd_ic": 0.29,
+    "fwd_pearson": 0.251,
+    "long_short_mo": 0.0515,
+    "binom_p_vs_uprate": 0.0525,
+    "placebo": {
+      "ic_mean": -0.01891304347826088,
+      "ic_std": 0.20472525274506606,
+      "ic_pctile": 0.9166666666666666,
+      "hit_mean": 0.4361111111111111
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 24,
+    "enough": true,
+    "hit_rate": 0.667,
+    "up_rate": 0.481,
+    "edge": 0.186,
+    "fwd_ic": 0.025,
+    "fwd_pearson": 0.159,
+    "long_short_mo": 0.0399,
+    "binom_p_vs_uprate": 0.0525,
+    "placebo": {
+      "ic_mean": -0.0045942028985507255,
+      "ic_std": 0.19803922849234726,
+      "ic_pctile": 0.5666666666666667,
+      "hit_mean": 0.438888888888889
+    }
+  },
+  "latest_signal": -0.158
+}

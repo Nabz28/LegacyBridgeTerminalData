@@ -115,7 +115,10 @@
         h('div', null, h('div', { className: 'in-panel-tag' }, 'GRADE'),
           h('span', { className: 'in-chip ' + gradeChip(b.grade), style: { fontSize: 11, padding: '3px 9px' } }, (b.grade || '—').toUpperCase())),
         h('div', null, h('div', { className: 'in-panel-tag' }, 'BASKET'),
-          h('div', { className: 'in-num', style: { fontSize: 13 } }, (b.n_used || 0) + ' names · ' + (b.n_kept || 0) + '/' + (b.n_tested || 0) + ' drivers'))
+          h('div', { className: 'in-num', style: { fontSize: 13 } }, (b.n_used || 0) + ' names · ' + (b.n_kept || 0) + '/' + (b.n_tested || 0) + ' drivers')),
+        b.oos && h('div', null, h('div', { className: 'in-panel-tag' }, 'BLINDFOLDED OOS'),
+          h('div', { title: 'forward IC ' + fix(b.oos.fwd_ic) + ', beats ' + Math.round((b.oos.placebo_pctile || 0) * 100) + '% of placebos (n=' + b.oos.n + ' months)', style: { fontSize: 13, fontFamily: 'var(--font-mono,monospace)', fontWeight: 700, color: b.oos.flag === 'skill' ? 'var(--pos,#19c37d)' : b.oos.flag === 'marginal' ? 'var(--in,#f5a623)' : 'var(--neg,#ff5c70)' } },
+            (b.oos.flag === 'skill' ? 'SKILL' : b.oos.flag === 'marginal' ? 'MARGINAL' : 'NO SKILL') + ' · IC ' + fix(b.oos.fwd_ic)))
       ),
       // narrative
       b.narrative && h('div', { key: 'nr', className: 'in-concl', style: { marginBottom: 14, lineHeight: 1.5 } }, b.narrative),
@@ -202,7 +205,11 @@
       h('div', { style: { display: 'flex', gap: 8, marginTop: 5, fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)' } },
         h('span', null, (b.confidence || {}).level || '—'),
         mv.available && h('span', null, 'R² ' + fix(mv.r2)),
-        mv.available && safe(mv.oos_hit_rate) != null && h('span', null, 'OOS ' + pct(mv.oos_hit_rate)),
+        b.oos && (function () {
+          var fl = b.oos.flag, col = fl === 'skill' ? 'var(--pos,#19c37d)' : fl === 'marginal' ? 'var(--in,#f5a623)' : 'var(--neg,#ff5c70)';
+          var mk = fl === 'skill' ? '✓' : fl === 'marginal' ? '~' : '✗';
+          return h('span', { title: 'blindfolded out-of-sample: forward IC ' + fix(b.oos.fwd_ic) + ', beats ' + Math.round((b.oos.placebo_pctile || 0) * 100) + '% of placebos (n=' + b.oos.n + ')', style: { color: col, fontWeight: fl !== 'none' ? 700 : 400 } }, 'OOS' + mk + fix(b.oos.fwd_ic));
+        })(),
         h('span', { style: { marginLeft: 'auto' } }, fmtMcapT(b.total_mcap))
       )
     );

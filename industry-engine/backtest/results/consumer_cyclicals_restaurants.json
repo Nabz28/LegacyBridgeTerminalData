@@ -1,0 +1,246 @@
+{
+  "id": "consumer_cyclicals_restaurants",
+  "sub_sector": "Restaurants",
+  "sector": "Consumer Cyclicals",
+  "priority": 41,
+  "n_used": 9,
+  "n_members": 9,
+  "n_months": 184,
+  "n_anchored_drivers": 33,
+  "anchored": [
+    {
+      "key": "CEICI432477457",
+      "label": "Cooking Oil: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430909527",
+      "label": "Rice: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430927647",
+      "label": "Rice: Medium Quality II: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430921117",
+      "label": "Rice: Medium Quality I: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430940707",
+      "label": "Rice: Super Quality I: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430912057",
+      "label": "Rice: Low Quality I: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430938177",
+      "label": "Rice: Super Quality II: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430914587",
+      "label": "Rice: Low Quality II: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI431282997",
+      "label": "Chicken Meat: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432413187",
+      "label": "Beef: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432469687",
+      "label": "Cayenne Pepper: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432423457",
+      "label": "Egg: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432487747",
+      "label": "Sugar: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432461977",
+      "label": "Red Chili Pepper: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432418317",
+      "label": "Retail price",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI431285567",
+      "label": "Purebred Chicken: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432426027",
+      "label": "Purebred Chicken Egg: Modern Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432464547",
+      "label": "Retail: Big: Modern market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432467117",
+      "label": "Retail: Curly: Modern market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432490317",
+      "label": "Retail: Premium: Modern market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432438867",
+      "label": "Retail price: modern market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI432436297",
+      "label": "Retail price medium: modern market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430901457",
+      "label": "Rice: Low Quality I: Traditional Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI426203297",
+      "label": "Rice: Traditional Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430923647",
+      "label": "Rice: Medium Quality II: Traditional Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430905457",
+      "label": "Rice: Low Quality II: Traditional Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI430917117",
+      "label": "Rice: Medium Quality I: Traditional Market",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "wb_palm_oil",
+      "label": "Palm Oil (CPO)",
+      "sign": -1,
+      "source": "corr:MYX:FCPO1!"
+    },
+    {
+      "key": "wheat",
+      "label": "Wheat (CBOT)",
+      "sign": -1,
+      "source": "corr:CBOT:ZW1!"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.496,
+    "up_rate": 0.522,
+    "edge": -0.026,
+    "fwd_ic": -0.006,
+    "fwd_pearson": -0.007,
+    "long_short_mo": 0.0057,
+    "binom_p_vs_uprate": 0.7489,
+    "placebo": {
+      "ic_mean": -0.0007702556648777575,
+      "ic_std": 0.0932232793253979,
+      "ic_pctile": 0.4666666666666667,
+      "hit_mean": 0.4987080103359174
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.45,
+    "up_rate": 0.522,
+    "edge": -0.072,
+    "fwd_ic": 0.041,
+    "fwd_pearson": 0.08,
+    "long_short_mo": 0.0046,
+    "binom_p_vs_uprate": 0.958,
+    "placebo": {
+      "ic_mean": 0.003282088550983901,
+      "ic_std": 0.08415620298879217,
+      "ic_pctile": 0.7166666666666667,
+      "hit_mean": 0.5002583979328166
+    }
+  },
+  "latest_signal": 0.043
+}

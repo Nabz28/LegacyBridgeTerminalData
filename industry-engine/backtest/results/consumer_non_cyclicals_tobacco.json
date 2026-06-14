@@ -1,0 +1,168 @@
+{
+  "id": "consumer_non_cyclicals_tobacco",
+  "sub_sector": "Tobacco",
+  "sector": "Consumer Non-Cyclicals",
+  "priority": 18,
+  "n_used": 4,
+  "n_members": 5,
+  "n_months": 184,
+  "n_anchored_drivers": 20,
+  "anchored": [
+    {
+      "key": "CEICI322851902",
+      "label": "Retail sales index: auto parts",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323781402",
+      "label": "Import value: Tobacco and Manufactured Tobacco Sub",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323791102",
+      "label": "Import volume: Tobacco and Manufactured Tobacco Su",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323798602",
+      "label": "Import: Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323775202",
+      "label": "Import value: Foodstuffs, Beverages, Spirits and T",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI581225477",
+      "label": "Import: Singapore",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580098147",
+      "label": "Import: Switzerland",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI581544987",
+      "label": "Import: Japan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580512107",
+      "label": "Import: Malaysia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI456545587",
+      "label": "Excise duty: tobacco",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365765267",
+      "label": "GDP: Tobacco Processing",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI580151817",
+      "label": "Import: Indonesia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI521347877",
+      "label": "Food, Beverage and Tobacco",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI521547557",
+      "label": "Food",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI521547537",
+      "label": "Alcohol Beverage",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI521547547",
+      "label": "Non Alcohol Beverage",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI521547527",
+      "label": "Tobacco",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "sign": 1,
+      "source": "corr:aIDLONYAR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.504,
+    "up_rate": 0.522,
+    "edge": -0.018,
+    "fwd_ic": 0.004,
+    "fwd_pearson": -0.002,
+    "long_short_mo": -0.0028,
+    "binom_p_vs_uprate": 0.6897,
+    "placebo": {
+      "ic_mean": 0.016142385957066196,
+      "ic_std": 0.09933292314238151,
+      "ic_pctile": 0.4666666666666667,
+      "hit_mean": 0.5041343669250645
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.403,
+    "up_rate": 0.522,
+    "edge": -0.119,
+    "fwd_ic": -0.213,
+    "fwd_pearson": -0.147,
+    "long_short_mo": -0.0364,
+    "binom_p_vs_uprate": 0.9974,
+    "placebo": {
+      "ic_mean": -0.005202277131782946,
+      "ic_std": 0.10194374283607302,
+      "ic_pctile": 0.03333333333333333,
+      "hit_mean": 0.5031007751937985
+    }
+  },
+  "latest_signal": -0.033
+}

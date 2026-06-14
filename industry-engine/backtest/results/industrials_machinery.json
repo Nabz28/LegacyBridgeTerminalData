@@ -1,0 +1,150 @@
+{
+  "id": "industrials_machinery",
+  "sub_sector": "Machinery",
+  "sector": "Industrials",
+  "priority": 20,
+  "n_used": 12,
+  "n_members": 19,
+  "n_months": 184,
+  "n_anchored_drivers": 17,
+  "anchored": [
+    {
+      "key": "CEICI354326367",
+      "label": "Coal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323787402",
+      "label": "Import value: electrical machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323787302",
+      "label": "Import value: mechanical machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323977902",
+      "label": "Export value: specialized machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323802602",
+      "label": "Value: Coal, Coke, and Briquettes",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108517",
+      "label": "FDI: Machinery & electronics",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108507",
+      "label": "FDI: Basic metals & metal goods",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108537",
+      "label": "DDI: Basic metals & metal goods",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502615757",
+      "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502628037",
+      "label": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365765387",
+      "label": "GDP: Furniture",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "bcom",
+      "label": "Bloomberg Commodity Idx",
+      "sign": 1,
+      "source": "corr:AMEX:DBC"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": 1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "sign": -1,
+      "source": "corr:NYMEX:HRC1!"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.589,
+    "up_rate": 0.56,
+    "edge": 0.029,
+    "fwd_ic": 0.148,
+    "fwd_pearson": 0.137,
+    "long_short_mo": 0.0127,
+    "binom_p_vs_uprate": 0.2808,
+    "placebo": {
+      "ic_mean": -0.005692456768038161,
+      "ic_std": 0.0781299490432671,
+      "ic_pctile": 0.9833333333333333,
+      "hit_mean": 0.5113695090439278
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.589,
+    "up_rate": 0.56,
+    "edge": 0.029,
+    "fwd_ic": 0.136,
+    "fwd_pearson": 0.146,
+    "long_short_mo": 0.0175,
+    "binom_p_vs_uprate": 0.2808,
+    "placebo": {
+      "ic_mean": -0.008264013118664282,
+      "ic_std": 0.07538431801351819,
+      "ic_pctile": 0.9833333333333333,
+      "hit_mean": 0.5111111111111112
+    }
+  },
+  "latest_signal": -0.086
+}

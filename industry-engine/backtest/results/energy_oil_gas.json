@@ -1,0 +1,84 @@
+{
+  "id": "energy_oil_gas",
+  "sub_sector": "Oil & Gas",
+  "sector": "Energy",
+  "priority": 16,
+  "n_used": 9,
+  "n_members": 9,
+  "n_months": 184,
+  "n_anchored_drivers": 6,
+  "anchored": [
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": 1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "wti",
+      "label": "WTI Crude",
+      "sign": 1,
+      "source": "corr:NYMEX:CL1!"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.535,
+    "up_rate": 0.56,
+    "edge": -0.025,
+    "fwd_ic": 0.028,
+    "fwd_pearson": 0.026,
+    "long_short_mo": 0.008,
+    "binom_p_vs_uprate": 0.7454,
+    "placebo": {
+      "ic_mean": -0.013894603458556948,
+      "ic_std": 0.08402766523220033,
+      "ic_pctile": 0.65,
+      "hit_mean": 0.500516795865633
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.535,
+    "up_rate": 0.56,
+    "edge": -0.025,
+    "fwd_ic": 0.158,
+    "fwd_pearson": 0.18,
+    "long_short_mo": 0.0251,
+    "binom_p_vs_uprate": 0.7454,
+    "placebo": {
+      "ic_mean": 0.01445475551580203,
+      "ic_std": 0.09437297985261187,
+      "ic_pctile": 0.9333333333333333,
+      "hit_mean": 0.5103359173126615
+    }
+  },
+  "latest_signal": 0.023
+}

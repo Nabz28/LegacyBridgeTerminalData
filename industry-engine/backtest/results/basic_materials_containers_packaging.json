@@ -1,0 +1,66 @@
+{
+  "id": "basic_materials_containers_packaging",
+  "sub_sector": "Containers & Packaging",
+  "sector": "Basic Materials",
+  "priority": 19,
+  "n_used": 11,
+  "n_members": 11,
+  "n_months": 184,
+  "n_anchored_drivers": 3,
+  "anchored": [
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": -1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "sign": -1,
+      "source": "corr:NYMEX:HRC1!"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.574,
+    "up_rate": 0.56,
+    "edge": 0.014,
+    "fwd_ic": 0.089,
+    "fwd_pearson": 0.02,
+    "long_short_mo": -0.005,
+    "binom_p_vs_uprate": 0.411,
+    "placebo": {
+      "ic_mean": -0.0025491018187239144,
+      "ic_std": 0.07230479702160915,
+      "ic_pctile": 0.9,
+      "hit_mean": 0.4925064599483205
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.496,
+    "up_rate": 0.56,
+    "edge": -0.064,
+    "fwd_ic": -0.027,
+    "fwd_pearson": 0.004,
+    "long_short_mo": -0.0029,
+    "binom_p_vs_uprate": 0.9384,
+    "placebo": {
+      "ic_mean": -8.273703041144844e-05,
+      "ic_std": 0.0935788087377948,
+      "ic_pctile": 0.38333333333333336,
+      "hit_mean": 0.49121447028423776
+    }
+  },
+  "latest_signal": 0.099
+}

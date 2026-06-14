@@ -1,0 +1,222 @@
+{
+  "id": "financials_securities",
+  "sub_sector": "Securities",
+  "sector": "Financials",
+  "priority": 34,
+  "n_used": 4,
+  "n_members": 6,
+  "n_months": 184,
+  "n_anchored_drivers": 29,
+  "anchored": [
+    {
+      "key": "CEICI65801201",
+      "label": "Loan-to-deposit ratio",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI355184817",
+      "label": "Assets: Financing Receivables",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479948257",
+      "label": "Life: net premium income",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462439957",
+      "label": "Financing Receivables Based On Locations: Outsi...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344497",
+      "label": "Financing Receivables: Manufacturing Industry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344467",
+      "label": "Financing Receivables: Total",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI384714757",
+      "label": "Financing Receivables: Sharia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344387",
+      "label": "Financing Receivables: Investment Financing",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344687",
+      "label": "Financing Receivables: Household",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344547",
+      "label": "Financing Receivables: Transportation and Storage",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344567",
+      "label": "Financing Receivables: Information and Communic...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440047",
+      "label": "Productive Goods: Freight Car",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440597",
+      "label": "Financing Receivables Based On Financing Object...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440347",
+      "label": "Consumer Goods: Used Two-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440357",
+      "label": "Consumer Goods: New Four-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440337",
+      "label": "Consumer Goods: New Two-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440367",
+      "label": "Consumer Goods: Used Four-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI285015402",
+      "label": "Loan demand survey",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208507",
+      "label": "PT Bank Syariah Indonesia: Assets: Receivables",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208577",
+      "label": "PT Bank Syariah Indonesia: Assets: Profit Sharing",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208497",
+      "label": "PT Bank Syariah Indonesia: Assets: Acceptance Clai",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208517",
+      "label": "PT Bank Syariah Indonesia: Assets: Receivables: Mu",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208557",
+      "label": "PT Bank Syariah Indonesia: Assets: Receivables: Qa",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208567",
+      "label": "PT Bank Syariah Indonesia: Assets: Receivables: Re",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208617",
+      "label": "PT Bank Syariah Indonesia: Assets: Leasing",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462208537",
+      "label": "PT Bank Syariah Indonesia: Assets: Receivables: Is",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "jci",
+      "label": "Jakarta Composite",
+      "sign": 1,
+      "source": "corr:IDX:COMPOSITE"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.426,
+    "up_rate": 0.582,
+    "edge": -0.155,
+    "fwd_ic": -0.113,
+    "fwd_pearson": -0.177,
+    "long_short_mo": -0.0381,
+    "binom_p_vs_uprate": 0.9999,
+    "placebo": {
+      "ic_mean": -0.0028163200655933205,
+      "ic_std": 0.09597185745398917,
+      "ic_pctile": 0.11666666666666667,
+      "hit_mean": 0.4979328165374676
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.535,
+    "up_rate": 0.582,
+    "edge": -0.047,
+    "fwd_ic": -0.003,
+    "fwd_pearson": -0.088,
+    "long_short_mo": -0.0104,
+    "binom_p_vs_uprate": 0.8773,
+    "placebo": {
+      "ic_mean": 0.007690444245676805,
+      "ic_std": 0.08953189409147859,
+      "ic_pctile": 0.5,
+      "hit_mean": 0.5051679586563307
+    }
+  },
+  "latest_signal": 0.047
+}

@@ -1,0 +1,138 @@
+{
+  "id": "infrastructure_toll_road",
+  "sub_sector": "Toll Road",
+  "sector": "Infrastructure",
+  "priority": 46,
+  "n_used": 1,
+  "n_members": 1,
+  "n_months": 184,
+  "n_anchored_drivers": 15,
+  "anchored": [
+    {
+      "key": "CEICI14577901",
+      "label": "Domestic: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14578101",
+      "label": "Domestic: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14576001",
+      "label": "Domestic: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577201",
+      "label": "International: Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14575001",
+      "label": "International: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14574901",
+      "label": "International: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582301",
+      "label": "By airport: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582601",
+      "label": "By airport: Ngurah Rai-Denpasar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI454752297",
+      "label": "Cargo unloaded: domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365764267",
+      "label": "HH consumption: Transport & Comm",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365764037",
+      "label": "HH consumption nominal: Transp.",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI487680667",
+      "label": "Vehicle registrations",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 94,
+    "enough": true,
+    "hit_rate": 0.489,
+    "up_rate": 0.342,
+    "edge": 0.147,
+    "fwd_ic": 0.1,
+    "fwd_pearson": 0.069,
+    "long_short_mo": 0.0301,
+    "binom_p_vs_uprate": 0.0023,
+    "placebo": {
+      "ic_mean": 0.0005177666197064385,
+      "ic_std": 0.08994135644806799,
+      "ic_pctile": 0.8666666666666667,
+      "hit_mean": 0.500709219858156
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 95,
+    "enough": true,
+    "hit_rate": 0.526,
+    "up_rate": 0.342,
+    "edge": 0.184,
+    "fwd_ic": 0.037,
+    "fwd_pearson": 0.06,
+    "long_short_mo": 0.042,
+    "binom_p_vs_uprate": 0.0002,
+    "placebo": {
+      "ic_mean": 0.015619867487868607,
+      "ic_std": 0.09560181774877947,
+      "ic_pctile": 0.6,
+      "hit_mean": 0.5056140350877194
+    }
+  },
+  "latest_signal": -0.083
+}

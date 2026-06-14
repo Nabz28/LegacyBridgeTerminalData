@@ -1,0 +1,228 @@
+{
+  "id": "transportation_logistics_airlines",
+  "sub_sector": "Airlines",
+  "sector": "Transportation & Logistics",
+  "priority": 33,
+  "n_used": 3,
+  "n_members": 3,
+  "n_months": 184,
+  "n_anchored_drivers": 30,
+  "anchored": [
+    {
+      "key": "CEICI14580701",
+      "label": "International: Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579401",
+      "label": "International: Arrival and Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579501",
+      "label": "Domestic: Arrival and Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580101",
+      "label": "Domestic: Arrival",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579601",
+      "label": "International: Arrival",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581201",
+      "label": "Domestic: Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581701",
+      "label": "Domestic: Departure: Ngurah Rai-Denpasar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581401",
+      "label": "Domestic: Departure: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581301",
+      "label": "Domestic: Departure: Kualanamu-Medan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581601",
+      "label": "Domestic: Departure: Hasanuddin-Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581001",
+      "label": "International: Departure: Juanda-Surabaya",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580801",
+      "label": "International: Departure: Kualanamu-Medan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14581501",
+      "label": "Domestic: Departure: Juanda-Surabaya",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580901",
+      "label": "International: Departure: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580601",
+      "label": "Domestic: Arrival: Ngurah Rai-Denpasar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580301",
+      "label": "Domestic: Arrival: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580501",
+      "label": "Domestic: Arrival: Hasanuddin-Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580201",
+      "label": "Domestic: Arrival: Kualanamu-Medan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579901",
+      "label": "International: Arrival: Juanda-Surabaya",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580401",
+      "label": "Domestic: Arrival: Juanda-Surabaya",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580001",
+      "label": "International: Arrival: Ngurah Rai-Denpasar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579801",
+      "label": "International: Arrival: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582401",
+      "label": "Domestic: Transit: Juanda-Surabaya",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582201",
+      "label": "Domestic: Transit: Kualanamu-Medan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582501",
+      "label": "Domestic: Transit: Hasanuddin-Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579701",
+      "label": "International: Arrival: Kualanamu-Medan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": -1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "wti",
+      "label": "WTI Crude",
+      "sign": -1,
+      "source": "corr:NYMEX:CL1!"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.527,
+    "up_rate": 0.5,
+    "edge": 0.027,
+    "fwd_ic": -0.025,
+    "fwd_pearson": -0.019,
+    "long_short_mo": 0.0055,
+    "binom_p_vs_uprate": 0.2987,
+    "placebo": {
+      "ic_mean": 0.0006601259689922502,
+      "ic_std": 0.08875869163744979,
+      "ic_pctile": 0.38333333333333336,
+      "hit_mean": 0.5038759689922482
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.481,
+    "up_rate": 0.5,
+    "edge": -0.019,
+    "fwd_ic": -0.054,
+    "fwd_pearson": -0.016,
+    "long_short_mo": 0.0116,
+    "binom_p_vs_uprate": 0.7013,
+    "placebo": {
+      "ic_mean": -0.0029082811568276693,
+      "ic_std": 0.0726584400965076,
+      "ic_pctile": 0.21666666666666667,
+      "hit_mean": 0.5005167958656331
+    }
+  },
+  "latest_signal": 0.206
+}

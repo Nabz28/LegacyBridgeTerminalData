@@ -1,0 +1,144 @@
+{
+  "id": "energy_alternative_energy",
+  "sub_sector": "Alternative Energy",
+  "sector": "Energy",
+  "priority": 5,
+  "n_used": 6,
+  "n_members": 6,
+  "n_months": 119,
+  "n_anchored_drivers": 16,
+  "anchored": [
+    {
+      "key": "CEICI385762017",
+      "label": "Regular: Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762027",
+      "label": "Regular: Off Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762187",
+      "label": "> 6,600 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762197",
+      "label": "6,600 VA - 200 kVA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762077",
+      "label": "Regular: Peak Load and Off Peak Load Time",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762217",
+      "label": "P3 Category: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762167",
+      "label": "2,200 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762157",
+      "label": "1,300 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762177",
+      "label": "3,500 VA - 5,500 VA: Prepaid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762117",
+      "label": "Tariff: Government",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI385762047",
+      "label": "Tariff: Industry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "lithium_etf",
+      "label": "Lithium/Battery (LIT ETF)",
+      "sign": 1,
+      "source": "corr:AMEX:LIT"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": -1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
+    },
+    {
+      "key": "ndx",
+      "label": "Nasdaq 100",
+      "sign": 1,
+      "source": "corr:NASDAQ:NDX"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 64,
+    "enough": true,
+    "hit_rate": 0.516,
+    "up_rate": 0.546,
+    "edge": -0.031,
+    "fwd_ic": 0.228,
+    "fwd_pearson": 0.208,
+    "long_short_mo": 0.0686,
+    "binom_p_vs_uprate": 0.7321,
+    "placebo": {
+      "ic_mean": -0.006960470085470087,
+      "ic_std": 0.11099754403517285,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.440625
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 64,
+    "enough": true,
+    "hit_rate": 0.438,
+    "up_rate": 0.546,
+    "edge": -0.109,
+    "fwd_ic": -0.007,
+    "fwd_pearson": 0.035,
+    "long_short_mo": 0.0034,
+    "binom_p_vs_uprate": 0.9692,
+    "placebo": {
+      "ic_mean": -0.0012065018315018338,
+      "ic_std": 0.11504715185354854,
+      "ic_pctile": 0.48333333333333334,
+      "hit_mean": 0.4505208333333333
+    }
+  },
+  "latest_signal": 0.079
+}

@@ -1,0 +1,78 @@
+{
+  "id": "financials_insurance",
+  "sub_sector": "Insurance",
+  "sector": "Financials",
+  "priority": 17,
+  "n_used": 12,
+  "n_members": 16,
+  "n_months": 184,
+  "n_anchored_drivers": 5,
+  "anchored": [
+    {
+      "key": "CEICI479948257",
+      "label": "Life: net premium income",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": 1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": 1,
+      "source": "corr:TVC:US10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "jci",
+      "label": "Jakarta Composite",
+      "sign": 1,
+      "source": "corr:IDX:COMPOSITE"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.566,
+    "up_rate": 0.56,
+    "edge": 0.006,
+    "fwd_ic": 0.154,
+    "fwd_pearson": 0.185,
+    "long_short_mo": 0.0166,
+    "binom_p_vs_uprate": 0.4811,
+    "placebo": {
+      "ic_mean": -0.0020933027728085867,
+      "ic_std": 0.09445744903438164,
+      "ic_pctile": 0.9333333333333333,
+      "hit_mean": 0.49922480620155035
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.612,
+    "up_rate": 0.56,
+    "edge": 0.053,
+    "fwd_ic": 0.267,
+    "fwd_pearson": 0.264,
+    "long_short_mo": 0.0202,
+    "binom_p_vs_uprate": 0.1321,
+    "placebo": {
+      "ic_mean": -0.0076384540846750155,
+      "ic_std": 0.08110932023485842,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5041343669250645
+    }
+  },
+  "latest_signal": -0.062
+}

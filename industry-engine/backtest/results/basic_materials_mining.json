@@ -1,0 +1,150 @@
+{
+  "id": "basic_materials_mining",
+  "sub_sector": "Mining",
+  "sector": "Basic Materials",
+  "priority": 4,
+  "n_used": 12,
+  "n_members": 13,
+  "n_months": 184,
+  "n_anchored_drivers": 17,
+  "anchored": [
+    {
+      "key": "CEICI14523001",
+      "label": "Local Gold: 24 Caret",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI357183102",
+      "label": "China: Copper and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI357055702",
+      "label": "USA: Copper and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323806802",
+      "label": "Gold; Non Monetary",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI357183202",
+      "label": "Import value: Nickel and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI357369702",
+      "label": "Import volume: Nickel and articles thereof",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI447391617",
+      "label": "Gold/ Jewelry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502621257",
+      "label": "Gold (Including Gold Plated With Platinum) Unwr...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502633517",
+      "label": "Silver (Including Silver Plated With Gold or Pl...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502621267",
+      "label": "Base Metals or Silver, Clad With Gold, Not Furt...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502633567",
+      "label": "Base Metals, Silver or Gold, Clad With Platinum...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "copper",
+      "label": "Copper",
+      "sign": 1,
+      "source": "corr:COMEX:HG1!"
+    },
+    {
+      "key": "gold",
+      "label": "Gold",
+      "sign": 1,
+      "source": "corr:COMEX:GC1!"
+    },
+    {
+      "key": "wb_nickel",
+      "label": "Nickel · LME",
+      "sign": 1,
+      "source": "spark"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.434,
+    "up_rate": 0.576,
+    "edge": -0.142,
+    "fwd_ic": -0.148,
+    "fwd_pearson": -0.196,
+    "long_short_mo": -0.012,
+    "binom_p_vs_uprate": 0.9996,
+    "placebo": {
+      "ic_mean": -0.010705407722122839,
+      "ic_std": 0.07917991895642122,
+      "ic_pctile": 0.05,
+      "hit_mean": 0.502842377260982
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.519,
+    "up_rate": 0.576,
+    "edge": -0.057,
+    "fwd_ic": 0.042,
+    "fwd_pearson": 0.132,
+    "long_short_mo": 0.0163,
+    "binom_p_vs_uprate": 0.9176,
+    "placebo": {
+      "ic_mean": 0.0022507640131186634,
+      "ic_std": 0.08839735063897429,
+      "ic_pctile": 0.6666666666666666,
+      "hit_mean": 0.5033591731266149
+    }
+  },
+  "latest_signal": -0.078
+}

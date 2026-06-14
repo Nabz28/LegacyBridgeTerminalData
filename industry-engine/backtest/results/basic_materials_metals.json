@@ -1,0 +1,114 @@
+{
+  "id": "basic_materials_metals",
+  "sub_sector": "Metals",
+  "sector": "Basic Materials",
+  "priority": 35,
+  "n_used": 14,
+  "n_members": 15,
+  "n_months": 184,
+  "n_anchored_drivers": 11,
+  "anchored": [
+    {
+      "key": "CEICI323786202",
+      "label": "Import value: Iron and Steel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323786302",
+      "label": "Import value: Articles of Iro and Steel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323795902",
+      "label": "Import volume: Iron and Steel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323796002",
+      "label": "Import volume: Articles of Iro and Steel",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323804802",
+      "label": "Import: Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "sign": 1,
+      "source": "corr:NYMEX:HRC1!"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": -1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "cn_ppi_idx",
+      "label": "China PPI (NBS)",
+      "sign": 1,
+      "source": "corr:aCNPPIAR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.566,
+    "up_rate": 0.554,
+    "edge": 0.012,
+    "fwd_ic": 0.144,
+    "fwd_pearson": 0.124,
+    "long_short_mo": 0.0096,
+    "binom_p_vs_uprate": 0.4317,
+    "placebo": {
+      "ic_mean": 0.0003636516100178885,
+      "ic_std": 0.0870169199523461,
+      "ic_pctile": 0.9666666666666667,
+      "hit_mean": 0.4958656330749353
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.504,
+    "up_rate": 0.554,
+    "edge": -0.05,
+    "fwd_ic": 0.133,
+    "fwd_pearson": 0.1,
+    "long_short_mo": 0.005,
+    "binom_p_vs_uprate": 0.8926,
+    "placebo": {
+      "ic_mean": -0.005440705128205129,
+      "ic_std": 0.07787638663573156,
+      "ic_pctile": 0.9666666666666667,
+      "hit_mean": 0.4981912144702842
+    }
+  },
+  "latest_signal": -0.005
+}

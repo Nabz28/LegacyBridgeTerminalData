@@ -1,0 +1,174 @@
+{
+  "id": "financials_banks",
+  "sub_sector": "Banks",
+  "sector": "Financials",
+  "priority": 1,
+  "n_used": 22,
+  "n_members": 30,
+  "n_months": 184,
+  "n_anchored_drivers": 21,
+  "anchored": [
+    {
+      "key": "CEICI355184817",
+      "label": "Assets: Financing Receivables",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479948257",
+      "label": "Life: net premium income",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462439957",
+      "label": "Financing Receivables Based On Locations: Outsi...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344497",
+      "label": "Financing Receivables: Manufacturing Industry",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344467",
+      "label": "Financing Receivables: Total",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI384714757",
+      "label": "Financing Receivables: Sharia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344387",
+      "label": "Financing Receivables: Investment Financing",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344687",
+      "label": "Financing Receivables: Household",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344547",
+      "label": "Financing Receivables: Transportation and Storage",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462344567",
+      "label": "Financing Receivables: Information and Communic...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440047",
+      "label": "Productive Goods: Freight Car",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440597",
+      "label": "Financing Receivables Based On Financing Object...",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440347",
+      "label": "Consumer Goods: Used Two-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440357",
+      "label": "Consumer Goods: New Four-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440337",
+      "label": "Consumer Goods: New Two-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI462440367",
+      "label": "Consumer Goods: Used Four-Wheeled Vehicle",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI285015402",
+      "label": "Loan demand survey",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "sign": 1,
+      "source": "corr:aIDLONYAR"
+    },
+    {
+      "key": "id_m2",
+      "label": "Broad Money M2",
+      "sign": 1,
+      "source": "corr:aIDM2AR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.481,
+    "up_rate": 0.587,
+    "edge": -0.106,
+    "fwd_ic": -0.151,
+    "fwd_pearson": -0.13,
+    "long_short_mo": -0.0129,
+    "binom_p_vs_uprate": 0.9942,
+    "placebo": {
+      "ic_mean": 0.007818835718545027,
+      "ic_std": 0.0836156545374237,
+      "ic_pctile": 0.05,
+      "hit_mean": 0.5087855297157623
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.512,
+    "up_rate": 0.587,
+    "edge": -0.075,
+    "fwd_ic": -0.095,
+    "fwd_pearson": -0.143,
+    "long_short_mo": -0.0063,
+    "binom_p_vs_uprate": 0.9655,
+    "placebo": {
+      "ic_mean": 0.017198587507453785,
+      "ic_std": 0.07948012161321327,
+      "ic_pctile": 0.1,
+      "hit_mean": 0.510077519379845
+    }
+  },
+  "latest_signal": 0.032
+}

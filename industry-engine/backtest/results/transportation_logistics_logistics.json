@@ -1,0 +1,144 @@
+{
+  "id": "transportation_logistics_logistics",
+  "sub_sector": "Logistics",
+  "sector": "Transportation & Logistics",
+  "priority": 40,
+  "n_used": 12,
+  "n_members": 12,
+  "n_months": 184,
+  "n_anchored_drivers": 16,
+  "anchored": [
+    {
+      "key": "CEICI14577901",
+      "label": "Domestic: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14578101",
+      "label": "Domestic: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14576001",
+      "label": "Domestic: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577201",
+      "label": "International: Makassar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14575001",
+      "label": "International: Tanjung Priok",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14574901",
+      "label": "International: Belawan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582301",
+      "label": "By airport: Soekarno Hatta-Tangerang",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14582601",
+      "label": "By airport: Ngurah Rai-Denpasar",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI454752297",
+      "label": "Cargo unloaded: domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365764267",
+      "label": "HH consumption: Transport & Comm",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365764037",
+      "label": "HH consumption nominal: Transp.",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI487680667",
+      "label": "Vehicle registrations",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": -1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_exports",
+      "label": "Exports (FOB)",
+      "sign": 1,
+      "source": "corr:aIDEXGAR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.488,
+    "up_rate": 0.457,
+    "edge": 0.032,
+    "fwd_ic": 0.0,
+    "fwd_pearson": -0.024,
+    "long_short_mo": -0.0049,
+    "binom_p_vs_uprate": 0.2614,
+    "placebo": {
+      "ic_mean": -0.0037645348837209314,
+      "ic_std": 0.0872264215283075,
+      "ic_pctile": 0.5,
+      "hit_mean": 0.5007751937984496
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.45,
+    "up_rate": 0.457,
+    "edge": -0.007,
+    "fwd_ic": -0.043,
+    "fwd_pearson": -0.021,
+    "long_short_mo": 0.0048,
+    "binom_p_vs_uprate": 0.5961,
+    "placebo": {
+      "ic_mean": 0.0028048598688133566,
+      "ic_std": 0.09083549461295773,
+      "ic_pctile": 0.2833333333333333,
+      "hit_mean": 0.5005167958656331
+    }
+  },
+  "latest_signal": -0.024
+}

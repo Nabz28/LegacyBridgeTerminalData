@@ -1,0 +1,126 @@
+{
+  "id": "energy_coal",
+  "sub_sector": "Coal",
+  "sector": "Energy",
+  "priority": 3,
+  "n_used": 21,
+  "n_members": 22,
+  "n_months": 184,
+  "n_anchored_drivers": 13,
+  "anchored": [
+    {
+      "key": "CEICI354326367",
+      "label": "Coal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323802602",
+      "label": "Value: Coal, Coke, and Briquettes",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502615757",
+      "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI502628037",
+      "label": "Volume: Coal; Briquettes, Ovoids and Similar Solid",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": 1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": 1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
+      "key": "natgas",
+      "label": "Natural Gas (Henry Hub)",
+      "sign": 1,
+      "source": "corr:NYMEX:NG1!"
+    },
+    {
+      "key": "bcom",
+      "label": "Bloomberg Commodity Idx",
+      "sign": 1,
+      "source": "corr:AMEX:DBC"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "cn_pmi_mfg",
+      "label": "Mfg PMI (NBS)",
+      "sign": 1,
+      "source": "corr:aCNPMIMT"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_exports",
+      "label": "Exports (FOB)",
+      "sign": 1,
+      "source": "corr:aIDEXGAR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.589,
+    "up_rate": 0.549,
+    "edge": 0.04,
+    "fwd_ic": 0.226,
+    "fwd_pearson": 0.191,
+    "long_short_mo": 0.0222,
+    "binom_p_vs_uprate": 0.2036,
+    "placebo": {
+      "ic_mean": -0.01424167039355993,
+      "ic_std": 0.12148231471774247,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5173126614987081
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.605,
+    "up_rate": 0.549,
+    "edge": 0.056,
+    "fwd_ic": 0.299,
+    "fwd_pearson": 0.386,
+    "long_short_mo": 0.0445,
+    "binom_p_vs_uprate": 0.118,
+    "placebo": {
+      "ic_mean": -0.013551170244484203,
+      "ic_std": 0.11467099923698246,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5165374677002584
+    }
+  },
+  "latest_signal": 0.044
+}

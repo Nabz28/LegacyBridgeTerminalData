@@ -1,0 +1,222 @@
+{
+  "id": "consumer_cyclicals_leisure",
+  "sub_sector": "Leisure",
+  "sector": "Consumer Cyclicals",
+  "priority": 27,
+  "n_used": 22,
+  "n_members": 22,
+  "n_months": 184,
+  "n_anchored_drivers": 29,
+  "anchored": [
+    {
+      "key": "CEICI195568102",
+      "label": "Total",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580701",
+      "label": "International: Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579401",
+      "label": "International: Arrival and Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579501",
+      "label": "Domestic: Arrival and Departure",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14580101",
+      "label": "Domestic: Arrival",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14579601",
+      "label": "International: Arrival",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14537201",
+      "label": "By residence: China",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536601",
+      "label": "By residence: Japan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536701",
+      "label": "By residence: South Korea",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14537101",
+      "label": "By residence: Taiwan",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536501",
+      "label": "By residence: India",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536401",
+      "label": "By residence: Hong Kong",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536101",
+      "label": "By residence: Thailand",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14539401",
+      "label": "By residence: USA",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538701",
+      "label": "By residence: United Kingdom",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14535801",
+      "label": "By residence: Malaysia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14536001",
+      "label": "By residence: Singapore",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14539901",
+      "label": "By residence: Australia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14535901",
+      "label": "By residence: Philippines",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14537301",
+      "label": "Visitors Arrivals by Residence Saudi Arabia",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14535601",
+      "label": "By residence: ASEAN",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538601",
+      "label": "By residence: Switzerland",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538201",
+      "label": "By residence: Italy",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538301",
+      "label": "By residence: Netherlands",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14539501",
+      "label": "By residence: Canada",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538101",
+      "label": "By residence: Germany",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI14538001",
+      "label": "By residence: France",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.535,
+    "up_rate": 0.63,
+    "edge": -0.096,
+    "fwd_ic": 0.094,
+    "fwd_pearson": 0.079,
+    "long_short_mo": 0.0043,
+    "binom_p_vs_uprate": 0.9896,
+    "placebo": {
+      "ic_mean": -0.0024860241502683367,
+      "ic_std": 0.10899211643030715,
+      "ic_pctile": 0.85,
+      "hit_mean": 0.507235142118863
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.574,
+    "up_rate": 0.63,
+    "edge": -0.057,
+    "fwd_ic": 0.04,
+    "fwd_pearson": 0.071,
+    "long_short_mo": 0.0121,
+    "binom_p_vs_uprate": 0.9223,
+    "placebo": {
+      "ic_mean": 0.0017822935301132978,
+      "ic_std": 0.08802944658744549,
+      "ic_pctile": 0.7166666666666667,
+      "hit_mean": 0.5056847545219639
+    }
+  },
+  "latest_signal": -0.086
+}

@@ -1,0 +1,228 @@
+{
+  "id": "infrastructure_tower",
+  "sub_sector": "Tower",
+  "sector": "Infrastructure",
+  "priority": 48,
+  "n_used": 2,
+  "n_members": 2,
+  "n_months": 184,
+  "n_anchored_drivers": 30,
+  "anchored": [
+    {
+      "key": "CEICI313915302",
+      "label": "Credit Card: Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914702",
+      "label": "ATM and Debit Card: Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914102",
+      "label": "ATM and Debit Card: Value: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914002",
+      "label": "ATM and Debit Card: Volume: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313915102",
+      "label": "Credit Card: Value: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313915002",
+      "label": "Credit Card: Volume: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313913902",
+      "label": "ATM and Debit Card: Value: Cash Withdrawal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313915202",
+      "label": "Credit Card: Volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914602",
+      "label": "ATM and Debit Card: Volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313913802",
+      "label": "ATM and Debit Card: Volume: Cash Withdrawal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914902",
+      "label": "Credit Card: Value: Cash Withdrawal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914802",
+      "label": "Credit Card: Volume: Cash Withdrawal",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914302",
+      "label": "ATM and Debit Card: Value: Intrabank",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914502",
+      "label": "ATM and Debit Card: Value: Interbank",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914202",
+      "label": "ATM and Debit Card: Volume: Intrabank",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313914402",
+      "label": "ATM and Debit Card: Volume: Interbank",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313915502",
+      "label": "Volume: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI313915602",
+      "label": "Value: Purchase",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479936297",
+      "label": "Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479936217",
+      "label": "Volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934987",
+      "label": "Credit Card: Value: Purchase: Domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934967",
+      "label": "Credit Card: Value: Cash Withdrawal: Domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934927",
+      "label": "Credit Card: Volume: Cash Withdrawal: Domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934947",
+      "label": "Credit Card: Volume: Purchase: Domestic",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934997",
+      "label": "Credit Card: Value: Purchase: International",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479934977",
+      "label": "Credit Card: Value: Cash Withdrawal: International",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI479936327",
+      "label": "Value: Electronic Money Transfer Transactions",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 127,
+    "enough": true,
+    "hit_rate": 0.362,
+    "up_rate": 0.424,
+    "edge": -0.062,
+    "fwd_ic": -0.195,
+    "fwd_pearson": -0.19,
+    "long_short_mo": -0.0375,
+    "binom_p_vs_uprate": 0.9337,
+    "placebo": {
+      "ic_mean": 0.00553969651210674,
+      "ic_std": 0.099263948448122,
+      "ic_pctile": 0.016666666666666666,
+      "hit_mean": 0.5073490813648294
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 127,
+    "enough": true,
+    "hit_rate": 0.583,
+    "up_rate": 0.424,
+    "edge": 0.159,
+    "fwd_ic": 0.199,
+    "fwd_pearson": 0.235,
+    "long_short_mo": 0.0307,
+    "binom_p_vs_uprate": 0.0002,
+    "placebo": {
+      "ic_mean": 0.0015546419314427522,
+      "ic_std": 0.10287939142285922,
+      "ic_pctile": 0.9833333333333333,
+      "hit_mean": 0.5091863517060367
+    }
+  },
+  "latest_signal": 0.085
+}

@@ -1,0 +1,90 @@
+{
+  "id": "properties_real_estate_property",
+  "sub_sector": "Property",
+  "sector": "Properties & Real Estate",
+  "priority": 7,
+  "n_used": 30,
+  "n_members": 30,
+  "n_months": 184,
+  "n_anchored_drivers": 7,
+  "anchored": [
+    {
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "sign": -1,
+      "source": "corr:NYMEX:HRC1!"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": -1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_lending_rate",
+      "label": "Bank Lending Rate",
+      "sign": -1,
+      "source": "spark"
+    },
+    {
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "sign": 1,
+      "source": "corr:aIDLONYAR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.488,
+    "up_rate": 0.603,
+    "edge": -0.115,
+    "fwd_ic": -0.081,
+    "fwd_pearson": -0.061,
+    "long_short_mo": 0.001,
+    "binom_p_vs_uprate": 0.9968,
+    "placebo": {
+      "ic_mean": -0.016801393858079907,
+      "ic_std": 0.08979497623400709,
+      "ic_pctile": 0.21666666666666667,
+      "hit_mean": 0.49121447028423765
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.612,
+    "up_rate": 0.603,
+    "edge": 0.009,
+    "fwd_ic": 0.208,
+    "fwd_pearson": 0.14,
+    "long_short_mo": 0.0199,
+    "binom_p_vs_uprate": 0.4538,
+    "placebo": {
+      "ic_mean": 0.019783187984496128,
+      "ic_std": 0.09737051176255772,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.4997416020671834
+    }
+  },
+  "latest_signal": -0.058
+}

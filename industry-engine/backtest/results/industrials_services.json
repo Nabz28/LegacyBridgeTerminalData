@@ -1,0 +1,102 @@
+{
+  "id": "industrials_services",
+  "sub_sector": "Services",
+  "sector": "Industrials",
+  "priority": 49,
+  "n_used": 2,
+  "n_members": 4,
+  "n_months": 184,
+  "n_anchored_drivers": 9,
+  "anchored": [
+    {
+      "key": "CEICI323787402",
+      "label": "Import value: electrical machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323787302",
+      "label": "Import value: mechanical machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323977902",
+      "label": "Export value: specialized machinery",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108517",
+      "label": "FDI: Machinery & electronics",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108507",
+      "label": "FDI: Basic metals & metal goods",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI410108537",
+      "label": "DDI: Basic metals & metal goods",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI365765387",
+      "label": "GDP: Furniture",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 128,
+    "enough": true,
+    "hit_rate": 0.477,
+    "up_rate": 0.505,
+    "edge": -0.029,
+    "fwd_ic": -0.06,
+    "fwd_pearson": 0.003,
+    "long_short_mo": 0.0242,
+    "binom_p_vs_uprate": 0.7709,
+    "placebo": {
+      "ic_mean": -0.0012549707418298107,
+      "ic_std": 0.08258348567144562,
+      "ic_pctile": 0.21666666666666667,
+      "hit_mean": 0.4953125
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 128,
+    "enough": true,
+    "hit_rate": 0.469,
+    "up_rate": 0.505,
+    "edge": -0.037,
+    "fwd_ic": -0.026,
+    "fwd_pearson": -0.016,
+    "long_short_mo": 0.0041,
+    "binom_p_vs_uprate": 0.8208,
+    "placebo": {
+      "ic_mean": -0.0024615394886390173,
+      "ic_std": 0.08456958195175004,
+      "ic_pctile": 0.36666666666666664,
+      "hit_mean": 0.4986979166666667
+    }
+  },
+  "latest_signal": -0.415
+}

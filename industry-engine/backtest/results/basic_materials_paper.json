@@ -1,0 +1,84 @@
+{
+  "id": "basic_materials_paper",
+  "sub_sector": "Paper",
+  "sector": "Basic Materials",
+  "priority": 23,
+  "n_used": 11,
+  "n_members": 12,
+  "n_months": 184,
+  "n_anchored_drivers": 6,
+  "anchored": [
+    {
+      "key": "wb_logs",
+      "label": "Hardwood Logs",
+      "sign": -1,
+      "source": "corr:CME:LBR1!"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "sign": -1,
+      "source": "corr:ICEEUR:ATR1!"
+    },
+    {
+      "key": "bcom",
+      "label": "Bloomberg Commodity Idx",
+      "sign": 1,
+      "source": "corr:AMEX:DBC"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": 1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "cn_ip_yoy",
+      "label": "Industrial Production (YoY)",
+      "sign": 1,
+      "source": "corr:aCNIP"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.488,
+    "up_rate": 0.576,
+    "edge": -0.088,
+    "fwd_ic": -0.003,
+    "fwd_pearson": -0.032,
+    "long_short_mo": 0.0054,
+    "binom_p_vs_uprate": 0.9819,
+    "placebo": {
+      "ic_mean": -0.004031846302921885,
+      "ic_std": 0.08255985237946487,
+      "ic_pctile": 0.45,
+      "hit_mean": 0.5018087855297158
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.519,
+    "up_rate": 0.576,
+    "edge": -0.057,
+    "fwd_ic": 0.067,
+    "fwd_pearson": 0.009,
+    "long_short_mo": 0.0115,
+    "binom_p_vs_uprate": 0.9176,
+    "placebo": {
+      "ic_mean": 0.002538573345259391,
+      "ic_std": 0.08260063061979556,
+      "ic_pctile": 0.7833333333333333,
+      "hit_mean": 0.5059431524547803
+    }
+  },
+  "latest_signal": 0.124
+}

@@ -1,0 +1,90 @@
+{
+  "id": "healthcare_pharma",
+  "sub_sector": "Pharma",
+  "sector": "Healthcare",
+  "priority": 22,
+  "n_used": 12,
+  "n_members": 13,
+  "n_months": 184,
+  "n_anchored_drivers": 7,
+  "anchored": [
+    {
+      "key": "CEICI323782002",
+      "label": "Import value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.566,
+    "up_rate": 0.516,
+    "edge": 0.05,
+    "fwd_ic": 0.17,
+    "fwd_pearson": 0.191,
+    "long_short_mo": 0.0199,
+    "binom_p_vs_uprate": 0.1494,
+    "placebo": {
+      "ic_mean": -0.0037984496124031024,
+      "ic_std": 0.08532577134226736,
+      "ic_pctile": 0.9666666666666667,
+      "hit_mean": 0.4976744186046511
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.535,
+    "up_rate": 0.516,
+    "edge": 0.019,
+    "fwd_ic": 0.116,
+    "fwd_pearson": 0.136,
+    "long_short_mo": 0.0188,
+    "binom_p_vs_uprate": 0.3695,
+    "placebo": {
+      "ic_mean": -0.006737477638640432,
+      "ic_std": 0.09323626907918117,
+      "ic_pctile": 0.9,
+      "hit_mean": 0.4984496124031007
+    }
+  },
+  "latest_signal": -0.022
+}

@@ -1,0 +1,228 @@
+{
+  "id": "technology_software",
+  "sub_sector": "Software",
+  "sector": "Technology",
+  "priority": 44,
+  "n_used": 8,
+  "n_members": 8,
+  "n_months": 184,
+  "n_anchored_drivers": 30,
+  "anchored": [
+    {
+      "key": "CEICI499614237",
+      "label": "Browser share (Desktop): Internet Explorer",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499641227",
+      "label": "Browser share (Mobile): Others",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499639877",
+      "label": "Internet Usage: Browser Market Share: All Platform",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499729077",
+      "label": "Search engine share (Mobile): Others",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499788697",
+      "label": "Browser share (Desktop): Chrome",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499573037",
+      "label": "Social media share (Mobile): Others",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499359177",
+      "label": "Browser share (Mobile): Android",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499362307",
+      "label": "Browser share (Mobile): Firefox",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499762957",
+      "label": "Browser share (Tablet): Safari",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499347947",
+      "label": "Device vendor share (Tablet): Others",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499409377",
+      "label": "Browser share (Tablet): Opera",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499658507",
+      "label": "Browser share (Mobile): Puffin Browser",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499439597",
+      "label": "Social media share (Tablet): Vkontakte",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499411327",
+      "label": "Browser share (Desktop): Mozilla",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499648947",
+      "label": "Browser share (Mobile): Samsung Internet",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517698487",
+      "label": "Value",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517809607",
+      "label": "Volume",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517710097",
+      "label": "Average Order Value (AOV)",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517830907",
+      "label": "AOV: Mobile",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517817637",
+      "label": "Value: Mobile",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517672587",
+      "label": "Volume: Mobile",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517743197",
+      "label": "AOV: Desktop",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517775437",
+      "label": "Value: Desktop",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI517801417",
+      "label": "Volume: Desktop",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI499702837",
+      "label": "Browser share (Desktop): Edge",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI519405647",
+      "label": "Value: Arts & Entertainment",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "CEICI519431507",
+      "label": "AOV: Arts & Entertainment",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "ndx",
+      "label": "Nasdaq 100",
+      "sign": 1,
+      "source": "corr:NASDAQ:NDX"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 112,
+    "enough": true,
+    "hit_rate": 0.473,
+    "up_rate": 0.321,
+    "edge": 0.153,
+    "fwd_ic": -0.014,
+    "fwd_pearson": 0.067,
+    "long_short_mo": -0.0102,
+    "binom_p_vs_uprate": 0.0005,
+    "placebo": {
+      "ic_mean": -0.004492555236899426,
+      "ic_std": 0.09910312935739816,
+      "ic_pctile": 0.5,
+      "hit_mean": 0.5011904761904762
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 111,
+    "enough": true,
+    "hit_rate": 0.468,
+    "up_rate": 0.321,
+    "edge": 0.148,
+    "fwd_ic": 0.011,
+    "fwd_pearson": 0.002,
+    "long_short_mo": -0.0194,
+    "binom_p_vs_uprate": 0.0008,
+    "placebo": {
+      "ic_mean": -0.012800937758025762,
+      "ic_std": 0.09386119288378417,
+      "ic_pctile": 0.6166666666666667,
+      "hit_mean": 0.502102102102102
+    }
+  },
+  "latest_signal": 0.1
+}

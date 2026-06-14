@@ -1,0 +1,84 @@
+{
+  "id": "industrials_electrical_equipment",
+  "sub_sector": "Electrical Equipment",
+  "sector": "Industrials",
+  "priority": 43,
+  "n_used": 6,
+  "n_members": 7,
+  "n_months": 184,
+  "n_anchored_drivers": 6,
+  "anchored": [
+    {
+      "key": "CEICI537025287",
+      "label": "Electrical equipment",
+      "sign": 1,
+      "source": "ceic"
+    },
+    {
+      "key": "copper",
+      "label": "Copper",
+      "sign": -1,
+      "source": "corr:COMEX:HG1!"
+    },
+    {
+      "key": "aluminum",
+      "label": "Aluminum",
+      "sign": -1,
+      "source": "corr:COMEX:ALI1!"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
+    }
+  ],
+  "available": true,
+  "forward": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.512,
+    "up_rate": 0.5,
+    "edge": 0.012,
+    "fwd_ic": 0.101,
+    "fwd_pearson": 0.065,
+    "long_short_mo": -0.0084,
+    "binom_p_vs_uprate": 0.4302,
+    "placebo": {
+      "ic_mean": -0.0025897249552772803,
+      "ic_std": 0.08880468751458002,
+      "ic_pctile": 0.8333333333333334,
+      "hit_mean": 0.4932816537467701
+    }
+  },
+  "contemporaneous_ref": {
+    "n": 129,
+    "enough": true,
+    "hit_rate": 0.62,
+    "up_rate": 0.5,
+    "edge": 0.12,
+    "fwd_ic": 0.241,
+    "fwd_pearson": 0.244,
+    "long_short_mo": 0.0414,
+    "binom_p_vs_uprate": 0.004,
+    "placebo": {
+      "ic_mean": -0.00672694916517591,
+      "ic_std": 0.08446678632901879,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.49664082687338507
+    }
+  },
+  "latest_signal": -0.279
+}
