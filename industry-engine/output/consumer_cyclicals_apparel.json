@@ -3,7 +3,7 @@
   "sub_sector": "Apparel",
   "sector": "Consumer Cyclicals",
   "priority": 31,
-  "generated_at": "2026-06-14T12:19:42",
+  "generated_at": "2026-06-14T12:38:20",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -48,14 +48,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 47,
+    "score": 48,
     "net_tilt": -0.059,
+    "model_conflict": true,
     "demand_tilt": -0.289,
     "supply_tilt": 0.085,
     "cost_tilt": 0.458,
     "macro_tilt": null,
     "confidence": {
-      "level": "high",
+      "level": "medium",
       "score": 66,
       "reasons": [
         "max|corr|=0.28",
@@ -63,7 +64,8 @@
         "stable=75%",
         "mvR2=0.10",
         "OOS=56%",
-        "mt_penalty=0.95(n=18)"
+        "mt_penalty=0.95(n=18)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -98,7 +100,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0049
     },
-    "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [47/100, high confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.28, lead 0m, now flat); Volume: Other Made Up Textile Articles; Sets; Worn (corr +0.22, lead 3m, now headwind); Volume: Impregnated, Coated, Covered Or Laminated (corr +0.15, lead 4m, now headwind). A 3-driver model explains 10% of monthly variance (adj 8%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.28, lead 0m, now flat); Volume: Other Made Up Textile Articles; Sets; Worn (corr +0.22, lead 3m, now headwind); Volume: Impregnated, Coated, Covered Or Laminated (corr +0.15, lead 4m, now headwind). A 3-driver model explains 10% of monthly variance (adj 8%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI324049702",
@@ -434,7 +436,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.3,
+  "runtime_s": 1.4,
   "grade": "perfected",
   "grade_reasons": []
 }

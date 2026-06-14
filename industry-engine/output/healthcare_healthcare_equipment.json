@@ -3,7 +3,7 @@
   "sub_sector": "Healthcare Equipment",
   "sector": "Healthcare",
   "priority": 39,
-  "generated_at": "2026-06-14T12:20:19",
+  "generated_at": "2026-06-14T12:38:35",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,14 +30,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 52,
+    "score": 51,
     "net_tilt": 0.047,
+    "model_conflict": true,
     "demand_tilt": 0.0,
     "supply_tilt": 0.038,
     "cost_tilt": null,
     "macro_tilt": -0.022,
     "confidence": {
-      "level": "high",
+      "level": "medium",
       "score": 75,
       "reasons": [
         "max|corr|=0.43",
@@ -45,7 +46,8 @@
         "stable=17%",
         "mvR2=0.06",
         "OOS=72%",
-        "mt_penalty=0.92(n=22)"
+        "mt_penalty=0.92(n=22)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -80,7 +82,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.016
     },
-    "narrative": "Healthcare Equipment (Healthcare) screens NEUTRAL [52/100, high confidence]. Top drivers: Job postings (removed): hospitals (corr +0.39, lead 2m, now flat); GDP value added (corr +0.43, lead 0m, now headwind); Producer price index (corr +0.43, lead 0m, now tailwind). A 3-driver model explains 6% of monthly variance (adj 2%), 72% pseudo-OOS directional hit-rate; in-sample OLS read ~-1.6%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Healthcare Equipment (Healthcare) screens NEUTRAL [51/100, medium confidence]. Top drivers: Job postings (removed): hospitals (corr +0.39, lead 2m, now flat); GDP value added (corr +0.43, lead 0m, now headwind); Producer price index (corr +0.43, lead 0m, now tailwind). A 3-driver model explains 6% of monthly variance (adj 2%), 72% pseudo-OOS directional hit-rate; in-sample OLS read ~-1.6%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI803947177",
@@ -858,7 +860,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.8,
+  "runtime_s": 1.2,
   "grade": "perfected",
   "grade_reasons": []
 }

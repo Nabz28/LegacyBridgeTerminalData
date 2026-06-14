@@ -34,3 +34,48 @@ strong stable theory-contradicting drivers, so none survive into the models.
 - Weekly-frequency pass for liquid market drivers (more power than monthly).
 - Partials are honest ceilings (data-limited / idiosyncratic) — re-attempt only
   with a genuinely new economic driver, never by lowering the bar.
+
+## Multi-agent critique (3 rounds × 3 Opus 4.8 critics, both engines) — 2026-06-14
+Personas: quant PM, econometrician, IDX strategist (R1); reliability eng, software
+architect, sentiment-analytics lead (R2); adversarial red-team, model-validation
+(SR 11-7), CIO (R3). All findings actioned. Highlights:
+
+**Statistical (industry):** switched primary target to EQUAL-WEIGHT (cap-weighting
+historical returns by today's mcap was look-ahead); CEIC drivers PUBLICATION-LAGGED
+(reference-dated prints were joined as if known on their reference date); lead-lag
+`corr_at_best` is a max-over-7-lags statistic → Šidák bar 0.22 (cleared on noise
+~54% before); overlapping-YoY MA(11) → HAC lag floored at the overlap; IC t-stat
+deflated for autocorrelation + gate 2.3; multivariate collinearity-pruned
+(NaN-guarded) + raw-design pseudo-OOS (no standardization leak); point forecast
+nulled (not clamped-then-printed) beyond ±3SD; multiple-testing confidence haircut
++ reweight (down-weight pseudo-OOS); contradiction guard tightened (reject any
+theory-False driver at |r|>=0.15, was only stable ones at 0.2); confidence capped
+for <2 drivers / no-theory-anchor; verdict softened + flagged on model-read
+conflict; theory-coherence gate for 'perfected' (majority of priored drivers must
+agree). **Domain:** coal price → real API2 series (Newcastle empty); Banks dropped
+endogenous system ratios + bi_rate prior 0; JCI dropped as a (circular) driver
+everywhere; Oil&Gas re-priced for PGAS; Mining→copper/gold, Metals drop iron_ore.
+**Reliability:** yfinance fallback gated off by default (deterministic regrade);
+atomic + limit-keyed observation cache. **Sentiment:** non-overlapping momentum
+diffs; compute_global blends pre-tanh (was a raw-vs-tanh scale mismatch); regime
+deadband per-axis with strict directional quadrants + a "Mixed" label (an interim
+fix had mislabelled Stagflation as Reflation). **Product:** cross-sectional
+allocation bands (OW/UW on raw net_tilt) since conviction-shrinkage compresses
+absolute scores; UI surfaces pseudo-OOS, model-conflict, equal-weight honestly.
+
+### KNOWN REMAINING LIMITATIONS (do not over-claim)
+- **No CLEAN out-of-sample validation.** The only OOS is a *pseudo*-OOS (params
+  re-fit walk-forward, but the driver SET is chosen on the full sample). A true
+  nested OOS (re-select drivers inside each window) is the #1 remaining build.
+- **No verdict-level backtest.** Per-driver stats exist; whether 'BULLISH 60'
+  actually precedes higher forward returns than 'NEUTRAL 49' is untested. Treat
+  verdicts as a structured hypothesis, not a validated signal.
+- **Researcher degrees of freedom.** mapping.py priors/overrides/excludes were
+  tuned while viewing outputs — in-sample-tuning risk. Freeze mapping.py before
+  any real OOS window.
+- **Survivorship.** Basket membership = names with price history surviving to now
+  (delisted names absent); no point-in-time constituents.
+- **Cross-engine.** The industry engine does not yet read the macro-sentiment
+  regime; a coherence flag per basket is the top decision-usefulness enhancement.
+- **'Perfected'** means model-complete + in-sample-fit + pseudo-OOS — NOT
+  externally validated. Read confidence as in-sample model strength.

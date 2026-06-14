@@ -3,7 +3,7 @@
   "sub_sector": "Durables",
   "sector": "Consumer Cyclicals",
   "priority": 45,
-  "generated_at": "2026-06-14T12:20:42",
+  "generated_at": "2026-06-14T12:38:47",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,14 +36,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 49,
+    "score": 50,
     "net_tilt": -0.028,
+    "model_conflict": true,
     "demand_tilt": 0.054,
     "supply_tilt": 0.007,
     "cost_tilt": -0.336,
     "macro_tilt": -0.043,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 52,
       "reasons": [
         "max|corr|=0.23",
@@ -51,7 +52,8 @@
         "stable=83%",
         "mvR2=0.19",
         "OOS=61%",
-        "mt_penalty=0.67(n=53)"
+        "mt_penalty=0.67(n=53)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -104,7 +106,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0121
     },
-    "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: id_10y (corr -0.23, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 0m, now flat); Hino (corr +0.20, lead 0m, now flat). A 6-driver model explains 19% of monthly variance (adj 16%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [50/100, low confidence]. Top drivers: id_10y (corr -0.23, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 0m, now flat); Hino (corr +0.20, lead 0m, now flat). A 6-driver model explains 19% of monthly variance (adj 16%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "id_10y",
@@ -872,7 +874,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.7,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.0,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-14T12:21:02",
+  "generated_at": "2026-06-14T12:39:00",
   "n_baskets": 52,
-  "method": "Per-IDX-sub-industry demand/supply driver engine. Primary target = EQUAL-WEIGHT basket return (no mcap look-ahead). Overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence. Benchmark = IHSG.",
+  "method": "Per-IDX-sub-industry demand/supply driver engine. Primary target = EQUAL-WEIGHT basket return (no mcap look-ahead). Overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence. Benchmark = IHSG. xs_band = cross-sectional OW/UW rank on raw net_tilt. NOTE: pseudo-OOS only — no clean specification-search OOS or verdict-level backtest yet (see CRITIQUE_LOG).",
   "baskets": [
     {
       "id": "financials_banks",
@@ -11,76 +11,53 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BEARISH",
-      "score": 43,
+      "score": 42,
       "confidence": {
         "level": "medium",
-        "score": 62,
+        "score": 58,
         "reasons": [
           "max|corr|=0.31",
-          "theory_agree=25%",
-          "stable=40%",
-          "mvR2=0.34",
-          "OOS=64%",
+          "theory_agree=100%",
+          "stable=50%",
+          "mvR2=0.12",
+          "OOS=63%",
           "mt_penalty=0.89(n=26)"
         ]
       },
-      "net_tilt": -0.138,
-      "demand_tilt": -0.155,
+      "net_tilt": -0.166,
+      "demand_tilt": -0.336,
       "supply_tilt": -0.482,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
           "usdidr",
-          "CEICI462440047",
-          "CEICI462344687",
-          "id_bi_rate",
-          "CEICI384714757",
-          "CEICI462344497"
+          "id_bi_rate"
         ],
-        "n": 91,
-        "r2": 0.335,
-        "adj_r2": 0.288,
+        "n": 181,
+        "r2": 0.118,
+        "adj_r2": 0.108,
         "betas": {
           "usdidr": {
-            "std_beta": -0.0244,
-            "t": -3.5,
-            "p": 0.0005
-          },
-          "CEICI462440047": {
-            "std_beta": -0.0057,
-            "t": -0.78,
-            "p": 0.4372
-          },
-          "CEICI462344687": {
-            "std_beta": -0.0207,
-            "t": -3.06,
-            "p": 0.0022
+            "std_beta": -0.0185,
+            "t": -2.05,
+            "p": 0.0407
           },
           "id_bi_rate": {
-            "std_beta": -0.0066,
-            "t": -0.95,
-            "p": 0.3416
-          },
-          "CEICI384714757": {
-            "std_beta": -0.0036,
-            "t": -0.86,
-            "p": 0.3911
-          },
-          "CEICI462344497": {
-            "std_beta": -0.0211,
-            "t": -3.76,
-            "p": 0.0002
+            "std_beta": -0.0084,
+            "t": -1.57,
+            "p": 0.1172
           }
         },
-        "oos_hit_rate": 0.645,
-        "oos_n": 31,
+        "oos_hit_rate": 0.628,
+        "oos_n": 121,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": -0.0575
+        "expected_monthly_ret": -0.0007
       },
-      "narrative": "Banks (Financials) screens MILDLY BEARISH [43/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); Productive Goods: Freight Car (corr -0.27, lead 1m, now tailwind); Consumer Goods: New Two-Wheeled Vehicle (corr -0.20, lead 2m, now headwind). A 6-driver model explains 34% of monthly variance (adj 29%), 64% pseudo-OOS directional hit-rate; in-sample OLS read ~-5.8%/mo.",
-      "n_kept": 10,
+      "narrative": "Banks (Financials) screens MILDLY BEARISH [42/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 3m, now flat); Consumer Goods: Used Four-Wheeled Vehicle (corr +0.10, lead 5m, now headwind). A 2-driver model explains 12% of monthly variance (adj 11%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo.",
+      "n_kept": 4,
       "n_tested": 26,
       "n_used": 22,
       "total_mcap": 2354055566196736.0,
@@ -139,94 +116,6 @@
           "last_obs": "2026-05-08"
         },
         {
-          "key": "CEICI462440047",
-          "label": "Productive Goods: Freight Car",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.266,
-          "excess_pearson": -0.2607,
-          "best_lag": 1,
-          "ic": -0.3083,
-          "beta": -2.7365092334712596e-05,
-          "r2": 0.07074983328772055,
-          "p": 0.061101385552051066,
-          "n": 91,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Productive Goods: Freight Car",
-          "posture": "tailwind",
-          "last_chg_z": -0.83,
-          "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI462440337",
-          "label": "Consumer Goods: New Two-Wheeled Vehicle",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.2002,
-          "excess_pearson": -0.2291,
-          "best_lag": 2,
-          "ic": -0.3067,
-          "beta": -0.8820221051191569,
-          "r2": 0.0400630974821623,
-          "p": 0.016319990567563135,
-          "n": 89,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Consumer Goods: New Two-Wheeled Vehicle",
-          "posture": "headwind",
-          "last_chg_z": 0.6,
-          "last_obs": "2025-08-01"
-        },
-        {
-          "key": "CEICI462344467",
-          "label": "Financing Receivables: Total",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.2858,
-          "excess_pearson": -0.2542,
-          "best_lag": 5,
-          "ic": -0.1516,
-          "beta": -1.8253706433094044,
-          "r2": 0.0816828041415476,
-          "p": 0.002428953130472932,
-          "n": 126,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Financing Receivables: Total",
-          "posture": "neutral",
-          "last_chg_z": -0.03,
-          "last_obs": "2025-08-01"
-        },
-        {
-          "key": "CEICI462344687",
-          "label": "Financing Receivables: Household",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1965,
-          "excess_pearson": -0.1965,
-          "best_lag": 4,
-          "ic": -0.1554,
-          "beta": -0.2494351362221598,
-          "r2": 0.038610137124238886,
-          "p": 2.8536649486076075e-05,
-          "n": 108,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Financing Receivables: Household",
-          "posture": "headwind",
-          "last_chg_z": 2.55,
-          "last_obs": "2025-11-01"
-        },
-        {
           "key": "id_bi_rate",
           "label": "BI Policy Rate",
           "role": "macro",
@@ -271,50 +160,6 @@
           "last_obs": "2025-08-01"
         },
         {
-          "key": "CEICI384714757",
-          "label": "Financing Receivables: Sharia",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1832,
-          "excess_pearson": -0.2029,
-          "best_lag": 5,
-          "ic": -0.1485,
-          "beta": -0.4299666002460601,
-          "r2": 0.03356101186882876,
-          "p": 0.09555311918662339,
-          "n": 109,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Financing Receivables: Sharia",
-          "posture": "neutral",
-          "last_chg_z": 0.23,
-          "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI462344497",
-          "label": "Financing Receivables: Manufacturing Industry",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1615,
-          "excess_pearson": -0.0731,
-          "best_lag": 4,
-          "ic": -0.0056,
-          "beta": -0.21826455395930652,
-          "r2": 0.02607882627461322,
-          "p": 0.054268855720125686,
-          "n": 128,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Financing Receivables: Manufacturing Industry",
-          "posture": "neutral",
-          "last_chg_z": -0.27,
-          "last_obs": "2025-11-01"
-        },
-        {
           "key": "CEICI507198157",
           "label": "P2P loan quality ratio",
           "role": "supply",
@@ -337,7 +182,10 @@
           "last_obs": "2025-12-01"
         }
       ],
-      "generated_at": "2026-06-14T12:15:02"
+      "generated_at": "2026-06-14T12:37:17",
+      "xs_rank": 43,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "technology_it_services",
@@ -347,24 +195,25 @@
       "status": "done",
       "grade": "needs_review",
       "verdict": "NEUTRAL",
-      "score": 54,
+      "score": 52,
       "confidence": {
         "level": "low",
         "score": 26,
         "reasons": [
-          "max|corr|=0.16",
-          "theory_agree=75%",
-          "stable=25%",
+          "max|corr|=0.07",
+          "theory_agree=100%",
+          "stable=33%",
           "mvR2=0.01",
           "OOS=48%",
           "mt_penalty=0.82(n=34)"
         ]
       },
-      "net_tilt": 0.162,
-      "demand_tilt": 0.221,
+      "net_tilt": 0.22,
+      "demand_tilt": 0.294,
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -391,8 +240,8 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0219
       },
-      "narrative": "IT Services (Technology) screens NEUTRAL [54/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.07, lead 6m, now flat); Browser share (Desktop): Mozilla (corr -0.16, lead 1m, now flat); Browser share (Mobile): Puffin Browser (corr +0.01, lead 4m, now flat). A 2-driver model explains 1% of monthly variance (adj -1%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.2%/mo.",
-      "n_kept": 4,
+      "narrative": "IT Services (Technology) screens NEUTRAL [52/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.07, lead 6m, now flat); Browser share (Mobile): Puffin Browser (corr +0.01, lead 4m, now flat); Value: Mobile (corr +0.03, lead 2m, now tailwind). A 2-driver model explains 1% of monthly variance (adj -1%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.2%/mo.",
+      "n_kept": 3,
       "n_tested": 34,
       "n_used": 14,
       "total_mcap": 842175746064384.0,
@@ -443,28 +292,6 @@
           "last_obs": "2026-05-08"
         },
         {
-          "key": "CEICI499411327",
-          "label": "Browser share (Desktop): Mozilla",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1615,
-          "excess_pearson": -0.1373,
-          "best_lag": 1,
-          "ic": 0.0875,
-          "beta": -0.9439685983076151,
-          "r2": 0.026067846295948716,
-          "p": 0.10669415885601168,
-          "n": 89,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Browser share (Desktop): Mozilla",
-          "posture": "neutral",
-          "last_chg_z": 0.01,
-          "last_obs": "2026-06-07"
-        },
-        {
           "key": "CEICI499658507",
           "label": "Browser share (Mobile): Puffin Browser",
           "role": "demand",
@@ -509,7 +336,10 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T12:16:00"
+      "generated_at": "2026-06-14T12:37:19",
+      "xs_rank": 2,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "energy_coal",
@@ -537,6 +367,7 @@
       "supply_tilt": -0.033,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -882,7 +713,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:16:03"
+      "generated_at": "2026-06-14T12:37:21",
+      "xs_rank": 11,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "basic_materials_mining",
@@ -890,26 +724,28 @@
       "sector": "Basic Materials",
       "priority": 4,
       "status": "done",
-      "grade": "perfected",
-      "verdict": "MILDLY BEARISH",
-      "score": 44,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 46,
       "confidence": {
-        "level": "medium",
-        "score": 63,
+        "level": "low",
+        "score": 65,
         "reasons": [
           "max|corr|=0.36",
-          "theory_agree=80%",
-          "stable=75%",
+          "theory_agree=100%",
+          "stable=67%",
           "mvR2=0.26",
           "OOS=59%",
-          "mt_penalty=0.73(n=46)"
+          "mt_penalty=0.73(n=46)",
+          "model_conflict→downgraded"
         ]
       },
-      "net_tilt": -0.111,
-      "demand_tilt": -0.292,
+      "net_tilt": -0.149,
+      "demand_tilt": -0.517,
       "supply_tilt": -0.028,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -960,7 +796,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.039
       },
-      "narrative": "Mining (Basic Materials) screens MILDLY BEARISH [44/100, medium confidence]. Top drivers: Nickel · LME (corr +0.36, lead 0m, now flat); Value: Nails, Tacks, Drawing Pins, Staples (Other (corr +0.24, lead 2m, now flat); Gold (corr +0.24, lead 0m, now headwind). A 6-driver model explains 26% of monthly variance (adj 20%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.9%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Mining (Basic Materials) screens NEUTRAL [46/100, low confidence]. Top drivers: Nickel · LME (corr +0.36, lead 0m, now flat); Value: Nails, Tacks, Drawing Pins, Staples (Other (corr +0.24, lead 2m, now flat); Gold (corr +0.24, lead 0m, now headwind). A 6-driver model explains 26% of monthly variance (adj 20%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.9%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 46,
       "n_used": 12,
@@ -1230,29 +1066,32 @@
           "last_obs": "2026-04-01"
         },
         {
-          "key": "CEICI502633517",
-          "label": "Silver (Including Silver Plated With Gold or Pl...",
+          "key": "CEICI447391617",
+          "label": "Gold/ Jewelry",
           "role": "demand",
           "source": "ceic",
           "freq": "M",
-          "pearson": -0.183,
-          "excess_pearson": -0.2032,
-          "best_lag": 0,
-          "ic": -0.0417,
-          "beta": -0.00030274732887045324,
-          "r2": 0.03349752004981088,
-          "p": 9.825571856222603e-29,
-          "n": 75,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Silver (Including Silver Plated With Gold or Pl...",
-          "posture": "neutral",
-          "last_chg_z": -0.12,
+          "pearson": 0.0433,
+          "excess_pearson": 0.1774,
+          "best_lag": 1,
+          "ic": -0.1382,
+          "beta": 0.002594589868032197,
+          "r2": 0.0018742814898570215,
+          "p": 0.7063461471516399,
+          "n": 88,
+          "theory_agree": true,
+          "stable": false,
+          "sign": 1,
+          "why": "Gold/ Jewelry",
+          "posture": "headwind",
+          "last_chg_z": -1.44,
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:16:13"
+      "generated_at": "2026-06-14T12:37:24",
+      "xs_rank": 41,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "energy_alternative_energy",
@@ -1280,6 +1119,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -1394,7 +1234,10 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T12:16:17"
+      "generated_at": "2026-06-14T12:37:25",
+      "xs_rank": 20,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "consumer_non_cyclicals_food_beverage",
@@ -1402,11 +1245,11 @@
       "sector": "Consumer Non-Cyclicals",
       "priority": 6,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 48,
+      "score": 49,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 56,
         "reasons": [
           "max|corr|=0.25",
@@ -1414,7 +1257,8 @@
           "stable=100%",
           "mvR2=0.18",
           "OOS=62%",
-          "mt_penalty=0.66(n=55)"
+          "mt_penalty=0.66(n=55)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.044,
@@ -1422,6 +1266,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -1472,7 +1317,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0063
       },
-      "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: Rice: Super Quality II: Modern Market (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.19, lead 5m, now flat); Purebred Chicken: Modern Market (corr +0.15, lead 4m, now headwind). A 6-driver model explains 18% of monthly variance (adj 14%), 62% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: Rice: Super Quality II: Modern Market (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.19, lead 5m, now flat); Purebred Chicken: Modern Market (corr +0.15, lead 4m, now headwind). A 6-driver model explains 18% of monthly variance (adj 14%), 62% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 55,
       "n_used": 28,
@@ -1780,7 +1625,10 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T12:16:49"
+      "generated_at": "2026-06-14T12:37:28",
+      "xs_rank": 29,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "properties_real_estate_property",
@@ -1808,6 +1656,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": 0.11,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -1946,7 +1795,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:16:50"
+      "generated_at": "2026-06-14T12:37:29",
+      "xs_rank": 12,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "basic_materials_chemicals",
@@ -1974,6 +1826,7 @@
       "supply_tilt": 0.388,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -2120,7 +1973,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:17:02"
+      "generated_at": "2026-06-14T12:37:32",
+      "xs_rank": 3,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "energy_energy_services",
@@ -2128,11 +1984,11 @@
       "sector": "Energy",
       "priority": 9,
       "status": "done",
-      "grade": "perfected",
-      "verdict": "MILDLY BULLISH",
-      "score": 56,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 53,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 52,
         "reasons": [
           "max|corr|=0.25",
@@ -2140,7 +1996,8 @@
           "stable=75%",
           "mvR2=0.09",
           "OOS=56%",
-          "mt_penalty=0.71(n=48)"
+          "mt_penalty=0.71(n=48)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": 0.135,
@@ -2148,6 +2005,7 @@
       "supply_tilt": 0.09,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -2192,7 +2050,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0005
       },
-      "narrative": "Energy Services (Energy) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Production: Natural gas (scf) (corr +0.16, lead 2m, now headwind); Coal · Australia (Newcastle) (corr +0.13, lead 1m, now flat); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.13, lead 4m, now tailwind). A 5-driver model explains 9% of monthly variance (adj 6%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Energy Services (Energy) screens NEUTRAL [53/100, low confidence]. Top drivers: Production: Natural gas (scf) (corr +0.16, lead 2m, now headwind); Coal · Australia (Newcastle) (corr +0.13, lead 1m, now flat); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.13, lead 4m, now tailwind). A 5-driver model explains 9% of monthly variance (adj 6%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 48,
       "n_used": 10,
@@ -2482,7 +2340,10 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T12:17:07"
+      "generated_at": "2026-06-14T12:37:35",
+      "xs_rank": 6,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "infrastructure_telco",
@@ -2494,8 +2355,8 @@
       "verdict": "NEUTRAL",
       "score": 50,
       "confidence": {
-        "level": "medium",
-        "score": 59,
+        "level": "low",
+        "score": 41,
         "reasons": [
           "max|corr|=0.27",
           "theory_agree=100%",
@@ -2510,11 +2371,12 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
       },
-      "narrative": "Telco (Infrastructure) screens NEUTRAL [50/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat). ",
+      "narrative": "Telco (Infrastructure) screens NEUTRAL [50/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat). ",
       "n_kept": 1,
       "n_tested": 32,
       "n_used": 3,
@@ -2555,7 +2417,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:17:17"
+      "generated_at": "2026-06-14T12:37:37",
+      "xs_rank": 21,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "healthcare_hospitals",
@@ -2583,6 +2448,7 @@
       "supply_tilt": 0.072,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -2724,7 +2590,10 @@
           "last_obs": "2026-05-18"
         }
       ],
-      "generated_at": "2026-06-14T12:17:22"
+      "generated_at": "2026-06-14T12:37:38",
+      "xs_rank": 40,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_non_cyclicals_plantation",
@@ -2732,11 +2601,11 @@
       "sector": "Consumer Non-Cyclicals",
       "priority": 12,
       "status": "done",
-      "grade": "perfected",
-      "verdict": "MILDLY BULLISH",
-      "score": 56,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 53,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 62,
         "reasons": [
           "max|corr|=0.26",
@@ -2744,7 +2613,8 @@
           "stable=92%",
           "mvR2=0.25",
           "OOS=68%",
-          "mt_penalty=0.68(n=52)"
+          "mt_penalty=0.68(n=52)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": 0.129,
@@ -2752,6 +2622,7 @@
       "supply_tilt": 0.147,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -2802,7 +2673,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0355
       },
-      "narrative": "Plantation (Consumer Non-Cyclicals) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Palm Oil (CPO) (corr +0.26, lead 0m, now flat); World: Cocoa; Paste, Wholly or Partly Defatted (corr +0.24, lead 0m, now flat); Rubber and Plastic Industry: 22 Rubber industry... (corr +0.21, lead 0m, now headwind). A 6-driver model explains 25% of monthly variance (adj 22%), 68% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.5%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Plantation (Consumer Non-Cyclicals) screens NEUTRAL [53/100, low confidence]. Top drivers: Palm Oil (CPO) (corr +0.26, lead 0m, now flat); World: Cocoa; Paste, Wholly or Partly Defatted (corr +0.24, lead 0m, now flat); Rubber and Plastic Industry: 22 Rubber industry... (corr +0.21, lead 0m, now headwind). A 6-driver model explains 25% of monthly variance (adj 22%), 68% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.5%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 52,
       "n_used": 30,
@@ -3112,7 +2983,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:17:39"
+      "generated_at": "2026-06-14T12:37:42",
+      "xs_rank": 8,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "industrials_conglomerate",
@@ -3120,72 +2994,62 @@
       "sector": "Industrials",
       "priority": 13,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 47,
+      "score": 49,
       "confidence": {
-        "level": "medium",
-        "score": 53,
+        "level": "low",
+        "score": 50,
         "reasons": [
           "max|corr|=0.43",
-          "theory_agree=17%",
-          "stable=62%",
-          "mvR2=0.21",
-          "OOS=67%",
-          "mt_penalty=0.68(n=52)"
+          "theory_agree=25%",
+          "stable=50%",
+          "mvR2=0.19",
+          "OOS=61%",
+          "mt_penalty=0.68(n=52)",
+          "model_conflict→downgraded"
         ]
       },
-      "net_tilt": -0.053,
-      "demand_tilt": -0.134,
+      "net_tilt": -0.043,
+      "demand_tilt": -0.17,
       "supply_tilt": 0.17,
       "cost_tilt": null,
       "macro_tilt": -0.085,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
           "id_10y",
           "CEICI13840801",
-          "CEICI391912577",
-          "CEICI13841501",
           "CEICI391912527"
         ],
         "n": 171,
-        "r2": 0.208,
-        "adj_r2": 0.184,
+        "r2": 0.189,
+        "adj_r2": 0.174,
         "betas": {
           "id_10y": {
-            "std_beta": -0.0286,
-            "t": -4.6,
+            "std_beta": -0.0292,
+            "t": -4.65,
             "p": 0.0
           },
           "CEICI13840801": {
-            "std_beta": -0.0033,
-            "t": -0.45,
-            "p": 0.6518
-          },
-          "CEICI391912577": {
-            "std_beta": -0.0059,
-            "t": -1.09,
-            "p": 0.2768
-          },
-          "CEICI13841501": {
-            "std_beta": -0.009,
-            "t": -1.87,
-            "p": 0.0609
+            "std_beta": -0.0099,
+            "t": -1.86,
+            "p": 0.0622
           },
           "CEICI391912527": {
-            "std_beta": 0.0011,
-            "t": 0.21,
-            "p": 0.837
+            "std_beta": 0.0014,
+            "t": 0.27,
+            "p": 0.7901
           }
         },
-        "oos_hit_rate": 0.667,
+        "oos_hit_rate": 0.611,
         "oos_n": 108,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": 0.0012
+        "expected_monthly_ret": 0.0049
       },
-      "narrative": "Conglomerate (Industrials) screens NEUTRAL [47/100, medium confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Coal reference price: HBA III (corr -0.17, lead 6m, now headwind); Wholesale: 1500 to 3000 cc (corr -0.15, lead 1m, now flat). A 5-driver model explains 21% of monthly variance (adj 18%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.1%/mo (diverges from the driver-posture verdict — discount it).",
-      "n_kept": 8,
+      "narrative": "Conglomerate (Industrials) screens NEUTRAL [49/100, low confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Coal reference price: HBA III (corr -0.17, lead 6m, now headwind); Wholesale: 1500 to 3000 cc (corr -0.15, lead 1m, now flat). A 3-driver model explains 19% of monthly variance (adj 17%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
+      "n_kept": 6,
       "n_tested": 52,
       "n_used": 1,
       "total_mcap": 216344599461888.0,
@@ -3267,50 +3131,6 @@
           "last_obs": "2026-04-01"
         },
         {
-          "key": "CEICI391912577",
-          "label": "BMW",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1841,
-          "excess_pearson": -0.1755,
-          "best_lag": 0,
-          "ic": -0.1615,
-          "beta": -0.025090461944604108,
-          "r2": 0.033904140463195676,
-          "p": 0.003049607432673974,
-          "n": 171,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "BMW",
-          "posture": "neutral",
-          "last_chg_z": 0.25,
-          "last_obs": "2026-04-01"
-        },
-        {
-          "key": "CEICI13841501",
-          "label": "Wholesale: 1501 to 3000cc",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1501,
-          "excess_pearson": -0.0978,
-          "best_lag": 0,
-          "ic": -0.0982,
-          "beta": -0.01380804223632184,
-          "r2": 0.02253578320167693,
-          "p": 0.0008588346169658578,
-          "n": 183,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Wholesale: 1501 to 3000cc",
-          "posture": "neutral",
-          "last_chg_z": -0.07,
-          "last_obs": "2026-04-01"
-        },
-        {
           "key": "CEICI502587247",
           "label": "Value: Coal; Briquettes, Ovoids and Similar Solid",
           "role": "supply",
@@ -3377,7 +3197,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:17:49"
+      "generated_at": "2026-06-14T12:37:45",
+      "xs_rank": 27,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "basic_materials_metals_mining",
@@ -3387,9 +3210,9 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 48,
       "confidence": {
-        "level": "high",
+        "level": "medium",
         "score": 70,
         "reasons": [
           "max|corr|=0.35",
@@ -3397,7 +3220,8 @@
           "stable=43%",
           "mvR2=0.10",
           "OOS=67%",
-          "mt_penalty=0.92(n=22)"
+          "mt_penalty=0.92(n=22)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.102,
@@ -3405,6 +3229,7 @@
       "supply_tilt": -0.181,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -3437,7 +3262,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.071
       },
-      "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [45/100, high confidence]. Top drivers: Aluminum (corr +0.26, lead 0m, now headwind); Nickel · LME (corr +0.35, lead 0m, now flat); Export value: Nickel Waste and Scrap (corr +0.16, lead 0m, now flat). A 3-driver model explains 10% of monthly variance (adj 8%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+7.1%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [48/100, medium confidence]. Top drivers: Aluminum (corr +0.26, lead 0m, now headwind); Nickel · LME (corr +0.35, lead 0m, now flat); Export value: Nickel Waste and Scrap (corr +0.16, lead 0m, now flat). A 3-driver model explains 10% of monthly variance (adj 8%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+7.1%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 7,
       "n_tested": 22,
       "n_used": 4,
@@ -3611,7 +3436,10 @@
           "last_obs": "2025-07-01"
         }
       ],
-      "generated_at": "2026-06-14T12:17:52"
+      "generated_at": "2026-06-14T12:37:47",
+      "xs_rank": 37,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "technology_internet",
@@ -3619,26 +3447,28 @@
       "sector": "Technology",
       "priority": 15,
       "status": "done",
-      "grade": "perfected",
-      "verdict": "MILDLY BULLISH",
-      "score": 56,
+      "grade": "partial",
+      "verdict": "NEUTRAL",
+      "score": 50,
       "confidence": {
-        "level": "medium",
-        "score": 44,
+        "level": "low",
+        "score": 45,
         "reasons": [
           "max|corr|=0.19",
-          "theory_agree=33%",
-          "stable=83%",
+          "theory_agree=40%",
+          "stable=80%",
           "mvR2=0.07",
           "OOS=52%",
-          "mt_penalty=0.83(n=33)"
+          "mt_penalty=0.83(n=33)",
+          "model_conflict→downgraded"
         ]
       },
-      "net_tilt": 0.177,
-      "demand_tilt": 0.195,
+      "net_tilt": 0.041,
+      "demand_tilt": 0.073,
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -3665,8 +3495,8 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0039
       },
-      "narrative": "Internet (Technology) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); Volume: Business & Consumer Services (corr -0.10, lead 1m, now tailwind); Average Order Value (AOV) (corr -0.15, lead 1m, now tailwind). A 2-driver model explains 7% of monthly variance (adj 6%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.4%/mo (diverges from the driver-posture verdict — discount it).",
-      "n_kept": 6,
+      "narrative": "Internet (Technology) screens NEUTRAL [50/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); Volume: Business & Consumer Services (corr -0.10, lead 1m, now tailwind); Value: Reload/Top Up (corr +0.17, lead 0m, now headwind). A 2-driver model explains 7% of monthly variance (adj 6%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.4%/mo (diverges from the driver-posture verdict — discount it).",
+      "n_kept": 5,
       "n_tested": 33,
       "n_used": 7,
       "total_mcap": 167234934128640.0,
@@ -3730,28 +3560,6 @@
           "posture": "tailwind",
           "last_chg_z": -0.42,
           "last_obs": "2026-06-01"
-        },
-        {
-          "key": "CEICI517710097",
-          "label": "Average Order Value (AOV)",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1513,
-          "excess_pearson": -0.148,
-          "best_lag": 1,
-          "ic": 0.2172,
-          "beta": -0.08268827091356976,
-          "r2": 0.022898957466530256,
-          "p": 0.07159428014309543,
-          "n": 83,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Average Order Value (AOV)",
-          "posture": "tailwind",
-          "last_chg_z": -2.23,
-          "last_obs": "2026-06-02"
         },
         {
           "key": "CEICI479936347",
@@ -3820,7 +3628,10 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T12:18:02"
+      "generated_at": "2026-06-14T12:37:50",
+      "xs_rank": 17,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "energy_oil_gas",
@@ -3848,6 +3659,7 @@
       "supply_tilt": 0.207,
       "cost_tilt": null,
       "macro_tilt": -0.043,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -4021,7 +3833,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:18:03"
+      "generated_at": "2026-06-14T12:37:51",
+      "xs_rank": 9,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "financials_insurance",
@@ -4033,8 +3848,8 @@
       "verdict": "MILDLY BEARISH",
       "score": 41,
       "confidence": {
-        "level": "high",
-        "score": 80,
+        "level": "low",
+        "score": 41,
         "reasons": [
           "max|corr|=0.43",
           "theory_agree=100%",
@@ -4049,11 +3864,12 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
       },
-      "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, high confidence]. Top drivers: Jakarta Composite (corr +0.43, lead 0m, now headwind). ",
+      "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, low confidence]. Top drivers: Jakarta Composite (corr +0.43, lead 0m, now headwind). ",
       "n_kept": 1,
       "n_tested": 7,
       "n_used": 12,
@@ -4103,7 +3919,10 @@
           "last_obs": "2026-05-01"
         }
       ],
-      "generated_at": "2026-06-14T12:18:04"
+      "generated_at": "2026-06-14T12:37:52",
+      "xs_rank": 48,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "consumer_non_cyclicals_tobacco",
@@ -4116,21 +3935,22 @@
       "score": 45,
       "confidence": {
         "level": "medium",
-        "score": 54,
+        "score": 64,
         "reasons": [
           "max|corr|=0.44",
-          "theory_agree=50%",
-          "stable=29%",
+          "theory_agree=100%",
+          "stable=40%",
           "mvR2=0.05",
           "OOS=54%",
           "mt_penalty=0.85(n=31)"
         ]
       },
-      "net_tilt": -0.1,
-      "demand_tilt": -0.11,
+      "net_tilt": -0.105,
+      "demand_tilt": -0.138,
       "supply_tilt": -0.22,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -4158,7 +3978,7 @@
         "expected_monthly_ret": -0.0019
       },
       "narrative": "Tobacco (Consumer Non-Cyclicals) screens NEUTRAL [45/100, medium confidence]. Top drivers: Import: Indonesia (corr +0.44, lead 1m, now flat); Import: Switzerland (corr +0.16, lead 0m, now headwind); Manufacture of Tobacco Products (corr +0.27, lead 2m, now flat). A 2-driver model explains 5% of monthly variance (adj 4%), 54% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.2%/mo.",
-      "n_kept": 7,
+      "n_kept": 5,
       "n_tested": 31,
       "n_used": 4,
       "total_mcap": 120401383096320.0,
@@ -4265,50 +4085,6 @@
           "last_obs": "2026-04-24"
         },
         {
-          "key": "CEICI521547537",
-          "label": "Alcohol Beverage",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1639,
-          "excess_pearson": -0.1332,
-          "best_lag": 2,
-          "ic": -0.0081,
-          "beta": -8.598109141262203,
-          "r2": 0.02687088535082649,
-          "p": 0.03188657457803593,
-          "n": 39,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Alcohol Beverage",
-          "posture": "neutral",
-          "last_chg_z": -0.33,
-          "last_obs": "2026-05-01"
-        },
-        {
-          "key": "CEICI521547547",
-          "label": "Non Alcohol Beverage",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.157,
-          "excess_pearson": -0.0956,
-          "best_lag": 6,
-          "ic": -0.0489,
-          "beta": -8.335088354239222,
-          "r2": 0.02465375503102185,
-          "p": 0.3242649467706403,
-          "n": 39,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Non Alcohol Beverage",
-          "posture": "headwind",
-          "last_chg_z": 0.33,
-          "last_obs": "2026-05-01"
-        },
-        {
           "key": "CEICI506661537",
           "label": "Prompt manufacturing index",
           "role": "supply",
@@ -4331,7 +4107,10 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T12:18:14"
+      "generated_at": "2026-06-14T12:37:54",
+      "xs_rank": 38,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "basic_materials_containers_packaging",
@@ -4354,6 +4133,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -4384,7 +4164,7 @@
         "last": "2026-05-01"
       },
       "drivers": [],
-      "generated_at": "2026-06-14T12:18:16"
+      "generated_at": "2026-06-14T12:37:54"
     },
     {
       "id": "industrials_machinery",
@@ -4392,11 +4172,11 @@
       "sector": "Industrials",
       "priority": 20,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "MILDLY BULLISH",
-      "score": 61,
+      "score": 56,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 60,
         "reasons": [
           "max|corr|=0.34",
@@ -4404,7 +4184,8 @@
           "stable=88%",
           "mvR2=0.21",
           "OOS=63%",
-          "mt_penalty=0.72(n=47)"
+          "mt_penalty=0.72(n=47)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": 0.228,
@@ -4412,6 +4193,7 @@
       "supply_tilt": -0.273,
       "cost_tilt": null,
       "macro_tilt": 0.4,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -4456,7 +4238,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0278
       },
-      "narrative": "Machinery (Industrials) screens MILDLY BULLISH [61/100, medium confidence]. Top drivers: Bloomberg Commodity Idx (corr +0.34, lead 0m, now tailwind); Coal (corr +0.14, lead 0m, now tailwind); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.08, lead 3m, now tailwind). A 5-driver model explains 21% of monthly variance (adj 18%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-2.8%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Machinery (Industrials) screens MILDLY BULLISH [56/100, low confidence]. Top drivers: Bloomberg Commodity Idx (corr +0.34, lead 0m, now tailwind); Coal (corr +0.14, lead 0m, now tailwind); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.08, lead 3m, now tailwind). A 5-driver model explains 21% of monthly variance (adj 18%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-2.8%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 8,
       "n_tested": 47,
       "n_used": 12,
@@ -4660,7 +4442,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:18:26"
+      "generated_at": "2026-06-14T12:37:57",
+      "xs_rank": 1,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "consumer_cyclicals_retail",
@@ -4672,8 +4457,8 @@
       "verdict": "NEUTRAL",
       "score": 49,
       "confidence": {
-        "level": "medium",
-        "score": 48,
+        "level": "low",
+        "score": 41,
         "reasons": [
           "max|corr|=0.27",
           "theory_agree=100%",
@@ -4688,11 +4473,12 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.045,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
       },
-      "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat). ",
+      "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat). ",
       "n_kept": 1,
       "n_tested": 51,
       "n_used": 29,
@@ -4759,7 +4545,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:18:57"
+      "generated_at": "2026-06-14T12:38:00",
+      "xs_rank": 30,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "healthcare_pharma",
@@ -4787,6 +4576,7 @@
       "supply_tilt": 0.096,
       "cost_tilt": 0.8,
       "macro_tilt": -0.043,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -4963,7 +4753,10 @@
           "last_obs": "2026-04-03"
         }
       ],
-      "generated_at": "2026-06-14T12:19:02"
+      "generated_at": "2026-06-14T12:38:01",
+      "xs_rank": 4,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "basic_materials_paper",
@@ -4972,10 +4765,10 @@
       "priority": 23,
       "status": "done",
       "grade": "needs_review",
-      "verdict": "MILDLY BEARISH",
-      "score": 44,
+      "verdict": "NEUTRAL",
+      "score": 47,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 55,
         "reasons": [
           "max|corr|=0.22",
@@ -4983,7 +4776,8 @@
           "stable=67%",
           "mvR2=0.04",
           "OOS=59%",
-          "mt_penalty=1.00(n=10)"
+          "mt_penalty=1.00(n=10)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.182,
@@ -4991,6 +4785,7 @@
       "supply_tilt": -0.15,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -5017,7 +4812,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0175
       },
-      "narrative": "Paper (Basic Materials) screens MILDLY BEARISH [44/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr -0.22, lead 5m, now headwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind); BI Policy Rate (corr -0.14, lead 6m, now flat). A 2-driver model explains 4% of monthly variance (adj 2%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Paper (Basic Materials) screens NEUTRAL [47/100, low confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr -0.22, lead 5m, now headwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind); BI Policy Rate (corr -0.14, lead 6m, now flat). A 2-driver model explains 4% of monthly variance (adj 2%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 3,
       "n_tested": 10,
       "n_used": 11,
@@ -5110,7 +4905,10 @@
           "last_obs": "2026-04-24"
         }
       ],
-      "generated_at": "2026-06-14T12:19:04"
+      "generated_at": "2026-06-14T12:38:02",
+      "xs_rank": 44,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "consumer_cyclicals_media",
@@ -5118,11 +4916,11 @@
       "sector": "Consumer Cyclicals",
       "priority": 24,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 46,
+      "score": 48,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 55,
         "reasons": [
           "max|corr|=0.38",
@@ -5130,7 +4928,8 @@
           "stable=70%",
           "mvR2=0.20",
           "OOS=55%",
-          "mt_penalty=0.69(n=51)"
+          "mt_penalty=0.69(n=51)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.081,
@@ -5138,6 +4937,7 @@
       "supply_tilt": 0.066,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -5182,7 +4982,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0176
       },
-      "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [46/100, medium confidence]. Top drivers: Jakarta Composite (corr +0.38, lead 0m, now headwind); Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat). A 5-driver model explains 20% of monthly variance (adj 16%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [48/100, low confidence]. Top drivers: Jakarta Composite (corr +0.38, lead 0m, now headwind); Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat). A 5-driver model explains 20% of monthly variance (adj 16%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 10,
       "n_tested": 51,
       "n_used": 18,
@@ -5436,7 +5236,10 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T12:19:08"
+      "generated_at": "2026-06-14T12:38:05",
+      "xs_rank": 34,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_non_cyclicals_household",
@@ -5446,70 +5249,65 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 48,
+      "score": 49,
       "confidence": {
         "level": "low",
         "score": 34,
         "reasons": [
-          "max|corr|=0.18",
-          "theory_agree=40%",
-          "stable=67%",
-          "mvR2=0.08",
-          "OOS=48%",
+          "max|corr|=0.17",
+          "theory_agree=67%",
+          "stable=50%",
+          "mvR2=0.05",
+          "OOS=46%",
           "mt_penalty=0.67(n=53)"
         ]
       },
-      "net_tilt": -0.059,
+      "net_tilt": -0.043,
       "demand_tilt": -0.085,
       "supply_tilt": -0.202,
       "cost_tilt": 0.05,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
           "wb_palm_oil",
           "CEICI432487747",
           "CEICI432467117",
-          "CEICI432418317",
           "CEICI13516201"
         ],
         "n": 110,
-        "r2": 0.077,
-        "adj_r2": 0.032,
+        "r2": 0.052,
+        "adj_r2": 0.016,
         "betas": {
           "wb_palm_oil": {
-            "std_beta": -0.0082,
-            "t": -0.96,
-            "p": 0.3358
+            "std_beta": -0.0093,
+            "t": -1.04,
+            "p": 0.3006
           },
           "CEICI432487747": {
-            "std_beta": 0.0168,
-            "t": 3.63,
-            "p": 0.0003
+            "std_beta": 0.0192,
+            "t": 5.9,
+            "p": 0.0
           },
           "CEICI432467117": {
-            "std_beta": -0.0183,
-            "t": -3.08,
-            "p": 0.0021
-          },
-          "CEICI432418317": {
-            "std_beta": -0.0181,
-            "t": -1.69,
-            "p": 0.0907
+            "std_beta": -0.0156,
+            "t": -2.63,
+            "p": 0.0086
           },
           "CEICI13516201": {
-            "std_beta": -0.0029,
-            "t": -0.74,
-            "p": 0.4581
+            "std_beta": -0.0043,
+            "t": -0.93,
+            "p": 0.3502
           }
         },
-        "oos_hit_rate": 0.48,
+        "oos_hit_rate": 0.46,
         "oos_n": 50,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": -0.0053
+        "expected_monthly_ret": -0.0056
       },
-      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [48/100, low confidence]. Top drivers: Palm Oil (CPO) (corr -0.15, lead 4m, now flat); Sugar: Modern Market (corr +0.17, lead 0m, now flat); Retail: Curly: Modern market (corr -0.14, lead 0m, now flat). A 5-driver model explains 8% of monthly variance (adj 3%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.5%/mo.",
-      "n_kept": 6,
+      "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: Palm Oil (CPO) (corr -0.15, lead 4m, now flat); Sugar: Modern Market (corr +0.17, lead 0m, now flat); Retail: Curly: Modern market (corr -0.14, lead 0m, now flat). A 4-driver model explains 5% of monthly variance (adj 2%), 46% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.6%/mo.",
+      "n_kept": 4,
       "n_tested": 53,
       "n_used": 6,
       "total_mcap": 74494669262848.0,
@@ -5596,50 +5394,6 @@
           "last_obs": "2026-06-08"
         },
         {
-          "key": "CEICI432418317",
-          "label": "Retail price",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1801,
-          "excess_pearson": -0.1465,
-          "best_lag": 5,
-          "ic": 0.0173,
-          "beta": -1.023086584561479,
-          "r2": 0.03244926792383507,
-          "p": 0.06766415343530732,
-          "n": 117,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Retail price",
-          "posture": "neutral",
-          "last_chg_z": 0.29,
-          "last_obs": "2026-06-08"
-        },
-        {
-          "key": "CEICI432413187",
-          "label": "Beef: Modern Market",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1522,
-          "excess_pearson": -0.1521,
-          "best_lag": 2,
-          "ic": 0.0424,
-          "beta": -1.092500146842786,
-          "r2": 0.023158509679170547,
-          "p": 0.1801173860588513,
-          "n": 117,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Beef: Modern Market",
-          "posture": "neutral",
-          "last_chg_z": -0.05,
-          "last_obs": "2026-06-08"
-        },
-        {
           "key": "CEICI13516201",
           "label": "Volume: Cane Sugar",
           "role": "supply",
@@ -5662,7 +5416,10 @@
           "last_obs": "2026-01-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:13"
+      "generated_at": "2026-06-14T12:38:08",
+      "xs_rank": 28,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "financials_investment",
@@ -5670,60 +5427,56 @@
       "sector": "Financials",
       "priority": 26,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 52,
+      "score": 50,
       "confidence": {
-        "level": "medium",
-        "score": 58,
+        "level": "low",
+        "score": 57,
         "reasons": [
           "max|corr|=0.33",
-          "theory_agree=17%",
-          "stable=78%",
-          "mvR2=0.14",
-          "OOS=61%",
-          "mt_penalty=0.84(n=32)"
+          "theory_agree=33%",
+          "stable=67%",
+          "mvR2=0.12",
+          "OOS=58%",
+          "mt_penalty=0.84(n=32)",
+          "model_conflict→downgraded"
         ]
       },
-      "net_tilt": 0.033,
-      "demand_tilt": 0.033,
+      "net_tilt": -0.027,
+      "demand_tilt": -0.075,
       "supply_tilt": 0.095,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
           "jci",
-          "CEICI462344547",
           "CEICI462440047"
         ],
         "n": 91,
-        "r2": 0.137,
-        "adj_r2": 0.107,
+        "r2": 0.124,
+        "adj_r2": 0.104,
         "betas": {
           "jci": {
             "std_beta": 0.0293,
-            "t": 3.35,
-            "p": 0.0008
-          },
-          "CEICI462344547": {
-            "std_beta": -0.0114,
-            "t": -1.35,
-            "p": 0.1772
+            "t": 3.28,
+            "p": 0.0011
           },
           "CEICI462440047": {
-            "std_beta": -0.0025,
-            "t": -0.27,
-            "p": 0.7903
+            "std_beta": -0.0074,
+            "t": -0.87,
+            "p": 0.385
           }
         },
-        "oos_hit_rate": 0.613,
+        "oos_hit_rate": 0.581,
         "oos_n": 31,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": 0.0482
+        "expected_monthly_ret": 0.0469
       },
-      "narrative": "Investment (Financials) screens NEUTRAL [52/100, medium confidence]. Top drivers: Jakarta Composite (corr +0.33, lead 0m, now headwind); NIM: KBMI II banks (corr -0.15, lead 6m, now flat); Consumer Goods: New Four-Wheeled Vehicle (corr -0.18, lead 1m, now tailwind). A 3-driver model explains 14% of monthly variance (adj 11%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+4.8%/mo.",
-      "n_kept": 9,
+      "narrative": "Investment (Financials) screens NEUTRAL [50/100, low confidence]. Top drivers: Jakarta Composite (corr +0.33, lead 0m, now headwind); NIM: KBMI II banks (corr -0.15, lead 6m, now flat); Consumer Goods: New Two-Wheeled Vehicle (corr -0.11, lead 5m, now headwind). A 2-driver model explains 12% of monthly variance (adj 10%), 58% pseudo-OOS directional hit-rate; in-sample OLS read ~+4.7%/mo (diverges from the driver-posture verdict — discount it).",
+      "n_kept": 6,
       "n_tested": 32,
       "n_used": 7,
       "total_mcap": 61960905228288.0,
@@ -5789,50 +5542,6 @@
           "last_obs": "2025-06-01"
         },
         {
-          "key": "CEICI462440357",
-          "label": "Consumer Goods: New Four-Wheeled Vehicle",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1809,
-          "excess_pearson": -0.0262,
-          "best_lag": 1,
-          "ic": -0.3029,
-          "beta": -1.2119664505160135,
-          "r2": 0.032715434702463075,
-          "p": 0.07176004104939071,
-          "n": 89,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Consumer Goods: New Four-Wheeled Vehicle",
-          "posture": "tailwind",
-          "last_chg_z": -0.39,
-          "last_obs": "2025-08-01"
-        },
-        {
-          "key": "CEICI462344547",
-          "label": "Financing Receivables: Transportation and Storage",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1671,
-          "excess_pearson": -0.1327,
-          "best_lag": 1,
-          "ic": -0.2969,
-          "beta": -0.5610403585271243,
-          "r2": 0.027916320337273648,
-          "p": 0.05524804555150653,
-          "n": 108,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Financing Receivables: Transportation and Storage",
-          "posture": "tailwind",
-          "last_chg_z": -0.5,
-          "last_obs": "2025-11-01"
-        },
-        {
           "key": "CEICI462440337",
           "label": "Consumer Goods: New Two-Wheeled Vehicle",
           "role": "demand",
@@ -5875,28 +5584,6 @@
           "posture": "tailwind",
           "last_chg_z": -0.83,
           "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI462344467",
-          "label": "Financing Receivables: Total",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1538,
-          "excess_pearson": -0.0637,
-          "best_lag": 4,
-          "ic": -0.2505,
-          "beta": -1.2190615156826998,
-          "r2": 0.023666843509719038,
-          "p": 0.11950508343957826,
-          "n": 126,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Financing Receivables: Total",
-          "posture": "neutral",
-          "last_chg_z": -0.03,
-          "last_obs": "2025-08-01"
         },
         {
           "key": "CEICI481150117",
@@ -5943,7 +5630,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:17"
+      "generated_at": "2026-06-14T12:38:10",
+      "xs_rank": 24,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "consumer_cyclicals_leisure",
@@ -5971,6 +5661,7 @@
       "supply_tilt": -0.005,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -6035,7 +5726,10 @@
           "last_obs": "2025-07-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:28"
+      "generated_at": "2026-06-14T12:38:12",
+      "xs_rank": 22,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "basic_materials_cement",
@@ -6045,24 +5739,25 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 45,
+      "score": 51,
       "confidence": {
         "level": "medium",
-        "score": 59,
+        "score": 60,
         "reasons": [
           "max|corr|=0.41",
-          "theory_agree=50%",
-          "stable=57%",
+          "theory_agree=67%",
+          "stable=50%",
           "mvR2=0.18",
           "OOS=58%",
           "mt_penalty=0.76(n=42)"
         ]
       },
-      "net_tilt": -0.091,
-      "demand_tilt": -0.311,
+      "net_tilt": 0.018,
+      "demand_tilt": -0.077,
       "supply_tilt": 0.21,
       "cost_tilt": null,
       "macro_tilt": -0.085,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -6101,8 +5796,8 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0082
       },
-      "narrative": "Cement (Basic Materials) screens NEUTRAL [45/100, medium confidence]. Top drivers: id_10y (corr -0.41, lead 0m, now flat); DDI: Basic metals & metal goods (corr +0.03, lead 2m, now flat); Manufacturing: Printing and Reproduction of Record (corr -0.08, lead 3m, now tailwind). A 4-driver model explains 18% of monthly variance (adj 16%), 58% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.8%/mo.",
-      "n_kept": 7,
+      "narrative": "Cement (Basic Materials) screens NEUTRAL [51/100, medium confidence]. Top drivers: id_10y (corr -0.41, lead 0m, now flat); DDI: Basic metals & metal goods (corr +0.03, lead 2m, now flat); Manufacturing: Printing and Reproduction of Record (corr -0.08, lead 3m, now tailwind). A 4-driver model explains 18% of monthly variance (adj 16%), 58% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.8%/mo (diverges from the driver-posture verdict — discount it).",
+      "n_kept": 6,
       "n_tested": 42,
       "n_used": 5,
       "total_mcap": 50307777167360.0,
@@ -6188,28 +5883,6 @@
           "last_obs": "2024-12-01"
         },
         {
-          "key": "CEICI365765387",
-          "label": "GDP: Furniture",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "Q",
-          "pearson": -0.1675,
-          "excess_pearson": -0.0201,
-          "best_lag": 3,
-          "ic": 0.0052,
-          "beta": -0.7150780771747451,
-          "r2": 0.02805877845327376,
-          "p": 0.033046452972431806,
-          "n": 60,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "GDP: Furniture",
-          "posture": "headwind",
-          "last_chg_z": 2.08,
-          "last_obs": "2026-03-01"
-        },
-        {
           "key": "CEICI323568202",
           "label": "Manufacturing: Basic Metals",
           "role": "supply",
@@ -6276,7 +5949,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:33"
+      "generated_at": "2026-06-14T12:38:15",
+      "xs_rank": 18,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "infrastructure_construction",
@@ -6286,24 +5962,25 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "MILDLY BEARISH",
-      "score": 37,
+      "score": 40,
       "confidence": {
         "level": "high",
-        "score": 70,
+        "score": 72,
         "reasons": [
           "max|corr|=0.40",
-          "theory_agree=80%",
-          "stable=75%",
+          "theory_agree=100%",
+          "stable=71%",
           "mvR2=0.23",
           "OOS=63%",
           "mt_penalty=0.76(n=42)"
         ]
       },
-      "net_tilt": -0.257,
-      "demand_tilt": -0.297,
+      "net_tilt": -0.191,
+      "demand_tilt": -0.057,
       "supply_tilt": -0.462,
       "cost_tilt": null,
       "macro_tilt": -0.065,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -6348,8 +6025,8 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.0336
       },
-      "narrative": "Construction (Infrastructure) screens MILDLY BEARISH [37/100, high confidence]. Top drivers: id_10y (corr -0.40, lead 0m, now flat); USD/IDR (corr -0.32, lead 0m, now flat); FDI: Basic metals & metal goods (corr +0.07, lead 2m, now flat). A 5-driver model explains 23% of monthly variance (adj 21%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.4%/mo.",
-      "n_kept": 8,
+      "narrative": "Construction (Infrastructure) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: id_10y (corr -0.40, lead 0m, now flat); USD/IDR (corr -0.32, lead 0m, now flat); FDI: Basic metals & metal goods (corr +0.07, lead 2m, now flat). A 5-driver model explains 23% of monthly variance (adj 21%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.4%/mo.",
+      "n_kept": 7,
       "n_tested": 42,
       "n_used": 16,
       "total_mcap": 37295650996224.0,
@@ -6446,28 +6123,6 @@
           "last_obs": "2026-03-01"
         },
         {
-          "key": "CEICI365765387",
-          "label": "GDP: Furniture",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "Q",
-          "pearson": -0.1872,
-          "excess_pearson": -0.0746,
-          "best_lag": 6,
-          "ic": -0.1081,
-          "beta": -0.9181790964650941,
-          "r2": 0.035041038458332396,
-          "p": 0.05985246560402888,
-          "n": 60,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "GDP: Furniture",
-          "posture": "headwind",
-          "last_chg_z": 2.08,
-          "last_obs": "2026-03-01"
-        },
-        {
           "key": "CEICI410108537",
           "label": "DDI: Basic metals & metal goods",
           "role": "demand",
@@ -6556,7 +6211,10 @@
           "last_obs": "2024-12-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:36"
+      "generated_at": "2026-06-14T12:38:17",
+      "xs_rank": 45,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "financials_multifinance",
@@ -6565,77 +6223,66 @@
       "priority": 30,
       "status": "done",
       "grade": "perfected",
-      "verdict": "NEUTRAL",
-      "score": 46,
+      "verdict": "MILDLY BEARISH",
+      "score": 43,
       "confidence": {
         "level": "medium",
-        "score": 53,
+        "score": 61,
         "reasons": [
           "max|corr|=0.19",
-          "theory_agree=50%",
-          "stable=88%",
-          "mvR2=0.12",
-          "OOS=50%",
+          "theory_agree=80%",
+          "stable=100%",
+          "mvR2=0.09",
+          "OOS=52%",
           "mt_penalty=0.92(n=22)"
         ]
       },
-      "net_tilt": -0.133,
-      "demand_tilt": -0.199,
+      "net_tilt": -0.221,
+      "demand_tilt": -0.596,
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.043,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
           "id_10y",
           "usdidr",
           "id_bi_rate",
-          "CEICI462344687",
-          "CEICI355184817",
-          "CEICI384714757"
+          "CEICI462344687"
         ],
         "n": 108,
-        "r2": 0.118,
-        "adj_r2": 0.066,
+        "r2": 0.092,
+        "adj_r2": 0.057,
         "betas": {
           "id_10y": {
-            "std_beta": -0.0089,
-            "t": -1.9,
-            "p": 0.0579
+            "std_beta": -0.0092,
+            "t": -1.98,
+            "p": 0.0472
           },
           "usdidr": {
-            "std_beta": -0.0049,
-            "t": -0.6,
-            "p": 0.5474
+            "std_beta": -0.006,
+            "t": -0.75,
+            "p": 0.452
           },
           "id_bi_rate": {
-            "std_beta": -0.0029,
-            "t": -0.6,
-            "p": 0.5496
+            "std_beta": -0.006,
+            "t": -1.45,
+            "p": 0.1462
           },
           "CEICI462344687": {
-            "std_beta": -0.0017,
-            "t": -0.23,
-            "p": 0.8193
-          },
-          "CEICI355184817": {
-            "std_beta": -0.0072,
-            "t": -1.18,
-            "p": 0.239
-          },
-          "CEICI384714757": {
-            "std_beta": -0.0048,
-            "t": -0.99,
-            "p": 0.3233
+            "std_beta": -0.0053,
+            "t": -0.82,
+            "p": 0.41
           }
         },
-        "oos_hit_rate": 0.5,
+        "oos_hit_rate": 0.521,
         "oos_n": 48,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": -0.0015
+        "expected_monthly_ret": -0.0154
       },
-      "narrative": "Multifinance (Financials) screens NEUTRAL [46/100, medium confidence]. Top drivers: id_10y (corr -0.18, lead 0m, now flat); USD/IDR (corr -0.19, lead 0m, now flat); BI Policy Rate (corr -0.14, lead 0m, now flat). A 6-driver model explains 12% of monthly variance (adj 7%), 50% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo.",
-      "n_kept": 8,
+      "narrative": "Multifinance (Financials) screens MILDLY BEARISH [43/100, medium confidence]. Top drivers: id_10y (corr -0.18, lead 0m, now flat); USD/IDR (corr -0.19, lead 0m, now flat); BI Policy Rate (corr -0.14, lead 0m, now flat). A 4-driver model explains 9% of monthly variance (adj 6%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~-1.5%/mo.",
+      "n_kept": 5,
       "n_tested": 22,
       "n_used": 9,
       "total_mcap": 33253454479360.0,
@@ -6767,75 +6414,12 @@
           "posture": "headwind",
           "last_chg_z": 2.55,
           "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI355184817",
-          "label": "Assets: Financing Receivables",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1575,
-          "excess_pearson": -0.0598,
-          "best_lag": 0,
-          "ic": -0.0929,
-          "beta": -0.7799001445356196,
-          "r2": 0.02479596221478131,
-          "p": 0.026304844203379776,
-          "n": 178,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Assets: Financing Receivables",
-          "posture": "tailwind",
-          "last_chg_z": -0.68,
-          "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI384714757",
-          "label": "Financing Receivables: Sharia",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.182,
-          "excess_pearson": -0.1474,
-          "best_lag": 5,
-          "ic": -0.0499,
-          "beta": -0.38219659695237873,
-          "r2": 0.03311985264031758,
-          "p": 0.020728661663154107,
-          "n": 109,
-          "theory_agree": false,
-          "stable": true,
-          "sign": -1,
-          "why": "Financing Receivables: Sharia",
-          "posture": "neutral",
-          "last_chg_z": 0.23,
-          "last_obs": "2025-11-01"
-        },
-        {
-          "key": "CEICI462344467",
-          "label": "Financing Receivables: Total",
-          "role": "demand",
-          "source": "ceic",
-          "freq": "M",
-          "pearson": -0.1883,
-          "excess_pearson": -0.0676,
-          "best_lag": 5,
-          "ic": -0.0894,
-          "beta": -1.070335327160305,
-          "r2": 0.03546844448771036,
-          "p": 0.00426109747806945,
-          "n": 126,
-          "theory_agree": false,
-          "stable": false,
-          "sign": -1,
-          "why": "Financing Receivables: Total",
-          "posture": "neutral",
-          "last_chg_z": -0.03,
-          "last_obs": "2025-08-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:38"
+      "generated_at": "2026-06-14T12:38:18",
+      "xs_rank": 47,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "consumer_cyclicals_apparel",
@@ -6845,9 +6429,9 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 47,
+      "score": 48,
       "confidence": {
-        "level": "high",
+        "level": "medium",
         "score": 66,
         "reasons": [
           "max|corr|=0.28",
@@ -6855,7 +6439,8 @@
           "stable=75%",
           "mvR2=0.10",
           "OOS=56%",
-          "mt_penalty=0.95(n=18)"
+          "mt_penalty=0.95(n=18)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.059,
@@ -6863,6 +6448,7 @@
       "supply_tilt": 0.085,
       "cost_tilt": 0.458,
       "macro_tilt": null,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -6895,7 +6481,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0049
       },
-      "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [47/100, high confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.28, lead 0m, now flat); Volume: Other Made Up Textile Articles; Sets; Worn (corr +0.22, lead 3m, now headwind); Volume: Impregnated, Coated, Covered Or Laminated (corr +0.15, lead 4m, now headwind). A 3-driver model explains 10% of monthly variance (adj 8%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.28, lead 0m, now flat); Volume: Other Made Up Textile Articles; Sets; Worn (corr +0.22, lead 3m, now headwind); Volume: Impregnated, Coated, Covered Or Laminated (corr +0.15, lead 4m, now headwind). A 3-driver model explains 10% of monthly variance (adj 8%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 4,
       "n_tested": 18,
       "n_used": 23,
@@ -7022,7 +6608,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:19:42"
+      "generated_at": "2026-06-14T12:38:20",
+      "xs_rank": 31,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "transportation_logistics_shipping",
@@ -7034,8 +6623,8 @@
       "verdict": "NEUTRAL",
       "score": 51,
       "confidence": {
-        "level": "high",
-        "score": 66,
+        "level": "medium",
+        "score": 65,
         "reasons": [
           "max|corr|=0.20",
           "theory_agree=50%",
@@ -7050,6 +6639,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -7076,7 +6666,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.012
       },
-      "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [51/100, high confidence]. Top drivers: International: Tanjung Priok (corr +0.20, lead 1m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 65% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo.",
+      "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [51/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.20, lead 1m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 65% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo.",
       "n_kept": 2,
       "n_tested": 18,
       "n_used": 10,
@@ -7146,7 +6736,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:19:49"
+      "generated_at": "2026-06-14T12:38:21",
+      "xs_rank": 14,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "transportation_logistics_airlines",
@@ -7174,6 +6767,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -7263,7 +6857,10 @@
           "last_obs": "2026-04-24"
         }
       ],
-      "generated_at": "2026-06-14T12:19:57"
+      "generated_at": "2026-06-14T12:38:24",
+      "xs_rank": 23,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "financials_securities",
@@ -7291,6 +6888,7 @@
       "supply_tilt": 0.3,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -7607,7 +7205,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:05"
+      "generated_at": "2026-06-14T12:38:26",
+      "xs_rank": 7,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "basic_materials_metals",
@@ -7620,21 +7221,22 @@
       "score": 52,
       "confidence": {
         "level": "medium",
-        "score": 57,
+        "score": 62,
         "reasons": [
           "max|corr|=0.20",
-          "theory_agree=67%",
-          "stable=86%",
-          "mvR2=0.14",
-          "OOS=53%",
+          "theory_agree=100%",
+          "stable=83%",
+          "mvR2=0.12",
+          "OOS=52%",
           "mt_penalty=0.89(n=26)"
         ]
       },
-      "net_tilt": 0.053,
+      "net_tilt": 0.06,
       "demand_tilt": null,
       "supply_tilt": 0.181,
-      "cost_tilt": -0.01,
+      "cost_tilt": null,
       "macro_tilt": -0.043,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -7642,51 +7244,45 @@
           "usdidr",
           "CEICI324051702",
           "id_bi_rate",
-          "wb_coal_au",
           "CEICI324042002"
         ],
-        "n": 155,
-        "r2": 0.145,
-        "adj_r2": 0.111,
+        "n": 159,
+        "r2": 0.116,
+        "adj_r2": 0.087,
         "betas": {
           "id_10y": {
-            "std_beta": -0.0081,
-            "t": -2.38,
-            "p": 0.0173
+            "std_beta": -0.007,
+            "t": -1.89,
+            "p": 0.0585
           },
           "usdidr": {
-            "std_beta": -0.0094,
+            "std_beta": -0.0091,
             "t": -3.4,
             "p": 0.0007
           },
           "CEICI324051702": {
-            "std_beta": -0.0105,
-            "t": -2.32,
-            "p": 0.0201
+            "std_beta": -0.0111,
+            "t": -2.41,
+            "p": 0.016
           },
           "id_bi_rate": {
-            "std_beta": -0.0076,
-            "t": -1.02,
-            "p": 0.3064
-          },
-          "wb_coal_au": {
-            "std_beta": 0.0124,
-            "t": 2.06,
-            "p": 0.0399
+            "std_beta": -0.0092,
+            "t": -1.34,
+            "p": 0.1816
           },
           "CEICI324042002": {
-            "std_beta": -0.0071,
-            "t": -1.24,
-            "p": 0.2139
+            "std_beta": -0.0064,
+            "t": -1.21,
+            "p": 0.2267
           }
         },
-        "oos_hit_rate": 0.526,
-        "oos_n": 95,
+        "oos_hit_rate": 0.525,
+        "oos_n": 99,
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-        "expected_monthly_ret": 0.0299
+        "expected_monthly_ret": 0.0261
       },
-      "narrative": "Metals (Basic Materials) screens NEUTRAL [52/100, medium confidence]. Top drivers: id_10y (corr -0.16, lead 1m, now flat); USD/IDR (corr -0.18, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.20, lead 0m, now tailwind). A 6-driver model explains 14% of monthly variance (adj 11%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.0%/mo.",
-      "n_kept": 7,
+      "narrative": "Metals (Basic Materials) screens NEUTRAL [52/100, medium confidence]. Top drivers: id_10y (corr -0.16, lead 1m, now flat); USD/IDR (corr -0.18, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.20, lead 0m, now tailwind). A 5-driver model explains 12% of monthly variance (adj 9%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.6%/mo.",
+      "n_kept": 6,
       "n_tested": 26,
       "n_used": 14,
       "total_mcap": 19428725972992.0,
@@ -7803,28 +7399,6 @@
           "last_obs": "2026-04-24"
         },
         {
-          "key": "wb_coal_au",
-          "label": "Coal · Australia (Newcastle)",
-          "role": "cost",
-          "source": "corr:ICEEUR:ATR1!",
-          "freq": "M",
-          "pearson": 0.1535,
-          "excess_pearson": 0.1125,
-          "best_lag": 0,
-          "ic": 0.0947,
-          "beta": 0.09995989526425203,
-          "r2": 0.023547094353495668,
-          "p": 0.06648506675885016,
-          "n": 179,
-          "theory_agree": false,
-          "stable": true,
-          "sign": 1,
-          "why": "coking coal input",
-          "posture": "neutral",
-          "last_chg_z": -0.02,
-          "last_obs": "2025-12-26"
-        },
-        {
           "key": "CEICI502593037",
           "label": "Export value: Flat-Rolled Products of Stainless St",
           "role": "supply",
@@ -7869,7 +7443,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:09"
+      "generated_at": "2026-06-14T12:38:28",
+      "xs_rank": 15,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "infrastructure_ports",
@@ -7892,6 +7469,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -7916,7 +7494,7 @@
         "last": "2026-05-01"
       },
       "drivers": [],
-      "generated_at": "2026-06-14T12:20:11"
+      "generated_at": "2026-06-14T12:38:29"
     },
     {
       "id": "basic_materials_construction_materials",
@@ -7944,6 +7522,7 @@
       "supply_tilt": 0.376,
       "cost_tilt": null,
       "macro_tilt": -0.045,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -8101,7 +7680,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:14"
+      "generated_at": "2026-06-14T12:38:32",
+      "xs_rank": 19,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "technology_electronics",
@@ -8129,6 +7711,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -8321,7 +7904,10 @@
           "last_obs": "2026-04-24"
         }
       ],
-      "generated_at": "2026-06-14T12:20:17"
+      "generated_at": "2026-06-14T12:38:34",
+      "xs_rank": 5,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "healthcare_healthcare_equipment",
@@ -8331,9 +7917,9 @@
       "status": "done",
       "grade": "perfected",
       "verdict": "NEUTRAL",
-      "score": 52,
+      "score": 51,
       "confidence": {
-        "level": "high",
+        "level": "medium",
         "score": 75,
         "reasons": [
           "max|corr|=0.43",
@@ -8341,7 +7927,8 @@
           "stable=17%",
           "mvR2=0.06",
           "OOS=72%",
-          "mt_penalty=0.92(n=22)"
+          "mt_penalty=0.92(n=22)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": 0.047,
@@ -8349,6 +7936,7 @@
       "supply_tilt": 0.038,
       "cost_tilt": null,
       "macro_tilt": -0.022,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -8381,7 +7969,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": -0.016
       },
-      "narrative": "Healthcare Equipment (Healthcare) screens NEUTRAL [52/100, high confidence]. Top drivers: Job postings (removed): hospitals (corr +0.39, lead 2m, now flat); GDP value added (corr +0.43, lead 0m, now headwind); Producer price index (corr +0.43, lead 0m, now tailwind). A 3-driver model explains 6% of monthly variance (adj 2%), 72% pseudo-OOS directional hit-rate; in-sample OLS read ~-1.6%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Healthcare Equipment (Healthcare) screens NEUTRAL [51/100, medium confidence]. Top drivers: Job postings (removed): hospitals (corr +0.39, lead 2m, now flat); GDP value added (corr +0.43, lead 0m, now headwind); Producer price index (corr +0.43, lead 0m, now tailwind). A 3-driver model explains 6% of monthly variance (adj 2%), 72% pseudo-OOS directional hit-rate; in-sample OLS read ~-1.6%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 22,
       "n_used": 5,
@@ -8666,7 +8254,10 @@
           "last_obs": "2026-05-18"
         }
       ],
-      "generated_at": "2026-06-14T12:20:19"
+      "generated_at": "2026-06-14T12:38:35",
+      "xs_rank": 16,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "transportation_logistics_logistics",
@@ -8694,6 +8285,7 @@
       "supply_tilt": -0.191,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -8902,7 +8494,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:23"
+      "generated_at": "2026-06-14T12:38:37",
+      "xs_rank": 32,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_cyclicals_restaurants",
@@ -8930,6 +8525,7 @@
       "supply_tilt": 0.184,
       "cost_tilt": null,
       "macro_tilt": -0.043,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -9269,7 +8865,10 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T12:20:27"
+      "generated_at": "2026-06-14T12:38:40",
+      "xs_rank": 10,
+      "xs_of": 50,
+      "xs_band": "Overweight"
     },
     {
       "id": "consumer_non_cyclicals_poultry",
@@ -9297,6 +8896,7 @@
       "supply_tilt": 0.003,
       "cost_tilt": -0.35,
       "macro_tilt": -0.045,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -9614,7 +9214,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:35"
+      "generated_at": "2026-06-14T12:38:42",
+      "xs_rank": 35,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "industrials_electrical_equipment",
@@ -9624,17 +9227,18 @@
       "status": "done",
       "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 49,
+      "score": 50,
       "confidence": {
-        "level": "high",
-        "score": 70,
+        "level": "low",
+        "score": 65,
         "reasons": [
           "max|corr|=0.21",
           "theory_agree=100%",
           "stable=100%",
           "mvR2=0.06",
           "OOS=53%",
-          "mt_penalty=1.00(n=9)"
+          "mt_penalty=1.00(n=9)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.039,
@@ -9642,6 +9246,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": -0.043,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -9668,7 +9273,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0132
       },
-      "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [49/100, high confidence]. Top drivers: BI Policy Rate (corr -0.21, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.3%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [50/100, low confidence]. Top drivers: BI Policy Rate (corr -0.21, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.3%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 2,
       "n_tested": 9,
       "n_used": 6,
@@ -9734,7 +9339,10 @@
           "last_obs": "2026-05-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:36"
+      "generated_at": "2026-06-14T12:38:42",
+      "xs_rank": 26,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "technology_software",
@@ -9742,11 +9350,11 @@
       "sector": "Technology",
       "priority": 44,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 48,
+      "score": 49,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 57,
         "reasons": [
           "max|corr|=0.18",
@@ -9754,7 +9362,8 @@
           "stable=100%",
           "mvR2=0.06",
           "OOS=53%",
-          "mt_penalty=0.83(n=33)"
+          "mt_penalty=0.83(n=33)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.074,
@@ -9762,6 +9371,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": 0.0,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -9788,7 +9398,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0203
       },
-      "narrative": "Software (Technology) screens NEUTRAL [48/100, medium confidence]. Top drivers: Value: Desktop (corr +0.18, lead 0m, now headwind); Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.0%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Software (Technology) screens NEUTRAL [49/100, low confidence]. Top drivers: Value: Desktop (corr +0.18, lead 0m, now headwind); Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.0%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 4,
       "n_tested": 33,
       "n_used": 8,
@@ -9900,7 +9510,10 @@
           "last_obs": "2026-06-02"
         }
       ],
-      "generated_at": "2026-06-14T12:20:38"
+      "generated_at": "2026-06-14T12:38:44",
+      "xs_rank": 33,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_cyclicals_durables",
@@ -9908,11 +9521,11 @@
       "sector": "Consumer Cyclicals",
       "priority": 45,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
-      "score": 49,
+      "score": 50,
       "confidence": {
-        "level": "medium",
+        "level": "low",
         "score": 52,
         "reasons": [
           "max|corr|=0.23",
@@ -9920,7 +9533,8 @@
           "stable=83%",
           "mvR2=0.19",
           "OOS=61%",
-          "mt_penalty=0.67(n=53)"
+          "mt_penalty=0.67(n=53)",
+          "model_conflict→downgraded"
         ]
       },
       "net_tilt": -0.028,
@@ -9928,6 +9542,7 @@
       "supply_tilt": 0.007,
       "cost_tilt": -0.336,
       "macro_tilt": -0.043,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -9978,7 +9593,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0121
       },
-      "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: id_10y (corr -0.23, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 0m, now flat); Hino (corr +0.20, lead 0m, now flat). A 6-driver model explains 19% of monthly variance (adj 16%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Durables (Consumer Cyclicals) screens NEUTRAL [50/100, low confidence]. Top drivers: id_10y (corr -0.23, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 0m, now flat); Hino (corr +0.20, lead 0m, now flat). A 6-driver model explains 19% of monthly variance (adj 16%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 12,
       "n_tested": 53,
       "n_used": 11,
@@ -10269,7 +9884,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:42"
+      "generated_at": "2026-06-14T12:38:47",
+      "xs_rank": 25,
+      "xs_of": 50,
+      "xs_band": "Neutral"
     },
     {
       "id": "infrastructure_toll_road",
@@ -10277,7 +9895,7 @@
       "sector": "Infrastructure",
       "priority": 46,
       "status": "done",
-      "grade": "perfected",
+      "grade": "partial",
       "verdict": "NEUTRAL",
       "score": 53,
       "confidence": {
@@ -10297,6 +9915,7 @@
       "supply_tilt": 0.013,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -10544,7 +10163,10 @@
           "last_obs": "2026-05-08"
         }
       ],
-      "generated_at": "2026-06-14T12:20:44"
+      "generated_at": "2026-06-14T12:38:49",
+      "xs_rank": 13,
+      "xs_of": 50,
+      "xs_band": "Slight OW"
     },
     {
       "id": "healthcare_healthcare_services",
@@ -10572,6 +10194,7 @@
       "supply_tilt": -0.155,
       "cost_tilt": null,
       "macro_tilt": -0.045,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -10886,7 +10509,10 @@
           "last_obs": "2025-08-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:46"
+      "generated_at": "2026-06-14T12:38:51",
+      "xs_rank": 46,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "infrastructure_tower",
@@ -10914,6 +10540,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -10958,7 +10585,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:48"
+      "generated_at": "2026-06-14T12:38:52",
+      "xs_rank": 50,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "industrials_services",
@@ -10986,6 +10616,7 @@
       "supply_tilt": -0.04,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": false,
         "reason": "too_few_independent_monthly_drivers"
@@ -11096,7 +10727,10 @@
           "last_obs": "2026-03-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:51"
+      "generated_at": "2026-06-14T12:38:55",
+      "xs_rank": 36,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_cyclicals_auto",
@@ -11124,6 +10758,7 @@
       "supply_tilt": -0.212,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -11455,7 +11090,10 @@
           "last_obs": "2026-04-01"
         }
       ],
-      "generated_at": "2026-06-14T12:20:56"
+      "generated_at": "2026-06-14T12:38:58",
+      "xs_rank": 39,
+      "xs_of": 50,
+      "xs_band": "Slight UW"
     },
     {
       "id": "consumer_non_cyclicals_staple_retail",
@@ -11464,8 +11102,8 @@
       "priority": 51,
       "status": "done",
       "grade": "partial",
-      "verdict": "MILDLY BEARISH",
-      "score": 43,
+      "verdict": "NEUTRAL",
+      "score": 46,
       "confidence": {
         "level": "low",
         "score": 21,
@@ -11483,6 +11121,7 @@
       "supply_tilt": null,
       "cost_tilt": null,
       "macro_tilt": null,
+      "model_conflict": true,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -11509,7 +11148,7 @@
         "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
         "expected_monthly_ret": 0.0375
       },
-      "narrative": "Staple Retail (Consumer Non-Cyclicals) screens MILDLY BEARISH [43/100, low confidence]. Top drivers: Chicken Meat: Modern Market (corr +0.08, lead 4m, now headwind); Wholesale Price Index: General (corr -0.11, lead 2m, now headwind); Red Chili Pepper: Modern Market (corr -0.05, lead 3m, now headwind). A 2-driver model explains 1% of monthly variance (adj -1%), 39% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.8%/mo (diverges from the driver-posture verdict — discount it).",
+      "narrative": "Staple Retail (Consumer Non-Cyclicals) screens NEUTRAL [46/100, low confidence]. Top drivers: Chicken Meat: Modern Market (corr +0.08, lead 4m, now headwind); Wholesale Price Index: General (corr -0.11, lead 2m, now headwind); Red Chili Pepper: Modern Market (corr -0.05, lead 3m, now headwind). A 2-driver model explains 1% of monthly variance (adj -1%), 39% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.8%/mo (diverges from the driver-posture verdict — discount it).",
       "n_kept": 4,
       "n_tested": 16,
       "n_used": 3,
@@ -11616,7 +11255,10 @@
           "last_obs": "2026-06-08"
         }
       ],
-      "generated_at": "2026-06-14T12:21:00"
+      "generated_at": "2026-06-14T12:38:59",
+      "xs_rank": 49,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     },
     {
       "id": "infrastructure_utilities",
@@ -11644,6 +11286,7 @@
       "supply_tilt": null,
       "cost_tilt": -0.305,
       "macro_tilt": null,
+      "model_conflict": false,
       "multivariate": {
         "available": true,
         "drivers": [
@@ -11782,7 +11425,10 @@
           "last_obs": "2026-06-01"
         }
       ],
-      "generated_at": "2026-06-14T12:21:01"
+      "generated_at": "2026-06-14T12:39:00",
+      "xs_rank": 42,
+      "xs_of": 50,
+      "xs_band": "Underweight"
     }
   ]
 }

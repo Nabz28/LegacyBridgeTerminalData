@@ -42,7 +42,7 @@ def _compact(art: dict) -> dict:
         "score": m.get("score"), "confidence": m.get("confidence"),
         "net_tilt": m.get("net_tilt"), "demand_tilt": m.get("demand_tilt"),
         "supply_tilt": m.get("supply_tilt"), "cost_tilt": m.get("cost_tilt"),
-        "macro_tilt": m.get("macro_tilt"),
+        "macro_tilt": m.get("macro_tilt"), "model_conflict": m.get("model_conflict"),
         "multivariate": m.get("multivariate"), "narrative": m.get("narrative"),
         "n_kept": m.get("n_kept"), "n_tested": art.get("n_tested"),
         "n_used": art.get("basket", {}).get("n_used"),
@@ -62,6 +62,21 @@ def compile_engine() -> dict:
         if a and a.get("id"):
             arts.append(a)
     arts.sort(key=lambda a: a.get("priority") or 999)
+    compacts = [_compact(a) for a in arts]
+    # Cross-sectional allocation view (CIO): conviction-shrinkage compresses the
+    # absolute scores toward NEUTRAL, so rank baskets by the RAW net_tilt and cut
+    # into OW/UW quintile bands — a ranked cross-section is what you allocate from.
+    ranked = [c for c in compacts if c.get("net_tilt") is not None
+              and c.get("status") == "done" and c.get("n_kept")]
+    ranked.sort(key=lambda c: -(c["net_tilt"] or 0.0))
+    nr = len(ranked)
+    for i, c in enumerate(ranked):
+        c["xs_rank"] = i + 1
+        c["xs_of"] = nr
+        q = i / max(1, nr - 1)
+        c["xs_band"] = ("Overweight" if q < 0.20 else "Slight OW" if q < 0.40
+                        else "Neutral" if q < 0.60 else "Slight UW" if q < 0.80
+                        else "Underweight")
     engine = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "n_baskets": len(arts),
@@ -71,8 +86,10 @@ def compile_engine() -> dict:
                   "autocorr-deflated IC + split-sample stability + "
                   "collinearity-pruned multivariate + pseudo-OOS (params-only); "
                   "theory-reconciled; multiple-testing-penalised confidence. "
-                  "Benchmark = IHSG.",
-        "baskets": [_compact(a) for a in arts],
+                  "Benchmark = IHSG. xs_band = cross-sectional OW/UW rank on "
+                  "raw net_tilt. NOTE: pseudo-OOS only — no clean specification-"
+                  "search OOS or verdict-level backtest yet (see CRITIQUE_LOG).",
+        "baskets": compacts,
     }
     C.write_json(C.OUTPUT_DIR / "engine.json", engine)
     _write_js(engine)

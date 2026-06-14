@@ -3,7 +3,7 @@
   "sub_sector": "Utilities",
   "sector": "Infrastructure",
   "priority": 52,
-  "generated_at": "2026-06-14T12:21:01",
+  "generated_at": "2026-06-14T12:39:00",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,6 +29,7 @@
     "verdict": "NEUTRAL",
     "score": 46,
     "net_tilt": -0.154,
+    "model_conflict": false,
     "demand_tilt": 0.0,
     "supply_tilt": null,
     "cost_tilt": -0.305,
@@ -398,11 +399,12 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.3,
+  "runtime_s": 1.1,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
     "confidence low",
+    "theory-incoherent kept set (agree=25%)",
     "data-limited basket"
   ]
 }

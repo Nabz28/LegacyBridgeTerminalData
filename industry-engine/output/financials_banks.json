@@ -3,7 +3,7 @@
   "sub_sector": "Banks",
   "sector": "Financials",
   "priority": 1,
-  "generated_at": "2026-06-14T12:15:02",
+  "generated_at": "2026-06-14T12:37:17",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -47,21 +47,22 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 43,
-    "net_tilt": -0.138,
-    "demand_tilt": -0.155,
+    "score": 42,
+    "net_tilt": -0.166,
+    "model_conflict": false,
+    "demand_tilt": -0.336,
     "supply_tilt": -0.482,
     "cost_tilt": null,
     "macro_tilt": -0.022,
     "confidence": {
       "level": "medium",
-      "score": 62,
+      "score": 58,
       "reasons": [
         "max|corr|=0.31",
-        "theory_agree=25%",
-        "stable=40%",
-        "mvR2=0.34",
-        "OOS=64%",
+        "theory_agree=100%",
+        "stable=50%",
+        "mvR2=0.12",
+        "OOS=63%",
         "mt_penalty=0.89(n=26)"
       ]
     },
@@ -69,53 +70,29 @@
       "available": true,
       "drivers": [
         "usdidr",
-        "CEICI462440047",
-        "CEICI462344687",
-        "id_bi_rate",
-        "CEICI384714757",
-        "CEICI462344497"
+        "id_bi_rate"
       ],
-      "n": 91,
-      "r2": 0.335,
-      "adj_r2": 0.288,
+      "n": 181,
+      "r2": 0.118,
+      "adj_r2": 0.108,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0244,
-          "t": -3.5,
-          "p": 0.0005
-        },
-        "CEICI462440047": {
-          "std_beta": -0.0057,
-          "t": -0.78,
-          "p": 0.4372
-        },
-        "CEICI462344687": {
-          "std_beta": -0.0207,
-          "t": -3.06,
-          "p": 0.0022
+          "std_beta": -0.0185,
+          "t": -2.05,
+          "p": 0.0407
         },
         "id_bi_rate": {
-          "std_beta": -0.0066,
-          "t": -0.95,
-          "p": 0.3416
-        },
-        "CEICI384714757": {
-          "std_beta": -0.0036,
-          "t": -0.86,
-          "p": 0.3911
-        },
-        "CEICI462344497": {
-          "std_beta": -0.0211,
-          "t": -3.76,
-          "p": 0.0002
+          "std_beta": -0.0084,
+          "t": -1.57,
+          "p": 0.1172
         }
       },
-      "oos_hit_rate": 0.645,
-      "oos_n": 31,
+      "oos_hit_rate": 0.628,
+      "oos_n": 121,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": -0.0575
+      "expected_monthly_ret": -0.0007
     },
-    "narrative": "Banks (Financials) screens MILDLY BEARISH [43/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); Productive Goods: Freight Car (corr -0.27, lead 1m, now tailwind); Consumer Goods: New Two-Wheeled Vehicle (corr -0.20, lead 2m, now headwind). A 6-driver model explains 34% of monthly variance (adj 29%), 64% pseudo-OOS directional hit-rate; in-sample OLS read ~-5.8%/mo.",
+    "narrative": "Banks (Financials) screens MILDLY BEARISH [42/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 3m, now flat); Consumer Goods: Used Four-Wheeled Vehicle (corr +0.10, lead 5m, now headwind). A 2-driver model explains 12% of monthly variance (adj 11%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -170,222 +147,6 @@
         "live": {
           "posture": "neutral",
           "impulse": -0.045
-        }
-      },
-      {
-        "key": "CEICI462440047",
-        "role": "demand",
-        "why": "Productive Goods: Freight Car",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2025-11-01",
-        "n": 91,
-        "min_n": 24,
-        "pearson": -0.266,
-        "pearson_p": 0.0108,
-        "spearman": -0.2177,
-        "spearman_p": 0.0381,
-        "best_lag": 1,
-        "corr_at_best": -0.3471,
-        "ic": -0.3083,
-        "ic_t": -2.909,
-        "ols": {
-          "beta": -2.7365092334712596e-05,
-          "t": -1.8727610733458087,
-          "p": 0.061101385552051066,
-          "r2": 0.07074983328772055,
-          "n": 91,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -3.584276299354875e-05,
-          "t": -2.815944931922682,
-          "p": 0.004863400209502733,
-          "r2": 0.12045735022393378,
-          "n": 90,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.2607,
-        "last_chg": -333.137892,
-        "last_chg_z": -0.83,
-        "last_chg_date": "2025-11-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 51.9,
-        "source": "ceic",
-        "label": "Productive Goods: Freight Car",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.393
-        }
-      },
-      {
-        "key": "CEICI462440337",
-        "role": "demand",
-        "why": "Consumer Goods: New Two-Wheeled Vehicle",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2025-08-01",
-        "n": 89,
-        "min_n": 24,
-        "pearson": -0.2002,
-        "pearson_p": 0.06,
-        "spearman": -0.2,
-        "spearman_p": 0.0603,
-        "best_lag": 2,
-        "corr_at_best": -0.4849,
-        "ic": -0.3067,
-        "ic_t": -2.861,
-        "ols": {
-          "beta": -0.8820221051191569,
-          "t": -2.4016797127612484,
-          "p": 0.016319990567563135,
-          "r2": 0.0400630974821623,
-          "n": 89,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -2.1387555757213144,
-          "t": -4.478275022545147,
-          "p": 7.524861772271307e-06,
-          "r2": 0.23512252257856125,
-          "n": 87,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.2291,
-        "last_chg": 0.011155,
-        "last_chg_z": 0.6,
-        "last_chg_date": "2025-08-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 46.1,
-        "source": "ceic",
-        "label": "Consumer Goods: New Two-Wheeled Vehicle",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.291
-        }
-      },
-      {
-        "key": "CEICI462344467",
-        "role": "demand",
-        "why": "Financing Receivables: Total",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2025-08-01",
-        "n": 126,
-        "min_n": 24,
-        "pearson": -0.2858,
-        "pearson_p": 0.0012,
-        "spearman": -0.1697,
-        "spearman_p": 0.0574,
-        "best_lag": 5,
-        "corr_at_best": -0.3111,
-        "ic": -0.1516,
-        "ic_t": -1.688,
-        "ols": {
-          "beta": -1.8253706433094044,
-          "t": -3.032054539310254,
-          "p": 0.002428953130472932,
-          "r2": 0.0816828041415476,
-          "n": 126,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -1.9814690679233302,
-          "t": -3.331786179713583,
-          "p": 0.0008629052764911183,
-          "r2": 0.09677542433550768,
-          "n": 121,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.2542,
-        "last_chg": 0.002234,
-        "last_chg_z": -0.03,
-        "last_chg_date": "2025-08-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 45.0,
-        "source": "ceic",
-        "label": "Financing Receivables: Total",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.015
-        }
-      },
-      {
-        "key": "CEICI462344687",
-        "role": "demand",
-        "why": "Financing Receivables: Household",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2025-11-01",
-        "n": 108,
-        "min_n": 24,
-        "pearson": -0.1965,
-        "pearson_p": 0.0415,
-        "spearman": -0.2135,
-        "spearman_p": 0.0265,
-        "best_lag": 4,
-        "corr_at_best": -0.3906,
-        "ic": -0.1554,
-        "ic_t": -1.6,
-        "ols": {
-          "beta": -0.2494351362221598,
-          "t": -4.184840425152545,
-          "p": 2.8536649486076075e-05,
-          "r2": 0.038610137124238886,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.5046264078002541,
-          "t": -3.2712513815006234,
-          "p": 0.001070726876803489,
-          "r2": 0.1525588056858489,
-          "n": 104,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1965,
-        "last_chg": 0.125616,
-        "last_chg_z": 2.55,
-        "last_chg_date": "2025-11-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 42.4,
-        "source": "ceic",
-        "label": "Financing Receivables: Household",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.855
         }
       },
       {
@@ -498,114 +259,6 @@
         }
       },
       {
-        "key": "CEICI384714757",
-        "role": "demand",
-        "why": "Financing Receivables: Sharia",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2025-11-01",
-        "n": 109,
-        "min_n": 24,
-        "pearson": -0.1832,
-        "pearson_p": 0.0566,
-        "spearman": -0.1763,
-        "spearman_p": 0.0666,
-        "best_lag": 5,
-        "corr_at_best": -0.1891,
-        "ic": -0.1485,
-        "ic_t": -1.536,
-        "ols": {
-          "beta": -0.4299666002460601,
-          "t": -1.6668053344410867,
-          "p": 0.09555311918662339,
-          "r2": 0.03356101186882876,
-          "n": 109,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.4378263433607133,
-          "t": -2.0320340566985506,
-          "p": 0.042150208310602844,
-          "r2": 0.03577768205211318,
-          "n": 104,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.2029,
-        "last_chg": 0.007188,
-        "last_chg_z": 0.23,
-        "last_chg_date": "2025-11-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 29.3,
-        "source": "ceic",
-        "label": "Financing Receivables: Sharia",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.114
-        }
-      },
-      {
-        "key": "CEICI462344497",
-        "role": "demand",
-        "why": "Financing Receivables: Manufacturing Industry",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2025-11-01",
-        "n": 128,
-        "min_n": 24,
-        "pearson": -0.1615,
-        "pearson_p": 0.0686,
-        "spearman": -0.179,
-        "spearman_p": 0.0433,
-        "best_lag": 4,
-        "corr_at_best": 0.2204,
-        "ic": -0.0056,
-        "ic_t": -0.063,
-        "ols": {
-          "beta": -0.21826455395930652,
-          "t": -1.924684380661542,
-          "p": 0.054268855720125686,
-          "r2": 0.02607882627461322,
-          "n": 128,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.2935734182256346,
-          "t": 1.9457626619479793,
-          "p": 0.0516832556614611,
-          "r2": 0.048581785291070156,
-          "n": 124,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0731,
-        "last_chg": -0.005861,
-        "last_chg_z": -0.27,
-        "last_chg_date": "2025-11-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 28.4,
-        "source": "ceic",
-        "label": "Financing Receivables: Manufacturing Industry",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.134
-        }
-      },
-      {
         "key": "CEICI507198157",
         "role": "supply",
         "why": "P2P loan quality ratio",
@@ -660,7 +313,7 @@
         }
       }
     ],
-    "n_kept": 10,
+    "n_kept": 4,
     "n_candidates": 26
   },
   "unscored": [],
@@ -686,6 +339,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI462440047",
+      "label": "Productive Goods: Freight Car",
+      "role": "demand",
+      "pearson": -0.266,
+      "p": 0.061101385552051066,
+      "theory_agree": false,
+      "score": 51.9,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI462440347",
       "label": "Consumer Goods: Used Two-Wheeled Vehicle",
       "role": "demand",
@@ -693,6 +356,36 @@
       "p": 0.01644937099966789,
       "theory_agree": false,
       "score": 50.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462440337",
+      "label": "Consumer Goods: New Two-Wheeled Vehicle",
+      "role": "demand",
+      "pearson": -0.2002,
+      "p": 0.016319990567563135,
+      "theory_agree": false,
+      "score": 46.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462344467",
+      "label": "Financing Receivables: Total",
+      "role": "demand",
+      "pearson": -0.2858,
+      "p": 0.002428953130472932,
+      "theory_agree": false,
+      "score": 45.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI462344687",
+      "label": "Financing Receivables: Household",
+      "role": "demand",
+      "pearson": -0.1965,
+      "p": 2.8536649486076075e-05,
+      "theory_agree": false,
+      "score": 42.4,
       "reason": "below_gate"
     },
     {
@@ -724,46 +417,6 @@
       "theory_agree": null,
       "score": 34.0,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI462440597",
-      "label": "Financing Receivables Based On Financing Object...",
-      "role": "demand",
-      "pearson": -0.1415,
-      "p": 0.2420407649398355,
-      "theory_agree": false,
-      "score": 28.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "macro",
-      "pearson": -0.0974,
-      "p": 0.28225309756674877,
-      "theory_agree": null,
-      "score": 25.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI462344547",
-      "label": "Financing Receivables: Transportation and Storage",
-      "role": "demand",
-      "pearson": -0.1107,
-      "p": 0.35832785499112385,
-      "theory_agree": false,
-      "score": 25.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI65800201",
-      "label": "Return on assets",
-      "role": "supply",
-      "pearson": 0.1013,
-      "p": 0.36751794667005444,
-      "theory_agree": null,
-      "score": 20.7,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 26,
@@ -774,7 +427,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.5,
+  "runtime_s": 1.8,
   "grade": "perfected",
   "grade_reasons": []
 }

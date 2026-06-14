@@ -3,7 +3,7 @@
   "sub_sector": "Restaurants",
   "sector": "Consumer Cyclicals",
   "priority": 41,
-  "generated_at": "2026-06-14T12:20:27",
+  "generated_at": "2026-06-14T12:38:40",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,6 +36,7 @@
     "verdict": "NEUTRAL",
     "score": 53,
     "net_tilt": 0.118,
+    "model_conflict": false,
     "demand_tilt": 0.088,
     "supply_tilt": 0.184,
     "cost_tilt": null,
@@ -869,7 +870,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.0,
+  "runtime_s": 3.0,
   "grade": "perfected",
   "grade_reasons": []
 }

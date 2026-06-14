@@ -3,7 +3,7 @@
   "sub_sector": "Telco",
   "sector": "Infrastructure",
   "priority": 10,
-  "generated_at": "2026-06-14T12:17:17",
+  "generated_at": "2026-06-14T12:37:37",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,13 +30,14 @@
     "verdict": "NEUTRAL",
     "score": 50,
     "net_tilt": 0.0,
+    "model_conflict": false,
     "demand_tilt": 0.0,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "medium",
-      "score": 59,
+      "level": "low",
+      "score": 41,
       "reasons": [
         "max|corr|=0.27",
         "theory_agree=100%",
@@ -50,7 +51,7 @@
       "available": false,
       "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Telco (Infrastructure) screens NEUTRAL [50/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat). ",
+    "narrative": "Telco (Infrastructure) screens NEUTRAL [50/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat). ",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -222,11 +223,12 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 9.9,
+  "runtime_s": 2.0,
   "grade": "partial",
   "grade_reasons": [
     "only 1 validated drivers (<3)",
     "multivariate model unavailable / no OOS",
+    "confidence low",
     "data-limited basket"
   ]
 }

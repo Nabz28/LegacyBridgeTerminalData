@@ -3,7 +3,7 @@
   "sub_sector": "Chemicals",
   "sector": "Basic Materials",
   "priority": 8,
-  "generated_at": "2026-06-14T12:17:02",
+  "generated_at": "2026-06-14T12:37:32",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -37,6 +37,7 @@
     "verdict": "MILDLY BULLISH",
     "score": 56,
     "net_tilt": 0.206,
+    "model_conflict": false,
     "demand_tilt": 0.617,
     "supply_tilt": 0.388,
     "cost_tilt": null,
@@ -435,7 +436,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 11.7,
+  "runtime_s": 2.8,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

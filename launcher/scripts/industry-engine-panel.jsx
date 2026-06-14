@@ -46,6 +46,13 @@
     return p === 'tailwind' ? 'tail' : p === 'headwind' ? 'head' : 'neu';
   }
   const fmtMcapT = (v) => v == null ? '—' : (v / 1e12).toFixed(0) + 'T';
+  function bandStyle(band) {
+    if (band === 'Overweight') return ['rgba(25,195,125,0.20)', 'var(--pos,#19c37d)'];
+    if (band === 'Slight OW') return ['rgba(25,195,125,0.10)', 'var(--pos,#19c37d)'];
+    if (band === 'Underweight') return ['rgba(255,92,112,0.20)', 'var(--neg,#ff5c70)'];
+    if (band === 'Slight UW') return ['rgba(255,92,112,0.10)', 'var(--neg,#ff5c70)'];
+    return ['var(--bg-3,#17171b)', 'var(--text-tertiary,#8e9ab0)'];
+  }
 
   /* ---------- driver row ------------------------------------------------ */
   function DriverRow({ d }) {
@@ -184,8 +191,10 @@
         h('span', { style: { fontWeight: 600, fontSize: 12.5, color: 'var(--text-primary,#fff)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, b.sub_sector),
         h('span', { className: 'in-chip ' + gradeChip(b.grade), style: { fontSize: 8, padding: '1px 5px', flexShrink: 0 } }, (b.grade || '').slice(0, 4).toUpperCase())
       ),
-      h('div', { style: { display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 5 } },
-        h('span', { className: verdictCls(b.verdict) + ' in-num', style: { fontWeight: 700, fontSize: 13 } }, (b.verdict || '—')),
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 } },
+        h('span', { className: verdictCls(b.verdict) + ' in-num', style: { fontWeight: 700, fontSize: 12.5 } }, (b.verdict || '—')),
+        b.model_conflict && h('span', { title: 'verdict diverges from the multivariate model read', style: { fontSize: 11, color: 'var(--neg,#ff5c70)', flexShrink: 0 } }, '⚠'),
+        b.xs_band && (function () { const bs = bandStyle(b.xs_band); return h('span', { title: 'cross-sectional allocation rank ' + (b.xs_rank || '') + '/' + (b.xs_of || ''), style: { fontSize: 8, padding: '1px 5px', borderRadius: 3, fontFamily: 'var(--font-mono,monospace)', whiteSpace: 'nowrap', background: bs[0], color: bs[1] } }, b.xs_band); })(),
         h('span', { className: 'in-num', style: { marginLeft: 'auto', fontSize: 14, fontWeight: 800, color: 'var(--text-primary,#fff)' } }, safe(b.score) != null ? b.score : '—')
       ),
       h('div', { style: { fontFamily: 'var(--font-mono,monospace)', fontSize: 9.5, color: 'var(--text-tertiary,#8e9ab0)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } },
@@ -223,6 +232,7 @@
       }
       const dir = sortKey === 'score' ? -1 : 1;
       v.sort((a, b) => {
+        if (sortKey === 'rank') return (a.xs_rank || 999) - (b.xs_rank || 999);
         if (sortKey === 'score') return (safe(b.score) || 0) - (safe(a.score) || 0);
         if (sortKey === 'verdict') return (safe(b.score) || 50) - (safe(a.score) || 50);
         return ((a.priority || 999) - (b.priority || 999)) * dir;
@@ -269,7 +279,7 @@
             ['all', 'perfected', 'partial', 'needs_review', 'blocked'].map(g => h('option', { key: g, value: g }, g))),
           h('label', { className: 'in-pick-lbl' }, 'SORT'),
           h('select', { className: 'in-select', value: sortKey, onChange: (e) => setSortKey(e.target.value) },
-            [['priority', 'by size (mcap)'], ['score', 'by score'], ['verdict', 'by verdict']].map(o => h('option', { key: o[0], value: o[0] }, o[1]))),
+            [['rank', 'by allocation rank'], ['priority', 'by size (mcap)'], ['score', 'by score'], ['verdict', 'by verdict']].map(o => h('option', { key: o[0], value: o[0] }, o[1]))),
           h('span', { className: 'in-muted', style: { marginLeft: 'auto', fontFamily: 'var(--font-mono,monospace)', fontSize: 10.5 } }, view.length + ' / ' + baskets.length + ' baskets')
         ),
         // grid

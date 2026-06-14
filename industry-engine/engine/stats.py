@@ -1,7 +1,8 @@
 """
 stats.py — the quant estimation core.
 
-For each candidate driver vs a basket's EXCESS return (vs IHSG) we estimate, at the
+For each candidate driver vs a basket's EQUAL-WEIGHT return (the primary target;
+cap-weighted and excess-vs-IHSG are robustness cross-checks) we estimate, at the
 driver's native test frequency (monthly workhorse; quarterly for quarterly-only
 CEIC series):
 
@@ -324,9 +325,11 @@ def is_kept(rec: dict) -> bool:
     # Šidák multiple-lag bar (not the raw 0.15 max-over-7 that clears on noise).
     strength = abs(rec["pearson"]) >= 0.13 or \
         abs(rec["corr_at_best"]) >= LEADLAG_SIDAK
-    # reject if statistically strong but flatly contradicts robust theory prior
-    contradiction = (rec["theory_agree"] is False and rec["stable"] and
-                     abs(rec["pearson"]) >= 0.2)
+    # reject any driver whose empirical sign contradicts a (non-zero) theory prior
+    # at material strength — regardless of stability. (An UNSTABLE sign-flip is
+    # MORE suspect, not less; the old `and stable` clause let sign-inverted CEIC
+    # noise — "Freight Car", "Two-Wheeled Vehicle" — into the model.)
+    contradiction = (rec["theory_agree"] is False and abs(rec["pearson"]) >= 0.15)
     return bool(p_ok and strength and not contradiction)
 
 

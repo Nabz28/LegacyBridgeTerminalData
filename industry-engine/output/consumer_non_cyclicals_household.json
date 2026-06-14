@@ -3,7 +3,7 @@
   "sub_sector": "Household",
   "sector": "Consumer Non-Cyclicals",
   "priority": 25,
-  "generated_at": "2026-06-14T12:19:13",
+  "generated_at": "2026-06-14T12:38:08",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,8 +31,9 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 48,
-    "net_tilt": -0.059,
+    "score": 49,
+    "net_tilt": -0.043,
+    "model_conflict": false,
     "demand_tilt": -0.085,
     "supply_tilt": -0.202,
     "cost_tilt": 0.05,
@@ -41,11 +42,11 @@
       "level": "low",
       "score": 34,
       "reasons": [
-        "max|corr|=0.18",
-        "theory_agree=40%",
-        "stable=67%",
-        "mvR2=0.08",
-        "OOS=48%",
+        "max|corr|=0.17",
+        "theory_agree=67%",
+        "stable=50%",
+        "mvR2=0.05",
+        "OOS=46%",
         "mt_penalty=0.67(n=53)"
       ]
     },
@@ -55,45 +56,39 @@
         "wb_palm_oil",
         "CEICI432487747",
         "CEICI432467117",
-        "CEICI432418317",
         "CEICI13516201"
       ],
       "n": 110,
-      "r2": 0.077,
-      "adj_r2": 0.032,
+      "r2": 0.052,
+      "adj_r2": 0.016,
       "betas": {
         "wb_palm_oil": {
-          "std_beta": -0.0082,
-          "t": -0.96,
-          "p": 0.3358
+          "std_beta": -0.0093,
+          "t": -1.04,
+          "p": 0.3006
         },
         "CEICI432487747": {
-          "std_beta": 0.0168,
-          "t": 3.63,
-          "p": 0.0003
+          "std_beta": 0.0192,
+          "t": 5.9,
+          "p": 0.0
         },
         "CEICI432467117": {
-          "std_beta": -0.0183,
-          "t": -3.08,
-          "p": 0.0021
-        },
-        "CEICI432418317": {
-          "std_beta": -0.0181,
-          "t": -1.69,
-          "p": 0.0907
+          "std_beta": -0.0156,
+          "t": -2.63,
+          "p": 0.0086
         },
         "CEICI13516201": {
-          "std_beta": -0.0029,
-          "t": -0.74,
-          "p": 0.4581
+          "std_beta": -0.0043,
+          "t": -0.93,
+          "p": 0.3502
         }
       },
-      "oos_hit_rate": 0.48,
+      "oos_hit_rate": 0.46,
       "oos_n": 50,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": -0.0053
+      "expected_monthly_ret": -0.0056
     },
-    "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [48/100, low confidence]. Top drivers: Palm Oil (CPO) (corr -0.15, lead 4m, now flat); Sugar: Modern Market (corr +0.17, lead 0m, now flat); Retail: Curly: Modern market (corr -0.14, lead 0m, now flat). A 5-driver model explains 8% of monthly variance (adj 3%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.5%/mo.",
+    "narrative": "Household (Consumer Non-Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: Palm Oil (CPO) (corr -0.15, lead 4m, now flat); Sugar: Modern Market (corr +0.17, lead 0m, now flat); Retail: Curly: Modern market (corr -0.14, lead 0m, now flat). A 4-driver model explains 5% of monthly variance (adj 2%), 46% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.6%/mo.",
     "drivers": [
       {
         "key": "wb_palm_oil",
@@ -259,114 +254,6 @@
         }
       },
       {
-        "key": "CEICI432418317",
-        "role": "demand",
-        "why": "Retail price",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-08",
-        "n": 117,
-        "min_n": 24,
-        "pearson": -0.1801,
-        "pearson_p": 0.052,
-        "spearman": -0.1674,
-        "spearman_p": 0.0712,
-        "best_lag": 5,
-        "corr_at_best": 0.2872,
-        "ic": 0.0173,
-        "ic_t": 0.185,
-        "ols": {
-          "beta": -1.023086584561479,
-          "t": -1.8272369303295841,
-          "p": 0.06766415343530732,
-          "r2": 0.03244926792383507,
-          "n": 117,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 1.6330184592769288,
-          "t": 2.152942831571464,
-          "p": 0.03132317174798231,
-          "r2": 0.08248659433959604,
-          "n": 112,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1465,
-        "last_chg": 0.007297,
-        "last_chg_z": 0.29,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 30.6,
-        "source": "ceic",
-        "label": "Retail price",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.144
-        }
-      },
-      {
-        "key": "CEICI432413187",
-        "role": "demand",
-        "why": "Beef: Modern Market",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-08",
-        "n": 117,
-        "min_n": 24,
-        "pearson": -0.1522,
-        "pearson_p": 0.1014,
-        "spearman": -0.1299,
-        "spearman_p": 0.1627,
-        "best_lag": 2,
-        "corr_at_best": 0.1709,
-        "ic": 0.0424,
-        "ic_t": 0.455,
-        "ols": {
-          "beta": -1.092500146842786,
-          "t": -1.3403936900890676,
-          "p": 0.1801173860588513,
-          "r2": 0.023158509679170547,
-          "n": 117,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 1.22799988830978,
-          "t": 1.843103828121589,
-          "p": 0.06531385253124163,
-          "r2": 0.02919346553106683,
-          "n": 115,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1521,
-        "last_chg": 0.000854,
-        "last_chg_z": -0.05,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 24.2,
-        "source": "ceic",
-        "label": "Beef: Modern Market",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.025
-        }
-      },
-      {
         "key": "CEICI13516201",
         "role": "supply",
         "why": "Volume: Cane Sugar",
@@ -421,7 +308,7 @@
         }
       }
     ],
-    "n_kept": 6,
+    "n_kept": 4,
     "n_candidates": 53
   },
   "unscored": [],
@@ -487,6 +374,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI432418317",
+      "label": "Retail price",
+      "role": "demand",
+      "pearson": -0.1801,
+      "p": 0.06766415343530732,
+      "theory_agree": false,
+      "score": 30.6,
+      "reason": "below_gate"
+    },
+    {
       "key": "CEICI454640367",
       "label": "Rice: Low Quality I: Producer",
       "role": "supply",
@@ -515,16 +412,6 @@
       "theory_agree": true,
       "score": 29.5,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI430901457",
-      "label": "Rice: Low Quality I: Traditional Market",
-      "role": "demand",
-      "pearson": 0.0355,
-      "p": 0.16752063321363508,
-      "theory_agree": true,
-      "score": 27.3,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 53,
@@ -535,7 +422,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.4,
+  "runtime_s": 3.1,
   "grade": "partial",
   "grade_reasons": [
     "confidence low"

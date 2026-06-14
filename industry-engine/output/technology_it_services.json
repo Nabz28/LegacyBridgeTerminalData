@@ -3,7 +3,7 @@
   "sub_sector": "IT Services",
   "sector": "Technology",
   "priority": 2,
-  "generated_at": "2026-06-14T12:16:00",
+  "generated_at": "2026-06-14T12:37:19",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -39,9 +39,10 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 54,
-    "net_tilt": 0.162,
-    "demand_tilt": 0.221,
+    "score": 52,
+    "net_tilt": 0.22,
+    "model_conflict": false,
+    "demand_tilt": 0.294,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
@@ -49,9 +50,9 @@
       "level": "low",
       "score": 26,
       "reasons": [
-        "max|corr|=0.16",
-        "theory_agree=75%",
-        "stable=25%",
+        "max|corr|=0.07",
+        "theory_agree=100%",
+        "stable=33%",
         "mvR2=0.01",
         "OOS=48%",
         "mt_penalty=0.82(n=34)"
@@ -83,7 +84,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0219
     },
-    "narrative": "IT Services (Technology) screens NEUTRAL [54/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.07, lead 6m, now flat); Browser share (Desktop): Mozilla (corr -0.16, lead 1m, now flat); Browser share (Mobile): Puffin Browser (corr +0.01, lead 4m, now flat). A 2-driver model explains 1% of monthly variance (adj -1%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.2%/mo.",
+    "narrative": "IT Services (Technology) screens NEUTRAL [52/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.07, lead 6m, now flat); Browser share (Mobile): Puffin Browser (corr +0.01, lead 4m, now flat); Value: Mobile (corr +0.03, lead 2m, now tailwind). A 2-driver model explains 1% of monthly variance (adj -1%), 48% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.2%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -135,60 +136,6 @@
         "source": "corr:aIDGDPAR1",
         "shallow": false,
         "label": "Real GDP (SA)",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "CEICI499411327",
-        "role": "demand",
-        "why": "Browser share (Desktop): Mozilla",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-06-07",
-        "n": 89,
-        "min_n": 24,
-        "pearson": -0.1615,
-        "pearson_p": 0.1306,
-        "spearman": 0.0322,
-        "spearman_p": 0.7647,
-        "best_lag": 1,
-        "corr_at_best": 0.1815,
-        "ic": 0.0875,
-        "ic_t": 0.821,
-        "ols": {
-          "beta": -0.9439685983076151,
-          "t": -1.6132317919542492,
-          "p": 0.10669415885601168,
-          "r2": 0.026067846295948716,
-          "n": 89,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 1.0624486508147515,
-          "t": 1.804706209035989,
-          "p": 0.07112066770182093,
-          "r2": 0.03296011098065388,
-          "n": 89,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.1373,
-        "last_chg": 0.0,
-        "last_chg_z": 0.01,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 23.1,
-        "source": "ceic",
-        "label": "Browser share (Desktop): Mozilla",
         "live": {
           "posture": "neutral",
           "impulse": 0.0
@@ -303,7 +250,7 @@
         }
       }
     ],
-    "n_kept": 4,
+    "n_kept": 3,
     "n_candidates": 34
   },
   "unscored": [],
@@ -417,7 +364,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 57.6,
+  "runtime_s": 2.1,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

@@ -3,7 +3,7 @@
   "sub_sector": "Energy Services",
   "sector": "Energy",
   "priority": 9,
-  "generated_at": "2026-06-14T12:17:07",
+  "generated_at": "2026-06-14T12:37:35",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -34,15 +34,16 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
+    "verdict": "NEUTRAL",
+    "score": 53,
     "net_tilt": 0.135,
+    "model_conflict": true,
     "demand_tilt": 0.251,
     "supply_tilt": 0.09,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 52,
       "reasons": [
         "max|corr|=0.25",
@@ -50,7 +51,8 @@
         "stable=75%",
         "mvR2=0.09",
         "OOS=56%",
-        "mt_penalty=0.71(n=48)"
+        "mt_penalty=0.71(n=48)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -97,7 +99,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0005
     },
-    "narrative": "Energy Services (Energy) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Production: Natural gas (scf) (corr +0.16, lead 2m, now headwind); Coal · Australia (Newcastle) (corr +0.13, lead 1m, now flat); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.13, lead 4m, now tailwind). A 5-driver model explains 9% of monthly variance (adj 6%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Energy Services (Energy) screens NEUTRAL [53/100, low confidence]. Top drivers: Production: Natural gas (scf) (corr +0.16, lead 2m, now headwind); Coal · Australia (Newcastle) (corr +0.13, lead 1m, now flat); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.13, lead 4m, now tailwind). A 5-driver model explains 9% of monthly variance (adj 6%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI403931887",
@@ -889,7 +891,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 5.7,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 2.6,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

@@ -30,7 +30,7 @@ window.MACRO_LIVE = {
 const scoreColor = (v) => (v == null ? 'var(--text-tertiary)' : v > 12 ? 'var(--pos)' : v < -12 ? 'var(--neg)' : '#d8a13a');
 const regimeColor = (rg) => ({
   Reflation: '#e0823a', Goldilocks: 'var(--pos)', Stagflation: 'var(--neg)',
-  'Risk-off': 'var(--neg)', Disinflation: '#5B8DEF', Neutral: 'var(--text-tertiary)', Blend: '#9b87f5',
+  'Risk-off': 'var(--neg)', Mixed: '#c2933a', Neutral: 'var(--text-tertiary)', Blend: '#9b87f5',
 }[rg] || 'var(--text-tertiary)');
 
 // Score gauge: a zero-centered bar, fill from middle toward the value.
@@ -145,7 +145,7 @@ const MacroSentiment = () => {
       <div className="mc-card" style={{ padding: 14 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
           <div className="mc-card-h" style={{ padding: 0 }}>{sel} · pillar breakdown</div>
-          <span style={{ fontSize: 10, color: 'var(--text-tertiary)' }}>G {comp.G >= 0 ? '+' : ''}{comp.G} · I {comp.I >= 0 ? '+' : ''}{comp.I} · {comp.n_news || 0} news (48h)</span>
+          <span style={{ fontSize: 10, color: 'var(--text-tertiary)' }}>G {comp.G >= 0 ? '+' : ''}{comp.G} · I {comp.I >= 0 ? '+' : ''}{comp.I} · {comp.n_news || 0} news (7d)</span>
         </div>
         <p style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-secondary)', margin: '0 0 10px' }}>{cur.headline}</p>
         {sel === 'Global'

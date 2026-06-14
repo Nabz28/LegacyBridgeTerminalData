@@ -3,7 +3,7 @@
   "sub_sector": "Plantation",
   "sector": "Consumer Non-Cyclicals",
   "priority": 12,
-  "generated_at": "2026-06-14T12:17:39",
+  "generated_at": "2026-06-14T12:37:42",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -54,15 +54,16 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
+    "verdict": "NEUTRAL",
+    "score": 53,
     "net_tilt": 0.129,
+    "model_conflict": true,
     "demand_tilt": 0.145,
     "supply_tilt": 0.147,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 62,
       "reasons": [
         "max|corr|=0.26",
@@ -70,7 +71,8 @@
         "stable=92%",
         "mvR2=0.25",
         "OOS=68%",
-        "mt_penalty=0.68(n=52)"
+        "mt_penalty=0.68(n=52)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -123,7 +125,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0355
     },
-    "narrative": "Plantation (Consumer Non-Cyclicals) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Palm Oil (CPO) (corr +0.26, lead 0m, now flat); World: Cocoa; Paste, Wholly or Partly Defatted (corr +0.24, lead 0m, now flat); Rubber and Plastic Industry: 22 Rubber industry... (corr +0.21, lead 0m, now headwind). A 6-driver model explains 25% of monthly variance (adj 22%), 68% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.5%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Plantation (Consumer Non-Cyclicals) screens NEUTRAL [53/100, low confidence]. Top drivers: Palm Oil (CPO) (corr +0.26, lead 0m, now flat); World: Cocoa; Paste, Wholly or Partly Defatted (corr +0.24, lead 0m, now flat); Rubber and Plastic Industry: 22 Rubber industry... (corr +0.21, lead 0m, now headwind). A 6-driver model explains 25% of monthly variance (adj 22%), 68% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.5%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "wb_palm_oil",
@@ -891,7 +893,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 16.6,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.9,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

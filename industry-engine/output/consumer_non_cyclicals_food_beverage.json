@@ -3,7 +3,7 @@
   "sub_sector": "Food & Beverage",
   "sector": "Consumer Non-Cyclicals",
   "priority": 6,
-  "generated_at": "2026-06-14T12:16:49",
+  "generated_at": "2026-06-14T12:37:28",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -53,14 +53,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 48,
+    "score": 49,
     "net_tilt": -0.044,
+    "model_conflict": true,
     "demand_tilt": -0.038,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": -0.022,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 56,
       "reasons": [
         "max|corr|=0.25",
@@ -68,7 +69,8 @@
         "stable=100%",
         "mvR2=0.18",
         "OOS=62%",
-        "mt_penalty=0.66(n=55)"
+        "mt_penalty=0.66(n=55)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -121,7 +123,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0063
     },
-    "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [48/100, medium confidence]. Top drivers: Rice: Super Quality II: Modern Market (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.19, lead 5m, now flat); Purebred Chicken: Modern Market (corr +0.15, lead 4m, now headwind). A 6-driver model explains 18% of monthly variance (adj 14%), 62% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Food & Beverage (Consumer Non-Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: Rice: Super Quality II: Modern Market (corr +0.25, lead 0m, now flat); USD/IDR (corr -0.19, lead 5m, now flat); Purebred Chicken: Modern Market (corr +0.15, lead 4m, now headwind). A 6-driver model explains 18% of monthly variance (adj 14%), 62% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI430938177",
@@ -888,7 +890,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 31.1,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.5,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

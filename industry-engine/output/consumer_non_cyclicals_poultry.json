@@ -3,7 +3,7 @@
   "sub_sector": "Poultry",
   "sector": "Consumer Non-Cyclicals",
   "priority": 42,
-  "generated_at": "2026-06-14T12:20:35",
+  "generated_at": "2026-06-14T12:38:42",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,6 +36,7 @@
     "verdict": "NEUTRAL",
     "score": 46,
     "net_tilt": -0.084,
+    "model_conflict": false,
     "demand_tilt": -0.53,
     "supply_tilt": 0.003,
     "cost_tilt": -0.35,
@@ -872,7 +873,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 7.5,
+  "runtime_s": 1.6,
   "grade": "perfected",
   "grade_reasons": []
 }

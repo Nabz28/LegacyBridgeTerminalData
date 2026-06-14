@@ -42,6 +42,13 @@ def grade(art: dict) -> dict:
     anchored = [r for r in kept if _is_anchor(r)]
     has_anchor = len(anchored) >= 1
     mv_ok = bool(mv.get("available") and mv.get("oos_hit_rate") is not None)
+    # theory coherence: among kept drivers that HAVE a prior, the majority must
+    # agree with it. A 'perfected' basket whose kept set is mostly sign-flipped
+    # (critique: Banks 6/10 theory_agree=False) is not really theory-reconciled.
+    priored = [r for r in kept if r.get("theory_agree") is not None]
+    agree_frac = (sum(1 for r in priored if r.get("theory_agree")) / len(priored)
+                  if priored else 0.0)
+    theory_coherent = len(priored) >= 1 and agree_frac >= 0.5
 
     if not has_anchor:
         reasons.append("no theory-anchored significant driver (|r|>=0.15, p<0.10)")
@@ -51,9 +58,12 @@ def grade(art: dict) -> dict:
         reasons.append("multivariate model unavailable / no OOS")
     if conf == "low":
         reasons.append("confidence low")
+    if not theory_coherent:
+        reasons.append(f"theory-incoherent kept set (agree={agree_frac:.0%})")
 
     # PERFECT bar
-    if has_anchor and n_kept >= 3 and mv_ok and conf in ("medium", "high"):
+    if (has_anchor and n_kept >= 3 and mv_ok and conf in ("medium", "high")
+            and theory_coherent):
         return {"grade": "perfected", "reasons": [], "perfect": True,
                 "anchors": [a["key"] for a in anchored]}
 

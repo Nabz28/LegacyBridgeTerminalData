@@ -3,7 +3,7 @@
   "sub_sector": "Tobacco",
   "sector": "Consumer Non-Cyclicals",
   "priority": 18,
-  "generated_at": "2026-06-14T12:18:14",
+  "generated_at": "2026-06-14T12:37:54",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,18 +30,19 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 45,
-    "net_tilt": -0.1,
-    "demand_tilt": -0.11,
+    "net_tilt": -0.105,
+    "model_conflict": false,
+    "demand_tilt": -0.138,
     "supply_tilt": -0.22,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
       "level": "medium",
-      "score": 54,
+      "score": 64,
       "reasons": [
         "max|corr|=0.44",
-        "theory_agree=50%",
-        "stable=29%",
+        "theory_agree=100%",
+        "stable=40%",
         "mvR2=0.05",
         "OOS=54%",
         "mt_penalty=0.85(n=31)"
@@ -293,114 +294,6 @@
         }
       },
       {
-        "key": "CEICI521547537",
-        "role": "demand",
-        "why": "Alcohol Beverage",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-05-01",
-        "n": 39,
-        "min_n": 24,
-        "pearson": -0.1639,
-        "pearson_p": 0.3187,
-        "spearman": -0.1492,
-        "spearman_p": 0.3646,
-        "best_lag": 2,
-        "corr_at_best": 0.2281,
-        "ic": -0.0081,
-        "ic_t": -0.049,
-        "ols": {
-          "beta": -8.598109141262203,
-          "t": -2.1458296196123845,
-          "p": 0.03188657457803593,
-          "r2": 0.02687088535082649,
-          "n": 39,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": 11.948116141778842,
-          "t": 1.24434802414979,
-          "p": 0.21337150329609478,
-          "r2": 0.05203088155867219,
-          "n": 37,
-          "hac_lag": 3
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.1332,
-        "last_chg": 0.0,
-        "last_chg_z": -0.33,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 23.1,
-        "source": "ceic",
-        "label": "Alcohol Beverage",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "CEICI521547547",
-        "role": "demand",
-        "why": "Non Alcohol Beverage",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-05-01",
-        "n": 39,
-        "min_n": 24,
-        "pearson": -0.157,
-        "pearson_p": 0.3398,
-        "spearman": -0.0565,
-        "spearman_p": 0.7327,
-        "best_lag": 6,
-        "corr_at_best": 0.2298,
-        "ic": -0.0489,
-        "ic_t": -0.298,
-        "ols": {
-          "beta": -8.335088354239222,
-          "t": -0.9857313794402146,
-          "p": 0.3242649467706403,
-          "r2": 0.02465375503102185,
-          "n": 39,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": 12.61239139275928,
-          "t": 1.7961168480773546,
-          "p": 0.07247593545853792,
-          "r2": 0.05282482290838131,
-          "n": 33,
-          "hac_lag": 3
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.0956,
-        "last_chg": 0.003702,
-        "last_chg_z": 0.33,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 20.9,
-        "source": "ceic",
-        "label": "Non Alcohol Beverage",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.164
-        }
-      },
-      {
         "key": "CEICI506661537",
         "role": "supply",
         "why": "Prompt manufacturing index",
@@ -455,7 +348,7 @@
         }
       }
     ],
-    "n_kept": 7,
+    "n_kept": 5,
     "n_candidates": 31
   },
   "unscored": [
@@ -654,7 +547,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 9.7,
+  "runtime_s": 1.8,
   "grade": "perfected",
   "grade_reasons": []
 }

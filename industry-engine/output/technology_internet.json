@@ -3,7 +3,7 @@
   "sub_sector": "Internet",
   "sector": "Technology",
   "priority": 15,
-  "generated_at": "2026-06-14T12:18:02",
+  "generated_at": "2026-06-14T12:37:50",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,23 +31,25 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BULLISH",
-    "score": 56,
-    "net_tilt": 0.177,
-    "demand_tilt": 0.195,
+    "verdict": "NEUTRAL",
+    "score": 50,
+    "net_tilt": 0.041,
+    "model_conflict": true,
+    "demand_tilt": 0.073,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "medium",
-      "score": 44,
+      "level": "low",
+      "score": 45,
       "reasons": [
         "max|corr|=0.19",
-        "theory_agree=33%",
-        "stable=83%",
+        "theory_agree=40%",
+        "stable=80%",
         "mvR2=0.07",
         "OOS=52%",
-        "mt_penalty=0.83(n=33)"
+        "mt_penalty=0.83(n=33)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -76,7 +78,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0039
     },
-    "narrative": "Internet (Technology) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); Volume: Business & Consumer Services (corr -0.10, lead 1m, now tailwind); Average Order Value (AOV) (corr -0.15, lead 1m, now tailwind). A 2-driver model explains 7% of monthly variance (adj 6%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.4%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Internet (Technology) screens NEUTRAL [50/100, low confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); Volume: Business & Consumer Services (corr -0.10, lead 1m, now tailwind); Value: Reload/Top Up (corr +0.17, lead 0m, now headwind). A 2-driver model explains 7% of monthly variance (adj 6%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.4%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -185,60 +187,6 @@
         "live": {
           "posture": "tailwind",
           "impulse": 0.207
-        }
-      },
-      {
-        "key": "CEICI517710097",
-        "role": "demand",
-        "why": "Average Order Value (AOV)",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
-        "min_n": 24,
-        "pearson": -0.1513,
-        "pearson_p": 0.1721,
-        "spearman": -0.1612,
-        "spearman_p": 0.1455,
-        "best_lag": 1,
-        "corr_at_best": 0.2904,
-        "ic": 0.2172,
-        "ic_t": 1.955,
-        "ols": {
-          "beta": -0.08268827091356976,
-          "t": -1.801689441905009,
-          "p": 0.07159428014309543,
-          "r2": 0.022898957466530256,
-          "n": 83,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.15865534597297165,
-          "t": 3.0495863706549597,
-          "p": 0.002291567309612922,
-          "r2": 0.08435245457641816,
-          "n": 82,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.148,
-        "last_chg": -0.639822,
-        "last_chg_z": -2.23,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 41.4,
-        "source": "ceic",
-        "label": "Average Order Value (AOV)",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.806
         }
       },
       {
@@ -404,7 +352,7 @@
         }
       }
     ],
-    "n_kept": 6,
+    "n_kept": 5,
     "n_candidates": 33
   },
   "unscored": [],
@@ -417,6 +365,16 @@
       "p": 0.003921908861027325,
       "theory_agree": false,
       "score": 49.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517710097",
+      "label": "Average Order Value (AOV)",
+      "role": "demand",
+      "pearson": -0.1513,
+      "p": 0.07159428014309543,
+      "theory_agree": false,
+      "score": 41.4,
       "reason": "below_gate"
     },
     {
@@ -498,16 +456,6 @@
       "theory_agree": true,
       "score": 26.2,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517809607",
-      "label": "Volume",
-      "role": "demand",
-      "pearson": -0.0438,
-      "p": 0.025486341416387257,
-      "theory_agree": false,
-      "score": 24.7,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 33,
@@ -518,7 +466,10 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 9.6,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 2.8,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low",
+    "theory-incoherent kept set (agree=40%)"
+  ]
 }

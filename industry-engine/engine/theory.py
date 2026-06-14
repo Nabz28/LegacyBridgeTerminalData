@@ -130,12 +130,13 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
         try:
             latest = ((Xv.iloc[-1] - Xv.mean()) / Xv.std(ddof=0))[Xs.columns].values
             expected = float(res.params[0] + latest @ res.params[1:])
-            # clamp the point estimate to ±3 monthly-return SD — an in-sample OLS
-            # extrapolated on an extreme latest-X can otherwise print absurd
-            # forecasts (e.g. -15%/mo). It's a model read, not a tradeable target.
+            # An in-sample OLS extrapolated on an extreme latest-X can print absurd
+            # forecasts. If it exceeds ±3 monthly-return SD it is an extrapolation
+            # artefact, NOT a read — null it (don't surface the clamp ceiling as a
+            # "+15%/mo forecast", which is exactly what the old clamp did).
             cap = 3.0 * float(yv.std())
-            if cap > 0:
-                expected = max(-cap, min(cap, expected))
+            if cap <= 0 or abs(expected) > cap:
+                expected = None
         except Exception:  # noqa: BLE001
             expected = None
     return {"available": True, "drivers": list(Xs.columns), "n": int(len(df)),
@@ -167,6 +168,17 @@ def _confidence(kept: list, mv: dict, n_tested: int = 0) -> dict:
     # -> ×1.0, ~26 -> ×0.89, ~46 -> ×0.73, floor 0.65).
     mt_penalty = max(0.65, min(1.0, 1.0 - 0.40 * max(0.0, (n_tested - 12) / 50.0)))
     score = round(min(100, score) * mt_penalty)
+    # Hard caps (critique): a model resting on too few drivers, or with NO
+    # theory-anchored driver, must not read "high confidence" — that was letting
+    # single-driver market-beta baskets (Insurance: 1 driver = JCI) and pure
+    # data-mining baskets (all theory_agree=None) print HIGH.
+    has_anchor = any(r["theory_agree"] is True for r in kept)
+    cap = 100
+    if len(kept) < 2:
+        cap = 41                      # at most "low"
+    elif (not has_anchor) or len(kept) < 3:
+        cap = 65                      # at most "medium"
+    score = min(score, cap)
     level = "high" if score >= 66 else "medium" if score >= 42 else "low"
     reasons = [f"max|corr|={max_corr:.2f}", f"theory_agree={agree:.0%}",
                f"stable={stable_frac:.0%}", f"mvR2={r2:.2f}",
@@ -209,7 +221,22 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
         return round(sum(r["live"]["impulse"] for r in rs) / len(rs), 3)
 
     mv = _multivariate(br["ret_eqw"], kept, prepped)
+    # Verdict vs model-read conflict: if the driver-posture verdict and the
+    # multivariate OLS read disagree on direction, the call is internally
+    # inconsistent — halve conviction toward NEUTRAL and flag it (critique:
+    # Machinery "MILDLY BULLISH 61" while its own model read was -2.8%/mo).
+    em = mv.get("expected_monthly_ret")
+    model_conflict = bool(em is not None and (em >= 0) != (net >= 0)
+                          and abs(net) > 0.02)
+    if model_conflict:
+        score = round(50 + (score - 50) * 0.5)
+        verdict = ("BULLISH" if score >= 66 else "MILDLY BULLISH" if score >= 56
+                   else "NEUTRAL" if score > 44 else "MILDLY BEARISH"
+                   if score > 34 else "BEARISH")
     conf = _confidence(kept, mv, selection.get("n_candidates", 0))
+    if model_conflict and conf["level"] in ("high", "medium"):
+        conf["level"] = "medium" if conf["level"] == "high" else "low"
+        conf["reasons"].append("model_conflict→downgraded")
 
     # rank drivers for display by score
     kept_sorted = sorted(kept, key=lambda r: -r["score"])
@@ -241,6 +268,7 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
 
     return {
         "verdict": verdict, "score": score, "net_tilt": round(net, 3),
+        "model_conflict": model_conflict,
         "demand_tilt": _tilt("demand"), "supply_tilt": _tilt("supply"),
         "cost_tilt": _tilt("cost"), "macro_tilt": _tilt("macro"),
         "confidence": conf, "multivariate": mv,

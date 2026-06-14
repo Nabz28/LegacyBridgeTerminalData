@@ -3,7 +3,7 @@
   "sub_sector": "Pharma",
   "sector": "Healthcare",
   "priority": 22,
-  "generated_at": "2026-06-14T12:19:02",
+  "generated_at": "2026-06-14T12:38:01",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -39,6 +39,7 @@
     "verdict": "MILDLY BULLISH",
     "score": 57,
     "net_tilt": 0.148,
+    "model_conflict": false,
     "demand_tilt": null,
     "supply_tilt": 0.096,
     "cost_tilt": 0.8,
@@ -483,7 +484,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 5.5,
+  "runtime_s": 1.3,
   "grade": "perfected",
   "grade_reasons": []
 }

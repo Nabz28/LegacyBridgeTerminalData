@@ -294,10 +294,11 @@ SEED = {
     "Insurance": {
         "ceic": [("Banks", "Insurance Premiums")],
         "globals": [],
+        # jci dropped as a driver everywhere — it's circular market beta (the
+        # basket is part of the index), not a fundamental driver.
         "macro": [("id_bi_rate", "macro", +1, "investment yield on float"),
                   ("us_10y", "macro", +1, "long-bond reinvestment yield"),
-                  ("id_gdp_real_q", "demand", +1, "premium growth"),
-                  ("jci", "demand", +1, "equity book/UL fee income")],
+                  ("id_gdp_real_q", "demand", +1, "premium growth")],
     },
     "Multifinance": {
         "ceic": [("Banks", "Multifinance"), ("Banks", "Loan Demand")],
@@ -311,15 +312,16 @@ SEED = {
     "Securities": {
         "ceic": [("Banks", None)],
         "globals": [],
-        "macro": [("jci", "demand", +1, "brokerage = market beta"),
-                  ("id_bi_rate", "macro", -1, "lower rates lift turnover")],
+        "macro": [("id_bi_rate", "macro", -1, "lower rates lift turnover"),
+                  ("id_gdp_real_q", "demand", +1, "activity -> trading volume"),
+                  ("id_bank_credit", "demand", +1, "liquidity -> turnover")],
     },
     "Investment": {
         "ceic": [("Banks", None)],
         "ceic_exclude": ["pt bank", "syariah indonesia"],  # endogenous single-bank
         "globals": [("bcom", "demand", +1, "diversified asset beta")],
-        "macro": [("jci", "demand", +1, "NAV beta"),
-                  ("id_gdp_real_q", "demand", +1, "portfolio earnings")],
+        "macro": [("id_gdp_real_q", "demand", +1, "portfolio earnings"),
+                  ("id_10y", "macro", -1, "discount rate on holdings")],
     },
     # ---------------- PROPERTIES & REAL ESTATE ----------------
     "Property": {
@@ -396,7 +398,7 @@ SEED = {
         "ceic": [("Consumer Discretionary", None), ("Technology", None)],
         "globals": [],
         "macro": [("id_gdp_real_q", "demand", +1, "ad spend pro-cyclical"),
-                  ("jci", "demand", +1, "risk appetite")],
+                  ("id_bank_credit", "demand", +1, "consumer-demand proxy")],
     },
     "Leisure": {
         "ceic": [("Tourism", None)],

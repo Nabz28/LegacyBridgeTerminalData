@@ -3,7 +3,7 @@
   "sub_sector": "Coal",
   "sector": "Energy",
   "priority": 3,
-  "generated_at": "2026-06-14T12:16:03",
+  "generated_at": "2026-06-14T12:37:21",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -48,6 +48,7 @@
     "verdict": "NEUTRAL",
     "score": 55,
     "net_tilt": 0.093,
+    "model_conflict": false,
     "demand_tilt": 0.234,
     "supply_tilt": -0.033,
     "cost_tilt": null,
@@ -877,7 +878,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.7,
+  "runtime_s": 2.1,
   "grade": "perfected",
   "grade_reasons": []
 }

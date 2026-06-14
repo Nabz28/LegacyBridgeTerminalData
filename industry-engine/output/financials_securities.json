@@ -3,7 +3,7 @@
   "sub_sector": "Securities",
   "sector": "Financials",
   "priority": 34,
-  "generated_at": "2026-06-14T12:20:05",
+  "generated_at": "2026-06-14T12:38:26",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,6 +31,7 @@
     "verdict": "MILDLY BULLISH",
     "score": 56,
     "net_tilt": 0.132,
+    "model_conflict": false,
     "demand_tilt": -0.114,
     "supply_tilt": 0.3,
     "cost_tilt": null,
@@ -846,7 +847,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 7.7,
+  "runtime_s": 2.6,
   "grade": "perfected",
   "grade_reasons": []
 }

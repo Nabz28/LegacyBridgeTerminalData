@@ -3,7 +3,7 @@
   "sub_sector": "Auto",
   "sector": "Consumer Cyclicals",
   "priority": 50,
-  "generated_at": "2026-06-14T12:20:56",
+  "generated_at": "2026-06-14T12:38:58",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -34,6 +34,7 @@
     "verdict": "NEUTRAL",
     "score": 45,
     "net_tilt": -0.111,
+    "model_conflict": false,
     "demand_tilt": -0.075,
     "supply_tilt": -0.212,
     "cost_tilt": null,
@@ -860,7 +861,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.7,
+  "runtime_s": 2.9,
   "grade": "perfected",
   "grade_reasons": []
 }

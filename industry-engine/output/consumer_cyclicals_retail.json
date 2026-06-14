@@ -3,7 +3,7 @@
   "sub_sector": "Retail",
   "sector": "Consumer Cyclicals",
   "priority": 21,
-  "generated_at": "2026-06-14T12:18:57",
+  "generated_at": "2026-06-14T12:38:00",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -56,13 +56,14 @@
     "verdict": "NEUTRAL",
     "score": 49,
     "net_tilt": -0.045,
+    "model_conflict": false,
     "demand_tilt": null,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": -0.045,
     "confidence": {
-      "level": "medium",
-      "score": 48,
+      "level": "low",
+      "score": 41,
       "reasons": [
         "max|corr|=0.27",
         "theory_agree=100%",
@@ -76,7 +77,7 @@
       "available": false,
       "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [49/100, medium confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat). ",
+    "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [49/100, low confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat). ",
     "drivers": [
       {
         "key": "usdidr",
@@ -248,10 +249,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 31.1,
+  "runtime_s": 2.9,
   "grade": "needs_review",
   "grade_reasons": [
     "only 1 validated drivers (<3)",
-    "multivariate model unavailable / no OOS"
+    "multivariate model unavailable / no OOS",
+    "confidence low"
   ]
 }

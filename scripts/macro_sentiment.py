@@ -328,11 +328,15 @@ def compute_region(region):
     dead = 0.12
     gs = 0 if abs(G) < dead else (1 if G > 0 else -1)
     isn = 0 if abs(I) < dead else (1 if I > 0 else -1)
+    # STRICT directional quadrants. A deadband-neutral axis must NOT be lumped
+    # with the positive side (that mislabelled softening-growth + hot-inflation as
+    # "Reflation" instead of Stagflation). Any axis in the deadband -> "Mixed".
     if gs == 0 and isn == 0:   regime = "Neutral"
-    elif gs >= 0 and isn >= 0:  regime = "Reflation"
-    elif gs >= 0 and isn < 0:   regime = "Goldilocks"
-    elif gs < 0 and isn >= 0:   regime = "Stagflation"
-    else:                       regime = "Risk-off"
+    elif gs > 0 and isn > 0:    regime = "Reflation"
+    elif gs > 0 and isn < 0:    regime = "Goldilocks"
+    elif gs < 0 and isn > 0:    regime = "Stagflation"
+    elif gs < 0 and isn < 0:    regime = "Risk-off"
+    else:                       regime = "Mixed"   # exactly one axis in deadband
 
     # Positive pillars, renormalized; single-indicator pillars contribute at reduced weight.
     contrib, wsum = 0.0, 0.0

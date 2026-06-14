@@ -3,7 +3,7 @@
   "sub_sector": "Shipping",
   "sector": "Transportation & Logistics",
   "priority": 32,
-  "generated_at": "2026-06-14T12:19:49",
+  "generated_at": "2026-06-14T12:38:21",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -37,13 +37,14 @@
     "verdict": "NEUTRAL",
     "score": 51,
     "net_tilt": 0.062,
+    "model_conflict": false,
     "demand_tilt": 0.062,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "high",
-      "score": 66,
+      "level": "medium",
+      "score": 65,
       "reasons": [
         "max|corr|=0.20",
         "theory_agree=50%",
@@ -79,7 +80,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.012
     },
-    "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [51/100, high confidence]. Top drivers: International: Tanjung Priok (corr +0.20, lead 1m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 65% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo.",
+    "narrative": "Shipping (Transportation & Logistics) screens NEUTRAL [51/100, medium confidence]. Top drivers: International: Tanjung Priok (corr +0.20, lead 1m, now flat); Exports (FOB) (corr -0.05, lead 1m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 65% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.2%/mo.",
     "drivers": [
       {
         "key": "CEICI14575001",
@@ -305,7 +306,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 6.1,
+  "runtime_s": 1.4,
   "grade": "partial",
   "grade_reasons": [
     "only 2 validated drivers (<3)"

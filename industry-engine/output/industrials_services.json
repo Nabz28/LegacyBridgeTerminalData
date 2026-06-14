@@ -3,7 +3,7 @@
   "sub_sector": "Services",
   "sector": "Industrials",
   "priority": 49,
-  "generated_at": "2026-06-14T12:20:51",
+  "generated_at": "2026-06-14T12:38:55",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,6 +29,7 @@
     "verdict": "NEUTRAL",
     "score": 47,
     "net_tilt": -0.099,
+    "model_conflict": false,
     "demand_tilt": -0.088,
     "supply_tilt": -0.04,
     "cost_tilt": null,
@@ -384,12 +385,13 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.0,
+  "runtime_s": 2.2,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
     "multivariate model unavailable / no OOS",
     "confidence low",
+    "theory-incoherent kept set (agree=33%)",
     "data-limited basket"
   ]
 }

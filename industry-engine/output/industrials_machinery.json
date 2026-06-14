@@ -3,7 +3,7 @@
   "sub_sector": "Machinery",
   "sector": "Industrials",
   "priority": 20,
-  "generated_at": "2026-06-14T12:18:26",
+  "generated_at": "2026-06-14T12:37:57",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -37,14 +37,15 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 61,
+    "score": 56,
     "net_tilt": 0.228,
+    "model_conflict": true,
     "demand_tilt": 0.213,
     "supply_tilt": -0.273,
     "cost_tilt": null,
     "macro_tilt": 0.4,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 60,
       "reasons": [
         "max|corr|=0.34",
@@ -52,7 +53,8 @@
         "stable=88%",
         "mvR2=0.21",
         "OOS=63%",
-        "mt_penalty=0.72(n=47)"
+        "mt_penalty=0.72(n=47)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -99,7 +101,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0278
     },
-    "narrative": "Machinery (Industrials) screens MILDLY BULLISH [61/100, medium confidence]. Top drivers: Bloomberg Commodity Idx (corr +0.34, lead 0m, now tailwind); Coal (corr +0.14, lead 0m, now tailwind); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.08, lead 3m, now tailwind). A 5-driver model explains 21% of monthly variance (adj 18%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-2.8%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Machinery (Industrials) screens MILDLY BULLISH [56/100, low confidence]. Top drivers: Bloomberg Commodity Idx (corr +0.34, lead 0m, now tailwind); Coal (corr +0.14, lead 0m, now tailwind); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.08, lead 3m, now tailwind). A 5-driver model explains 21% of monthly variance (adj 18%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-2.8%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "bcom",
@@ -653,7 +655,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 10.1,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 2.6,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

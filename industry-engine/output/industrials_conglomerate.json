@@ -3,7 +3,7 @@
   "sub_sector": "Conglomerate",
   "sector": "Industrials",
   "priority": 13,
-  "generated_at": "2026-06-14T12:17:49",
+  "generated_at": "2026-06-14T12:37:45",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -26,22 +26,24 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 47,
-    "net_tilt": -0.053,
-    "demand_tilt": -0.134,
+    "score": 49,
+    "net_tilt": -0.043,
+    "model_conflict": true,
+    "demand_tilt": -0.17,
     "supply_tilt": 0.17,
     "cost_tilt": null,
     "macro_tilt": -0.085,
     "confidence": {
-      "level": "medium",
-      "score": 53,
+      "level": "low",
+      "score": 50,
       "reasons": [
         "max|corr|=0.43",
-        "theory_agree=17%",
-        "stable=62%",
-        "mvR2=0.21",
-        "OOS=67%",
-        "mt_penalty=0.68(n=52)"
+        "theory_agree=25%",
+        "stable=50%",
+        "mvR2=0.19",
+        "OOS=61%",
+        "mt_penalty=0.68(n=52)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -49,46 +51,34 @@
       "drivers": [
         "id_10y",
         "CEICI13840801",
-        "CEICI391912577",
-        "CEICI13841501",
         "CEICI391912527"
       ],
       "n": 171,
-      "r2": 0.208,
-      "adj_r2": 0.184,
+      "r2": 0.189,
+      "adj_r2": 0.174,
       "betas": {
         "id_10y": {
-          "std_beta": -0.0286,
-          "t": -4.6,
+          "std_beta": -0.0292,
+          "t": -4.65,
           "p": 0.0
         },
         "CEICI13840801": {
-          "std_beta": -0.0033,
-          "t": -0.45,
-          "p": 0.6518
-        },
-        "CEICI391912577": {
-          "std_beta": -0.0059,
-          "t": -1.09,
-          "p": 0.2768
-        },
-        "CEICI13841501": {
-          "std_beta": -0.009,
-          "t": -1.87,
-          "p": 0.0609
+          "std_beta": -0.0099,
+          "t": -1.86,
+          "p": 0.0622
         },
         "CEICI391912527": {
-          "std_beta": 0.0011,
-          "t": 0.21,
-          "p": 0.837
+          "std_beta": 0.0014,
+          "t": 0.27,
+          "p": 0.7901
         }
       },
-      "oos_hit_rate": 0.667,
+      "oos_hit_rate": 0.611,
       "oos_n": 108,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0012
+      "expected_monthly_ret": 0.0049
     },
-    "narrative": "Conglomerate (Industrials) screens NEUTRAL [47/100, medium confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Coal reference price: HBA III (corr -0.17, lead 6m, now headwind); Wholesale: 1500 to 3000 cc (corr -0.15, lead 1m, now flat). A 5-driver model explains 21% of monthly variance (adj 18%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.1%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Conglomerate (Industrials) screens NEUTRAL [49/100, low confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Coal reference price: HBA III (corr -0.17, lead 6m, now headwind); Wholesale: 1500 to 3000 cc (corr -0.15, lead 1m, now flat). A 3-driver model explains 19% of monthly variance (adj 17%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.5%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "id_10y",
@@ -254,114 +244,6 @@
         }
       },
       {
-        "key": "CEICI391912577",
-        "role": "demand",
-        "why": "BMW",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 171,
-        "min_n": 24,
-        "pearson": -0.1841,
-        "pearson_p": 0.0159,
-        "spearman": -0.2293,
-        "spearman_p": 0.0026,
-        "best_lag": 0,
-        "corr_at_best": -0.1841,
-        "ic": -0.1615,
-        "ic_t": -0.582,
-        "ols": {
-          "beta": -0.025090461944604108,
-          "t": -2.9626928147253815,
-          "p": 0.003049607432673974,
-          "r2": 0.033904140463195676,
-          "n": 171,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.025090461944604108,
-          "t": -2.9626928147253815,
-          "p": 0.003049607432673974,
-          "r2": 0.033904140463195676,
-          "n": 171,
-          "hac_lag": 12
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1755,
-        "last_chg": 0.259036,
-        "last_chg_z": 0.25,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 37.6,
-        "source": "ceic",
-        "label": "BMW",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.124
-        }
-      },
-      {
-        "key": "CEICI13841501",
-        "role": "demand",
-        "why": "Wholesale: 1501 to 3000cc",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": -0.1501,
-        "pearson_p": 0.0425,
-        "spearman": -0.1669,
-        "spearman_p": 0.024,
-        "best_lag": 0,
-        "corr_at_best": -0.1501,
-        "ic": -0.0982,
-        "ic_t": -0.367,
-        "ols": {
-          "beta": -0.01380804223632184,
-          "t": -3.333101962970388,
-          "p": 0.0008588346169658578,
-          "r2": 0.02253578320167693,
-          "n": 183,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.01380804223632184,
-          "t": -3.333101962970388,
-          "p": 0.0008588346169658578,
-          "r2": 0.02253578320167693,
-          "n": 183,
-          "hac_lag": 12
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0978,
-        "last_chg": 0.321725,
-        "last_chg_z": -0.07,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 30.4,
-        "source": "ceic",
-        "label": "Wholesale: 1501 to 3000cc",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.035
-        }
-      },
-      {
         "key": "CEICI502587247",
         "role": "supply",
         "why": "Value: Coal; Briquettes, Ovoids and Similar Solid",
@@ -524,7 +406,7 @@
         }
       }
     ],
-    "n_kept": 8,
+    "n_kept": 6,
     "n_candidates": 52
   },
   "unscored": [],
@@ -547,6 +429,16 @@
       "p": 0.19675894000203853,
       "theory_agree": true,
       "score": 41.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391912577",
+      "label": "BMW",
+      "role": "demand",
+      "pearson": -0.1841,
+      "p": 0.003049607432673974,
+      "theory_agree": false,
+      "score": 37.6,
       "reason": "below_gate"
     },
     {
@@ -580,6 +472,16 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI13841501",
+      "label": "Wholesale: 1501 to 3000cc",
+      "role": "demand",
+      "pearson": -0.1501,
+      "p": 0.0008588346169658578,
+      "theory_agree": false,
+      "score": 30.4,
+      "reason": "below_gate"
+    },
+    {
       "key": "wb_palm_oil",
       "label": "Palm Oil (CPO)",
       "role": "demand",
@@ -608,26 +510,6 @@
       "theory_agree": null,
       "score": 28.1,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13841301",
-      "label": "Wholesale: Over 3000cc",
-      "role": "demand",
-      "pearson": 0.0731,
-      "p": 0.013457480218672341,
-      "theory_agree": true,
-      "score": 26.7,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI506620937",
-      "label": "Coal reference price: HBA I",
-      "role": "supply",
-      "pearson": 0.1249,
-      "p": 0.12379660381287706,
-      "theory_agree": null,
-      "score": 26.3,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 52,
@@ -638,7 +520,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 9.9,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.5,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low",
+    "theory-incoherent kept set (agree=25%)",
+    "data-limited basket"
+  ]
 }

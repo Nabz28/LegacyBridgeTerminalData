@@ -3,7 +3,7 @@
   "sub_sector": "Construction",
   "sector": "Infrastructure",
   "priority": 29,
-  "generated_at": "2026-06-14T12:19:36",
+  "generated_at": "2026-06-14T12:38:17",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -41,19 +41,20 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 37,
-    "net_tilt": -0.257,
-    "demand_tilt": -0.297,
+    "score": 40,
+    "net_tilt": -0.191,
+    "model_conflict": false,
+    "demand_tilt": -0.057,
     "supply_tilt": -0.462,
     "cost_tilt": null,
     "macro_tilt": -0.065,
     "confidence": {
       "level": "high",
-      "score": 70,
+      "score": 72,
       "reasons": [
         "max|corr|=0.40",
-        "theory_agree=80%",
-        "stable=75%",
+        "theory_agree=100%",
+        "stable=71%",
         "mvR2=0.23",
         "OOS=63%",
         "mt_penalty=0.76(n=42)"
@@ -103,7 +104,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": -0.0336
     },
-    "narrative": "Construction (Infrastructure) screens MILDLY BEARISH [37/100, high confidence]. Top drivers: id_10y (corr -0.40, lead 0m, now flat); USD/IDR (corr -0.32, lead 0m, now flat); FDI: Basic metals & metal goods (corr +0.07, lead 2m, now flat). A 5-driver model explains 23% of monthly variance (adj 21%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.4%/mo.",
+    "narrative": "Construction (Infrastructure) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: id_10y (corr -0.40, lead 0m, now flat); USD/IDR (corr -0.32, lead 0m, now flat); FDI: Basic metals & metal goods (corr +0.07, lead 2m, now flat). A 5-driver model explains 23% of monthly variance (adj 21%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-3.4%/mo.",
     "drivers": [
       {
         "key": "id_10y",
@@ -267,60 +268,6 @@
         "live": {
           "posture": "neutral",
           "impulse": 0.02
-        }
-      },
-      {
-        "key": "CEICI365765387",
-        "role": "demand",
-        "why": "GDP: Furniture",
-        "test_freq": "Q",
-        "transform": "logret",
-        "native_freq": "Q",
-        "last_obs": "2026-03-01",
-        "n": 60,
-        "min_n": 12,
-        "pearson": -0.1872,
-        "pearson_p": 0.1521,
-        "spearman": -0.2073,
-        "spearman_p": 0.112,
-        "best_lag": 6,
-        "corr_at_best": 0.2341,
-        "ic": -0.1081,
-        "ic_t": -0.831,
-        "ols": {
-          "beta": -0.9181790964650941,
-          "t": -1.8818788580714567,
-          "p": 0.05985246560402888,
-          "r2": 0.035041038458332396,
-          "n": 60,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 1.3412348567498582,
-          "t": 1.660328862700971,
-          "p": 0.09684831238003107,
-          "r2": 0.054800703382769544,
-          "n": 60,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0746,
-        "last_chg": 0.080452,
-        "last_chg_z": 2.08,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 37.5,
-        "source": "ceic",
-        "label": "GDP: Furniture",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.778
         }
       },
       {
@@ -546,7 +493,7 @@
         }
       }
     ],
-    "n_kept": 8,
+    "n_kept": 7,
     "n_candidates": 42
   },
   "unscored": [],
@@ -579,6 +526,16 @@
       "p": 0.12270128063673814,
       "theory_agree": true,
       "score": 37.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI365765387",
+      "label": "GDP: Furniture",
+      "role": "demand",
+      "pearson": -0.1872,
+      "p": 0.05985246560402888,
+      "theory_agree": false,
+      "score": 37.5,
       "reason": "below_gate"
     },
     {
@@ -640,16 +597,6 @@
       "theory_agree": true,
       "score": 21.0,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13516001",
-      "label": "Mfg production: Tea",
-      "role": "supply",
-      "pearson": -0.0683,
-      "p": 0.3063832329208034,
-      "theory_agree": null,
-      "score": 20.4,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 42,
@@ -660,7 +607,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.4,
+  "runtime_s": 2.5,
   "grade": "perfected",
   "grade_reasons": []
 }

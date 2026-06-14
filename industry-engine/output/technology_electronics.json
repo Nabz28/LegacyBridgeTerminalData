@@ -3,7 +3,7 @@
   "sub_sector": "Electronics",
   "sector": "Technology",
   "priority": 38,
-  "generated_at": "2026-06-14T12:20:17",
+  "generated_at": "2026-06-14T12:38:34",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -33,6 +33,7 @@
     "verdict": "NEUTRAL",
     "score": 55,
     "net_tilt": 0.137,
+    "model_conflict": false,
     "demand_tilt": 0.166,
     "supply_tilt": null,
     "cost_tilt": null,
@@ -530,7 +531,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.0,
+  "runtime_s": 2.1,
   "grade": "perfected",
   "grade_reasons": []
 }

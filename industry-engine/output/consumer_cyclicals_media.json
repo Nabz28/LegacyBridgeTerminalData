@@ -3,7 +3,7 @@
   "sub_sector": "Media",
   "sector": "Consumer Cyclicals",
   "priority": 24,
-  "generated_at": "2026-06-14T12:19:08",
+  "generated_at": "2026-06-14T12:38:05",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -43,14 +43,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 46,
+    "score": 48,
     "net_tilt": -0.081,
+    "model_conflict": true,
     "demand_tilt": -0.23,
     "supply_tilt": 0.066,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 55,
       "reasons": [
         "max|corr|=0.38",
@@ -58,7 +59,8 @@
         "stable=70%",
         "mvR2=0.20",
         "OOS=55%",
-        "mt_penalty=0.69(n=51)"
+        "mt_penalty=0.69(n=51)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -105,7 +107,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0176
     },
-    "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [46/100, medium confidence]. Top drivers: Jakarta Composite (corr +0.38, lead 0m, now headwind); Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat). A 5-driver model explains 20% of monthly variance (adj 16%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [48/100, low confidence]. Top drivers: Jakarta Composite (corr +0.38, lead 0m, now headwind); Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat). A 5-driver model explains 20% of monthly variance (adj 16%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "jci",
@@ -765,7 +767,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 4.1,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.0,
+  "grade": "partial",
+  "grade_reasons": [
+    "confidence low"
+  ]
 }

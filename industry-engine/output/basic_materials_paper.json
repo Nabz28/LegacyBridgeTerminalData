@@ -3,7 +3,7 @@
   "sub_sector": "Paper",
   "sector": "Basic Materials",
   "priority": 23,
-  "generated_at": "2026-06-14T12:19:04",
+  "generated_at": "2026-06-14T12:38:02",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -35,15 +35,16 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 44,
+    "verdict": "NEUTRAL",
+    "score": 47,
     "net_tilt": -0.182,
+    "model_conflict": true,
     "demand_tilt": null,
     "supply_tilt": -0.15,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
-      "level": "medium",
+      "level": "low",
       "score": 55,
       "reasons": [
         "max|corr|=0.22",
@@ -51,7 +52,8 @@
         "stable=67%",
         "mvR2=0.04",
         "OOS=59%",
-        "mt_penalty=1.00(n=10)"
+        "mt_penalty=1.00(n=10)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -80,7 +82,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.0175
     },
-    "narrative": "Paper (Basic Materials) screens MILDLY BEARISH [44/100, medium confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr -0.22, lead 5m, now headwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind); BI Policy Rate (corr -0.14, lead 6m, now flat). A 2-driver model explains 4% of monthly variance (adj 2%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Paper (Basic Materials) screens NEUTRAL [47/100, low confidence]. Top drivers: Manufacturing: Paper and Paper Products (corr -0.22, lead 5m, now headwind); Bloomberg Commodity Idx (corr +0.14, lead 0m, now tailwind); BI Policy Rate (corr -0.14, lead 6m, now flat). A 2-driver model explains 4% of monthly variance (adj 2%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "CEICI323565302",
@@ -333,9 +335,10 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.0,
+  "runtime_s": 0.9,
   "grade": "needs_review",
   "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)"
+    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "confidence low"
   ]
 }

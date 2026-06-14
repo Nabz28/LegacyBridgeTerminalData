@@ -3,7 +3,7 @@
   "sub_sector": "Metals",
   "sector": "Basic Materials",
   "priority": 35,
-  "generated_at": "2026-06-14T12:20:09",
+  "generated_at": "2026-06-14T12:38:28",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -40,20 +40,21 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 52,
-    "net_tilt": 0.053,
+    "net_tilt": 0.06,
+    "model_conflict": false,
     "demand_tilt": null,
     "supply_tilt": 0.181,
-    "cost_tilt": -0.01,
+    "cost_tilt": null,
     "macro_tilt": -0.043,
     "confidence": {
       "level": "medium",
-      "score": 57,
+      "score": 62,
       "reasons": [
         "max|corr|=0.20",
-        "theory_agree=67%",
-        "stable=86%",
-        "mvR2=0.14",
-        "OOS=53%",
+        "theory_agree=100%",
+        "stable=83%",
+        "mvR2=0.12",
+        "OOS=52%",
         "mt_penalty=0.89(n=26)"
       ]
     },
@@ -64,50 +65,44 @@
         "usdidr",
         "CEICI324051702",
         "id_bi_rate",
-        "wb_coal_au",
         "CEICI324042002"
       ],
-      "n": 155,
-      "r2": 0.145,
-      "adj_r2": 0.111,
+      "n": 159,
+      "r2": 0.116,
+      "adj_r2": 0.087,
       "betas": {
         "id_10y": {
-          "std_beta": -0.0081,
-          "t": -2.38,
-          "p": 0.0173
+          "std_beta": -0.007,
+          "t": -1.89,
+          "p": 0.0585
         },
         "usdidr": {
-          "std_beta": -0.0094,
+          "std_beta": -0.0091,
           "t": -3.4,
           "p": 0.0007
         },
         "CEICI324051702": {
-          "std_beta": -0.0105,
-          "t": -2.32,
-          "p": 0.0201
+          "std_beta": -0.0111,
+          "t": -2.41,
+          "p": 0.016
         },
         "id_bi_rate": {
-          "std_beta": -0.0076,
-          "t": -1.02,
-          "p": 0.3064
-        },
-        "wb_coal_au": {
-          "std_beta": 0.0124,
-          "t": 2.06,
-          "p": 0.0399
+          "std_beta": -0.0092,
+          "t": -1.34,
+          "p": 0.1816
         },
         "CEICI324042002": {
-          "std_beta": -0.0071,
-          "t": -1.24,
-          "p": 0.2139
+          "std_beta": -0.0064,
+          "t": -1.21,
+          "p": 0.2267
         }
       },
-      "oos_hit_rate": 0.526,
-      "oos_n": 95,
+      "oos_hit_rate": 0.525,
+      "oos_n": 99,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0299
+      "expected_monthly_ret": 0.0261
     },
-    "narrative": "Metals (Basic Materials) screens NEUTRAL [52/100, medium confidence]. Top drivers: id_10y (corr -0.16, lead 1m, now flat); USD/IDR (corr -0.18, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.20, lead 0m, now tailwind). A 6-driver model explains 14% of monthly variance (adj 11%), 53% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.0%/mo.",
+    "narrative": "Metals (Basic Materials) screens NEUTRAL [52/100, medium confidence]. Top drivers: id_10y (corr -0.16, lead 1m, now flat); USD/IDR (corr -0.18, lead 0m, now flat); Export volume: Articles of Iro and Steel (corr -0.20, lead 0m, now tailwind). A 5-driver model explains 12% of monthly variance (adj 9%), 52% pseudo-OOS directional hit-rate; in-sample OLS read ~+2.6%/mo.",
     "drivers": [
       {
         "key": "id_10y",
@@ -329,61 +324,6 @@
         }
       },
       {
-        "key": "wb_coal_au",
-        "role": "cost",
-        "why": "coking coal input",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2025-12-26",
-        "n": 179,
-        "min_n": 24,
-        "pearson": 0.1535,
-        "pearson_p": 0.0403,
-        "spearman": 0.1535,
-        "spearman_p": 0.0403,
-        "best_lag": 0,
-        "corr_at_best": 0.1535,
-        "ic": 0.0947,
-        "ic_t": 1.26,
-        "ols": {
-          "beta": 0.09995989526425203,
-          "t": 1.8351392016894374,
-          "p": 0.06648506675885016,
-          "r2": 0.023547094353495668,
-          "n": 179,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.09995989526425203,
-          "t": 1.8351392016894374,
-          "p": 0.06648506675885016,
-          "r2": 0.023547094353495668,
-          "n": 179,
-          "hac_lag": 5
-        },
-        "sign_prior": -1,
-        "emp_sign": 1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": 0.1125,
-        "last_chg": -0.003016,
-        "last_chg_z": -0.02,
-        "last_chg_date": "2025-12-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 29.5,
-        "source": "corr:ICEEUR:ATR1!",
-        "shallow": false,
-        "label": "Coal · Australia (Newcastle)",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.01
-        }
-      },
-      {
         "key": "CEICI502593037",
         "role": "supply",
         "why": "Export value: Flat-Rolled Products of Stainless St",
@@ -492,7 +432,7 @@
         }
       }
     ],
-    "n_kept": 7,
+    "n_kept": 6,
     "n_candidates": 26
   },
   "unscored": [
@@ -533,6 +473,16 @@
       "p": 0.18366666319042646,
       "theory_agree": null,
       "score": 30.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "role": "cost",
+      "pearson": 0.1535,
+      "p": 0.06648506675885016,
+      "theory_agree": false,
+      "score": 29.5,
       "reason": "below_gate"
     },
     {
@@ -594,16 +544,6 @@
       "theory_agree": true,
       "score": 20.6,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI502592927",
-      "label": "Export value: Flat-Rolled Products of Iron or Non-",
-      "role": "supply",
-      "pearson": 0.0722,
-      "p": 0.4783126775916734,
-      "theory_agree": null,
-      "score": 19.3,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 26,
@@ -614,7 +554,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.7,
+  "runtime_s": 1.9,
   "grade": "perfected",
   "grade_reasons": []
 }

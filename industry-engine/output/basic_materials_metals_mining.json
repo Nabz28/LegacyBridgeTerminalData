@@ -3,7 +3,7 @@
   "sub_sector": "Metals & Mining",
   "sector": "Basic Materials",
   "priority": 14,
-  "generated_at": "2026-06-14T12:17:52",
+  "generated_at": "2026-06-14T12:37:47",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,14 +29,15 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 45,
+    "score": 48,
     "net_tilt": -0.102,
+    "model_conflict": true,
     "demand_tilt": -0.004,
     "supply_tilt": -0.181,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
-      "level": "high",
+      "level": "medium",
       "score": 70,
       "reasons": [
         "max|corr|=0.35",
@@ -44,7 +45,8 @@
         "stable=43%",
         "mvR2=0.10",
         "OOS=67%",
-        "mt_penalty=0.92(n=22)"
+        "mt_penalty=0.92(n=22)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
@@ -79,7 +81,7 @@
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
       "expected_monthly_ret": 0.071
     },
-    "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [45/100, high confidence]. Top drivers: Aluminum (corr +0.26, lead 0m, now headwind); Nickel · LME (corr +0.35, lead 0m, now flat); Export value: Nickel Waste and Scrap (corr +0.16, lead 0m, now flat). A 3-driver model explains 10% of monthly variance (adj 8%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+7.1%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [48/100, medium confidence]. Top drivers: Aluminum (corr +0.26, lead 0m, now headwind); Nickel · LME (corr +0.35, lead 0m, now flat); Export value: Nickel Waste and Scrap (corr +0.16, lead 0m, now flat). A 3-driver model explains 10% of monthly variance (adj 8%), 67% pseudo-OOS directional hit-rate; in-sample OLS read ~+7.1%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "aluminum",
@@ -580,7 +582,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.5,
+  "runtime_s": 1.7,
   "grade": "perfected",
   "grade_reasons": []
 }
