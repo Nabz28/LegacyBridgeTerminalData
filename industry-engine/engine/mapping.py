@@ -424,7 +424,9 @@ SEED = {
     "Pharma": {
         "ceic": [("Healthcare", "Pharmaceuticals")],
         "globals": [],
-        "macro": [("usdidr", "macro", -1, "imported APIs (~90% of inputs)"),
+        "macro": [("id_bi_rate", "macro", -1, "quality defensives (KLBF/SIDO) = bond-proxy, re-rate on rates"),
+                  ("id_10y", "macro", -1, "defensive duration"),
+                  ("usdidr", "macro", -1, "imported APIs (~90% of inputs)"),
                   ("id_gdp_real_q", "demand", +1, "drug demand"),
                   ("id_cpi_yoy", "cost", -1, "input cost inflation")],
     },
