@@ -496,12 +496,17 @@ SEED = {
                   ("id_10y", "macro", -1, "infrastructure-capex rate sensitivity"),
                   ("id_gdp_real_q", "demand", +1, "electrification capex")],
     },
-    "Conglomerate": {
-        "ceic": [("Industrials & Manufacturing", None)],
-        "globals": [("wb_coal_au", "demand", +1, "diversified commodity exposure"),
-                    ("bcom", "demand", +1, "commodity beta")],
-        "macro": [("id_gdp_real_q", "demand", +1, "broad economy"),
-                  ("jci", "demand", +1, "market beta")],
+    "Conglomerate": {  # single name = ASII (Astra): autos + UNTR/coal + AALI/CPO + financing
+        "ceic": [("Consumer Discretionary", "Auto Sales"), ("Energy", "Coal")],
+        "ceic_override": [("coal production", "demand", +1),
+                          ("mining & quarrying: coal", "demand", +1)],
+        # jci dropped — ASII is ~5% of IHSG so market beta is circular, not a driver.
+        "globals": [("bcom", "demand", +1, "UNTR coal/equipment + commodity beta"),
+                    ("wb_palm_oil", "demand", +1, "AALI palm-oil exposure"),
+                    ("steel_hrc", "cost", -1, "auto steel input")],
+        "macro": [("id_10y", "macro", -1, "auto financing + holding rate-sensitivity"),
+                  ("usdidr", "macro", -1, "CKD auto-part imports"),
+                  ("id_gdp_real_q", "demand", +1, "broad domestic economy")],
     },
     "Services": {
         "ceic": [("Industrials & Manufacturing", None)],

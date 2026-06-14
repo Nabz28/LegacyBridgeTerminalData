@@ -1,6 +1,6 @@
 # LBC Industry Driver Engine — Report
 
-_Auto-generated from output/engine.json — 2026-06-14T10:48:04._  
+_Auto-generated from output/engine.json — 2026-06-14T11:09:02._  
 **40 perfected · 12 partial · 0 needs_review · 0 blocked** of 52 IDX sub-industry baskets.
 
 Each row: which CEIC/macro/commodity series statistically drive the basket's stock returns, the live verdict, and model quality (monthly R^2 + out-of-sample directional hit-rate). Method: weight-capped basket return vs HAC-OLS + lead-lag + Spearman-IC + multivariate + expanding-window OOS, reconciled against economic theory. Verdict scores are conviction-shrunk toward neutral when evidence is thin. See PLAN.md / RUN.md.
@@ -18,7 +18,7 @@ Each row: which CEIC/macro/commodity series statistically drive the basket's sto
 | Energy Services | Energy | NEUTRAL | 47 | high | 12 | 0.07 | 58% | Mining & Quarrying: Coal (0.2884) |
 | Telco | Infrastructure | NEUTRAL | 46 | high | 5 | 0.16 | 46% | Real GDP (SA) (0.2674) |
 | Plantation | Consumer Non-Cyclicals | NEUTRAL | 51 | high | 12 | 0.17 | 66% | International Indicators (0.3409) |
-| Conglomerate | Industrials | NEUTRAL | 53 | high | 11 | 0.46 | 66% | Jakarta Composite (0.663) |
+| Conglomerate | Industrials | MILDLY BEARISH | 42 | high | 12 | 0.23 | 61% | id_10y (-0.4315) |
 | Metals & Mining | Basic Materials | NEUTRAL | 48 | high | 9 | 0.09 | 70% | Nickel  LME (0.3474) |
 | Internet | Technology | NEUTRAL | 51 | medium | 12 | 0.10 | 50% | Real GDP (SA) (0.191) |
 | Oil & Gas | Energy | NEUTRAL | 54 | high | 6 | 0.21 | 67% | Brent Crude (0.3071) |
