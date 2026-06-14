@@ -3,7 +3,7 @@
   "sub_sector": "Telco",
   "sector": "Infrastructure",
   "priority": 10,
-  "generated_at": "2026-06-14T02:51:50",
+  "generated_at": "2026-06-14T11:58:37",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -26,68 +26,52 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "NEUTRAL",
-    "score": 46,
-    "net_tilt": -0.092,
-    "demand_tilt": -0.103,
+    "verdict": "MILDLY BEARISH",
+    "score": 43,
+    "net_tilt": -0.197,
+    "demand_tilt": -0.221,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
       "level": "high",
-      "score": 74,
+      "score": 66,
       "reasons": [
         "max|corr|=0.27",
         "theory_agree=100%",
         "stable=100%",
-        "mvR2=0.16",
-        "OOS=46%"
+        "mvR2=0.14",
+        "OOS=34%",
+        "mt_penalty=0.92(n=32)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "id_gdp_real_q",
-        "CEICI313914302",
-        "CEICI479934927",
-        "CEICI313914202",
-        "CEICI313914802"
+        "CEICI479934927"
       ],
       "n": 116,
-      "r2": 0.157,
-      "adj_r2": 0.119,
+      "r2": 0.135,
+      "adj_r2": 0.12,
       "betas": {
         "id_gdp_real_q": {
-          "std_beta": 0.0373,
-          "t": 8.28,
+          "std_beta": 0.0353,
+          "t": 7.7,
           "p": 0.0
         },
-        "CEICI313914302": {
-          "std_beta": 0.0147,
-          "t": 0.97,
-          "p": 0.3311
-        },
         "CEICI479934927": {
-          "std_beta": -0.4998,
-          "t": -2.73,
-          "p": 0.0063
-        },
-        "CEICI313914202": {
-          "std_beta": -0.0042,
-          "t": -0.27,
-          "p": 0.7853
-        },
-        "CEICI313914802": {
-          "std_beta": 0.5295,
-          "t": 2.87,
-          "p": 0.0041
+          "std_beta": 0.0329,
+          "t": 3.07,
+          "p": 0.0021
         }
       },
-      "oos_hit_rate": 0.464,
+      "oos_hit_rate": 0.339,
       "oos_n": 56,
-      "expected_monthly_ret": -0.0143
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": -0.025
     },
-    "narrative": "Telco (Infrastructure) screens NEUTRAL [46/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); ATM and Debit Card: Value: Intrabank (corr +0.12, lead 3m, now tailwind); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind). A 5-driver model explains 16% of monthly variance (adj 12%), 46% out-of-sample directional hit-rate; current read ~-1.4%/mo.",
+    "narrative": "Telco (Infrastructure) screens MILDLY BEARISH [43/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.27, lead 0m, now flat); Credit Card: Volume: Cash Withdrawal: Domestic (corr +0.18, lead 0m, now headwind); Credit Card: Volume: Cash Withdrawal (corr +0.15, lead 0m, now headwind). A 2-driver model explains 14% of monthly variance (adj 12%), 34% out-of-sample directional hit-rate; current read ~-2.5%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -145,60 +129,6 @@
         }
       },
       {
-        "key": "CEICI313914302",
-        "role": "demand",
-        "why": "ATM and Debit Card: Value: Intrabank",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 182,
-        "min_n": 24,
-        "pearson": 0.1225,
-        "pearson_p": 0.0995,
-        "spearman": 0.0956,
-        "spearman_p": 0.1994,
-        "best_lag": 3,
-        "corr_at_best": 0.1516,
-        "ic": 0.0367,
-        "ic_t": 0.494,
-        "ols": {
-          "beta": 8.906732327648071e-07,
-          "t": 2.4972044215787847,
-          "p": 0.012517677270208106,
-          "r2": 0.015001018039711322,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 1.1032902906593794e-06,
-          "t": 2.530335987598048,
-          "p": 0.011395334719621186,
-          "r2": 0.02298927704682363,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.1054,
-        "last_chg": 5860.956192,
-        "last_chg_z": 0.37,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 41.9,
-        "source": "ceic",
-        "label": "ATM and Debit Card: Value: Intrabank",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.183
-        }
-      },
-      {
         "key": "CEICI479934927",
         "role": "demand",
         "why": "Credit Card: Volume: Cash Withdrawal: Domestic",
@@ -250,60 +180,6 @@
         "live": {
           "posture": "headwind",
           "impulse": -0.336
-        }
-      },
-      {
-        "key": "CEICI313914202",
-        "role": "demand",
-        "why": "ATM and Debit Card: Volume: Intrabank",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 182,
-        "min_n": 24,
-        "pearson": 0.0997,
-        "pearson_p": 0.1807,
-        "spearman": 0.1128,
-        "spearman_p": 0.1294,
-        "best_lag": 3,
-        "corr_at_best": 0.1719,
-        "ic": 0.0588,
-        "ic_t": 0.791,
-        "ols": {
-          "beta": 1.5822132870479896e-06,
-          "t": 1.5118694273414741,
-          "p": 0.13056708297595004,
-          "r2": 0.009934819374130321,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 2.729768100610009e-06,
-          "t": 2.7643492194115926,
-          "p": 0.005703646058041789,
-          "r2": 0.02954990099773902,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0918,
-        "last_chg": -290.675,
-        "last_chg_z": -0.07,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 39.8,
-        "source": "ceic",
-        "label": "ATM and Debit Card: Volume: Intrabank",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.035
         }
       },
       {
@@ -361,7 +237,7 @@
         }
       }
     ],
-    "n_kept": 5,
+    "n_kept": 3,
     "n_candidates": 32
   },
   "unscored": [],
@@ -373,7 +249,17 @@
       "pearson": 0.1155,
       "p": 0.2884002056628562,
       "theory_agree": null,
-      "score": 42.1,
+      "score": 38.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI313914302",
+      "label": "ATM and Debit Card: Value: Intrabank",
+      "role": "demand",
+      "pearson": 0.1225,
+      "p": 0.012517677270208106,
+      "theory_agree": true,
+      "score": 37.9,
       "reason": "below_gate"
     },
     {
@@ -383,7 +269,17 @@
       "pearson": -0.085,
       "p": 0.05629130343038226,
       "theory_agree": true,
-      "score": 40.8,
+      "score": 36.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI313914202",
+      "label": "ATM and Debit Card: Volume: Intrabank",
+      "role": "demand",
+      "pearson": 0.0997,
+      "p": 0.13056708297595004,
+      "theory_agree": true,
+      "score": 35.8,
       "reason": "below_gate"
     },
     {
@@ -393,7 +289,7 @@
       "pearson": -0.1159,
       "p": 0.2106417498946629,
       "theory_agree": true,
-      "score": 36.3,
+      "score": 32.3,
       "reason": "below_gate"
     },
     {
@@ -403,7 +299,7 @@
       "pearson": 0.0713,
       "p": 0.5119353777626454,
       "theory_agree": true,
-      "score": 32.2,
+      "score": 28.2,
       "reason": "below_gate"
     },
     {
@@ -413,7 +309,7 @@
       "pearson": 0.0677,
       "p": 0.5313875275317421,
       "theory_agree": true,
-      "score": 31.7,
+      "score": 27.7,
       "reason": "below_gate"
     },
     {
@@ -423,7 +319,7 @@
       "pearson": 0.0539,
       "p": 0.6114477318653897,
       "theory_agree": true,
-      "score": 31.4,
+      "score": 27.4,
       "reason": "below_gate"
     },
     {
@@ -433,7 +329,7 @@
       "pearson": 0.0541,
       "p": 0.6143355432334763,
       "theory_agree": true,
-      "score": 31.3,
+      "score": 27.3,
       "reason": "below_gate"
     },
     {
@@ -443,27 +339,7 @@
       "pearson": 0.0715,
       "p": 0.531396032868702,
       "theory_agree": true,
-      "score": 29.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313915602",
-      "label": "Value: Purchase",
-      "role": "demand",
-      "pearson": 0.0438,
-      "p": 0.420117389557099,
-      "theory_agree": true,
-      "score": 29.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI479934997",
-      "label": "Credit Card: Value: Purchase: International",
-      "role": "demand",
-      "pearson": 0.0439,
-      "p": 0.5597675626365095,
-      "theory_agree": true,
-      "score": 26.9,
+      "score": 25.8,
       "reason": "below_gate"
     }
   ],
@@ -475,7 +351,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.8,
+  "runtime_s": 3.0,
   "grade": "perfected",
   "grade_reasons": []
 }

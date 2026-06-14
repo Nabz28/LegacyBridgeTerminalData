@@ -101,9 +101,12 @@ def assemble_and_analyze(basket: dict, br: dict) -> dict:
     """Run analyze_pair over every candidate driver; return all records + meta.
 
     `br` is the basket build dict (basket.build_basket). Primary target is the
-    RAW cap-weighted return; excess vs IHSG is attached as a robustness check.
+    EQUAL-WEIGHT return — it carries no look-ahead (cap-weighting historical
+    returns by today's mcap is look-ahead) and best represents the average
+    member's driver sensitivity. Cap-weighted (ret_raw) and excess-vs-IHSG are
+    attached as robustness cross-checks.
     """
-    basket_ret = br["ret_raw"]
+    basket_ret = br["ret_eqw"]
     excess_ret = br.get("ret_excess")
     # gather the global/macro keys we will need (for one batched live fetch)
     hint_keys = sorted({h["key"] for h in basket.get("global_hints", [])}

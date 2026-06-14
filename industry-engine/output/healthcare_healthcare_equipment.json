@@ -3,7 +3,7 @@
   "sub_sector": "Healthcare Equipment",
   "sector": "Healthcare",
   "priority": 39,
-  "generated_at": "2026-06-14T02:52:57",
+  "generated_at": "2026-06-14T12:00:02",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,60 +30,68 @@
   "model": {
     "verdict": "MILDLY BULLISH",
     "score": 57,
-    "net_tilt": 0.144,
-    "demand_tilt": 0.02,
-    "supply_tilt": 0.249,
+    "net_tilt": 0.136,
+    "demand_tilt": -0.106,
+    "supply_tilt": 0.296,
     "cost_tilt": null,
     "macro_tilt": -0.022,
     "confidence": {
-      "level": "high",
-      "score": 87,
+      "level": "medium",
+      "score": 57,
       "reasons": [
         "max|corr|=0.39",
-        "theory_agree=100%",
+        "theory_agree=50%",
         "stable=17%",
-        "mvR2=0.07",
-        "OOS=72%"
+        "mvR2=0.09",
+        "OOS=na",
+        "mt_penalty=0.96(n=22)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "usdidr",
-        "id_bi_rate",
         "id_gdp_real_q",
-        "CEICI323791702"
+        "id_bi_rate",
+        "CEICI462441447",
+        "CEICI580035297"
       ],
-      "n": 78,
-      "r2": 0.065,
-      "adj_r2": 0.014,
+      "n": 70,
+      "r2": 0.094,
+      "adj_r2": 0.024,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0239,
-          "t": -1.65,
-          "p": 0.0981
-        },
-        "id_bi_rate": {
-          "std_beta": -0.0206,
-          "t": -1.82,
-          "p": 0.0681
+          "std_beta": -0.0255,
+          "t": -1.59,
+          "p": 0.1111
         },
         "id_gdp_real_q": {
-          "std_beta": 0.018,
-          "t": 2.48,
-          "p": 0.0132
+          "std_beta": 0.023,
+          "t": 2.61,
+          "p": 0.0089
         },
-        "CEICI323791702": {
-          "std_beta": 0.01,
-          "t": 3.7,
-          "p": 0.0002
+        "id_bi_rate": {
+          "std_beta": -0.0221,
+          "t": -1.81,
+          "p": 0.0704
+        },
+        "CEICI462441447": {
+          "std_beta": -0.0254,
+          "t": -2.32,
+          "p": 0.0201
+        },
+        "CEICI580035297": {
+          "std_beta": -0.0102,
+          "t": -0.35,
+          "p": 0.7258
         }
       },
-      "oos_hit_rate": 0.722,
-      "oos_n": 18,
-      "expected_monthly_ret": -0.0169
+      "oos_hit_rate": null,
+      "oos_n": 0,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0472
     },
-    "narrative": "Healthcare Equipment (Healthcare) screens MILDLY BULLISH [57/100, high confidence]. Top drivers: Business survey (corr +0.39, lead 0m, now headwind); Job postings (removed): hospitals (corr -0.27, lead 3m, now flat); USD/IDR (corr -0.18, lead 1m, now flat). A 4-driver model explains 6% of monthly variance (adj 1%), 72% out-of-sample directional hit-rate; current read ~-1.7%/mo.",
+    "narrative": "Healthcare Equipment (Healthcare) screens MILDLY BULLISH [57/100, medium confidence]. Top drivers: Business survey (corr +0.39, lead 0m, now headwind); Job postings (removed): hospitals (corr -0.27, lead 3m, now flat); USD/IDR (corr -0.18, lead 1m, now flat). A 5-driver model explains 9% of monthly variance (adj 2%); current read ~+4.7%/mo.",
     "drivers": [
       {
         "key": "CEICI506661997",
@@ -156,22 +164,22 @@
         "best_lag": 3,
         "corr_at_best": 0.4051,
         "ic": 0.3508,
-        "ic_t": 1.754,
+        "ic_t": 0.487,
         "ols": {
           "beta": -0.003006698693100228,
-          "t": -2.815653906895264,
-          "p": 0.004867807476438935,
+          "t": -3.0337247200513997,
+          "p": 0.0024155473368273747,
           "r2": 0.0753297029364215,
           "n": 26,
-          "hac_lag": 3
+          "hac_lag": 6
         },
         "ols_pred": {
           "beta": 0.004419128801409375,
-          "t": 2.1865782282152177,
-          "p": 0.028773328155685424,
+          "t": 2.3348963109461516,
+          "p": 0.019548838125130055,
           "r2": 0.16409377105046297,
           "n": 26,
-          "hac_lag": 3
+          "hac_lag": 6
         },
         "sign_prior": 0,
         "emp_sign": -1,
@@ -319,27 +327,27 @@
         "best_lag": 2,
         "corr_at_best": 0.2323,
         "ic": -0.079,
-        "ic_t": -0.44,
+        "ic_t": -0.122,
         "ols": {
           "beta": 0.00804118519331023,
-          "t": 1.5997855560266017,
-          "p": 0.10964616417005484,
+          "t": 1.6075181197008204,
+          "p": 0.10794075781351084,
           "r2": 0.05112525875312379,
           "n": 32,
-          "hac_lag": 3
+          "hac_lag": 8
         },
         "ols_pred": {
           "beta": 0.009369508898483108,
-          "t": 2.4088502477749447,
-          "p": 0.016002862834653016,
+          "t": 2.5407497187587373,
+          "p": 0.011061507044732076,
           "r2": 0.05397720759509328,
           "n": 32,
-          "hac_lag": 3
+          "hac_lag": 8
         },
         "sign_prior": 0,
         "emp_sign": 1,
         "theory_agree": null,
-        "stable": true,
+        "stable": false,
         "excess_pearson": 0.3155,
         "last_chg": 9.0,
         "last_chg_z": 2.66,
@@ -348,7 +356,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 46.4,
+        "score": 40.5,
         "source": "ceic",
         "label": "Job postings (new): hospitals",
         "live": {
@@ -411,61 +419,6 @@
         }
       },
       {
-        "key": "id_bi_rate",
-        "role": "macro",
-        "why": "policy rate: sector-specific NIM/discount effect",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-04-24",
-        "n": 78,
-        "min_n": 24,
-        "pearson": -0.1366,
-        "pearson_p": 0.2329,
-        "spearman": -0.135,
-        "spearman_p": 0.2387,
-        "best_lag": 1,
-        "corr_at_best": -0.1906,
-        "ic": -0.1507,
-        "ic_t": -1.322,
-        "ols": {
-          "beta": -0.12587386826722152,
-          "t": -1.4814941476419632,
-          "p": 0.13847494327955834,
-          "r2": 0.018667909805853977,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.17277948512695165,
-          "t": -1.8859142521475603,
-          "p": 0.0593065106327506,
-          "r2": 0.0363396854108059,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": -0.0929,
-        "last_chg": 0.0,
-        "last_chg_z": 0.05,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.7,
-        "source": "corr:ECONOMICS:IDINTR",
-        "shallow": false,
-        "label": "BI Policy Rate",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
         "key": "id_gdp_real_q",
         "role": "demand",
         "why": "healthcare capex",
@@ -521,57 +474,58 @@
         }
       },
       {
-        "key": "CEICI323791702",
-        "role": "demand",
-        "why": "Import volume",
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
         "test_freq": "M",
-        "transform": "yoy",
+        "transform": "diff",
         "native_freq": "M",
-        "last_obs": "2026-04-01",
+        "last_obs": "2026-04-24",
         "n": 78,
         "min_n": 24,
-        "pearson": 0.0397,
-        "pearson_p": 0.7303,
-        "spearman": -0.0567,
-        "spearman_p": 0.622,
-        "best_lag": 6,
-        "corr_at_best": -0.1571,
-        "ic": -0.0452,
-        "ic_t": -0.396,
+        "pearson": -0.1366,
+        "pearson_p": 0.2329,
+        "spearman": -0.135,
+        "spearman_p": 0.2387,
+        "best_lag": 1,
+        "corr_at_best": -0.1906,
+        "ic": -0.1507,
+        "ic_t": -1.322,
         "ols": {
-          "beta": 0.00017774340252032456,
-          "t": 3.0048293686559204,
-          "p": 0.0026572987654745507,
-          "r2": 0.0015721866179572164,
+          "beta": -0.12587386826722152,
+          "t": -1.4814941476419632,
+          "p": 0.13847494327955834,
+          "r2": 0.018667909805853977,
           "n": 78,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.0007042885025602559,
-          "t": -12.49719656665973,
-          "p": 7.733048525159317e-36,
-          "r2": 0.024685030485697146,
+          "beta": -0.17277948512695165,
+          "t": -1.8859142521475603,
+          "p": 0.0593065106327506,
+          "r2": 0.0363396854108059,
           "n": 78,
           "hac_lag": 4
         },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
         "stable": false,
-        "excess_pearson": -0.0175,
-        "last_chg": 0.047672,
-        "last_chg_z": -0.08,
+        "excess_pearson": -0.0929,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
         "last_chg_date": "2026-04-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 30.5,
-        "source": "ceic",
-        "label": "Import volume",
+        "score": 32.7,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
         "live": {
           "posture": "neutral",
-          "impulse": 0.04
+          "impulse": 0.0
         }
       },
       {
@@ -683,57 +637,111 @@
         }
       },
       {
-        "key": "CEICI804158347",
-        "role": "supply",
-        "why": "Job postings (active): hospitals",
+        "key": "CEICI462441447",
+        "role": "demand",
+        "why": "Financing: hospital services",
         "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-05-18",
-        "n": 58,
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2025-08-01",
+        "n": 70,
         "min_n": 24,
-        "pearson": -0.1049,
-        "pearson_p": 0.4333,
-        "spearman": -0.0313,
-        "spearman_p": 0.8153,
-        "best_lag": 6,
-        "corr_at_best": -0.1742,
-        "ic": 0.0049,
-        "ic_t": 0.037,
+        "pearson": -0.12,
+        "pearson_p": 0.3225,
+        "spearman": -0.0829,
+        "spearman_p": 0.495,
+        "best_lag": 4,
+        "corr_at_best": -0.2537,
+        "ic": -0.0262,
+        "ic_t": -0.217,
         "ols": {
-          "beta": -0.0003543930959819355,
-          "t": -1.6910467697797313,
-          "p": 0.09082787042352267,
-          "r2": 0.010999286195090385,
-          "n": 58,
+          "beta": -0.23476143580083725,
+          "t": -1.7842265799622172,
+          "p": 0.0743868549052054,
+          "r2": 0.014395747661701708,
+          "n": 70,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.0005847148159721555,
-          "t": -1.337886677032973,
-          "p": 0.18093338082873733,
-          "r2": 0.030358029744382842,
-          "n": 58,
+          "beta": -0.4964236984800562,
+          "t": -1.5213463536698326,
+          "p": 0.12817294365226095,
+          "r2": 0.06437173812610109,
+          "n": 70,
           "hac_lag": 4
         },
-        "sign_prior": 0,
+        "sign_prior": 1,
         "emp_sign": -1,
-        "theory_agree": null,
+        "theory_agree": false,
         "stable": false,
-        "excess_pearson": -0.1443,
-        "last_chg": 5.881356,
-        "last_chg_z": -0.16,
-        "last_chg_date": "2026-05-31",
+        "excess_pearson": -0.0825,
+        "last_chg": -0.004937,
+        "last_chg_z": -0.25,
+        "last_chg_date": "2025-08-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 25.2,
+        "score": 20.0,
         "source": "ceic",
-        "label": "Job postings (active): hospitals",
+        "label": "Financing: hospital services",
         "live": {
           "posture": "neutral",
-          "impulse": -0.08
+          "impulse": 0.124
+        }
+      },
+      {
+        "key": "CEICI580035297",
+        "role": "demand",
+        "why": "Import: world (UN comtrade)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 78,
+        "min_n": 24,
+        "pearson": -0.0732,
+        "pearson_p": 0.5239,
+        "spearman": 0.0504,
+        "spearman_p": 0.6614,
+        "best_lag": 6,
+        "corr_at_best": -0.2535,
+        "ic": -0.0413,
+        "ic_t": -0.363,
+        "ols": {
+          "beta": -0.04905318103887409,
+          "t": -0.4005489463483565,
+          "p": 0.6887522400890674,
+          "r2": 0.005365412296721939,
+          "n": 78,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.16774413589244416,
+          "t": -2.032442150165578,
+          "p": 0.04210891464765917,
+          "r2": 0.06425914294024926,
+          "n": 78,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.0826,
+        "last_chg": 0.242647,
+        "last_chg_z": 0.95,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 14.3,
+        "source": "ceic",
+        "label": "Import: world (UN comtrade)",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.442
         }
       }
     ],
@@ -761,16 +769,6 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI655003157",
-      "label": "Hospital beds per 1000",
-      "role": "supply",
-      "pearson": -0.1194,
-      "p": 0.2139963791790035,
-      "theory_agree": null,
-      "score": 30.2,
-      "reason": "below_gate"
-    },
-    {
       "key": "CEICI580306527",
       "label": "Hospital beds per 1000",
       "role": "demand",
@@ -781,13 +779,43 @@
       "reason": "below_gate"
     },
     {
+      "key": "CEICI323791702",
+      "label": "Import volume",
+      "role": "demand",
+      "pearson": 0.0397,
+      "p": 0.003096714421812621,
+      "theory_agree": true,
+      "score": 26.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI655003157",
+      "label": "Hospital beds per 1000",
+      "role": "supply",
+      "pearson": -0.1194,
+      "p": 0.2139963791790035,
+      "theory_agree": null,
+      "score": 26.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI804158347",
+      "label": "Job postings (active): hospitals",
+      "role": "supply",
+      "pearson": -0.1049,
+      "p": 0.032358082788551935,
+      "theory_agree": null,
+      "score": 22.1,
+      "reason": "below_gate"
+    },
+    {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
       "pearson": 0.0154,
       "p": 0.8805484637950879,
       "theory_agree": null,
-      "score": 22.4,
+      "score": 18.4,
       "reason": "below_gate"
     },
     {
@@ -797,17 +825,7 @@
       "pearson": 0.0251,
       "p": 0.7570693111068112,
       "theory_agree": true,
-      "score": 22.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI462441447",
-      "label": "Financing: hospital services",
-      "role": "demand",
-      "pearson": -0.12,
-      "p": 0.0743868549052054,
-      "theory_agree": false,
-      "score": 20.0,
+      "score": 18.0,
       "reason": "below_gate"
     },
     {
@@ -815,19 +833,9 @@
       "label": "Hospital count (LinkUp)",
       "role": "supply",
       "pearson": 0.0496,
-      "p": 0.6480995621177938,
+      "p": 0.6862960141612346,
       "theory_agree": null,
-      "score": 15.3,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI580035297",
-      "label": "Import: world (UN comtrade)",
-      "role": "demand",
-      "pearson": -0.0732,
-      "p": 0.6887522400890674,
-      "theory_agree": false,
-      "score": 14.3,
+      "score": 10.7,
       "reason": "below_gate"
     },
     {
@@ -835,9 +843,9 @@
       "label": "Export volume",
       "role": "supply",
       "pearson": -0.0375,
-      "p": 0.7908155015943866,
+      "p": 0.8038804794955507,
       "theory_agree": null,
-      "score": 11.1,
+      "score": 6.9,
       "reason": "below_gate"
     },
     {
@@ -847,7 +855,7 @@
       "pearson": -0.0009,
       "p": 0.9926815547812782,
       "theory_agree": null,
-      "score": 9.3,
+      "score": 5.3,
       "reason": "below_gate"
     }
   ],
@@ -859,7 +867,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.3,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 1.9,
+  "grade": "partial",
+  "grade_reasons": [
+    "multivariate model unavailable / no OOS"
+  ]
 }

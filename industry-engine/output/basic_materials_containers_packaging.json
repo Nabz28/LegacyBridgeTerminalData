@@ -3,7 +3,7 @@
   "sub_sector": "Containers & Packaging",
   "sector": "Basic Materials",
   "priority": 19,
-  "generated_at": "2026-06-14T10:14:32",
+  "generated_at": "2026-06-14T11:59:01",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -35,162 +35,26 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 51,
-    "net_tilt": 0.051,
+    "score": 50,
+    "net_tilt": 0.0,
     "demand_tilt": null,
     "supply_tilt": null,
-    "cost_tilt": 0.119,
-    "macro_tilt": 0.0,
+    "cost_tilt": null,
+    "macro_tilt": null,
     "confidence": {
-      "level": "low",
-      "score": 23,
+      "level": "none",
+      "score": 0,
       "reasons": [
-        "max|corr|=0.09",
-        "theory_agree=0%",
-        "stable=100%",
-        "mvR2=0.01",
-        "OOS=52%"
+        "no drivers"
       ]
     },
     "multivariate": {
-      "available": true,
-      "drivers": [
-        "id_bi_rate",
-        "brent"
-      ],
-      "n": 181,
-      "r2": 0.013,
-      "adj_r2": 0.001,
-      "betas": {
-        "id_bi_rate": {
-          "std_beta": -0.0056,
-          "t": -1.12,
-          "p": 0.2628
-        },
-        "brent": {
-          "std_beta": 0.0041,
-          "t": 0.66,
-          "p": 0.5097
-        }
-      },
-      "oos_hit_rate": 0.521,
-      "oos_n": 121,
-      "expected_monthly_ret": 0.0123
+      "available": false,
+      "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [51/100, low confidence]. Top drivers: BI Policy Rate (corr -0.09, lead 3m, now flat); Brent Crude (corr +0.09, lead 3m, now flat). A 2-driver model explains 1% of monthly variance (adj 0%), 52% out-of-sample directional hit-rate; current read ~+1.2%/mo.",
-    "drivers": [
-      {
-        "key": "id_bi_rate",
-        "role": "macro",
-        "why": "policy rate: sector-specific NIM/discount effect",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-04-24",
-        "n": 181,
-        "min_n": 24,
-        "pearson": -0.0922,
-        "pearson_p": 0.2169,
-        "spearman": -0.1426,
-        "spearman_p": 0.0556,
-        "best_lag": 3,
-        "corr_at_best": -0.1705,
-        "ic": -0.0494,
-        "ic_t": -0.661,
-        "ols": {
-          "beta": -0.03229256528337999,
-          "t": -1.228789108683217,
-          "p": 0.2191508860707999,
-          "r2": 0.008506367236445933,
-          "n": 181,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.05904624607725754,
-          "t": -2.1391376915984224,
-          "p": 0.03242451862033062,
-          "r2": 0.029058687330725252,
-          "n": 178,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0162,
-        "last_chg": 0.0,
-        "last_chg_z": 0.05,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 31.2,
-        "source": "corr:ECONOMICS:IDINTR",
-        "shallow": false,
-        "label": "BI Policy Rate",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "brent",
-        "role": "cost",
-        "why": "resin/plastics feedstock",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.0904,
-        "pearson_p": 0.2225,
-        "spearman": 0.001,
-        "spearman_p": 0.9891,
-        "best_lag": 3,
-        "corr_at_best": 0.1928,
-        "ic": -0.0818,
-        "ic_t": -1.104,
-        "ols": {
-          "beta": 0.05366816399063261,
-          "t": 1.0053377460546342,
-          "p": 0.31473424538680284,
-          "r2": 0.008165448782827545,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.11683775893316793,
-          "t": 2.1194397248334633,
-          "p": 0.03405332261003865,
-          "r2": 0.03715263598631102,
-          "n": 181,
-          "hac_lag": 5
-        },
-        "sign_prior": -1,
-        "emp_sign": 1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0646,
-        "last_chg": 0.026606,
-        "last_chg_z": 0.24,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 23.8,
-        "source": "corr:ICEEUR:BRN1!",
-        "shallow": false,
-        "label": "Brent Crude",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.119
-        }
-      }
-    ],
-    "n_kept": 2,
+    "narrative": "Containers & Packaging (Basic Materials) screens NEUTRAL [50/100, none confidence]. Top drivers: . ",
+    "drivers": [],
+    "n_kept": 0,
     "n_candidates": 6
   },
   "unscored": [
@@ -235,40 +99,60 @@
       "key": "id_gdp_real_q",
       "label": "Real GDP (SA)",
       "role": "demand",
-      "pearson": 0.1137,
-      "p": 0.021302970120443722,
+      "pearson": 0.1169,
+      "p": 0.016531731935712876,
       "theory_agree": true,
-      "score": 40.4,
+      "score": 41.5,
       "reason": "below_gate"
     },
     {
       "key": "usdidr",
       "label": "USD/IDR",
       "role": "macro",
-      "pearson": -0.1199,
-      "p": 0.2192667859362153,
+      "pearson": -0.1391,
+      "p": 0.19404950939632748,
       "theory_agree": null,
-      "score": 30.6,
+      "score": 33.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0857,
+      "p": 0.2142287968396065,
+      "theory_agree": null,
+      "score": 26.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "cost",
+      "pearson": 0.111,
+      "p": 0.2581943536388792,
+      "theory_agree": false,
+      "score": 24.0,
       "reason": "below_gate"
     },
     {
       "key": "steel_hrc",
       "label": "US HRC Steel",
       "role": "cost",
-      "pearson": 0.0544,
-      "p": 0.3708774445147447,
+      "pearson": 0.0661,
+      "p": 0.2617562336978263,
       "theory_agree": false,
-      "score": 11.1,
+      "score": 9.1,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
-      "pearson": -0.0224,
-      "p": 0.7719487715671067,
+      "pearson": -0.0241,
+      "p": 0.7549005291013751,
       "theory_agree": null,
-      "score": 10.0,
+      "score": 8.2,
       "reason": "below_gate"
     }
   ],
@@ -280,12 +164,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.6,
-  "grade": "partial",
+  "runtime_s": 1.8,
+  "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "only 2 validated drivers (<3)",
-    "confidence low",
-    "parked after 3 attempts"
+    "only 0 validated drivers (<3)",
+    "multivariate model unavailable / no OOS"
   ]
 }

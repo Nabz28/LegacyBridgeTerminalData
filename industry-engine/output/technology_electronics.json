@@ -3,7 +3,7 @@
   "sub_sector": "Electronics",
   "sector": "Technology",
   "priority": 38,
-  "generated_at": "2026-06-14T02:52:56",
+  "generated_at": "2026-06-14T12:00:00",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -30,176 +30,70 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 46,
-    "net_tilt": -0.105,
-    "demand_tilt": -0.064,
+    "score": 48,
+    "net_tilt": -0.064,
+    "demand_tilt": -0.078,
     "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": -0.045,
+    "macro_tilt": -0.022,
     "confidence": {
-      "level": "high",
-      "score": 74,
+      "level": "medium",
+      "score": 53,
       "reasons": [
         "max|corr|=0.24",
-        "theory_agree=67%",
-        "stable=75%",
-        "mvR2=0.15",
-        "OOS=62%"
+        "theory_agree=60%",
+        "stable=50%",
+        "mvR2=0.09",
+        "OOS=55%",
+        "mt_penalty=0.91(n=34)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "usdidr",
-        "CEICI499411327",
         "CEICI499639877",
-        "CEICI499788697",
-        "CEICI499359177"
+        "CEICI499359177",
+        "CEICI499648947",
+        "id_bi_rate"
       ],
-      "n": 108,
-      "r2": 0.147,
-      "adj_r2": 0.105,
+      "n": 113,
+      "r2": 0.088,
+      "adj_r2": 0.046,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0249,
+          "std_beta": -0.0279,
           "t": -2.38,
-          "p": 0.0174
-        },
-        "CEICI499411327": {
-          "std_beta": -0.0087,
-          "t": -2.27,
-          "p": 0.0232
+          "p": 0.0175
         },
         "CEICI499639877": {
-          "std_beta": -0.0117,
-          "t": -1.85,
-          "p": 0.0643
-        },
-        "CEICI499788697": {
-          "std_beta": -0.0033,
-          "t": -0.42,
-          "p": 0.6728
+          "std_beta": -0.018,
+          "t": -3.48,
+          "p": 0.0005
         },
         "CEICI499359177": {
-          "std_beta": 0.0057,
-          "t": 0.96,
-          "p": 0.3384
+          "std_beta": -0.0042,
+          "t": -0.25,
+          "p": 0.8023
+        },
+        "CEICI499648947": {
+          "std_beta": 0.0036,
+          "t": 0.28,
+          "p": 0.7768
+        },
+        "id_bi_rate": {
+          "std_beta": 0.0025,
+          "t": 0.33,
+          "p": 0.74
         }
       },
-      "oos_hit_rate": 0.625,
-      "oos_n": 48,
-      "expected_monthly_ret": -0.0298
+      "oos_hit_rate": 0.547,
+      "oos_n": 53,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": -0.0058
     },
-    "narrative": "Electronics (Technology) screens NEUTRAL [46/100, high confidence]. Top drivers: Volume: Desktop (corr +0.08, lead 5m, now headwind); Volume (corr +0.05, lead 5m, now headwind); USD/IDR (corr -0.24, lead 0m, now flat). A 5-driver model explains 15% of monthly variance (adj 10%), 62% out-of-sample directional hit-rate; current read ~-3.0%/mo.",
+    "narrative": "Electronics (Technology) screens NEUTRAL [48/100, medium confidence]. Top drivers: USD/IDR (corr -0.24, lead 0m, now flat); Value: Mobile (corr -0.07, lead 4m, now tailwind); Internet Usage: Browser Market Share: All Platform (corr -0.14, lead 3m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 55% out-of-sample directional hit-rate; current read ~-0.6%/mo.",
     "drivers": [
-      {
-        "key": "CEICI517801417",
-        "role": "demand",
-        "why": "Volume: Desktop",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 73,
-        "min_n": 24,
-        "pearson": 0.0769,
-        "pearson_p": 0.518,
-        "spearman": 0.2759,
-        "spearman_p": 0.0181,
-        "best_lag": 5,
-        "corr_at_best": 0.1853,
-        "ic": 0.3201,
-        "ic_t": 2.697,
-        "ols": {
-          "beta": 0.0024917668146271204,
-          "t": 1.4600226503363543,
-          "p": 0.14428384897304605,
-          "r2": 0.00590831913494827,
-          "n": 73,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.0050401965980056435,
-          "t": 2.5613287965666136,
-          "p": 0.010427262001166105,
-          "r2": 0.03432844991129025,
-          "n": 68,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0122,
-        "last_chg": -0.921053,
-        "last_chg_z": -0.54,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 53.9,
-        "source": "ceic",
-        "label": "Volume: Desktop",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.264
-        }
-      },
-      {
-        "key": "CEICI517809607",
-        "role": "demand",
-        "why": "Volume",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 73,
-        "min_n": 24,
-        "pearson": 0.0454,
-        "pearson_p": 0.7028,
-        "spearman": 0.2663,
-        "spearman_p": 0.0228,
-        "best_lag": 5,
-        "corr_at_best": 0.1571,
-        "ic": 0.2928,
-        "ic_t": 2.467,
-        "ols": {
-          "beta": 0.0008849988627769621,
-          "t": 1.5716674532245751,
-          "p": 0.11602769403965786,
-          "r2": 0.002063312029407016,
-          "n": 73,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.0025436724066898063,
-          "t": 3.5865283638165053,
-          "p": 0.00033510962916978896,
-          "r2": 0.024690355119676877,
-          "n": 68,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0087,
-        "last_chg": -0.894737,
-        "last_chg_z": -0.32,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 51.7,
-        "source": "ceic",
-        "label": "Volume",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.159
-        }
-      },
       {
         "key": "usdidr",
         "role": "macro",
@@ -250,276 +144,6 @@
         "source": "corr:FX_IDC:USDIDR",
         "shallow": false,
         "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
-        }
-      },
-      {
-        "key": "CEICI499702837",
-        "role": "demand",
-        "why": "Browser share (Desktop): Edge",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-06-07",
-        "n": 76,
-        "min_n": 24,
-        "pearson": 0.1067,
-        "pearson_p": 0.359,
-        "spearman": 0.0852,
-        "spearman_p": 0.4644,
-        "best_lag": 6,
-        "corr_at_best": 0.1953,
-        "ic": -0.0511,
-        "ic_t": -0.44,
-        "ols": {
-          "beta": 0.008584682902924584,
-          "t": 1.2479535576154683,
-          "p": 0.2120480654375747,
-          "r2": 0.011380017030059086,
-          "n": 76,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.01482460675255374,
-          "t": 1.790450303036391,
-          "p": 0.0733815497527477,
-          "r2": 0.03812345409754769,
-          "n": 70,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.1476,
-        "last_chg": 0.25,
-        "last_chg_z": 0.18,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 38.6,
-        "source": "ceic",
-        "label": "Browser share (Desktop): Edge",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.09
-        }
-      },
-      {
-        "key": "CEICI517698487",
-        "role": "demand",
-        "why": "Value",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
-        "min_n": 24,
-        "pearson": 0.0363,
-        "pearson_p": 0.7431,
-        "spearman": -0.0325,
-        "spearman_p": 0.7693,
-        "best_lag": 4,
-        "corr_at_best": -0.1844,
-        "ic": 0.2025,
-        "ic_t": 1.834,
-        "ols": {
-          "beta": 0.0029261098079102986,
-          "t": 0.588143618776124,
-          "p": 0.556435897584739,
-          "r2": 0.001316928511156945,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.014712046768245906,
-          "t": -1.9921545899665023,
-          "p": 0.046354098880235145,
-          "r2": 0.03401513870976958,
-          "n": 80,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": -0.0008,
-        "last_chg": -1.121281,
-        "last_chg_z": -1.08,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 38.4,
-        "source": "ceic",
-        "label": "Value",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.493
-        }
-      },
-      {
-        "key": "CEICI499411327",
-        "role": "demand",
-        "why": "Browser share (Desktop): Mozilla",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-06-07",
-        "n": 119,
-        "min_n": 24,
-        "pearson": -0.1159,
-        "pearson_p": 0.2093,
-        "spearman": 0.0008,
-        "spearman_p": 0.9928,
-        "best_lag": 2,
-        "corr_at_best": 0.2186,
-        "ic": -0.0995,
-        "ic_t": -1.08,
-        "ols": {
-          "beta": -0.41134372986574763,
-          "t": -2.441682303775144,
-          "p": 0.014619005190381971,
-          "r2": 0.013437430873533107,
-          "n": 119,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.7701056829959938,
-          "t": 2.7256646168329626,
-          "p": 0.006417216752130877,
-          "r2": 0.04780387041196377,
-          "n": 119,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.081,
-        "last_chg": 0.0,
-        "last_chg_z": 0.01,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 31.5,
-        "source": "ceic",
-        "label": "Browser share (Desktop): Mozilla",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "CEICI499639877",
-        "role": "demand",
-        "why": "Internet Usage: Browser Market Share: All Platform",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2025-06-05",
-        "n": 173,
-        "min_n": 24,
-        "pearson": -0.1372,
-        "pearson_p": 0.0718,
-        "spearman": -0.1328,
-        "spearman_p": 0.0814,
-        "best_lag": 3,
-        "corr_at_best": 0.1445,
-        "ic": 0.021,
-        "ic_t": 0.276,
-        "ols": {
-          "beta": -0.01153251375486222,
-          "t": -3.20816430361437,
-          "p": 0.001335851583317646,
-          "r2": 0.018825651515373187,
-          "n": 173,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.012976006443355224,
-          "t": 2.971565731025845,
-          "p": 0.0029628544336310456,
-          "r2": 0.020879362476607155,
-          "n": 173,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1351,
-        "last_chg": 4.05,
-        "last_chg_z": 3.51,
-        "last_chg_date": "2025-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 28.2,
-        "source": "ceic",
-        "label": "Internet Usage: Browser Market Share: All Platform",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.942
-        }
-      },
-      {
-        "key": "CEICI519431507",
-        "role": "demand",
-        "why": "AOV: Arts & Entertainment",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
-        "min_n": 24,
-        "pearson": 0.0372,
-        "pearson_p": 0.7387,
-        "spearman": 0.0608,
-        "spearman_p": 0.5851,
-        "best_lag": 5,
-        "corr_at_best": 0.1869,
-        "ic": 0.0475,
-        "ic_t": 0.427,
-        "ols": {
-          "beta": 0.002063075994637167,
-          "t": 0.3394463986858705,
-          "p": 0.7342734700799888,
-          "r2": 0.0013817871285132233,
-          "n": 83,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.009742636159934126,
-          "t": 2.2567130067015073,
-          "p": 0.024026013584651586,
-          "r2": 0.03492102898340632,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0476,
-        "last_chg": -0.133025,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 25.5,
-        "source": "ceic",
-        "label": "AOV: Arts & Entertainment",
         "live": {
           "posture": "neutral",
           "impulse": -0.045
@@ -580,46 +204,46 @@
         }
       },
       {
-        "key": "CEICI499788697",
+        "key": "CEICI499639877",
         "role": "demand",
-        "why": "Browser share (Desktop): Chrome",
+        "why": "Internet Usage: Browser Market Share: All Platform",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "W",
         "last_obs": "2025-06-05",
         "n": 173,
         "min_n": 24,
-        "pearson": 0.0535,
-        "pearson_p": 0.4849,
-        "spearman": 0.1048,
-        "spearman_p": 0.1698,
+        "pearson": -0.1372,
+        "pearson_p": 0.0718,
+        "spearman": -0.1328,
+        "spearman_p": 0.0814,
         "best_lag": 3,
-        "corr_at_best": -0.1802,
-        "ic": -0.0052,
-        "ic_t": -0.068,
+        "corr_at_best": 0.1445,
+        "ic": 0.021,
+        "ic_t": 0.276,
         "ols": {
-          "beta": 0.00201438840893748,
-          "t": 1.0208323964791803,
-          "p": 0.30733385273069436,
-          "r2": 0.0028569142844655504,
+          "beta": -0.01153251375486222,
+          "t": -3.20816430361437,
+          "p": 0.001335851583317646,
+          "r2": 0.018825651515373187,
           "n": 173,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.006788803806291761,
-          "t": -2.6165951831640353,
-          "p": 0.008881159922035035,
-          "r2": 0.032467033730746664,
+          "beta": 0.012976006443355224,
+          "t": 2.971565731025845,
+          "p": 0.0029628544336310456,
+          "r2": 0.020879362476607155,
           "n": 173,
           "hac_lag": 5
         },
         "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0273,
-        "last_chg": 0.02,
-        "last_chg_z": -0.15,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1351,
+        "last_chg": 4.05,
+        "last_chg_z": 3.51,
         "last_chg_date": "2025-06-30",
         "quality": {
           "ok": true,
@@ -627,10 +251,10 @@
         },
         "score": 24.2,
         "source": "ceic",
-        "label": "Browser share (Desktop): Chrome",
+        "label": "Internet Usage: Browser Market Share: All Platform",
         "live": {
-          "posture": "neutral",
-          "impulse": 0.075
+          "posture": "headwind",
+          "impulse": -0.942
         }
       },
       {
@@ -688,73 +312,128 @@
         }
       },
       {
-        "key": "CEICI517775437",
+        "key": "CEICI499648947",
         "role": "demand",
-        "why": "Value: Desktop",
+        "why": "Browser share (Mobile): Samsung Internet",
         "test_freq": "M",
-        "transform": "logret",
+        "transform": "diff",
         "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
+        "last_obs": "2026-06-07",
+        "n": 124,
         "min_n": 24,
-        "pearson": -0.0161,
-        "pearson_p": 0.8846,
-        "spearman": -0.0195,
-        "spearman_p": 0.8605,
-        "best_lag": 1,
-        "corr_at_best": 0.1998,
-        "ic": 0.2947,
-        "ic_t": 2.669,
+        "pearson": 0.017,
+        "pearson_p": 0.8514,
+        "spearman": -0.0792,
+        "spearman_p": 0.382,
+        "best_lag": 5,
+        "corr_at_best": 0.2431,
+        "ic": 0.1023,
+        "ic_t": 1.13,
         "ols": {
-          "beta": -0.0013668910882394388,
-          "t": -0.27317281752883676,
-          "p": 0.7847203740532154,
-          "r2": 0.0002585359613012095,
-          "n": 84,
+          "beta": 0.003608538936244753,
+          "t": 0.1220754547301557,
+          "p": 0.9028392607582121,
+          "r2": 0.0002886881057920787,
+          "n": 124,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": 0.016894843188925906,
-          "t": 2.722925728679157,
-          "p": 0.006470660298790559,
-          "r2": 0.03991483982794575,
-          "n": 83,
+          "beta": 0.05199280538376259,
+          "t": 1.9207918082585997,
+          "p": 0.05475795963132559,
+          "r2": 0.05908464611923847,
+          "n": 119,
           "hac_lag": 4
         },
         "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
+        "emp_sign": 1,
+        "theory_agree": true,
         "stable": false,
-        "excess_pearson": -0.0485,
-        "last_chg": -1.14675,
-        "last_chg_z": -1.18,
+        "excess_pearson": 0.0519,
+        "last_chg": 0.14,
+        "last_chg_z": 0.24,
         "last_chg_date": "2026-06-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 19.9,
+        "score": 19.3,
         "source": "ceic",
-        "label": "Value: Desktop",
+        "label": "Browser share (Mobile): Samsung Internet",
         "live": {
-          "posture": "tailwind",
-          "impulse": 0.53
+          "posture": "neutral",
+          "impulse": 0.119
+        }
+      },
+      {
+        "key": "id_bi_rate",
+        "role": "macro",
+        "why": "policy rate: sector-specific NIM/discount effect",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-24",
+        "n": 181,
+        "min_n": 24,
+        "pearson": -0.0668,
+        "pearson_p": 0.3713,
+        "spearman": -0.0949,
+        "spearman_p": 0.2037,
+        "best_lag": 6,
+        "corr_at_best": 0.3182,
+        "ic": 0.0018,
+        "ic_t": 0.024,
+        "ols": {
+          "beta": -0.03645439666617048,
+          "t": -1.0843416580062628,
+          "p": 0.27821334124137054,
+          "r2": 0.004467365926641764,
+          "n": 181,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.1718448943078847,
+          "t": 1.7110615987211903,
+          "p": 0.08706974216474136,
+          "r2": 0.10125290867012149,
+          "n": 175,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0185,
+        "last_chg": 0.0,
+        "last_chg_z": 0.05,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 19.3,
+        "source": "corr:ECONOMICS:IDINTR",
+        "shallow": false,
+        "label": "BI Policy Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
         }
       }
     ],
-    "n_kept": 12,
+    "n_kept": 6,
     "n_candidates": 34
   },
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI517672587",
-      "label": "Volume: Mobile",
+      "key": "CEICI517801417",
+      "label": "Volume: Desktop",
       "role": "demand",
-      "pearson": 0.0345,
-      "p": 0.08710120146719182,
+      "pearson": 0.0769,
+      "p": 0.18402737584033435,
       "theory_agree": true,
-      "score": 51.9,
+      "score": 49.3,
       "reason": "below_gate"
     },
     {
@@ -768,13 +447,23 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499641227",
-      "label": "Browser share (Mobile): Others",
+      "key": "CEICI517672587",
+      "label": "Volume: Mobile",
       "role": "demand",
-      "pearson": 0.0744,
-      "p": 0.25035254907649607,
+      "pearson": 0.0345,
+      "p": 0.13369737544336802,
       "theory_agree": true,
-      "score": 37.4,
+      "score": 47.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517809607",
+      "label": "Volume",
+      "role": "demand",
+      "pearson": 0.0454,
+      "p": 0.16608723914162793,
+      "theory_agree": true,
+      "score": 46.9,
       "reason": "below_gate"
     },
     {
@@ -798,23 +487,33 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499347947",
-      "label": "Device vendor share (Tablet): Others",
+      "key": "CEICI499702837",
+      "label": "Browser share (Desktop): Edge",
       "role": "demand",
-      "pearson": 0.0555,
-      "p": 0.1435930621248997,
+      "pearson": 0.1067,
+      "p": 0.2120480654375747,
       "theory_agree": true,
-      "score": 31.1,
+      "score": 34.6,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499362307",
-      "label": "Browser share (Mobile): Firefox",
+      "key": "CEICI517698487",
+      "label": "Value",
       "role": "demand",
-      "pearson": 0.099,
-      "p": 0.33164889806919473,
+      "pearson": 0.0363,
+      "p": 0.556435897584739,
       "theory_agree": true,
-      "score": 30.2,
+      "score": 34.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI499641227",
+      "label": "Browser share (Mobile): Others",
+      "role": "demand",
+      "pearson": 0.0744,
+      "p": 0.25035254907649607,
+      "theory_agree": true,
+      "score": 33.4,
       "reason": "below_gate"
     },
     {
@@ -826,26 +525,6 @@
       "theory_agree": true,
       "score": 30.1,
       "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517710097",
-      "label": "Average Order Value (AOV)",
-      "role": "demand",
-      "pearson": 0.0685,
-      "p": 0.5549246278768272,
-      "theory_agree": true,
-      "score": 28.3,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI519405647",
-      "label": "Value: Arts & Entertainment",
-      "role": "demand",
-      "pearson": -0.1605,
-      "p": 0.13490829863763865,
-      "theory_agree": false,
-      "score": 27.9,
-      "reason": "below_gate"
     }
   ],
   "n_tested": 34,
@@ -856,7 +535,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.0,
+  "runtime_s": 2.8,
   "grade": "perfected",
   "grade_reasons": []
 }

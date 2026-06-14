@@ -3,7 +3,7 @@
   "sub_sector": "Utilities",
   "sector": "Infrastructure",
   "priority": 52,
-  "generated_at": "2026-06-14T02:53:21",
+  "generated_at": "2026-06-14T12:00:38",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -26,129 +26,30 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 51,
-    "net_tilt": 0.04,
-    "demand_tilt": 0.0,
+    "score": 49,
+    "net_tilt": -0.305,
+    "demand_tilt": null,
     "supply_tilt": null,
     "cost_tilt": -0.305,
-    "macro_tilt": 0.378,
+    "macro_tilt": null,
     "confidence": {
       "level": "low",
-      "score": 28,
+      "score": 19,
       "reasons": [
-        "max|corr|=0.10",
+        "max|corr|=0.04",
         "theory_agree=100%",
-        "stable=17%",
-        "mvR2=0.02",
-        "OOS=52%"
+        "stable=0%",
+        "mvR2=0.00",
+        "OOS=na",
+        "mt_penalty=0.99(n=17)"
       ]
     },
     "multivariate": {
-      "available": true,
-      "drivers": [
-        "usdidr",
-        "natgas",
-        "CEICI385762197",
-        "CEICI385762167",
-        "CEICI385762157",
-        "id_cpi_yoy"
-      ],
-      "n": 93,
-      "r2": 0.02,
-      "adj_r2": -0.024,
-      "betas": {
-        "usdidr": {
-          "std_beta": -0.0119,
-          "t": -1.03,
-          "p": 0.3043
-        },
-        "natgas": {
-          "std_beta": -0.0088,
-          "t": -0.93,
-          "p": 0.3521
-        },
-        "CEICI385762197": {
-          "std_beta": 0.0026,
-          "t": 3.98,
-          "p": 0.0001
-        },
-        "CEICI385762167": {
-          "std_beta": 0.0026,
-          "t": 3.98,
-          "p": 0.0001
-        },
-        "CEICI385762157": {
-          "std_beta": 0.0026,
-          "t": 3.98,
-          "p": 0.0001
-        },
-        "id_cpi_yoy": {
-          "std_beta": -0.013,
-          "t": -0.93,
-          "p": 0.3518
-        }
-      },
-      "oos_hit_rate": 0.515,
-      "oos_n": 33,
-      "expected_monthly_ret": 0.034
+      "available": false,
+      "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Utilities (Infrastructure) screens NEUTRAL [51/100, low confidence]. Top drivers: USD/IDR (corr -0.10, lead 1m, now flat); Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind); 6,600 VA - 200 kVA: Prepaid (corr +0.06, lead 6m, now flat). A 6-driver model explains 2% of monthly variance (adj -2%), 52% out-of-sample directional hit-rate; current read ~+3.4%/mo.",
+    "narrative": "Utilities (Infrastructure) screens NEUTRAL [49/100, low confidence]. Top drivers: Natural Gas (Henry Hub) (corr -0.04, lead 2m, now headwind). ",
     "drivers": [
-      {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 108,
-        "min_n": 24,
-        "pearson": -0.1026,
-        "pearson_p": 0.2906,
-        "spearman": -0.0273,
-        "spearman_p": 0.7792,
-        "best_lag": 1,
-        "corr_at_best": 0.1697,
-        "ic": 0.1958,
-        "ic_t": 2.025,
-        "ols": {
-          "beta": -0.6378714969858812,
-          "t": -1.2952691840554251,
-          "p": 0.1952273858033382,
-          "r2": 0.010528318598343911,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 1.0548473816303539,
-          "t": 2.0599957276485767,
-          "p": 0.039398949253714684,
-          "r2": 0.028809188898807903,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.049,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 42.2,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
-        }
-      },
       {
         "key": "natgas",
         "role": "cost",
@@ -203,205 +104,9 @@
           "posture": "headwind",
           "impulse": -0.305
         }
-      },
-      {
-        "key": "CEICI385762197",
-        "role": "demand",
-        "why": "6,600 VA - 200 kVA: Prepaid",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-06-01",
-        "n": 108,
-        "min_n": 24,
-        "pearson": 0.0588,
-        "pearson_p": 0.5457,
-        "spearman": 0.107,
-        "spearman_p": 0.2705,
-        "best_lag": 6,
-        "corr_at_best": -0.183,
-        "ic": -0.138,
-        "ic_t": -1.427,
-        "ols": null,
-        "ols_pred": {
-          "beta": -15.710459545687607,
-          "t": -3.189280610201445,
-          "p": 0.0014262735449483504,
-          "r2": 0.033506617595711385,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0825,
-        "last_chg": 0.0,
-        "last_chg_z": 0.04,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 22.7,
-        "source": "ceic",
-        "label": "6,600 VA - 200 kVA: Prepaid",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "CEICI385762167",
-        "role": "demand",
-        "why": "2,200 VA: Prepaid",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-06-01",
-        "n": 108,
-        "min_n": 24,
-        "pearson": 0.0588,
-        "pearson_p": 0.5457,
-        "spearman": 0.107,
-        "spearman_p": 0.2705,
-        "best_lag": 6,
-        "corr_at_best": -0.183,
-        "ic": -0.138,
-        "ic_t": -1.427,
-        "ols": null,
-        "ols_pred": {
-          "beta": -15.710459545687607,
-          "t": -3.189280610201445,
-          "p": 0.0014262735449483504,
-          "r2": 0.033506617595711385,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0825,
-        "last_chg": 0.0,
-        "last_chg_z": -0.04,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 22.7,
-        "source": "ceic",
-        "label": "2,200 VA: Prepaid",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "CEICI385762157",
-        "role": "demand",
-        "why": "1,300 VA: Prepaid",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-06-01",
-        "n": 108,
-        "min_n": 24,
-        "pearson": 0.0588,
-        "pearson_p": 0.5457,
-        "spearman": 0.107,
-        "spearman_p": 0.2705,
-        "best_lag": 6,
-        "corr_at_best": -0.183,
-        "ic": -0.138,
-        "ic_t": -1.427,
-        "ols": null,
-        "ols_pred": {
-          "beta": -15.710459545687607,
-          "t": -3.189280610201445,
-          "p": 0.0014262735449483504,
-          "r2": 0.033506617595711385,
-          "n": 108,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0825,
-        "last_chg": 0.0,
-        "last_chg_z": -0.04,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 22.7,
-        "source": "ceic",
-        "label": "1,300 VA: Prepaid",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
-      },
-      {
-        "key": "id_cpi_yoy",
-        "role": "macro",
-        "why": "inflation regime",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-04-03",
-        "n": 93,
-        "min_n": 24,
-        "pearson": -0.0868,
-        "pearson_p": 0.4079,
-        "spearman": -0.094,
-        "spearman_p": 0.37,
-        "best_lag": 5,
-        "corr_at_best": -0.2187,
-        "ic": 0.0225,
-        "ic_t": 0.216,
-        "ols": {
-          "beta": -0.02969014816348229,
-          "t": -0.9292884307812701,
-          "p": 0.35273962924670754,
-          "r2": 0.007538880205458565,
-          "n": 93,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.08108928506702398,
-          "t": -1.724707718668107,
-          "p": 0.08458015932066701,
-          "r2": 0.04783880623036929,
-          "n": 93,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": -0.0922,
-        "last_chg": -1.28,
-        "last_chg_z": -2.2,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 21.0,
-        "source": "corr:ECONOMICS:IDIRYY",
-        "shallow": false,
-        "label": "Indonesia CPI (YoY)",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.8
-        }
       }
     ],
-    "n_kept": 6,
+    "n_kept": 1,
     "n_candidates": 17
   },
   "unscored": [
@@ -455,13 +160,13 @@
       "reason": "below_gate"
     },
     {
-      "key": "wb_coal_au",
-      "label": "Coal · Australia (Newcastle)",
-      "role": "cost",
-      "pearson": -0.2081,
-      "p": 0.22383641547908684,
-      "theory_agree": true,
-      "score": 49.3,
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.1026,
+      "p": 0.1952273858033382,
+      "theory_agree": null,
+      "score": 38.2,
       "reason": "below_gate"
     },
     {
@@ -471,7 +176,7 @@
       "pearson": 0.0662,
       "p": null,
       "theory_agree": true,
-      "score": 26.5,
+      "score": 22.5,
       "reason": "below_gate"
     },
     {
@@ -481,7 +186,7 @@
       "pearson": 0.0662,
       "p": null,
       "theory_agree": true,
-      "score": 26.5,
+      "score": 22.5,
       "reason": "below_gate"
     },
     {
@@ -491,27 +196,27 @@
       "pearson": 0.0662,
       "p": null,
       "theory_agree": true,
-      "score": 26.5,
+      "score": 22.5,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI385762117",
-      "label": "Tariff: Government",
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.1143,
+      "p": 0.2615234034751449,
+      "theory_agree": null,
+      "score": 19.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI385762197",
+      "label": "6,600 VA - 200 kVA: Prepaid",
       "role": "demand",
-      "pearson": 0.061,
+      "pearson": 0.0588,
       "p": null,
       "theory_agree": true,
-      "score": 22.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
-      "role": "demand",
-      "pearson": 0.0101,
-      "p": 0.7748309589556759,
-      "theory_agree": true,
-      "score": 21.6,
+      "score": 18.7,
       "reason": "below_gate"
     }
   ],
@@ -523,10 +228,12 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.0,
+  "runtime_s": 1.3,
   "grade": "partial",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
+    "only 1 validated drivers (<3)",
+    "multivariate model unavailable / no OOS",
     "confidence low",
     "data-limited basket"
   ]

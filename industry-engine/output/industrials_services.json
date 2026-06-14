@@ -3,7 +3,7 @@
   "sub_sector": "Services",
   "sector": "Industrials",
   "priority": 49,
-  "generated_at": "2026-06-14T02:53:16",
+  "generated_at": "2026-06-14T12:00:31",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -28,73 +28,29 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 47,
-    "net_tilt": -0.1,
+    "score": 53,
+    "net_tilt": 0.115,
     "demand_tilt": 0.069,
-    "supply_tilt": -0.167,
+    "supply_tilt": 0.287,
     "cost_tilt": null,
-    "macro_tilt": 0.045,
+    "macro_tilt": null,
     "confidence": {
-      "level": "medium",
-      "score": 45,
+      "level": "low",
+      "score": 35,
       "reasons": [
         "max|corr|=0.20",
         "theory_agree=100%",
-        "stable=83%",
-        "mvR2=0.06",
-        "OOS=47%"
+        "stable=67%",
+        "mvR2=0.00",
+        "OOS=na",
+        "mt_penalty=0.88(n=39)"
       ]
     },
     "multivariate": {
-      "available": true,
-      "drivers": [
-        "CEICI324043102",
-        "CEICI323568502",
-        "CEICI323568902",
-        "CEICI323567602",
-        "CEICI323569002",
-        "CEICI323567302"
-      ],
-      "n": 155,
-      "r2": 0.057,
-      "adj_r2": 0.018,
-      "betas": {
-        "CEICI324043102": {
-          "std_beta": -0.0161,
-          "t": -1.11,
-          "p": 0.2681
-        },
-        "CEICI323568502": {
-          "std_beta": 0.0156,
-          "t": 0.84,
-          "p": 0.4034
-        },
-        "CEICI323568902": {
-          "std_beta": -0.024,
-          "t": -1.67,
-          "p": 0.0959
-        },
-        "CEICI323567602": {
-          "std_beta": -0.0066,
-          "t": -0.36,
-          "p": 0.7176
-        },
-        "CEICI323569002": {
-          "std_beta": 0.0159,
-          "t": 1.36,
-          "p": 0.1749
-        },
-        "CEICI323567302": {
-          "std_beta": -0.0298,
-          "t": -2.02,
-          "p": 0.0438
-        }
-      },
-      "oos_hit_rate": 0.474,
-      "oos_n": 95,
-      "expected_monthly_ret": -0.0021
+      "available": false,
+      "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Services (Industrials) screens NEUTRAL [47/100, medium confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Export value: electrical machinery (corr -0.13, lead 0m, now headwind). A 6-driver model explains 6% of monthly variance (adj 2%), 47% out-of-sample directional hit-rate; current read ~-0.2%/mo.",
+    "narrative": "Services (Industrials) screens NEUTRAL [53/100, low confidence]. Top drivers: FDI: Machinery & electronics (corr +0.20, lead 2m, now flat); DDI: Basic metals & metal goods (corr +0.14, lead 2m, now tailwind); Manufacturing: Wearing Apparel (corr -0.18, lead 0m, now tailwind). ",
     "drivers": [
       {
         "key": "CEICI410108517",
@@ -115,18 +71,18 @@
         "ic": -0.1188,
         "ic_t": -0.912,
         "ols": {
-          "beta": 0.07644977935269537,
-          "t": 1.7526144523380545,
-          "p": 0.07966820883089375,
-          "r2": 0.04088108328516493,
+          "beta": 0.07644978024305739,
+          "t": 1.7526144757669284,
+          "p": 0.07966820480660132,
+          "r2": 0.040881084164220205,
           "n": 60,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": 0.08494591893096627,
-          "t": 2.126067230871654,
-          "p": 0.03349766196936886,
-          "r2": 0.051488937744673224,
+          "beta": 0.08494591902994211,
+          "t": 2.126067233951417,
+          "p": 0.03349766171296968,
+          "r2": 0.05148893777249408,
           "n": 60,
           "hac_lag": 4
         },
@@ -169,18 +125,18 @@
         "ic": 0.1573,
         "ic_t": 1.208,
         "ols": {
-          "beta": 0.04923119381591434,
-          "t": 0.8425112114329512,
-          "p": 0.3995018668243452,
-          "r2": 0.018213550180491866,
+          "beta": 0.0492311941695909,
+          "t": 0.8425112167585928,
+          "p": 0.3995018638446254,
+          "r2": 0.01821355040958239,
           "n": 60,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.11784673937757098,
-          "t": -2.8250345599230373,
-          "p": 0.0047275516612357415,
-          "r2": 0.14742151184441799,
+          "beta": -0.1178467394537967,
+          "t": -2.8250345613312864,
+          "p": 0.004727551640457611,
+          "r2": 0.14742151177124552,
           "n": 60,
           "hac_lag": 4
         },
@@ -205,284 +161,6 @@
         }
       },
       {
-        "key": "CEICI324043102",
-        "role": "supply",
-        "why": "Export value: electrical machinery",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 171,
-        "min_n": 24,
-        "pearson": -0.1299,
-        "pearson_p": 0.0904,
-        "spearman": -0.0754,
-        "spearman_p": 0.3268,
-        "best_lag": 0,
-        "corr_at_best": -0.1299,
-        "ic": 0.1314,
-        "ic_t": 1.709,
-        "ols": {
-          "beta": -0.16959048259521078,
-          "t": -1.9487454465111136,
-          "p": 0.05132583154898611,
-          "r2": 0.016867587595399414,
-          "n": 171,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.16959048259521078,
-          "t": -1.9487454465111136,
-          "p": 0.05132583154898611,
-          "r2": 0.016867587595399414,
-          "n": 171,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.1466,
-        "last_chg": 0.213508,
-        "last_chg_z": 1.7,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 38.2,
-        "source": "ceic",
-        "label": "Export value: electrical machinery",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.691
-        }
-      },
-      {
-        "key": "CEICI323568502",
-        "role": "supply",
-        "why": "Manufacturing: Electrical Equipment",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.1207,
-        "pearson_p": 0.1202,
-        "spearman": -0.1114,
-        "spearman_p": 0.1517,
-        "best_lag": 0,
-        "corr_at_best": -0.1207,
-        "ic": 0.1243,
-        "ic_t": 1.601,
-        "ols": {
-          "beta": -0.2242365798121267,
-          "t": -2.005434201583194,
-          "p": 0.04491664841415302,
-          "r2": 0.014574037409567642,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.2242365798121267,
-          "t": -2.005434201583194,
-          "p": 0.04491664841415302,
-          "r2": 0.014574037409567642,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0974,
-        "last_chg": 0.029788,
-        "last_chg_z": 0.28,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 37.1,
-        "source": "ceic",
-        "label": "Manufacturing: Electrical Equipment",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.139
-        }
-      },
-      {
-        "key": "CEICI323568902",
-        "role": "supply",
-        "why": "Manufacturing: Furniture",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.123,
-        "pearson_p": 0.1132,
-        "spearman": -0.1497,
-        "spearman_p": 0.0536,
-        "best_lag": 0,
-        "corr_at_best": -0.123,
-        "ic": 0.1223,
-        "ic_t": 1.576,
-        "ols": {
-          "beta": -0.19721036757537175,
-          "t": -1.765713513576947,
-          "p": 0.07744392446695006,
-          "r2": 0.015138564289687406,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.19721036757537175,
-          "t": -1.765713513576947,
-          "p": 0.07744392446695006,
-          "r2": 0.015138564289687406,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.1464,
-        "last_chg": 0.038827,
-        "last_chg_z": 0.37,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 36.6,
-        "source": "ceic",
-        "label": "Manufacturing: Furniture",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.183
-        }
-      },
-      {
-        "key": "CEICI323567602",
-        "role": "supply",
-        "why": "Manufacturing: Paper and Paper Products",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.0954,
-        "pearson_p": 0.2203,
-        "spearman": -0.0526,
-        "spearman_p": 0.4999,
-        "best_lag": 6,
-        "corr_at_best": -0.204,
-        "ic": 0.1167,
-        "ic_t": 1.503,
-        "ols": {
-          "beta": -0.272667273566902,
-          "t": -1.3202251506921578,
-          "p": 0.18675985717599786,
-          "r2": 0.009092690189785757,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.5836916694619063,
-          "t": -2.2674681904352303,
-          "p": 0.02336163996105473,
-          "r2": 0.04159820173069961,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0994,
-        "last_chg": 0.057068,
-        "last_chg_z": 0.98,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 36.5,
-        "source": "ceic",
-        "label": "Manufacturing: Paper and Paper Products",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.454
-        }
-      },
-      {
-        "key": "CEICI323569002",
-        "role": "supply",
-        "why": "Manufacturing: Other Manufacturing",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.071,
-        "pearson_p": 0.3618,
-        "spearman": -0.0244,
-        "spearman_p": 0.7545,
-        "best_lag": 6,
-        "corr_at_best": -0.1738,
-        "ic": 0.164,
-        "ic_t": 2.113,
-        "ols": {
-          "beta": -0.10507198502333533,
-          "t": -1.0700154118152456,
-          "p": 0.2846123716047939,
-          "r2": 0.005041789196470026,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.2552223343589908,
-          "t": -2.1899724568121415,
-          "p": 0.02852623441651863,
-          "r2": 0.030198248832867147,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0833,
-        "last_chg": -0.144803,
-        "last_chg_z": -1.27,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 36.3,
-        "source": "ceic",
-        "label": "Manufacturing: Other Manufacturing",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.561
-        }
-      },
-      {
         "key": "CEICI323567302",
         "role": "supply",
         "why": "Manufacturing: Wearing Apparel",
@@ -501,18 +179,18 @@
         "ic": -0.0276,
         "ic_t": -0.355,
         "ols": {
-          "beta": -0.3439506658923259,
-          "t": -2.2979663769405625,
-          "p": 0.021563702863425332,
-          "r2": 0.031041548422449883,
+          "beta": -0.34395066171410793,
+          "t": -2.2979663352299773,
+          "p": 0.021563705237573953,
+          "r2": 0.031041547714110607,
           "n": 167,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.3439506658923259,
-          "t": -2.2979663769405625,
-          "p": 0.021563702863425332,
-          "r2": 0.031041548422449883,
+          "beta": -0.34395066171410793,
+          "t": -2.2979663352299773,
+          "p": 0.021563705237573953,
+          "r2": 0.031041547714110607,
           "n": 167,
           "hac_lag": 4
         },
@@ -537,232 +215,9 @@
           "posture": "tailwind",
           "impulse": 0.287
         }
-      },
-      {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.0669,
-        "pearson_p": 0.367,
-        "spearman": 0.0414,
-        "spearman_p": 0.5772,
-        "best_lag": 3,
-        "corr_at_best": -0.1658,
-        "ic": -0.0103,
-        "ic_t": -0.139,
-        "ols": {
-          "beta": 0.35049268642816184,
-          "t": 1.6729621568687387,
-          "p": 0.0943347461222573,
-          "r2": 0.004473949118830811,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.8618274962108673,
-          "t": -2.8077934411286263,
-          "p": 0.004988221085419755,
-          "r2": 0.027476054697111008,
-          "n": 181,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.1571,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 28.7,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.045
-        }
-      },
-      {
-        "key": "CEICI323568202",
-        "role": "supply",
-        "why": "Manufacturing: Basic Metals",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.0597,
-        "pearson_p": 0.4437,
-        "spearman": -0.0472,
-        "spearman_p": 0.5447,
-        "best_lag": 6,
-        "corr_at_best": -0.1654,
-        "ic": 0.0881,
-        "ic_t": 1.135,
-        "ols": {
-          "beta": -0.16463414822003652,
-          "t": -0.7808299350763275,
-          "p": 0.4349025251763978,
-          "r2": 0.003559660950845811,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.45248161351275,
-          "t": -2.2407768626184157,
-          "p": 0.025040532399806054,
-          "r2": 0.02736291929671031,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0465,
-        "last_chg": 0.030637,
-        "last_chg_z": 0.45,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 28.2,
-        "source": "ceic",
-        "label": "Manufacturing: Basic Metals",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.221
-        }
-      },
-      {
-        "key": "CEICI323567902",
-        "role": "supply",
-        "why": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": 0.0872,
-        "pearson_p": 0.2623,
-        "spearman": 0.0376,
-        "spearman_p": 0.6296,
-        "best_lag": 3,
-        "corr_at_best": -0.2019,
-        "ic": -0.0597,
-        "ic_t": -0.77,
-        "ols": {
-          "beta": 0.16754271178617633,
-          "t": 1.4854642620050527,
-          "p": 0.13742088360952967,
-          "r2": 0.007610662208932251,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.38813141024320125,
-          "t": -2.2324776665768953,
-          "p": 0.025583409684937806,
-          "r2": 0.040780110345788434,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": 0.096,
-        "last_chg": -0.103483,
-        "last_chg_z": -1.29,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 26.8,
-        "source": "ceic",
-        "label": "Manufacturing: Pharmaceuticals, Medicinal Chemical",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.568
-        }
-      },
-      {
-        "key": "CEICI323567002",
-        "role": "supply",
-        "why": "Manufacturing: Beverages",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2024-12-01",
-        "n": 167,
-        "min_n": 24,
-        "pearson": -0.0311,
-        "pearson_p": 0.6898,
-        "spearman": -0.0156,
-        "spearman_p": 0.8419,
-        "best_lag": 6,
-        "corr_at_best": -0.182,
-        "ic": 0.046,
-        "ic_t": 0.593,
-        "ols": {
-          "beta": -0.07294200780843774,
-          "t": -0.6719488062884592,
-          "p": 0.5016162877884204,
-          "r2": 0.0009677672013486127,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.4191890123147749,
-          "t": -1.9263100611391832,
-          "p": 0.05406566989922471,
-          "r2": 0.033132710287723244,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0244,
-        "last_chg": 0.015362,
-        "last_chg_z": 0.19,
-        "last_chg_date": "2024-12-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "stale(18m)"
-          ]
-        },
-        "score": 22.5,
-        "source": "ceic",
-        "label": "Manufacturing: Beverages",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.095
-        }
       }
     ],
-    "n_kept": 12,
+    "n_kept": 3,
     "n_candidates": 39
   },
   "unscored": [],
@@ -772,9 +227,19 @@
       "label": "Manufacturing: Machinery and Equipments",
       "role": "supply",
       "pearson": -0.103,
-      "p": 0.03493336234683253,
+      "p": 0.0349333747444571,
       "theory_agree": null,
-      "score": 43.5,
+      "score": 39.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324043102",
+      "label": "Export value: electrical machinery",
+      "role": "supply",
+      "pearson": -0.1299,
+      "p": 0.05132583716171024,
+      "theory_agree": null,
+      "score": 38.2,
       "reason": "below_gate"
     },
     {
@@ -782,19 +247,29 @@
       "label": "Manufacturing: Motor vehicles, Trailers and Semitr",
       "role": "supply",
       "pearson": -0.0891,
-      "p": 0.07641954703159662,
+      "p": 0.0764195447949905,
       "theory_agree": null,
-      "score": 41.4,
+      "score": 37.4,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI323567502",
-      "label": "Manufacturing: Wood and Prod of Woods and Cork exc",
+      "key": "CEICI323568502",
+      "label": "Manufacturing: Electrical Equipment",
       "role": "supply",
-      "pearson": -0.0811,
-      "p": 0.21216385770595148,
+      "pearson": -0.1207,
+      "p": 0.04491664472036318,
       "theory_agree": null,
-      "score": 39.7,
+      "score": 37.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323568902",
+      "label": "Manufacturing: Furniture",
+      "role": "supply",
+      "pearson": -0.123,
+      "p": 0.0774439267195209,
+      "theory_agree": null,
+      "score": 36.6,
       "reason": "below_gate"
     },
     {
@@ -802,9 +277,39 @@
       "label": "Manufacturing: Textiles",
       "role": "supply",
       "pearson": -0.1193,
-      "p": 0.04109707665956518,
+      "p": 0.041097086315835404,
       "theory_agree": null,
       "score": 36.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567502",
+      "label": "Manufacturing: Wood and Prod of Woods and Cork exc",
+      "role": "supply",
+      "pearson": -0.0811,
+      "p": 0.21216386216599536,
+      "theory_agree": null,
+      "score": 35.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323567602",
+      "label": "Manufacturing: Paper and Paper Products",
+      "role": "supply",
+      "pearson": -0.0954,
+      "p": 0.18675985896421432,
+      "theory_agree": null,
+      "score": 32.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323569002",
+      "label": "Manufacturing: Other Manufacturing",
+      "role": "supply",
+      "pearson": -0.071,
+      "p": 0.2846123720025808,
+      "theory_agree": null,
+      "score": 32.3,
       "reason": "below_gate"
     },
     {
@@ -812,59 +317,9 @@
       "label": "sa: Total Manufacturing",
       "role": "supply",
       "pearson": -0.1,
-      "p": 0.07023077063069673,
+      "p": 0.0702307738532192,
       "theory_agree": null,
-      "score": 35.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI460068337",
-      "label": "Total Manufacturing",
-      "role": "supply",
-      "pearson": -0.0559,
-      "p": 0.2833461161114583,
-      "theory_agree": null,
-      "score": 31.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323787402",
-      "label": "Import value: electrical machinery",
-      "role": "demand",
-      "pearson": -0.1037,
-      "p": 0.0295220131821821,
-      "theory_agree": false,
-      "score": 31.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323568102",
-      "label": "Manufacturing: Non- Metallic Mineral Products",
-      "role": "supply",
-      "pearson": 0.0703,
-      "p": 0.19394613850995823,
-      "theory_agree": null,
-      "score": 31.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323568002",
-      "label": "Manufacturing: Rubber and Plastics Products",
-      "role": "supply",
-      "pearson": -0.0658,
-      "p": 0.3044087443561664,
-      "theory_agree": null,
-      "score": 28.6,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323567802",
-      "label": "Manufacturing: Chemicals and Chemical Products",
-      "role": "supply",
-      "pearson": -0.0483,
-      "p": 0.3958828579166521,
-      "theory_agree": null,
-      "score": 26.1,
+      "score": 31.9,
       "reason": "below_gate"
     }
   ],
@@ -876,7 +331,11 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.2,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 3.4,
+  "grade": "partial",
+  "grade_reasons": [
+    "multivariate model unavailable / no OOS",
+    "confidence low",
+    "data-limited basket"
+  ]
 }

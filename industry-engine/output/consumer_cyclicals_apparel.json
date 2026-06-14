@@ -3,7 +3,7 @@
   "sub_sector": "Apparel",
   "sector": "Consumer Cyclicals",
   "priority": 31,
-  "generated_at": "2026-06-14T02:52:41",
+  "generated_at": "2026-06-14T11:59:40",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -46,63 +46,119 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "NEUTRAL",
-    "score": 50,
-    "net_tilt": 0.009,
-    "demand_tilt": null,
-    "supply_tilt": -0.124,
-    "cost_tilt": 0.041,
-    "macro_tilt": -0.045,
+    "verdict": "BULLISH",
+    "score": 69,
+    "net_tilt": 0.484,
+    "demand_tilt": 0.129,
+    "supply_tilt": 0.646,
+    "cost_tilt": 0.458,
+    "macro_tilt": null,
     "confidence": {
-      "level": "low",
-      "score": 27,
+      "level": "medium",
+      "score": 48,
       "reasons": [
-        "max|corr|=0.15",
-        "theory_agree=33%",
-        "stable=40%",
-        "mvR2=0.05",
-        "OOS=53%"
+        "max|corr|=0.24",
+        "theory_agree=50%",
+        "stable=60%",
+        "mvR2=0.09",
+        "OOS=61%",
+        "mt_penalty=0.98(n=18)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "CEICI323795002",
         "CEICI324049702",
-        "CEICI324050302",
-        "cotton",
-        "usdidr"
+        "CEICI324050202",
+        "CEICI323977302"
       ],
       "n": 160,
-      "r2": 0.05,
-      "adj_r2": 0.025,
+      "r2": 0.087,
+      "adj_r2": 0.063,
       "betas": {
+        "CEICI323795002": {
+          "std_beta": 0.0032,
+          "t": 0.67,
+          "p": 0.5017
+        },
         "CEICI324049702": {
-          "std_beta": 0.0084,
-          "t": 1.6,
-          "p": 0.1095
+          "std_beta": 0.0066,
+          "t": 1.27,
+          "p": 0.2025
         },
-        "CEICI324050302": {
-          "std_beta": -0.0102,
-          "t": -2.02,
-          "p": 0.0435
+        "CEICI324050202": {
+          "std_beta": 0.0091,
+          "t": 1.8,
+          "p": 0.0724
         },
-        "cotton": {
-          "std_beta": 0.0044,
-          "t": 1.05,
-          "p": 0.2915
-        },
-        "usdidr": {
-          "std_beta": -0.0065,
-          "t": -1.25,
-          "p": 0.2128
+        "CEICI323977302": {
+          "std_beta": 0.0033,
+          "t": 0.83,
+          "p": 0.4049
         }
       },
-      "oos_hit_rate": 0.53,
+      "oos_hit_rate": 0.61,
       "oos_n": 100,
-      "expected_monthly_ret": 0.0012
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0392
     },
-    "narrative": "Apparel (Consumer Cyclicals) screens NEUTRAL [50/100, low confidence]. Top drivers: Volume: Other vegetable textile fibres; paper yarn (corr +0.12, lead 1m, now tailwind); Volume: Impregnated, Coated, Covered or Laminated (corr -0.15, lead 6m, now headwind); Rubber · SGP/MYS (corr +0.09, lead 1m, now tailwind). A 4-driver model explains 5% of monthly variance (adj 2%), 53% out-of-sample directional hit-rate; current read ~+0.1%/mo.",
+    "narrative": "Apparel (Consumer Cyclicals) screens BULLISH [69/100, medium confidence]. Top drivers: Volume: Other Made Up Textile Articles; Sets; Worn (corr +0.16, lead 4m, now flat); Volume: Other vegetable textile fibres; paper yarn (corr +0.19, lead 1m, now tailwind); Volume: Special woven fabrics; tufted textile fabr (corr +0.24, lead 0m, now tailwind). A 4-driver model explains 9% of monthly variance (adj 6%), 61% out-of-sample directional hit-rate; current read ~+3.9%/mo.",
     "drivers": [
+      {
+        "key": "CEICI323795002",
+        "role": "demand",
+        "why": "Volume: Other Made Up Textile Articles; Sets; Worn",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 160,
+        "min_n": 24,
+        "pearson": 0.1622,
+        "pearson_p": 0.0404,
+        "spearman": 0.1766,
+        "spearman_p": 0.0255,
+        "best_lag": 4,
+        "corr_at_best": 0.2768,
+        "ic": 0.2035,
+        "ic_t": 0.709,
+        "ols": {
+          "beta": 0.01255583621677012,
+          "t": 2.013361055518066,
+          "p": 0.044076659502016974,
+          "r2": 0.026314595272535546,
+          "n": 160,
+          "hac_lag": 12
+        },
+        "ols_pred": {
+          "beta": 0.021853725171102432,
+          "t": 2.628797590842483,
+          "p": 0.008568734587652843,
+          "r2": 0.07661132275573368,
+          "n": 156,
+          "hac_lag": 12
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0376,
+        "last_chg": 0.370181,
+        "last_chg_z": 0.26,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 55.8,
+        "source": "ceic",
+        "label": "Volume: Other Made Up Textile Articles; Sets; Worn",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.129
+        }
+      },
       {
         "key": "CEICI324049702",
         "role": "supply",
@@ -113,29 +169,29 @@
         "last_obs": "2026-04-01",
         "n": 160,
         "min_n": 24,
-        "pearson": 0.115,
-        "pearson_p": 0.1475,
-        "spearman": 0.1084,
-        "spearman_p": 0.1724,
+        "pearson": 0.1944,
+        "pearson_p": 0.0138,
+        "spearman": 0.1373,
+        "spearman_p": 0.0833,
         "best_lag": 1,
-        "corr_at_best": 0.2129,
-        "ic": 0.1183,
-        "ic_t": 1.487,
+        "corr_at_best": 0.2841,
+        "ic": 0.1758,
+        "ic_t": 0.613,
         "ols": {
-          "beta": 0.020642661682098995,
-          "t": 1.432077232378655,
-          "p": 0.1521217194934203,
-          "r2": 0.01323450364434553,
+          "beta": 0.02568991442510734,
+          "t": 1.7357586375380276,
+          "p": 0.0826065205178223,
+          "r2": 0.037786149093760546,
           "n": 160,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": 0.03851836346586001,
-          "t": 1.7635483815411799,
-          "p": 0.07780804483513111,
-          "r2": 0.04533509786207468,
+          "beta": 0.037778709741725515,
+          "t": 1.9051288650027196,
+          "p": 0.05676332210013372,
+          "r2": 0.08072766799896991,
           "n": 159,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "sign_prior": 0,
         "emp_sign": 1,
@@ -149,7 +205,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 38.6,
+        "score": 50.3,
         "source": "ceic",
         "label": "Volume: Other vegetable textile fibres; paper yarn",
         "live": {
@@ -158,57 +214,111 @@
         }
       },
       {
-        "key": "CEICI324050302",
+        "key": "CEICI324050202",
         "role": "supply",
-        "why": "Volume: Impregnated, Coated, Covered or Laminated",
+        "why": "Volume: Special woven fabrics; tufted textile fabr",
         "test_freq": "M",
         "transform": "yoy",
         "native_freq": "M",
         "last_obs": "2026-04-01",
         "n": 160,
         "min_n": 24,
-        "pearson": -0.1473,
-        "pearson_p": 0.063,
-        "spearman": -0.0989,
-        "spearman_p": 0.2134,
-        "best_lag": 6,
-        "corr_at_best": -0.1587,
-        "ic": -0.0072,
-        "ic_t": -0.091,
+        "pearson": 0.2413,
+        "pearson_p": 0.0021,
+        "spearman": 0.1644,
+        "spearman_p": 0.0378,
+        "best_lag": 0,
+        "corr_at_best": 0.2413,
+        "ic": 0.1038,
+        "ic_t": 0.362,
         "ols": {
-          "beta": -0.033943957103861264,
-          "t": -1.9164170994098335,
-          "p": 0.055312026016197245,
-          "r2": 0.021701901889725872,
+          "beta": 0.04251493440002803,
+          "t": 1.9291760617128426,
+          "p": 0.05370900890661963,
+          "r2": 0.05824684984575523,
           "n": 160,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": -0.038069286589175064,
-          "t": -1.479277471184173,
-          "p": 0.13906617148717354,
-          "r2": 0.025186869525253508,
-          "n": 154,
-          "hac_lag": 4
+          "beta": 0.04251493440002803,
+          "t": 1.9291760617128426,
+          "p": 0.05370900890661963,
+          "r2": 0.05824684984575523,
+          "n": 160,
+          "hac_lag": 12
         },
         "sign_prior": 0,
-        "emp_sign": -1,
+        "emp_sign": 1,
         "theory_agree": null,
         "stable": false,
-        "excess_pearson": -0.0779,
-        "last_chg": 0.976036,
-        "last_chg_z": 3.18,
+        "excess_pearson": 0.0676,
+        "last_chg": 0.344374,
+        "last_chg_z": 1.17,
         "last_chg_date": "2026-04-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 29.3,
+        "score": 40.4,
         "source": "ceic",
-        "label": "Volume: Impregnated, Coated, Covered or Laminated",
+        "label": "Volume: Special woven fabrics; tufted textile fabr",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.92
+          "posture": "tailwind",
+          "impulse": 0.526
+        }
+      },
+      {
+        "key": "CEICI323977302",
+        "role": "supply",
+        "why": "Value: Textile Yarns, Fabrics, and Their Products",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 171,
+        "min_n": 24,
+        "pearson": 0.1497,
+        "pearson_p": 0.0506,
+        "spearman": 0.1878,
+        "spearman_p": 0.0139,
+        "best_lag": 0,
+        "corr_at_best": 0.1497,
+        "ic": -0.0746,
+        "ic_t": -0.97,
+        "ols": {
+          "beta": 0.05503022322221157,
+          "t": 2.3883473367841526,
+          "p": 0.016924338133112123,
+          "r2": 0.022417376114347465,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": 0.05503022322221157,
+          "t": 2.3883473367841526,
+          "p": 0.016924338133112123,
+          "r2": 0.022417376114347465,
+          "n": 171,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": 1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0834,
+        "last_chg": 0.267818,
+        "last_chg_z": 1.9,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 36.6,
+        "source": "ceic",
+        "label": "Value: Textile Yarns, Fabrics, and Their Products",
+        "live": {
+          "posture": "tailwind",
+          "impulse": 0.74
         }
       },
       {
@@ -221,27 +331,27 @@
         "last_obs": "2026-03-01",
         "n": 23,
         "min_n": 24,
-        "pearson": 0.0933,
-        "pearson_p": 0.6719,
-        "spearman": 0.1097,
-        "spearman_p": 0.6183,
+        "pearson": 0.0695,
+        "pearson_p": 0.7527,
+        "spearman": 0.1808,
+        "spearman_p": 0.409,
         "best_lag": 1,
-        "corr_at_best": -0.3546,
-        "ic": -0.5709,
-        "ic_t": -2.616,
+        "corr_at_best": -0.2965,
+        "ic": -0.4704,
+        "ic_t": -2.155,
         "ols": {
-          "beta": 0.15514690501688594,
-          "t": 0.6209956782452327,
-          "p": 0.5346024667215397,
-          "r2": 0.008708540685799515,
+          "beta": 0.08702940297561687,
+          "t": 0.4689219948840277,
+          "p": 0.6391253940161311,
+          "r2": 0.004827820757362322,
           "n": 23,
           "hac_lag": 3
         },
         "ols_pred": {
-          "beta": -0.5934490140358362,
-          "t": -3.2960155774535687,
-          "p": 0.0009806657745796538,
-          "r2": 0.1257258207002927,
+          "beta": -0.3801632169061756,
+          "t": -2.9830473290326176,
+          "p": 0.0028539385781032496,
+          "r2": 0.08789916060144753,
           "n": 22,
           "hac_lag": 3
         },
@@ -259,123 +369,13 @@
             "short_sample(n=23)"
           ]
         },
-        "score": 29.3,
+        "score": 26.0,
         "source": "spark",
         "shallow": true,
         "label": "Rubber · SGP/MYS",
         "live": {
           "posture": "tailwind",
           "impulse": 0.458
-        }
-      },
-      {
-        "key": "cotton",
-        "role": "cost",
-        "why": "cotton input",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.0499,
-        "pearson_p": 0.5009,
-        "spearman": 0.0435,
-        "spearman_p": 0.5575,
-        "best_lag": 1,
-        "corr_at_best": 0.1528,
-        "ic": 0.1216,
-        "ic_t": 1.64,
-        "ols": {
-          "beta": -0.04347938056183458,
-          "t": -0.4460920072655141,
-          "p": 0.6555307860981996,
-          "r2": 0.0024929461764113814,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.1320664155465399,
-          "t": 2.3015934827183426,
-          "p": 0.021358108022922564,
-          "r2": 0.02333355381447455,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": -1,
-        "emp_sign": -1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": -0.1324,
-        "last_chg": 0.061083,
-        "last_chg_z": 0.79,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 26.5,
-        "source": "corr:ICE:CT1!",
-        "shallow": false,
-        "label": "Cotton No.2",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.376
-        }
-      },
-      {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "garment export competitiveness",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.118,
-        "pearson_p": 0.1107,
-        "spearman": -0.0901,
-        "spearman_p": 0.2237,
-        "best_lag": 6,
-        "corr_at_best": -0.1624,
-        "ic": -0.0368,
-        "ic_t": -0.496,
-        "ols": {
-          "beta": -0.27483144665707776,
-          "t": -1.4608790222033088,
-          "p": 0.14404864453967509,
-          "r2": 0.0139209926346483,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.36072040119394433,
-          "t": -2.4380654170969986,
-          "p": 0.014766101570766858,
-          "r2": 0.02638341051694071,
-          "n": 178,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": 0.0855,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 25.5,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
         }
       }
     ],
@@ -385,103 +385,103 @@
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI235841302",
-      "label": "Secondary Sector: Textile Industry",
-      "role": "supply",
-      "pearson": 0.0999,
-      "p": 0.4157651430137569,
-      "theory_agree": null,
-      "score": 32.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323795002",
-      "label": "Volume: Other Made Up Textile Articles; Sets; Worn",
-      "role": "demand",
-      "pearson": 0.0853,
-      "p": 0.30290873061465007,
-      "theory_agree": true,
-      "score": 30.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI324050102",
-      "label": "Volume: Carpets and Other Textile Floor Coverings",
-      "role": "supply",
-      "pearson": -0.0711,
-      "p": 0.32900118632385533,
-      "theory_agree": null,
-      "score": 28.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI324050202",
-      "label": "Volume: Special woven fabrics; tufted textile fabr",
-      "role": "supply",
-      "pearson": 0.1085,
-      "p": 0.275174076442677,
-      "theory_agree": null,
-      "score": 26.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI324050702",
-      "label": "Volume: Other made up textile articles; sets; worn",
-      "role": "supply",
-      "pearson": -0.0552,
-      "p": 0.3573149549013147,
-      "theory_agree": null,
-      "score": 25.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "brent",
-      "label": "Brent Crude",
-      "role": "cost",
-      "pearson": 0.1049,
-      "p": 0.28794959238017337,
-      "theory_agree": false,
-      "score": 24.5,
-      "reason": "below_gate"
-    },
-    {
       "key": "CEICI323794602",
       "label": "Volume: Impregnated, Coated, Covered Or Laminated",
       "role": "demand",
-      "pearson": 0.029,
-      "p": 0.6208626283475887,
+      "pearson": 0.066,
+      "p": 0.28167159520216145,
       "theory_agree": true,
-      "score": 20.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI323975002",
-      "label": "Value: Textile Fibres and Their Waste",
-      "role": "supply",
-      "pearson": 0.0474,
-      "p": 0.4133861081181296,
-      "theory_agree": null,
-      "score": 18.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "demand",
-      "pearson": -0.0214,
-      "p": 0.7409647667656598,
-      "theory_agree": true,
-      "score": 17.9,
+      "score": 37.2,
       "reason": "below_gate"
     },
     {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "role": "macro",
-      "pearson": -0.0147,
-      "p": 0.8531474599007379,
+      "pearson": -0.0782,
+      "p": 0.3352326506626633,
       "theory_agree": null,
-      "score": 11.9,
+      "score": 24.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "cotton",
+      "label": "Cotton No.2",
+      "role": "cost",
+      "pearson": -0.0565,
+      "p": 0.6779973861076354,
+      "theory_agree": true,
+      "score": 20.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323794402",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "role": "demand",
+      "pearson": 0.0322,
+      "p": 0.5706310355158483,
+      "theory_agree": true,
+      "score": 19.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "demand",
+      "pearson": -0.0504,
+      "p": 0.48964701569924196,
+      "theory_agree": true,
+      "score": 19.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI323975002",
+      "label": "Value: Textile Fibres and Their Waste",
+      "role": "supply",
+      "pearson": 0.0373,
+      "p": 0.5348112591535611,
+      "theory_agree": null,
+      "score": 17.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "brent",
+      "label": "Brent Crude",
+      "role": "cost",
+      "pearson": 0.0868,
+      "p": 0.3584010971042314,
+      "theory_agree": false,
+      "score": 16.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050702",
+      "label": "Volume: Other made up textile articles; sets; worn",
+      "role": "supply",
+      "pearson": -0.0254,
+      "p": 0.6963295355302175,
+      "theory_agree": null,
+      "score": 14.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050302",
+      "label": "Volume: Impregnated, Coated, Covered or Laminated",
+      "role": "supply",
+      "pearson": -0.0816,
+      "p": 0.44920828393949064,
+      "theory_agree": null,
+      "score": 14.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324050102",
+      "label": "Volume: Carpets and Other Textile Floor Coverings",
+      "role": "supply",
+      "pearson": 0.032,
+      "p": 0.6198144177188809,
+      "theory_agree": null,
+      "score": 11.6,
       "reason": "below_gate"
     }
   ],
@@ -493,11 +493,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.6,
-  "grade": "partial",
-  "grade_reasons": [
-    "no theory-anchored significant driver (|r|>=0.15, p<0.10)",
-    "confidence low",
-    "parked after 2 attempts"
-  ]
+  "runtime_s": 1.8,
+  "grade": "perfected",
+  "grade_reasons": []
 }

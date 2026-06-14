@@ -124,7 +124,11 @@ def prep_driver(obs: list, key: str, units: str, topic: str) -> dict | None:
     }
 
 
-def _hac_ols(y: pd.Series, x: pd.Series) -> dict | None:
+def _hac_ols(y: pd.Series, x: pd.Series, overlap: int = 0) -> dict | None:
+    """`overlap` = the MA order induced by the driver transform (e.g. a 12-month
+    overlapping YoY change is ~MA(11)). Newey-West truncated below the overlap
+    band understates SEs and overstates t/p, so the HAC lag is floored at the
+    overlap (critique: YoY autocorrelation vs too-short HAC lag)."""
     j = pd.concat([y.rename("y"), x.rename("x")], axis=1).dropna()
     if len(j) < 8 or j["x"].nunique() < 4:
         return None
@@ -132,7 +136,9 @@ def _hac_ols(y: pd.Series, x: pd.Series) -> dict | None:
     if HAVE_SM:
         try:
             X = sm.add_constant(j["x"].values)
-            L = max(1, min(MAX_LAG, int(round(4 * (n / 100.0) ** (2.0 / 9.0)))))
+            base_L = int(round(4 * (n / 100.0) ** (2.0 / 9.0)))
+            L = max(1, base_L, int(overlap))
+            L = min(L, max(1, n // 4))    # sanity cap
             res = sm.OLS(j["y"].values, X).fit(cov_type="HAC",
                                                 cov_kwds={"maxlags": L})
             return {"beta": float(res.params[1]), "t": float(res.tvalues[1]),
@@ -185,27 +191,34 @@ def analyze_pair(basket_ret: dict, driver: dict, sign_prior: int,
     if n < 10:
         return None
     yv, xv = j["y"], j["x"]
+    # MA order induced by the transform (overlapping YoY ~ MA(11)) — used to
+    # widen HAC lags and to deflate the i.i.d. IC t-stat for autocorrelation.
+    transform = driver.get("transform", "")
+    overlap = ((12 if f == "M" else 4) if "yoy" in transform else 0)
     pr, pp = ss.pearsonr(xv, yv)
     sr, sp = ss.spearmanr(xv, yv)
     ll = _leadlag(y, x)
-    contemp = _hac_ols(y, x)
+    contemp = _hac_ols(y, x, overlap)
     # predictive at best positive lead (>=1) if one exists, else lag0
     bl = ll["best_lag"] if ll["best_lag"] >= 1 else 0
-    pred = _hac_ols(y, x.shift(bl)) if bl >= 1 else contemp
-    # forward IC (1-period ahead), Spearman
+    pred = _hac_ols(y, x.shift(bl), overlap) if bl >= 1 else contemp
+    # forward IC (1-period ahead), Spearman. The naive t = ic*sqrt(n-1) assumes
+    # i.i.d.; deflate by the overlap so an overlapping driver can't inherit an
+    # inflated significance (critique: IC t ignores autocorrelation).
     jf = pd.concat([y.rename("y"), x.shift(1).rename("x")], axis=1).dropna()
     if len(jf) >= 10:
         ic, icp = ss.spearmanr(jf["x"], jf["y"])
-        ic_t = float(ic) * math.sqrt(len(jf) - 1)
+        ic_t = float(ic) * math.sqrt((len(jf) - 1) / (overlap + 1.0))
     else:
         ic, icp, ic_t = float("nan"), float("nan"), float("nan")
     # split-sample sign stability
     half = n // 2
-    s1 = _hac_ols(yv.iloc[:half], xv.iloc[:half])
-    s2 = _hac_ols(yv.iloc[half:], xv.iloc[half:])
+    s1 = _hac_ols(yv.iloc[:half], xv.iloc[:half], overlap)
+    s2 = _hac_ols(yv.iloc[half:], xv.iloc[half:], overlap)
     sign1 = np.sign(s1["beta"]) if s1 else 0
     sign2 = np.sign(s2["beta"]) if s2 else 0
-    stable = bool(sign1 != 0 and sign1 == sign2)
+    # don't trust split-sample sign agreement on tiny halves (<24 obs)
+    stable = bool(sign1 != 0 and sign1 == sign2 and half >= 24)
     def _isign(v) -> int:
         try:
             if v is None or (isinstance(v, float) and math.isnan(v)):
@@ -286,8 +299,31 @@ def _score(rec: dict) -> float:
         base += 6
     elif rec["theory_agree"] is False:
         base -= 8
-    if rec["best_lag"] >= 1 and abs(rec["corr_at_best"]) >= absr:
-        base += 4    # genuinely predictive (leads)
+# Lead-lag is a MAX over (MAX_LAG+1) lags — a maximally-selected statistic. The
+# Šidák-equivalent single-lag |r| threshold that preserves a ~0.15 effective bar
+# across 7 lags is ~0.22 at n~120; below this the "lead" clears on noise alone.
+LEADLAG_SIDAK = 0.22
+
+
+def _score(rec: dict) -> float:
+    """Composite 0..100 driver importance: blend of magnitude, significance,
+    lead, stability, theory agreement."""
+    r2 = (rec["ols"] or {}).get("r2", 0) or 0
+    p = (rec["ols"] or {}).get("p", 1) or 1
+    absr = abs(rec["pearson"])
+    ic = abs(rec["ic"] or 0)
+    sig = max(0.0, 1.0 - min(p, 1.0))                      # significance
+    base = 100 * (0.30 * min(absr / 0.5, 1) + 0.25 * min(r2 / 0.3, 1) +
+                  0.20 * min(ic / 0.3, 1) + 0.15 * sig)
+    if rec["stable"]:
+        base += 6
+    if rec["theory_agree"]:
+        base += 6
+    elif rec["theory_agree"] is False:
+        base -= 8
+    # reward a genuine lead only if it survives the multiple-lag (Šidák) bar
+    if rec["best_lag"] >= 1 and abs(rec["corr_at_best"]) >= LEADLAG_SIDAK:
+        base += 4
     return round(max(0.0, min(100.0, base)), 1)
 
 
@@ -295,10 +331,15 @@ def is_kept(rec: dict) -> bool:
     """Quality + significance gate for inclusion in the model."""
     if not rec["quality"]["ok"]:
         return False
+    # IC gate raised (1.6 -> 2.3) because the i.i.d. IC t-stat is anticonservative
+    # under autocorrelation even after the overlap deflation.
     p_ok = ((rec["ols"] or {}).get("p", 1) < 0.10) or \
            ((rec["ols_pred"] or {}).get("p", 1) < 0.10) or \
-           (abs(rec["ic"] or 0) >= 0.12 and abs(rec["ic_t"] or 0) >= 1.6)
-    strength = abs(rec["pearson"]) >= 0.12 or abs(rec["corr_at_best"]) >= 0.15
+           (abs(rec["ic"] or 0) >= 0.12 and abs(rec["ic_t"] or 0) >= 2.3)
+    # strength: a contemporaneous lag-0 correlation, OR a LEAD that survives the
+    # Šidák multiple-lag bar (not the raw 0.15 max-over-7 that clears on noise).
+    strength = abs(rec["pearson"]) >= 0.13 or \
+        abs(rec["corr_at_best"]) >= LEADLAG_SIDAK
     # reject if statistically strong but flatly contradicts robust theory prior
     contradiction = (rec["theory_agree"] is False and rec["stable"] and
                      abs(rec["pearson"]) >= 0.2)

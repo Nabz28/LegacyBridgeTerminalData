@@ -3,7 +3,7 @@
   "sub_sector": "Internet",
   "sector": "Technology",
   "priority": 15,
-  "generated_at": "2026-06-14T02:51:59",
+  "generated_at": "2026-06-14T11:58:52",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,67 +31,75 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 51,
-    "net_tilt": 0.037,
-    "demand_tilt": 0.04,
+    "score": 52,
+    "net_tilt": 0.043,
+    "demand_tilt": -0.02,
     "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": 0.0,
+    "macro_tilt": null,
     "confidence": {
       "level": "medium",
-      "score": 58,
+      "score": 52,
       "reasons": [
         "max|corr|=0.21",
-        "theory_agree=55%",
-        "stable=92%",
-        "mvR2=0.10",
-        "OOS=50%"
+        "theory_agree=44%",
+        "stable=67%",
+        "mvR2=0.17",
+        "OOS=na",
+        "mt_penalty=0.91(n=33)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "id_gdp_real_q",
-        "ndx",
-        "CEICI479936347",
-        "id_bi_rate",
-        "CEICI479936247"
+        "CEICI519440377",
+        "CEICI519410687",
+        "CEICI519457907",
+        "CEICI517876597",
+        "CEICI517743197"
       ],
-      "n": 116,
-      "r2": 0.102,
-      "adj_r2": 0.062,
+      "n": 72,
+      "r2": 0.173,
+      "adj_r2": 0.097,
       "betas": {
         "id_gdp_real_q": {
-          "std_beta": 0.0349,
-          "t": 3.29,
-          "p": 0.001
+          "std_beta": 0.0318,
+          "t": 3.18,
+          "p": 0.0015
         },
-        "ndx": {
-          "std_beta": 0.0196,
-          "t": 2.21,
-          "p": 0.0271
+        "CEICI519440377": {
+          "std_beta": 0.0314,
+          "t": 2.62,
+          "p": 0.0089
         },
-        "CEICI479936347": {
+        "CEICI519410687": {
+          "std_beta": -0.0316,
+          "t": -2.03,
+          "p": 0.0428
+        },
+        "CEICI519457907": {
+          "std_beta": -0.0131,
+          "t": -1.28,
+          "p": 0.2005
+        },
+        "CEICI517876597": {
           "std_beta": -0.0165,
-          "t": -1.24,
-          "p": 0.2141
+          "t": -1.91,
+          "p": 0.0562
         },
-        "id_bi_rate": {
-          "std_beta": -0.0044,
-          "t": -0.45,
-          "p": 0.6516
-        },
-        "CEICI479936247": {
-          "std_beta": -0.0292,
-          "t": -2.25,
-          "p": 0.0243
+        "CEICI517743197": {
+          "std_beta": -0.0201,
+          "t": -0.82,
+          "p": 0.4131
         }
       },
-      "oos_hit_rate": 0.5,
-      "oos_n": 56,
-      "expected_monthly_ret": -0.0091
+      "oos_hit_rate": null,
+      "oos_n": 0,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0483
     },
-    "narrative": "Internet (Technology) screens NEUTRAL [51/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Volume: Finance (corr +0.12, lead 4m, now flat). A 5-driver model explains 10% of monthly variance (adj 6%), 50% out-of-sample directional hit-rate; current read ~-0.9%/mo.",
+    "narrative": "Internet (Technology) screens NEUTRAL [52/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 6m, now flat); AOV: Business & Consumer Services (corr +0.21, lead 0m, now flat); Value: Business & Consumer Services (corr +0.16, lead 0m, now flat). A 6-driver model explains 17% of monthly variance (adj 10%); current read ~+4.8%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -203,115 +211,6 @@
         }
       },
       {
-        "key": "CEICI519454487",
-        "role": "demand",
-        "why": "Volume: Finance",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 73,
-        "min_n": 24,
-        "pearson": 0.1234,
-        "pearson_p": 0.2981,
-        "spearman": -0.1827,
-        "spearman_p": 0.1219,
-        "best_lag": 4,
-        "corr_at_best": -0.1245,
-        "ic": -0.2313,
-        "ic_t": -1.949,
-        "ols": {
-          "beta": 0.00040624824512697146,
-          "t": 1.8414148082819504,
-          "p": 0.06556079438456823,
-          "r2": 0.015239504262260728,
-          "n": 73,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.0004045690669106357,
-          "t": -2.4302399056005353,
-          "p": 0.015088831552929099,
-          "r2": 0.015498329178290193,
-          "n": 69,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0988,
-        "last_chg": 1.4,
-        "last_chg_z": -0.21,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 48.1,
-        "source": "ceic",
-        "label": "Volume: Finance",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.105
-        }
-      },
-      {
-        "key": "ndx",
-        "role": "demand",
-        "why": "global tech sentiment",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.1282,
-        "pearson_p": 0.0829,
-        "spearman": 0.1256,
-        "spearman_p": 0.0894,
-        "best_lag": 0,
-        "corr_at_best": 0.1282,
-        "ic": 0.0628,
-        "ic_t": 0.848,
-        "ols": {
-          "beta": 0.3598462624349991,
-          "t": 2.8348359965162,
-          "p": 0.004584921626697135,
-          "r2": 0.016427787665859173,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.3598462624349991,
-          "t": 2.8348359965162,
-          "p": 0.004584921626697135,
-          "r2": 0.016427787665859173,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0137,
-        "last_chg": 0.014785,
-        "last_chg_z": 0.02,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 40.2,
-        "source": "corr:NASDAQ:NDX",
-        "shallow": false,
-        "label": "Nasdaq 100",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.01
-        }
-      },
-      {
         "key": "CEICI519397687",
         "role": "demand",
         "why": "Value: Business & Consumer Services",
@@ -366,60 +265,6 @@
         }
       },
       {
-        "key": "CEICI519457907",
-        "role": "demand",
-        "why": "Volume: Arts & Entertainment",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 72,
-        "min_n": 24,
-        "pearson": -0.188,
-        "pearson_p": 0.1137,
-        "spearman": -0.4052,
-        "spearman_p": 0.0004,
-        "best_lag": 0,
-        "corr_at_best": -0.188,
-        "ic": -0.1665,
-        "ic_t": -1.393,
-        "ols": {
-          "beta": -0.0020422467911471293,
-          "t": -2.3395910504491333,
-          "p": 0.01930486535032313,
-          "r2": 0.03535911879568321,
-          "n": 72,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.0020422467911471293,
-          "t": -2.3395910504491333,
-          "p": 0.01930486535032313,
-          "r2": 0.03535911879568321,
-          "n": 72,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1922,
-        "last_chg": -0.882353,
-        "last_chg_z": -0.35,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 38.0,
-        "source": "ceic",
-        "label": "Volume: Arts & Entertainment",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.173
-        }
-      },
-      {
         "key": "CEICI519410687",
         "role": "demand",
         "why": "Volume: Business & Consumer Services",
@@ -436,22 +281,22 @@
         "best_lag": 2,
         "corr_at_best": -0.2961,
         "ic": -0.1237,
-        "ic_t": -1.042,
+        "ic_t": -0.289,
         "ols": {
           "beta": -0.0023371342772884147,
-          "t": -3.1153918285417617,
-          "p": 0.0018370071160390203,
+          "t": -3.1256536945203344,
+          "p": 0.0017741033645328485,
           "r2": 0.029307916135328793,
           "n": 73,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "ols_pred": {
           "beta": -0.004040709565126144,
-          "t": -2.8107431581586892,
-          "p": 0.0049427224889361755,
+          "t": -3.0195226942747677,
+          "p": 0.0025317332476850825,
           "r2": 0.08767336130341896,
           "n": 71,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "sign_prior": 1,
         "emp_sign": -1,
@@ -474,57 +319,57 @@
         }
       },
       {
-        "key": "CEICI479936347",
+        "key": "CEICI519457907",
         "role": "demand",
-        "why": "Value: Reload/Top Up",
+        "why": "Volume: Arts & Entertainment",
         "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 158,
+        "transform": "yoy",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 72,
         "min_n": 24,
-        "pearson": -0.11,
-        "pearson_p": 0.169,
-        "spearman": -0.0535,
-        "spearman_p": 0.5046,
-        "best_lag": 1,
-        "corr_at_best": 0.1686,
-        "ic": 0.2182,
-        "ic_t": 2.725,
+        "pearson": -0.188,
+        "pearson_p": 0.1137,
+        "spearman": -0.4052,
+        "spearman_p": 0.0004,
+        "best_lag": 0,
+        "corr_at_best": -0.188,
+        "ic": -0.1665,
+        "ic_t": -0.386,
         "ols": {
-          "beta": -0.056555821139595376,
-          "t": -1.5539833405832986,
-          "p": 0.12018839049390213,
-          "r2": 0.012093543269021234,
-          "n": 158,
-          "hac_lag": 4
+          "beta": -0.0020422467911471293,
+          "t": -1.9565013051572748,
+          "p": 0.050406128850212215,
+          "r2": 0.03535911879568321,
+          "n": 72,
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": 0.08611326378748835,
-          "t": 3.052634963818946,
-          "p": 0.002268416975366751,
-          "r2": 0.028422083675261556,
-          "n": 157,
-          "hac_lag": 4
+          "beta": -0.0020422467911471293,
+          "t": -1.9565013051572748,
+          "p": 0.050406128850212215,
+          "r2": 0.03535911879568321,
+          "n": 72,
+          "hac_lag": 12
         },
         "sign_prior": 1,
         "emp_sign": -1,
         "theory_agree": false,
         "stable": true,
-        "excess_pearson": -0.1135,
-        "last_chg": 0.169433,
-        "last_chg_z": 0.44,
-        "last_chg_date": "2026-03-31",
+        "excess_pearson": -0.1922,
+        "last_chg": -0.882353,
+        "last_chg_z": -0.35,
+        "last_chg_date": "2026-06-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 37.4,
+        "score": 37.6,
         "source": "ceic",
-        "label": "Value: Reload/Top Up",
+        "label": "Volume: Arts & Entertainment",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.217
+          "posture": "tailwind",
+          "impulse": 0.173
         }
       },
       {
@@ -573,7 +418,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 35.2,
+        "score": 31.2,
         "source": "ceic",
         "label": "Arts & Entertainment: Arts & Entertainment",
         "live": {
@@ -582,174 +427,213 @@
         }
       },
       {
-        "key": "id_bi_rate",
-        "role": "macro",
-        "why": "policy rate: sector-specific NIM/discount effect",
+        "key": "CEICI517838937",
+        "role": "demand",
+        "why": "Finance: Accounting & Auditing",
         "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-04-24",
-        "n": 181,
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 45,
         "min_n": 24,
-        "pearson": -0.0776,
-        "pearson_p": 0.2989,
-        "spearman": -0.0965,
-        "spearman_p": 0.1965,
-        "best_lag": 2,
-        "corr_at_best": -0.1699,
-        "ic": -0.1068,
-        "ic_t": -1.429,
+        "pearson": 0.0067,
+        "pearson_p": 0.965,
+        "spearman": -0.0182,
+        "spearman_p": 0.9056,
+        "best_lag": 6,
+        "corr_at_best": -0.2868,
+        "ic": -0.1287,
+        "ic_t": -0.844,
         "ols": {
-          "beta": -0.061201423761473465,
-          "t": -1.0766801625921394,
-          "p": 0.281623177703629,
-          "r2": 0.006028177674355595,
-          "n": 181,
-          "hac_lag": 5
+          "beta": 0.000930371211109146,
+          "t": 0.04368538303411687,
+          "p": 0.9651551907426924,
+          "r2": 4.519786307732865e-05,
+          "n": 45,
+          "hac_lag": 3
         },
         "ols_pred": {
-          "beta": -0.1312057659714943,
-          "t": -1.7176526435570045,
-          "p": 0.08585999198853074,
-          "r2": 0.028871447638563197,
-          "n": 179,
-          "hac_lag": 5
+          "beta": -0.03604735290217723,
+          "t": -3.753354431304707,
+          "p": 0.00017448387466959862,
+          "r2": 0.08224955354566077,
+          "n": 39,
+          "hac_lag": 3
         },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.0436,
-        "last_chg": 0.0,
-        "last_chg_z": 0.05,
-        "last_chg_date": "2026-04-30",
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.0105,
+        "last_chg": 0.455968,
+        "last_chg_z": 0.43,
+        "last_chg_date": "2026-06-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 33.1,
-        "source": "corr:ECONOMICS:IDINTR",
-        "shallow": false,
-        "label": "BI Policy Rate",
+        "score": 19.5,
+        "source": "ceic",
+        "label": "Finance: Accounting & Auditing",
         "live": {
-          "posture": "neutral",
-          "impulse": 0.0
+          "posture": "tailwind",
+          "impulse": 0.212
         }
       },
       {
-        "key": "CEICI517698487",
+        "key": "CEICI517743197",
         "role": "demand",
-        "why": "Value",
+        "why": "AOV: Desktop",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
         "last_obs": "2026-06-02",
         "n": 84,
         "min_n": 24,
-        "pearson": 0.0784,
-        "pearson_p": 0.4786,
-        "spearman": 0.0681,
-        "spearman_p": 0.5384,
+        "pearson": -0.0246,
+        "pearson_p": 0.8244,
+        "spearman": 0.1756,
+        "spearman_p": 0.11,
         "best_lag": 2,
-        "corr_at_best": -0.2013,
-        "ic": 0.0215,
-        "ic_t": 0.195,
+        "corr_at_best": 0.2339,
+        "ic": -0.2504,
+        "ic_t": -2.267,
         "ols": {
-          "beta": 0.012191191703358348,
-          "t": 0.93441138383433,
-          "p": 0.35009172779973596,
-          "r2": 0.0061405638888105685,
+          "beta": -0.010239426110406818,
+          "t": -0.15337362839131435,
+          "p": 0.8781036403090023,
+          "r2": 0.0006040863393029783,
           "n": 84,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.030705002401696057,
-          "t": -3.2441635797311354,
-          "p": 0.0011779607604014137,
-          "r2": 0.04051966531744933,
+          "beta": 0.09673881775713158,
+          "t": 2.8596225354642835,
+          "p": 0.004241455219103643,
+          "r2": 0.05470827517519139,
           "n": 82,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.059,
-        "last_chg": -1.121281,
-        "last_chg_z": -1.08,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 32.4,
-        "source": "ceic",
-        "label": "Value",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.493
-        }
-      },
-      {
-        "key": "CEICI479936247",
-        "role": "demand",
-        "why": "Volume: Electronic Money Transfer Transactions",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 147,
-        "min_n": 24,
-        "pearson": -0.0795,
-        "pearson_p": 0.3385,
-        "spearman": -0.1772,
-        "spearman_p": 0.0318,
-        "best_lag": 4,
-        "corr_at_best": -0.1565,
-        "ic": -0.192,
-        "ic_t": -2.312,
-        "ols": {
-          "beta": -0.002821358025894929,
-          "t": -1.1528186883698253,
-          "p": 0.24898481203448808,
-          "r2": 0.006319989788154512,
-          "n": 147,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.005548662235410445,
-          "t": -2.997259739194481,
-          "p": 0.0027241849844531606,
-          "r2": 0.02448217993403634,
-          "n": 143,
           "hac_lag": 4
         },
         "sign_prior": 1,
         "emp_sign": -1,
         "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1089,
-        "last_chg": -0.007564,
-        "last_chg_z": -0.48,
-        "last_chg_date": "2026-03-31",
+        "stable": false,
+        "excess_pearson": -0.0641,
+        "last_chg": 0.495478,
+        "last_chg_z": 1.34,
+        "last_chg_date": "2026-06-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 31.4,
+        "score": 16.0,
         "source": "ceic",
-        "label": "Volume: Electronic Money Transfer Transactions",
+        "label": "AOV: Desktop",
         "live": {
-          "posture": "tailwind",
-          "impulse": 0.235
+          "posture": "headwind",
+          "impulse": -0.585
+        }
+      },
+      {
+        "key": "CEICI517710097",
+        "role": "demand",
+        "why": "Average Order Value (AOV)",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-06-02",
+        "n": 84,
+        "min_n": 24,
+        "pearson": -0.0589,
+        "pearson_p": 0.5945,
+        "spearman": 0.1253,
+        "spearman_p": 0.256,
+        "best_lag": 2,
+        "corr_at_best": 0.2904,
+        "ic": -0.1612,
+        "ic_t": -1.46,
+        "ols": {
+          "beta": -0.031820202701681115,
+          "t": -0.381385817226169,
+          "p": 0.7029169834170138,
+          "r2": 0.0034713817997011898,
+          "n": 84,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 0.15865534597297165,
+          "t": 3.0495863706549597,
+          "p": 0.002291567309612922,
+          "r2": 0.08435245457641816,
+          "n": 82,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": false,
+        "excess_pearson": -0.1111,
+        "last_chg": 0.398545,
+        "last_chg_z": 1.4,
+        "last_chg_date": "2026-06-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 15.0,
+        "source": "ceic",
+        "label": "Average Order Value (AOV)",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.604
         }
       }
     ],
-    "n_kept": 12,
+    "n_kept": 9,
     "n_candidates": 33
   },
   "unscored": [],
   "rejected_top": [
+    {
+      "key": "CEICI519454487",
+      "label": "Volume: Finance",
+      "role": "demand",
+      "pearson": 0.1234,
+      "p": 0.07291429902927632,
+      "theory_agree": true,
+      "score": 44.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "ndx",
+      "label": "Nasdaq 100",
+      "role": "demand",
+      "pearson": 0.1282,
+      "p": 0.004584921626697135,
+      "theory_agree": true,
+      "score": 40.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI479936347",
+      "label": "Value: Reload/Top Up",
+      "role": "demand",
+      "pearson": -0.11,
+      "p": 0.12018839049390213,
+      "theory_agree": false,
+      "score": 33.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "role": "macro",
+      "pearson": -0.0776,
+      "p": 0.281623177703629,
+      "theory_agree": null,
+      "score": 29.1,
+      "reason": "below_gate"
+    },
     {
       "key": "CEICI517775437",
       "label": "Value: Desktop",
@@ -757,7 +641,17 @@
       "pearson": 0.0494,
       "p": 0.6355881443868544,
       "theory_agree": true,
-      "score": 32.6,
+      "score": 28.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517698487",
+      "label": "Value",
+      "role": "demand",
+      "pearson": 0.0784,
+      "p": 0.35009172779973596,
+      "theory_agree": true,
+      "score": 28.4,
       "reason": "below_gate"
     },
     {
@@ -765,9 +659,19 @@
       "label": "Volume: Electronic Money Withdrawals",
       "role": "demand",
       "pearson": 0.062,
-      "p": 0.38582193656963304,
+      "p": 0.4255760498221388,
       "theory_agree": true,
-      "score": 32.3,
+      "score": 27.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI479936247",
+      "label": "Volume: Electronic Money Transfer Transactions",
+      "role": "demand",
+      "pearson": -0.0795,
+      "p": 0.2484429530156218,
+      "theory_agree": false,
+      "score": 27.4,
       "reason": "below_gate"
     },
     {
@@ -777,7 +681,7 @@
       "pearson": -0.0345,
       "p": 0.5364375053510857,
       "theory_agree": true,
-      "score": 27.4,
+      "score": 23.4,
       "reason": "below_gate"
     },
     {
@@ -787,67 +691,7 @@
       "pearson": 0.0183,
       "p": 0.8379884337418585,
       "theory_agree": true,
-      "score": 25.1,
-      "reason": "below_gate"
-    },
-    {
-      "key": "usdidr",
-      "label": "USD/IDR",
-      "role": "macro",
-      "pearson": -0.0506,
-      "p": 0.28808651437197086,
-      "theory_agree": null,
-      "score": 24.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "macro",
-      "pearson": -0.062,
-      "p": 0.3941448133961706,
-      "theory_agree": null,
-      "score": 23.3,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313915602",
-      "label": "Value: Purchase",
-      "role": "demand",
-      "pearson": 0.0323,
-      "p": 0.7486558190740351,
-      "theory_agree": true,
-      "score": 21.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI479936357",
-      "label": "Value: Electronic Money Withdrawals",
-      "role": "demand",
-      "pearson": -0.0537,
-      "p": 0.14288963596284088,
-      "theory_agree": false,
-      "score": 19.7,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517838937",
-      "label": "Finance: Accounting & Auditing",
-      "role": "demand",
-      "pearson": 0.0067,
-      "p": 0.9651551907426924,
-      "theory_agree": true,
-      "score": 19.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517672587",
-      "label": "Volume: Mobile",
-      "role": "demand",
-      "pearson": -0.0208,
-      "p": 0.31273857077674505,
-      "theory_agree": false,
-      "score": 18.8,
+      "score": 21.1,
       "reason": "below_gate"
     }
   ],
@@ -859,7 +703,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.9,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 2.8,
+  "grade": "partial",
+  "grade_reasons": [
+    "multivariate model unavailable / no OOS"
+  ]
 }

@@ -3,7 +3,7 @@
   "sub_sector": "Property",
   "sector": "Properties & Real Estate",
   "priority": 7,
-  "generated_at": "2026-06-14T02:51:39",
+  "generated_at": "2026-06-14T11:58:26",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -53,50 +53,52 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 39,
-    "net_tilt": -0.31,
-    "demand_tilt": null,
+    "verdict": "NEUTRAL",
+    "score": 54,
+    "net_tilt": 0.09,
+    "demand_tilt": 0.0,
     "supply_tilt": null,
-    "cost_tilt": -0.614,
-    "macro_tilt": -0.045,
+    "cost_tilt": null,
+    "macro_tilt": 0.11,
     "confidence": {
       "level": "medium",
-      "score": 55,
+      "score": 65,
       "reasons": [
-        "max|corr|=0.25",
+        "max|corr|=0.29",
         "theory_agree=100%",
-        "stable=67%",
-        "mvR2=0.08",
-        "OOS=58%"
+        "stable=33%",
+        "mvR2=0.18",
+        "OOS=64%",
+        "mt_penalty=1.00(n=8)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "usdidr",
-        "steel_hrc"
+        "id_gdp_real_q"
       ],
-      "n": 184,
-      "r2": 0.081,
-      "adj_r2": 0.07,
+      "n": 118,
+      "r2": 0.184,
+      "adj_r2": 0.169,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0163,
-          "t": -1.72,
-          "p": 0.0851
+          "std_beta": -0.0252,
+          "t": -5.44,
+          "p": 0.0
         },
-        "steel_hrc": {
-          "std_beta": -0.0091,
-          "t": -2.18,
-          "p": 0.0292
+        "id_gdp_real_q": {
+          "std_beta": -0.0003,
+          "t": -0.06,
+          "p": 0.9526
         }
       },
-      "oos_hit_rate": 0.581,
-      "oos_n": 124,
-      "expected_monthly_ret": 0.0098
+      "oos_hit_rate": 0.638,
+      "oos_n": 58,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0103
     },
-    "narrative": "Property (Properties & Real Estate) screens MILDLY BEARISH [39/100, medium confidence]. Top drivers: USD/IDR (corr -0.25, lead 0m, now flat); US HRC Steel (corr -0.13, lead 0m, now headwind); Coal · Australia (Newcastle) (corr -0.05, lead 6m, now headwind). A 2-driver model explains 8% of monthly variance (adj 7%), 58% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
+    "narrative": "Property (Properties & Real Estate) screens NEUTRAL [54/100, medium confidence]. Top drivers: USD/IDR (corr -0.29, lead 0m, now flat); Bank Lending Rate (corr -0.15, lead 4m, now tailwind); Real GDP (SA) (corr +0.00, lead 4m, now flat). A 2-driver model explains 18% of monthly variance (adj 17%), 64% out-of-sample directional hit-rate; current read ~+1.0%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -108,27 +110,27 @@
         "last_obs": "2026-05-08",
         "n": 184,
         "min_n": 24,
-        "pearson": -0.2466,
-        "pearson_p": 0.0007,
-        "spearman": -0.3063,
+        "pearson": -0.2925,
+        "pearson_p": 0.0001,
+        "spearman": -0.38,
         "spearman_p": 0.0,
         "best_lag": 0,
-        "corr_at_best": -0.2466,
-        "ic": -0.0316,
-        "ic_t": -0.426,
+        "corr_at_best": -0.2925,
+        "ic": 0.0042,
+        "ic_t": 0.057,
         "ols": {
-          "beta": -0.524274594740804,
-          "t": -1.7025631482915111,
-          "p": 0.08864985144613595,
-          "r2": 0.060797819017794796,
+          "beta": -0.5953612405037205,
+          "t": -1.7168863168696549,
+          "p": 0.08599994546057387,
+          "r2": 0.08552886287825578,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.524274594740804,
-          "t": -1.7025631482915111,
-          "p": 0.08864985144613595,
-          "r2": 0.060797819017794796,
+          "beta": -0.5953612405037205,
+          "t": -1.7168863168696549,
+          "p": 0.08599994546057387,
+          "r2": 0.08552886287825578,
           "n": 184,
           "hac_lag": 5
         },
@@ -144,7 +146,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 47.6,
+        "score": 50.7,
         "source": "corr:FX_IDC:USDIDR",
         "shallow": false,
         "label": "USD/IDR",
@@ -154,115 +156,115 @@
         }
       },
       {
-        "key": "steel_hrc",
-        "role": "cost",
-        "why": "rebar/construction cost",
+        "key": "id_lending_rate",
+        "role": "macro",
+        "why": "KPR mortgage rate",
         "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.1318,
-        "pearson_p": 0.0746,
-        "spearman": -0.1346,
-        "spearman_p": 0.0686,
-        "best_lag": 0,
-        "corr_at_best": -0.1318,
-        "ic": -0.0694,
-        "ic_t": -0.937,
-        "ols": {
-          "beta": -0.09740402866003967,
-          "t": -1.9050453202758586,
-          "p": 0.05677418021128593,
-          "r2": 0.01736664648914532,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.09740402866003967,
-          "t": -1.9050453202758586,
-          "p": 0.05677418021128593,
-          "r2": 0.01736664648914532,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": -1,
-        "emp_sign": -1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": -0.1006,
-        "last_chg": 0.081076,
-        "last_chg_z": 0.9,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 40.1,
-        "source": "corr:NYMEX:HRC1!",
-        "shallow": false,
-        "label": "US HRC Steel",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.422
-        }
-      },
-      {
-        "key": "wb_coal_au",
-        "role": "cost",
-        "why": "cement/energy cost",
-        "test_freq": "M",
-        "transform": "logret",
+        "transform": "diff",
         "native_freq": "M",
-        "last_obs": "2026-03-01",
+        "last_obs": "2025-05-01",
         "n": 23,
         "min_n": 24,
-        "pearson": -0.0536,
-        "pearson_p": 0.8081,
-        "spearman": 0.0672,
-        "spearman_p": 0.7607,
-        "best_lag": 6,
-        "corr_at_best": -0.3344,
-        "ic": 0.0141,
-        "ic_t": 0.065,
+        "pearson": -0.1492,
+        "pearson_p": 0.4968,
+        "spearman": -0.1972,
+        "spearman_p": 0.3672,
+        "best_lag": 4,
+        "corr_at_best": 0.3045,
+        "ic": 0.2101,
+        "ic_t": 0.963,
         "ols": {
-          "beta": -0.06654627314220768,
-          "t": -0.16281044679774123,
-          "p": 0.870667682667077,
-          "r2": 0.002872771007479624,
+          "beta": -0.1413768065876918,
+          "t": -1.056932925431099,
+          "p": 0.29054220042700807,
+          "r2": 0.022263045879656884,
           "n": 23,
           "hac_lag": 3
         },
         "ols_pred": {
-          "beta": -0.4508010472833031,
-          "t": -2.042201656339485,
-          "p": 0.041131532261353236,
-          "r2": 0.11182072534196774,
-          "n": 17,
+          "beta": 0.29533060683039847,
+          "t": 1.9536433974376632,
+          "p": 0.05074340456072584,
+          "r2": 0.09273113056802607,
+          "n": 19,
           "hac_lag": 3
         },
         "sign_prior": -1,
         "emp_sign": -1,
         "theory_agree": true,
         "stable": false,
-        "excess_pearson": -0.0171,
-        "last_chg": 0.136308,
-        "last_chg_z": 2.23,
-        "last_chg_date": "2026-03-31",
+        "excess_pearson": 0.2163,
+        "last_chg": -0.0437,
+        "last_chg_z": -0.54,
+        "last_chg_date": "2025-05-31",
         "quality": {
           "ok": true,
           "flags": [
             "short_sample(n=23)"
           ]
         },
-        "score": 16.3,
+        "score": 45.5,
         "source": "spark",
         "shallow": true,
-        "label": "Coal · Australia (Newcastle)",
+        "label": "Bank Lending Rate",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.806
+          "posture": "tailwind",
+          "impulse": 0.264
+        }
+      },
+      {
+        "key": "id_gdp_real_q",
+        "role": "demand",
+        "why": "marketing sales cycle",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "W",
+        "last_obs": "2026-05-08",
+        "n": 118,
+        "min_n": 24,
+        "pearson": 0.0009,
+        "pearson_p": 0.9919,
+        "spearman": -0.0054,
+        "spearman_p": 0.9537,
+        "best_lag": 4,
+        "corr_at_best": -0.2231,
+        "ic": -0.0201,
+        "ic_t": -0.217,
+        "ols": {
+          "beta": 4.8319391726157326e-05,
+          "t": 0.01313513870751194,
+          "p": 0.9895199769784649,
+          "r2": 9.004061791717533e-07,
+          "n": 118,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": -0.01120249944672005,
+          "t": -2.1081853101619745,
+          "p": 0.03501496343411531,
+          "r2": 0.049760500947028885,
+          "n": 114,
+          "hac_lag": 4
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": -0.0047,
+        "last_chg": 0.0,
+        "last_chg_z": -0.0,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 11.6,
+        "source": "corr:aIDGDPAR1",
+        "shallow": false,
+        "label": "Real GDP (SA)",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.0
         }
       }
     ],
@@ -272,53 +274,53 @@
   "unscored": [],
   "rejected_top": [
     {
-      "key": "id_lending_rate",
-      "label": "Bank Lending Rate",
-      "role": "macro",
-      "pearson": -0.0234,
-      "p": 0.8737761345878532,
-      "theory_agree": true,
-      "score": 31.3,
-      "reason": "below_gate"
-    },
-    {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "role": "macro",
-      "pearson": -0.089,
-      "p": 0.2561713792277883,
+      "pearson": -0.095,
+      "p": 0.2921178022993377,
       "theory_agree": true,
-      "score": 27.5,
+      "score": 29.4,
       "reason": "below_gate"
     },
     {
-      "key": "id_bank_credit",
-      "label": "Bank Credit (claims)",
-      "role": "demand",
-      "pearson": 0.0729,
-      "p": 0.487916338725927,
+      "key": "steel_hrc",
+      "label": "US HRC Steel",
+      "role": "cost",
+      "pearson": -0.0741,
+      "p": 0.20127485579190862,
       "theory_agree": true,
-      "score": 22.7,
+      "score": 29.0,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
-      "pearson": -0.0075,
-      "p": 0.9425264816937307,
+      "pearson": -0.082,
+      "p": 0.4379775979758703,
       "theory_agree": null,
-      "score": 7.9,
+      "score": 15.8,
       "reason": "below_gate"
     },
     {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
       "role": "demand",
-      "pearson": -0.0629,
-      "p": 0.6495268581050875,
+      "pearson": 0.0153,
+      "p": 0.8296446143895191,
+      "theory_agree": true,
+      "score": 14.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "wb_coal_au",
+      "label": "Coal · Australia (Newcastle)",
+      "role": "cost",
+      "pearson": 0.0159,
+      "p": 0.7501799958282802,
       "theory_agree": false,
-      "score": 5.4,
+      "score": 5.1,
       "reason": "below_gate"
     }
   ],
@@ -330,7 +332,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 0.9,
+  "runtime_s": 1.3,
   "grade": "perfected",
   "grade_reasons": []
 }

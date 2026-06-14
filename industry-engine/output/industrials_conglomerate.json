@@ -3,7 +3,7 @@
   "sub_sector": "Conglomerate",
   "sector": "Industrials",
   "priority": 13,
-  "generated_at": "2026-06-14T11:09:01",
+  "generated_at": "2026-06-14T11:58:47",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -25,21 +25,22 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 42,
-    "net_tilt": -0.166,
-    "demand_tilt": -0.4,
-    "supply_tilt": 0.329,
+    "score": 40,
+    "net_tilt": -0.208,
+    "demand_tilt": -0.633,
+    "supply_tilt": 0.145,
     "cost_tilt": null,
     "macro_tilt": -0.085,
     "confidence": {
       "level": "high",
-      "score": 85,
+      "score": 70,
       "reasons": [
         "max|corr|=0.43",
-        "theory_agree=25%",
-        "stable=92%",
-        "mvR2=0.23",
-        "OOS=61%"
+        "theory_agree=50%",
+        "stable=88%",
+        "mvR2=0.22",
+        "OOS=59%",
+        "mt_penalty=0.81(n=52)"
       ]
     },
     "multivariate": {
@@ -47,51 +48,40 @@
       "drivers": [
         "id_10y",
         "CEICI391912577",
-        "CEICI13840801",
-        "CEICI323975402",
-        "CEICI357008197",
-        "CEICI324715601"
+        "CEICI13840501",
+        "CEICI323975402"
       ],
-      "n": 170,
-      "r2": 0.23,
-      "adj_r2": 0.202,
+      "n": 171,
+      "r2": 0.224,
+      "adj_r2": 0.206,
       "betas": {
         "id_10y": {
-          "std_beta": -0.029,
-          "t": -4.9,
+          "std_beta": -0.0295,
+          "t": -4.83,
           "p": 0.0
         },
         "CEICI391912577": {
-          "std_beta": -0.0138,
-          "t": -3.37,
-          "p": 0.0007
+          "std_beta": -0.0095,
+          "t": -2.15,
+          "p": 0.0315
         },
-        "CEICI13840801": {
-          "std_beta": -0.001,
-          "t": -0.28,
-          "p": 0.7784
+        "CEICI13840501": {
+          "std_beta": -0.0057,
+          "t": -1.24,
+          "p": 0.2147
         },
         "CEICI323975402": {
-          "std_beta": 0.0221,
-          "t": 0.75,
-          "p": 0.4558
-        },
-        "CEICI357008197": {
-          "std_beta": -0.0266,
-          "t": -0.91,
-          "p": 0.3606
-        },
-        "CEICI324715601": {
-          "std_beta": 0.0158,
-          "t": 1.09,
-          "p": 0.2737
+          "std_beta": 0.0111,
+          "t": 3.2,
+          "p": 0.0014
         }
       },
-      "oos_hit_rate": 0.609,
-      "oos_n": 110,
-      "expected_monthly_ret": -0.0314
+      "oos_hit_rate": 0.593,
+      "oos_n": 108,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": -0.0347
     },
-    "narrative": "Conglomerate (Industrials) screens MILDLY BEARISH [42/100, high confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Mining & Quarrying: Coal & Lignite (corr +0.19, lead 2m, now headwind); BMW (corr -0.17, lead 1m, now headwind). A 6-driver model explains 23% of monthly variance (adj 20%), 61% out-of-sample directional hit-rate; current read ~-3.1%/mo.",
+    "narrative": "Conglomerate (Industrials) screens MILDLY BEARISH [40/100, high confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); Mining & Quarrying: Coal & Lignite (corr +0.19, lead 2m, now headwind); Value: Coal; Briquettes, Ovoids and Similar Solid (corr +0.16, lead 3m, now flat). A 4-driver model explains 22% of monthly variance (adj 21%), 59% out-of-sample directional hit-rate; current read ~-3.5%/mo.",
     "drivers": [
       {
         "key": "id_10y",
@@ -203,60 +193,6 @@
         }
       },
       {
-        "key": "CEICI391912577",
-        "role": "demand",
-        "why": "BMW",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 172,
-        "min_n": 24,
-        "pearson": -0.1706,
-        "pearson_p": 0.0252,
-        "spearman": -0.1637,
-        "spearman_p": 0.0319,
-        "best_lag": 1,
-        "corr_at_best": -0.1841,
-        "ic": -0.2293,
-        "ic_t": -2.99,
-        "ols": {
-          "beta": -0.022111469119560637,
-          "t": -2.7804246379553494,
-          "p": 0.005428785864163872,
-          "r2": 0.029108128438725234,
-          "n": 172,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.025090461944604108,
-          "t": -2.686564764589364,
-          "p": 0.007219095145691597,
-          "r2": 0.033904140463195676,
-          "n": 171,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.1261,
-        "last_chg": 2.428571,
-        "last_chg_z": 4.14,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 44.9,
-        "source": "ceic",
-        "label": "BMW",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.969
-        }
-      },
-      {
         "key": "CEICI502587247",
         "role": "supply",
         "why": "Value: Coal; Briquettes, Ovoids and Similar Solid",
@@ -311,57 +247,111 @@
         }
       },
       {
-        "key": "CEICI13840801",
+        "key": "CEICI391912577",
         "role": "demand",
-        "why": "Wholesale: 1500 to 3000 cc",
+        "why": "BMW",
+        "test_freq": "M",
+        "transform": "yoy",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 172,
+        "min_n": 24,
+        "pearson": -0.1706,
+        "pearson_p": 0.0252,
+        "spearman": -0.1637,
+        "spearman_p": 0.0319,
+        "best_lag": 1,
+        "corr_at_best": -0.1841,
+        "ic": -0.2293,
+        "ic_t": -0.829,
+        "ols": {
+          "beta": -0.022111469119560637,
+          "t": -3.2482584803745587,
+          "p": 0.0011611373731186339,
+          "r2": 0.029108128438725234,
+          "n": 172,
+          "hac_lag": 12
+        },
+        "ols_pred": {
+          "beta": -0.025090461944604108,
+          "t": -2.9626928147253815,
+          "p": 0.003049607432673974,
+          "r2": 0.033904140463195676,
+          "n": 171,
+          "hac_lag": 12
+        },
+        "sign_prior": 1,
+        "emp_sign": -1,
+        "theory_agree": false,
+        "stable": true,
+        "excess_pearson": -0.1261,
+        "last_chg": 2.428571,
+        "last_chg_z": 4.14,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.9,
+        "source": "ceic",
+        "label": "BMW",
+        "live": {
+          "posture": "headwind",
+          "impulse": -0.969
+        }
+      },
+      {
+        "key": "CEICI13840501",
+        "role": "demand",
+        "why": "Sedan",
         "test_freq": "M",
         "transform": "yoy",
         "native_freq": "M",
         "last_obs": "2026-04-01",
         "n": 183,
         "min_n": 24,
-        "pearson": -0.119,
-        "pearson_p": 0.1085,
-        "spearman": -0.1436,
-        "spearman_p": 0.0524,
-        "best_lag": 2,
-        "corr_at_best": -0.2073,
-        "ic": -0.1989,
-        "ic_t": -2.683,
+        "pearson": -0.1402,
+        "pearson_p": 0.0583,
+        "spearman": -0.1294,
+        "spearman_p": 0.0809,
+        "best_lag": 0,
+        "corr_at_best": -0.1402,
+        "ic": -0.1907,
+        "ic_t": -0.714,
         "ols": {
-          "beta": -0.010367540279624521,
-          "t": -2.394714686987993,
-          "p": 0.016633302703533744,
-          "r2": 0.014170681089165083,
+          "beta": -0.015344051887761886,
+          "t": -2.281521616526699,
+          "p": 0.022517599062425155,
+          "r2": 0.01965946776153371,
           "n": 183,
-          "hac_lag": 5
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": -0.018175459730038424,
-          "t": -3.4652582671827004,
-          "p": 0.0005297225044799053,
-          "r2": 0.042960550437380784,
+          "beta": -0.015344051887761886,
+          "t": -2.281521616526699,
+          "p": 0.022517599062425155,
+          "r2": 0.01965946776153371,
           "n": 183,
-          "hac_lag": 5
+          "hac_lag": 12
         },
         "sign_prior": 1,
         "emp_sign": -1,
         "theory_agree": false,
         "stable": true,
-        "excess_pearson": -0.0746,
-        "last_chg": 1.456522,
-        "last_chg_z": 1.72,
+        "excess_pearson": -0.0705,
+        "last_chg": 0.040678,
+        "last_chg_z": -0.14,
         "last_chg_date": "2026-04-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 38.3,
+        "score": 35.4,
         "source": "ceic",
-        "label": "Wholesale: 1500 to 3000 cc",
+        "label": "Sedan",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.696
+          "posture": "neutral",
+          "impulse": -0.07
         }
       },
       {
@@ -410,7 +400,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 38.3,
+        "score": 34.3,
         "source": "ceic",
         "label": "Value: Coal, Coke, and Briquettes",
         "live": {
@@ -464,7 +454,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 38.1,
+        "score": 34.1,
         "source": "ceic",
         "label": "Mining Products: Coal",
         "live": {
@@ -473,277 +463,61 @@
         }
       },
       {
-        "key": "CEICI324715601",
+        "key": "CEICI522153977",
         "role": "supply",
-        "why": "Value: Coal",
+        "why": "Coal reference price: HBA III",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 170,
+        "last_obs": "2026-06-01",
+        "n": 33,
         "min_n": 24,
-        "pearson": 0.1295,
-        "pearson_p": 0.0924,
-        "spearman": 0.1365,
-        "spearman_p": 0.0759,
-        "best_lag": 3,
-        "corr_at_best": -0.1883,
-        "ic": 0.0452,
-        "ic_t": 0.586,
+        "pearson": -0.0359,
+        "pearson_p": 0.8427,
+        "spearman": -0.246,
+        "spearman_p": 0.1676,
+        "best_lag": 5,
+        "corr_at_best": -0.2863,
+        "ic": -0.0411,
+        "ic_t": -0.229,
         "ols": {
-          "beta": 0.06334117614648141,
-          "t": 2.3350097054111276,
-          "p": 0.01954291373082438,
-          "r2": 0.016768440000943796,
-          "n": 170,
-          "hac_lag": 5
+          "beta": -0.034863923125467544,
+          "t": -0.19627234987606465,
+          "p": 0.8443970020668544,
+          "r2": 0.0012907689055118299,
+          "n": 33,
+          "hac_lag": 3
         },
         "ols_pred": {
-          "beta": -0.09179029399959052,
-          "t": -3.030906072997358,
-          "p": 0.0024382108279435363,
-          "r2": 0.03543838980796976,
-          "n": 167,
-          "hac_lag": 4
+          "beta": -0.26850746199556946,
+          "t": -2.110757908893784,
+          "p": 0.03479312569501529,
+          "r2": 0.0819761626094585,
+          "n": 28,
+          "hac_lag": 3
         },
         "sign_prior": 0,
-        "emp_sign": 1,
+        "emp_sign": -1,
         "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.128,
-        "last_chg": 0.201221,
-        "last_chg_z": 1.37,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.9,
-        "source": "ceic",
-        "label": "Value: Coal",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.595
-        }
-      },
-      {
-        "key": "CEICI13840501",
-        "role": "demand",
-        "why": "Sedan",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": -0.1402,
-        "pearson_p": 0.0583,
-        "spearman": -0.1294,
-        "spearman_p": 0.0809,
-        "best_lag": 0,
-        "corr_at_best": -0.1402,
-        "ic": -0.1907,
-        "ic_t": -2.573,
-        "ols": {
-          "beta": -0.015344051887761886,
-          "t": -2.472981196176745,
-          "p": 0.013399119287961987,
-          "r2": 0.01965946776153371,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.015344051887761886,
-          "t": -2.472981196176745,
-          "p": 0.013399119287961987,
-          "r2": 0.01965946776153371,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0705,
-        "last_chg": 0.040678,
-        "last_chg_z": -0.14,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.6,
-        "source": "ceic",
-        "label": "Sedan",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.07
-        }
-      },
-      {
-        "key": "CEICI13841501",
-        "role": "demand",
-        "why": "Wholesale: 1501 to 3000cc",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": -0.1077,
-        "pearson_p": 0.1468,
-        "spearman": -0.1171,
-        "spearman_p": 0.1145,
-        "best_lag": 1,
-        "corr_at_best": -0.1501,
-        "ic": -0.1669,
-        "ic_t": -2.251,
-        "ols": {
-          "beta": -0.009898034367159676,
-          "t": -1.9423885732181154,
-          "p": 0.05209007757191376,
-          "r2": 0.011593407472301642,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.01380804223632184,
-          "t": -3.1255576793210884,
-          "p": 0.0017746826323831474,
-          "r2": 0.02253578320167693,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0371,
-        "last_chg": 0.898383,
-        "last_chg_z": 0.48,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 34.8,
-        "source": "ceic",
-        "label": "Wholesale: 1501 to 3000cc",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.235
-        }
-      },
-      {
-        "key": "CEICI391912547",
-        "role": "demand",
-        "why": "Mazda",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 172,
-        "min_n": 24,
-        "pearson": -0.0658,
-        "pearson_p": 0.3913,
-        "spearman": -0.0724,
-        "spearman_p": 0.3451,
-        "best_lag": 6,
-        "corr_at_best": 0.1668,
-        "ic": -0.0813,
-        "ic_t": -1.059,
-        "ols": {
-          "beta": -0.003217729689856222,
-          "t": -1.9526442561236734,
-          "p": 0.05086176323000571,
-          "r2": 0.004327154428506619,
-          "n": 172,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.007965404820882392,
-          "t": 2.902735622784101,
-          "p": 0.003699187718612072,
-          "r2": 0.027829575514814686,
-          "n": 166,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0489,
-        "last_chg": 0.420513,
-        "last_chg_z": 0.11,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 26.0,
-        "source": "ceic",
-        "label": "Mazda",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.055
-        }
-      },
-      {
-        "key": "CEICI391912467",
-        "role": "demand",
-        "why": "Honda",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 172,
-        "min_n": 24,
-        "pearson": -0.0859,
-        "pearson_p": 0.2623,
-        "spearman": -0.0766,
-        "spearman_p": 0.3182,
-        "best_lag": 5,
-        "corr_at_best": 0.1544,
-        "ic": -0.019,
-        "ic_t": -0.248,
-        "ols": {
-          "beta": -0.001393368149113892,
-          "t": -5.4853972661276735,
-          "p": 4.1254125320841036e-08,
-          "r2": 0.007385727307623324,
-          "n": 172,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.00244537192258254,
-          "t": 6.648902439686836,
-          "p": 2.952866344045575e-11,
-          "r2": 0.023836416593997933,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
         "stable": false,
-        "excess_pearson": -0.0743,
-        "last_chg": -0.212333,
-        "last_chg_z": -0.17,
-        "last_chg_date": "2026-04-30",
+        "excess_pearson": -0.1595,
+        "last_chg": 0.024352,
+        "last_chg_z": 0.28,
+        "last_chg_date": "2026-06-30",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 18.0,
+        "score": 11.3,
         "source": "ceic",
-        "label": "Honda",
+        "label": "Coal reference price: HBA III",
         "live": {
           "posture": "neutral",
-          "impulse": 0.085
+          "impulse": -0.139
         }
       }
     ],
-    "n_kept": 12,
+    "n_kept": 8,
     "n_candidates": 52
   },
   "unscored": [],
@@ -756,16 +530,6 @@
       "p": 0.2232118163000527,
       "theory_agree": true,
       "score": 48.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI506620937",
-      "label": "Coal reference price: HBA I",
-      "role": "supply",
-      "pearson": -0.2407,
-      "p": 0.16300443563414968,
-      "theory_agree": null,
-      "score": 43.8,
       "reason": "below_gate"
     },
     {
@@ -789,16 +553,6 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI365765247",
-      "label": "Manufacturing Industry: Coal; Oil & Gas Refinery",
-      "role": "supply",
-      "pearson": -0.1298,
-      "p": 0.3780707703219853,
-      "theory_agree": null,
-      "score": 37.9,
-      "reason": "below_gate"
-    },
-    {
       "key": "CEICI322851802",
       "label": "Retail sales index: auto parts",
       "role": "demand",
@@ -809,23 +563,13 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI13841201",
-      "label": "Wholesale: 2501 to 3000cc",
-      "role": "demand",
-      "pearson": 0.092,
-      "p": 0.007760467531113677,
-      "theory_agree": true,
-      "score": 37.7,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI506620947",
-      "label": "Coal reference price: HBA II",
+      "key": "CEICI506620937",
+      "label": "Coal reference price: HBA I",
       "role": "supply",
-      "pearson": -0.186,
-      "p": 0.3339678895144672,
+      "pearson": -0.2407,
+      "p": 0.16300443563414968,
       "theory_agree": null,
-      "score": 37.0,
+      "score": 37.8,
       "reason": "below_gate"
     },
     {
@@ -839,13 +583,43 @@
       "reason": "below_gate"
     },
     {
-      "key": "wb_palm_oil",
-      "label": "Palm Oil (CPO)",
+      "key": "CEICI13840801",
+      "label": "Wholesale: 1500 to 3000 cc",
       "role": "demand",
-      "pearson": 0.0837,
-      "p": 0.3558225642820978,
+      "pearson": -0.119,
+      "p": 0.007472286704861042,
+      "theory_agree": false,
+      "score": 34.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI365765247",
+      "label": "Manufacturing Industry: Coal; Oil & Gas Refinery",
+      "role": "supply",
+      "pearson": -0.1298,
+      "p": 0.3780707703219853,
+      "theory_agree": null,
+      "score": 33.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13841201",
+      "label": "Wholesale: 2501 to 3000cc",
+      "role": "demand",
+      "pearson": 0.092,
+      "p": 0.005451016312563843,
       "theory_agree": true,
-      "score": 33.8,
+      "score": 33.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI324715601",
+      "label": "Value: Coal",
+      "role": "supply",
+      "pearson": 0.1295,
+      "p": 0.01954291373082438,
+      "theory_agree": null,
+      "score": 32.9,
       "reason": "below_gate"
     }
   ],
@@ -857,7 +631,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 4.1,
+  "runtime_s": 4.0,
   "grade": "perfected",
   "grade_reasons": []
 }

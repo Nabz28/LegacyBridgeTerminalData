@@ -3,7 +3,7 @@
   "sub_sector": "Metals & Mining",
   "sector": "Basic Materials",
   "priority": 14,
-  "generated_at": "2026-06-14T02:51:57",
+  "generated_at": "2026-06-14T11:58:49",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,118 +29,57 @@
   "model": {
     "verdict": "NEUTRAL",
     "score": 48,
-    "net_tilt": -0.048,
-    "demand_tilt": 0.0,
-    "supply_tilt": -0.042,
+    "net_tilt": -0.045,
+    "demand_tilt": 0.15,
+    "supply_tilt": -0.181,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
       "level": "high",
-      "score": 84,
+      "score": 77,
       "reasons": [
         "max|corr|=0.35",
-        "theory_agree=75%",
-        "stable=44%",
-        "mvR2=0.09",
-        "OOS=70%"
+        "theory_agree=80%",
+        "stable=33%",
+        "mvR2=0.10",
+        "OOS=67%",
+        "mt_penalty=0.96(n=22)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "aluminum",
-        "cn_pmi_mfg",
-        "id_bi_rate",
-        "id_gdp_real_q"
+        "cn_ip_yoy",
+        "id_bi_rate"
       ],
-      "n": 117,
-      "r2": 0.092,
-      "adj_r2": 0.059,
+      "n": 120,
+      "r2": 0.101,
+      "adj_r2": 0.078,
       "betas": {
         "aluminum": {
-          "std_beta": 0.0301,
-          "t": 2.48,
-          "p": 0.0131
+          "std_beta": 0.0294,
+          "t": 2.57,
+          "p": 0.0102
         },
-        "cn_pmi_mfg": {
-          "std_beta": 0.0168,
-          "t": 2.36,
-          "p": 0.0184
+        "cn_ip_yoy": {
+          "std_beta": 0.0194,
+          "t": 2.41,
+          "p": 0.0158
         },
         "id_bi_rate": {
-          "std_beta": -0.0132,
-          "t": -1.64,
-          "p": 0.1018
-        },
-        "id_gdp_real_q": {
-          "std_beta": -0.0004,
-          "t": -0.04,
-          "p": 0.9719
+          "std_beta": -0.0115,
+          "t": -1.47,
+          "p": 0.1429
         }
       },
-      "oos_hit_rate": 0.702,
-      "oos_n": 57,
-      "expected_monthly_ret": 0.0835
+      "oos_hit_rate": 0.667,
+      "oos_n": 60,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.071
     },
-    "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [48/100, high confidence]. Top drivers: Nickel · LME (corr +0.35, lead 0m, now flat); Aluminum (corr +0.26, lead 0m, now headwind); Mfg PMI (NBS) (corr +0.12, lead 5m, now flat). A 4-driver model explains 9% of monthly variance (adj 6%), 70% out-of-sample directional hit-rate; current read ~+8.3%/mo.",
+    "narrative": "Metals & Mining (Basic Materials) screens NEUTRAL [48/100, high confidence]. Top drivers: Aluminum (corr +0.26, lead 0m, now headwind); Nickel · LME (corr +0.35, lead 0m, now flat); Industrial Production (YoY) (corr +0.18, lead 0m, now flat). A 3-driver model explains 10% of monthly variance (adj 8%), 67% out-of-sample directional hit-rate; current read ~+7.1%/mo.",
     "drivers": [
-      {
-        "key": "wb_nickel",
-        "role": "supply",
-        "why": "nickel/ferronickel revenue",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 23,
-        "min_n": 24,
-        "pearson": 0.3474,
-        "pearson_p": 0.1043,
-        "spearman": 0.3794,
-        "spearman_p": 0.0741,
-        "best_lag": 0,
-        "corr_at_best": 0.3474,
-        "ic": 0.0367,
-        "ic_t": 0.168,
-        "ols": {
-          "beta": 0.8474755694828215,
-          "t": 3.983868090481926,
-          "p": 6.780251783145979e-05,
-          "r2": 0.12069328935392998,
-          "n": 23,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": 0.8474755694828215,
-          "t": 3.983868090481926,
-          "p": 6.780251783145979e-05,
-          "r2": 0.12069328935392998,
-          "n": 23,
-          "hac_lag": 3
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.4014,
-        "last_chg": -0.005653,
-        "last_chg_z": -0.05,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "short_sample(n=23)"
-          ]
-        },
-        "score": 60.3,
-        "source": "spark",
-        "shallow": true,
-        "label": "Nickel · LME",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.025
-        }
-      },
       {
         "key": "aluminum",
         "role": "supply",
@@ -197,55 +136,112 @@
         }
       },
       {
-        "key": "cn_pmi_mfg",
-        "role": "demand",
-        "why": "China demand",
+        "key": "wb_nickel",
+        "role": "supply",
+        "why": "nickel revenue (no clean price series)",
         "test_freq": "M",
         "transform": "logret",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 23,
+        "min_n": 24,
+        "pearson": 0.3474,
+        "pearson_p": 0.1043,
+        "spearman": 0.3794,
+        "spearman_p": 0.0741,
+        "best_lag": 0,
+        "corr_at_best": 0.3474,
+        "ic": 0.0367,
+        "ic_t": 0.168,
+        "ols": {
+          "beta": 0.8474755694828215,
+          "t": 3.983868090481926,
+          "p": 6.780251783145979e-05,
+          "r2": 0.12069328935392998,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "ols_pred": {
+          "beta": 0.8474755694828215,
+          "t": 3.983868090481926,
+          "p": 6.780251783145979e-05,
+          "r2": 0.12069328935392998,
+          "n": 23,
+          "hac_lag": 3
+        },
+        "sign_prior": 1,
+        "emp_sign": 1,
+        "theory_agree": true,
+        "stable": false,
+        "excess_pearson": 0.4014,
+        "last_chg": -0.005653,
+        "last_chg_z": -0.05,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": [
+            "short_sample(n=23)"
+          ]
+        },
+        "score": 54.3,
+        "source": "spark",
+        "shallow": true,
+        "label": "Nickel · LME",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.025
+        }
+      },
+      {
+        "key": "cn_ip_yoy",
+        "role": "demand",
+        "why": "China metals demand",
+        "test_freq": "M",
+        "transform": "diff",
         "native_freq": "W",
         "last_obs": "2026-05-08",
         "n": 121,
         "min_n": 24,
-        "pearson": 0.1234,
-        "pearson_p": 0.1774,
-        "spearman": -0.0648,
-        "spearman_p": 0.48,
-        "best_lag": 5,
-        "corr_at_best": -0.1725,
-        "ic": 0.0558,
-        "ic_t": 0.609,
+        "pearson": 0.1807,
+        "pearson_p": 0.0474,
+        "spearman": 0.0762,
+        "spearman_p": 0.4059,
+        "best_lag": 0,
+        "corr_at_best": 0.1807,
+        "ic": 0.0137,
+        "ic_t": 0.15,
         "ols": {
-          "beta": 0.31341927630392946,
-          "t": 2.0301211908601684,
-          "p": 0.042344222015890116,
-          "r2": 0.015233990944021891,
+          "beta": 0.005121341756979342,
+          "t": 2.7859387246583402,
+          "p": 0.005337295983358986,
+          "r2": 0.032636745822426705,
           "n": 121,
           "hac_lag": 4
         },
         "ols_pred": {
-          "beta": -0.4308662324810253,
-          "t": -6.025319526365699,
-          "p": 1.6877585314659028e-09,
-          "r2": 0.02976333818754029,
-          "n": 116,
+          "beta": 0.005121341756979342,
+          "t": 2.7859387246583402,
+          "p": 0.005337295983358986,
+          "r2": 0.032636745822426705,
+          "n": 121,
           "hac_lag": 4
         },
         "sign_prior": 1,
         "emp_sign": 1,
         "theory_agree": true,
         "stable": false,
-        "excess_pearson": 0.1207,
+        "excess_pearson": 0.1307,
         "last_chg": 0.0,
-        "last_chg_z": -0.0,
+        "last_chg_z": 0.0,
         "last_chg_date": "2026-05-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 36.8,
-        "source": "corr:aCNPMIMT",
+        "score": 35.4,
+        "source": "corr:aCNIP",
         "shallow": false,
-        "label": "Mfg PMI (NBS)",
+        "label": "Industrial Production (YoY)",
         "live": {
           "posture": "neutral",
           "impulse": 0.0
@@ -297,7 +293,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 34.6,
+        "score": 30.6,
         "source": "corr:ECONOMICS:IDINTR",
         "shallow": false,
         "label": "BI Policy Rate",
@@ -308,7 +304,7 @@
       },
       {
         "key": "CEICI502593577",
-        "role": "supply",
+        "role": "demand",
         "why": "Export value: Unwrought Nickel",
         "test_freq": "M",
         "transform": "logret",
@@ -340,9 +336,9 @@
           "n": 23,
           "hac_lag": 3
         },
-        "sign_prior": 0,
+        "sign_prior": 1,
         "emp_sign": -1,
-        "theory_agree": null,
+        "theory_agree": false,
         "stable": false,
         "excess_pearson": -0.0971,
         "last_chg": -0.685934,
@@ -352,7 +348,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 32.9,
+        "score": 24.9,
         "source": "ceic",
         "label": "Export value: Unwrought Nickel",
         "live": {
@@ -361,62 +357,8 @@
         }
       },
       {
-        "key": "CEICI294140302",
-        "role": "supply",
-        "why": "Bauxite",
-        "test_freq": "Q",
-        "transform": "yoy",
-        "native_freq": "Q",
-        "last_obs": "2025-06-01",
-        "n": 54,
-        "min_n": 12,
-        "pearson": -0.0254,
-        "pearson_p": 0.8556,
-        "spearman": 0.0204,
-        "spearman_p": 0.8836,
-        "best_lag": 5,
-        "corr_at_best": -0.2088,
-        "ic": 0.1521,
-        "ic_t": 1.107,
-        "ols": {
-          "beta": -0.002255919925680508,
-          "t": -0.4907268465761405,
-          "p": 0.6236196558403768,
-          "r2": 0.000642671722252075,
-          "n": 54,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": -0.01870031382458246,
-          "t": -3.4837011126767474,
-          "p": 0.0004945314190633488,
-          "r2": 0.0435942843958389,
-          "n": 54,
-          "hac_lag": 3
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": 0.0076,
-        "last_chg": 0.866575,
-        "last_chg_z": 0.17,
-        "last_chg_date": "2025-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 21.4,
-        "source": "ceic",
-        "label": "Bauxite",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.085
-        }
-      },
-      {
         "key": "CEICI502593607",
-        "role": "supply",
+        "role": "demand",
         "why": "Export value: Nickel Bars, Rods, Profiles and Wire",
         "test_freq": "M",
         "transform": "logret",
@@ -448,10 +390,10 @@
           "n": 41,
           "hac_lag": 3
         },
-        "sign_prior": 0,
+        "sign_prior": 1,
         "emp_sign": 1,
-        "theory_agree": null,
-        "stable": true,
+        "theory_agree": true,
+        "stable": false,
         "excess_pearson": 0.0295,
         "last_chg": 1.317888,
         "last_chg_z": 0.28,
@@ -467,129 +409,12 @@
           "posture": "neutral",
           "impulse": 0.139
         }
-      },
-      {
-        "key": "CEICI502593587",
-        "role": "supply",
-        "why": "Export value: Nickel Waste and Scrap",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 85,
-        "min_n": 24,
-        "pearson": -0.0119,
-        "pearson_p": 0.9141,
-        "spearman": 0.0062,
-        "spearman_p": 0.9554,
-        "best_lag": 1,
-        "corr_at_best": 0.1552,
-        "ic": 0.1581,
-        "ic_t": 1.44,
-        "ols": {
-          "beta": -0.0010261943777595962,
-          "t": -0.132873442313957,
-          "p": 0.8942934705999368,
-          "r2": 0.0001411702448465002,
-          "n": 85,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.013381014814855284,
-          "t": 1.711398856278907,
-          "p": 0.08700750818706995,
-          "r2": 0.024085237110437863,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": false,
-        "excess_pearson": 0.0096,
-        "last_chg": 0.804034,
-        "last_chg_z": 0.52,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 16.9,
-        "source": "ceic",
-        "label": "Export value: Nickel Waste and Scrap",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.254
-        }
-      },
-      {
-        "key": "id_gdp_real_q",
-        "role": "macro",
-        "why": "domestic demand backdrop",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 118,
-        "min_n": 24,
-        "pearson": -0.0189,
-        "pearson_p": 0.8392,
-        "spearman": 0.0744,
-        "spearman_p": 0.4234,
-        "best_lag": 5,
-        "corr_at_best": -0.2073,
-        "ic": 0.121,
-        "ic_t": 1.303,
-        "ols": {
-          "beta": -0.0019977444931499723,
-          "t": -0.1679691295062073,
-          "p": 0.866607565079364,
-          "r2": 0.0003564807969264061,
-          "n": 118,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.021462621526693357,
-          "t": -3.1813093396350336,
-          "p": 0.0014661099024747889,
-          "r2": 0.042960496319390806,
-          "n": 113,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": 0.0157,
-        "last_chg": 0.0,
-        "last_chg_z": -0.0,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 7.2,
-        "source": "corr:aIDGDPAR1",
-        "shallow": false,
-        "label": "Real GDP (SA)",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
       }
     ],
-    "n_kept": 9,
-    "n_candidates": 21
+    "n_kept": 6,
+    "n_candidates": 22
   },
-  "unscored": [
-    {
-      "key": "iron_ore",
-      "label": "Iron Ore 62% CFR",
-      "role": "supply",
-      "source": "spark",
-      "reason": "insufficient_history"
-    }
-  ],
+  "unscored": [],
   "rejected_top": [
     {
       "key": "CEICI357183202",
@@ -602,13 +427,13 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI650271397",
-      "label": "Export: world (UN comtrade)",
-      "role": "supply",
-      "pearson": -0.1722,
-      "p": 0.1267892694193709,
-      "theory_agree": null,
-      "score": 33.9,
+      "key": "cn_pmi_mfg",
+      "label": "Mfg PMI (NBS)",
+      "role": "demand",
+      "pearson": 0.1234,
+      "p": 0.042344222015890116,
+      "theory_agree": true,
+      "score": 32.8,
       "reason": "below_gate"
     },
     {
@@ -618,27 +443,7 @@
       "pearson": 0.0782,
       "p": 0.3189479678578321,
       "theory_agree": null,
-      "score": 33.7,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI294140102",
-      "label": "Aneka Tambang Tbk, PT: Gold",
-      "role": "supply",
-      "pearson": -0.1,
-      "p": 0.3638197135220901,
-      "theory_agree": null,
-      "score": 32.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI502593637",
-      "label": "Export value: Other Articles of Nickel",
-      "role": "supply",
-      "pearson": -0.0926,
-      "p": 0.3480054625834307,
-      "theory_agree": null,
-      "score": 31.2,
+      "score": 29.7,
       "reason": "below_gate"
     },
     {
@@ -652,13 +457,23 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI388026027",
-      "label": "Export value: Ferro alloy nickel",
+      "key": "CEICI294140102",
+      "label": "Aneka Tambang Tbk, PT: Gold",
       "role": "supply",
-      "pearson": -0.1195,
-      "p": 0.11693238928418868,
+      "pearson": -0.1,
+      "p": 0.3638197135220901,
       "theory_agree": null,
-      "score": 26.9,
+      "score": 28.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI650271397",
+      "label": "Export: world (UN comtrade)",
+      "role": "demand",
+      "pearson": -0.1722,
+      "p": 0.1267892694193709,
+      "theory_agree": false,
+      "score": 25.9,
       "reason": "below_gate"
     },
     {
@@ -666,33 +481,43 @@
       "label": "Import volume: Nickel and articles thereof",
       "role": "demand",
       "pearson": -0.1133,
-      "p": 1.1038230388953379e-60,
+      "p": 7.930003314650021e-61,
       "theory_agree": false,
       "score": 24.2,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI356799402",
-      "label": "Export value: Nickel and articles thereof",
-      "role": "supply",
-      "pearson": -0.0584,
-      "p": 0.354388308761158,
-      "theory_agree": null,
-      "score": 22.1,
+      "key": "CEICI502593637",
+      "label": "Export value: Other Articles of Nickel",
+      "role": "demand",
+      "pearson": -0.0926,
+      "p": 0.3480054625834307,
+      "theory_agree": false,
+      "score": 19.2,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI502593617",
-      "label": "Export value: Nickel Plates, Sheets, Strip and Foi",
+      "key": "CEICI294140302",
+      "label": "Bauxite",
       "role": "supply",
-      "pearson": 0.0129,
-      "p": 0.8766917793006426,
+      "pearson": -0.0254,
+      "p": 0.6136086928060825,
       "theory_agree": null,
-      "score": 12.3,
+      "score": 17.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI388026027",
+      "label": "Export value: Ferro alloy nickel",
+      "role": "demand",
+      "pearson": -0.1195,
+      "p": 0.11693238928418868,
+      "theory_agree": false,
+      "score": 14.9,
       "reason": "below_gate"
     }
   ],
-  "n_tested": 21,
+  "n_tested": 22,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -700,7 +525,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.2,
+  "runtime_s": 2.1,
   "grade": "perfected",
   "grade_reasons": []
 }

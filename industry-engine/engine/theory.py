@@ -52,13 +52,21 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
     if len(pool) < 2:   # relax if too strict
         pool = [r for r in kept if r["test_freq"] == "M" and r["key"] in prepped
                 and r["n"] >= 60]
-    use = sorted(pool, key=lambda r: -r["score"])[:MAX_MV]
-    if len(use) < 2:
-        return {"available": False, "reason": "too_few_long_monthly_drivers"}
-    cols = {}
-    for r in use:
+    ranked = sorted(pool, key=lambda r: -r["score"])
+    # collinearity prune: skip a driver |corr|>0.7 with an already-kept higher-
+    # score driver. Correlated commodity/rate drivers (e.g. BCOM & Brent)
+    # otherwise yield unstable, sign-flipped joint betas (critique: no VIF control).
+    cols, use = {}, []
+    for r in ranked:
         s = prepped[r["key"]]["chg"]
+        if any(abs(s.corr(prev)) > 0.7 for prev in cols.values()):
+            continue
         cols[r["key"]] = s
+        use.append(r)
+        if len(use) >= MAX_MV:
+            break
+    if len(use) < 2:
+        return {"available": False, "reason": "too_few_independent_monthly_drivers"}
     X = pd.DataFrame(cols)
     df = pd.concat([y.rename("__y__"), X], axis=1).dropna()
     if len(df) < 40:
@@ -88,9 +96,13 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
         adj = float(res.rsquared_adj)
     else:
         r2 = adj = 0.0
-    # expanding-window OOS directional hit-rate
+    # expanding-window OOS directional hit-rate. Uses the RAW design (NOT the
+    # full-sample-standardized Xs) so no future mean/std leaks into the walk-
+    # forward; lstsq directional prediction is scale-invariant. NB: the driver
+    # SET is still chosen on the full sample, so this validates PARAMETERS, not
+    # the specification search — a pseudo-OOS, labelled as such (oos_kind).
     hit, tot = 0, 0
-    yv2, Xv2 = yv.reset_index(drop=True), Xs.reset_index(drop=True)
+    yv2, Xv2 = yv.reset_index(drop=True), Xv.reset_index(drop=True)
     n = len(yv2)
     if n > MIN_TRAIN + 12:
         for t in range(MIN_TRAIN, n):
@@ -99,7 +111,9 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
                     np.c_[np.ones(t), Xv2.iloc[:t].values], yv2.iloc[:t].values,
                     rcond=None)[0]
                 pred = bt[0] + Xv2.iloc[t].values @ bt[1:]
-                if np.sign(pred) == np.sign(yv2.iloc[t]) and yv2.iloc[t] != 0:
+                if pred == 0 or yv2.iloc[t] == 0:
+                    continue                       # abstain on degenerate/zero
+                if np.sign(pred) == np.sign(yv2.iloc[t]):
                     hit += 1
                 tot += 1
             except Exception:  # noqa: BLE001
@@ -111,15 +125,23 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
         try:
             latest = ((Xv.iloc[-1] - Xv.mean()) / Xv.std(ddof=0))[Xs.columns].values
             expected = float(res.params[0] + latest @ res.params[1:])
+            # clamp the point estimate to ±3 monthly-return SD — an in-sample OLS
+            # extrapolated on an extreme latest-X can otherwise print absurd
+            # forecasts (e.g. -15%/mo). It's a model read, not a tradeable target.
+            cap = 3.0 * float(yv.std())
+            if cap > 0:
+                expected = max(-cap, min(cap, expected))
         except Exception:  # noqa: BLE001
             expected = None
     return {"available": True, "drivers": list(Xs.columns), "n": int(len(df)),
             "r2": round(r2, 3), "adj_r2": round(adj, 3),
             "betas": betas, "oos_hit_rate": oos, "oos_n": tot,
+            "oos_kind": "pseudo (params re-fit walk-forward; driver set selected "
+                        "on full sample — not a clean specification-search OOS)",
             "expected_monthly_ret": (round(expected, 4) if expected is not None else None)}
 
 
-def _confidence(kept: list, mv: dict) -> dict:
+def _confidence(kept: list, mv: dict, n_tested: int = 0) -> dict:
     if not kept:
         return {"level": "none", "score": 0, "reasons": ["no drivers"]}
     max_corr = max(abs(r["pearson"]) for r in kept)
@@ -132,11 +154,16 @@ def _confidence(kept: list, mv: dict) -> dict:
     score = (28 * min(max_corr / 0.4, 1) + 16 * (1 if any_sig else 0) +
              16 * agree + 14 * stable_frac + 14 * min(r2 / 0.25, 1) +
              12 * max(0, (oos - 0.5) / 0.12))
-    score = round(min(100, score))
+    # multiple-testing haircut: screening many candidates inflates the chance the
+    # kept set contains false positives. Penalise confidence as the candidate pool
+    # grows beyond ~15 (tested 15 -> ×1.0, ~45 -> ×0.85, ~75 -> ×0.70).
+    mt_penalty = max(0.70, min(1.0, 1.0 - 0.30 * max(0.0, (n_tested - 15) / 60.0)))
+    score = round(min(100, score) * mt_penalty)
     level = "high" if score >= 66 else "medium" if score >= 42 else "low"
     reasons = [f"max|corr|={max_corr:.2f}", f"theory_agree={agree:.0%}",
                f"stable={stable_frac:.0%}", f"mvR2={r2:.2f}",
-               f"OOS={oos:.0%}" if mv.get("oos_hit_rate") else "OOS=na"]
+               f"OOS={oos:.0%}" if mv.get("oos_hit_rate") else "OOS=na",
+               f"mt_penalty={mt_penalty:.2f}(n={n_tested})"]
     return {"level": level, "score": score, "reasons": reasons}
 
 
@@ -173,8 +200,8 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
             return None
         return round(sum(r["live"]["impulse"] for r in rs) / len(rs), 3)
 
-    mv = _multivariate(br["ret_raw"], kept, prepped)
-    conf = _confidence(kept, mv)
+    mv = _multivariate(br["ret_eqw"], kept, prepped)
+    conf = _confidence(kept, mv, selection.get("n_candidates", 0))
 
     # rank drivers for display by score
     kept_sorted = sorted(kept, key=lambda r: -r["score"])

@@ -3,7 +3,7 @@
   "sub_sector": "Toll Road",
   "sector": "Infrastructure",
   "priority": 46,
-  "generated_at": "2026-06-14T02:53:11",
+  "generated_at": "2026-06-14T12:00:23",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -25,67 +25,57 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 47,
-    "net_tilt": -0.106,
-    "demand_tilt": -0.112,
+    "score": 46,
+    "net_tilt": -0.142,
+    "demand_tilt": -0.199,
     "supply_tilt": -0.048,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
       "level": "low",
-      "score": 33,
+      "score": 31,
       "reasons": [
         "max|corr|=0.16",
-        "theory_agree=83%",
-        "stable=27%",
-        "mvR2=0.09",
-        "OOS=23%"
+        "theory_agree=75%",
+        "stable=22%",
+        "mvR2=0.08",
+        "OOS=52%",
+        "mt_penalty=0.95(n=26)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "CEICI14582301",
-        "CEICI14576001",
         "CEICI14575801",
-        "id_gdp_real_q",
-        "CEICI14577101"
+        "id_gdp_real_q"
       ],
       "n": 116,
-      "r2": 0.092,
-      "adj_r2": 0.05,
+      "r2": 0.084,
+      "adj_r2": 0.059,
       "betas": {
         "CEICI14582301": {
-          "std_beta": 0.0282,
-          "t": 1.9,
-          "p": 0.0569
-        },
-        "CEICI14576001": {
-          "std_beta": 0.0016,
-          "t": 0.12,
-          "p": 0.9083
+          "std_beta": 0.0283,
+          "t": 2.04,
+          "p": 0.0415
         },
         "CEICI14575801": {
-          "std_beta": 0.0201,
-          "t": 1.6,
-          "p": 0.1107
+          "std_beta": 0.021,
+          "t": 1.84,
+          "p": 0.066
         },
         "id_gdp_real_q": {
-          "std_beta": -0.0078,
-          "t": -1.3,
-          "p": 0.1951
-        },
-        "CEICI14577101": {
-          "std_beta": 0.0108,
-          "t": 0.96,
-          "p": 0.3348
+          "std_beta": -0.0066,
+          "t": -1.04,
+          "p": 0.2962
         }
       },
-      "oos_hit_rate": 0.232,
-      "oos_n": 56,
-      "expected_monthly_ret": -0.0257
+      "oos_hit_rate": 0.52,
+      "oos_n": 25,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": -0.0213
     },
-    "narrative": "Toll Road (Infrastructure) screens NEUTRAL [47/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 5-driver model explains 9% of monthly variance (adj 5%), 23% out-of-sample directional hit-rate; current read ~-2.6%/mo.",
+    "narrative": "Toll Road (Infrastructure) screens NEUTRAL [46/100, low confidence]. Top drivers: HH consumption: Transport & Comm (corr +0.15, lead 2m, now headwind); GDP: Transport & Storage (corr +0.15, lead 2m, now headwind); GDP: Storage & Support (corr +0.14, lead 2m, now headwind). A 3-driver model explains 8% of monthly variance (adj 6%), 52% out-of-sample directional hit-rate; current read ~-2.1%/mo.",
     "drivers": [
       {
         "key": "CEICI365764267",
@@ -403,7 +393,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 40.6,
+        "score": 36.6,
         "source": "ceic",
         "label": "By airport: Soekarno Hatta-Tangerang",
         "live": {
@@ -463,60 +453,6 @@
         "live": {
           "posture": "headwind",
           "impulse": -0.226
-        }
-      },
-      {
-        "key": "CEICI14576001",
-        "role": "demand",
-        "why": "Domestic: Tanjung Priok",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": 0.0759,
-        "pearson_p": 0.3069,
-        "spearman": -0.0478,
-        "spearman_p": 0.5205,
-        "best_lag": 5,
-        "corr_at_best": -0.1584,
-        "ic": -0.0804,
-        "ic_t": -1.085,
-        "ols": {
-          "beta": 0.041933345337642106,
-          "t": 0.9338685417728925,
-          "p": 0.35037170784268545,
-          "r2": 0.005766205446541939,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.08744627314711725,
-          "t": -1.9303893791255364,
-          "p": 0.0535586099173964,
-          "r2": 0.025099935154324515,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0843,
-        "last_chg": 0.355342,
-        "last_chg_z": 0.71,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.1,
-        "source": "ceic",
-        "label": "Domestic: Tanjung Priok",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.341
         }
       },
       {
@@ -627,67 +563,23 @@
           "posture": "neutral",
           "impulse": 0.0
         }
-      },
-      {
-        "key": "CEICI14577101",
-        "role": "demand",
-        "why": "International: Tanjung Perak",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-03-01",
-        "n": 182,
-        "min_n": 24,
-        "pearson": 0.058,
-        "pearson_p": 0.4368,
-        "spearman": -0.0302,
-        "spearman_p": 0.6857,
-        "best_lag": 3,
-        "corr_at_best": 0.167,
-        "ic": 0.0272,
-        "ic_t": 0.365,
-        "ols": {
-          "beta": 0.00686968609392868,
-          "t": 0.7595163485299268,
-          "p": 0.44754373816028314,
-          "r2": 0.003362806046059097,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.019796895148041862,
-          "t": 1.8029245860823224,
-          "p": 0.07140005918136001,
-          "r2": 0.027904204079823414,
-          "n": 182,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0963,
-        "last_chg": -0.160628,
-        "last_chg_z": -0.45,
-        "last_chg_date": "2026-03-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 23.9,
-        "source": "ceic",
-        "label": "International: Tanjung Perak",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.221
-        }
       }
     ],
-    "n_kept": 11,
+    "n_kept": 9,
     "n_candidates": 26
   },
   "unscored": [],
   "rejected_top": [
+    {
+      "key": "CEICI14576001",
+      "label": "Domestic: Tanjung Priok",
+      "role": "demand",
+      "pearson": 0.0759,
+      "p": 0.3115341899079127,
+      "theory_agree": true,
+      "score": 32.7,
+      "reason": "below_gate"
+    },
     {
       "key": "CEICI14582601",
       "label": "By airport: Ngurah Rai-Denpasar",
@@ -695,7 +587,7 @@
       "pearson": 0.0462,
       "p": 0.23709969750768378,
       "theory_agree": true,
-      "score": 36.2,
+      "score": 32.2,
       "reason": "below_gate"
     },
     {
@@ -715,7 +607,7 @@
       "pearson": 0.0081,
       "p": 0.8311223769612031,
       "theory_agree": true,
-      "score": 27.5,
+      "score": 23.5,
       "reason": "below_gate"
     },
     {
@@ -723,39 +615,19 @@
       "label": "International: Belawan",
       "role": "demand",
       "pearson": 0.0116,
-      "p": 0.627731869341389,
+      "p": 0.5605862562835735,
       "theory_agree": true,
-      "score": 25.0,
+      "score": 22.0,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI14577901",
-      "label": "Domestic: Belawan",
+      "key": "CEICI14577101",
+      "label": "International: Tanjung Perak",
       "role": "demand",
-      "pearson": 0.0092,
-      "p": 0.7878344129563501,
+      "pearson": 0.058,
+      "p": 0.34474827803391783,
       "theory_agree": true,
-      "score": 22.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "macro",
-      "pearson": 0.039,
-      "p": 0.6239663000276519,
-      "theory_agree": null,
-      "score": 21.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI14578101",
-      "label": "Domestic: Tanjung Perak",
-      "role": "demand",
-      "pearson": -0.0913,
-      "p": 0.17487105084787624,
-      "theory_agree": false,
-      "score": 21.6,
+      "score": 21.4,
       "reason": "below_gate"
     },
     {
@@ -769,23 +641,33 @@
       "reason": "below_gate"
     },
     {
-      "key": "id_bi_rate",
-      "label": "BI Policy Rate",
-      "role": "macro",
-      "pearson": -0.0126,
-      "p": 0.8212072090199917,
+      "key": "CEICI14577901",
+      "label": "Domestic: Belawan",
+      "role": "demand",
+      "pearson": 0.0092,
+      "p": 0.7620337949868461,
       "theory_agree": true,
-      "score": 18.9,
+      "score": 19.3,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI14574801",
-      "label": "Cargo loaded: international",
-      "role": "supply",
-      "pearson": -0.0412,
-      "p": 0.5399944319367302,
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": 0.039,
+      "p": 0.6239663000276519,
       "theory_agree": null,
-      "score": 15.7,
+      "score": 17.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI14578101",
+      "label": "Domestic: Tanjung Perak",
+      "role": "demand",
+      "pearson": -0.0913,
+      "p": 0.18160348356265466,
+      "theory_agree": false,
+      "score": 17.5,
       "reason": "below_gate"
     }
   ],
@@ -797,7 +679,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.5,
+  "runtime_s": 2.7,
   "grade": "partial",
   "grade_reasons": [
     "confidence low",

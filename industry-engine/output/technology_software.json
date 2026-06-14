@@ -3,7 +3,7 @@
   "sub_sector": "Software",
   "sector": "Technology",
   "priority": 44,
-  "generated_at": "2026-06-14T02:53:07",
+  "generated_at": "2026-06-14T12:00:16",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -32,55 +32,51 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 51,
-    "net_tilt": 0.031,
-    "demand_tilt": 0.009,
+    "score": 52,
+    "net_tilt": 0.091,
+    "demand_tilt": 0.189,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": 0.0,
     "confidence": {
       "level": "medium",
-      "score": 47,
+      "score": 53,
       "reasons": [
         "max|corr|=0.16",
-        "theory_agree=44%",
-        "stable=67%",
+        "theory_agree=67%",
+        "stable=100%",
         "mvR2=0.06",
-        "OOS=47%"
+        "OOS=53%",
+        "mt_penalty=0.91(n=33)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "id_gdp_real_q",
-        "ndx",
-        "CEICI499409377"
+        "ndx"
       ],
       "n": 118,
-      "r2": 0.056,
-      "adj_r2": 0.031,
+      "r2": 0.055,
+      "adj_r2": 0.038,
       "betas": {
         "id_gdp_real_q": {
-          "std_beta": 0.0265,
-          "t": 3.11,
-          "p": 0.0019
+          "std_beta": 0.0274,
+          "t": 3.14,
+          "p": 0.0017
         },
         "ndx": {
-          "std_beta": 0.035,
-          "t": 2.05,
-          "p": 0.0404
-        },
-        "CEICI499409377": {
-          "std_beta": 0.0061,
-          "t": 0.47,
-          "p": 0.6374
+          "std_beta": 0.0356,
+          "t": 2.06,
+          "p": 0.039
         }
       },
-      "oos_hit_rate": 0.466,
+      "oos_hit_rate": 0.534,
       "oos_n": 58,
-      "expected_monthly_ret": 0.023
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0203
     },
-    "narrative": "Software (Technology) screens NEUTRAL [51/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat); AOV: Arts & Entertainment (corr +0.08, lead 5m, now flat). A 3-driver model explains 6% of monthly variance (adj 3%), 47% out-of-sample directional hit-rate; current read ~+2.3%/mo.",
+    "narrative": "Software (Technology) screens NEUTRAL [52/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.13, lead 6m, now flat); Nasdaq 100 (corr +0.16, lead 0m, now flat); Value: Arts & Entertainment (corr -0.12, lead 4m, now tailwind). A 2-driver model explains 6% of monthly variance (adj 4%), 53% out-of-sample directional hit-rate; current read ~+2.0%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
@@ -193,168 +189,6 @@
         }
       },
       {
-        "key": "CEICI519431507",
-        "role": "demand",
-        "why": "AOV: Arts & Entertainment",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
-        "min_n": 24,
-        "pearson": 0.0751,
-        "pearson_p": 0.4997,
-        "spearman": 0.0483,
-        "spearman_p": 0.6647,
-        "best_lag": 5,
-        "corr_at_best": -0.1654,
-        "ic": -0.0932,
-        "ic_t": -0.838,
-        "ols": {
-          "beta": 0.010710507151194378,
-          "t": 0.9131907097204461,
-          "p": 0.3611422491757236,
-          "r2": 0.005642747831668515,
-          "n": 83,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.023574679373421333,
-          "t": -1.683915255620731,
-          "p": 0.09219804759656043,
-          "r2": 0.027357192298777644,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.08,
-        "last_chg": -0.133025,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.8,
-        "source": "ceic",
-        "label": "AOV: Arts & Entertainment",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
-        }
-      },
-      {
-        "key": "CEICI499409377",
-        "role": "demand",
-        "why": "Browser share (Tablet): Opera",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-06-07",
-        "n": 166,
-        "min_n": 24,
-        "pearson": 0.0777,
-        "pearson_p": 0.3195,
-        "spearman": 0.0666,
-        "spearman_p": 0.3941,
-        "best_lag": 4,
-        "corr_at_best": 0.1777,
-        "ic": -0.0397,
-        "ic_t": -0.508,
-        "ols": {
-          "beta": 0.00847367352456165,
-          "t": 1.2771581271018633,
-          "p": 0.20154642669731226,
-          "r2": 0.006041901286979456,
-          "n": 166,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.01944306396286349,
-          "t": 2.0600988658174466,
-          "p": 0.039389090293077196,
-          "r2": 0.0315884038180837,
-          "n": 162,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0823,
-        "last_chg": -0.34,
-        "last_chg_z": -0.24,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.8,
-        "source": "ceic",
-        "label": "Browser share (Tablet): Opera",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.119
-        }
-      },
-      {
-        "key": "CEICI517775437",
-        "role": "demand",
-        "why": "Value: Desktop",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
-        "min_n": 24,
-        "pearson": -0.0804,
-        "pearson_p": 0.4675,
-        "spearman": -0.0548,
-        "spearman_p": 0.6204,
-        "best_lag": 1,
-        "corr_at_best": 0.1845,
-        "ic": 0.1839,
-        "ic_t": 1.665,
-        "ols": {
-          "beta": -0.01740096962245929,
-          "t": -1.4718707813543477,
-          "p": 0.14105577516150028,
-          "r2": 0.006456791735208189,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.04008140188653388,
-          "t": 2.9259508446133764,
-          "p": 0.0034340519250462363,
-          "r2": 0.03403860449300644,
-          "n": 83,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": true,
-        "excess_pearson": -0.0946,
-        "last_chg": -1.14675,
-        "last_chg_z": -1.18,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 32.5,
-        "source": "ceic",
-        "label": "Value: Desktop",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.53
-        }
-      },
-      {
         "key": "CEICI519405647",
         "role": "demand",
         "why": "Value: Arts & Entertainment",
@@ -407,171 +241,9 @@
           "posture": "tailwind",
           "impulse": 0.367
         }
-      },
-      {
-        "key": "CEICI517743197",
-        "role": "demand",
-        "why": "AOV: Desktop",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
-        "min_n": 24,
-        "pearson": -0.0955,
-        "pearson_p": 0.3873,
-        "spearman": 0.0946,
-        "spearman_p": 0.3921,
-        "best_lag": 6,
-        "corr_at_best": 0.1508,
-        "ic": -0.0986,
-        "ic_t": -0.893,
-        "ols": {
-          "beta": -0.0525493318233316,
-          "t": -0.974273901493689,
-          "p": 0.3299205595011899,
-          "r2": 0.00912775448697034,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.08765656909378673,
-          "t": 2.204914622497778,
-          "p": 0.02746008621905454,
-          "r2": 0.022748802214872632,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.1306,
-        "last_chg": 0.495478,
-        "last_chg_z": 1.34,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 19.1,
-        "source": "ceic",
-        "label": "AOV: Desktop",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.585
-        }
-      },
-      {
-        "key": "CEICI517710097",
-        "role": "demand",
-        "why": "Average Order Value (AOV)",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
-        "min_n": 24,
-        "pearson": -0.027,
-        "pearson_p": 0.8077,
-        "spearman": 0.0846,
-        "spearman_p": 0.444,
-        "best_lag": 6,
-        "corr_at_best": 0.1518,
-        "ic": -0.1219,
-        "ic_t": -1.104,
-        "ols": {
-          "beta": -0.019216567724357383,
-          "t": -0.2860294795810861,
-          "p": 0.7748555429150988,
-          "r2": 0.0007263231920491275,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.1267121291931434,
-          "t": 2.3995275023927833,
-          "p": 0.016416246576102928,
-          "r2": 0.023046197397783463,
-          "n": 78,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.0693,
-        "last_chg": 0.398545,
-        "last_chg_z": 1.4,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 9.2,
-        "source": "ceic",
-        "label": "Average Order Value (AOV)",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.604
-        }
-      },
-      {
-        "key": "CEICI517817637",
-        "role": "demand",
-        "why": "Value: Mobile",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 84,
-        "min_n": 24,
-        "pearson": -0.0194,
-        "pearson_p": 0.8612,
-        "spearman": -0.0346,
-        "spearman_p": 0.7547,
-        "best_lag": 5,
-        "corr_at_best": -0.215,
-        "ic": 0.0789,
-        "ic_t": 0.714,
-        "ols": {
-          "beta": -0.004372620964688406,
-          "t": -0.32505626544812016,
-          "p": 0.74513848815996,
-          "r2": 0.0003751391112026825,
-          "n": 84,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.05538593068316603,
-          "t": -2.78297262629055,
-          "p": 0.005386335042496455,
-          "r2": 0.046219251810965534,
-          "n": 79,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.0022,
-        "last_chg": -1.09162,
-        "last_chg_z": -1.15,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 6.3,
-        "source": "ceic",
-        "label": "Value: Mobile",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.519
-        }
       }
     ],
-    "n_kept": 9,
+    "n_kept": 3,
     "n_candidates": 33
   },
   "unscored": [],
@@ -583,57 +255,37 @@
       "pearson": 0.0933,
       "p": 0.23534237950104053,
       "theory_agree": true,
-      "score": 39.5,
+      "score": 35.5,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499411327",
-      "label": "Browser share (Desktop): Mozilla",
+      "key": "CEICI519431507",
+      "label": "AOV: Arts & Entertainment",
       "role": "demand",
-      "pearson": 0.0905,
-      "p": 0.43790709754208323,
+      "pearson": 0.0751,
+      "p": 0.3611422491757236,
       "theory_agree": true,
-      "score": 30.4,
+      "score": 32.8,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499639877",
-      "label": "Internet Usage: Browser Market Share: All Platform",
+      "key": "CEICI499409377",
+      "label": "Browser share (Tablet): Opera",
       "role": "demand",
-      "pearson": -0.0989,
-      "p": 0.05436352932717203,
+      "pearson": 0.0777,
+      "p": 0.20154642669731226,
+      "theory_agree": true,
+      "score": 31.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517775437",
+      "label": "Value: Desktop",
+      "role": "demand",
+      "pearson": -0.0804,
+      "p": 0.14105577516150028,
       "theory_agree": false,
-      "score": 30.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517672587",
-      "label": "Volume: Mobile",
-      "role": "demand",
-      "pearson": 0.0109,
-      "p": 0.5191982370798328,
-      "theory_agree": true,
-      "score": 29.6,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI499788697",
-      "label": "Browser share (Desktop): Chrome",
-      "role": "demand",
-      "pearson": 0.041,
-      "p": 0.6929902822605621,
-      "theory_agree": true,
-      "score": 27.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517809607",
-      "label": "Volume",
-      "role": "demand",
-      "pearson": 0.0145,
-      "p": 0.4563353242282603,
-      "theory_agree": true,
-      "score": 27.0,
+      "score": 28.5,
       "reason": "below_gate"
     },
     {
@@ -647,33 +299,53 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI499658507",
-      "label": "Browser share (Mobile): Puffin Browser",
+      "key": "CEICI499411327",
+      "label": "Browser share (Desktop): Mozilla",
       "role": "demand",
-      "pearson": -0.077,
-      "p": 0.23675013422424362,
+      "pearson": 0.0905,
+      "p": 0.43790709754208323,
+      "theory_agree": true,
+      "score": 26.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI517672587",
+      "label": "Volume: Mobile",
+      "role": "demand",
+      "pearson": 0.0109,
+      "p": 0.4790274164008129,
+      "theory_agree": true,
+      "score": 26.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI499639877",
+      "label": "Internet Usage: Browser Market Share: All Platform",
+      "role": "demand",
+      "pearson": -0.0989,
+      "p": 0.05436352932717203,
       "theory_agree": false,
-      "score": 21.9,
+      "score": 26.0,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI517698487",
-      "label": "Value",
+      "key": "CEICI517809607",
+      "label": "Volume",
       "role": "demand",
-      "pearson": 0.0199,
-      "p": 0.6851889722773212,
+      "pearson": 0.0145,
+      "p": 0.38697884958216977,
       "theory_agree": true,
-      "score": 21.5,
+      "score": 24.0,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI517801417",
-      "label": "Volume: Desktop",
+      "key": "CEICI499788697",
+      "label": "Browser share (Desktop): Chrome",
       "role": "demand",
-      "pearson": 0.0317,
-      "p": 0.39492515324346356,
+      "pearson": 0.041,
+      "p": 0.6929902822605621,
       "theory_agree": true,
-      "score": 21.2,
+      "score": 23.5,
       "reason": "below_gate"
     }
   ],
@@ -685,7 +357,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.0,
+  "runtime_s": 2.7,
   "grade": "perfected",
   "grade_reasons": []
 }

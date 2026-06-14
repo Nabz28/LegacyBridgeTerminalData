@@ -191,10 +191,43 @@ def rerun_all(pg: dict) -> int:
     return n
 
 
+def regrade_all(pg: dict) -> dict:
+    """Re-run AND re-grade every basket fresh (for a methodology change). Resets
+    attempts, applies verify.grade to the new artifact, one commit at the end."""
+    wl = C.read_json(C.STATE_DIR / "worklist.json")
+    for b in sorted(wl["baskets"], key=lambda x: x["priority"]):
+        st = pg["baskets"].get(b["id"])
+        if not st:
+            continue
+        try:
+            art = RB.run(b)
+            gr = V.grade(art)
+            art["grade"] = gr["grade"]
+            art["grade_reasons"] = gr["reasons"]
+            C.write_json(C.OUTPUT_DIR / f"{art['id']}.json", art)
+            m = art.get("model") or {}
+            st.update(status="done", grade=gr["grade"], reasons=gr["reasons"],
+                      score=m.get("score"), verdict=m.get("verdict"), attempts=1,
+                      last_run=time.strftime("%Y-%m-%dT%H:%M:%S"))
+        except Exception as e:  # noqa: BLE001
+            st.update(status="error", grade="error", reasons=[str(e)[:200]])
+            C.log(f"  regrade ERROR {b['sub_sector']}: {e}", level="WARN")
+    pg["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    pg["summary"] = _summary(pg)
+    C.write_json(PROGRESS, pg)
+    P.compile_engine()
+    return pg["summary"]
+
+
 def main(argv: list) -> None:
     pg = _load_progress()
     if "--status" in argv:
         print(_status_text(pg))
+        return
+    if "--regrade-all" in argv:
+        s = regrade_all(pg)
+        print(_status_text(pg))
+        print("regraded all baskets:", s)
         return
     if "--recompile" in argv:
         eng = P.compile_engine()

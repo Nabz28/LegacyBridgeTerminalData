@@ -3,7 +3,7 @@
   "sub_sector": "Retail",
   "sector": "Consumer Cyclicals",
   "priority": 21,
-  "generated_at": "2026-06-14T02:52:20",
+  "generated_at": "2026-06-14T11:59:11",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -52,22 +52,23 @@
     "weight_cap": 0.12
   },
   "model": {
-    "verdict": "NEUTRAL",
-    "score": 46,
-    "net_tilt": -0.099,
-    "demand_tilt": 0.066,
+    "verdict": "MILDLY BEARISH",
+    "score": 41,
+    "net_tilt": -0.229,
+    "demand_tilt": 0.055,
     "supply_tilt": -0.824,
     "cost_tilt": null,
     "macro_tilt": -0.045,
     "confidence": {
-      "level": "high",
-      "score": 73,
+      "level": "medium",
+      "score": 61,
       "reasons": [
-        "max|corr|=0.22",
+        "max|corr|=0.27",
         "theory_agree=100%",
         "stable=100%",
-        "mvR2=0.10",
-        "OOS=56%"
+        "mvR2=0.11",
+        "OOS=54%",
+        "mt_penalty=0.82(n=51)"
       ]
     },
     "multivariate": {
@@ -75,51 +76,34 @@
       "drivers": [
         "usdidr",
         "CEICI391912547",
-        "CEICI324050702",
-        "CEICI391912507",
-        "CEICI322851802",
-        "CEICI13842101"
+        "CEICI324050702"
       ],
       "n": 160,
-      "r2": 0.102,
-      "adj_r2": 0.066,
+      "r2": 0.11,
+      "adj_r2": 0.093,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0228,
-          "t": -1.79,
-          "p": 0.0738
+          "std_beta": -0.0188,
+          "t": -2.64,
+          "p": 0.0082
         },
         "CEICI391912547": {
-          "std_beta": 0.0164,
-          "t": 3.88,
-          "p": 0.0001
+          "std_beta": 0.0081,
+          "t": 2.69,
+          "p": 0.0072
         },
         "CEICI324050702": {
-          "std_beta": -0.0135,
-          "t": -1.41,
-          "p": 0.1578
-        },
-        "CEICI391912507": {
-          "std_beta": -0.0101,
-          "t": -1.27,
-          "p": 0.2029
-        },
-        "CEICI322851802": {
-          "std_beta": 0.0114,
-          "t": 2.11,
-          "p": 0.0352
-        },
-        "CEICI13842101": {
-          "std_beta": 0.0082,
-          "t": 1.06,
-          "p": 0.2904
+          "std_beta": -0.012,
+          "t": -1.98,
+          "p": 0.0471
         }
       },
-      "oos_hit_rate": 0.56,
+      "oos_hit_rate": 0.54,
       "oos_n": 100,
-      "expected_monthly_ret": -0.0484
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": -0.0292
     },
-    "narrative": "Retail (Consumer Cyclicals) screens NEUTRAL [46/100, high confidence]. Top drivers: USD/IDR (corr -0.22, lead 0m, now flat); Mazda (corr +0.13, lead 3m, now flat); Volume: Other made up textile articles; sets; worn (corr -0.15, lead 1m, now headwind). A 6-driver model explains 10% of monthly variance (adj 7%), 56% out-of-sample directional hit-rate; current read ~-4.8%/mo.",
+    "narrative": "Retail (Consumer Cyclicals) screens MILDLY BEARISH [41/100, medium confidence]. Top drivers: USD/IDR (corr -0.27, lead 0m, now flat); Mazda (corr +0.10, lead 3m, now flat); Volume: Other made up textile articles; sets; worn (corr -0.17, lead 0m, now headwind). A 3-driver model explains 11% of monthly variance (adj 9%), 54% out-of-sample directional hit-rate; current read ~-2.9%/mo.",
     "drivers": [
       {
         "key": "usdidr",
@@ -131,27 +115,27 @@
         "last_obs": "2026-05-08",
         "n": 184,
         "min_n": 24,
-        "pearson": -0.2236,
-        "pearson_p": 0.0023,
-        "spearman": -0.3001,
+        "pearson": -0.266,
+        "pearson_p": 0.0003,
+        "spearman": -0.3125,
         "spearman_p": 0.0,
         "best_lag": 0,
-        "corr_at_best": -0.2236,
-        "ic": -0.1031,
-        "ic_t": -1.39,
+        "corr_at_best": -0.266,
+        "ic": -0.075,
+        "ic_t": -1.012,
         "ols": {
-          "beta": -0.7137599151120719,
-          "t": -1.684459386397351,
-          "p": 0.09209292210228695,
-          "r2": 0.049978857126341536,
+          "beta": -0.6299618804462119,
+          "t": -2.6854951448328133,
+          "p": 0.007242242696571246,
+          "r2": 0.07075987812330986,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.7137599151120719,
-          "t": -1.684459386397351,
-          "p": 0.09209292210228695,
-          "r2": 0.049978857126341536,
+          "beta": -0.6299618804462119,
+          "t": -2.6854951448328133,
+          "p": 0.007242242696571246,
+          "r2": 0.07075987812330986,
           "n": 184,
           "hac_lag": 5
         },
@@ -167,7 +151,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 50.1,
+        "score": 53.7,
         "source": "corr:FX_IDC:USDIDR",
         "shallow": false,
         "label": "USD/IDR",
@@ -186,29 +170,29 @@
         "last_obs": "2026-04-01",
         "n": 172,
         "min_n": 24,
-        "pearson": 0.1303,
-        "pearson_p": 0.0885,
-        "spearman": 0.1388,
-        "spearman_p": 0.0693,
+        "pearson": 0.0951,
+        "pearson_p": 0.2147,
+        "spearman": 0.0623,
+        "spearman_p": 0.4167,
         "best_lag": 3,
-        "corr_at_best": 0.363,
-        "ic": 0.0694,
-        "ic_t": 0.905,
+        "corr_at_best": 0.2574,
+        "ic": 0.0559,
+        "ic_t": 0.202,
         "ols": {
-          "beta": 0.008774778391855836,
-          "t": 2.618707251238409,
-          "p": 0.008826365759559753,
-          "r2": 0.016970338885135994,
+          "beta": 0.004609915276336317,
+          "t": 2.3680587725344724,
+          "p": 0.01788169505527858,
+          "r2": 0.009040932122598488,
           "n": 172,
-          "hac_lag": 5
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": 0.024411025925026527,
-          "t": 1.2199072114041811,
-          "p": 0.22250005177360188,
-          "r2": 0.1317729166215127,
+          "beta": 0.012468767791916838,
+          "t": 1.297630311480113,
+          "p": 0.1944144010648523,
+          "r2": 0.06624906760533633,
           "n": 169,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "sign_prior": 1,
         "emp_sign": 1,
@@ -222,7 +206,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 44.7,
+        "score": 40.9,
         "source": "ceic",
         "label": "Mazda",
         "live": {
@@ -240,29 +224,29 @@
         "last_obs": "2026-04-01",
         "n": 160,
         "min_n": 24,
-        "pearson": -0.146,
-        "pearson_p": 0.0655,
-        "spearman": -0.1531,
-        "spearman_p": 0.0532,
-        "best_lag": 1,
-        "corr_at_best": -0.1797,
-        "ic": -0.1186,
-        "ic_t": -1.49,
+        "pearson": -0.1735,
+        "pearson_p": 0.0282,
+        "spearman": -0.1697,
+        "spearman_p": 0.0319,
+        "best_lag": 0,
+        "corr_at_best": -0.1735,
+        "ic": -0.0426,
+        "ic_t": -0.148,
         "ols": {
-          "beta": -0.07787228100587851,
-          "t": -1.5810706712383575,
-          "p": 0.11386187980531835,
-          "r2": 0.021311465854853773,
+          "beta": -0.06644755200730083,
+          "t": -1.9885638025110484,
+          "p": 0.04674937010637899,
+          "r2": 0.030099046427769394,
           "n": 160,
-          "hac_lag": 4
+          "hac_lag": 12
         },
         "ols_pred": {
-          "beta": -0.09753067489621187,
-          "t": -1.9342373478217785,
-          "p": 0.053083952392699425,
-          "r2": 0.03229122553256014,
-          "n": 159,
-          "hac_lag": 4
+          "beta": -0.06644755200730083,
+          "t": -1.9885638025110484,
+          "p": 0.04674937010637899,
+          "r2": 0.030099046427769394,
+          "n": 160,
+          "hac_lag": 12
         },
         "sign_prior": 0,
         "emp_sign": -1,
@@ -276,280 +260,118 @@
           "ok": true,
           "flags": []
         },
-        "score": 41.7,
+        "score": 36.1,
         "source": "ceic",
         "label": "Volume: Other made up textile articles; sets; worn",
         "live": {
           "posture": "headwind",
           "impulse": -0.824
         }
-      },
-      {
-        "key": "CEICI391912507",
-        "role": "demand",
-        "why": "Hino",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 172,
-        "min_n": 24,
-        "pearson": 0.0777,
-        "pearson_p": 0.311,
-        "spearman": 0.0926,
-        "spearman_p": 0.2268,
-        "best_lag": 5,
-        "corr_at_best": 0.1738,
-        "ic": 0.1127,
-        "ic_t": 1.47,
-        "ols": {
-          "beta": 0.01329337772998684,
-          "t": 1.4354267291980187,
-          "p": 0.15116553375619046,
-          "r2": 0.006038453387225973,
-          "n": 172,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.029624175492087238,
-          "t": 2.653557543419234,
-          "p": 0.007964818884015753,
-          "r2": 0.030211744370945426,
-          "n": 167,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.1266,
-        "last_chg": 0.614747,
-        "last_chg_z": 0.89,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 41.4,
-        "source": "ceic",
-        "label": "Hino",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.418
-        }
-      },
-      {
-        "key": "CEICI322851802",
-        "role": "demand",
-        "why": "Retail sales index: auto parts",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": 0.0909,
-        "pearson_p": 0.2209,
-        "spearman": 0.0873,
-        "spearman_p": 0.2399,
-        "best_lag": 4,
-        "corr_at_best": 0.1587,
-        "ic": -0.0693,
-        "ic_t": -0.935,
-        "ols": {
-          "beta": 0.15245328141519085,
-          "t": 1.4990477831508708,
-          "p": 0.13386123641169784,
-          "r2": 0.008266390123774281,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.2664461645859111,
-          "t": 3.282037139649292,
-          "p": 0.0010306002995748654,
-          "r2": 0.025197305251414615,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.0627,
-        "last_chg": -0.030331,
-        "last_chg_z": -0.57,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 39.8,
-        "source": "ceic",
-        "label": "Retail sales index: auto parts",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.278
-        }
-      },
-      {
-        "key": "CEICI13842101",
-        "role": "demand",
-        "why": "Wholesale: Over 24 Ton",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": 0.0655,
-        "pearson_p": 0.3787,
-        "spearman": 0.0835,
-        "spearman_p": 0.2612,
-        "best_lag": 5,
-        "corr_at_best": 0.1537,
-        "ic": 0.0961,
-        "ic_t": 1.296,
-        "ols": {
-          "beta": 0.009179105685277085,
-          "t": 1.1097598501641663,
-          "p": 0.2671025247628205,
-          "r2": 0.004283872516430032,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.02121109206032457,
-          "t": 2.941735994411158,
-          "p": 0.0032637804777966794,
-          "r2": 0.02363780664259496,
-          "n": 183,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": 0.1005,
-        "last_chg": 0.218994,
-        "last_chg_z": -0.14,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 37.7,
-        "source": "ceic",
-        "label": "Wholesale: Over 24 Ton",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.07
-        }
       }
     ],
-    "n_kept": 6,
+    "n_kept": 3,
     "n_candidates": 51
   },
   "unscored": [],
   "rejected_top": [
     {
-      "key": "CEICI391912517",
-      "label": "Isuzu",
+      "key": "CEICI13842001",
+      "label": "Wholesale: 5 to 24 Ton",
       "role": "demand",
-      "pearson": 0.0747,
-      "p": 0.22158665252141674,
+      "pearson": 0.0535,
+      "p": 0.10975597825533223,
       "theory_agree": true,
-      "score": 39.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13538901",
-      "label": "Sedan",
-      "role": "supply",
-      "pearson": -0.0929,
-      "p": 0.0025928129050841885,
-      "theory_agree": null,
-      "score": 39.6,
+      "score": 39.8,
       "reason": "below_gate"
     },
     {
       "key": "CEICI412545837",
       "label": "Wholesale motor vehicle sales",
       "role": "demand",
-      "pearson": 0.0397,
-      "p": 0.3687540774528384,
+      "pearson": 0.0549,
+      "p": 0.17158568178020095,
       "theory_agree": true,
-      "score": 39.3,
+      "score": 37.8,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI13842001",
-      "label": "Wholesale: 5 to 24 Ton",
+      "key": "CEICI391912517",
+      "label": "Isuzu",
       "role": "demand",
-      "pearson": 0.0283,
-      "p": 0.3909910752052722,
+      "pearson": 0.0997,
+      "p": 0.08299525961045649,
       "theory_agree": true,
-      "score": 38.1,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI391913307",
-      "label": "Hino",
-      "role": "supply",
-      "pearson": 0.0633,
-      "p": 0.004055263177905441,
-      "theory_agree": null,
-      "score": 36.5,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13841301",
-      "label": "Wholesale: Over 3000cc",
-      "role": "demand",
-      "pearson": 0.0342,
-      "p": 0.4537496291098402,
-      "theory_agree": true,
-      "score": 34.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13842201",
-      "label": "Double Cabin: Less than 5 Ton",
-      "role": "demand",
-      "pearson": 0.0334,
-      "p": 0.4868784443642016,
-      "theory_agree": true,
-      "score": 33.1,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13841501",
-      "label": "Wholesale: 1501 to 3000cc",
-      "role": "demand",
-      "pearson": 0.0473,
-      "p": 0.3362214180967601,
-      "theory_agree": true,
-      "score": 32.8,
+      "score": 37.4,
       "reason": "below_gate"
     },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "demand",
-      "pearson": -0.0571,
-      "p": 0.3741744772720371,
+      "pearson": -0.0654,
+      "p": 0.4079429269085344,
       "theory_agree": true,
-      "score": 32.5,
+      "score": 35.9,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI13540301",
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": 0.0527,
+      "p": 0.02293261178971815,
+      "theory_agree": true,
+      "score": 33.6,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI391912507",
+      "label": "Hino",
+      "role": "demand",
+      "pearson": 0.0732,
+      "p": 0.1230958163127344,
+      "theory_agree": true,
+      "score": 32.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13841901",
       "label": "Pick Up: Below 5 Ton",
+      "role": "demand",
+      "pearson": 0.0262,
+      "p": 0.3545691509407175,
+      "theory_agree": true,
+      "score": 30.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13842201",
+      "label": "Double Cabin: Less than 5 Ton",
+      "role": "demand",
+      "pearson": 0.0493,
+      "p": 0.3406841028767369,
+      "theory_agree": true,
+      "score": 30.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13841301",
+      "label": "Wholesale: Over 3000cc",
+      "role": "demand",
+      "pearson": 0.0622,
+      "p": 0.3336426611691018,
+      "theory_agree": true,
+      "score": 30.2,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI13538901",
+      "label": "Sedan",
       "role": "supply",
-      "pearson": -0.048,
-      "p": 9.695010810495065e-06,
+      "pearson": -0.0957,
+      "p": 0.00026368646258368523,
       "theory_agree": null,
-      "score": 31.1,
+      "score": 30.1,
       "reason": "below_gate"
     }
   ],
@@ -561,7 +383,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 2.8,
+  "runtime_s": 4.6,
   "grade": "perfected",
   "grade_reasons": []
 }

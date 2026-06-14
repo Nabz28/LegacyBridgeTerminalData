@@ -3,7 +3,7 @@
   "sub_sector": "Electrical Equipment",
   "sector": "Industrials",
   "priority": 43,
-  "generated_at": "2026-06-14T02:53:05",
+  "generated_at": "2026-06-14T12:00:13",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -31,55 +31,51 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 48,
-    "net_tilt": -0.053,
+    "score": 49,
+    "net_tilt": -0.036,
     "demand_tilt": null,
     "supply_tilt": null,
-    "cost_tilt": -0.336,
+    "cost_tilt": null,
     "macro_tilt": -0.043,
     "confidence": {
-      "level": "medium",
-      "score": 61,
+      "level": "high",
+      "score": 70,
       "reasons": [
         "max|corr|=0.20",
-        "theory_agree=67%",
-        "stable=67%",
-        "mvR2=0.07",
-        "OOS=57%"
+        "theory_agree=100%",
+        "stable=100%",
+        "mvR2=0.06",
+        "OOS=56%",
+        "mt_penalty=1.00(n=9)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "id_bi_rate",
-        "id_10y",
-        "aluminum"
+        "id_10y"
       ],
-      "n": 143,
-      "r2": 0.069,
-      "adj_r2": 0.049,
+      "n": 181,
+      "r2": 0.055,
+      "adj_r2": 0.045,
       "betas": {
         "id_bi_rate": {
-          "std_beta": -0.0128,
-          "t": -3.47,
-          "p": 0.0005
+          "std_beta": -0.0136,
+          "t": -3.66,
+          "p": 0.0003
         },
         "id_10y": {
-          "std_beta": -0.011,
-          "t": -1.99,
-          "p": 0.0464
-        },
-        "aluminum": {
-          "std_beta": -0.0009,
-          "t": -0.24,
-          "p": 0.8129
+          "std_beta": -0.0086,
+          "t": -1.54,
+          "p": 0.1232
         }
       },
-      "oos_hit_rate": 0.566,
-      "oos_n": 83,
-      "expected_monthly_ret": 0.0095
+      "oos_hit_rate": 0.562,
+      "oos_n": 121,
+      "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
+      "expected_monthly_ret": 0.0136
     },
-    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [48/100, medium confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat); Aluminum (corr +0.03, lead 4m, now headwind). A 3-driver model explains 7% of monthly variance (adj 5%), 57% out-of-sample directional hit-rate; current read ~+0.9%/mo.",
+    "narrative": "Electrical Equipment (Industrials) screens NEUTRAL [49/100, high confidence]. Top drivers: BI Policy Rate (corr -0.20, lead 4m, now flat); id_10y (corr -0.15, lead 3m, now flat). A 2-driver model explains 6% of monthly variance (adj 4%), 56% out-of-sample directional hit-rate; current read ~+1.4%/mo.",
     "drivers": [
       {
         "key": "id_bi_rate",
@@ -100,18 +96,18 @@
         "ic": -0.0762,
         "ic_t": -1.02,
         "ols": {
-          "beta": -0.0806172211561507,
-          "t": -3.4426289620781154,
-          "p": 0.0005760891160257655,
-          "r2": 0.04156036191924817,
+          "beta": -0.08061722071443167,
+          "t": -3.4426289336258704,
+          "p": 0.000576089176628739,
+          "r2": 0.04156036137921437,
           "n": 181,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.08945797519026498,
-          "t": -3.2813607687764383,
-          "p": 0.0010330751411269717,
-          "r2": 0.052228080593384685,
+          "beta": -0.08945797474892023,
+          "t": -3.2813607331299477,
+          "p": 0.001033075271702319,
+          "r2": 0.0522280799701238,
           "n": 177,
           "hac_lag": 5
         },
@@ -155,18 +151,18 @@
         "ic": -0.0175,
         "ic_t": -0.237,
         "ols": {
-          "beta": -0.2150716277636189,
-          "t": -1.884262267054328,
-          "p": 0.059529508675620214,
-          "r2": 0.02211118701966397,
+          "beta": -0.21507162727409185,
+          "t": -1.8842622615025562,
+          "p": 0.05952950942620976,
+          "r2": 0.02211118687473057,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.25747534040072745,
-          "t": -2.087898710923597,
-          "p": 0.03680697249567073,
-          "r2": 0.03199023710681925,
+          "beta": -0.2574753436730831,
+          "t": -2.0878987304807555,
+          "p": 0.036806970731131664,
+          "r2": 0.03199023785516886,
           "n": 181,
           "hac_lag": 5
         },
@@ -182,7 +178,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 42.0,
+        "score": 38.0,
         "source": "corr:TVC:ID10Y",
         "shallow": false,
         "label": "id_10y",
@@ -190,64 +186,9 @@
           "posture": "neutral",
           "impulse": -0.085
         }
-      },
-      {
-        "key": "aluminum",
-        "role": "cost",
-        "why": "aluminium conductor input",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 144,
-        "min_n": 24,
-        "pearson": 0.0292,
-        "pearson_p": 0.7282,
-        "spearman": 0.0198,
-        "spearman_p": 0.8136,
-        "best_lag": 4,
-        "corr_at_best": 0.1527,
-        "ic": 0.0098,
-        "ic_t": 0.117,
-        "ols": {
-          "beta": 0.03468772055224388,
-          "t": 0.5727427404279756,
-          "p": 0.5668188938667836,
-          "r2": 0.0008534406104163672,
-          "n": 144,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.1849178875767087,
-          "t": 2.251360709896925,
-          "p": 0.024362700510756542,
-          "r2": 0.023316533737195333,
-          "n": 140,
-          "hac_lag": 4
-        },
-        "sign_prior": -1,
-        "emp_sign": 1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.0443,
-        "last_chg": -0.036627,
-        "last_chg_z": -0.7,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 5.0,
-        "source": "corr:COMEX:ALI1!",
-        "shallow": false,
-        "label": "Aluminum",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.336
-        }
       }
     ],
-    "n_kept": 3,
+    "n_kept": 2,
     "n_candidates": 9
   },
   "unscored": [],
@@ -257,7 +198,7 @@
       "label": "Electrical equipment",
       "role": "supply",
       "pearson": 0.1626,
-      "p": 0.14175720975932285,
+      "p": 0.14175722659677328,
       "theory_agree": null,
       "score": 39.2,
       "reason": "below_gate"
@@ -267,7 +208,7 @@
       "label": "Copper",
       "role": "cost",
       "pearson": -0.1206,
-      "p": 0.2319092517594501,
+      "p": 0.23190924726051643,
       "theory_agree": true,
       "score": 34.7,
       "reason": "below_gate"
@@ -277,9 +218,9 @@
       "label": "Electrical equipment",
       "role": "demand",
       "pearson": 0.1065,
-      "p": 0.31339429652328765,
+      "p": 0.31339430409907276,
       "theory_agree": true,
-      "score": 30.0,
+      "score": 26.0,
       "reason": "below_gate"
     },
     {
@@ -287,9 +228,9 @@
       "label": "Real GDP (SA)",
       "role": "demand",
       "pearson": -0.0851,
-      "p": 0.11704967861768785,
+      "p": 0.11704968191092174,
       "theory_agree": false,
-      "score": 27.4,
+      "score": 23.4,
       "reason": "below_gate"
     },
     {
@@ -297,9 +238,9 @@
       "label": "USD/IDR",
       "role": "macro",
       "pearson": -0.0371,
-      "p": 0.5321141750216056,
+      "p": 0.5321141841144063,
       "theory_agree": null,
-      "score": 23.3,
+      "score": 19.3,
       "reason": "below_gate"
     },
     {
@@ -307,9 +248,19 @@
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
       "pearson": 0.0389,
-      "p": 0.6738605614715272,
+      "p": 0.6738605558400291,
       "theory_agree": null,
-      "score": 17.7,
+      "score": 13.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "aluminum",
+      "label": "Aluminum",
+      "role": "cost",
+      "pearson": 0.0292,
+      "p": 0.5668189042089522,
+      "theory_agree": false,
+      "score": 1.0,
       "reason": "below_gate"
     }
   ],
@@ -321,7 +272,9 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.2,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 1.4,
+  "grade": "partial",
+  "grade_reasons": [
+    "only 2 validated drivers (<3)"
+  ]
 }

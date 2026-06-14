@@ -30,7 +30,10 @@ BENCHMARK = "jci"  # IHSG — Jakarta Composite, for excess-return computation
 # indicator's `spark` (recent only, flagged low-confidence).
 GLOBAL_CORR = {
     # energy
-    "wb_coal_au": "ICEEUR:ATW1!", "brent": "ICEEUR:BRN1!", "wti": "NYMEX:CL1!",
+    # API2 (ICEEUR:ATR1!) is a real, populated thermal-coal benchmark; the
+    # Newcastle future (ATW1!) is empty in the store. API2 tracks global thermal
+    # coal closely and is the honest proxy for IDX coal names.
+    "wb_coal_au": "ICEEUR:ATR1!", "brent": "ICEEUR:BRN1!", "wti": "NYMEX:CL1!",
     "natgas": "NYMEX:NG1!", "wb_lng_jp": "SGX:JKM1!", "heating_oil": "NYMEX:HO1!",
     "gasoline": "NYMEX:RB1!",
     # metals
@@ -108,15 +111,17 @@ SEED = {
             ("id_exports", "demand", +1, "Indonesia export volume incl. coal"),
         ],
     },
-    "Oil & Gas": {
+    "Oil & Gas": {  # basket led by PGAS (regulated gas utility) + MEDC (upstream)
         "ceic": [("Energy", "Crude Oil")],
         "globals": [
-            ("brent", "supply", +1, "Brent = upstream revenue"),
+            ("brent", "supply", +1, "Brent = upstream revenue (MEDC sleeve)"),
             ("wti", "supply", +1, "crude price"),
-            ("natgas", "supply", +1, "gas price for gas-weighted names (PGAS)"),
-            ("wb_lng_jp", "supply", +1, "LNG export pricing"),
+            # natgas sign ambiguous: revenue for upstream gas, but a COST for
+            # PGAS's regulated transmission margin (the largest constituent).
+            ("natgas", "supply", 0, "gas: upstream revenue vs PGAS cost (ambiguous)"),
         ],
-        "macro": [("usdidr", "macro", +1, "USD-priced output"),
+        "macro": [("usdidr", "macro", +1, "USD-priced output / USD transmission margin"),
+                  ("id_10y", "macro", -1, "PGAS bond-proxy duration"),
                   ("us_10y", "macro", -1, "discount-rate sensitivity")],
     },
     "Energy Services": {  # mostly coal-mining contractors (DOID/PTRO/DEWA/ABMM)
@@ -140,25 +145,28 @@ SEED = {
                   ("ndx", "demand", +1, "global growth/clean-energy beta")],
     },
     # ---------------- BASIC MATERIALS ----------------
-    "Mining": {
-        "ceic": [("Basic Materials", "Nickel"), ("Metals & Mining", None),
+    "Mining": {  # AMMN/MDKA/BRMS = copper-GOLD led (nickel is a minor sleeve)
+        "ceic": [("Basic Materials", "Copper"),
                  ("Basic Materials", "Gold & Precious Metals"),
-                 ("Basic Materials", "Copper")],
-        "globals": [("wb_nickel", "supply", +1, "nickel = key revenue metal"),
-                    ("copper", "supply", +1, "copper exposure"),
-                    ("gold", "supply", +1, "gold miners (ANTM/MDKA)"),
-                    ("wb_tin", "supply", +1, "tin exposure")],
+                 ("Metals & Mining", None), ("Basic Materials", "Nickel")],
+        "globals": [("copper", "supply", +1, "copper = primary revenue metal (AMMN/MDKA)"),
+                    ("gold", "supply", +1, "gold miners (MDKA/AMMN by-product)"),
+                    ("wb_nickel", "supply", +1, "minor nickel sleeve (no clean price)")],
         "macro": [("cn_ip_yoy", "demand", +1, "China metals demand"),
                   ("usdidr", "macro", +1, "USD metal revenue"),
                   ("dxy", "macro", -1, "USD strength caps metals")],
     },
-    "Metals & Mining": {
+    "Metals & Mining": {  # INCO/MBMA/ANTM = nickel/ferronickel (NOT iron ore)
+        # DATA GAP: no clean LME nickel series in the store (wb_nickel->None);
+        # the basket leans on CEIC nickel export/production series + China demand.
+        # iron_ore DROPPED — none of these names produce iron ore (wrong prior).
         "ceic": [("Metals & Mining", None), ("Basic Materials", "Nickel")],
-        "globals": [("wb_nickel", "supply", +1, "nickel/ferronickel revenue"),
-                    ("iron_ore", "supply", +1, "iron ore/steel feed"),
+        "ceic_override": [("nickel", "demand", +1)],   # CEIC nickel value/volume = price proxy
+        "globals": [("wb_nickel", "supply", +1, "nickel revenue (no clean price series)"),
                     ("aluminum", "supply", +1, "aluminium exposure")],
-        "macro": [("cn_pmi_mfg", "demand", +1, "China demand"),
-                  ("usdidr", "macro", +1, "USD revenue")],
+        "macro": [("cn_pmi_mfg", "demand", +1, "China stainless/nickel demand"),
+                  ("cn_ip_yoy", "demand", +1, "China metals demand"),
+                  ("usdidr", "macro", +1, "USD metal revenue")],
     },
     "Metals": {  # downstream steel/processed
         "ceic": [("Basic Materials", "Steel"),
@@ -266,16 +274,22 @@ SEED = {
     # ---------------- FINANCIALS ----------------
     "Banks": {
         "ceic": [("Banks", None)],
-        # drop ENDOGENOUS single-constituent balance-sheet series (a listed bank's
-        # own assets/impairments are an outcome, not an exogenous driver).
-        "ceic_exclude": ["pt bank", "syariah indonesia"],
+        # drop ENDOGENOUS series: single-bank balance sheets AND system-wide
+        # outcome RATIOS (CAR/BOPO/NIM/LDR) that co-move mechanically with bank
+        # equity rather than forecast it (critique: bank ratios are outcomes).
+        "ceic_exclude": ["pt bank", "syariah indonesia", "capital adequacy",
+                         "operational cost ratio", "bopo", "net interest margin",
+                         "nim:", "loan-to-deposit", "loan to deposit"],
         "globals": [],
-        "macro": [("id_bi_rate", "macro", +1, "policy rate -> NIM (asset-sensitive)"),
-                  ("id_lending_rate", "macro", +1, "loan yields"),
+        # BI/lending rate priors set to 0 (ambiguous): IDX banks are liability-
+        # sensitive short-run and the market trades rate-CUTS as bullish, so the
+        # +1 "asset-sensitive NIM" prior was not defensible — let the data decide.
+        "macro": [("id_bi_rate", "macro", 0, "policy rate (sign ambiguous: NIM vs re-rating)"),
+                  ("id_lending_rate", "macro", 0, "loan yields (sign ambiguous)"),
                   ("id_bank_credit", "demand", +1, "system loan growth"),
                   ("id_m2", "demand", +1, "liquidity/deposits"),
                   ("id_gdp_real_q", "demand", +1, "credit demand & asset quality"),
-                  ("usdidr", "macro", -1, "IDR weakness = risk-off for banks")],
+                  ("usdidr", "macro", -1, "IDR weakness ~ foreign-outflow risk-off (flow proxy)")],
     },
     "Insurance": {
         "ceic": [("Banks", "Insurance Premiums")],

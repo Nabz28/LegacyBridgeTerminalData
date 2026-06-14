@@ -55,7 +55,7 @@ def _artifact(bdef, br, res, sel, model, status="done", reason=None) -> dict:
             "n_members": bdef["n_names"], "n_used": br["n_used"],
             "members_used": br["members_used"],
             "coverage": br["coverage"], "total_mcap": bdef["total_mcap"],
-            "weight_cap": 0.12,
+            "weight_cap": 0.12, "primary_weighting": "equal_weight",
         },
         "model": model,
         "unscored": (res["unscored"] if res else []),
@@ -71,8 +71,11 @@ def _artifact(bdef, br, res, sel, model, status="done", reason=None) -> dict:
             "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
             "ceic": "macro.observations (country=idind, demand/supply tagged)",
             "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
-            "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability "
-                      "+ multivariate + expanding-window OOS; theory-reconciled",
+            "method": "equal-weight basket return (no mcap look-ahead); "
+                      "overlap-aware HAC-OLS + Šidák-corrected lead-lag + "
+                      "autocorr-deflated IC + split-sample stability + "
+                      "collinearity-pruned multivariate + pseudo-OOS (params-only); "
+                      "theory-reconciled; multiple-testing-penalised confidence",
         },
     }
 

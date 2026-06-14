@@ -3,7 +3,7 @@
   "sub_sector": "Insurance",
   "sector": "Financials",
   "priority": 17,
-  "generated_at": "2026-06-14T02:52:01",
+  "generated_at": "2026-06-14T11:58:55",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -40,55 +40,29 @@
   },
   "model": {
     "verdict": "MILDLY BEARISH",
-    "score": 42,
-    "net_tilt": -0.198,
-    "demand_tilt": -0.164,
+    "score": 41,
+    "net_tilt": -0.327,
+    "demand_tilt": -0.327,
     "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": -0.045,
+    "macro_tilt": null,
     "confidence": {
       "level": "high",
-      "score": 87,
+      "score": 74,
       "reasons": [
-        "max|corr|=0.51",
+        "max|corr|=0.42",
         "theory_agree=100%",
-        "stable=67%",
-        "mvR2=0.18",
-        "OOS=57%"
+        "stable=100%",
+        "mvR2=0.00",
+        "OOS=na",
+        "mt_penalty=1.00(n=7)"
       ]
     },
     "multivariate": {
-      "available": true,
-      "drivers": [
-        "jci",
-        "usdidr",
-        "id_gdp_real_q"
-      ],
-      "n": 118,
-      "r2": 0.184,
-      "adj_r2": 0.163,
-      "betas": {
-        "jci": {
-          "std_beta": 0.0203,
-          "t": 5.53,
-          "p": 0.0
-        },
-        "usdidr": {
-          "std_beta": -0.002,
-          "t": -0.44,
-          "p": 0.6581
-        },
-        "id_gdp_real_q": {
-          "std_beta": 0.0019,
-          "t": 0.4,
-          "p": 0.6881
-        }
-      },
-      "oos_hit_rate": 0.569,
-      "oos_n": 58,
-      "expected_monthly_ret": -0.0048
+      "available": false,
+      "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Insurance (Financials) screens MILDLY BEARISH [42/100, high confidence]. Top drivers: Jakarta Composite (corr +0.51, lead 0m, now headwind); USD/IDR (corr -0.17, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 2m, now flat). A 3-driver model explains 18% of monthly variance (adj 16%), 57% out-of-sample directional hit-rate; current read ~-0.5%/mo.",
+    "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, high confidence]. Top drivers: Jakarta Composite (corr +0.42, lead 0m, now headwind). ",
     "drivers": [
       {
         "key": "jci",
@@ -100,27 +74,27 @@
         "last_obs": "2026-05-01",
         "n": 184,
         "min_n": 24,
-        "pearson": 0.5092,
+        "pearson": 0.4189,
         "pearson_p": 0.0,
-        "spearman": 0.4279,
+        "spearman": 0.4116,
         "spearman_p": 0.0,
         "best_lag": 0,
-        "corr_at_best": 0.5092,
-        "ic": 0.1206,
-        "ic_t": 1.627,
+        "corr_at_best": 0.4189,
+        "ic": 0.1382,
+        "ic_t": 1.864,
         "ols": {
-          "beta": 0.7237549603180403,
-          "t": 6.232945547863156,
-          "p": 4.577453174040402e-10,
-          "r2": 0.25926600722388937,
+          "beta": 0.5322151987972776,
+          "t": 6.053426306825795,
+          "p": 1.4179695588767199e-09,
+          "r2": 0.1754799139529829,
           "n": 184,
           "hac_lag": 5
         },
         "ols_pred": {
-          "beta": 0.7237549603180403,
-          "t": 6.232945547863156,
-          "p": 4.577453174040402e-10,
-          "r2": 0.25926600722388937,
+          "beta": 0.5322151987972776,
+          "t": 6.053426306825795,
+          "p": 1.4179695588767199e-09,
+          "r2": 0.1754799139529829,
           "n": 184,
           "hac_lag": 5
         },
@@ -136,7 +110,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 86.6,
+        "score": 76.0,
         "source": "corr:IDX:COMPOSITE",
         "shallow": false,
         "label": "Jakarta Composite",
@@ -144,161 +118,71 @@
           "posture": "headwind",
           "impulse": -0.327
         }
-      },
-      {
-        "key": "usdidr",
-        "role": "macro",
-        "why": "IDR weakness: +for USD earners, -for importers/FX debt",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 184,
-        "min_n": 24,
-        "pearson": -0.1653,
-        "pearson_p": 0.025,
-        "spearman": -0.2005,
-        "spearman_p": 0.0063,
-        "best_lag": 0,
-        "corr_at_best": -0.1653,
-        "ic": -0.1636,
-        "ic_t": -2.208,
-        "ols": {
-          "beta": -0.32054361791233965,
-          "t": -1.3506906491021167,
-          "p": 0.1767945489362841,
-          "r2": 0.02731068566440087,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": -0.32054361791233965,
-          "t": -1.3506906491021167,
-          "p": 0.1767945489362841,
-          "r2": 0.02731068566440087,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.0876,
-        "last_chg": 0.000923,
-        "last_chg_z": -0.09,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 41.4,
-        "source": "corr:FX_IDC:USDIDR",
-        "shallow": false,
-        "label": "USD/IDR",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.045
-        }
-      },
-      {
-        "key": "id_gdp_real_q",
-        "role": "demand",
-        "why": "premium growth",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "W",
-        "last_obs": "2026-05-08",
-        "n": 118,
-        "min_n": 24,
-        "pearson": 0.0005,
-        "pearson_p": 0.9956,
-        "spearman": 0.1067,
-        "spearman_p": 0.25,
-        "best_lag": 2,
-        "corr_at_best": 0.1906,
-        "ic": 0.2127,
-        "ic_t": 2.291,
-        "ols": {
-          "beta": 2.2022445291338416e-05,
-          "t": 0.0063690725609316596,
-          "p": 0.9949182496939618,
-          "r2": 2.61652147282021e-07,
-          "n": 118,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": 0.008206047694246469,
-          "t": 1.9523686609203081,
-          "p": 0.050894451001764124,
-          "r2": 0.03634445818410881,
-          "n": 116,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0814,
-        "last_chg": 0.0,
-        "last_chg_z": -0.0,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 24.3,
-        "source": "corr:aIDGDPAR1",
-        "shallow": false,
-        "label": "Real GDP (SA)",
-        "live": {
-          "posture": "neutral",
-          "impulse": 0.0
-        }
       }
     ],
-    "n_kept": 3,
+    "n_kept": 1,
     "n_candidates": 7
   },
   "unscored": [],
   "rejected_top": [
     {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0991,
+      "p": 0.20287990676702117,
+      "theory_agree": null,
+      "score": 36.4,
+      "reason": "below_gate"
+    },
+    {
       "key": "us_10y",
       "label": "US 10Y Treasury",
       "role": "macro",
-      "pearson": 0.1226,
-      "p": 0.2119719480534873,
+      "pearson": 0.0921,
+      "p": 0.25980654124586255,
       "theory_agree": true,
-      "score": 34.4,
+      "score": 29.5,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "demand",
+      "pearson": 0.0458,
+      "p": 0.6379441545273263,
+      "theory_agree": true,
+      "score": 29.5,
       "reason": "below_gate"
     },
     {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "role": "macro",
-      "pearson": 0.0166,
-      "p": 0.8243370634991369,
+      "pearson": 0.024,
+      "p": 0.7575664913845642,
       "theory_agree": true,
-      "score": 14.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "id_cpi_yoy",
-      "label": "Indonesia CPI (YoY)",
-      "role": "macro",
-      "pearson": 0.0352,
-      "p": 0.6907699014065831,
-      "theory_agree": null,
-      "score": 13.5,
+      "score": 14.0,
       "reason": "below_gate"
     },
     {
       "key": "CEICI479948257",
       "label": "Life: net premium income",
       "role": "demand",
-      "pearson": -0.0184,
-      "p": 0.871741992745367,
-      "theory_agree": false,
-      "score": 3.9,
+      "pearson": 0.0276,
+      "p": 0.7617260496739722,
+      "theory_agree": true,
+      "score": 11.9,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.001,
+      "p": 0.9922101914757271,
+      "theory_agree": null,
+      "score": 2.9,
       "reason": "below_gate"
     }
   ],
@@ -310,7 +194,10 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "HAC-OLS + lead-lag + Spearman-IC + split-sample stability + multivariate + expanding-window OOS; theory-reconciled"
   },
-  "runtime_s": 1.1,
-  "grade": "perfected",
-  "grade_reasons": []
+  "runtime_s": 1.4,
+  "grade": "needs_review",
+  "grade_reasons": [
+    "only 1 validated drivers (<3)",
+    "multivariate model unavailable / no OOS"
+  ]
 }

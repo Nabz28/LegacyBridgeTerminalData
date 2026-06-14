@@ -1554,21 +1554,28 @@
       "ceic_override": [],
       "ceic_exclude": [
         "pt bank",
-        "syariah indonesia"
+        "syariah indonesia",
+        "capital adequacy",
+        "operational cost ratio",
+        "bopo",
+        "net interest margin",
+        "nim:",
+        "loan-to-deposit",
+        "loan to deposit"
       ],
       "global_hints": [],
       "macro_hints": [
         {
           "key": "id_bi_rate",
           "role": "macro",
-          "sign": 1,
-          "why": "policy rate -> NIM (asset-sensitive)"
+          "sign": 0,
+          "why": "policy rate (sign ambiguous: NIM vs re-rating)"
         },
         {
           "key": "id_lending_rate",
           "role": "macro",
-          "sign": 1,
-          "why": "loan yields"
+          "sign": 0,
+          "why": "loan yields (sign ambiguous)"
         },
         {
           "key": "id_bank_credit",
@@ -1592,7 +1599,7 @@
           "key": "usdidr",
           "role": "macro",
           "sign": -1,
-          "why": "IDR weakness = risk-off for banks"
+          "why": "IDR weakness ~ foreign-outflow risk-off (flow proxy)"
         },
         {
           "key": "id_cpi_yoy",
@@ -3348,139 +3355,544 @@
       "n_ceic_candidates": 115,
       "ceic_candidates": [
         {
-          "ric": "CEICI294139602",
+          "ric": "CEICI357008177",
           "role": "supply",
-          "topic": "Mineral production: Antam nickel",
-          "freq": "P1M",
-          "units": "WMT",
-          "n_obs": 111,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI388026027",
-          "role": "supply",
-          "topic": "Export value: Ferro alloy nickel",
+          "topic": "Mining Products: Copper Ore",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 112,
-          "sub": "Nickel"
+          "n_obs": 178,
+          "sub": "Copper"
         },
         {
-          "ric": "CEICI502593637",
+          "ric": "CEICI534839997",
           "role": "supply",
-          "topic": "Export value: Other Articles of Nickel",
+          "topic": "Manufacture Products: Copper",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 111,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI387174997",
+          "role": "supply",
+          "topic": "Mining Products: Copper ore",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 178,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI356925402",
+          "role": "supply",
+          "topic": "China: Copper and articles thereof",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 172,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI357183102",
+          "role": "demand",
+          "topic": "China: Copper and articles thereof",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 172,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI356799302",
+          "role": "supply",
+          "topic": "USA: Copper and articles thereof",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 171,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI536976387",
+          "role": "supply",
+          "topic": "Manufacture Products: Copper",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 111,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593427",
+          "role": "supply",
+          "topic": "Value: Refined Copper and Copper Alloys, Unwrought",
           "freq": "P1M",
           "units": "USD mn",
           "n_obs": 88,
-          "sub": "Nickel"
+          "sub": "Copper"
         },
         {
-          "ric": "CEICI502593577",
+          "ric": "CEICI502593407",
           "role": "supply",
-          "topic": "Export value: Unwrought Nickel",
+          "topic": "Value: Copper Mattes; Cement Copper (Precipitated",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 30,
-          "sub": "Nickel"
+          "n_obs": 79,
+          "sub": "Copper"
         },
         {
-          "ric": "CEICI357183202",
-          "role": "demand",
-          "topic": "Import value: Nickel and articles thereof",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 172,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI356799402",
+          "ric": "CEICI502593547",
           "role": "supply",
-          "topic": "Export value: Nickel and articles thereof",
+          "topic": "Value: Table, Kitchen or Other Household Articles",
           "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 155,
-          "sub": "Nickel"
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
         },
         {
-          "ric": "CEICI357369702",
+          "ric": "CEICI502593537",
+          "role": "supply",
+          "topic": "Value: Nails, Tacks, Drawing Pins, Staples (Other",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593557",
+          "role": "supply",
+          "topic": "Value: Other Articles of Copper",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593477",
+          "role": "supply",
+          "topic": "Value: Copper Wire",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593507",
+          "role": "supply",
+          "topic": "Value: Copper Tubes and Pipes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 84,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593467",
+          "role": "supply",
+          "topic": "Value: Copper Bars, Rods and Profiles",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI357369602",
           "role": "demand",
-          "topic": "Import volume: Nickel and articles thereof",
+          "topic": "China: Copper and articles thereof",
           "freq": "P1M",
           "units": "kg th",
           "n_obs": 172,
-          "sub": "Nickel"
+          "sub": "Copper"
         },
         {
-          "ric": "CEICI502593587",
+          "ric": "CEICI502593437",
           "role": "supply",
-          "topic": "Export value: Nickel Waste and Scrap",
+          "topic": "Value: Copper Waste and Scrap",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593457",
+          "role": "supply",
+          "topic": "Value: Copper Powders and Flakes",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 71,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593447",
+          "role": "supply",
+          "topic": "Value: Master Alloys of Copper",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 7,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593517",
+          "role": "supply",
+          "topic": "Value: Copper Tube or Pipe Fittings (For Example,",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593527",
+          "role": "supply",
+          "topic": "Value: Stranded Wire, Cables, Plaited Bands and Th",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 77,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593487",
+          "role": "supply",
+          "topic": "Value: Copper Plates, Sheets and Strip, of A Thick",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502593497",
+          "role": "supply",
+          "topic": "Value: Copper Foil (Whether or Not Printed or Back",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 67,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI357055702",
+          "role": "demand",
+          "topic": "USA: Copper and articles thereof",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 172,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI502587057",
+          "role": "supply",
+          "topic": "Value: Copper Ores and Concentrates",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 79,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI356971802",
+          "role": "demand",
+          "topic": "USA: Copper and articles thereof",
+          "freq": "P1M",
+          "units": "kg th",
+          "n_obs": 172,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI648786927",
+          "role": "supply",
+          "topic": "World: Copper Mattes; Cement Copper (Precipitated",
+          "freq": "P1M",
+          "units": "USD",
+          "n_obs": 115,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI654824767",
+          "role": "supply",
+          "topic": "World: Copper; Wire, of Copper Alloys (Other Than",
+          "freq": "P1M",
+          "units": "USD",
+          "n_obs": 146,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI649549547",
+          "role": "supply",
+          "topic": "World: Copper; Tubes and Pipes, of Copper Alloys (",
+          "freq": "P1M",
+          "units": "USD",
+          "n_obs": 134,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI653856287",
+          "role": "supply",
+          "topic": "World: Copper; Plates, Sheets and Strip, of A Thic",
+          "freq": "P1M",
+          "units": "USD",
+          "n_obs": 117,
+          "sub": "Copper"
+        },
+        {
+          "ric": "CEICI14080301",
+          "role": "supply",
+          "topic": "Gold, incl Gold Deposits",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 314,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI356973787",
+          "role": "supply",
+          "topic": "Other Goods o/w Nonmonetary Gold",
+          "freq": "P3M",
+          "units": "USD mn",
+          "n_obs": 65,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI323979602",
+          "role": "supply",
+          "topic": "Gold; Non Monetary",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI353386902",
+          "role": "supply",
+          "topic": "Gold Coin and Current Coin",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 15,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502592747",
+          "role": "supply",
+          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
           "freq": "P1M",
           "units": "USD mn",
           "n_obs": 86,
-          "sub": "Nickel"
+          "sub": "Gold & Precious Metals"
         },
         {
-          "ric": "CEICI502593607",
-          "role": "supply",
-          "topic": "Export value: Nickel Bars, Rods, Profiles and Wire",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 46,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI502593617",
-          "role": "supply",
-          "topic": "Export value: Nickel Plates, Sheets, Strip and Foi",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 81,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI502593627",
-          "role": "supply",
-          "topic": "Export value: Nickel Tubes, Pipes and Tube or Pipe",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 58,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI357055802",
+          "ric": "CEICI323806802",
           "role": "demand",
-          "topic": "Import value: Nickel and articles thereof",
+          "topic": "Gold; Non Monetary",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 172,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502605027",
+          "role": "supply",
+          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 86,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502621257",
+          "role": "demand",
+          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502592757",
+          "role": "supply",
+          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 10,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502605057",
+          "role": "supply",
+          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 4,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502592777",
+          "role": "supply",
+          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 4,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502605037",
+          "role": "supply",
+          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 10,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502592727",
+          "role": "supply",
+          "topic": "Silver (Including Silver Plated With Gold or Pl...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 87,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502605007",
+          "role": "supply",
+          "topic": "Silver (Including Silver Plated With Gold or Pl...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 87,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI357008277",
+          "role": "supply",
+          "topic": "Other Goods: o/w Nonmonetary Gold",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 193,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502633537",
+          "role": "demand",
+          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502621267",
+          "role": "demand",
+          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 87,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502633547",
+          "role": "demand",
+          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 87,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502633567",
+          "role": "demand",
+          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 27,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502621287",
+          "role": "demand",
+          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 27,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502633517",
+          "role": "demand",
+          "topic": "Silver (Including Silver Plated With Gold or Pl...",
+          "freq": "P1M",
+          "units": "kg mn",
+          "n_obs": 88,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI502621237",
+          "role": "demand",
+          "topic": "Silver (Including Silver Plated With Gold or Pl...",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI14523001",
+          "role": "demand",
+          "topic": "Local Gold: 24 Caret",
+          "freq": "P1M",
+          "units": "IDR",
+          "n_obs": 458,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI447391617",
+          "role": "demand",
+          "topic": "Gold/ Jewelry",
+          "freq": "P1M",
+          "units": "%",
+          "n_obs": 90,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI356179387",
+          "role": "supply",
+          "topic": "Other Goods o/w Nonmonetary Gold",
+          "freq": "P1Y",
+          "units": "USD mn",
+          "n_obs": 16,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI357617597",
+          "role": "supply",
+          "topic": "Monetary Gold",
+          "freq": "P3M",
+          "units": "USD mn",
+          "n_obs": 48,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI224743301",
+          "role": "supply",
+          "topic": "Total Reserves Minus Gold",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 696,
+          "sub": "Gold & Precious Metals"
+        },
+        {
+          "ric": "CEICI387175067",
+          "role": "supply",
+          "topic": "o/w Nonmonetary gold",
           "freq": "P1M",
           "units": "USD th",
-          "n_obs": 172,
-          "sub": "Nickel"
+          "n_obs": 193,
+          "sub": "Gold & Precious Metals"
         },
         {
-          "ric": "CEICI356971902",
-          "role": "demand",
-          "topic": "Import volume: Nickel and articles thereof",
-          "freq": "P1M",
-          "units": "kg th",
-          "n_obs": 172,
-          "sub": "Nickel"
-        },
-        {
-          "ric": "CEICI650271397",
+          "ric": "CEICI323985902",
           "role": "supply",
-          "topic": "Export: world (UN comtrade)",
+          "topic": "Gold; Non Monetary",
           "freq": "P1M",
-          "units": "USD",
-          "n_obs": 58,
-          "sub": "Nickel"
+          "units": "kg mn",
+          "n_obs": 172,
+          "sub": "Gold & Precious Metals"
         },
         {
-          "ric": "CEICI651420057",
+          "ric": "CEICI353386802",
           "role": "supply",
-          "topic": "Export: world (UN comtrade)",
+          "topic": "Gold Coin and Current Coin",
           "freq": "P1M",
-          "units": "USD",
-          "n_obs": 18,
-          "sub": "Nickel"
+          "units": "kg mn",
+          "n_obs": 13,
+          "sub": "Gold & Precious Metals"
         },
         {
           "ric": "CEICI252985502",
@@ -3843,572 +4255,161 @@
           "sub": "Nickel"
         },
         {
-          "ric": "CEICI14080301",
+          "ric": "CEICI294139602",
           "role": "supply",
-          "topic": "Gold, incl Gold Deposits",
+          "topic": "Mineral production: Antam nickel",
           "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 314,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI356973787",
-          "role": "supply",
-          "topic": "Other Goods o/w Nonmonetary Gold",
-          "freq": "P3M",
-          "units": "USD mn",
-          "n_obs": 65,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI323979602",
-          "role": "supply",
-          "topic": "Gold; Non Monetary",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI353386902",
-          "role": "supply",
-          "topic": "Gold Coin and Current Coin",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 15,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502592747",
-          "role": "supply",
-          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 86,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI323806802",
-          "role": "demand",
-          "topic": "Gold; Non Monetary",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 172,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502605027",
-          "role": "supply",
-          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 86,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502621257",
-          "role": "demand",
-          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502592757",
-          "role": "supply",
-          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 10,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502605057",
-          "role": "supply",
-          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 4,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502592777",
-          "role": "supply",
-          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 4,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502605037",
-          "role": "supply",
-          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 10,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502592727",
-          "role": "supply",
-          "topic": "Silver (Including Silver Plated With Gold or Pl...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 87,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502605007",
-          "role": "supply",
-          "topic": "Silver (Including Silver Plated With Gold or Pl...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 87,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI357008277",
-          "role": "supply",
-          "topic": "Other Goods: o/w Nonmonetary Gold",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 193,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502633537",
-          "role": "demand",
-          "topic": "Gold (Including Gold Plated With Platinum) Unwr...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 88,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502621267",
-          "role": "demand",
-          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 87,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502633547",
-          "role": "demand",
-          "topic": "Base Metals or Silver, Clad With Gold, Not Furt...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 87,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502633567",
-          "role": "demand",
-          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 27,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502621287",
-          "role": "demand",
-          "topic": "Base Metals, Silver or Gold, Clad With Platinum...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 27,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502633517",
-          "role": "demand",
-          "topic": "Silver (Including Silver Plated With Gold or Pl...",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 88,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI502621237",
-          "role": "demand",
-          "topic": "Silver (Including Silver Plated With Gold or Pl...",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI14523001",
-          "role": "demand",
-          "topic": "Local Gold: 24 Caret",
-          "freq": "P1M",
-          "units": "IDR",
-          "n_obs": 458,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI447391617",
-          "role": "demand",
-          "topic": "Gold/ Jewelry",
-          "freq": "P1M",
-          "units": "%",
-          "n_obs": 90,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI356179387",
-          "role": "supply",
-          "topic": "Other Goods o/w Nonmonetary Gold",
-          "freq": "P1Y",
-          "units": "USD mn",
-          "n_obs": 16,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI357617597",
-          "role": "supply",
-          "topic": "Monetary Gold",
-          "freq": "P3M",
-          "units": "USD mn",
-          "n_obs": 48,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI224743301",
-          "role": "supply",
-          "topic": "Total Reserves Minus Gold",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 696,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI387175067",
-          "role": "supply",
-          "topic": "o/w Nonmonetary gold",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 193,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI323985902",
-          "role": "supply",
-          "topic": "Gold; Non Monetary",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 172,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI353386802",
-          "role": "supply",
-          "topic": "Gold Coin and Current Coin",
-          "freq": "P1M",
-          "units": "kg mn",
-          "n_obs": 13,
-          "sub": "Gold & Precious Metals"
-        },
-        {
-          "ric": "CEICI357008177",
-          "role": "supply",
-          "topic": "Mining Products: Copper Ore",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 178,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI534839997",
-          "role": "supply",
-          "topic": "Manufacture Products: Copper",
-          "freq": "P1M",
-          "units": "USD mn",
+          "units": "WMT",
           "n_obs": 111,
-          "sub": "Copper"
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI387174997",
+          "ric": "CEICI388026027",
           "role": "supply",
-          "topic": "Mining Products: Copper ore",
+          "topic": "Export value: Ferro alloy nickel",
           "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 178,
-          "sub": "Copper"
+          "units": "USD mn",
+          "n_obs": 112,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI356925402",
+          "ric": "CEICI502593637",
           "role": "supply",
-          "topic": "China: Copper and articles thereof",
+          "topic": "Export value: Other Articles of Nickel",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 88,
+          "sub": "Nickel"
+        },
+        {
+          "ric": "CEICI502593577",
+          "role": "supply",
+          "topic": "Export value: Unwrought Nickel",
+          "freq": "P1M",
+          "units": "USD mn",
+          "n_obs": 30,
+          "sub": "Nickel"
+        },
+        {
+          "ric": "CEICI357183202",
+          "role": "demand",
+          "topic": "Import value: Nickel and articles thereof",
           "freq": "P1M",
           "units": "USD th",
           "n_obs": 172,
-          "sub": "Copper"
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI357183102",
+          "ric": "CEICI356799402",
+          "role": "supply",
+          "topic": "Export value: Nickel and articles thereof",
+          "freq": "P1M",
+          "units": "USD th",
+          "n_obs": 155,
+          "sub": "Nickel"
+        },
+        {
+          "ric": "CEICI357369702",
           "role": "demand",
-          "topic": "China: Copper and articles thereof",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 172,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI356799302",
-          "role": "supply",
-          "topic": "USA: Copper and articles thereof",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 171,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI536976387",
-          "role": "supply",
-          "topic": "Manufacture Products: Copper",
-          "freq": "P1M",
-          "units": "USD th",
-          "n_obs": 111,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593427",
-          "role": "supply",
-          "topic": "Value: Refined Copper and Copper Alloys, Unwrought",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593407",
-          "role": "supply",
-          "topic": "Value: Copper Mattes; Cement Copper (Precipitated",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 79,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593547",
-          "role": "supply",
-          "topic": "Value: Table, Kitchen or Other Household Articles",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593537",
-          "role": "supply",
-          "topic": "Value: Nails, Tacks, Drawing Pins, Staples (Other",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593557",
-          "role": "supply",
-          "topic": "Value: Other Articles of Copper",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593477",
-          "role": "supply",
-          "topic": "Value: Copper Wire",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593507",
-          "role": "supply",
-          "topic": "Value: Copper Tubes and Pipes",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 84,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593467",
-          "role": "supply",
-          "topic": "Value: Copper Bars, Rods and Profiles",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI357369602",
-          "role": "demand",
-          "topic": "China: Copper and articles thereof",
+          "topic": "Import volume: Nickel and articles thereof",
           "freq": "P1M",
           "units": "kg th",
           "n_obs": 172,
-          "sub": "Copper"
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502593437",
+          "ric": "CEICI502593587",
           "role": "supply",
-          "topic": "Value: Copper Waste and Scrap",
+          "topic": "Export value: Nickel Waste and Scrap",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
+          "n_obs": 86,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502593457",
+          "ric": "CEICI502593607",
           "role": "supply",
-          "topic": "Value: Copper Powders and Flakes",
+          "topic": "Export value: Nickel Bars, Rods, Profiles and Wire",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 71,
-          "sub": "Copper"
+          "n_obs": 46,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502593447",
+          "ric": "CEICI502593617",
           "role": "supply",
-          "topic": "Value: Master Alloys of Copper",
+          "topic": "Export value: Nickel Plates, Sheets, Strip and Foi",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 7,
-          "sub": "Copper"
+          "n_obs": 81,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502593517",
+          "ric": "CEICI502593627",
           "role": "supply",
-          "topic": "Value: Copper Tube or Pipe Fittings (For Example,",
+          "topic": "Export value: Nickel Tubes, Pipes and Tube or Pipe",
           "freq": "P1M",
           "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
+          "n_obs": 58,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502593527",
-          "role": "supply",
-          "topic": "Value: Stranded Wire, Cables, Plaited Bands and Th",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 77,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593487",
-          "role": "supply",
-          "topic": "Value: Copper Plates, Sheets and Strip, of A Thick",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 88,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI502593497",
-          "role": "supply",
-          "topic": "Value: Copper Foil (Whether or Not Printed or Back",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 67,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI357055702",
+          "ric": "CEICI357055802",
           "role": "demand",
-          "topic": "USA: Copper and articles thereof",
+          "topic": "Import value: Nickel and articles thereof",
           "freq": "P1M",
           "units": "USD th",
           "n_obs": 172,
-          "sub": "Copper"
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI502587057",
-          "role": "supply",
-          "topic": "Value: Copper Ores and Concentrates",
-          "freq": "P1M",
-          "units": "USD mn",
-          "n_obs": 79,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI356971802",
+          "ric": "CEICI356971902",
           "role": "demand",
-          "topic": "USA: Copper and articles thereof",
+          "topic": "Import volume: Nickel and articles thereof",
           "freq": "P1M",
           "units": "kg th",
           "n_obs": 172,
-          "sub": "Copper"
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI648786927",
+          "ric": "CEICI650271397",
           "role": "supply",
-          "topic": "World: Copper Mattes; Cement Copper (Precipitated",
+          "topic": "Export: world (UN comtrade)",
           "freq": "P1M",
           "units": "USD",
-          "n_obs": 115,
-          "sub": "Copper"
+          "n_obs": 58,
+          "sub": "Nickel"
         },
         {
-          "ric": "CEICI654824767",
+          "ric": "CEICI651420057",
           "role": "supply",
-          "topic": "World: Copper; Wire, of Copper Alloys (Other Than",
+          "topic": "Export: world (UN comtrade)",
           "freq": "P1M",
           "units": "USD",
-          "n_obs": 146,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI649549547",
-          "role": "supply",
-          "topic": "World: Copper; Tubes and Pipes, of Copper Alloys (",
-          "freq": "P1M",
-          "units": "USD",
-          "n_obs": 134,
-          "sub": "Copper"
-        },
-        {
-          "ric": "CEICI653856287",
-          "role": "supply",
-          "topic": "World: Copper; Plates, Sheets and Strip, of A Thic",
-          "freq": "P1M",
-          "units": "USD",
-          "n_obs": 117,
-          "sub": "Copper"
+          "n_obs": 18,
+          "sub": "Nickel"
         }
       ],
       "ceic_override": [],
       "ceic_exclude": [],
       "global_hints": [
         {
-          "key": "wb_nickel",
-          "role": "supply",
-          "sign": 1,
-          "why": "nickel = key revenue metal"
-        },
-        {
           "key": "copper",
           "role": "supply",
           "sign": 1,
-          "why": "copper exposure"
+          "why": "copper = primary revenue metal (AMMN/MDKA)"
         },
         {
           "key": "gold",
           "role": "supply",
           "sign": 1,
-          "why": "gold miners (ANTM/MDKA)"
+          "why": "gold miners (MDKA/AMMN by-product)"
         },
         {
-          "key": "wb_tin",
+          "key": "wb_nickel",
           "role": "supply",
           "sign": 1,
-          "why": "tin exposure"
+          "why": "minor nickel sleeve (no clean price)"
         }
       ],
       "macro_hints": [
@@ -16937,20 +16938,20 @@
           "sub": "Nickel"
         }
       ],
-      "ceic_override": [],
+      "ceic_override": [
+        [
+          "nickel",
+          "demand",
+          1
+        ]
+      ],
       "ceic_exclude": [],
       "global_hints": [
         {
           "key": "wb_nickel",
           "role": "supply",
           "sign": 1,
-          "why": "nickel/ferronickel revenue"
-        },
-        {
-          "key": "iron_ore",
-          "role": "supply",
-          "sign": 1,
-          "why": "iron ore/steel feed"
+          "why": "nickel revenue (no clean price series)"
         },
         {
           "key": "aluminum",
@@ -16964,13 +16965,19 @@
           "key": "cn_pmi_mfg",
           "role": "demand",
           "sign": 1,
-          "why": "China demand"
+          "why": "China stainless/nickel demand"
+        },
+        {
+          "key": "cn_ip_yoy",
+          "role": "demand",
+          "sign": 1,
+          "why": "China metals demand"
         },
         {
           "key": "usdidr",
           "role": "macro",
           "sign": 1,
-          "why": "USD revenue"
+          "why": "USD metal revenue"
         },
         {
           "key": "id_bi_rate",
@@ -17901,7 +17908,7 @@
           "key": "brent",
           "role": "supply",
           "sign": 1,
-          "why": "Brent = upstream revenue"
+          "why": "Brent = upstream revenue (MEDC sleeve)"
         },
         {
           "key": "wti",
@@ -17912,14 +17919,8 @@
         {
           "key": "natgas",
           "role": "supply",
-          "sign": 1,
-          "why": "gas price for gas-weighted names (PGAS)"
-        },
-        {
-          "key": "wb_lng_jp",
-          "role": "supply",
-          "sign": 1,
-          "why": "LNG export pricing"
+          "sign": 0,
+          "why": "gas: upstream revenue vs PGAS cost (ambiguous)"
         }
       ],
       "macro_hints": [
@@ -17927,7 +17928,13 @@
           "key": "usdidr",
           "role": "macro",
           "sign": 1,
-          "why": "USD-priced output"
+          "why": "USD-priced output / USD transmission margin"
+        },
+        {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "PGAS bond-proxy duration"
         },
         {
           "key": "us_10y",
