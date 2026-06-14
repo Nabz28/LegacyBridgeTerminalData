@@ -255,6 +255,88 @@ demand/supply split, OOS ✗" to a 12–18-leaf tree (RPPI · mortgage growth ·
 construction loans · cement · rebar · BI/10Y · consumer confidence · marketing-sales
 intent) with a clear forecast hypothesis on the rate→loan→sales→price chain.
 
+## 8. Index — all 52 deep-plan files (status at time of writing)
+
+All 52 sub-industries now have a deep `subindustry/<id>.md` driver-tree plan. OOS =
+blindfolded walk-forward forward IC (placebo pctile). **SKILL** = forecasts out-of-sample;
+**none/marginal/anti** = attribution/beta or sign-broken (see each file's §8 verdict).
+
+| # | Sub-industry | file id | OOS verdict |
+|---|---|---|---|
+| 1 | Banks | `financials_banks` | none (liability-duration −0.15) |
+| 2 | Property | `properties_real_estate_property` | none → rate→KPR→sales tree |
+| 3 | Mining | `basic_materials_mining` | split copper/gold sleeves |
+| 4 | Conglomerate | `industrials_conglomerate` | beta/holdco attribution |
+| 5 | Food & Beverage | `consumer_non_cyclicals_food_beverage` | none (pricing-power sign) |
+| 6 | Hospitals | `healthcare_hospitals` | defensive-duration |
+| 7 | Telco | `infrastructure_telco` | duration; candidate-set noise |
+| 8 | Plantation | `consumer_non_cyclicals_plantation` | CPO cost/revenue |
+| 9 | IT Services | `technology_it_services` | duration beta |
+| 10 | Coal | `energy_coal` | **SKILL +0.23** (API2 lead) |
+| 11 | Alt Energy | `energy_alternative_energy` | duration |
+| 12 | Chemicals | `basic_materials_chemicals` | reserves-noise bug |
+| 13 | Energy Services | `energy_energy_services` | oil-capex |
+| 14 | Metals & Mining | `basic_materials_metals_mining` | copper/China |
+| 15 | Internet | `technology_internet` | anti (duration/NDX beta) |
+| 16 | Oil & Gas | `energy_oil_gas` | none (Brent sign-cancel; split sleeves) |
+| 17 | Insurance | `financials_insurance` | **SKILL +0.15** (float yield) |
+| 18 | Tobacco | `consumer_non_cyclicals_tobacco` | none (excise-event basket) |
+| 19 | Containers & Packaging | `basic_materials_containers_packaging` | **SKILL +0.09** (resin/oil cost) |
+| 20 | Machinery | `industrials_machinery` | **SKILL +0.15** (coal-capex→Komatsu) |
+| 21 | Retail | `consumer_cyclicals_retail` | anti −0.07 (discretionary reverts) |
+| 22 | Pharma | `healthcare_pharma` | **SKILL +0.17** (defensive duration + API-FX) |
+| 23 | Paper | `basic_materials_paper` | anti (bcom-as-pulp mislabel) |
+| 24 | Media | `consumer_cyclicals_media` | none (no native CEIC block) |
+| 25 | Household | `consumer_non_cyclicals_household` | none (UNVR idiosyncratic) |
+| 26 | Investment | `financials_investment` | anti −0.13 (NAV-discount; wrong CEIC scope) |
+| 27 | Leisure | `consumer_cyclicals_leisure` | none → FX-cross arrivals lead |
+| 28 | Cement | `basic_materials_cement` | marginal +0.07 (coal cost; own-sales leak) |
+| 29 | Construction | `infrastructure_construction` | none (wrong CEIC block; financing lead) |
+| 30 | Multifinance | `financials_multifinance` | none (auto-sales lead unwired) |
+| 31 | Apparel | `consumer_cyclicals_apparel` | marginal +0.10 (synthetic/oil + export) |
+| 32 | Shipping | `transportation_logistics_shipping` | none (charter rates not in store) |
+| 33 | Airlines | `transportation_logistics_airlines` | none (GIAA distress; fuel/USD only) |
+| 34 | Securities | `financials_securities` | anti −0.11 (market-beta circular) |
+| 35 | Metals (steel) | `basic_materials_metals` | **SKILL +0.14** (China steel cycle) |
+| 36 | Ports | `infrastructure_ports` | none (coincident throughput) |
+| 37 | Construction Materials | `basic_materials_construction_materials` | marginal +0.07 (kiln-energy cost) |
+| 38 | Electronics | `technology_electronics` | marginal +0.07 (USD cost / tech beta) |
+| 39 | Healthcare Equipment | `healthcare_healthcare_equipment` | SKILL +0.29 **but n=24 — fragile** |
+| 40 | Logistics | `transportation_logistics_logistics` | none (heterogeneous; cost spine only) |
+| 41 | Restaurants | `consumer_cyclicals_restaurants` | none (cost-margin chain incomplete) |
+| 42 | Poultry | `consumer_non_cyclicals_poultry` | **SKILL +0.22** (corn/soymeal feed spread) |
+| 43 | Electrical Equipment | `industrials_electrical_equipment` | marginal +0.10 (copper dual cost/demand) |
+| 44 | Software | `technology_software` | none (illiquid story-stocks; duration only) |
+| 45 | Durables | `consumer_cyclicals_durables` | none (CEIC mis-pointed to autos) |
+| 46 | Toll Road | `infrastructure_toll_road` | marginal +0.10 (duration; JSMR routed out) |
+| 47 | Healthcare Services | `healthcare_healthcare_services` | none (2-name idiosyncratic) |
+| 48 | Tower | `infrastructure_tower` | **anti −0.195 = SIGN-FLIP BUG** (telecom-payments +1) |
+| 49 | Services | `industrials_services` | anti (residual grab-bag; no macro factor) |
+| 50 | Auto | `consumer_cyclicals_auto` | none (micro-cap parts; coincident volume prints) |
+| 51 | Staple Retail | `consumer_non_cyclicals_staple_retail` | **SKILL +0.12** (defensive staple demand) |
+| 52 | Utilities | `infrastructure_utilities` | anti −0.22 (n=53; fuel mis-spec; 2-name mix) |
+
+**Headline takeaways for implementation** (full detail in `DATA_BUGS.md` and each §9):
+1. **The CEIC default-sign trap is the #1 systematic failure.** `drivers.py _ceic_role_sign`
+   defaults every `demand`-tagged CEIC series to **+1**; when a basket's `ceic` pull is
+   mis-pointed (Tower→telecom-payments, Durables→autos, Construction/Cement→broad
+   manufacturing, Media→noise, Investment→banks), dozens of wrong +1 series **outvote**
+   the 2–4 correct macro drivers. Tower's −0.195 is the clearest case (≈13:1). Fix =
+   narrow each `ceic` block + `ceic_override` re-roles, basket by basket per §9.
+2. **The `id`-macro plane is unreachable.** The richest *leading* series — KPR/mortgage
+   rate, loan-by-type, consumer-survey intent, foreign net-buy, RPPI, retail-sales survey —
+   live in `country=id` (`CEIC…`) RICs that **no resolver reads**. This blocks the correct
+   tree for Property, Cement, Construction, Retail, Multifinance, Auto, Staple Retail,
+   Services. Needs one thin `id`-macro observations resolver (highest-leverage single fix).
+3. **Resolver fixes that touch many baskets:** `dxy→TVC:BBDXY` empty (use `TVC:DXY`) —
+   confirmed by all 52; add `us_real10y→DFII10` (every duration basket); `wb_rubber`,
+   `wb_lng_jp`, `wb_coffee_robusta` empty. See `DATA_BUGS.md`.
+4. **Worklist membership / classifier issues** (in `build_worklist.py` / `market.json`
+   labels, NOT engine wiring): ASII→Conglomerate (absent from Auto), JSMR mislabeled
+   "Rail" (routed out of Toll Road), HRTA (gold) in Apparel, PCAR (seafood) in Staple
+   Retail, aquaculture names in Poultry, MFMI mistagged "Multifinance". Several baskets
+   score on the *wrong* members — a separate cleanup track.
+
 ---
-*Detail files: `industry-engine/plan/subindustry/<basket_id>.md` — one per sub-industry.*
-*Index of ids: see `plan/_state.txt` / worklist.json.*
+*Detail files: `industry-engine/plan/subindustry/<basket_id>.md` — one per sub-industry (52/52 complete).*
+*Cross-cutting resolver/data bugs: `industry-engine/plan/DATA_BUGS.md`.*
