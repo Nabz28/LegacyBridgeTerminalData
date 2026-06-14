@@ -46,6 +46,7 @@ def _compact(art: dict) -> dict:
         "multivariate": m.get("multivariate"), "narrative": m.get("narrative"),
         "n_kept": m.get("n_kept"), "n_tested": art.get("n_tested"),
         "n_used": art.get("basket", {}).get("n_used"),
+        "total_mcap": art.get("basket", {}).get("total_mcap"),
         "members_used": art.get("basket", {}).get("members_used"),
         "coverage": art.get("basket", {}).get("coverage"),
         "drivers": drivers, "generated_at": art.get("generated_at"),
