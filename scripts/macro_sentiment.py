@@ -83,7 +83,12 @@ INDICATOR_MAP["ID"]["liquidity"] = [
 # by global prices, not domestic activity — counting it in growth mislabels the regime.
 INDICATOR_MAP["ID"]["external"] = [
     ("ID_RESERVES_USD", +1, "FX reserves", "level"),
-    ("ID_FX_IDRUSD", -1, "IDR/USD (weaker = risk-off)", "level"),
+    # CAVEAT (critique): a weaker IDR is risk-off for the AGGREGATE index via the
+    # foreign-flow channel (the regime read this engine produces), but a TAILWIND
+    # for the ~30% USD-revenue commodity-exporter complex (coal/CPO/nickel). The
+    # -1 sign is the broad-market default; the per-SECTOR FX sign is handled
+    # correctly in the Industry Driver Engine (exporter +1 / importer -1), not here.
+    ("ID_FX_IDRUSD", -1, "IDR/USD (weaker = risk-off for broad index)", "level"),
     ("ID_TRADE_BAL", +1, "Trade balance (self-sourced)", "level"),
     ("ID_EXPORTS_YOY", +1, "Exports YoY (self-sourced)", "rate"),
 ]
@@ -219,9 +224,16 @@ def score_indicator(ric, direction, mode):
         info["skip"] = "stale"; return None, info
 
     hist = [v for _, v in window[:-1]]                  # exclude the scored point
-    diffs = [window[i][1] - window[i - step][1] for i in range(step, len(window))]
+    # NON-OVERLAPPING k-step diffs for the dispersion estimate. Overlapping
+    # k-step diffs are autocorrelated (MA(k-1)), which understates the robust
+    # spread and inflates z_accel on persistent/trending series (critique:
+    # overlapping diffs inflate momentum). Stride by `step`.
+    diffs = [window[i][1] - window[i - step][1]
+             for i in range(len(window) - 1, step - 1, -step)]
     last_diff = window[-1][1] - window[-1 - step][1] if len(window) > step else 0.0
     scale_d = _robust_scale(diffs)
+    if scale_d <= 1e-9 and len(diffs) >= 2:             # MAD degenerate -> std fired
+        info["scale_fallback"] = True
 
     # Robust normalization. z_level is median-centered (where are we vs normal);
     # z_accel is centered on ZERO (is the series moving now), scaled by the robust
