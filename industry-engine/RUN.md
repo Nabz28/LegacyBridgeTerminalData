@@ -143,15 +143,55 @@ that is fine — but what is done must be **rigorous and honest**.
    edit (or leave it if the drivers are economically sound) and move on. Commit
    `mapping.py` + worklist if kept. Then run report.py + commit. This is the
    productive work for every finalisation fire until partials are exhausted.
-4. **UI wiring (CAUTION — needs browser verification; do not rush headless).**
-   The launcher is Babel-in-browser React with no build step, so a syntax error
-   in a live `.jsx` breaks that terminal. Do this as a NEW, additive,
-   defensively-coded workspace (new `launcher/scripts/industry-engine-panel.jsx`
-   exposing `window.IndustryEnginePanel`, reading `window.INDUSTRY_ENGINE` via a
-   new `index.html` script tag), and VERIFY it renders (Claude Preview / Chrome MCP,
-   or hand it to the principal to confirm) BEFORE flipping any `built:true`. Until
-   verified, leave the terminal UI untouched — the engine outputs are fully usable
-   via REPORT.md + output/engine.json + window.INDUSTRY_ENGINE.
+4. [DONE] **UI wiring** — `launcher/scripts/industry-engine-panel.jsx` exposes
+   `window.IndustryEnginePanel`; registered as the **T3 · Driver Engine** workspace
+   (`ind-engine`) in lbc-shell.jsx + LIVE_KINDS + app.jsx route + index.html script
+   tags. Verified render + detail modal + clean console via a standalone harness.
+   To RE-VERIFY after UI changes: write `launcher/_engine_test.html` (loads React +
+   styles/industry.css + scripts/industry-engine-data.js + the panel, mounts
+   `window.IndustryEnginePanel`), `node scripts/serve.js 4173`, open
+   `http://127.0.0.1:4173/launcher/_engine_test.html` via Chrome MCP, screenshot +
+   read console (expect only React-DevTools/Babel notices), then delete the harness.
+   NEVER edit a live `.jsx` without this render check — a syntax error breaks the
+   terminal.
+
+## CRITIQUE & HARDENING (the default ongoing work — book + UI are complete)
+Once all baskets are resolved AND the UI is wired, EACH fire does ONE bounded
+critique/hardening item, commits, and stops. Be a skeptic: the goal is to make
+the engine genuinely trustworthy, not to inflate the perfected count. Pick the
+highest-value item not recently done; record what you did in the commit message.
+
+A. **Spurious / endogenous-driver audit (highest priority).** Open a *perfected*
+   basket's `output/<id>.json` and scrutinise its top kept drivers. Flag & fix:
+   - endogenous "drivers" that are really outcomes of the basket (a bank basket's
+     own assets/NIM/CAR; a company-specific balance-sheet series). Demote via a
+     curation rule or `ceic_override` to a non-anchor role, or exclude.
+   - statistically strong but economically meaningless series (e.g. "Total
+     Reserves Minus Gold" anchoring Chemicals) — these are multiple-testing
+     artefacts. If a basket's ANCHOR is such a series, the basket is NOT really
+     perfected — fix the candidate set and re-run.
+   Audit 1–2 baskets per fire; prefer the largest-mcap perfected ones first.
+B. **Theory-sign sanity.** Scan for kept drivers with `theory_agree=false` that
+   are stable & significant — usually the prior was wrong; correct the sign in
+   mapping.py (don't just suppress). Re-run the affected basket.
+C. **Partial re-attempts with new data.** Apply the `ceic_override` pattern or a
+   better commodity/rate/FX driver to a still-`partial` basket that has a clear
+   economic driver the engine isn't capturing (e.g. more coal-leveraged names).
+   Keep only if it legitimately anchors.
+D. **Methodology hardening (propose, then apply carefully).** e.g. a weekly-
+   frequency pass for liquid market drivers (more power than monthly); a simple
+   multiple-testing note/penalty when a basket tested >40 candidates; rolling-
+   window beta-stability surfaced in the UI. Make ONE such change, re-run the
+   affected baskets (or `--rerun-all`), verify.
+E. **UI polish / re-verify.** Improve the panel (sorting, a sector roll-up, a
+   driver tooltip), then RE-VERIFY via the harness (see FINALISATION #4) before
+   committing. Never skip the render check.
+F. **Keep artefacts fresh.** After any change: `report.py` + `--recompile` so
+   REPORT.md and window.INDUSTRY_ENGINE stay consistent. Update
+   `industry-engine/REPORT.md` and the memory file when the picture shifts.
+
+If you genuinely find nothing to improve on a fire (rare), run `--status`, confirm
+consistency, and stop. Do not invent churn.
 
 ## SANITY / DEBUG
 - `python industry-engine/engine/controller.py --status` — progress summary.
