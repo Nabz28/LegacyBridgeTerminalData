@@ -417,7 +417,8 @@ SEED = {
     "Hospitals": {
         "ceic": [("Healthcare", "Hospitals")],
         "globals": [],
-        "macro": [("id_gdp_real_q", "demand", +1, "healthcare utilisation"),
+        "macro": [("id_10y", "macro", -1, "defensive-growth (MIKA/SILO) re-rates on yields"),
+                  ("id_gdp_real_q", "demand", +1, "healthcare utilisation"),
                   ("usdidr", "macro", -1, "imported equipment/drugs")],
     },
     "Pharma": {
