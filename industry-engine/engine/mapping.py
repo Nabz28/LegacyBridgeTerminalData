@@ -362,11 +362,31 @@ SEED = {
                   ("usdidr", "macro", -1, "USD capex/equipment"),
                   ("id_bi_rate", "macro", -1, "quasi-utility bond proxy")],
     },
-    "Tower": {
-        "ceic": [("Telecom", None)],
-        "globals": [],
-        "macro": [("id_bi_rate", "macro", -1, "rate-sensitive REIT-like cashflows"),
-                  ("us_10y", "macro", -1, "long-duration lease cashflows")],
+    "Tower": {  # CENT (94%) + LCKM — purest bond proxy: levered contracted annuity
+        # B1 fix: the CEIC "Telecom" block in this store is NOT towers — it is 53
+        # card/e-money PAYMENT series (all demand-tagged -> default +1), which
+        # outvoted the 2 rate drivers ~13:1 and inverted the posture (-0.195).
+        # Drop the payment block; keep ONLY the 2 BTS (Network Infrastructure)
+        # series as low-weight tenancy-demand attribution.
+        "ceic": [("Telecom", "Network Infrastructure")],
+        "ceic_override": [("bts", "demand", +1)],  # BTS counts = tenancy proxy
+        "ceic_exclude": ["card", "e-money", "atm", "debit", "rtgs"],  # belt-and-braces
+        # the rate-duration tree — liquid, leading, all sign -1 (the bond-proxy core)
+        "globals": [
+            ("us_real10y", "macro", -1, "US real 10Y — purest discount rate for a levered annuity"),
+            ("id_10y", "macro", -1, "IDR 10Y — domestic discount rate on contracted leases"),
+            ("id_30y", "macro", -1, "IDR 30Y — duration match to 8-10yr lease book"),
+            ("us_10y", "macro", -1, "global risk-free / EM-duration beta"),
+            ("us_2s10s", "macro", -1, "bear-steepening = term-premium repricing = duration drawdown"),
+            ("dxy", "macro", -1, "strong USD drains EM-duration flows"),
+        ],
+        "macro": [
+            ("id_bi_rate", "macro", -1, "policy rate: cuts re-rate the annuity"),
+            ("id_lending_rate", "cost", -1, "real IDR cost-of-debt / refinancing"),
+            ("usdidr", "macro", -1, "USD-debt service + EM risk-off; revenue is IDR (no offset)"),
+            ("id_cpi_yoy", "macro", 0, "escalator raises BOTH revenue and O&M -> net-neutral"),
+            ("id_gdp_real_q", "macro", 0, "OVERRIDE STD_MACRO +1->0: towers are counter-cyclical duration"),
+        ],
     },
     "Construction": {
         "ceic": [("Industrials & Manufacturing", None)],

@@ -6,7 +6,7 @@
   "n_used": 12,
   "n_members": 13,
   "n_months": 184,
-  "n_anchored_drivers": 17,
+  "n_anchored_drivers": 18,
   "anchored": [
     {
       "key": "CEICI14523001",
@@ -105,6 +105,12 @@
       "source": "corr:FX_IDC:USDIDR"
     },
     {
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "sign": -1,
+      "source": "corr:TVC:DXY"
+    },
+    {
       "key": "id_gdp_real_q",
       "label": "Real GDP (SA)",
       "sign": 1,
@@ -118,33 +124,33 @@
     "hit_rate": 0.434,
     "up_rate": 0.576,
     "edge": -0.142,
-    "fwd_ic": -0.148,
-    "fwd_pearson": -0.196,
-    "long_short_mo": -0.012,
+    "fwd_ic": -0.131,
+    "fwd_pearson": -0.178,
+    "long_short_mo": -0.0102,
     "binom_p_vs_uprate": 0.9996,
     "placebo": {
-      "ic_mean": -0.010705407722122839,
-      "ic_std": 0.07917991895642122,
-      "ic_pctile": 0.05,
-      "hit_mean": 0.502842377260982
+      "ic_mean": -0.007380832587954684,
+      "ic_std": 0.08020440335369114,
+      "ic_pctile": 0.08333333333333333,
+      "hit_mean": 0.5049095607235142
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.519,
+    "hit_rate": 0.535,
     "up_rate": 0.576,
-    "edge": -0.057,
-    "fwd_ic": 0.042,
-    "fwd_pearson": 0.132,
-    "long_short_mo": 0.0163,
-    "binom_p_vs_uprate": 0.9176,
+    "edge": -0.041,
+    "fwd_ic": 0.128,
+    "fwd_pearson": 0.192,
+    "long_short_mo": 0.0272,
+    "binom_p_vs_uprate": 0.8499,
     "placebo": {
-      "ic_mean": 0.0022507640131186634,
-      "ic_std": 0.08839735063897429,
-      "ic_pctile": 0.6666666666666666,
-      "hit_mean": 0.5033591731266149
+      "ic_mean": 0.0006879844961240305,
+      "ic_std": 0.08377416957833493,
+      "ic_pctile": 0.9166666666666666,
+      "hit_mean": 0.5082687338501292
     }
   },
-  "latest_signal": -0.078
+  "latest_signal": -0.044
 }

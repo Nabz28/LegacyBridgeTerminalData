@@ -18381,12 +18381,6 @@
           "why": "premium growth"
         },
         {
-          "key": "jci",
-          "role": "demand",
-          "sign": 1,
-          "why": "equity book/UL fee income"
-        },
-        {
           "key": "usdidr",
           "role": "macro",
           "sign": 0,
@@ -25408,10 +25402,10 @@
           "why": "ad spend pro-cyclical"
         },
         {
-          "key": "jci",
+          "key": "id_bank_credit",
           "role": "demand",
           "sign": 1,
-          "why": "risk appetite"
+          "why": "consumer-demand proxy"
         },
         {
           "key": "usdidr",
@@ -30157,16 +30151,16 @@
       ],
       "macro_hints": [
         {
-          "key": "jci",
-          "role": "demand",
-          "sign": 1,
-          "why": "NAV beta"
-        },
-        {
           "key": "id_gdp_real_q",
           "role": "demand",
           "sign": 1,
           "why": "portfolio earnings"
+        },
+        {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "discount rate on holdings"
         },
         {
           "key": "usdidr",
@@ -38647,16 +38641,22 @@
       "global_hints": [],
       "macro_hints": [
         {
-          "key": "jci",
-          "role": "demand",
-          "sign": 1,
-          "why": "brokerage = market beta"
-        },
-        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
           "why": "lower rates lift turnover"
+        },
+        {
+          "key": "id_gdp_real_q",
+          "role": "demand",
+          "sign": 1,
+          "why": "activity -> trading volume"
+        },
+        {
+          "key": "id_bank_credit",
+          "role": "demand",
+          "sign": 1,
+          "why": "liquidity -> turnover"
         },
         {
           "key": "usdidr",
@@ -38669,12 +38669,6 @@
           "role": "macro",
           "sign": 0,
           "why": "inflation regime"
-        },
-        {
-          "key": "id_gdp_real_q",
-          "role": "macro",
-          "sign": 1,
-          "why": "domestic demand backdrop"
         }
       ],
       "has_seed": true,
@@ -52163,485 +52157,8 @@
           "beta": 0.394
         }
       ],
-      "n_ceic_candidates": 55,
+      "n_ceic_candidates": 2,
       "ceic_candidates": [
-        {
-          "ric": "CEICI313915302",
-          "role": "demand",
-          "topic": "Credit Card: Value",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914702",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Value",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914102",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Value: Purchase",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914002",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Volume: Purchase",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313915102",
-          "role": "demand",
-          "topic": "Credit Card: Value: Purchase",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313915002",
-          "role": "demand",
-          "topic": "Credit Card: Volume: Purchase",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313913902",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Value: Cash Withdrawal",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313915202",
-          "role": "demand",
-          "topic": "Credit Card: Volume",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914602",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Volume",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313913802",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Volume: Cash Withdrawal",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914902",
-          "role": "demand",
-          "topic": "Credit Card: Value: Cash Withdrawal",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914802",
-          "role": "demand",
-          "topic": "Credit Card: Volume: Cash Withdrawal",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934987",
-          "role": "demand",
-          "topic": "Credit Card: Value: Purchase: Domestic",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934967",
-          "role": "demand",
-          "topic": "Credit Card: Value: Cash Withdrawal: Domestic",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914302",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Value: Intrabank",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914502",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Value: Interbank",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914202",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Volume: Intrabank",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313914402",
-          "role": "demand",
-          "topic": "ATM and Debit Card: Volume: Interbank",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 243,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934927",
-          "role": "demand",
-          "topic": "Credit Card: Volume: Cash Withdrawal: Domestic",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934947",
-          "role": "demand",
-          "topic": "Credit Card: Volume: Purchase: Domestic",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934647",
-          "role": "demand",
-          "topic": "By province: West Java",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934297",
-          "role": "demand",
-          "topic": "By province: West Java",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934367",
-          "role": "demand",
-          "topic": "By province: North Kalimantan",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 16,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934437",
-          "role": "demand",
-          "topic": "By province: West Nusa Tenggara",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934787",
-          "role": "demand",
-          "topic": "By province: West Nusa Tenggara",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934997",
-          "role": "demand",
-          "topic": "Credit Card: Value: Purchase: International",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934977",
-          "role": "demand",
-          "topic": "Credit Card: Value: Cash Withdrawal: International",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934627",
-          "role": "demand",
-          "topic": "By province: Gorontalo",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934237",
-          "role": "demand",
-          "topic": "By province: Banten",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI479934247",
-          "role": "demand",
-          "topic": "By province: Bengkulu",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 91,
-          "sub": "Card Transactions"
-        },
-        {
-          "ric": "CEICI313915502",
-          "role": "demand",
-          "topic": "Volume: Purchase",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 228,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI313915602",
-          "role": "demand",
-          "topic": "Value: Purchase",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 228,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936297",
-          "role": "demand",
-          "topic": "Value",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 207,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936217",
-          "role": "demand",
-          "topic": "Volume",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 207,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936327",
-          "role": "demand",
-          "topic": "Value: Electronic Money Transfer Transactions",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936357",
-          "role": "demand",
-          "topic": "Value: Electronic Money Withdrawals",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936347",
-          "role": "demand",
-          "topic": "Value: Reload/Top Up",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936247",
-          "role": "demand",
-          "topic": "Volume: Electronic Money Transfer Transactions",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936277",
-          "role": "demand",
-          "topic": "Volume: Electronic Money Withdrawals",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936317",
-          "role": "demand",
-          "topic": "Value: Purchase: Domestic",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936367",
-          "role": "demand",
-          "topic": "Value: Redeem Transaction",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936267",
-          "role": "demand",
-          "topic": "Volume: Reload/Top Up",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936307",
-          "role": "demand",
-          "topic": "Value: Purchase: International",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 103,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936287",
-          "role": "demand",
-          "topic": "Volume: Redeem Transaction",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936337",
-          "role": "demand",
-          "topic": "Value: Initial Transaction",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936237",
-          "role": "demand",
-          "topic": "Volume: Purchase: Domestic",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938227",
-          "role": "demand",
-          "topic": "Volume: On US Transaction",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938257",
-          "role": "demand",
-          "topic": "Value: On US Transaction",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938277",
-          "role": "demand",
-          "topic": "Value: Off US Transaction: International",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938267",
-          "role": "demand",
-          "topic": "Value: Off US Transaction: Domestic",
-          "freq": "P1M",
-          "units": "IDR bn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938237",
-          "role": "demand",
-          "topic": "Volume: Off US Transaction: Domestic",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479938247",
-          "role": "demand",
-          "topic": "Volume: Off US Transaction: International",
-          "freq": "P1M",
-          "units": "Unit mn",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
-        {
-          "ric": "CEICI479936257",
-          "role": "demand",
-          "topic": "Volume: Initial Transaction",
-          "freq": "P1M",
-          "units": "Unit th",
-          "n_obs": 159,
-          "sub": "E-Money & Card Payments"
-        },
         {
           "ric": "CEICI65399201",
           "role": "supply",
@@ -52661,39 +52178,88 @@
           "sub": "Network Infrastructure"
         }
       ],
-      "ceic_override": [],
-      "ceic_exclude": [],
-      "global_hints": [],
-      "macro_hints": [
+      "ceic_override": [
+        [
+          "bts",
+          "demand",
+          1
+        ]
+      ],
+      "ceic_exclude": [
+        "card",
+        "e-money",
+        "atm",
+        "debit",
+        "rtgs"
+      ],
+      "global_hints": [
         {
-          "key": "id_bi_rate",
+          "key": "us_real10y",
           "role": "macro",
           "sign": -1,
-          "why": "rate-sensitive REIT-like cashflows"
+          "why": "US real 10Y — purest discount rate for a levered annuity"
+        },
+        {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "IDR 10Y — domestic discount rate on contracted leases"
+        },
+        {
+          "key": "id_30y",
+          "role": "macro",
+          "sign": -1,
+          "why": "IDR 30Y — duration match to 8-10yr lease book"
         },
         {
           "key": "us_10y",
           "role": "macro",
           "sign": -1,
-          "why": "long-duration lease cashflows"
+          "why": "global risk-free / EM-duration beta"
+        },
+        {
+          "key": "us_2s10s",
+          "role": "macro",
+          "sign": -1,
+          "why": "bear-steepening = term-premium repricing = duration drawdown"
+        },
+        {
+          "key": "dxy",
+          "role": "macro",
+          "sign": -1,
+          "why": "strong USD drains EM-duration flows"
+        }
+      ],
+      "macro_hints": [
+        {
+          "key": "id_bi_rate",
+          "role": "macro",
+          "sign": -1,
+          "why": "policy rate: cuts re-rate the annuity"
+        },
+        {
+          "key": "id_lending_rate",
+          "role": "cost",
+          "sign": -1,
+          "why": "real IDR cost-of-debt / refinancing"
         },
         {
           "key": "usdidr",
           "role": "macro",
-          "sign": 0,
-          "why": "IDR weakness: +for USD earners, -for importers/FX debt"
+          "sign": -1,
+          "why": "USD-debt service + EM risk-off; revenue is IDR (no offset)"
         },
         {
           "key": "id_cpi_yoy",
           "role": "macro",
           "sign": 0,
-          "why": "inflation regime"
+          "why": "escalator raises BOTH revenue and O&M -> net-neutral"
         },
         {
           "key": "id_gdp_real_q",
           "role": "macro",
-          "sign": 1,
-          "why": "domestic demand backdrop"
+          "sign": 0,
+          "why": "OVERRIDE STD_MACRO +1->0: towers are counter-cyclical duration"
         }
       ],
       "has_seed": true,

@@ -6,7 +6,7 @@
   "n_used": 12,
   "n_members": 16,
   "n_months": 184,
-  "n_anchored_drivers": 5,
+  "n_anchored_drivers": 4,
   "anchored": [
     {
       "key": "CEICI479948257",
@@ -31,48 +31,42 @@
       "label": "Real GDP (SA)",
       "sign": 1,
       "source": "corr:aIDGDPAR1"
-    },
-    {
-      "key": "jci",
-      "label": "Jakarta Composite",
-      "sign": 1,
-      "source": "corr:IDX:COMPOSITE"
     }
   ],
   "available": true,
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.566,
+    "hit_rate": 0.519,
     "up_rate": 0.56,
-    "edge": 0.006,
-    "fwd_ic": 0.154,
-    "fwd_pearson": 0.185,
-    "long_short_mo": 0.0166,
-    "binom_p_vs_uprate": 0.4811,
+    "edge": -0.04,
+    "fwd_ic": 0.109,
+    "fwd_pearson": 0.118,
+    "long_short_mo": 0.0113,
+    "binom_p_vs_uprate": 0.8445,
     "placebo": {
-      "ic_mean": -0.0020933027728085867,
-      "ic_std": 0.09445744903438164,
-      "ic_pctile": 0.9333333333333333,
-      "hit_mean": 0.49922480620155035
+      "ic_mean": 0.00410265727489565,
+      "ic_std": 0.09952370846256398,
+      "ic_pctile": 0.8666666666666667,
+      "hit_mean": 0.5059431524547803
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.612,
+    "hit_rate": 0.519,
     "up_rate": 0.56,
-    "edge": 0.053,
-    "fwd_ic": 0.267,
-    "fwd_pearson": 0.264,
-    "long_short_mo": 0.0202,
-    "binom_p_vs_uprate": 0.1321,
+    "edge": -0.04,
+    "fwd_ic": 0.08,
+    "fwd_pearson": 0.094,
+    "long_short_mo": -0.0017,
+    "binom_p_vs_uprate": 0.8445,
     "placebo": {
-      "ic_mean": -0.0076384540846750155,
-      "ic_std": 0.08110932023485842,
-      "ic_pctile": 1.0,
-      "hit_mean": 0.5041343669250645
+      "ic_mean": -0.00933922182468694,
+      "ic_std": 0.08016436839650183,
+      "ic_pctile": 0.8333333333333334,
+      "hit_mean": 0.4979328165374676
     }
   },
-  "latest_signal": -0.062
+  "latest_signal": -0.085
 }

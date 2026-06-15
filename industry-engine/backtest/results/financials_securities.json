@@ -165,12 +165,6 @@
       "source": "ceic"
     },
     {
-      "key": "jci",
-      "label": "Jakarta Composite",
-      "sign": 1,
-      "source": "corr:IDX:COMPOSITE"
-    },
-    {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "sign": -1,
@@ -181,42 +175,48 @@
       "label": "Real GDP (SA)",
       "sign": 1,
       "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "sign": 1,
+      "source": "corr:aIDLONYAR"
     }
   ],
   "available": true,
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.426,
+    "hit_rate": 0.411,
     "up_rate": 0.582,
-    "edge": -0.155,
-    "fwd_ic": -0.113,
-    "fwd_pearson": -0.177,
-    "long_short_mo": -0.0381,
-    "binom_p_vs_uprate": 0.9999,
+    "edge": -0.171,
+    "fwd_ic": -0.101,
+    "fwd_pearson": -0.214,
+    "long_short_mo": -0.039,
+    "binom_p_vs_uprate": 1.0,
     "placebo": {
-      "ic_mean": -0.0028163200655933205,
-      "ic_std": 0.09597185745398917,
-      "ic_pctile": 0.11666666666666667,
-      "hit_mean": 0.4979328165374676
+      "ic_mean": -0.0033715339892665466,
+      "ic_std": 0.09598115438401393,
+      "ic_pctile": 0.13333333333333333,
+      "hit_mean": 0.501033591731266
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.535,
+    "hit_rate": 0.488,
     "up_rate": 0.582,
-    "edge": -0.047,
-    "fwd_ic": -0.003,
-    "fwd_pearson": -0.088,
-    "long_short_mo": -0.0104,
-    "binom_p_vs_uprate": 0.8773,
+    "edge": -0.093,
+    "fwd_ic": -0.051,
+    "fwd_pearson": -0.09,
+    "long_short_mo": -0.0252,
+    "binom_p_vs_uprate": 0.9868,
     "placebo": {
-      "ic_mean": 0.007690444245676805,
-      "ic_std": 0.08953189409147859,
-      "ic_pctile": 0.5,
-      "hit_mean": 0.5051679586563307
+      "ic_mean": 0.00945373062015504,
+      "ic_std": 0.08725970254174967,
+      "ic_pctile": 0.23333333333333334,
+      "hit_mean": 0.5113695090439276
     }
   },
-  "latest_signal": 0.047
+  "latest_signal": 0.051
 }

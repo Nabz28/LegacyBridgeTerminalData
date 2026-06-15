@@ -30,7 +30,7 @@
       "key": "id_lending_rate",
       "label": "Bank Lending Rate",
       "sign": -1,
-      "source": "spark"
+      "source": "idmacro:CEIC224795501"
     },
     {
       "key": "id_bank_credit",
@@ -58,32 +58,32 @@
     "hit_rate": 0.488,
     "up_rate": 0.603,
     "edge": -0.115,
-    "fwd_ic": -0.081,
-    "fwd_pearson": -0.061,
-    "long_short_mo": 0.001,
+    "fwd_ic": -0.08,
+    "fwd_pearson": -0.045,
+    "long_short_mo": 0.0086,
     "binom_p_vs_uprate": 0.9968,
     "placebo": {
-      "ic_mean": -0.016801393858079907,
-      "ic_std": 0.08979497623400709,
-      "ic_pctile": 0.21666666666666667,
-      "hit_mean": 0.49121447028423765
+      "ic_mean": -0.014532368067978536,
+      "ic_std": 0.08266385682547003,
+      "ic_pctile": 0.18333333333333332,
+      "hit_mean": 0.49069767441860457
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.612,
+    "hit_rate": 0.597,
     "up_rate": 0.603,
-    "edge": 0.009,
-    "fwd_ic": 0.208,
-    "fwd_pearson": 0.14,
-    "long_short_mo": 0.0199,
-    "binom_p_vs_uprate": 0.4538,
+    "edge": -0.006,
+    "fwd_ic": 0.242,
+    "fwd_pearson": 0.179,
+    "long_short_mo": 0.0181,
+    "binom_p_vs_uprate": 0.5961,
     "placebo": {
-      "ic_mean": 0.019783187984496128,
-      "ic_std": 0.09737051176255772,
+      "ic_mean": 0.01770982409063804,
+      "ic_std": 0.09571107139079925,
       "ic_pctile": 1.0,
-      "hit_mean": 0.4997416020671834
+      "hit_mean": 0.5059431524547803
     }
   },
   "latest_signal": -0.058
