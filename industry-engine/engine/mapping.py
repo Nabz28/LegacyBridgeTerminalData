@@ -34,7 +34,9 @@ GLOBAL_CORR = {
     # Newcastle future (ATW1!) is empty in the store. API2 tracks global thermal
     # coal closely and is the honest proxy for IDX coal names.
     "wb_coal_au": "ICEEUR:ATR1!", "brent": "ICEEUR:BRN1!", "wti": "NYMEX:CL1!",
-    "natgas": "NYMEX:NG1!", "wb_lng_jp": "SGX:JKM1!", "heating_oil": "NYMEX:HO1!",
+    # wb_lng_jp: SGX:JKM1! (Asian LNG) is EMPTY in the store -> proxy with Henry
+    # Hub natgas (the gas-switch cost channel is what we actually want to price).
+    "natgas": "NYMEX:NG1!", "wb_lng_jp": "NYMEX:NG1!", "heating_oil": "NYMEX:HO1!",
     "gasoline": "NYMEX:RB1!",
     # metals
     "copper": "COMEX:HG1!", "gold": "COMEX:GC1!", "silver": "COMEX:SI1!",
@@ -45,19 +47,24 @@ GLOBAL_CORR = {
     "wb_palm_oil": "MYX:FCPO1!", "soybean_oil": "CBOT:ZL1!",
     "soybean_meal": "CBOT:ZM1!", "soybeans": "CBOT:ZS1!", "wheat": "CBOT:ZW1!",
     "corn": "CBOT:ZC1!", "wb_sugar_world": "ICE:SB1!", "sugar": "ICE:SB1!",
-    "coffee": "ICE:KC1!", "wb_coffee_robusta": "ICE:RC1!", "cocoa": "ICE:CC1!",
+    # wb_coffee_robusta: ICE:RC1! (Robusta) is EMPTY -> proxy with KC1! (Arabica).
+    "coffee": "ICE:KC1!", "wb_coffee_robusta": "ICE:KC1!", "cocoa": "ICE:CC1!",
     "cotton": "ICE:CT1!", "wb_cotton": "ICE:CT1!", "wb_rubber": "SGX:TF1!",
     "wb_logs": "CME:LBR1!", "wb_urea": None, "wb_potash": None,
     # indices / broad
     "bcom": "AMEX:DBC", "sp_gsci": "AMEX:GSG", "ndx": "NASDAQ:NDX",
     "spx": "SP:SPX", "vix": "CBOE:VIX", "jci": "IDX:COMPOSITE",
     # FX
-    "usdidr": "FX_IDC:USDIDR", "dxy": "TVC:BBDXY", "usdcny": "FX_IDC:USDCNY",
+    # dxy: TVC:BBDXY was EMPTY (wk_obs 0) -> DXY was silently unwired everywhere.
+    "usdidr": "FX_IDC:USDIDR", "dxy": "TVC:DXY", "usdcny": "FX_IDC:USDCNY",
     # rates / yields
     "us_10y": "TVC:US10Y", "ust_10y_y": "TVC:US10Y", "us_2y": None,
-    "id_10y": "TVC:ID10Y", "id_01y": "TVC:ID01Y",
+    "us_real10y": "DFII10",            # US real 10Y (TIPS) — bond-proxy/duration core
+    "us_2s10s": "US10Y-US02Y",         # curve slope / term-premium repricing
+    "id_10y": "TVC:ID10Y", "id_01y": "TVC:ID01Y", "id_30y": "TVC:ID30Y",
     # Indonesia macro
-    "id_bi_rate": "ECONOMICS:IDINTR", "id_lending_rate": None,
+    # id_lending_rate moved to ID_MACRO_OBS (lives in macro.observations, not corr).
+    "id_bi_rate": "ECONOMICS:IDINTR",
     "id_bank_credit": "aIDLONYAR", "id_m2": "aIDM2AR",
     "id_cpi_yoy": "ECONOMICS:IDIRYY", "id_gdp_real_q": "aIDGDPAR1",
     "id_exports": "aIDEXGAR", "id_imports": "aIDIMGAR",
@@ -67,6 +74,19 @@ GLOBAL_CORR = {
     "cn_ip_yoy": "aCNIP", "cn_pmi_mfg": "aCNPMIMT", "cn_retail_yoy": "aCNCRETYF",
     "cn_ppi_idx": "aCNPPIAR", "cn_cpi_yoy": "aCNCPIYY", "cn_m2_yoy": "aCNM2GRTY",
     "cn_property_inv": None,
+}
+
+# Indonesia macro series that live ONLY in macro.observations under country=id
+# (CEIC... RICs) — the *leading* rate / mortgage / loan-demand plane that NO
+# GLOBAL_CORR (correlation.sqlite) path reaches. Resolved in drivers._global_history
+# via C.get_observations, and PUBLICATION-LAGGED exactly like the idind CEIC loop
+# (these are monthly reference-period prints, not real-time market prices) so they
+# cannot leak future information into the blindfolded OOS backtest.
+# All RICs verified populated in macro.observations before wiring.
+ID_MACRO_OBS = {
+    "id_lending_rate": "CEIC224795501",   # IDR lending rate (n=480, P1M) — cost of debt
+    "id_kpr_rate":     "CEIC14419701",    # KPR/mortgage rate (n=304, P1M) — property demand
+    "id_wc_loan_rate": "CEIC230931402",   # working-capital loan rate (n=279, P1M)
 }
 
 # Equity sector -> CEIC idind category fallback (when no specific basket seed).

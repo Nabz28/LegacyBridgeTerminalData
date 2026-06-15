@@ -67,7 +67,20 @@ def _curate_ceic(cands: list, exclude: list | None = None) -> list:
 # history resolution
 # --------------------------------------------------------------------------- #
 def _global_history(key: str, live_by_key: dict) -> tuple[list, str]:
-    """Return (obs[{date,value}], source). corr.sqlite first, spark fallback."""
+    """Return (obs[{date,value}], source). id-macro obs -> corr.sqlite -> spark.
+
+    Source prefix tells the caller how to treat the series:
+      idmacro:* -> CEIC monthly print in macro.observations -> publication-lag it
+      corr:*    -> real-time market/FX/yield price -> use as-is
+      spark     -> shallow live-indicator history (low confidence)
+    """
+    # id-macro plane: CEIC country=id series (lending/KPR/loan rates) that only
+    # live in macro.observations — no correlation.sqlite path reaches them.
+    idmacro_ric = M.ID_MACRO_OBS.get(key)
+    if idmacro_ric:
+        obs = C.get_observations(idmacro_ric, limit=6000)
+        if len(obs) >= 18:
+            return (obs, f"idmacro:{idmacro_ric}")
     corr_id = M.GLOBAL_CORR.get(key, "__missing__")
     if corr_id and corr_id != "__missing__":
         px = C.sqlite_prices([corr_id], "weekly")
@@ -181,10 +194,21 @@ def assemble_and_analyze(basket: dict, br: dict) -> dict:
             unscored.append({"key": key, "label": label, "role": h["role"],
                              "source": src, "reason": "insufficient_history"})
             continue
+        # id-macro CEIC prints carry REFERENCE-period dates and aren't public until
+        # ~the next period — publication-lag them exactly like the idind loop above.
+        # Real-time market/FX/yield drivers (corr/spark) are NOT shifted.
+        if src.startswith("idmacro"):
+            drv["chg"] = drv["chg"].shift(1).dropna()
+            drv["pub_lag"] = 1
+            if len(drv["chg"]) < 10:
+                unscored.append({"key": key, "label": label, "role": h["role"],
+                                 "source": src, "reason": "short_after_pub_lag"})
+                continue
         r = S.analyze_pair(basket_ret, drv, int(h.get("sign", 0)), h["role"],
                            h.get("why", ""), excess_ret=excess_ret)
         if r:
-            r["source"] = src if src.startswith("corr") else ("spark" if src == "spark" else "global")
+            r["source"] = (src if (src.startswith("corr") or src.startswith("idmacro"))
+                           else "spark" if src == "spark" else "global")
             r["shallow"] = (src == "spark")
             r["label"] = label
             records.append(r)
