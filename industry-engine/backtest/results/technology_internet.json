@@ -6,169 +6,19 @@
   "n_used": 7,
   "n_members": 7,
   "n_months": 184,
-  "n_anchored_drivers": 30,
+  "n_anchored_drivers": 6,
   "anchored": [
     {
-      "key": "CEICI517698487",
-      "label": "Value",
+      "key": "ndx",
+      "label": "Nasdaq 100",
       "sign": 1,
-      "source": "ceic"
+      "source": "corr:NASDAQ:NDX"
     },
     {
-      "key": "CEICI517809607",
-      "label": "Volume",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517710097",
-      "label": "Average Order Value (AOV)",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517830907",
-      "label": "AOV: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517817637",
-      "label": "Value: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517672587",
-      "label": "Volume: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517743197",
-      "label": "AOV: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517775437",
-      "label": "Value: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517801417",
-      "label": "Volume: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519405647",
-      "label": "Value: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519431507",
-      "label": "AOV: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519457907",
-      "label": "Volume: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519448757",
-      "label": "AOV: Finance",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519453277",
-      "label": "Value: Finance",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519454487",
-      "label": "Volume: Finance",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517876597",
-      "label": "Arts & Entertainment: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519397687",
-      "label": "Value: Business & Consumer Services",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519440377",
-      "label": "AOV: Business & Consumer Services",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519410687",
-      "label": "Volume: Business & Consumer Services",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517838937",
-      "label": "Finance: Accounting & Auditing",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI313915502",
-      "label": "Volume: Purchase",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI313915602",
-      "label": "Value: Purchase",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI479936327",
-      "label": "Value: Electronic Money Transfer Transactions",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI479936357",
-      "label": "Value: Electronic Money Withdrawals",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI479936347",
-      "label": "Value: Reload/Top Up",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI479936247",
-      "label": "Volume: Electronic Money Transfer Transactions",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI479936277",
-      "label": "Volume: Electronic Money Withdrawals",
-      "sign": 1,
-      "source": "ceic"
+      "key": "us_real10y",
+      "label": "us_real10y",
+      "sign": -1,
+      "source": "corr:DFII10"
     },
     {
       "key": "us_10y",
@@ -177,52 +27,58 @@
       "source": "corr:TVC:US10Y"
     },
     {
-      "key": "ndx",
-      "label": "Nasdaq 100",
-      "sign": 1,
-      "source": "corr:NASDAQ:NDX"
-    },
-    {
       "key": "id_gdp_real_q",
       "label": "Real GDP (SA)",
       "sign": 1,
       "source": "corr:aIDGDPAR1"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
     }
   ],
   "available": true,
   "forward": {
     "n": 128,
     "enough": true,
-    "hit_rate": 0.469,
+    "hit_rate": 0.438,
     "up_rate": 0.5,
-    "edge": -0.031,
-    "fwd_ic": -0.098,
-    "fwd_pearson": -0.147,
-    "long_short_mo": -0.0482,
-    "binom_p_vs_uprate": 0.7868,
+    "edge": -0.062,
+    "fwd_ic": -0.04,
+    "fwd_pearson": -0.028,
+    "long_short_mo": -0.0121,
+    "binom_p_vs_uprate": 0.9337,
     "placebo": {
-      "ic_mean": -0.006942982054568763,
-      "ic_std": 0.11464523721183817,
-      "ic_pctile": 0.16666666666666666,
-      "hit_mean": 0.5096354166666667
+      "ic_mean": -0.007547266984068851,
+      "ic_std": 0.08034065860529105,
+      "ic_pctile": 0.35,
+      "hit_mean": 0.49505208333333334
     }
   },
   "contemporaneous_ref": {
     "n": 128,
     "enough": true,
-    "hit_rate": 0.562,
+    "hit_rate": 0.539,
     "up_rate": 0.5,
-    "edge": 0.062,
-    "fwd_ic": 0.112,
-    "fwd_pearson": 0.078,
-    "long_short_mo": 0.0072,
-    "binom_p_vs_uprate": 0.0923,
+    "edge": 0.039,
+    "fwd_ic": 0.155,
+    "fwd_pearson": 0.091,
+    "long_short_mo": 0.036,
+    "binom_p_vs_uprate": 0.2132,
     "placebo": {
-      "ic_mean": 0.017941139443325396,
-      "ic_std": 0.1018446510441542,
-      "ic_pctile": 0.8166666666666667,
-      "hit_mean": 0.51640625
+      "ic_mean": 0.0033602858145638744,
+      "ic_std": 0.0996845973511112,
+      "ic_pctile": 0.9333333333333333,
+      "hit_mean": 0.5026041666666666
     }
   },
-  "latest_signal": 0.396
+  "latest_signal": 0.24
 }

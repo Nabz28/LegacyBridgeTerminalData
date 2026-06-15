@@ -231,6 +231,10 @@ SEED = {
                   ("dxy", "macro", -1, "EM-flow headwind on low-beta domestic cyclicals")],
     },
     "Paper": {
+        # NOTE (audit): DATA_BUGS §2 claimed bcom-as-pulp is a backwards sign (DBC is
+        # energy-heavy, oil rallies = mill cost). Dropping bcom + adding brent cost -1
+        # was TESTED and made forward IC WORSE (-0.003 -> -0.09, placebo 0.45 -> 0.20):
+        # the backtest does NOT support the stated bug here. Reverted to baseline.
         "ceic": [("Industrials & Manufacturing", "Paper & Pulp")],
         "globals": [("wb_logs", "cost", -1, "pulpwood input"),
                     ("wb_coal_au", "cost", -1, "energy input"),
@@ -602,13 +606,17 @@ SEED = {
                   ("ndx", "demand", +1, "global tech beta"),
                   ("id_gdp_real_q", "demand", +1, "digital spend")],
     },
-    "Internet": {
-        "ceic": [("Technology", "E-Commerce Transactions"),
-                 ("Telecom", "E-Money & Card Payments")],
-        "globals": [],
-        "macro": [("us_10y", "macro", -1, "growth-stock duration"),
-                  ("ndx", "demand", +1, "global tech sentiment"),
-                  ("id_gdp_real_q", "demand", +1, "GMV growth")],
+    "Internet": {  # GOTO/BUKA/BELI etc. — unprofitable-growth duration + GMV
+        # The E-Commerce + E-Money CEIC blocks (47 coincident payment/GMV-volume series,
+        # demand +1) are a swarm. Growth/internet equities are driven by global DURATION
+        # (real yields) + NDX risk sentiment; GMV is coincident. Lean, leading-dominated.
+        "ceic": [],
+        "globals": [("ndx", "demand", +1, "global tech/growth risk sentiment"),
+                    ("us_real10y", "macro", -1, "US real yield = growth-stock duration (the core driver)"),
+                    ("us_10y", "macro", -1, "nominal global discount rate")],
+        "macro": [("id_gdp_real_q", "demand", +1, "GMV / digital-consumption growth"),
+                  ("usdidr", "macro", -1, "USD funding / EM risk-off for unprofitable growth"),
+                  ("id_10y", "macro", -1, "domestic duration")],
     },
     "Software": {
         "ceic": [("Technology", None)],
