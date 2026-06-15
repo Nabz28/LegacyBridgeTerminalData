@@ -6,103 +6,19 @@
   "n_used": 9,
   "n_members": 11,
   "n_months": 184,
-  "n_anchored_drivers": 21,
+  "n_anchored_drivers": 8,
   "anchored": [
     {
-      "key": "CEICI355184817",
-      "label": "Assets: Financing Receivables",
-      "sign": 1,
-      "source": "ceic"
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
     },
     {
-      "key": "CEICI462439957",
-      "label": "Financing Receivables Based On Locations: Outsi...",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344497",
-      "label": "Financing Receivables: Manufacturing Industry",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344467",
-      "label": "Financing Receivables: Total",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI384714757",
-      "label": "Financing Receivables: Sharia",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344387",
-      "label": "Financing Receivables: Investment Financing",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344687",
-      "label": "Financing Receivables: Household",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344547",
-      "label": "Financing Receivables: Transportation and Storage",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462344567",
-      "label": "Financing Receivables: Information and Communic...",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440047",
-      "label": "Productive Goods: Freight Car",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440597",
-      "label": "Financing Receivables Based On Financing Object...",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440347",
-      "label": "Consumer Goods: Used Two-Wheeled Vehicle",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440357",
-      "label": "Consumer Goods: New Four-Wheeled Vehicle",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440337",
-      "label": "Consumer Goods: New Two-Wheeled Vehicle",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI462440367",
-      "label": "Consumer Goods: Used Four-Wheeled Vehicle",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI285015402",
-      "label": "Loan demand survey",
-      "sign": 1,
-      "source": "ceic"
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "sign": -1,
+      "source": "corr:TVC:DXY"
     },
     {
       "key": "id_10y",
@@ -115,6 +31,12 @@
       "label": "BI Policy Rate",
       "sign": -1,
       "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_consumer_confidence",
+      "label": "id_consumer_confidence",
+      "sign": 1,
+      "source": "corr:aIDCONIAR"
     },
     {
       "key": "id_bank_credit",
@@ -139,36 +61,36 @@
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.527,
+    "hit_rate": 0.535,
     "up_rate": 0.576,
-    "edge": -0.049,
-    "fwd_ic": -0.021,
-    "fwd_pearson": -0.007,
-    "long_short_mo": -0.0024,
-    "binom_p_vs_uprate": 0.8873,
+    "edge": -0.041,
+    "fwd_ic": 0.149,
+    "fwd_pearson": 0.142,
+    "long_short_mo": 0.0177,
+    "binom_p_vs_uprate": 0.8499,
     "placebo": {
-      "ic_mean": 0.006276926803816341,
-      "ic_std": 0.10044029026190049,
-      "ic_pctile": 0.36666666666666664,
-      "hit_mean": 0.5121447028423773
+      "ic_mean": -0.007251788908765653,
+      "ic_std": 0.0866633307065316,
+      "ic_pctile": 0.9833333333333333,
+      "hit_mean": 0.5085271317829457
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.504,
+    "hit_rate": 0.558,
     "up_rate": 0.576,
-    "edge": -0.072,
-    "fwd_ic": -0.018,
-    "fwd_pearson": -0.04,
-    "long_short_mo": 0.0017,
-    "binom_p_vs_uprate": 0.9592,
+    "edge": -0.018,
+    "fwd_ic": 0.196,
+    "fwd_pearson": 0.179,
+    "long_short_mo": 0.0139,
+    "binom_p_vs_uprate": 0.6931,
     "placebo": {
-      "ic_mean": 0.0031908728384019073,
-      "ic_std": 0.09635557706781792,
-      "ic_pctile": 0.45,
-      "hit_mean": 0.5116279069767441
+      "ic_mean": 0.00404358601669648,
+      "ic_std": 0.08467369803124757,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.5098191214470285
     }
   },
-  "latest_signal": -0.048
+  "latest_signal": 0.041
 }

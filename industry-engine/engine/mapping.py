@@ -339,14 +339,20 @@ SEED = {
                   ("us_10y", "macro", +1, "long-bond reinvestment yield"),
                   ("id_gdp_real_q", "demand", +1, "premium growth")],
     },
-    "Multifinance": {
-        "ceic": [("Banks", "Multifinance"), ("Banks", "Loan Demand")],
-        "globals": [],
-        "macro": [("id_10y", "macro", -1, "funding cost (bond-funded book)"),
-                  ("id_bi_rate", "macro", -1, "policy funding cost"),
-                  ("id_bank_credit", "demand", +1, "consumer financing"),
-                  ("id_gdp_real_q", "demand", +1, "auto/durables demand"),
-                  ("usdidr", "macro", -1, "risk-off / FX funding")],
+    "Multifinance": {  # BFIN/ADMF/CFIN — bond-funded auto/durables finance books
+        # The old ("Banks","Multifinance") block = 30 own-book financing-receivables
+        # LEVELS (endogenous, coincident, demand +1) that drowned the leading funding-
+        # rate drivers. Drop it; a bond-funded book re-rates on the rate curve (leading)
+        # and on consumer-financing intent. Lean + leading.
+        "ceic": [],
+        "globals": [("us_10y", "macro", -1, "global risk-free -> ID funding-cost upstream"),
+                    ("dxy", "macro", -1, "EM funding stress: strong USD widens bond spreads")],
+        "macro": [("id_10y", "macro", -1, "ID10Y bond-funding cost; bond-funded books reprice fast"),
+                  ("id_bi_rate", "macro", -1, "policy rate: cuts = margin relief + duration re-rate"),
+                  ("id_consumer_confidence", "demand", +1, "consumer confidence leads vehicle-financing demand"),
+                  ("id_bank_credit", "demand", +1, "system consumer-credit availability"),
+                  ("id_gdp_real_q", "demand", +1, "borrower income / durables demand"),
+                  ("usdidr", "macro", -1, "IDR weakness -> wider credit spreads -> harder funding")],
     },
     "Securities": {
         "ceic": [("Banks", None)],
@@ -445,6 +451,11 @@ SEED = {
                   ("id_gdp_real_q", "demand", +1, "demand backdrop (coincident, low weight)")],
     },
     "Toll Road": {
+        # NOTE (audit): the plan's lean rate-duration rewire (drop the transport block,
+        # deepen the duration tree like Tower) was TESTED and REGRESSED forward IC
+        # (+0.10 -> 0.00, placebo 0.87 -> 0.50) — the baseline's marginal rank-IC skill
+        # was lost. Reverted. The +0.10 likely rests on id_bi_rate; META is a thin
+        # single-name (JSMR mislabelled out — a membership-track issue, not wiring).
         "ceic": [("Transport & Logistics", None)],
         "globals": [],
         "macro": [("id_bi_rate", "macro", -1, "leveraged annuity cashflows"),
@@ -456,11 +467,20 @@ SEED = {
         "macro": [("id_exports", "demand", +1, "export throughput"),
                   ("id_imports", "demand", +1, "import throughput")],
     },
-    "Utilities": {
-        "ceic": [("Energy", "Electricity")],
-        "globals": [("wb_coal_au", "cost", -1, "fuel cost (regulated tariff lag)"),
-                    ("natgas", "cost", -1, "gas fuel cost")],
-        "macro": [("id_gdp_real_q", "demand", +1, "electricity consumption")],
+    "Utilities": {  # MPOW (diesel IPP) + TGRA (hydro) — NOT POWR (Alt Energy). n=53 (short)
+        # Fuel mis-spec was the -0.218 sign-trap: wb_coal_au + natgas (-1) describe
+        # fuels NEITHER member burns (MPOW = diesel/Brent, TGRA = zero-fuel hydro) —
+        # locked-sign noise on a 2-name basket. Fix: Brent (MPOW's real fuel) + the
+        # rate-duration tree (contracted-PPA annuities are bond-proxy-like). ceic=[]
+        # (the 43-series tariff/consumption block is coincident/regulated, not leading).
+        # n=53 -> low confidence; honest target is de-biasing the spurious negative.
+        "ceic": [],
+        "globals": [("brent", "cost", -1, "MPOW diesel/HSD fuel proxy; TGRA zero-fuel hydro")],
+        "macro": [("id_10y", "macro", -1, "IDR discount rate on PPA annuity + capex financing"),
+                  ("id_bi_rate", "macro", -1, "policy rate / tariff-subsidy regime"),
+                  ("us_10y", "macro", -1, "global risk-free / EM duration backdrop"),
+                  ("usdidr", "macro", +1, "USD-linked IPP PPA: weak IDR lifts IDR revenue"),
+                  ("id_gdp_real_q", "demand", +1, "electricity load-growth backdrop (coincident)")],
     },
     # ---------------- CONSUMER CYCLICALS ----------------
     "Retail": {
@@ -472,20 +492,37 @@ SEED = {
                   ("id_bank_credit", "demand", +1, "consumer credit"),
                   ("usdidr", "macro", -1, "imported merchandise cost")],
     },
-    "Auto": {
-        "ceic": [("Consumer Discretionary", "Auto Sales"),
-                 ("Consumer Discretionary", "Auto Production")],
-        "globals": [("steel_hrc", "cost", -1, "steel input"),
-                    ("aluminum", "cost", -1, "aluminium input")],
-        "macro": [("id_bi_rate", "macro", -1, "auto financing rate-elastic"),
-                  ("id_gdp_real_q", "demand", +1, "vehicle demand"),
-                  ("usdidr", "macro", -1, "CKD import cost")],
+    "Auto": {  # 7 micro-cap parts/tyre names (TYRE/PART/LPIN...) — ASII sits in Conglomerate
+        # The Auto Sales + Auto Production CEIC blocks (73 coincident industry-volume
+        # series, demand +1) mis-specify these PARTS names — a coincident swarm. Drop
+        # it; parts makers are cost-driven (steel/aluminium) + auto-financing-rate
+        # sensitive + USD CKD-import cost. Membership (ASII absent) caps the ceiling.
+        "ceic": [],
+        "globals": [("steel_hrc", "cost", -1, "steel input for parts/components"),
+                    ("aluminum", "cost", -1, "aluminium component input")],
+        "macro": [("id_10y", "macro", -1, "auto financing + discount rate (rate-elastic)"),
+                  ("id_bi_rate", "macro", -1, "consumer auto-financing cost"),
+                  ("usdidr", "macro", -1, "CKD/component import cost"),
+                  ("id_gdp_real_q", "demand", +1, "vehicle demand backdrop (coincident)")],
     },
-    "Media": {
-        "ceic": [("Consumer Discretionary", None), ("Technology", None)],
-        "globals": [],
-        "macro": [("id_gdp_real_q", "demand", +1, "ad spend pro-cyclical"),
-                  ("id_bank_credit", "demand", +1, "consumer-demand proxy")],
+    "Media": {  # MSIN/FILM (content/IP) + SCMA/MNCN (FTA ad-broadcasters)
+        # There is NO native ad-spend CEIC block — the old ceic pull = 182 auto/
+        # telecom/e-commerce series (verified), pure noise that overfit (kept=10) and
+        # made the posture anti-contemporaneous (-0.11). Drop it. Ad spend is pro-
+        # cyclical (GDP/retail/confidence +1); content/IP names are duration/tech-beta
+        # (ndx +1, real-yield -1); USD content cost (-1). HARD case: no ad-spend series
+        # exists + members span +2.0 to -0.6 beta -> honest target is ~0 attribution.
+        "ceic": [],
+        "globals": [("ndx", "demand", +1, "global streaming/tech sentiment (MSIN/FILM content re-rate)"),
+                    ("us_real10y", "macro", -1, "real WACC on the streaming/IP duration sleeve"),
+                    ("usdidr", "macro", -1, "weak IDR raises USD-licensed content/rights cost"),
+                    ("dxy", "macro", -1, "broad USD -> EM equity outflow on a high-beta bag")],
+        "macro": [("id_gdp_real_q", "demand", +1, "ad-spend backbone (~1.3-1.5x GDP elasticity)"),
+                  ("id_retail", "demand", +1, "real retail sales = FMCG advertiser-volume proxy"),
+                  ("id_consumer_confidence", "demand", +1, "consumer sentiment -> advertiser willingness"),
+                  ("id_10y", "macro", -1, "daily discount/financing proxy; leads the ad/earnings chain"),
+                  ("id_bi_rate", "macro", -1, "discretionary WACC"),
+                  ("id_cpi_yoy", "macro", -1, "inflation squeezes real ad-budgets + raises production cost")],
     },
     "Leisure": {
         "ceic": [("Tourism", None)],

@@ -6,169 +6,31 @@
   "n_used": 18,
   "n_members": 18,
   "n_months": 184,
-  "n_anchored_drivers": 29,
+  "n_anchored_drivers": 10,
   "anchored": [
     {
-      "key": "CEICI499614237",
-      "label": "Browser share (Desktop): Internet Explorer",
+      "key": "ndx",
+      "label": "Nasdaq 100",
       "sign": 1,
-      "source": "ceic"
+      "source": "corr:NASDAQ:NDX"
     },
     {
-      "key": "CEICI499641227",
-      "label": "Browser share (Mobile): Others",
-      "sign": 1,
-      "source": "ceic"
+      "key": "us_real10y",
+      "label": "us_real10y",
+      "sign": -1,
+      "source": "corr:DFII10"
     },
     {
-      "key": "CEICI499639877",
-      "label": "Internet Usage: Browser Market Share: All Platform",
-      "sign": 1,
-      "source": "ceic"
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "sign": -1,
+      "source": "corr:FX_IDC:USDIDR"
     },
     {
-      "key": "CEICI499729077",
-      "label": "Search engine share (Mobile): Others",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499788697",
-      "label": "Browser share (Desktop): Chrome",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499573037",
-      "label": "Social media share (Mobile): Others",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499359177",
-      "label": "Browser share (Mobile): Android",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499362307",
-      "label": "Browser share (Mobile): Firefox",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499762957",
-      "label": "Browser share (Tablet): Safari",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499347947",
-      "label": "Device vendor share (Tablet): Others",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499409377",
-      "label": "Browser share (Tablet): Opera",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499658507",
-      "label": "Browser share (Mobile): Puffin Browser",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499439597",
-      "label": "Social media share (Tablet): Vkontakte",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499411327",
-      "label": "Browser share (Desktop): Mozilla",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499648947",
-      "label": "Browser share (Mobile): Samsung Internet",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517698487",
-      "label": "Value",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517809607",
-      "label": "Volume",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517710097",
-      "label": "Average Order Value (AOV)",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517830907",
-      "label": "AOV: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517817637",
-      "label": "Value: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517672587",
-      "label": "Volume: Mobile",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517743197",
-      "label": "AOV: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517775437",
-      "label": "Value: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI517801417",
-      "label": "Volume: Desktop",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI499702837",
-      "label": "Browser share (Desktop): Edge",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519405647",
-      "label": "Value: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI519431507",
-      "label": "AOV: Arts & Entertainment",
-      "sign": 1,
-      "source": "ceic"
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "sign": -1,
+      "source": "corr:TVC:DXY"
     },
     {
       "key": "id_gdp_real_q",
@@ -177,46 +39,70 @@
       "source": "corr:aIDGDPAR1"
     },
     {
-      "key": "id_bank_credit",
-      "label": "Bank Credit (claims)",
+      "key": "id_retail",
+      "label": "id_retail",
       "sign": 1,
-      "source": "corr:aIDLONYAR"
+      "source": "corr:aIDRSLSAR"
+    },
+    {
+      "key": "id_consumer_confidence",
+      "label": "id_consumer_confidence",
+      "sign": 1,
+      "source": "corr:aIDCONIAR"
+    },
+    {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_bi_rate",
+      "label": "BI Policy Rate",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDINTR"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "sign": -1,
+      "source": "corr:ECONOMICS:IDIRYY"
     }
   ],
   "available": true,
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.45,
+    "hit_rate": 0.527,
     "up_rate": 0.571,
-    "edge": -0.121,
-    "fwd_ic": -0.013,
-    "fwd_pearson": 0.047,
-    "long_short_mo": -0.0082,
-    "binom_p_vs_uprate": 0.9978,
+    "edge": -0.044,
+    "fwd_ic": -0.024,
+    "fwd_pearson": -0.049,
+    "long_short_mo": -0.0145,
+    "binom_p_vs_uprate": 0.8615,
     "placebo": {
-      "ic_mean": 0.009850644752534285,
-      "ic_std": 0.07059714884409465,
-      "ic_pctile": 0.35,
-      "hit_mean": 0.5069767441860465
+      "ic_mean": -0.0019399411150864663,
+      "ic_std": 0.08534829497753889,
+      "ic_pctile": 0.43333333333333335,
+      "hit_mean": 0.5036175710594316
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.473,
+    "hit_rate": 0.55,
     "up_rate": 0.571,
-    "edge": -0.098,
-    "fwd_ic": -0.077,
-    "fwd_pearson": -0.073,
-    "long_short_mo": -0.0097,
-    "binom_p_vs_uprate": 0.9899,
+    "edge": -0.02,
+    "fwd_ic": 0.245,
+    "fwd_pearson": 0.282,
+    "long_short_mo": 0.0354,
+    "binom_p_vs_uprate": 0.7111,
     "placebo": {
-      "ic_mean": -0.011999944096601078,
-      "ic_std": 0.08365521827033133,
-      "ic_pctile": 0.26666666666666666,
-      "hit_mean": 0.48552971576227383
+      "ic_mean": -0.0020619036970781165,
+      "ic_std": 0.08598473833630245,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.500516795865633
     }
   },
-  "latest_signal": 0.006
+  "latest_signal": 0.223
 }
