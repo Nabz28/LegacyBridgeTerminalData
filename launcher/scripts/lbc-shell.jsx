@@ -58,7 +58,6 @@ const LBC_TERMINALS = [
       { kind: 'ind-comps', label: 'Peer Comps',   built: true },
       { kind: 'ind-gather', label: 'Industry Data', built: true },
       { kind: 'ind-data',  label: 'Sector Drivers', built: true },
-      { kind: 'ind-engine', label: 'Driver Engine', built: true },
     ] },
   { id: 'equity', num: 'T4', name: 'Equity', accent: '#83acf0', icon: LBC_ICONS.equity,
     desc: 'Bottom-up single-name deep dive, screeners, scanners and financials.',

@@ -708,7 +708,9 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
         ) : activeTabObj?.kind === 'ind-comps' ? (
           window.IndCompsWorkspace ? <window.IndCompsWorkspace openTab={(tabSpec)=>{const id=`t${Date.now()}`;setTabs([...tabs,{id,...tabSpec}]);setActiveTab(id);}} /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'ind-data' ? (
-          window.IndDataWorkspace ? <window.IndDataWorkspace openTab={(tabSpec)=>{const id=`t${Date.now()}`;setTabs([...tabs,{id,...tabSpec}]);setActiveTab(id);}} /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+          // "Sector Drivers" now serves the empirical Driver Engine (was the hand-set
+          // heuristic IndDataWorkspace). The old industry-data.jsx is retired but kept loaded.
+          window.IndustryEnginePanel ? <window.IndustryEnginePanel /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'ind-engine' ? (
           window.IndustryEnginePanel ? <window.IndustryEnginePanel /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'ind-gather' ? (
