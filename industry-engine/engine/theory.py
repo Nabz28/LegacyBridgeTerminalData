@@ -147,6 +147,39 @@ def _multivariate(basket_ret: dict, kept: list, prepped: dict) -> dict:
             "expected_monthly_ret": (round(expected, 4) if expected is not None else None)}
 
 
+def _chart_series(br: dict, kept: list, prepped: dict, n: int = 36) -> dict | None:
+    """Compact monthly time-series for the UI (display-only, heavily rounded):
+    the basket's equal-weight return + each kept driver's LEVEL, aligned on one
+    shared monthly axis (the last `n` months). Attaches `chart` to each kept
+    driver in place and returns the basket-level axis/return payload.
+    """
+    y = br.get("ret_eqw", {}).get("M")
+    if y is None or getattr(y, "empty", True):
+        return None
+    y = y.dropna()
+    if len(y) < 12:
+        return None
+    axis = y.index[-n:]
+
+    def _sig(v) -> float | None:
+        try:
+            f = float(v)
+            return None if f != f else float(f"{f:.5g}")   # NaN -> None, 5 sig figs
+        except Exception:  # noqa: BLE001
+            return None
+
+    ret = [_sig(v) for v in y.reindex(axis).values]
+    for r in kept:
+        s = prepped.get(r["key"])
+        lvl = s.get("level") if s else None
+        if lvl is None or len(lvl) == 0:
+            r["chart"] = None
+            continue
+        aligned = lvl.reindex(axis).ffill()          # step-fill quarterly to monthly
+        r["chart"] = [_sig(v) for v in aligned.values]
+    return {"t0": axis[0].strftime("%Y-%m"), "n": int(len(axis)), "ret": ret}
+
+
 def _confidence(kept: list, mv: dict, n_tested: int = 0) -> dict:
     if not kept:
         return {"level": "none", "score": 0, "reasons": ["no drivers"]}
@@ -266,6 +299,7 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
                 narrative += " (diverges from the driver-posture verdict — discount it)"
         narrative += "."
 
+    chart = _chart_series(br, kept, prepped)   # attaches `chart` to each kept driver
     return {
         "verdict": verdict, "score": score, "net_tilt": round(net, 3),
         "model_conflict": model_conflict,
@@ -273,6 +307,7 @@ def build_model(basket: dict, br: dict, records: list, prepped: dict,
         "cost_tilt": _tilt("cost"), "macro_tilt": _tilt("macro"),
         "confidence": conf, "multivariate": mv,
         "narrative": narrative,
+        "chart": chart,
         "drivers": kept_sorted,
         "n_kept": len(kept), "n_candidates": selection["n_candidates"],
     }

@@ -34,6 +34,8 @@ def _compact(art: dict) -> dict:
             "sign": r.get("emp_sign"), "why": r.get("why"),
             "posture": (r.get("live") or {}).get("posture"),
             "last_chg_z": r.get("last_chg_z"), "last_obs": r.get("last_obs"),
+            "transform": r.get("transform"),
+            "chart": r.get("chart"),     # monthly level series, aligned to model.chart axis
         })
     return {
         "id": art["id"], "sub_sector": art["sub_sector"], "sector": art["sector"],
@@ -43,6 +45,7 @@ def _compact(art: dict) -> dict:
         "net_tilt": m.get("net_tilt"), "demand_tilt": m.get("demand_tilt"),
         "supply_tilt": m.get("supply_tilt"), "cost_tilt": m.get("cost_tilt"),
         "macro_tilt": m.get("macro_tilt"), "model_conflict": m.get("model_conflict"),
+        "chart": m.get("chart"),     # {t0, n, ret[]} shared monthly axis for driver charts
         "multivariate": m.get("multivariate"), "narrative": m.get("narrative"),
         "n_kept": m.get("n_kept"), "n_tested": art.get("n_tested"),
         "n_used": art.get("basket", {}).get("n_used"),
