@@ -54,6 +54,7 @@ GLOBAL_CORR = {
     # indices / broad
     "bcom": "AMEX:DBC", "sp_gsci": "AMEX:GSG", "ndx": "NASDAQ:NDX",
     "spx": "SP:SPX", "vix": "CBOE:VIX", "jci": "IDX:COMPOSITE",
+    "us_housing": "AMEX:XHB",          # US homebuilders ETF — furniture-export demand lead
     # FX
     # dxy: TVC:BBDXY was EMPTY (wk_obs 0) -> DXY was silently unwired everywhere.
     "usdidr": "FX_IDC:USDIDR", "dxy": "TVC:DXY", "usdcny": "FX_IDC:USDCNY",
@@ -214,14 +215,20 @@ SEED = {
         "macro": [("usdidr", "macro", -1, "imported feedstock cost"),
                   ("wb_palm_oil", "demand", +1, "oleochemical demand")],
     },
-    "Cement": {
-        "ceic": [("Industrials & Manufacturing", None)],
-        "globals": [("wb_coal_au", "cost", -1, "coal = ~30% of cement cash cost"),
-                    ("brent", "cost", -1, "fuel/logistics cost")],
-        "macro": [("id_10y", "macro", -1, "10Y yield: property/construction demand rate-elastic"),
-                  ("id_bi_rate", "macro", -1, "policy rate"),
-                  ("id_gdp_real_q", "demand", +1, "construction activity"),
-                  ("usdidr", "macro", -1, "imported equipment/energy")],
+    "Cement": {  # SMGR/INTP/SMBR domestic price-takers; +0.067 baseline from the coal-cost lead
+        # The +0.067 comes from the wb_coal_au cost lead (coal ~30% of cash cost) —
+        # PROTECT it. Old ("Industrials & Manufacturing",None) = 220 irrelevant series
+        # + SMGR/INTP own-output endogenous leak. Cement-consumption demand prints are
+        # coincident. Keep the anchored set the proven coal lead + the leading rate
+        # chain (KPR->property->cement); drop the mfg swarm and the own-output leak.
+        "ceic": [],
+        "globals": [("wb_coal_au", "cost", -1, "coal ~30% of kiln cash cost — the proven margin lead"),
+                    ("brent", "cost", -1, "diesel distribution + packaging cost")],
+        "macro": [("id_kpr_rate", "demand", -1, "KPR mortgage rate leads housing starts -> cement 6-9m"),
+                  ("id_bi_rate", "macro", -1, "root of the rate->property->cement chain"),
+                  ("id_10y", "macro", -1, "mortgage repricing base + developer financing"),
+                  ("usdidr", "macro", -1, "imported coal-parity + USD equipment cost"),
+                  ("dxy", "macro", -1, "EM-flow headwind on low-beta domestic cyclicals")],
     },
     "Paper": {
         "ceic": [("Industrials & Manufacturing", "Paper & Pulp")],
@@ -348,12 +355,22 @@ SEED = {
                   ("id_gdp_real_q", "demand", +1, "activity -> trading volume"),
                   ("id_bank_credit", "demand", +1, "liquidity -> turnover")],
     },
-    "Investment": {
-        "ceic": [("Banks", None)],
-        "ceic_exclude": ["pt bank", "syariah indonesia"],  # endogenous single-bank
-        "globals": [("bcom", "demand", +1, "diversified asset beta")],
-        "macro": [("id_gdp_real_q", "demand", +1, "portfolio earnings"),
-                  ("id_10y", "macro", -1, "discount rate on holdings")],
+    "Investment": {  # NAV-discount holdcos: SRTG (ADRO/Alamtri coal + MPMX + TBIG), BNBR, etc.
+        # Scope-error fix: the old ("Banks",None) pull = 147 banking prints with zero
+        # link to a coal/diversified NAV portfolio (drove model_conflict + let circular
+        # jci win the candidate vacuum). Drop it; wire the holdings' real driver — the
+        # coal NAV beta (SRTG's biggest slug is ADRO) + its China-demand parents + the
+        # SOTP discount rate. NB: ~half the -0.13 is structural NAV-discount mean-
+        # reversion (the discount fades the NAV move), so target is ~0/weakly positive.
+        "ceic": [],
+        "globals": [("wb_coal_au", "demand", +1, "API2 coal = primary NAV beta (SRTG/ADRO, BNBR/BUMI); leads 1-3m"),
+                    ("cn_ip_yoy", "demand", +1, "China IP leads thermal-coal demand 2-4m -> re-marks coal NAV"),
+                    ("cn_pmi_mfg", "demand", +1, "China mfg PMI — more timely coal-demand pulse")],
+        "macro": [("id_10y", "macro", -1, "SOTP discount rate + TBIG tower duration"),
+                  ("id_bi_rate", "macro", -1, "policy parent; cuts bullish for geared holdcos"),
+                  ("us_10y", "macro", -1, "global EM-duration / risk-free on the SOTP"),
+                  ("usdidr", "macro", 0, "two-sided: +coal USD revenue vs -risk-off discount widening"),
+                  ("id_gdp_real_q", "demand", +1, "portfolio earnings / domestic cycle backdrop")],
     },
     # ---------------- PROPERTIES & REAL ESTATE ----------------
     "Property": {  # developers (BSDE/CTRA/SMRA/PANI) + REIT-proxies (PWON/MKPI)
@@ -409,14 +426,23 @@ SEED = {
             ("id_gdp_real_q", "macro", 0, "OVERRIDE STD_MACRO +1->0: towers are counter-cyclical duration"),
         ],
     },
-    "Construction": {
-        "ceic": [("Industrials & Manufacturing", None)],
-        "globals": [("steel_hrc", "cost", -1, "rebar input"),
-                    ("wb_coal_au", "cost", -1, "cement/energy input")],
-        "macro": [("id_10y", "macro", -1, "10Y yield: financing cost (leveraged SOEs)"),
-                  ("id_bi_rate", "macro", -1, "policy rate"),
-                  ("id_gdp_real_q", "demand", +1, "APBN infra spend proxy"),
-                  ("usdidr", "macro", -1, "FX risk for leveraged balance sheets")],
+    "Construction": {  # leveraged SOE "Karya" constructors (WIKA/PTPP/ADHI/WSKT) + private
+        # Block-error fix: the old ("Industrials & Manufacturing",None) pull = 220
+        # endogenous mfg-output series (wrong block). APBN capex has no liquid lead;
+        # the forecastable spine for geared SOEs is FINANCING cost + steel/cement
+        # input cost. Keep the anchored set leading-dominated, not a coincident
+        # construction-demand swarm (the Tower/Property lesson).
+        "ceic": [],
+        "globals": [("steel_hrc", "cost", -1, "rebar/structural steel — primary bought-in material"),
+                    ("wb_coal_au", "cost", -1, "API2 coal ~30% of cement cash cost"),
+                    ("brent", "cost", -1, "site diesel / aggregate haulage")],
+        "macro": [("id_10y", "macro", -1, "refinancing/discount rate on the geared Karya book (leading)"),
+                  ("id_01y", "macro", -1, "short-end working-capital refi cost"),
+                  ("id_lending_rate", "cost", -1, "actual IDR borrowing cost (CEIC224795501)"),
+                  ("id_bi_rate", "macro", -1, "policy anchor"),
+                  ("usdidr", "macro", -1, "USD-debt revaluation + EM risk-off"),
+                  ("dxy", "macro", -1, "broad USD -> EM outflow -> ID rates up -> constructors down"),
+                  ("id_gdp_real_q", "demand", +1, "demand backdrop (coincident, low weight)")],
     },
     "Toll Road": {
         "ceic": [("Transport & Logistics", None)],
@@ -485,14 +511,22 @@ SEED = {
                   ("id_gdp_real_q", "demand", +1, "domestic apparel demand"),
                   ("id_cpi_yoy", "demand", -1, "discretionary squeeze")],
     },
-    "Durables": {
-        "ceic": [("Consumer Discretionary", None)],
-        "globals": [("steel_hrc", "cost", -1, "metal input"),
-                    ("aluminum", "cost", -1, "metal input")],
-        "macro": [("id_10y", "macro", -1, "durables financing rate-elastic"),
-                  ("id_bi_rate", "macro", -1, "policy rate"),
-                  ("id_gdp_real_q", "demand", +1, "household durables"),
-                  ("usdidr", "macro", -1, "imported durable goods")],
+    "Durables": {  # furniture/houseware/bicycle — NOT autos
+        # Block-error fix: ceic=[("Consumer Discretionary",None)] resolved to 101
+        # AUTO/motorcycle/textile series (ZERO furniture) — a wrong-block demand +1
+        # swarm (Tower-class). The real durables tree is lumber/metal COGS + a
+        # US-housing export-demand lead + financing. Drop the swarm; wire leaders.
+        "ceic": [],
+        "globals": [("wb_logs", "cost", -1, "lumber/timber = primary furniture COGS (CME:LBR1!)"),
+                    ("steel_hrc", "cost", -1, "metal-frame furniture / bicycle / enamelware input"),
+                    ("aluminum", "cost", -1, "aluminium houseware input"),
+                    ("us_housing", "demand", +1, "US homebuilders (XHB) lead WOOD furniture-export orders ~1-2q")],
+        "macro": [("usdidr", "macro", 0, "NET FX: domestic importer leg vs WOOD exporter leg ~cancel"),
+                  ("id_10y", "macro", -1, "big-ticket durables credit-elastic + discount rate"),
+                  ("id_bi_rate", "macro", -1, "consumer-financing cost"),
+                  ("id_bank_credit", "demand", +1, "consumption-credit availability"),
+                  ("id_gdp_real_q", "demand", +1, "domestic durables demand backdrop"),
+                  ("id_cpi_yoy", "demand", -1, "inflation defers big-ticket purchases")],
     },
     # ---------------- HEALTHCARE ----------------
     "Hospitals": {
@@ -585,10 +619,19 @@ SEED = {
                   ("usdidr", "macro", -1, "CKD auto-part imports"),
                   ("id_gdp_real_q", "demand", +1, "broad domestic economy")],
     },
-    "Services": {
-        "ceic": [("Industrials & Manufacturing", None)],
+    "Services": {  # residual taxonomy bucket: MFMI (records mgmt) + SOSS (security manpower)
+        # Block-error fix: the old ("Industrials & Manufacturing",None) pull = 220
+        # machinery/metals CAPEX series for a labour-services basket — wrong block,
+        # 2 kept drivers had theory_agree=False. Drop it. This is honestly a
+        # heterogeneous grab-bag with NO coherent macro factor; the target is moving
+        # fwd IC from -0.06 toward 0 (attribution), not manufacturing skill.
+        "ceic": [],
         "globals": [],
-        "macro": [("id_gdp_real_q", "demand", +1, "B2B services demand")],
+        "macro": [("id_gdp_real_q", "demand", +1, "domestic corporate-activity backdrop -> B2B services"),
+                  ("id_pmi", "demand", +1, "monthly activity pulse — timeliest demand proxy"),
+                  ("id_cpi_yoy", "cost", -1, "wage/consumables inflation -> cost-plus margin squeeze"),
+                  ("usdidr", "macro", 0, "domestic IDR-in/IDR-out services — ~zero FX exposure"),
+                  ("id_bi_rate", "macro", 0, "ambiguous for asset-light services")],
     },
     # ---------------- TRANSPORTATION & LOGISTICS ----------------
     "Shipping": {

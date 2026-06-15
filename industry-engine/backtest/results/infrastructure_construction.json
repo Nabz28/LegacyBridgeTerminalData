@@ -6,56 +6,8 @@
   "n_used": 16,
   "n_members": 16,
   "n_months": 184,
-  "n_anchored_drivers": 14,
+  "n_anchored_drivers": 10,
   "anchored": [
-    {
-      "key": "CEICI323787402",
-      "label": "Import value: electrical machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI323787302",
-      "label": "Import value: mechanical machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI323977902",
-      "label": "Export value: specialized machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108517",
-      "label": "FDI: Machinery & electronics",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108507",
-      "label": "FDI: Basic metals & metal goods",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108537",
-      "label": "DDI: Basic metals & metal goods",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI537025287",
-      "label": "Electrical equipment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI365765387",
-      "label": "GDP: Furniture",
-      "sign": 1,
-      "source": "ceic"
-    },
     {
       "key": "steel_hrc",
       "label": "US HRC Steel",
@@ -69,10 +21,28 @@
       "source": "corr:ICEEUR:ATR1!"
     },
     {
+      "key": "brent",
+      "label": "Brent Crude",
+      "sign": -1,
+      "source": "corr:ICEEUR:BRN1!"
+    },
+    {
       "key": "id_10y",
       "label": "id_10y",
       "sign": -1,
       "source": "corr:TVC:ID10Y"
+    },
+    {
+      "key": "id_01y",
+      "label": "id_01y",
+      "sign": -1,
+      "source": "corr:TVC:ID01Y"
+    },
+    {
+      "key": "id_lending_rate",
+      "label": "Bank Lending Rate",
+      "sign": -1,
+      "source": "idmacro:CEIC224795501"
     },
     {
       "key": "id_bi_rate",
@@ -81,52 +51,58 @@
       "source": "corr:ECONOMICS:IDINTR"
     },
     {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
-      "sign": 1,
-      "source": "corr:aIDGDPAR1"
-    },
-    {
       "key": "usdidr",
       "label": "USD/IDR",
       "sign": -1,
       "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "sign": -1,
+      "source": "corr:TVC:DXY"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
     }
   ],
   "available": true,
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.481,
+    "hit_rate": 0.512,
     "up_rate": 0.527,
-    "edge": -0.047,
-    "fwd_ic": 0.045,
-    "fwd_pearson": 0.043,
-    "long_short_mo": 0.0024,
-    "binom_p_vs_uprate": 0.8743,
+    "edge": -0.016,
+    "fwd_ic": 0.137,
+    "fwd_pearson": 0.12,
+    "long_short_mo": 0.0018,
+    "binom_p_vs_uprate": 0.6711,
     "placebo": {
-      "ic_mean": -0.01643736955873584,
-      "ic_std": 0.09046689243803523,
-      "ic_pctile": 0.7666666666666667,
-      "hit_mean": 0.49664082687338507
+      "ic_mean": -0.010850570214669054,
+      "ic_std": 0.08311008503978816,
+      "ic_pctile": 0.9666666666666667,
+      "hit_mean": 0.49974160206718354
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.55,
+    "hit_rate": 0.643,
     "up_rate": 0.527,
-    "edge": 0.023,
-    "fwd_ic": 0.225,
-    "fwd_pearson": 0.222,
-    "long_short_mo": 0.0162,
-    "binom_p_vs_uprate": 0.3306,
+    "edge": 0.116,
+    "fwd_ic": 0.291,
+    "fwd_pearson": 0.248,
+    "long_short_mo": 0.04,
+    "binom_p_vs_uprate": 0.005,
     "placebo": {
-      "ic_mean": 0.00822161970781157,
-      "ic_std": 0.07688326737989294,
+      "ic_mean": 0.00040315667859272574,
+      "ic_std": 0.08032344062945213,
       "ic_pctile": 1.0,
-      "hit_mean": 0.5007751937984496
+      "hit_mean": 0.4943152454780361
     }
   },
-  "latest_signal": -0.243
+  "latest_signal": 0.089
 }

@@ -6,56 +6,8 @@
   "n_used": 5,
   "n_members": 5,
   "n_months": 184,
-  "n_anchored_drivers": 14,
+  "n_anchored_drivers": 8,
   "anchored": [
-    {
-      "key": "CEICI323787402",
-      "label": "Import value: electrical machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI323787302",
-      "label": "Import value: mechanical machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI323977902",
-      "label": "Export value: specialized machinery",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108517",
-      "label": "FDI: Machinery & electronics",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108507",
-      "label": "FDI: Basic metals & metal goods",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI410108537",
-      "label": "DDI: Basic metals & metal goods",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI537025287",
-      "label": "Electrical equipment",
-      "sign": 1,
-      "source": "ceic"
-    },
-    {
-      "key": "CEICI365765387",
-      "label": "GDP: Furniture",
-      "sign": 1,
-      "source": "ceic"
-    },
     {
       "key": "wb_coal_au",
       "label": "Coal · Australia (Newcastle)",
@@ -69,10 +21,10 @@
       "source": "corr:ICEEUR:BRN1!"
     },
     {
-      "key": "id_10y",
-      "label": "id_10y",
+      "key": "id_kpr_rate",
+      "label": "id_kpr_rate",
       "sign": -1,
-      "source": "corr:TVC:ID10Y"
+      "source": "idmacro:CEIC14419701"
     },
     {
       "key": "id_bi_rate",
@@ -81,52 +33,64 @@
       "source": "corr:ECONOMICS:IDINTR"
     },
     {
-      "key": "id_gdp_real_q",
-      "label": "Real GDP (SA)",
-      "sign": 1,
-      "source": "corr:aIDGDPAR1"
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
     },
     {
       "key": "usdidr",
       "label": "USD/IDR",
       "sign": -1,
       "source": "corr:FX_IDC:USDIDR"
+    },
+    {
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "sign": -1,
+      "source": "corr:TVC:DXY"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "sign": 1,
+      "source": "corr:aIDGDPAR1"
     }
   ],
   "available": true,
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.543,
+    "hit_rate": 0.574,
     "up_rate": 0.505,
-    "edge": 0.037,
-    "fwd_ic": 0.067,
-    "fwd_pearson": 0.073,
-    "long_short_mo": 0.0069,
-    "binom_p_vs_uprate": 0.2246,
+    "edge": 0.068,
+    "fwd_ic": 0.191,
+    "fwd_pearson": 0.164,
+    "long_short_mo": 0.023,
+    "binom_p_vs_uprate": 0.0718,
     "placebo": {
-      "ic_mean": -0.006219905336911151,
-      "ic_std": 0.07949309395026856,
-      "ic_pctile": 0.8333333333333334,
-      "hit_mean": 0.5007751937984497
+      "ic_mean": -0.016055083482409065,
+      "ic_std": 0.08492116748668203,
+      "ic_pctile": 1.0,
+      "hit_mean": 0.48914728682170544
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.527,
+    "hit_rate": 0.543,
     "up_rate": 0.505,
-    "edge": 0.022,
-    "fwd_ic": 0.058,
-    "fwd_pearson": 0.029,
-    "long_short_mo": 0.0162,
-    "binom_p_vs_uprate": 0.343,
+    "edge": 0.037,
+    "fwd_ic": 0.106,
+    "fwd_pearson": 0.132,
+    "long_short_mo": 0.0088,
+    "binom_p_vs_uprate": 0.2246,
     "placebo": {
-      "ic_mean": 0.005856905933214072,
-      "ic_std": 0.08345039400615403,
-      "ic_pctile": 0.7333333333333333,
-      "hit_mean": 0.4981912144702843
+      "ic_mean": 0.010137988223017294,
+      "ic_std": 0.0751219763415872,
+      "ic_pctile": 0.8833333333333333,
+      "hit_mean": 0.5023255813953489
     }
   },
-  "latest_signal": -0.207
+  "latest_signal": 0.057
 }
