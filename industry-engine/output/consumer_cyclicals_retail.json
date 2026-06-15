@@ -3,7 +3,7 @@
   "sub_sector": "Retail",
   "sector": "Consumer Cyclicals",
   "priority": 21,
-  "generated_at": "2026-06-14T12:38:00",
+  "generated_at": "2026-06-15T14:53:52",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -249,7 +249,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.9,
+  "runtime_s": 3.7,
   "grade": "needs_review",
   "grade_reasons": [
     "only 1 validated drivers (<3)",

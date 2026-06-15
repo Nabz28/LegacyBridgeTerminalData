@@ -3,7 +3,7 @@
   "sub_sector": "Food & Beverage",
   "sector": "Consumer Non-Cyclicals",
   "priority": 6,
-  "generated_at": "2026-06-14T12:37:28",
+  "generated_at": "2026-06-15T14:50:05",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -890,7 +890,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.5,
+  "runtime_s": 145.3,
   "grade": "partial",
   "grade_reasons": [
     "confidence low"

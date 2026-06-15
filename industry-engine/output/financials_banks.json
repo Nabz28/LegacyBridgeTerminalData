@@ -3,7 +3,7 @@
   "sub_sector": "Banks",
   "sector": "Financials",
   "priority": 1,
-  "generated_at": "2026-06-14T12:37:17",
+  "generated_at": "2026-06-15T14:47:17",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -46,53 +46,60 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 42,
-    "net_tilt": -0.166,
-    "model_conflict": false,
+    "verdict": "NEUTRAL",
+    "score": 47,
+    "net_tilt": -0.127,
+    "model_conflict": true,
     "demand_tilt": -0.336,
     "supply_tilt": -0.482,
     "cost_tilt": null,
-    "macro_tilt": -0.022,
+    "macro_tilt": -0.01,
     "confidence": {
-      "level": "medium",
-      "score": 58,
+      "level": "low",
+      "score": 59,
       "reasons": [
         "max|corr|=0.31",
         "theory_agree=100%",
-        "stable=50%",
-        "mvR2=0.12",
-        "OOS=63%",
-        "mt_penalty=0.89(n=26)"
+        "stable=60%",
+        "mvR2=0.13",
+        "OOS=61%",
+        "mt_penalty=0.89(n=26)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
         "usdidr",
+        "id_lending_rate",
         "id_bi_rate"
       ],
-      "n": 181,
-      "r2": 0.118,
-      "adj_r2": 0.108,
+      "n": 180,
+      "r2": 0.127,
+      "adj_r2": 0.113,
       "betas": {
         "usdidr": {
-          "std_beta": -0.0185,
-          "t": -2.05,
-          "p": 0.0407
+          "std_beta": -0.0177,
+          "t": -1.98,
+          "p": 0.0474
+        },
+        "id_lending_rate": {
+          "std_beta": -0.0058,
+          "t": -1.3,
+          "p": 0.1939
         },
         "id_bi_rate": {
-          "std_beta": -0.0084,
-          "t": -1.57,
-          "p": 0.1172
+          "std_beta": -0.0072,
+          "t": -1.3,
+          "p": 0.1932
         }
       },
-      "oos_hit_rate": 0.628,
-      "oos_n": 121,
+      "oos_hit_rate": 0.608,
+      "oos_n": 120,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": -0.0007
+      "expected_monthly_ret": 0.0064
     },
-    "narrative": "Banks (Financials) screens MILDLY BEARISH [42/100, medium confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 3m, now flat); Consumer Goods: Used Four-Wheeled Vehicle (corr +0.10, lead 5m, now headwind). A 2-driver model explains 12% of monthly variance (adj 11%), 63% pseudo-OOS directional hit-rate; in-sample OLS read ~-0.1%/mo.",
+    "narrative": "Banks (Financials) screens NEUTRAL [47/100, low confidence]. Top drivers: USD/IDR (corr -0.31, lead 0m, now flat); Bank Lending Rate (corr -0.17, lead 0m, now flat); BI Policy Rate (corr -0.16, lead 3m, now flat). A 3-driver model explains 13% of monthly variance (adj 11%), 61% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "usdidr",
@@ -147,6 +154,61 @@
         "live": {
           "posture": "neutral",
           "impulse": -0.045
+        }
+      },
+      {
+        "key": "id_lending_rate",
+        "role": "macro",
+        "why": "loan yields (sign ambiguous)",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-03-01",
+        "n": 182,
+        "min_n": 24,
+        "pearson": -0.1691,
+        "pearson_p": 0.0225,
+        "spearman": -0.1235,
+        "spearman_p": 0.0968,
+        "best_lag": 0,
+        "corr_at_best": -0.1691,
+        "ic": -0.1131,
+        "ic_t": -1.522,
+        "ols": {
+          "beta": -0.1229981092910784,
+          "t": -2.415420113552979,
+          "p": 0.015717069789687284,
+          "r2": 0.028599724500327328,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.1229981092910784,
+          "t": -2.415420113552979,
+          "p": 0.015717069789687284,
+          "r2": 0.028599724500327328,
+          "n": 182,
+          "hac_lag": 5
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": true,
+        "excess_pearson": -0.0874,
+        "last_chg": -0.0122,
+        "last_chg_z": 0.03,
+        "last_chg_date": "2026-03-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 40.8,
+        "source": "idmacro:CEIC224795501",
+        "shallow": false,
+        "label": "Bank Lending Rate",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.015
         }
       },
       {
@@ -313,7 +375,7 @@
         }
       }
     ],
-    "n_kept": 4,
+    "n_kept": 5,
     "n_candidates": 26
   },
   "unscored": [],
@@ -409,13 +471,13 @@
       "reason": "below_gate"
     },
     {
-      "key": "id_lending_rate",
-      "label": "Bank Lending Rate",
-      "role": "macro",
-      "pearson": -0.2485,
-      "p": 0.35838386996634597,
-      "theory_agree": null,
-      "score": 34.0,
+      "key": "CEICI384714757",
+      "label": "Financing Receivables: Sharia",
+      "role": "demand",
+      "pearson": -0.1832,
+      "p": 0.09555311918662339,
+      "theory_agree": false,
+      "score": 29.3,
       "reason": "below_gate"
     }
   ],
@@ -427,7 +489,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.8,
+  "runtime_s": 2.9,
   "grade": "perfected",
   "grade_reasons": []
 }

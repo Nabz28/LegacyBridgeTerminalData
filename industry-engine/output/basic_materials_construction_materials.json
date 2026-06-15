@@ -3,7 +3,7 @@
   "sub_sector": "Construction Materials",
   "sector": "Basic Materials",
   "priority": 37,
-  "generated_at": "2026-06-14T12:38:32",
+  "generated_at": "2026-06-15T14:54:39",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -465,7 +465,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.4,
+  "runtime_s": 3.7,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

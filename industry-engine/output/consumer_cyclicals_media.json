@@ -3,7 +3,7 @@
   "sub_sector": "Media",
   "sector": "Consumer Cyclicals",
   "priority": 24,
-  "generated_at": "2026-06-14T12:38:05",
+  "generated_at": "2026-06-15T14:53:57",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -43,131 +43,81 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 48,
-    "net_tilt": -0.081,
-    "model_conflict": true,
-    "demand_tilt": -0.23,
-    "supply_tilt": 0.066,
+    "score": 50,
+    "net_tilt": -0.011,
+    "model_conflict": false,
+    "demand_tilt": 0.005,
+    "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": 0.0,
+    "macro_tilt": -0.02,
     "confidence": {
-      "level": "low",
-      "score": 55,
+      "level": "high",
+      "score": 78,
       "reasons": [
-        "max|corr|=0.38",
-        "theory_agree=67%",
-        "stable=70%",
-        "mvR2=0.20",
-        "OOS=55%",
-        "mt_penalty=0.69(n=51)",
-        "model_conflict→downgraded"
+        "max|corr|=0.22",
+        "theory_agree=100%",
+        "stable=100%",
+        "mvR2=0.15",
+        "OOS=56%",
+        "mt_penalty=1.00(n=11)"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
-        "jci",
         "id_gdp_real_q",
         "id_bi_rate",
-        "CEICI391913257",
-        "CEICI412546147"
+        "ndx",
+        "id_10y",
+        "dxy",
+        "us_real10y"
       ],
-      "n": 116,
-      "r2": 0.199,
-      "adj_r2": 0.162,
+      "n": 117,
+      "r2": 0.154,
+      "adj_r2": 0.107,
       "betas": {
-        "jci": {
-          "std_beta": 0.031,
-          "t": 3.67,
-          "p": 0.0002
-        },
         "id_gdp_real_q": {
-          "std_beta": 0.0191,
-          "t": 3.32,
-          "p": 0.0009
+          "std_beta": 0.0232,
+          "t": 7.37,
+          "p": 0.0
         },
         "id_bi_rate": {
-          "std_beta": -0.0147,
-          "t": -2.03,
-          "p": 0.0421
+          "std_beta": -0.0188,
+          "t": -2.17,
+          "p": 0.0302
         },
-        "CEICI391913257": {
-          "std_beta": 0.0049,
-          "t": 1.2,
-          "p": 0.232
+        "ndx": {
+          "std_beta": 0.015,
+          "t": 1.59,
+          "p": 0.1108
         },
-        "CEICI412546147": {
-          "std_beta": -0.0077,
-          "t": -1.55,
-          "p": 0.1202
+        "id_10y": {
+          "std_beta": -0.006,
+          "t": -0.72,
+          "p": 0.4734
+        },
+        "dxy": {
+          "std_beta": -0.0162,
+          "t": -1.93,
+          "p": 0.0539
+        },
+        "us_real10y": {
+          "std_beta": 0.0053,
+          "t": 0.72,
+          "p": 0.4698
         }
       },
-      "oos_hit_rate": 0.554,
-      "oos_n": 56,
+      "oos_hit_rate": 0.561,
+      "oos_n": 57,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0176
+      "expected_monthly_ret": 0.0625
     },
-    "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [48/100, low confidence]. Top drivers: Jakarta Composite (corr +0.38, lead 0m, now headwind); Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat). A 5-driver model explains 20% of monthly variance (adj 16%), 55% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.8%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Media (Consumer Cyclicals) screens NEUTRAL [50/100, high confidence]. Top drivers: Real GDP (SA) (corr +0.19, lead 0m, now flat); BI Policy Rate (corr -0.22, lead 0m, now flat); Nasdaq 100 (corr +0.21, lead 0m, now flat). A 6-driver model explains 15% of monthly variance (adj 11%), 56% pseudo-OOS directional hit-rate; in-sample OLS read ~+6.2%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
-      {
-        "key": "jci",
-        "role": "demand",
-        "why": "risk appetite",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.3792,
-        "pearson_p": 0.0,
-        "spearman": 0.3656,
-        "spearman_p": 0.0,
-        "best_lag": 0,
-        "corr_at_best": 0.3792,
-        "ic": 0.2216,
-        "ic_t": 2.989,
-        "ols": {
-          "beta": 0.7689641618664792,
-          "t": 5.2105901769705545,
-          "p": 1.8824085645643234e-07,
-          "r2": 0.14381079716191314,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.7689641618664792,
-          "t": 5.2105901769705545,
-          "p": 1.8824085645643234e-07,
-          "r2": 0.14381079716191314,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": -0.1222,
-        "last_chg": -0.02452,
-        "last_chg_z": -0.68,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 76.5,
-        "source": "corr:IDX:COMPOSITE",
-        "shallow": false,
-        "label": "Jakarta Composite",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.327
-        }
-      },
       {
         "key": "id_gdp_real_q",
         "role": "demand",
-        "why": "ad spend pro-cyclical",
+        "why": "ad-spend backbone (~1.3-1.5x GDP elasticity)",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "W",
@@ -222,7 +172,7 @@
       {
         "key": "id_bi_rate",
         "role": "macro",
-        "why": "policy rate: sector-specific NIM/discount effect",
+        "why": "discretionary WACC",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "M",
@@ -253,9 +203,9 @@
           "n": 181,
           "hac_lag": 5
         },
-        "sign_prior": 0,
+        "sign_prior": -1,
         "emp_sign": -1,
-        "theory_agree": null,
+        "theory_agree": true,
         "stable": true,
         "excess_pearson": -0.1684,
         "last_chg": 0.0,
@@ -265,7 +215,7 @@
           "ok": true,
           "flags": []
         },
-        "score": 40.7,
+        "score": 46.7,
         "source": "corr:ECONOMICS:IDINTR",
         "shallow": false,
         "label": "BI Policy Rate",
@@ -275,477 +225,239 @@
         }
       },
       {
-        "key": "CEICI391913257",
-        "role": "supply",
-        "why": "Daihatsu",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 170,
-        "min_n": 24,
-        "pearson": 0.1679,
-        "pearson_p": 0.0286,
-        "spearman": 0.0062,
-        "spearman_p": 0.9364,
-        "best_lag": 0,
-        "corr_at_best": 0.1679,
-        "ic": -0.0737,
-        "ic_t": -0.265,
-        "ols": {
-          "beta": 0.004045864310188463,
-          "t": 15.018704008924418,
-          "p": 5.537990403549017e-51,
-          "r2": 0.028202752013278376,
-          "n": 170,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": 0.004045864310188463,
-          "t": 15.018704008924418,
-          "p": 5.537990403549017e-51,
-          "r2": 0.028202752013278376,
-          "n": 170,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.1738,
-        "last_chg": -0.323115,
-        "last_chg_z": -0.19,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 38.3,
-        "source": "ceic",
-        "label": "Daihatsu",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.095
-        }
-      },
-      {
-        "key": "CEICI391913267",
-        "role": "supply",
-        "why": "Honda",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 170,
-        "min_n": 24,
-        "pearson": 0.1727,
-        "pearson_p": 0.0243,
-        "spearman": 0.0012,
-        "spearman_p": 0.9872,
-        "best_lag": 0,
-        "corr_at_best": 0.1727,
-        "ic": -0.044,
-        "ic_t": -0.158,
-        "ols": {
-          "beta": 0.0009715583033551855,
-          "t": 20.203152903269427,
-          "p": 9.184200485920107e-91,
-          "r2": 0.029815347355239608,
-          "n": 170,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": 0.0009715583033551855,
-          "t": 20.203152903269427,
-          "p": 9.184200485920107e-91,
-          "r2": 0.029815347355239608,
-          "n": 170,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": 1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": 0.181,
-        "last_chg": -0.502598,
-        "last_chg_z": -0.14,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 36.8,
-        "source": "ceic",
-        "label": "Honda",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.07
-        }
-      },
-      {
-        "key": "CEICI412546147",
-        "role": "supply",
-        "why": "Bus",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 183,
-        "min_n": 24,
-        "pearson": -0.1505,
-        "pearson_p": 0.042,
-        "spearman": -0.1636,
-        "spearman_p": 0.0269,
-        "best_lag": 0,
-        "corr_at_best": -0.1505,
-        "ic": -0.0609,
-        "ic_t": -0.228,
-        "ols": {
-          "beta": -0.011116867065723608,
-          "t": -2.7942514089303625,
-          "p": 0.005202001901492205,
-          "r2": 0.022653968796975676,
-          "n": 183,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.011116867065723608,
-          "t": -2.7942514089303625,
-          "p": 0.005202001901492205,
-          "r2": 0.022653968796975676,
-          "n": 183,
-          "hac_lag": 12
-        },
-        "sign_prior": 0,
-        "emp_sign": -1,
-        "theory_agree": null,
-        "stable": true,
-        "excess_pearson": -0.1135,
-        "last_chg": -0.556114,
-        "last_chg_z": -0.76,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.9,
-        "source": "ceic",
-        "label": "Bus",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.363
-        }
-      },
-      {
-        "key": "CEICI517698487",
+        "key": "ndx",
         "role": "demand",
-        "why": "Value",
+        "why": "global streaming/tech sentiment (MSIN/FILM content re-rate)",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
+        "last_obs": "2026-05-01",
+        "n": 184,
         "min_n": 24,
-        "pearson": 0.1355,
-        "pearson_p": 0.2219,
-        "spearman": -0.0239,
-        "spearman_p": 0.8304,
-        "best_lag": 4,
-        "corr_at_best": -0.2562,
-        "ic": -0.076,
-        "ic_t": -0.684,
+        "pearson": 0.21,
+        "pearson_p": 0.0042,
+        "spearman": 0.1746,
+        "spearman_p": 0.0178,
+        "best_lag": 0,
+        "corr_at_best": 0.21,
+        "ic": -0.0436,
+        "ic_t": -0.588,
         "ols": {
-          "beta": 0.013346514152439695,
-          "t": 1.1175871401544686,
-          "p": 0.2637433636368296,
-          "r2": 0.018361149486208816,
-          "n": 83,
-          "hac_lag": 4
+          "beta": 0.343125530948418,
+          "t": 3.1061702762430645,
+          "p": 0.0018952754435210008,
+          "r2": 0.04409073084745474,
+          "n": 184,
+          "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.035268991499350436,
-          "t": -2.020712967055583,
-          "p": 0.043309486726941286,
-          "r2": 0.06565656807337161,
-          "n": 79,
-          "hac_lag": 4
+          "beta": 0.343125530948418,
+          "t": 3.1061702762430645,
+          "p": 0.0018952754435210008,
+          "r2": 0.04409073084745474,
+          "n": 184,
+          "hac_lag": 5
         },
         "sign_prior": 1,
         "emp_sign": 1,
         "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0877,
-        "last_chg": -0.169818,
-        "last_chg_z": -0.13,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.8,
-        "source": "ceic",
-        "label": "Value",
-        "live": {
-          "posture": "neutral",
-          "impulse": -0.065
-        }
-      },
-      {
-        "key": "CEICI517775437",
-        "role": "demand",
-        "why": "Value: Desktop",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
-        "min_n": 24,
-        "pearson": 0.1479,
-        "pearson_p": 0.1821,
-        "spearman": 0.0797,
-        "spearman_p": 0.4741,
-        "best_lag": 4,
-        "corr_at_best": -0.2965,
-        "ic": -0.0434,
-        "ic_t": -0.391,
-        "ols": {
-          "beta": 0.015405563805342623,
-          "t": 1.301718095811896,
-          "p": 0.19301277126194782,
-          "r2": 0.021872283703693318,
-          "n": 83,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.03380968948446739,
-          "t": -2.7050958712168334,
-          "p": 0.006828467884560816,
-          "r2": 0.087909097963349,
-          "n": 79,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.007,
-        "last_chg": -0.709497,
-        "last_chg_z": -0.72,
-        "last_chg_date": "2026-06-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 35.7,
-        "source": "ceic",
-        "label": "Value: Desktop",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.345
-        }
-      },
-      {
-        "key": "CEICI517672587",
-        "role": "demand",
-        "why": "Volume: Mobile",
-        "test_freq": "M",
-        "transform": "yoy",
-        "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 72,
-        "min_n": 24,
-        "pearson": -0.13,
-        "pearson_p": 0.2763,
-        "spearman": -0.0516,
-        "spearman_p": 0.6668,
-        "best_lag": 0,
-        "corr_at_best": -0.13,
-        "ic": 0.02,
-        "ic_t": 0.046,
-        "ols": {
-          "beta": -0.0024629356236699064,
-          "t": -10.441282354054986,
-          "p": 1.606260441942223e-25,
-          "r2": 0.016904563052941968,
-          "n": 72,
-          "hac_lag": 12
-        },
-        "ols_pred": {
-          "beta": -0.0024629356236699064,
-          "t": -10.441282354054986,
-          "p": 1.606260441942223e-25,
-          "r2": 0.016904563052941968,
-          "n": 72,
-          "hac_lag": 12
-        },
-        "sign_prior": 1,
-        "emp_sign": -1,
-        "theory_agree": false,
         "stable": true,
-        "excess_pearson": -0.1853,
-        "last_chg": -0.874046,
-        "last_chg_z": -0.25,
-        "last_chg_date": "2026-06-30",
+        "excess_pearson": 0.014,
+        "last_chg": 0.014785,
+        "last_chg_z": 0.02,
+        "last_chg_date": "2026-05-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 23.5,
-        "source": "ceic",
-        "label": "Volume: Mobile",
+        "score": 46.2,
+        "source": "corr:NASDAQ:NDX",
+        "shallow": false,
+        "label": "Nasdaq 100",
         "live": {
           "posture": "neutral",
-          "impulse": 0.124
+          "impulse": 0.01
         }
       },
       {
-        "key": "CEICI517817637",
-        "role": "demand",
-        "why": "Value: Mobile",
+        "key": "id_10y",
+        "role": "macro",
+        "why": "daily discount/financing proxy; leads the ad/earnings chain",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
-        "last_obs": "2026-06-02",
-        "n": 83,
+        "last_obs": "2026-05-01",
+        "n": 184,
         "min_n": 24,
-        "pearson": -0.0108,
-        "pearson_p": 0.9231,
-        "spearman": -0.0727,
-        "spearman_p": 0.5136,
-        "best_lag": 4,
-        "corr_at_best": -0.409,
-        "ic": 0.0253,
-        "ic_t": 0.228,
+        "pearson": -0.2029,
+        "pearson_p": 0.0057,
+        "spearman": -0.2054,
+        "spearman_p": 0.0052,
+        "best_lag": 0,
+        "corr_at_best": -0.2029,
+        "ic": -0.042,
+        "ic_t": -0.566,
         "ols": {
-          "beta": -0.0011946804780789038,
-          "t": -0.11639381185190847,
-          "p": 0.9073404394887047,
-          "r2": 0.00011568751732060623,
-          "n": 83,
-          "hac_lag": 4
+          "beta": -0.3395598123493021,
+          "t": -3.175124643095509,
+          "p": 0.0014977215216953614,
+          "r2": 0.041179376172554294,
+          "n": 184,
+          "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -0.050177689073416604,
-          "t": -2.968503426712798,
-          "p": 0.002992537655280371,
-          "r2": 0.16729026850095752,
-          "n": 79,
-          "hac_lag": 4
+          "beta": -0.3395598123493021,
+          "t": -3.175124643095509,
+          "p": 0.0014977215216953614,
+          "r2": 0.041179376172554294,
+          "n": 184,
+          "hac_lag": 5
         },
-        "sign_prior": 1,
+        "sign_prior": -1,
         "emp_sign": -1,
-        "theory_agree": false,
-        "stable": false,
-        "excess_pearson": -0.1113,
-        "last_chg": 1.771609,
-        "last_chg_z": 2.03,
-        "last_chg_date": "2026-06-30",
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": 0.0368,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 0.0,
-        "source": "ceic",
-        "label": "Value: Mobile",
+        "score": 45.4,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.768
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
+      {
+        "key": "dxy",
+        "role": "macro",
+        "why": "broad USD -> EM equity outflow on a high-beta bag",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1838,
+        "pearson_p": 0.0125,
+        "spearman": -0.1772,
+        "spearman_p": 0.0161,
+        "best_lag": 0,
+        "corr_at_best": -0.1838,
+        "ic": 0.0698,
+        "ic_t": 0.942,
+        "ols": {
+          "beta": -0.8127447329731877,
+          "t": -2.432055872756011,
+          "p": 0.015013391166144538,
+          "r2": 0.033776737044535654,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.8127447329731877,
+          "t": -2.432055872756011,
+          "p": 0.015013391166144538,
+          "r2": 0.033776737044535654,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0487,
+        "last_chg": -0.00305,
+        "last_chg_z": -0.22,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 45.3,
+        "source": "corr:TVC:DXY",
+        "shallow": false,
+        "label": "US Dollar Index",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.11
+        }
+      },
+      {
+        "key": "us_real10y",
+        "role": "macro",
+        "why": "real WACC on the streaming/IP duration sleeve",
+        "test_freq": "M",
+        "transform": "diff(nonpos)",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.2108,
+        "pearson_p": 0.0041,
+        "spearman": -0.1834,
+        "spearman_p": 0.0127,
+        "best_lag": 0,
+        "corr_at_best": -0.2108,
+        "ic": 0.0056,
+        "ic_t": 0.075,
+        "ols": {
+          "beta": -0.0831904418094145,
+          "t": -2.9367586842896016,
+          "p": 0.003316620767361418,
+          "r2": 0.04445213784219737,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.0831904418094145,
+          "t": -2.9367586842896016,
+          "p": 0.003316620767361418,
+          "r2": 0.04445213784219737,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.1393,
+        "last_chg": 0.05,
+        "last_chg_z": 0.21,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 43.7,
+        "source": "corr:DFII10",
+        "shallow": false,
+        "label": "us_real10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.105
         }
       }
     ],
-    "n_kept": 10,
-    "n_candidates": 51
+    "n_kept": 6,
+    "n_candidates": 11
   },
   "unscored": [],
   "rejected_top": [
-    {
-      "key": "CEICI517710097",
-      "label": "Average Order Value (AOV)",
-      "role": "demand",
-      "pearson": -0.2808,
-      "p": 0.0023518528824746305,
-      "theory_agree": false,
-      "score": 51.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517830907",
-      "label": "AOV: Mobile",
-      "role": "demand",
-      "pearson": -0.2429,
-      "p": 0.0064273055728662175,
-      "theory_agree": false,
-      "score": 45.6,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI517743197",
-      "label": "AOV: Desktop",
-      "role": "demand",
-      "pearson": -0.207,
-      "p": 0.055926846038935725,
-      "theory_agree": false,
-      "score": 38.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI499762957",
-      "label": "Browser share (Tablet): Safari",
-      "role": "demand",
-      "pearson": 0.1096,
-      "p": 0.025616271729626147,
-      "theory_agree": true,
-      "score": 37.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI499362307",
-      "label": "Browser share (Mobile): Firefox",
-      "role": "demand",
-      "pearson": 0.0749,
-      "p": 0.038103645926632464,
-      "theory_agree": true,
-      "score": 35.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI324049702",
-      "label": "Volume: Other vegetable textile fibres; paper yarn",
-      "role": "supply",
-      "pearson": 0.1224,
-      "p": 0.10477468772341875,
-      "theory_agree": null,
-      "score": 33.0,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI499347947",
-      "label": "Device vendor share (Tablet): Others",
-      "role": "demand",
-      "pearson": -0.2155,
-      "p": 2.789596625080637e-05,
-      "theory_agree": false,
-      "score": 30.9,
-      "reason": "below_gate"
-    },
     {
       "key": "id_cpi_yoy",
       "label": "Indonesia CPI (YoY)",
       "role": "macro",
       "pearson": -0.1244,
       "p": 0.2553405382956545,
-      "theory_agree": null,
-      "score": 30.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI13540301",
-      "label": "Pick Up: Below 5 Ton",
-      "role": "supply",
-      "pearson": 0.0926,
-      "p": 0.0005306287085362732,
-      "theory_agree": null,
-      "score": 29.8,
+      "theory_agree": true,
+      "score": 36.4,
       "reason": "below_gate"
     },
     {
@@ -754,12 +466,32 @@
       "role": "macro",
       "pearson": -0.1281,
       "p": 0.07948191408057899,
-      "theory_agree": null,
-      "score": 29.1,
+      "theory_agree": true,
+      "score": 35.1,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_retail",
+      "label": "id_retail",
+      "role": "demand",
+      "pearson": 0.0206,
+      "p": 0.7893083810680395,
+      "theory_agree": true,
+      "score": 13.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_consumer_confidence",
+      "label": "id_consumer_confidence",
+      "role": "demand",
+      "pearson": -0.0663,
+      "p": 0.3205727317324788,
+      "theory_agree": false,
+      "score": 8.9,
       "reason": "below_gate"
     }
   ],
-  "n_tested": 51,
+  "n_tested": 11,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -767,7 +499,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 3.0,
+  "runtime_s": 1.0,
   "grade": "partial",
   "grade_reasons": [
     "confidence low"

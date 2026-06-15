@@ -3,7 +3,7 @@
   "sub_sector": "Securities",
   "sector": "Financials",
   "priority": 34,
-  "generated_at": "2026-06-14T12:38:26",
+  "generated_at": "2026-06-15T14:54:31",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -29,22 +29,22 @@
   },
   "model": {
     "verdict": "MILDLY BULLISH",
-    "score": 56,
-    "net_tilt": 0.132,
+    "score": 58,
+    "net_tilt": 0.178,
     "model_conflict": false,
-    "demand_tilt": -0.114,
-    "supply_tilt": 0.3,
+    "demand_tilt": -0.005,
+    "supply_tilt": 0.274,
     "cost_tilt": null,
-    "macro_tilt": 0.0,
+    "macro_tilt": null,
     "confidence": {
       "level": "medium",
-      "score": 52,
+      "score": 44,
       "reasons": [
         "max|corr|=0.28",
         "theory_agree=100%",
-        "stable=33%",
-        "mvR2=0.19",
-        "OOS=59%",
+        "stable=25%",
+        "mvR2=0.09",
+        "OOS=51%",
         "mt_penalty=0.69(n=51)"
       ]
     },
@@ -52,40 +52,34 @@
       "available": true,
       "drivers": [
         "id_gdp_real_q",
-        "jci",
         "CEICI462344497"
       ],
       "n": 111,
-      "r2": 0.194,
-      "adj_r2": 0.171,
+      "r2": 0.086,
+      "adj_r2": 0.069,
       "betas": {
         "id_gdp_real_q": {
-          "std_beta": 0.0265,
-          "t": 5.48,
-          "p": 0.0
-        },
-        "jci": {
-          "std_beta": 0.0276,
-          "t": 4.08,
+          "std_beta": 0.0243,
+          "t": 4.5,
           "p": 0.0
         },
         "CEICI462344497": {
-          "std_beta": 0.0035,
-          "t": 0.49,
-          "p": 0.6261
+          "std_beta": -0.001,
+          "t": -0.14,
+          "p": 0.8915
         }
       },
-      "oos_hit_rate": 0.588,
+      "oos_hit_rate": 0.51,
       "oos_n": 51,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0307
+      "expected_monthly_ret": 0.0062
     },
-    "narrative": "Securities (Financials) screens MILDLY BULLISH [56/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.28, lead 0m, now flat); Jakarta Composite (corr +0.20, lead 0m, now headwind); PT Bank Syariah Indonesia: Assets: Inventory (corr +0.08, lead 4m, now flat). A 3-driver model explains 19% of monthly variance (adj 17%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.1%/mo.",
+    "narrative": "Securities (Financials) screens MILDLY BULLISH [58/100, medium confidence]. Top drivers: Real GDP (SA) (corr +0.28, lead 0m, now flat); PT Bank Syariah Indonesia: Assets: Inventory (corr +0.08, lead 4m, now flat); Consumer Goods: Used Two-Wheeled Vehicle (corr +0.18, lead 0m, now flat). A 2-driver model explains 9% of monthly variance (adj 7%), 51% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.6%/mo.",
     "drivers": [
       {
         "key": "id_gdp_real_q",
-        "role": "macro",
-        "why": "domestic demand backdrop",
+        "role": "demand",
+        "why": "activity -> trading volume",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "W",
@@ -135,61 +129,6 @@
         "live": {
           "posture": "neutral",
           "impulse": 0.0
-        }
-      },
-      {
-        "key": "jci",
-        "role": "demand",
-        "why": "brokerage = market beta",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.2036,
-        "pearson_p": 0.0056,
-        "spearman": 0.3018,
-        "spearman_p": 0.0,
-        "best_lag": 0,
-        "corr_at_best": 0.2036,
-        "ic": 0.0034,
-        "ic_t": 0.046,
-        "ols": {
-          "beta": 0.46744426283853424,
-          "t": 2.7546819316655644,
-          "p": 0.0058749217287315395,
-          "r2": 0.041447818391899816,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.46744426283853424,
-          "t": 2.7546819316655644,
-          "p": 0.0058749217287315395,
-          "r2": 0.041447818391899816,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": -0.2305,
-        "last_chg": -0.02452,
-        "last_chg_z": -0.68,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 42.8,
-        "source": "corr:IDX:COMPOSITE",
-        "shallow": false,
-        "label": "Jakarta Composite",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.327
         }
       },
       {
@@ -731,6 +670,60 @@
           "posture": "tailwind",
           "impulse": 0.601
         }
+      },
+      {
+        "key": "CEICI462208457",
+        "role": "supply",
+        "why": "PT Bank Syariah Indonesia: Assets: Interbank Place",
+        "test_freq": "M",
+        "transform": "diff",
+        "native_freq": "M",
+        "last_obs": "2026-04-01",
+        "n": 61,
+        "min_n": 24,
+        "pearson": -0.1044,
+        "pearson_p": 0.4235,
+        "spearman": -0.1949,
+        "spearman_p": 0.1323,
+        "best_lag": 3,
+        "corr_at_best": 0.2655,
+        "ic": 0.0227,
+        "ic_t": 0.174,
+        "ols": {
+          "beta": -6.234561371909866e-09,
+          "t": -1.0547052724525863,
+          "p": 0.291560139677977,
+          "r2": 0.010889679580115219,
+          "n": 61,
+          "hac_lag": 4
+        },
+        "ols_pred": {
+          "beta": 1.4660545957455307e-08,
+          "t": 1.8918043435387943,
+          "p": 0.0585170543739015,
+          "r2": 0.07049849604609038,
+          "n": 58,
+          "hac_lag": 4
+        },
+        "sign_prior": 0,
+        "emp_sign": -1,
+        "theory_agree": null,
+        "stable": false,
+        "excess_pearson": -0.0357,
+        "last_chg": -179085.0,
+        "last_chg_z": -0.13,
+        "last_chg_date": "2026-04-30",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 23.3,
+        "source": "ceic",
+        "label": "PT Bank Syariah Indonesia: Assets: Interbank Place",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.065
+        }
       }
     ],
     "n_kept": 12,
@@ -829,13 +822,13 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI419361027",
-      "label": "Capital adequacy ratio",
-      "role": "supply",
-      "pearson": 0.0575,
-      "p": 0.4623936749070414,
-      "theory_agree": null,
-      "score": 27.8,
+      "key": "id_bank_credit",
+      "label": "Bank Credit (claims)",
+      "role": "demand",
+      "pearson": 0.0471,
+      "p": 0.5242544351502185,
+      "theory_agree": true,
+      "score": 30.7,
       "reason": "below_gate"
     }
   ],
@@ -847,7 +840,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.6,
+  "runtime_s": 3.0,
   "grade": "perfected",
   "grade_reasons": []
 }

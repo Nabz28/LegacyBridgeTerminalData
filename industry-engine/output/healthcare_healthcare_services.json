@@ -3,7 +3,7 @@
   "sub_sector": "Healthcare Services",
   "sector": "Healthcare",
   "priority": 47,
-  "generated_at": "2026-06-14T12:38:51",
+  "generated_at": "2026-06-15T14:55:03",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -855,7 +855,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.5,
+  "runtime_s": 1.3,
   "grade": "perfected",
   "grade_reasons": []
 }

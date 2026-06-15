@@ -3,7 +3,7 @@
   "sub_sector": "Tower",
   "sector": "Infrastructure",
   "priority": 48,
-  "generated_at": "2026-06-14T12:38:52",
+  "generated_at": "2026-06-15T14:55:04",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -26,152 +26,93 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 39,
-    "net_tilt": -0.706,
+    "verdict": "NEUTRAL",
+    "score": 50,
+    "net_tilt": 0.015,
     "model_conflict": false,
-    "demand_tilt": -0.706,
+    "demand_tilt": null,
     "supply_tilt": null,
-    "cost_tilt": null,
+    "cost_tilt": 0.015,
     "macro_tilt": null,
     "confidence": {
       "level": "low",
       "score": 41,
       "reasons": [
-        "max|corr|=0.17",
+        "max|corr|=0.14",
         "theory_agree=100%",
         "stable=100%",
         "mvR2=0.00",
         "OOS=na",
-        "mt_penalty=0.83(n=33)"
+        "mt_penalty=1.00(n=12)"
       ]
     },
     "multivariate": {
       "available": false,
       "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Tower (Infrastructure) screens MILDLY BEARISH [39/100, low confidence]. Top drivers: Credit Card: Value: Purchase: Domestic (corr +0.17, lead 2m, now headwind). ",
+    "narrative": "Tower (Infrastructure) screens NEUTRAL [50/100, low confidence]. Top drivers: Bank Lending Rate (corr -0.14, lead 0m, now flat). ",
     "drivers": [
       {
-        "key": "CEICI479934987",
-        "role": "demand",
-        "why": "Credit Card: Value: Purchase: Domestic",
+        "key": "id_lending_rate",
+        "role": "cost",
+        "why": "real IDR cost-of-debt / refinancing",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "M",
         "last_obs": "2026-03-01",
-        "n": 157,
+        "n": 182,
         "min_n": 24,
-        "pearson": 0.1747,
-        "pearson_p": 0.0287,
-        "spearman": 0.1211,
-        "spearman_p": 0.131,
-        "best_lag": 2,
-        "corr_at_best": -0.238,
-        "ic": -0.0811,
-        "ic_t": -1.01,
+        "pearson": -0.1389,
+        "pearson_p": 0.0615,
+        "spearman": -0.1302,
+        "spearman_p": 0.0799,
+        "best_lag": 0,
+        "corr_at_best": -0.1389,
+        "ic": 0.0312,
+        "ic_t": 0.42,
         "ols": {
-          "beta": 9.133635432184652e-06,
-          "t": 1.671676548796646,
-          "p": 0.0945881209323878,
-          "r2": 0.03051520806290764,
-          "n": 157,
-          "hac_lag": 4
+          "beta": -0.313023180914366,
+          "t": -2.6170688376653053,
+          "p": 0.008868845366096986,
+          "r2": 0.01929464469805553,
+          "n": 182,
+          "hac_lag": 5
         },
         "ols_pred": {
-          "beta": -1.2448099317818098e-05,
-          "t": -2.5668260695395393,
-          "p": 0.010263407876154965,
-          "r2": 0.05665120281984115,
-          "n": 155,
-          "hac_lag": 4
+          "beta": -0.313023180914366,
+          "t": -2.6170688376653053,
+          "p": 0.008868845366096986,
+          "r2": 0.01929464469805553,
+          "n": 182,
+          "hac_lag": 5
         },
-        "sign_prior": 1,
-        "emp_sign": 1,
+        "sign_prior": -1,
+        "emp_sign": -1,
         "theory_agree": true,
         "stable": true,
-        "excess_pearson": 0.1633,
-        "last_chg": -3552.169176,
-        "last_chg_z": -1.76,
+        "excess_pearson": -0.105,
+        "last_chg": -0.0122,
+        "last_chg_z": 0.03,
         "last_chg_date": "2026-03-31",
         "quality": {
           "ok": true,
           "flags": []
         },
-        "score": 48.0,
-        "source": "ceic",
-        "label": "Credit Card: Value: Purchase: Domestic",
+        "score": 38.9,
+        "source": "idmacro:CEIC224795501",
+        "shallow": false,
+        "label": "Bank Lending Rate",
         "live": {
-          "posture": "headwind",
-          "impulse": -0.706
+          "posture": "neutral",
+          "impulse": 0.015
         }
       }
     ],
     "n_kept": 1,
-    "n_candidates": 33
+    "n_candidates": 12
   },
   "unscored": [],
   "rejected_top": [
-    {
-      "key": "CEICI313914702",
-      "label": "ATM and Debit Card: Value",
-      "role": "demand",
-      "pearson": 0.1199,
-      "p": 0.06861706441525621,
-      "theory_agree": true,
-      "score": 43.8,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313914002",
-      "label": "ATM and Debit Card: Volume: Purchase",
-      "role": "demand",
-      "pearson": 0.0989,
-      "p": 0.1497860003939259,
-      "theory_agree": true,
-      "score": 43.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI479934947",
-      "label": "Credit Card: Volume: Purchase: Domestic",
-      "role": "demand",
-      "pearson": 0.1609,
-      "p": 0.1572092882500773,
-      "theory_agree": true,
-      "score": 42.4,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313914102",
-      "label": "ATM and Debit Card: Value: Purchase",
-      "role": "demand",
-      "pearson": 0.101,
-      "p": 0.14365587262554616,
-      "theory_agree": true,
-      "score": 40.9,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313914602",
-      "label": "ATM and Debit Card: Volume",
-      "role": "demand",
-      "pearson": 0.0962,
-      "p": 0.11807862341151322,
-      "theory_agree": true,
-      "score": 39.2,
-      "reason": "below_gate"
-    },
-    {
-      "key": "CEICI313914502",
-      "label": "ATM and Debit Card: Value: Interbank",
-      "role": "demand",
-      "pearson": 0.0873,
-      "p": 0.11656358166359944,
-      "theory_agree": true,
-      "score": 37.9,
-      "reason": "below_gate"
-    },
     {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
@@ -183,37 +124,97 @@
       "reason": "below_gate"
     },
     {
-      "key": "CEICI313914302",
-      "label": "ATM and Debit Card: Value: Intrabank",
-      "role": "demand",
-      "pearson": 0.0887,
-      "p": 0.07853398838883821,
+      "key": "id_10y",
+      "label": "id_10y",
+      "role": "macro",
+      "pearson": -0.0762,
+      "p": 0.25942325496830965,
       "theory_agree": true,
-      "score": 36.4,
+      "score": 35.7,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI313913902",
-      "label": "ATM and Debit Card: Value: Cash Withdrawal",
-      "role": "demand",
-      "pearson": 0.1209,
-      "p": 0.10033354958912878,
+      "key": "id_30y",
+      "label": "id_30y",
+      "role": "macro",
+      "pearson": -0.0635,
+      "p": 0.3026581166609802,
       "theory_agree": true,
-      "score": 36.2,
+      "score": 30.7,
       "reason": "below_gate"
     },
     {
-      "key": "CEICI313914402",
-      "label": "ATM and Debit Card: Volume: Interbank",
-      "role": "demand",
-      "pearson": 0.0812,
-      "p": 0.09313651116155584,
+      "key": "us_real10y",
+      "label": "us_real10y",
+      "role": "macro",
+      "pearson": -0.0669,
+      "p": 0.17343377430229712,
       "theory_agree": true,
-      "score": 35.9,
+      "score": 30.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "dxy",
+      "label": "US Dollar Index",
+      "role": "macro",
+      "pearson": -0.0742,
+      "p": 0.277495277587937,
+      "theory_agree": true,
+      "score": 28.4,
+      "reason": "below_gate"
+    },
+    {
+      "key": "CEICI65399201",
+      "label": "BTS: Telkomsel (quarterly)",
+      "role": "demand",
+      "pearson": 0.0953,
+      "p": 0.4807956083799817,
+      "theory_agree": true,
+      "score": 26.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "us_2s10s",
+      "label": "2s10s Spread",
+      "role": "macro",
+      "pearson": 0.1014,
+      "p": 0.029539179485442654,
+      "theory_agree": false,
+      "score": 25.3,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_cpi_yoy",
+      "label": "Indonesia CPI (YoY)",
+      "role": "macro",
+      "pearson": -0.0533,
+      "p": 0.49292454291894894,
+      "theory_agree": null,
+      "score": 22.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "usdidr",
+      "label": "USD/IDR",
+      "role": "macro",
+      "pearson": -0.0068,
+      "p": 0.8736432615525346,
+      "theory_agree": true,
+      "score": 14.7,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_gdp_real_q",
+      "label": "Real GDP (SA)",
+      "role": "macro",
+      "pearson": -0.0438,
+      "p": 0.7369159301235753,
+      "theory_agree": null,
+      "score": 7.4,
       "reason": "below_gate"
     }
   ],
-  "n_tested": 33,
+  "n_tested": 12,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -221,7 +222,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.9,
+  "runtime_s": 0.8,
   "grade": "partial",
   "grade_reasons": [
     "only 1 validated drivers (<3)",

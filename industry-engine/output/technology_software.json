@@ -3,7 +3,7 @@
   "sub_sector": "Software",
   "sector": "Technology",
   "priority": 44,
-  "generated_at": "2026-06-14T12:38:44",
+  "generated_at": "2026-06-15T14:54:59",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -414,7 +414,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.1,
+  "runtime_s": 2.0,
   "grade": "partial",
   "grade_reasons": [
     "confidence low"

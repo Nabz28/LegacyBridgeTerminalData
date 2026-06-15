@@ -3,7 +3,7 @@
   "sub_sector": "Property",
   "sector": "Properties & Real Estate",
   "priority": 7,
-  "generated_at": "2026-06-14T12:37:29",
+  "generated_at": "2026-06-15T14:50:06",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -55,57 +55,119 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 54,
-    "net_tilt": 0.09,
-    "model_conflict": false,
+    "score": 48,
+    "net_tilt": -0.063,
+    "model_conflict": true,
     "demand_tilt": 0.0,
     "supply_tilt": null,
     "cost_tilt": null,
-    "macro_tilt": 0.11,
+    "macro_tilt": -0.065,
     "confidence": {
       "level": "medium",
-      "score": 65,
+      "score": 94,
       "reasons": [
-        "max|corr|=0.29",
+        "max|corr|=0.43",
         "theory_agree=100%",
-        "stable=33%",
-        "mvR2=0.18",
+        "stable=67%",
+        "mvR2=0.20",
         "OOS=64%",
-        "mt_penalty=1.00(n=8)"
+        "mt_penalty=1.00(n=11)",
+        "model_conflict→downgraded"
       ]
     },
     "multivariate": {
       "available": true,
       "drivers": [
+        "id_10y",
         "usdidr",
         "id_gdp_real_q"
       ],
       "n": 118,
-      "r2": 0.184,
-      "adj_r2": 0.169,
+      "r2": 0.203,
+      "adj_r2": 0.182,
       "betas": {
+        "id_10y": {
+          "std_beta": -0.011,
+          "t": -1.53,
+          "p": 0.127
+        },
         "usdidr": {
-          "std_beta": -0.0252,
-          "t": -5.44,
-          "p": 0.0
+          "std_beta": -0.0178,
+          "t": -2.67,
+          "p": 0.0076
         },
         "id_gdp_real_q": {
-          "std_beta": -0.0003,
-          "t": -0.06,
-          "p": 0.9526
+          "std_beta": 0.0002,
+          "t": 0.03,
+          "p": 0.9724
         }
       },
       "oos_hit_rate": 0.638,
       "oos_n": 58,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.0103
+      "expected_monthly_ret": 0.0077
     },
-    "narrative": "Property (Properties & Real Estate) screens NEUTRAL [54/100, medium confidence]. Top drivers: USD/IDR (corr -0.29, lead 0m, now flat); Bank Lending Rate (corr -0.15, lead 4m, now tailwind); Real GDP (SA) (corr +0.00, lead 4m, now flat). A 2-driver model explains 18% of monthly variance (adj 17%), 64% pseudo-OOS directional hit-rate; in-sample OLS read ~+1.0%/mo.",
+    "narrative": "Property (Properties & Real Estate) screens NEUTRAL [48/100, medium confidence]. Top drivers: id_10y (corr -0.43, lead 0m, now flat); USD/IDR (corr -0.29, lead 0m, now flat); Real GDP (SA) (corr +0.00, lead 4m, now flat). A 3-driver model explains 20% of monthly variance (adj 18%), 64% pseudo-OOS directional hit-rate; in-sample OLS read ~+0.8%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
+      {
+        "key": "id_10y",
+        "role": "macro",
+        "why": "ID 10Y: KPR repricing base + REIT duration; liquid lead",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.4251,
+        "pearson_p": 0.0,
+        "spearman": -0.3881,
+        "spearman_p": 0.0,
+        "best_lag": 0,
+        "corr_at_best": -0.4251,
+        "ic": -0.1097,
+        "ic_t": -1.48,
+        "ols": {
+          "beta": -0.5233224303681054,
+          "t": -6.089346582108912,
+          "p": 1.1337244829270257e-09,
+          "r2": 0.18070173372231912,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -0.5233224303681054,
+          "t": -6.089346582108912,
+          "p": 1.1337244829270257e-09,
+          "r2": 0.18070173372231912,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.1442,
+        "last_chg": 0.007349,
+        "last_chg_z": 0.17,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 74.9,
+        "source": "corr:TVC:ID10Y",
+        "shallow": false,
+        "label": "id_10y",
+        "live": {
+          "posture": "neutral",
+          "impulse": -0.085
+        }
+      },
       {
         "key": "usdidr",
         "role": "macro",
-        "why": "FX debt + import sentiment",
+        "why": "FX debt + foreign-flow / risk-off proxy",
         "test_freq": "M",
         "transform": "logret",
         "native_freq": "W",
@@ -158,66 +220,9 @@
         }
       },
       {
-        "key": "id_lending_rate",
-        "role": "macro",
-        "why": "KPR mortgage rate",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2025-05-01",
-        "n": 23,
-        "min_n": 24,
-        "pearson": -0.1492,
-        "pearson_p": 0.4968,
-        "spearman": -0.1972,
-        "spearman_p": 0.3672,
-        "best_lag": 4,
-        "corr_at_best": 0.3045,
-        "ic": 0.2101,
-        "ic_t": 0.963,
-        "ols": {
-          "beta": -0.1413768065876918,
-          "t": -1.056932925431099,
-          "p": 0.29054220042700807,
-          "r2": 0.022263045879656884,
-          "n": 23,
-          "hac_lag": 3
-        },
-        "ols_pred": {
-          "beta": 0.29533060683039847,
-          "t": 1.9536433974376632,
-          "p": 0.05074340456072584,
-          "r2": 0.09273113056802607,
-          "n": 19,
-          "hac_lag": 3
-        },
-        "sign_prior": -1,
-        "emp_sign": -1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.0923,
-        "last_chg": -0.0437,
-        "last_chg_z": -0.54,
-        "last_chg_date": "2025-05-31",
-        "quality": {
-          "ok": true,
-          "flags": [
-            "short_sample(n=23)"
-          ]
-        },
-        "score": 45.5,
-        "source": "spark",
-        "shallow": true,
-        "label": "Bank Lending Rate",
-        "live": {
-          "posture": "tailwind",
-          "impulse": 0.264
-        }
-      },
-      {
         "key": "id_gdp_real_q",
         "role": "demand",
-        "why": "marketing sales cycle",
+        "why": "income backdrop (coincident, low weight)",
         "test_freq": "M",
         "transform": "diff",
         "native_freq": "W",
@@ -271,10 +276,20 @@
       }
     ],
     "n_kept": 3,
-    "n_candidates": 8
+    "n_candidates": 11
   },
   "unscored": [],
   "rejected_top": [
+    {
+      "key": "id_consumer_confidence",
+      "label": "id_consumer_confidence",
+      "role": "demand",
+      "pearson": 0.1014,
+      "p": 0.2515433920601112,
+      "theory_agree": true,
+      "score": 32.4,
+      "reason": "below_gate"
+    },
     {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
@@ -293,6 +308,26 @@
       "p": 0.20127485579190862,
       "theory_agree": true,
       "score": 29.0,
+      "reason": "below_gate"
+    },
+    {
+      "key": "id_kpr_rate",
+      "label": "id_kpr_rate",
+      "role": "cost",
+      "pearson": -0.0514,
+      "p": 0.44802758291928557,
+      "theory_agree": true,
+      "score": 27.8,
+      "reason": "below_gate"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "role": "macro",
+      "pearson": -0.0454,
+      "p": 0.6036674085158285,
+      "theory_agree": true,
+      "score": 19.7,
       "reason": "below_gate"
     },
     {
@@ -326,7 +361,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 8,
+  "n_tested": 11,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -334,7 +369,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.1,
+  "runtime_s": 1.3,
   "grade": "perfected",
   "grade_reasons": []
 }

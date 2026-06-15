@@ -3,7 +3,7 @@
   "sub_sector": "Metals & Mining",
   "sector": "Basic Materials",
   "priority": 14,
-  "generated_at": "2026-06-14T12:37:47",
+  "generated_at": "2026-06-15T14:51:30",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -582,7 +582,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.7,
+  "runtime_s": 4.3,
   "grade": "perfected",
   "grade_reasons": []
 }

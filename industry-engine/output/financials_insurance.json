@@ -3,7 +3,7 @@
   "sub_sector": "Insurance",
   "sector": "Financials",
   "priority": 17,
-  "generated_at": "2026-06-14T12:37:52",
+  "generated_at": "2026-06-15T14:51:36",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -36,90 +36,29 @@
     "primary_weighting": "equal_weight"
   },
   "model": {
-    "verdict": "MILDLY BEARISH",
-    "score": 41,
-    "net_tilt": -0.327,
+    "verdict": "NEUTRAL",
+    "score": 50,
+    "net_tilt": 0.0,
     "model_conflict": false,
-    "demand_tilt": -0.327,
+    "demand_tilt": null,
     "supply_tilt": null,
     "cost_tilt": null,
     "macro_tilt": null,
     "confidence": {
-      "level": "low",
-      "score": 41,
+      "level": "none",
+      "score": 0,
       "reasons": [
-        "max|corr|=0.43",
-        "theory_agree=100%",
-        "stable=100%",
-        "mvR2=0.00",
-        "OOS=na",
-        "mt_penalty=1.00(n=7)"
+        "no drivers"
       ]
     },
     "multivariate": {
       "available": false,
       "reason": "too_few_independent_monthly_drivers"
     },
-    "narrative": "Insurance (Financials) screens MILDLY BEARISH [41/100, low confidence]. Top drivers: Jakarta Composite (corr +0.43, lead 0m, now headwind). ",
-    "drivers": [
-      {
-        "key": "jci",
-        "role": "demand",
-        "why": "equity book/UL fee income",
-        "test_freq": "M",
-        "transform": "logret",
-        "native_freq": "W",
-        "last_obs": "2026-05-01",
-        "n": 184,
-        "min_n": 24,
-        "pearson": 0.4254,
-        "pearson_p": 0.0,
-        "spearman": 0.4074,
-        "spearman_p": 0.0,
-        "best_lag": 0,
-        "corr_at_best": 0.4254,
-        "ic": 0.1215,
-        "ic_t": 1.64,
-        "ols": {
-          "beta": 0.5621897567445081,
-          "t": 6.205119005126061,
-          "p": 5.465552780061025e-10,
-          "r2": 0.18099337680239214,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "ols_pred": {
-          "beta": 0.5621897567445081,
-          "t": 6.205119005126061,
-          "p": 5.465552780061025e-10,
-          "r2": 0.18099337680239214,
-          "n": 184,
-          "hac_lag": 5
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": true,
-        "excess_pearson": -0.3438,
-        "last_chg": -0.02452,
-        "last_chg_z": -0.68,
-        "last_chg_date": "2026-05-31",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 75.7,
-        "source": "corr:IDX:COMPOSITE",
-        "shallow": false,
-        "label": "Jakarta Composite",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.327
-        }
-      }
-    ],
-    "n_kept": 1,
-    "n_candidates": 7
+    "narrative": "Insurance (Financials) screens NEUTRAL [50/100, none confidence]. Top drivers: . ",
+    "drivers": [],
+    "n_kept": 0,
+    "n_candidates": 6
   },
   "unscored": [],
   "rejected_top": [
@@ -184,7 +123,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 7,
+  "n_tested": 6,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -192,7 +131,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 0.8,
+  "runtime_s": 2.5,
   "grade": "needs_review",
   "grade_reasons": [
     "only 1 validated drivers (<3)",

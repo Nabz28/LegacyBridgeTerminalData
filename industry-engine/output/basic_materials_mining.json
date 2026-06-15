@@ -3,7 +3,7 @@
   "sub_sector": "Mining",
   "sector": "Basic Materials",
   "priority": 4,
-  "generated_at": "2026-06-14T12:37:24",
+  "generated_at": "2026-06-15T14:47:31",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -37,23 +37,23 @@
   },
   "model": {
     "verdict": "NEUTRAL",
-    "score": 46,
-    "net_tilt": -0.149,
+    "score": 48,
+    "net_tilt": -0.102,
     "model_conflict": true,
-    "demand_tilt": -0.517,
+    "demand_tilt": -0.468,
     "supply_tilt": -0.028,
     "cost_tilt": null,
-    "macro_tilt": 0.0,
+    "macro_tilt": 0.055,
     "confidence": {
-      "level": "low",
-      "score": 65,
+      "level": "medium",
+      "score": 66,
       "reasons": [
         "max|corr|=0.36",
         "theory_agree=100%",
-        "stable=67%",
-        "mvR2=0.26",
-        "OOS=59%",
-        "mt_penalty=0.73(n=46)",
+        "stable=75%",
+        "mvR2=0.23",
+        "OOS=60%",
+        "mt_penalty=0.72(n=47)",
         "model_conflict→downgraded"
       ]
     },
@@ -62,52 +62,52 @@
       "drivers": [
         "gold",
         "CEICI357008177",
+        "dxy",
         "CEICI648786927",
         "id_bi_rate",
-        "CEICI356799302",
-        "CEICI653856287"
+        "CEICI356799302"
       ],
-      "n": 89,
-      "r2": 0.257,
-      "adj_r2": 0.202,
+      "n": 103,
+      "r2": 0.231,
+      "adj_r2": 0.183,
       "betas": {
         "gold": {
-          "std_beta": 0.0248,
-          "t": 3.12,
-          "p": 0.0018
+          "std_beta": 0.0153,
+          "t": 1.7,
+          "p": 0.0885
         },
         "CEICI357008177": {
-          "std_beta": 0.02,
-          "t": 3.88,
-          "p": 0.0001
+          "std_beta": 0.0156,
+          "t": 3.03,
+          "p": 0.0024
+        },
+        "dxy": {
+          "std_beta": -0.0147,
+          "t": -1.69,
+          "p": 0.091
         },
         "CEICI648786927": {
-          "std_beta": 0.0165,
-          "t": 2.7,
-          "p": 0.007
+          "std_beta": 0.0155,
+          "t": 1.96,
+          "p": 0.0498
         },
         "id_bi_rate": {
-          "std_beta": -0.0119,
-          "t": -1.15,
-          "p": 0.2507
+          "std_beta": -0.0159,
+          "t": -1.81,
+          "p": 0.0701
         },
         "CEICI356799302": {
-          "std_beta": 0.0069,
-          "t": 1.08,
-          "p": 0.2781
-        },
-        "CEICI653856287": {
-          "std_beta": -0.0163,
-          "t": -3.99,
-          "p": 0.0001
+          "std_beta": 0.0116,
+          "t": 1.65,
+          "p": 0.0986
         }
       },
-      "oos_hit_rate": 0.586,
-      "oos_n": 29,
+      "oos_hit_rate": 0.605,
+      "oos_n": 43,
       "oos_kind": "pseudo (params re-fit walk-forward; driver set selected on full sample — not a clean specification-search OOS)",
-      "expected_monthly_ret": 0.039
+      "expected_monthly_ret": 0.0904
     },
-    "narrative": "Mining (Basic Materials) screens NEUTRAL [46/100, low confidence]. Top drivers: Nickel · LME (corr +0.36, lead 0m, now flat); Value: Nails, Tacks, Drawing Pins, Staples (Other (corr +0.24, lead 2m, now flat); Gold (corr +0.24, lead 0m, now headwind). A 6-driver model explains 26% of monthly variance (adj 20%), 59% pseudo-OOS directional hit-rate; in-sample OLS read ~+3.9%/mo (diverges from the driver-posture verdict — discount it).",
+    "narrative": "Mining (Basic Materials) screens NEUTRAL [48/100, medium confidence]. Top drivers: Nickel · LME (corr +0.36, lead 0m, now flat); Value: Nails, Tacks, Drawing Pins, Staples (Other (corr +0.24, lead 2m, now flat); Gold (corr +0.24, lead 0m, now headwind). A 6-driver model explains 23% of monthly variance (adj 18%), 60% pseudo-OOS directional hit-rate; in-sample OLS read ~+9.0%/mo (diverges from the driver-posture verdict — discount it).",
     "drivers": [
       {
         "key": "wb_nickel",
@@ -327,6 +327,61 @@
         "live": {
           "posture": "headwind",
           "impulse": -0.901
+        }
+      },
+      {
+        "key": "dxy",
+        "role": "macro",
+        "why": "USD strength caps metals",
+        "test_freq": "M",
+        "transform": "logret",
+        "native_freq": "W",
+        "last_obs": "2026-05-01",
+        "n": 184,
+        "min_n": 24,
+        "pearson": -0.1619,
+        "pearson_p": 0.0282,
+        "spearman": -0.1809,
+        "spearman_p": 0.014,
+        "best_lag": 4,
+        "corr_at_best": -0.1846,
+        "ic": -0.0388,
+        "ic_t": -0.524,
+        "ols": {
+          "beta": -0.9559737572216562,
+          "t": -2.9195890468350876,
+          "p": 0.0035049324402447977,
+          "r2": 0.026197905084575535,
+          "n": 184,
+          "hac_lag": 5
+        },
+        "ols_pred": {
+          "beta": -1.0952517331945797,
+          "t": -2.2767515652094517,
+          "p": 0.022801065340125427,
+          "r2": 0.03408329001047483,
+          "n": 180,
+          "hac_lag": 5
+        },
+        "sign_prior": -1,
+        "emp_sign": -1,
+        "theory_agree": true,
+        "stable": true,
+        "excess_pearson": -0.0599,
+        "last_chg": -0.00305,
+        "last_chg_z": -0.22,
+        "last_chg_date": "2026-05-31",
+        "quality": {
+          "ok": true,
+          "flags": []
+        },
+        "score": 41.4,
+        "source": "corr:TVC:DXY",
+        "shallow": false,
+        "label": "US Dollar Index",
+        "live": {
+          "posture": "neutral",
+          "impulse": 0.11
         }
       },
       {
@@ -707,74 +762,12 @@
           "posture": "headwind",
           "impulse": -0.485
         }
-      },
-      {
-        "key": "CEICI447391617",
-        "role": "demand",
-        "why": "Gold/ Jewelry",
-        "test_freq": "M",
-        "transform": "diff",
-        "native_freq": "M",
-        "last_obs": "2026-04-01",
-        "n": 88,
-        "min_n": 24,
-        "pearson": 0.0433,
-        "pearson_p": 0.6888,
-        "spearman": 0.058,
-        "spearman_p": 0.5917,
-        "best_lag": 1,
-        "corr_at_best": -0.2503,
-        "ic": -0.1382,
-        "ic_t": -1.282,
-        "ols": {
-          "beta": 0.002594589868032197,
-          "t": 0.3767678336445411,
-          "p": 0.7063461471516399,
-          "r2": 0.0018742814898570215,
-          "n": 88,
-          "hac_lag": 4
-        },
-        "ols_pred": {
-          "beta": -0.015185052307419197,
-          "t": -2.604479527499819,
-          "p": 0.009201391790400108,
-          "r2": 0.06265372084703869,
-          "n": 87,
-          "hac_lag": 4
-        },
-        "sign_prior": 1,
-        "emp_sign": 1,
-        "theory_agree": true,
-        "stable": false,
-        "excess_pearson": 0.1774,
-        "last_chg": -1.675618,
-        "last_chg_z": -1.44,
-        "last_chg_date": "2026-04-30",
-        "quality": {
-          "ok": true,
-          "flags": []
-        },
-        "score": 26.4,
-        "source": "ceic",
-        "label": "Gold/ Jewelry",
-        "live": {
-          "posture": "headwind",
-          "impulse": -0.617
-        }
       }
     ],
     "n_kept": 12,
-    "n_candidates": 46
+    "n_candidates": 47
   },
-  "unscored": [
-    {
-      "key": "dxy",
-      "label": "US Dollar Index",
-      "role": "macro",
-      "source": "spark",
-      "reason": "insufficient_history"
-    }
-  ],
+  "unscored": [],
   "rejected_top": [
     {
       "key": "copper",
@@ -877,7 +870,7 @@
       "reason": "below_gate"
     }
   ],
-  "n_tested": 46,
+  "n_tested": 47,
   "provenance": {
     "prices": "data-store/correlation.sqlite (IDX weekly) + yfinance fallback",
     "benchmark_src": "correlation.sqlite IDX:COMPOSITE (IHSG)",
@@ -885,7 +878,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 2.4,
+  "runtime_s": 4.8,
   "grade": "partial",
   "grade_reasons": [
     "confidence low"

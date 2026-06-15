@@ -3,7 +3,7 @@
   "sub_sector": "Alternative Energy",
   "sector": "Energy",
   "priority": 5,
-  "generated_at": "2026-06-14T12:37:25",
+  "generated_at": "2026-06-15T14:47:40",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -395,7 +395,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.2,
+  "runtime_s": 8.7,
   "grade": "needs_review",
   "grade_reasons": [
     "no theory-anchored significant driver (|r|>=0.15, p<0.10)",

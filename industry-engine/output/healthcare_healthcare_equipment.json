@@ -3,7 +3,7 @@
   "sub_sector": "Healthcare Equipment",
   "sector": "Healthcare",
   "priority": 39,
-  "generated_at": "2026-06-14T12:38:35",
+  "generated_at": "2026-06-15T14:54:43",
   "status": "done",
   "reason": null,
   "benchmark": "jci",
@@ -860,7 +860,7 @@
     "market_macro": "correlation.sqlite (commodities/FX/yields/ID-CN macro)",
     "method": "equal-weight basket return (no mcap look-ahead); overlap-aware HAC-OLS + Šidák-corrected lead-lag + autocorr-deflated IC + split-sample stability + collinearity-pruned multivariate + pseudo-OOS (params-only); theory-reconciled; multiple-testing-penalised confidence"
   },
-  "runtime_s": 1.2,
+  "runtime_s": 1.6,
   "grade": "perfected",
   "grade_reasons": []
 }
