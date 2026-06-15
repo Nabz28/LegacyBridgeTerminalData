@@ -8679,16 +8679,28 @@
       ],
       "macro_hints": [
         {
+          "key": "id_10y",
+          "role": "macro",
+          "sign": -1,
+          "why": "ID 10Y: KPR repricing base + REIT duration; liquid lead"
+        },
+        {
           "key": "id_bi_rate",
           "role": "macro",
           "sign": -1,
-          "why": "mortgage affordability rate-elastic"
+          "why": "BI 7DRR: property-cycle catalyst, leads pre-sales 3-6m"
         },
         {
-          "key": "id_lending_rate",
+          "key": "id_kpr_rate",
+          "role": "cost",
+          "sign": -1,
+          "why": "actual KPR mortgage rate (CEIC14419701); affordability lead"
+        },
+        {
+          "key": "us_10y",
           "role": "macro",
           "sign": -1,
-          "why": "KPR mortgage rate"
+          "why": "global discount rate / EM-flow"
         },
         {
           "key": "id_bank_credit",
@@ -8697,16 +8709,22 @@
           "why": "mortgage/credit availability"
         },
         {
+          "key": "id_consumer_confidence",
+          "role": "demand",
+          "sign": 1,
+          "why": "big-ticket purchase intent — leads"
+        },
+        {
           "key": "id_gdp_real_q",
           "role": "demand",
           "sign": 1,
-          "why": "marketing sales cycle"
+          "why": "income backdrop (coincident, low weight)"
         },
         {
           "key": "usdidr",
           "role": "macro",
           "sign": -1,
-          "why": "FX debt + import sentiment"
+          "why": "FX debt + foreign-flow / risk-off proxy"
         },
         {
           "key": "id_cpi_yoy",

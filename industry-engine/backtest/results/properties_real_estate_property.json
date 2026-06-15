@@ -6,7 +6,7 @@
   "n_used": 30,
   "n_members": 30,
   "n_months": 184,
-  "n_anchored_drivers": 7,
+  "n_anchored_drivers": 10,
   "anchored": [
     {
       "key": "steel_hrc",
@@ -21,22 +21,40 @@
       "source": "corr:ICEEUR:ATR1!"
     },
     {
+      "key": "id_10y",
+      "label": "id_10y",
+      "sign": -1,
+      "source": "corr:TVC:ID10Y"
+    },
+    {
       "key": "id_bi_rate",
       "label": "BI Policy Rate",
       "sign": -1,
       "source": "corr:ECONOMICS:IDINTR"
     },
     {
-      "key": "id_lending_rate",
-      "label": "Bank Lending Rate",
+      "key": "id_kpr_rate",
+      "label": "id_kpr_rate",
       "sign": -1,
-      "source": "idmacro:CEIC224795501"
+      "source": "idmacro:CEIC14419701"
+    },
+    {
+      "key": "us_10y",
+      "label": "US 10Y Treasury",
+      "sign": -1,
+      "source": "corr:TVC:US10Y"
     },
     {
       "key": "id_bank_credit",
       "label": "Bank Credit (claims)",
       "sign": 1,
       "source": "corr:aIDLONYAR"
+    },
+    {
+      "key": "id_consumer_confidence",
+      "label": "id_consumer_confidence",
+      "sign": 1,
+      "source": "corr:aIDCONIAR"
     },
     {
       "key": "id_gdp_real_q",
@@ -55,36 +73,36 @@
   "forward": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.488,
+    "hit_rate": 0.457,
     "up_rate": 0.603,
-    "edge": -0.115,
-    "fwd_ic": -0.08,
-    "fwd_pearson": -0.045,
-    "long_short_mo": 0.0086,
-    "binom_p_vs_uprate": 0.9968,
+    "edge": -0.146,
+    "fwd_ic": -0.053,
+    "fwd_pearson": -0.035,
+    "long_short_mo": -0.0026,
+    "binom_p_vs_uprate": 0.9997,
     "placebo": {
-      "ic_mean": -0.014532368067978536,
-      "ic_std": 0.08266385682547003,
-      "ic_pctile": 0.18333333333333332,
-      "hit_mean": 0.49069767441860457
+      "ic_mean": -0.009332792933810376,
+      "ic_std": 0.09805544973183804,
+      "ic_pctile": 0.31666666666666665,
+      "hit_mean": 0.49043927648578806
     }
   },
   "contemporaneous_ref": {
     "n": 129,
     "enough": true,
-    "hit_rate": 0.597,
+    "hit_rate": 0.612,
     "up_rate": 0.603,
-    "edge": -0.006,
-    "fwd_ic": 0.242,
-    "fwd_pearson": 0.179,
-    "long_short_mo": 0.0181,
-    "binom_p_vs_uprate": 0.5961,
+    "edge": 0.009,
+    "fwd_ic": 0.253,
+    "fwd_pearson": 0.228,
+    "long_short_mo": 0.0258,
+    "binom_p_vs_uprate": 0.4538,
     "placebo": {
-      "ic_mean": 0.01770982409063804,
-      "ic_std": 0.09571107139079925,
+      "ic_mean": 0.011215526237328566,
+      "ic_std": 0.0887266187473337,
       "ic_pctile": 1.0,
-      "hit_mean": 0.5059431524547803
+      "hit_mean": 0.4956072351421188
     }
   },
-  "latest_signal": -0.058
+  "latest_signal": -0.016
 }

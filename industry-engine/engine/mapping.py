@@ -166,6 +166,11 @@ SEED = {
     },
     # ---------------- BASIC MATERIALS ----------------
     "Mining": {  # AMMN/MDKA/BRMS = copper-GOLD led (nickel is a minor sleeve)
+        # NOTE (audit): the plan's metal-split tree (add us_real10y -1 for the gold
+        # sleeve + China credit-impulse lead + CEIC nickel proxy + AISC cost legs)
+        # was TESTED and made forward IC WORSE (-0.148 -> -0.23, placebo 0.05->0.00).
+        # These are large-cap, sentiment-led names that mean-revert (plan §8: none).
+        # Reverted to baseline — the backtest rejects manufacturing forward skill here.
         "ceic": [("Basic Materials", "Copper"),
                  ("Basic Materials", "Gold & Precious Metals"),
                  ("Metals & Mining", None), ("Basic Materials", "Nickel")],
@@ -297,6 +302,13 @@ SEED = {
         # drop ENDOGENOUS series: single-bank balance sheets AND system-wide
         # outcome RATIOS (CAR/BOPO/NIM/LDR) that co-move mechanically with bank
         # equity rather than forecast it (critique: bank ratios are outcomes).
+        # NOTE (audit): adding the theory-correct leading flow/duration drivers
+        # (dxy/us_10y -1) and excluding the 30 wrong-block Insurance-Premiums series
+        # was TESTED and did NOT improve forward IC (-0.151 -> -0.14, placebo 0.05):
+        # Banks is structurally a contemporaneous-beta basket that MEAN-REVERTS, so
+        # no driver wiring forecasts it forward (plan §8: attribution, not forecast).
+        # Kept at baseline. (Insurance-premium pollution noted as an attribution-model
+        # cleanup, not a forward-skill fix.)
         "ceic_exclude": ["pt bank", "syariah indonesia", "capital adequacy",
                          "operational cost ratio", "bopo", "net interest margin",
                          "nim:", "loan-to-deposit", "loan to deposit"],
@@ -344,15 +356,24 @@ SEED = {
                   ("id_10y", "macro", -1, "discount rate on holdings")],
     },
     # ---------------- PROPERTIES & REAL ESTATE ----------------
-    "Property": {
+    "Property": {  # developers (BSDE/CTRA/SMRA/PANI) + REIT-proxies (PWON/MKPI)
+        # FORECAST thesis: the rate -> KPR -> affordability -> pre-sales -> price
+        # chain. Property EQUITIES lead physical prices, so the 123-series CEIC
+        # Property & Real Estate block (RPPI / mortgage growth / NPL) is LAGGING/
+        # coincident for forward equity returns — wiring it as a demand swarm would
+        # dilute the leading rate signal (the Tower lesson). Keep the anchored set
+        # LEADING-dominated; the rich CEIC block stays out of the forward signal.
         "ceic": [],
         "globals": [("steel_hrc", "cost", -1, "rebar/construction cost"),
                     ("wb_coal_au", "cost", -1, "cement/energy cost")],
-        "macro": [("id_bi_rate", "macro", -1, "mortgage affordability rate-elastic"),
-                  ("id_lending_rate", "macro", -1, "KPR mortgage rate"),
+        "macro": [("id_10y", "macro", -1, "ID 10Y: KPR repricing base + REIT duration; liquid lead"),
+                  ("id_bi_rate", "macro", -1, "BI 7DRR: property-cycle catalyst, leads pre-sales 3-6m"),
+                  ("id_kpr_rate", "cost", -1, "actual KPR mortgage rate (CEIC14419701); affordability lead"),
+                  ("us_10y", "macro", -1, "global discount rate / EM-flow"),
                   ("id_bank_credit", "demand", +1, "mortgage/credit availability"),
-                  ("id_gdp_real_q", "demand", +1, "marketing sales cycle"),
-                  ("usdidr", "macro", -1, "FX debt + import sentiment")],
+                  ("id_consumer_confidence", "demand", +1, "big-ticket purchase intent — leads"),
+                  ("id_gdp_real_q", "demand", +1, "income backdrop (coincident, low weight)"),
+                  ("usdidr", "macro", -1, "FX debt + foreign-flow / risk-off proxy")],
     },
     # ---------------- INFRASTRUCTURE ----------------
     "Telco": {
