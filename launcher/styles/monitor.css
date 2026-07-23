@@ -63,7 +63,7 @@
 .mon-phase.active { border-color: var(--brand-edge); background: var(--brand-soft); }
 .mon-phase.active .t { color: var(--paper-strong); }
 .mon-phase .now {
-  position: absolute; top: -7px; right: 8px; font-size: 8px; font-family: var(--font-mono); letter-spacing: 1.5px;
+  position: absolute; top: -7px; right: 8px; font-size: 9px; font-family: var(--font-mono); letter-spacing: 1.5px;
   background: var(--brand); color: #0A0A0B; padding: 1px 6px; border-radius: 2px; font-weight: 700;
 }
 
@@ -101,7 +101,7 @@
 .mon-regime-hist { display: inline-flex; align-items: center; gap: 8px; cursor: help; }
 .mon-regime-hist .streak { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); white-space: nowrap; }
 .mon-regime-flag {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.2px; font-weight: 700;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; font-weight: 700;
   color: #d8a13a; border: 1px solid rgba(216,161,58,0.4); background: rgba(216,161,58,0.08);
   padding: 2px 8px; border-radius: 2px;
 }
@@ -123,7 +123,7 @@
 /* ---- desk-card signal chips ---- */
 .mon-card-sigs { display: flex; gap: 5px; margin-top: 8px; }
 .mon-sig {
-  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; font-weight: 700;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; font-weight: 700;
   padding: 2px 7px; border-radius: 2px; border: 1px solid var(--paper-softer); color: var(--text-tertiary);
 }
 .mon-sig.pos { color: var(--pos, #1FB877); border-color: rgba(31,184,119,0.35); background: rgba(31,184,119,0.06); }
@@ -282,6 +282,19 @@
 .mon-table .pos { color: var(--pos, #1FB877); }
 .mon-table .neg { color: var(--neg, #F0475C); }
 .mon-table-note { padding: 6px 10px; font-size: 10px; font-family: var(--font-mono); color: var(--text-tertiary); }
+.mon-table-note.top { border-bottom: 1px solid var(--paper-softer); }
+
+/* keyboard affordance — every actionable surface shows a visible focus ring */
+.mon-rail-item:focus-visible, .mon-card:focus-visible, .mon-sub:focus-visible,
+.mon-chip:focus-visible, .mon-tab:focus-visible, .mon-table tbody tr:focus-visible {
+  outline: 1.5px solid var(--paper-edge); outline-offset: 1px;
+}
+.mon-subs.dim { opacity: 0.45; pointer-events: none; }
+
+/* hero (collapsed) */
+.mon-hero-mini { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.mon-hero-mini .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--brand); }
+.mon-hero-mini h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.4px; color: var(--paper-strong); }
 
 /* ---- charts ---- */
 .mon-chart-wrap { position: relative; width: 100%; }
@@ -366,7 +379,7 @@
 .mon-corr-h { font-size: 11px; color: var(--text-secondary); margin-bottom: 7px; }
 .mon-corr-h .avg { margin-left: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
 .mon-corr-h .avg b { color: var(--paper); }
-.mon-corr-grid { display: grid; gap: 2px; font-family: var(--font-mono); font-size: 9px; max-width: 100%; overflow-x: auto; }
+.mon-corr-grid { display: grid; gap: 2px; font-family: var(--font-mono); font-size: 10px; max-width: 100%; overflow-x: auto; }
 .mon-corr-grid .hd { color: var(--text-tertiary); text-align: center; padding: 2px 1px; overflow: hidden; text-overflow: ellipsis; }
 .mon-corr-grid .hd.row { text-align: right; padding-right: 5px; }
 .mon-corr-grid .cell { text-align: center; padding: 3px 1px; border-radius: 2px; color: var(--paper); }

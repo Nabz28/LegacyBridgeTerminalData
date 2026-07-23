@@ -25,7 +25,9 @@
     const nSubs = (desk.subs || []).length;
     const nNames = (desk.subs || []).reduce((s, x) => s + (x.u || []).length, 0);
     return (
-      <div className="mon-card" style={{ ['--ac']: desk.accent }} onClick={() => onOpen(desk.id)}>
+      <div className="mon-card" style={{ ['--ac']: desk.accent }} onClick={() => onOpen(desk.id)}
+           role="button" tabIndex={0}
+           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(desk.id); } }}>
         <div className="mon-card-top">
           <span className="num">{desk.num}</span>
           <span className="gics">{desk.gics !== '—' ? desk.gics : 'Market desk'}</span>
@@ -75,8 +77,22 @@
     const { RegimeStrip } = MV();
     const equity = md.DESKS.filter((d) => d.group === 'equity');
     const markets = md.DESKS.filter((d) => d.group === 'markets');
+    // the explainer hero collapses after the first visit — regime + desks
+    // are the daily content; the structure story is one click away.
+    const [heroOpen, setHeroOpen] = React.useState(() => {
+      try { return !localStorage.getItem('lbc-monitor-hero-seen'); } catch { return true; }
+    });
+    React.useEffect(() => { try { localStorage.setItem('lbc-monitor-hero-seen', '1'); } catch {} }, []);
     return (
       <div className="mon-page">
+        {!heroOpen && (
+          <div className="mon-hero-mini">
+            <span className="k">LBC Research Division · coverage operating map</span>
+            <h1>Monitor</h1>
+            <button className="mon-chip" onClick={() => setHeroOpen(true)}>About the structure</button>
+          </div>
+        )}
+        {heroOpen && (
         <div className="mon-hero">
           <div className="mon-hero-l">
             <div className="k">LBC Research Division · coverage operating map</div>
@@ -96,8 +112,10 @@
                 {r.active && <span className="now">LIVE</span>}
               </div>
             ))}
+            <button className="mon-chip" style={{ alignSelf: 'flex-start' }} onClick={() => setHeroOpen(false)} title="Collapse">✕</button>
           </div>
         </div>
+        )}
 
         <RegimeStrip />
 
@@ -131,6 +149,9 @@
     const [detail, setDetail] = React.useState(null);
     const [dossier, setDossier] = React.useState(false);
     const [assignOpen, setAssignOpen] = React.useState(false);
+    // Index Lab stays mounted after first open (work preservation).
+    const [labTouched, setLabTouched] = React.useState(false);
+    React.useEffect(() => { if (tab === 'Index Lab') setLabTouched(true); }, [tab]);
     // NOTE: DeskView is remounted per desk via key={view.id} at the call
     // site, so all state above starts fresh on a desk switch — no reset
     // effect needed here.
@@ -202,7 +223,8 @@
 
         {/* body: sub panel + detail panel */}
         <div className="mon-desk-body">
-          <div className="mon-subs">
+          <div className={'mon-subs' + (tab === 'Index Lab' ? ' dim' : '')}
+               title={tab === 'Index Lab' ? 'Index Lab picks from the whole desk — sub-industry filter does not apply here' : undefined}>
             <div className="mon-subs-h">{isEcon ? 'Regions' : 'Sub-industries'}</div>
             {!isEcon && (
               <div className={'mon-sub ' + (subId === 'all' ? 'active' : '')} onClick={() => setSubId('all')}>
@@ -233,8 +255,13 @@
               <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} />
             )}
 
-            {/* ---- Index Lab ---- */}
-            {tab === 'Index Lab' && <mv.IndexLab desk={desk} accent={desk.accent} />}
+            {/* ---- Index Lab — stays MOUNTED once opened so a half-built
+                 basket survives peeking at News/Overview ---- */}
+            {(tab === 'Index Lab' || labTouched) && tabs.includes('Index Lab') && (
+              <div style={{ display: tab === 'Index Lab' ? 'flex' : 'none', flex: 1, minHeight: 0 }}>
+                <mv.IndexLab desk={desk} accent={desk.accent} />
+              </div>
+            )}
 
             {/* ---- FX cross rates ---- */}
             {tab === 'Cross Rates' && (
@@ -481,7 +508,12 @@
     React.useEffect(() => {
       let alive = true;
       ML().fetchCoverage().then((m) => {
-        if (alive && m) { setAssign((prev) => ({ ...prev, ...m })); ML().saveAssign(m); }
+        if (!alive) return;
+        if (m) { setAssign((prev) => ({ ...prev, ...m })); ML().saveAssign(m); }
+        else if (ML().lbcSession()) {
+          setAssignNote('Showing cached assignments — server sync unavailable.');
+          setTimeout(() => setAssignNote(''), 6000);
+        }
       });
       return () => { alive = false; };
     }, []);
@@ -498,9 +530,11 @@
     const equity = md.DESKS.filter((d) => d.group === 'equity');
     const markets = md.DESKS.filter((d) => d.group === 'markets');
 
+    const keyAct = (fn) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } };
     const RailDesk = ({ d }) => (
       <div className={'mon-rail-item desk ' + (view.type === 'desk' && view.id === d.id ? 'active' : '')}
-           style={{ ['--ac']: d.accent }} onClick={() => openDesk(d.id)} title={d.short}>
+           style={{ ['--ac']: d.accent }} onClick={() => openDesk(d.id)} title={d.short}
+           role="button" tabIndex={0} onKeyDown={keyAct(() => openDesk(d.id))}>
         <span className="num">{d.num}</span>
         <span className="lbl">{d.name}</span>
       </div>
@@ -512,7 +546,8 @@
           <div className="mon-rail-brand">MONITOR<span className="v">T12</span></div>
           {RAIL_TOP.map((r) => (
             <div key={r.id} className={'mon-rail-item ' + (view.type === r.id ? 'active' : '')}
-                 onClick={() => setView({ type: r.id })}>
+                 onClick={() => setView({ type: r.id })}
+                 role="button" tabIndex={0} onKeyDown={keyAct(() => setView({ type: r.id }))}>
               <span className="glyph">{r.glyph}</span>
               <span className="lbl">{r.label}</span>
             </div>

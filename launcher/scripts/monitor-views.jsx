@@ -11,6 +11,15 @@
   const MD = () => window.MONITOR_DATA;
   const ML = () => window.MONITOR_LIVE;
 
+  // Escape closes any modal/drawer that mounts this hook.
+  const useEscape = (onClose) => {
+    React.useEffect(() => {
+      const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, [onClose]);
+  };
+
   const fmtNum = (v, d) => (v == null || isNaN(v)) ? '—'
     : Number(v).toLocaleString('en-US', { minimumFractionDigits: d ?? (Math.abs(v) < 10 ? 2 : Math.abs(v) < 1000 ? 2 : 0), maximumFractionDigits: d ?? (Math.abs(v) < 10 ? 2 : Math.abs(v) < 1000 ? 2 : 0) });
   const fmtPct = (v) => (v == null || isNaN(v)) ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
@@ -86,6 +95,7 @@
   // ---- Detail modal: full Yahoo history + CSV ------------------------------
   const HistoryModal = ({ title, sub, ticker, source, seriesId, onClose }) => {
     const { MultiLineChart, fetchHistory, fetchFred, fetchDbnomics, downloadCsv } = ML();
+    useEscape(onClose);
     const [range, setRange] = React.useState('2y');
     const [obs, setObs] = React.useState(null);
     const [err, setErr] = React.useState('');
@@ -162,6 +172,7 @@
     );
     return (
       <div className="mon-table-wrap">
+        {loading && <div className="mon-table-note top">streaming quotes…</div>}
         <table className="mon-table">
           <thead>
             <tr>
@@ -170,11 +181,17 @@
             </tr>
           </thead>
           <tbody>
+            {sorted.length === 0 && (
+              <tr><td colSpan={8} style={{ textAlign: 'center', padding: '22px 10px', color: 'var(--text-tertiary)' }}>
+                No instruments match this filter.
+              </td></tr>
+            )}
             {sorted.map((r) => {
               const q = r.q, err = q && q.error;
               return (
-                <tr key={r.t} onClick={() => onOpen && onOpen(r)} title="Open chart + history">
-                  <td className="nm">{r.n}</td>
+                <tr key={r.t} onClick={() => onOpen && onOpen(r)}
+                    title={err ? r.n + ' — quote unavailable (click for history)' : r.n + ' — open chart + history'}>
+                  <td className="nm" title={r.n}>{r.n}</td>
                   <td className="tk">{r.t.replace('.JK', '')}<span className="sfx">{r.t.includes('.JK') ? '.JK' : ''}</span></td>
                   <td className="fl">{flag(r.c)}</td>
                   <td className="sb">{r.sub}</td>
@@ -187,7 +204,6 @@
             })}
           </tbody>
         </table>
-        {loading && <div className="mon-table-note">streaming quotes…</div>}
       </div>
     );
   };
@@ -285,6 +301,7 @@
             }
           }
           setResult({ basket, overlaySeries });
+          setBuiltKey(picked.join(',') + '|' + range + '|' + overlay + '|' + wMode + '|' + JSON.stringify(wMap));
           setBusy(false);
         });
     }, [picked.join(','), range, overlay, wMode, JSON.stringify(wMap)]);
@@ -311,7 +328,14 @@
       setWMode(s.wMode === 'custom' ? 'custom' : 'equal');
       setWMap(s.wMap || {});
     };
-    const delSaved = (s) => { persistSaved(saved.filter((x) => x.name !== s.name)); };
+    const delSaved = (s) => {
+      if (!window.confirm('Delete saved index "' + s.name + '"? This also removes it from your account.')) return;
+      persistSaved(saved.filter((x) => x.name !== s.name));
+    };
+    // built-vs-current mismatch → the shown result is stale
+    const [builtKey, setBuiltKey] = React.useState('');
+    const currentKey = picked.join(',') + '|' + range + '|' + overlay + '|' + wMode + '|' + JSON.stringify(wMap);
+    const resultStale = result && builtKey && builtKey !== currentKey;
 
     return (
       <div className="mon-lab">
@@ -389,6 +413,7 @@
             )}
           </div>
           {err && <div className="mon-warn">{err}</div>}
+          {resultStale && <div className="mon-warn">Selection changed since this build — hit “Build index” to refresh.</div>}
           {result ? (
             <>
               <MultiLineChart rebased series={[
@@ -602,7 +627,11 @@
     const { useRegime } = ML();
     const { regime, err } = useRegime();
     const [drill, setDrill] = React.useState(null);
-    if (err) return null;
+    if (err) return (
+      <div className="mon-regime mon-regime-loading">
+        Regime feed unavailable ({err}) — <button className="mon-chip" onClick={() => location.reload()}>retry</button>
+      </div>
+    );
     if (!regime) return <div className="mon-regime mon-regime-loading">Reading the tape — credit, vol, USD, curve, growth…</div>;
     const cls = regime.label === 'RISK-ON' ? 'on' : regime.label === 'RISK-OFF' ? 'off' : 'mid';
     const pct = ((regime.score + 1) / 2) * 100; // gauge position
@@ -681,6 +710,7 @@
 
   // ---- Desk dossier drawer -------------------------------------------------
   const DossierDrawer = ({ desk, onClose }) => {
+    useEscape(onClose);
     const d = desk.dossier || {};
     const F = [
       ['Mandate', d.mandate], ['Macro drivers', d.macro], ['Research themes', d.themes],
@@ -713,6 +743,7 @@
   // ---- Assignment editor ---------------------------------------------------
   const AssignEditor = ({ desk, assign, onSave, onClose }) => {
     const { fetchRoster } = ML();
+    useEscape(onClose);
     const [roster, setRoster] = React.useState([]);
     const cur = assign[desk.id] || { head: '', analysts: [] };
     const [head, setHead] = React.useState(cur.head || '');
