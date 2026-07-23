@@ -148,9 +148,10 @@
   }
 
   // ---- basket / custom-index math -----------------------------------------
-  // Equal-weight, rebased-to-100 composite from per-ticker {date,value} arrays.
+  // Rebased-to-100 composite from per-ticker {date,value} arrays; weights map
+  // {ticker: number} is normalized internally (omit for equal-weight).
   // Dates align on the union grid with forward-fill after each series starts.
-  function computeBasket(seriesByTicker) {
+  function computeBasket(seriesByTicker, weights) {
     const tickers = Object.keys(seriesByTicker).filter((t) => (seriesByTicker[t] || []).length > 1);
     if (!tickers.length) return null;
     const dateSet = new Set();
@@ -177,6 +178,12 @@
     }
     const base = {};
     tickers.forEach((t) => { base[t] = filled[t][start]; });
+    // normalized weights — missing/invalid entries default to 1 (equal share)
+    const raw = {};
+    tickers.forEach((t) => { raw[t] = (weights && Number(weights[t]) > 0) ? Number(weights[t]) : 1; });
+    const wsum = tickers.reduce((a, t) => a + raw[t], 0);
+    const w = {};
+    tickers.forEach((t) => { w[t] = raw[t] / wsum; });
     const out = [], perName = {};
     tickers.forEach((t) => { perName[t] = []; });
     for (let i = start; i < dates.length; i++) {
@@ -184,11 +191,61 @@
       tickers.forEach((t) => {
         const reb = (filled[t][i] / base[t]) * 100;
         perName[t].push({ date: dates[i], value: reb });
-        sum += reb;
+        sum += reb * w[t];
       });
-      out.push({ date: dates[i], value: sum / tickers.length });
+      out.push({ date: dates[i], value: sum });
     }
-    return { dates: dates.slice(start), composite: out, perName, tickers };
+    return { dates: dates.slice(start), composite: out, perName, tickers, weights: w };
+  }
+
+  // Pairwise correlation of members' daily log-returns + composite beta/corr
+  // vs an overlay series (both aligned on the basket's date grid).
+  function basketCorrelation(basket) {
+    const t = basket.tickers;
+    if (t.length < 2) return null;
+    const rets = {};
+    t.forEach((k) => {
+      const s = basket.perName[k];
+      const r = [];
+      for (let i = 1; i < s.length; i++) r.push(Math.log(s[i].value / s[i - 1].value));
+      rets[k] = r;
+    });
+    const corr = (a, b) => {
+      const n = Math.min(a.length, b.length);
+      if (n < 10) return null;
+      let ma = 0, mb = 0;
+      for (let i = 0; i < n; i++) { ma += a[i]; mb += b[i]; }
+      ma /= n; mb /= n;
+      let cab = 0, va = 0, vb = 0;
+      for (let i = 0; i < n; i++) { const da = a[i] - ma, db = b[i] - mb; cab += da * db; va += da * da; vb += db * db; }
+      return va > 0 && vb > 0 ? cab / Math.sqrt(va * vb) : null;
+    };
+    const m = t.map((a) => t.map((b) => (a === b ? 1 : corr(rets[a], rets[b]))));
+    // average off-diagonal correlation = diversification read
+    let sum = 0, n = 0;
+    for (let i = 0; i < t.length; i++) for (let j = i + 1; j < t.length; j++) { if (m[i][j] != null) { sum += m[i][j]; n++; } }
+    return { tickers: t, matrix: m, avg: n ? sum / n : null };
+  }
+
+  function overlayStats(composite, overlay) {
+    if (!composite || !overlay || overlay.length < 10) return null;
+    const om = new Map(overlay.map((o) => [o.date, o.value]));
+    const rc = [], ro = [];
+    for (let i = 1; i < composite.length; i++) {
+      const a0 = om.get(composite[i - 1].date), a1 = om.get(composite[i].date);
+      if (a0 == null || a1 == null) continue;
+      rc.push(Math.log(composite[i].value / composite[i - 1].value));
+      ro.push(Math.log(a1 / a0));
+    }
+    if (rc.length < 10) return null;
+    const mean = (x) => x.reduce((p, q) => p + q, 0) / x.length;
+    const mc = mean(rc), mo = mean(ro);
+    let cov = 0, vo = 0, vc = 0;
+    for (let i = 0; i < rc.length; i++) { cov += (rc[i] - mc) * (ro[i] - mo); vo += (ro[i] - mo) ** 2; vc += (rc[i] - mc) ** 2; }
+    return {
+      beta: vo > 0 ? cov / vo : null,
+      corr: vo > 0 && vc > 0 ? cov / Math.sqrt(vo * vc) : null,
+    };
   }
 
   function basketStats(composite) {
@@ -408,7 +465,7 @@
     fetchCoverage, saveCoverage,
     fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,
-    computeBasket, basketStats,
+    computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,
     MultiLineChart, MonSpark, downloadCsv, lbcSession,
   };

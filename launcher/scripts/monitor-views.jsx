@@ -217,7 +217,7 @@
 
   // ---- Index Lab — custom basket builder ----------------------------------
   const IndexLab = ({ desk, accent }) => {
-    const { fetchHistory, computeBasket, basketStats, MultiLineChart, downloadCsv, loadIndices, saveIndices } = ML();
+    const { fetchHistory, computeBasket, basketStats, basketCorrelation, overlayStats, MultiLineChart, downloadCsv, loadIndices, saveIndices } = ML();
     const md = MD();
     const deskRows = desk ? md.deskUniverse(desk, 'all', 'ALL', null) : [];
     const [picked, setPicked] = React.useState(() => deskRows.slice(0, 6).filter((r) => r.t).map((r) => r.t));
@@ -229,6 +229,9 @@
     const [err, setErr] = React.useState('');
     const [saved, setSaved] = React.useState(loadIndices());
     const [name, setName] = React.useState('');
+    const [wMode, setWMode] = React.useState('equal');       // 'equal' | 'custom'
+    const [wMap, setWMap] = React.useState({});              // ticker -> weight number
+    const [showCorr, setShowCorr] = React.useState(false);
 
     const searchRows = q ? md.searchUniverse(q).slice(0, 12) : deskRows.filter((r) => r.t);
     const toggle = (t) => setPicked((p) => (p.includes(t) ? p.filter((x) => x !== t) : p.length >= 20 ? p : [...p, t]));
@@ -241,7 +244,7 @@
         .then((pairs) => {
           const map = {};
           pairs.forEach(([t, o]) => { if (picked.includes(t)) map[t] = o; });
-          const basket = computeBasket(map);
+          const basket = computeBasket(map, wMode === 'custom' ? wMap : null);
           if (!basket) { setErr('Not enough overlapping history for that selection.'); setBusy(false); return; }
           let overlaySeries = null;
           if (overlay) {
@@ -258,14 +261,16 @@
           setResult({ basket, overlaySeries });
           setBusy(false);
         });
-    }, [picked.join(','), range, overlay]);
+    }, [picked.join(','), range, overlay, wMode, JSON.stringify(wMap)]);
 
     React.useEffect(() => { if (picked.length >= 2) build(); }, []); // initial build
 
     const stats = result ? basketStats(result.basket.composite) : null;
+    const corrData = result && showCorr ? basketCorrelation(result.basket) : null;
+    const ovStats = result && result.overlaySeries ? overlayStats(result.basket.composite, result.overlaySeries) : null;
     const perName = result ? result.basket.tickers.map((t) => {
       const s = result.basket.perName[t];
-      return { t, ret: s.length > 1 ? s[s.length - 1].value - 100 : null };
+      return { t, w: result.basket.weights ? result.basket.weights[t] : null, ret: s.length > 1 ? s[s.length - 1].value - 100 : null };
     }).sort((a, b) => (b.ret ?? -999) - (a.ret ?? -999)) : [];
 
     const saveCurrent = () => {
@@ -301,7 +306,15 @@
           {picked.length > 0 && (
             <div className="mon-lab-picked">
               {picked.map((t) => (
-                <span key={t} className="mon-tag" onClick={() => toggle(t)}>{t} ✕</span>
+                <span key={t} className="mon-lab-pick">
+                  <span className="mon-tag" onClick={() => toggle(t)}>{t} ✕</span>
+                  {wMode === 'custom' && (
+                    <input className="mon-w" type="number" min="0" step="0.5"
+                           value={wMap[t] != null ? wMap[t] : 1}
+                           onChange={(e) => setWMap({ ...wMap, [t]: parseFloat(e.target.value) || 0 })}
+                           title="relative weight (normalized on build)" />
+                  )}
+                </span>
               ))}
             </div>
           )}
@@ -324,7 +337,10 @@
         </div>
         <div className="mon-lab-main">
           <div className="mon-lab-toolbar">
-            <span className="lbl">Equal-weight · rebased 100</span>
+            <span className="lbl">Rebased 100</span>
+            <button className={'mon-chip ' + (wMode === 'equal' ? 'active' : '')} onClick={() => setWMode('equal')}>Equal-wt</button>
+            <button className={'mon-chip ' + (wMode === 'custom' ? 'active' : '')} onClick={() => setWMode('custom')}
+                    title="set per-member weights next to the ticker tags">Custom-wt</button>
             {['6mo', '1y', '2y', '5y'].map((r) => (
               <button key={r} className={'mon-chip ' + (range === r ? 'active' : '')} onClick={() => setRange(r)}>{r.toUpperCase()}</button>
             ))}
@@ -352,17 +368,51 @@
                   <div className="st"><span className="k">Period return</span><span className={'v ' + pctCls(stats.ret)}>{fmtPct(stats.ret)}</span></div>
                   <div className="st"><span className="k">Ann. volatility</span><span className="v">{stats.vol.toFixed(1)}%</span></div>
                   <div className="st"><span className="k">Max drawdown</span><span className="v neg">{stats.mdd.toFixed(1)}%</span></div>
+                  {ovStats && ovStats.beta != null && (
+                    <div className="st"><span className="k">β vs {overlay}</span><span className="v">{ovStats.beta.toFixed(2)}</span></div>
+                  )}
+                  {ovStats && ovStats.corr != null && (
+                    <div className="st"><span className="k">ρ vs {overlay}</span><span className="v">{ovStats.corr.toFixed(2)}</span></div>
+                  )}
                   <div className="st"><span className="k">Members</span><span className="v">{result.basket.tickers.length}</span></div>
+                  <button className="mon-chip" style={{ alignSelf: 'center' }} onClick={() => setShowCorr(!showCorr)}>
+                    {showCorr ? 'Hide correlations' : 'Correlations'}
+                  </button>
                 </div>
               )}
               <div className="mon-lab-members">
                 {perName.map((m) => (
                   <div key={m.t} className="mon-lab-member">
                     <span className="t">{m.t}</span>
+                    {m.w != null && wMode === 'custom' && <span className="w">{(m.w * 100).toFixed(0)}%</span>}
                     <span className={'p ' + pctCls(m.ret)}>{m.ret == null ? '—' : fmtPct(m.ret)}</span>
                   </div>
                 ))}
               </div>
+              {corrData && (
+                <div className="mon-corr">
+                  <div className="mon-corr-h">
+                    Member correlations (daily log-returns · {range.toUpperCase()})
+                    {corrData.avg != null && <span className="avg">avg pairwise ρ <b>{corrData.avg.toFixed(2)}</b>{corrData.avg > 0.7 ? ' — low diversification' : corrData.avg < 0.35 ? ' — well diversified' : ''}</span>}
+                  </div>
+                  <div className="mon-corr-grid" style={{ gridTemplateColumns: '70px repeat(' + corrData.tickers.length + ', 1fr)' }}>
+                    <span></span>
+                    {corrData.tickers.map((t) => <span key={'h' + t} className="hd">{t.replace('.JK', '')}</span>)}
+                    {corrData.tickers.map((a, i) => (
+                      <React.Fragment key={a}>
+                        <span className="hd row">{a.replace('.JK', '')}</span>
+                        {corrData.tickers.map((b, j) => {
+                          const v = corrData.matrix[i][j];
+                          const bg = v == null ? 'transparent'
+                            : v >= 0 ? 'rgba(31,184,119,' + (Math.abs(v) * 0.45).toFixed(2) + ')'
+                            : 'rgba(240,71,92,' + (Math.abs(v) * 0.45).toFixed(2) + ')';
+                          return <span key={b} className="cell" style={{ background: bg }} title={a + ' × ' + b}>{v == null ? '—' : v.toFixed(2)}</span>;
+                        })}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           ) : !err && <div className="mon-chart-empty">{busy ? 'Fetching histories…' : 'Pick instruments on the left, then Build index.'}</div>}
         </div>

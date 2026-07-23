@@ -353,6 +353,20 @@
   padding: 4px 9px; font-family: var(--font-mono); font-size: 10.5px;
 }
 .mon-lab-member .t { color: var(--paper); }
+.mon-lab-member .w { color: var(--brand); font-size: 9.5px; }
+.mon-lab-pick { display: inline-flex; align-items: center; gap: 3px; }
+.mon-w {
+  width: 46px; background: var(--bg-2); border: 1px solid var(--paper-softer); color: var(--paper);
+  font-size: 10px; font-family: var(--font-mono); padding: 2px 4px; border-radius: 3px;
+}
+.mon-corr { margin-top: 4px; }
+.mon-corr-h { font-size: 11px; color: var(--text-secondary); margin-bottom: 7px; }
+.mon-corr-h .avg { margin-left: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+.mon-corr-h .avg b { color: var(--paper); }
+.mon-corr-grid { display: grid; gap: 2px; font-family: var(--font-mono); font-size: 9px; max-width: 100%; overflow-x: auto; }
+.mon-corr-grid .hd { color: var(--text-tertiary); text-align: center; padding: 2px 1px; overflow: hidden; text-overflow: ellipsis; }
+.mon-corr-grid .hd.row { text-align: right; padding-right: 5px; }
+.mon-corr-grid .cell { text-align: center; padding: 3px 1px; border-radius: 2px; color: var(--paper); }
 .mon-lab-member .p.pos { color: var(--pos, #1FB877); }
 .mon-lab-member .p.neg { color: var(--neg, #F0475C); }
 
