@@ -36,6 +36,12 @@
 }
 .mon-rail-foot { margin-top: auto; padding: 14px 8px 4px; font-size: 9.5px; line-height: 1.6; color: var(--text-tertiary); font-family: var(--font-mono); }
 
+.mon-assign-note {
+  position: sticky; top: 0; z-index: 20; padding: 6px 24px; font-size: 11px;
+  font-family: var(--font-mono); color: var(--brand-strong); background: var(--brand-soft);
+  border-bottom: 1px solid var(--brand-edge);
+}
+
 /* ---- body & pages ---- */
 .mon-body { flex: 1 1 auto; min-width: 0; overflow-y: auto; }
 .mon-page { padding: 20px 24px 48px; max-width: 1560px; }

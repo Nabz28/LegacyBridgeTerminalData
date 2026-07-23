@@ -205,6 +205,38 @@
     return { ret, vol, mdd };
   }
 
+  // ---- shared desk assignments (management.monitor_coverage) -------------
+  // Read: any authenticated user. Write: RLS allows admin/management only
+  // (analysts' edits fall back to local-only). localStorage doubles as the
+  // offline cache so the board still renders assignments without a session.
+  const fetchCoverage = () => {
+    const s = lbcSession();
+    if (!s) return Promise.resolve(null);
+    return getJson(SB_BASE + '/monitor_coverage?select=desk_id,head,analysts',
+      { apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Accept-Profile': 'management' })
+      .then((rows) => {
+        const m = {};
+        (rows || []).forEach((r) => { m[r.desk_id] = { head: r.head || '', analysts: r.analysts || [] }; });
+        return m;
+      })
+      .catch(() => null);
+  };
+  const saveCoverage = (deskId, val) => {
+    const s = lbcSession();
+    if (!s) return Promise.reject(new Error('no-auth'));
+    return fetch(SB_BASE + '/monitor_coverage', {
+      method: 'POST',
+      headers: {
+        apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Content-Profile': 'management',
+        'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify([{
+        desk_id: deskId, head: val.head || '', analysts: val.analysts || [],
+        updated_by: (s.user && s.user.id) || null, updated_at: new Date().toISOString(),
+      }]),
+    }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
+  };
+
   // ---- assignment + saved-index persistence (local) -----------------------
   const ASSIGN_KEY = 'lbc-monitor-assign';
   const INDICES_KEY = 'lbc-monitor-indices';
@@ -328,6 +360,7 @@
 
   window.MONITOR_LIVE = {
     fetchQuote, fetchHistory, fetchFred, fetchLiveIndicators, fetchRoster,
+    fetchCoverage, saveCoverage,
     useQuotes, useQuote, useHistory,
     computeBasket, basketStats,
     loadAssign, saveAssign, loadIndices, saveIndices,

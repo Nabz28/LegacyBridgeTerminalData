@@ -440,9 +440,24 @@
     const [view, setView] = React.useState({ type: 'coverage' });
     const [subId, setSubId] = React.useState('all');
     const [assign, setAssign] = React.useState(() => ML().loadAssign());
+    const [assignNote, setAssignNote] = React.useState('');
+    // Pull the shared assignment book (management.monitor_coverage) once per
+    // mount; server state wins over the local cache and refreshes it.
+    React.useEffect(() => {
+      let alive = true;
+      ML().fetchCoverage().then((m) => {
+        if (alive && m) { setAssign((prev) => ({ ...prev, ...m })); ML().saveAssign(m); }
+      });
+      return () => { alive = false; };
+    }, []);
     const onAssign = (deskId, val) => {
       const next = { ...assign, [deskId]: val };
       setAssign(next); ML().saveAssign(next);
+      ML().saveCoverage(deskId, val).then(
+        () => setAssignNote('Assignments published to the team.'),
+        (e) => setAssignNote('Kept locally only — publishing needs a management/admin login (' + (e.message || e) + ').')
+      );
+      setTimeout(() => setAssignNote(''), 6000);
     };
     const openDesk = (id) => { setSubId('all'); setView({ type: 'desk', id }); };
     const equity = md.DESKS.filter((d) => d.group === 'equity');
@@ -474,6 +489,7 @@
           <div className="mon-rail-foot">Coverage v{md.VERSION}<br />10 + 3 desk model</div>
         </div>
         <div className="mon-body">
+          {assignNote && <div className="mon-assign-note">{assignNote}</div>}
           <MonBoundary key={view.type + ':' + (view.id || '')}>
             {view.type === 'coverage' && <CoverageBoard assign={assign} onOpenDesk={openDesk} />}
             {view.type === 'desk' && (

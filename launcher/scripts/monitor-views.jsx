@@ -526,7 +526,7 @@
       <div className="mon-modal-backdrop" onClick={onClose}>
         <div className="mon-modal mon-modal-sm" onClick={(e) => e.stopPropagation()}>
           <div className="mon-modal-h">
-            <div><div className="t">Assign · {desk.name}</div><div className="s">Stored locally in this browser — edit monitor-data.js defaults to publish team-wide.</div></div>
+            <div><div className="t">Assign · {desk.name}</div><div className="s">Synced team-wide via Supabase (management/admin can publish; others keep a local copy).</div></div>
             <button className="mon-chip" onClick={onClose}>✕</button>
           </div>
           <div className="mon-modal-body">

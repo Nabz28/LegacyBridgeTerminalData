@@ -76,11 +76,12 @@ close array is sparse for `=X` symbols, which corrupts the edge fn's prevClose).
 
 ## Assignments
 
-Desk head/analyst assignments edit in-app (Assign button) and persist per
-browser in `localStorage['lbc-monitor-assign']`. Team-wide defaults live in
-`launcher/scripts/monitor-data.js` — edit and ship to publish for everyone.
-(No server table: DDL needs the Supabase Management API PAT, which is not
-stored on this machine.)
+Desk head/analyst assignments edit in-app (Assign button) and sync team-wide
+through `management.monitor_coverage` (migration `0056_monitor_coverage.sql`):
+every authenticated user reads the shared book on mount; RLS lets only
+`user_role in ('admin','management')` publish. Non-management edits fall back
+to a per-browser copy (`localStorage['lbc-monitor-assign']`), which also
+serves as the offline cache.
 
 ## Files
 
