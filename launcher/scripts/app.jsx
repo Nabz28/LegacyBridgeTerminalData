@@ -755,6 +755,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           window.FINANCE_TERMINAL ? <window.FINANCE_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'accounts' ? (
           window.ACCOUNTS_TERMINAL ? <window.ACCOUNTS_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'monitor' ? (
+          window.MonitorTerminal ? <window.MonitorTerminal /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}

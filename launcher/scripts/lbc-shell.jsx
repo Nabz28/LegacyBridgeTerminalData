@@ -23,6 +23,7 @@ const LBC_ICONS = {
   legion:    _svg(<><path d="M12 2.5L20 7v10l-8 4.5L4 17V7z"/><circle cx="12" cy="12" r="2.5"/><path d="M12 9.5V4M14.2 13.3L18 15.5M9.8 13.3L6 15.5"/></>),
   finance:   _svg(<><path d="M12 2v20"/><path d="M17 6H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></>),
   accounts:  _svg(<><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17.5 7.5l2 2 3-3"/></>),
+  monitor:   _svg(<><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/><path d="M12 12l4-2.2"/></>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -113,11 +114,18 @@ const LBC_TERMINALS = [
     users: ['nabil', 'aldee'],
     selfNav: true,
     workspaces: [ { kind: 'accounts', label: 'Accounts', built: true } ] },
+  // MONITOR — the research-division coverage map, live. 10 specialist equity
+  // desks + FX / Rates & Credit / Economics market desks; per-desk live
+  // constituents, custom indices, news & screeners. Open to all analysts.
+  { id: 'monitor', num: 'T12', name: 'Monitor', accent: '#66c6e8', icon: LBC_ICONS.monitor,
+    desc: 'Coverage operating map — 10 sector desks + FX, Rates & Economics. Live prices, custom indices, news, screeners.',
+    selfNav: true,
+    workspaces: [ { kind: 'monitor', label: 'Monitor', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','ind-engine','portfolio','global','legion','finance','accounts']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','ind-engine','portfolio','global','legion','finance','accounts','monitor']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating, in precedence order:

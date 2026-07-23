@@ -1,0 +1,493 @@
+// ================================================================
+// MONITOR terminal (window.MonitorTerminal) — T12.
+// The research-division operating map, live: 10 specialist equity
+// desks + FX / Rates & Credit / Economics market desks. Coverage
+// board → desk drill-in (sub-industries panel + live detail panel),
+// global markets board, screener, newswire. selfNav (owns its rail).
+// ================================================================
+(function () {
+  'use strict';
+
+  const MD = () => window.MONITOR_DATA;
+  const MV = () => window.MONITOR_VIEWS;
+  const ML = () => window.MONITOR_LIVE;
+
+  // ---- Coverage board ------------------------------------------------------
+  const DeskCard = ({ desk, assign, onOpen }) => {
+    const { useQuote, useHistory, MonSpark } = ML();
+    const { fmtPct, pctCls } = MV();
+    const benchY = (desk.bench || []).find((b) => b.y);
+    const { quote } = useQuote(benchY ? benchY.y : null);
+    const { obs } = useHistory(benchY ? benchY.y : null, '3mo', '1d');
+    const a = assign[desk.id] || {};
+    const people = [a.head, ...(a.analysts || [])].filter(Boolean);
+    const nSubs = (desk.subs || []).length;
+    const nNames = (desk.subs || []).reduce((s, x) => s + (x.u || []).length, 0);
+    return (
+      <div className="mon-card" style={{ ['--ac']: desk.accent }} onClick={() => onOpen(desk.id)}>
+        <div className="mon-card-top">
+          <span className="num">{desk.num}</span>
+          <span className="gics">{desk.gics !== '—' ? desk.gics : 'Market desk'}</span>
+          {quote && !quote.error && quote.changePct != null && (
+            <span className={'chg ' + pctCls(quote.changePct)}>{fmtPct(quote.changePct)}</span>
+          )}
+        </div>
+        <div className="mon-card-name">{desk.name}</div>
+        <div className="mon-card-short">{desk.short}</div>
+        <div className="mon-card-mid">
+          <div className="facts">
+            {desk.group === 'equity'
+              ? <><span><b>{nSubs}</b> sub-industries</span><span><b>{nNames}</b> names</span></>
+              : <><span><b>{nSubs}</b> books</span>{nNames ? <span><b>{nNames}</b> instruments</span> : <span>live board</span>}</>}
+          </div>
+          {obs && obs.length > 3 && <MonSpark obs={obs} color={desk.accent} w={96} h={30} />}
+        </div>
+        <div className="mon-card-foot">
+          {people.length
+            ? people.slice(0, 3).map((p) => <span key={p} className="mon-person">{p}</span>)
+            : <span className="mon-person unset">Unassigned</span>}
+          {people.length > 3 && <span className="mon-person">+{people.length - 3}</span>}
+          <span className="open">Open →</span>
+        </div>
+      </div>
+    );
+  };
+
+  const CoverageBoard = ({ assign, onOpenDesk }) => {
+    const md = MD();
+    const equity = md.DESKS.filter((d) => d.group === 'equity');
+    const markets = md.DESKS.filter((d) => d.group === 'markets');
+    return (
+      <div className="mon-page">
+        <div className="mon-hero">
+          <div className="mon-hero-l">
+            <div className="k">LBC Research Division · coverage operating map</div>
+            <h1>Monitor</h1>
+            <p>
+              Every public company maps to exactly one of <b>10 specialist equity desks</b> (MECE, GICS-aligned),
+              flanked by three market desks — <b>FX</b>, <b>Rates &amp; Credit</b> and <b>Economics</b> — that give the
+              division its cross-asset context. Click a desk to drill into sub-industries, live constituents,
+              custom indices and news.
+            </p>
+          </div>
+          <div className="mon-hero-r">
+            {md.ROADMAP.map((r) => (
+              <div key={r.phase} className={'mon-phase ' + (r.active ? 'active' : '')} title={r.note}>
+                <span className="p">{r.phase}</span>
+                <span className="t">{r.teams}</span>
+                {r.active && <span className="now">LIVE</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
+        <div className="mon-cards">
+          {equity.map((d) => <DeskCard key={d.id} desk={d} assign={assign} onOpen={onOpenDesk} />)}
+        </div>
+        <div className="mon-sec-h"><span>Markets &amp; Macro</span><span className="n">{markets.length} desks — the strategy layer</span></div>
+        <div className="mon-cards">
+          {markets.map((d) => <DeskCard key={d.id} desk={d} assign={assign} onOpen={onOpenDesk} />)}
+        </div>
+      </div>
+    );
+  };
+
+  // ---- Desk view -----------------------------------------------------------
+  const DESK_TABS = (desk) => {
+    if (desk.id === 'fx') return ['Overview', 'Cross Rates', 'Pairs', 'News'];
+    if (desk.id === 'rates') return ['Overview', 'Curve & Spreads', 'Board', 'News'];
+    if (desk.id === 'econ') return ['Indicators', 'Calendar', 'News'];
+    return ['Overview', 'Constituents', 'Index Lab', 'News'];
+  };
+
+  const DeskView = ({ deskId, assign, onAssign, subId, setSubId }) => {
+    const md = MD(), mv = MV();
+    const desk = md.deskById(deskId);
+    const [tab, setTab] = React.useState(DESK_TABS(desk)[0]);
+    const [region, setRegion] = React.useState('ALL');
+    const [country, setCountry] = React.useState('');
+    const [benchIdx, setBenchIdx] = React.useState(0);
+    const [detail, setDetail] = React.useState(null);
+    const [dossier, setDossier] = React.useState(false);
+    const [assignOpen, setAssignOpen] = React.useState(false);
+    React.useEffect(() => { setTab(DESK_TABS(desk)[0]); setSubId('all'); setRegion('ALL'); setCountry(''); setBenchIdx(0); }, [deskId]);
+
+    if (!desk) return null;
+    const isEcon = desk.id === 'econ';
+    const rows = isEcon ? [] : md.deskUniverse(desk, subId, region, country || null);
+    const countries = md.deskCountries(desk);
+    const a = assign[desk.id] || {};
+    const people = [a.head, ...(a.analysts || [])].filter(Boolean);
+    const bench = desk.bench || [];
+    const activeBench = bench[Math.min(benchIdx, bench.length - 1)] || null;
+    const tabs = DESK_TABS(desk);
+    const econRegion = isEcon ? (subId === 'all' ? 'United States' : subId) : null;
+
+    // TV symbol groups for the rates "Board" tab.
+    const ratesGroups = desk.id === 'rates' ? desk.subs.map((s) => ({
+      name: s.name,
+      symbols: (s.u || []).filter((r) => r.tv).map((r) => ({ name: r.tv, displayName: r.n })),
+    })) : null;
+
+    return (
+      <div className="mon-desk" style={{ ['--ac']: desk.accent }}>
+        {/* header */}
+        <div className="mon-desk-h">
+          <div className="mon-desk-id">
+            <span className="num">{desk.num}</span>
+            <div>
+              <div className="name">{desk.name}</div>
+              <div className="short">{desk.short}</div>
+            </div>
+          </div>
+          <div className="mon-desk-people">
+            {people.length
+              ? people.map((p) => <span key={p} className="mon-person">{p}</span>)
+              : <span className="mon-person unset">Unassigned</span>}
+            <button className="mon-chip" onClick={() => setAssignOpen(true)} title="Assign desk head & analysts">Assign</button>
+            <button className="mon-chip" onClick={() => setDossier(true)} title="Desk dossier — mandate, themes, valuation toolkit">Dossier</button>
+          </div>
+        </div>
+
+        {/* filters */}
+        {!isEcon && (
+          <div className="mon-desk-filters">
+            {md.REGION_FILTERS.map((r) => (
+              <button key={r.id} className={'mon-chip ' + (region === r.id && !country ? 'active' : '')}
+                      onClick={() => { setRegion(r.id); setCountry(''); }}>{r.label}</button>
+            ))}
+            <select className="mon-select" value={country} onChange={(e) => { setCountry(e.target.value); if (e.target.value) setRegion('ALL'); }}>
+              <option value="">By country…</option>
+              {countries.map((c) => <option key={c} value={c}>{(md.COUNTRIES[c] || {}).f} {(md.COUNTRIES[c] || {}).n}</option>)}
+            </select>
+            <span className="mon-desk-count">{rows.length} instruments</span>
+            <span className="sp"></span>
+            {tabs.map((t) => (
+              <button key={t} className={'mon-tab ' + (tab === t ? 'active' : '')} onClick={() => setTab(t)}>{t}</button>
+            ))}
+          </div>
+        )}
+        {isEcon && (
+          <div className="mon-desk-filters">
+            <span className="mon-desk-count">Live indicator book · Refinitiv/FRED/DBnomics via T2 pipelines</span>
+            <span className="sp"></span>
+            {tabs.map((t) => (
+              <button key={t} className={'mon-tab ' + (tab === t ? 'active' : '')} onClick={() => setTab(t)}>{t}</button>
+            ))}
+          </div>
+        )}
+
+        {/* body: sub panel + detail panel */}
+        <div className="mon-desk-body">
+          <div className="mon-subs">
+            <div className="mon-subs-h">{isEcon ? 'Regions' : 'Sub-industries'}</div>
+            {!isEcon && (
+              <div className={'mon-sub ' + (subId === 'all' ? 'active' : '')} onClick={() => setSubId('all')}>
+                <span className="n">All {desk.name}</span>
+                <span className="ct">{md.deskUniverse(desk, 'all', region, country || null).length}</span>
+              </div>
+            )}
+            {desk.subs.map((s) => (
+              <div key={s.id} className={'mon-sub ' + (subId === s.id || (isEcon && subId === 'all' && s.id === 'United States') ? 'active' : '')}
+                   onClick={() => setSubId(s.id)}>
+                <span className="n">{s.name}</span>
+                {!isEcon && <span className="ct">{md.deskUniverse(desk, s.id, region, country || null).length}</span>}
+              </div>
+            ))}
+            {subId !== 'all' && !isEcon && (
+              <div className="mon-subs-note">{(desk.subs.find((s) => s.id === subId) || {}).note || ''}</div>
+            )}
+          </div>
+
+          <div className="mon-detail">
+            {/* ---- equity/fx/rates: Overview ---- */}
+            {tab === 'Overview' && (
+              <div className="mon-overview">
+                <div className="mon-bench-strip">
+                  {bench.map((b, i) => (
+                    <button key={b.label} className={'mon-chip ' + (i === benchIdx ? 'active' : '')}
+                            onClick={() => setBenchIdx(i)} title={b.region}>{b.label}</button>
+                  ))}
+                </div>
+                <div className="mon-overview-chart">
+                  {activeBench && activeBench.tv
+                    ? <mv.TvAdvancedChart symbol={activeBench.tv} />
+                    : activeBench && activeBench.y
+                      ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
+                      : <div className="mon-chart-empty">No benchmark configured</div>}
+                </div>
+                {rows.length > 3 && <mv.TopMovers rows={rows} />}
+              </div>
+            )}
+
+            {/* ---- equity constituents / fx pairs ---- */}
+            {(tab === 'Constituents' || tab === 'Pairs') && (
+              <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} />
+            )}
+
+            {/* ---- Index Lab ---- */}
+            {tab === 'Index Lab' && <mv.IndexLab desk={desk} accent={desk.accent} />}
+
+            {/* ---- FX cross rates ---- */}
+            {tab === 'Cross Rates' && (
+              <div className="mon-fill"><mv.TvFxHeatmap /></div>
+            )}
+
+            {/* ---- Rates boards ---- */}
+            {tab === 'Curve & Spreads' && <mv.RatesBoard desk={desk} accent={desk.accent} />}
+            {tab === 'Board' && ratesGroups && (
+              <div className="mon-fill"><mv.TvQuotesBoard groups={ratesGroups} /></div>
+            )}
+
+            {/* ---- Economics ---- */}
+            {tab === 'Indicators' && isEcon && (
+              <mv.EconBoard region={econRegion} accent={desk.accent} />
+            )}
+            {tab === 'Calendar' && <div className="mon-fill"><mv.TvCalendar /></div>}
+
+            {/* ---- News ---- */}
+            {tab === 'News' && (
+              <DeskNews desk={desk} activeBench={activeBench} rows={rows} />
+            )}
+          </div>
+        </div>
+
+        {detail && (
+          <mv.HistoryModal
+            title={detail.n} sub={(detail.sub ? detail.sub + ' · ' : '') + (detail.t || '')}
+            ticker={detail.t} onClose={() => setDetail(null)} />
+        )}
+        {dossier && <mv.DossierDrawer desk={desk} onClose={() => setDossier(false)} />}
+        {assignOpen && <mv.AssignEditor desk={desk} assign={assign} onSave={onAssign} onClose={() => setAssignOpen(false)} />}
+      </div>
+    );
+  };
+
+  // Yahoo fallback chart for benches without a TV symbol.
+  const YahooFallbackChart = ({ ticker, label, accent }) => {
+    const { useHistory, MultiLineChart } = ML();
+    const { obs, err } = useHistory(ticker, '2y', '1d');
+    if (err) return <div className="mon-chart-empty">{err}</div>;
+    if (!obs) return <div className="mon-chart-empty">Loading…</div>;
+    return <MultiLineChart series={[{ label, color: accent, points: obs }]} height={380} />;
+  };
+
+  // Desk news: symbol feed follows the active benchmark / first TV constituent,
+  // with a market-feed fallback toggle.
+  const DeskNews = ({ desk, activeBench, rows }) => {
+    const mv = MV();
+    const symCandidates = [
+      ...(activeBench && activeBench.tv ? [{ label: activeBench.label, tv: activeBench.tv }] : []),
+      ...rows.filter((r) => r.tv).slice(0, 10).map((r) => ({ label: r.n, tv: r.tv })),
+    ];
+    const market = desk.id === 'fx' ? 'forex' : desk.id === 'rates' ? 'index' : 'stock';
+    const [mode, setMode] = React.useState(symCandidates.length ? 'symbol' : 'market');
+    const [sym, setSym] = React.useState(symCandidates.length ? symCandidates[0].tv : '');
+    return (
+      <div className="mon-news">
+        <div className="mon-news-bar">
+          <button className={'mon-chip ' + (mode === 'symbol' ? 'active' : '')} onClick={() => setMode('symbol')} disabled={!symCandidates.length}>By instrument</button>
+          <button className={'mon-chip ' + (mode === 'market' ? 'active' : '')} onClick={() => setMode('market')}>Market wire</button>
+          {mode === 'symbol' && (
+            <select className="mon-select" value={sym} onChange={(e) => setSym(e.target.value)}>
+              {symCandidates.map((s) => <option key={s.tv} value={s.tv}>{s.label}</option>)}
+            </select>
+          )}
+        </div>
+        <div className="mon-fill">
+          {mode === 'symbol' && sym
+            ? <mv.TvNews mode="symbol" symbol={sym} />
+            : <mv.TvNews mode="market" market={market} />}
+        </div>
+      </div>
+    );
+  };
+
+  // ---- Global markets board ------------------------------------------------
+  const MarketsBoard = () => {
+    const md = MD(), mv = MV();
+    const [region, setRegion] = React.useState('ALL');
+    const [detail, setDetail] = React.useState(null);
+    const rows = md.COUNTRY_INDICES
+      .filter((r) => md.inRegion(r.c, region))
+      .map((r) => ({ t: r.y, tv: r.tv, n: r.n, c: r.c, sub: (md.COUNTRIES[r.c] || {}).n || '' }));
+    return (
+      <div className="mon-page mon-markets">
+        <div className="mon-ticker"><mv.TvTickerTape /></div>
+        <div className="mon-markets-grid">
+          <div className="mon-panel">
+            <div className="mon-panel-h">Index by country <span className="sub">Yahoo live-ish · click a row for full history + CSV</span></div>
+            <div className="mon-bench-strip">
+              {md.REGION_FILTERS.map((r) => (
+                <button key={r.id} className={'mon-chip ' + (region === r.id ? 'active' : '')} onClick={() => setRegion(r.id)}>{r.label}</button>
+              ))}
+            </div>
+            <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} />
+          </div>
+          <div className="mon-panel mon-panel-tv">
+            <div className="mon-panel-h">Live markets <span className="sub">TradingView streaming</span></div>
+            <div className="mon-fill">
+              <mv.TvQuotesBoard groups={[
+                { name: 'Sovereign 10Y', symbols: [
+                  { name: 'TVC:US10Y', displayName: 'United States 10Y' }, { name: 'TVC:DE10Y', displayName: 'Germany 10Y' },
+                  { name: 'TVC:GB10Y', displayName: 'UK 10Y' }, { name: 'TVC:JP10Y', displayName: 'Japan 10Y' },
+                  { name: 'TVC:CN10Y', displayName: 'China 10Y' }, { name: 'TVC:ID10Y', displayName: 'Indonesia 10Y' },
+                  { name: 'TVC:IN10Y', displayName: 'India 10Y' },
+                ] },
+                { name: 'FX', symbols: [
+                  { name: 'TVC:DXY', displayName: 'Dollar Index' }, { name: 'FX:EURUSD', displayName: 'EUR/USD' },
+                  { name: 'FX:USDJPY', displayName: 'USD/JPY' }, { name: 'FX:USDCNH', displayName: 'USD/CNH' },
+                  { name: 'FX_IDC:USDIDR', displayName: 'USD/IDR' }, { name: 'FX:USDSGD', displayName: 'USD/SGD' },
+                ] },
+                { name: 'Commodities', symbols: [
+                  { name: 'TVC:GOLD', displayName: 'Gold' }, { name: 'TVC:SILVER', displayName: 'Silver' },
+                  { name: 'TVC:USOIL', displayName: 'WTI Crude' }, { name: 'TVC:UKOIL', displayName: 'Brent' },
+                  { name: 'CAPITALCOM:NATURALGAS', displayName: 'Nat Gas' }, { name: 'CAPITALCOM:COPPER', displayName: 'Copper' },
+                ] },
+                { name: 'Crypto', symbols: [
+                  { name: 'BINANCE:BTCUSDT', displayName: 'Bitcoin' }, { name: 'BINANCE:ETHUSDT', displayName: 'Ethereum' },
+                  { name: 'BINANCE:SOLUSDT', displayName: 'Solana' },
+                ] },
+              ]} />
+            </div>
+          </div>
+        </div>
+        {detail && (
+          <mv.HistoryModal title={detail.n} sub={detail.sub + ' · ' + detail.t} ticker={detail.t} onClose={() => setDetail(null)} />
+        )}
+      </div>
+    );
+  };
+
+  // ---- Screener ------------------------------------------------------------
+  const ScreenerPage = () => {
+    const md = MD(), mv = MV();
+    const [market, setMarket] = React.useState('america');
+    return (
+      <div className="mon-page mon-screener">
+        <div className="mon-panel-h">Screener <span className="sub">TradingView screener · any market, any filter</span></div>
+        <div className="mon-bench-strip" style={{ flexWrap: 'wrap' }}>
+          {md.SCREENER_MARKETS.map((m) => (
+            <button key={m.id} className={'mon-chip ' + (market === m.id ? 'active' : '')} onClick={() => setMarket(m.id)}>{m.label}</button>
+          ))}
+        </div>
+        <div className="mon-fill"><mv.TvScreener key={market} market={market} /></div>
+      </div>
+    );
+  };
+
+  // ---- Newswire ------------------------------------------------------------
+  const NewswirePage = () => {
+    const mv = MV();
+    const FEEDS = [
+      { id: 'stock', label: 'Global Stocks' }, { id: 'index', label: 'Indices' },
+      { id: 'forex', label: 'FX' }, { id: 'crypto', label: 'Crypto' },
+    ];
+    const [feed, setFeed] = React.useState('stock');
+    const [sym, setSym] = React.useState('');
+    const [input, setInput] = React.useState('');
+    return (
+      <div className="mon-page mon-newswire">
+        <div className="mon-panel-h">Newswire <span className="sub">live headlines · pick a wire or pin an instrument (e.g. IDX:BBCA, NASDAQ:NVDA)</span></div>
+        <div className="mon-bench-strip">
+          {FEEDS.map((f) => (
+            <button key={f.id} className={'mon-chip ' + (feed === f.id && !sym ? 'active' : '')}
+                    onClick={() => { setFeed(f.id); setSym(''); }}>{f.label}</button>
+          ))}
+          <input className="mon-input" style={{ maxWidth: 220 }} placeholder="TV symbol + Enter…" value={input}
+                 onChange={(e) => setInput(e.target.value)}
+                 onKeyDown={(e) => { if (e.key === 'Enter' && input.trim()) { setSym(input.trim().toUpperCase()); } }} />
+          {sym && <span className="mon-tag" onClick={() => setSym('')}>{sym} ✕</span>}
+        </div>
+        <div className="mon-fill">
+          {sym ? <mv.TvNews mode="symbol" symbol={sym} /> : <mv.TvNews mode="market" market={feed} />}
+        </div>
+      </div>
+    );
+  };
+
+  // ---- error boundary — a bad widget/data path must never unmount the shell
+  class MonBoundary extends React.Component {
+    constructor(p) { super(p); this.state = { err: null }; }
+    static getDerivedStateFromError(err) { return { err }; }
+    componentDidCatch(err) { this.lastErr = err; }
+    render() {
+      if (this.state.err) {
+        return (
+          <div className="mon-page">
+            <div className="mon-chart-empty" style={{ flexDirection: 'column', gap: 10, minHeight: 220 }}>
+              <div>Something broke in this Monitor view ({String(this.state.err && this.state.err.message || this.state.err)}).</div>
+              <button className="mon-chip" onClick={() => this.setState({ err: null })}>Reload view</button>
+            </div>
+          </div>
+        );
+      }
+      return this.props.children;
+    }
+  }
+
+  // ---- rail + root ---------------------------------------------------------
+  const RAIL_TOP = [
+    { id: 'coverage', label: 'Coverage Map', glyph: '⊞' },
+    { id: 'markets', label: 'Global Markets', glyph: '◍' },
+    { id: 'screener', label: 'Screener', glyph: '⌕' },
+    { id: 'news', label: 'Newswire', glyph: '❏' },
+  ];
+
+  const MonitorTerminal = () => {
+    const md = MD();
+    const [view, setView] = React.useState({ type: 'coverage' });
+    const [subId, setSubId] = React.useState('all');
+    const [assign, setAssign] = React.useState(() => ML().loadAssign());
+    const onAssign = (deskId, val) => {
+      const next = { ...assign, [deskId]: val };
+      setAssign(next); ML().saveAssign(next);
+    };
+    const openDesk = (id) => { setSubId('all'); setView({ type: 'desk', id }); };
+    const equity = md.DESKS.filter((d) => d.group === 'equity');
+    const markets = md.DESKS.filter((d) => d.group === 'markets');
+
+    const RailDesk = ({ d }) => (
+      <div className={'mon-rail-item desk ' + (view.type === 'desk' && view.id === d.id ? 'active' : '')}
+           style={{ ['--ac']: d.accent }} onClick={() => openDesk(d.id)} title={d.short}>
+        <span className="num">{d.num}</span>
+        <span className="lbl">{d.name}</span>
+      </div>
+    );
+
+    return (
+      <div className="mon-root">
+        <div className="mon-rail">
+          <div className="mon-rail-brand">MONITOR<span className="v">T12</span></div>
+          {RAIL_TOP.map((r) => (
+            <div key={r.id} className={'mon-rail-item ' + (view.type === r.id ? 'active' : '')}
+                 onClick={() => setView({ type: r.id })}>
+              <span className="glyph">{r.glyph}</span>
+              <span className="lbl">{r.label}</span>
+            </div>
+          ))}
+          <div className="mon-rail-sec">Equity desks</div>
+          {equity.map((d) => <RailDesk key={d.id} d={d} />)}
+          <div className="mon-rail-sec">Market desks</div>
+          {markets.map((d) => <RailDesk key={d.id} d={d} />)}
+          <div className="mon-rail-foot">Coverage v{md.VERSION}<br />10 + 3 desk model</div>
+        </div>
+        <div className="mon-body">
+          <MonBoundary key={view.type + ':' + (view.id || '')}>
+            {view.type === 'coverage' && <CoverageBoard assign={assign} onOpenDesk={openDesk} />}
+            {view.type === 'desk' && (
+              /* key by desk id so ALL desk-local state (tab, filters, bench) resets on switch */
+              <DeskView key={view.id} deskId={view.id} assign={assign} onAssign={onAssign} subId={subId} setSubId={setSubId} />
+            )}
+            {view.type === 'markets' && <MarketsBoard />}
+            {view.type === 'screener' && <ScreenerPage />}
+            {view.type === 'news' && <NewswirePage />}
+          </MonBoundary>
+        </div>
+      </div>
+    );
+  };
+
+  window.MonitorTerminal = MonitorTerminal;
+})();
