@@ -14,11 +14,12 @@
 
   // ---- Coverage board ------------------------------------------------------
   const DeskCard = ({ desk, assign, onOpen }) => {
-    const { useQuote, useHistory, MonSpark } = ML();
+    const { useQuote, useHistory, useDeskSignals, MonSpark } = ML();
     const { fmtPct, pctCls } = MV();
     const benchY = (desk.bench || []).find((b) => b.y);
     const { quote } = useQuote(benchY ? benchY.y : null);
-    const { obs } = useHistory(benchY ? benchY.y : null, '3mo', '1d');
+    const { obs } = useHistory(benchY ? benchY.y : null, '6mo', '1d');
+    const sig = useDeskSignals(benchY ? benchY.y : null);
     const a = assign[desk.id] || {};
     const people = [a.head, ...(a.analysts || [])].filter(Boolean);
     const nSubs = (desk.subs || []).length;
@@ -34,6 +35,22 @@
         </div>
         <div className="mon-card-name">{desk.name}</div>
         <div className="mon-card-short">{desk.short}</div>
+        {sig && (sig.momentum || sig.rs) && (
+          <div className="mon-card-sigs">
+            {sig.momentum && sig.momentum !== 'flat' && (
+              <span className={'mon-sig ' + ((sig.momentum === 'strong' || sig.momentum === 'up') ? 'pos' : 'neg')}
+                    title={'benchmark 1M ' + fmtPct(sig.r1m) + ' · 3M ' + fmtPct(sig.r3m)}>
+                MOM {sig.momentum === 'strong' ? '▲▲' : sig.momentum === 'up' ? '▲' : sig.momentum === 'weak' ? '▼▼' : '▼'}
+              </span>
+            )}
+            {sig.rs && sig.rs !== 'inline' && (
+              <span className={'mon-sig ' + (sig.rs === 'leader' ? 'pos' : 'neg')}
+                    title={'1M relative strength vs S&P 500: ' + fmtPct(sig.rsDiff)}>
+                RS {sig.rs === 'leader' ? 'LEADER' : 'LAGGARD'}
+              </span>
+            )}
+          </div>
+        )}
         <div className="mon-card-mid">
           <div className="facts">
             {desk.group === 'equity'
@@ -55,6 +72,7 @@
 
   const CoverageBoard = ({ assign, onOpenDesk }) => {
     const md = MD();
+    const { RegimeStrip } = MV();
     const equity = md.DESKS.filter((d) => d.group === 'equity');
     const markets = md.DESKS.filter((d) => d.group === 'markets');
     return (
@@ -80,6 +98,8 @@
             ))}
           </div>
         </div>
+
+        <RegimeStrip />
 
         <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
         <div className="mon-cards">
@@ -217,6 +237,7 @@
                       ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
                       : <div className="mon-chart-empty">No benchmark configured</div>}
                 </div>
+                {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} rows={rows} />}
                 {rows.length > 3 && <mv.TopMovers rows={rows} />}
               </div>
             )}
@@ -315,6 +336,7 @@
     return (
       <div className="mon-page mon-markets">
         <div className="mon-ticker"><mv.TvTickerTape /></div>
+        <mv.RegimeStrip compact />
         <div className="mon-markets-grid">
           <div className="mon-panel">
             <div className="mon-panel-h">Index by country <span className="sub">Yahoo live-ish · click a row for full history + CSV</span></div>

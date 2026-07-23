@@ -205,6 +205,51 @@
     return { ret, vol, mdd };
   }
 
+  // ---- regime engine feeds -------------------------------------------------
+  // One shared fetch of the cross-asset pack, recomputed at most every 10 min.
+  let regimeCache = null; // { at, promise }
+  const fetchRegime = () => {
+    if (regimeCache && Date.now() - regimeCache.at < 10 * 60 * 1000) return regimeCache.promise;
+    const R = window.MONITOR_REGIME;
+    const p = Promise.all([
+      fetchHistory('^GSPC', '6mo', '1d'), fetchHistory('^VIX', '6mo', '1d'),
+      fetchHistory('DX-Y.NYB', '6mo', '1d'), fetchHistory('HG=F', '6mo', '1d'),
+      fetchHistory('GC=F', '6mo', '1d'), fetchHistory('IDR=X', '6mo', '1d'),
+      fetchFred('BAMLH0A0HYM2'), fetchFred('T10Y2Y'),
+    ]).then(([spx, vix, dxy, copper, gold, usdidr, hyRaw, curveRaw]) => R.computeRegime({
+      spx, vix, dxy, copper, gold, usdidr,
+      hyOas: (hyRaw || []).slice(-520), curve2s10: (curveRaw || []).slice(-520),
+    }));
+    regimeCache = { at: Date.now(), promise: p };
+    p.catch(() => { regimeCache = null; });
+    return p;
+  };
+
+  function useRegime() {
+    const [regime, setRegime] = React.useState(null);
+    const [err, setErr] = React.useState('');
+    React.useEffect(() => {
+      let alive = true;
+      fetchRegime().then((r) => alive && setRegime(r), (e) => alive && setErr(String(e && e.message || e)));
+      return () => { alive = false; };
+    }, []);
+    return { regime, err };
+  }
+
+  // Desk momentum/RS signals from the desk benchmark vs S&P (histories dedupe
+  // through the shared cache, so 13 cards trigger one ^GSPC fetch total).
+  function useDeskSignals(benchTicker) {
+    const [sig, setSig] = React.useState(null);
+    React.useEffect(() => {
+      let alive = true;
+      if (!benchTicker) { setSig(null); return; }
+      Promise.all([fetchHistory(benchTicker, '6mo', '1d'), fetchHistory('^GSPC', '6mo', '1d')])
+        .then(([bench, spx]) => { if (alive) setSig(window.MONITOR_REGIME.deskSignals(bench, spx)); }, () => {});
+      return () => { alive = false; };
+    }, [benchTicker]);
+    return sig;
+  }
+
   // ---- shared desk assignments (management.monitor_coverage) -------------
   // Read: any authenticated user. Write: RLS allows admin/management only
   // (analysts' edits fall back to local-only). localStorage doubles as the
@@ -361,6 +406,7 @@
   window.MONITOR_LIVE = {
     fetchQuote, fetchHistory, fetchFred, fetchLiveIndicators, fetchRoster,
     fetchCoverage, saveCoverage,
+    fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,
     computeBasket, basketStats,
     loadAssign, saveAssign, loadIndices, saveIndices,

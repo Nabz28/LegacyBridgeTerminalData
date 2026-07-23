@@ -67,6 +67,76 @@
   background: var(--brand); color: #0A0A0B; padding: 1px 6px; border-radius: 2px; font-weight: 700;
 }
 
+/* ---- regime strip ---- */
+.mon-regime {
+  border: 1px solid var(--paper-softer); border-radius: 4px; padding: 11px 14px 9px;
+  margin: 4px 0 10px; background: var(--bg-1); position: relative; overflow: hidden;
+}
+.mon-regime::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; opacity: 0.85;
+  background: var(--text-tertiary);
+}
+.mon-regime.on::before { background: var(--pos, #1FB877); }
+.mon-regime.off::before { background: var(--neg, #F0475C); }
+.mon-regime.mid::before { background: #d8a13a; }
+.mon-regime-loading { font-size: 11px; font-family: var(--font-mono); color: var(--text-tertiary); }
+.mon-regime-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mon-regime-label {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+}
+.mon-regime-label.on { color: var(--pos, #1FB877); }
+.mon-regime-label.off { color: var(--neg, #F0475C); }
+.mon-regime-label.mid { color: #d8a13a; }
+.mon-regime-gauge { position: relative; width: 140px; height: 8px; }
+.mon-regime-gauge .track {
+  position: absolute; inset: 3px 0; border-radius: 2px;
+  background: linear-gradient(90deg, rgba(240,71,92,0.55), rgba(216,161,58,0.45), rgba(31,184,119,0.55));
+}
+.mon-regime-gauge .mid { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(232,228,217,0.35); }
+.mon-regime-gauge .needle {
+  position: absolute; top: -2px; bottom: -2px; width: 3px; border-radius: 1px; transform: translateX(-50%);
+  background: var(--paper-strong); box-shadow: 0 0 6px rgba(232,228,217,0.5);
+}
+.mon-regime-score { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--paper); }
+.mon-regime-flag {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.2px; font-weight: 700;
+  color: #d8a13a; border: 1px solid rgba(216,161,58,0.4); background: rgba(216,161,58,0.08);
+  padding: 2px 8px; border-radius: 2px;
+}
+.mon-regime-asof { margin-left: auto; font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); }
+.mon-regime-comps { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
+.mon-regime-comp {
+  display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 9px; border-radius: 3px;
+  border: 1px solid var(--paper-softer); cursor: help;
+}
+.mon-regime-comp .k { font-size: 9.5px; font-family: var(--font-mono); color: var(--text-tertiary); }
+.mon-regime-comp .v { font-size: 10.5px; font-family: var(--font-mono); color: var(--paper); }
+.mon-regime-comp.pos { border-color: rgba(31,184,119,0.35); }
+.mon-regime-comp.pos .v { color: var(--pos, #1FB877); }
+.mon-regime-comp.neg { border-color: rgba(240,71,92,0.35); }
+.mon-regime-comp.neg .v { color: var(--neg, #F0475C); }
+.mon-regime.compact { margin-bottom: 14px; }
+
+/* ---- desk-card signal chips ---- */
+.mon-card-sigs { display: flex; gap: 5px; margin-top: 8px; }
+.mon-sig {
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; font-weight: 700;
+  padding: 2px 7px; border-radius: 2px; border: 1px solid var(--paper-softer); color: var(--text-tertiary);
+}
+.mon-sig.pos { color: var(--pos, #1FB877); border-color: rgba(31,184,119,0.35); background: rgba(31,184,119,0.06); }
+.mon-sig.neg { color: var(--neg, #F0475C); border-color: rgba(240,71,92,0.35); background: rgba(240,71,92,0.06); }
+
+/* ---- desk pulse row ---- */
+.mon-pulse {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 12px;
+  border: 1px solid var(--paper-softer); border-radius: 4px; background: var(--bg-1);
+}
+.mon-pulse-t { font-size: 9px; font-family: var(--font-mono); letter-spacing: 2px; text-transform: uppercase; color: var(--text-tertiary); }
+.mon-pulse-item { font-size: 11px; color: var(--text-secondary); cursor: help; }
+.mon-pulse-item b { font-family: var(--font-mono); font-weight: 600; color: var(--paper); }
+.mon-pulse-item.pos b { color: var(--pos, #1FB877); }
+.mon-pulse-item.neg b { color: var(--neg, #F0475C); }
+
 .mon-sec-h {
   display: flex; align-items: baseline; gap: 12px; margin: 26px 0 12px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--paper); text-transform: uppercase;

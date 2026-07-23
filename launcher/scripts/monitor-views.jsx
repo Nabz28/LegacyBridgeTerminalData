@@ -480,6 +480,77 @@
     );
   };
 
+  // ---- Regime strip --------------------------------------------------------
+  // Cross-asset Risk-On/Off composite + component chips + condition flags.
+  const RegimeStrip = ({ compact }) => {
+    const { useRegime } = ML();
+    const { regime, err } = useRegime();
+    if (err) return null;
+    if (!regime) return <div className="mon-regime mon-regime-loading">Reading the tape — credit, vol, USD, curve, growth…</div>;
+    const cls = regime.label === 'RISK-ON' ? 'on' : regime.label === 'RISK-OFF' ? 'off' : 'mid';
+    const pct = ((regime.score + 1) / 2) * 100; // gauge position
+    return (
+      <div className={'mon-regime ' + cls + (compact ? ' compact' : '')}>
+        <div className="mon-regime-head">
+          <span className={'mon-regime-label ' + cls}>{regime.label}</span>
+          <span className="mon-regime-gauge" title={'composite ' + regime.score.toFixed(2) + ' (−1 risk-off … +1 risk-on)'}>
+            <span className="track"></span>
+            <span className="mid"></span>
+            <span className="needle" style={{ left: pct + '%' }}></span>
+          </span>
+          <span className="mon-regime-score">{(regime.score >= 0 ? '+' : '') + regime.score.toFixed(2)}</span>
+          {regime.flags.map((f) => <span key={f} className="mon-regime-flag">{f}</span>)}
+          <span className="mon-regime-asof">as of {regime.asOf}</span>
+        </div>
+        {!compact && (
+          <div className="mon-regime-comps">
+            {regime.components.map((c) => (
+              <span key={c.key} className={'mon-regime-comp ' + (c.score > 0.15 ? 'pos' : c.score < -0.15 ? 'neg' : '')}
+                    title={c.note + ' · score ' + (c.score >= 0 ? '+' : '') + c.score.toFixed(2)}>
+                <span className="k">{c.label}</span>
+                <span className="v">{c.value}</span>
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // ---- Desk pulse — momentum / relative strength / breadth today ----------
+  const DeskPulse = ({ desk, rows }) => {
+    const { useDeskSignals, useQuotes } = ML();
+    const benchY = (desk.bench || []).find((b) => b.y);
+    const sig = useDeskSignals(benchY ? benchY.y : null);
+    const tickers = (rows || []).filter((r) => r.t).map((r) => r.t);
+    const { quotes } = useQuotes(tickers);
+    const br = window.MONITOR_REGIME ? window.MONITOR_REGIME.breadth(quotes) : null;
+    if (!sig && !br) return null;
+    const momCls = sig && (sig.momentum === 'strong' || sig.momentum === 'up') ? 'pos' : sig && (sig.momentum === 'weak' || sig.momentum === 'down') ? 'neg' : '';
+    const rsCls = sig && sig.rs === 'leader' ? 'pos' : sig && sig.rs === 'laggard' ? 'neg' : '';
+    return (
+      <div className="mon-pulse">
+        <span className="mon-pulse-t">Desk pulse</span>
+        {sig && sig.r1m != null && (
+          <span className={'mon-pulse-item ' + momCls} title={benchY.label + ' — 1M / 3M benchmark return'}>
+            Momentum <b>{fmtPct(sig.r1m)}</b> 1M · <b>{fmtPct(sig.r3m)}</b> 3M
+          </span>
+        )}
+        {sig && sig.rs && (
+          <span className={'mon-pulse-item ' + rsCls} title={'benchmark 1M return minus S&P 500 1M'}>
+            RS vs S&P <b>{fmtPct(sig.rsDiff)}</b> · {sig.rs}
+          </span>
+        )}
+        {br && (
+          <span className={'mon-pulse-item ' + (br.advPct >= 60 ? 'pos' : br.advPct <= 40 ? 'neg' : '')}
+                title={'today: ' + br.adv + ' up / ' + br.dec + ' down of ' + br.tot + ' quoted · median ' + fmtPct(br.median)}>
+            Breadth <b>{br.advPct.toFixed(0)}%</b> adv · {br.bigUp}▲ {br.bigDown}▼ &gt;2%
+          </span>
+        )}
+      </div>
+    );
+  };
+
   // ---- Desk dossier drawer -------------------------------------------------
   const DossierDrawer = ({ desk, onClose }) => {
     const d = desk.dossier || {};
@@ -559,6 +630,7 @@
   window.MONITOR_VIEWS = {
     TvAdvancedChart, TvNews, TvQuotesBoard, TvFxHeatmap, TvCalendar, TvScreener, TvTickerTape,
     HistoryModal, QuoteTable, TopMovers, IndexLab, EconBoard, RatesBoard, DossierDrawer, AssignEditor,
+    RegimeStrip, DeskPulse,
     fmtNum, fmtPct, pctCls, flag,
   };
 })();
