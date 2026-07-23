@@ -105,12 +105,15 @@
     }
 
     // 5) Growth impulse — copper/gold ratio 1M trend (±6% band).
+    // Date-keyed intersection (never positional): a dropped session in one
+    // series must not silently pair mismatched dates.
     if (inp.copper && inp.gold) {
-      const cg = [], n = Math.min(inp.copper.length, inp.gold.length);
-      const co = inp.copper.slice(-n), go = inp.gold.slice(-n);
-      for (let i = 0; i < n; i++) {
-        if (go[i].value) cg.push({ date: co[i].date, value: co[i].value / go[i].value });
-      }
+      const goldByDate = new Map(inp.gold.map((o) => [o.date, o.value]));
+      const cg = [];
+      inp.copper.forEach((o) => {
+        const g = goldByDate.get(o.date);
+        if (g) cg.push({ date: o.date, value: o.value / g });
+      });
       const r1m = ret(cg, 21);
       if (r1m != null) push('growth', 'Copper/Gold 1M', (r1m >= 0 ? '+' : '') + r1m.toFixed(1) + '%', lin(r1m, -6, 6), r1m > 2 ? 'growth impulse' : r1m < -2 ? 'safety bid' : 'growth vs safety flat', 1);
     }
@@ -175,12 +178,14 @@
     if (chgs.length < 5) return null;
     const adv = chgs.filter((c) => c > 0).length;
     const sorted = [...chgs].sort((a, b) => a - b);
+    const mid = Math.floor(sorted.length / 2);
+    const median = sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
     return {
       adv, dec: chgs.filter((c) => c < 0).length, tot: chgs.length,
       advPct: (adv / chgs.length) * 100,
       bigUp: chgs.filter((c) => c >= 2).length,
       bigDown: chgs.filter((c) => c <= -2).length,
-      median: sorted[Math.floor(sorted.length / 2)],
+      median,
     };
   }
 

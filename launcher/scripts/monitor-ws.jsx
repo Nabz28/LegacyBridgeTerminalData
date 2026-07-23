@@ -131,7 +131,9 @@
     const [detail, setDetail] = React.useState(null);
     const [dossier, setDossier] = React.useState(false);
     const [assignOpen, setAssignOpen] = React.useState(false);
-    React.useEffect(() => { setTab(DESK_TABS(desk)[0]); setSubId('all'); setRegion('ALL'); setCountry(''); setBenchIdx(0); }, [deskId]);
+    // NOTE: DeskView is remounted per desk via key={view.id} at the call
+    // site, so all state above starts fresh on a desk switch — no reset
+    // effect needed here.
 
     if (!desk) return null;
     const isEcon = desk.id === 'econ';
@@ -223,23 +225,7 @@
           <div className="mon-detail">
             {/* ---- equity/fx/rates: Overview ---- */}
             {tab === 'Overview' && (
-              <div className="mon-overview">
-                <div className="mon-bench-strip">
-                  {bench.map((b, i) => (
-                    <button key={b.label} className={'mon-chip ' + (i === benchIdx ? 'active' : '')}
-                            onClick={() => setBenchIdx(i)} title={b.region}>{b.label}</button>
-                  ))}
-                </div>
-                <div className="mon-overview-chart">
-                  {activeBench && activeBench.tv
-                    ? <mv.TvAdvancedChart symbol={activeBench.tv} />
-                    : activeBench && activeBench.y
-                      ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
-                      : <div className="mon-chart-empty">No benchmark configured</div>}
-                </div>
-                {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} rows={rows} />}
-                {rows.length > 3 && <mv.TopMovers rows={rows} />}
-              </div>
+              <OverviewPanel desk={desk} rows={rows} bench={bench} benchIdx={benchIdx} setBenchIdx={setBenchIdx} activeBench={activeBench} />
             )}
 
             {/* ---- equity constituents / fx pairs ---- */}
@@ -281,6 +267,33 @@
         )}
         {dossier && <mv.DossierDrawer desk={desk} onClose={() => setDossier(false)} />}
         {assignOpen && <mv.AssignEditor desk={desk} assign={assign} onSave={onAssign} onClose={() => setAssignOpen(false)} />}
+      </div>
+    );
+  };
+
+  // Overview panel — owns ONE shared quote batch for the desk's filtered
+  // universe; DeskPulse and TopMovers consume it as props (no double polling).
+  const OverviewPanel = ({ desk, rows, bench, benchIdx, setBenchIdx, activeBench }) => {
+    const mv = MV();
+    const tickers = rows.filter((r) => r.t).map((r) => r.t);
+    const { quotes } = ML().useQuotes(tickers);
+    return (
+      <div className="mon-overview">
+        <div className="mon-bench-strip">
+          {bench.map((b, i) => (
+            <button key={b.label} className={'mon-chip ' + (i === benchIdx ? 'active' : '')}
+                    onClick={() => setBenchIdx(i)} title={b.region}>{b.label}</button>
+          ))}
+        </div>
+        <div className="mon-overview-chart">
+          {activeBench && activeBench.tv
+            ? <mv.TvAdvancedChart symbol={activeBench.tv} />
+            : activeBench && activeBench.y
+              ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
+              : <div className="mon-chart-empty">No benchmark configured</div>}
+        </div>
+        {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} quotes={quotes} />}
+        {rows.length > 3 && <mv.TopMovers rows={rows} quotes={quotes} />}
       </div>
     );
   };

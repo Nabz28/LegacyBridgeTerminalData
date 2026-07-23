@@ -85,7 +85,7 @@
 
   // ---- Detail modal: full Yahoo history + CSV ------------------------------
   const HistoryModal = ({ title, sub, ticker, source, seriesId, onClose }) => {
-    const { MultiLineChart, fetchHistory, fetchFred, downloadCsv } = ML();
+    const { MultiLineChart, fetchHistory, fetchFred, fetchDbnomics, downloadCsv } = ML();
     const [range, setRange] = React.useState('2y');
     const [obs, setObs] = React.useState(null);
     const [err, setErr] = React.useState('');
@@ -95,7 +95,8 @@
       setObs(null); setErr('');
       const p = isYahoo ? fetchHistory(ticker, range === 'max' ? 'max' : range, '1d')
         : source === 'FRED' ? fetchFred(seriesId)
-        : ML().fetchHistory(ticker, range, '1d');
+        : source === 'DBNOMICS' ? fetchDbnomics(seriesId)
+        : fetchHistory(ticker, range, '1d');
       p.then((o) => {
         if (!alive) return;
         let cut = o;
@@ -192,10 +193,9 @@
   };
 
   // ---- Top movers strip ----------------------------------------------------
-  const TopMovers = ({ rows }) => {
-    const { useQuotes } = ML();
-    const tickers = rows.filter((r) => r.t).map((r) => r.t);
-    const { quotes } = useQuotes(tickers);
+  // quotes come from the shared Overview batch (OverviewPanel) — this
+  // component holds no polling of its own.
+  const TopMovers = ({ rows, quotes }) => {
     const scored = rows.filter((r) => r.t && quotes[r.t] && !quotes[r.t].error && quotes[r.t].changePct != null)
       .map((r) => ({ ...r, pct: quotes[r.t].changePct }))
       .sort((a, b) => b.pct - a.pct);
@@ -240,16 +240,28 @@
       if (picked.length < 2) { setErr('Pick at least 2 instruments.'); return; }
       setBusy(true); setErr(''); setResult(null);
       const want = overlay ? [...picked, overlay] : picked;
-      Promise.all(want.map((t) => fetchHistory(t, range, '1d').then((o) => [t, o], () => [t, []])))
+      Promise.all(want.map((t) => fetchHistory(t, range, '1d').then((o) => [t, o], () => [t, null])))
         .then((pairs) => {
-          const map = {};
-          pairs.forEach(([t, o]) => { if (picked.includes(t)) map[t] = o; });
+          const map = {}, failed = [];
+          pairs.forEach(([t, o]) => {
+            if (!picked.includes(t)) return;
+            if (o && o.length > 1) map[t] = o;
+            else failed.push(t);
+          });
           const basket = computeBasket(map, wMode === 'custom' ? wMap : null);
-          if (!basket) { setErr('Not enough overlapping history for that selection.'); setBusy(false); return; }
+          if (!basket) { setErr('Not enough overlapping history for that selection.' + (failed.length ? ' Failed to load: ' + failed.join(', ') : '')); setBusy(false); return; }
+          // surface anything that was silently dropped or has a dead tail
+          const endDate = basket.composite[basket.composite.length - 1].date;
+          const cutoff = new Date(Date.parse(endDate) - 7 * 86400000).toISOString().slice(0, 10);
+          const staleMembers = basket.tickers.filter((t) => basket.lastReal && basket.lastReal[t] < cutoff);
+          const warns = [];
+          if (failed.length) warns.push('no data for ' + failed.join(', ') + ' — built without them');
+          if (staleMembers.length) warns.push('stale feed (>1wk behind): ' + staleMembers.join(', '));
+          setErr(warns.length ? 'Heads-up: ' + warns.join(' · ') : '');
           let overlaySeries = null;
           if (overlay) {
             const oPair = pairs.find(([t]) => t === overlay);
-            if (oPair && oPair[1].length > 1) {
+            if (oPair && oPair[1] && oPair[1].length > 1) {
               const startDate = basket.composite[0].date;
               const cut = oPair[1].filter((o) => o.date >= startDate);
               if (cut.length > 1) {
@@ -568,13 +580,12 @@
   };
 
   // ---- Desk pulse — momentum / relative strength / breadth today ----------
-  const DeskPulse = ({ desk, rows }) => {
-    const { useDeskSignals, useQuotes } = ML();
+  // quotes come from the shared Overview batch (OverviewPanel).
+  const DeskPulse = ({ desk, quotes }) => {
+    const { useDeskSignals } = ML();
     const benchY = (desk.bench || []).find((b) => b.y);
     const sig = useDeskSignals(benchY ? benchY.y : null);
-    const tickers = (rows || []).filter((r) => r.t).map((r) => r.t);
-    const { quotes } = useQuotes(tickers);
-    const br = window.MONITOR_REGIME ? window.MONITOR_REGIME.breadth(quotes) : null;
+    const br = window.MONITOR_REGIME ? window.MONITOR_REGIME.breadth(quotes || {}) : null;
     if (!sig && !br) return null;
     const momCls = sig && (sig.momentum === 'strong' || sig.momentum === 'up') ? 'pos' : sig && (sig.momentum === 'weak' || sig.momentum === 'down') ? 'neg' : '';
     const rsCls = sig && sig.rs === 'leader' ? 'pos' : sig && sig.rs === 'laggard' ? 'neg' : '';

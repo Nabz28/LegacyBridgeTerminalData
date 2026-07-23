@@ -34,6 +34,14 @@
   const QUOTE_TTL = 60 * 1000;
   const HIST_TTL = 20 * 60 * 1000;
 
+  // TTL cache with a size cap — the terminal stays open all day, so caches
+  // must shrink as well as expire (evict oldest fifth past MAX_CACHE).
+  const MAX_CACHE = 600;
+  function evictOldest(map) {
+    if (map.size <= MAX_CACHE) return;
+    const entries = [...map.entries()].sort((a, b) => (a[1].at || 0) - (b[1].at || 0));
+    for (let i = 0; i < Math.ceil(MAX_CACHE / 5); i++) map.delete(entries[i][0]);
+  }
   function cached(map, key, ttl, loader) {
     const hit = map.get(key);
     const now = Date.now();
@@ -43,6 +51,7 @@
       (err) => { map.delete(key); throw err; }
     );
     map.set(key, { at: now, promise });
+    evictOldest(map);
     return promise;
   }
 
@@ -75,6 +84,11 @@
       getJson(FN_BASE + '/series-proxy?source=FRED&id=' + encodeURIComponent(id))
         .then((j) => { if (j.error) throw new Error(j.error); return j.obs || []; }));
 
+  const fetchDbnomics = (id) =>
+    cached(histCache, 'DBN|' + id, 6 * 60 * 60 * 1000, () =>
+      getJson(FN_BASE + '/series-proxy?source=DBNOMICS&id=' + encodeURIComponent(id))
+        .then((j) => { if (j.error) throw new Error(j.error); return j.obs || []; }));
+
   let liveIndCache = null;
   const fetchLiveIndicators = () => {
     if (liveIndCache && Date.now() - liveIndCache.at < 5 * 60 * 1000) return liveIndCache.p;
@@ -98,27 +112,34 @@
   };
 
   // ---- hooks ---------------------------------------------------------------
-  // Batch quotes for a ticker list; refreshes every 60s while mounted.
+  // Batch quotes for a ticker list; refreshes every 90s while mounted.
+  // The map resets whenever the list changes (a filtered universe must never
+  // leak stale members into breadth math), and each polling cycle carries a
+  // generation id so stragglers from a superseded cycle can't corrupt the
+  // loading state.
   function useQuotes(tickers) {
     const key = (tickers || []).join(',');
     const [map, setMap] = React.useState({});
     const [loading, setLoading] = React.useState(true);
     React.useEffect(() => {
       let alive = true;
+      let gen = 0;
       const list = key ? key.split(',') : [];
-      if (!list.length) { setMap({}); setLoading(false); return; }
+      setMap({});
+      if (!list.length) { setLoading(false); return; }
       setLoading(true);
-      let pending = list.length;
       const load = () => {
+        const myGen = ++gen;
+        let pending = list.length;
         list.forEach((t) => {
           fetchQuote(t).then(
-            (q) => { if (alive) setMap((m) => ({ ...m, [t]: q })); },
-            () => { if (alive) setMap((m) => ({ ...m, [t]: { error: true } })); }
-          ).finally(() => { if (alive && --pending <= 0) setLoading(false); });
+            (q) => { if (alive && myGen === gen) setMap((m) => ({ ...m, [t]: q })); },
+            () => { if (alive && myGen === gen) setMap((m) => ({ ...m, [t]: { error: true } })); }
+          ).finally(() => { if (alive && myGen === gen && --pending <= 0) setLoading(false); });
         });
       };
       load();
-      const iv = setInterval(() => { pending = list.length; load(); }, 90 * 1000);
+      const iv = setInterval(load, 90 * 1000);
       return () => { alive = false; clearInterval(iv); };
     }, [key]);
     return { quotes: map, loading };
@@ -176,6 +197,13 @@
       if (tickers.every((t) => filled[t][i] != null)) { start = i; break; }
       if (i === dates.length - 1) return null;
     }
+    // last REAL (non-forward-filled) date per ticker — lets callers flag
+    // members whose feed died mid-series instead of silently flatlining.
+    const lastReal = {};
+    tickers.forEach((t) => {
+      const s = seriesByTicker[t];
+      lastReal[t] = s[s.length - 1].date;
+    });
     const base = {};
     tickers.forEach((t) => { base[t] = filled[t][start]; });
     // normalized weights — missing/invalid entries default to 1 (equal share)
@@ -195,7 +223,7 @@
       });
       out.push({ date: dates[i], value: sum });
     }
-    return { dates: dates.slice(start), composite: out, perName, tickers, weights: w };
+    return { dates: dates.slice(start), composite: out, perName, tickers, weights: w, lastReal };
   }
 
   // Pairwise correlation of members' daily log-returns + composite beta/corr
@@ -362,20 +390,28 @@
       return () => ro.disconnect();
     }, []);
     const live = (series || []).filter((s) => s.points && s.points.length > 1);
-    if (!live.length) return <div ref={wrapRef} className="mon-chart-empty">No data</div>;
 
-    const padL = 46, padR = 12, padT = 10, padB = 22;
-    const H = height, W = Math.max(320, w);
-    const dates = live[0].points.map((p) => p.date);
-    // union grid across series (each series may differ slightly)
-    const allDates = [...new Set(live.flatMap((s) => s.points.map((p) => p.date)))].sort();
-    let min = Infinity, max = -Infinity;
-    live.forEach((s) => s.points.forEach((p) => { if (p.value < min) min = p.value; if (p.value > max) max = p.value; }));
-    if (min === max) { min -= 1; max += 1; }
-    const pad = (max - min) * 0.06;
-    min -= pad; max += pad;
-    const x = (d) => padL + (allDates.indexOf(d) / Math.max(1, allDates.length - 1)) * (W - padL - padR);
-    const y = (v) => padT + (1 - (v - min) / (max - min)) * (H - padT - padB);
+    // memoized geometry — O(n) date index instead of per-point indexOf, and
+    // path strings that survive hover re-renders (crosshair must stay cheap).
+    const geom = React.useMemo(() => {
+      if (!live.length) return null;
+      const padL = 46, padR = 12, padT = 10, padB = 22;
+      const H = height, W = Math.max(320, w);
+      const allDates = [...new Set(live.flatMap((s) => s.points.map((p) => p.date)))].sort();
+      const dateIdx = new Map(allDates.map((d, i) => [d, i]));
+      let min = Infinity, max = -Infinity;
+      live.forEach((s) => s.points.forEach((p) => { if (p.value < min) min = p.value; if (p.value > max) max = p.value; }));
+      if (min === max) { min -= 1; max += 1; }
+      const vpad = (max - min) * 0.06;
+      min -= vpad; max += vpad;
+      const x = (d) => padL + ((dateIdx.get(d) || 0) / Math.max(1, allDates.length - 1)) * (W - padL - padR);
+      const y = (v) => padT + (1 - (v - min) / (max - min)) * (H - padT - padB);
+      const paths = live.map((s) => s.points.map((p, i) => (i === 0 ? 'M' : 'L') + x(p.date).toFixed(1) + ' ' + y(p.value).toFixed(1)).join(' '));
+      return { padL, padR, padT, padB, H, W, allDates, x, y, min, max, paths };
+    }, [series, w, height]);
+
+    if (!live.length || !geom) return <div ref={wrapRef} className="mon-chart-empty">No data</div>;
+    const { padL, padR, padT, padB, H, W, allDates, x, y, min, max, paths } = geom;
     const fmtV = yFmt || ((v) => (Math.abs(v) >= 1000 ? v.toLocaleString('en-US', { maximumFractionDigits: 0 }) : v.toFixed(Math.abs(v) < 10 ? 2 : 1)));
 
     // hover
@@ -402,10 +438,9 @@
           {rebased && min < 100 && max > 100 && (
             <line x1={padL} x2={W - padR} y1={y(100)} y2={y(100)} stroke="rgba(232,228,217,0.22)" strokeWidth="1" strokeDasharray="3 3" />
           )}
-          {live.map((s, si) => {
-            const d = s.points.map((p, i) => (i === 0 ? 'M' : 'L') + x(p.date).toFixed(1) + ' ' + y(p.value).toFixed(1)).join(' ');
-            return <path key={si} d={d} fill="none" stroke={s.color} strokeWidth={si === 0 ? 1.8 : 1.2} opacity={si === 0 ? 1 : 0.8} />;
-          })}
+          {live.map((s, si) => (
+            <path key={si} d={paths[si]} fill="none" stroke={s.color} strokeWidth={si === 0 ? 1.8 : 1.2} opacity={si === 0 ? 1 : 0.8} />
+          ))}
           {hover && (
             <g>
               <line x1={x(hover.date)} x2={x(hover.date)} y1={padT} y2={H - padB} stroke="rgba(232,228,217,0.3)" strokeWidth="1" />
@@ -461,7 +496,7 @@
   };
 
   window.MONITOR_LIVE = {
-    fetchQuote, fetchHistory, fetchFred, fetchLiveIndicators, fetchRoster,
+    fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchLiveIndicators, fetchRoster,
     fetchCoverage, saveCoverage,
     fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,
