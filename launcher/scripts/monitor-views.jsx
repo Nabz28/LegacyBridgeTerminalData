@@ -233,6 +233,20 @@
     const [wMap, setWMap] = React.useState({});              // ticker -> weight number
     const [showCorr, setShowCorr] = React.useState(false);
 
+    // saved indices sync to management.monitor_prefs (server wins on load;
+    // every save/delete pushes the doc back; logged-out stays local-only)
+    React.useEffect(() => {
+      let alive = true;
+      ML().fetchPrefs().then((doc) => {
+        if (alive && doc && Array.isArray(doc.indices)) { setSaved(doc.indices); saveIndices(doc.indices); }
+      });
+      return () => { alive = false; };
+    }, []);
+    const persistSaved = (next) => {
+      setSaved(next); saveIndices(next);
+      ML().savePrefs({ indices: next }).catch(() => {});
+    };
+
     const searchRows = q ? md.searchUniverse(q).slice(0, 12) : deskRows.filter((r) => r.t);
     const toggle = (t) => setPicked((p) => (p.includes(t) ? p.filter((x) => x !== t) : p.length >= 20 ? p : [...p, t]));
 
@@ -287,11 +301,17 @@
 
     const saveCurrent = () => {
       if (!name.trim() || picked.length < 2) return;
-      const next = [...saved.filter((s) => s.name !== name.trim()), { name: name.trim(), deskId: desk ? desk.id : null, tickers: picked, range, created: new Date().toISOString().slice(0, 10) }];
-      setSaved(next); saveIndices(next); setName('');
+      const next = [...saved.filter((s) => s.name !== name.trim()),
+        { name: name.trim(), deskId: desk ? desk.id : null, tickers: picked, range,
+          wMode, wMap: wMode === 'custom' ? wMap : undefined, created: new Date().toISOString().slice(0, 10) }];
+      persistSaved(next); setName('');
     };
-    const loadSaved = (s) => { setPicked(s.tickers); setRange(s.range || '1y'); };
-    const delSaved = (s) => { const next = saved.filter((x) => x.name !== s.name); setSaved(next); saveIndices(next); };
+    const loadSaved = (s) => {
+      setPicked(s.tickers); setRange(s.range || '1y');
+      setWMode(s.wMode === 'custom' ? 'custom' : 'equal');
+      setWMap(s.wMap || {});
+    };
+    const delSaved = (s) => { persistSaved(saved.filter((x) => x.name !== s.name)); };
 
     return (
       <div className="mon-lab">
@@ -566,9 +586,22 @@
 
   // ---- Regime strip --------------------------------------------------------
   // Cross-asset Risk-On/Off composite + component chips + condition flags.
+  // component key → drill-down series (click a chip to open full history)
+  const REGIME_DRILL = {
+    trend: { title: 'S&P 500', ticker: '^GSPC' },
+    eqmom: { title: 'S&P 500', ticker: '^GSPC' },
+    vol: { title: 'VIX', ticker: '^VIX' },
+    credit: { title: 'US High-Yield OAS', source: 'FRED', seriesId: 'BAMLH0A0HYM2' },
+    usd: { title: 'Dollar Index (DXY)', ticker: 'DX-Y.NYB' },
+    growth: { title: 'Copper (HG=F)', ticker: 'HG=F' },
+    curve: { title: '2s10s Treasury Curve', source: 'FRED', seriesId: 'T10Y2Y' },
+    idr: { title: 'USD/IDR', ticker: 'IDR=X' },
+  };
+
   const RegimeStrip = ({ compact }) => {
     const { useRegime } = ML();
     const { regime, err } = useRegime();
+    const [drill, setDrill] = React.useState(null);
     if (err) return null;
     if (!regime) return <div className="mon-regime mon-regime-loading">Reading the tape — credit, vol, USD, curve, growth…</div>;
     const cls = regime.label === 'RISK-ON' ? 'on' : regime.label === 'RISK-OFF' ? 'off' : 'mid';
@@ -596,12 +629,18 @@
           <div className="mon-regime-comps">
             {regime.components.map((c) => (
               <span key={c.key} className={'mon-regime-comp ' + (c.score > 0.15 ? 'pos' : c.score < -0.15 ? 'neg' : '')}
-                    title={c.note + ' · score ' + (c.score >= 0 ? '+' : '') + c.score.toFixed(2)}>
+                    title={c.note + ' · score ' + (c.score >= 0 ? '+' : '') + c.score.toFixed(2) + ' · click for full history'}
+                    onClick={() => REGIME_DRILL[c.key] && setDrill(REGIME_DRILL[c.key])}>
                 <span className="k">{c.label}</span>
                 <span className="v">{c.value}</span>
               </span>
             ))}
           </div>
+        )}
+        {drill && (
+          <HistoryModal title={drill.title} sub={drill.source ? drill.source + ' · ' + drill.seriesId : 'Yahoo · ' + drill.ticker}
+                        ticker={drill.ticker} source={drill.source} seriesId={drill.seriesId}
+                        onClose={() => setDrill(null)} />
         )}
       </div>
     );

@@ -109,8 +109,9 @@
 .mon-regime-comps { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 9px; }
 .mon-regime-comp {
   display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 9px; border-radius: 3px;
-  border: 1px solid var(--paper-softer); cursor: help;
+  border: 1px solid var(--paper-softer); cursor: pointer; transition: border-color .12s;
 }
+.mon-regime-comp:hover { border-color: var(--paper-edge); }
 .mon-regime-comp .k { font-size: 9.5px; font-family: var(--font-mono); color: var(--text-tertiary); }
 .mon-regime-comp .v { font-size: 10.5px; font-family: var(--font-mono); color: var(--paper); }
 .mon-regime-comp.pos { border-color: rgba(31,184,119,0.35); }

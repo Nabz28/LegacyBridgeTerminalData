@@ -373,6 +373,30 @@
     }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
   };
 
+  // ---- per-user prefs (management.monitor_prefs, RLS own-row) -------------
+  // One JSONB doc per user: { indices: [...] }. Server wins over the local
+  // cache when a session exists; local keeps working logged-out.
+  const fetchPrefs = () => {
+    const s = lbcSession();
+    if (!s || !s.user || !s.user.id) return Promise.resolve(null);
+    return getJson(SB_BASE + '/monitor_prefs?select=doc&user_sub=eq.' + encodeURIComponent(s.user.id),
+      { apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Accept-Profile': 'management' })
+      .then((rows) => (rows && rows[0] ? rows[0].doc || {} : {}))
+      .catch(() => null);
+  };
+  const savePrefs = (doc) => {
+    const s = lbcSession();
+    if (!s || !s.user || !s.user.id) return Promise.reject(new Error('no-auth'));
+    return fetch(SB_BASE + '/monitor_prefs', {
+      method: 'POST',
+      headers: {
+        apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Content-Profile': 'management',
+        'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify([{ user_sub: s.user.id, doc, updated_at: new Date().toISOString() }]),
+    }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
+  };
+
   // ---- assignment + saved-index persistence (local) -----------------------
   const ASSIGN_KEY = 'lbc-monitor-assign';
   const INDICES_KEY = 'lbc-monitor-indices';
@@ -503,7 +527,7 @@
 
   window.MONITOR_LIVE = {
     fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchLiveIndicators, fetchRoster,
-    fetchCoverage, saveCoverage,
+    fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,
     computeBasket, basketStats, basketCorrelation, overlayStats,
