@@ -225,6 +225,36 @@
     };
   }
 
-  window.MONITOR_REGIME = { computeRegime, computeRegimeSeries, deskSignals, breadth, _t: { ret, chg, sma, pctile, lin } };
+  // volume flow from OHLCV bars: per-name relative volume (today vs 20d avg)
+  // + up/down tape, aggregated to a desk read. barsByTicker: {t: [{date,o,h,l,c,v}]}
+  function volumeFlow(barsByTicker) {
+    const per = {};
+    const rvols = [];
+    let surges = 0, surgesUp = 0;
+    Object.keys(barsByTicker || {}).forEach((t) => {
+      const bars = barsByTicker[t];
+      if (!bars || bars.length < 15) return;
+      const lastBar = bars[bars.length - 1];
+      if (!lastBar.v) return;
+      const prior = bars.slice(-21, -1).map((b) => b.v).filter((v) => v);
+      if (prior.length < 10) return;
+      const avg = prior.reduce((a, b) => a + b, 0) / prior.length;
+      if (!avg) return;
+      const rvol = lastBar.v / avg;
+      const up = lastBar.o != null ? lastBar.c >= lastBar.o
+        : bars.length > 1 ? lastBar.c >= bars[bars.length - 2].c : true;
+      per[t] = { rvol, up };
+      rvols.push(rvol);
+      if (rvol >= 1.8) { surges++; if (up) surgesUp++; }
+    });
+    const n = rvols.length;
+    if (n < 5) return null;
+    rvols.sort((a, b) => a - b);
+    const mid = Math.floor(n / 2);
+    const median = n % 2 ? rvols[mid] : (rvols[mid - 1] + rvols[mid]) / 2;
+    return { perName: per, median, surges, surgesUp, n };
+  }
+
+  window.MONITOR_REGIME = { computeRegime, computeRegimeSeries, deskSignals, breadth, volumeFlow, _t: { ret, chg, sma, pctile, lin } };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.MONITOR_REGIME;
 })();

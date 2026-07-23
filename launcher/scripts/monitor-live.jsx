@@ -84,6 +84,11 @@
       getJson(FN_BASE + '/series-proxy?source=FRED&id=' + encodeURIComponent(id))
         .then((j) => { if (j.error) throw new Error(j.error); return j.obs || []; }));
 
+  const fetchBars = (ticker, range = '3mo') =>
+    cached(histCache, 'BARS|' + ticker + '|' + range, HIST_TTL, () =>
+      getJson(FN_BASE + '/monitor-bars?ticker=' + encodeURIComponent(ticker) + '&range=' + encodeURIComponent(range))
+        .then((j) => { if (!j.ok) throw new Error(j.error || 'bars failed'); return j.bars || []; }));
+
   const fetchDbnomics = (id) =>
     cached(histCache, 'DBN|' + id, 6 * 60 * 60 * 1000, () =>
       getJson(FN_BASE + '/series-proxy?source=DBNOMICS&id=' + encodeURIComponent(id))
@@ -166,6 +171,31 @@
       return () => { alive = false; };
     }, [ticker, range, interval]);
     return { obs, err };
+  }
+
+  // Volume-flow read for a desk's filtered universe: samples the first
+  // VOLUME_SAMPLE tickers (bars are heavier than quotes), 20-min cached.
+  const VOLUME_SAMPLE = 24;
+  function useVolumeFlow(rows) {
+    const tickers = (rows || []).filter((r) => r.t && !/[=^]/.test(r.t)).slice(0, VOLUME_SAMPLE).map((r) => r.t);
+    const key = tickers.join(',');
+    const [flow, setFlow] = React.useState(null);
+    React.useEffect(() => {
+      let alive = true;
+      setFlow(null);
+      if (!key) return;
+      const list = key.split(',');
+      Promise.all(list.map((t) => fetchBars(t, '3mo').then((b) => [t, b], () => [t, null])))
+        .then((pairs) => {
+          if (!alive) return;
+          const map = {};
+          pairs.forEach(([t, b]) => { if (b) map[t] = b; });
+          const f = window.MONITOR_REGIME.volumeFlow(map);
+          setFlow(f ? { ...f, sampled: list.length, universe: (rows || []).filter((r) => r.t).length } : null);
+        });
+      return () => { alive = false; };
+    }, [key]);
+    return flow;
   }
 
   // ---- basket / custom-index math -----------------------------------------
@@ -526,7 +556,8 @@
   };
 
   window.MONITOR_LIVE = {
-    fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchLiveIndicators, fetchRoster,
+    fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchBars, fetchLiveIndicators, fetchRoster,
+    useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,

@@ -478,6 +478,14 @@ const LBCShell = () => {
   };
   const goHome = () => { const h = tabs.find((x) => x.type === 'home'); if (h) setActiveId(h.id); else addTab(); };
 
+  // Deep link: a #monitor/... hash (bookmark / shared link / F5) reopens the
+  // Monitor terminal right after auth instead of dumping the user on Home.
+  React.useEffect(() => {
+    if (authed && window.location.hash && window.location.hash.startsWith('#monitor')) {
+      openTerminal('monitor');
+    }
+  }, [authed]);
+
   // Embedded terminals (Network / Management / Yggdrasil iframes) ask the shell
   // to go Home via postMessage instead of navigating their OWN iframe to
   // /launcher/ — doing the latter would load the launcher inside the iframe and

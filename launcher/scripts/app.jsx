@@ -345,6 +345,36 @@ const BackgroundNoise = ({ color, size, density }) => {
 };
 
 // ================================================================
+// Market strip symbols — LIVE via the Monitor quote layer (keyless edge
+// fns, shared cache), falling back to the static snapshot values when a
+// quote hasn't arrived (or MONITOR_LIVE is unavailable). fmt: 'idr' whole
+// numbers, 'usd2' $ 2dp, 'usd0' $ whole, 'idx' 2dp index points.
+// ================================================================
+const MSTRIP_SYMBOLS = [
+  { s: 'IHSG',    t: '^JKSE',   fmt: 'idx',  v: '7,283.51', c: 1.21 },
+  { s: 'LQ45',    t: '^JKLQ45', fmt: 'idx',  v: '978.42',   c: 0.84 },
+  { s: 'USD/IDR', t: 'IDR=X',   fmt: 'idr',  v: '15,820',   c: -0.18 },
+  { s: 'BBCA',    t: 'BBCA.JK', fmt: 'idr',  v: '10,075',   c: 0.25 },
+  { s: 'BBRI',    t: 'BBRI.JK', fmt: 'idr',  v: '5,425',    c: -0.91 },
+  { s: 'BMRI',    t: 'BMRI.JK', fmt: 'idr',  v: '6,175',    c: 1.23 },
+  { s: 'TLKM',    t: 'TLKM.JK', fmt: 'idr',  v: '3,720',    c: 1.09 },
+  { s: 'ASII',    t: 'ASII.JK', fmt: 'idr',  v: '5,150',    c: -3.29 },
+  { s: 'GOTO',    t: 'GOTO.JK', fmt: 'idr',  v: '82',       c: 1.23 },
+  { s: 'WTI',     t: 'CL=F',    fmt: 'usd2', v: '$82.40',   c: -1.08 },
+  { s: 'GOLD',    t: 'GC=F',    fmt: 'usd0', v: '$2,385',   c: 0.64 },
+  { s: 'BTC',     t: 'BTC-USD', fmt: 'usd0', v: '$84,215',  c: 1.49 },
+  { s: 'SPX',     t: '^GSPC',   fmt: 'idx',  v: '5,428',    c: 0.42 },
+  { s: 'NDX',     t: '^NDX',    fmt: 'idx',  v: '18,740',   c: 0.68 },
+];
+const mstripFmt = (fmt, v) => {
+  if (v == null) return null;
+  if (fmt === 'usd2') return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (fmt === 'usd0') return '$' + Math.round(v).toLocaleString('en-US');
+  if (fmt === 'idx') return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return Math.round(v).toLocaleString('en-US');
+};
+
+// ================================================================
 // Main App
 // ================================================================
 const App = ({ qars, terminal, onHome, onNewTab }) => {
@@ -370,6 +400,33 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
     } catch {}
     return DEFAULT_LAYOUT;
   });
+
+  // Live market strip: pull real quotes + 1mo sparks through the Monitor
+  // data layer (shared cache — the Monitor terminal dedupes these fetches).
+  // Any symbol without a live quote keeps its static snapshot value.
+  const [mstripLive, setMstripLive] = useState({});
+  useEffect(() => {
+    const MLive = window.MONITOR_LIVE;
+    if (!MLive) return;
+    let alive = true;
+    const load = () => {
+      MSTRIP_SYMBOLS.forEach((m) => {
+        MLive.fetchQuote(m.t).then((q) => {
+          if (alive && q && q.price != null) {
+            setMstripLive((prev) => ({ ...prev, [m.t]: { ...(prev[m.t] || {}), price: q.price, chg: q.changePct } }));
+          }
+        }, () => {});
+        MLive.fetchHistory(m.t, '1mo', '1d').then((obs) => {
+          if (alive && obs && obs.length > 3) {
+            setMstripLive((prev) => ({ ...prev, [m.t]: { ...(prev[m.t] || {}), spark: obs.map((o) => o.value) } }));
+          }
+        }, () => {});
+      });
+    };
+    load();
+    const iv = setInterval(load, 120 * 1000);
+    return () => { alive = false; clearInterval(iv); };
+  }, []);
   const [editMode, setEditMode] = useState(false);
   const [libOpen, setLibOpen] = useState(false);
   const [libTarget, setLibTarget] = useState(null); // {widgetId, mode: 'swap'|'add'}
@@ -767,38 +824,28 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
         <div className="mstrip-flow">
           <div className="mstrip-track">
             {[...Array(2)].flatMap((_, dupIdx) => (
-              [
-                { s: 'IHSG',    v: '7,283.51',  c: 1.21  },
-                { s: 'LQ45',    v: '978.42',    c: 0.84  },
-                { s: 'JII',     v: '542.18',    c: -0.32 },
-                { s: 'USD/IDR', v: '15,820',    c: -0.18 },
-                { s: 'BBCA',    v: '10,075',    c: 0.25  },
-                { s: 'BBRI',    v: '5,425',     c: -0.91 },
-                { s: 'BMRI',    v: '6,175',     c: 1.23  },
-                { s: 'TLKM',    v: '3,720',     c: 1.09  },
-                { s: 'ASII',    v: '5,150',     c: -3.29 },
-                { s: 'GOTO',    v: '82',        c: 1.23  },
-                { s: 'WTI',     v: '$82.40',    c: -1.08 },
-                { s: 'GOLD',    v: '$2,385',    c: 0.64  },
-                { s: 'BTC',     v: '$84,215',   c: 1.49  },
-                { s: 'SPX',     v: '5,428',     c: 0.42  },
-                { s: 'NDX',     v: '18,740',    c: 0.68  },
-              ].map((m, i) => {
-                const seed = m.s.split('').reduce((a, ch) => a + ch.charCodeAt(0), 0);
-                const spark = Array.from({ length: 14 }, (_, j) => {
-                  const t = (seed + j * 9) % 31;
-                  return 50 + (t - 15) + (m.c >= 0 ? j * 0.6 : -j * 0.6);
-                });
-                const dir = m.c >= 0 ? 'pos' : 'neg';
+              MSTRIP_SYMBOLS.map((m, i) => {
+                const live = mstripLive[m.t] || {};
+                const chg = live.chg != null ? live.chg : m.c;
+                const val = live.price != null ? mstripFmt(m.fmt, live.price) : m.v;
+                let spark = live.spark;
+                if (!spark) {
+                  const seed = m.s.split('').reduce((a, ch) => a + ch.charCodeAt(0), 0);
+                  spark = Array.from({ length: 14 }, (_, j) => {
+                    const t = (seed + j * 9) % 31;
+                    return 50 + (t - 15) + (chg >= 0 ? j * 0.6 : -j * 0.6);
+                  });
+                }
+                const dir = chg >= 0 ? 'pos' : 'neg';
                 return (
-                  <div key={`${dupIdx}-${i}`} className={`mcard ${dir}`}>
+                  <div key={`${dupIdx}-${i}`} className={`mcard ${dir}`} title={live.price != null ? 'live' : 'snapshot'}>
                     <div className="mcard-row1">
                       <span className="mcard-sym">{m.s}</span>
-                      <span className={`mcard-pct ${dir}`}>{m.c >= 0 ? '+' : ''}{m.c.toFixed(2)}%</span>
+                      <span className={`mcard-pct ${dir}`}>{chg >= 0 ? '+' : ''}{chg.toFixed(2)}%</span>
                     </div>
                     <div className="mcard-row2">
-                      <span className="mcard-val">{m.v}</span>
-                      <Spark data={spark} color={m.c >= 0 ? 'var(--pos)' : 'var(--neg)'} h={16} w={42} fill={true} />
+                      <span className="mcard-val">{val}</span>
+                      <Spark data={spark} color={chg >= 0 ? 'var(--pos)' : 'var(--neg)'} h={16} w={42} fill={true} />
                     </div>
                   </div>
                 );

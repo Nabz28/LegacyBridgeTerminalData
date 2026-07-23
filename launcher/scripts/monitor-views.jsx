@@ -211,18 +211,23 @@
   // ---- Top movers strip ----------------------------------------------------
   // quotes come from the shared Overview batch (OverviewPanel) — this
   // component holds no polling of its own.
-  const TopMovers = ({ rows, quotes }) => {
+  const TopMovers = ({ rows, quotes, flow }) => {
     const scored = rows.filter((r) => r.t && quotes[r.t] && !quotes[r.t].error && quotes[r.t].changePct != null)
       .map((r) => ({ ...r, pct: quotes[r.t].changePct }))
       .sort((a, b) => b.pct - a.pct);
     if (scored.length < 4) return null;
     const up = scored.slice(0, 4), down = scored.slice(-4).reverse();
-    const Cell = ({ r }) => (
-      <div className="mon-mover">
-        <span className="t">{r.t.replace('.JK', '')}</span>
-        <span className={'p ' + pctCls(r.pct)}>{fmtPct(r.pct)}</span>
-      </div>
-    );
+    const Cell = ({ r }) => {
+      const vf = flow && flow.perName && flow.perName[r.t];
+      const surge = vf && vf.rvol >= 1.8;
+      return (
+        <div className="mon-mover" title={surge ? r.n + ' — ' + vf.rvol.toFixed(1) + '× average volume' : r.n}>
+          <span className="t">{r.t.replace('.JK', '')}</span>
+          <span className={'p ' + pctCls(r.pct)}>{fmtPct(r.pct)}</span>
+          {surge && <span className="vf">⚡{vf.rvol.toFixed(1)}×</span>}
+        </div>
+      );
+    };
     return (
       <div className="mon-movers">
         <div className="col"><div className="h pos">▲ Leaders</div>{up.map((r) => <Cell key={r.t} r={r} />)}</div>
@@ -677,12 +682,12 @@
 
   // ---- Desk pulse — momentum / relative strength / breadth today ----------
   // quotes come from the shared Overview batch (OverviewPanel).
-  const DeskPulse = ({ desk, quotes }) => {
+  const DeskPulse = ({ desk, quotes, flow }) => {
     const { useDeskSignals } = ML();
     const benchY = (desk.bench || []).find((b) => b.y);
     const sig = useDeskSignals(benchY ? benchY.y : null);
     const br = window.MONITOR_REGIME ? window.MONITOR_REGIME.breadth(quotes || {}) : null;
-    if (!sig && !br) return null;
+    if (!sig && !br && !flow) return null;
     const momCls = sig && (sig.momentum === 'strong' || sig.momentum === 'up') ? 'pos' : sig && (sig.momentum === 'weak' || sig.momentum === 'down') ? 'neg' : '';
     const rsCls = sig && sig.rs === 'leader' ? 'pos' : sig && sig.rs === 'laggard' ? 'neg' : '';
     return (
@@ -702,6 +707,12 @@
           <span className={'mon-pulse-item ' + (br.advPct >= 60 ? 'pos' : br.advPct <= 40 ? 'neg' : '')}
                 title={'today: ' + br.adv + ' up / ' + br.dec + ' down of ' + br.tot + ' quoted · median ' + fmtPct(br.median)}>
             Breadth <b>{br.advPct.toFixed(0)}%</b> adv · {br.bigUp}▲ {br.bigDown}▼ &gt;2%
+          </span>
+        )}
+        {flow && (
+          <span className={'mon-pulse-item ' + (flow.median >= 1.25 && flow.surgesUp >= flow.surges - flow.surgesUp ? 'pos' : flow.median <= 0.75 ? 'neg' : '')}
+                title={'relative volume vs 20d avg across ' + flow.n + ' of ' + flow.universe + ' names (sampled ' + flow.sampled + ') · ' + flow.surges + ' names ≥1.8× avg volume, ' + flow.surgesUp + ' of them up'}>
+            Volume <b>{flow.median.toFixed(2)}×</b> med · {flow.surges}⚡ surging ({flow.surgesUp}▲)
           </span>
         )}
       </div>

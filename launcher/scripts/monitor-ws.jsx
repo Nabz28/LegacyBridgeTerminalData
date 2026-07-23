@@ -304,6 +304,9 @@
     const mv = MV();
     const tickers = rows.filter((r) => r.t).map((r) => r.t);
     const { quotes } = ML().useQuotes(tickers);
+    // hook must run unconditionally (rules of hooks) — non-equity desks get
+    // an empty sample which resolves to null flow.
+    const flow = ML().useVolumeFlow(desk.group === 'equity' ? rows : []);
     return (
       <div className="mon-overview">
         <div className="mon-bench-strip">
@@ -319,8 +322,8 @@
               ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
               : <div className="mon-chart-empty">No benchmark configured</div>}
         </div>
-        {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} quotes={quotes} />}
-        {rows.length > 3 && <mv.TopMovers rows={rows} quotes={quotes} />}
+        {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} quotes={quotes} flow={flow} />}
+        {rows.length > 3 && <mv.TopMovers rows={rows} quotes={quotes} flow={flow} />}
       </div>
     );
   };
@@ -497,10 +500,31 @@
     { id: 'news', label: 'Newswire', glyph: '❏' },
   ];
 
+  // Deep links: #monitor/coverage | #monitor/markets|screener|news |
+  // #monitor/desk/<deskId>[/<subId>] — restore on mount, mirror on change.
+  const parseMonitorHash = () => {
+    const m = (window.location.hash || '').match(/^#monitor(?:\/([a-z]+))?(?:\/([a-z0-9-]+))?(?:\/([^/]+))?/);
+    if (!m) return null;
+    const kind = m[1], id = m[2], sub = m[3];
+    if (kind === 'desk' && id && MD().deskById(id)) {
+      return { view: { type: 'desk', id }, subId: sub ? decodeURIComponent(sub) : 'all' };
+    }
+    if (['coverage', 'markets', 'screener', 'news'].includes(kind)) return { view: { type: kind }, subId: 'all' };
+    return { view: { type: 'coverage' }, subId: 'all' };
+  };
+
   const MonitorTerminal = () => {
     const md = MD();
-    const [view, setView] = React.useState({ type: 'coverage' });
-    const [subId, setSubId] = React.useState('all');
+    const initial = React.useMemo(parseMonitorHash, []);
+    const [view, setView] = React.useState(initial ? initial.view : { type: 'coverage' });
+    const [subId, setSubId] = React.useState(initial ? initial.subId : 'all');
+    // mirror state → hash (replaceState: no history spam, F5/bookmark/share safe)
+    React.useEffect(() => {
+      const h = view.type === 'desk'
+        ? '#monitor/desk/' + view.id + (subId && subId !== 'all' ? '/' + encodeURIComponent(subId) : '')
+        : '#monitor/' + view.type;
+      try { history.replaceState(null, '', h); } catch {}
+    }, [view, subId]);
     const [assign, setAssign] = React.useState(() => ML().loadAssign());
     const [assignNote, setAssignNote] = React.useState('');
     // Pull the shared assignment book (management.monitor_coverage) once per
