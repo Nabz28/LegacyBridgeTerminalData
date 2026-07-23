@@ -140,6 +140,20 @@
 .mon-pulse-item.pos b { color: var(--pos, #1FB877); }
 .mon-pulse-item.neg b { color: var(--neg, #F0475C); }
 
+/* ---- rotation leaderboard ---- */
+.mon-rotation { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; }
+.mon-rotation .t { font-size: 10px; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); margin-right: 4px; cursor: help; }
+.mon-rot {
+  display: inline-flex; align-items: baseline; gap: 6px; padding: 3px 9px; border-radius: 3px;
+  border: 1px solid var(--paper-softer); border-left: 3px solid var(--ac); background: transparent;
+  cursor: pointer; transition: border-color .12s, background .12s;
+}
+.mon-rot:hover { border-color: var(--ac); background: var(--paper-softer); }
+.mon-rot .n { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--ac); }
+.mon-rot .p { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-secondary); }
+.mon-rot.pos .p { color: var(--pos, #1FB877); }
+.mon-rot.neg .p { color: var(--neg, #F0475C); }
+
 .mon-sec-h {
   display: flex; align-items: baseline; gap: 12px; margin: 26px 0 12px;
   font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--paper); text-transform: uppercase;

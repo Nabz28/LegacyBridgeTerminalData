@@ -72,6 +72,45 @@
     );
   };
 
+  // Sector rotation: every equity desk's benchmark 1M return vs S&P, ranked.
+  // Histories come from the same cache the desk cards fill — no extra load.
+  const useRotation = () => {
+    const [rows, setRows] = React.useState(null);
+    React.useEffect(() => {
+      let alive = true;
+      const ds = MD().DESKS.filter((d) => d.group === 'equity' && (d.bench || []).find((b) => b.y));
+      Promise.all(ds.map((d) => {
+        const y = d.bench.find((b) => b.y).y;
+        return Promise.all([ML().fetchHistory(y, '6mo', '1d'), ML().fetchHistory('^GSPC', '6mo', '1d')])
+          .then(([b, s]) => ({ d, sig: window.MONITOR_REGIME.deskSignals(b, s) }), () => null);
+      })).then((list) => {
+        if (!alive) return;
+        setRows(list.filter((x) => x && x.sig && x.sig.r1m != null).sort((a, b) => b.sig.r1m - a.sig.r1m));
+      });
+      return () => { alive = false; };
+    }, []);
+    return rows;
+  };
+
+  const RotationStrip = ({ onOpenDesk }) => {
+    const rows = useRotation();
+    const { fmtPct } = MV();
+    if (!rows || rows.length < 4) return null;
+    return (
+      <div className="mon-rotation">
+        <span className="t" title="equity desks ranked by benchmark 1M return — money rotates toward the left">Rotation 1M</span>
+        {rows.map(({ d, sig }) => (
+          <button key={d.id} className={'mon-rot ' + (sig.r1m > 0.5 ? 'pos' : sig.r1m < -0.5 ? 'neg' : '')}
+                  style={{ ['--ac']: d.accent }} onClick={() => onOpenDesk(d.id)}
+                  title={d.name + ' · ' + (d.bench.find((b) => b.y) || {}).label + ' · 3M ' + fmtPct(sig.r3m) + (sig.rs ? ' · RS ' + sig.rs : '')}>
+            <span className="n">{d.num}</span>
+            <span className="p">{fmtPct(sig.r1m)}</span>
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   const CoverageBoard = ({ assign, onOpenDesk }) => {
     const md = MD();
     const { RegimeStrip } = MV();
@@ -118,6 +157,7 @@
         )}
 
         <RegimeStrip />
+        <RotationStrip onOpenDesk={onOpenDesk} />
 
         <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
         <div className="mon-cards">
@@ -518,13 +558,24 @@
     const initial = React.useMemo(parseMonitorHash, []);
     const [view, setView] = React.useState(initial ? initial.view : { type: 'coverage' });
     const [subId, setSubId] = React.useState(initial ? initial.subId : 'all');
-    // mirror state → hash (replaceState: no history spam, F5/bookmark/share safe)
+    // mirror state → hash (replaceState: no history spam, F5/bookmark/share
+    // safe — and replaceState does NOT fire hashchange, so no loops)
     React.useEffect(() => {
       const h = view.type === 'desk'
         ? '#monitor/desk/' + view.id + (subId && subId !== 'all' ? '/' + encodeURIComponent(subId) : '')
         : '#monitor/' + view.type;
       try { history.replaceState(null, '', h); } catch {}
     }, [view, subId]);
+    // external hash updates (late fragment application, user-edited URL)
+    // navigate the already-mounted terminal.
+    React.useEffect(() => {
+      const onHash = () => {
+        const p = parseMonitorHash();
+        if (p) { setView(p.view); setSubId(p.subId); }
+      };
+      window.addEventListener('hashchange', onHash);
+      return () => window.removeEventListener('hashchange', onHash);
+    }, []);
     const [assign, setAssign] = React.useState(() => ML().loadAssign());
     const [assignNote, setAssignNote] = React.useState('');
     // Pull the shared assignment book (management.monitor_coverage) once per

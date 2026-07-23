@@ -632,6 +632,17 @@
     const { useRegime } = ML();
     const { regime, err } = useRegime();
     const [drill, setDrill] = React.useState(null);
+    // flip notice: compare against the last label this browser saw, ONCE per
+    // regime arrival (an inline compare would self-erase on re-render).
+    const [flippedFrom, setFlippedFrom] = React.useState(null);
+    React.useEffect(() => {
+      if (!regime) return;
+      try {
+        const prev = JSON.parse(localStorage.getItem('lbc-monitor-regime-last') || 'null');
+        if (prev && prev.label && prev.label !== regime.label) setFlippedFrom(prev);
+        localStorage.setItem('lbc-monitor-regime-last', JSON.stringify({ label: regime.label, date: regime.asOf }));
+      } catch {}
+    }, [regime && regime.label]);
     if (err) return (
       <div className="mon-regime mon-regime-loading">
         Regime feed unavailable ({err}) — <button className="mon-chip" onClick={() => location.reload()}>retry</button>
@@ -654,6 +665,11 @@
             <span className="mon-regime-hist" title={'composite score, last ' + regime.history.points.length + ' sessions'}>
               <RegimeSpark points={regime.history.points} />
               <span className="streak">{regime.history.streak} session{regime.history.streak === 1 ? '' : 's'} in {regime.history.label.toLowerCase()}</span>
+            </span>
+          )}
+          {flippedFrom && (
+            <span className="mon-regime-flag" title={'was ' + flippedFrom.label + ' when you last looked (' + (flippedFrom.date || '') + ')'}>
+              FLIPPED FROM {flippedFrom.label}
             </span>
           )}
           {regime.flags.map((f) => <span key={f} className="mon-regime-flag">{f}</span>)}
