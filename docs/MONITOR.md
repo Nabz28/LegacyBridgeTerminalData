@@ -30,6 +30,27 @@ Each desk carries a condensed 17-point dossier from the doc (mandate, macro
 drivers, themes, factors, valuation toolkit, regulation, complexity) — open it
 via the **Dossier** button in any desk header.
 
+## Regime engine (money-flow detection)
+
+`monitor-regime.js` — pure, node-testable scoring (see
+`scripts/test-monitor-regime.js`):
+
+- **Cross-asset composite** in [−1, +1] from 8 explicit-threshold components:
+  S&P vs 50d trend, S&P 1M momentum, VIX level (+spike kicker), HY OAS
+  2y-percentile (+widening kicker), DXY 1M, copper/gold 1M, 2s10s level,
+  USD/IDR 1M. ≥+0.30 → RISK-ON, ≤−0.30 → RISK-OFF, else NEUTRAL.
+- **Condition flags**: CREDIT STRESS, VOL SPIKE, USD HEADWIND,
+  CURVE INVERTED, IDR PRESSURE, GROWTH IMPULSE.
+- **Rolling history**: the composite recomputed as-of each of the last 60
+  sessions → sparkline + "N sessions in <label>" streak on the strip.
+- **Per-desk signals**: benchmark 1M/3M momentum + relative strength vs
+  S&P (MOM/RS chips on every desk card) and live breadth (advance %,
+  >2% movers, median) on the desk pulse row.
+
+Data hygiene: `scripts/validate-monitor-tickers.js` checks every Yahoo
+symbol in the book through the quote edge fn (staleness-aware). Run it
+before shipping any universe change — the book ships at 650/650 green.
+
 ## Surfaces
 
 - **Coverage Map** — 13 desk cards with live benchmark change + 3-month
@@ -41,13 +62,14 @@ via the **Dossier** button in any desk header.
   - *Overview* — TradingView advanced chart on the desk's benchmarks
     (US sector SPDRs, industry ETFs, IDX-IC sector indices) + live top
     movers from the filtered universe.
-  - *Constituents* — sortable live quote table (~330 names desk-wide,
-    global + Indonesian names per sub-industry). Row click → full Yahoo
-    history + CSV.
+  - *Constituents* — sortable live quote table (~470 names across 60
+    sub-industries, global + Indonesian per sub-industry, every symbol
+    validated). Row click → full Yahoo history + CSV.
   - *Index Lab* — custom index builder: pick up to 20 instruments from any
-    desk (or type any Yahoo symbol), equal-weight rebased-to-100 composite,
-    benchmark overlay, period return / ann. vol / max drawdown, per-member
-    returns, CSV export, saved indices (localStorage).
+    desk (or type any Yahoo symbol), equal- or custom-weighted rebased-to-100
+    composite, benchmark overlay with β/ρ, member correlation matrix with
+    avg pairwise ρ, period return / ann. vol / max drawdown, per-member
+    returns, failed/stale-feed warnings, CSV export, saved indices.
   - *News* — TradingView live news per instrument or market wire.
   - Market-desk specials: FX cross-rate heatmap; Rates curve & spread board
     (FRED DGS2/5/10/30, T10Y2Y, T10Y3M, HY/IG OAS) + streaming sovereign

@@ -152,6 +152,42 @@
     return { score, label, components: comps, flags, asOf: lastDate(inp.spx) || lastDate(inp.hyOas) };
   }
 
+  // ---- rolling regime history ---------------------------------------------
+  // Re-runs computeRegime as-of each of the last `lookback` sessions on the
+  // SPX calendar (series truncated by date, ascending-pointer walk — no
+  // re-sorting). Returns {points: [{date, score, label}], streak} where
+  // streak = consecutive sessions in the current label.
+  function computeRegimeSeries(inp, lookback) {
+    if (!inp.spx || inp.spx.length < 80) return null;
+    const n = Math.min(lookback || 60, inp.spx.length - 60);
+    if (n < 5) return null;
+    const keys = ['spx', 'vix', 'dxy', 'copper', 'gold', 'usdidr', 'hyOas', 'curve2s10'];
+    // per-series ascending pointer: index of last obs with date <= target
+    const ptr = {};
+    keys.forEach((k) => { ptr[k] = inp[k] ? inp[k].length - 1 : -1; });
+    const points = [];
+    for (let back = 0; back < n; back++) {
+      const asOfDate = inp.spx[inp.spx.length - 1 - back].date;
+      const sliced = {};
+      keys.forEach((k) => {
+        const s = inp[k];
+        if (!s || !s.length) return;
+        let i = ptr[k];
+        while (i >= 0 && s[i].date > asOfDate) i--;
+        ptr[k] = i;
+        if (i >= 0) sliced[k] = s.slice(0, i + 1);
+      });
+      const reg = computeRegime(sliced);
+      if (reg) points.push({ date: asOfDate, score: reg.score, label: reg.label });
+    }
+    points.reverse(); // ascending
+    if (!points.length) return null;
+    const cur = points[points.length - 1].label;
+    let streak = 0;
+    for (let i = points.length - 1; i >= 0 && points[i].label === cur; i--) streak++;
+    return { points, streak, label: cur };
+  }
+
   // ---- per-desk money-flow signals ----------------------------------------
   // bench: desk benchmark dailies (~6mo); mkt: reference market dailies (SPX).
   // Returns flags like {momentum:{r1m,r3m,score}, rs:{diff,score}}.
@@ -189,6 +225,6 @@
     };
   }
 
-  window.MONITOR_REGIME = { computeRegime, deskSignals, breadth, _t: { ret, chg, sma, pctile, lin } };
+  window.MONITOR_REGIME = { computeRegime, computeRegimeSeries, deskSignals, breadth, _t: { ret, chg, sma, pctile, lin } };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.MONITOR_REGIME;
 })();

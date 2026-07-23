@@ -301,10 +301,16 @@
       fetchHistory('DX-Y.NYB', '6mo', '1d'), fetchHistory('HG=F', '6mo', '1d'),
       fetchHistory('GC=F', '6mo', '1d'), fetchHistory('IDR=X', '6mo', '1d'),
       fetchFred('BAMLH0A0HYM2'), fetchFred('T10Y2Y'),
-    ]).then(([spx, vix, dxy, copper, gold, usdidr, hyRaw, curveRaw]) => R.computeRegime({
-      spx, vix, dxy, copper, gold, usdidr,
-      hyOas: (hyRaw || []).slice(-520), curve2s10: (curveRaw || []).slice(-520),
-    }));
+    ]).then(([spx, vix, dxy, copper, gold, usdidr, hyRaw, curveRaw]) => {
+      const inputs = {
+        spx, vix, dxy, copper, gold, usdidr,
+        hyOas: (hyRaw || []).slice(-520), curve2s10: (curveRaw || []).slice(-520),
+      };
+      const now = R.computeRegime(inputs);
+      if (!now) return null;
+      now.history = R.computeRegimeSeries(inputs, 60);
+      return now;
+    });
     regimeCache = { at: Date.now(), promise: p };
     p.catch(() => { regimeCache = null; });
     return p;

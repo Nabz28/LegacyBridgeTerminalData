@@ -542,6 +542,28 @@
     );
   };
 
+  // Rolling regime-score sparkline: bars colored by sign, ±1 band.
+  const RegimeSpark = ({ points, w = 120, h = 22 }) => {
+    const bw = Math.max(1, Math.floor(w / points.length) - 1);
+    const mid = h / 2;
+    return (
+      <svg width={w} height={h} style={{ display: 'block' }}>
+        <line x1="0" x2={w} y1={mid} y2={mid} stroke="rgba(232,228,217,0.18)" strokeWidth="1" />
+        {points.map((p, i) => {
+          const x = (i / points.length) * w;
+          const hh = Math.max(1, Math.abs(p.score) * (h / 2 - 1));
+          return (
+            <rect key={p.date} x={x} width={bw}
+                  y={p.score >= 0 ? mid - hh : mid}
+                  height={hh}
+                  fill={p.score >= 0.3 ? 'var(--pos, #1FB877)' : p.score <= -0.3 ? 'var(--neg, #F0475C)' : '#d8a13a'}
+                  opacity={0.35 + Math.min(0.65, Math.abs(p.score))} />
+          );
+        })}
+      </svg>
+    );
+  };
+
   // ---- Regime strip --------------------------------------------------------
   // Cross-asset Risk-On/Off composite + component chips + condition flags.
   const RegimeStrip = ({ compact }) => {
@@ -561,6 +583,12 @@
             <span className="needle" style={{ left: pct + '%' }}></span>
           </span>
           <span className="mon-regime-score">{(regime.score >= 0 ? '+' : '') + regime.score.toFixed(2)}</span>
+          {regime.history && regime.history.points.length > 5 && (
+            <span className="mon-regime-hist" title={'composite score, last ' + regime.history.points.length + ' sessions'}>
+              <RegimeSpark points={regime.history.points} />
+              <span className="streak">{regime.history.streak} session{regime.history.streak === 1 ? '' : 's'} in {regime.history.label.toLowerCase()}</span>
+            </span>
+          )}
           {regime.flags.map((f) => <span key={f} className="mon-regime-flag">{f}</span>)}
           <span className="mon-regime-asof">as of {regime.asOf}</span>
         </div>
