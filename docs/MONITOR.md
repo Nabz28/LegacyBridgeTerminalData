@@ -44,8 +44,13 @@ via the **Dossier** button in any desk header.
 - **Rolling history**: the composite recomputed as-of each of the last 60
   sessions → sparkline + "N sessions in <label>" streak on the strip.
 - **Per-desk signals**: benchmark 1M/3M momentum + relative strength vs
-  S&P (MOM/RS chips on every desk card) and live breadth (advance %,
-  >2% movers, median) on the desk pulse row.
+  S&P (MOM/RS chips on every desk card), live breadth (advance %,
+  >2% movers, median) and volume flow (median relative volume vs 20d avg,
+  ⚡ surge tags on movers) on the desk pulse row.
+
+Views deep-link: `#monitor/coverage|markets|screener|news` and
+`#monitor/desk/<deskId>[/<subId>]` survive refresh and can be shared;
+the shell reopens the Monitor automatically on a `#monitor` hash.
 
 Data hygiene: `scripts/validate-monitor-tickers.js` checks every Yahoo
 symbol in the book through the quote edge fn (staleness-aware). Run it
@@ -89,6 +94,7 @@ before shipping any universe change — the book ships at 650/650 green.
 | `equity-quote` edge fn (Yahoo v8) | live-ish quotes for constituent tables, desk cards, movers |
 | `series-proxy` edge fn (YAHOO) | histories: custom indices, sparklines, detail modals |
 | `series-proxy` edge fn (FRED) | rates curve + spread board |
+| `monitor-bars` edge fn (Yahoo OHLCV) | volume-flow signals (relative volume, surge tags) |
 | `macro.live_indicators` (PostgREST anon) | Economics desk indicator cards |
 | `management.users_lite` (session JWT) | roster suggestions in the Assign editor |
 | TradingView embed widgets | streaming charts, quote boards, news, screener, calendar, FX heatmap |
