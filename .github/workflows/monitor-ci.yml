@@ -1,0 +1,38 @@
+# MONITOR CI (roadmap 0.7/0.8): engine unit tests on every push touching
+# the Monitor, plus a nightly full-book ticker validation so dead/renamed
+# symbols surface as a red run instead of silent dashes in the terminal.
+name: monitor-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'launcher/scripts/monitor-*.js'
+      - 'launcher/scripts/monitor-*.jsx'
+      - 'scripts/validate-monitor-tickers.js'
+      - 'scripts/test-monitor-engine.js'
+  schedule:
+    - cron: '23 21 * * *'   # 04:23 WIB nightly
+  workflow_dispatch:
+
+jobs:
+  engine-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Engine unit tests (pure, no network)
+        run: node scripts/test-monitor-engine.js
+
+  book-validation:
+    runs-on: ubuntu-latest
+    # full 790+-symbol sweep only on the nightly schedule / manual runs;
+    # pushes get the fast engine tests above.
+    if: github.event_name != 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Validate every Yahoo symbol in the coverage book
+        run: node scripts/validate-monitor-tickers.js
