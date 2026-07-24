@@ -784,8 +784,11 @@
     return (
       <div className={'mon-regime ' + cls + (compact ? ' compact' : '')}>
         <div className="mon-regime-head">
-          <span className={'mon-regime-label ' + cls}>{regime.label}</span>
-          <span className="mon-regime-gauge" title={'composite ' + regime.score.toFixed(2) + ' (−1 risk-off … +1 risk-on)'}>
+          <span className={'mon-regime-label ' + cls} title="Cross-asset tape STATE (descriptive, hysteresis-smoothed). Backtested 2022-26: this dial describes conditions — it does not forecast returns; stretched risk-on readings have historically mean-reverted over ~1M.">{regime.label}</span>
+          {regime.coverage != null && regime.coverage < 0.6 && (
+            <span className="mon-regime-flag" title="less than 60% of component weight has fresh data">PARTIAL DATA</span>
+          )}
+          <span className="mon-regime-gauge" title={'smoothed composite ' + regime.score.toFixed(2) + ' (−1 risk-off … +1 risk-on) · raw ' + (regime.raw != null ? regime.raw.toFixed(2) : '—')}>
             <span className="track"></span>
             <span className="mid"></span>
             <span className="needle" style={{ left: pct + '%' }}></span>
@@ -845,8 +848,9 @@
           </span>
         )}
         {sig && sig.rs && (
-          <span className={'mon-pulse-item ' + rsCls} title={'benchmark 1M return minus S&P 500 1M'}>
-            RS vs S&P <b>{fmtPct(sig.rsDiff)}</b> · {sig.rs}
+          <span className={'mon-pulse-item ' + rsCls}
+                title={'BETA-ADJUSTED relative strength: benchmark 1M minus β×(S&P 1M)' + (sig.beta != null ? ' · β=' + sig.beta.toFixed(2) : '') + ' · leader/laggard at ±1 residual σ'}>
+            RS vs S&P <b>{fmtPct(sig.rsDiff)}</b> · {sig.rs}{sig.beta != null ? ' (β' + sig.beta.toFixed(1) + ')' : ''}
           </span>
         )}
         {br && (
@@ -857,8 +861,14 @@
         )}
         {flow && (
           <span className={'mon-pulse-item ' + (flow.median >= 1.25 && flow.surgesUp >= flow.surges - flow.surgesUp ? 'pos' : flow.median <= 0.75 ? 'neg' : '')}
-                title={'relative volume vs 20d avg across ' + flow.n + ' of ' + flow.universe + ' names (sampled ' + flow.sampled + ') · ' + flow.surges + ' names ≥1.8× avg volume, ' + flow.surgesUp + ' of them up'}>
-            Volume <b>{flow.median.toFixed(2)}×</b> med · {flow.surges}⚡ surging ({flow.surgesUp}▲)
+                title={'relative DOLLAR volume vs 20d avg across ' + flow.n + ' of ' + flow.universe + ' names (sampled ' + flow.sampled + ')' + (flow.partial ? ' · today is a PARTIAL session bar' : '') + ' · ' + flow.surges + ' names ≥1.8× avg $vol (' + flow.surgesUp + ' up) · 20d accumulation: ' + flow.accum + ' names, distribution: ' + flow.distrib + (flow.divergers ? ' · ' + flow.divergers + ' price/OBV divergences' : '')}>
+            $Vol <b>{flow.median.toFixed(2)}×</b>{flow.partial ? '·intraday' : ''} · {flow.surges}⚡ ({flow.surgesUp}▲) · A/D {flow.accum}/{flow.distrib}
+          </span>
+        )}
+        {flow && flow.tb && (
+          <span className={'mon-pulse-item ' + (flow.tb.pctAbove50 >= 60 ? 'pos' : flow.tb.pctAbove50 <= 40 ? 'neg' : '')}
+                title={'trend breadth over ' + flow.tb.n + ' sampled names: % trading above their 50-day average, and % at fresh 20-day highs'}>
+            Trend <b>{flow.tb.pctAbove50.toFixed(0)}%</b> &gt;50d · {flow.tb.pctNH20.toFixed(0)}% at 20d highs
           </span>
         )}
       </div>

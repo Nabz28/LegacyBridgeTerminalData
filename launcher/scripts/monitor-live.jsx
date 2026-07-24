@@ -133,8 +133,7 @@
       setMap({});
       if (!list.length) { setLoading(false); return; }
       setLoading(true);
-      const load = () => {
-        const myGen = ++gen;
+      const perTicker = (myGen) => {
         let pending = list.length;
         list.forEach((t) => {
           fetchQuote(t).then(
@@ -142,6 +141,30 @@
             () => { if (alive && myGen === gen) setMap((m) => ({ ...m, [t]: { error: true } })); }
           ).finally(() => { if (alive && myGen === gen && --pending <= 0) setLoading(false); });
         });
+      };
+      const load = () => {
+        const myGen = ++gen;
+        // batch endpoint (0.6): one request per 60 tickers; per-ticker fallback.
+        if (list.length > 3) {
+          const chunks = [];
+          for (let i = 0; i < list.length; i += 60) chunks.push(list.slice(i, i + 60));
+          Promise.all(chunks.map((c) =>
+            getJson(FN_BASE + '/monitor-quotes?tickers=' + encodeURIComponent(c.join(',')))))
+            .then((results) => {
+              if (!alive || myGen !== gen) return;
+              const merged = {};
+              results.forEach((j) => {
+                Object.keys(j.quotes || {}).forEach((t) => { merged[t] = j.quotes[t]; });
+                Object.keys(j.errors || {}).forEach((t) => { merged[t] = { error: true }; });
+              });
+              // seed cache so detail views reuse the batch result
+              list.forEach((t) => { if (merged[t] && !merged[t].error) quoteCache.set(t, { at: Date.now(), data: merged[t] }); });
+              setMap(merged);
+              setLoading(false);
+            }, () => { if (alive && myGen === gen) perTicker(myGen); });
+        } else {
+          perTicker(myGen);
+        }
       };
       load();
       const iv = setInterval(load, 90 * 1000);
@@ -191,7 +214,8 @@
           const map = {};
           pairs.forEach(([t, b]) => { if (b) map[t] = b; });
           const f = window.MONITOR_REGIME.volumeFlow(map);
-          setFlow(f ? { ...f, sampled: list.length, universe: (rows || []).filter((r) => r.t).length } : null);
+          const tb = window.MONITOR_REGIME.trendBreadth(map);
+          setFlow(f ? { ...f, tb, sampled: list.length, universe: (rows || []).filter((r) => r.t).length } : null);
         });
       return () => { alive = false; };
     }, [key]);
@@ -326,19 +350,25 @@
   const fetchRegime = () => {
     if (regimeCache && Date.now() - regimeCache.at < 10 * 60 * 1000) return regimeCache.promise;
     const R = window.MONITOR_REGIME;
+    // v2 needs ~2y of each leg for the rolling-z warmup; FRED legs are
+    // lagged INSIDE the engine (strict < date alignment), so raw series
+    // are passed straight through.
     const p = Promise.all([
-      fetchHistory('^GSPC', '6mo', '1d'), fetchHistory('^VIX', '6mo', '1d'),
-      fetchHistory('DX-Y.NYB', '6mo', '1d'), fetchHistory('HG=F', '6mo', '1d'),
-      fetchHistory('GC=F', '6mo', '1d'), fetchHistory('IDR=X', '6mo', '1d'),
-      fetchFred('BAMLH0A0HYM2'), fetchFred('T10Y2Y'),
-    ]).then(([spx, vix, dxy, copper, gold, usdidr, hyRaw, curveRaw]) => {
+      fetchHistory('^GSPC', '2y', '1d'), fetchHistory('^VIX', '2y', '1d'),
+      fetchHistory('^VIX3M', '2y', '1d'), fetchHistory('DX-Y.NYB', '2y', '1d'),
+      fetchHistory('HG=F', '2y', '1d'), fetchHistory('GC=F', '2y', '1d'),
+      fetchHistory('IDR=X', '2y', '1d'),
+      fetchFred('BAMLH0A0HYM2'), fetchFred('T10Y2Y'), fetchFred('DGS10'),
+    ]).then(([spx, vix, vix3m, dxy, copper, gold, usdidr, hyRaw, curveRaw, g10Raw]) => {
       const inputs = {
-        spx, vix, dxy, copper, gold, usdidr,
-        hyOas: (hyRaw || []).slice(-520), curve2s10: (curveRaw || []).slice(-520),
+        spx, vix, vix3m, dxy, copper, gold, usdidr,
+        hyOas: (hyRaw || []).slice(-700), curve2s10: (curveRaw || []).slice(-700),
+        dgs10: (g10Raw || []).slice(-700),
       };
       const now = R.computeRegime(inputs);
       if (!now) return null;
-      now.history = R.computeRegimeSeries(inputs, 60);
+      now.history = R.computeRegimeSeries({ _rows: now._rows }, 60);
+      delete now._rows;
       return now;
     });
     regimeCache = { at: Date.now(), promise: p };

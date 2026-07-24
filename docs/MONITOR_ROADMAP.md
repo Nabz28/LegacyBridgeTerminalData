@@ -86,6 +86,41 @@ it first, everything in Phases 1-3 reuses it.
 
 ---
 
+## Gate results — 2026-07-24 execution run
+
+Phases 0-2 executed. Harness: `scripts/regime-backtest.js` (954 sessions,
+2022-10 → 2026-07). Verdicts:
+
+- **0.1-0.5 SHIPPED** (engine v2): FRED strict-< alignment + staleness
+  decay, EMA+Schmitt hysteresis, continuous kickers, frozen composition +
+  coverage, calendar-day windows. Unit-tested (`test-monitor-engine.js`).
+- **0.2 gate PASS**: label flips 107 → 35 over 954 sessions (3.1×).
+- **0.6 SHIPPED**: `monitor-quotes` batch edge fn (60 tickers/call, and
+  its 5d window fixes the FX prevClose bug server-side).
+- **0.7/0.8 SHIPPED**: GitHub Actions — engine tests on push, nightly
+  full-book validation.
+- **1.1 VERDICT — the composite is a STATE gauge, not a forecaster.**
+  Composite ICs vs forward returns are mildly NEGATIVE at 5-21d (e.g.
+  SPX h=21 IC −0.165, E1 −0.239 t−2.2): stretched risk-on mean-reverts.
+  UI relabeled accordingly (tooltips say so explicitly).
+- **1.2 SHIPPED** (adaptive rolling-z normalization, saturation gone).
+- **1.3 REJECTED by gate**: IC-fit weights are unstable/regime-dependent
+  (credit IC −0.33 i.e. contrarian; div n=97). Descriptive hand weights
+  kept, documented in the engine header.
+- **1.4 SHIPPED**: beta-adjusted RS + vol-scaled momentum in deskSignals
+  (2× levered clone correctly reads β≈2, RS inline — unit test).
+- **1.5 NOT SHIPPED as UI**: playbook cells that pass CI are sparse and
+  partly sample-drift (EIDO underperformed all-sample); results recorded
+  in the harness output instead of shipped as a trading table.
+- **1.6 RESOLVED**: r1m ≈ skip-month on this sample (both mildly
+  negative); r1m kept for simplicity.
+- **2.1-2.5 SHIPPED**: trend breadth (%>50d SMA, % at 20d highs), dollar
+  volume + up/down $vol A/D + OBV divergence + partial-session flag,
+  VIX/VIX3M backwardation kicker, credit-equity divergence component,
+  bear-steepening discrimination (DGS10).
+- **2.6 DEFERRED** (intraday charts — TV widgets already cover intraday
+  visually; revisit with 4.x).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,
