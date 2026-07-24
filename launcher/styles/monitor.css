@@ -349,8 +349,28 @@
 .mon-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 7px; }
 
 /* ---- index lab ---- */
+.mon-lab-wrap { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; }
+.mon-tpl-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 9px 12px;
+  border: 1px solid var(--brand-edge); border-radius: 4px; background: var(--brand-soft);
+}
+.mon-tpl-bar .t { font-size: 10px; font-family: var(--font-mono); letter-spacing: 2px; text-transform: uppercase; color: var(--brand-strong); }
+.mon-tpl-bar .sp { flex: 1 1 auto; }
+.mon-tpl-note { font-size: 11px; color: var(--text-secondary); font-style: italic; max-width: 520px; }
+.mon-lab-scope { display: flex; gap: 5px; flex-wrap: wrap; }
+.mon-lab-wmode { display: flex; gap: 5px; }
+.mon-basket { border: 1px solid var(--paper-softer); border-radius: 4px; max-height: 240px; overflow-y: auto; }
+.mon-basket-row {
+  display: flex; align-items: center; gap: 7px; padding: 5px 9px; font-size: 11.5px;
+  border-bottom: 1px solid rgba(232,228,217,0.04);
+}
+.mon-basket-row .nm { color: var(--paper); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.mon-basket-row .tk { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+.mon-basket-row .pw { font-family: var(--font-mono); font-size: 10px; color: var(--brand-strong); width: 44px; text-align: right; }
+.mon-basket-row .rm { color: var(--text-tertiary); cursor: pointer; padding: 0 2px; }
+.mon-basket-row .rm:hover { color: var(--neg, #F0475C); }
 .mon-lab { display: flex; gap: 16px; flex: 1; min-height: 0; }
-.mon-lab-side { flex: 0 0 300px; display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.mon-lab-side { flex: 0 0 320px; display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow-y: auto; }
 .mon-lab-h { font-size: 9.5px; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); }
 .mon-lab-h .ct { margin-left: 8px; color: var(--brand); }
 .mon-lab-list { overflow-y: auto; max-height: 300px; border: 1px solid var(--paper-softer); border-radius: 4px; }

@@ -237,11 +237,16 @@
   };
 
   // ---- Index Lab — custom basket builder ----------------------------------
-  const IndexLab = ({ desk, accent }) => {
-    const { fetchHistory, computeBasket, basketStats, basketCorrelation, overlayStats, MultiLineChart, downloadCsv, loadIndices, saveIndices } = ML();
+  // filterRows/filterLabel come from DeskView: the region/country/sub-industry
+  // filters DRIVE the picker (the #1 confusion in v2 was that they didn't).
+  const IndexLab = ({ desk, accent, filterRows, filterLabel }) => {
+    const { fetchHistory, computeBasket, basketStats, basketCorrelation, overlayStats, MultiLineChart, downloadCsv, loadIndices, saveIndices, fetchMcapWeights, fetchTemplates, saveTemplate, lbcSession } = ML();
     const md = MD();
     const deskRows = desk ? md.deskUniverse(desk, 'all', 'ALL', null) : [];
-    const [picked, setPicked] = React.useState(() => deskRows.slice(0, 6).filter((r) => r.t).map((r) => r.t));
+    const scopedRows = (filterRows && filterRows.length ? filterRows : deskRows).filter((r) => r.t);
+    const [useFilters, setUseFilters] = React.useState(true);
+    const pickerRows = useFilters ? scopedRows : deskRows.filter((r) => r.t);
+    const [picked, setPicked] = React.useState(() => scopedRows.slice(0, 6).map((r) => r.t));
     const [range, setRange] = React.useState('1y');
     const [overlay, setOverlay] = React.useState(desk && desk.bench && desk.bench.find((b) => b.y) ? desk.bench.find((b) => b.y).y : '');
     const [q, setQ] = React.useState('');
@@ -250,9 +255,32 @@
     const [err, setErr] = React.useState('');
     const [saved, setSaved] = React.useState(loadIndices());
     const [name, setName] = React.useState('');
-    const [wMode, setWMode] = React.useState('equal');       // 'equal' | 'custom'
-    const [wMap, setWMap] = React.useState({});              // ticker -> weight number
+    const [wMode, setWMode] = React.useState('equal');       // 'equal' | 'custom' | 'mcap'
+    const [wMap, setWMap] = React.useState({});              // ticker -> weight number (custom)
     const [showCorr, setShowCorr] = React.useState(false);
+
+    // global template library (management.monitor_templates, made_by attribution)
+    const [templates, setTemplates] = React.useState([]);
+    const [tplId, setTplId] = React.useState('');
+    const [tplOpen, setTplOpen] = React.useState(false);
+    React.useEffect(() => {
+      let alive = true;
+      fetchTemplates().then((rows) => alive && setTemplates(rows || []));
+      return () => { alive = false; };
+    }, []);
+    const applyTemplate = (id) => {
+      const tpl = templates.find((x) => x.id === id);
+      if (!tpl) return;
+      setTplId(id);
+      setPicked((tpl.tickers || []).slice(0, 20));
+      setWMode(tpl.w_mode === 'mcap' ? 'mcap' : tpl.w_mode === 'custom' ? 'custom' : 'equal');
+      setWMap(tpl.weights || {});
+    };
+    const tplGroups = React.useMemo(() => {
+      const mine = templates.filter((t) => t.desk_id === (desk && desk.id));
+      const rest = templates.filter((t) => t.desk_id !== (desk && desk.id));
+      return { mine, rest };
+    }, [templates, desk && desk.id]);
 
     // saved indices sync to management.monitor_prefs (server wins on load;
     // every save/delete pushes the doc back; logged-out stays local-only)
@@ -268,29 +296,43 @@
       ML().savePrefs({ indices: next }).catch(() => {});
     };
 
-    const searchRows = q ? md.searchUniverse(q).slice(0, 12) : deskRows.filter((r) => r.t);
+    const searchRows = q ? md.searchUniverse(q).slice(0, 14) : pickerRows;
     const toggle = (t) => setPicked((p) => (p.includes(t) ? p.filter((x) => x !== t) : p.length >= 20 ? p : [...p, t]));
+    const addAll = () => setPicked((p) => {
+      const next = [...p];
+      pickerRows.forEach((r) => { if (!next.includes(r.t) && next.length < 20) next.push(r.t); });
+      return next;
+    });
 
     const build = React.useCallback(() => {
       if (picked.length < 2) { setErr('Pick at least 2 instruments.'); return; }
       setBusy(true); setErr(''); setResult(null);
       const want = overlay ? [...picked, overlay] : picked;
-      Promise.all(want.map((t) => fetchHistory(t, range, '1d').then((o) => [t, o], () => [t, null])))
-        .then((pairs) => {
+      // mcap mode resolves USD market caps first (missing members are
+      // EXCLUDED with a warning — never silently equal-weighted).
+      const weightsP = wMode === 'mcap' ? fetchMcapWeights(picked)
+        : Promise.resolve({ weights: wMode === 'custom' ? wMap : null, missing: [] });
+      Promise.all([
+        weightsP,
+        Promise.all(want.map((t) => fetchHistory(t, range, '1d').then((o) => [t, o], () => [t, null]))),
+      ]).then(([wres, pairs]) => {
+          const mcapMissing = wMode === 'mcap' ? wres.missing : [];
+          const usable = wMode === 'mcap' ? picked.filter((t) => !mcapMissing.includes(t)) : picked;
           const map = {}, failed = [];
           pairs.forEach(([t, o]) => {
-            if (!picked.includes(t)) return;
+            if (!usable.includes(t)) return;
             if (o && o.length > 1) map[t] = o;
             else failed.push(t);
           });
-          const basket = computeBasket(map, wMode === 'custom' ? wMap : null);
+          const basket = computeBasket(map, wres.weights);
           if (!basket) { setErr('Not enough overlapping history for that selection.' + (failed.length ? ' Failed to load: ' + failed.join(', ') : '')); setBusy(false); return; }
-          // surface anything that was silently dropped or has a dead tail
+          // surface anything that was dropped or has a dead tail
           const endDate = basket.composite[basket.composite.length - 1].date;
           const cutoff = new Date(Date.parse(endDate) - 7 * 86400000).toISOString().slice(0, 10);
           const staleMembers = basket.tickers.filter((t) => basket.lastReal && basket.lastReal[t] < cutoff);
           const warns = [];
           if (failed.length) warns.push('no data for ' + failed.join(', ') + ' — built without them');
+          if (mcapMissing.length) warns.push('no market cap for ' + mcapMissing.join(', ') + ' — excluded from the cap-weighted basket');
           if (staleMembers.length) warns.push('stale feed (>1wk behind): ' + staleMembers.join(', '));
           setErr(warns.length ? 'Heads-up: ' + warns.join(' · ') : '');
           let overlaySeries = null;
@@ -342,10 +384,78 @@
     const currentKey = picked.join(',') + '|' + range + '|' + overlay + '|' + wMode + '|' + JSON.stringify(wMap);
     const resultStale = result && builtKey && builtKey !== currentKey;
 
+    // live weight preview for the basket panel (mirrors computeBasket's math)
+    const previewW = React.useMemo(() => {
+      if (!picked.length) return {};
+      if (wMode === 'custom') {
+        const raw = {}; let sum = 0;
+        picked.forEach((t) => { raw[t] = Number(wMap[t]) > 0 ? Number(wMap[t]) : 1; sum += raw[t]; });
+        const out = {}; picked.forEach((t) => { out[t] = raw[t] / sum; });
+        return out;
+      }
+      if (wMode === 'mcap') return null; // resolved at build time
+      const eq = 1 / picked.length, out = {};
+      picked.forEach((t) => { out[t] = eq; });
+      return out;
+    }, [picked.join(','), wMode, JSON.stringify(wMap)]);
+    const rowMeta = (t) => md.searchUniverse(t).find((r) => r.t === t) || { n: t, c: null };
+
+    // publish the current basket as a GLOBAL template (made_by attribution)
+    const publishTemplate = () => {
+      const nm = window.prompt('Template name (visible to the whole team):', name || '');
+      if (!nm || !nm.trim() || picked.length < 2) return;
+      const note = window.prompt('One-line note (what is this basket?):', '') || '';
+      const s = lbcSession();
+      const madeBy = (s && s.user && (s.user.full_name || s.user.username)) || 'unknown';
+      const id = nm.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+      const row = { id, name: nm.trim(), desk_id: desk ? desk.id : null, tickers: picked,
+        weights: wMode === 'custom' ? wMap : null, w_mode: wMode, note, made_by: madeBy };
+      saveTemplate(row).then(
+        () => { setTemplates((ts) => [...ts.filter((x) => x.id !== id), { ...row, updated_at: new Date().toISOString() }]); setTplId(id); setErr('Template "' + nm.trim() + '" published to the team.'); },
+        (e) => setErr('Publish failed (' + (e.message || e) + ').')
+      );
+    };
+
     return (
-      <div className="mon-lab">
+      <div className="mon-lab-wrap">
+        {/* ---- template bar — the fast path to a working index ---- */}
+        <div className="mon-tpl-bar">
+          <span className="t">Templates</span>
+          <select className="mon-select" value={tplId} onChange={(e) => applyTemplate(e.target.value)} style={{ maxWidth: 340 }}>
+            <option value="">Load a template… ({templates.length})</option>
+            {tplGroups.mine.length > 0 && (
+              <optgroup label={'This desk — ' + (desk ? desk.name : '')}>
+                {tplGroups.mine.map((t) => <option key={t.id} value={t.id}>{t.name} · by {t.made_by}</option>)}
+              </optgroup>
+            )}
+            <optgroup label="Thematic & other desks">
+              {tplGroups.rest.map((t) => <option key={t.id} value={t.id}>{t.name} · by {t.made_by}</option>)}
+            </optgroup>
+          </select>
+          {tplId && (() => { const t = templates.find((x) => x.id === tplId); return t ? (
+            <span className="mon-tpl-note" title={t.note}>{t.note ? t.note.slice(0, 90) : ''}{t.note && t.note.length > 90 ? '…' : ''}</span>
+          ) : null; })()}
+          <span className="sp"></span>
+          <button className="mon-chip" onClick={publishTemplate} title="Publish the current basket as a team-wide template">Publish as template</button>
+        </div>
+
+        <div className="mon-lab">
         <div className="mon-lab-side">
-          <div className="mon-lab-h">Constituents <span className="ct">{picked.length}/20</span></div>
+          <div className="mon-lab-h">
+            1 · Pick instruments <span className="ct">{picked.length}/20</span>
+          </div>
+          <div className="mon-lab-scope">
+            <button className={'mon-chip ' + (useFilters ? 'active' : '')} onClick={() => setUseFilters(true)}
+                    title="picker follows the region / country / sub-industry filters above">
+              {filterLabel || 'Filtered'} ({scopedRows.length})
+            </button>
+            <button className={'mon-chip ' + (!useFilters ? 'active' : '')} onClick={() => setUseFilters(false)}>
+              Whole desk ({deskRows.filter((r) => r.t).length})
+            </button>
+            {pickerRows.length > 0 && pickerRows.length <= 20 && (
+              <button className="mon-chip" onClick={addAll} title="add every listed name to the basket">+ all</button>
+            )}
+          </div>
           <input className="mon-input" placeholder="Search all desks or type any Yahoo symbol…" value={q}
                  onChange={(e) => setQ(e.target.value)}
                  onKeyDown={(e) => { if (e.key === 'Enter' && q.trim() && !searchRows.length) { toggle(q.trim().toUpperCase()); setQ(''); } }} />
@@ -358,34 +468,56 @@
                 <span className="pick">{picked.includes(r.t) ? '✓' : '+'}</span>
               </div>
             ))}
+            {searchRows.length === 0 && !q && (
+              <div className="mon-lab-row"><span className="nm" style={{ color: 'var(--text-tertiary)' }}>No names match the current filters — switch to “Whole desk” or search.</span></div>
+            )}
             {q && !searchRows.length && (
               <div className="mon-lab-row" onClick={() => { toggle(q.trim().toUpperCase()); setQ(''); }}>
                 <span className="nm">Add “{q.trim().toUpperCase()}” (Yahoo symbol)</span><span className="pick">+</span>
               </div>
             )}
           </div>
+
+          <div className="mon-lab-h" style={{ marginTop: 10 }}>2 · Basket & weights</div>
+          <div className="mon-lab-wmode">
+            {[['equal', 'Equal'], ['mcap', 'Market cap'], ['custom', 'Custom']].map(([k, l]) => (
+              <button key={k} className={'mon-chip ' + (wMode === k ? 'active' : '')} onClick={() => setWMode(k)}
+                      title={k === 'mcap' ? 'weights from live USD market caps (fetched on build)' : k === 'custom' ? 'set relative weights per member below' : 'every member weighted equally'}>
+                {l}
+              </button>
+            ))}
+          </div>
           {picked.length > 0 && (
-            <div className="mon-lab-picked">
-              {picked.map((t) => (
-                <span key={t} className="mon-lab-pick">
-                  <span className="mon-tag" onClick={() => toggle(t)}>{t} ✕</span>
-                  {wMode === 'custom' && (
-                    <input className="mon-w" type="number" min="0" step="0.5"
-                           value={wMap[t] != null ? wMap[t] : 1}
-                           onChange={(e) => setWMap({ ...wMap, [t]: parseFloat(e.target.value) || 0 })}
-                           title="relative weight (normalized on build)" />
-                  )}
-                </span>
-              ))}
+            <div className="mon-basket">
+              {picked.map((t) => {
+                const meta = rowMeta(t);
+                return (
+                  <div key={t} className="mon-basket-row">
+                    <span className="fl">{flag(meta.c)}</span>
+                    <span className="nm" title={meta.n}>{meta.n}</span>
+                    <span className="tk">{t.replace('.JK', '')}</span>
+                    {wMode === 'custom' && (
+                      <input className="mon-w" type="number" min="0" step="0.5"
+                             value={wMap[t] != null ? wMap[t] : 1}
+                             onChange={(e) => setWMap({ ...wMap, [t]: parseFloat(e.target.value) || 0 })}
+                             title="relative weight (normalized)" />
+                    )}
+                    <span className="pw">{previewW ? (previewW[t] * 100).toFixed(1) + '%' : 'cap'}</span>
+                    <span className="rm" onClick={() => toggle(t)} title="remove">✕</span>
+                  </div>
+                );
+              })}
             </div>
           )}
+          {picked.length === 0 && <div className="mon-subs-note">Basket is empty — pick from the list above or load a template.</div>}
+
           <div className="mon-lab-save">
-            <input className="mon-input" placeholder="Save as… (e.g. LBC Nickel 6)" value={name} onChange={(e) => setName(e.target.value)} />
+            <input className="mon-input" placeholder="Save privately as… (e.g. LBC Nickel 6)" value={name} onChange={(e) => setName(e.target.value)} />
             <button className="mon-chip" onClick={saveCurrent}>Save</button>
           </div>
           {saved.length > 0 && (
             <div className="mon-lab-saved">
-              <div className="mon-lab-h">Saved indices</div>
+              <div className="mon-lab-h">My saved indices</div>
               {saved.map((s) => (
                 <div key={s.name} className="mon-lab-row">
                   <span className="nm" onClick={() => loadSaved(s)} title={s.tickers.join(', ')}>{s.name}</span>
@@ -398,10 +530,7 @@
         </div>
         <div className="mon-lab-main">
           <div className="mon-lab-toolbar">
-            <span className="lbl">Rebased 100</span>
-            <button className={'mon-chip ' + (wMode === 'equal' ? 'active' : '')} onClick={() => setWMode('equal')}>Equal-wt</button>
-            <button className={'mon-chip ' + (wMode === 'custom' ? 'active' : '')} onClick={() => setWMode('custom')}
-                    title="set per-member weights next to the ticker tags">Custom-wt</button>
+            <span className="lbl">3 · Build — rebased 100 · {wMode === 'mcap' ? 'cap-weighted' : wMode === 'custom' ? 'custom weights' : 'equal weight'}</span>
             {['6mo', '1y', '2y', '5y'].map((r) => (
               <button key={r} className={'mon-chip ' + (range === r ? 'active' : '')} onClick={() => setRange(r)}>{r.toUpperCase()}</button>
             ))}
@@ -446,7 +575,7 @@
                 {perName.map((m) => (
                   <div key={m.t} className="mon-lab-member">
                     <span className="t">{m.t}</span>
-                    {m.w != null && wMode === 'custom' && <span className="w">{(m.w * 100).toFixed(0)}%</span>}
+                    {m.w != null && wMode !== 'equal' && <span className="w">{(m.w * 100).toFixed(1)}%</span>}
                     <span className={'p ' + pctCls(m.ret)}>{m.ret == null ? '—' : fmtPct(m.ret)}</span>
                   </div>
                 ))}
@@ -476,7 +605,8 @@
                 </div>
               )}
             </>
-          ) : !err && <div className="mon-chart-empty">{busy ? 'Fetching histories…' : 'Pick instruments on the left, then Build index.'}</div>}
+          ) : !err && <div className="mon-chart-empty">{busy ? 'Fetching histories…' : 'Pick instruments (1), set weights (2), then Build (3) — or load a template above.'}</div>}
+        </div>
         </div>
       </div>
     );

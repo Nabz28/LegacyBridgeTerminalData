@@ -172,11 +172,13 @@
   };
 
   // ---- Desk view -----------------------------------------------------------
+  // Index Lab leads for equity desks (custom index building is the primary
+  // workflow); Overview demoted to third.
   const DESK_TABS = (desk) => {
     if (desk.id === 'fx') return ['Overview', 'Cross Rates', 'Pairs', 'News'];
     if (desk.id === 'rates') return ['Overview', 'Curve & Spreads', 'Board', 'News'];
     if (desk.id === 'econ') return ['Indicators', 'Calendar', 'News'];
-    return ['Overview', 'Constituents', 'Index Lab', 'News'];
+    return ['Index Lab', 'Constituents', 'Overview', 'News'];
   };
 
   const DeskView = ({ deskId, assign, onAssign, subId, setSubId }) => {
@@ -263,8 +265,7 @@
 
         {/* body: sub panel + detail panel */}
         <div className="mon-desk-body">
-          <div className={'mon-subs' + (tab === 'Index Lab' ? ' dim' : '')}
-               title={tab === 'Index Lab' ? 'Index Lab picks from the whole desk — sub-industry filter does not apply here' : undefined}>
+          <div className="mon-subs">
             <div className="mon-subs-h">{isEcon ? 'Regions' : 'Sub-industries'}</div>
             {!isEcon && (
               <div className={'mon-sub ' + (subId === 'all' ? 'active' : '')} onClick={() => setSubId('all')}>
@@ -296,10 +297,14 @@
             )}
 
             {/* ---- Index Lab — stays MOUNTED once opened so a half-built
-                 basket survives peeking at News/Overview ---- */}
+                 basket survives peeking at News/Overview. The region/country/
+                 sub filters feed its picker. ---- */}
             {(tab === 'Index Lab' || labTouched) && tabs.includes('Index Lab') && (
               <div style={{ display: tab === 'Index Lab' ? 'flex' : 'none', flex: 1, minHeight: 0 }}>
-                <mv.IndexLab desk={desk} accent={desk.accent} />
+                <mv.IndexLab desk={desk} accent={desk.accent} filterRows={rows}
+                  filterLabel={(country ? ((md.COUNTRIES[country] || {}).n || country)
+                    : (md.REGION_FILTERS.find((r) => r.id === region) || {}).label || 'Global')
+                    + (subId !== 'all' ? ' · ' + ((desk.subs.find((s) => s.id === subId) || {}).name || '') : '')} />
               </div>
             )}
 

@@ -403,6 +403,58 @@
     }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
   };
 
+  // ---- fundamentals + USD market-cap weights ------------------------------
+  const fetchFundamentals = (ticker) =>
+    cached(histCache, 'FUND|' + ticker, 12 * 60 * 60 * 1000, () =>
+      getJson(FN_BASE + '/equity-fundamentals?ticker=' + encodeURIComponent(ticker))
+        .then((j) => { if (!j.ok || !j.fundamentals) throw new Error(j.error || 'no fundamentals'); return j.fundamentals; }));
+
+  // USD value of 1 unit of `cur` (GBp = pence). Majors quote as XXXUSD=X on
+  // Yahoo (multiply); the rest quote as USD-base XXX=X (divide).
+  const FX_USD_BASE = new Set(['EUR', 'GBP', 'AUD', 'NZD']);
+  const usdRate = (cur) => {
+    if (!cur || cur === 'USD') return Promise.resolve(1);
+    if (cur === 'GBp' || cur === 'GBX') return usdRate('GBP').then((r) => r / 100);
+    if (FX_USD_BASE.has(cur)) return fetchQuote(cur + 'USD=X').then((q) => q.price || null);
+    return fetchQuote(cur + '=X').then((q) => (q.price ? 1 / q.price : null));
+  };
+
+  // Market-cap weights in USD for a ticker list. Returns
+  // { weights: {t: mcapUSD}, missing: [t...] } — missing = no mcap or no FX.
+  const fetchMcapWeights = (tickers) =>
+    Promise.all((tickers || []).map((t) =>
+      fetchFundamentals(t)
+        .then((f) => {
+          if (!f.marketCap) return [t, null];
+          return usdRate(f.currency).then((r) => [t, r ? f.marketCap * r : null], () => [t, null]);
+        }, () => [t, null])
+    )).then((pairs) => {
+      const weights = {}, missing = [];
+      pairs.forEach(([t, m]) => { if (m) weights[t] = m; else missing.push(t); });
+      return { weights, missing };
+    });
+
+  // ---- global Index Lab templates (management.monitor_templates) ----------
+  const fetchTemplates = () => {
+    const s = lbcSession();
+    if (!s) return Promise.resolve([]);
+    return getJson(SB_BASE + '/monitor_templates?select=*&order=desk_id.nullsfirst,name',
+      { apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Accept-Profile': 'management' })
+      .catch(() => []);
+  };
+  const saveTemplate = (row) => {
+    const s = lbcSession();
+    if (!s) return Promise.reject(new Error('no-auth'));
+    return fetch(SB_BASE + '/monitor_templates', {
+      method: 'POST',
+      headers: {
+        apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Content-Profile': 'management',
+        'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify([{ ...row, updated_at: new Date().toISOString() }]),
+    }).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return true; });
+  };
+
   // ---- per-user prefs (management.monitor_prefs, RLS own-row) -------------
   // One JSONB doc per user: { indices: [...] }. Server wins over the local
   // cache when a session exists; local keeps working logged-out.
@@ -559,6 +611,7 @@
     fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchBars, fetchLiveIndicators, fetchRoster,
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
+    fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
     fetchRegime, useRegime, useDeskSignals,
     useQuotes, useQuote, useHistory,
     computeBasket, basketStats, basketCorrelation, overlayStats,
