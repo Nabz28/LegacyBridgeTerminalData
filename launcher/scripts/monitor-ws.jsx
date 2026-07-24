@@ -209,12 +209,6 @@
     const tabs = DESK_TABS(desk);
     const econRegion = isEcon ? (subId === 'all' ? 'United States' : subId) : null;
 
-    // TV symbol groups for the rates "Board" tab.
-    const ratesGroups = desk.id === 'rates' ? desk.subs.map((s) => ({
-      name: s.name,
-      symbols: (s.u || []).filter((r) => r.tv).map((r) => ({ name: r.tv, displayName: r.n })),
-    })) : null;
-
     return (
       <div className="mon-desk" style={{ ['--ac']: desk.accent }}>
         {/* header */}
@@ -315,8 +309,22 @@
 
             {/* ---- Rates boards ---- */}
             {tab === 'Curve & Spreads' && <mv.RatesBoard desk={desk} accent={desk.accent} />}
-            {tab === 'Board' && ratesGroups && (
-              <div className="mon-fill"><mv.TvQuotesBoard groups={ratesGroups} /></div>
+            {tab === 'Board' && (
+              /* the free TV quotes widget refuses non-US sovereign yields, so
+                 this board is OURS: live Yahoo table (US yields, bond futures,
+                 credit/intl ETFs) + deep links for TV-only sovereigns. */
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} />
+                <div className="mon-panel">
+                  <div className="mon-panel-h">Global sovereign 10Y <span className="sub">restricted in free embeds — open in TradingView</span></div>
+                  <div className="mon-bench-strip">
+                    {md.deskUniverse(desk, 'all', 'ALL', null).filter((r) => !r.t && r.tv).map((r) => (
+                      <a key={r.tv} className="mon-chip" href={mv.tvDeepLink(r.tv)} target="_blank" rel="noopener"
+                         style={{ textDecoration: 'none' }}>{r.n} ↗</a>
+                    ))}
+                  </div>
+                </div>
+              </div>
             )}
 
             {/* ---- Economics ---- */}
@@ -361,11 +369,14 @@
           ))}
         </div>
         <div className="mon-overview-chart">
-          {activeBench && activeBench.tv
+          {/* prefer our own chart whenever the TV embed would be blocked */}
+          {activeBench && activeBench.tv && mv.tvEmbeddable(activeBench.tv)
             ? <mv.TvAdvancedChart symbol={activeBench.tv} />
             : activeBench && activeBench.y
               ? <YahooFallbackChart ticker={activeBench.y} label={activeBench.label} accent={desk.accent} />
-              : <div className="mon-chart-empty">No benchmark configured</div>}
+              : activeBench && activeBench.tv
+                ? <mv.TvAdvancedChart symbol={activeBench.tv} /* renders the deep-link notice */ />
+                : <div className="mon-chart-empty">No benchmark configured</div>}
         </div>
         {desk.group === 'equity' && rows.length > 3 && <mv.DeskPulse desk={desk} quotes={quotes} flow={flow} />}
         {rows.length > 3 && <mv.TopMovers rows={rows} quotes={quotes} flow={flow} />}
@@ -386,9 +397,11 @@
   // with a market-feed fallback toggle.
   const DeskNews = ({ desk, activeBench, rows }) => {
     const mv = MV();
+    // only offer instruments the free news embed can actually resolve
+    const emb = MV().tvEmbeddable;
     const symCandidates = [
-      ...(activeBench && activeBench.tv ? [{ label: activeBench.label, tv: activeBench.tv }] : []),
-      ...rows.filter((r) => r.tv).slice(0, 10).map((r) => ({ label: r.n, tv: r.tv })),
+      ...(activeBench && activeBench.tv && emb(activeBench.tv) ? [{ label: activeBench.label, tv: activeBench.tv }] : []),
+      ...rows.filter((r) => r.tv && emb(r.tv)).slice(0, 10).map((r) => ({ label: r.n, tv: r.tv })),
     ];
     const market = desk.id === 'fx' ? 'forex' : desk.id === 'rates' ? 'index' : 'stock';
     const [mode, setMode] = React.useState(symCandidates.length ? 'symbol' : 'market');

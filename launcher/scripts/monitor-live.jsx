@@ -222,6 +222,35 @@
     return flow;
   }
 
+  // Multi-horizon trailing returns per ticker from cached 3mo bars
+  // (3D/1W/2W/1M in TRADING days: 3/5/10/21). Capped at 60 names.
+  function useReturns(rows) {
+    const tickers = (rows || []).filter((r) => r.t).slice(0, 60).map((r) => r.t);
+    const key = tickers.join(',');
+    const [map, setMap] = React.useState({});
+    React.useEffect(() => {
+      let alive = true;
+      setMap({});
+      if (!key) return;
+      const list = key.split(',');
+      Promise.all(list.map((t) => fetchBars(t, '3mo').then((b) => [t, b], () => [t, null])))
+        .then((pairs) => {
+          if (!alive) return;
+          const out = {};
+          pairs.forEach(([t, bars]) => {
+            if (!bars || bars.length < 12) return;
+            const c = bars.map((b) => b.c).filter((v) => v != null);
+            const n = c.length;
+            const r = (k) => (n > k && c[n - 1 - k] ? (c[n - 1] / c[n - 1 - k] - 1) * 100 : null);
+            out[t] = { r3d: r(3), r1w: r(5), r2w: r(10), r1m: r(21) };
+          });
+          setMap(out);
+        });
+      return () => { alive = false; };
+    }, [key]);
+    return map;
+  }
+
   // ---- basket / custom-index math -----------------------------------------
   // Rebased-to-100 composite from per-ticker {date,value} arrays; weights map
   // {ticker: number} is normalized internally (omit for equal-weight).
@@ -643,7 +672,7 @@
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
     fetchRegime, useRegime, useDeskSignals,
-    useQuotes, useQuote, useHistory,
+    useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,
     MultiLineChart, MonSpark, downloadCsv, lbcSession,

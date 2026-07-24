@@ -27,19 +27,41 @@
   const flag = (c) => (MD().COUNTRIES[c] || {}).f || '';
 
   // ---- TradingView wrappers ----------------------------------------------
+  // Symbols the FREE anonymous embed refuses to render ("only available on
+  // TradingView"): every non-US TVC sovereign yield + all FX_IDC pairs in
+  // chart embeds (the macro terminal learned this list the hard way). For
+  // these we fall back to our own Yahoo chart or a deep link.
+  const TV_EMBED_BLOCK = new Set([
+    'TVC:JP10Y', 'TVC:DE10Y', 'TVC:GB10Y', 'TVC:ID10Y', 'TVC:CN10Y', 'TVC:IN10Y',
+    'TVC:BR10Y', 'TVC:FR10Y', 'TVC:IT10Y', 'TVC:AU10Y', 'TVC:CA10Y', 'TVC:KR10Y',
+    'TVC:MX10Y', 'TVC:TR10Y', 'TVC:US02Y',
+  ]);
+  const tvEmbeddable = (sym) => !!sym && !TV_EMBED_BLOCK.has(sym) && !sym.startsWith('FX_IDC:');
+  const tvDeepLink = (sym) => 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(sym);
+
   const TV = (props) => {
     const W = window.TVWidget;
     return W ? <W {...props} /> : <div className="mon-chart-empty">TradingView unavailable</div>;
   };
 
-  const TvAdvancedChart = ({ symbol, height }) => (
-    <TV kind="advanced-chart" height={height || '100%'} config={{
-      autosize: true, symbol, interval: 'D', timezone: 'Asia/Jakarta', theme: 'dark', style: '1',
-      locale: 'en', hide_side_toolbar: true, hide_top_toolbar: false, allow_symbol_change: true,
-      save_image: false, withdateranges: true, backgroundColor: 'rgba(2,2,3,1)',
-      gridColor: 'rgba(151,170,197,0.06)', support_host: 'https://www.tradingview.com',
-    }} />
-  );
+  const TvAdvancedChart = ({ symbol, height }) => {
+    if (!tvEmbeddable(symbol)) {
+      return (
+        <div className="mon-chart-empty" style={{ flexDirection: 'column', gap: 10 }}>
+          <div>{symbol} is restricted in free TradingView embeds.</div>
+          <a className="mon-chip" href={tvDeepLink(symbol)} target="_blank" rel="noopener" style={{ textDecoration: 'none' }}>Open in TradingView ↗</a>
+        </div>
+      );
+    }
+    return (
+      <TV kind="advanced-chart" height={height || '100%'} config={{
+        autosize: true, symbol, interval: 'D', timezone: 'Asia/Jakarta', theme: 'dark', style: '1',
+        locale: 'en', hide_side_toolbar: true, hide_top_toolbar: false, allow_symbol_change: true,
+        save_image: false, withdateranges: true, backgroundColor: 'rgba(2,2,3,1)',
+        gridColor: 'rgba(151,170,197,0.06)', support_host: 'https://www.tradingview.com',
+      }} />
+    );
+  };
 
   const TvNews = ({ mode, symbol, market, height }) => (
     <TV kind="timeline" height={height || '100%'} config={
@@ -111,9 +133,8 @@
         if (!alive) return;
         let cut = o;
         if (!isYahoo && range !== 'max') {
-          const years = { '1y': 1, '2y': 2, '5y': 5, '10y': 10 }[range] || 2;
-          const min = new Date(); min.setFullYear(min.getFullYear() - years);
-          const minS = min.toISOString().slice(0, 10);
+          const days = { '1mo': 31, '3mo': 92, '6mo': 183, '1y': 366, '2y': 731, '5y': 1827, '10y': 3653 }[range] || 731;
+          const minS = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
           cut = o.filter((x) => x.date >= minS);
         }
         setObs(cut);
@@ -129,7 +150,7 @@
               <div className="s">{sub || ticker || seriesId}</div>
             </div>
             <div className="mon-modal-actions">
-              {['1y', '2y', '5y', '10y', 'max'].map((r) => (
+              {['1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'max'].map((r) => (
                 <button key={r} className={'mon-chip ' + (range === r ? 'active' : '')} onClick={() => setRange(r)}>{r.toUpperCase()}</button>
               ))}
               <button className="mon-chip" onClick={() => obs && downloadCsv((ticker || seriesId) + '.csv', [['date', 'value'], ...obs.map((o) => [o.date, o.value])])}>CSV</button>
@@ -147,19 +168,25 @@
   };
 
   // ---- Constituents quote table -------------------------------------------
+  const RET_COLS = [['r3d', '3D'], ['r1w', '1W'], ['r2w', '2W'], ['r1m', '1M']];
   const QuoteTable = ({ rows, onOpen }) => {
-    const { useQuotes } = ML();
+    const { useQuotes, useReturns } = ML();
     const [sort, setSort] = React.useState({ k: 'changePct', dir: -1 });
     const tickers = rows.filter((r) => r.t).map((r) => r.t);
     const { quotes, loading } = useQuotes(tickers);
-    const enriched = rows.filter((r) => r.t).map((r) => ({ ...r, q: quotes[r.t] || null }));
+    const rets = useReturns(rows);
+    const RETK = new Set(RET_COLS.map(([k]) => k));
+    const enriched = rows.filter((r) => r.t).map((r) => ({ ...r, q: quotes[r.t] || null, rr: rets[r.t] || null }));
     const sorted = [...enriched].sort((a, b) => {
       const dir = sort.dir;
       if (sort.k === 'name') return (a.n < b.n ? -1 : 1) * dir;
       if (sort.k === 't') return (a.t < b.t ? -1 : 1) * dir;
       if (sort.k === 'sub') return ((a.sub || '') < (b.sub || '') ? -1 : 1) * dir;
       if (sort.k === 'c') return ((a.c || '') < (b.c || '') ? -1 : 1) * dir;
-      const av = a.q && !a.q.error ? a.q[sort.k] : null, bv = b.q && !b.q.error ? b.q[sort.k] : null;
+      const pick = (x) => RETK.has(sort.k)
+        ? (x.rr ? x.rr[sort.k] : null)
+        : (x.q && !x.q.error ? x.q[sort.k] : null);
+      const av = pick(a), bv = pick(b);
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
       if (bv == null) return -1;
@@ -177,12 +204,14 @@
           <thead>
             <tr>
               {th('Name', 'name')}{th('Ticker', 't')}{th('', 'c')}{th('Sub-industry', 'sub')}
-              {th('Last', 'price', 1)}{th('Δ', 'change', 1)}{th('Δ%', 'changePct', 1)}{th('Volume', 'volume', 1)}
+              {th('Last', 'price', 1)}{th('1D%', 'changePct', 1)}
+              {RET_COLS.map(([k, l]) => <React.Fragment key={k}>{th(l, k, 1)}</React.Fragment>)}
+              {th('Volume', 'volume', 1)}
             </tr>
           </thead>
           <tbody>
             {sorted.length === 0 && (
-              <tr><td colSpan={8} style={{ textAlign: 'center', padding: '22px 10px', color: 'var(--text-tertiary)' }}>
+              <tr><td colSpan={11} style={{ textAlign: 'center', padding: '22px 10px', color: 'var(--text-tertiary)' }}>
                 No instruments match this filter.
               </td></tr>
             )}
@@ -196,8 +225,11 @@
                   <td className="fl">{flag(r.c)}</td>
                   <td className="sb">{r.sub}</td>
                   <td className="num">{err ? '—' : q ? fmtNum(q.price) : '·'}</td>
-                  <td className={'num ' + (q && !err ? pctCls(q.change) : '')}>{err ? '—' : q ? fmtNum(q.change) : '·'}</td>
                   <td className={'num ' + (q && !err ? pctCls(q.changePct) : '')}>{err ? '—' : q ? fmtPct(q.changePct) : '·'}</td>
+                  {RET_COLS.map(([k]) => {
+                    const v = r.rr ? r.rr[k] : null;
+                    return <td key={k} className={'num ' + pctCls(v)}>{v == null ? '·' : fmtPct(v)}</td>;
+                  })}
                   <td className="num dim">{err ? '—' : q && q.volume != null ? Intl.NumberFormat('en', { notation: 'compact' }).format(q.volume) : '·'}</td>
                 </tr>
               );
@@ -531,7 +563,7 @@
         <div className="mon-lab-main">
           <div className="mon-lab-toolbar">
             <span className="lbl">3 · Build — rebased 100 · {wMode === 'mcap' ? 'cap-weighted' : wMode === 'custom' ? 'custom weights' : 'equal weight'}</span>
-            {['6mo', '1y', '2y', '5y'].map((r) => (
+            {['1mo', '3mo', '6mo', '1y', '2y', '5y'].map((r) => (
               <button key={r} className={'mon-chip ' + (range === r ? 'active' : '')} onClick={() => setRange(r)}>{r.toUpperCase()}</button>
             ))}
             <select className="mon-select" value={overlay} onChange={(e) => setOverlay(e.target.value)}>
@@ -843,8 +875,8 @@
       <div className="mon-pulse">
         <span className="mon-pulse-t">Desk pulse</span>
         {sig && sig.r1m != null && (
-          <span className={'mon-pulse-item ' + momCls} title={benchY.label + ' — 1M / 3M benchmark return'}>
-            Momentum <b>{fmtPct(sig.r1m)}</b> 1M · <b>{fmtPct(sig.r3m)}</b> 3M
+          <span className={'mon-pulse-item ' + momCls} title={benchY.label + ' — trailing benchmark returns (1W / 2W / 1M / 3M)'}>
+            Momentum <b>{fmtPct(sig.r1w)}</b> 1W · <b>{fmtPct(sig.r2w)}</b> 2W · <b>{fmtPct(sig.r1m)}</b> 1M · <b>{fmtPct(sig.r3m)}</b> 3M
           </span>
         )}
         {sig && sig.rs && (
@@ -957,6 +989,7 @@
     TvAdvancedChart, TvNews, TvQuotesBoard, TvFxHeatmap, TvCalendar, TvScreener, TvTickerTape,
     HistoryModal, QuoteTable, TopMovers, IndexLab, EconBoard, RatesBoard, DossierDrawer, AssignEditor,
     RegimeStrip, DeskPulse,
+    tvEmbeddable, tvDeepLink,
     fmtNum, fmtPct, pctCls, flag,
   };
 })();

@@ -346,7 +346,7 @@
   function deskSignals(bench, mkt) {
     if (!bench || bench.length < 90) return null;
     const r1m = ret(bench, 21), r3m = ret(bench, 63);
-    const out = { r1m, r3m };
+    const out = { r1m, r3m, r1d: ret(bench, 1), r1w: ret(bench, 5), r2w: ret(bench, 10) };
     // vol-scaled momentum: z = r1m / (sigma_daily * sqrt(21))
     const rets = [];
     for (let i = Math.max(1, bench.length - 126); i < bench.length; i++) {
