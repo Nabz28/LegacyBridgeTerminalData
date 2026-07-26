@@ -1303,10 +1303,130 @@
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
 
+  // ---- LBC Book Screener (roadmap 4.3) ------------------------------------
+  // Scans the WHOLE validated book in one batch-quote sweep and ranks it
+  // with the columns TradingView can't know: desk, sub-industry, region.
+  const BookScreener = () => {
+    const md = MD();
+    const universe = React.useMemo(() => {
+      const out = [];
+      const seen = new Set();
+      md.DESKS.forEach((d) => (d.subs || []).forEach((s) => (s.u || []).forEach((r) => {
+        if (r.t && !seen.has(r.t)) { seen.add(r.t); out.push({ t: r.t, n: r.n, c: r.c, deskId: d.id, deskNum: d.num, deskName: d.name, sub: s.name }); }
+      })));
+      return out;
+    }, []);
+    const [quotes, setQuotes] = React.useState(null);
+    const [took, setTook] = React.useState(null);
+    const [err, setErr] = React.useState('');
+    const scan = () => {
+      setQuotes(null); setTook(null); setErr('');
+      const t0 = performance.now();
+      ML().fetchQuotesBatch(universe.map((r) => r.t)).then(
+        (qm) => { setQuotes(qm); setTook((performance.now() - t0) / 1000); },
+        (e) => { setQuotes({}); setErr('Scan failed (' + (e && e.message || e) + ') — retry.'); });
+    };
+    React.useEffect(scan, []);
+    const [q, setQ] = React.useState('');
+    const [deskF, setDeskF] = React.useState('');
+    const [regionF, setRegionF] = React.useState('');
+    const [sort, setSort] = React.useState({ k: 'chg', dir: -1 });
+    const clickSort = (k) => setSort((s) => (s.k === k ? { k, dir: -s.dir } : { k, dir: k === 'n' ? 1 : -1 }));
+    const rows = React.useMemo(() => {
+      if (!quotes) return [];
+      let list = universe.map((r) => {
+        const qq = quotes[r.t];
+        return {
+          ...r,
+          last: qq && qq.price != null ? qq.price : null,
+          chg: qq && qq.changePct != null ? qq.changePct : null,
+          vol: qq && qq.volume != null ? qq.volume : null,
+        };
+      });
+      if (deskF) list = list.filter((r) => r.deskId === deskF);
+      if (regionF) list = list.filter((r) => md.inRegion(r.c, regionF));
+      if (q.trim()) {
+        const needle = q.trim().toLowerCase();
+        list = list.filter((r) => r.n.toLowerCase().includes(needle) || r.t.toLowerCase().includes(needle) || (r.sub || '').toLowerCase().includes(needle));
+      }
+      const dir = sort.dir, k = sort.k;
+      list.sort((a, b) => {
+        const av = a[k], bv = b[k];
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return (typeof av === 'string' ? av.localeCompare(bv) : av - bv) * dir;
+      });
+      return list;
+    }, [quotes, q, deskF, regionF, sort]);
+    const quoted = rows.filter((r) => r.chg != null).length;
+    const adv = rows.filter((r) => r.chg > 0).length, dec = rows.filter((r) => r.chg < 0).length;
+    const SHOW = 250;
+    const HEADS = [['n', 'Name'], ['t', 'Ticker'], ['c', ''], ['deskNum', 'Desk'], ['sub', 'Sub-industry'], ['last', 'Last'], ['chg', '1D%'], ['vol', 'Volume']];
+    return (
+      <div className="mon-book-screener">
+        <div className="mon-lab-toolbar">
+          <span className="lbl">LBC book · {universe.length} validated names</span>
+          <input className="mon-input" style={{ maxWidth: 240 }} placeholder="Filter name / ticker / sub…" value={q} onChange={(e) => setQ(e.target.value)} />
+          <select className="mon-select" value={deskF} onChange={(e) => setDeskF(e.target.value)}>
+            <option value="">All desks</option>
+            {md.DESKS.filter((d) => d.group === 'equity').map((d) => <option key={d.id} value={d.id}>{d.num} · {d.name}</option>)}
+          </select>
+          <select className="mon-select" value={regionF} onChange={(e) => setRegionF(e.target.value)}>
+            <option value="">All regions</option>
+            {md.REGION_FILTERS.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
+          </select>
+          <button className="mon-chip" onClick={scan} disabled={!quotes}>{quotes ? 'Rescan' : 'Scanning…'}</button>
+          {rows.length > 0 && (
+            <button className="mon-chip" onClick={() => downloadCsv('lbc-book-screen.csv',
+              [['name', 'ticker', 'country', 'desk', 'sub', 'last', 'chg_pct', 'volume'],
+                ...rows.map((r) => [r.n, r.t, r.c || '', r.deskNum, r.sub, r.last ?? '', r.chg ?? '', r.vol ?? ''])])}>CSV</button>
+          )}
+        </div>
+        {quotes && (
+          <div className="mon-table-note">
+            scanned {quoted}/{universe.length} names{took != null ? ' in ' + took.toFixed(1) + 's' : ''} ·
+            {' '}{adv} adv / {dec} dec{rows.length > SHOW ? ' · showing top ' + SHOW + ' of ' + rows.length + ' (CSV has all)' : ''}
+          </div>
+        )}
+        {err && <div className="mon-warn">{err}</div>}
+        {!quotes && !err && <div className="mon-chart-empty" style={{ minHeight: 120 }}>Sweeping the whole book…</div>}
+        {quotes && (
+          <div className="mon-table-wrap" style={{ maxHeight: '58vh' }}>
+            <table className="mon-table">
+              <thead>
+                <tr>{HEADS.map(([k, l]) => (
+                  <th key={k} className={['last', 'chg', 'vol'].includes(k) ? 'num' : ''} onClick={() => clickSort(k)}>
+                    {l}{sort.k === k ? (sort.dir < 0 ? ' ▼' : ' ▲') : ''}
+                  </th>
+                ))}</tr>
+              </thead>
+              <tbody>
+                {rows.slice(0, SHOW).map((r) => (
+                  <tr key={r.t}>
+                    <td className="nm" title={r.n}>{r.n}</td>
+                    <td className="tk">{r.t}</td>
+                    <td className="fl">{flag(r.c)}</td>
+                    <td className="dim">{r.deskNum}</td>
+                    <td className="sb" title={r.sub}>{r.sub}</td>
+                    <td className="num">{r.last == null ? '·' : fmtNum(r.last)}</td>
+                    <td className={'num ' + pctCls(r.chg)}>{r.chg == null ? '·' : fmtPct(r.chg)}</td>
+                    <td className="num dim">{r.vol == null ? '·' : Intl.NumberFormat('en', { notation: 'compact' }).format(r.vol)}</td>
+                  </tr>
+                ))}
+                {rows.length === 0 && <tr><td colSpan={8} className="dim" style={{ padding: 14 }}>Nothing matches the current filters.</td></tr>}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   window.MONITOR_VIEWS = {
     TvAdvancedChart, TvNews, TvQuotesBoard, TvFxHeatmap, TvCalendar, TvScreener, TvTickerTape,
     HistoryModal, QuoteTable, TopMovers, IndexLab, EconBoard, RatesBoard, DossierDrawer, AssignEditor,
-    RegimeStrip, DeskPulse, MorningNote,
+    RegimeStrip, DeskPulse, MorningNote, BookScreener,
     tvEmbeddable, tvDeepLink,
     fmtNum, fmtPct, pctCls, flag,
   };

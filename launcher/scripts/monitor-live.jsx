@@ -456,8 +456,12 @@
     if (!list.length) return Promise.resolve({});
     const chunks = [];
     for (let i = 0; i < list.length; i += 60) chunks.push(list.slice(i, i + 60));
+    // BYPASSES the shared 6-lane fetch queue: a full-book sweep is ~17 edge
+    // calls that would otherwise serialize behind chart/history traffic —
+    // the 4.3 gate (<5s whole book) needs them all in flight at once.
+    const direct = (url) => fetch(url).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
     return Promise.all(chunks.map((c) =>
-      getJson(FN_BASE + '/monitor-quotes?tickers=' + encodeURIComponent(c.join(','))).catch(() => ({}))))
+      direct(FN_BASE + '/monitor-quotes?tickers=' + encodeURIComponent(c.join(',')))))
       .then((results) => {
         const merged = {};
         results.forEach((j) => {

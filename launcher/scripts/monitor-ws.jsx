@@ -488,18 +488,30 @@
   };
 
   // ---- Screener ------------------------------------------------------------
+  // Two screeners: the LBC BOOK sweep (default — desk/sub/region columns
+  // TradingView can't know) and the TV widget for anything outside the book.
   const ScreenerPage = () => {
     const md = MD(), mv = MV();
+    const [mode, setMode] = React.useState('book');
     const [market, setMarket] = React.useState('america');
     return (
       <div className="mon-page mon-screener">
-        <div className="mon-panel-h">Screener <span className="sub">TradingView screener · any market, any filter</span></div>
-        <div className="mon-bench-strip" style={{ flexWrap: 'wrap' }}>
-          {md.SCREENER_MARKETS.map((m) => (
-            <button key={m.id} className={'mon-chip ' + (market === m.id ? 'active' : '')} onClick={() => setMarket(m.id)}>{m.label}</button>
-          ))}
+        <div className="mon-panel-h">Screener
+          <span className="sub">{mode === 'book' ? 'the LBC coverage book, ranked live' : 'TradingView screener · any market, any filter'}</span>
+          <span style={{ flex: 1 }}></span>
+          <button className={'mon-chip ' + (mode === 'book' ? 'active' : '')} onClick={() => setMode('book')}>LBC book</button>
+          <button className={'mon-chip ' + (mode === 'tv' ? 'active' : '')} onClick={() => setMode('tv')}>All markets (TV)</button>
         </div>
-        <div className="mon-fill"><mv.TvScreener key={market} market={market} /></div>
+        {mode === 'book' ? <mv.BookScreener /> : (
+          <>
+            <div className="mon-bench-strip" style={{ flexWrap: 'wrap' }}>
+              {md.SCREENER_MARKETS.map((m) => (
+                <button key={m.id} className={'mon-chip ' + (market === m.id ? 'active' : '')} onClick={() => setMarket(m.id)}>{m.label}</button>
+              ))}
+            </div>
+            <div className="mon-fill"><mv.TvScreener key={market} market={market} /></div>
+          </>
+        )}
       </div>
     );
   };

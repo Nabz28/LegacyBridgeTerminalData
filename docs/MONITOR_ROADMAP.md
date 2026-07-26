@@ -205,6 +205,19 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
     (TV widgets can't be scraped; revisit with 3.6's macro.news→desk
     tagging).
 
+- **4.3 SHIPPED — LBC book screener**: the Screener view now defaults to
+  an OWN sweep of the whole validated book (975 unique names) with the
+  columns TradingView can't know — desk, sub-industry, region — sortable
+  on every column, desk/region/text filters, adv-dec summary, full-book
+  CSV export; the TV widget stays one toggle away.
+  - **Gate PASS (<5s)**: 975/975 names scanned in **3.3s**. First attempt
+    measured 8.5s — the batch chunks were serializing behind the shared
+    6-lane fetch queue; `fetchQuotesBatch` now bypasses the queue (a
+    ~17-call sweep in full flight), which is the entire fix.
+  - Columns deferred: momentum/RS/rVol per name need bars for 975
+    symbols (~975 extra calls) — out of scope for the quote sweep;
+    revisit if a server-side bars cache lands (3.5/5.x).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,

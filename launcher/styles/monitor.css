@@ -364,6 +364,9 @@
 .mon-meas-box .v.pos { color: var(--pos, #1FB877); }
 .mon-meas-box .v.neg { color: var(--neg, #F0475C); }
 
+/* book screener (4.3) */
+.mon-book-screener { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
+
 /* morning desk note (4.2) */
 .mon-note-pre {
   white-space: pre-wrap; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55;
