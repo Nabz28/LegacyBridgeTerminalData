@@ -1170,10 +1170,143 @@
     );
   };
 
+  // ---- Morning Desk Note (roadmap 4.2) ------------------------------------
+  // One click composes a markdown standup brief: both dials, recent alerts,
+  // and a tape+movers line per equity desk — copy-out or download.
+  const dialLine = (name, reg) => {
+    if (!reg) return '- ' + name + ': unavailable';
+    return '- **' + name + ': ' + reg.label + '** (' + (reg.score >= 0 ? '+' : '') + reg.score.toFixed(2) + ')' +
+      (reg.history ? ' · ' + reg.history.streak + ' session' + (reg.history.streak === 1 ? '' : 's') + ' in ' + reg.history.label.toLowerCase() : '') +
+      (reg.flags && reg.flags.length ? ' · flags: ' + reg.flags.join(', ') : ' · no flags') +
+      ' · as of ' + reg.asOf;
+  };
+  const buildNote = ({ regime, regimeId, alerts, deskRows, assign }) => {
+    const today = new Date().toISOString().slice(0, 10);
+    const L = [];
+    L.push('# LBC Morning Desk Note — ' + today);
+    L.push('');
+    L.push('## Tape');
+    L.push(dialLine('GLOBAL', regime));
+    L.push(dialLine('IDX 🇮🇩', regimeId));
+    L.push('');
+    L.push('_Both dials are tape-STATE gauges (descriptive, hysteresis-smoothed) — they do not forecast returns._');
+    const recent = (alerts || []).slice(0, 6);
+    if (recent.length) {
+      L.push('');
+      L.push('## Alerts (last 14 days)');
+      recent.forEach((a) => L.push('- ' + a.date + ' · ' + a.title));
+    }
+    L.push('');
+    L.push('## Equity desks');
+    deskRows.forEach(({ d, benchY, sig, movers }) => {
+      const a = (assign || {})[d.id] || {};
+      const people = [a.head, ...(a.analysts || [])].filter(Boolean);
+      L.push('');
+      L.push('### ' + d.num + ' · ' + d.name + (benchY ? ' — bench ' + benchY.label : '') + (people.length ? ' — ' + people.join(', ') : ''));
+      if (sig) {
+        L.push('- Tape: 1D ' + fmtPct(sig.r1d) + ' · 1W ' + fmtPct(sig.r1w) + ' · 1M ' + fmtPct(sig.r1m) + ' · 3M ' + fmtPct(sig.r3m) +
+          ' · momentum **' + (sig.momentum || 'n/a') + '**' +
+          (sig.rs ? ' · RS vs S&P **' + sig.rs + '**' + (sig.beta != null ? ' (β' + sig.beta.toFixed(1) + ')' : '') : ''));
+      } else {
+        L.push('- Tape: benchmark data unavailable');
+      }
+      if (movers && movers.n >= 5) {
+        L.push('- Movers (' + movers.n + ' quoted): ' +
+          movers.up.map((m) => m.t + ' ' + fmtPct(m.chg)).join(', ') + '  /  ' +
+          movers.down.map((m) => m.t + ' ' + fmtPct(m.chg)).join(', '));
+      }
+    });
+    L.push('');
+    L.push('---');
+    L.push('_Composed by MONITOR (T12) · ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · not investment advice_');
+    return L.join('\n');
+  };
+
+  const MorningNote = ({ assign, onClose }) => {
+    const md = MD();
+    const [busy, setBusy] = React.useState(true);
+    const [progress, setProgress] = React.useState('reading the dials…');
+    const [text, setText] = React.useState('');
+    const [copied, setCopied] = React.useState(false);
+    useEscape(onClose);
+    React.useEffect(() => {
+      let alive = true;
+      const L = ML();
+      (async () => {
+        try {
+          const [regime, regimeId, alerts] = await Promise.all([
+            L.fetchRegime().catch(() => null), L.fetchRegimeID().catch(() => null), L.fetchAlerts().catch(() => []),
+          ]);
+          if (!alive) return;
+          const spx = await L.fetchHistory('^GSPC', '6mo', '1d').catch(() => null);
+          const desks = md.DESKS.filter((d) => d.group === 'equity');
+          const deskRows = [];
+          for (const d of desks) {
+            if (!alive) return;
+            setProgress('reading ' + d.name + '…');
+            const benchY = (d.bench || []).find((b) => b.y);
+            const bench = benchY ? await L.fetchHistory(benchY.y, '6mo', '1d').catch(() => null) : null;
+            const sig = bench && spx && window.MONITOR_REGIME ? window.MONITOR_REGIME.deskSignals(bench, spx) : null;
+            let movers = null;
+            try {
+              const uni = (d.subs || []).flatMap((s) => s.u || []).filter((r) => r.t).slice(0, 40).map((r) => r.t);
+              const q = await L.fetchQuotesBatch(uni);
+              const rows = Object.keys(q)
+                .filter((t) => q[t] && !q[t].error && q[t].changePct != null)
+                .map((t) => ({ t: t.replace('.JK', ''), chg: q[t].changePct }))
+                .sort((a, b) => b.chg - a.chg);
+              if (rows.length >= 5) movers = { up: rows.slice(0, 3), down: rows.slice(-3).reverse(), n: rows.length };
+            } catch {}
+            deskRows.push({ d, benchY, sig, movers });
+          }
+          if (!alive) return;
+          setText(buildNote({ regime, regimeId, alerts, deskRows, assign }));
+          setBusy(false);
+        } catch (e) {
+          if (alive) { setText('Failed to compose the note: ' + (e && e.message || e)); setBusy(false); }
+        }
+      })();
+      return () => { alive = false; };
+    }, []);
+    const copy = () => {
+      const done = () => { setCopied(true); setTimeout(() => setCopied(false), 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+      else done();
+    };
+    return (
+      <div className="mon-modal-backdrop" onClick={onClose}>
+        <div className="mon-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="mon-modal-h">
+            <div>
+              <div className="t">Morning Desk Note</div>
+              <div className="s">auto-composed from live dials, alerts, desk tape and movers</div>
+            </div>
+            <div className="mon-modal-actions">
+              <button className="mon-chip" onClick={copy} disabled={busy}>{copied ? 'Copied ✓' : 'Copy markdown'}</button>
+              <button className="mon-chip" onClick={() => downloadCsvText('lbc-morning-note-' + new Date().toISOString().slice(0, 10) + '.md', text)} disabled={busy}>Download .md</button>
+              <button className="mon-chip" onClick={onClose}>✕</button>
+            </div>
+          </div>
+          <div className="mon-modal-body">
+            {busy ? <div className="mon-chart-empty">Composing — {progress}</div>
+              : <pre className="mon-note-pre">{text}</pre>}
+          </div>
+        </div>
+      </div>
+    );
+  };
+  // plain-text download (the CSV helper quotes commas — notes need raw md)
+  const downloadCsvText = (filename, content) => {
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+
   window.MONITOR_VIEWS = {
     TvAdvancedChart, TvNews, TvQuotesBoard, TvFxHeatmap, TvCalendar, TvScreener, TvTickerTape,
     HistoryModal, QuoteTable, TopMovers, IndexLab, EconBoard, RatesBoard, DossierDrawer, AssignEditor,
-    RegimeStrip, DeskPulse,
+    RegimeStrip, DeskPulse, MorningNote,
     tvEmbeddable, tvDeepLink,
     fmtNum, fmtPct, pctCls, flag,
   };

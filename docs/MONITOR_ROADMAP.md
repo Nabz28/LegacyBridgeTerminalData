@@ -191,6 +191,20 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
   - Deferred from 4.1: Qars bell integration (needs shell-side plumbing;
     the Monitor-local inbox covers the workflow for now).
 
+- **4.2 SHIPPED — Morning Desk Note**: ☀ button on the Coverage Board
+  composes a markdown standup brief from live data — both dials (label,
+  smoothed score, streak, flags, as-of), recent alerts, and one section
+  per equity desk: benchmark tape (1D/1W/1M/3M), vol-scaled momentum,
+  beta-adjusted RS with β, and top-3/bottom-3 movers from a 40-name batch
+  quote per desk. Copy-markdown + download-.md actions.
+  - **Gate PASS**: note rendered complete for all 10 equity desks in the
+    browser (3.4k chars, every section populated with live values).
+  - Deviations from spec, documented: playbook cells excluded (1.5 was
+    NOT shipped — cells failed their CIs, so quoting them in a daily note
+    would launder noise into advice); per-desk news headlines excluded
+    (TV widgets can't be scraped; revisit with 3.6's macro.news→desk
+    tagging).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,

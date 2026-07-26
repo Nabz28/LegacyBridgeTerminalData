@@ -449,6 +449,25 @@
     return p;
   };
 
+  // one-shot batch quotes (same edge fn the tables poll) — used by the
+  // Morning Note composer; seeds the shared quote cache.
+  const fetchQuotesBatch = (tickers) => {
+    const list = [...new Set((tickers || []).filter(Boolean))];
+    if (!list.length) return Promise.resolve({});
+    const chunks = [];
+    for (let i = 0; i < list.length; i += 60) chunks.push(list.slice(i, i + 60));
+    return Promise.all(chunks.map((c) =>
+      getJson(FN_BASE + '/monitor-quotes?tickers=' + encodeURIComponent(c.join(','))).catch(() => ({}))))
+      .then((results) => {
+        const merged = {};
+        results.forEach((j) => {
+          Object.keys(j.quotes || {}).forEach((t) => { merged[t] = j.quotes[t]; });
+        });
+        list.forEach((t) => { if (merged[t]) quoteCache.set(t, { at: Date.now(), data: merged[t] }); });
+        return merged;
+      });
+  };
+
   // regime/flag alerts written by the nightly snapshot job (roadmap 4.1);
   // read-only for any authenticated session, newest first.
   let alertsCache = null;
@@ -816,7 +835,7 @@
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
-    fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, useDeskSignals,
+    fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, fetchQuotesBatch, useDeskSignals,
     useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,
