@@ -250,6 +250,17 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
   swallows its own failures) wired into MonBoundary.componentDidCatch.
   - **Gate PASS**: forced anon insert landed (201, row read back via
     service key); anon SELECT correctly denied (401).
+  - Same-session live proof: the beacon caught its FIRST real crash
+    (4.6's initial render bug) with a full component stack before any
+    human saw it.
+
+- **4.6 SHIPPED — desk compare mode**: "⇄ Compare desks" on the Coverage
+  Board — two equity desks side by side: benchmarks rebased to the
+  common window on one chart (inherits drag-to-measure), per-desk pulse
+  rows (1D/1W/1M/3M, vol-scaled momentum, β-adjusted RS), daily-return
+  correlation + relative β, and top/bottom movers per desk; 3MO/6MO/1Y
+  windows. Verified live: E3 vs E1 read RS-laggard β1.8 −3.9% 1M against
+  RS-leader β0.6 +4.8% 1M at 0.18 correlation.
 
 ## Sequencing logic
 
