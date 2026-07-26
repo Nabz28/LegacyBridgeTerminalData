@@ -491,9 +491,16 @@
   // TVC:ID10Y is embed-only, no fetchable daily series in the stack.
   // Weights are DESCRIPTIVE (same house verdict as the global dial: this is
   // a tape-STATE gauge, not a return forecaster).
-  const WEIGHTS_ID = { trend: 1.1, mom: 1.0, idr: 1.3, eidors: 1.0, growth: 0.8, flow: 0.7 };
+  // carry 0.8 + tp 0.6 added 2026-07-26 after their pre-registered gates
+  // passed (scripts/regime-id-candidates.js): carry beat DXY head-to-head
+  // (state 0.226 vs 0.189, |ic21| 0.104 vs 0.016); term premium IC vs fwd
+  // 21d EIDO 0.158 (t 1.8). EM flow proxy (EEM/SPY) FAILED its lead gate
+  // (correlogram peaks at lag −1 — ^JKSE leads it) and was dropped.
+  const WEIGHTS_ID = { trend: 1.1, mom: 1.0, idr: 1.3, eidors: 1.0, growth: 0.8, flow: 0.7, carry: 0.8, tp: 0.6 };
 
-  // inp: { jkse, usdidr, eido, spy, copper, gold, eidoBars? [{date,c,v}] }
+  // inp: { jkse, usdidr, eido, spy, copper, gold, eidoBars? [{date,c,v}],
+  //        hyFx? [series...], fundFx? [series...],  — USD/XXX pairs (3.2)
+  //        tp10? }                                   — FRED THREEFYTP10 (3.4)
   function buildCompositeID(inp) {
     if (!inp || !inp.jkse || inp.jkse.length < 320) return null;
     const jk = inp.jkse;
@@ -504,6 +511,9 @@
       rs: !!(inp.eido && inp.spy && inp.eido.length > 300 && inp.spy.length > 300),
       growth: !!(inp.copper && inp.gold && inp.copper.length > 300 && inp.gold.length > 300),
       flow: !!(inp.eidoBars && inp.eidoBars.length > 300),
+      carry: !!(inp.hyFx && inp.fundFx && inp.hyFx.filter((s) => s && s.length > 300).length >= 3
+        && inp.fundFx.filter((s) => s && s.length > 300).length >= 1),
+      tp: !!(inp.tp10 && inp.tp10.length > 300),
     };
     // date-keyed ratios (never positional)
     let cuau = null;
@@ -543,18 +553,53 @@
         if (flowSeries.length < 250) { flowSeries = null; has.flow = false; }
       } else has.flow = false;
     }
+    // carry-unwind raw series (3.2): mean 30-cal-day return of USD/high-
+    // yielder pairs minus the funders' — positive = EM FX weakening while
+    // funders bid, the classic carry-unwind footprint.
+    let unwind = null;
+    if (has.carry) {
+      const meanRet = (list) => {
+        const byDate = new Map();
+        list.filter((s) => s && s.length > 300).forEach((s) => {
+          for (let i = 0; i < s.length; i++) {
+            const r = retDaysAt(s, i, 30);
+            if (r == null) continue;
+            if (!byDate.has(s[i].date)) byDate.set(s[i].date, []);
+            byDate.get(s[i].date).push(r);
+          }
+        });
+        return [...byDate.entries()].map(([d, v]) => ({ date: d, value: v.reduce((a, b) => a + b, 0) / v.length }))
+          .sort((a, b) => (a.date < b.date ? -1 : 1));
+      };
+      const hyR = meanRet(inp.hyFx);
+      const fundBy = new Map(meanRet(inp.fundFx).map((o) => [o.date, o.value]));
+      unwind = hyR.filter((o) => fundBy.has(o.date)).map((o) => ({ date: o.date, value: o.value - fundBy.get(o.date) }));
+      if (unwind.length < 300) { unwind = null; has.carry = false; }
+    }
+    // term-premium 30-cal-day change (3.4), computed on the FRED series
+    let tpChg = null;
+    if (has.tp) {
+      tpChg = [];
+      for (let i = 0; i < inp.tp10.length; i++) {
+        const c = chgDaysAt(inp.tp10, i, 30);
+        if (c != null) tpChg.push({ date: inp.tp10[i].date, value: c });
+      }
+      if (tpChg.length < 300) { tpChg = null; has.tp = false; }
+    }
 
     const mapIdx = (s) => jk.map((o) => (s ? idxAt(s, o.date, true) : -1)); // STRICT for all non-JK series
     const iIdr = has.idr ? mapIdx(inp.usdidr) : null;
     const iRs = has.rs ? mapIdx(rsRatio) : null;
     const iCu = has.growth ? mapIdx(cuau) : null;
     const iFl = has.flow ? mapIdx(flowSeries) : null;
+    const iCr = has.carry ? mapIdx(unwind) : null;
+    const iTp = has.tp ? mapIdx(tpChg) : null;
 
     const A = {
       dev: new Array(N).fill(null), mom: new Array(N).fill(null),
       idrR: new Array(N).fill(null), idrR10: new Array(N).fill(null),
       rsR: new Array(N).fill(null), cuauR: new Array(N).fill(null),
-      flow: new Array(N).fill(null),
+      flow: new Array(N).fill(null), carry: new Array(N).fill(null), tp: new Array(N).fill(null),
     };
     for (let i = 0; i < N; i++) {
       const ma = smaAt(jk, i, 50);
@@ -564,6 +609,8 @@
       if (iRs && iRs[i] >= 0) A.rsR[i] = retDaysAt(rsRatio, iRs[i], 30);
       if (iCu && iCu[i] >= 0) A.cuauR[i] = retDaysAt(cuau, iCu[i], 30);
       if (iFl && iFl[i] >= 0) A.flow[i] = flowSeries[iFl[i]].value;
+      if (iCr && iCr[i] >= 0) A.carry[i] = unwind[iCr[i]].value;
+      if (iTp && iTp[i] >= 0) A.tp[i] = tpChg[iTp[i]].value;
     }
     const decay = (s, iMap, i) => {
       if (!iMap || iMap[i] < 0) return 0;
@@ -624,6 +671,25 @@
           decay(flowSeries, iFl, i));
       }
 
+      // 7) carry (3.2) — EM-FX carry unwind, z inverted (unwind = risk-off)
+      if (has.carry && A.carry[i] != null) {
+        const z = zAt(A.carry, i, WIN);
+        push('carry', 'EM carry 1M', (A.carry[i] >= 0 ? '+' : '') + A.carry[i].toFixed(1) + '%',
+          z == null ? null : -zScore(z),
+          A.carry[i] > 1.5 ? 'carry unwinding' : A.carry[i] < -1.5 ? 'carry bid (EM FX firm)' : 'carry quiet',
+          decay(unwind, iCr, i));
+      }
+
+      // 8) tp (3.4) — ACM 10y term-premium 30d change, z inverted (repricing
+      // = EM headwind); FRED series, strict-mapped + staleness-decayed
+      if (has.tp && A.tp[i] != null) {
+        const z = zAt(A.tp, i, WIN);
+        push('tp', 'Term premium Δ1M', (A.tp[i] >= 0 ? '+' : '') + (A.tp[i] * 100).toFixed(0) + 'bp',
+          z == null ? null : -zScore(z),
+          A.tp[i] > 0.15 ? 'term premium repricing' : A.tp[i] < -0.15 ? 'term premium compressing' : 'term premium quiet',
+          decay(tpChg, iTp, i));
+      }
+
       if (!comps.length) continue;
       const wsum = comps.reduce((a, c) => a + c.weight, 0);
       if (wsum <= 0) continue;
@@ -650,6 +716,8 @@
     if (byKey.eidors && byKey.eidors.note === 'Indonesia out of favor') flags.push('ID OUT OF FAVOR');
     if (byKey.trend && byKey.trend.note === 'price below trend') flags.push('JKSE BELOW TREND');
     if (byKey.growth && byKey.growth.note === 'growth impulse') flags.push('GROWTH IMPULSE');
+    if (byKey.carry && byKey.carry.note === 'carry unwinding') flags.push('CARRY UNWIND');
+    if (byKey.tp && byKey.tp.note === 'term premium repricing') flags.push('TERM-PREMIUM REPRICING');
     return {
       score: lastRow.smooth, raw: lastRow.score, label: lastRow.label,
       components: lastRow.comps, flags, asOf: lastRow.date, coverage: lastRow.coverage,

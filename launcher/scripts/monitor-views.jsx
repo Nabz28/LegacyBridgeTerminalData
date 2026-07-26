@@ -910,6 +910,8 @@
     eidors: { title: 'EIDO (iShares Indonesia)', ticker: 'EIDO' },
     growth: { title: 'Copper (HG=F)', ticker: 'HG=F' },
     flow: { title: 'EIDO (iShares Indonesia)', ticker: 'EIDO' },
+    carry: { title: 'USD/MXN (carry proxy leg)', ticker: 'MXN=X' },
+    tp: { title: 'ACM 10y Term Premium', source: 'FRED', seriesId: 'THREEFYTP10' },
   };
 
   // One dial row (head + component chips). Used twice: GLOBAL and IDX 🇮🇩.

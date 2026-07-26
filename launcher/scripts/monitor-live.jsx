@@ -424,13 +424,21 @@
   const fetchRegimeID = () => {
     if (regimeIdCache && Date.now() - regimeIdCache.at < 10 * 60 * 1000) return regimeIdCache.promise;
     const R = window.MONITOR_REGIME;
+    // carry legs (3.2) + term premium (3.4) shipped after their gates
+    // passed 2026-07-26 (scripts/regime-id-candidates.js)
+    const HY_PAIRS = ['MXN=X', 'BRL=X', 'INR=X', 'ZAR=X', 'IDR=X'];
+    const FUND_PAIRS = ['JPY=X', 'CHF=X'];
     const p = Promise.all([
       fetchHistory('^JKSE', '2y', '1d'), fetchHistory('IDR=X', '2y', '1d'),
       fetchHistory('EIDO', '2y', '1d'), fetchHistory('SPY', '2y', '1d'),
       fetchHistory('HG=F', '2y', '1d'), fetchHistory('GC=F', '2y', '1d'),
       fetchBars('EIDO', '2y').catch(() => null),
-    ]).then(([jkse, usdidr, eido, spy, copper, gold, eidoBars]) => {
-      const now = R.computeRegimeID({ jkse, usdidr, eido, spy, copper, gold, eidoBars });
+      Promise.all(HY_PAIRS.map((t) => fetchHistory(t, '2y', '1d').catch(() => null))),
+      Promise.all(FUND_PAIRS.map((t) => fetchHistory(t, '2y', '1d').catch(() => null))),
+      fetchFred('THREEFYTP10').catch(() => null),
+    ]).then(([jkse, usdidr, eido, spy, copper, gold, eidoBars, hyFx, fundFx, tpRaw]) => {
+      const now = R.computeRegimeID({ jkse, usdidr, eido, spy, copper, gold, eidoBars,
+        hyFx, fundFx, tp10: tpRaw ? tpRaw.slice(-700) : null });
       if (!now) return null;
       now.history = R.computeRegimeSeries({ _rows: now._rows }, 60);
       delete now._rows;

@@ -165,6 +165,27 @@ ok(bdaysBetween('2026-07-20', '2026-07-24') === 4, 'bdaysBetween: Mon->Fri = 4')
   const r4 = R.computeRegimeID({ ...flat, eidoBars: barsID });
   const fl = r4 && r4.components.find((c) => c.key === 'flow');
   ok(!!fl && fl.score < -0.3, 'ID dial: heavy-volume selling reads as distribution (got ' + (fl && fl.score.toFixed(2)) + ')');
+
+  // carry unwind (3.2): EM pairs spike while funders bid → carry negative + flag
+  const emCrash = (i) => (i < N - 20 ? 16000 : 16000 * (1 + 0.003 * (i - (N - 20))));
+  const funderBid = (i) => (i < N - 20 ? 150 : 150 * (1 - 0.002 * (i - (N - 20))));
+  const r5 = R.computeRegimeID({
+    ...flat,
+    hyFx: [series(N, emCrash), series(N, emCrash), series(N, emCrash)],
+    fundFx: [series(N, funderBid)],
+  });
+  const cr = r5 && r5.components.find((c) => c.key === 'carry');
+  ok(!!cr && cr.score < -0.3, 'ID dial: carry unwind scores negative (got ' + (cr && cr.score.toFixed(2)) + ')');
+  ok(!!r5 && r5.flags.includes('CARRY UNWIND'), 'ID dial: carry unwind raises flag');
+
+  // term premium (3.4): rising TP → tp component negative + flag
+  const r6 = R.computeRegimeID({
+    ...flat,
+    tp10: series(N, (i) => (i < N - 20 ? 0.3 : 0.3 + 0.015 * (i - (N - 20)))),
+  });
+  const tpC = r6 && r6.components.find((c) => c.key === 'tp');
+  ok(!!tpC && tpC.score < -0.3, 'ID dial: term-premium repricing scores negative (got ' + (tpC && tpC.score.toFixed(2)) + ')');
+  ok(!!r6 && r6.flags.includes('TERM-PREMIUM REPRICING'), 'ID dial: TP repricing raises flag');
 }
 
 console.log(failed ? '\n' + failed + ' FAILURES' : '\nall tests passed');

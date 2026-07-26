@@ -64,15 +64,18 @@ const trailRet = (s, i, h) => (i - h >= 0 && s[i - h].value ? (s[i].value / s[i 
 async function main() {
   console.log('fetching 5y inputs…');
   const [jkse, usdidr, eido, spy, copper, gold, eidoBars,
-    spx, vix, vix3m, dxy, hyOas, curve2s10, dgs10] = await Promise.all([
+    spx, vix, vix3m, dxy, hyOas, curve2s10, dgs10, tp10] = await Promise.all([
     yah('^JKSE'), yah('IDR=X'), yah('EIDO'), yah('SPY'), yah('HG=F'), yah('GC=F'), bars('EIDO'),
     yah('^GSPC'), yah('^VIX'), yah('^VIX3M'), yah('DX-Y.NYB'),
-    fred('BAMLH0A0HYM2'), fred('T10Y2Y'), fred('DGS10'),
+    fred('BAMLH0A0HYM2'), fred('T10Y2Y'), fred('DGS10'), fred('THREEFYTP10'),
   ]);
+  const hyFx = await Promise.all(['MXN=X', 'BRL=X', 'INR=X', 'ZAR=X', 'IDR=X'].map(yah));
+  const fundFx = await Promise.all(['JPY=X', 'CHF=X'].map(yah));
   console.log('legs: jkse', jkse.length, 'idr', usdidr.length, 'eido', eido.length, 'spy', spy.length,
-    'cu', copper.length, 'au', gold.length, 'eidoBars', eidoBars.length);
+    'cu', copper.length, 'au', gold.length, 'eidoBars', eidoBars.length, 'tp10', tp10.length,
+    'hyFx', hyFx.map((s) => s.length).join('/'), 'fundFx', fundFx.map((s) => s.length).join('/'));
 
-  const idBuilt = R.buildCompositeID({ jkse, usdidr, eido, spy, copper, gold, eidoBars });
+  const idBuilt = R.buildCompositeID({ jkse, usdidr, eido, spy, copper, gold, eidoBars, hyFx, fundFx, tp10 });
   if (!idBuilt) { console.log('ID BUILD FAILED'); process.exit(1); }
   const idRows = idBuilt.rows;
   console.log('ID composite rows:', idRows.length, '(' + idRows[0].date + ' → ' + idRows[idRows.length - 1].date + ')');
@@ -134,7 +137,7 @@ async function main() {
 
   // ---- C: per-component forward IC vs fwd ^JKSE 21d (record) ----
   console.log('\n== C: component fwd IC vs ^JKSE 21d ==');
-  for (const k of ['trend', 'mom', 'idr', 'eidors', 'growth', 'flow']) {
+  for (const k of ['trend', 'mom', 'idr', 'eidors', 'growth', 'flow', 'carry', 'tp']) {
     const xs = [], ys = [];
     idRows.forEach((r) => {
       const c = r.comps.find((x) => x.key === k);

@@ -147,6 +147,25 @@ Harness: `scripts/regime-id-backtest.js` (899 sessions, 2022-10 → 2026-07).
     fetchable daily series in the stack. Revisit if a DBnomics/BI daily
     INDOGB series is wired later.
 
+Same-day follow-up — 3.2/3.3/3.4 candidate gates
+(`scripts/regime-id-candidates.js`, pre-registered before evaluation):
+
+- **3.2 SHIPPED — EM carry-unwind basket** (mean 30d ret of USD/{MXN,BRL,
+  INR,ZAR,IDR} minus USD/{JPY,CHF}, z inverted, weight 0.8): beat DXY
+  head-to-head on the IDX sleeve — state corr 0.226 vs 0.189, |ic21|
+  0.104 vs 0.016. Flag: CARRY UNWIND.
+- **3.3 REJECTED by gate — EM flow proxy** (Δ21 ln EEM/SPY): the lead-lag
+  correlogram vs ^JKSE daily returns peaks at lag −1 (0.088) — ^JKSE
+  LEADS the proxy (Jakarta closes first), so it adds no early signal.
+  Dropped per the pre-registered rule.
+- **3.4 SHIPPED — ACM 10y term premium** (FRED THREEFYTP10, Δ30 z
+  inverted, weight 0.6, strict-lagged): IC vs fwd 21d EIDO +0.158
+  (t 1.8) — the strongest forward-IC component in the ID set (+0.141
+  inside the composite). Flag: TERM-PREMIUM REPRICING.
+- Full 8-component re-run: STATE corr 0.849 (vs 0.856 with 6 — within
+  noise, still 2.6× the global dial), flips 45 → 41, coverage 0.85.
+  4 new unit tests (29 total).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,
