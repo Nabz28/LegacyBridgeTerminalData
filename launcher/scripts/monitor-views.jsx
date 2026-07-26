@@ -433,6 +433,8 @@
     React.useEffect(() => { if (picked.length >= 1) build(); }, []); // initial build
 
     const stats = result ? basketStats(result.basket.composite) : null;
+    // risk lab (4.5): python-reference-gated stats on the built composite
+    const risk = result && window.MONITOR_REGIME ? window.MONITOR_REGIME.riskStats(result.basket.composite) : null;
     const corrData = result && showCorr ? basketCorrelation(result.basket) : null;
     const ovStats = result && result.overlaySeries ? overlayStats(result.basket.composite, result.overlaySeries) : null;
     const perName = result ? result.basket.tickers.map((t) => {
@@ -707,6 +709,18 @@
                   )}
                   {ovStats && ovStats.corr != null && (
                     <div className="st"><span className="k">ρ vs {overlay}</span><span className="v">{ovStats.corr.toFixed(2)}</span></div>
+                  )}
+                  {risk && (
+                    <div className="st" title={'historical 1-day Value-at-Risk from ' + risk.n + ' daily returns: on the worst 5% of days the index lost at least this much (95%), worst 1% (99%). Parametric (normal-fit): ' + risk.pvar95.toFixed(2) + '% / ' + risk.pvar99.toFixed(2) + '%.'}>
+                      <span className="k">VaR 1d 95/99</span>
+                      <span className="v neg">{risk.var95.toFixed(2)}% / {risk.var99.toFixed(2)}%</span>
+                    </div>
+                  )}
+                  {risk && (
+                    <div className="st" title={'worst single session in the window · best was ' + fmtPct(risk.best.ret) + ' on ' + risk.best.date + ' · skew ' + (risk.skew == null ? '—' : risk.skew.toFixed(2)) + ', excess kurtosis ' + (risk.kurtosis == null ? '—' : risk.kurtosis.toFixed(1))}>
+                      <span className="k">Worst day · {risk.worst.date}</span>
+                      <span className="v neg">{fmtPct(risk.worst.ret)}</span>
+                    </div>
                   )}
                   <div className="st"><span className="k">Members</span><span className="v">{result.basket.tickers.length}</span></div>
                   {result.basket.tickers.length > 1 && (

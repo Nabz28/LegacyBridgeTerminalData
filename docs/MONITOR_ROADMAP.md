@@ -218,6 +218,24 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
     symbols (~975 extra calls) — out of scope for the quote sweep;
     revisit if a server-side bars cache lands (3.5/5.x).
 
+- **4.5 SHIPPED — risk stats on custom indices**: pure `riskStats()` in
+  the engine (historical VaR 95/99 with numpy-linear quantiles,
+  parametric VaR from the normal fit, ddof=1 annualized vol, max
+  drawdown, worst/best day with dates, sample skew, population excess
+  kurtosis) + two cards in the Index Lab stats row with the parametric
+  values, best day and higher moments in tooltips.
+  - **Gate PASS (matches python reference)**: scripts/risk-reference.py
+    computes the identical statistics in python on an identical seeded
+    series; the unit test requires agreement within 1e-9 on all eight
+    quantities. The gate's FIRST run caught a real bug: glibc LCG
+    constants (seed×1103515245) overflow JS 53-bit float precision, so
+    python and JS silently generated different series — switched both to
+    Park-Miller minstd (products < 2^53, exact in doubles). 9 new unit
+    tests (37 total).
+  - Deferred from spec: GARCH/Monte-Carlo layers of the AMRT/MEDC
+    methodology (need a numerical optimizer; the historical/parametric
+    layer is the daily-use core).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,

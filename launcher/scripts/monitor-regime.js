@@ -725,9 +725,62 @@
     };
   }
 
+  // ---- risk stats for custom indices (roadmap 4.5) ------------------------
+  // Pure port of the AMRT/MEDC risk methodology, gated against a python
+  // reference (scripts/risk-reference.py) in test-monitor-engine.js.
+  // Conventions (identical in the reference): daily LOG returns; sample
+  // stdev (ddof=1); historical VaR = -(linear-interpolated quantile of log
+  // returns), reported as a POSITIVE 1-day %; parametric VaR from the
+  // normal fit; sample-adjusted skew (pandas formula); POPULATION excess
+  // kurtosis (m4/m2^2 - 3); worst/best day in SIMPLE % with dates.
+  function riskStats(obs) {
+    if (!obs || obs.length < 30) return null;
+    const r = [];
+    for (let i = 1; i < obs.length; i++) {
+      if (obs[i - 1].value > 0 && obs[i].value > 0) r.push(Math.log(obs[i].value / obs[i - 1].value));
+    }
+    const n = r.length;
+    if (n < 29) return null;
+    const mean = r.reduce((a, b) => a + b, 0) / n;
+    const dev = r.map((x) => x - mean);
+    const m2 = dev.reduce((a, x) => a + x * x, 0) / n;
+    const m3 = dev.reduce((a, x) => a + x * x * x, 0) / n;
+    const m4 = dev.reduce((a, x) => a + x * x * x * x, 0) / n;
+    const sd = Math.sqrt(dev.reduce((a, x) => a + x * x, 0) / (n - 1)); // ddof=1
+    const quantile = (arr, q) => { // numpy 'linear'
+      const s = [...arr].sort((a, b) => a - b);
+      const pos = (s.length - 1) * q;
+      const lo = Math.floor(pos), hi = Math.ceil(pos);
+      return lo === hi ? s[lo] : s[lo] + (s[hi] - s[lo]) * (pos - lo);
+    };
+    const Z95 = -1.6448536269514722, Z99 = -2.3263478740408408;
+    let worst = { i: 1, v: Infinity }, best = { i: 1, v: -Infinity };
+    for (let i = 1; i < obs.length; i++) {
+      if (!(obs[i - 1].value > 0)) continue;
+      const simple = (obs[i].value / obs[i - 1].value - 1) * 100;
+      if (simple < worst.v) worst = { i, v: simple };
+      if (simple > best.v) best = { i, v: simple };
+    }
+    let peak = -Infinity, mdd = 0;
+    obs.forEach((o) => { if (o.value > peak) peak = o.value; const dd = (o.value / peak - 1) * 100; if (dd < mdd) mdd = dd; });
+    return {
+      n,
+      annVol: sd * Math.sqrt(252) * 100,
+      var95: -quantile(r, 0.05) * 100,
+      var99: -quantile(r, 0.01) * 100,
+      pvar95: -(mean + Z95 * sd) * 100,
+      pvar99: -(mean + Z99 * sd) * 100,
+      mdd,
+      worst: { date: obs[worst.i].date, ret: worst.v },
+      best: { date: obs[best.i].date, ret: best.v },
+      skew: n > 2 && sd > 0 ? (n * r.reduce((a, x) => a + Math.pow(x - mean, 3), 0)) / ((n - 1) * (n - 2) * Math.pow(sd, 3)) : null,
+      kurtosis: m2 > 0 ? m4 / (m2 * m2) - 3 : null,
+    };
+  }
+
   window.MONITOR_REGIME = {
     buildComposite, computeRegime, computeRegimeSeries, deskSignals, breadth, trendBreadth, volumeFlow,
-    buildCompositeID, computeRegimeID,
+    buildCompositeID, computeRegimeID, riskStats,
     _t: { retDaysAt, chgDaysAt, zAt, pctileAt, idxAt, bdaysBetween, ret },
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.MONITOR_REGIME;
