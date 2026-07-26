@@ -479,18 +479,28 @@ const LBCShell = () => {
   const goHome = () => { const h = tabs.find((x) => x.type === 'home'); if (h) setActiveId(h.id); else addTab(); };
 
   // Deep link: a #monitor/... hash (bookmark / shared link / F5) reopens the
-  // Monitor terminal instead of dumping the user on Home. Checked at mount
-  // AND on hashchange — some navigation paths apply the fragment after load.
+  // Monitor terminal instead of dumping the user on Home. Fired ONCE at
+  // mount and on real hashchange events only — calling it on every effect
+  // re-run made the Home button bounce straight back into the Monitor.
+  const monitorHashOpened = React.useRef(false);
   React.useEffect(() => {
     const maybeOpen = () => {
       if (authed && window.location.hash && window.location.hash.startsWith('#monitor')) {
         openTerminal('monitor');
       }
     };
-    maybeOpen();
+    if (authed && !monitorHashOpened.current) { monitorHashOpened.current = true; maybeOpen(); }
     window.addEventListener('hashchange', maybeOpen);
     return () => window.removeEventListener('hashchange', maybeOpen);
   }, [authed, tabs, activeId, user]);
+  // Navigating to Home clears a lingering #monitor hash, so Home stays Home
+  // (and a reload from Home doesn't warp back into the Monitor).
+  React.useEffect(() => {
+    const cur = tabs.find((t) => t.id === activeId);
+    if (cur && cur.type === 'home' && window.location.hash.startsWith('#monitor')) {
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch {}
+    }
+  }, [activeId, tabs]);
 
   // Embedded terminals (Network / Management / Yggdrasil iframes) ask the shell
   // to go Home via postMessage instead of navigating their OWN iframe to

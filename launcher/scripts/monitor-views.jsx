@@ -288,8 +288,35 @@
     const [saved, setSaved] = React.useState(loadIndices());
     const [name, setName] = React.useState('');
     const [wMode, setWMode] = React.useState('equal');       // 'equal' | 'custom' | 'mcap'
-    const [wMap, setWMap] = React.useState({});              // ticker -> weight number (custom)
+    const [wMap, setWMap] = React.useState({});              // ticker -> weight in PERCENT (custom)
     const [showCorr, setShowCorr] = React.useState(false);
+
+    // custom weights are expressed in percent (they get normalized anyway, so
+    // 100 is just the natural scale) — seed equal percents so the inputs never
+    // show a bare "1"
+    const equalPct = (n) => +(100 / Math.max(1, n)).toFixed(1);
+    const seedPercents = (tickers) => {
+      const eq = equalPct(tickers.length), out = {};
+      tickers.forEach((t) => { out[t] = eq; });
+      return out;
+    };
+    const weightsToPercents = (tickers, weights) => {
+      if (!weights) return seedPercents(tickers);
+      const valid = tickers.map((t) => Number(weights[t])).filter((v) => v > 0);
+      if (!valid.length) return seedPercents(tickers);
+      // members missing from the stored map get the AVERAGE raw weight so the
+      // shown percents always cover the whole basket and sum to ~100
+      const fallback = valid.reduce((a, v) => a + v, 0) / valid.length;
+      const raw = {}; let sum = 0;
+      tickers.forEach((t) => { raw[t] = Number(weights[t]) > 0 ? Number(weights[t]) : fallback; sum += raw[t]; });
+      const out = {};
+      tickers.forEach((t) => { out[t] = +((raw[t] / sum) * 100).toFixed(1); });
+      return out;
+    };
+    const pickWMode = (k) => {
+      setWMode(k);
+      if (k === 'custom') setWMap((m) => (Object.keys(m).length ? m : seedPercents(picked)));
+    };
 
     // global template library (management.monitor_templates, made_by attribution)
     const [templates, setTemplates] = React.useState([]);
@@ -304,9 +331,11 @@
       const tpl = templates.find((x) => x.id === id);
       if (!tpl) return;
       setTplId(id);
-      setPicked((tpl.tickers || []).slice(0, 20));
-      setWMode(tpl.w_mode === 'mcap' ? 'mcap' : tpl.w_mode === 'custom' ? 'custom' : 'equal');
-      setWMap(tpl.weights || {});
+      const tks = (tpl.tickers || []).slice(0, 20);
+      setPicked(tks);
+      const mode = tpl.w_mode === 'mcap' ? 'mcap' : tpl.w_mode === 'custom' ? 'custom' : 'equal';
+      setWMode(mode);
+      setWMap(mode === 'custom' ? weightsToPercents(tks, tpl.weights) : {});
     };
     const tplGroups = React.useMemo(() => {
       const mine = templates.filter((t) => t.desk_id === (desk && desk.id));
@@ -329,7 +358,14 @@
     };
 
     const searchRows = q ? md.searchUniverse(q).slice(0, 14) : pickerRows;
-    const toggle = (t) => setPicked((p) => (p.includes(t) ? p.filter((x) => x !== t) : p.length >= 20 ? p : [...p, t]));
+    const toggle = (t) => setPicked((p) => {
+      if (p.includes(t)) return p.filter((x) => x !== t);
+      if (p.length >= 20) return p;
+      // a member added while in custom mode gets an equal-percent slot, not a
+      // near-zero orphan weight
+      if (wMode === 'custom') setWMap((m) => (m[t] != null ? m : { ...m, [t]: equalPct(p.length + 1) }));
+      return [...p, t];
+    });
     const addAll = () => setPicked((p) => {
       const next = [...p];
       pickerRows.forEach((r) => { if (!next.includes(r.t) && next.length < 20) next.push(r.t); });
@@ -337,13 +373,18 @@
     });
 
     const build = React.useCallback(() => {
-      if (picked.length < 2) { setErr('Pick at least 2 instruments.'); return; }
+      if (picked.length < 1) { setErr('Pick at least 1 instrument.'); return; }
       setBusy(true); setErr(''); setResult(null);
       const want = overlay ? [...picked, overlay] : picked;
       // mcap mode resolves USD market caps first (missing members are
       // EXCLUDED with a warning — never silently equal-weighted).
+      // custom percents are resolved to a FULL map so a member without an
+      // input value gets an equal share, matching the preview exactly.
+      const customW = wMode === 'custom'
+        ? picked.reduce((o, t) => { o[t] = Number(wMap[t]) > 0 ? Number(wMap[t]) : equalPct(picked.length); return o; }, {})
+        : null;
       const weightsP = wMode === 'mcap' ? fetchMcapWeights(picked)
-        : Promise.resolve({ weights: wMode === 'custom' ? wMap : null, missing: [] });
+        : Promise.resolve({ weights: customW, missing: [] });
       Promise.all([
         weightsP,
         Promise.all(want.map((t) => fetchHistory(t, range, '1d').then((o) => [t, o], () => [t, null]))),
@@ -385,7 +426,7 @@
         });
     }, [picked.join(','), range, overlay, wMode, JSON.stringify(wMap)]);
 
-    React.useEffect(() => { if (picked.length >= 2) build(); }, []); // initial build
+    React.useEffect(() => { if (picked.length >= 1) build(); }, []); // initial build
 
     const stats = result ? basketStats(result.basket.composite) : null;
     const corrData = result && showCorr ? basketCorrelation(result.basket) : null;
@@ -396,7 +437,7 @@
     }).sort((a, b) => (b.ret ?? -999) - (a.ret ?? -999)) : [];
 
     const saveCurrent = () => {
-      if (!name.trim() || picked.length < 2) return;
+      if (!name.trim() || picked.length < 1) return;
       const next = [...saved.filter((s) => s.name !== name.trim()),
         { name: name.trim(), deskId: desk ? desk.id : null, tickers: picked, range,
           wMode, wMap: wMode === 'custom' ? wMap : undefined, created: new Date().toISOString().slice(0, 10) }];
@@ -404,8 +445,9 @@
     };
     const loadSaved = (s) => {
       setPicked(s.tickers); setRange(s.range || '1y');
-      setWMode(s.wMode === 'custom' ? 'custom' : 'equal');
-      setWMap(s.wMap || {});
+      const mode = s.wMode === 'custom' ? 'custom' : 'equal';
+      setWMode(mode);
+      setWMap(mode === 'custom' ? weightsToPercents(s.tickers, s.wMap) : {});
     };
     const delSaved = (s) => {
       if (!window.confirm('Delete saved index "' + s.name + '"? This also removes it from your account.')) return;
@@ -421,7 +463,7 @@
       if (!picked.length) return {};
       if (wMode === 'custom') {
         const raw = {}; let sum = 0;
-        picked.forEach((t) => { raw[t] = Number(wMap[t]) > 0 ? Number(wMap[t]) : 1; sum += raw[t]; });
+        picked.forEach((t) => { raw[t] = Number(wMap[t]) > 0 ? Number(wMap[t]) : equalPct(picked.length); sum += raw[t]; });
         const out = {}; picked.forEach((t) => { out[t] = raw[t] / sum; });
         return out;
       }
@@ -435,7 +477,7 @@
     // publish the current basket as a GLOBAL template (made_by attribution)
     const publishTemplate = () => {
       const nm = window.prompt('Template name (visible to the whole team):', name || '');
-      if (!nm || !nm.trim() || picked.length < 2) return;
+      if (!nm || !nm.trim() || picked.length < 1) return;
       const note = window.prompt('One-line note (what is this basket?):', '') || '';
       const s = lbcSession();
       const madeBy = (s && s.user && (s.user.full_name || s.user.username)) || 'unknown';
@@ -474,7 +516,7 @@
         <div className="mon-lab">
         <div className="mon-lab-side">
           <div className="mon-lab-h">
-            1 · Pick instruments <span className="ct">{picked.length}/20</span>
+            1 · Pick instruments <span className="ct">{picked.length}/20 · even one works</span>
           </div>
           <div className="mon-lab-scope">
             <button className={'mon-chip ' + (useFilters ? 'active' : '')} onClick={() => setUseFilters(true)}
@@ -513,8 +555,8 @@
           <div className="mon-lab-h" style={{ marginTop: 10 }}>2 · Basket & weights</div>
           <div className="mon-lab-wmode">
             {[['equal', 'Equal'], ['mcap', 'Market cap'], ['custom', 'Custom']].map(([k, l]) => (
-              <button key={k} className={'mon-chip ' + (wMode === k ? 'active' : '')} onClick={() => setWMode(k)}
-                      title={k === 'mcap' ? 'weights from live USD market caps (fetched on build)' : k === 'custom' ? 'set relative weights per member below' : 'every member weighted equally'}>
+              <button key={k} className={'mon-chip ' + (wMode === k ? 'active' : '')} onClick={() => pickWMode(k)}
+                      title={k === 'mcap' ? 'weights from live USD market caps (fetched on build)' : k === 'custom' ? 'set weight percentages per member below (normalized to 100%)' : 'every member weighted equally'}>
                 {l}
               </button>
             ))}
@@ -529,10 +571,13 @@
                     <span className="nm" title={meta.n}>{meta.n}</span>
                     <span className="tk">{t.replace('.JK', '')}</span>
                     {wMode === 'custom' && (
-                      <input className="mon-w" type="number" min="0" step="0.5"
-                             value={wMap[t] != null ? wMap[t] : 1}
-                             onChange={(e) => setWMap({ ...wMap, [t]: parseFloat(e.target.value) || 0 })}
-                             title="relative weight (normalized)" />
+                      <span className="mon-w-wrap">
+                        <input className="mon-w" type="number" min="0" step="0.5"
+                               value={wMap[t] != null ? wMap[t] : equalPct(picked.length)}
+                               onChange={(e) => setWMap({ ...wMap, [t]: parseFloat(e.target.value) || 0 })}
+                               title="target weight in % (normalized to 100% across the basket)" />
+                        <span className="sfx">%</span>
+                      </span>
                     )}
                     <span className="pw">{previewW ? (previewW[t] * 100).toFixed(1) + '%' : 'cap'}</span>
                     <span className="rm" onClick={() => toggle(t)} title="remove">✕</span>
@@ -583,7 +628,8 @@
           {result ? (
             <>
               <MultiLineChart rebased series={[
-                { label: 'LBC Custom Index', color: accent || 'var(--paper)', points: result.basket.composite },
+                { label: result.basket.tickers.length === 1 ? (rowMeta(result.basket.tickers[0]).n || result.basket.tickers[0]) : 'LBC Custom Index',
+                  color: accent || 'var(--paper)', points: result.basket.composite },
                 ...(result.overlaySeries ? [{ label: overlay, color: 'rgba(151,170,197,0.85)', points: result.overlaySeries }] : []),
               ]} height={300} />
               {stats && (
@@ -598,9 +644,11 @@
                     <div className="st"><span className="k">ρ vs {overlay}</span><span className="v">{ovStats.corr.toFixed(2)}</span></div>
                   )}
                   <div className="st"><span className="k">Members</span><span className="v">{result.basket.tickers.length}</span></div>
-                  <button className="mon-chip" style={{ alignSelf: 'center' }} onClick={() => setShowCorr(!showCorr)}>
-                    {showCorr ? 'Hide correlations' : 'Correlations'}
-                  </button>
+                  {result.basket.tickers.length > 1 && (
+                    <button className="mon-chip" style={{ alignSelf: 'center' }} onClick={() => setShowCorr(!showCorr)}>
+                      {showCorr ? 'Hide correlations' : 'Correlations'}
+                    </button>
+                  )}
                 </div>
               )}
               <div className="mon-lab-members">

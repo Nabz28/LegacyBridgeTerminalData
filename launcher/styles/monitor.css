@@ -6,6 +6,19 @@
 
 .mon-root { display: flex; height: 100%; min-height: 0; background: var(--bg-0); color: var(--text-primary, #E8E4D9); }
 
+/* ---- scrollbars: ALWAYS visible inside the Monitor. The Windows/Chrome
+   default thumb is near-invisible on this dark palette, which made every
+   scrollable panel (picker, basket, tables) feel like a dead end. ---- */
+.mon-root * { scrollbar-width: thin; scrollbar-color: rgba(232,228,217,0.28) rgba(232,228,217,0.06); }
+.mon-root *::-webkit-scrollbar { width: 11px; height: 11px; }
+.mon-root *::-webkit-scrollbar-track { background: rgba(232,228,217,0.05); border-radius: 6px; }
+.mon-root *::-webkit-scrollbar-thumb {
+  background: rgba(232,228,217,0.22); border-radius: 6px;
+  border: 2px solid var(--bg-0); min-height: 32px;
+}
+.mon-root *::-webkit-scrollbar-thumb:hover { background: rgba(232,228,217,0.40); }
+.mon-root *::-webkit-scrollbar-corner { background: transparent; }
+
 /* ---- rail ---- */
 .mon-rail {
   flex: 0 0 208px; display: flex; flex-direction: column; gap: 2px;
@@ -227,7 +240,7 @@
 .mon-sub.active { background: var(--paper-soft); color: var(--paper-strong); border-color: var(--paper-edge); border-left: 2px solid var(--ac); }
 .mon-sub .ct { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
 .mon-subs-note { margin: 10px 8px 0; font-size: 10.5px; line-height: 1.5; color: var(--text-tertiary); font-style: italic; }
-.mon-detail { flex: 1 1 auto; min-width: 0; padding: 14px 20px 30px; overflow-y: auto; display: flex; flex-direction: column; }
+.mon-detail { flex: 1 1 auto; min-width: 0; padding: 14px 20px 30px; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
 
 /* overview */
 .mon-overview { display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 0; }
@@ -361,7 +374,8 @@
 .mon-lab-wmode { display: flex; gap: 5px; }
 .mon-basket {
   border: 1px solid var(--paper-edge); border-radius: 4px; overflow-y: auto;
-  min-height: 150px; max-height: 42vh; background: var(--bg-1);
+  min-height: 150px; max-height: 42vh; background: var(--bg-2);
+  scrollbar-gutter: stable; flex: 0 0 auto;
 }
 .mon-basket-row {
   display: flex; align-items: center; gap: 8px; padding: 8px 11px; font-size: 12.5px;
@@ -373,11 +387,17 @@
 .mon-basket-row .pw { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; color: var(--brand-strong); width: 52px; text-align: right; }
 .mon-basket-row .rm { color: var(--text-tertiary); cursor: pointer; padding: 2px 5px; font-size: 13px; }
 .mon-basket-row .rm:hover { color: var(--neg, #F0475C); }
-.mon-lab { display: flex; gap: 16px; flex: 1; min-height: 0; }
-.mon-lab-side { flex: 0 0 390px; display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow-y: auto; padding-right: 4px; }
+.mon-lab { display: flex; gap: 14px; flex: 1; min-height: 0; overflow: hidden; }
+/* the picker/basket column is its OWN bordered panel — before this the side
+   column and the chart bled into one plane and scrolling felt anchorless */
+.mon-lab-side {
+  flex: 0 0 400px; display: flex; flex-direction: column; gap: 8px; min-height: 0;
+  overflow-y: scroll; padding: 10px 12px; background: var(--bg-1);
+  border: 1px solid var(--paper-softer); border-radius: 6px;
+}
 .mon-lab-h { font-size: 9.5px; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); }
 .mon-lab-h .ct { margin-left: 8px; color: var(--brand); }
-.mon-lab-list { overflow-y: auto; max-height: 30vh; min-height: 120px; border: 1px solid var(--paper-softer); border-radius: 4px; }
+.mon-lab-list { overflow-y: scroll; max-height: 30vh; min-height: 120px; border: 1px solid var(--paper-softer); border-radius: 4px; background: var(--bg-2); scrollbar-gutter: stable; flex: 0 0 auto; }
 .mon-lab-row {
   display: flex; align-items: center; gap: 7px; padding: 6px 9px; font-size: 11.5px; cursor: pointer;
   border-bottom: 1px solid rgba(232,228,217,0.04); user-select: none;
@@ -390,7 +410,11 @@
 .mon-lab-picked { display: flex; gap: 5px; flex-wrap: wrap; }
 .mon-lab-save { display: flex; gap: 6px; align-items: center; }
 .mon-lab-saved { border-top: 1px solid var(--paper-softer); padding-top: 8px; }
-.mon-lab-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.mon-lab-main {
+  flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px;
+  overflow-y: auto; overflow-x: hidden; padding: 10px 12px;
+  border: 1px solid var(--paper-softer); border-radius: 6px; background: rgba(232,228,217,0.015);
+}
 .mon-lab-toolbar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .mon-lab-toolbar .lbl { font-size: 10px; font-family: var(--font-mono); letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); margin-right: 6px; }
 .mon-stats { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -410,9 +434,11 @@
 .mon-lab-member .t { color: var(--paper); }
 .mon-lab-member .w { color: var(--brand); font-size: 9.5px; }
 .mon-lab-pick { display: inline-flex; align-items: center; gap: 3px; }
+.mon-w-wrap { display: inline-flex; align-items: center; gap: 3px; }
+.mon-w-wrap .sfx { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); }
 .mon-w {
-  width: 62px; background: var(--bg-2); border: 1px solid var(--paper-edge); color: var(--paper);
-  font-size: 12px; font-family: var(--font-mono); padding: 4px 6px; border-radius: 3px;
+  width: 58px; background: var(--bg-3, var(--bg-0)); border: 1px solid var(--paper-edge); color: var(--paper);
+  font-size: 12px; font-family: var(--font-mono); padding: 4px 6px; border-radius: 3px; text-align: right;
 }
 .mon-w:focus { border-color: var(--brand); outline: none; }
 .mon-corr { margin-top: 4px; }
