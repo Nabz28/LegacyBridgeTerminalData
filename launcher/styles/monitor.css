@@ -364,6 +364,40 @@
 .mon-meas-box .v.pos { color: var(--pos, #1FB877); }
 .mon-meas-box .v.neg { color: var(--neg, #F0475C); }
 
+/* alert inbox (4.1): bell in the regime strip + dropdown of flip/flag rows */
+.mon-alert-wrap { position: relative; display: inline-flex; margin-left: 4px; }
+.mon-alert-bell {
+  display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--paper-softer);
+  background: transparent; color: var(--text-secondary); font-size: 10.5px; padding: 3px 9px;
+  border-radius: 999px; cursor: pointer; white-space: nowrap;
+}
+.mon-alert-bell:hover { border-color: var(--paper-edge); color: var(--paper); }
+.mon-alert-bell.has { border-color: #d8a13a; color: #d8a13a; }
+.mon-alert-bell .ct {
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; background: #d8a13a;
+  color: #0A0A0B; border-radius: 999px; padding: 0 5px;
+}
+.mon-alert-panel {
+  position: absolute; top: 26px; right: 0; z-index: 60; min-width: 380px; max-width: 470px;
+  max-height: 46vh; overflow-y: auto; background: var(--bg-4); border: 1px solid var(--paper-edge);
+  border-radius: 4px; padding: 9px 11px; box-shadow: 0 14px 44px rgba(0,0,0,0.55);
+}
+.mon-alert-panel .h {
+  display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--paper-strong);
+  padding-bottom: 6px; border-bottom: 1px solid var(--paper-softer); margin-bottom: 6px;
+}
+.mon-alert-panel .h .s { font-weight: 400; font-size: 9.5px; font-family: var(--font-mono); color: var(--text-tertiary); }
+.mon-alert-panel .h .x { margin-left: auto; cursor: pointer; color: var(--text-tertiary); padding: 0 3px; }
+.mon-alert-panel .h .x:hover { color: var(--neg, #F0475C); }
+.mon-alert-panel .row { display: flex; align-items: baseline; gap: 8px; padding: 4px 0; font-size: 11.5px; }
+.mon-alert-panel .row .dial {
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; border: 1px solid var(--paper-softer);
+  border-radius: 3px; padding: 1px 5px; color: var(--text-tertiary); flex: 0 0 auto;
+}
+.mon-alert-panel .row .dial.id { color: var(--brand-strong); border-color: var(--brand-edge); }
+.mon-alert-panel .row .t { color: var(--paper); flex: 1; }
+.mon-alert-panel .row .d { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); }
+
 /* second (Indonesia) regime dial inside the strip */
 .mon-regime-tag {
   font-size: 8.5px; font-family: var(--font-mono); letter-spacing: 1.5px; font-weight: 700;

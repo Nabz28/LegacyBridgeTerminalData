@@ -449,6 +449,31 @@
     return p;
   };
 
+  // regime/flag alerts written by the nightly snapshot job (roadmap 4.1);
+  // read-only for any authenticated session, newest first.
+  let alertsCache = null;
+  const fetchAlerts = () => {
+    const s = lbcSession();
+    if (!s) return Promise.resolve([]);
+    if (alertsCache && Date.now() - alertsCache.at < 5 * 60 * 1000) return alertsCache.p;
+    const since = new Date(Date.now() - 14 * 86400000).toISOString().slice(0, 10);
+    const p = getJson(SB_BASE + '/monitor_alerts?select=id,created_at,dial,date,kind,title,detail&date=gte.' + since + '&order=created_at.desc&limit=40',
+      { apikey: SB_ANON, Authorization: 'Bearer ' + s.token, 'Accept-Profile': 'management' })
+      .catch(() => []);
+    alertsCache = { at: Date.now(), p };
+    return p;
+  };
+
+  function useAlerts() {
+    const [alerts, setAlerts] = React.useState([]);
+    React.useEffect(() => {
+      let alive = true;
+      fetchAlerts().then((a) => alive && setAlerts(Array.isArray(a) ? a : []));
+      return () => { alive = false; };
+    }, []);
+    return alerts;
+  }
+
   function useRegimeID() {
     const [regime, setRegime] = React.useState(null);
     const [err, setErr] = React.useState('');
@@ -791,7 +816,7 @@
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
-    fetchRegime, useRegime, fetchRegimeID, useRegimeID, useDeskSignals,
+    fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, useDeskSignals,
     useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,

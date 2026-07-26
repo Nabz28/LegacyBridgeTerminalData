@@ -36,3 +36,17 @@ jobs:
         with: { node-version: 20 }
       - name: Validate every Yahoo symbol in the coverage book
         run: node scripts/validate-monitor-tickers.js
+
+  regime-snapshot:
+    runs-on: ubuntu-latest
+    # roadmap 4.1: persist both regime dials nightly + raise flip/flag
+    # alerts — same engine file the terminal runs, so history can't diverge.
+    if: github.event_name != 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Snapshot both regime dials + diff alerts
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node scripts/regime-snapshot.js

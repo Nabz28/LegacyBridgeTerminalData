@@ -914,8 +914,46 @@
     tp: { title: 'ACM 10y Term Premium', source: 'FRED', seriesId: 'THREEFYTP10' },
   };
 
+  // Alert inbox (4.1): flip/flag rows written by the nightly snapshot job.
+  const AlertBell = () => {
+    const alerts = ML().useAlerts();
+    const [open, setOpen] = React.useState(false);
+    const [seenAt, setSeenAt] = React.useState(() => {
+      try { return Number(localStorage.getItem('lbc-monitor-alerts-seen') || 0); } catch { return 0; }
+    });
+    if (!alerts.length) return null;
+    const unseen = alerts.filter((a) => Date.parse(a.created_at) > seenAt).length;
+    const markSeen = () => {
+      const t = Date.now();
+      setSeenAt(t);
+      try { localStorage.setItem('lbc-monitor-alerts-seen', String(t)); } catch {}
+    };
+    return (
+      <span className="mon-alert-wrap">
+        <button className={'mon-alert-bell' + (unseen ? ' has' : '')}
+                onClick={() => { const next = !open; setOpen(next); if (next) markSeen(); }}
+                title="regime alerts — flips and flags from the nightly snapshot">
+          ◉ Alerts{unseen > 0 && <span className="ct">{unseen}</span>}
+        </button>
+        {open && (
+          <div className="mon-alert-panel">
+            <div className="h">Regime alerts <span className="s">last 14 days · nightly snapshot</span>
+              <span className="x" onClick={() => setOpen(false)}>✕</span></div>
+            {alerts.map((a) => (
+              <div key={a.id} className="row" title={a.detail}>
+                <span className={'dial ' + a.dial}>{a.dial === 'global' ? 'GLOBAL' : 'IDX'}</span>
+                <span className="t">{(a.title || '').replace(/^(GLOBAL|IDX)\s+/, '')}</span>
+                <span className="d">{a.date}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </span>
+    );
+  };
+
   // One dial row (head + component chips). Used twice: GLOBAL and IDX 🇮🇩.
-  const RegimeDial = ({ regime, tag, tip, drillMap, setDrill, compact, storeKey }) => {
+  const RegimeDial = ({ regime, tag, tip, drillMap, setDrill, compact, storeKey, extra }) => {
     // flip notice: compare against the last label this browser saw, ONCE per
     // regime arrival (an inline compare would self-erase on re-render).
     const [flippedFrom, setFlippedFrom] = React.useState(null);
@@ -957,6 +995,7 @@
           )}
           {regime.flags.map((f) => <span key={f} className="mon-regime-flag">{f}</span>)}
           <span className="mon-regime-asof">as of {regime.asOf}</span>
+          {extra}
         </div>
         {!compact && (
           <div className="mon-regime-comps">
@@ -990,7 +1029,7 @@
       <div className={'mon-regime ' + cls + (compact ? ' compact' : '')}>
         <RegimeDial regime={regime} tag="GLOBAL" storeKey="lbc-monitor-regime-last"
           tip="Cross-asset tape STATE (descriptive, hysteresis-smoothed). Backtested 2022-26: this dial describes conditions — it does not forecast returns; stretched risk-on readings have historically mean-reverted over ~1M."
-          drillMap={REGIME_DRILL} setDrill={setDrill} compact={compact} />
+          drillMap={REGIME_DRILL} setDrill={setDrill} compact={compact} extra={<AlertBell />} />
         {regimeId && (
           <div className="mon-regime-id">
             <RegimeDial regime={regimeId} tag="IDX 🇮🇩" storeKey="lbc-monitor-regime-id-last"
