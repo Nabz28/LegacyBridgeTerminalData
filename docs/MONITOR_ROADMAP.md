@@ -166,6 +166,31 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
   noise, still 2.6× the global dial), flips 45 → 41, coverage 0.85.
   4 new unit tests (29 total).
 
+## Gate results — 2026-07-26 execution run (Phase 4.1)
+
+- **4.1 SHIPPED — regime history + alerts** (`7d0f34d`), with one design
+  change from the spec: instead of porting the engine to a Deno edge fn
+  (which would fork the math), the nightly GitHub Actions job runs
+  `scripts/regime-snapshot.js` against the SAME `monitor-regime.js` file
+  the terminal loads — one engine, zero divergence risk.
+  - Tables (migration applied via Management API): `management.
+    monitor_regime_history` (dial+date PK, score/raw/label/coverage/
+    flags/comps) and `management.monitor_alerts` (unique dial+date+kind).
+    Read-only RLS for authenticated; writes via service key only.
+  - History BACKFILLED from the harness: 955 global + 899 id sessions —
+    true multi-year history existed from day one.
+  - Alerts: label change → flip row; newly-appearing flags → flag rows;
+    idempotent (unique constraint absorbs re-runs).
+  - **Gate PASS**: forced prior-day label mutation generated
+    "GLOBAL regime flipped: RISK-OFF → NEUTRAL" on the next run
+    (synthetic rows then cleaned); the dispatched cloud run
+    (30194347220) computed both dials in GitHub's runner and wrote the
+    snapshot — nightly at 04:23 WIB alongside book validation.
+  - Terminal: alert bell in the regime strip (unseen count vs local
+    last-seen, 14-day window) with a dropdown inbox.
+  - Deferred from 4.1: Qars bell integration (needs shell-side plumbing;
+    the Monitor-local inbox covers the workflow for now).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,
