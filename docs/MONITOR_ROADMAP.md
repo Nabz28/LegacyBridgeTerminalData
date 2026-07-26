@@ -236,6 +236,21 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
     methodology (need a numerical optimizer; the historical/parametric
     layer is the daily-use core).
 
+- **5.5 SHIPPED — regime API for LEGION**: keyless GET
+  `/functions/v1/monitor-regime-api` returns both dials (label, smoothed
+  + raw score, streak, flags, coverage, 30-session history) + recent
+  alerts from the nightly-snapshot tables, with the state-gauge
+  disclaimer embedded. 5-minute cache headers.
+  - **Gate PASS**: live curl returned GLOBAL NEUTRAL +0.01 (streak 34,
+    VOL SPIKE + GROWTH IMPULSE) and IDX NEUTRAL +0.27 (streak 24,
+    FOREIGN ACCUMULATION + GROWTH IMPULSE) + 4 alerts.
+- **5.2 SHIPPED — client telemetry**: `management.monitor_telemetry`
+  (INSERT-only RLS for anon/authenticated — clients can write, only the
+  service key reads) + `beacon()` in monitor-live (10/session cap,
+  swallows its own failures) wired into MonBoundary.componentDidCatch.
+  - **Gate PASS**: forced anon insert landed (201, row read back via
+    service key); anon SELECT correctly denied (401).
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,

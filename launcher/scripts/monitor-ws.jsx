@@ -550,7 +550,11 @@
   class MonBoundary extends React.Component {
     constructor(p) { super(p); this.state = { err: null }; }
     static getDerivedStateFromError(err) { return { err }; }
-    componentDidCatch(err) { this.lastErr = err; }
+    componentDidCatch(err, info) {
+      this.lastErr = err;
+      // 5.2: silent breakage becomes a telemetry row, never a user report
+      try { ML().beacon('boundary', err && err.message || String(err), (info && info.componentStack || '').slice(0, 900)); } catch {}
+    }
     render() {
       if (this.state.err) {
         return (

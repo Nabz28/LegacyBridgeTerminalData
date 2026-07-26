@@ -449,6 +449,34 @@
     return p;
   };
 
+  // client telemetry (roadmap 5.2): fire-and-forget error beacon into
+  // management.monitor_telemetry (insert-only RLS) so silent breakage —
+  // boundary crashes, dead widgets — is visible without user reports.
+  // Capped per session; failures are swallowed (telemetry must never break
+  // the thing it watches).
+  let beaconsSent = 0;
+  const beacon = (kind, message, detail) => {
+    try {
+      if (beaconsSent >= 10) return;
+      beaconsSent++;
+      fetch(SB_BASE + '/monitor_telemetry', {
+        method: 'POST',
+        headers: {
+          apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON,
+          'Content-Type': 'application/json', 'Content-Profile': 'management',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          kind: String(kind).slice(0, 40),
+          message: String(message).slice(0, 400),
+          detail: String(detail || '').slice(0, 1200),
+          path: (window.location.hash || '').slice(0, 120),
+          ua: (navigator.userAgent || '').slice(0, 160),
+        }),
+      }).catch(() => {});
+    } catch {}
+  };
+
   // one-shot batch quotes (same edge fn the tables poll) — used by the
   // Morning Note composer; seeds the shared quote cache.
   const fetchQuotesBatch = (tickers) => {
@@ -839,7 +867,7 @@
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
-    fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, fetchQuotesBatch, useDeskSignals,
+    fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, fetchQuotesBatch, beacon, useDeskSignals,
     useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,
