@@ -113,10 +113,11 @@
 
   const CoverageBoard = ({ assign, onOpenDesk }) => {
     const md = MD();
-    const { RegimeStrip, MorningNote } = MV();
+    const { RegimeStrip, MorningNote, DeskCompare } = MV();
     const equity = md.DESKS.filter((d) => d.group === 'equity');
     const markets = md.DESKS.filter((d) => d.group === 'markets');
     const [noteOpen, setNoteOpen] = React.useState(false);
+    const [cmpOpen, setCmpOpen] = React.useState(false);
     // the explainer hero collapses after the first visit — regime + desks
     // are the daily content; the structure story is one click away.
     const [heroOpen, setHeroOpen] = React.useState(() => {
@@ -130,6 +131,7 @@
             <span className="k">LBC Research Division · coverage operating map</span>
             <h1>Monitor</h1>
             <button className="mon-chip cta" onClick={() => setNoteOpen(true)} title="auto-composed standup brief — dials, alerts, per-desk tape and movers">☀ Morning note</button>
+            <button className="mon-chip" onClick={() => setCmpOpen(true)} title="two desks side by side — overlaid benchmarks, pulse, correlation, movers">⇄ Compare desks</button>
             <button className="mon-chip" onClick={() => setHeroOpen(true)}>About the structure</button>
           </div>
         )}
@@ -154,6 +156,7 @@
               </div>
             ))}
             <button className="mon-chip cta" style={{ alignSelf: 'flex-start' }} onClick={() => setNoteOpen(true)} title="auto-composed standup brief — dials, alerts, per-desk tape and movers">☀ Morning note</button>
+            <button className="mon-chip" style={{ alignSelf: 'flex-start' }} onClick={() => setCmpOpen(true)} title="two desks side by side">⇄ Compare desks</button>
             <button className="mon-chip" style={{ alignSelf: 'flex-start' }} onClick={() => setHeroOpen(false)} title="Collapse">✕</button>
           </div>
         </div>
@@ -162,6 +165,7 @@
         <RegimeStrip />
         <RotationStrip onOpenDesk={onOpenDesk} />
         {noteOpen && <MorningNote assign={assign} onClose={() => setNoteOpen(false)} />}
+        {cmpOpen && <DeskCompare onClose={() => setCmpOpen(false)} />}
 
         <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
         <div className="mon-cards">

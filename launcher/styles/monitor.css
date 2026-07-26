@@ -367,6 +367,23 @@
 /* book screener (4.3) */
 .mon-book-screener { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
 
+/* desk compare (4.6) */
+.mon-cmp-pulse {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 8px;
+  border-left: 3px solid var(--ac, var(--paper-edge)); padding: 5px 12px; font-size: 11.5px;
+  color: var(--text-secondary); background: var(--bg-1); border-radius: 3px;
+}
+.mon-cmp-pulse .d { font-weight: 700; color: var(--paper); min-width: 190px; }
+.mon-cmp-pulse b { font-family: var(--font-mono); }
+.mon-cmp-pulse b.pos { color: var(--pos, #1FB877); }
+.mon-cmp-pulse b.neg { color: var(--neg, #F0475C); }
+.mon-cmp-moverrow { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; font-size: 11px; }
+.mon-cmp-moverrow .k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1px; color: var(--text-tertiary); min-width: 78px; }
+.mon-cmp-movers { display: inline-flex; gap: 9px; flex-wrap: wrap; font-family: var(--font-mono); }
+.mon-cmp-movers .pos { color: var(--pos, #1FB877); }
+.mon-cmp-movers .neg { color: var(--neg, #F0475C); }
+.mon-cmp-movers .sep { color: var(--text-tertiary); }
+
 /* morning desk note (4.2) */
 .mon-note-pre {
   white-space: pre-wrap; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55;

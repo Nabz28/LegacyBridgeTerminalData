@@ -1437,10 +1437,134 @@
     );
   };
 
+  // ---- Desk compare (roadmap 4.6) -----------------------------------------
+  // Two desks side by side: overlaid rebased benchmarks (the chart inherits
+  // drag-to-measure), pulse diff, return correlation + relative beta, and
+  // each desk's movers from one batch-quote sweep.
+  const DeskCompare = ({ onClose }) => {
+    const md = MD();
+    const { MultiLineChart } = ML(); // destructure first — bare module refs crash (and beacon'd!)
+    const equity = md.DESKS.filter((d) => d.group === 'equity');
+    const [aId, setA] = React.useState('tech');
+    const [bId, setB] = React.useState('fig');
+    const [range, setRange] = React.useState('6mo');
+    const [data, setData] = React.useState(null);
+    const [busy, setBusy] = React.useState(false);
+    useEscape(onClose);
+    React.useEffect(() => {
+      let alive = true;
+      const L = ML();
+      const dA = md.deskById(aId), dB = md.deskById(bId);
+      const yA = (dA.bench || []).find((b) => b.y), yB = (dB.bench || []).find((b) => b.y);
+      if (!yA || !yB) { setData(null); return; }
+      setBusy(true);
+      const movers = (d) => {
+        const uni = (d.subs || []).flatMap((s) => s.u || []).filter((r) => r.t).slice(0, 40).map((r) => r.t);
+        return L.fetchQuotesBatch(uni).then((q) => {
+          const rows = Object.keys(q).filter((t) => q[t] && !q[t].error && q[t].changePct != null)
+            .map((t) => ({ t: t.replace('.JK', ''), chg: q[t].changePct }))
+            .sort((x, y) => y.chg - x.chg);
+          return rows.length >= 5 ? { up: rows.slice(0, 3), down: rows.slice(-3).reverse() } : null;
+        }).catch(() => null);
+      };
+      Promise.all([
+        L.fetchHistory(yA.y, range, '1d'), L.fetchHistory(yB.y, range, '1d'),
+        L.fetchHistory('^GSPC', '6mo', '1d').catch(() => null),
+        movers(dA), movers(dB),
+      ]).then(([sa, sb, spx, mA, mB]) => {
+        if (!alive) return;
+        const start = sa[0] && sb[0] ? (sa[0].date > sb[0].date ? sa[0].date : sb[0].date) : null;
+        const cut = (s) => {
+          const c = s.filter((o) => o.date >= start);
+          return c.length > 1 ? c.map((o) => ({ date: o.date, value: (o.value / c[0].value) * 100 })) : null;
+        };
+        const ra = cut(sa), rb = cut(sb);
+        const R = window.MONITOR_REGIME;
+        setData({
+          dA, dB, yA, yB, ra, rb,
+          rel: ra && rb ? ML().overlayStats(ra, rb) : null,
+          sigA: spx ? R.deskSignals(sa, spx) : null,
+          sigB: spx ? R.deskSignals(sb, spx) : null,
+          mA, mB,
+        });
+        setBusy(false);
+      }, () => { if (alive) { setData(null); setBusy(false); } });
+      return () => { alive = false; };
+    }, [aId, bId, range]);
+    const pulseRow = (d, y, sig) => sig ? (
+      <div className="mon-cmp-pulse" style={{ ['--ac']: d.accent }}>
+        <span className="d">{d.num} · {d.name}</span>
+        <span>1D <b className={pctCls(sig.r1d)}>{fmtPct(sig.r1d)}</b></span>
+        <span>1W <b className={pctCls(sig.r1w)}>{fmtPct(sig.r1w)}</b></span>
+        <span>1M <b className={pctCls(sig.r1m)}>{fmtPct(sig.r1m)}</b></span>
+        <span>3M <b className={pctCls(sig.r3m)}>{fmtPct(sig.r3m)}</b></span>
+        <span>mom <b>{sig.momentum || '—'}</b></span>
+        {sig.rs && <span>RS <b>{sig.rs}</b>{sig.beta != null ? ' (β' + sig.beta.toFixed(1) + ')' : ''}</span>}
+      </div>
+    ) : null;
+    const moverChips = (m) => m ? (
+      <span className="mon-cmp-movers">
+        {m.up.map((x) => <span key={x.t} className="pos">{x.t} {fmtPct(x.chg)}</span>)}
+        <span className="sep">/</span>
+        {m.down.map((x) => <span key={x.t} className="neg">{x.t} {fmtPct(x.chg)}</span>)}
+      </span>
+    ) : null;
+    return (
+      <div className="mon-modal-backdrop" onClick={onClose}>
+        <div className="mon-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="mon-modal-h">
+            <div>
+              <div className="t">Desk compare</div>
+              <div className="s">overlaid benchmarks (rebased 100) · pulse · correlation · movers</div>
+            </div>
+            <div className="mon-modal-actions">
+              <select className="mon-select" value={aId} onChange={(e) => setA(e.target.value)}>
+                {equity.map((d) => <option key={d.id} value={d.id}>{d.num} · {d.name}</option>)}
+              </select>
+              <span style={{ color: 'var(--text-tertiary)' }}>vs</span>
+              <select className="mon-select" value={bId} onChange={(e) => setB(e.target.value)}>
+                {equity.map((d) => <option key={d.id} value={d.id}>{d.num} · {d.name}</option>)}
+              </select>
+              {['3mo', '6mo', '1y'].map((r) => (
+                <button key={r} className={'mon-chip ' + (range === r ? 'active' : '')} onClick={() => setRange(r)}>{r.toUpperCase()}</button>
+              ))}
+              <button className="mon-chip" onClick={onClose}>✕</button>
+            </div>
+          </div>
+          <div className="mon-modal-body">
+            {busy && <div className="mon-chart-empty" style={{ minHeight: 100 }}>Loading both desks…</div>}
+            {!busy && data && data.ra && data.rb && (
+              <>
+                <MultiLineChart rebased height={260} series={[
+                  { label: data.dA.num + ' ' + data.yA.label, color: data.dA.accent || 'var(--paper)', points: data.ra },
+                  { label: data.dB.num + ' ' + data.yB.label, color: data.dB.accent || '#d8a13a', points: data.rb },
+                ]} />
+                {pulseRow(data.dA, data.yA, data.sigA)}
+                {pulseRow(data.dB, data.yB, data.sigB)}
+                {data.rel && (
+                  <div className="mon-table-note">
+                    daily-return correlation <b>{data.rel.corr == null ? '—' : data.rel.corr.toFixed(2)}</b>
+                    {' '}· β of {data.dA.num} vs {data.dB.num} <b>{data.rel.beta == null ? '—' : data.rel.beta.toFixed(2)}</b>
+                    {' '}· window {range.toUpperCase()}
+                  </div>
+                )}
+                <div className="mon-cmp-moverrow"><span className="k">{data.dA.num} movers</span>{moverChips(data.mA)}</div>
+                <div className="mon-cmp-moverrow"><span className="k">{data.dB.num} movers</span>{moverChips(data.mB)}</div>
+              </>
+            )}
+            {!busy && (!data || !data.ra || !data.rb) && (
+              <div className="mon-chart-empty" style={{ minHeight: 100 }}>Benchmark history unavailable for that pair.</div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   window.MONITOR_VIEWS = {
     TvAdvancedChart, TvNews, TvQuotesBoard, TvFxHeatmap, TvCalendar, TvScreener, TvTickerTape,
     HistoryModal, QuoteTable, TopMovers, IndexLab, EconBoard, RatesBoard, DossierDrawer, AssignEditor,
-    RegimeStrip, DeskPulse, MorningNote, BookScreener,
+    RegimeStrip, DeskPulse, MorningNote, BookScreener, DeskCompare,
     tvEmbeddable, tvDeepLink,
     fmtNum, fmtPct, pctCls, flag,
   };
