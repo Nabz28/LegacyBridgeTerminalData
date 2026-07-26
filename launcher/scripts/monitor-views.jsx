@@ -290,6 +290,10 @@
     const [wMode, setWMode] = React.useState('equal');       // 'equal' | 'custom' | 'mcap'
     const [wMap, setWMap] = React.useState({});              // ticker -> weight in PERCENT (custom)
     const [showCorr, setShowCorr] = React.useState(false);
+    // pinned comparison indices: build one, pin it, build the next — the
+    // chart overlays every pinned composite next to the current build.
+    const [pinned, setPinned] = React.useState([]);          // [{name, color, composite}]
+    const PIN_COLORS = ['#D8A13A', '#1FB877', '#F0475C', '#B48EAD'];
 
     // custom weights are expressed in percent (they get normalized anyway, so
     // 100 is just the natural scale) — seed equal percents so the inputs never
@@ -474,6 +478,36 @@
     }, [picked.join(','), wMode, JSON.stringify(wMap)]);
     const rowMeta = (t) => md.searchUniverse(t).find((r) => r.t === t) || { n: t, c: null };
 
+    // pin the current build for side-by-side comparison (max 4)
+    const pinCurrent = () => {
+      if (!result || pinned.length >= PIN_COLORS.length) return;
+      const nm = (name.trim() || (result.basket.tickers.length === 1
+        ? (rowMeta(result.basket.tickers[0]).n || result.basket.tickers[0])
+        : 'Index ' + (pinned.length + 1) + ' (' + result.basket.tickers.length + ')')).slice(0, 40);
+      setPinned([...pinned, { name: nm, color: PIN_COLORS[pinned.length], composite: result.basket.composite }]);
+    };
+    // every pinned composite is cut to the current window and re-based to 100
+    // at its first visible point, so all lines are honestly comparable.
+    const chartSeries = result ? [
+      { label: result.basket.tickers.length === 1 ? (rowMeta(result.basket.tickers[0]).n || result.basket.tickers[0]) : 'LBC Custom Index',
+        color: accent || 'var(--paper)', points: result.basket.composite },
+      ...pinned.map((p) => {
+        const start = result.basket.composite[0].date;
+        const cut = p.composite.filter((o) => o.date >= start);
+        if (cut.length < 2) return null;
+        const b0 = cut[0].value;
+        return { label: p.name, color: p.color, points: cut.map((o) => ({ date: o.date, value: (o.value / b0) * 100 })) };
+      }).filter(Boolean),
+      ...(result.overlaySeries ? [{ label: overlay, color: 'rgba(151,170,197,0.85)', points: result.overlaySeries }] : []),
+    ] : [];
+    // instant momentum readout above the chart: trailing returns per series
+    const retOf = (pts, k) => {
+      const n = pts.length;
+      if (n <= k) return null;
+      const a = pts[n - 1 - k].value, b = pts[n - 1].value;
+      return Math.abs(a) > 1e-9 ? (b / a - 1) * 100 : null;
+    };
+
     // publish the current basket as a GLOBAL template (made_by attribution)
     const publishTemplate = () => {
       const nm = window.prompt('Template name (visible to the whole team):', name || '');
@@ -622,16 +656,47 @@
               <button className="mon-chip" onClick={() => downloadCsv('lbc-custom-index.csv',
                 [['date', 'index'], ...result.basket.composite.map((o) => [o.date, o.value.toFixed(4)])])}>CSV</button>
             )}
+            {result && !resultStale && (
+              <button className="mon-chip" onClick={pinCurrent} disabled={pinned.length >= PIN_COLORS.length}
+                      title="keep this index on the chart, then change the basket and build another to compare">
+                ＋ Pin to compare
+              </button>
+            )}
           </div>
+          {pinned.length > 0 && (
+            <div className="mon-pin-row">
+              <span className="t">Comparing</span>
+              {pinned.map((p, i) => (
+                <span key={i} className="mon-pin-chip">
+                  <span className="sw" style={{ background: p.color }}></span>{p.name}
+                  <span className="x" onClick={() => setPinned(pinned.filter((_, j) => j !== i))} title="unpin">✕</span>
+                </span>
+              ))}
+              <button className="mon-chip" onClick={() => setPinned([])}>Clear</button>
+            </div>
+          )}
           {err && <div className="mon-warn">{err}</div>}
           {resultStale && <div className="mon-warn">Selection changed since this build — hit “Build index” to refresh.</div>}
           {result ? (
             <>
-              <MultiLineChart rebased series={[
-                { label: result.basket.tickers.length === 1 ? (rowMeta(result.basket.tickers[0]).n || result.basket.tickers[0]) : 'LBC Custom Index',
-                  color: accent || 'var(--paper)', points: result.basket.composite },
-                ...(result.overlaySeries ? [{ label: overlay, color: 'rgba(151,170,197,0.85)', points: result.overlaySeries }] : []),
-              ]} height={300} />
+              <div className="mon-ret-strip">
+                {chartSeries.map((s, i) => (
+                  <div key={i} className="row">
+                    <span className="sw" style={{ background: s.color }}></span>
+                    <span className="l" title={s.label}>{s.label}</span>
+                    {[[1, '1D'], [3, '3D'], [5, '5D'], [21, '1M']].map(([k, lab]) => {
+                      const r = retOf(s.points, k);
+                      return (
+                        <span key={lab} className="cell">
+                          <span className="k">{lab}</span>
+                          <span className={'v ' + pctCls(r)}>{r == null ? '—' : fmtPct(r)}</span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+              <MultiLineChart rebased series={chartSeries} height={300} />
               {stats && (
                 <div className="mon-stats">
                   <div className="st"><span className="k">Period return</span><span className={'v ' + pctCls(stats.ret)}>{fmtPct(stats.ret)}</span></div>

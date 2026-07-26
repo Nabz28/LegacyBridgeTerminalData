@@ -578,28 +578,86 @@
       const x = (d) => padL + ((dateIdx.get(d) || 0) / Math.max(1, allDates.length - 1)) * (W - padL - padR);
       const y = (v) => padT + (1 - (v - min) / (max - min)) * (H - padT - padB);
       const paths = live.map((s) => s.points.map((p, i) => (i === 0 ? 'M' : 'L') + x(p.date).toFixed(1) + ' ' + y(p.value).toFixed(1)).join(' '));
-      return { padL, padR, padT, padB, H, W, allDates, x, y, min, max, paths };
+      return { padL, padR, padT, padB, H, W, allDates, dateIdx, x, y, min, max, paths };
     }, [series, w, height]);
 
+    // click-drag measure: anchor date -> drag date, % move per series.
+    // {a, b} are DATES (not indices) so a resize/range change can't corrupt
+    // the selection; release pins it, a plain click clears it.
+    // Reset is keyed on a DATA fingerprint, not the series array identity —
+    // parents rebuild the array every render (quote polls), which would wipe
+    // a pinned measurement within seconds.
+    const [meas, setMeas] = React.useState(null);
+    const dataKey = live.map((s) => s.label + ':' + s.points.length + ':' +
+      (s.points[0] || {}).date + ':' + (s.points[s.points.length - 1] || {}).date).join('|');
+    React.useEffect(() => { setMeas(null); }, [dataKey]);
+
     if (!live.length || !geom) return <div ref={wrapRef} className="mon-chart-empty">No data</div>;
-    const { padL, padR, padT, padB, H, W, allDates, x, y, min, max, paths } = geom;
+    const { padL, padR, padT, padB, H, W, allDates, dateIdx, x, y, min, max, paths } = geom;
     const fmtV = yFmt || ((v) => (Math.abs(v) >= 1000 ? v.toLocaleString('en-US', { maximumFractionDigits: 0 }) : v.toFixed(Math.abs(v) < 10 ? 2 : 1)));
 
-    // hover
-    const onMove = (e) => {
+    // hover + measure
+    const dateFromEvent = (e) => {
       const rect = e.currentTarget.getBoundingClientRect();
       const px = e.clientX - rect.left;
       const frac = Math.max(0, Math.min(1, (px - padL) / (W - padL - padR)));
-      const idx = Math.round(frac * (allDates.length - 1));
-      setHover({ idx, date: allDates[idx] });
+      return allDates[Math.round(frac * (allDates.length - 1))];
     };
+    const onMove = (e) => {
+      const d = dateFromEvent(e);
+      setHover({ date: d });
+      setMeas((m) => (m && m.live ? { ...m, b: d } : m));
+    };
+    const onDown = (e) => {
+      e.preventDefault(); // no text selection while dragging
+      const d = dateFromEvent(e);
+      setMeas({ a: d, b: d, live: true });
+    };
+    const finishMeas = () => setMeas((m) => {
+      if (!m || !m.live) return m;
+      return m.a === m.b ? null : { ...m, live: false }; // plain click clears
+    });
+    const onLeave = () => { setHover(null); finishMeas(); };
+
+    // last value at-or-before the given date (forward-fill, matches basket math)
+    const valAt = (s, d) => {
+      for (let i = s.points.length - 1; i >= 0; i--) {
+        if (s.points[i].date <= d) return s.points[i].value;
+      }
+      return null;
+    };
+    const measInfo = meas ? (() => {
+      const [d0, d1] = (dateIdx.get(meas.a) || 0) <= (dateIdx.get(meas.b) || 0) ? [meas.a, meas.b] : [meas.b, meas.a];
+      if (dateIdx.get(d0) == null || dateIdx.get(d1) == null) return null;
+      const rows = live.map((s) => {
+        const vA = valAt(s, d0), vB = valAt(s, d1);
+        const ok = vA != null && vB != null;
+        return {
+          label: s.label, color: s.color,
+          abs: ok ? vB - vA : null,
+          pct: ok && Math.abs(vA) > 1e-9 ? ((vB - vA) / Math.abs(vA)) * 100 : null,
+        };
+      });
+      return { d0, d1, days: (dateIdx.get(d1) || 0) - (dateIdx.get(d0) || 0), rows };
+    })() : null;
+
     const gridN = 4;
     const gridLines = Array.from({ length: gridN + 1 }, (_, i) => min + ((max - min) * i) / gridN);
     const t0 = allDates[0] || '', t1 = allDates[allDates.length - 1] || '';
 
     return (
       <div ref={wrapRef} className="mon-chart-wrap">
-        <svg width={W} height={H} onMouseMove={onMove} onMouseLeave={() => setHover(null)} style={{ display: 'block' }}>
+        <svg width={W} height={H} onMouseMove={onMove} onMouseDown={onDown} onMouseUp={finishMeas}
+             onMouseLeave={onLeave} style={{ display: 'block', cursor: 'crosshair', userSelect: 'none' }}>
+          {measInfo && measInfo.d0 !== measInfo.d1 && (
+            <g>
+              <rect x={Math.min(x(measInfo.d0), x(measInfo.d1))} y={padT}
+                    width={Math.abs(x(measInfo.d1) - x(measInfo.d0))} height={H - padT - padB}
+                    fill="rgba(151,170,197,0.10)" />
+              <line x1={x(measInfo.d0)} x2={x(measInfo.d0)} y1={padT} y2={H - padB} stroke="rgba(151,170,197,0.55)" strokeWidth="1" strokeDasharray="4 3" />
+              <line x1={x(measInfo.d1)} x2={x(measInfo.d1)} y1={padT} y2={H - padB} stroke="rgba(151,170,197,0.55)" strokeWidth="1" strokeDasharray="4 3" />
+            </g>
+          )}
           {gridLines.map((v, i) => (
             <g key={i}>
               <line x1={padL} x2={W - padR} y1={y(v)} y2={y(v)} stroke="rgba(232,228,217,0.07)" strokeWidth="1" />
@@ -624,7 +682,7 @@
           <text x={padL} y={H - 8} fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">{t0}</text>
           <text x={W - padR} y={H - 8} fontSize="9" textAnchor="end" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">{t1}</text>
         </svg>
-        {hover && (
+        {hover && !(meas && meas.live) && (
           <div className="mon-chart-tip" style={{ left: Math.min(x(hover.date) + 10, W - 170) }}>
             <div className="d">{hover.date}</div>
             {live.map((s, si) => {
@@ -637,6 +695,24 @@
                 </div>
               ) : null;
             })}
+          </div>
+        )}
+        {!measInfo && <div className="mon-meas-hint">drag on the chart to measure a move</div>}
+        {measInfo && measInfo.d0 !== measInfo.d1 && (
+          <div className="mon-meas-box">
+            <div className="d">
+              {measInfo.d0} → {measInfo.d1} <span className="n">({measInfo.days} sessions)</span>
+              {!meas.live && <span className="x" onClick={() => setMeas(null)} title="clear measurement">✕</span>}
+            </div>
+            {measInfo.rows.map((r, i) => (
+              <div key={i} className="r">
+                <span className="sw" style={{ background: r.color }}></span>
+                <span className="l">{r.label}</span>
+                <span className={'v ' + (r.pct == null ? '' : r.pct >= 0 ? 'pos' : 'neg')}>
+                  {r.pct == null ? (r.abs == null ? '—' : 'Δ ' + fmtV(r.abs)) : (r.pct >= 0 ? '+' : '') + r.pct.toFixed(2) + '%'}
+                </span>
+              </div>
+            ))}
           </div>
         )}
       </div>
