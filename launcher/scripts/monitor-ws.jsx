@@ -295,7 +295,7 @@
 
             {/* ---- equity constituents / fx pairs ---- */}
             {(tab === 'Constituents' || tab === 'Pairs') && (
-              <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} />
+              <mv.QuoteTable rows={rows} onOpen={(r) => setDetail(r)} withFundamentals={desk.group === 'equity'} />
             )}
 
             {/* ---- Index Lab — stays MOUNTED once opened so a half-built

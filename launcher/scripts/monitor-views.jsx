@@ -169,14 +169,51 @@
 
   // ---- Constituents quote table -------------------------------------------
   const RET_COLS = [['r3d', '3D'], ['r1w', '1W'], ['r2w', '2W'], ['r1m', '1M']];
-  const QuoteTable = ({ rows, onOpen }) => {
+  // fundamentals columns (4.4): USD mcap; P/E and P/B derived in LOCAL
+  // currency (both sides share it, so the ratios need no FX); Yahoo beta.
+  const FUND_COLS = [['mcapUsd', 'Mcap $'], ['pe', 'P/E'], ['pb', 'P/B'], ['fbeta', 'β']];
+  const QuoteTable = ({ rows, onOpen, withFundamentals }) => {
     const { useQuotes, useReturns } = ML();
     const [sort, setSort] = React.useState({ k: 'changePct', dir: -1 });
+    const [fundOn, setFundOn] = React.useState(false);
+    const [funds, setFunds] = React.useState({});
+    const [fundBusy, setFundBusy] = React.useState(false);
     const tickers = rows.filter((r) => r.t).map((r) => r.t);
     const { quotes, loading } = useQuotes(tickers);
     const rets = useReturns(rows);
     const RETK = new Set(RET_COLS.map(([k]) => k));
-    const enriched = rows.filter((r) => r.t).map((r) => ({ ...r, q: quotes[r.t] || null, rr: rets[r.t] || null }));
+    const FUNDK = new Set(FUND_COLS.map(([k]) => k));
+    const loadFunds = () => {
+      if (fundBusy) return;
+      setFundOn(true); setFundBusy(true);
+      const L = ML();
+      const list = tickers.slice(0, 80);
+      Promise.all(list.map((t) =>
+        L.fetchFundamentals(t).then((f) => {
+          // Yahoo's own ratios first; statement-derived fallbacks second
+          const ni = f.pretaxIncome != null && f.taxProvision != null ? f.pretaxIncome - f.taxProvision : null;
+          const base = {
+            pe: f.trailingPE != null ? f.trailingPE : (f.marketCap && ni > 0 ? f.marketCap / ni : null),
+            pb: f.priceToBook != null ? f.priceToBook : (f.marketCap && f.totalEquityBook > 0 ? f.marketCap / f.totalEquityBook : null),
+            fbeta: f.yahooBeta != null ? f.yahooBeta : null,
+          };
+          return [t, base, f.marketCap ? f : null];
+        }, () => [t, null, null])
+      )).then(async (triples) => {
+        // USD conversion only for the mcap column (ratios are FX-free)
+        const out = {};
+        for (const [t, base, f] of triples) {
+          if (!base) { out[t] = { error: true }; continue; }
+          let mcapUsd = null;
+          if (f && f.marketCap) {
+            try { const r = await ML().usdRate(f.currency); mcapUsd = r ? f.marketCap * r : null; } catch {}
+          }
+          out[t] = { ...base, mcapUsd };
+        }
+        setFunds(out); setFundBusy(false);
+      });
+    };
+    const enriched = rows.filter((r) => r.t).map((r) => ({ ...r, q: quotes[r.t] || null, rr: rets[r.t] || null, f: funds[r.t] || null }));
     const sorted = [...enriched].sort((a, b) => {
       const dir = sort.dir;
       if (sort.k === 'name') return (a.n < b.n ? -1 : 1) * dir;
@@ -185,7 +222,9 @@
       if (sort.k === 'c') return ((a.c || '') < (b.c || '') ? -1 : 1) * dir;
       const pick = (x) => RETK.has(sort.k)
         ? (x.rr ? x.rr[sort.k] : null)
-        : (x.q && !x.q.error ? x.q[sort.k] : null);
+        : FUNDK.has(sort.k)
+          ? (x.f && !x.f.error ? x.f[sort.k] : null)
+          : (x.q && !x.q.error ? x.q[sort.k] : null);
       const av = pick(a), bv = pick(b);
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
@@ -197,21 +236,31 @@
         {label}{sort.k === k ? (sort.dir > 0 ? ' ▲' : ' ▼') : ''}
       </th>
     );
+    const nCols = 11 + (fundOn ? FUND_COLS.length : 0);
     return (
       <div className="mon-table-wrap">
         {loading && <div className="mon-table-note top">streaming quotes…</div>}
+        {withFundamentals && (
+          <div className="mon-table-note top">
+            <span className="mon-tag" onClick={() => (fundOn ? setFundOn(false) : loadFunds())} role="button" tabIndex={0}>
+              {fundBusy ? 'loading fundamentals…' : fundOn ? 'hide fundamentals' : '+ fundamentals (mcap · P/E · P/B · β)'}
+            </span>
+            {fundOn && !fundBusy && ' P/E and P/B derived from Yahoo statements in local currency · mcap converted to USD · β vs local index'}
+          </div>
+        )}
         <table className="mon-table">
           <thead>
             <tr>
               {th('Name', 'name')}{th('Ticker', 't')}{th('', 'c')}{th('Sub-industry', 'sub')}
               {th('Last', 'price', 1)}{th('1D%', 'changePct', 1)}
               {RET_COLS.map(([k, l]) => <React.Fragment key={k}>{th(l, k, 1)}</React.Fragment>)}
+              {fundOn && FUND_COLS.map(([k, l]) => <React.Fragment key={k}>{th(l, k, 1)}</React.Fragment>)}
               {th('Volume', 'volume', 1)}
             </tr>
           </thead>
           <tbody>
             {sorted.length === 0 && (
-              <tr><td colSpan={11} style={{ textAlign: 'center', padding: '22px 10px', color: 'var(--text-tertiary)' }}>
+              <tr><td colSpan={nCols} style={{ textAlign: 'center', padding: '22px 10px', color: 'var(--text-tertiary)' }}>
                 No instruments match this filter.
               </td></tr>
             )}
@@ -229,6 +278,16 @@
                   {RET_COLS.map(([k]) => {
                     const v = r.rr ? r.rr[k] : null;
                     return <td key={k} className={'num ' + pctCls(v)}>{v == null ? '·' : fmtPct(v)}</td>;
+                  })}
+                  {fundOn && FUND_COLS.map(([k]) => {
+                    const f = r.f && !r.f.error ? r.f[k] : null;
+                    let txt = '·';
+                    if (f != null) {
+                      if (k === 'mcapUsd') txt = '$' + Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(f);
+                      else if (k === 'fbeta') txt = f.toFixed(2);
+                      else txt = f > 200 ? '>200' : f.toFixed(1);
+                    } else if (r.f && !fundBusy) txt = '—';
+                    return <td key={k} className="num dim">{txt}</td>;
                   })}
                   <td className="num dim">{err ? '—' : q && q.volume != null ? Intl.NumberFormat('en', { notation: 'compact' }).format(q.volume) : '·'}</td>
                 </tr>

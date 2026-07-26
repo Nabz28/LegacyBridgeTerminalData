@@ -88,6 +88,10 @@ interface Fund {
   interestExpense: number | null;
   ebit: number | null;
   totalEquityBook: number | null;
+  trailingPE: number | null;
+  forwardPE: number | null;
+  priceToBook: number | null;
+  dividendYield: number | null;
 }
 
 async function fetchFundamentals(ticker: string): Promise<{ ok: boolean; fundamentals: Partial<Fund>; error?: string }> {
@@ -150,6 +154,10 @@ async function fetchFundamentals(ticker: string): Promise<{ ok: boolean; fundame
         interestExpense: num(inc.interestExpense),
         ebit: num(inc.ebit),
         totalEquityBook: num(bs.totalStockholderEquity),
+        trailingPE: num(sd.trailingPE) ?? num(ks.trailingPE),
+        forwardPE: num(sd.forwardPE) ?? num(ks.forwardPE),
+        priceToBook: num(ks.priceToBook),
+        dividendYield: num(sd.dividendYield),
       };
       return { ok: true, fundamentals: f };
     } catch (e) {

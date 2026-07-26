@@ -866,7 +866,7 @@
     fetchQuote, fetchHistory, fetchFred, fetchDbnomics, fetchBars, fetchLiveIndicators, fetchRoster,
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
-    fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
+    fetchFundamentals, fetchMcapWeights, usdRate, fetchTemplates, saveTemplate,
     fetchRegime, useRegime, fetchRegimeID, useRegimeID, fetchAlerts, useAlerts, fetchQuotesBatch, beacon, useDeskSignals,
     useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,

@@ -254,6 +254,16 @@ Same-day follow-up — 3.2/3.3/3.4 candidate gates
     (4.6's initial render bug) with a full component stack before any
     human saw it.
 
+- **4.4 SHIPPED (columns slice) — fundamentals in constituent tables**:
+  on-demand "+ fundamentals" toggle on every equity desk's Constituents
+  table adds sortable Mcap $ (USD-converted) / P/E / P/B / β columns for
+  up to 80 names. The equity-fundamentals edge fn (v2) now surfaces
+  Yahoo's own trailingPE / forwardPE / priceToBook / dividendYield
+  (summaryDetail + defaultKeyStatistics were already fetched, just not
+  returned); statement-derived ratios remain the fallback. Verified:
+  AAPL $4.9T / 40.3 / 45.9 / β1.10; NVDA $5T / 31.6 / 25.6 / β2.21.
+  The other 4.4 half (cap-weighted Index Lab) shipped earlier in v3.
+
 - **4.6 SHIPPED — desk compare mode**: "⇄ Compare desks" on the Coverage
   Board — two equity desks side by side: benchmarks rebased to the
   common window on one chart (inherits drag-to-measure), per-desk pulse
