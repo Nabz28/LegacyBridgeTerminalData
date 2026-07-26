@@ -364,6 +364,14 @@
 .mon-meas-box .v.pos { color: var(--pos, #1FB877); }
 .mon-meas-box .v.neg { color: var(--neg, #F0475C); }
 
+/* second (Indonesia) regime dial inside the strip */
+.mon-regime-tag {
+  font-size: 8.5px; font-family: var(--font-mono); letter-spacing: 1.5px; font-weight: 700;
+  color: var(--text-tertiary); border: 1px solid var(--paper-softer); border-radius: 3px;
+  padding: 2px 6px; white-space: nowrap;
+}
+.mon-regime-id { border-top: 1px dashed var(--paper-softer); margin-top: 7px; padding-top: 7px; }
+
 /* pinned-comparison chips + instant returns strip above the lab chart */
 .mon-pin-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
 .mon-pin-row .t { font-size: 9.5px; font-family: var(--font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); }

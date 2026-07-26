@@ -125,5 +125,47 @@ ok(bdaysBetween('2026-07-20', '2026-07-24') === 4, 'bdaysBetween: Mon->Fri = 4')
   ok(sig.rs === 'inline' || Math.abs(sig.rsDiff) < 3, 'deskSignals: levered clone is not an RS leader after beta adjustment');
 }
 
+// ---- Indonesia dial (3.1) ----
+{
+  const N = 400;
+  const flat = {
+    jkse: series(N, () => 7000), usdidr: series(N, () => 16000),
+    eido: series(N, () => 20), spy: series(N, () => 500),
+    copper: series(N, () => 4), gold: series(N, () => 2000),
+  };
+  const b = R.buildCompositeID(flat);
+  ok(!!b && b.rows.length > 50, 'ID dial: builds on flat synthetic inputs');
+  const scores = b.rows.map((r) => r.smooth);
+  ok(Math.max(...scores.map(Math.abs)) < 0.05, 'ID dial: constant inputs → flat composite');
+
+  // IDR crash in the last 3 weeks → idr component negative + acceleration note
+  const crash = {
+    ...flat,
+    usdidr: series(N, (i) => (i < N - 15 ? 16000 : 16000 * (1 + 0.004 * (i - (N - 15))))),
+  };
+  const r2 = R.computeRegimeID(crash);
+  const idrComp = r2 && r2.components.find((c) => c.key === 'idr');
+  ok(!!idrComp && idrComp.score < -0.3, 'ID dial: IDR crash scores negative (got ' + (idrComp && idrComp.score.toFixed(2)) + ')');
+  ok(!!r2 && (r2.flags.includes('IDR SLIDE ACCELERATING') || r2.flags.includes('IDR PRESSURE')),
+    'ID dial: IDR crash raises a flag (' + (r2 && r2.flags.join(',')) + ')');
+
+  // JKSE melt-up → trend + momentum positive, label not RISK-OFF
+  const rally = { ...flat, jkse: series(N, (i) => 7000 * (1 + 0.001 * Math.max(0, i - 250))) };
+  const r3 = R.computeRegimeID(rally);
+  const tr = r3 && r3.components.find((c) => c.key === 'trend');
+  ok(!!tr && tr.score > 0.2, 'ID dial: JKSE rally scores trend positive');
+  ok(!!r3 && r3.label !== 'RISK-OFF', 'ID dial: rally is not RISK-OFF');
+
+  // EIDO distribution: falling closes on heavy volume → flow negative
+  const barsID = Array.from({ length: 400 }, (_, i) => ({
+    date: bday(i),
+    c: i < 360 ? 20 : 20 - 0.05 * (i - 360),
+    v: i < 360 ? 1e6 : 5e6,
+  }));
+  const r4 = R.computeRegimeID({ ...flat, eidoBars: barsID });
+  const fl = r4 && r4.components.find((c) => c.key === 'flow');
+  ok(!!fl && fl.score < -0.3, 'ID dial: heavy-volume selling reads as distribution (got ' + (fl && fl.score.toFixed(2)) + ')');
+}
+
 console.log(failed ? '\n' + failed + ' FAILURES' : '\nall tests passed');
 process.exit(failed ? 1 : 0);

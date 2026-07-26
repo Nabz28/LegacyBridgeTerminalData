@@ -416,6 +416,42 @@
     return { regime, err };
   }
 
+  // Indonesia dial (roadmap 3.1, gate PASSED 2026-07-26: state-corr 0.856
+  // vs 0.321 for the global dial on trailing ^JKSE — see
+  // scripts/regime-id-backtest.js). Same 2y-leg pattern as fetchRegime;
+  // non-Jakarta series are strict-< lagged INSIDE the engine.
+  let regimeIdCache = null;
+  const fetchRegimeID = () => {
+    if (regimeIdCache && Date.now() - regimeIdCache.at < 10 * 60 * 1000) return regimeIdCache.promise;
+    const R = window.MONITOR_REGIME;
+    const p = Promise.all([
+      fetchHistory('^JKSE', '2y', '1d'), fetchHistory('IDR=X', '2y', '1d'),
+      fetchHistory('EIDO', '2y', '1d'), fetchHistory('SPY', '2y', '1d'),
+      fetchHistory('HG=F', '2y', '1d'), fetchHistory('GC=F', '2y', '1d'),
+      fetchBars('EIDO', '2y').catch(() => null),
+    ]).then(([jkse, usdidr, eido, spy, copper, gold, eidoBars]) => {
+      const now = R.computeRegimeID({ jkse, usdidr, eido, spy, copper, gold, eidoBars });
+      if (!now) return null;
+      now.history = R.computeRegimeSeries({ _rows: now._rows }, 60);
+      delete now._rows;
+      return now;
+    });
+    regimeIdCache = { at: Date.now(), promise: p };
+    p.catch(() => { regimeIdCache = null; });
+    return p;
+  };
+
+  function useRegimeID() {
+    const [regime, setRegime] = React.useState(null);
+    const [err, setErr] = React.useState('');
+    React.useEffect(() => {
+      let alive = true;
+      fetchRegimeID().then((r) => alive && setRegime(r), (e) => alive && setErr(String(e && e.message || e)));
+      return () => { alive = false; };
+    }, []);
+    return { regime, err };
+  }
+
   // Desk momentum/RS signals from the desk benchmark vs S&P (histories dedupe
   // through the shared cache, so 13 cards trigger one ^GSPC fetch total).
   function useDeskSignals(benchTicker) {
@@ -747,7 +783,7 @@
     useVolumeFlow,
     fetchCoverage, saveCoverage, fetchPrefs, savePrefs,
     fetchFundamentals, fetchMcapWeights, fetchTemplates, saveTemplate,
-    fetchRegime, useRegime, useDeskSignals,
+    fetchRegime, useRegime, fetchRegimeID, useRegimeID, useDeskSignals,
     useQuotes, useQuote, useHistory, useReturns,
     computeBasket, basketStats, basketCorrelation, overlayStats,
     loadAssign, saveAssign, loadIndices, saveIndices,

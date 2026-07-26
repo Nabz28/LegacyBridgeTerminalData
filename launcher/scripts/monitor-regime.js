@@ -289,8 +289,12 @@
       rows.push({ date: spx[i].date, score, comps, coverage: Math.min(1, wsum / wFull) });
     }
     if (!rows.length) return null;
+    applySmoothing(rows);
+    return { rows };
+  }
 
-    // ---- smoothing + hysteresis labels (0.2) ----
+  // ---- smoothing + hysteresis labels (0.2), shared by both dials ----------
+  function applySmoothing(rows) {
     let sBar = rows[0].score;
     let label = 'NEUTRAL';
     rows.forEach((r) => {
@@ -301,7 +305,6 @@
       else { if (sBar >= 0.35) label = 'RISK-ON'; else if (sBar <= -0.35) label = 'RISK-OFF'; }
       r.label = label;
     });
-    return { rows };
   }
 
   // ---- public API (kept compatible with v1 callers) -----------------------
@@ -481,8 +484,182 @@
     return { perName: per, median, surges, surgesUp, n, accum: udUp, distrib: udDown, divergers, partial };
   }
 
+  // ---- Indonesia dial (roadmap 3.1) ---------------------------------------
+  // Parallel composite on the ^JKSE calendar. All non-Jakarta series (FX,
+  // US-listed EIDO/SPY, futures) map with STRICT < — a Jakarta close cannot
+  // observe the same calendar date's US close. ID 10y was DROPPED from v1:
+  // TVC:ID10Y is embed-only, no fetchable daily series in the stack.
+  // Weights are DESCRIPTIVE (same house verdict as the global dial: this is
+  // a tape-STATE gauge, not a return forecaster).
+  const WEIGHTS_ID = { trend: 1.1, mom: 1.0, idr: 1.3, eidors: 1.0, growth: 0.8, flow: 0.7 };
+
+  // inp: { jkse, usdidr, eido, spy, copper, gold, eidoBars? [{date,c,v}] }
+  function buildCompositeID(inp) {
+    if (!inp || !inp.jkse || inp.jkse.length < 320) return null;
+    const jk = inp.jkse;
+    const N = jk.length;
+    const WIN = 252;
+    const has = {
+      idr: !!(inp.usdidr && inp.usdidr.length > 300),
+      rs: !!(inp.eido && inp.spy && inp.eido.length > 300 && inp.spy.length > 300),
+      growth: !!(inp.copper && inp.gold && inp.copper.length > 300 && inp.gold.length > 300),
+      flow: !!(inp.eidoBars && inp.eidoBars.length > 300),
+    };
+    // date-keyed ratios (never positional)
+    let cuau = null;
+    if (has.growth) {
+      const goldBy = new Map(inp.gold.map((o) => [o.date, o.value]));
+      cuau = [];
+      inp.copper.forEach((o) => { const g = goldBy.get(o.date); if (g) cuau.push({ date: o.date, value: o.value / g }); });
+      if (cuau.length < 300) { cuau = null; has.growth = false; }
+    }
+    let rsRatio = null;
+    if (has.rs) {
+      const spyBy = new Map(inp.spy.map((o) => [o.date, o.value]));
+      rsRatio = [];
+      inp.eido.forEach((o) => { const s = spyBy.get(o.date); if (s) rsRatio.push({ date: o.date, value: o.value / s }); });
+      if (rsRatio.length < 300) { rsRatio = null; has.rs = false; }
+    }
+    // signed dollar-volume flow proxy from EIDO bars: 20d sum of
+    // sign(Δclose)·close·volume over 20× the trailing-year average dollar
+    // volume — a foreign-appetite accumulation/distribution line in [-1, 1].
+    let flowSeries = null;
+    if (has.flow) {
+      const bars = inp.eidoBars.filter((b) => b && b.c != null && b.v != null && b.v > 0);
+      if (bars.length > 300) {
+        const sdv = [];
+        for (let i = 1; i < bars.length; i++) {
+          sdv.push({ date: bars[i].date, s: (bars[i].c >= bars[i - 1].c ? 1 : -1) * bars[i].c * bars[i].v, a: bars[i].c * bars[i].v });
+        }
+        flowSeries = [];
+        let s20 = 0, aSum = 0, aN = 0;
+        for (let i = 0; i < sdv.length; i++) {
+          s20 += sdv[i].s;
+          if (i >= 20) s20 -= sdv[i - 20].s;
+          aSum += sdv[i].a; aN++;
+          if (aN > 252) { aSum -= sdv[i - 252].a; aN--; }
+          if (i >= 20 && aSum > 0) flowSeries.push({ date: sdv[i].date, value: s20 / (20 * (aSum / aN)) });
+        }
+        if (flowSeries.length < 250) { flowSeries = null; has.flow = false; }
+      } else has.flow = false;
+    }
+
+    const mapIdx = (s) => jk.map((o) => (s ? idxAt(s, o.date, true) : -1)); // STRICT for all non-JK series
+    const iIdr = has.idr ? mapIdx(inp.usdidr) : null;
+    const iRs = has.rs ? mapIdx(rsRatio) : null;
+    const iCu = has.growth ? mapIdx(cuau) : null;
+    const iFl = has.flow ? mapIdx(flowSeries) : null;
+
+    const A = {
+      dev: new Array(N).fill(null), mom: new Array(N).fill(null),
+      idrR: new Array(N).fill(null), idrR10: new Array(N).fill(null),
+      rsR: new Array(N).fill(null), cuauR: new Array(N).fill(null),
+      flow: new Array(N).fill(null),
+    };
+    for (let i = 0; i < N; i++) {
+      const ma = smaAt(jk, i, 50);
+      if (ma) A.dev[i] = (jk[i].value / ma - 1) * 100;
+      A.mom[i] = retDaysAt(jk, i, 30);
+      if (iIdr && iIdr[i] >= 0) { A.idrR[i] = retDaysAt(inp.usdidr, iIdr[i], 30); A.idrR10[i] = retDaysAt(inp.usdidr, iIdr[i], 10); }
+      if (iRs && iRs[i] >= 0) A.rsR[i] = retDaysAt(rsRatio, iRs[i], 30);
+      if (iCu && iCu[i] >= 0) A.cuauR[i] = retDaysAt(cuau, iCu[i], 30);
+      if (iFl && iFl[i] >= 0) A.flow[i] = flowSeries[iFl[i]].value;
+    }
+    const decay = (s, iMap, i) => {
+      if (!iMap || iMap[i] < 0) return 0;
+      const sd = bdaysBetween(s[iMap[i]].date, jk[i].date);
+      return Math.max(0, 1 - sd / 5);
+    };
+
+    const start = 300;
+    const rows = [];
+    for (let i = start; i < N; i++) {
+      const comps = [];
+      const push = (key, label, value, score, note, wScale) => {
+        if (score == null || value == null) return;
+        comps.push({ key, label, value, score: clamp(score, -1, 1), note, weight: (WEIGHTS_ID[key] || 1) * (wScale == null ? 1 : wScale) });
+      };
+
+      // 1) trend — JKSE vs 50d, z-scored
+      push('trend', 'JKSE vs 50d', A.dev[i] != null ? A.dev[i].toFixed(1) + '%' : null,
+        zScore(zAt(A.dev, i, WIN)), A.dev[i] >= 0 ? 'price above trend' : 'price below trend');
+
+      // 2) momentum — JKSE 30-cal-day return, z-scored
+      push('mom', 'JKSE 1M', A.mom[i] != null ? (A.mom[i] >= 0 ? '+' : '') + A.mom[i].toFixed(1) + '%' : null,
+        zScore(zAt(A.mom, i, WIN)), 'home-market momentum');
+
+      // 3) IDR — USD/IDR 1M z inverted + ACCELERATION ramp (a fast 10-day
+      // slide is worse than the level implies)
+      if (has.idr && A.idrR[i] != null) {
+        const z = zAt(A.idrR, i, WIN);
+        let s = z == null ? null : -zScore(z);
+        let note = A.idrR[i] > 1.5 ? 'IDR under pressure' : A.idrR[i] < -1.5 ? 'IDR firming' : 'rupiah stable';
+        if (A.idrR10[i] != null && A.idrR10[i] > 1.0) {
+          s = clamp((s == null ? 0 : s) - 0.4 * clamp((A.idrR10[i] - 1.0) / 1.5, 0, 1), -1, 1);
+          note = 'IDR slide accelerating (+' + A.idrR10[i].toFixed(1) + '% 10d)';
+        }
+        push('idr', 'USD/IDR 1M', (A.idrR[i] >= 0 ? '+' : '') + A.idrR[i].toFixed(1) + '%', s, note, decay(inp.usdidr, iIdr, i));
+      }
+
+      // 4) EIDO/SPY — foreign appetite for Indonesia specifically
+      if (has.rs && A.rsR[i] != null) {
+        push('eidors', 'EIDO/SPY 1M', (A.rsR[i] >= 0 ? '+' : '') + A.rsR[i].toFixed(1) + '%',
+          zScore(zAt(A.rsR, i, WIN)),
+          A.rsR[i] > 2 ? 'foreign bid for Indonesia' : A.rsR[i] < -2 ? 'Indonesia out of favor' : 'in line with world',
+          decay(rsRatio, iRs, i));
+      }
+
+      // 5) growth — copper/gold 1M (commodity terms-of-trade impulse)
+      if (has.growth && A.cuauR[i] != null) {
+        push('growth', 'Copper/Gold 1M', (A.cuauR[i] >= 0 ? '+' : '') + A.cuauR[i].toFixed(1) + '%',
+          zScore(zAt(A.cuauR, i, WIN)), A.cuauR[i] > 2 ? 'growth impulse' : A.cuauR[i] < -2 ? 'safety bid' : 'growth vs safety flat',
+          decay(cuau, iCu, i));
+      }
+
+      // 6) flow — EIDO signed dollar-volume A/D (foreign-flow proxy)
+      if (has.flow && A.flow[i] != null) {
+        push('flow', 'EIDO $flow 20d', (A.flow[i] >= 0 ? '+' : '') + (A.flow[i] * 100).toFixed(0) + '%',
+          zScore(zAt(A.flow, i, WIN)),
+          A.flow[i] > 0.15 ? 'accumulation' : A.flow[i] < -0.15 ? 'distribution' : 'flow balanced',
+          decay(flowSeries, iFl, i));
+      }
+
+      if (!comps.length) continue;
+      const wsum = comps.reduce((a, c) => a + c.weight, 0);
+      if (wsum <= 0) continue;
+      const score = comps.reduce((a, c) => a + c.score * c.weight, 0) / wsum;
+      const wFull = Object.keys(WEIGHTS_ID).reduce((a, k) => a + WEIGHTS_ID[k], 0);
+      rows.push({ date: jk[i].date, score, comps, coverage: Math.min(1, wsum / wFull) });
+    }
+    if (!rows.length) return null;
+    applySmoothing(rows);
+    return { rows };
+  }
+
+  function computeRegimeID(inp) {
+    const built = buildCompositeID(inp);
+    if (!built) return null;
+    const lastRow = built.rows[built.rows.length - 1];
+    const byKey = {};
+    lastRow.comps.forEach((c) => { byKey[c.key] = c; });
+    const flags = [];
+    if (byKey.idr && /pressure/.test(byKey.idr.note)) flags.push('IDR PRESSURE');
+    if (byKey.idr && /accelerating/.test(byKey.idr.note)) flags.push('IDR SLIDE ACCELERATING');
+    if (byKey.flow && byKey.flow.note === 'distribution') flags.push('FOREIGN OUTFLOW');
+    if (byKey.flow && byKey.flow.note === 'accumulation') flags.push('FOREIGN ACCUMULATION');
+    if (byKey.eidors && byKey.eidors.note === 'Indonesia out of favor') flags.push('ID OUT OF FAVOR');
+    if (byKey.trend && byKey.trend.note === 'price below trend') flags.push('JKSE BELOW TREND');
+    if (byKey.growth && byKey.growth.note === 'growth impulse') flags.push('GROWTH IMPULSE');
+    return {
+      score: lastRow.smooth, raw: lastRow.score, label: lastRow.label,
+      components: lastRow.comps, flags, asOf: lastRow.date, coverage: lastRow.coverage,
+      _rows: built.rows,
+    };
+  }
+
   window.MONITOR_REGIME = {
     buildComposite, computeRegime, computeRegimeSeries, deskSignals, breadth, trendBreadth, volumeFlow,
+    buildCompositeID, computeRegimeID,
     _t: { retDaysAt, chgDaysAt, zAt, pctileAt, idxAt, bdaysBetween, ret },
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.MONITOR_REGIME;

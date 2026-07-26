@@ -121,6 +121,32 @@ Phases 0-2 executed. Harness: `scripts/regime-backtest.js` (954 sessions,
 - **2.6 DEFERRED** (intraday charts — TV widgets already cover intraday
   visually; revisit with 4.x).
 
+## Gate results — 2026-07-26 execution run (Phase 3.1)
+
+Harness: `scripts/regime-id-backtest.js` (899 sessions, 2022-10 → 2026-07).
+
+- **3.1 SHIPPED — the Indonesia dial** (`buildCompositeID`/`computeRegimeID`):
+  ^JKSE trend + momentum, USD/IDR 1M z + ACCELERATION ramp (fast 10d slides
+  penalized beyond the level), EIDO/SPY relative strength (foreign appetite),
+  copper/gold, EIDO signed dollar-volume A/D flow proxy. All non-Jakarta
+  series map STRICT-< on the JKSE calendar (a Jakarta close cannot observe
+  the same date's US close).
+  - **STATE gate PASS (decisive)**: contemporaneous Spearman of the smoothed
+    score vs trailing 21d ^JKSE return = **0.856** vs **0.321** for the
+    global dial on the same dates (gate required +0.10; got +0.535).
+  - Forward ICs (record): ^JKSE h=21 IC +0.088 (t 0.9), EIDO h=21 +0.116
+    (t 1.1) — positive but NOT significant; the dial is presented as a
+    tape-STATE gauge exactly like the global one (tooltips say so).
+  - Hysteresis: label flips 124 → 45 over 899 sessions (2.8×). Avg
+    coverage 0.87. 7 new unit tests in `test-monitor-engine.js`.
+  - UI: second dial row (IDX 🇮🇩) in the RegimeStrip with its own gauge,
+    sparkline, flags (IDR PRESSURE / IDR SLIDE ACCELERATING / FOREIGN
+    OUTFLOW / ACCUMULATION / ID OUT OF FAVOR / JKSE BELOW TREND), flip
+    notice, and ^JKSE/EIDO drill-downs.
+  - **ID 10y DROPPED from v1**: TVC:ID10Y is TradingView-embed-only; no
+    fetchable daily series in the stack. Revisit if a DBnomics/BI daily
+    INDOGB series is wired later.
+
 ## Sequencing logic
 
 1. **Phase 0 first** — several v1 signals are quietly wrong (look-ahead,

@@ -902,34 +902,37 @@
     curve: { title: '2s10s Treasury Curve', source: 'FRED', seriesId: 'T10Y2Y' },
     idr: { title: 'USD/IDR', ticker: 'IDR=X' },
   };
+  // Indonesia dial (3.1) — its trend/mom keys drill to ^JKSE, not S&P
+  const REGIME_DRILL_ID = {
+    trend: { title: 'IDX Composite (^JKSE)', ticker: '^JKSE' },
+    mom: { title: 'IDX Composite (^JKSE)', ticker: '^JKSE' },
+    idr: { title: 'USD/IDR', ticker: 'IDR=X' },
+    eidors: { title: 'EIDO (iShares Indonesia)', ticker: 'EIDO' },
+    growth: { title: 'Copper (HG=F)', ticker: 'HG=F' },
+    flow: { title: 'EIDO (iShares Indonesia)', ticker: 'EIDO' },
+  };
 
-  const RegimeStrip = ({ compact }) => {
-    const { useRegime } = ML();
-    const { regime, err } = useRegime();
-    const [drill, setDrill] = React.useState(null);
+  // One dial row (head + component chips). Used twice: GLOBAL and IDX 🇮🇩.
+  const RegimeDial = ({ regime, tag, tip, drillMap, setDrill, compact, storeKey }) => {
     // flip notice: compare against the last label this browser saw, ONCE per
     // regime arrival (an inline compare would self-erase on re-render).
     const [flippedFrom, setFlippedFrom] = React.useState(null);
     React.useEffect(() => {
       if (!regime) return;
       try {
-        const prev = JSON.parse(localStorage.getItem('lbc-monitor-regime-last') || 'null');
+        const prev = JSON.parse(localStorage.getItem(storeKey) || 'null');
         if (prev && prev.label && prev.label !== regime.label) setFlippedFrom(prev);
-        localStorage.setItem('lbc-monitor-regime-last', JSON.stringify({ label: regime.label, date: regime.asOf }));
+        localStorage.setItem(storeKey, JSON.stringify({ label: regime.label, date: regime.asOf }));
       } catch {}
     }, [regime && regime.label]);
-    if (err) return (
-      <div className="mon-regime mon-regime-loading">
-        Regime feed unavailable ({err}) — <button className="mon-chip" onClick={() => location.reload()}>retry</button>
-      </div>
-    );
-    if (!regime) return <div className="mon-regime mon-regime-loading">Reading the tape — credit, vol, USD, curve, growth…</div>;
+    if (!regime) return null;
     const cls = regime.label === 'RISK-ON' ? 'on' : regime.label === 'RISK-OFF' ? 'off' : 'mid';
     const pct = ((regime.score + 1) / 2) * 100; // gauge position
     return (
-      <div className={'mon-regime ' + cls + (compact ? ' compact' : '')}>
+      <>
         <div className="mon-regime-head">
-          <span className={'mon-regime-label ' + cls} title="Cross-asset tape STATE (descriptive, hysteresis-smoothed). Backtested 2022-26: this dial describes conditions — it does not forecast returns; stretched risk-on readings have historically mean-reverted over ~1M.">{regime.label}</span>
+          {tag && <span className="mon-regime-tag" title={tip}>{tag}</span>}
+          <span className={'mon-regime-label ' + cls} title={tip}>{regime.label}</span>
           {regime.coverage != null && regime.coverage < 0.6 && (
             <span className="mon-regime-flag" title="less than 60% of component weight has fresh data">PARTIAL DATA</span>
           )}
@@ -958,11 +961,39 @@
             {regime.components.map((c) => (
               <span key={c.key} className={'mon-regime-comp ' + (c.score > 0.15 ? 'pos' : c.score < -0.15 ? 'neg' : '')}
                     title={c.note + ' · score ' + (c.score >= 0 ? '+' : '') + c.score.toFixed(2) + ' · click for full history'}
-                    onClick={() => REGIME_DRILL[c.key] && setDrill(REGIME_DRILL[c.key])}>
+                    onClick={() => drillMap[c.key] && setDrill(drillMap[c.key])}>
                 <span className="k">{c.label}</span>
                 <span className="v">{c.value}</span>
               </span>
             ))}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  const RegimeStrip = ({ compact }) => {
+    const { useRegime, useRegimeID } = ML();
+    const { regime, err } = useRegime();
+    const { regime: regimeId } = useRegimeID(); // additive — silent if unavailable
+    const [drill, setDrill] = React.useState(null);
+    if (err) return (
+      <div className="mon-regime mon-regime-loading">
+        Regime feed unavailable ({err}) — <button className="mon-chip" onClick={() => location.reload()}>retry</button>
+      </div>
+    );
+    if (!regime) return <div className="mon-regime mon-regime-loading">Reading the tape — credit, vol, USD, curve, growth…</div>;
+    const cls = regime.label === 'RISK-ON' ? 'on' : regime.label === 'RISK-OFF' ? 'off' : 'mid';
+    return (
+      <div className={'mon-regime ' + cls + (compact ? ' compact' : '')}>
+        <RegimeDial regime={regime} tag="GLOBAL" storeKey="lbc-monitor-regime-last"
+          tip="Cross-asset tape STATE (descriptive, hysteresis-smoothed). Backtested 2022-26: this dial describes conditions — it does not forecast returns; stretched risk-on readings have historically mean-reverted over ~1M."
+          drillMap={REGIME_DRILL} setDrill={setDrill} compact={compact} />
+        {regimeId && (
+          <div className="mon-regime-id">
+            <RegimeDial regime={regimeId} tag="IDX 🇮🇩" storeKey="lbc-monitor-regime-id-last"
+              tip="Indonesia tape STATE (^JKSE trend/momentum, USD/IDR stress + acceleration, EIDO/SPY foreign appetite, copper/gold, EIDO dollar-volume flow). Gate-tested 2022-26: tracks the trailing-1M IDX tape at 0.86 rank-correlation vs 0.32 for the global dial. Like the global dial it DESCRIBES conditions — it does not forecast returns."
+              drillMap={REGIME_DRILL_ID} setDrill={setDrill} compact={compact} />
           </div>
         )}
         {drill && (
