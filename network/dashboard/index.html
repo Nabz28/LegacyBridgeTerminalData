@@ -819,6 +819,27 @@ function adminEligibility(user) {
   return { eligible: true, label: 'Admin (Director)' };
 }
 
+/* Write-permission gate. Adding, editing, or deleting members and connections is
+   restricted to admin-eligible accounts (admin, or a Director-level management
+   user). Everyone else gets a read-only view. Previously ANY signed-in user could
+   mutate the graph — the QA report flagged this. This is the client half; the
+   server-side RLS backstop is supabase/migrations/0060_network_rls.sql. */
+function canMutate() {
+  return adminEligibility(state.currentUser).eligible;
+}
+function denyMutation() {
+  const elig = adminEligibility(state.currentUser);
+  alert(elig.reason || 'Editing the network is restricted to Director-level accounts.');
+}
+/* Hide the add/edit entry points for read-only users so the UI matches the gate. */
+function applyWritePermissions() {
+  const on = canMutate();
+  ['addConnectionBtn', 'addMemberBtn', 'miniAddMember'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = on ? '' : 'none';
+  });
+}
+
 /* Sections — three top-level views. Each connection belongs to exactly one. */
 const SECTIONS = [
   { id: 'network', label: 'Network', addLabel: 'Add Connection', singular: 'Connection' },
@@ -1146,9 +1167,14 @@ let sbClient = null;
 let syncStatus = 'local';
 if (USE_SUPABASE && typeof window.supabase !== 'undefined') {
   try {
-    sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-      realtime: { params: { eventsPerSecond: 10 } },
-    });
+    const _opts = { realtime: { params: { eventsPerSecond: 10 } } };
+    // Authenticate PostgREST as the logged-in user so the server-side RLS backstop
+    // (supabase/migrations/0060_network_rls.sql) can enforce role-based write rules.
+    // The LBC JWT is HS256-signed with Supabase's secret, so PostgREST accepts it.
+    // Falls back to the anon key when there is no session (read-only access).
+    const _sess = readMgmtSession();
+    if (_sess && _sess.token) _opts.global = { headers: { Authorization: 'Bearer ' + _sess.token } };
+    sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, _opts);
     syncStatus = 'connecting';
   } catch (e) { console.error('Supabase init failed:', e); syncStatus = 'error'; }
 }
@@ -1914,6 +1940,7 @@ function refreshAdminButton() {
     adminLockLabel.textContent = 'Read only';
     adminLockBtn.title = elig.reason || 'Admin view restricted.';
   }
+  applyWritePermissions();
 }
 
 function setAdmin(on) {
@@ -1981,6 +2008,7 @@ let mVisibility   = 'public';  // 'public' | 'admin'
 let mSection      = 'network'; // pinned to the section the modal was opened in
 
 function openModal(editing = null) {
+  if (!canMutate()) return denyMutation();
   // Anchor the modal to whatever section is currently active (or the connection's own section if editing)
   mSection = editing?.section || state.section;
   const sectionMeta = SECTION_BY_ID[mSection];
@@ -2749,6 +2777,7 @@ const mPhotoUploadBtn = document.getElementById('mPhotoUploadBtn');
 const mPhotoRemoveBtn = document.getElementById('mPhotoRemoveBtn');
 
 function openMemberModal(editing = null) {
+  if (!canMutate()) return denyMutation();
   state.editingMemberId = editing ? editing.id : null;
   memberModalTitle.textContent = editing ? 'Edit LBC Team Member' : 'Add LBC Team Member';
   memberDeleteBtn.style.display = editing ? 'inline-flex' : 'none';
@@ -3215,17 +3244,18 @@ function showDetailPerson(connId) {
       <div class="dp-label">Notes · ${notes.length}</div>
       <div style="display:flex;flex-direction:column;gap:5px;">${notesHtml}</div>
     </div>
-    <div class="detail-actions">
+    ${canMutate() ? `<div class="detail-actions">
       <button class="btn btn-primary" id="dpEdit" style="flex:1;">Edit</button>
       <button class="btn btn-danger" id="dpDel" style="flex:1;">Delete</button>
-    </div>
+    </div>` : ''}
   `;
   // Clickable 2nd° rows jump to that person's detail
   dpContent.querySelectorAll('[data-jump-conn]').forEach(el => {
     el.addEventListener('click', () => showDetailPerson(el.dataset.jumpConn));
   });
-  document.getElementById('dpEdit').addEventListener('click', () => openModal(conn));
-  document.getElementById('dpDel').addEventListener('click', () => {
+  if (document.getElementById('dpEdit')) document.getElementById('dpEdit').addEventListener('click', () => openModal(conn));
+  if (document.getElementById('dpDel')) document.getElementById('dpDel').addEventListener('click', () => {
+    if (!canMutate()) return denyMutation();
     if (confirm('Delete connection "' + conn.name + '"?')) {
       state.connections = state.connections.filter(c => c.id !== conn.id);
       // Also strip references from other connections

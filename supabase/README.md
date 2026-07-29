@@ -3,6 +3,31 @@
 This folder holds everything needed to push the local SQLite + JSON data into
 a Supabase Postgres project, and to serve it back to the dashboard.
 
+## Migration numbering — read before adding one
+
+There is **no `supabase_migrations.schema_migrations` table** on this project:
+migrations are applied by hand (SQL editor, or `scripts/mgmt-api-sql.js` over the
+Management API). The filename is therefore the entire ordering contract, and
+nothing stops two branches picking the same number.
+
+That has bitten this repo three times — `0008`–`0011` (macro vs management),
+`0038`–`0040` (brain vs finance), and `0056`–`0058`, where an unmerged branch
+collided with MONITOR on `main` and its three migrations went missing for weeks
+until they were recovered as `0060`–`0062`.
+
+**Before adding a migration, run:**
+
+```bash
+npm run check:migrations
+```
+
+It prints the next free number and exits non-zero on a new collision. The seven
+historical duplicate pairs are grandfathered (they are applied and referenced by
+name elsewhere); do not add to that list to silence a new one — renumber instead.
+
+Migrations must be **idempotent** (`create ... if not exists`,
+`drop policy if exists` before `create policy`) so a re-run is always safe.
+
 ## Layout
 
 ```
