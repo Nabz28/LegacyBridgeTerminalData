@@ -11,11 +11,37 @@
   const MD = () => window.MONITOR_DATA;
   const MV = () => window.MONITOR_VIEWS;
   const ML = () => window.MONITOR_LIVE;
+  const RL = () => window.RESEARCH_LIVE;
+  const RV = () => window.RESEARCH_VIEWS;
+
+  // ---- Research (T13) bridge -----------------------------------------------
+  // Monitor shows the house view alongside the tape. Research is loaded after
+  // Monitor in index.html and a user may have no session, so every use is
+  // optional: no RESEARCH_LIVE, no session, or a failed fetch all degrade to
+  // "no house view" rather than breaking a desk.
+  const useResearchStances = () => {
+    const [stances, setStances] = React.useState({});
+    React.useEffect(() => {
+      const rl = RL();
+      if (!rl || !rl.lbcSession()) return;
+      let alive = true;
+      rl.fetchStances().then((m) => { if (alive) setStances(m || {}); }, () => {});
+      return () => { alive = false; };
+    }, []);
+    return stances;
+  };
+
+  // Jump to the same scope in Research. The shell's hash deep-link handler
+  // opens T13 and Research's own router restores the desk/sub.
+  const openInResearch = (deskId, subId) => {
+    window.location.hash = '#research/desk/' + deskId + (subId && subId !== 'all' ? '/' + encodeURIComponent(subId) : '');
+  };
 
   // ---- Coverage board ------------------------------------------------------
-  const DeskCard = ({ desk, assign, onOpen }) => {
+  const DeskCard = ({ desk, assign, stance, onOpen }) => {
     const { useQuote, useHistory, useDeskSignals, MonSpark } = ML();
     const { fmtPct, pctCls } = MV();
+    const rv = RV();   // may be undefined if Research hasn't loaded yet
     const benchY = (desk.bench || []).find((b) => b.y);
     const { quote } = useQuote(benchY ? benchY.y : null);
     const { obs } = useHistory(benchY ? benchY.y : null, '6mo', '1d');
@@ -37,6 +63,13 @@
         </div>
         <div className="mon-card-name">{desk.name}</div>
         <div className="mon-card-short">{desk.short}</div>
+        {stance && rv && (
+          <div className="mon-card-sigs">
+            <rv.StanceChip stance={stance.stance} conviction={stance.conviction} small
+                           title={'House view (T13): ' + stance.stance + (stance.thesis ? ' — ' + stance.thesis : '')} />
+            <rv.DivergenceBadge stance={stance.stance} sig={sig} />
+          </div>
+        )}
         {sig && (sig.momentum || sig.rs) && (
           <div className="mon-card-sigs">
             {sig.momentum && sig.momentum !== 'flat' && (
@@ -111,7 +144,7 @@
     );
   };
 
-  const CoverageBoard = ({ assign, onOpenDesk }) => {
+  const CoverageBoard = ({ assign, stances, onOpenDesk }) => {
     const md = MD();
     const { RegimeStrip, MorningNote, DeskCompare } = MV();
     const equity = md.DESKS.filter((d) => d.group === 'equity');
@@ -169,11 +202,11 @@
 
         <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
         <div className="mon-cards">
-          {equity.map((d) => <DeskCard key={d.id} desk={d} assign={assign} onOpen={onOpenDesk} />)}
+          {equity.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id]} onOpen={onOpenDesk} />)}
         </div>
         <div className="mon-sec-h"><span>Markets &amp; Macro</span><span className="n">{markets.length} desks — the strategy layer</span></div>
         <div className="mon-cards">
-          {markets.map((d) => <DeskCard key={d.id} desk={d} assign={assign} onOpen={onOpenDesk} />)}
+          {markets.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id]} onOpen={onOpenDesk} />)}
         </div>
       </div>
     );
@@ -189,7 +222,7 @@
     return ['Index Lab', 'Constituents', 'Overview', 'News'];
   };
 
-  const DeskView = ({ deskId, assign, onAssign, subId, setSubId }) => {
+  const DeskView = ({ deskId, assign, onAssign, subId, setSubId, stances }) => {
     const md = MD(), mv = MV();
     const desk = md.deskById(deskId);
     const [tab, setTab] = React.useState(DESK_TABS(desk)[0]);
@@ -234,6 +267,21 @@
               : <span className="mon-person unset">Unassigned</span>}
             <button className="mon-chip" onClick={() => setAssignOpen(true)} title="Assign desk head & analysts">Assign</button>
             <button className="mon-chip" onClick={() => setDossier(true)} title="Desk dossier — mandate, themes, valuation toolkit">Dossier</button>
+            {/* T13 bridge: the house view on this desk, and a jump to it */}
+            {(() => {
+              const st = (stances || {})[subId && subId !== 'all' ? 'sub:' + desk.id + '/' + subId : 'desk:' + desk.id];
+              const rv = RV();
+              return (
+                <>
+                  {st && rv && <rv.StanceChip stance={st.stance} conviction={st.conviction} small
+                                              title={'House view (T13)' + (st.thesis ? ' — ' + st.thesis : '')} />}
+                  <button className="mon-chip" onClick={() => openInResearch(desk.id, subId)}
+                          title="Open this desk in Research (T13) — house view, notes, watchlist">
+                    Research →
+                  </button>
+                </>
+              );
+            })()}
           </div>
         </div>
 
@@ -620,6 +668,7 @@
     }, []);
     const [assign, setAssign] = React.useState(() => ML().loadAssign());
     const [assignNote, setAssignNote] = React.useState('');
+    const stances = useResearchStances();   // T13 house views, best-effort
     // Pull the shared assignment book (management.monitor_coverage) once per
     // mount; server state wins over the local cache and refreshes it.
     React.useEffect(() => {
@@ -678,10 +727,10 @@
         <div className="mon-body">
           {assignNote && <div className="mon-assign-note">{assignNote}</div>}
           <MonBoundary key={view.type + ':' + (view.id || '')}>
-            {view.type === 'coverage' && <CoverageBoard assign={assign} onOpenDesk={openDesk} />}
+            {view.type === 'coverage' && <CoverageBoard assign={assign} stances={stances} onOpenDesk={openDesk} />}
             {view.type === 'desk' && (
               /* key by desk id so ALL desk-local state (tab, filters, bench) resets on switch */
-              <DeskView key={view.id} deskId={view.id} assign={assign} onAssign={onAssign} subId={subId} setSubId={setSubId} />
+              <DeskView key={view.id} deskId={view.id} assign={assign} onAssign={onAssign} subId={subId} setSubId={setSubId} stances={stances} />
             )}
             {view.type === 'markets' && <MarketsBoard />}
             {view.type === 'screener' && <ScreenerPage />}

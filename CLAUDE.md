@@ -1,6 +1,13 @@
 # Legacy Bridge Terminal
 
-A research operating system for Indonesian equity work — 9 terminals behind one login. Vanilla Babel-in-browser React shell (`launcher/`, no bundler) over Supabase (Narin's Plus, ref `adnubucjlezrtusbicja`). Embedded sub-apps: `management/`, `network/`, `yggdrasil/`, `autocharter/`, `correlation/`, `macro/`.
+A research operating system for Indonesian equity work — 13 terminals behind one login. Vanilla Babel-in-browser React shell (`launcher/`, no bundler) over Supabase (Narin's Plus, ref `adnubucjlezrtusbicja`). Embedded sub-apps: `management/`, `network/`, `yggdrasil/`, `autocharter/`, `correlation/`, `macro/`.
+
+**Monitor (T12) and Research (T13) share one coverage spine** — the 13 desks and
+their sub-industries in `launcher/scripts/monitor-data.js`. Monitor is the tape
+(prices, regime, breadth); Research is the view (house stance per desk and
+sub-industry, the note book, the watchlist). See [docs/RESEARCH.md](docs/RESEARCH.md).
+Never fork the taxonomy — add sub-industries in `monitor-data.js` and both pick
+them up.
 
 ## LEGION (T9) — the AI chief of staff
 

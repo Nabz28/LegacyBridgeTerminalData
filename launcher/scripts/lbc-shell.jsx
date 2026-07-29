@@ -24,6 +24,7 @@ const LBC_ICONS = {
   finance:   _svg(<><path d="M12 2v20"/><path d="M17 6H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></>),
   accounts:  _svg(<><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17.5 7.5l2 2 3-3"/></>),
   monitor:   _svg(<><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/><path d="M12 12l4-2.2"/></>),
+  research:  _svg(<><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h4"/></>),
 };
 
 // Narin's custom-auth (public anon/publishable key — safe to ship in client).
@@ -121,11 +122,20 @@ const LBC_TERMINALS = [
     desc: 'Coverage operating map — 10 sector desks + FX, Rates & Economics. Live prices, custom indices, news, screeners.',
     selfNav: true,
     workspaces: [ { kind: 'monitor', label: 'Monitor', built: true } ] },
+  // RESEARCH — the research hub. Same 13-desk / sub-industry spine as T12,
+  // but the content is ours: house stance per desk & sub-industry, the note
+  // book, and the watchlist. Monitor = what the market is doing; Research =
+  // what we think about it. Read-open to all analysts; setting the house view
+  // and the watchlist is admin/management (RLS enforces it server-side).
+  { id: 'research', num: 'T13', name: 'Research', accent: '#b8a7f0', icon: LBC_ICONS.research,
+    desc: 'The research hub — house view per sector & sub-industry, the note book, and the watchlist, on Monitor’s coverage spine.',
+    selfNav: true,
+    workspaces: [ { kind: 'research', label: 'Research', built: true } ] },
 ];
 window.LBC_TERMINALS = LBC_TERMINALS;
 
 // Kinds that map to a real, live QarsTerminal workspace.
-const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','ind-engine','portfolio','global','legion','finance','accounts','monitor']);
+const LBC_LIVE_KINDS = new Set(['equity-landing','stock','scanners','driver-lab','equity-forecast','macro','macro-lab','industry','ind-comps','ind-gather','ind-data','ind-engine','portfolio','global','legion','finance','accounts','monitor','research']);
 window.LBC_LIVE_KINDS = LBC_LIVE_KINDS;
 
 // Access gating, in precedence order:
@@ -478,26 +488,32 @@ const LBCShell = () => {
   };
   const goHome = () => { const h = tabs.find((x) => x.type === 'home'); if (h) setActiveId(h.id); else addTab(); };
 
-  // Deep link: a #monitor/... hash (bookmark / shared link / F5) reopens the
-  // Monitor terminal instead of dumping the user on Home. Fired ONCE at
-  // mount and on real hashchange events only — calling it on every effect
-  // re-run made the Home button bounce straight back into the Monitor.
-  const monitorHashOpened = React.useRef(false);
+  // Deep link: a #monitor/... or #research/... hash (bookmark / shared link /
+  // F5) reopens that terminal instead of dumping the user on Home. Fired ONCE
+  // at mount and on real hashchange events only — calling it on every effect
+  // re-run made the Home button bounce straight back into the terminal.
+  // Monitor and Research cross-link to each other by setting the hash, so this
+  // handler is also what performs those jumps.
+  const HASH_TERMINALS = ['monitor', 'research'];
+  const hashTerminalId = () => {
+    const h = window.location.hash || '';
+    return HASH_TERMINALS.find((id) => h.startsWith('#' + id)) || null;
+  };
+  const deepHashOpened = React.useRef(false);
   React.useEffect(() => {
     const maybeOpen = () => {
-      if (authed && window.location.hash && window.location.hash.startsWith('#monitor')) {
-        openTerminal('monitor');
-      }
+      const id = authed ? hashTerminalId() : null;
+      if (id) openTerminal(id);
     };
-    if (authed && !monitorHashOpened.current) { monitorHashOpened.current = true; maybeOpen(); }
+    if (authed && !deepHashOpened.current) { deepHashOpened.current = true; maybeOpen(); }
     window.addEventListener('hashchange', maybeOpen);
     return () => window.removeEventListener('hashchange', maybeOpen);
   }, [authed, tabs, activeId, user]);
-  // Navigating to Home clears a lingering #monitor hash, so Home stays Home
-  // (and a reload from Home doesn't warp back into the Monitor).
+  // Navigating to Home clears a lingering deep-link hash, so Home stays Home
+  // (and a reload from Home doesn't warp back into the terminal).
   React.useEffect(() => {
     const cur = tabs.find((t) => t.id === activeId);
-    if (cur && cur.type === 'home' && window.location.hash.startsWith('#monitor')) {
+    if (cur && cur.type === 'home' && hashTerminalId()) {
       try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch {}
     }
   }, [activeId, tabs]);
