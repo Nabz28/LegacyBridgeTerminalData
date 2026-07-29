@@ -5,6 +5,7 @@
   "description": "Unified macro + correlation terminal over Refinitiv and market data. Static frontend, optional Supabase backend.",
   "scripts": {
     "serve": "node scripts/serve.js 4173",
+    "check:migrations": "node scripts/check-migrations.js",
     "ingest:us":      "python macro/scripts/extract_observations.py --country us && python macro/scripts/extract_rics.py --country us",
     "ingest:id":      "python macro/scripts/extract_observations.py --country id && python macro/scripts/extract_rics.py --country id",
     "ingest:cn":      "python macro/scripts/extract_observations.py --country cn && python macro/scripts/extract_rics.py --country cn",
