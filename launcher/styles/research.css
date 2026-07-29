@@ -47,6 +47,23 @@
   margin: 12px 8px 4px; font-size: 9px; font-family: var(--font-mono); letter-spacing: 2px;
   text-transform: uppercase; color: var(--text-tertiary, #8E8A7D);
 }
+
+/* ---- view / edit mode switch ---- */
+.rs-mode {
+  display: flex; gap: 3px; margin: 0 6px 10px; padding: 3px; border-radius: 4px;
+  background: rgba(232,228,217,0.05); border: 1px solid var(--paper-softer);
+}
+.rs-mode-b {
+  flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 5px 6px; border-radius: 3px; font-size: 11px; cursor: pointer;
+  background: transparent; color: var(--text-tertiary); border: 1px solid transparent;
+}
+.rs-mode-b:hover { color: var(--paper); }
+.rs-mode-b .g { font-size: 11px; }
+.rs-mode-b.active { background: var(--paper); color: var(--bg-0); border-color: var(--paper); font-weight: 600; }
+.rs-mode-note {
+  margin: -4px 8px 8px; font-size: 9.5px; line-height: 1.5; color: var(--text-tertiary); font-style: italic;
+}
 .rs-rail-foot { margin-top: auto; padding: 14px 8px 4px; font-size: 9.5px; line-height: 1.6; color: var(--text-tertiary); font-family: var(--font-mono); }
 
 /* ---- body & pages ---- */
@@ -350,6 +367,62 @@
 .rs-cat-chip:hover { background: var(--paper-softer); color: var(--paper); }
 .rs-cat-chip.soon { color: #e8c766; border-color: rgba(232,199,102,0.4); }
 .rs-cat-chip b { font-family: var(--font-mono); }
+
+/* ---- structure / taxonomy manager ---- */
+.rs-select.sm { padding: 4px 7px; font-size: 11px; }
+.rs-field { display: inline-flex; flex-direction: column; gap: 3px; }
+.rs-field.grow, .rs-field:has(.grow) { flex: 1 1 auto; }
+.rs-field-l {
+  font-size: 9px; font-family: var(--font-mono); letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-tertiary);
+}
+
+.rs-tax-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.rs-tax {
+  display: flex; flex-direction: column; gap: 6px; padding: 11px 12px; border-radius: 3px;
+  background: var(--bg-1, rgba(232,228,217,0.03)); border: 1px solid var(--paper-softer);
+  border-left: 2px solid var(--ac, var(--brand));
+}
+.rs-tax.locked { opacity: 0.72; }
+.rs-tax-h { display: flex; align-items: baseline; gap: 8px; }
+.rs-tax-h .nm { font-size: 13.5px; font-weight: 600; color: var(--paper); }
+.rs-tax-h .id { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); margin-left: auto; }
+.rs-tax-s { font-size: 11.5px; line-height: 1.5; color: var(--text-secondary); min-height: 17px; }
+.rs-tax-f {
+  display: flex; align-items: center; gap: 6px; padding-top: 6px;
+  border-top: 1px solid var(--paper-softer); margin-top: auto;
+}
+.rs-lock {
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-tertiary); border: 1px solid var(--paper-edge); border-radius: 2px; padding: 1px 5px;
+}
+.rs-badge {
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--brand); border: 1px solid var(--brand-edge, rgba(102,198,232,0.4)); border-radius: 2px; padding: 1px 5px;
+}
+
+.rs-tax-group { margin: 14px 0; }
+.rs-tax-group-h {
+  display: flex; align-items: center; gap: 8px; padding: 5px 0 7px;
+  border-bottom: 1px solid var(--paper-softer); margin-bottom: 8px;
+}
+.rs-tax-group-h .nm {
+  font-size: 12.5px; font-weight: 600; color: var(--paper);
+  padding-left: 8px; border-left: 2px solid var(--ac, var(--brand));
+}
+.rs-sub-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.rs-subchip {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 3px;
+  font-size: 11px; border: 1px solid var(--paper-edge); color: var(--text-secondary);
+}
+.rs-subchip.locked { opacity: 0.6; border-style: dashed; }
+.rs-subchip.custom { color: var(--paper); background: var(--paper-softer); }
+.rs-subchip .x {
+  padding: 0 3px; font-size: 10px; cursor: pointer; line-height: 1;
+  background: none; border: none; color: var(--text-tertiary);
+}
+.rs-subchip .x:hover { color: var(--paper); }
+.rs-subchip .x.danger:hover { color: #f26f8f; }
 
 /* ---- coverage universe ---- */
 .rs-universe { display: flex; flex-direction: column; gap: 12px; }

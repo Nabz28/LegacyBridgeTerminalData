@@ -45,7 +45,7 @@
 
   // Inline stance editor for a desk or a sub-industry. `canPublish` false →
   // read-only render, so an analyst never meets a button that 403s.
-  const StanceEditor = ({ scopeLabel, value, canPublish, onSave, onClear, busy }) => {
+  const StanceEditor = ({ scopeLabel, value, canPublish, mode, onSave, onClear, busy }) => {
     const rl = RL();
     const [draft, setDraft] = React.useState(() => ({
       stance: (value && value.stance) || 'watching',
@@ -80,7 +80,9 @@
               <div className="rs-by">{value.updated_by_name || '—'} · {timeAgo(value.updated_at)}</div>
             </>
           ) : <div className="rs-empty-line">No house view set.</div>}
-          <div className="rs-note-hint">Setting the house view needs a management or admin login.</div>
+          <div className="rs-note-hint">{mode === 'view'
+            ? 'Switch to Edit mode in the rail to set the house view.'
+            : 'Setting the house view needs a management or admin login.'}</div>
         </div>
       );
     }
@@ -119,12 +121,15 @@
   };
 
   // ---- notes ---------------------------------------------------------------
-  const scopeLabelFor = (note) => {
-    const mdd = MD();
-    if (!mdd) return '';
+  // `tax` is optional: NoteCard renders in lists that may not carry it. Falls
+  // back to the built-in book, then to the raw id — a note on a custom industry
+  // must never mislabel itself as "General".
+  const scopeLabelFor = (note, tax) => {
     if (note.ticker) return note.ticker;
-    const d = note.desk_id ? mdd.deskById(note.desk_id) : null;
-    if (!d) return 'General';
+    if (!note.desk_id) return 'General';
+    const desks = (tax && tax.desks) || (MD() ? MD().DESKS : []);
+    const d = desks.find((x) => x.id === note.desk_id);
+    if (!d) return note.desk_id;
     if (!note.sub_id) return d.name;
     const s = (d.subs || []).find((x) => x.id === note.sub_id);
     return d.name + ' · ' + (s ? s.name : note.sub_id);
@@ -172,7 +177,7 @@
   };
 
   // Create + edit share one editor. `note` null = create.
-  const NoteEditor = ({ note, defaults, onSave, onCancel, busy }) => {
+  const NoteEditor = ({ note, defaults, tax, onSave, onCancel, busy }) => {
     const rl = RL();
     const [d, setD] = React.useState(() => ({
       title: (note && note.title) || '',
@@ -184,8 +189,8 @@
       ticker: (note ? note.ticker : (defaults && defaults.ticker)) || '',
       pinned: !!(note && note.pinned),
     }));
-    const mdd = MD();
-    const desk = d.deskId && mdd ? mdd.deskById(d.deskId) : null;
+    const desks = (tax && tax.desks) || (MD() ? MD().DESKS : []);
+    const desk = d.deskId ? desks.find((x) => x.id === d.deskId) : null;
     const submit = () => {
       if (!d.title.trim() && !d.body.trim()) return;
       onSave({
@@ -214,7 +219,7 @@
           <select className="rs-select" value={d.deskId}
                   onChange={(e) => setD({ ...d, deskId: e.target.value, subId: '' })}>
             <option value="">No desk</option>
-            {(mdd ? mdd.DESKS : []).map((x) => <option key={x.id} value={x.id}>{x.num} · {x.name}</option>)}
+            {desks.map((x) => <option key={x.id} value={x.id}>{x.num} · {x.name}</option>)}
           </select>
           <select className="rs-select" value={d.subId} disabled={!desk}
                   onChange={(e) => setD({ ...d, subId: e.target.value })}>
@@ -328,8 +333,8 @@
     );
   };
 
-  const WatchEditor = ({ row, onSave, onCancel, busy }) => {
-    const rl = RL(), mdd = MD();
+  const WatchEditor = ({ row, tax, onSave, onCancel, busy }) => {
+    const rl = RL();
     const [d, setD] = React.useState(() => ({
       ticker: (row && row.ticker) || '',
       name: (row && row.name) || '',
@@ -344,7 +349,8 @@
       catalyst: (row && row.catalyst) || '',
       catalyst_date: (row && row.catalyst_date) || '',
     }));
-    const desk = d.deskId && mdd ? mdd.deskById(d.deskId) : null;
+    const desks = (tax && tax.desks) || (MD() ? MD().DESKS : []);
+    const desk = d.deskId ? desks.find((x) => x.id === d.deskId) : null;
     return (
       <div className="rs-editor">
         {!row && (
@@ -362,7 +368,7 @@
         <div className="rs-ed-row">
           <select className="rs-select" value={d.deskId} onChange={(e) => setD({ ...d, deskId: e.target.value, subId: '' })}>
             <option value="">No desk</option>
-            {(mdd ? mdd.DESKS : []).map((x) => <option key={x.id} value={x.id}>{x.num} · {x.name}</option>)}
+            {desks.map((x) => <option key={x.id} value={x.id}>{x.num} · {x.name}</option>)}
           </select>
           <select className="rs-select" value={d.subId} disabled={!desk} onChange={(e) => setD({ ...d, subId: e.target.value })}>
             <option value="">{desk ? 'Whole desk' : '—'}</option>
