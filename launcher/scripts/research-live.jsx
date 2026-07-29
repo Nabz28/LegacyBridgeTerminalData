@@ -74,10 +74,15 @@
   };
 
   // ---- scope keys ----------------------------------------------------------
-  // 'desk:tech' / 'sub:tech/semis'. One synthetic key keeps the upsert a
-  // single round-trip and keeps desk & sub rows in one table.
-  const scopeKey = (deskId, subId) =>
-    (subId && subId !== 'all') ? 'sub:' + deskId + '/' + subId : 'desk:' + deskId;
+  // 'desk:tech@GLOBAL' / 'sub:tech/semis@ID'. One synthetic key keeps the upsert
+  // a single round-trip and keeps desk & sub rows in one table. The geography
+  // suffix means "bullish Indonesian banks" and "bearish global banks" are two
+  // separate, simultaneously-valid house views rather than one overwriting the
+  // other.
+  const GLOBAL = 'GLOBAL';
+  const scopeKey = (deskId, subId, geo) =>
+    ((subId && subId !== 'all') ? 'sub:' + deskId + '/' + subId : 'desk:' + deskId)
+    + '@' + (geo || GLOBAL);
 
   // ---- stance --------------------------------------------------------------
   const STANCES = [
@@ -118,15 +123,16 @@
       return m;
     });
 
-  const saveStance = (deskId, subId, val) => {
+  const saveStance = (deskId, subId, val, geo) => {
     const u = me();
     return req('/research_stance', {
       method: 'POST',
       prefer: 'resolution=merge-duplicates,return=representation',
       body: [{
-        scope_id: scopeKey(deskId, subId),
+        scope_id: scopeKey(deskId, subId, geo),
         desk_id: deskId,
         sub_id: (subId && subId !== 'all') ? subId : null,
+        geo: geo || GLOBAL,
         stance: val.stance || 'watching',
         conviction: val.conviction == null ? 3 : val.conviction,
         thesis: val.thesis || '',
@@ -138,8 +144,8 @@
     }).then((rows) => (rows && rows[0]) || null);
   };
 
-  const clearStance = (deskId, subId) =>
-    req('/research_stance?scope_id=eq.' + encodeURIComponent(scopeKey(deskId, subId)), { method: 'DELETE' });
+  const clearStance = (deskId, subId, geo) =>
+    req('/research_stance?scope_id=eq.' + encodeURIComponent(scopeKey(deskId, subId, geo)), { method: 'DELETE' });
 
   // ---- notes ---------------------------------------------------------------
   // scope: {} = everything · {deskId} · {deskId, subId} · {ticker}
@@ -240,6 +246,212 @@
   const deleteWatch = (id) =>
     req('/research_watch?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
 
+  // ================================================================
+  // taxonomy — built-in coverage book + editable DB overlay
+  // ================================================================
+  // MONITOR_DATA is the spine and is never mutated. These tables ADD to it, and
+  // mergeTaxonomy() folds both into one shape the UI can render uniformly. A bad
+  // custom row can therefore never break Monitor, and deleting a custom industry
+  // leaves its research intact but unparented (surfaced, not hidden).
+
+  const slugify = (s) => String(s || '')
+    .toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 38);
+
+  const fetchIndustries = () =>
+    req('/research_industry?select=*&order=sort_order,name').then((r) => r || []);
+  const fetchSubindustries = () =>
+    req('/research_subindustry?select=*&order=sort_order,name').then((r) => r || []);
+  const fetchCountries = () =>
+    req('/research_country?select=*&order=sort_order,name').then((r) => r || []);
+
+  // Built-in ids are invisible to Postgres (they live in monitor-data.js), so
+  // collision checks happen here. A custom industry that shadowed a built-in
+  // desk would make the merged taxonomy ambiguous.
+  const builtinDeskIds = () => new Set((window.MONITOR_DATA ? window.MONITOR_DATA.DESKS : []).map((d) => d.id));
+  const builtinSubIds = () => {
+    const s = new Set();
+    (window.MONITOR_DATA ? window.MONITOR_DATA.DESKS : []).forEach((d) =>
+      (d.subs || []).forEach((x) => s.add(d.id + '/' + x.id)));
+    return s;
+  };
+  const builtinCountryCodes = () =>
+    new Set(Object.keys((window.MONITOR_DATA && window.MONITOR_DATA.COUNTRIES) || {}));
+
+  const saveIndustry = (row) => {
+    const u = me();
+    const id = row.id || slugify(row.name);
+    if (!id) return Promise.reject(new Error('name is required'));
+    if (!row.id && builtinDeskIds().has(id)) {
+      return Promise.reject(new Error('"' + id + '" is already a built-in desk — pick another name'));
+    }
+    return req('/research_industry', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates,return=representation',
+      body: [{
+        id,
+        name: row.name,
+        short: row.short || '',
+        gics: row.gics || '',
+        grp: row.grp || 'custom',
+        accent: row.accent || '#b8a7f0',
+        sort_order: row.sort_order == null ? 100 : row.sort_order,
+        created_by: (u && u.id) || null,
+        created_by_name: (u && (u.full_name || u.username)) || '',
+      }],
+    }).then((rows) => (rows && rows[0]) || null);
+  };
+  const deleteIndustry = (id) =>
+    req('/research_industry?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
+
+  const saveSubindustry = (row) => {
+    const u = me();
+    if (!row.industry_id) return Promise.reject(new Error('pick an industry first'));
+    const id = row.id || slugify(row.name);
+    if (!id) return Promise.reject(new Error('name is required'));
+    if (!row.id && builtinSubIds().has(row.industry_id + '/' + id)) {
+      return Promise.reject(new Error('"' + id + '" already exists on that desk'));
+    }
+    return req('/research_subindustry', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates,return=representation',
+      body: [{
+        id,
+        industry_id: row.industry_id,
+        name: row.name,
+        note: row.note || '',
+        sort_order: row.sort_order == null ? 100 : row.sort_order,
+        created_by: (u && u.id) || null,
+        created_by_name: (u && (u.full_name || u.username)) || '',
+      }],
+    }).then((rows) => (rows && rows[0]) || null);
+  };
+  const deleteSubindustry = (id) =>
+    req('/research_subindustry?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
+
+  const saveCountry = (row) => {
+    const u = me();
+    const code = String(row.code || '').toUpperCase().trim();
+    if (!/^[A-Z0-9][A-Z0-9_-]{0,11}$/.test(code)) {
+      return Promise.reject(new Error('code must be 1-12 chars, A-Z / 0-9 / - / _'));
+    }
+    if (!row.existing && builtinCountryCodes().has(code)) {
+      return Promise.reject(new Error(code + ' already exists in the built-in country map'));
+    }
+    return req('/research_country', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates,return=representation',
+      body: [{
+        code,
+        name: row.name || code,
+        region: row.region || '',
+        flag: row.flag || '',
+        asean: !!row.asean,
+        sort_order: row.sort_order == null ? 100 : row.sort_order,
+        created_by: (u && u.id) || null,
+        created_by_name: (u && (u.full_name || u.username)) || '',
+      }],
+    }).then((rows) => (rows && rows[0]) || null);
+  };
+  const deleteCountry = (code) =>
+    req('/research_country?code=eq.' + encodeURIComponent(code), { method: 'DELETE' });
+
+  // Fold the built-in book and the custom overlay into one list of desks. Each
+  // desk and sub carries `custom: true|false` so the UI can show what is
+  // editable without a second lookup.
+  const mergeTaxonomy = (industries, subindustries, countries) => {
+    const md = window.MONITOR_DATA;
+    const builtinDesks = md ? md.DESKS : [];
+    const subsByIndustry = {};
+    (subindustries || []).forEach((s) => {
+      (subsByIndustry[s.industry_id] = subsByIndustry[s.industry_id] || []).push({
+        id: s.id, name: s.name, note: s.note, u: [], custom: true, sort_order: s.sort_order,
+      });
+    });
+
+    const desks = builtinDesks.map((d) => ({
+      ...d,
+      custom: false,
+      // custom sub-industries append to the built-in ones for that desk
+      subs: [...(d.subs || []).map((s) => ({ ...s, custom: false })), ...(subsByIndustry[d.id] || [])],
+    }));
+
+    (industries || []).forEach((i) => {
+      desks.push({
+        id: i.id, num: 'C' + (i.sort_order || ''), name: i.name, short: i.short,
+        gics: i.gics || '—', group: i.grp === 'custom' ? 'equity' : i.grp,
+        accent: i.accent, bench: [], custom: true, sort_order: i.sort_order,
+        subs: subsByIndustry[i.id] || [],
+      });
+    });
+
+    // countries: built-in map + custom rows (custom wins on code clash so an
+    // edited entry actually takes effect)
+    const countryMap = { ...((md && md.COUNTRIES) || {}) };
+    (countries || []).forEach((c) => {
+      countryMap[c.code] = { n: c.name, r: c.region, f: c.flag, asean: c.asean, custom: true };
+    });
+
+    return { desks, countries: countryMap };
+  };
+
+  // Geography options for the scope selector: GLOBAL, the built-in regions, then
+  // every country present in the merged map.
+  const geoOptions = (countryMap) => {
+    const md = window.MONITOR_DATA;
+    const out = [{ id: GLOBAL, label: 'Global', kind: 'global' }];
+    (md ? md.REGION_FILTERS : []).filter((r) => r.id !== 'ALL' && r.id !== 'ID').forEach((r) => {
+      out.push({ id: r.id, label: r.label, kind: 'region' });
+    });
+    Object.keys(countryMap || {}).sort((a, b) => {
+      const an = countryMap[a].n || a, bn = countryMap[b].n || b;
+      return an < bn ? -1 : an > bn ? 1 : 0;
+    }).forEach((code) => {
+      out.push({ id: code, label: ((countryMap[code].f || '') + ' ' + (countryMap[code].n || code)).trim(), kind: 'country' });
+    });
+    return out;
+  };
+
+  const geoLabel = (geo, countryMap) => {
+    if (!geo || geo === GLOBAL) return 'Global';
+    const md = window.MONITOR_DATA;
+    const region = (md ? md.REGION_FILTERS : []).find((r) => r.id === geo);
+    if (region) return region.label;
+    const c = (countryMap || {})[geo];
+    return c ? ((c.f || '') + ' ' + (c.n || geo)).trim() : geo;
+  };
+
+  function useTaxonomy() {
+    const [industries, setIndustries] = React.useState([]);
+    const [subindustries, setSubindustries] = React.useState([]);
+    const [countries, setCountries] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    const reload = React.useCallback(() => {
+      if (!lbcSession()) { setLoading(false); return Promise.resolve(); }
+      return Promise.all([fetchIndustries(), fetchSubindustries(), fetchCountries()]).then(
+        ([i, s, c]) => { setIndustries(i); setSubindustries(s); setCountries(c); setLoading(false); },
+        () => setLoading(false)
+      );
+    }, []);
+    React.useEffect(() => { reload(); }, [reload]);
+
+    const merged = React.useMemo(
+      () => mergeTaxonomy(industries, subindustries, countries),
+      [industries, subindustries, countries]
+    );
+    // `countries` is the MERGED map (code -> meta) that the UI renders;
+    // `countriesRaw` is the editable DB rows. Keeping both named distinctly
+    // avoids the spread silently shadowing one with the other.
+    return {
+      industries, subindustries, countriesRaw: countries,
+      desks: merged.desks, countries: merged.countries,
+      loading, reload,
+    };
+  }
+
   // ---- rollup --------------------------------------------------------------
   const fetchRollup = () =>
     req('/research_desk_rollup?select=*').then((rows) => {
@@ -318,7 +530,7 @@
   };
 
   window.RESEARCH_LIVE = {
-    lbcSession, me, canPublish, scopeKey,
+    lbcSession, me, canPublish, scopeKey, GLOBAL,
     STANCES, HORIZONS, WATCH_STATUS, NOTE_KINDS, stanceMeta,
     fetchStances, saveStance, clearStance,
     fetchNotes, createNote, updateNote, deleteNote,
@@ -326,5 +538,10 @@
     fetchRollup,
     useResearchBook, useWatchQuotes,
     divergence, daysTo, upsideTo,
+    // taxonomy
+    useTaxonomy, mergeTaxonomy, slugify, geoOptions, geoLabel,
+    saveIndustry, deleteIndustry,
+    saveSubindustry, deleteSubindustry,
+    saveCountry, deleteCountry,
   };
 })();

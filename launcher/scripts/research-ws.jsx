@@ -60,22 +60,27 @@
     );
   };
 
-  const BoardPage = ({ book, onOpenDesk, onGoMonitor }) => {
-    const md = MD();
+  const BoardPage = ({ book, tax, geo, setGeo, onOpenDesk, onGoMonitor }) => {
+    const rl = RL();
     const { StanceChip } = RV();
-    const equity = md.DESKS.filter((d) => d.group === 'equity');
-    const markets = md.DESKS.filter((d) => d.group === 'markets');
-    const deskStance = (id) => book.stances['desk:' + id] || null;
+    const { GeoPicker } = window.RESEARCH_TAXONOMY;
+    // The board reads the merged taxonomy (built-in desks + custom industries),
+    // and reads the stance for whichever geography is selected — so switching to
+    // Indonesia re-reads the whole board as the ID house view.
+    const equity = tax.desks.filter((d) => d.group === 'equity');
+    const markets = tax.desks.filter((d) => d.group === 'markets');
+    const deskStance = (id) => book.stances[rl.scopeKey(id, null, geo)] || null;
 
-    // Book-level tally: how the house is positioned across the coverage map.
+    // Book-level tally: how the house is positioned across the coverage map,
+    // for the selected geography.
     const tally = React.useMemo(() => {
       const t = { bullish: 0, bearish: 0, neutral: 0, watching: 0, avoid: 0, unset: 0 };
-      md.DESKS.forEach((d) => {
-        const s = book.stances['desk:' + d.id];
+      tax.desks.forEach((d) => {
+        const s = book.stances[rl.scopeKey(d.id, null, geo)];
         if (s) t[s.stance] = (t[s.stance] || 0) + 1; else t.unset++;
       });
       return t;
-    }, [book.stances]);
+    }, [book.stances, tax.desks, geo]);
 
     const openNames = book.watch.filter((w) => ['watching', 'researching', 'candidate'].includes(w.status)).length;
 
@@ -84,8 +89,12 @@
         <div className="rs-board-h">
           <div className="rs-board-t">
             Research board
-            <span className="sub">the house view across all {md.DESKS.length} coverage desks</span>
+            <span className="sub">
+              the house view across all {tax.desks.length} industries
+              {geo && geo !== rl.GLOBAL ? ' · ' + rl.geoLabel(geo, tax.countries) : ''}
+            </span>
           </div>
+          <GeoPicker value={geo} countries={tax.countries} onChange={setGeo} />
           <div className="rs-tally">
             {['bullish', 'bearish', 'neutral', 'watching', 'avoid'].map((s) => (
               tally[s] ? <span key={s} className="rs-tally-i"><StanceChip stance={s} small /><b>{tally[s]}</b></span> : null
@@ -113,8 +122,11 @@
   // ---- notes (shared by the Notes page and the desk Notes tab) -------------
   // `scope` pins the query and pre-fills the capture box. The list reloads
   // whenever the scope or a filter changes, and after every mutation.
-  const NotesPanel = ({ scope, showFilters, emptyHint }) => {
+  const NotesPanel = ({ scope, showFilters, emptyHint, mode, tax }) => {
     const rl = RL(), rv = RV();
+    // Notes are personal work, so edit mode alone unlocks them — no
+    // admin/management requirement (RLS lets anyone write their own).
+    const canWrite = mode === 'edit';
     const [rows, setRows] = React.useState(null);
     const [busy, setBusy] = React.useState(false);
     const [err, setErr] = React.useState('');
@@ -180,15 +192,15 @@
 
     return (
       <div className="rs-notes">
-        {editing ? (
-          <rv.NoteEditor note={editing === 'new' ? null : editing} defaults={scope}
+        {canWrite && (editing ? (
+          <rv.NoteEditor note={editing === 'new' ? null : editing} defaults={scope} tax={tax}
                          onSave={save} onCancel={() => setEditing(null)} busy={busy} />
         ) : (
           <rv.QuickCapture defaults={scope} onCreate={create} busy={busy}
                            placeholder={scope.ticker
                              ? 'Capture a note on ' + scope.ticker + '… ⌘/Ctrl+Enter to file.'
                              : 'Capture something interesting — first line becomes the title. ⌘/Ctrl+Enter to file.'} />
-        )}
+        ))}
         {!editing && (
           <div className="rs-notes-bar">
             <input className="rs-input grow" placeholder="Search notes…" value={q} onChange={(e) => setQ(e.target.value)} />
@@ -198,7 +210,7 @@
                 {rl.NOTE_KINDS.map((k) => <option key={k.id} value={k.id}>{k.label}</option>)}
               </select>
             )}
-            <button type="button" className="rs-btn ghost" onClick={() => setEditing('new')}>Long-form…</button>
+            {canWrite && <button type="button" className="rs-btn ghost" onClick={() => setEditing('new')}>Long-form…</button>}
           </div>
         )}
         {!!tags.length && !editing && (
@@ -213,7 +225,7 @@
         {rows == null && <div className="rs-empty">Loading notes…</div>}
         {rows && !rows.length && <div className="rs-empty">{emptyHint || 'No notes yet. Capture the first one above.'}</div>}
         {rows && rows.map((n) => (
-          <rv.NoteCard key={n.id} note={n} canEdit={isAdmin || n.author_id === meId}
+          <rv.NoteCard key={n.id} note={n} canEdit={canWrite && (isAdmin || n.author_id === meId)}
                        onEdit={setEditing} onDelete={del} onPin={pin}
                        onOpenScope={(note) => {
                          if (note.desk_id) window.location.hash = '#research/desk/' + note.desk_id + (note.sub_id ? '/' + note.sub_id : '');
@@ -224,23 +236,30 @@
   };
 
   // ---- desk drill-in -------------------------------------------------------
-  const DeskView = ({ deskId, subId, setSubId, book, onReload }) => {
-    const md = MD(), rl = RL(), rv = RV();
-    const desk = md.deskById(deskId);
+  const DeskView = ({ deskId, subId, setSubId, book, tax, geo, setGeo, mode, onReload }) => {
+    const rl = RL(), rv = RV();
+    const { GeoPicker } = window.RESEARCH_TAXONOMY;
+    // Look the desk up in the MERGED taxonomy, so a custom industry opens the
+    // same way a built-in desk does.
+    const desk = tax.desks.find((d) => d.id === deskId) || null;
     const [tab, setTab] = React.useState('notes');
     const [busy, setBusy] = React.useState(false);
     const [msg, setMsg] = React.useState('');
     const [watchEdit, setWatchEdit] = React.useState(null);  // row | 'new'
     const benchY = desk ? (desk.bench || []).find((b) => b.y) : null;
     const sig = ML().useDeskSignals(benchY ? benchY.y : null);
+    // Editing is gated by BOTH the UI mode and the server rule. Mode is the
+    // deliberate "I am here to change things" switch; RLS is the real
+    // enforcement. A read-tier user in edit mode still sees read-only controls.
     const canPublish = rl.canPublish();
+    const canEdit = mode === 'edit' && canPublish;
 
     // Everything below must be computed BEFORE the `!desk` bail-out: an early
     // return above a hook would change the hook order on a bad desk id.
     const activeSub = desk && subId && subId !== 'all' ? (desk.subs || []).find((s) => s.id === subId) : null;
-    const scopeKey = rl.scopeKey(deskId, subId);
+    const scopeKey = rl.scopeKey(deskId, subId, geo);
     const stance = book.stances[scopeKey] || null;
-    const deskStance = book.stances['desk:' + deskId] || null;
+    const deskStance = book.stances[rl.scopeKey(deskId, null, geo)] || null;
     const scopeLabel = desk ? (activeSub ? desk.name + ' · ' + activeSub.name : desk.name) : '';
 
     const watchRows = desk
@@ -248,20 +267,35 @@
       : [];
     const quotes = rl.useWatchQuotes(watchRows);
 
-    if (!desk) return null;
+    // Unknown desk id — a link to a deleted custom industry, or a hash opened
+    // before the taxonomy loaded. Say so rather than rendering nothing.
+    if (!desk) {
+      return (
+        <div className="rs-page">
+          <div className="rs-empty" style={{ flexDirection: 'column', gap: 10 }}>
+            {tax.loading
+              ? <div>Loading the taxonomy…</div>
+              : <>
+                  <div>No industry with the id <code>{deskId}</code>.</div>
+                  <div className="rs-dim">It may have been deleted. Its notes and stances are still in the database.</div>
+                </>}
+          </div>
+        </div>
+      );
+    }
 
     const flash = (t) => { setMsg(t); setTimeout(() => setMsg(''), 5000); };
 
     const saveStance = (draft) => {
       setBusy(true);
-      rl.saveStance(deskId, subId, draft).then(
-        () => { setBusy(false); flash('House view saved.'); onReload(); },
+      rl.saveStance(deskId, subId, draft, geo).then(
+        () => { setBusy(false); flash('House view saved · ' + rl.geoLabel(geo, tax.countries) + '.'); onReload(); },
         (e) => { setBusy(false); flash('Not saved — ' + (e.message || e)); }
       );
     };
     const clearStance = () => {
       setBusy(true);
-      rl.clearStance(deskId, subId).then(
+      rl.clearStance(deskId, subId, geo).then(
         () => { setBusy(false); flash('House view cleared.'); onReload(); },
         (e) => { setBusy(false); flash('Not cleared — ' + (e.message || e)); }
       );
@@ -292,15 +326,18 @@
             </div>
           </div>
           <div className="rs-desk-actions">
+            <GeoPicker value={geo} countries={tax.countries} onChange={setGeo} />
             {sig && sig.r1m != null && (
               <span className="rs-market" title="Monitor's read: benchmark 1M / 3M return">
                 market 1M <b className={sig.r1m > 0 ? 'pos' : 'neg'}>{rv.fmtPct(sig.r1m)}</b>
               </span>
             )}
             <rv.DivergenceBadge stance={stance && stance.stance} sig={sig} />
-            <button type="button" className="rs-btn ghost"
-                    onClick={() => { window.location.hash = '#monitor/desk/' + deskId + (activeSub ? '/' + activeSub.id : ''); }}
-                    title="Open this desk in Monitor (T12)">Open in Monitor →</button>
+            {!desk.custom && (
+              <button type="button" className="rs-btn ghost"
+                      onClick={() => { window.location.hash = '#monitor/desk/' + deskId + (activeSub ? '/' + activeSub.id : ''); }}
+                      title="Open this desk in Monitor (T12)">Open in Monitor →</button>
+            )}
           </div>
         </div>
 
@@ -328,13 +365,14 @@
               );
             })}
             <div className="rs-subs-note">
-              Flag any sub-industry with a stance. The chips here are the house view,
-              not price action.
+              Flag any sub-industry with a stance. The chips here are the house view
+              for <b>{rl.geoLabel(geo, tax.countries)}</b>, not price action.
             </div>
           </div>
 
           <div className="rs-desk-main">
-            <rv.StanceEditor scopeLabel={scopeLabel} value={stance} canPublish={canPublish}
+            <rv.StanceEditor scopeLabel={scopeLabel + ' · ' + rl.geoLabel(geo, tax.countries)}
+                             value={stance} canPublish={canEdit} mode={mode}
                              onSave={saveStance} onClear={clearStance} busy={busy} />
 
             <div className="rs-tabs">
@@ -344,24 +382,25 @@
             </div>
 
             {tab === 'notes' && (
-              <NotesPanel scope={scope} showFilters
-                          emptyHint={'No notes on ' + scopeLabel + ' yet. Capture the first one above.'} />
+              <NotesPanel scope={scope} showFilters mode={mode} tax={tax}
+                          emptyHint={'No notes on ' + scopeLabel + ' yet.'
+                            + (mode === 'edit' ? ' Capture the first one above.' : ' Switch to Edit mode to add one.')} />
             )}
 
             {tab === 'watch' && (
               <div className="rs-watch">
                 {watchEdit ? (
-                  <rv.WatchEditor row={watchEdit === 'new' ? null : watchEdit}
+                  <rv.WatchEditor row={watchEdit === 'new' ? null : watchEdit} tax={tax}
                                   onSave={saveWatch} onCancel={() => setWatchEdit(null)} busy={busy} />
-                ) : canPublish ? (
+                ) : canEdit ? (
                   <div className="rs-watch-bar">
                     <button type="button" className="rs-btn" onClick={() => setWatchEdit('new')}>+ Add a name to watch</button>
                     <span className="rs-dim">names flagged under {scopeLabel}</span>
                   </div>
-                ) : (
+                ) : mode === 'view' ? null : (
                   <div className="rs-note-hint">Adding names needs a management or admin login.</div>
                 )}
-                <rv.WatchTable rows={watchRows} quotes={quotes} canEdit={canPublish}
+                <rv.WatchTable rows={watchRows} quotes={quotes} canEdit={canEdit}
                                onEdit={setWatchEdit} onDelete={delWatch}
                                onOpenNotes={(r) => { window.location.hash = '#research/note/' + encodeURIComponent(r.ticker); }} />
               </div>
@@ -369,7 +408,7 @@
 
             {tab === 'names' && (
               <CoverageUniverse desk={desk} subId={activeSub ? activeSub.id : 'all'} watch={book.watch}
-                                canPublish={canPublish} onWatch={saveWatch} />
+                                canPublish={canEdit} onWatch={saveWatch} />
             )}
           </div>
         </div>
@@ -426,14 +465,14 @@
   };
 
   // ---- watchlist page ------------------------------------------------------
-  const WatchlistPage = ({ book, onReload, onOpenDesk }) => {
-    const rl = RL(), rv = RV(), md = MD();
+  const WatchlistPage = ({ book, tax, mode, onReload, onOpenDesk }) => {
+    const rl = RL(), rv = RV();
     const [status, setStatus] = React.useState('');
     const [stance, setStance] = React.useState('');
     const [editing, setEditing] = React.useState(null);
     const [busy, setBusy] = React.useState(false);
     const [msg, setMsg] = React.useState('');
-    const canPublish = rl.canPublish();
+    const canEdit = mode === 'edit' && rl.canPublish();
 
     const rows = book.watch.filter((w) =>
       (!status || w.status === status) && (!stance || w.stance === stance));
@@ -472,7 +511,7 @@
               <option value="">All views</option>
               {rl.STANCES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
             </select>
-            {canPublish && <button type="button" className="rs-btn" onClick={() => setEditing('new')}>+ Add name</button>}
+            {canEdit && <button type="button" className="rs-btn" onClick={() => setEditing('new')}>+ Add name</button>}
           </div>
         </div>
         {msg && <div className="rs-flash">{msg}</div>}
@@ -489,9 +528,9 @@
           </div>
         )}
         {editing && (
-          <rv.WatchEditor row={editing === 'new' ? null : editing} onSave={save} onCancel={() => setEditing(null)} busy={busy} />
+          <rv.WatchEditor row={editing === 'new' ? null : editing} tax={tax} onSave={save} onCancel={() => setEditing(null)} busy={busy} />
         )}
-        <rv.WatchTable rows={rows} quotes={quotes} canEdit={canPublish}
+        <rv.WatchTable rows={rows} quotes={quotes} canEdit={canEdit}
                        onEdit={setEditing} onDelete={del}
                        onOpenNotes={(r) => { window.location.hash = '#research/note/' + encodeURIComponent(r.ticker); }} />
       </div>
@@ -499,8 +538,7 @@
   };
 
   // ---- notes page ----------------------------------------------------------
-  const NotesPage = ({ ticker, onClearTicker }) => {
-    const md = MD();
+  const NotesPage = ({ ticker, onClearTicker, tax, mode }) => {
     const [deskId, setDeskId] = React.useState('');
     const scope = React.useMemo(
       () => (ticker ? { ticker } : (deskId ? { deskId } : {})),
@@ -519,12 +557,12 @@
               : (
                 <select className="rs-select" value={deskId} onChange={(e) => setDeskId(e.target.value)}>
                   <option value="">All desks</option>
-                  {md.DESKS.map((d) => <option key={d.id} value={d.id}>{d.num} · {d.name}</option>)}
+                  {tax.desks.map((d) => <option key={d.id} value={d.id}>{d.num} · {d.name}</option>)}
                 </select>
               )}
           </div>
         </div>
-        <NotesPanel key={ticker || deskId || 'all'} scope={scope} showFilters />
+        <NotesPanel key={ticker || deskId || 'all'} scope={scope} showFilters mode={mode} tax={tax} />
       </div>
     );
   };
@@ -556,29 +594,50 @@
     { id: 'board', label: 'Research Board', glyph: '⊞' },
     { id: 'notes', label: 'Note Book', glyph: '❏' },
     { id: 'watchlist', label: 'Watchlist', glyph: '◉' },
+    { id: 'structure', label: 'Structure', glyph: '⚙' },
   ];
 
-  // #research/board|notes|watchlist · #research/desk/<id>[/<sub>] ·
+  // #research/board|notes|watchlist|structure · #research/desk/<id>[/<sub>] ·
   // #research/note/<TICKER>
+  //
+  // Desk ids are NOT validated here: a custom industry lives in the database and
+  // the taxonomy has not loaded yet at parse time. DeskView renders an
+  // "unknown desk" state instead, so a stale link degrades rather than silently
+  // bouncing to the board.
   const parseHash = () => {
     const m = (window.location.hash || '').match(/^#research(?:\/([a-z]+))?(?:\/([^/]+))?(?:\/([^/]+))?/);
     if (!m) return null;
     const kind = m[1], id = m[2], sub = m[3];
-    if (kind === 'desk' && id && MD().deskById(id)) {
-      return { view: { type: 'desk', id }, subId: sub ? decodeURIComponent(sub) : 'all', ticker: '' };
+    if (kind === 'desk' && id) {
+      return { view: { type: 'desk', id: decodeURIComponent(id) }, subId: sub ? decodeURIComponent(sub) : 'all', ticker: '' };
     }
     if (kind === 'note' && id) return { view: { type: 'notes' }, subId: 'all', ticker: decodeURIComponent(id).toUpperCase() };
-    if (['board', 'notes', 'watchlist'].includes(kind)) return { view: { type: kind }, subId: 'all', ticker: '' };
+    if (['board', 'notes', 'watchlist', 'structure'].includes(kind)) return { view: { type: kind }, subId: 'all', ticker: '' };
     return { view: { type: 'board' }, subId: 'all', ticker: '' };
   };
 
+  const MODE_KEY = 'lbc_research_mode';
+
   const ResearchTerminal = () => {
-    const md = MD();
+    const md = MD(), rl = RL();
     const initial = React.useMemo(parseHash, []);
     const [view, setView] = React.useState(initial ? initial.view : { type: 'board' });
     const [subId, setSubId] = React.useState(initial ? initial.subId : 'all');
     const [ticker, setTicker] = React.useState(initial ? initial.ticker : '');
-    const book = RL().useResearchBook();
+    const book = rl.useResearchBook();
+    const tax = rl.useTaxonomy();
+
+    // Geography the house view applies to. Not a filter — it selects WHICH
+    // stance you are reading and writing.
+    const [geo, setGeo] = React.useState(rl.GLOBAL);
+
+    // View vs Edit. Defaults to VIEW deliberately: the terminal is read far more
+    // often than it is edited, and a stray click should never mutate the book.
+    // Persisted so it survives a reload but not shared between users.
+    const [mode, setMode] = React.useState(() => {
+      try { return localStorage.getItem(MODE_KEY) === 'edit' ? 'edit' : 'view'; } catch { return 'view'; }
+    });
+    React.useEffect(() => { try { localStorage.setItem(MODE_KEY, mode); } catch {} }, [mode]);
 
     // state → hash (replaceState: no history spam, and it does not re-fire
     // hashchange, so the listener below cannot loop)
@@ -602,13 +661,13 @@
 
     const openDesk = (id) => { setSubId('all'); setTicker(''); setView({ type: 'desk', id }); };
     const goMonitor = () => { window.location.hash = '#monitor/coverage'; };
-    const equity = md.DESKS.filter((d) => d.group === 'equity');
-    const markets = md.DESKS.filter((d) => d.group === 'markets');
+    const equity = tax.desks.filter((d) => d.group === 'equity');
+    const markets = tax.desks.filter((d) => d.group === 'markets');
     const keyAct = (fn) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } };
 
     const RailDesk = ({ d }) => {
-      const st = book.stances['desk:' + d.id];
-      const m = st ? RL().stanceMeta(st.stance) : null;
+      const st = book.stances[rl.scopeKey(d.id, null, geo)];
+      const m = st ? rl.stanceMeta(st.stance) : null;
       return (
         <div className={'rs-rail-item desk ' + (view.type === 'desk' && view.id === d.id ? 'active' : '')}
              style={{ ['--ac']: d.accent }} onClick={() => openDesk(d.id)} title={d.short}
@@ -624,6 +683,22 @@
       <div className="rs-root">
         <div className="rs-rail">
           <div className="rs-rail-brand">RESEARCH<span className="v">T13</span></div>
+          {/* View vs Edit. Nothing in the terminal is editable until Edit is on,
+              which is also why the default is View. */}
+          <div className="rs-mode" role="group" aria-label="Mode">
+            {[['view', 'View', '◎'], ['edit', 'Edit', '✎']].map(([id, label, glyph]) => (
+              <button key={id} type="button" className={'rs-mode-b ' + (mode === id ? 'active' : '')}
+                      onClick={() => setMode(id)} aria-pressed={mode === id}
+                      title={id === 'view'
+                        ? 'Read-only. Nothing can be changed.'
+                        : 'Add and edit views, notes, names and structure.'}>
+                <span className="g">{glyph}</span>{label}
+              </button>
+            ))}
+          </div>
+          {mode === 'edit' && !rl.canPublish() && (
+            <div className="rs-mode-note">Notes only — the house view and structure need a management login.</div>
+          )}
           {RAIL_TOP.map((r) => (
             <div key={r.id} className={'rs-rail-item ' + (view.type === r.id ? 'active' : '')}
                  onClick={() => { setTicker(''); setView({ type: r.id }); }}
@@ -634,22 +709,38 @@
           ))}
           <div className="rs-rail-sec">Equity desks</div>
           {equity.map((d) => <RailDesk key={d.id} d={d} />)}
-          <div className="rs-rail-sec">Market desks</div>
+          {!!markets.length && <div className="rs-rail-sec">Market desks</div>}
           {markets.map((d) => <RailDesk key={d.id} d={d} />)}
           <div className="rs-rail-foot">
-            Same spine as Monitor<br />coverage v{md.VERSION}
+            {tax.industries.length
+              ? tax.industries.length + ' custom · ' + (tax.desks.length - tax.industries.length) + ' built-in'
+              : 'Same spine as Monitor'}
+            <br />coverage v{md.VERSION}
           </div>
         </div>
         <div className="rs-body">
-          {book.loading && <div className="rs-flash">Loading the research book…</div>}
+          {(book.loading || tax.loading) && <div className="rs-flash">Loading the research book…</div>}
           <RsBoundary key={view.type + ':' + (view.id || '') + ':' + ticker}>
-            {view.type === 'board' && <BoardPage book={book} onOpenDesk={openDesk} onGoMonitor={goMonitor} />}
+            {view.type === 'board' && (
+              <BoardPage book={book} tax={tax} geo={geo} setGeo={setGeo}
+                         onOpenDesk={openDesk} onGoMonitor={goMonitor} />
+            )}
             {view.type === 'desk' && (
               <DeskView key={view.id} deskId={view.id} subId={subId} setSubId={setSubId}
-                        book={book} onReload={book.reload} />
+                        book={book} tax={tax} geo={geo} setGeo={setGeo} mode={mode}
+                        onReload={book.reload} />
             )}
-            {view.type === 'notes' && <NotesPage ticker={ticker} onClearTicker={() => setTicker('')} />}
-            {view.type === 'watchlist' && <WatchlistPage book={book} onReload={book.reload} onOpenDesk={openDesk} />}
+            {view.type === 'notes' && (
+              <NotesPage ticker={ticker} onClearTicker={() => setTicker('')} tax={tax} mode={mode} />
+            )}
+            {view.type === 'watchlist' && (
+              <WatchlistPage book={book} tax={tax} mode={mode} onReload={book.reload} onOpenDesk={openDesk} />
+            )}
+            {view.type === 'structure' && (
+              <window.RESEARCH_TAXONOMY.StructurePage tax={tax} mode={mode}
+                                                      onChanged={() => { tax.reload(); book.reload(); }}
+                                                      onOpenDesk={openDesk} />
+            )}
           </RsBoundary>
         </div>
       </div>

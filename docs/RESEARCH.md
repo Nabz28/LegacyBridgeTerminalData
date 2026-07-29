@@ -13,14 +13,65 @@ monitor-data.js  ── the one coverage book (13 desks → sub-industries → n
       └── RESEARCH (T13)  stance, notes, watchlist           ← the view
 ```
 
+## Two modes
+
+The terminal opens in **View** and stays there until you say otherwise.
+
+| Mode | What it is |
+|---|---|
+| **◎ View** | Read-only. Every editor, capture box, add button and delete control is gone — not disabled, absent. You can read the whole book, switch geography, drill into any desk, search notes. Nothing you click can change anything. |
+| **✎ Edit** | Everything becomes editable: set house views, capture and edit notes, add watchlist names, and change the taxonomy itself. |
+
+The toggle is at the top of the rail and the choice persists per browser. The
+default is View on purpose — the book is read far more often than written, and a
+stray click should never mutate it.
+
+**Mode is a UI gate, not a security boundary.** RLS is still the enforcement
+point: the house view, watchlist and taxonomy need admin/management regardless of
+mode, and notes are always your own. A read-tier user who switches to Edit gets
+the note editors and a line in the rail explaining why the rest stays read-only.
+
 ## What it holds
 
 | Surface | What it is |
 |---|---|
-| **Research Board** | All 13 desks as cards: the house view (stance + conviction + horizon), the thesis line, note/watchlist counts, how many sub-industries are flagged — and the desk's live 1M benchmark return next to it. |
-| **Desk drill-in** | Set the house view for the desk or any single sub-industry. Tabs: Notes (scoped to the desk/sub), Watchlist (names flagged here), Coverage universe (every constituent, with watchlisted names marked). |
+| **Research Board** | Every industry as a card: the house view (stance + conviction + horizon), the thesis line, note/watchlist counts, how many sub-industries are flagged — and the desk's live 1M benchmark return next to it. |
+| **Desk drill-in** | Set the house view for the desk or any single sub-industry, per geography. Tabs: Notes (scoped to the desk/sub), Watchlist (names flagged here), Coverage universe (every constituent, with watchlisted names marked). |
 | **Note Book** | Every research note, newest first. Quick-capture (first line = title, ⌘/Ctrl+Enter to file) or long-form markdown. Filter by desk, kind, tag, or full-text. |
 | **Watchlist** | Names with stance, conviction, status, thesis, target and catalyst — with live price, distance to target, and a catalyst countdown. Plus a "catalysts ≤30d" strip. |
+| **Structure** | The taxonomy manager — add industries, sub-industry categories and countries. Edit mode only. |
+
+## Geography — a view is scoped
+
+A house view carries a geography: **Global**, a region (Americas, Europe,
+Asia-Pacific, ASEAN) or a single country. "Bullish global banks" and "bearish
+Indonesian banks" are two separate, simultaneously-valid views, not one
+overwriting the other.
+
+The picker sits in the board and desk headers. Switching it re-reads the whole
+board as that geography's book — it selects *which* view you are reading and
+writing, it is not a filter over one shared view.
+
+The board and the Monitor bridge both show the **Global** view as the headline,
+with a count of how many geography-specific views sit beneath it.
+
+## Editable taxonomy
+
+The coverage book in `monitor-data.js` is the shared spine with Monitor and stays
+fixed. Research **overlays** it:
+
+- **Add industries** — custom desks that sit alongside the 13 built-in ones.
+- **Add sub-industry categories** — to a custom industry *or* to a built-in desk
+  (e.g. an "AI Datacenter" cut on Technology). Built-in sub-industries stay.
+- **Add countries** — geographies the built-in map never carried.
+
+Built-in desks and countries are shown but **locked**: renaming them here would
+desync Research from Monitor. Everything custom is fully editable.
+
+Deleting a custom industry does **not** delete its research. Notes, stances and
+watchlist rows survive unparented, and the desk view says so rather than
+silently hiding them — losing a year of notes to a taxonomy edit would be far
+worse than an orphan row.
 
 **Stances**: `bullish · bearish · neutral · watching · avoid`, each with a
 1–5 conviction and a horizon. Set them at desk level, sub-industry level, or
@@ -55,6 +106,7 @@ turns into a terminal switch.
 
 ```
 #research/board                     the board
+#research/structure                 the taxonomy manager
 #research/notes                     the note book
 #research/watchlist                 the watchlist
 #research/desk/<deskId>             a desk       e.g. #research/desk/tech
@@ -65,14 +117,17 @@ turns into a terminal switch.
 Bookmarkable, shareable and reload-safe — the shell opens T13 on any `#research`
 hash, exactly as it does for `#monitor`.
 
-## Data model — `management.research_*` (migration `0059`)
+## Data model — `management.research_*` (migrations `0059`, `0064`)
 
 | Table | Key | Written by |
 |---|---|---|
-| `research_stance` | `scope_id` = `desk:<deskId>` or `sub:<deskId>/<subId>` | admin / management |
+| `research_stance` | `scope_id` = `desk:<deskId>@<geo>` or `sub:<deskId>/<subId>@<geo>` | admin / management |
 | `research_note` | `id` uuid | any authenticated user (own rows) |
 | `research_watch` | `id` uuid, unique on `ticker` | admin / management |
-| `research_desk_rollup` | view — per-desk stance + counts | read-only |
+| `research_industry` | `id` slug | admin / management |
+| `research_subindustry` | `id` slug | admin / management |
+| `research_country` | `code` | admin / management |
+| `research_desk_rollup` | view — GLOBAL stance + counts | read-only |
 
 `desk_id` / `sub_id` / `ticker` are ids from the client-side coverage book and
 are deliberately **not** foreign keys: the taxonomy versions with the frontend,
@@ -85,7 +140,8 @@ written by `admin`/`management`, matching `monitor_coverage`. Notes are personal
 work — anyone signed in can write their own, nobody can forge authorship or edit
 someone else's, and admin/management can override.
 
-Verified with a rollback-wrapped probe against the live database (all 8 pass):
+Verified with rollback-wrapped probes against the live database — 8/8 on the
+core tables (0059) and 13/13 on the taxonomy + geography (0064):
 
 | Assertion | Result |
 |---|---|
@@ -106,9 +162,11 @@ rather than the owner's.
 ```
 launcher/scripts/research-live.jsx    data layer — CRUD, session, divergence math
 launcher/scripts/research-views.jsx   stance chips/editor, note cards/editor, watch table
+launcher/scripts/research-taxonomy.jsx Structure page + geography picker
 launcher/scripts/research-ws.jsx      the terminal: board, desk view, notes, watchlist, routing
 launcher/styles/research.css          rs- prefix, same tokens as monitor.css
 supabase/migrations/0059_research_workspace.sql
+supabase/migrations/0064_research_taxonomy.sql
 ```
 
 Research deliberately owns **no** market data. Quotes, history and desk signals
@@ -127,3 +185,22 @@ Monitor already loaded it.
   than one extra round-trip.
 - **`canPublish()` mirrors RLS in the UI** so a read-tier analyst never meets a
   button that 403s — but the server is still the enforcement point.
+
+
+## Verification — taxonomy + geography (0064)
+
+| Assertion | Result |
+|---|---|
+| management creates a custom industry | allowed |
+| sub-industry on a built-in desk | allowed |
+| sub-industry on a custom industry | allowed |
+| custom country | allowed |
+| malformed slug | rejected by check constraint |
+| two geographies on one desk coexist | both stored |
+| stance on a custom industry | allowed |
+| rollup stays one row per desk | one row |
+| rollup reports the GLOBAL stance | correct |
+| rollup counts geo-specific views | correct |
+| analyst creates an industry | blocked |
+| analyst deletes a country | blocked |
+| analyst reads the taxonomy | allowed |

@@ -202,11 +202,11 @@
 
         <div className="mon-sec-h"><span>Equity Research</span><span className="n">{equity.length} sector desks</span></div>
         <div className="mon-cards">
-          {equity.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id]} onOpen={onOpenDesk} />)}
+          {equity.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id + '@GLOBAL']} onOpen={onOpenDesk} />)}
         </div>
         <div className="mon-sec-h"><span>Markets &amp; Macro</span><span className="n">{markets.length} desks — the strategy layer</span></div>
         <div className="mon-cards">
-          {markets.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id]} onOpen={onOpenDesk} />)}
+          {markets.map((d) => <DeskCard key={d.id} desk={d} assign={assign} stance={stances['desk:' + d.id + '@GLOBAL']} onOpen={onOpenDesk} />)}
         </div>
       </div>
     );
@@ -269,7 +269,8 @@
             <button className="mon-chip" onClick={() => setDossier(true)} title="Desk dossier — mandate, themes, valuation toolkit">Dossier</button>
             {/* T13 bridge: the house view on this desk, and a jump to it */}
             {(() => {
-              const st = (stances || {})[subId && subId !== 'all' ? 'sub:' + desk.id + '/' + subId : 'desk:' + desk.id];
+              // T13 keys carry a geography suffix; Monitor shows the GLOBAL house view.
+              const st = (stances || {})[(subId && subId !== 'all' ? 'sub:' + desk.id + '/' + subId : 'desk:' + desk.id) + '@GLOBAL'];
               const rv = RV();
               return (
                 <>
