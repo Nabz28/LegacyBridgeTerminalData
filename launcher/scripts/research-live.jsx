@@ -452,6 +452,174 @@
     };
   }
 
+  // ================================================================
+  // calendar — the macro feed + our own events + our priorities
+  // ================================================================
+  // macro.calendar (0052) is a FEED: the autonomous agent writes it through the
+  // service role and re-syncs on a `hash` dedup key; clients hold SELECT only.
+  // So Research reads it, never writes it, and keeps its own events separately.
+  // Both are merged into one row shape here.
+
+  const EVENT_CATS = {
+    central_bank: { label: 'Central Bank', glyph: '▣' },
+    data:         { label: 'Data',         glyph: '▤' },
+    rups:         { label: 'RUPS',         glyph: '⚖' },
+    earnings:     { label: 'Earnings',     glyph: '$' },
+    dividend:     { label: 'Dividend',     glyph: '◈' },
+    auction:      { label: 'Auction',      glyph: '⊞' },
+    ipo:          { label: 'IPO',          glyph: '✦' },
+    index:        { label: 'Index',        glyph: '▦' },
+    speech:       { label: 'Speakers',     glyph: '❝' },
+    fiscal:       { label: 'Fiscal',       glyph: '◰' },
+    holiday:      { label: 'Holiday',      glyph: '☼' },
+    geopolitics:  { label: 'Geopolitics',  glyph: '◎' },
+    commodity:    { label: 'Commodity',    glyph: '⛁' },
+    meeting:      { label: 'Meeting',      glyph: '⌂' },
+    deadline:     { label: 'Deadline',     glyph: '⚑' },
+    other:        { label: 'Other',        glyph: '•' },
+  };
+  const eventCat = (c) => EVENT_CATS[c] || EVENT_CATS.other;
+
+  const EVENT_PRIORITIES = [
+    { id: 'critical', label: 'Critical', cls: 'crit' },
+    { id: 'high',     label: 'High',     cls: 'high' },
+    { id: 'normal',   label: 'Normal',   cls: 'norm' },
+    { id: 'low',      label: 'Low',      cls: 'low' },
+  ];
+
+  // Stable key for a flag. Feed events key on the agent's own hash so a star
+  // survives the nightly re-sync — `id` is an identity column and would not.
+  const eventKey = (e) =>
+    e.src === 'research' ? 'research:' + e.id
+      : 'macro:' + (e.hash || ('id:' + e.id));
+
+  const fetchOwnEvents = () =>
+    req('/research_event?select=*&order=event_date.asc').then((r) => r || []);
+
+  const fetchEventFlags = () =>
+    req('/research_event_flag?select=*').then((rows) => {
+      const m = {};
+      (rows || []).forEach((r) => { m[r.event_key] = r; });
+      return m;
+    });
+
+  const saveOwnEvent = (row) => {
+    const u = me();
+    if (!row.title || !String(row.title).trim()) return Promise.reject(new Error('title is required'));
+    if (!row.event_date) return Promise.reject(new Error('date is required'));
+    const body = {
+      event_date: row.event_date,
+      event_time: row.event_time || '',
+      region: row.region || 'Global',
+      category: row.category || 'other',
+      title: String(row.title).trim(),
+      entity: row.entity || '',
+      ticker: row.ticker ? String(row.ticker).toUpperCase() : null,
+      detail: row.detail || '',
+      period: row.period || '',
+      importance: row.importance || 'med',
+      status: row.status || 'confirmed',
+      url: row.url || '',
+      desk_id: row.desk_id || null,
+      sub_id: row.sub_id || null,
+    };
+    if (row.id) {
+      return req('/research_event?id=eq.' + encodeURIComponent(row.id), {
+        method: 'PATCH', prefer: 'return=representation', body,
+      }).then((rows) => (rows && rows[0]) || null);
+    }
+    return req('/research_event', {
+      method: 'POST', prefer: 'return=representation',
+      body: [{ ...body, created_by: (u && u.id) || null, created_by_name: (u && (u.full_name || u.username)) || '' }],
+    }).then((rows) => (rows && rows[0]) || null);
+  };
+
+  const deleteOwnEvent = (id) =>
+    req('/research_event?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
+
+  // Upsert a flag. Title + date are denormalised onto it so a starred feed event
+  // can still be listed if a re-sync drops the row — the star is the record that
+  // we cared about it, and why.
+  const saveEventFlag = (e, patch) => {
+    const u = me();
+    const key = eventKey(e);
+    const cur = e.flag || {};
+    return req('/research_event_flag', {
+      method: 'POST',
+      prefer: 'resolution=merge-duplicates,return=representation',
+      body: [{
+        event_key: key,
+        starred: patch.starred !== undefined ? patch.starred : (cur.starred !== undefined ? cur.starred : true),
+        priority: patch.priority || cur.priority || 'normal',
+        note: patch.note !== undefined ? patch.note : (cur.note || ''),
+        event_date: e.event_date || null,
+        title: e.title || '',
+        updated_by: (u && u.id) || null,
+        updated_by_name: (u && (u.full_name || u.username)) || '',
+        updated_at: new Date().toISOString(),
+      }],
+    }).then((rows) => (rows && rows[0]) || null);
+  };
+
+  const clearEventFlag = (e) =>
+    req('/research_event_flag?event_key=eq.' + encodeURIComponent(eventKey(e)), { method: 'DELETE' });
+
+  // Normalise a feed row and one of ours into the same shape.
+  const normaliseFeed = (r) => ({
+    src: 'macro', id: r.id, hash: r.hash,
+    event_date: r.event_date, event_time: r.event_time || '',
+    region: r.region, category: r.category, title: r.title,
+    entity: r.entity || '', ticker: r.ticker || null, detail: r.detail || '',
+    period: r.period || '', importance: r.importance || 'med',
+    status: r.status || 'confirmed', url: r.url || '',
+    prev: r.prev, forecast: r.forecast, actual: r.actual,
+    desk_id: null, sub_id: null,
+  });
+  const normaliseOwn = (r) => ({
+    src: 'research', id: r.id,
+    event_date: r.event_date, event_time: r.event_time || '',
+    region: r.region, category: r.category, title: r.title,
+    entity: r.entity || '', ticker: r.ticker || null, detail: r.detail || '',
+    period: r.period || '', importance: r.importance || 'med',
+    status: r.status || 'confirmed', url: r.url || '',
+    desk_id: r.desk_id, sub_id: r.sub_id,
+    created_by_name: r.created_by_name, raw: r,
+  });
+
+  // The whole calendar in one hook: feed (anon, shared with T2) + our events +
+  // our flags, merged and sorted. A feed failure does not hide our own events.
+  function useCalendar() {
+    const [events, setEvents] = React.useState(null);
+    const [flags, setFlags] = React.useState({});
+    const [err, setErr] = React.useState('');
+    const [feedErr, setFeedErr] = React.useState('');
+
+    const reload = React.useCallback(() => {
+      const feed = (window.MACRO_LIVE && window.MACRO_LIVE.calendar)
+        ? window.MACRO_LIVE.calendar().then((r) => (r || []).map(normaliseFeed),
+            (e) => { setFeedErr('Macro feed unavailable (' + e + ') — showing your own events only.'); return []; })
+        : Promise.resolve([]);
+      const own = lbcSession() ? fetchOwnEvents().then((r) => r.map(normaliseOwn), () => []) : Promise.resolve([]);
+      const fl = lbcSession() ? fetchEventFlags().catch(() => ({})) : Promise.resolve({});
+      return Promise.all([feed, own, fl]).then(([f, o, m]) => {
+        setFlags(m);
+        setEvents([...f, ...o].sort((a, b) =>
+          a.event_date < b.event_date ? -1 : a.event_date > b.event_date ? 1
+            : String(a.event_time).localeCompare(String(b.event_time))));
+        setErr('');
+      }, (e) => setErr(e.message || String(e)));
+    }, []);
+
+    React.useEffect(() => { reload(); }, [reload]);
+
+    // Attach flags at read time so a star toggle needs no list rebuild.
+    const withFlags = React.useMemo(
+      () => (events || []).map((e) => ({ ...e, flag: flags[eventKey(e)] || null })),
+      [events, flags]
+    );
+    return { events: withFlags, loading: events === null, err, feedErr, flags, reload };
+  }
+
   // ---- rollup --------------------------------------------------------------
   const fetchRollup = () =>
     req('/research_desk_rollup?select=*').then((rows) => {
@@ -543,5 +711,9 @@
     saveIndustry, deleteIndustry,
     saveSubindustry, deleteSubindustry,
     saveCountry, deleteCountry,
+    // calendar
+    EVENT_CATS, EVENT_PRIORITIES, eventCat, eventKey,
+    useCalendar, fetchOwnEvents, fetchEventFlags,
+    saveOwnEvent, deleteOwnEvent, saveEventFlag, clearEventFlag,
   };
 })();

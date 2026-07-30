@@ -39,6 +39,7 @@ the note editors and a line in the rail explaining why the rest stays read-only.
 | **Desk drill-in** | Set the house view for the desk or any single sub-industry, per geography. Tabs: Notes (scoped to the desk/sub), Watchlist (names flagged here), Coverage universe (every constituent, with watchlisted names marked). |
 | **Note Book** | Every research note, newest first. Quick-capture (first line = title, ⌘/Ctrl+Enter to file) or long-form markdown. Filter by desk, kind, tag, or full-text. |
 | **Watchlist** | Names with stance, conviction, status, thesis, target and catalyst — with live price, distance to target, and a catalyst countdown. Plus a "catalysts ≤30d" strip. |
+| **Calendar** | The macro event feed (863 events) plus our own events, with a star and priority on any of them. |
 | **Structure** | The taxonomy manager — add industries, sub-industry categories and countries. Edit mode only. |
 
 ## Geography — a view is scoped
@@ -106,6 +107,7 @@ turns into a terminal switch.
 
 ```
 #research/board                     the board
+#research/calendar                  the calendar
 #research/structure                 the taxonomy manager
 #research/notes                     the note book
 #research/watchlist                 the watchlist
@@ -117,7 +119,7 @@ turns into a terminal switch.
 Bookmarkable, shareable and reload-safe — the shell opens T13 on any `#research`
 hash, exactly as it does for `#monitor`.
 
-## Data model — `management.research_*` (migrations `0059`, `0064`)
+## Data model — `management.research_*` (migrations `0059`, `0064`, `0065`)
 
 | Table | Key | Written by |
 |---|---|---|
@@ -127,6 +129,8 @@ hash, exactly as it does for `#monitor`.
 | `research_industry` | `id` slug | admin / management |
 | `research_subindustry` | `id` slug | admin / management |
 | `research_country` | `code` | admin / management |
+| `research_event` | `id` uuid | admin / management |
+| `research_event_flag` | `event_key` = `macro:<hash>` or `research:<uuid>` | admin / management |
 | `research_desk_rollup` | view — GLOBAL stance + counts | read-only |
 
 `desk_id` / `sub_id` / `ticker` are ids from the client-side coverage book and
@@ -163,10 +167,12 @@ rather than the owner's.
 launcher/scripts/research-live.jsx    data layer — CRUD, session, divergence math
 launcher/scripts/research-views.jsx   stance chips/editor, note cards/editor, watch table
 launcher/scripts/research-taxonomy.jsx Structure page + geography picker
+launcher/scripts/research-calendar.jsx  Calendar — feed merge, stars, priorities
 launcher/scripts/research-ws.jsx      the terminal: board, desk view, notes, watchlist, routing
 launcher/styles/research.css          rs- prefix, same tokens as monitor.css
 supabase/migrations/0059_research_workspace.sql
 supabase/migrations/0064_research_taxonomy.sql
+supabase/migrations/0065_research_calendar.sql
 ```
 
 Research deliberately owns **no** market data. Quotes, history and desk signals
@@ -204,3 +210,51 @@ Monitor already loaded it.
 | analyst creates an industry | blocked |
 | analyst deletes a country | blocked |
 | analyst reads the taxonomy | allowed |
+
+
+## Calendar — the feed, our events, and our priorities
+
+`macro.calendar` (0052) is a **feed**: 863 events written by the autonomous agent
+through the service role, re-synced against a `hash` dedup key. Clients hold
+`SELECT` only. So Research **reads** it and never writes it — an added row would
+sit outside the agent's hash space and a re-sync could drop or duplicate it.
+
+Three things merge into one agenda:
+
+1. **The feed** — the same events T2 shows, read via the anon key, shared cache.
+2. **Our events** (`research_event`) — a site visit, an internal deadline, an
+   expected filing. Same shape as the feed plus industry / sub-industry links.
+3. **Our flags** (`research_event_flag`) — a star, a priority
+   (`critical/high/normal/low`) and a private note, on **any** event of either
+   kind. Starring a feed event is the point: the BoE decision is not ours to
+   author, but caring about it is.
+
+### Why the star keys on `hash`, not `id`
+
+`event_key` is `macro:<hash>` for feed events and `research:<uuid>` for ours.
+`macro.calendar.id` is an identity column — if the agent deletes and re-inserts a
+row, the id changes and every star on it would silently detach. `hash` is the
+agent's own dedup key (`region|category|date|title|ticker`), so it is stable
+across re-syncs. **Verified**: the probe deletes and re-inserts a real feed row
+with a new id and confirms the star still matches.
+
+Title and date are denormalised onto the flag so a starred event can still be
+listed if the feed ever drops it — the star is the record that we cared, and why.
+
+Filters: region, multi-select category, search, high-impact, starred-only, and
+include-past (off by default — a calendar is about what is coming). A
+**Starred next** strip pins the flagged events that are actually approaching.
+
+### Verification (0065)
+
+| Assertion | Result |
+|---|---|
+| management adds our own event | allowed |
+| star a macro FEED event | allowed |
+| star survives a feed re-sync | still matched |
+| malformed `event_key` | rejected |
+| malformed priority | rejected |
+| re-starring is an upsert | one row, updated |
+| analyst adds an event | blocked |
+| analyst stars an event | blocked |
+| analyst reads events / stars / feed | allowed |

@@ -594,6 +594,7 @@
     { id: 'board', label: 'Research Board', glyph: '⊞' },
     { id: 'notes', label: 'Note Book', glyph: '❏' },
     { id: 'watchlist', label: 'Watchlist', glyph: '◉' },
+    { id: 'calendar', label: 'Calendar', glyph: '▦' },
     { id: 'structure', label: 'Structure', glyph: '⚙' },
   ];
 
@@ -612,7 +613,7 @@
       return { view: { type: 'desk', id: decodeURIComponent(id) }, subId: sub ? decodeURIComponent(sub) : 'all', ticker: '' };
     }
     if (kind === 'note' && id) return { view: { type: 'notes' }, subId: 'all', ticker: decodeURIComponent(id).toUpperCase() };
-    if (['board', 'notes', 'watchlist', 'structure'].includes(kind)) return { view: { type: kind }, subId: 'all', ticker: '' };
+    if (['board', 'notes', 'watchlist', 'structure', 'calendar'].includes(kind)) return { view: { type: kind }, subId: 'all', ticker: '' };
     return { view: { type: 'board' }, subId: 'all', ticker: '' };
   };
 
@@ -735,6 +736,9 @@
             )}
             {view.type === 'watchlist' && (
               <WatchlistPage book={book} tax={tax} mode={mode} onReload={book.reload} onOpenDesk={openDesk} />
+            )}
+            {view.type === 'calendar' && (
+              <window.RESEARCH_CALENDAR.CalendarPage tax={tax} mode={mode} onOpenDesk={openDesk} />
             )}
             {view.type === 'structure' && (
               <window.RESEARCH_TAXONOMY.StructurePage tax={tax} mode={mode}
