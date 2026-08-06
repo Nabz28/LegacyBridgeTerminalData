@@ -57,12 +57,13 @@ def nightly():
     from lbc.reason import desk_agent, editor
     from lbc.push import brief
     from lbc.audit import score
-    from lbc.ingest import gdelt, cb_statements
+    from lbc.ingest import gdelt, cb_statements, edgar
 
     today = dt.date.today().isoformat()
 
     fresh.guarded("ingest_gdelt")(gdelt.run)()
     fresh.guarded("ingest_cb_statements")(cb_statements.run)()
+    fresh.guarded("ingest_edgar")(edgar.run)()
 
     def _compute():
         r1 = dials.run(today)
