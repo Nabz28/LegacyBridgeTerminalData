@@ -33,12 +33,22 @@ Manual trigger: `gh workflow run research-nightly` (or any of the others).
 
 ## Telegram
 
-**Push (live now):** morning brief + alerts go to the chat ids in
-`research.config` key `telegram_push` (currently the LBC exec group). Add
-Narin's DM: get your numeric id from @userinfobot, then in the terminal chat:
-"add telegram chat id `<id>` to push list" — or update the config row directly.
-Push uses @LEGIONLBC_bot as sender. Send-only: this system never reads that
-bot's updates (OpenClaw owns its receive path).
+**Push (built, recipients empty by design — one step to turn on):** the brief
+carries position-level P&L, so nothing is broadcast until a human names the
+recipient. To start daily delivery to yourself:
+
+1. DM @userinfobot on Telegram, it replies with your numeric id.
+2. Message @LEGIONLBC_bot once (Telegram will not let a bot open a
+   conversation).
+3. Add the id to `research.config` key `telegram_push`:
+   `{"chat_ids": ["<your id>"]}` — via the terminal chat ("add telegram chat
+   id X to the push list") or directly against the config row.
+
+The LBC exec group id is `-5196396460`; add it only if a firm-wide brief is
+intended. Push uses @LEGIONLBC_bot as sender and is send-only: this system
+never reads that bot's updates (OpenClaw owns its receive path). Until a
+recipient exists, every brief still lands in `research.brief` and the Research
+Desk → Briefs tab, so nothing is lost.
 
 **Interactive bot (dormant until activated, ~3 minutes of human work):**
 1. Message @BotFather → `/newbot` → e.g. `LBCResearchBot`. Copy the token.

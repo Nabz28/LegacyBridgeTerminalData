@@ -185,7 +185,9 @@ and quality audit.
 
 - **Push:** GitHub Actions → Telegram `sendMessage` via the LEGION bot token
   (send-only; never getUpdates/webhook on that bot — OpenClaw on Nabil's laptop owns
-  its receive path). Recipients configurable in `research.config.telegram_push`.
+  its receive path). Recipients live in `research.config.telegram_push` and ship
+  **empty**: briefs carry position-level P&L, so delivery is opt-in per recipient
+  rather than broadcast by default (the runbook has the one-step enable).
   Morning brief 06:30 WIB; freshness violations; invalidation breaches; regime flips;
   calendar events <24h touching the book.
 - **Research Desk terminal** (replaces Monitor + Research workspaces): dial board,
