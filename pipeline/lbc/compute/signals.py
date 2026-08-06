@@ -133,30 +133,12 @@ def crowding_signals(today: str) -> list[dict]:
     return out
 
 
-def news_signals(today: str) -> list[dict]:
-    out = []
-    desks = db.select("research", "desk", "select=id,name&active=eq.true")
-    for desk in desks:
-        s = stats.load_series(f"news.vol.{desk['id']}", days=100)
-        if len(s) < 40:
-            continue
-        z = stats.zscore_latest(s, window=90)
-        if z is not None and z >= 3:
-            out.append({
-                "asof": today, "desk_id": desk["id"], "kind": "news_anomaly",
-                "ref": f"news.vol.{desk['id']}",
-                "headline": f"News volume on {desk['name']} at {z:.1f} sigma above normal",
-                "payload": {"z": z, "latest_vol": float(s.iloc[-1])},
-                "salience": int(min(75, 40 + z * 8)), "direction": 0,
-                "dedupe_key": f"news_vol:{desk['id']}",
-            })
-    return out
-
-
 def run(today: str | None = None) -> int:
+    # news volume/tone anomalies are emitted by compute/sentiment.py off the
+    # research.news feed, which carries headlines as well as counts
     today = today or dt.date.today().isoformat()
     total = 0
-    for fn in (momentum_signals, relationship_breaks, flow_signals, crowding_signals, news_signals):
+    for fn in (momentum_signals, relationship_breaks, flow_signals, crowding_signals):
         try:
             total += _write(fn(today))
         except Exception as e:

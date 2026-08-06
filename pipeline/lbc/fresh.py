@@ -27,7 +27,7 @@ EXPECTATIONS = {
     "ingest_idx_flow": 78,
     "ingest_cot": 200,           # weekly
     "ingest_edgar": 30,
-    "ingest_gdelt": 30,
+    "ingest_names": 24 * 30,     # backfill job, idempotent, rarely has work
     "ingest_news": 12,
     "ingest_calendar": 30,
     "ingest_cb_statements": 24 * 60,  # event-driven; 60d tolerance

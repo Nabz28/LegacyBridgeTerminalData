@@ -86,18 +86,17 @@ changes when it arrives.
 
 | Source | Access | What | Cadence |
 |---|---|---|---|
-| FRED (fredgraph.csv) | keyless CSV | US rates, curve, credit, liquidity, inflation, activity, WTI/Brent/HH gas, VIX | daily |
-| Yahoo Finance (yfinance) | keyless | global equity OHLCV for all desk baskets (~350 tickers: US, .JK, .T, .HK, .KS, .SI, EU), FX (USDIDR, USDJPY, USDCNH, EURUSD, DXY), futures (GC, HG, CL, ZS/ZC/ZW, TTF), crypto | 2× daily (Asia close, US close) |
-| Stooq | keyless CSV | cross-check + fallback for US/EU dailies | daily |
-| DBnomics | keyless REST | ECB, Bundesbank, Eurostat, IMF IFS (BI rate, ID/EA CPI), OECD, BIS — fills the JP/KR/EU/ID gaps in the CEIC archive | daily |
-| IDX | scrape | daily trading summary + foreign net buy/sell per stock | daily (Asia sweep) |
+| Fed H.15 via DBnomics | keyless REST | US policy rate and the 2/10/30y curve, business-daily and current | daily |
+| BLS public API v1 | keyless | CPI (headline + core), PPI, payrolls, unemployment, manufacturing hours | daily |
+| Yahoo Finance (yfinance) | keyless | global equity OHLCV for all desk baskets (~350 tickers: US, .JK, .T, .HK, .KS, .SI, EU), FX (USDIDR, USDJPY, USDCNH, EURUSD, DXY), futures (GC, HG, CL, BZ, NG, ZS/ZC/ZW, TTF), credit and sector ETFs, crypto | 2× daily (Asia close, US close) |
+| DBnomics | keyless REST | ECB policy rate, Eurostat HICP and sentiment, Fed H.6 M2 | daily |
+| IDX | scrape | daily trading summary + foreign net buy/sell per stock. Cloudflare blocks datacenter IPs, so this one pipeline runs locally (see runbook) | daily |
 | CFTC (Socrata) | keyless JSON | Commitment of Traders — spec positioning percentiles for gold, copper, oil, FX | weekly (Sat) |
 | SEC EDGAR | keyless API | new 10-K/10-Q/8-K for covered US names; risk-factor diff | 2× daily |
-| GDELT 2.0 | keyless | news volume + tone per desk entity set; volume anomaly beats sentiment | with nightly compute |
+| RSS news | keyless | 15 feeds (CNBC, Yahoo, Investing, Kontan, Antara, Tempo) routed per desk with sentiment | hourly |
 | Central banks | scrape | FOMC / BI / BoJ / ECB statements → word-level diff vs prior | on release days |
 | TSMC IR | scrape | monthly revenue (leads Western semi data) | monthly (~10th) |
-| ESDM / MPOB | scrape | HBA coal benchmark, palm stocks | monthly |
-| TSA throughput | keyless | US air traffic (aerospace desk) | weekly |
+| IMA sitemap | scrape | Indonesian HBA coal benchmark, both periods per month | bi-monthly |
 | macro.series archive | in DB | 12.4k CEIC-style historical series (US/CN/ID) for regressions and history | static backfill |
 | correlation.* | in DB | 4.1k mapped tickers with weekly/monthly returns since 1993 | static archive (mkt.price is the live store) |
 
@@ -118,15 +117,17 @@ salience score (0–100), and full refs. Catalog:
 | crowding | COT net-spec percentile >90 or <10 |
 | momentum_flip | basket 20d return sign flip with magnitude, or 50/200 cross |
 | flow_anomaly | IDX foreign net-buy 5d z-score >2 |
-| news_anomaly | GDELT article volume z>3 on desk entities |
+| news_anomaly | desk article volume z>2.5 vs its own 90d norm |
+| news_sentiment | desk news tone swung >2 sigma over 3 days |
 | stmt_diff | central bank statement changed materially vs prior (diff salience) |
 | filing_event | risk-factor language change in a covered name's annual/quarterly |
 | book_risk | position within 5% of invalidation; factor concentration >60%; correlation regime spike |
 | level_hit | user alert condition met (price/series threshold) |
 | freshness_violation | pipeline data stopped arriving |
 
-**Regime model:** growth (payrolls 3m + INDPRO yoy + Asia trade pulse), inflation
-(core trend vs target), liquidity (Fed BS − TGA − RRP, NFCI, policy direction), risk
+**Regime model:** growth (payrolls momentum, manufacturing hours, unemployment
+trend, cyclical-vs-defensive appetite), inflation (core CPI 3m annualised vs
+target), liquidity (M2 trend, policy direction, credit conditions), risk
 (VIX + HY OAS percentiles) → quadrant + direction tags, global and per country desk.
 
 **Dials:** weighted driver z-scores → machine score in [−2,+2] → proposed stance

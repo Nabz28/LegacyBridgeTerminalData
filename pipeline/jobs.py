@@ -62,13 +62,13 @@ def nightly():
     from lbc.reason import desk_agent, editor
     from lbc.push import brief
     from lbc.audit import score
-    from lbc.ingest import gdelt, cb_statements, edgar, news
+    from lbc.ingest import cb_statements, edgar, news, names
 
     today = dt.date.today().isoformat()
 
     # Ingest steps are individually guarded: one blocked source must not stop
     # the night. Failures land on the ops board and in the DATA line of the brief.
-    for name, fn in (("ingest_news", news.run), ("ingest_gdelt", gdelt.run),
+    for name, fn in (("ingest_news", news.run), ("ingest_names", names.run),
                      ("ingest_cb_statements", cb_statements.run), ("ingest_edgar", edgar.run)):
         try:
             fresh.guarded(name)(fn)()

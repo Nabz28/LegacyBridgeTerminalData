@@ -9,10 +9,10 @@ root as working directory.
 | WIB | What happens | Where |
 |---|---|---|
 | 16:30 | Asia close ingest: IDX prices + foreign flows, JP/HK/KR/SG | Actions `research-ingest-asia` |
-| 05:30 | US close ingest: FRED, yahoo, DBnomics, commodities, FX | Actions `research-nightly` step 1 |
-| ~05:45 | GDELT + central-bank statements + EDGAR, then compute (dials, signals, book), then 23 desk agents + Editor | `research-nightly` step 2 |
+| 05:30 | US close ingest: Yahoo, Fed H.15 + Eurostat via DBnomics, BLS, commodities, FX | Actions `research-nightly` step 1 |
+| ~05:45 | News, central-bank statements and EDGAR, then compute (dials, signals, book, sentiment, screens, key dates), then 23 desk agents + Editor | `research-nightly` step 2 |
 | ~06:30 | Morning brief pushed to Telegram + stored in `research.brief` | same |
-| hourly | Level alerts checked (market hours) | Actions `research-alerts` |
+| hourly | Level alerts, proactive pushes on salience 85+, news sweep | Actions `research-alerts` |
 | every 6h | Freshness assertions; Telegram alert if any pipeline stops delivering | Actions `research-freshness` |
 | Sun 17:00 | COT + HBA ingest, adversary pass on every open thesis, weekly IC packet | Actions `research-weekly` |
 | 1st of month | TSMC/HBA scrapes, monthly attribution | Actions `research-monthly` |
@@ -25,8 +25,9 @@ Manual trigger: `gh workflow run research-nightly` (or any of the others).
   Research Desk. Dial board, desk drill-ins, signals + graveyard, briefs
   archive, book, ops (freshness), chat.
 - **Chat agent:** the Chat tab (same login as the rest of the terminal), or the
-  Telegram bot once activated. Tools: dials, series, compare, book, signals,
-  calendar, memory search, screens, log_idea, set_alert, update_stance.
+  Telegram bot once activated. 18 tools: dials, series, compare, book, factor
+  exposure, signals, news, sentiment, candidates, key dates, calendar, memory
+  search, screens, explain_move, log_idea, set_alert, update_stance, ops.
 - **Ops truth:** Research Desk → Ops. Red banner = data stopped arriving.
   The pipeline writes `research.ops_freshness` on every run; a green status is
   earned by rows landing, not by a job exiting 0.
@@ -99,18 +100,6 @@ Recipients ship **empty by design**: the brief carries position-level P&L, so
 nothing broadcasts until you name a recipient. The LBC exec group is
 `-5196396460` if you ever want a firm-wide version. Until then every brief still
 lands in `research.brief` and the Research Desk → Briefs tab, so nothing is lost.
-
-**Interactive bot (dormant until activated, ~3 minutes of human work):**
-1. Message @BotFather → `/newbot` → e.g. `LBCResearchBot`. Copy the token.
-2. File it: `insert into brain.vault (key, value, is_secret, note) values
-   ('research_bot_token', '<token>', true, 'research desk bot')` (via the
-   Management API SQL runner, or ask the terminal chat agent to do it).
-3. `node scripts/research/set-webhook.mjs --token=<token>
-   --secret=$(<research_bot_webhook_secret from vault>)`
-4. DM the new bot `/start`; it replies with your user id and files it under
-   config `telegram_pending`; add it to config `telegram_allowed`
-   `{"user_ids":[...]}`.
-Commands: `/brief` `/dials` `/ops` `/id`, free text runs the full agent.
 
 ## Human overrides
 
