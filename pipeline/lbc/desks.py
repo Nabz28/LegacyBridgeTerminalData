@@ -17,7 +17,7 @@ DESKS = [
             ("cmd.oil.brent", "Brent", +1, 1.5, None),
             ("cmd.gas.hh", "Henry Hub", +1, 0.7, None),
             ("us.fx.dxy", "Dollar", -1, 0.7, "dollar"),
-            ("us.credit.hyoas", "HY spreads", -1, 0.6, "credit"),
+            ("us.credit.cond", "Credit conditions", +1, 0.6, "credit"),
         ],
     ),
     dict(
@@ -39,7 +39,7 @@ DESKS = [
         benchmark="GDX",
         drivers=[
             ("cmd.gold", "Gold", +1, 1.5, None),
-            ("us.rate.dfii10", "Real 10y", -1, 1.2, "real_rates"),
+            ("us.rate.real10", "Real 10y", -1, 1.2, "real_rates"),
             ("us.fx.dxy", "Dollar", -1, 0.8, "dollar"),
             ("pos.cot.gold", "Gold spec positioning", -1, 0.5, None),
         ],
@@ -74,10 +74,10 @@ DESKS = [
         tickers=["DOW", "LYB", "BAS.DE", "DD", "LIN", "APD", "4063.T", "TPIA.JK", "BRPT.JK", "ESSA.JK"],
         benchmark="XLB",
         drivers=[
-            ("us.act.indpro", "US industrial production", +1, 1.0, "global_cycle"),
+            ("us.act.avghrs", "Mfg hours worked", +1, 1.0, "global_cycle"),
             ("idx.csi300", "China activity", +1, 0.8, "china"),
             ("cmd.oil.brent", "Feedstock cost", -1, 0.8, None),
-            ("us.credit.hyoas", "HY spreads", -1, 0.6, "credit"),
+            ("us.credit.cond", "Credit conditions", +1, 0.6, "credit"),
         ],
     ),
     dict(
@@ -86,8 +86,8 @@ DESKS = [
         tickers=["UNP", "CSX", "UPS", "FDX", "MAERSK-B.CO", "ZIM", "9104.T", "SMDR.JK", "TMAS.JK", "ASSA.JK"],
         benchmark="IYT",
         drivers=[
-            ("us.act.rsafs", "US retail sales", +1, 1.0, "global_cycle"),
-            ("us.act.indpro", "US industrial production", +1, 0.8, "global_cycle"),
+            ("us.act.cyclical", "Cyclical appetite", +1, 1.0, "global_cycle"),
+            ("us.act.avghrs", "Mfg hours worked", +1, 0.8, "global_cycle"),
             ("cmd.oil.brent", "Fuel cost", -1, 0.8, None),
             ("idx.csi300", "China trade pulse", +1, 0.6, "china"),
         ],
@@ -98,10 +98,10 @@ DESKS = [
         tickers=["TSLA", "TM", "VOW3.DE", "MBG.DE", "BMW.DE", "STLA", "HMC", "1211.HK", "005380.KS", "RACE", "LI", "ASII.JK"],
         benchmark="CARZ",
         drivers=[
-            ("us.auto.saar", "US vehicle sales SAAR", +1, 1.2, None),
+            ("us.act.cyclical", "Cyclical appetite", +1, 1.2, None),
             ("us.rate.dgs10", "Financing rates", -1, 0.8, "rates"),
             ("cmd.oil.brent", "Fuel prices", -1, 0.5, None),
-            ("us.act.umcsent", "Consumer sentiment", +1, 0.7, None),
+            ("us.act.housing", "Big-ticket credit demand", +1, 0.7, None),
         ],
     ),
     dict(
@@ -110,7 +110,7 @@ DESKS = [
         tickers=["CAT", "DE", "ETN", "EMR", "PH", "SIE.DE", "ABBN.SW", "6301.T", "6954.T", "6501.T", "UNTR.JK"],
         benchmark="XLI",
         drivers=[
-            ("us.act.indpro", "US industrial production", +1, 1.0, "global_cycle"),
+            ("us.act.avghrs", "Mfg hours worked", +1, 1.0, "global_cycle"),
             ("idx.csi300", "China capex pulse", +1, 0.8, "china"),
             ("fx.usdjpy", "Yen (JP exporter margin)", +1, 0.6, None),
             ("us.rate.dgs10", "Rates", -1, 0.6, "rates"),
@@ -125,7 +125,7 @@ DESKS = [
         drivers=[
             ("tw.tsmc.rev", "TSMC monthly revenue", +1, 1.5, None),
             ("idx.sox", "SOX momentum", +1, 1.0, None),
-            ("us.rate.dfii10", "Real rates", -1, 0.8, "real_rates"),
+            ("us.rate.real10", "Real 10y", -1, 0.8, "real_rates"),
             ("idx.twii", "Taiwan market", +1, 0.6, None),
         ],
     ),
@@ -137,8 +137,8 @@ DESKS = [
         drivers=[
             ("tw.tsmc.rev", "TSMC monthly revenue", +1, 1.2, None),
             ("idx.sox", "SOX momentum", +1, 1.0, None),
-            ("us.rate.dfii10", "Real rates", -1, 0.8, "real_rates"),
-            ("us.credit.hyoas", "Financing conditions", -1, 0.6, "credit"),
+            ("us.rate.real10", "Real 10y", -1, 0.8, "real_rates"),
+            ("us.credit.cond", "Credit conditions", +1, 0.6, "credit"),
         ],
     ),
     dict(
@@ -149,7 +149,7 @@ DESKS = [
         drivers=[
             ("cmd.copper", "Copper (grid demand)", +1, 0.8, None),
             ("us.rate.dgs10", "Rates", -1, 1.0, "rates"),
-            ("us.act.indpro", "Industrial activity", +1, 0.6, "global_cycle"),
+            ("us.act.avghrs", "Mfg hours worked", +1, 0.6, "global_cycle"),
             ("cmd.gas.hh", "Power prices", +1, 0.5, None),
         ],
     ),
@@ -159,7 +159,7 @@ DESKS = [
         tickers=["LMT", "RTX", "NOC", "GD", "BA", "GE", "TDG", "HEI", "LHX", "BA.L", "RHM.DE", "HO.PA", "SAF.PA", "RR.L", "AIR.PA"],
         benchmark="ITA",
         drivers=[
-            ("us.act.indpro", "Industrial cycle", +1, 0.8, "global_cycle"),
+            ("us.act.avghrs", "Mfg hours worked", +1, 0.8, "global_cycle"),
             ("cmd.oil.brent", "Airline fuel pressure", -1, 0.5, None),
             ("us.rate.dgs10", "Rates", -1, 0.6, "rates"),
             ("idx.spx", "Risk appetite", +1, 0.7, "beta"),
@@ -171,10 +171,10 @@ DESKS = [
         tickers=["MSFT", "ORCL", "CRM", "NOW", "SAP", "ADBE", "SNOW", "PLTR", "PANW", "CRWD", "FTNT", "ZS"],
         benchmark="IGV",
         drivers=[
-            ("us.rate.dfii10", "Real rates", -1, 1.2, "real_rates"),
+            ("us.rate.real10", "Real 10y", -1, 1.2, "real_rates"),
             ("idx.ndx", "NDX momentum", +1, 1.0, None),
             ("us.fx.dxy", "Dollar (revenue translation)", -1, 0.5, "dollar"),
-            ("us.credit.hyoas", "Financing conditions", -1, 0.5, "credit"),
+            ("us.credit.cond", "Credit conditions", +1, 0.5, "credit"),
         ],
     ),
     dict(
@@ -183,9 +183,9 @@ DESKS = [
         tickers=["GOOGL", "META", "NFLX", "SPOT", "0700.HK", "BABA", "PDD", "SE", "GRAB", "GOTO.JK", "7974.T", "035420.KS", "RBLX", "EA"],
         benchmark="QQQ",
         drivers=[
-            ("us.act.umcsent", "Consumer sentiment (ad demand)", +1, 0.8, None),
-            ("us.act.rsafs", "Retail sales (e-commerce)", +1, 0.8, "global_cycle"),
-            ("us.rate.dfii10", "Real rates", -1, 0.8, "real_rates"),
+            ("us.act.cyclical", "Cyclical appetite (ad demand)", +1, 0.8, None),
+            ("idx.ndx", "Tech tape", +1, 0.8, None),
+            ("us.rate.real10", "Real 10y", -1, 0.8, "real_rates"),
             ("idx.hsi", "China platform sentiment", +1, 0.8, "china"),
         ],
     ),
@@ -197,7 +197,7 @@ DESKS = [
         drivers=[
             ("us.rate.dgs10", "Rates (duration)", -1, 0.8, "rates"),
             ("us.fx.dxy", "Dollar", -1, 0.5, "dollar"),
-            ("us.credit.igoas", "IG spreads", -1, 0.5, "credit"),
+            ("us.credit.cond", "Credit conditions", +1, 0.5, "credit"),
             ("idx.spx", "Market beta", +1, 0.5, "beta"),
         ],
     ),
@@ -207,8 +207,8 @@ DESKS = [
         tickers=["KO", "PG", "PM", "PEP", "NKE", "MCD", "SBUX", "MC.PA", "RMS.PA", "KER.PA", "CFR.SW", "1913.HK", "EL", "ICBP.JK", "INDF.JK", "MYOR.JK", "UNVR.JK", "AMRT.JK", "9983.T"],
         benchmark="XLP",
         drivers=[
-            ("us.act.umcsent", "Consumer sentiment", +1, 1.0, None),
-            ("us.act.rsafs", "Retail sales", +1, 0.8, "global_cycle"),
+            ("us.act.cyclical", "Cyclical appetite", +1, 1.0, None),
+            ("us.act.unrate", "Unemployment", -1, 0.8, None),
             ("us.fx.dxy", "Dollar (translation)", -1, 0.6, "dollar"),
             ("cmd.soybean", "Input costs", -1, 0.5, None),
         ],
@@ -221,7 +221,7 @@ DESKS = [
         drivers=[
             ("us.rate.t10y2y", "Curve", +1, 1.0, "rates"),
             ("us.rate.dgs2", "Short rates (NII)", +1, 0.7, "rates"),
-            ("us.credit.hyoas", "Credit stress", -1, 1.0, "credit"),
+            ("us.credit.cond", "Credit conditions", +1, 1.0, "credit"),
             ("idx.spx", "Volumes & wealth", +1, 0.6, "beta"),
         ],
     ),
@@ -232,10 +232,10 @@ DESKS = [
         tickers=["SPY", "QQQ", "IWM"],
         benchmark="SPY",
         drivers=[
-            ("us.act.claims", "Jobless claims", -1, 1.0, None),
-            ("us.act.indpro", "Industrial production", +1, 0.8, "global_cycle"),
-            ("us.credit.hyoas", "HY spreads", -1, 1.0, "credit"),
-            ("us.fin.nfci", "Financial conditions", -1, 0.8, None),
+            ("us.act.unrate", "Unemployment rate", -1, 1.0, None),
+            ("us.act.avghrs", "Mfg hours worked", +1, 0.8, "global_cycle"),
+            ("us.credit.cond", "Credit conditions", +1, 1.0, "credit"),
+            ("us.vol.vix", "Equity vol", -1, 0.8, None),
             ("us.rate.t10y2y", "Curve", +1, 0.6, "rates"),
             ("us.infl.cpi_core", "Core inflation trend", -1, 0.6, None),
         ],

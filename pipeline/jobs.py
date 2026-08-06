@@ -17,11 +17,11 @@ from lbc.desks import all_tickers
 
 
 def ingest_us(full: bool = False):
-    from lbc.ingest import fredcsv, yahoo, dbnomics
+    from lbc.ingest import yahoo, dbnomics, bls
 
-    fresh.guarded("ingest_fred")(fredcsv.run)(full=full)
     fresh.guarded("ingest_yahoo_series")(yahoo.run_series)(full=full)
     fresh.guarded("ingest_dbnomics")(dbnomics.run)(full=True)
+    fresh.guarded("ingest_bls")(bls.run)()
     tickers = yahoo.western_tickers(all_tickers())
     tickers += [t for t in _position_tickers() if not t.endswith(".JK") and t not in tickers]
     fresh.guarded("ingest_prices_us")(yahoo.run_prices)(tickers, full=full)
@@ -53,24 +53,39 @@ def ingest_asia(full: bool = False):
 
 
 def nightly():
-    from lbc.compute import dials, signals, book
+    from lbc.compute import dials, signals, book, derived, sentiment, screens, calendar
     from lbc.reason import desk_agent, editor
     from lbc.push import brief
     from lbc.audit import score
-    from lbc.ingest import gdelt, cb_statements, edgar
+    from lbc.ingest import gdelt, cb_statements, edgar, news
 
     today = dt.date.today().isoformat()
 
-    fresh.guarded("ingest_gdelt")(gdelt.run)()
-    fresh.guarded("ingest_cb_statements")(cb_statements.run)()
-    fresh.guarded("ingest_edgar")(edgar.run)()
+    # Ingest steps are individually guarded: one blocked source must not stop
+    # the night. Failures land on the ops board and in the DATA line of the brief.
+    for name, fn in (("ingest_news", news.run), ("ingest_gdelt", gdelt.run),
+                     ("ingest_cb_statements", cb_statements.run), ("ingest_edgar", edgar.run)):
+        try:
+            fresh.guarded(name)(fn)()
+        except Exception:
+            pass
+    try:
+        fresh.guarded("compute_derived")(derived.run)()
+    except Exception:
+        pass
 
     def _compute():
         r1 = dials.run(today)
         n2 = signals.run(today)
         r3 = book.run(today)
+        sentiment.run(today)
+        calendar.run()
         return r1["signals"] + n2 + r3["signals"]
     fresh.guarded("compute_nightly")(_compute)()
+    try:
+        fresh.guarded("compute_screens")(screens.run)(today)
+    except Exception:
+        pass
 
     def _reason():
         outs = desk_agent.run_all(today)
@@ -91,7 +106,10 @@ def nightly():
         n = score.score_signals(today)
         score.update_graveyard()
         return n
-    fresh.guarded("audit_scoring")(_score)()
+    try:
+        fresh.guarded("audit_scoring")(_score)()
+    except Exception:
+        pass
 
 
 def weekly():
@@ -217,31 +235,48 @@ def alerts():
 
 
 def freshness():
-    """Assert data arrival; alert on staleness (the anti-green-lights job)."""
+    """The anti-green-lights job.
+
+    Three independent failure modes are checked: a pipeline that stopped
+    running, a pipeline that has NEVER succeeded, and a pipeline that runs
+    happily while the data behind it stopped moving.
+    """
     from lbc.push import telegram
 
     now = dt.datetime.now(dt.timezone.utc)
     rows = db.select("research", "ops_freshness", "select=*")
-    stale = []
+    problems: list[str] = []
+
     for r in rows:
-        if r["status"] == "init" or not r.get("last_success_at"):
+        pipeline = r["pipeline"]
+        if not r.get("last_success_at"):
+            # never succeeded: invisible to a last_success_at-only check
+            problems.append(f"{pipeline}: has never succeeded ({r.get('note') or 'no detail'})")
+            db.update("research", "ops_freshness", f"pipeline=eq.{pipeline}", {"status": "error"})
             continue
         last = dt.datetime.fromisoformat(r["last_success_at"].replace("Z", "+00:00"))
         hours = (now - last).total_seconds() / 3600
         if hours > r["expect_within_hours"]:
-            stale.append((r["pipeline"], round(hours)))
-            db.update("research", "ops_freshness", f"pipeline=eq.{r['pipeline']}", {"status": "stale"})
+            problems.append(f"{pipeline}: no successful run for {round(hours)}h")
+            db.update("research", "ops_freshness", f"pipeline=eq.{pipeline}", {"status": "stale"})
         elif r["status"] == "stale":
-            db.update("research", "ops_freshness", f"pipeline=eq.{r['pipeline']}", {"status": "ok"})
-    already = db.get_config("freshness_alerted", []) or []
-    new_stale = [s for s in stale if s[0] not in already]
-    if new_stale:
-        lines = ["DATA FRESHNESS ALERT", ""]
-        for p, h in stale:
-            lines.append(f"  {p}: no data for {h}h")
-        telegram.send("\n".join(lines))
-    db.set_config("freshness_alerted", [s[0] for s in stale])
-    print(f"stale pipelines: {stale}")
+            db.update("research", "ops_freshness", f"pipeline=eq.{pipeline}", {"status": "ok"})
+
+    for v in fresh.assert_arrival():
+        problems.append(f"{v['pipeline']}: {v['detail']}")
+        db.update("research", "ops_freshness", f"pipeline=eq.{v['pipeline']}",
+                  {"status": "stale", "note": v["detail"][:500]})
+
+    # Re-alert daily while a problem persists rather than once and then silence.
+    state = db.get_config("freshness_alerted", {}) or {}
+    if isinstance(state, list):  # migrate old shape
+        state = {p: "" for p in state}
+    today = dt.date.today().isoformat()
+    fresh_problems = [p for p in problems if state.get(p.split(":")[0], "") != today]
+    if fresh_problems:
+        telegram.send("\n".join(["DATA FRESHNESS ALERT", ""] + [f"  {p}" for p in problems]))
+    db.set_config("freshness_alerted", {p.split(":")[0]: today for p in problems})
+    print(f"problems: {problems or 'none'}")
 
 
 def backfill():
@@ -254,9 +289,16 @@ def backfill():
     fresh.guarded("ingest_cot")(cot.run)(full=True)
 
 
+def news():
+    """Intraday news sweep. Cheap, keyless, runs alongside the alert job."""
+    from lbc.ingest import news as news_ingest
+
+    fresh.guarded("ingest_news")(news_ingest.run)()
+
+
 JOBS = {
     "ingest_us": ingest_us, "ingest_asia": ingest_asia, "nightly": nightly,
-    "weekly": weekly, "monthly": monthly, "alerts": alerts,
+    "weekly": weekly, "monthly": monthly, "alerts": alerts, "news": news,
     "freshness": freshness, "backfill": backfill,
 }
 

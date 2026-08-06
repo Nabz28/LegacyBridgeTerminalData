@@ -1,6 +1,13 @@
-"""Freshness bookkeeping: every pipeline records run + success + rows written.
+"""Freshness bookkeeping and data-arrival assertions.
 
-The freshness job asserts data-arrival (not job success) and alerts on staleness.
+The rule this module exists to enforce: a pipeline is green only when DATA
+LANDED, never merely because a job exited zero. The system it replaced reported
+"succeeded" for ten weeks while writing nothing.
+
+Two independent checks:
+  1. run-level  — did the job raise, and did it write any rows (`record`)
+  2. data-level — is the newest row in the target table actually recent
+                  (`assert_arrival`, run by the freshness job)
 """
 from __future__ import annotations
 
@@ -11,7 +18,8 @@ from . import db
 
 EXPECTATIONS = {
     # pipeline -> expect fresh data within N hours
-    "ingest_fred": 30,
+    "ingest_bls": 30,
+    "compute_derived": 30,
     "ingest_yahoo_series": 30,
     "ingest_prices_us": 78,      # weekend tolerant
     "ingest_prices_asia": 78,
@@ -20,13 +28,39 @@ EXPECTATIONS = {
     "ingest_cot": 200,           # weekly
     "ingest_edgar": 30,
     "ingest_gdelt": 30,
+    "ingest_news": 12,
+    "ingest_calendar": 30,
     "ingest_cb_statements": 24 * 60,  # event-driven; 60d tolerance
     "ingest_tsmc": 24 * 40,      # monthly
     "ingest_hba": 24 * 45,       # bi-monthly periods
     "compute_nightly": 30,
+    "compute_screens": 30,
     "reason_nightly": 30,
     "brief_morning": 30,
     "audit_scoring": 30,
+}
+
+# pipeline -> (schema, table, date column, max acceptable data age in days)
+ARRIVAL = {
+    "ingest_yahoo_series": ("mkt", "observation", "date", 5),
+    "ingest_prices_us": ("mkt", "price", "date", 5),
+    "ingest_prices_asia": ("mkt", "price", "date", 5),
+    "ingest_dbnomics": ("mkt", "observation", "date", 8),
+    "ingest_bls": ("mkt", "observation", "date", 70),
+    "ingest_idx_flow": ("mkt", "flow", "date", 6),
+    "ingest_cot": ("mkt", "observation", "date", 14),
+    "ingest_news": ("research", "news", "published_at", 3),
+    "compute_nightly": ("research", "dial", "asof", 2),
+    "brief_morning": ("research", "brief", "asof", 2),
+}
+
+# per-pipeline series/ticker probes: the specific rows that must be advancing
+PROBE = {
+    "ingest_dbnomics": ("mkt", "observation", "series_key", "us.rate.dgs10", "date", 8),
+    "ingest_bls": ("mkt", "observation", "series_key", "us.infl.cpi_core", "date", 70),
+    "ingest_yahoo_series": ("mkt", "observation", "series_key", "idx.spx", "date", 5),
+    "ingest_prices_asia": ("mkt", "price", "ticker", "BBCA.JK", "date", 6),
+    "ingest_idx_flow": ("mkt", "flow", "ticker", "_market", "date", 6),
 }
 
 
@@ -48,13 +82,22 @@ def record(pipeline: str, rows_written: int, ok: bool = True, note: str | None =
 
 
 def guarded(pipeline: str):
-    """Decorator: run job, record freshness, never swallow the traceback."""
+    """Run a job, record the outcome, never swallow the traceback.
+
+    A run that writes zero rows is recorded as an ERROR, not a success: an
+    ingest that fetched nothing is a failure whatever its exit code.
+    """
     def deco(fn):
         def wrapped(*a, **kw):
             try:
                 rows = fn(*a, **kw)
-                record(pipeline, int(rows or 0), ok=True)
-                print(f"[{pipeline}] ok, rows={rows}")
+                n = int(rows or 0)
+                if n == 0 and pipeline.startswith("ingest_"):
+                    record(pipeline, 0, ok=False, note="ran but wrote 0 rows")
+                    print(f"[{pipeline}] WROTE NOTHING (recorded as error)")
+                else:
+                    record(pipeline, n, ok=True)
+                    print(f"[{pipeline}] ok, rows={n}")
                 return rows
             except Exception as e:
                 record(pipeline, 0, ok=False, note=f"{type(e).__name__}: {e}")
@@ -63,3 +106,50 @@ def guarded(pipeline: str):
                 raise
         return wrapped
     return deco
+
+
+def _latest(schema: str, table: str, col: str, filt: str = "") -> str | None:
+    q = f"select={col}&order={col}.desc"
+    if filt:
+        q += f"&{filt}"
+    rows = db.select(schema, table, q, limit=1)
+    return rows[0][col] if rows else None
+
+
+def assert_arrival() -> list[dict]:
+    """Compare the newest row in each target table against its allowed age.
+
+    Returns a list of violations. This is the check that catches a pipeline
+    which runs, exits zero, re-upserts yesterday's rows, and stays green.
+    """
+    today = dt.date.today()
+    violations = []
+    for pipeline, (schema, table, col, max_days) in ARRIVAL.items():
+        try:
+            latest = _latest(schema, table, col)
+        except Exception as e:
+            violations.append({"pipeline": pipeline, "kind": "query_failed", "detail": str(e)[:120]})
+            continue
+        if not latest:
+            violations.append({"pipeline": pipeline, "kind": "no_data",
+                               "detail": f"{schema}.{table} is empty"})
+            continue
+        age = (today - dt.date.fromisoformat(str(latest)[:10])).days
+        if age > max_days:
+            violations.append({"pipeline": pipeline, "kind": "stale_data",
+                               "detail": f"newest {schema}.{table} row is {age}d old (limit {max_days}d)"})
+
+    for pipeline, (schema, table, key_col, key, col, max_days) in PROBE.items():
+        try:
+            latest = _latest(schema, table, col, f"{key_col}=eq.{key}")
+        except Exception:
+            continue
+        if not latest:
+            violations.append({"pipeline": pipeline, "kind": "probe_missing",
+                               "detail": f"{key} has no rows"})
+            continue
+        age = (today - dt.date.fromisoformat(str(latest)[:10])).days
+        if age > max_days:
+            violations.append({"pipeline": pipeline, "kind": "probe_stale",
+                               "detail": f"{key} last moved {age}d ago (limit {max_days}d)"})
+    return violations

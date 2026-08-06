@@ -106,8 +106,17 @@ def run() -> int:
                 "url": url, "raw_text": text, "hash": h,
             }], returning=True)
             wrote += 1
-            if prior and created and not text.startswith("[pdf]"):
-                changes, salience = _diff_summary(prior[0]["raw_text"] or "", text)
+            prior_text = (prior[0]["raw_text"] or "") if prior else ""
+            # A diff is only meaningful between comparable documents. Two
+            # different release types produce a near-total word change and would
+            # otherwise score 100 and lead the brief with a false alarm.
+            comparable = (
+                bool(prior_text)
+                and not prior_text.startswith("[pdf]")
+                and 0.25 <= len(text) / max(1, len(prior_text)) <= 4.0
+            )
+            if prior and created and not text.startswith("[pdf]") and comparable:
+                changes, salience = _diff_summary(prior_text, text)
                 db.insert("doc", "diff", [{
                     "document_id": created[0]["id"], "prior_document_id": prior[0]["id"],
                     "summary": f"{cfg['entity']} statement changed vs prior",

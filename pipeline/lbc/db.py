@@ -65,14 +65,35 @@ def _request(method: str, url: str, headers: dict, body: bytes | None = None, re
     raise DbError(f"{method} {url} exhausted retries: {last}")
 
 
+PAGE = 1000  # PostgREST db-max-rows on this project
+
+
 def select(schema: str, table: str, query: str = "", limit: int | None = None) -> list[dict]:
-    """query is a raw PostgREST query string, e.g. 'select=*&order=date.desc'."""
-    q = query
+    """Run a PostgREST query, e.g. 'select=*&order=date.desc'.
+
+    limit=None means ALL rows: PostgREST caps every response at db-max-rows
+    (1000 here) and returns the first page silently, so we page explicitly.
+    Getting this wrong truncates long series to their oldest 1000 points and
+    every statistic computed downstream is quietly wrong.
+    """
+    base = f"{SUPABASE_URL}/rest/v1/{table}"
     if limit is not None:
-        q = f"{q}&limit={limit}" if q else f"limit={limit}"
-    url = f"{SUPABASE_URL}/rest/v1/{table}" + (f"?{q}" if q else "")
-    _, txt = _request("GET", url, _headers(schema))
-    return json.loads(txt)
+        q = f"{query}&limit={limit}" if query else f"limit={limit}"
+        _, txt = _request("GET", f"{base}?{q}", _headers(schema))
+        return json.loads(txt)
+
+    rows: list[dict] = []
+    offset = 0
+    while True:
+        q = f"{query}&limit={PAGE}&offset={offset}" if query else f"limit={PAGE}&offset={offset}"
+        _, txt = _request("GET", f"{base}?{q}", _headers(schema))
+        page = json.loads(txt)
+        rows.extend(page)
+        if len(page) < PAGE:
+            return rows
+        offset += PAGE
+        if offset > 500_000:  # runaway guard
+            return rows
 
 
 def upsert(schema: str, table: str, rows: list[dict], on_conflict: str | None = None,

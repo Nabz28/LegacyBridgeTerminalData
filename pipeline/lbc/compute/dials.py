@@ -48,10 +48,11 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
         # driver_move signal
         if zmove is not None and abs(zmove) >= 1.8:
             impact = drv["direction"] * (1 if zmove > 0 else -1)
+            span = "in the latest print" if stats.infer_freq(s) == "m" else "in 5 sessions"
             signals.append({
                 "asof": today, "desk_id": desk["id"], "kind": "driver_move",
                 "ref": drv["series_key"],
-                "headline": f"{drv['label']} moved {zmove:+.1f} sigma in 5 sessions "
+                "headline": f"{drv['label']} moved {zmove:+.1f} sigma {span} "
                             f"({'supports' if impact > 0 else 'pressures'} {desk['name']})",
                 "payload": {"z_move_5d": round(zmove, 2), "latest": latest,
                             "pctile_12m": pct},
@@ -62,25 +63,48 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
         if pct is not None and (pct >= 97 or pct <= 3):
             side = "high" if pct >= 97 else "low"
             impact = drv["direction"] * (1 if pct >= 97 else -1)
+            span = {"m": "5-year", "w": "3-year"}.get(stats.infer_freq(s), "12-month")
             signals.append({
                 "asof": today, "desk_id": desk["id"], "kind": "driver_move",
                 "ref": drv["series_key"],
-                "headline": f"{drv['label']} at 12-month {side} ({pct:.0f}th percentile)",
+                "headline": f"{drv['label']} at {span} {side} ({pct:.0f}th percentile)",
                 "payload": {"pctile_12m": pct, "latest": latest},
                 "salience": 55, "direction": impact,
                 "dedupe_key": f"driver_extreme:{desk['id']}:{drv['series_key']}",
             })
 
-    weight_sum = sum(abs(d.get("weight", 1)) for d in driver_stats if d.get("z") is not None) or 1
+    live = [d for d in driver_stats if d.get("z") is not None]
+    weight_sum = sum(abs(d["weight"]) for d in live) or 1
+    total_weight = sum(abs(float(d["weight"])) for d in drivers) or 1
+    coverage = sum(abs(d["weight"]) for d in live) / total_weight
     score = float(np.clip(sum(contribs) / weight_sum, -2, 2)) if contribs else 0.0
-    machine_stance = _stance_from_score(score)
+
+    # A stance computed from half a driver set is a guess wearing a number.
+    # Below 60% weighted coverage the machine says nothing and says why.
+    if coverage < 0.6:
+        machine_stance = "N"
+        score = 0.0
+    else:
+        machine_stance = _stance_from_score(score)
 
     if desk["kind"] == "country":
         reg = regime.country_tag(desk["id"]) or glob["tag"]
     else:
         reg = glob["tag"]
 
-    return score, machine_stance, reg, driver_stats, signals
+    if coverage < 0.6:
+        stale_keys = [d["series_key"] for d in driver_stats if d.get("z") is None]
+        signals.append({
+            "asof": today, "desk_id": desk["id"], "kind": "freshness_violation",
+            "ref": desk["id"],
+            "headline": f"{desk['name']} dial is blind: only {coverage:.0%} of driver weight has data "
+                        f"({', '.join(stale_keys[:3])} missing)",
+            "payload": {"coverage": round(coverage, 3), "missing": stale_keys},
+            "salience": 85, "direction": 0,
+            "dedupe_key": f"dial_coverage:{desk['id']}",
+        })
+
+    return score, machine_stance, reg, driver_stats, signals, coverage
 
 
 def run(today: str | None = None) -> dict:
@@ -96,7 +120,8 @@ def run(today: str | None = None) -> dict:
     n_signals = 0
     for desk in desks:
         drivers = [d for d in all_drivers if d["desk_id"] == desk["id"]]
-        score, machine_stance, reg, driver_stats, signals = compute_desk(desk, drivers, glob, today)
+        score, machine_stance, reg, driver_stats, signals, coverage = compute_desk(
+            desk, drivers, glob, today)
 
         prior = prior_dials.get(desk["id"])
         prior_score = prior.get("machine_score") if prior else None
@@ -130,14 +155,20 @@ def run(today: str | None = None) -> dict:
         # preserve human stance overrides; machine fields always update
         stance_source = prior.get("stance_source", "machine") if prior else "machine"
         stance = prior["stance"] if (prior and stance_source == "human") else machine_stance
-        conviction = prior["conviction"] if (prior and stance_source == "human") else (
-            5 if abs(score) > 1.5 else (4 if abs(score) > 1.0 else (3 if abs(score) > 0.5 else 2)))
+        if coverage < 0.6:
+            conviction = 1  # blind dial: minimum conviction, never a confident call
+        else:
+            conviction = prior["conviction"] if (prior and stance_source == "human") else (
+                5 if abs(score) > 1.5 else (4 if abs(score) > 1.0 else (3 if abs(score) > 0.5 else 2)))
 
+        blind_note = "" if coverage >= 0.6 else f"driver coverage {coverage:.0%}, dial not trustworthy"
+        # Never republish an older night's prose as today's change. If nothing
+        # moved, say nothing moved; the desk agent may overwrite this later.
         dial_row = {
             "desk_id": desk["id"], "asof": today, "stance": stance, "conviction": conviction,
             "machine_score": round(score, 3), "machine_stance": machine_stance,
             "regime": reg, "drivers": driver_stats,
-            "what_changed": what_changed or (prior.get("what_changed") if prior else ""),
+            "what_changed": blind_note or what_changed or "no material change",
             "stance_source": stance_source, "updated_by": "pipeline",
             "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         }
@@ -145,7 +176,8 @@ def run(today: str | None = None) -> dict:
         db.upsert("research", "dial_history", [{
             "desk_id": desk["id"], "asof": today, "stance": stance, "conviction": conviction,
             "machine_score": round(score, 3), "machine_stance": machine_stance, "regime": reg,
-            "drivers": driver_stats, "what_changed": what_changed, "stance_source": stance_source,
+            "drivers": driver_stats, "what_changed": dial_row["what_changed"],
+            "stance_source": stance_source,
         }], on_conflict="desk_id,asof")
 
         live = [s for s in signals if (s["kind"], s["desk_id"]) not in graveyard]

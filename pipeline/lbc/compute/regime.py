@@ -13,22 +13,31 @@ def _trend(series_key: str, periods: int = 63) -> float | None:
 
 
 def global_regime() -> dict:
-    """growth x inflation quadrant + liquidity + risk tags."""
+    """growth x inflation quadrant + liquidity + risk tags.
+
+    Votes are counted only from series that actually have data; the result
+    carries `coverage` so downstream consumers can see how much of the model
+    was live. A regime read from one indicator is labelled as such.
+    """
     out = {"asof": dt.date.today().isoformat()}
 
-    # Growth: payrolls 3m change + INDPRO trend + claims direction (inverted)
+    # Growth: payrolls momentum, manufacturing hours, unemployment trend,
+    # cyclical-vs-defensive market appetite
     payems = stats.load_series("us.act.payems")
-    indpro = stats.load_series("us.act.indpro")
-    claims = stats.load_series("us.act.claims")
-    growth_votes = []
+    avghrs = stats.load_series("us.act.avghrs")
+    unrate = stats.load_series("us.act.unrate")
+    cyclical = stats.load_series("us.act.cyclical")
+    growth_votes, growth_possible = [], 4
     if len(payems) > 6:
         growth_votes.append(1 if payems.diff(3).iloc[-1] > 0 else -1)
-    ch = stats.change(indpro, 6)
+    ch = stats.change(avghrs, 6)
     if ch is not None:
-        growth_votes.append(1 if ch > 0 else -1)
-    cz = stats.zscore_latest(claims.rolling(4).mean() if len(claims) > 8 else claims)
-    if cz is not None:
-        growth_votes.append(-1 if cz > 0.5 else 1)
+        growth_votes.append(1 if ch >= 0 else -1)
+    if len(unrate) > 7:
+        growth_votes.append(-1 if unrate.iloc[-1] > unrate.iloc[-7] else 1)
+    cyc = stats.change(cyclical, 63)
+    if cyc is not None:
+        growth_votes.append(1 if cyc > 0 else -1)
     growth = "expanding" if sum(growth_votes) > 0 else "slowing"
 
     # Inflation: core CPI 3m annualized vs 2.5%
@@ -38,39 +47,37 @@ def global_regime() -> dict:
         r3m = (cpi.iloc[-1] / cpi.iloc[-4]) ** 4 - 1
         infl = "hot" if r3m > 0.03 else ("sticky" if r3m > 0.022 else "cooling")
 
-    # Liquidity: net liquidity trend (WALCL - TGA - RRP) + NFCI level
-    walcl = stats.load_series("us.liq.walcl")
-    tga = stats.load_series("us.liq.tga")
-    rrp = stats.load_series("us.liq.rrp")
-    nfci = stats.load_series("us.fin.nfci")
-    liq = "neutral"
-    try:
-        import pandas as pd
-        net = pd.concat([walcl.rename("w"), tga.rename("t").reindex(walcl.index, method="ffill"),
-                         rrp.rename("r").reindex(walcl.index, method="ffill")], axis=1)
-        net["nl"] = net["w"] / 1000 - net["t"] - net["r"]  # WALCL is $mn, others $bn
-        nl = net["nl"].dropna()
-        if len(nl) > 13:
-            liq = "easing" if nl.iloc[-1] > nl.iloc[-13] else "tightening"
-    except Exception:
-        pass
-    nfci_level = float(nfci.iloc[-1]) if len(nfci) else None
-    if nfci_level is not None and nfci_level > 0:
-        liq = "tightening"
+    # Liquidity: M2 growth + policy direction + credit conditions trend
+    m2 = stats.load_series("us.liq.m2", days=1500)
+    ffr = stats.load_series("us.rate.dff")
+    credit = stats.load_series("us.credit.cond")
+    liq_votes = []
+    if len(m2) > 7:
+        liq_votes.append(1 if m2.iloc[-1] > m2.iloc[-7] else -1)
+    if len(ffr) > 130:
+        liq_votes.append(-1 if ffr.iloc[-1] > ffr.iloc[-130] else 1)  # hikes = tightening
+    cch = stats.change(credit, 63)
+    if cch is not None:
+        liq_votes.append(1 if cch > 0 else -1)
+    liq = "easing" if sum(liq_votes) > 0 else ("tightening" if sum(liq_votes) < 0 else "neutral")
 
-    # Risk: VIX + HY OAS percentiles
+    # Risk: VIX + credit-conditions percentiles
     vix_p = stats.pctile_latest(stats.load_series("us.vol.vix"))
-    hy_p = stats.pctile_latest(stats.load_series("us.credit.hyoas"))
+    credit_p = stats.pctile_latest(credit)
     risk = "risk-on"
-    if (vix_p or 0) > 80 or (hy_p or 0) > 80:
+    if (vix_p or 0) > 80 or (credit_p is not None and credit_p < 20):
         risk = "risk-off"
-    elif (vix_p or 0) > 60 or (hy_p or 0) > 60:
+    elif (vix_p or 0) > 60 or (credit_p is not None and credit_p < 40):
         risk = "cautious"
 
+    coverage = round((len(growth_votes) / growth_possible + len(liq_votes) / 3) / 2, 2)
     out.update({
         "growth": growth, "inflation": infl, "liquidity": liq, "risk": risk,
-        "tag": f"{growth} growth, {infl} inflation, liquidity {liq}, {risk}",
-        "detail": {"vix_pctile": vix_p, "hy_pctile": hy_p, "nfci": nfci_level},
+        "coverage": coverage,
+        "tag": f"{growth} growth, {infl} inflation, liquidity {liq}, {risk}"
+               + ("" if coverage >= 0.6 else f" (partial data, {coverage:.0%} coverage)"),
+        "detail": {"vix_pctile": vix_p, "credit_pctile": credit_p,
+                   "growth_votes": growth_votes, "liq_votes": liq_votes},
     })
     return out
 

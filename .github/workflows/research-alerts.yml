@@ -28,3 +28,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_PUSH_CHAT_ID: ${{ secrets.TELEGRAM_PUSH_CHAT_ID }}
         run: python pipeline/jobs.py alerts
+      - name: News sweep
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        env:
+          SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+        run: python pipeline/jobs.py news

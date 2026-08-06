@@ -1,46 +1,51 @@
 """The series registry: every macro/commodity/FX/positioning series the system tracks.
 
 source conventions:
-  fredcsv   -> https://fred.stlouisfed.org/graph/fredgraph.csv?id=<source_id>   (keyless)
   yahoo     -> yfinance daily close of <source_id>
   dbnomics  -> https://api.db.nomics.world/v22/series/<source_id>?observations=1
+  bls       -> BLS public API v1 (keyless), series id <source_id>
   cftc      -> Socrata publicreporting.cftc.gov legacy futures-only, code=<source_id>
   scrape_*  -> custom scrapers in ingest/scrapes.py
-Only sources verified live (2026-08-07) are seeded. Stale mirrors were deliberately
-excluded; policy-rate changes are caught by the central-bank statement pipeline.
+
+Every entry was verified live on 2026-08-07 against its source. FRED's
+fredgraph.csv was the original design but proved unreachable from throttled
+networks; the same content now comes from Fed H.15 via DBnomics (daily,
+current), BLS (monthly, current), and Yahoo (daily). Stale DBnomics mirrors
+(BLS-on-DBnomics, OECD KEI) were rejected for being 12+ months behind.
 """
 
 # key, label, country, category, unit, freq, source, source_id
 SERIES = [
-    # --- US rates / curve / credit / liquidity (FRED, keyless CSV) ---
-    ("us.rate.dff",      "Fed Funds Effective",          "us", "rates",     "%",   "d", "fredcsv", "DFF"),
-    ("us.rate.dgs2",     "UST 2Y Yield",                 "us", "rates",     "%",   "d", "fredcsv", "DGS2"),
-    ("us.rate.dgs10",    "UST 10Y Yield",                "us", "rates",     "%",   "d", "fredcsv", "DGS10"),
-    ("us.rate.t10y2y",   "UST 10Y-2Y Spread",            "us", "rates",     "pp",  "d", "fredcsv", "T10Y2Y"),
-    ("us.rate.dfii10",   "UST 10Y Real Yield (TIPS)",    "us", "rates",     "%",   "d", "fredcsv", "DFII10"),
-    ("us.infl.t10yie",   "10Y Breakeven Inflation",      "us", "inflation", "%",   "d", "fredcsv", "T10YIE"),
-    ("us.credit.hyoas",  "US HY OAS",                    "us", "credit",    "pp",  "d", "fredcsv", "BAMLH0A0HYM2"),
-    ("us.credit.igoas",  "US IG OAS",                    "us", "credit",    "pp",  "d", "fredcsv", "BAMLC0A0CM"),
-    ("us.fin.nfci",      "Chicago Fed NFCI",             "us", "liquidity", "idx", "w", "fredcsv", "NFCI"),
-    ("us.liq.walcl",     "Fed Balance Sheet",            "us", "liquidity", "$mn", "w", "fredcsv", "WALCL"),
-    ("us.liq.tga",       "Treasury General Account",     "us", "liquidity", "$bn", "w", "fredcsv", "WTREGEN"),
-    ("us.liq.rrp",       "Fed Reverse Repo",             "us", "liquidity", "$bn", "d", "fredcsv", "RRPONTSYD"),
-    ("us.vol.vix",       "VIX",                          "us", "risk",      "idx", "d", "fredcsv", "VIXCLS"),
-    ("us.fx.dxy",        "Broad Dollar Index",           "us", "fx",        "idx", "d", "fredcsv", "DTWEXBGS"),
-    # --- US activity / inflation prints (FRED) ---
-    ("us.act.claims",    "Initial Jobless Claims",       "us", "activity",  "k",   "w", "fredcsv", "ICSA"),
-    ("us.act.indpro",    "Industrial Production",        "us", "activity",  "idx", "m", "fredcsv", "INDPRO"),
-    ("us.act.payems",    "Nonfarm Payrolls",             "us", "activity",  "k",   "m", "fredcsv", "PAYEMS"),
-    ("us.act.rsafs",     "Retail Sales",                 "us", "activity",  "$mn", "m", "fredcsv", "RSAFS"),
-    ("us.act.umcsent",   "U.Mich Consumer Sentiment",    "us", "activity",  "idx", "m", "fredcsv", "UMCSENT"),
-    ("us.act.houst",     "Housing Starts",               "us", "activity",  "k",   "m", "fredcsv", "HOUST"),
-    ("us.auto.saar",     "US Light Vehicle Sales SAAR",  "us", "activity",  "mn",  "m", "fredcsv", "TOTALSA"),
-    ("us.infl.cpi_core", "Core CPI (index)",             "us", "inflation", "idx", "m", "fredcsv", "CPILFESL"),
-    ("us.infl.pce_core", "Core PCE (index)",             "us", "inflation", "idx", "m", "fredcsv", "PCEPILFE"),
-    # --- Commodities (FRED spot + Yahoo futures) ---
-    ("cmd.oil.wti",      "WTI Crude",                    "global", "commodity", "$",  "d", "fredcsv", "DCOILWTICO"),
-    ("cmd.oil.brent",    "Brent Crude",                  "global", "commodity", "$",  "d", "fredcsv", "DCOILBRENTEU"),
-    ("cmd.gas.hh",       "Henry Hub Natgas",             "global", "commodity", "$",  "d", "fredcsv", "DHHNGSP"),
+    # --- US rates / curve (Fed H.15 via DBnomics, business-daily, current) ---
+    ("us.rate.dff",      "Fed Funds Effective",          "us", "rates",     "%",   "d", "dbnomics", "FED/H15/RIFSPFF_N.B"),
+    ("us.rate.dgs2",     "UST 2Y Yield",                 "us", "rates",     "%",   "d", "dbnomics", "FED/H15/RIFLGFCY02_N.B"),
+    ("us.rate.dgs10",    "UST 10Y Yield",                "us", "rates",     "%",   "d", "dbnomics", "FED/H15/RIFLGFCY10_N.B"),
+    ("us.rate.dgs30",    "UST 30Y Yield",                "us", "rates",     "%",   "d", "dbnomics", "FED/H15/RIFLGFCY30_N.B"),
+    ("us.liq.m2",        "US M2 Money Stock",            "us", "liquidity", "$bn", "m", "dbnomics", "FED/H6_H6_M2/M2.M"),
+    # --- US risk / credit / dollar (Yahoo; ETF spreads proxy OAS) ---
+    ("us.vol.vix",       "VIX",                          "us", "risk",      "idx", "d", "yahoo",   "^VIX"),
+    ("us.vol.move",      "ICE BofA MOVE (rates vol)",    "us", "risk",      "idx", "d", "yahoo",   "^MOVE"),
+    ("us.fx.dxy",        "Dollar Index",                 "us", "fx",        "idx", "d", "yahoo",   "DX-Y.NYB"),
+    ("us.credit.hyg",    "HYG (US high yield)",          "us", "credit",    "$",   "d", "yahoo",   "HYG"),
+    ("us.credit.lqd",    "LQD (US investment grade)",    "us", "credit",    "$",   "d", "yahoo",   "LQD"),
+    ("us.credit.ief",    "IEF (7-10y Treasury)",         "us", "credit",    "$",   "d", "yahoo",   "IEF"),
+    ("us.rate.tips",     "TIP (TIPS ETF, real-rate px)", "us", "rates",     "$",   "d", "yahoo",   "TIP"),
+    ("us.eq.disc",       "XLY (consumer discretionary)", "us", "equity",    "$",   "d", "yahoo",   "XLY"),
+    ("us.eq.staples",    "XLP (consumer staples)",       "us", "equity",    "$",   "d", "yahoo",   "XLP"),
+    ("us.eq.semis",      "SMH (semis)",                  "us", "equity",    "$",   "d", "yahoo",   "SMH"),
+    ("us.eq.transport",  "IYT (transports)",             "us", "equity",    "$",   "d", "yahoo",   "IYT"),
+    ("us.eq.homebuild",  "XHB (homebuilders)",           "us", "equity",    "$",   "d", "yahoo",   "XHB"),
+    # --- US activity / inflation (BLS public API, keyless, current) ---
+    ("us.act.payems",    "Nonfarm Payrolls",             "us", "activity",  "k",   "m", "bls", "CES0000000001"),
+    ("us.act.unrate",    "Unemployment Rate",            "us", "activity",  "%",   "m", "bls", "LNS14000000"),
+    ("us.act.avghrs",    "Avg Weekly Hours (mfg)",       "us", "activity",  "hrs", "m", "bls", "CES3000000007"),
+    ("us.infl.cpi_core", "Core CPI (index)",             "us", "inflation", "idx", "m", "bls", "CUSR0000SA0L1E"),
+    ("us.infl.cpi",      "Headline CPI (index)",         "us", "inflation", "idx", "m", "bls", "CUSR0000SA0"),
+    ("us.infl.ppi",      "PPI Final Demand",             "us", "inflation", "idx", "m", "bls", "WPUFD4"),
+    # --- Commodities (Yahoo futures) ---
+    ("cmd.oil.wti",      "WTI Crude",                    "global", "commodity", "$",  "d", "yahoo", "CL=F"),
+    ("cmd.oil.brent",    "Brent Crude",                  "global", "commodity", "$",  "d", "yahoo", "BZ=F"),
+    ("cmd.gas.hh",       "Henry Hub Natgas",             "global", "commodity", "$",  "d", "yahoo", "NG=F"),
     ("cmd.gold",         "Gold Futures",                 "global", "commodity", "$",  "d", "yahoo",   "GC=F"),
     ("cmd.silver",       "Silver Futures",               "global", "commodity", "$",  "d", "yahoo",   "SI=F"),
     ("cmd.copper",       "Copper Futures",               "global", "commodity", "$",  "d", "yahoo",   "HG=F"),
@@ -51,11 +56,13 @@ SERIES = [
     ("cmd.soyoil",       "Soybean Oil (palm proxy)",     "global", "commodity", "c",  "d", "yahoo",   "ZL=F"),
     ("cmd.ngas_ttf",     "TTF EU Natgas",                "eu",     "commodity", "€",  "d", "yahoo",   "TTF=F"),
     ("cmd.coal.hba",     "Indonesia HBA Coal Benchmark", "id",     "commodity", "$",  "m", "scrape_hba", "HBA"),
+    ("cmd.coal.equity",  "Coal Equity Complex (BTU)",    "global", "commodity", "$",  "d", "yahoo",   "BTU"),
+    ("cmd.gsci",         "S&P GSCI Commodity Index",     "global", "commodity", "idx","d", "yahoo",   "^SPGSCI"),
     # --- FX (Yahoo) ---
     ("fx.usdidr",        "USD/IDR",                      "id", "fx", "IDR", "d", "yahoo", "IDR=X"),
     ("fx.usdjpy",        "USD/JPY",                      "jp", "fx", "JPY", "d", "yahoo", "JPY=X"),
     ("fx.usdkrw",        "USD/KRW",                      "kr", "fx", "KRW", "d", "yahoo", "KRW=X"),
-    ("fx.usdcnh",        "USD/CNH",                      "cn", "fx", "CNH", "d", "yahoo", "CNH=X"),
+    ("fx.usdcnh",        "USD/CNY",                      "cn", "fx", "CNY", "d", "yahoo", "CNY=X"),
     ("fx.eurusd",        "EUR/USD",                      "eu", "fx", "USD", "d", "yahoo", "EURUSD=X"),
     # --- Indexes (Yahoo) ---
     ("idx.spx",          "S&P 500",                      "us", "index", "idx", "d", "yahoo", "^GSPC"),
@@ -83,6 +90,12 @@ SERIES = [
     # --- Flows / high-frequency scrapes ---
     ("id.flow.foreign",  "IDX Foreign Net Buy (market)", "id", "flows",    "IDRbn", "d", "scrape_idx",  "FOREIGN_NET"),
     ("tw.tsmc.rev",      "TSMC Monthly Revenue",         "tw", "activity", "NT$mn", "m", "scrape_tsmc", "TSMC_REV"),
+    # --- Derived (computed in compute/derived.py from the series above) ---
+    ("us.rate.t10y2y",   "UST 10Y-2Y Curve",             "us", "rates",     "pp",  "d", "derived", "dgs10-dgs2"),
+    ("us.rate.real10",   "US 10Y Real Yield (CPI-based)","us", "rates",     "%",   "d", "derived", "dgs10-cpi_yoy"),
+    ("us.credit.cond",   "Credit Conditions (HYG/IEF)",  "us", "credit",    "ratio","d", "derived", "hyg/ief"),
+    ("us.act.cyclical",  "Cyclical Appetite (XLY/XLP)",  "us", "activity",  "ratio","d", "derived", "xly/xlp"),
+    ("us.act.housing",   "Housing Momentum (XHB/SPX)",   "us", "activity",  "ratio","d", "derived", "xhb/spx"),
 ]
 
 

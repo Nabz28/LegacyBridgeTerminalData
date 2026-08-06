@@ -30,7 +30,7 @@ def momentum_signals(today: str) -> list[dict]:
     out = []
     desks = db.select("research", "desk", "select=id,name,tickers&active=eq.true")
     for desk in desks:
-        idx = stats.basket_index(desk["tickers"][:12])
+        idx = stats.basket_index(desk["tickers"][:stats.BASKET_N])
         if len(idx) < 240:
             continue
         r20 = stats.change(idx, 20)
@@ -76,7 +76,7 @@ def relationship_breaks(today: str) -> list[dict]:
             continue
         top = dlist[0]
         drv_series = stats.load_series(top["series_key"])
-        basket = stats.basket_index(desk["tickers"][:12])
+        basket = stats.basket_index(desk["tickers"][:stats.BASKET_N])
         if drv_series.empty or basket.empty:
             continue
         cs, cl, broke = stats.rolling_corr_break(basket, drv_series)
