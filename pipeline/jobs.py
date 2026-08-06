@@ -49,7 +49,12 @@ def ingest_asia(full: bool = False):
     tickers = yahoo.asia_tickers(all_tickers())
     tickers += [t for t in _position_tickers() if t.endswith(".JK") and t not in tickers]
     fresh.guarded("ingest_prices_asia")(yahoo.run_prices)(tickers, full=full)
-    fresh.guarded("ingest_idx_flow")(idxflow.run)(days_back=30 if full else 7)
+    # IDX flows are attempted here too, but Cloudflare 403s datacenter IPs; the
+    # authoritative run is the local one. Failure here must not fail the job.
+    try:
+        fresh.guarded("ingest_idx_flow")(idxflow.run)(days_back=30 if full else 7)
+    except Exception as e:
+        print(f"idx flow unavailable from this host (expected in CI): {e}")
 
 
 def nightly():
@@ -317,10 +322,18 @@ def news():
     fresh.guarded("ingest_news")(news_ingest.run)()
 
 
+def ingest_idx(full: bool = False):
+    """IDX foreign flows only. Cloudflare blocks datacenter IPs, so this runs
+    from a residential connection via scripts/research/local-ingest.ps1."""
+    from lbc.ingest import idxflow
+
+    fresh.guarded("ingest_idx_flow")(idxflow.run)(days_back=30 if full else 7)
+
+
 JOBS = {
-    "ingest_us": ingest_us, "ingest_asia": ingest_asia, "nightly": nightly,
-    "weekly": weekly, "monthly": monthly, "alerts": alerts, "news": news,
-    "freshness": freshness, "backfill": backfill,
+    "ingest_us": ingest_us, "ingest_asia": ingest_asia, "ingest_idx": ingest_idx,
+    "nightly": nightly, "weekly": weekly, "monthly": monthly,
+    "alerts": alerts, "news": news, "freshness": freshness, "backfill": backfill,
 }
 
 

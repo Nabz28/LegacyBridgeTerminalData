@@ -127,6 +127,23 @@ Commands: `/brief` `/dials` `/ops` `/id`, free text runs the full agent.
 - **Kill switch:** config `enabled=false` stops pushes and the chat agent;
   pipelines keep writing data.
 
+## The one thing that runs on your laptop
+
+`ingest_idx_flow` — IDX foreign net buy/sell. `idx.co.id` sits behind Cloudflare
+and returns 403 to every datacenter IP, including all GitHub Actions runners,
+while working normally from an Indonesian residential connection. Rather than
+lose the highest-signal Indonesian dataset, that one pipeline runs locally:
+
+- Windows scheduled task **"LBC Research IDX Ingest"**, weekdays 17:15 local,
+  running `scripts/research/local-ingest.ps1` (log beside the script).
+- Reads the service key from the user env var `LBC_SUPABASE_SERVICE_ROLE`.
+- Everything else in the system runs in the cloud and needs no local machine.
+- If the laptop is off, the freshness monitor reports `ingest_idx_flow` stale.
+  It never silently substitutes old data.
+
+Run it by hand any time: `python pipeline/jobs.py ingest_idx`
+Remove the schedule: `Unregister-ScheduledTask -TaskName "LBC Research IDX Ingest"`
+
 ## Failure modes and fixes
 
 - **A pipeline shows stale on Ops:** read its `note` (last error). Sources
