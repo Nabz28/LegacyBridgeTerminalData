@@ -2,8 +2,8 @@
 // RESEARCH DESK · shared views (window.RD_VIEWS) — T12.
 // Presentational building blocks: stance chips, conviction dots,
 // machine-score bars, regime tags, inline SVG line charts, empty
-// states, status chips. The workspace shell (research-desk-ws.jsx)
-// wires them into pages.
+// states, status chips, news rows and candidate lines. The workspace
+// shell (research-desk-ws.jsx) wires them into pages.
 // ================================================================
 (function () {
   'use strict';
@@ -207,8 +207,67 @@
     );
   };
 
+  // ---- news ----------------------------------------------------------------
+  const SentChip = ({ label, score, small }) => {
+    const m = RD().sentMeta(label);
+    return (
+      <span className={'rd-chip ' + m.cls + (small ? ' sm' : '')}
+            title={'tone ' + (score == null ? 'unscored' : RD().fmt.signed(score, 2)) + ' · ' + m.long}>
+        {m.label}
+      </span>
+    );
+  };
+
+  // one headline. compact drops desk/ticker tags (desk-detail panel).
+  const NewsRow = ({ item, deskNames, compact }) => {
+    const fmt = RD().fmt;
+    const tags = compact ? [] : (item.desk_ids || []);
+    const head = item.headline || '(no headline)';
+    return (
+      <div className={'rd-news' + (compact ? ' compact' : '')}>
+        <SentChip label={item.sent_label} score={item.sentiment} small />
+        {item.url
+          ? <a className="head" href={item.url} target="_blank" rel="noopener noreferrer"
+               title={item.summary || head}>{head}</a>
+          : <span className="head" title={item.summary || head}>{head}</span>}
+        <span className="src" title={item.region ? 'region ' + item.region : ''}>{item.source || '—'}</span>
+        {tags.length > 0 && (
+          <span className="tags">{tags.map((t, i) => <i key={i}>{(deskNames && deskNames[t]) || t}</i>)}</span>
+        )}
+        {!compact && (item.tickers || []).length > 0 && (
+          <span className="ticks">{item.tickers.join(' ')}</span>
+        )}
+        <span className="when" title={item.published_at || ''}>{fmt.ago(item.published_at)}</span>
+      </div>
+    );
+  };
+
+  // ---- candidates ----------------------------------------------------------
+  const SideChip = ({ side, small }) => {
+    const m = RD().sideMeta(side);
+    return <span className={'rd-chip ' + m.cls + (small ? ' sm' : '')} title={'screen side: ' + m.label.toLowerCase()}>{m.label}</span>;
+  };
+
+  // compact one-liner for the desk-detail panel
+  const CandLine = ({ c }) => {
+    const fmt = RD().fmt;
+    const m = c.metrics || {};
+    return (
+      <div className={'rd-candline' + (c.in_book ? ' inbook' : '')}>
+        <span className="tick">{c.ticker}</span>
+        <SideChip side={c.side} small />
+        <span className="score" title="composite screen score">{fmt.num(c.score, 2)}</span>
+        <span className={'m ' + fmt.signCls(m.ret_12_1)} title="12-1m momentum">{fmt.pctd(m.ret_12_1, 0)}</span>
+        <span className={'m ' + fmt.signCls(m.from_52w_high)} title="from the 52w high">{fmt.pctd(m.from_52w_high, 0)}</span>
+        {c.in_book && <span className="rd-chip sm gray" title="already held in the book">BOOK</span>}
+        <span className="why" title={c.reason || ''}>{c.reason || ''}</span>
+      </div>
+    );
+  };
+
   window.RD_VIEWS = {
     StanceChip, ConvictionDots, ScoreBar, RegimeTag, DirArrow, SalienceBadge, StatusChip,
     Empty, ErrNote, Loading, LineChart, Spark, HistoryStrip, SignalRow, PALETTE,
+    SentChip, NewsRow, SideChip, CandLine,
   };
 })();

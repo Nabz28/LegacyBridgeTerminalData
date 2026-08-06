@@ -339,3 +339,120 @@
 
 /* ---- sparkline ---- */
 .rd-spark { display: block; }
+
+/* ============================================================
+   NEWS / WATCH / DATES — the intraday layers.
+   ============================================================ */
+
+/* rail: the Desk drill-in has nothing to open on a cold start */
+.rd-rail-item.off { opacity: 0.4; }
+
+/* section-header affordance: "see all ›" / "desk ›" */
+.rd-seeall {
+  margin-left: auto; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1px;
+  color: var(--text-tertiary); background: none; border: none; cursor: pointer; padding: 0 2px;
+}
+.rd-seeall:hover { color: var(--paper); }
+
+/* filter-bar checkbox */
+.rd-toggle {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none;
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);
+  background: var(--bg-2); border: 1px solid var(--paper-edge); border-radius: 3px; padding: 5px 9px;
+}
+.rd-toggle:hover { color: var(--paper); }
+.rd-toggle input { accent-color: var(--brand); margin: 0; cursor: pointer; }
+
+.rd-screennote { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.6; margin: 2px 0 10px; }
+
+/* ---- news feed ---- */
+.rd-newslist { display: flex; flex-direction: column; }
+.rd-news {
+  display: flex; align-items: baseline; gap: 9px; padding: 7px 4px;
+  border-bottom: 1px solid var(--border-subtle); font-size: 12.5px; flex-wrap: wrap;
+}
+.rd-news:hover { background: var(--bg-1); }
+.rd-news .head {
+  flex: 1 1 340px; min-width: 0; color: var(--paper-strong); text-decoration: none; line-height: 1.45;
+}
+a.rd-news .head, .rd-news a.head { color: var(--paper-strong); }
+.rd-news a.head:hover { color: var(--brand-strong); text-decoration: underline; }
+.rd-news .src { font-family: var(--font-mono); font-size: 9.5px; color: var(--brand); white-space: nowrap; }
+.rd-news .tags { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+.rd-news .tags i {
+  font-style: normal; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px;
+  color: var(--text-tertiary); border: 1px solid var(--paper-softer); border-radius: 2px;
+  padding: 1px 5px; white-space: nowrap;
+}
+.rd-news .ticks { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-secondary); white-space: nowrap; }
+.rd-news .when { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); white-space: nowrap; margin-left: auto; }
+.rd-news.compact { padding: 5px 2px; font-size: 12px; flex-wrap: nowrap; }
+.rd-news.compact .head { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- desk attention strip ---- */
+.rd-attn { margin: 0 0 14px; }
+.rd-attn-k {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-tertiary); margin-bottom: 6px;
+}
+.rd-attn-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.rd-attn-i {
+  border: 1px solid var(--paper-softer); border-left: 2px solid var(--brand-edge); border-radius: 4px;
+  background: var(--bg-1); padding: 9px 12px; cursor: pointer; min-width: 0;
+  transition: border-color .12s, background .12s;
+}
+.rd-attn-i:hover { background: var(--bg-2); border-color: var(--paper-edge); border-left-color: var(--brand); }
+.rd-attn-i .t { display: flex; align-items: baseline; gap: 8px; }
+.rd-attn-i .nm { font-size: 12.5px; font-weight: 600; color: var(--paper-strong); }
+.rd-attn-i .ct { margin-left: auto; font-family: var(--font-mono); font-size: 9.5px; color: var(--text-tertiary); white-space: nowrap; }
+.rd-attn-i .m { display: flex; gap: 12px; margin-top: 4px; font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+.rd-attn-i .m .z.hot { color: #ecd29a; }
+.rd-attn-i .m .tone.pos { color: var(--pos, #19C37D); }
+.rd-attn-i .m .tone.neg { color: var(--neg, #F0475C); }
+.rd-attn-i .h {
+  margin-top: 5px; font-size: 11px; line-height: 1.4; color: var(--text-secondary);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ---- candidate screen ---- */
+.rd-watch td.tick { display: flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.rd-watch tr.inbook td { background: rgba(216,161,58,0.05); }
+.rd-watch tr.inbook td.tick { color: #ecd29a; }
+.rd-watch td.why {
+  max-width: 380px; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.rd-candlist { display: flex; flex-direction: column; }
+.rd-candline {
+  display: flex; align-items: baseline; gap: 9px; padding: 6px 4px;
+  border-bottom: 1px solid var(--border-subtle); font-size: 12px;
+}
+.rd-candline.inbook { background: rgba(216,161,58,0.05); }
+.rd-candline .tick { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; color: var(--paper); white-space: nowrap; }
+.rd-candline .score { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-secondary); }
+.rd-candline .m { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-tertiary); white-space: nowrap; }
+.rd-candline .m.pos { color: var(--pos, #19C37D); }
+.rd-candline .m.neg { color: var(--neg, #F0475C); }
+.rd-candline .why {
+  margin-left: auto; font-size: 10.5px; color: var(--text-tertiary); min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ---- key dates ---- */
+.rd-datelist { display: flex; flex-direction: column; }
+.rd-date {
+  display: flex; align-items: baseline; gap: 10px; padding: 7px 4px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-subtle); font-size: 12.5px;
+}
+.rd-date:hover { background: var(--bg-1); }
+.rd-date.book { border-left: 2px solid rgba(216,161,58,0.55); padding-left: 10px; }
+.rd-date .d { font-family: var(--font-mono); font-size: 10.5px; color: var(--paper); min-width: 52px; white-space: nowrap; }
+.rd-date .t { flex: 1 1 300px; min-width: 0; color: var(--paper-strong); line-height: 1.4; }
+.rd-date .tags { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+.rd-date .tags i {
+  font-style: normal; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.5px; cursor: pointer;
+  color: var(--text-tertiary); border: 1px solid var(--paper-softer); border-radius: 2px;
+  padding: 1px 5px; white-space: nowrap;
+}
+.rd-date .tags i:hover { color: var(--paper); border-color: var(--paper-edge); }
+.rd-date .ticks { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-secondary); white-space: nowrap; }

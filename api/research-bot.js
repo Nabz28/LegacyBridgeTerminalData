@@ -11,8 +11,8 @@
 //      - empty list: reply with the sender id + admin instructions, capture the first
 //        sender id into research.config 'telegram_pending' for review (never auto-authorize)
 //      - non-empty and sender not on it: reply "not authorized" + their id
-//   5. commands /start /brief /dials /ops /id, anything else runs the same agent
-//      loop as /api/research-agent (api/_research/core.js)
+//   5. commands /start /help /brief /dials /news /watch /dates /ops /id, anything
+//      else runs the same agent loop as /api/research-agent (api/_research/core.js)
 //   6. agent charts render via quickchart.io (POST Chart.js config) -> sendPhoto;
 //      any chart failure degrades to text only
 //
@@ -157,6 +157,70 @@ async function cmdBrief() {
   return `Morning brief ${out.asof}\n\n${out.body}`;
 }
 
+// /news [desk_id|TICKER] — headlines + the three loudest desks
+const SENT_GLYPH = { bullish: '+', bearish: '-', neutral: '=' };
+async function cmdNews(arg) {
+  const a = String(arg || '').trim();
+  const args = { days: 2, limit: 12 };
+  if (a) { if (/^[a-z][a-z0-9-]*$/.test(a)) args.desk_id = a; else args.ticker = a.toUpperCase(); }
+  const out = await core.runTool('get_news', args);
+  if (out.error) return 'News unavailable: ' + out.error;
+  if (!out.news.length) return `No headlines in the last ${out.window_days}d${a ? ' for ' + a : ''}.`;
+  const when = (ts) => { const t = new Date(ts); return isNaN(t) ? '' : t.toISOString().slice(5, 16).replace('T', ' '); };
+  const lines = out.news.map((n) => `${SENT_GLYPH[n.sent_label] || '='} ${when(n.published_at)} ${n.headline} (${n.source})`);
+  let head = `News, last ${out.window_days}d${a ? ' · ' + a : ''} (+ bullish, - bearish, = neutral)`;
+  if (!a) {
+    const s = await core.runTool('get_sentiment', {});
+    const loud = (s.desks || []).filter((d) => d.news_count > 0).slice(0, 3);
+    if (loud.length) head += '\nLoudest desks: ' + loud.map((d) =>
+      `${d.name} ${d.news_count} stories, tone ${d.sentiment == null ? 'na' : (d.sentiment > 0 ? '+' : '') + d.sentiment.toFixed(2)}` +
+      (d.vol_z == null ? '' : ` (vol z ${(d.vol_z > 0 ? '+' : '') + d.vol_z.toFixed(1)})`)).join('; ');
+  }
+  return head + '\n' + lines.join('\n');
+}
+
+// /watch [desk_id] — the nightly candidate screen
+async function cmdWatch(arg) {
+  const a = String(arg || '').trim();
+  const out = await core.runTool('get_candidates', { desk_id: a || undefined, limit: a ? 8 : 12 });
+  if (out.error) return 'Screen unavailable: ' + out.error;
+  if (!out.candidates.length) return `Nothing on the screen${a ? ' for ' + a : ''} as of ${out.asof}.`;
+  const p = (v) => (v == null ? 'na' : (v > 0 ? '+' : '') + Math.round(v * 100) + '%');
+  const lines = out.candidates.map((c) => {
+    const m = c.metrics || {};
+    return `${c.side === 'short' ? 'S' : 'L'} ${c.ticker} (${c.desk}) score ${c.score == null ? 'na' : c.score.toFixed(2)}`
+      + ` · 12-1m ${p(m.ret_12_1)} · vs200 ${p(m.vs_ma200)} · from 52wh ${p(m.from_52w_high)}`;
+  });
+  return `Screen asof ${out.asof}${a ? ' · ' + a : ''} (book names excluded)\n` + lines.join('\n');
+}
+
+// /dates [days] — upcoming flagged events
+async function cmdDates(arg) {
+  const days = /^\d+$/.test(String(arg || '').trim()) ? parseInt(arg, 10) : 14;
+  const out = await core.runTool('get_key_dates', { days });
+  if (out.error) return 'Calendar unavailable: ' + out.error;
+  if (!out.events.length) return `Nothing flagged between ${out.from} and ${out.to}.`;
+  const lines = out.events.slice(0, 30).map((e) =>
+    `${e.event_date} [${(e.importance || '?').toUpperCase()}]${e.touches_book ? ' *BOOK*' : ''} ${e.title}`
+    + (e.desks && e.desks.length ? ` · ${e.desks.join(', ')}` : ''));
+  return `Key dates ${out.from} to ${out.to} (* = touches the book)\n` + lines.join('\n');
+}
+
+const HELP = [
+  'LBC Research Desk bot.',
+  '',
+  '/brief   latest morning brief',
+  '/dials   every desk stance, machine score sorted',
+  '/news    headlines, last 2d. /news oil-gas or /news BBCA.JK to filter',
+  '/watch   the nightly candidate screen. /watch semiconductors for one desk',
+  '/dates   flagged events for the next 14d. /dates 30 for a longer horizon',
+  '/ops     pipeline freshness',
+  '/id      your Telegram and chat ids',
+  '/help    this list',
+  '',
+  'Anything else in plain text runs the research agent (dials, series, compare, book, signals, news, sentiment, candidates, calendar, screens, ideas, alerts, stances).',
+].join('\n');
+
 // ---------- handler ----------
 async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -203,18 +267,19 @@ async function handler(req, res) {
     const cmd = /^\/(\w+)(?:@\w+)?\s*(.*)$/s.exec(text);
     if (cmd) {
       const name = cmd[1].toLowerCase();
-      if (name === 'start') {
-        await sendText(token, chatId,
-          'LBC Research Desk bot. Commands: /brief (latest morning brief), /dials (stance list), /ops (pipeline freshness), /id (your ids). ' +
-          'Anything else in plain text runs the research agent (dials, series, compare, book, signals, calendar, screens, ideas, alerts, stances). ' +
-          `Your Telegram id: ${uid}.`);
+      const rest = (cmd[2] || '').trim();
+      if (name === 'start' || name === 'help') {
+        await sendText(token, chatId, HELP + `\n\nYour Telegram id: ${uid}.`);
         return done();
       }
       if (name === 'id') { await sendText(token, chatId, `user id: ${uid}\nchat id: ${chatId}`); return done(); }
       if (name === 'brief') { await sendText(token, chatId, await cmdBrief()); return done(); }
       if (name === 'dials') { await sendText(token, chatId, await cmdDials()); return done(); }
       if (name === 'ops') { await sendText(token, chatId, await cmdOps()); return done(); }
-      await sendText(token, chatId, `Unknown command /${name}. Try /brief, /dials, /ops, /id, or ask in plain text.`);
+      if (name === 'news') { await sendText(token, chatId, await cmdNews(rest)); return done(); }
+      if (name === 'watch') { await sendText(token, chatId, await cmdWatch(rest)); return done(); }
+      if (name === 'dates') { await sendText(token, chatId, await cmdDates(rest)); return done(); }
+      await sendText(token, chatId, `Unknown command /${name}. /help lists everything, or just ask in plain text.`);
       return done();
     }
     if (!text) { await sendText(token, chatId, 'Send text. /start for what I can do.'); return done(); }

@@ -121,14 +121,24 @@ _KEYWORD_RE = {
 }
 
 
-def route(text: str, ticker_map: dict[str, str]) -> tuple[list[str], list[str]]:
+def route(text: str, ticker_map: dict[str, str],
+          names: dict[str, str] | None = None) -> tuple[list[str], list[str]]:
     """Word-boundary matching only. Substring matching routes every story
-    containing "reports" to the transport desk, which poisons desk sentiment."""
+    containing "reports" to the transport desk, which poisons desk sentiment.
+
+    Headlines name companies, not symbols ("Micron", not "MU"), so company
+    short names are matched alongside tickers.
+    """
     desks = [d for d, rx in _KEYWORD_RE.items() if rx.search(text)]
     tickers = []
     for tkr, desk in ticker_map.items():
         base = tkr.split(".")[0]
-        if len(base) >= 3 and base.isalpha() and re.search(rf"\b{re.escape(base)}\b", text):
+        hit = len(base) >= 3 and base.isalpha() and re.search(rf"\b{re.escape(base)}\b", text)
+        if not hit and names:
+            nm = names.get(tkr)
+            if nm and len(nm) >= 4 and re.search(rf"\b{re.escape(nm)}\b", text, re.IGNORECASE):
+                hit = True
+        if hit:
             tickers.append(tkr)
             if desk and desk not in desks:
                 desks.append(desk)
@@ -136,8 +146,14 @@ def route(text: str, ticker_map: dict[str, str]) -> tuple[list[str], list[str]]:
 
 
 def run(max_per_feed: int = 40) -> int:
+    from . import names as names_mod
+
     ticker_map = {r["ticker"]: r["desk_id"]
                   for r in db.select("mkt", "instrument", "select=ticker,desk_id&active=eq.true")}
+    try:
+        name_map = names_mod.name_map()
+    except Exception:
+        name_map = {}
     book = {r["symbol"] for r in db.select("asset_mgmt", "positions", "select=symbol&status=eq.open")}
     rows, seen = [], set()
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=4)
@@ -169,7 +185,7 @@ def run(max_per_feed: int = 40) -> int:
                 continue
             seen.add(h)
             blob = f"{title} {desc}"
-            desks, tickers = route(blob, ticker_map)
+            desks, tickers = route(blob, ticker_map, name_map)
             score, label = sentiment(blob)
             touches_book = any(t.split(".")[0] in book for t in tickers)
             importance = 50 + (25 if touches_book else 0) + (10 if len(desks) > 1 else 0) \

@@ -3,8 +3,9 @@
 //
 // Read layer for the autonomous research system: `research` schema
 // (desk, dial, dial_history, signal, signal_score, graveyard, thesis,
-// idea, brief, ops_freshness, alert) and `mkt` schema (series,
-// observation, price, instrument) over PostgREST.
+// idea, brief, ops_freshness, alert, news, desk_sentiment, candidate,
+// calendar_flag) and `mkt` schema (series, observation, price,
+// instrument) over PostgREST.
 //
 // All research/mkt tables carry anon SELECT policies, so reads work
 // with the publishable key alone; when an LBC session exists its JWT
@@ -103,6 +104,56 @@
 
   const fetchOps = () => rGet('/ops_freshness?select=*&order=pipeline.asc');
 
+  // ---- news / sentiment / candidates / key dates ---------------------------
+  // desk_ids and tickers are text[]; array-contains is `col=cs.{value}`.
+  const arrLit = (v) => encodeURIComponent('{' + String(v).replace(/[{},]/g, '') + '}');
+  // local (not UTC) calendar day — the calendar is read in the user's day
+  const isoDay = (ms) => {
+    const t = new Date(ms);
+    return new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  };
+
+  // order: 'published' (feed, default) or 'importance' (desk panel)
+  const fetchNews = (opts = {}) => {
+    const days = opts.days == null ? 7 : opts.days;
+    const q = ['select=id,published_at,source,headline,url,summary,desk_ids,tickers,region,sentiment,sent_label,importance'];
+    q.push('published_at=gte.' + encodeURIComponent(new Date(Date.now() - days * 86400000).toISOString()));
+    if (opts.deskId) q.push('desk_ids=cs.' + arrLit(opts.deskId));
+    if (opts.ticker) q.push('tickers=cs.' + arrLit(opts.ticker));
+    if (opts.sentLabel) q.push('sent_label=eq.' + encodeURIComponent(opts.sentLabel));
+    q.push('order=' + (opts.order === 'importance' ? 'importance.desc,published_at.desc' : 'published_at.desc'));
+    q.push('limit=' + (opts.limit || 150));
+    return rGet('/news?' + q.join('&'));
+  };
+
+  // every desk row at the newest asof (one row per desk per day)
+  const fetchDeskSentiment = () =>
+    rGet('/desk_sentiment?select=asof&order=asof.desc&limit=1').then((r) =>
+      (!r || !r.length) ? [] :
+        rGet('/desk_sentiment?select=*&asof=eq.' + encodeURIComponent(r[0].asof) + '&limit=200'));
+
+  // the whole newest screen (~109 rows); desk/side/in_book filtering is client side
+  // so the Watch toggles stay instant.
+  const fetchCandidates = (opts = {}) =>
+    rGet('/candidate?select=asof&order=asof.desc&limit=1').then((r) => {
+      if (!r || !r.length) return [];
+      const q = ['select=*', 'asof=eq.' + encodeURIComponent(r[0].asof), 'order=score.desc',
+                 'limit=' + (opts.limit || 400)];
+      if (opts.deskId) q.push('desk_id=eq.' + encodeURIComponent(opts.deskId));
+      if (opts.side) q.push('side=eq.' + encodeURIComponent(opts.side));
+      if (opts.excludeBook) q.push('in_book=eq.false');
+      return rGet('/candidate?' + q.join('&'));
+    });
+
+  const fetchCalendarFlags = (opts = {}) => {
+    const days = opts.days == null ? 14 : opts.days;
+    const q = ['select=*', 'event_date=gte.' + isoDay(Date.now()),
+               'event_date=lte.' + isoDay(Date.now() + days * 86400000),
+               'order=event_date.asc', 'limit=300'];
+    if (opts.onlyBook) q.push('touches_book=eq.true');
+    return rGet('/calendar_flag?' + q.join('&'));
+  };
+
   // ---- mkt reads (cached — driver charts re-open constantly) ---------------
   const _obsCache = new Map();
   const fetchObservations = (seriesKey, limit = 500) => {
@@ -190,6 +241,29 @@
   };
   const thesisStatus = (s) => THESIS_STATUS[s] || { label: (s || '?').toUpperCase(), cls: 'gray' };
 
+  // news tone → chip vocabulary
+  const SENT = {
+    bullish: { label: 'BULL', long: 'bullish', cls: 'pos'  },
+    bearish: { label: 'BEAR', long: 'bearish', cls: 'neg'  },
+    neutral: { label: 'FLAT', long: 'neutral', cls: 'gray' },
+  };
+  const sentMeta = (s) => SENT[String(s || '').toLowerCase()] || { label: '·', long: 'unscored', cls: 'gray' };
+
+  // candidate side → chip
+  const SIDE = {
+    long:  { label: 'LONG',  cls: 'pos' },
+    short: { label: 'SHORT', cls: 'neg' },
+  };
+  const sideMeta = (s) => SIDE[String(s || '').toLowerCase()] || { label: (s || '?').toUpperCase(), cls: 'gray' };
+
+  // calendar importance → chip
+  const IMPORTANCE = {
+    high: { label: 'HIGH', cls: 'neg'   },
+    med:  { label: 'MED',  cls: 'amber' },
+    low:  { label: 'LOW',  cls: 'gray'  },
+  };
+  const importanceMeta = (s) => IMPORTANCE[String(s || '').toLowerCase()] || { label: (s || '?').toUpperCase(), cls: 'gray' };
+
   const OPS_STATUS = {
     ok:    { label: 'OK',    cls: 'pos'   },
     stale: { label: 'STALE', cls: 'amber' },
@@ -207,6 +281,13 @@
     : (v > 0 ? '+' : '') + num(v, d == null ? 1 : d) + '%';
   const pctile = (v) => (v === null || v === undefined || isNaN(v)) ? '—'
     : Math.round(Number(v) <= 1 ? Number(v) * 100 : Number(v)) + '%';
+  // decimal ratio (0.9568) → signed percent (+95.7%) — candidate.metrics are decimals
+  const pctd = (v, d) => (v === null || v === undefined || isNaN(v)) ? '—'
+    : (v > 0 ? '+' : '') + num(Number(v) * 100, d == null ? 1 : d) + '%';
+  const signCls = (v, flip) => {
+    if (v === null || v === undefined || isNaN(v) || Number(v) === 0) return '';
+    return (Number(v) > 0) === !flip ? 'pos' : 'neg';
+  };
 
   const ago = (ts) => {
     if (!ts) return '—';
@@ -237,9 +318,11 @@
     fetchDesks, fetchDials, fetchDialHistory,
     fetchSignals, fetchSignalScores, fetchGraveyard,
     fetchBriefs, fetchTheses, fetchIdeas, fetchOps,
+    fetchNews, fetchDeskSentiment, fetchCandidates, fetchCalendarFlags,
     fetchObservations, fetchPrices, fetchSeriesMeta,
     useFetch,
     BASKETS, STANCE, stanceMeta, dirGlyph, thesisStatus, opsStatus,
-    fmt: { num, signed, pct, pctile, ago, hoursSince, dstr },
+    SENT, sentMeta, SIDE, sideMeta, IMPORTANCE, importanceMeta,
+    fmt: { num, signed, pct, pctd, pctile, signCls, ago, hoursSince, dstr, isoDay },
   };
 })();

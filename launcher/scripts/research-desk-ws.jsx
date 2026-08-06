@@ -2,17 +2,22 @@
 // RESEARCH DESK terminal (window.ResearchDeskTerminal) — T12.
 //
 // The UI for LBC's autonomous research system. Replaces the old
-// Monitor (T12) + Research (T13) pair. Six surfaces + chat:
+// Monitor (T12) + Research (T13) pair. Nine surfaces + chat:
 //   Dials   — 23 desk dials grouped Cyclical / Secular / Country
-//   Desk    — drill-in: dial, drivers (charted), history, signals, theses
+//   Desk    — drill-in: dial, drivers (charted), history, news,
+//             candidates, signals, theses
 //   Signals — firm-wide feed with audit scores + the graveyard
+//   Watch   — the nightly candidate screen (research.candidate)
+//   News    — scored headline feed + desk attention strip
+//             (research.news + research.desk_sentiment)
+//   Dates   — flagged upcoming events by week (research.calendar_flag)
 //   Briefs  — morning/weekly/monthly/flash archive (monospace)
 //   Book    — open theses + pending idea tickets
 //   Ops     — pipeline freshness, the honesty page
 //   Chat    — the research agent (POST /api/research-agent)
 //
 // selfNav (owns its rail). Deep links:
-//   #research-desk[/dials|signals|briefs|book|ops|chat]
+//   #research-desk[/dials|signals|watch|news|dates|briefs|book|ops|chat]
 //   #research-desk/desk/<deskId>
 // Reads via window.RD (research-desk-data.jsx); building blocks in
 // window.RD_VIEWS (research-desk-views.jsx).
@@ -23,7 +28,7 @@
   const RD = () => window.RD;
   const RV = () => window.RD_VIEWS;
 
-  const PAGES = ['dials', 'signals', 'briefs', 'book', 'ops', 'chat'];
+  const PAGES = ['dials', 'signals', 'watch', 'news', 'dates', 'briefs', 'book', 'ops', 'chat'];
 
   // ---- hash routing --------------------------------------------------------
   const parseHash = () => {
@@ -219,7 +224,42 @@
     );
   };
 
-  const DeskDetailPage = ({ desk, dial, onBack }) => {
+  // compact desk panels: latest news + this desk's slice of the screen
+  const DeskNewsPanel = ({ desk, deskNames, onSeeAll }) => {
+    const { NewsRow, Empty, Loading, ErrNote } = RV();
+    const q = RD().useFetch(() => RD().fetchNews({ deskId: desk.id, days: 7, limit: 5, order: 'importance' }), [desk.id]);
+    return (
+      <div>
+        <div className="rd-sec">Latest news
+          <span className="n">{(q.data || []).length}</span>
+          <button type="button" className="rd-seeall" onClick={onSeeAll}>see all ›</button>
+        </div>
+        {q.loading ? <Loading /> : q.err ? <ErrNote err={q.err} onRetry={q.reload} />
+          : (q.data && q.data.length)
+            ? <div className="rd-newslist">{q.data.map((n) => <NewsRow key={n.id} item={n} deskNames={deskNames} compact />)}</div>
+            : <Empty note="No headlines tagged to this desk" detail="The news pass runs several times a day." />}
+      </div>
+    );
+  };
+
+  const DeskCandPanel = ({ desk, onSeeAll }) => {
+    const { CandLine, Empty, Loading, ErrNote } = RV();
+    const q = RD().useFetch(() => RD().fetchCandidates({ deskId: desk.id, limit: 5 }), [desk.id]);
+    return (
+      <div>
+        <div className="rd-sec">Candidates
+          <span className="n">{(q.data || []).length}</span>
+          <button type="button" className="rd-seeall" onClick={onSeeAll}>see all ›</button>
+        </div>
+        {q.loading ? <Loading /> : q.err ? <ErrNote err={q.err} onRetry={q.reload} />
+          : (q.data && q.data.length)
+            ? <div className="rd-candlist">{q.data.map((c) => <CandLine key={c.id} c={c} />)}</div>
+            : <Empty note="Nothing on the screen for this desk" detail="The candidate screen writes 5 names per desk each night." />}
+      </div>
+    );
+  };
+
+  const DeskDetailPage = ({ desk, dial, deskNames, onBack, onNav }) => {
     const { StanceChip, ConvictionDots, ScoreBar, RegimeTag, HistoryStrip, SignalRow, Empty, Loading, ErrNote } = RV();
     const fmt = RD().fmt;
     const hist = RD().useFetch(() => RD().fetchDialHistory(desk.id, 30), [desk.id]);
@@ -296,6 +336,11 @@
         <div className="rd-sec">Dial history<span className="n">30</span></div>
         {hist.loading ? <Loading /> : hist.err ? <ErrNote err={hist.err} onRetry={hist.reload} />
           : <HistoryStrip rows={hist.data || []} />}
+
+        <div className="rd-cols">
+          <DeskNewsPanel desk={desk} deskNames={deskNames} onSeeAll={() => onNav && onNav('news', desk.id)} />
+          <DeskCandPanel desk={desk} onSeeAll={() => onNav && onNav('watch', desk.id)} />
+        </div>
 
         <div className="rd-cols">
           <div>
@@ -384,6 +429,346 @@
                 </tbody>
               </table>
             : <div className="rd-dim rd-gravenote empty">nothing has died yet — the graveyard fills as the audit loop matures.</div>}
+      </div>
+    );
+  };
+
+  // ==========================================================================
+  // WATCH — the nightly candidate screen
+  // ==========================================================================
+  const METRIC_COLS = [
+    { k: 'ret_12_1',          h: '12-1m',   t: '12 month momentum excluding the last month' },
+    { k: 'rel_strength_63d',  h: 'rel 63d', t: 'relative strength vs the desk over 63 days' },
+    { k: 'vs_ma200',          h: 'vs 200d', t: 'distance from the 200 day moving average' },
+    { k: 'from_52w_high',     h: '52w high', t: 'distance from the 52 week high' },
+    { k: 'vol_ann',           h: 'ann vol', t: 'annualised volatility (higher is not better)', neutral: true },
+  ];
+
+  const WatchPage = ({ desks, initialDesk, onOpenDesk }) => {
+    const { SideChip, Empty, Loading, ErrNote } = RV();
+    const fmt = RD().fmt;
+    const [deskId, setDeskId] = React.useState(initialDesk || '');
+    const [side, setSide] = React.useState('');
+    const [hideBook, setHideBook] = React.useState(true);
+    const q = RD().useFetch(() => RD().fetchCandidates({}), []);
+
+    const rows = React.useMemo(() => (q.data || []).filter((c) =>
+      (!deskId || c.desk_id === deskId) &&
+      (!side || c.side === side) &&
+      (!hideBook || !c.in_book)), [q.data, deskId, side, hideBook]);
+
+    const deskName = (id) => { const d = (desks || []).find((x) => x.id === id); return d ? d.name : (id || 'unassigned'); };
+    const order = React.useMemo(() => {
+      const seen = [];
+      rows.forEach((c) => { if (seen.indexOf(c.desk_id) === -1) seen.push(c.desk_id); });
+      const rank = {}; (desks || []).forEach((d, i) => { rank[d.id] = i; });
+      return seen.sort((a, b) => (rank[a] == null ? 999 : rank[a]) - (rank[b] == null ? 999 : rank[b]));
+    }, [rows, desks]);
+
+    const asof = (q.data && q.data.length) ? q.data[0].asof : null;
+    const inBook = (q.data || []).filter((c) => c.in_book).length;
+    // held names the book toggle is currently suppressing, under the other filters
+    const hiddenByBook = React.useMemo(() => (q.data || []).filter((c) =>
+      (!deskId || c.desk_id === deskId) && (!side || c.side === side) && c.in_book).length, [q.data, deskId, side]);
+
+    if (q.loading) return <div className="rd-page"><Loading /></div>;
+    if (q.err) return <div className="rd-page"><ErrNote err={q.err} onRetry={q.reload} /></div>;
+
+    return (
+      <div className="rd-page">
+        <div className="rd-head">
+          <div className="rd-head-l">
+            <div className="k">nightly screen · 5 names per desk · not recommendations</div>
+            <h1>Watch</h1>
+          </div>
+          <div className="rd-filters">
+            <select value={deskId} onChange={(e) => setDeskId(e.target.value)}>
+              <option value="">all desks</option>
+              {(desks || []).map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+            </select>
+            <select value={side} onChange={(e) => setSide(e.target.value)}>
+              <option value="">both sides</option>
+              <option value="long">long</option>
+              <option value="short">short</option>
+            </select>
+            <label className="rd-toggle" title={inBook + ' of ' + (q.data || []).length + ' screened names are already held'}>
+              <input type="checkbox" checked={hideBook} onChange={(e) => setHideBook(e.target.checked)} />
+              hide names already in the book
+            </label>
+          </div>
+        </div>
+
+        {!(q.data || []).length ? (
+          <Empty note="No screen yet" detail="The candidate screen writes 5 names per desk on the nightly run." />
+        ) : !rows.length ? (
+          <Empty note="Nothing matches these filters"
+                 detail={hideBook && hiddenByBook
+                   ? hiddenByBook + ' screened name' + (hiddenByBook > 1 ? 's are' : ' is')
+                     + ' already in the book. Untick the book filter to see ' + (hiddenByBook > 1 ? 'them.' : 'it.')
+                   : 'Widen the desk or side filter.'} />
+        ) : (
+          <React.Fragment>
+            <div className="rd-dim rd-screennote">
+              {'asof ' + fmt.dstr(asof) + ' · ' + rows.length + ' of ' + (q.data || []).length + ' screened names'
+                + (hideBook && inBook > 0 ? ' · ' + inBook + ' held name' + (inBook > 1 ? 's' : '') + ' hidden' : '')
+                + '. Returns are trailing and unadjusted for risk.'}
+            </div>
+            {order.map((did) => {
+              const list = rows.filter((c) => c.desk_id === did);
+              return (
+                <React.Fragment key={did || 'none'}>
+                  <div className="rd-sec">
+                    {deskName(did)}<span className="n">{list.length}</span>
+                    {did && <button type="button" className="rd-seeall" onClick={() => onOpenDesk(did)}>desk ›</button>}
+                  </div>
+                  <table className="rd-tbl slim rd-watch">
+                    <thead>
+                      <tr>
+                        <th>ticker</th><th>name</th><th className="ctr">side</th><th className="num">score</th>
+                        {METRIC_COLS.map((m) => <th key={m.k} className="num" title={m.t}>{m.h}</th>)}
+                        <th>reason</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {list.map((c) => {
+                        const m = c.metrics || {};
+                        return (
+                          <tr key={c.id} className={c.in_book ? 'inbook' : ''}>
+                            <td className="mono tick">
+                              {c.ticker}
+                              {c.in_book && <span className="rd-chip sm gray" title="already held in the book">BOOK</span>}
+                            </td>
+                            <td className="rd-dim">{c.name || '—'}</td>
+                            <td className="ctr"><SideChip side={c.side} small /></td>
+                            <td className="num" title="composite screen score">{fmt.num(c.score, 2)}</td>
+                            {METRIC_COLS.map((mc) => (
+                              <td key={mc.k} className={'num ' + (mc.neutral ? '' : fmt.signCls(m[mc.k]))} title={mc.t}>
+                                {fmt.pctd(m[mc.k], 0)}
+                              </td>
+                            ))}
+                            <td className="rd-dim why" title={c.reason || ''}>{c.reason || ''}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </React.Fragment>
+              );
+            })}
+          </React.Fragment>
+        )}
+      </div>
+    );
+  };
+
+  // ==========================================================================
+  // NEWS — scored headline feed + desk attention strip
+  // ==========================================================================
+  const AttentionStrip = ({ rows, deskNames, onOpenDesk }) => {
+    const fmt = RD().fmt;
+    const live = (rows || []).filter((r) => (r.news_count || 0) > 0 || r.vol_z != null);
+    if (!live.length) return null;
+    const mag = (v) => (v == null ? -1 : Math.abs(Number(v)));
+    const top = [...live].sort((a, b) => mag(b.vol_z) - mag(a.vol_z) || (b.news_count || 0) - (a.news_count || 0)).slice(0, 3);
+    const anyZ = top.some((r) => r.vol_z != null);
+    return (
+      <div className="rd-attn">
+        <div className="rd-attn-k" title="vol_z is article volume vs that desk's own 90d norm">
+          {anyZ ? 'loudest desks · attention vs own 90d norm' : 'loudest desks · story count (attention z-scores need 90d of history)'}
+        </div>
+        <div className="rd-attn-row">
+          {top.map((r) => {
+            const tone = r.sentiment == null ? null : Number(r.sentiment);
+            return (
+              <div key={r.desk_id} className="rd-attn-i" role="button" tabIndex={0}
+                   onClick={() => onOpenDesk(r.desk_id)}
+                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpenDesk(r.desk_id); } }}>
+                <div className="t">
+                  <span className="nm">{(deskNames && deskNames[r.desk_id]) || r.desk_id}</span>
+                  <span className="ct">{r.news_count || 0} {(r.news_count === 1 ? 'story' : 'stories')}</span>
+                </div>
+                <div className="m">
+                  {r.vol_z != null && (
+                    <span className={'z ' + (Math.abs(r.vol_z) >= 1 ? 'hot' : '')} title="article volume vs this desk's own 90d norm">
+                      vol z {fmt.signed(r.vol_z, 1)}
+                    </span>
+                  )}
+                  <span className={'tone ' + (tone == null ? '' : tone > 0.05 ? 'pos' : tone < -0.05 ? 'neg' : '')}
+                        title="mean tone across the window, -1 to +1">
+                    tone {tone == null ? '—' : fmt.signed(tone, 2)}
+                  </span>
+                </div>
+                {r.top_headline && <div className="h" title={r.top_headline}>{r.top_headline}</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const NEWS_WINDOWS = [{ v: 1, l: '24h' }, { v: 3, l: '3d' }, { v: 7, l: '7d' }, { v: 30, l: '30d' }];
+  const NewsPage = ({ desks, initialDesk, onOpenDesk }) => {
+    const { NewsRow, Empty, Loading, ErrNote } = RV();
+    const [deskId, setDeskId] = React.useState(initialDesk || '');
+    const [sent, setSent] = React.useState('');
+    const [days, setDays] = React.useState(7);
+    const news = RD().useFetch(
+      () => RD().fetchNews({ deskId: deskId || null, sentLabel: sent || null, days, limit: 200 }),
+      [deskId, sent, days]);
+    const senti = RD().useFetch(() => RD().fetchDeskSentiment(), []);
+    const deskNames = React.useMemo(() => {
+      const m = {}; (desks || []).forEach((d) => { m[d.id] = d.name; }); return m;
+    }, [desks]);
+    const rows = news.data || [];
+    const tally = React.useMemo(() => {
+      const t = { bullish: 0, bearish: 0, neutral: 0 };
+      rows.forEach((n) => { if (t[n.sent_label] != null) t[n.sent_label]++; });
+      return t;
+    }, [rows]);
+    return (
+      <div className="rd-page">
+        <div className="rd-head">
+          <div className="rd-head-l">
+            <div className="k">scored headlines · newest first</div>
+            <h1>News</h1>
+          </div>
+          <div className="rd-filters">
+            <select value={deskId} onChange={(e) => setDeskId(e.target.value)}>
+              <option value="">all desks</option>
+              {(desks || []).map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+            </select>
+            <select value={sent} onChange={(e) => setSent(e.target.value)}>
+              <option value="">all tone</option>
+              <option value="bullish">bullish</option>
+              <option value="bearish">bearish</option>
+              <option value="neutral">neutral</option>
+            </select>
+            <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+              {NEWS_WINDOWS.map((w) => <option key={w.v} value={w.v}>last {w.l}</option>)}
+            </select>
+          </div>
+        </div>
+
+        {senti.loading ? null : senti.err ? <ErrNote err={senti.err} onRetry={senti.reload} />
+          : <AttentionStrip rows={senti.data} deskNames={deskNames} onOpenDesk={onOpenDesk} />}
+
+        {news.loading ? <Loading /> : news.err ? <ErrNote err={news.err} onRetry={news.reload} />
+          : !rows.length
+            ? <Empty note="No headlines in this window"
+                     detail={deskId || sent ? 'Widen the desk, tone or time filter.' : 'The news pass runs several times a day.'} />
+            : (
+              <React.Fragment>
+                <div className="rd-dim rd-screennote">
+                  {rows.length + (rows.length === 1 ? ' story · ' : ' stories · ')
+                    + tally.bullish + ' bullish, ' + tally.bearish + ' bearish, ' + tally.neutral
+                    + ' neutral. Headlines open at the source.'}
+                </div>
+                <div className="rd-newslist">
+                  {rows.map((n) => <NewsRow key={n.id} item={n} deskNames={deskNames} />)}
+                </div>
+              </React.Fragment>
+            )}
+      </div>
+    );
+  };
+
+  // ==========================================================================
+  // DATES — flagged upcoming events, grouped by week
+  // ==========================================================================
+  const DATE_WINDOWS = [7, 14, 30, 60];
+  const DatesPage = ({ desks, onOpenDesk }) => {
+    const { StatusChip, Empty, Loading, ErrNote } = RV();
+    const fmt = RD().fmt;
+    const [days, setDays] = React.useState(14);
+    const [onlyBook, setOnlyBook] = React.useState(false);
+    const q = RD().useFetch(() => RD().fetchCalendarFlags({ days, onlyBook }), [days, onlyBook]);
+    const deskName = (id) => { const d = (desks || []).find((x) => x.id === id); return d ? d.name : id; };
+
+    // Monday-anchored week buckets, in date order
+    const weeks = React.useMemo(() => {
+      const buckets = [];
+      const byKey = {};
+      (q.data || []).forEach((e) => {
+        const d = new Date(e.event_date + 'T00:00:00');
+        if (isNaN(d.getTime())) return;
+        d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+        const key = fmt.isoDay(d.getTime());
+        if (!byKey[key]) { byKey[key] = { key, start: key, end: fmt.isoDay(d.getTime() + 6 * 86400000), events: [] }; buckets.push(byKey[key]); }
+        byKey[key].events.push(e);
+      });
+      buckets.sort((a, b) => (a.key < b.key ? -1 : 1));
+      const rank = { high: 0, med: 1, low: 2 };
+      buckets.forEach((b) => b.events.sort((x, y) => (x.event_date === y.event_date
+        ? (rank[x.importance] ?? 3) - (rank[y.importance] ?? 3)
+        : (x.event_date < y.event_date ? -1 : 1))));
+      return buckets;
+    }, [q.data, fmt]);
+
+    const thisWeek = React.useMemo(() => {
+      const d = new Date();
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      return fmt.isoDay(d.getTime());
+    }, [fmt]);
+
+    const bookCount = (q.data || []).filter((e) => e.touches_book).length;
+
+    return (
+      <div className="rd-page">
+        <div className="rd-head">
+          <div className="rd-head-l">
+            <div className="k">flagged events · what can move the book</div>
+            <h1>Dates</h1>
+          </div>
+          <div className="rd-filters">
+            <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+              {DATE_WINDOWS.map((d) => <option key={d} value={d}>next {d} days</option>)}
+            </select>
+            <label className="rd-toggle" title={bookCount + ' event' + (bookCount === 1 ? '' : 's') + ' touch the book in this window'}>
+              <input type="checkbox" checked={onlyBook} onChange={(e) => setOnlyBook(e.target.checked)} />
+              only events that touch the book
+            </label>
+          </div>
+        </div>
+
+        {q.loading ? <Loading /> : q.err ? <ErrNote err={q.err} onRetry={q.reload} />
+          : !weeks.length
+            ? <Empty note={onlyBook ? 'Nothing in this window touches the book' : 'No flagged events in this window'}
+                     detail={onlyBook ? 'Untick the book filter to see everything flagged.' : 'The calendar pass flags events against the desks and the book each night.'} />
+            : weeks.map((w) => (
+              <React.Fragment key={w.key}>
+                <div className="rd-sec">
+                  {w.key === thisWeek ? 'This week' : fmt.dstr(w.start) + ' – ' + fmt.dstr(w.end)}
+                  <span className="n">{w.events.length}</span>
+                </div>
+                <div className="rd-datelist">
+                  {w.events.map((e) => {
+                    const im = RD().importanceMeta(e.importance);
+                    return (
+                      <div key={e.event_hash} className={'rd-date' + (e.touches_book ? ' book' : '')}>
+                        <span className="d" title={e.event_date}>{fmt.dstr(e.event_date)}</span>
+                        <StatusChip label={im.label} cls={im.cls} title={'importance: ' + (e.importance || 'unset')} />
+                        <span className="t">{e.title}</span>
+                        {e.touches_book && <span className="rd-chip amber" title="hits a name or desk currently in the book">TOUCHES BOOK</span>}
+                        {(e.desk_ids || []).length > 0 && (
+                          <span className="tags">
+                            {e.desk_ids.map((d) => (
+                              <i key={d} role="button" tabIndex={0}
+                                 onClick={() => onOpenDesk(d)}
+                                 onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); onOpenDesk(d); } }}>
+                                {deskName(d)}
+                              </i>
+                            ))}
+                          </span>
+                        )}
+                        {(e.tickers || []).length > 0 && <span className="ticks">{e.tickers.join(' ')}</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </React.Fragment>
+            ))}
       </div>
     );
   };
@@ -731,9 +1116,15 @@
     }
   }
 
+  // 'desk' is the drill-in surface: the rail entry reopens the desk you were
+  // last reading (or the first desk on the board on a cold start).
   const NAV = [
     { id: 'dials',   label: 'Dials',   glyph: '◉' },
+    { id: 'desk',    label: 'Desk',    glyph: '◎' },
     { id: 'signals', label: 'Signals', glyph: '⚡' },
+    { id: 'watch',   label: 'Watch',   glyph: '◈' },
+    { id: 'news',    label: 'News',    glyph: '❑' },
+    { id: 'dates',   label: 'Dates',   glyph: '▦' },
     { id: 'briefs',  label: 'Briefs',  glyph: '☰' },
     { id: 'book',    label: 'Book',    glyph: '▤' },
     { id: 'ops',     label: 'Ops',     glyph: '⚙' },
@@ -742,9 +1133,26 @@
 
   const ResearchDeskTerminal = () => {
     const [view, setView] = React.useState(() => parseHash() || { page: 'dials' });
-    const nav = (page, deskId) => { const v = deskId ? { page, deskId } : { page }; setView(v); writeHash(v); };
+    // desk carried from a drill-in into News/Watch, so "see all" lands prefiltered
+    const [focusDesk, setFocusDesk] = React.useState('');
+    const lastDeskRef = React.useRef(view.page === 'desk' ? view.deskId : '');
+    const nav = (page, deskId) => {
+      const v = deskId ? { page, deskId } : { page };
+      if (page === 'desk' && deskId) lastDeskRef.current = deskId;
+      if (page !== 'news' && page !== 'watch') setFocusDesk('');
+      setView(v); writeHash(v);
+    };
+    // rail click: plain navigation, never inherits a drill-in filter
+    const navRail = (page) => {
+      setFocusDesk('');
+      if (page !== 'desk') return nav(page);
+      const id = lastDeskRef.current || (desks[0] && desks[0].id);
+      if (id) nav('desk', id);
+    };
+    // "see all ›" from a desk panel: jump to the tab prefiltered to that desk
+    const jump = (page, deskId) => { setFocusDesk(deskId || ''); nav(page); };
     React.useEffect(() => {
-      const onHash = () => { const v = parseHash(); if (v) setView(v); };
+      const onHash = () => { const v = parseHash(); if (v) { if (v.page === 'desk' && v.deskId) lastDeskRef.current = v.deskId; setView(v); } };
       window.addEventListener('hashchange', onHash);
       return () => window.removeEventListener('hashchange', onHash);
     }, []);
@@ -762,6 +1170,9 @@
 
     const desks = desksQ.data || [];
     const curDesk = view.page === 'desk' ? desks.find((d) => d.id === view.deskId) : null;
+    const deskNames = React.useMemo(() => {
+      const m = {}; desks.forEach((d) => { m[d.id] = d.name; }); return m;
+    }, [desksQ.data]);
     const { Loading, Empty } = RV();
 
     return (
@@ -770,8 +1181,10 @@
           <div className="rd-rail-brand">RESEARCH<span className="v">DESK</span></div>
           {NAV.map((n) => (
             <div key={n.id}
-                 className={'rd-rail-item' + ((view.page === n.id || (view.page === 'desk' && n.id === 'dials')) ? ' active' : '')}
-                 onClick={() => nav(n.id)}>
+                 className={'rd-rail-item' + (view.page === n.id ? ' active' : '')
+                   + (n.id === 'desk' && !lastDeskRef.current && !desks.length ? ' off' : '')}
+                 onClick={() => navRail(n.id)}
+                 title={n.id === 'desk' ? (curDesk ? curDesk.name : 'the desk drill-in — open one from the dial board') : ''}>
               <span className="glyph">{n.glyph}</span>
               <span className="lbl">{n.label}</span>
               {n.id === 'ops' && opsBad > 0 && <span className="rd-rail-bad">{opsBad}</span>}
@@ -780,6 +1193,7 @@
           <div className="rd-rail-foot">
             23 desks · dials nightly<br />
             signals scored +5d/+21d<br />
+            news + screens intraday<br />
             data: research + mkt
           </div>
         </div>
@@ -788,10 +1202,17 @@
             {view.page === 'desk' ? (
               desksQ.loading ? <div className="rd-page"><Loading /></div>
               : curDesk
-                ? <DeskDetailPage desk={curDesk} dial={(dialsQ.data || {})[curDesk.id]} onBack={() => nav('dials')} />
-                : <div className="rd-page"><Empty note={'Unknown desk “' + view.deskId + '”'} detail="It may have been retired — back to the board." /></div>
+                ? <DeskDetailPage desk={curDesk} dial={(dialsQ.data || {})[curDesk.id]}
+                                  deskNames={deskNames} onBack={() => nav('dials')} onNav={jump} />
+                : <div className="rd-page"><Empty note={'Unknown desk “' + (view.deskId || '') + '”'} detail="It may have been retired — back to the board." /></div>
             ) : view.page === 'signals' ? (
               <SignalsPage desks={desks} onOpenDesk={(id) => nav('desk', id)} />
+            ) : view.page === 'watch' ? (
+              <WatchPage desks={desks} initialDesk={focusDesk} onOpenDesk={(id) => nav('desk', id)} />
+            ) : view.page === 'news' ? (
+              <NewsPage desks={desks} initialDesk={focusDesk} onOpenDesk={(id) => nav('desk', id)} />
+            ) : view.page === 'dates' ? (
+              <DatesPage desks={desks} onOpenDesk={(id) => nav('desk', id)} />
             ) : view.page === 'briefs' ? (
               <BriefsPage />
             ) : view.page === 'book' ? (

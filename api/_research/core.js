@@ -348,6 +348,156 @@ async function toolGetOps() {
   return { counts, pipelines: rows || [] };
 }
 
+// ---------- news / sentiment / screens / key dates ----------
+// desk_ids and tickers are text[]: array-contains is `col=cs.{value}` (braces
+// percent-encoded), and two of them combine through PostgREST `or=(a,b)`.
+const arrLit = (v) => enc('{' + String(v).replace(/[{},]/g, '') + '}');
+const arrLitRaw = (v) => '{' + String(v).replace(/[{},]/g, '') + '}';
+
+// desk id -> name, cached with the same 60s TTL as research.config
+let _deskCache = null, _deskAt = 0;
+async function loadDeskNames() {
+  if (_deskCache && Date.now() - _deskAt < CFG_TTL) return _deskCache;
+  const rows = await sb('/desk?select=id,name,basket,sort_order', { profile: 'research' });
+  const m = new Map((rows || []).map((d) => [d.id, d]));
+  _deskCache = m; _deskAt = Date.now(); return m;
+}
+
+async function toolGetNews(args) {
+  const days = clampInt(args.days, 1, 30, 2);
+  const limit = clampInt(args.limit, 1, 50, 15);
+  const desk = String(args.desk_id || '').trim();
+  const ticker = String(args.ticker || '').trim().toUpperCase();
+  const since = new Date(Date.now() - days * 86400000).toISOString();
+  let path = `/news?published_at=gte.${enc(since)}`
+    + '&select=headline,source,published_at,sentiment,sent_label,url,tickers,desk_ids,region,importance'
+    + '&order=importance.desc,published_at.desc&limit=' + limit;
+  if (desk && ticker) path += `&or=(desk_ids.cs.${arrLitRaw(desk)},tickers.cs.${arrLitRaw(ticker)})`;
+  else if (desk) path += '&desk_ids=cs.' + arrLit(desk);
+  else if (ticker) path += '&tickers=cs.' + arrLit(ticker);
+  const rows = await sb(path, { profile: 'research' });
+  const items = (rows || []).map((r) => ({
+    headline: r.headline, source: r.source, published_at: r.published_at,
+    sentiment: r.sentiment == null ? null : round(r.sentiment, 2),
+    sent_label: r.sent_label, url: r.url,
+    tickers: r.tickers && r.tickers.length ? r.tickers : undefined,
+    importance: r.importance,
+  }));
+  return {
+    window_days: days, filter: { desk_id: desk || null, ticker: ticker || null },
+    count: items.length,
+    note: 'sentiment is tone on -1..+1; importance 0-100 is desk relevance, not market impact.',
+    news: items,
+  };
+}
+
+async function toolGetSentiment(args) {
+  const desk = String(args.desk_id || '').trim();
+  const latest = await sb('/desk_sentiment?select=asof&order=asof.desc&limit=1', { profile: 'research' });
+  if (!latest || !latest.length) return { error: 'no desk_sentiment rows yet' };
+  const asof = latest[0].asof;
+  let path = `/desk_sentiment?asof=eq.${enc(asof)}&select=desk_id,asof,news_count,sentiment,sent_z,vol_z,top_headline&limit=100`;
+  if (desk) path += '&desk_id=eq.' + enc(desk);
+  const [rows, names] = await Promise.all([sb(path, { profile: 'research' }), loadDeskNames()]);
+  if (!rows || !rows.length) return { asof, count: 0, desks: [], note: desk ? 'no sentiment row for desk ' + desk + ' on ' + asof : 'no rows' };
+  const out = (rows || []).map((r) => ({
+    desk_id: r.desk_id, name: (names.get(r.desk_id) || {}).name || r.desk_id,
+    news_count: r.news_count,
+    sentiment: r.sentiment == null ? null : round(r.sentiment, 2),
+    sent_z: r.sent_z == null ? null : round(r.sent_z, 2),
+    vol_z: r.vol_z == null ? null : round(r.vol_z, 2),
+    top_headline: r.top_headline,
+  }));
+  const mag = (v) => (v == null ? -1 : Math.abs(v));
+  out.sort((a, b) => mag(b.vol_z) - mag(a.vol_z) || (b.news_count || 0) - (a.news_count || 0));
+  return {
+    asof, count: out.length,
+    note: 'vol_z is attention vs that desk\'s own 90d norm (high |vol_z| = unusual news volume). '
+      + 'sentiment is tone on -1..+1, sent_z is tone vs the desk\'s own 90d norm. '
+      + 'Null z-scores mean the 90d history is not deep enough yet.',
+    desks: out,
+  };
+}
+
+async function toolGetCandidates(args) {
+  const limit = clampInt(args.limit, 1, 50, 10);
+  const desk = String(args.desk_id || '').trim();
+  const side = ['long', 'short'].includes(String(args.side || '').toLowerCase()) ? String(args.side).toLowerCase() : null;
+  const excludeBook = args.exclude_book === false ? false : true;
+  const latest = await sb('/candidate?select=asof&order=asof.desc&limit=1', { profile: 'research' });
+  if (!latest || !latest.length) return { error: 'no candidate rows yet' };
+  const asof = latest[0].asof;
+  let path = `/candidate?asof=eq.${enc(asof)}`
+    + '&select=desk_id,ticker,name,score,side,reason,metrics,in_book&order=score.desc&limit=' + limit;
+  if (desk) path += '&desk_id=eq.' + enc(desk);
+  if (side) path += '&side=eq.' + side;
+  if (excludeBook) path += '&in_book=eq.false';
+  const [rows, names] = await Promise.all([sb(path, { profile: 'research' }), loadDeskNames()]);
+  const cands = (rows || []).map((r) => ({
+    desk_id: r.desk_id, desk: (names.get(r.desk_id) || {}).name || r.desk_id,
+    ticker: r.ticker, name: r.name || null,
+    score: r.score == null ? null : round(r.score, 2),
+    side: r.side, reason: r.reason, in_book: r.in_book,
+    metrics: r.metrics || {},
+  }));
+  return {
+    asof, count: cands.length,
+    filter: { desk_id: desk || null, side, exclude_book: excludeBook },
+    note: 'Nightly momentum/valuation screen, 5 per desk, ranked by score desc. '
+      + 'metrics are decimals not percents: ret_12_1 (12-1m momentum), ret_63d, ret_21d, '
+      + 'vs_ma200, from_52w_high, rel_strength_63d (vs desk), vol_ann (annualised vol), last (price). '
+      + 'These are screen outputs, not recommendations.',
+    candidates: cands,
+  };
+}
+
+async function toolGetKeyDates(args) {
+  const days = clampInt(args.days, 1, 90, 14);
+  const from = todayISO(), to = isoDaysAgo(-days);
+  let path = `/calendar_flag?event_date=gte.${from}&event_date=lte.${to}`
+    + '&select=event_date,title,desk_ids,tickers,touches_book,importance&order=event_date.asc&limit=200';
+  if (args.only_book === true) path += '&touches_book=eq.true';
+  const flags = await sb(path, { profile: 'research' });
+  if (!flags || !flags.length) return { from, to, count: 0, events: [] };
+
+  // fold in macro.calendar detail by (title, event_date) — best effort, the
+  // calendar_flag rows are derived from it so titles match exactly.
+  let detail = new Map();
+  try {
+    const macro = await sb(`/calendar?event_date=gte.${from}&event_date=lte.${to}`
+      + '&select=event_date,title,region,category,entity,ticker,importance,detail,status&limit=300', { profile: 'macro' });
+    detail = new Map((macro || []).map((m) => [m.event_date + '|' + m.title, m]));
+  } catch (e) { /* macro unreadable -> calendar_flag rows alone */ }
+
+  const names = await loadDeskNames().catch(() => new Map());
+  const rank = { high: 0, med: 1, low: 2 };
+  const events = flags.map((f) => {
+    const m = detail.get(f.event_date + '|' + f.title) || null;
+    return {
+      event_date: f.event_date, title: f.title,
+      importance: f.importance || (m && m.importance) || null,
+      touches_book: f.touches_book,
+      desk_ids: f.desk_ids && f.desk_ids.length ? f.desk_ids : undefined,
+      desks: f.desk_ids && f.desk_ids.length ? f.desk_ids.map((d) => (names.get(d) || {}).name || d) : undefined,
+      tickers: f.tickers && f.tickers.length ? f.tickers : undefined,
+      region: m ? m.region : undefined,
+      category: m ? m.category : undefined,
+      entity: m ? m.entity : undefined,
+      detail: m ? m.detail : undefined,
+    };
+  });
+  events.sort((a, b) => (a.event_date === b.event_date
+    ? (rank[a.importance] ?? 3) - (rank[b.importance] ?? 3)
+    : (a.event_date < b.event_date ? -1 : 1)));
+  return {
+    from, to, count: events.length,
+    only_book: args.only_book === true,
+    matched_macro: events.filter((e) => e.region !== undefined).length,
+    note: 'touches_book=true means the event hits a name or desk currently in the book.',
+    events,
+  };
+}
+
 // ---------- tool catalog (OpenRouter / OpenAI function-calling shape) ----------
 const TOOL_DEFS = [
   { type: 'function', function: { name: 'get_dial', description: 'One desk: current dial (stance, conviction, machine score, drivers), the desk row, and the last 10 dial_history rows.', parameters: { type: 'object', properties: { desk_id: { type: 'string' } }, required: ['desk_id'] } } },
@@ -364,6 +514,10 @@ const TOOL_DEFS = [
   { type: 'function', function: { name: 'set_alert', description: 'WRITE: create an active alert on a series_key or ticker. condition e.g. {"op":"gt","value":110}.', parameters: { type: 'object', properties: { kind: { type: 'string', enum: ['level', 'invalidation', 'regime', 'calendar', 'freshness', 'custom'] }, target: { type: 'string' }, condition: { type: 'object' }, note: { type: 'string' } }, required: ['kind', 'target', 'condition'] } } },
   { type: 'function', function: { name: 'update_stance', description: 'WRITE: set the human stance on a desk dial (OW/N/UW, conviction 1-5) with a one-line thesis for what changed.', parameters: { type: 'object', properties: { desk_id: { type: 'string' }, stance: { type: 'string', enum: ['OW', 'N', 'UW'] }, conviction: { type: 'integer' }, thesis: { type: 'string' } }, required: ['desk_id', 'stance'] } } },
   { type: 'function', function: { name: 'get_ops', description: 'Pipeline freshness: every research pipeline with status (ok/stale/error) and last success time.', parameters: { type: 'object', properties: {} } } },
+  { type: 'function', function: { name: 'get_news', description: 'Scored headlines from research.news, importance first then newest. Filter by desk_id and/or ticker. Use for "what is happening", "why is X moving", "any news on this desk".', parameters: { type: 'object', properties: { desk_id: { type: 'string', description: 'research desk id, e.g. oil-gas' }, ticker: { type: 'string', description: 'ticker tagged on the story, e.g. BBCA.JK' }, days: { type: 'integer', description: 'lookback days, default 2' }, limit: { type: 'integer', description: 'default 15' } } } } },
+  { type: 'function', function: { name: 'get_sentiment', description: 'Latest per-desk news sentiment and attention. vol_z is article volume vs that desk\'s own 90d norm; sentiment is tone on -1..+1. Sorted by absolute vol_z so the loudest desks come first. Use to answer "where is the noise" or "what is the tape saying about a desk".', parameters: { type: 'object', properties: { desk_id: { type: 'string', description: 'omit for every desk' } } } } },
+  { type: 'function', function: { name: 'get_candidates', description: 'The nightly screen: 5 ranked names per desk from research.candidate with metrics and a one-line reason. This is the answer to "what stocks should I look at", "any ideas", "what is screening well". Excludes names already in the book by default.', parameters: { type: 'object', properties: { desk_id: { type: 'string' }, side: { type: 'string', enum: ['long', 'short'] }, limit: { type: 'integer', description: 'default 10' }, exclude_book: { type: 'boolean', description: 'default true; false to include names already held' } } } } },
+  { type: 'function', function: { name: 'get_key_dates', description: 'Upcoming flagged events from research.calendar_flag with macro.calendar detail folded in, from today forward. Use for "what is coming up", "anything on the calendar", "what should I watch this week".', parameters: { type: 'object', properties: { days: { type: 'integer', description: 'horizon in days, default 14' }, only_book: { type: 'boolean', description: 'true to keep only events that touch the book' } } } } },
 ];
 
 // ---------- tool dispatch ----------
@@ -386,6 +540,10 @@ async function runTool(name, args, opts = {}) {
   if (name === 'set_alert') return toolSetAlert(args);
   if (name === 'update_stance') return toolUpdateStance(args);
   if (name === 'get_ops') return toolGetOps(args);
+  if (name === 'get_news') return toolGetNews(args);
+  if (name === 'get_sentiment') return toolGetSentiment(args);
+  if (name === 'get_candidates') return toolGetCandidates(args);
+  if (name === 'get_key_dates') return toolGetKeyDates(args);
   return { error: 'unknown tool: ' + name };
 }
 
@@ -399,6 +557,11 @@ function systemPrompt() {
     'You interpret only what tools return. Never invent numbers.',
     'When asked to act (log idea, set alert, change stance) confirm what you did in one sentence.',
     'If data is missing say so plainly.',
+    'Tool routing. "What is happening", "any news", "why is X moving" -> get_news (add ticker or desk_id when named).',
+    '"Where is the noise", "what is the tape saying", desk-level tone -> get_sentiment; vol_z is attention vs that desk\'s own 90d norm, sentiment is tone on -1..+1.',
+    '"What should I look at", "any ideas", "what is screening well" -> get_candidates; it returns the nightly 5-per-desk screen with metrics as decimals, and it excludes names already in the book unless asked otherwise.',
+    '"What is coming up", "anything on the calendar" -> get_key_dates; use only_book=true when the question is about the book.',
+    'Candidates are screen output, not recommendations. Say so when you quote them.',
     'Today is ' + nowWIB.toISOString().slice(0, 10) + ' (WIB).',
   ].join(' ');
 }
