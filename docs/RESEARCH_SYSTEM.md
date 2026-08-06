@@ -99,7 +99,7 @@ changes when it arrives.
 | ESDM / MPOB | scrape | HBA coal benchmark, palm stocks | monthly |
 | TSA throughput | keyless | US air traffic (aerospace desk) | weekly |
 | macro.series archive | in DB | 12.4k CEIC-style historical series (US/CN/ID) for regressions and history | static backfill |
-| correlation.* | in DB | 4.1k mapped tickers with weekly/monthly returns since 1993 | refreshed by this system |
+| correlation.* | in DB | 4.1k mapped tickers with weekly/monthly returns since 1993 | static archive (mkt.price is the live store) |
 
 All ingests are UPSERTs on natural keys (`series_key,date` / `ticker,date`), safe to
 rerun, with per-pipeline freshness rows in `research.ops_freshness`

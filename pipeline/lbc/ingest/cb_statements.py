@@ -34,9 +34,10 @@ def _strip_html(html: str) -> str:
 SOURCES = {
     "cb_fomc": {
         "entity": "Federal Reserve", "desk": "us",
-        "index": "https://www.federalreserve.gov/newsevents/pressreleases.htm",
-        "link_re": r'href="(/newsevents/pressreleases/monetary\d+[a-z]?\.htm)"',
-        "base": "https://www.federalreserve.gov",
+        # RSS is stable where the HTML index is JS-driven
+        "index": "https://www.federalreserve.gov/feeds/press_monetary.xml",
+        "link_re": r"<link><!\[CDATA\[(https://www\.federalreserve\.gov/newsevents/pressreleases/monetary\d+[a-z]?\.htm)\]\]></link>",
+        "base": "",
     },
     "cb_boj": {
         "entity": "Bank of Japan", "desk": "japan-korea",
@@ -53,7 +54,8 @@ SOURCES = {
     "cb_bi": {
         "entity": "Bank Indonesia", "desk": "indonesia",
         "index": "https://www.bi.go.id/en/publikasi/ruang-media/news-release/Default.aspx",
-        "link_re": r'href="(/en/publikasi/ruang-media/news-release/Pages/[^"]+\.aspx)"',
+        # sp_ = siaran pers (actual releases); the bare Pages/*.aspx links are chrome
+        "link_re": r'href="(/en/publikasi/ruang-media/news-release/Pages/sp_[^"]+\.aspx)"',
         "base": "https://www.bi.go.id",
     },
 }
