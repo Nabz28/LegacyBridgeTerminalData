@@ -348,6 +348,78 @@ async function toolGetOps() {
   return { counts, pipelines: rows || [] };
 }
 
+// Series discovery. Without this the model has to guess keys, and a question
+// like "compare Newcastle coal to ADRO" dies on four failed guesses.
+async function toolListSeries(args) {
+  const q = (args.query || '').trim();
+  const rows = await sb('/series?select=key,label,country,category,unit,freq,source&active=eq.true&order=key.asc&limit=400', { profile: 'mkt' });
+  let out = rows || [];
+  if (q) {
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    out = out
+      .map((r) => {
+        const hay = ((r.key || '') + ' ' + (r.label || '') + ' ' + (r.category || '') + ' ' + (r.country || '')).toLowerCase();
+        return { r, hits: terms.filter((t) => hay.includes(t)).length };
+      })
+      .filter((x) => x.hits > 0)
+      .sort((a, b) => b.hits - a.hits)
+      .map((x) => x.r);
+  }
+  return { matched: out.length, series: out.slice(0, 60) };
+}
+
+// The five-positions-one-bet check. The nightly job writes the PCA to
+// research.config.book_state; this exposes it rather than re-deriving it.
+async function toolFactorExposure() {
+  const rows = await sb('/config?select=value&key=eq.book_state', { profile: 'research' });
+  const st = rows && rows.length ? rows[0].value : null;
+  if (!st) return { error: 'book state has not been computed yet; it is written by the nightly job' };
+  const conc = st.factor_concentration;
+  return {
+    asof: st.asof,
+    n_positions: st.n_positions,
+    first_factor_share: conc == null ? null : round(conc * 100, 1),
+    reading: conc == null
+      ? 'not computable: too few positions with overlapping history'
+      : conc >= 0.6
+        ? 'concentrated: most of the book moves as one bet'
+        : conc >= 0.4
+          ? 'moderately concentrated'
+          : 'reasonably spread across independent drivers',
+    positions: (st.positions || []).map((p) => ({
+      symbol: p.symbol, ticker: p.ticker, direction: p.direction,
+      last: p.last, avg_cost: p.avg_cost,
+      pnl_pct: p.pnl_pct == null ? null : round(p.pnl_pct * 100, 1),
+    })),
+    nav: st.nav || null,
+    note: 'first_factor_share is the share of position-return variance explained by the first principal component. Above 60 percent the positions are one bet wearing several tickers.',
+  };
+}
+
+// Positioning crowding from CFTC net-spec percentiles.
+async function toolGetCrowding() {
+  const keys = ['pos.cot.gold', 'pos.cot.silver', 'pos.cot.copper', 'pos.cot.wti', 'pos.cot.usd'];
+  const out = [];
+  for (const k of keys) {
+    const rows = await sb('/observation?select=date,value&series_key=eq.' + enc(k) + '&order=date.desc&limit=160', { profile: 'mkt' });
+    if (!rows || rows.length < 20) continue;
+    const vals = rows.map((r) => r.value).filter(Number.isFinite);
+    const latest = vals[0];
+    out.push({
+      series_key: k,
+      latest_net_contracts: latest,
+      asof: rows[0].date,
+      pctile_3y: pctile(vals, latest),
+      reading: pctile(vals, latest) >= 90 ? 'crowded long' : pctile(vals, latest) <= 10 ? 'crowded short' : 'unremarkable',
+    });
+  }
+  out.sort((a, b) => Math.abs((b.pctile_3y ?? 50) - 50) - Math.abs((a.pctile_3y ?? 50) - 50));
+  return {
+    positioning: out,
+    note: 'CFTC non-commercial net position vs its own 3y range. Extremes mark crowded trades, which cut against the prevailing direction.',
+  };
+}
+
 // ---------- news / sentiment / screens / key dates ----------
 // desk_ids and tickers are text[]: array-contains is `col=cs.{value}` (braces
 // percent-encoded), and two of them combine through PostgREST `or=(a,b)`.
@@ -518,6 +590,9 @@ const TOOL_DEFS = [
   { type: 'function', function: { name: 'get_sentiment', description: 'Latest per-desk news sentiment and attention. vol_z is article volume vs that desk\'s own 90d norm; sentiment is tone on -1..+1. Sorted by absolute vol_z so the loudest desks come first. Use to answer "where is the noise" or "what is the tape saying about a desk".', parameters: { type: 'object', properties: { desk_id: { type: 'string', description: 'omit for every desk' } } } } },
   { type: 'function', function: { name: 'get_candidates', description: 'The nightly screen: 5 ranked names per desk from research.candidate with metrics and a one-line reason. This is the answer to "what stocks should I look at", "any ideas", "what is screening well". Excludes names already in the book by default.', parameters: { type: 'object', properties: { desk_id: { type: 'string' }, side: { type: 'string', enum: ['long', 'short'] }, limit: { type: 'integer', description: 'default 10' }, exclude_book: { type: 'boolean', description: 'default true; false to include names already held' } } } } },
   { type: 'function', function: { name: 'get_key_dates', description: 'Upcoming flagged events from research.calendar_flag with macro.calendar detail folded in, from today forward. Use for "what is coming up", "anything on the calendar", "what should I watch this week".', parameters: { type: 'object', properties: { days: { type: 'integer', description: 'horizon in days, default 14' }, only_book: { type: 'boolean', description: 'true to keep only events that touch the book' } } } } },
+  { type: 'function', function: { name: 'list_series', description: 'Find which macro/market series exist. Pass a plain-language query ("coal", "japan rates", "copper") to get matching series keys with labels and units. ALWAYS call this before get_series or compare when you are unsure a key exists, rather than guessing.', parameters: { type: 'object', properties: { query: { type: 'string', description: 'omit to list everything' } } } } },
+  { type: 'function', function: { name: 'factor_exposure', description: 'PCA decomposition of the book: what share of position-return variance is one factor, plus each position with P&L. The answer to "is the book actually diversified", "what is my real exposure", "am I making one bet several times".', parameters: { type: 'object', properties: {} } } },
+  { type: 'function', function: { name: 'get_crowding', description: 'CFTC speculative positioning percentiles for gold, silver, copper, WTI and the dollar. The answer to "what is crowded", "where is positioning stretched", "is this a consensus trade".', parameters: { type: 'object', properties: {} } } },
 ];
 
 // ---------- tool dispatch ----------
@@ -544,6 +619,9 @@ async function runTool(name, args, opts = {}) {
   if (name === 'get_sentiment') return toolGetSentiment(args);
   if (name === 'get_candidates') return toolGetCandidates(args);
   if (name === 'get_key_dates') return toolGetKeyDates(args);
+  if (name === 'list_series') return toolListSeries(args);
+  if (name === 'factor_exposure') return toolFactorExposure(args);
+  if (name === 'get_crowding') return toolGetCrowding(args);
   return { error: 'unknown tool: ' + name };
 }
 
@@ -561,6 +639,9 @@ function systemPrompt() {
     '"Where is the noise", "what is the tape saying", desk-level tone -> get_sentiment; vol_z is attention vs that desk\'s own 90d norm, sentiment is tone on -1..+1.',
     '"What should I look at", "any ideas", "what is screening well" -> get_candidates; it returns the nightly 5-per-desk screen with metrics as decimals, and it excludes names already in the book unless asked otherwise.',
     '"What is coming up", "anything on the calendar" -> get_key_dates; use only_book=true when the question is about the book.',
+    '"What is crowded", "is this consensus", "where is positioning stretched" -> get_crowding (CFTC positioning). Attention in the news is not crowding; do not answer a positioning question with article counts.',
+    '"Is the book diversified", "what is my real exposure", "am I making one bet twice" -> factor_exposure.',
+    'Never guess a series key. If you are not certain a key exists, call list_series with a plain-language query first, then get_series or compare with the key it returns.',
     'Candidates are screen output, not recommendations. Say so when you quote them.',
     'Today is ' + nowWIB.toISOString().slice(0, 10) + ' (WIB).',
   ].join(' ');
