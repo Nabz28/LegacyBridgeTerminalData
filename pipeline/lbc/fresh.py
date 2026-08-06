@@ -28,6 +28,7 @@ EXPECTATIONS = {
     "ingest_cot": 200,           # weekly
     "ingest_edgar": 30,
     "ingest_names": 24 * 30,     # backfill job, idempotent, rarely has work
+    "ingest_archive": 24 * 30,   # static archive bridge, converges then idles
     "ingest_news": 12,
     "ingest_calendar": 30,
     "ingest_cb_statements": 24 * 60,  # event-driven; 60d tolerance
@@ -83,7 +84,7 @@ def record(pipeline: str, rows_written: int, ok: bool = True, note: str | None =
 
 # Backfills legitimately write nothing once complete; everything else that
 # fetches must produce rows or it failed, whatever its exit code.
-ZERO_ROWS_OK = {"ingest_names", "ingest_cb_statements", "ingest_edgar"}
+ZERO_ROWS_OK = {"ingest_names", "ingest_archive", "ingest_cb_statements", "ingest_edgar"}
 
 
 def guarded(pipeline: str):
