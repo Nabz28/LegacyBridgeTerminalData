@@ -70,7 +70,8 @@ SERIES = [
     ("idx.sox",          "PHLX Semiconductor",           "us", "index", "idx", "d", "yahoo", "^SOX"),
     ("idx.jkse",         "IDX Composite (JCI)",          "id", "index", "idx", "d", "yahoo", "^JKSE"),
     ("idx.hsi",          "Hang Seng",                    "cn", "index", "idx", "d", "yahoo", "^HSI"),
-    ("idx.csi300",       "CSI 300",                      "cn", "index", "idx", "d", "yahoo", "000300.SS"),
+    ("idx.csi300",       "China A-shares (ASHR)",        "cn", "index", "idx", "d", "yahoo", "ASHR"),
+    ("idx.china_bx",     "China Broad (MCHI)",           "cn", "index", "idx", "d", "yahoo", "MCHI"),
     ("idx.twii",         "Taiwan TAIEX",                 "tw", "index", "idx", "d", "yahoo", "^TWII"),
     ("idx.n225",         "Nikkei 225",                   "jp", "index", "idx", "d", "yahoo", "^N225"),
     ("idx.kospi",        "KOSPI",                        "kr", "index", "idx", "d", "yahoo", "^KS11"),
@@ -79,8 +80,8 @@ SERIES = [
     ("crypto.btc",       "Bitcoin",                      "global", "crypto", "$", "d", "yahoo", "BTC-USD"),
     # --- Eurozone (DBnomics, verified live) ---
     ("eu.rate.dfr",      "ECB Deposit Facility Rate",    "eu", "rates",     "%",  "d", "dbnomics", "ECB/FM/D.U2.EUR.4F.KR.DFR.LEV"),
-    ("eu.infl.hicp",     "EA HICP YoY",                  "eu", "inflation", "%",  "m", "dbnomics", "Eurostat/prc_hicp_manr/M.RCH_A.CP00.EA20"),
-    ("eu.act.esi",       "EA Economic Sentiment",        "eu", "activity",  "idx","m", "dbnomics", "Eurostat/ei_bssi_m_r2/M.BS-ESI-I.SA.EA20"),
+    ("eu.eq.broad",      "Europe Broad Equity (VGK)",    "eu", "equity",    "$",  "d", "yahoo", "VGK"),
+    ("eu.eq.germany",    "Germany Equity (EWG)",         "eu", "equity",    "$",  "d", "yahoo", "EWG"),
     # --- Positioning (CFTC legacy futures-only net specs) ---
     ("pos.cot.gold",     "COT Gold Net Specs",           "global", "positioning", "contracts", "w", "cftc", "088691"),
     ("pos.cot.silver",   "COT Silver Net Specs",         "global", "positioning", "contracts", "w", "cftc", "084691"),

@@ -72,10 +72,11 @@ def run(today: str | None = None, per_desk: int = 5) -> int:
 
     written = 0
     for desk in desks:
-        # screens rank tradeable single names; indexes, futures and FX crosses
-        # belong on the dial, not on a watchlist
+        # screens rank tradeable single names; indexes, futures, FX crosses and
+        # the desk's own benchmark belong on the dial, not on a watchlist
+        bench = desk.get("benchmark")
         tickers = [t for t in desk["tickers"][: stats.BASKET_N * 2]
-                   if not t.startswith("^") and "=" not in t]
+                   if not t.startswith("^") and "=" not in t and t != bench]
         if len(tickers) < 3:
             continue
         basket = stats.basket_index([t for t in desk["tickers"][: stats.BASKET_N]

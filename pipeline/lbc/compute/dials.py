@@ -36,6 +36,16 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
         if z is not None:
             contrib = float(np.clip(z, -2.5, 2.5)) * drv["direction"] * float(drv["weight"])
             contribs.append(contrib)
+        # Declare the cadence. Without it a monthly series printing on the 15th
+        # reads as "data missing since the 15th", and the brief reports a data
+        # outage that is really just a series that updates monthly.
+        freq = stats.infer_freq(s)
+        last_date = s.index[-1].date()
+        age_days = (dt.date.fromisoformat(today) - last_date).days
+        # Generous enough to survive Golden Week and Lunar New Year, tight
+        # enough to catch a feed that has genuinely stopped (the Yahoo CSI 300
+        # symbol went dark for 21 days and this is what surfaced it).
+        expected = {"d": 10, "w": 20, "m": 70}.get(freq, 10)
         driver_stats.append({
             "series_key": drv["series_key"], "label": drv["label"],
             "value": round(latest, 4), "z": None if z is None else round(z, 2),
@@ -43,7 +53,10 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
             "zmove5d": None if zmove is None else round(zmove, 2),
             "direction": drv["direction"], "weight": float(drv["weight"]),
             "contrib": round(contrib, 3),
-            "last_date": s.index[-1].date().isoformat(),
+            "last_date": last_date.isoformat(),
+            "freq": freq,
+            "age_days": age_days,
+            "current": age_days <= expected,
         })
         # driver_move signal
         if zmove is not None and abs(zmove) >= 1.8:
@@ -103,6 +116,15 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
             "salience": 85, "direction": 0,
             "dedupe_key": f"dial_coverage:{desk['id']}",
         })
+    else:
+        # Coverage recovered. Retire today's blind-dial warning so the Editor
+        # cannot keep reporting a condition that has already been fixed.
+        try:
+            db.update("research", "signal",
+                      f"dedupe_key=eq.dial_coverage:{desk['id']}&asof=eq.{today}&retired=eq.false",
+                      {"retired": True})
+        except Exception:
+            pass
 
     return score, machine_stance, reg, driver_stats, signals, coverage
 

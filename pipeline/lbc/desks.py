@@ -273,8 +273,8 @@ DESKS = [
         benchmark="EZU",
         drivers=[
             ("idx.stoxx", "Euro Stoxx 50", +1, 0.8, None),
-            ("eu.act.esi", "Economic sentiment", +1, 1.0, None),
-            ("eu.infl.hicp", "HICP vs target", -1, 0.8, None),
+            ("eu.eq.broad", "Europe equity trend", +1, 1.0, None),
+            ("eu.eq.germany", "German industrial proxy", +1, 0.8, "global_cycle"),
             ("eu.rate.dfr", "ECB policy", -1, 0.7, None),
             ("cmd.ngas_ttf", "Energy stress (TTF)", -1, 0.8, None),
         ],
