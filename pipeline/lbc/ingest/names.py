@@ -16,12 +16,20 @@ STOPWORDS = {"inc", "corp", "corporation", "company", "co", "ltd", "limited", "p
 
 
 def short_name(name: str) -> str:
-    """'Micron Technology, Inc.' -> 'Micron Technology'; good enough to match
-    in a headline without matching every sentence."""
+    """'PT Astra Agro Lestari Tbk' -> 'Astra Agro Lestari'.
+
+    Two words is the sweet spot for headline matching: one word matches too
+    much ("Fast", "General"), four words rarely appear verbatim.
+    """
     if not name:
         return ""
     n = re.sub(r"[.,]", " ", name)
     parts = [p for p in n.split() if p.lower().strip(".") not in STOPWORDS]
+    if not parts:
+        return ""
+    # a single generic word is worse than no match at all
+    if len(parts) == 1 and len(parts[0]) < 5:
+        return ""
     return " ".join(parts[:3]).strip()
 
 

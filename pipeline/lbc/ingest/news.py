@@ -133,10 +133,15 @@ def route(text: str, ticker_map: dict[str, str],
     tickers = []
     for tkr, desk in ticker_map.items():
         base = tkr.split(".")[0]
-        hit = len(base) >= 3 and base.isalpha() and re.search(rf"\b{re.escape(base)}\b", text)
+        # Symbols of three letters or fewer are ordinary words too: ICE is an
+        # exchange and an engine, MBG is Mercedes and an Indonesian food
+        # programme. Those must be identified by company name, never by symbol.
+        hit = False
+        if len(base) >= 4 and base.isalpha() and re.search(rf"\b{re.escape(base)}\b", text):
+            hit = True
         if not hit and names:
             nm = names.get(tkr)
-            if nm and len(nm) >= 4 and re.search(rf"\b{re.escape(nm)}\b", text, re.IGNORECASE):
+            if nm and len(nm) >= 5 and re.search(rf"\b{re.escape(nm)}\b", text, re.IGNORECASE):
                 hit = True
         if hit:
             tickers.append(tkr)
