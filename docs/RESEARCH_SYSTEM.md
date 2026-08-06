@@ -113,7 +113,7 @@ changes when it arrives.
 | Central banks | scrape | FOMC / BI / BoJ / ECB statements → word-level diff vs prior | on release days |
 | TSMC IR | scrape | monthly revenue (leads Western semi data) | monthly (~10th) |
 | IMA sitemap | scrape | Indonesian HBA coal benchmark, both periods per month | bi-monthly |
-| macro.series archive | in DB | 12.4k CEIC-style historical series (US/CN/ID) for regressions and history | static backfill |
+| macro.series archive | in DB | 12.4k CEIC-style historical series (US/CN/ID). Bridged into live series by `ingest/archive.py` where a scraper only reaches the present: the HBA coal benchmark gains 210 months back to 2009 this way, and archived values never overwrite scraped ones | static |
 | correlation.* | in DB | 4.1k mapped tickers with weekly/monthly returns since 1993 | static archive (mkt.price is the live store) |
 
 All ingests are UPSERTs on natural keys (`series_key,date` / `ticker,date`), safe to
@@ -234,9 +234,16 @@ own terminal tabs.
   supported. LEGION voice rules apply, addressed to Narin as CRO: short replies, no
   em dashes, no headers in chat, detail lives in the brief.
 
-Agent tools: `get_dial, list_dials, get_series, compare, get_book, factor_exposure,
-get_signals, get_calendar, search_memory, screen, explain_move, log_idea, set_alert,
-update_stance, get_brief` — each is a parameterized query, not RAG.
+Agent tools (21, shared by the terminal chat and the Telegram bot; each is a
+parameterized query, not RAG): `get_dial, list_dials, get_series, list_series,
+compare, get_book, factor_exposure, get_crowding, get_signals, get_news,
+get_sentiment, get_candidates, get_key_dates, get_calendar, search_memory,
+screen, get_brief, get_ops, log_idea, set_alert, update_stance`.
+
+`list_series` exists because a model that guesses series keys burns its whole
+tool budget failing. `factor_exposure` returns the nightly PCA rather than
+re-deriving it, and `get_crowding` returns CFTC positioning percentiles so a
+question about crowding is never answered with article counts.
 
 ## 8. Audit loop
 
