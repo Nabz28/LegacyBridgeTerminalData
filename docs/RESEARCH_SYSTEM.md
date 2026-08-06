@@ -162,6 +162,22 @@ Claude (via OpenRouter, key in vault) — models set in `research.config`.
 Every agent call is logged to `research.agent_log` (model, tokens, output) for cost
 and quality audit.
 
+## 5b. The four awareness layers
+
+Dials answer "what is my stance". These answer the questions a CRO actually
+asks between decisions.
+
+| Layer | Table | What it answers | Cadence |
+|---|---|---|---|
+| **News** | `research.news` | what happened, per desk and per ticker. 15 RSS feeds (CNBC, Yahoo, Investing, Kontan, Antara, Tempo), word-boundary desk routing, finance-lexicon sentiment, headline-normalized dedupe across feeds | hourly with the alert job |
+| **Sentiment** | `research.desk_sentiment` | is attention or tone unusual. Volume z-score vs the desk's own 90-day norm plus mean tone; the volume anomaly is the part that carries signal | nightly |
+| **Candidates** | `research.candidate` | what to look at. Cross-sectional screen per desk: 12-1 momentum, relative strength vs the desk's own basket, trend vs 200d, drawdown, vol penalty. Direction follows the dial, so an underweight desk screens shorts | nightly |
+| **Key dates** | `research.calendar_flag` | what lands next and whether it touches the book. `macro.calendar` mapped onto desks and open positions; events inside 36h that touch a position fire a signal | nightly |
+
+All four feed the morning brief (WATCH, NEWS, DATES blocks), the agent's tool
+set (`get_news`, `get_sentiment`, `get_candidates`, `get_key_dates`), and their
+own terminal tabs.
+
 ## 6. Artifacts (the only eight things the system writes)
 
 1. **Industry Dial** (18, nightly) — stance, conviction, machine score, regime tag,

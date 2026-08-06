@@ -209,7 +209,12 @@ def monthly():
 
 
 def alerts():
-    """Hourly level-alert checks against latest prices/series."""
+    """Hourly: user level-alerts plus proactive pushes on material book events.
+
+    This is the "warn me" half of the job. Level alerts are explicit triggers
+    the CRO set; the second pass pushes high-salience signals that touch an open
+    position, because those cannot wait for the morning brief.
+    """
     from lbc.compute import stats
     from lbc.push import telegram
 
@@ -231,7 +236,23 @@ def alerts():
                       {"active": False, "last_fired_at": dt.datetime.now(dt.timezone.utc).isoformat()})
             db.insert("research", "alert_fire", [{"alert_id": a["id"], "payload": {"last": last}}])
             fired += 1
-    print(f"alerts fired: {fired}")
+
+    # proactive: anything urgent enough that waiting until 06:30 would be wrong
+    today = dt.date.today().isoformat()
+    urgent = db.select("research", "signal",
+                       f"select=id,desk_id,kind,headline,salience&asof=eq.{today}"
+                       f"&salience=gte.85&order=salience.desc", limit=10)
+    pushed = db.get_config("pushed_signal_ids", []) or []
+    fresh_ones = [s for s in urgent if s["id"] not in pushed]
+    if fresh_ones:
+        lines = ["LBC ALERT · material change", ""]
+        for s in fresh_ones[:4]:
+            lines.append(f"  [{s['salience']}] {s['headline']}")
+        lines.append("")
+        lines.append("Full context in the morning brief or ask the desk agent.")
+        telegram.send("\n".join(lines))
+        db.set_config("pushed_signal_ids", ([s["id"] for s in urgent] + pushed)[:200])
+    print(f"alerts fired: {fired}, urgent pushed: {len(fresh_ones)}")
 
 
 def freshness():

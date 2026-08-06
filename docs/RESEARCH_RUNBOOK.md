@@ -31,24 +31,74 @@ Manual trigger: `gh workflow run research-nightly` (or any of the others).
   The pipeline writes `research.ops_freshness` on every run; a green status is
   earned by rows landing, not by a job exiting 0.
 
-## Telegram
+## Telegram: your personal CRO
 
-**Push (built, recipients empty by design — one step to turn on):** the brief
-carries position-level P&L, so nothing is broadcast until a human names the
-recipient. To start daily delivery to yourself:
+### The host decision — a dedicated bot on Vercel, not OpenClaw, not Hermes
 
-1. DM @userinfobot on Telegram, it replies with your numeric id.
-2. Message @LEGIONLBC_bot once (Telegram will not let a bot open a
-   conversation).
-3. Add the id to `research.config` key `telegram_push`:
-   `{"chat_ids": ["<your id>"]}` — via the terminal chat ("add telegram chat
-   id X to the push list") or directly against the config row.
+**Chosen: the research bot already deployed at `/api/research-bot`, running on
+Vercel + GitHub Actions.** The reasoning, since OpenClaw and Hermes were both on
+the table:
 
-The LBC exec group id is `-5196396460`; add it only if a firm-wide brief is
-intended. Push uses @LEGIONLBC_bot as sender and is send-only: this system
-never reads that bot's updates (OpenClaw owns its receive path). Until a
-recipient exists, every brief still lands in `research.brief` and the Research
-Desk → Briefs tab, so nothing is lost.
+- **OpenClaw is laptop-bound.** LBC's own note [[LEGION - OpenClaw Production
+  State]] says it plainly: "Current setup is laptop-bound; 24/7 operation needs
+  an always-on host." A CRO that goes quiet when the laptop sleeps is not a CRO.
+  The morning brief fires at 06:30 WIB from GitHub's cloud regardless of what
+  hardware is awake.
+- **OpenClaw already owns @LEGIONLBC_bot**, polling it for Nabil with the LEGION
+  persona. Telegram allows exactly one consumer per bot: `getUpdates` and a
+  webhook are mutually exclusive. Putting the research desk on that token would
+  break LEGION, and the two systems answer to different principals anyway.
+- **Hermes** (in any of its forms) still needs a host you would then own and
+  babysit, and nothing Hermes-shaped exists in the stack today. It solves no
+  problem the current design has.
+- The deployed bot **shares one tool layer** with the terminal chat panel, so
+  Telegram and the browser answer identically and there is one thing to maintain.
+
+OpenClaw is not shut out: if you later want it as a front end, give it a skill
+that POSTs to `/api/research-agent` and it inherits every tool. That is a config
+change, not a rebuild.
+
+### Turning it on (one command, about two minutes)
+
+The system automated everything except the two things only your Telegram account
+can produce: a bot token and your chat id.
+
+1. Message **@BotFather** → `/newbot` → name it (e.g. `LBC Research Desk`).
+   Copy the token.
+2. Run this from the repo root:
+
+```bash
+node scripts/research/activate-bot.mjs --token=PASTE_TOKEN_HERE --discover
+```
+
+Then message your new bot once. `--discover` picks up your chat id, stores the
+token in `brain.vault`, generates and stores a webhook secret, points the
+webhook at production, registers you for daily pushes and conversation, and
+sends a confirmation message. `--status` inspects the state any time.
+
+If you would rather not use `--discover`, get your id from @userinfobot and pass
+`--chat=<id>` instead.
+
+### What it does once live
+
+- **06:30 WIB daily:** the morning brief (regime, book, up to five changes, up
+  to two decisions, watchlist, news, key dates, where it is blind).
+- **Hourly during market hours:** pushes anything with salience 85+, which in
+  practice means cut-loss breaches, stop proximity, factor concentration, and
+  regime flips. It warns you rather than waiting for the morning.
+- **Every 6h:** data freshness violations, so you learn a feed died from the
+  system rather than from a wrong number.
+- **Conversation:** free text with the full tool set — dials, series, compare,
+  book, factor exposure, signals, news, sentiment, candidates, key dates, memory
+  search, screens. Commands: `/brief` `/dials` `/watch` `/news` `/dates` `/ops`
+  `/help`.
+- **Commands that write:** log an idea, set an alert, change a stance. Those are
+  recorded with `stance_source='human'` so the machine never overwrites your call.
+
+Recipients ship **empty by design**: the brief carries position-level P&L, so
+nothing broadcasts until you name a recipient. The LBC exec group is
+`-5196396460` if you ever want a firm-wide version. Until then every brief still
+lands in `research.brief` and the Research Desk → Briefs tab, so nothing is lost.
 
 **Interactive bot (dormant until activated, ~3 minutes of human work):**
 1. Message @BotFather → `/newbot` → e.g. `LBCResearchBot`. Copy the token.
