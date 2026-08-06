@@ -345,10 +345,10 @@ const BackgroundNoise = ({ color, size, density }) => {
 };
 
 // ================================================================
-// Market strip symbols — LIVE via the Monitor quote layer (keyless edge
-// fns, shared cache), falling back to the static snapshot values when a
-// quote hasn't arrived (or MONITOR_LIVE is unavailable). fmt: 'idr' whole
-// numbers, 'usd2' $ 2dp, 'usd0' $ whole, 'idx' 2dp index points.
+// Market strip symbols — static snapshot values. (The old Monitor
+// live-quote layer was retired with the Research Desk rebuild; sparks
+// fall back to seeded shapes.) fmt: 'idr' whole numbers, 'usd2' $ 2dp,
+// 'usd0' $ whole, 'idx' 2dp index points.
 // ================================================================
 const MSTRIP_SYMBOLS = [
   { s: 'IHSG',    t: '^JKSE',   fmt: 'idx',  v: '7,283.51', c: 1.21 },
@@ -401,32 +401,9 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
     return DEFAULT_LAYOUT;
   });
 
-  // Live market strip: pull real quotes + 1mo sparks through the Monitor
-  // data layer (shared cache — the Monitor terminal dedupes these fetches).
-  // Any symbol without a live quote keeps its static snapshot value.
-  const [mstripLive, setMstripLive] = useState({});
-  useEffect(() => {
-    const MLive = window.MONITOR_LIVE;
-    if (!MLive) return;
-    let alive = true;
-    const load = () => {
-      MSTRIP_SYMBOLS.forEach((m) => {
-        MLive.fetchQuote(m.t).then((q) => {
-          if (alive && q && q.price != null) {
-            setMstripLive((prev) => ({ ...prev, [m.t]: { ...(prev[m.t] || {}), price: q.price, chg: q.changePct } }));
-          }
-        }, () => {});
-        MLive.fetchHistory(m.t, '1mo', '1d').then((obs) => {
-          if (alive && obs && obs.length > 3) {
-            setMstripLive((prev) => ({ ...prev, [m.t]: { ...(prev[m.t] || {}), spark: obs.map((o) => o.value) } }));
-          }
-        }, () => {});
-      });
-    };
-    load();
-    const iv = setInterval(load, 120 * 1000);
-    return () => { alive = false; clearInterval(iv); };
-  }, []);
+  // Market strip: static snapshot values only — the Monitor live-quote layer
+  // that used to fill this was retired with the Research Desk rebuild.
+  const mstripLive = {};
   const [editMode, setEditMode] = useState(false);
   const [libOpen, setLibOpen] = useState(false);
   const [libTarget, setLibTarget] = useState(null); // {widgetId, mode: 'swap'|'add'}
@@ -812,10 +789,8 @@ const App = ({ qars, terminal, onHome, onNewTab }) => {
           window.FINANCE_TERMINAL ? <window.FINANCE_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : activeTabObj?.kind === 'accounts' ? (
           window.ACCOUNTS_TERMINAL ? <window.ACCOUNTS_TERMINAL /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
-        ) : activeTabObj?.kind === 'monitor' ? (
-          window.MonitorTerminal ? <window.MonitorTerminal /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
-        ) : activeTabObj?.kind === 'research' ? (
-          window.ResearchTerminal ? <window.ResearchTerminal /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
+        ) : activeTabObj?.kind === 'research-desk' ? (
+          window.ResearchDeskTerminal ? <window.ResearchDeskTerminal /> : <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         ) : (
           <window.NotYet title={activeTabObj?.title} terminal={terminal} />
         )}

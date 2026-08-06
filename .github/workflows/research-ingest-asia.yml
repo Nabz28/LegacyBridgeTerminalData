@@ -1,0 +1,33 @@
+name: research-ingest-asia
+
+on:
+  schedule:
+    # 09:30 UTC = 16:30 WIB, after IDX/Asia closes
+    - cron: "30 9 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Full backfill"
+        type: boolean
+        default: false
+
+concurrency:
+  group: research-ingest-asia
+  cancel-in-progress: false
+
+jobs:
+  asia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - run: pip install -r pipeline/requirements.txt
+      - name: Asia close ingest (prices + IDX flows)
+        env:
+          SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
+        run: python pipeline/jobs.py ingest_asia ${{ inputs.full && '--full' || '' }}

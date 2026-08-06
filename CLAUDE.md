@@ -2,12 +2,12 @@
 
 A research operating system for Indonesian equity work — 13 terminals behind one login. Vanilla Babel-in-browser React shell (`launcher/`, no bundler) over Supabase (Narin's Plus, ref `adnubucjlezrtusbicja`). Embedded sub-apps: `management/`, `network/`, `yggdrasil/`, `autocharter/`, `correlation/`, `macro/`.
 
-**Monitor (T12) and Research (T13) share one coverage spine** — the 13 desks and
-their sub-industries in `launcher/scripts/monitor-data.js`. Monitor is the tape
-(prices, regime, breadth); Research is the view (house stance per desk and
-sub-industry, the note book, the watchlist). See [docs/RESEARCH.md](docs/RESEARCH.md).
-Never fork the taxonomy — add sub-industries in `monitor-data.js` and both pick
-them up.
+**Research Desk (T12)** is the UI for the autonomous research system — it replaced
+the old Monitor (T12) + Research (T13) pair. The 23-desk taxonomy lives in the
+database (`research.desk`, seeded by the pipeline), not in frontend code; the
+terminal (`launcher/scripts/research-desk-*.jsx`) only reads. Dials, signals,
+briefs, theses and ops freshness are written nightly by `pipeline/`. See
+[docs/RESEARCH_SYSTEM.md](docs/RESEARCH_SYSTEM.md).
 
 ## LEGION (T9) — the AI chief of staff
 
