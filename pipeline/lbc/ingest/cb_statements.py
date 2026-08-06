@@ -11,6 +11,7 @@ import difflib
 import hashlib
 import html as html_lib
 import re
+import urllib.error
 import urllib.request
 
 from .. import db
@@ -20,8 +21,23 @@ UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) lbc-research"}
 
 def _get(url: str) -> str:
     req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read().decode("utf-8", errors="replace")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return r.read().decode("utf-8", errors="replace")
+    except urllib.error.URLError as e:
+        # Some central bank hosts serve chains that a bare local cert store
+        # cannot verify (ECB in particular). CI has a full bundle; retry there
+        # with certifi if it is installed rather than failing the whole sweep.
+        if "CERTIFICATE_VERIFY_FAILED" not in str(e):
+            raise
+        try:
+            import ssl
+            import certifi
+            ctx = ssl.create_default_context(cafile=certifi.where())
+        except ImportError:
+            raise
+        with urllib.request.urlopen(req, timeout=60, context=ctx) as r:
+            return r.read().decode("utf-8", errors="replace")
 
 
 def _strip_html(html: str) -> str:

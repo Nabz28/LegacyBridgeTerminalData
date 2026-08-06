@@ -37,23 +37,39 @@
 
 ```
 L1  INGEST      GitHub Actions cron → Python → Supabase REST (UPSERTs, idempotent)
-L2  NORMALIZE   mkt.series/mkt.observation (macro+commodities), mkt.price (equities),
-                mkt.flow (IDX foreign), doc.document (filings/statements)
+L2  NORMALIZE   mkt.series/observation (macro, commodities, FX, derived),
+                mkt.price (equities), mkt.flow (IDX foreign), research.news,
+                doc.document (filings, central bank statements)
 L3  COMPUTE     pipeline/compute: regimes, driver stats, relationship breaks,
-                crowding, book analytics → research.signal + research.dial
-L4  REASON      pipeline/reason: desk agents + Editor + Adversary (Claude via
+                crowding, sentiment, screens, key dates, book analytics
+                → research.signal + dial + candidate + desk_sentiment
+L4  REASON      pipeline/reason: 23 desk agents + Editor + Adversary (Claude via
                 OpenRouter) → brief items, thesis challenges → research.brief
-L5  INTERFACE   Telegram push (morning brief, alerts) + Research Desk terminal
-                (dial board, chat agent) + optional interactive bot webhook
+L5  INTERFACE   Telegram push (morning brief, intraday warnings) + Research Desk
+                terminal (10 tabs) + tool-use agent shared by both
       ^
    AUDIT LOOP   pipeline/audit: every signal scored at +5d/+21d, stances vs basket
-                returns, hit rates, IC, graveyard. Runs forever.
+                returns, hit rates, graveyard. Runs forever.
 ```
 
 Everything runs in GitHub Actions (`Nabz28/LegacyBridgeTerminalData`, public repo —
-secrets live in Actions secrets and `brain.vault`, never in code). The old
-`macro-refresh-daily` pg_net path is retired: pg_net's 5s timeout can never complete
-an ingest and reports success for enqueue-only.
+secrets live in Actions secrets and `brain.vault`, never in code) except one
+pipeline: IDX foreign flow, which Cloudflare blocks from every datacenter IP and
+so runs from a residential machine on a schedule. The old `macro-refresh-daily`
+pg_net path is retired: pg_net's 5s timeout can never complete an ingest and
+reports success for enqueue-only.
+
+**Two rules the whole design turns on:**
+
+1. *A number is either current or absent.* `db.select` pages past PostgREST's
+   1000-row cap; series load newest-first so any truncation loses the past, not
+   the present; a dial with under 60% driver coverage states no view and says so;
+   a zero-row ingest is recorded as an error; freshness asserts data arrival
+   rather than exit codes.
+2. *The machine computes, the model interprets, the human decides.* Every figure
+   in every brief comes from the deterministic engine. Agents rank and phrase.
+   Human stances are recorded with `stance_source='human'` and are never
+   overwritten, and the dial shows machine and human views side by side.
 
 ## 2. The 23 desks
 

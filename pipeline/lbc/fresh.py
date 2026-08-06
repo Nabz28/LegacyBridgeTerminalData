@@ -81,18 +81,19 @@ def record(pipeline: str, rows_written: int, ok: bool = True, note: str | None =
     db.upsert("research", "ops_freshness", [row], on_conflict="pipeline")
 
 
-def guarded(pipeline: str):
-    """Run a job, record the outcome, never swallow the traceback.
+# Backfills legitimately write nothing once complete; everything else that
+# fetches must produce rows or it failed, whatever its exit code.
+ZERO_ROWS_OK = {"ingest_names", "ingest_cb_statements", "ingest_edgar"}
 
-    A run that writes zero rows is recorded as an ERROR, not a success: an
-    ingest that fetched nothing is a failure whatever its exit code.
-    """
+
+def guarded(pipeline: str):
+    """Run a job, record the outcome, never swallow the traceback."""
     def deco(fn):
         def wrapped(*a, **kw):
             try:
                 rows = fn(*a, **kw)
                 n = int(rows or 0)
-                if n == 0 and pipeline.startswith("ingest_"):
+                if n == 0 and pipeline.startswith("ingest_") and pipeline not in ZERO_ROWS_OK:
                     record(pipeline, 0, ok=False, note="ran but wrote 0 rows")
                     print(f"[{pipeline}] WROTE NOTHING (recorded as error)")
                 else:
