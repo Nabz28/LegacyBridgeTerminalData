@@ -108,6 +108,84 @@ def flow_signals(today: str) -> list[dict]:
                 "direction": 1 if z5 > 0 else -1,
                 "dedupe_key": "flow_idx_5d",
             })
+    out.extend(stock_flow_signals(today))
+    return out
+
+
+def stock_flow_signals(today: str, lookback_days: int = 20, top_n: int = 4) -> list[dict]:
+    """Sustained foreign accumulation or distribution in individual IDX names.
+
+    Foreign net buy per stock is the highest-signal Indonesian dataset available
+    and nothing else in the system reads it. What matters is persistence, not one
+    big print: a name bought on most of the last twenty sessions is being
+    accumulated, whereas a single block trade is noise.
+    """
+    import pandas as pd
+
+    since = (dt.date.fromisoformat(today) - dt.timedelta(days=lookback_days * 2)).isoformat()
+    rows = db.select("mkt", "flow",
+                     f"select=date,ticker,net,value_total&market=eq.idx&date=gte.{since}"
+                     f"&ticker=neq._market", limit=None)
+    if len(rows) < 500:
+        return []
+    df = pd.DataFrame(rows)
+    df["net"] = pd.to_numeric(df["net"], errors="coerce")
+    df["value_total"] = pd.to_numeric(df["value_total"], errors="coerce")
+    df = df.dropna(subset=["net"])
+
+    sessions = sorted(df["date"].unique())[-lookback_days:]
+    if len(sessions) < 10:
+        return []
+    win = df[df["date"].isin(sessions)]
+
+    agg = win.groupby("ticker").agg(
+        net_sum=("net", "sum"),
+        days=("net", "size"),
+        buy_days=("net", lambda x: int((x > 0).sum())),
+        turnover=("value_total", "sum"),
+    )
+    # only liquid names: a huge percentage flow into an illiquid stock is noise
+    agg = agg[(agg["days"] >= len(sessions) * 0.6) & (agg["turnover"] > 0)]
+    if agg.empty:
+        return []
+    agg["persistence"] = agg["buy_days"] / agg["days"]
+    agg["net_pct_turnover"] = agg["net_sum"] / agg["turnover"]
+    liquid = agg[agg["turnover"] >= agg["turnover"].quantile(0.70)].copy()
+    if len(liquid) < 20:
+        return []
+
+    # Net flow as a share of turnover is naturally tiny (the cross-section tops
+    # out near 1%), so absolute thresholds are meaningless here. Rank within the
+    # day's cross-section instead: what counts is being an outlier among peers.
+    liquid["flow_rank"] = liquid["net_pct_turnover"].rank(pct=True)
+
+    out = []
+    for side, sign in (("accumulation", 1), ("distribution", -1)):
+        if sign > 0:
+            cand = liquid[(liquid["persistence"] >= 0.70) & (liquid["flow_rank"] >= 0.95)]
+            cand = cand.sort_values("net_pct_turnover", ascending=False)
+        else:
+            cand = liquid[(liquid["persistence"] <= 0.30) & (liquid["flow_rank"] <= 0.05)]
+            cand = cand.sort_values("net_pct_turnover", ascending=True)
+        for ticker, r in cand.head(top_n).iterrows():
+            bought = int(r["buy_days"])
+            sess = int(r["days"])
+            phrase = (f"bought on {bought} of {sess} sessions" if sign > 0
+                      else f"sold on {sess - bought} of {sess} sessions")
+            out.append({
+                "asof": today, "desk_id": "indonesia", "kind": "stock_flow",
+                "ref": f"{ticker}.JK",
+                "headline": f"{ticker}: sustained foreign {side}, {phrase}, "
+                            f"net {r['net_pct_turnover']:+.2%} of turnover",
+                "payload": {"ticker": ticker, "net_idr": float(r["net_sum"]),
+                            "pct_of_turnover": round(float(r["net_pct_turnover"]), 5),
+                            "persistence": round(float(r["persistence"]), 2),
+                            "cross_section_rank": round(float(r["flow_rank"]), 3),
+                            "buy_days": bought, "sessions": sess},
+                "salience": int(min(78, 52 + abs(r["flow_rank"] - 0.5) * 40)),
+                "direction": sign,
+                "dedupe_key": f"stock_flow:{ticker}",
+            })
     return out
 
 

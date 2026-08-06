@@ -132,7 +132,8 @@ salience score (0–100), and full refs. Catalog:
 | rel_break | 60d rolling corr(basket, driver) fell >0.4 vs 1y baseline — thesis broken or opportunity |
 | crowding | COT net-spec percentile >90 or <10 |
 | momentum_flip | basket 20d return sign flip with magnitude, or 50/200 cross |
-| flow_anomaly | IDX foreign net-buy 5d z-score >2 |
+| flow_anomaly | IDX market-wide foreign net-buy 5d z-score >2 |
+| stock_flow | an IDX name in the top/bottom 5% of foreign net flow vs turnover, bought or sold on 70%+ of the last 20 sessions |
 | news_anomaly | desk article volume z>2.5 vs its own 90d norm |
 | news_sentiment | desk news tone swung >2 sigma over 3 days |
 | stmt_diff | central bank statement changed materially vs prior (diff salience) |
