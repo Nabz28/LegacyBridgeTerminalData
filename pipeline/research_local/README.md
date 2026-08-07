@@ -46,3 +46,19 @@ drops, and every truncated series carries `n_obs_total`, `n_obs_shipped`, `obser
 An absent file reads as an absent fact, and a truncated list reads as a complete one. **Any
 pack-building step must either cover everything or say explicitly what it dropped.** Never let a
 gap be silent — an analyst will correctly report "this data does not exist" and be wrong.
+
+## Running these
+
+They resolve their data root through `_datadir.py`, which reads `$LBC_RESEARCH_DATA` and
+**refuses to run if the resolved path sits inside a git working tree**. That guard exists because
+versioning these scripts into the repo silently repointed `Path(__file__).parent` at
+`pipeline/research_local/`, and one run would have written ~36MB of packs into git.
+
+```bash
+export LBC_RESEARCH_DATA="/path/to/LBC Research/data"   # must be outside any repo
+export SUPABASE_SERVICE_ROLE=...
+python pipeline/research_local/extract_archive.py id idind cn us
+```
+
+The irony is on the nose: the fix for a truncation bug introduced a storage bug, caught only by
+checking what the change actually did rather than what it was meant to do.

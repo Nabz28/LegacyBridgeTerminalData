@@ -18,7 +18,9 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-HERE = Path(__file__).parent
+from _datadir import data_dir
+
+HERE = data_dir()
 SUPABASE_URL = "https://adnubucjlezrtusbicja.supabase.co"
 KEY = os.environ.get("SUPABASE_SERVICE_ROLE") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 PAGE = 1000

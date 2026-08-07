@@ -22,7 +22,9 @@ import statistics as st
 import urllib.request
 from pathlib import Path
 
-HERE = Path(__file__).parent
+from _datadir import data_dir
+
+HERE = data_dir()
 URL = "https://adnubucjlezrtusbicja.supabase.co"
 KEY = os.environ.get("SUPABASE_SERVICE_ROLE", "")
 PAGE = 1000

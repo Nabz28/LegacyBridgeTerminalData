@@ -13,7 +13,9 @@ import json
 import statistics as st
 from pathlib import Path
 
-HERE = Path(__file__).parent
+from _datadir import data_dir
+
+HERE = data_dir()
 ARCH = HERE / "archive"
 OUT = HERE / "id_industry"
 OUT.mkdir(exist_ok=True)
