@@ -776,7 +776,7 @@
   // ==========================================================================
   // BRIEFS
   // ==========================================================================
-  const BRIEF_KINDS = ['morning', 'weekly', 'monthly', 'flash'];
+  const BRIEF_KINDS = ['morning', 'weekly', 'monthly', 'flash', 'deep'];
   const BriefsPage = () => {
     const { Empty, Loading, ErrNote } = RV();
     const fmt = RD().fmt;
