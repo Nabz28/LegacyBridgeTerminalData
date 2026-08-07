@@ -154,4 +154,57 @@ def assert_arrival() -> list[dict]:
         if age > max_days:
             violations.append({"pipeline": pipeline, "kind": "probe_stale",
                                "detail": f"{key} last moved {age}d ago (limit {max_days}d)"})
+
+    violations += assert_drivers_live()
     return violations
+
+
+# A driver may die while its table stays green: mkt.observation's newest row is always
+# today because daily series dominate it, so a monthly series that stopped updating is
+# invisible to the table-level check. The eurozone desk ran for eight months on two
+# Eurostat series frozen at 2025-12-01 and nothing flagged it. Budgets are per frequency
+# and generous — this is meant to catch death, not lateness.
+DRIVER_MAX_AGE = {"d": 8, "w": 21, "m": 75, "q": 200}
+
+
+def assert_drivers_live() -> list[dict]:
+    """Every series a desk actually scores on must still be moving.
+
+    Checked per series rather than per table, because that is the only level at which a
+    single dead driver is distinguishable from a healthy pipeline.
+    """
+    from . import db, registry
+
+    today = dt.date.today()
+    freq = {r[0]: r[5] for r in registry.SERIES}
+    try:
+        drivers = db.select("research", "driver", "select=desk_id,series_key")
+        rows = db.select("mkt", "observation", "select=series_key,date&order=date.desc")
+    except Exception as e:
+        return [{"pipeline": "desk_drivers", "kind": "query_failed", "detail": str(e)[:120]}]
+
+    newest: dict[str, str] = {}
+    for r in rows:
+        k = r["series_key"]
+        if k not in newest or str(r["date"]) > newest[k]:
+            newest[k] = str(r["date"])
+
+    seen, out = set(), []
+    for d in drivers:
+        key = d["series_key"]
+        if key in seen:
+            continue
+        seen.add(key)
+        last = newest.get(key)
+        if not last:
+            out.append({"pipeline": "desk_drivers", "kind": "driver_no_data",
+                        "detail": f"{key} ({d['desk_id']}) has no observations at all"})
+            continue
+        age = (today - dt.date.fromisoformat(last[:10])).days
+        budget = DRIVER_MAX_AGE.get(freq.get(key, "d"), 8)
+        if age > budget:
+            out.append({
+                "pipeline": "desk_drivers", "kind": "driver_stale",
+                "detail": f"{key} ({d['desk_id']}) last moved {age}d ago "
+                          f"(limit {budget}d for {freq.get(key, 'd')} series)"})
+    return out

@@ -78,8 +78,17 @@ SERIES = [
     ("idx.stoxx",        "Euro Stoxx 50",                "eu", "index", "idx", "d", "yahoo", "^STOXX50E"),
     ("idx.dax",          "DAX",                          "eu", "index", "idx", "d", "yahoo", "^GDAXI"),
     ("crypto.btc",       "Bitcoin",                      "global", "crypto", "$", "d", "yahoo", "BTC-USD"),
-    # --- Eurozone (DBnomics, verified live) ---
+    # --- Eurozone (DBnomics) ---
+    # The two monthly series below are DESK DRIVERS that no job was refreshing: they were
+    # seeded once and sat frozen at 2025-12-01 for eight months while the eurozone desk kept
+    # scoring on them. Registering them puts them in the ingest loop and, more importantly,
+    # under assert_drivers_live(). Note DBnomics' monthly euro-area mirrors are themselves
+    # stale at source across BOTH the ECB and Eurostat providers, while the daily ECB rate
+    # series is current — so expect these to keep flagging until DBnomics catches up. That
+    # is the correct behaviour: the eurozone desk is price-only in practice and should say so.
     ("eu.rate.dfr",      "ECB Deposit Facility Rate",    "eu", "rates",     "%",  "d", "dbnomics", "ECB/FM/D.U2.EUR.4F.KR.DFR.LEV"),
+    ("eu.infl.hicp",     "EA HICP YoY",                  "eu", "inflation", "%",  "m", "dbnomics", "ECB/ICP/M.U2.N.000000.4.ANR"),
+    ("eu.act.esi",       "EA Economic Sentiment",        "eu", "activity",  "idx", "m", "dbnomics", "Eurostat/ei_bssi_m_r2/M.BS-ESI-I.SA.EA20"),
     ("eu.eq.broad",      "Europe Broad Equity (VGK)",    "eu", "equity",    "$",  "d", "yahoo", "VGK"),
     ("eu.eq.germany",    "Germany Equity (EWG)",         "eu", "equity",    "$",  "d", "yahoo", "EWG"),
     # --- Positioning (CFTC legacy futures-only net specs) ---
