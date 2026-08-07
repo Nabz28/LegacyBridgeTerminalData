@@ -1,0 +1,1281 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LBC Research: Indonesia at 5.6%, and Forty-Three Corrections Including Eight to Our Own Corrections</title>
+<style>
+:root {
+  --paper:      #faf8f4;
+  --paper-2:    #f2efe8;
+  --ink:        #16181c;
+  --ink-soft:   #5b5f68;
+  --rule:       #ded8cc;
+  --accent:     #2f4574;
+  --accent-2:   #7a6a3f;
+  --pos:        #2f6b4f;
+  --neg:        #98362a;
+  --warn:       #8a6d1c;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:#101215; --paper-2:#171a1f; --ink:#e6e3dc; --ink-soft:#9297a1;
+    --rule:#2a2e35; --accent:#8fa6d8; --accent-2:#c3ae74;
+    --pos:#6fae8b; --neg:#d0796a; --warn:#c7a94e;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#101215; --paper-2:#171a1f; --ink:#e6e3dc; --ink-soft:#9297a1;
+  --rule:#2a2e35; --accent:#8fa6d8; --accent-2:#c3ae74;
+  --pos:#6fae8b; --neg:#d0796a; --warn:#c7a94e;
+}
+:root[data-theme="light"] {
+  --paper:#faf8f4; --paper-2:#f2efe8; --ink:#16181c; --ink-soft:#5b5f68;
+  --rule:#ded8cc; --accent:#2f4574; --accent-2:#7a6a3f;
+  --pos:#2f6b4f; --neg:#98362a; --warn:#8a6d1c;
+}
+
+body {
+  background:var(--paper); color:var(--ink); font-family:var(--serif);
+  font-size:17px; line-height:1.65; margin:0; padding:0;
+  -webkit-font-smoothing:antialiased;
+}
+.shell { display:grid; grid-template-columns:212px minmax(0,1fr); gap:0 48px;
+         max-width:1240px; margin:0 auto; padding:0 clamp(16px,4vw,44px) 120px; }
+@media (max-width:900px){ .shell{grid-template-columns:1fr; gap:0;} nav.toc{position:static!important;height:auto!important;border:0!important;padding:0 0 24px!important;margin-bottom:20px;border-bottom:1px solid var(--rule)!important;} }
+
+/* masthead */
+header.mast { grid-column:1/-1; padding:clamp(40px,6vw,76px) 0 26px; border-bottom:2.5px solid var(--ink); margin-bottom:34px; }
+.eyebrow { font-family:var(--mono); font-size:10.5px; letter-spacing:.19em; text-transform:uppercase;
+           color:var(--accent); margin:0 0 16px; }
+h1.title { font-family:var(--serif); font-weight:600; font-size:clamp(30px,5vw,52px); line-height:1.04;
+           letter-spacing:-.02em; margin:0 0 16px; text-wrap:balance; }
+.dek { font-size:clamp(17px,2vw,21px); color:var(--ink-soft); max-width:62ch; margin:0; font-style:italic; }
+.mastmeta { font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); display:flex;
+            flex-wrap:wrap; gap:6px 26px; margin-top:26px; }
+.mastmeta b { color:var(--ink); font-weight:600; }
+
+/* nav */
+nav.toc { position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+          padding:34px 0; font-family:var(--mono); font-size:11.5px; }
+nav.toc a { display:block; color:var(--ink-soft); text-decoration:none; padding:5px 0;
+            border-left:2px solid transparent; padding-left:11px; line-height:1.35; }
+nav.toc a:hover { color:var(--accent); border-left-color:var(--accent); }
+nav.toc .navhead { color:var(--ink); font-weight:600; text-transform:uppercase;
+                   letter-spacing:.13em; font-size:10px; margin:20px 0 7px; padding-left:11px; }
+nav.toc .navhead:first-child { margin-top:0; }
+
+main { min-width:0; }
+section { padding:14px 0 46px; border-bottom:1px solid var(--rule); }
+section:last-of-type { border-bottom:0; }
+h2 { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.17em;
+     text-transform:uppercase; color:var(--accent); margin:0 0 20px;
+     padding-bottom:9px; border-bottom:1px solid var(--rule); }
+h3 { font-family:var(--serif); font-size:25px; font-weight:600; line-height:1.2;
+     margin:34px 0 13px; letter-spacing:-.01em; text-wrap:balance; }
+h3:first-of-type { margin-top:0; }
+h4 { font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.05em;
+     margin:26px 0 9px; color:var(--accent-2); text-transform:uppercase; }
+p { margin:0 0 16px; max-width:70ch; }
+strong { font-weight:600; }
+em { font-style:italic; }
+ul,ol { margin:0 0 17px; padding-left:22px; max-width:70ch; }
+li { margin-bottom:8px; }
+li::marker { color:var(--accent); }
+a { color:var(--accent); text-underline-offset:2px; }
+a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+/* the lede callout */
+.lede { border-left:3px solid var(--accent); background:var(--paper-2);
+        padding:20px 24px; margin:0 0 28px; }
+.lede p { margin:0; font-size:19px; line-height:1.55; max-width:64ch; }
+.lede p + p { margin-top:12px; }
+
+/* data tables */
+.tw { overflow-x:auto; margin:0 0 10px; border:1px solid var(--rule); }
+table { border-collapse:collapse; width:100%; font-family:var(--mono); font-size:12px;
+        font-variant-numeric:tabular-nums; }
+thead th { text-align:left; font-weight:600; color:var(--ink-soft); text-transform:uppercase;
+           letter-spacing:.08em; font-size:9.5px; padding:9px 11px; white-space:nowrap;
+           background:var(--paper-2); border-bottom:1px solid var(--rule); position:sticky; top:0; }
+td { padding:6px 11px; border-bottom:1px solid var(--rule); white-space:nowrap; }
+tbody tr:last-child td { border-bottom:0; }
+tbody tr:hover td { background:var(--paper-2); }
+td.num, th.num { text-align:right; }
+td.lbl { font-family:var(--serif); font-size:14px; white-space:normal; min-width:150px; }
+td.dt { color:var(--ink-soft); font-size:11px; }
+td.spk { padding:2px 8px; width:120px; }
+.spark { display:block; }
+.na { color:var(--ink-soft); opacity:.5; }
+.pos { color:var(--pos); }
+.neg { color:var(--neg); }
+.basketkind { color:var(--ink-soft); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; }
+caption, .tcap { font-family:var(--mono); font-size:10.5px; color:var(--ink-soft);
+                 text-align:left; margin:7px 0 26px; line-height:1.5; max-width:78ch; }
+
+.chip { font-family:var(--mono); font-size:9.5px; letter-spacing:.07em; text-transform:uppercase;
+        padding:2px 7px; border:1px solid currentColor; white-space:nowrap; }
+.chip.ow { color:var(--pos); } .chip.uw { color:var(--neg); } .chip.n { color:var(--ink-soft); }
+
+/* stat strip */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+         gap:1px; background:var(--rule); border:1px solid var(--rule); margin:0 0 26px; }
+.stat { background:var(--paper); padding:14px 16px; }
+.stat .k { font-family:var(--mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase;
+           color:var(--ink-soft); margin-bottom:5px; }
+.stat .v { font-family:var(--mono); font-size:22px; font-weight:600; font-variant-numeric:tabular-nums;
+           line-height:1.1; }
+.stat .s { font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); margin-top:4px; }
+
+blockquote { border-left:2px solid var(--accent-2); margin:22px 0; padding:2px 0 2px 18px;
+             color:var(--ink-soft); font-style:italic; max-width:66ch; }
+
+footer { grid-column:1/-1; padding-top:36px; margin-top:16px; border-top:1px solid var(--rule);
+         font-family:var(--mono); font-size:11px; color:var(--ink-soft); line-height:1.7; }
+
+.corr td { vertical-align: top; font-size: .875rem; line-height: 1.5; }
+.corr td:nth-child(2) { color: var(--ink-3); }
+.corr tr.kill  td:nth-child(2) { text-decoration: line-through;
+  text-decoration-color: color-mix(in oklab, var(--neg) 55%, transparent); }
+.corr td.verdict { white-space: nowrap; width: 1%; }
+.pill { display:inline-block; padding:.16em .6em; border-radius:2px; font-size:.68rem;
+  font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  font-family: var(--mono); }
+.pill.kill  { background: color-mix(in oklab, var(--neg) 16%, transparent); color: var(--neg); }
+.pill.qual  { background: color-mix(in oklab, var(--warn) 18%, transparent); color: var(--warn); }
+.pill.stand { background: color-mix(in oklab, var(--pos) 16%, transparent); color: var(--pos); }
+.scoreline { display:flex; gap:0; margin:1.5rem 0 .5rem; border-radius:2px; overflow:hidden;
+  height: 2.25rem; font-family: var(--mono); font-size:.72rem; font-weight:600; }
+.scoreline > div { display:flex; align-items:center; justify-content:center;
+  color:#fff; letter-spacing:.04em; }
+.scoreline .sk { background: var(--neg); }
+.scoreline .sq { background: var(--warn); }
+.scoreline .ss { background: var(--pos); }
+.assur { border-left: 2px solid var(--warn); padding: .1rem 0 .1rem 1rem; margin: 1.5rem 0;
+  color: var(--ink-2); font-size: .9rem; }
+
+.sitebar{position:sticky;top:0;z-index:99;display:flex;align-items:center;gap:24px;
+  padding:10px clamp(16px,4vw,44px);background:var(--paper);
+  border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11.5px}
+.sitebar .brand{color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;font-size:10.5px}
+.sitebar .sitenav{display:flex;gap:18px;margin-left:auto}
+.sitebar a{color:var(--ink-soft);text-decoration:none;padding:3px 0;border-bottom:1.5px solid transparent}
+.sitebar a:hover{color:var(--accent)}
+.sitebar a.on{color:var(--accent);border-bottom-color:var(--accent)}
+@media print{.sitebar{display:none}}
+</style>
+</head><body>
+<nav class="sitebar">
+  <a class="brand" href="/research/">LBC Research</a>
+  <div class="sitenav"><a href="/research/global/" class="">Global status</a><a href="/research/indonesia/" class="on">Indonesia deep</a></div>
+</nav>
+
+
+<div class="shell">
+<header class="mast">
+  <p class="eyebrow">Legacy Bridge Capital &middot; Research Desk &middot; revised through round four</p>
+  <h1 class="title">Indonesia grows 5.6% with real wages flat for eight years. Four rounds of review corrected 43 of our own claims, eight of them corrections.</h1>
+  <p class="dek">Every published finding has now been put to an adversarial reviewer. Roughly two thirds failed, and on two questions the firm was wrong in both directions — which is the most useful thing in this report.</p>
+  <div class="mastmeta">
+    <span><b>As of</b> 2026-08-07</span>
+    <span><b>Agents</b> 143 across six workflows</span>
+    <span><b>Verification</b> 16/18 industry claims failed; 27 published claims corrected</span>
+    <span><b>Prepared for</b> M. Rizky Narindra, CRO</span>
+  </div>
+</header>
+
+<nav class="toc"><a href="#call">What survives</a><div class="navhead">CORRECTIONS</div><a href="#retract">To what we published</a><a href="#retract4">Corrections to our corrections</a><a href="#added">What later rounds added</a><div class="navhead">THE INDUSTRY ROUND</div><a href="#corrections">Corrections</a><a href="#patterns">How it failed</a><a href="#vintage">The vintage conflict</a><div class="navhead">INDONESIA</div><a href="#growth">Growth and the household</a><a href="#funding">Funding and liquidity</a><a href="#markets">The two markets</a><a href="#propcredit">Property credit</a><a href="#forward">Forward indicators</a><div class="navhead">VALUATION</div><a href="#valuation">IDX versus global</a><a href="#quality">Quality at a price</a><a href="#flags">Red flags</a><div class="navhead">ELSEWHERE</div><a href="#us">United States</a><a href="#china">China</a><div class="navhead">THE BOOK</div><a href="#book2">What it means</a><a href="#method2">Method & assurance</a></nav>
+<main>
+
+<section id="call">
+  <h2>What survives</h2>
+  <div class="lede">
+<p><strong>Report two told the CRO that Indonesian markets were showing distress. On the data, they
+are not.</strong> The claims that failed verification are precisely the ones that asserted it: that
+the IDX was falling on heavy volume and therefore being distributed, that the bond market had priced
+75bp of stress, that manufacturing had rolled over, and that businesses had stopped hiring. Every
+one of those is wrong, and in most cases the data points the other way.</p>
+
+<p><strong>What survived is a squeeze in the price of funding &mdash; but not the mechanism we gave
+for it.</strong> Bank Indonesia reversed from cutting to hiking on 20 May, taking the policy rate to
+5.25% and tightening the corridor a further 25bp after that. Overnight interbank went from 3.6554%
+on 22 January to 5.9831% on 10 June, +233bp, and now trades 148bp above the floor at the 100th
+percentile of its history when in January it traded <em>below</em> the floor. Excess reserves sit at
+the 20th percentile. Working capital lending printed 7.9596% on 1 April, the lowest in the window,
+priced for a cutting cycle that ended seven weeks later. Every one of those figures reproduced
+exactly on challenge.</p>
+
+<p><strong>The deposit-flight story we published to explain it did not.</strong> Three of its four
+legs invert when checked. Bank reserves at Bank Indonesia grew 23.5% year on year against currency
+in circulation at 15.8%, so base money went <em>into</em> the banking system faster than into cash.
+The foreign-currency share of M2 fell to 13.67% from 13.71% a year earlier, below its 2024 peak, so
+there is no dollarisation in this data. And rupiah transferable deposits &mdash; the cheapest bank
+funding there is &mdash; grew 21.31%, faster than M1 itself, which is margin-<em>accretive</em> and
+cuts against our own compression thesis. Only the expensive time deposits are scarce, at 2.70%.</p>
+
+<p><strong>The currency pressure is real, and it is not a dollar story.</strong> USD/IDR reached
+18,171 on 9 June, the weakest print in the sample, +9.44% year on year, and the five worst twenty-day
+depreciation windows in the entire 140-session record all fall between 4 and 10 June. But the rupiah
+fell against the yuan (+16.0%), the euro (+12.3%), the Singapore dollar (+10.3%) and sterling (+9.0%)
+as well, while the dollar itself was weak against the yuan and the euro. Both effective-rate
+constructions sit at their sample lows. Depreciation was accelerating when the daily data went
+dark.</p>
+
+<p>So: the price of funding moved sharply and the currency is under broad pressure, but the deposit
+base did not run. That is a materially less alarming configuration than the one we published, and it
+changes what to watch.</p>
+</div>
+  
+<h3>What survives verification</h3>
+<ol>
+<li><strong>Monetary policy reversed, further than first reported, and one of our data files still
+does not know it.</strong> The deposit facility stepped 3.75% to 4.25% on 20 May and to 4.50% on
+9 June, the policy rate went to 5.25%, and the corridor tightened a further 25bp after that. The
+banking archive file still carries 5.50/3.75 with a last observation of 30 April and shows no
+reversal at all. Believe the daily series; it has the later observation.</li>
+
+<li><strong>Overnight funding moved 233bp and the banks' marginal spread halved.</strong> IndONIA
+went from 3.6554% on 22 January to 5.9831% on 10 June, from trading below the deposit floor to
+148bp above it at the 100th percentile of the overlap. Working capital lending printed 7.9596% on
+1 April, the window low, priced for a cutting cycle that ended seven weeks later, so the marginal
+spread is roughly 198bp against 421bp on 1 January. Excess reserves sit at the 20th percentile.</li>
+
+<li><strong>The mechanism is not deposit flight &mdash; that was our error, and it
+inverts.</strong> Report two argued base money was leaking out of the banking system into cash and
+dollars. Checked against the same packs: bank deposits at Bank Indonesia grew 23.5% year on year
+against currency in circulation at 15.8%, so reserves grew <em>faster</em> than cash, and the 73.8%
+cash share was 73.1% a year earlier and has been higher four times in the window. The
+foreign-currency share of M2 fell to 13.67% from 13.71%; the two fast sub-lines we quoted are 46% of
+the FX stock, and the largest component, FX transferable deposits at 54%, grew 0.55% &mdash; in
+dollar terms a contraction. And rupiah transferable deposits grew 21.31%, faster than M1, so the
+cheapest funding is the abundant kind. What is genuinely scarce is time-deposit funding at 2.70%.
+The currency pressure is real and broad &mdash; USD/IDR at 18,171 on 9 June is the sample weak point
+and the rupiah fell against the yuan, euro, Singapore dollar and sterling too &mdash; but it is not
+showing up as a run on rupiah deposits.</li>
+
+<li><strong>The consumer credit tail is deteriorating inside an aggregate that is
+healthy.</strong> Report two conflated two series here, and checking the full database history makes
+the correction firmer. The system NPL ratio is 2.119% at 1 March and <em>down</em> from 2.138% a year
+earlier. Against the whole 279-month record back to January 2003 &mdash; not the eight-year window
+our extract ships &mdash; that sits against an all-time maximum of 8.420%. Indonesian system asset
+quality is at a twenty-three-year best. The genuine crack is narrower and sharper: consumption NPLs
+against individual loans are 1.498%, the 99th percentile of their own window against a 1.065%
+median, and the consumption NPL <em>stock</em> at IDR 53,855bn is within 0.2% of the all-time high
+it set the month before, on loan growth of only 3.0%.</li>
+
+<li><strong>The Indonesian mortgage market has split by segment, and this is the strongest
+verified finding in the programme &mdash; stronger, in fact, than we first reported.</strong> It has
+survived two independent adversarial passes, and re-checking it against the full database history
+rather than the 100-month window our extract ships makes it firmer, not weaker. Across
+<em>148 monthly observations back to January 2014</em>, three mass-market segments are at
+all-time highs: apartment mortgage arrears at 4.161% against a 2014&ndash;2017 maximum of 2.615%,
+apartment 22&ndash;70m&sup2; at 4.786% against 2.946%, and landed sub-21m&sup2; at 6.416% against
+3.623%. Each set its record in the latest month, and the six highest apartment observations are the
+last six months in order. The premium end is not merely calmer, it is <em>below</em> its own
+pre-2018 peak: landed above 70m&sup2; at 3.058% against a 3.176% pre-2018 maximum and a 4.204% high
+set in July 2020. Apartment mortgage growth has fallen monotonically for fourteen straight months,
+from 8.19% in February 2025 to &minus;0.03% in April 2026.
+<br><span class="tcap">One caveat found in the same check and worth keeping: the smallest apartment
+segment, sub-21m&sup2;, is at 6.391% and is <em>not</em> a record &mdash; it reached 10.203% in July
+2018. The mass-market break is real and broad, but that particular cohort has been worse
+before.</span></li>
+
+<li><strong>The IDX drawdown is real and is not distribution, but our explanation of it
+was noise.</strong> The index is 25.7% below its January peak, on <em>thinning</em> volume: May
+turnover is 47.6% below January and 35% lower per trading day. That is a buyers' strike and a
+domestic de-rating, not institutional distribution. We then attributed it to the JCI decoupling from
+every other bloc &mdash; correlation work we computed correctly and never tested for significance.
+Nine of the ten cross-bloc shifts are indistinguishable from sampling noise (p=0.11 to 0.79); only
+Europe-China clears an unadjusted 5% test, and none survives correction for ten simultaneous tests.
+The practical conclusion survives for a different and simpler reason: a global index hedge would not
+have protected the book because the JCI-to-S&amp;P correlation is only 0.22 across 1,778 common
+days, an R-squared of 4.8%. <em>The hedge never worked; nothing broke.</em> Stop expecting it to
+come back.</li>
+
+<li><strong>One Indonesian name has a valuation set by almost no trading &mdash; not
+four, and our own extract inflated one of the figures.</strong> DCI Indonesia is the real case: 44.9%
+of listed technology at 476x earnings on IDR 195mn of daily turnover. PANI is 41.4% of property
+capitalisation on a 15.9% free float at 80.6x, but it trades <em>IDR 41.4bn a day, the most of any
+IDX property stock</em>, so it does not belong in an illiquidity list at all. PGUN is <strong>17.4%
+of the 35-name plantation sub-sector, not the 42.7% this report published</strong> &mdash; that
+figure was an artifact of our own top-26-by-market-capitalisation truncation, which left only three
+plantation names in the denominator. And Bayan is 19.4% of energy, or 39.9% of coal on the most
+generous cut, so it clears 40% of nothing.</li>
+
+<li><strong>The United States restarted balance-sheet expansion in December 2025 &mdash;
+verified, but our explanation of <em>why</em> was wrong.</strong> The mechanics reproduce exactly:
+quantitative tightening ended in December with the portfolio bottoming at $6,259bn, the bill book
+went from a frozen 195 to 212, 254, 309, 366 and 413bn, and bills did <em>100%</em> of the work
+&mdash; Treasuries rose $202bn from December to April against bills at $201bn, with the coupon book
+flat once inflation compensation is netted &mdash; alongside roughly $14bn a month of
+mortgage-backed runoff. <strong>The causal story does not survive.</strong> Reserves did not fall
+because the reverse repo facility emptied. They fell because the <em>Treasury rebuilt $401bn of
+cash</em> between August and November, and the money-fund leg draining $54bn was the only thing
+<em>cushioning</em> it. The load-bearing fact is the buffer's exhaustion rather than its drain: in
+the same months of 2023, an $806bn drain let reserves <em>rise</em> $200bn straight through a $288bn
+Treasury build and $223bn of tightening; by August 2025 only $54bn was left. Nor is the facility at
+$0.6bn &mdash; it holds $337bn, of which $336bn is the foreign official pool; we quoted one leg as
+if it were the whole. And &ldquo;one for one&rdquo; is already wrong going forward: since December
+the Treasury account rose $16bn while reserves rose $102bn, because $147bn of Fed purchases outran
+it.</li>
+</ol>
+
+<h3>What this means for the board</h3>
+<p>The Indonesian case is no longer that the economy is contracting. Real GDP grew
+5.6085% in Q1, activity data improved year on year, the manufacturing index is above last year and
+turned up in the latest print, and system asset quality is at a <em>twenty-three-year</em> best
+measured across the full 279-month record. The case is that the price of funding changed sharply in
+May and June, the currency is under broad pressure against every major cross rather than just the
+dollar, and a specific consumer credit cohort is failing while real wages for the bottom half of the
+workforce have not moved in eight years. None of the real-economy data has yet absorbed any of the
+funding move.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="k">IndONIA</div><div class="v">+233bp</div><div class="s">22 Jan to 10 Jun</div></div>
+    <div class="stat"><div class="k">BI policy rate</div><div class="v">5.25%</div><div class="s">reversed 20 May, +25bp after</div></div>
+    <div class="stat"><div class="k">IDR vs CNY</div><div class="v">&minus;13.8%</div><div class="s">12m; &minus;9.4% vs USD</div></div>
+    <div class="stat"><div class="k">IDX from peak</div><div class="v">&minus;25.7%</div><div class="s">on volume 35%/day lighter</div></div>
+    <div class="stat"><div class="k">10-year yield</div><div class="v">flat</div><div class="s">&minus;0.6bp y/y, 40th pctile</div></div>
+    <div class="stat"><div class="k">Apartment KPR NPL</div><div class="v">4.161%</div><div class="s">highest of 148 months</div></div>
+  </div>
+</section>
+
+<section id="retract">
+  <h2>Corrections to what we published</h2>
+  <p>Report two challenged its fourteen industry notes and published its macro notes unverified.
+  Round three challenged those and re-ran the US work on an archive our own extractor had been
+  silently truncating. Of the nine notes sent for challenge, seven returned verdicts: <strong>six
+  flawed, one needing qualification, none sound</strong>. A separate pass on the five
+  newly-recovered growth notes returned the same shape &mdash; six flawed and one qualified of seven.
+  19 published claims required correction, and the failures cluster in one
+  place: almost every claim asserting <em>market distress</em> failed.</p>
+  <div class="scoreline">
+    <div class="sk" style="flex:12">12 reversed</div>
+    <div class="sq" style="flex:6">6 overstated</div>
+  </div>
+  <p class="tcap">Claims from report two, as published to the CRO, checked against the same
+  underlying data by reviewers instructed to break them.</p>
+  <div class="tw"><table class="corr"><thead><tr><th class="">Report two section</th><th class="">What we published</th><th class="">What the data supports</th><th class="num"></th></tr></thead><tbody><tr class="kill"><td class="lbl">The two markets</td><td>The IDX is falling on heavy volume &mdash; turnover at the 89th to 93rd percentile, which is distribution rather than drift</td><td>It is falling on <em>thinning</em> volume. May turnover of IDR 365,734bn is 47.6% below January's 698,211bn and share volume is down 50.7%; per trading day it is IDR 22,858bn against 34,911bn in January, 35% lower, and the second-lowest month since August 2025. The 89th percentile is a level percentile on a trending nominal series, which is exactly the error this report criticised elsewhere: monthly turnover averaged ~199,000bn in 2018 against a ~446,000bn trailing-year mean now, so almost any recent month ranks high.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">The two markets</td><td>Turnover divided by index level is a ratio and therefore informative, and sits at the 93.1st percentile</td><td>Rupiah turnover over a price index is not a bounded ratio &mdash; it carries the full nominal trend (1,511 in January 2018 against 3,473 in October 2025) and is mechanically inflated when the denominator falls 25.7%. Fatally, the series maximum is January 2026 at 3,865, the 100th percentile, which is the index <em>high</em>. A measure that peaks at the top cannot be read as a distress signal. May's 2,723 is 29.5% below January.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">The two markets / The call</td><td>The bond market has priced 75bp of stress. The equity market has priced a recession. Only one of them can be right</td><td>There is no bond-market stress signal to weigh against the equity market. The 75bp was measured from 30 October 2025, which is both the first observation of a truncated 140-day window and the minimum of the monthly series (6.117%, lowest of 101 months). Computed year on year as required, the 10-year is 6.858% at 1 May against 6.865% a year earlier &mdash; <em>minus 0.6bp, flat</em> &mdash; at the 40th percentile and below its 6.916% median. Foreign holdings of Indonesian government bonds are down only 1.3% over seven months.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">The two markets / The call</td><td>Implied cost of equity of 17.7% for BMRI, 14.9% BNGA, 14.7% BBRI, 13.0% BBNI and 11.4% BBCA &mdash; a six to eleven point equity risk premium on systemically important banks</td><td>The individual figures are right but the framing is not. Across all 20 listed banks only six fall in the 13&ndash;18% band, together 43.9% of set market capitalisation. The largest name, BBCA at 29.6% of the set, is 11.4%, and the tail runs far lower: BNLI 6.4%, PNBN 4.9%, ARTO 4.1%, BTPN &minus;4.9%. The capitalisation-weighted big-four figure is 13.8%, not 13&ndash;18%.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">Forward indicators</td><td>Businesses expect to sell more, at maintained prices, while hiring almost nobody, in a construction sector that expects nothing</td><td>The level is right; the direction is the opposite. Year on year, almost everything in this dataset improved: business activity +3.1, usage of labour +0.9 (from negative), present employment +7.1, expected employment +4.3, consumer confidence +1.3, current income +2.7, OECD leading indicator +0.2. Only five of fifteen load-bearing series fell. Hiring intentions are stuck near zero as a <em>level</em>, but they stopped getting worse.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">Forward indicators</td><td>Indonesian manufacturing has given back an entire expansion and sits exactly on the line</td><td>May 2026's 50.0 is 2.6 points <em>above</em> May 2025's 47.4, and April's 49.1 is 2.4 above April 2025. The February-to-May fade is a recurring seasonal pattern that was larger in both prior years: 2025 fell 6.7 points over the same stretch against 2026's 3.8. January-to-May means run 52.96 (2024), 50.40 (2025), 51.12 (2026). The index is above last year and turned up in the latest print.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">China</td><td>Equipment output accelerating while its end market contracts is either an export story or an inventory build, and the archive carries no utilisation, orders or inventory series at all, so this desk cannot determine which</td><td>The data exists and the answer is benign. The NBS product-sales ratio rose to 93.8% from 93.0%, the first Q1 improvement since 2019; PMI new orders held 51.6; industrial profits accelerated to +15.5% year to date from +0.8%. Output is being absorbed. The archive also carries two capacity-utilisation series the note said were absent, one of which &mdash; coal mining and washing at 66.41%, the lowest reading outside the 2020 COVID quarter &mdash; points the opposite way to the report's coal conclusion.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">China</td><td>Completions are contracting 25.0% year on year, faster than any other part of the cycle</td><td>Fastest in the quarter, but not a cycle record: full-year 2024 printed &minus;27.7%. And the new-starts decline has narrowed for three consecutive first quarters (&minus;28.3%, &minus;24.8%, &minus;20.2%). Completions also fell faster than starts by a wider margin in 2024 (5.2pp) than now (4.8pp), so Q1 2026 is a recurrence of a 2024 pattern rather than a new leg. The cleanest signal is prices: 70-city new-build has re-deteriorated for five straight months to &minus;3.4%.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">United States</td><td>Costs are being absorbed in margin, which is precisely why the consumer index has not moved</td><td>The three figures replicate but the conclusion does not. The February&ndash;March energy shock went <em>straight to the consumer</em>: the CPI gasoline index rose 24.9% in the single month to 31 March, the largest monthly move in the 2018&ndash;2026 window and larger than March 2022. It is far too recent to be sitting in anyone's margin. The margin compression that is genuinely visible &mdash; finished goods over processed materials, both ex food and energy, &minus;1.37% year on year at the 24th percentile &mdash; is a metals story that ran from October 2025 to January 2026 and has already flattened. Separately, coal, which is Indonesia's export, is &minus;2.98% year on year and not in the shock at all.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">United States</td><td>Twelve-month federal outlays +0.6% year on year with the deficit narrowing USD 422.4bn: the fiscal leg has flipped to a drag</td><td>All three numbers replicate exactly, but the label does not survive. Fifty-nine per cent of the deficit improvement is a single non-cash accounting line; excluding it, outlays ran +4.34% rather than +0.63%. The financing side, which report two did not examine, points the other way again: marketable debt rose USD 2,259bn over the same twelve months, the Fed's return to the market is confined to bills (+USD 217.9bn from November 2025 to April 2026), and foreign coupon buying fell for a third consecutive year to USD 390.7bn.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">United States</td><td>Nominal spending running about 1.8pp above nominal income is the signature of a falling saving rate. I cannot verify this: the series is absent</td><td>The series was never absent &mdash; our extractor had dropped it. Now checked: the mechanism is right and the number is not. The US saving rate is 4.0% in February 2026 against 5.2% a year earlier, the 11.7th percentile of its 2018&ndash;2026 window, so it is genuinely falling. But the true twelve-month mean spending-over-income gap is +0.90pp, not 1.8pp; the 1.8pp is reproducible as Redbook chain-store sales (+6.14%) minus nominal disposable income (+4.22%) and is an artifact of the chain-store proxy report two was forced to use. Real disposable income per capita is stalled at $52,837, +0.71% year on year but +0.03% annualised over six months, and real consumption has split hard: services +3.04% against goods +1.18%, with goods volumes contracting sequentially at &minus;3.51% annualised over three months.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">The call / Funding</td><td>The mechanism is deposit flight: base money is leaking out of the deposit system into cash and dollars</td><td>Three of the four legs invert. Bank deposits at Bank Indonesia grew 23.5% year on year against currency in circulation at 15.8%, so base money went <em>into</em> the banking system faster than into cash, and the 73.8% cash share was 73.1% a year earlier and has printed higher four times in the window. Total foreign-currency deposits grew 8.94% against M2 at 9.22%, so the FX share of M2 <em>fell</em> to 13.67% from 13.71% &mdash; we quoted the two fastest sub-lines, 46% of the stock, and omitted the largest at 54%, which grew 0.55% and shrank in dollar terms. And rupiah transferable deposits grew 21.31%, faster than M1, so the cheapest funding is the abundant kind; that mix shift is margin-<em>accretive</em>, cutting against the compression thesis it was cited to support. The rate move is verified; the deposit base did not run.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">Funding</td><td>System capital adequacy and regional-bank loan-to-deposit ratios show prudential stress</td><td>Both are seasonal and one points the wrong way. The March capital-adequacy drop of 2.86% is the annual dividend appropriation and is the <em>mildest in six years</em> (2.96% in 2020, 4.37% 2022, 4.82% 2023, 6.65% 2024, 6.07% 2025). The regional-bank loan-to-deposit rise of 7.85% over six months is the recurring September-to-March move, and year on year that ratio is <em>down</em> 3.02%, from 86.61% to 83.99% &mdash; below commercial banks at 84.64% and well below state-owned banks at 88.29%.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">Funding</td><td>Reserve money growth at the 96th percentile of its window</td><td>That is the percentile of the nominal <em>level</em> &mdash; the same move the note correctly rejected one paragraph earlier for loan balances. The growth rate of 14.758% sits at the 72.7th percentile of its own history.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">China</td><td>Retail sales grew 1.7% with CPI at 1.0% and a negative monthly print: liquidity accumulating without demand</td><td>The Chinese consumer is not deflating. CPI at +1.0% year on year and core ex food and energy at +1.1% are the firmest readings since February 2023, and the &minus;0.7% monthly print is the ordinary post-New-Year unwind &mdash; March has been negative month-on-month in seven of the prior eight years. The weakness is entirely in volume and concentrated in discretionary durables: Q1 auto sales &minus;5.58% and new-energy vehicles &minus;3.61%, the first Q1 decline for NEVs in the series, against air passenger-kilometres +9.58% and above-designated-size food and beverage retail +6.98%.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">China</td><td>Chinese asset prices are not pricing the property contraction the real-economy data shows</td><td>Both markets have priced it, in opposite directions, and the report saw neither. The bond market priced it as a <em>sovereign</em> event rather than a credit one: central plus local government paper is now 74.82% of the CCDC bond stock at 31 March against 54.42% in January 2018. The equity market priced the opposite &mdash; the Shanghai Composite is +16.67% year on year at 3891.86, with margin debt at a window record of CNY 2.720tn on 30 April, +52.69% year on year.</td><td class="verdict"><span class="pill kill">unfounded</span></td></tr>
+<tr class="kill"><td class="lbl">United States / Energy</td><td>Coal is not in the US energy shock: US coal producer prices are &minus;2.98% year on year while gasoline and diesel spiked 41% and 48%. Indonesian thermal exporters do not face the input-cost pressure the broader energy complex shows</td><td><strong>Reversed on both sides, and this one is load-bearing for a long position.</strong> The &minus;2.98% is correctly computed but is &minus;0.66 standard deviations inside the series' own noise band &mdash; flat, not falling &mdash; and it is a mine-mouth output price with no steam-versus-metallurgical split, so it says nothing about an Indonesian exporter's costs. On the primary Indonesian data the conclusion inverts. <em>Cost:</em> Pertamina Dex diesel rose 77% between February and April and 103% year on year, the largest move in the series since 2018, and diesel is the primary mining and haulage input. <em>Revenue:</em> HBA rose 18.3% from March to June with its year-on-year going from &minus;12.5% to +23.6%, and realised export unit value rose 18.0% over the identical February-to-April window as the US fuel spike. The long Indonesian coal book is supported on the revenue side this report denied and exposed on the cost side it dismissed.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">United States / Transport</td><td>US heavy trucks are in a capex recession that freight volume flatly contradicts &mdash; rolling twelve-month sales at the lowest of the window while the freight index set a record 139.8 in February</td><td>The truck arithmetic is exact: 395,271 is the lowest in the computable window and 25.9% below the October 2019 peak of 533,408. But freight is <em>not</em> at a record. The transportation services index at 139.8 is <em>below</em> its August 2019 reading of 140.6 and only 0.4% above November 2018, and core capital-goods orders were +5.3% year on year. So this is a replacement-cycle unwind against a stagnant freight plateau, not a contradiction with booming volumes. The genuine finding is the decoupling itself: trucks per unit of freight fell from roughly 3,750 in August 2019 to 2,891 in February 2026, about &minus;23%, on essentially unchanged freight output.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="qual"><td class="lbl">The call</td><td>The consumer NPL rate rose from 2.02% to 2.28%, above the 2.1185% system headline</td><td>Two different series were conflated. The system NPL ratio is 2.119% at 1 March and <em>down</em> from 2.138% a year earlier. Against the full 279-month record back to January 2003 its all-time maximum is 8.420%, so this is a <em>twenty-three-year</em> best, not a deterioration. The genuine crack is narrower and sharper than reported: consumption NPL against individual loans is 1.498%, the 99th percentile of its own window against a 1.065% median, up from 1.293% a year earlier, on an NPL stock +19.4% year on year against 3.0% loan growth.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr></tbody></table></div>
+  
+<p>Taken together these do not just trim report two, they relocate its argument. The claims that
+failed were the ones asserting <em>market distress</em>: heavy-volume distribution, a bond market
+pricing stress, a manufacturing sector rolling over, businesses refusing to hire. On the data, none
+of those hold. Indonesian domestic demand improved year on year, the manufacturing index is above
+last year and turning up, the ten-year is flat, system asset quality is at a twenty-three-year best,
+and
+the equity market is falling on volume 35% below January's pace.</p>
+
+<p>What survived is narrower and almost entirely about <strong>funding and the currency</strong>:
+the 20 May policy reversal and a further 25bp after it, overnight funding up 233bp, deposits leaking
+into cash and foreign currency, the banks' marginal spread halved, the rupiah weaker against the
+yuan and the euro than against the dollar with effective rates at sample lows, and a consumer credit
+tail &mdash; mass-segment mortgages and consumption NPLs &mdash; deteriorating inside an aggregate
+that is otherwise healthy.</p>
+
+<p>That is a better thesis than the one it replaces, and it changes what to watch. A demand
+collapse would show up in activity data; a funding squeeze shows up in the currency, the deposit
+mix and the interbank rate. Report two pointed at the wrong instruments.</p>
+
+</section>
+
+<section id="retract4">
+  <h2>Round four: corrections to our corrections</h2>
+  <p>Round four checked the eight claims that had never been verified at all. Seven failed and one
+  needed qualification.</p>
+  <div class="scoreline">
+    <div class="sk" style="flex:5">5 reversed</div>
+    <div class="sq" style="flex:3">3 overstated</div>
+  </div>
+  <p class="tcap">Two of these were themselves corrections the programme had already made, so on
+  those questions the firm has now been wrong in both directions.</p>
+  <div class="tw"><table class="corr"><thead><tr><th class="">Section</th><th class="">What we published</th><th class="">What the data supports</th><th class="num"></th></tr></thead><tbody><tr class="kill"><td class="lbl">United States / Energy &mdash; <em>both directions</em></td><td>Report two: costs are being absorbed in margin. Report three: no &mdash; the energy shock went straight to the consumer and is too recent to be in anyone's margin</td><td><strong>Both were partly wrong, and this is the both-directions failure the programme warned itself about.</strong> Retail fuel did take the shock in full: CPI gasoline rose 24.87% in the month to 31 March, the largest in the shipped window and above March 2022's 19.79%, with the retail-over-producer energy wedge at rank 95 of 98 &mdash; fuel retail margin <em>widened</em>. But that does not generalise, and the rest of the chain says the opposite. With fuel input prices up 6.79% then 7.14% month on month in February and March, producer prices for finished goods excluding food and energy rose just 0.25% then 0.11%, and the finished-over-processed margin proxy posted its <em>two steepest monthly compressions of the cycle in exactly those two months</em>. Margin absorption is live and at its steepest now; it has rotated from surging inputs to stalling output prices.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">United States / Fiscal</td><td>Fifty-nine per cent of the deficit improvement is a single non-cash accounting line, so the fiscal drag does not hold; marketable debt rose USD 2,259bn over the same twelve months</td><td>The non-cash line is real and now identified: federal outlays for education, training, employment and social services swung USD 247.7bn, 58.6% of the 422.4bn improvement, on student-loan credit re-estimates, leaving outlays at +4.34% excluding it. But the drag does not vanish &mdash; it shrinks to roughly 41% of headline, because USD 174.8bn of genuine cash improvement still sits on top of a fully-cash receipts rise of USD 466.8bn, which alone is 110% of the narrowing. <strong>And the financing claim repeated the very error it had just exposed.</strong> Net of the USD 770bn Treasury General Account swing, net new market financing <em>fell</em> about USD 147bn year on year, 1,841.6bn against 1,988.3bn. The 2,259bn figure is itself a debt-ceiling accounting artifact.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">United States / Housing</td><td>US residential is a three-year stall with a single-family recession inside it: starts flat at 1,368k against 1,369k while single-family fell 7.7% and multifamily rose 21.8%</td><td>The flatness is one year old, not three: starts went flat only over the last twelve months, after a four-year slide from 1,609k. Within that year, the &minus;7.7% single-family and +21.8% multifamily moves are both <em>one-year reversals of the prior year's opposite move</em>, and over three years single-family is roughly flat while multifamily is <em>down</em>. The causal chain to the mortgage backup also fails: purchase applications up 5.9% is a normal seasonal move, and the builder index at 34 fell a month <em>after</em> the rate move and is not a fresh low.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">China / Markets</td><td>China's two markets have priced the property contraction in opposite directions &mdash; the bond market as a sovereign event at 74.82% government paper, the equity market as a boom</td><td>They are the same story, not opposite ones. The bond registry has grown more governmental every year since 2018, not since the property bust: the share rises monotonically throughout and the last-year increment <em>decelerated</em> to +3.44pp from +4.56pp, and on the government-backed perimeter the registry was already 80.76% state paper in 2018. This is issuance composition set by fiscal quota rather than a market price &mdash; the packs contain no yields or spreads at all &mdash; and on the wider onshore market including the Shanghai Clearing House the government share is 58.35%, not 74.82%. The equity leg is quoted on a year-on-year that conceals the tape: that +16.67% print is a &minus;6.51% <em>month</em>, the sharpest since January 2022. Sovereign absorption of property losses and a liquidity-fuelled equity rally are one story.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">China / Consumer &mdash; <em>both directions</em></td><td>Report two: the Chinese consumer is deflating. Report three: no &mdash; CPI at +1.0% and core at +1.1% are the firmest since February 2023 and the weakness is entirely volume</td><td>The price call is sound; the volume decomposition is not. CPI at +1.0% and core at +1.1% do hold, with six consecutive positive headline months and a Q1 average of +0.83% against &minus;0.10% a year earlier. But five of the supporting volume claims failed verification. The defensible statement is that <strong>the Chinese consumer has stopped deflating and has not started spending</strong> &mdash; and that report three reached the right conclusion for the wrong reasons.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr>
+<tr class="kill"><td class="lbl">Correlation work &mdash; <em>our own computation</em></td><td>The JCI has decoupled from every other bloc over the last 63 sessions, and Japan/Korea has rotated from a China proxy to a US proxy</td><td><strong>Computed correctly, never tested for significance, and nine of ten shifts are noise.</strong> Of the ten cross-bloc correlation shifts in the file, only Europe-China clears even an unadjusted 5% test (Fisher t=&minus;2.58, p=0.010), and none survives correction for ten simultaneous tests; the JCI and Japan/Korea shifts run p=0.11 to 0.79. The <em>conclusion</em> survives for a different reason: a global index hedge would not have protected the book because JCI-to-S&amp;P was only 0.22 across 1,778 common days, an R-squared of 4.8%. The hedge never worked &mdash; nothing broke. The file's most actionable fact went unflagged entirely: Europe-to-US at 0.58 full and 0.59 trailing is its largest and only <em>stable</em> pair, at 35% R-squared. On the challenge, even that reading is too strong: <em>no bloc in this file is a proxy for another</em>. The tightest pair shares only 35% of daily variance and the best-linked bloc to an Indonesian book, Japan/Korea at r=0.36, shares 13%. And the one shift that cleared an unadjusted test fails a ten-test Bonferroni threshold of 0.005, so no cross-bloc regime change in this file is established at all.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="kill"><td class="lbl">China / Trade</td><td>China's March goods surplus halved to USD 51.1bn on imports +27.8%, and twelve-month coal import volume of 491.9mt at &minus;9.2% points down for Indonesian thermal exports</td><td><strong>A Lunar New Year artifact, and the demand read is backwards.</strong> Calendar-controlled, the Q1 surplus is USD 264.3bn against 271.1bn a year earlier &mdash; just &minus;2.5%, not a halving. Chinese physical raw-material demand is at shipped-window Q1 <em>highs</em>: iron ore 314.8mt, coal 116.3mt, crude 146.9mt, all Q1 2026 records. The &minus;9.2% trailing-twelve-month coal figure is backward-looking and will keep falling mechanically for another quarter as the weak Q2 2025 base rolls through; the forward-looking same-quarter series reads <em>+1.2%</em>. Volume risk to Indonesian thermal exports is low and the exposure is price. Indonesia is also the single largest ASEAN gainer at +48.7% to USD 26.29bn, flipping the bilateral balance from &minus;0.89bn to +5.04bn in its favour.</td><td class="verdict"><span class="pill kill">reversed</span></td></tr>
+<tr class="qual"><td class="lbl">United States / Household</td><td>The US saving rate is 4.0% against 5.2% a year earlier, so it is genuinely falling; the true spending-over-income gap is +0.90pp and the 1.8pp reconstructs as Redbook minus nominal disposable income</td><td>Direction right, tense wrong, arithmetic mismatched. <strong>The fall was a 2025 event</strong>: the rate dropped from 5.5% in April 2025 to 4.0% in October and has been flat at 3.9&ndash;4.5% since, with February above December. The 11.7th percentile is also partly measuring the COVID saving spike &mdash; excluding it the same reading sits at the 15.1st. And the published reconstruction does not close: pairing 6.14 with 4.22 mixes a twelve-observation Redbook mean with a ten-observation income mean and gives 1.92, not 1.8; the properly aligned pair is 6.005 minus 4.219. The artifact diagnosis is nonetheless <em>correct and understated</em> &mdash; Redbook ran 2.39pp above nominal goods consumption, while broad retail sales grew 3.94% against disposable income of 4.34%, a <em>negative</em> gap. The goods-versus-services split is the most robust claim in the note and widens on trend: +3.04% against +1.18% year on year, +2.57% against &minus;1.68% annualised over six months.</td><td class="verdict"><span class="pill qual">overstated</span></td></tr></tbody></table></div>
+  
+<p>Round four checked the eight claims that had never been verified. Seven failed and one needed
+qualification &mdash; and <strong>two of the eight were themselves corrections this programme had
+already made</strong>. On the US energy pass-through and the Chinese consumer, the firm has now been
+wrong in both directions on the same question.</p>
+
+<p>That is the most useful thing in this report. A correction is not self-validating: it is a new
+claim, made under the same pressures as the one it replaces, and in this programme corrections have
+failed at roughly the same rate as originals. The US fiscal note is the sharpest illustration
+&mdash; it correctly exposed an accounting artifact in the deficit data and then committed the same
+error on the financing side, quoting a marketable-debt figure that is itself a debt-ceiling
+artifact.</p>
+
+<p>The practical rule that follows: <em>a corrected claim carries no more assurance than an
+uncorrected one until it has been independently checked</em>. This report now labels every stored
+finding with its verification state for exactly that reason, and eleven findings remain unverified,
+including the Fed balance-sheet claim &mdash; the agents assigned to check it hit the session usage
+limit before completing.</p>
+
+</section>
+
+<section id="added">
+  <h2>What later rounds added</h2>
+  <p>6 findings that strengthen rather than correct, all from data report two
+  either did not reach or read wrongly.</p>
+  <h4>Rupiah weakness is broad, not a dollar story</h4><p>Over the twelve months to 1 May the rupiah fell 9.4% against the dollar but 13.8% against the yuan and 10.9% against the euro, and both effective-rate constructions in the archive sit at their 2018&ndash;2026 sample lows. This is stronger than what report two claimed and it relocates the problem: the pressure is on the currency itself, not on the dollar.</p><h4>Bank Indonesia tightened further than reported</h4><p>The policy rate went to 5.25% on 20 May and the corridor tightened a further 25bp after that. Report two captured the first move and not the second.</p><h4>Reserves are down but not unprecedented</h4><p>Reserves are 12.4% off peak on the headline FX series and 5.7% on the alternative series in the same file: the third-largest drawdown since 2018, not a record. April's 4.94 months of import cover is Lebaran-distorted; Eid-neutral it is 5.61 months, second-lowest since 2018 but above the 2022 trough.</p><h4>Chinese coal utilisation is at a post-COVID low</h4><p>Coal mining and washing capacity utilisation fell to 66.41% at 31 March from 71.88% a year earlier, the lowest outside the 2020 COVID quarter. This is the most direct read available on the demand side for Indonesian thermal exports and it was never in the report.</p><h4>US heavy trucks are in a capex recession that freight volume flatly contradicts</h4><p>Rolling twelve-month heavy truck sales of 395,271 at 31 March are the lowest of the entire 2018&ndash;2026 window, below even the COVID trough of 409,508 &mdash; while the freight transportation services index set a record at 139.8 in February, the highest February on record. Fleets are moving more goods than ever and refusing to replace equipment. Note also that the &minus;8.7% light-vehicle print report two quoted is mostly a base effect against a two-month tariff pre-buy: the twelve-month average is &minus;0.35% and March 2026 sits 3.9% above March 2024.</p><h4>US residential is a stall with a single-family recession inside it</h4><p>Total housing starts are flat on a twelve-month average, 1,368k against 1,369k, which reads as stability. Underneath, single-family fell 7.7% while multifamily rose 21.8%. The 27bp mortgage backup from 6.14% to 6.41%, with the policy rate frozen at 3.50%, cut refinancing applications 31.8% between February and April and knocked the builder index to 34, its worst non-COVID March-to-April move since 2018 &mdash; yet left purchase applications up 5.9%, squarely inside their normal seasonal range.</p>
+  <h4>Indonesian e-money has passed half of electronic retail purchase value</h4><p>The e-money share of card-plus-wallet purchase value ran 6.8% in Q1 2018, 45.8% in Q1 2025 and <strong>55.8% in Q1 2026</strong>, reaching 57.7% in March alone, and is already 94.0% of transactions by count. The average ticket explains the gap: IDR 51.6k on e-money against 500.5k on debit and 926.9k on credit. The analyst rebuilt this on the purchase leg only after verifying that Bank Indonesia's headline e-money total double-counts by adding top-up to spending &mdash; the component identity ties to 1.0000.</p><h4>Indonesian cash is retreating to a store-of-value role</h4><p>ATM cash withdrawal volume fell 9.6% quarter on quarter against the same quarter a year earlier, the steepest of the eight computable comparisons and more than twice the 4.4% Covid-era fall, a third consecutive annual decline. Meanwhile the average withdrawal ticket rose from IDR 725k in Q1 2018 to 1,058k: Indonesians withdraw less often and take more when they do. Debit purchase value fell 6.1% nominal, which is 9.6% real.</p><h4>China's producer prices printed positive &mdash; treat it as one month, not an exit</h4><p>Chinese producer prices turned positive in March 2026 at +0.5% year on year, the first positive print since September 2022 after 41 months at or below zero. <strong>The challenge qualified this and we accept the qualification:</strong> March is seasonally the second-strongest month of the year for month-on-month PPI (mean +0.233 against +0.041 across all months), and two earlier Marches beat this one's +1.0 &mdash; 2021 at +1.6 and 2022 at +1.1. The first read tested seasonality against only the 2023&ndash;25 Marches, all drawn from the deflation trough. A late Lunar New Year on 17 February is a named, untested confound: late-New-Year Marches average +0.575 month on month against &minus;0.04 for early ones. What survives on <em>any</em> reading is that the construction-materials leg did not participate &mdash; non-metal mineral products at <strong>&minus;4.9%</strong>, a 43rd consecutive month below par and <em>worse</em> than March 2025's &minus;3.4% in a year the headline improved 3.0 points. That removes the pricing-support leg from any SMGR or INTP thesis, and Chinese steel at &minus;2.5% at the mill gate against inputs at +0.1% leaves no margin buffer, so expect continued export aggression into ASEAN.</p><h4>The one large constructive Chinese signal is metals, and it is not a property signal</h4><p>Across 88 price series the single unambiguous move is non-ferrous: mining +36.4% and smelting +22.4% year on year at March 2026, corroborated independently by CGPI mining products at +16.0%. That is constructive for Indonesian nickel, copper and bauxite exposure &mdash; INCO, MDKA, ANTM and the HPAL chain &mdash; and it is explicitly <em>not</em> evidence of Chinese property bottoming. Anyone selling it as that has the causation backwards.</p><h4>The Chinese property overhang is frozen because supply and demand are shrinking together</h4><p>The ratio of under-construction stock to that year's sold floor space has sat at 7.50, 7.53 and 7.49 years at the last three December year-ends, against 4.79 at December 2018. It is frozen not because supply is stable but because <em>both sides are contracting</em>: Q1 2026 residential floor space sold is &minus;13.4% and residential sales <em>value</em> &minus;18.7%, both from roughly flat a year earlier. Shrinking the numerator does not clear an overhang when the denominator shrinks faster, which is why this has not improved in three years and will not normalise toward 2018 levels before 2029 on the current path.</p><h4>Chinese coal: the base has washed out, the demand has not arrived</h4><p>Chinese coal producer prices moved from &minus;23.0% in July 2025 to &minus;2.2% in March 2026, which removes a large year-on-year drag from second-half comparatives for ADRO, ITMG and PTBA. That is <em>arithmetic, not volume</em>. Nothing in the construction data supports a Chinese demand-led coal price recovery: under-construction stock is contracting 11.7% and cement prices are still falling.</p><h4>Nickel: the tension resolves upstream, and it changes where to sit in the chain</h4><p>The Chinese non-ferrous <em>price</em> signal is strongly constructive &mdash; mining +36.4% and smelting +22.4% &mdash; while the <em>volume</em> chain that consumes Indonesian nickel is rolling over, with Chinese steel import volume at &minus;13.6% in Q1. The China industry work partly resolves it. The upstream leg is confirmed by capex and revenue: non-ferrous mining fixed-asset investment is <strong>+56.0% on sector revenue of +38.84%</strong>, a return-confirmed boom rather than a price artefact. Copper is the cleanest exposure of all &mdash; concentrate volume +6.5% in Q1 and +9.0% over twelve months <em>into a +34.7% implied price</em>, so both legs rise. But the claimed downstream rollover is <strong>untested, not confirmed</strong>: the Chinese stainless import series excludes ferronickel and NPI, which are the products Indonesia actually ships.</p><h4>A second tooling bug, which manufactured a published number</h4><p>The final verification caught it: <code>build_id_industry.py</code> shipped the top 26 names by market capitalisation, and sector shares were computed off that truncated list. We published <strong>PGUN at 42.7% of listed plantation</strong>. Rebuilt against the true denominator it is <strong>17.38% of the 35-name Plantation sub-sector</strong> &mdash; reproducing the reviewer's independently derived 17.4% exactly. The pack was also matching 178 names across Mining, Food &amp; Beverage, Chemicals, Plantation and Metals &amp; Mining, with AMMN, TPIA and BRPT as its top holdings, none of them plantation companies. Packs now ship the matched universe size, sub-sector totals, per-name shares against both denominators, and a warning naming the sectors matched. <em>That is two tooling bugs in four rounds, both the same family: a truncation invisible because the artifact looked complete. The first mislabelled time windows, this one mislabelled a denominator, and both produced published figures wrong by large multiples.</em></p><h4>A measurement bug in our own tooling, found and fixed</h4><p>The reviewer could not break a single computation in the bloc pack &mdash; the Fisher-z table reproduced to three decimals &mdash; and then found the <em>measurement layer</em> underneath it was wrong. Returns were indexed back N <em>observations</em> but labelled in days, so for monthly series the columns lied: the coal benchmark's &ldquo;ret_5d +28.0%&rdquo; was a 4.5-month move, and its &ldquo;ret_63d +46.92%&rdquo; was a <strong>sixty-two-month return</strong> sitting in the same column as the S&amp;P's 63 trading days. Rates were percent-changed rather than differenced, which hid a 25bp ECB hike and a roughly 15bp fall in ten-year breakevens. Four different horizons shared a single column. Now fixed: windows are calendar-anchored and carry their base date, rates are differenced to basis points, and a sparsity guard refuses any window the series cannot cover &mdash; a monthly benchmark no longer reports a seven-day change at all. The ECB hike is now visible as +25bp from 3 May.</p><h4>And a caveat on the hedging conclusion itself</h4><p>&ldquo;The hedge never worked&rdquo; has to be stated precisely: the JCI-to-S&amp;P correlation explains 4.8% of daily variance <em>unconditionally</em>, and this data <em>cannot test the tail</em>. Normal-period correlation says little about crisis correlation, which is exactly when a hedge is called upon. The categorical version overstates what a full-sample daily correlation can support.</p><h4>The Indonesian coal price recovery is counter-seasonal, which strengthens it</h4><p>HBA's same-month year-on-year flipped from &minus;16.11% in January 2026 to +23.55% in June, and the February-to-June stretch was <em>negative in six of the eight prior shipped years</em>. A recovery running against its own seasonal is much harder to dismiss as a base effect than the raw year-on-year alone suggests &mdash; and it was found only because a reviewer went back to the primary series rather than accepting the note's framing.</p><h4>A false superlative inside one of our own corrections</h4><p>Round three corrected report two by establishing that Chinese output <em>is</em> being absorbed &mdash; the NBS product-sales ratio at 93.8% against 93.0%, new orders at 51.6, profits accelerating to +15.5%. All of that holds. But it called 93.8% <em>&ldquo;the first Q1 improvement since 2019&rdquo;</em>, and that is false: the complete March run is 97.3, 98.8, 95.0, 96.5, 94.5, 94.1, 93.1, 93.0, 93.8, so March 2021 improved on March 2020. The improvement is real; the superlative was decoration, and decoration is where errors hide.</p><h4>A third frequency error, the same class as the one in our own tooling</h4><p>A China auto note published &ldquo;Q1 2026 CNY 374.09bn, &minus;13.61%&rdquo; for domestic car retail value. The series carries <em>no January and no February observation in any year</em> &mdash; months 03 to 12 only &mdash; so 374.09bn is <strong>March alone</strong>, and a true Q1 would be roughly 1.2trn. The proof it is monthly rather than cumulative is that April 2025 at 362.62bn sits <em>below</em> March 2025 at 433.01bn. Three separate frequency errors have now been found in this programme, including one in our own measurement code. The rule: check which months a series actually carries before summing or labelling a period.</p><h4>A process note on reviewing a moving target</h4><p>One bloc-pack review returned criticising measurement bugs that had been fixed hours earlier: the tool was corrected while a review of a note written against the <em>old</em> output was still in flight, so two of its five sections argue against an artifact that no longer exists. The substantive outcome is unaffected &mdash; the bugs were real and are closed &mdash; but a review has to pin the artifact version it is checking, or a fix mid-flight makes the review unreadable. What did survive that review is worth more than what did not: the Fisher-z table reproduced <em>exactly</em> on all ten pairs, independently.</p><h4>A new medium-term negative for Indonesian thermal coal</h4><p>Chinese coal fixed-asset investment is <strong>+25.5% on revenue of just +1.56%</strong>, and iron ore +20.1% on revenue of &minus;7.08%. Investing hard into flat-to-falling revenue is policy-directed self-sufficiency capex, not a return-seeking cycle. Near-term Indonesian volume is fine &mdash; Q1 imports +1.2% with December setting a 58.60mt window high &mdash; but China is building the capacity to need less. Nothing else in four rounds surfaced this.</p><h4>Nothing has replaced property as an absorber of Chinese capital</h4><p>Real-estate fixed-asset investment is &minus;10.6%, the deepest March reading in the window; private FAI is &minus;2.2%, tertiary &minus;1.0%, and headline urban FAI only +1.7%. The &ldquo;rotation into advanced manufacturing&rdquo; story is simply not in this data: IT and software &minus;6.1%, special-purpose equipment &minus;0.4%, power, gas and water decelerating from +26.0% to +9.0%. The cleanest signal in the pack is industrial profits at +15.5% against private capex at &minus;2.2% &mdash; <strong>corporates are earning and refusing to reinvest</strong>, which argues for cash return over capex-linked exposure and caps the multiplier on stimulus routed through corporates rather than households.</p><h4>The China auto bear case needs re-specifying, not abandoning</h4><p>The destocking reading does not survive: the resulting &minus;11,000 factory stock draw is the <em>smallest</em> Q1 destock in the shipped window, and Q1 draws are the seasonal norm &mdash; negative in six of nine years and as deep as &minus;5.57% &mdash; so there is no inventory signal either way. The Q1 drop is mostly pull-forward into Q4 2025 &mdash; the six-month straddle still shows new-energy vehicles at +7.87% and total sales only &minus;1.45%. What actually broke is the NEV share ratchet, from +10.05pp to +0.86pp and a 42.01% share, and the NEV supply-chain capex cycle, with electric machinery FAI at +0.8% after +43.1%. Position for margin and consolidation pressure among assemblers and battery-chain equipment suppliers, not for a volume cliff.</p><h4>The Chinese import surge is not raw-material demand</h4><p>Of the +132.08bn rise in Q1 imports, only 16.9% was primary products, and Switzerland at +20.14bn, Australia at +14.08bn and Hong Kong at +11.20bn supplied 34.4% between them. PBoC gold reserves rose just 7.2 tonnes over the period, so whatever bullion is in there was <em>commercial</em> rather than central-bank. The March goods surplus did halve to USD 51.13bn, but the Q1 surplus fell only 2.5% to 264.33bn and goods-plus-services <em>improved</em> to +204.74bn.</p><h4>The Chinese steel-deflation threat to Indonesia is withdrawn</h4><p>This report published that China was defending steel share on price and that Indonesian producers should assume continued margin pressure. The 635.7 USD/t figure came from a window containing an anomalous January print. On the clean February-plus-March pair, China's steel export unit value is <strong>up 2.7% year on year</strong> at 705.3 against 686.6 USD/t. The threat to Krakatau-type exposure is withdrawn on this evidence.</p><h4>The Indonesian telecom pack is mislabelled &mdash; but the sector is still analysable</h4><p>All 52 series in the file are Bank Indonesia card and e-money payments filed under category &ldquo;Telecom&rdquo;, with no subscriber, ARPU, traffic, tower or fibre data, and EXCL, ISAT, TOWR, MTEL and TBIG appear in <em>no</em> industry pack because each is capped at 26 companies. <strong>But this report then overreached and said no Indonesian telecom data exists anywhere. That is wrong.</strong> The GDP-by-industry pack carries real Information and Communication gross value added, which grew 7.14% year on year in Q1 2026 and has been positive in every one of the 29 shipped quarters, uncontaminated by financial services. The sector is analysable at the aggregate level; only the individual tower names are not.</p><h4>TLKM is losing share of a growing market</h4><p>Because Indonesian ICT gross value added is growing 7.14% in real terms, the better-evidenced reading of TLKM's problem is share loss rather than carrying more traffic at flat prices. The dividend-safety case this report sketched does not stand: the ICT price turn is roughly half a base effect off an anomalous April 2025 print (+0.46% de-outliered, not +0.83%), the general price level rose 8.63% not 11.6% over the comparison window, the quoted 0.072 beta is meaningless in a pack where BBCA reads 0.013, and a 120% payout is unremarkable next to UNVR's 138% and mechanically expected when earnings fell 57.1% against a dividend declared on prior-year profit. Against the sector's growth, ICT-equipment retail sales fell 27.7% year on year in April and Transportation, Storage and Communication FDI fell 61% quarter on quarter.</p>
+</section>
+
+<section id="corrections">
+  <h2>The industry round: what the first challenge killed</h2>
+  
+<p>Fourteen adversaries were given the industry notes, the underlying data, and instructions to
+break them. They returned twelve verdicts of &ldquo;flawed&rdquo; and two of &ldquo;needs
+qualification&rdquo;. Not one note survived intact.</p>
+
+<p>This table is the most important output of the round. Every row on the left was written by an
+analyst with the data in front of them, and several were compelling enough that they appeared in an
+earlier draft of this report as headline findings. The right-hand column is what the data actually
+supports.</p>
+
+<p><strong>Two rows correct this table itself.</strong> Round three reopened the coal and
+building-materials questions as dedicated investigations, and both found that the round-two
+<em>correction</em> was as flawed as the claim it replaced &mdash; in the coal case by repeating the
+precise error, a z-score on a trending nominal level, that this report criticises everywhere else.
+They are left in rather than quietly amended, because a correction table that hides its own
+failures is worth less than no table at all.</p>
+
+  <div class="scoreline"><div class="sk" style="flex:12">12 did not survive</div><div class="sq" style="flex:4">4 qualified</div><div class="ss" style="flex:2">2 verified</div></div><p class="tcap">18 load-bearing claims from the fourteen Indonesian industry notes, put to fourteen independent adversaries with the same underlying data. Two rows correct this table itself, from questions reopened as dedicated investigations in round three.</p>
+  <div class="tw"><table class="corr"><thead><tr><th class="">Industry</th><th class="">As first written</th><th class="">What the data supports</th><th class="num"></th></tr></thead><tbody><tr class="kill"><td class="lbl">Energy</td><td>Coal export tonnage &minus;21.4% in six months into a price recovery</td><td>That is the ordinary October-to-April seasonal fall, which was &minus;23.6% in the same window a year earlier. True year-on-year export volume is &minus;3.05%. HBA at USD 121.83/t is only the 63.7th percentile, z &minus;0.13, still below January 2025's 124.01.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Energy</td><td>Indonesia is importing coal at a record: 4,120kt at 1 April, an 88-month high, z +4.38, +130.35% year on year</td><td><strong>This correction was itself wrong, in exactly the way this report criticises elsewhere.</strong> Reopened as a dedicated question, three of the four headline statistics are constructions. The z of +4.38 is computed on a trending nominal level whose mean is dragged down by 2019&ndash;21, when the run-rate was about 600kt a month. Detrended properly the move is unremarkable: z on the month-on-month log change is +0.56, <em>under one sigma</em> for this series; z on year-on-year growth is +0.78, rank 7 of 76, so seven months had bigger prints; z on the twelve-month rolling growth rate is +0.48, rank 21 of 65. The +130.35% is roughly 60% calendar &mdash; Eid moved from 31 March 2025, which depressed April 2025 clearances, to about 20 March 2026, leaving April 2026 clean. Netting it: March plus April +98.8%, February to April +55.9%, January to April +52.4%. Import volumes are genuinely rising; there is no April break to explain.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="qual"><td class="lbl">Infrastructure</td><td>Record Chinese building-material imports alongside a record Indonesian export month in the same trade chapter, so the price-war reading fails</td><td>Resolved &mdash; and the two records were never in the same chapter. They are different CEIC aggregates that happen to share a label. The export record of 226.77 kg mn is <em>Cement, Plaster, Glass, Ceramic Products</em>, which nests HS68 plus ceramics and glass; the import record of 279.62 kg mn is HS68 <em>Articles of Stone, Plaster, Cement, Asbestos, Mica</em>, of which 87.5% is China. Decomposed April on April in kg mn: imports rose 184.4, of which HS68 was 178.4 (97%) and Chinese HS68 alone 177.1 (99% of that); exports rose 92.8, of which HS68 was only 12.3 (13%) and ceramics and glass 80.5 (87%). Indonesia is importing Chinese stone and cement articles while exporting ceramics and glass. The Chinese import surge is concentrated and real; the apparent offset was a false equivalence.</td><td class="verdict"><span class="pill qual">qualified</span></td></tr>
+<tr class="kill"><td class="lbl">Consumer staples</td><td>Real food and beverage retail sales turned negative at &minus;2.07%, the only contraction in 18 months</td><td>A Lebaran calendar artifact. Eid moved from 31 March 2025 to around 20 March 2026, and March 2026 set the 100-month high at 367.18. Lebaran-adjusted pairs are positive: March plus April +1.41%, the February-April three-month sum +3.69%. The index sits at the 91st percentile, z +1.47. Also the series has 100 observations, not 18; the analyst read a truncated array as the full record.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Transport</td><td>Port cargo down 23.6% to 33.8% in three months</td><td>International cargo unloaded is down year on year at Tanjung Priok &minus;4.1% and Tanjung Perak &minus;16.1%, but both remain above their historical middle at the 80.8th and 63.6th percentiles, and domestic unloaded is expanding (Tanjung Perak +17.1%, Balikpapan +19.9%). This is a rotation from international to domestic throughput, not a demand contraction.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Technology</td><td>Internet banking volume growth halved from 24.9% in January to 9.2% in March</td><td>A Ramadan base effect. Ramadan 2025 ran 1&ndash;30 March, putting all pre-Lebaran spending inside the March 2025 base; in 2026 it started mid-February. Aggregating the quarter removes the shift: Q1 2026 volume is +16.8% year on year with no deceleration. The corroborating e-commerce panel is a scrape averaging 14 transactions a day, with percentiles quoted on single orders.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Plantation</td><td>Agricultural export earnings &minus;26.3% year to date against a record palm price</td><td>Palm export value rose 83.7% year on year in April 2026, to USD 2,105.1mn from 1,145.8mn, on volume up 185.8%. The value side is not contracting.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Infrastructure</td><td>Record Chinese building-material imports at prices 36.5% lower is a price war</td><td>Indonesian exports in the same trade chapter also hit an all-time high in the same month, at 226.8 kg mn, z +4.19. A record two-way flow is not evidence of a price war. The genuine finding in the file is the Komatsu split: the machinery collapse is coal capex at &minus;42.3%, while construction machinery is +14.5%.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Industrials</td><td>Electrical machinery unit realisations &minus;15.0% is ongoing deflation</td><td>The gap is a high 2025 base, not continuing deflation. Monthly realisation bottomed at USD 10.92/kg in October 2025 and has recovered to USD 15.00/kg by April. The tonnage-versus-dollars split (+22.1% against +3.7%) is real; the deflation reading is not.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Basic materials</td><td>Steel and paper imports at the 98th and 99th percentiles: import substitution failing</td><td>Indonesia remains a net steel exporter, 1,929.25 kg mn out against 1,662.01 in, and USD 2,522.66mn against 1,172.54mn. Record copper export value of USD 326.69mn (+51.27%) is real, but with no copper volume or price series in the pack the smelter-ramp explanation is unproven.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="kill"><td class="lbl">Tourism</td><td>Foreigners are showing up and Indonesians are not: inbound +9.6%, domestic air &minus;1.0%</td><td>Domestic travel is rotating between modes rather than contracting. National air departures are &minus;1.0% to 29.67mn, but Jabodetabek rail is +9.1%, LRT +22.1%, the airport train +9.2% and Whoosh +1.1% on the same six-month basis. The only genuine weak spot is Bali air at &minus;2.6%, against occupancy up 1.7 points.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="qual"><td class="lbl">Healthcare</td><td>The +36.2% pharma import value jump is input-cost inflation, not demand</td><td>Directionally right, materially overstated. On six-month averages the unit-cost rise is USD 56.6 against 47.6, or +19%, not the +30% implied by comparing two single months that are both outliers in a USD 37&ndash;78 range. Most of the value jump is price; not all of it.</td><td class="verdict"><span class="pill qual">qualified</span></td></tr>
+<tr class="kill"><td class="lbl">Banks</td><td>System capital adequacy fell 74bp to 25.09%, evidence of a system credit turn</td><td>A repeating March dividend-appropriation step. The same month in 2025 took 164bp, a larger fall, while bank equity was rising and no provisioning event occurred. Year on year, capital adequacy is &minus;33bp at the 51.5th percentile with z positive at +0.13. There is no capital erosion in this series.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="stand"><td class="lbl">Banks</td><td>Bank Syariah Indonesia stepped up impairment IDR 3.95tn in March to IDR 15.04tn</td><td>Verified independently. The allowance went from IDR 11.09tn to 15.04tn in March and was held at 15.04tn in April rather than reversed, book equity fell IDR 2.35tn in the same month, and the balance-sheet identity ties out: archive equity of IDR 51.36tn against IDR 81.88tn of market capitalisation gives 1.594x versus the reported 1.61x price-to-book. A genuine idiosyncratic credit event, not a system signal.</td><td class="verdict"><span class="pill stand">verified</span></td></tr>
+<tr class="qual"><td class="lbl">Financials</td><td>The consumer credit break is completely hidden in the aggregate</td><td>It is visible, just lagging. The consumer NPL rate rose from 2.02% to 2.28%, which is above the 2.1185% system headline, and the headline has itself risen 4.5% off its December 2025 low. The correct statement is that the consumer book is deteriorating faster than it is growing (+19.42% against loan growth of 6.08%) and the aggregate lags it.</td><td class="verdict"><span class="pill qual">qualified</span></td></tr>
+<tr class="kill"><td class="lbl">Property</td><td>Construction property credit +45.98% is Indonesia financing supply into stalled demand</td><td>The surge is a two-month discontinuity, not a trend: the balance went 393,437bn in October to 430,184 in November (+8.5%) to 503,981 in December (+14.7%), in a series that had been flat to down for the preceding twelve months. A loan book does not organically grow 28% in two months. Until the break is explained it cannot be distinguished from a reclassification or a new state-directed programme.</td><td class="verdict"><span class="pill kill">did not survive</span></td></tr>
+<tr class="stand"><td class="lbl">Property</td><td>Mass-segment mortgage arrears are at records while the premium end is clean</td><td>Verified and strong. Apartment mortgage NPLs at 4.161% are the highest in the entire 100-month series, and the six highest observations are the last six months in order. Landed sub-21m&sup2; at 6.416% is the 100th percentile at z 2.53 and apartment 22&ndash;70m&sup2; at 4.786% the 100th at z 2.80, against landed above 70m&sup2; at 3.058% and the 55th. Apartment mortgage growth has fallen monotonically for fourteen months, from 8.19% to &minus;0.03%.</td><td class="verdict"><span class="pill stand">verified</span></td></tr>
+<tr class="qual"><td class="lbl">Consumer discretionary</td><td>Vehicle wholesales +11.1% while Astra grew 0.9% and lost 4.8 points of share</td><td>The headline verifies: 458,018 units over six months, Astra's stable +0.9%, share 52.7% to 47.9%. The supporting cycle read does not: the segment figures are six-month-versus-six-month windows that reverse sign on a true annual basis, and Astra motorcycle volumes are +2.6% on that basis, not &minus;8.3%.</td><td class="verdict"><span class="pill qual">qualified</span></td></tr></tbody></table></div>
+</section>
+
+<section id="patterns">
+  <h2>How fourteen independent analysts made the same six mistakes</h2>
+  
+<p>The failures were not random. Six specific errors account for almost all of them, and each
+recurred across several independent analysts who had no contact with one another. That makes this a
+property of the data packs and the method rather than of any individual reader, which in turn makes
+it fixable.</p>
+
+  <h4>Truncated arrays read as full history</h4><p>Several packs ship a <code>recent</code> array of the last 18 observations alongside a full series. Analysts read the short array as the whole record, producing claims like &ldquo;the only contraction in the 18 months on file&rdquo; for a series with 100 observations, and &ldquo;frozen for all 18 months&rdquo; for a price that had been raised inside the real history.</p><h4>Percentiles quoted on trending nominal balances</h4><p>A rupiah loan balance that has risen 132% over 100 months sits at the 99th percentile of its own history almost permanently. Four separate notes cited such a percentile as independent evidence of a cycle extreme. Only the growth rate carries information, and this trap was flagged in the first report and repeated here anyway.</p><h4>Six-versus-six-month windows presented as year-on-year</h4><p>Several packs compute change over trailing six months against the prior six. Notes then described these as annual changes. In the autos data, segment figures reverse sign when computed properly.</p><h4>Religious-calendar shifts read as demand signals</h4><p>Eid moved from 31 March 2025 to around 20 March 2026, and Ramadan from March to mid-February. Two of the most dramatic findings in this round &mdash; a retail sales contraction and a halving of payments growth &mdash; are both entirely this shift.</p><h4>Seasonal steps read as regime changes</h4><p>The coal export decline and the bank capital fall are both ordinary recurring seasonal moves, each matched or exceeded by the same month a year earlier.</p><h4>Corroboration that is the same number twice</h4><p>One note presented the rupiah leg of a credit series as independent confirmation of the total. The foreign-currency leg is 0.65% of the series, so the rupiah leg is the series.</p>
+</section>
+
+<section id="vintage">
+  <h2>The vintage conflict, resolved</h2>
+  
+<p>One conflict was serious enough to resolve directly rather than report. Several challengers
+asserted that the equity fundamentals in every industry pack carry
+<code>fundamentals_as_of: 2026-08-07</code>, that no 24 May vintage exists anywhere in the files, and
+that therefore the entire &ldquo;multiples are ten weeks stale and have not seen the shock&rdquo;
+argument is void. One challenger called it a fabricated, load-bearing date.</p>
+
+<p>They were reading a real defect and drawing the wrong conclusion from it. Checked directly
+against the source: all 636 Indonesian rows carry <code>updated_at = 2026-05-24</code>. The
+fundamentals genuinely are struck on 24 May. The <code>fundamentals_as_of: 2026-08-07</code> field is
+the date the extract script ran, written into a field whose name says otherwise. That is a naming
+bug in our own tooling, and it misled four independent analysts into doubting a correct claim.</p>
+
+<p>So the staleness argument stands: every multiple in this report predates the policy reversal and
+the interbank move. The field has been renamed to <code>extracted_at</code> and a genuine
+<code>fundamentals_as_of</code> now carries the row-level vintage.</p>
+
+</section>
+
+<section id="growth">
+  <h2>Indonesian growth, read for the first time</h2>
+  
+<p>The CRO asked what the state of Indonesia is and where growth is going. Until this round the
+system could not answer, because Indonesian GDP had never been extracted &mdash; a truncation bug in
+our own tooling had dropped it along with wages, employment, FDI, retail and 87 of 92 trade series.
+Five of the seven notes written on that recovered data were then put to adversarial review and came
+back flawed. What follows is the corrected version, and the corrections are set out rather than
+absorbed.</p>
+
+<p><strong>Indonesia is growing fast, and this part is independently confirmed.</strong> Real GDP
+grew 5.6085% year on year in Q1 2026 on the 2010 constant-price series, matching CEIC's separately
+published real-growth series to four decimal places, with the eighteen industry components
+reconciling to the total exactly. It is the fastest print since Q3 2022's 5.7315%. Growth is broad,
+and <strong>mining and quarrying is the only contracting sector</strong> at &minus;0.88% over the
+trailing year.</p>
+
+<h3>Three corrections to what this report published two revisions ago</h3>
+
+<p><strong>The &ldquo;Lebaran-neutral 5.29%&rdquo; was not a calendar control.</strong> A
+four-quarter rolling ratio is arithmetically identical to the four-quarter mean of the year-on-year
+prints, and those prints are 5.1224, 5.0393, 5.3885 and 5.6085, whose mean is 5.2897. The figure is
+a moving average of an accelerating series, and the gap between 5.61% and 5.29% is simply the
+distance from the latest quarter to its own trailing-year mean. Worse, the stated justification is
+false in a way that runs against us: any four-quarter window contains one, two or zero Eids depending
+on where the boundary falls, and this is a boundary pair. The current window holds one Eid; the base
+window holds two, on 10 April 2024 and 31 March 2025. The &ldquo;control&rdquo; is therefore
+<em>more</em> unbalanced than the raw comparison it replaced, and the extra Eid in the denominator
+biases it downward.</p>
+
+<p><strong>And the raw comparison needed almost no adjustment anyway.</strong> This report asserted
+that 2026 is the first year in the window with Eid cleanly inside Q1. Eid 2025 fell on 31 March 2025
+&mdash; inside Q1 2025. Ramadan sat wholly inside the first quarter in both years. Both quarters
+contain the full fasting month and Eid day, and the residual difference is roughly one post-Eid
+holiday week. So the three findings this report claimed the control had rescued were attributed to a
+calendar shift that largely did not occur between these two quarters.</p>
+
+<p><strong>The inventory conclusion was backwards.</strong> This report said Indonesia is drawing
+inventories down rather than building them. Change in stock over the trailing year to March 2026 is
+<strong>+232,954.7</strong> IDR bn against +265,268.9 a year earlier. Both are large <em>positive</em>
+accumulations. Inventory building slowed by 12.2%; it never reversed. A drawdown requires the flow
+to go negative, which it does in individual quarters but in neither annual window. Having warned
+against a false &ldquo;inventory-led growth&rdquo; reading, this report published its mirror
+image.</p>
+
+<h3>What the corrected data supports</h3>
+
+<p><strong>The deflator is still the finding nobody had looked at, and it is longer-running than we
+said.</strong> Nominal GDP grew 9.1991% against real 5.6085%, giving a deflator of 3.4000% &mdash;
+the <em>ninth</em> consecutive quarterly acceleration off a &minus;1.3019% trough in December 2023,
+not the sixth off &minus;0.84% as published. Economy-wide price pressure was building steadily
+before Bank Indonesia reversed on 20 May, which makes the hike look less like a currency defence and
+more like a response to domestic prices.</p>
+
+<p><strong>The claim that a funding shock reliably breaks fixed investment is not supported by these
+packs.</strong> Gross fixed capital formation is 30.10% of Q1 GDP, growing 5.96%. This report framed
+it as the component that broke within two quarters of the last hiking cycle. The 2022&ndash;23
+analogue says otherwise: construction decelerated a quarter <em>before</em> BI's first hike, GFCF
+<em>accelerated</em> to +4.98% in the hike quarter itself, and both had recovered to +6.39% and
++5.08% by Q3 2023 while BI was still tightening. The exposure is real and worth watching; the
+mechanism we asserted for it is not in the data.</p>
+
+<p><strong>Manufacturing still contradicts the PMI reading.</strong> Manufacturing gross value added
+is running +5.41% over the trailing year and accelerating, contributing 1.096pp. The PMI is a
+diffusion index measuring the breadth of expansion across firms; GVA measures volume, and a
+concentrating sector where large exporters grow while small firms stay flat produces exactly this
+signature. Through Q1 2026 Indonesian manufacturing output was not stalling.</p>
+
+<p><strong>There is no Q2 2026 GDP in any pack.</strong> Every series stops at 1 March; the shock
+began on 20 May. The entire shock period is outside the national accounts, and the leading indicators
+split &mdash; the normalised composite indicators fall while the trend-restored versions of the same
+OECD series rise every month through February.</p>
+
+<h3>The household leg, corrected</h3>
+
+<p><strong>Real wages have gone nowhere in eight years, but the precision we published was
+false.</strong> The mass-employment province index is <em>+0.1% to +1.0% cumulative</em> since
+February 2018 depending on weighting, and &minus;0.3% on a seasonally clean February-plus-August
+basis. The direction holds; the &ldquo;exactly flat at 100.13&rdquo; framing implied a precision the
+weighting choice does not support.</p>
+
+<p><strong>The distributional split is real and is better stated this way:</strong> 90% of the +1.30%
+year-on-year employment gain went to the 47% of workers with at least general senior-high schooling,
+while the 53% with junior high or less took 10% of it.</p>
+
+<p><strong>And participation is falling, not rising.</strong> The last four rounds print 70.63, 70.60,
+70.59, 70.56. This report had it the wrong way round. Two other household claims also fail: the
+income-minus-durables gap is no wider than it was in 2023 (16.20 against 15.08), and the
+affluent-versus-mass debt-service divergence exists only against a 2024 base and reverses against
+2023.</p>
+
+<h3>The consumer, corrected</h3>
+
+<p>The clean-window reading survives: across October 2025 to January 2026, the only four months with
+no Ramadan or Lebaran in either year, real retail sales grew a mean 4.96% against 1.15% a year
+earlier. <strong>But the level is the problem.</strong> The index in that window is only 1.25% above
+the same months in 2019&ndash;20, which on population is a <em>per-capita decline</em>, and the
+series prints &minus;1.92% in April 2026, its last observation.</p>
+
+<p><strong>The precautionary-saving finding needs its base stated.</strong> The household savings
+share did rise to a February-April mean of 17.86% from 14.42%, on the largest three-month step in the
+data. But 14.42% was the lowest base in the array, and 17.86% remains <em>below</em> the 19.73% of
+2019 and the 21.38% of 2018. This is normalisation from a post-COVID trough, not a new precautionary
+regime.</p>
+
+<p><strong>The vehicle composition claim collapses entirely.</strong> Mass-market LCGC units did fall
+to 39,292 over January to April, a nine-year low, down 19.0% year on year. But no claim about the
+market's composition can be made from this pack: the seven itemised segments cover 41.1% of retail
+units, and the unitemised 58.9% &mdash; dominated by the 4x2 non-LCGC passenger cars that are
+Indonesia's actual mass-market household vehicle &mdash; grew 10.5% and supplied 86% of the entire
+unit increase. This report's earlier reading of a fleet-led recovery was made without observing the
+segment that produced it.</p>
+
+<h3>Trade, corrected</h3>
+
+<p><strong>The palm dispute settles at about +5%, not +8.4%.</strong> The +8.4% figure is the
+animal and vegetable oils <em>chapter</em>; palm itself underperforms that chapter by 2.4 to 6.4
+points in every window where both are observed, implying roughly +5.1% for palm. Both the
+&minus;26.3% report two published and the +83.7% its challenger countered with remain refuted.</p>
+
+<p><strong>&ldquo;All export growth is price&rdquo; is a mix effect, not a price effect.</strong>
+The arithmetic reproduces &mdash; value +5.48% on volume &minus;2.84% year to date &mdash; but the
+inference does not. Coal value fell USD 716mn over January to March, which at prevailing coal prices
+accounts for 88% to 132% of the <em>entire</em> tonnage decline. Coal is roughly 37% of export
+tonnage. What looks like an economy-wide price-not-volume story is substantially one commodity
+shrinking.</p>
+
+<p><strong>The rupiah case is directionally right and weaker than we made it.</strong> The trade
+account is not the driver, but the twelve-month surplus is above its year-ago level only because ten
+of those months predate the currency move: the January-plus-February 2026 run-rate is USD 1.11bn a
+month against 3.29bn a year earlier. And no import data exists after February 2026, so the balance
+across the currency's worst months is <em>unobserved</em>, not improving. The conclusion stands on
+the cross-rate evidence &mdash; the rupiah fell against the yuan, euro, Singapore dollar and sterling
+while the dollar itself was weak &mdash; not on the trade balance.</p>
+
+</section>
+
+<section id="funding">
+  <h2>The funding shock</h2>
+  
+<p>This is the freshest data in the report and the most important. It runs to 10 June against an
+industry dataset that mostly stops in April. It has now been adversarially challenged, and the split
+is clean: <strong>every descriptive figure reproduced exactly; the causal mechanism did
+not.</strong></p>
+
+<p><strong>What reproduced.</strong> Total loan growth 9.4324%. IndONIA 5.98307% on 10 June against
+a 3.6554% low on 22 January. The corridor spread at +1.48307pp over 122 sessions. Excess reserves of
+IDR 55,743bn with a window minimum of 11,722 on 29 May. Working capital lending at 7.9596% and
+investment lending at 7.8628%, both window minima. The consumption-minus-working-capital rate gap at
+2.5688pp. The Bank Syariah Indonesia impairment step from IDR 11,090,997mn to 15,039,360mn in March,
+held at 15,043,061mn in April. The reviewer reproduced all of it to the decimal.</p>
+
+<p><strong>Policy reversed, and further than first reported.</strong> Bank Indonesia cut from 5.75%
+in April 2025 to 4.75% by September and held through April 2026. The policy rate then went to 5.25%
+on 20 May, the whole corridor shifted 50bp that day, and a further 25bp landed on 9 June &mdash;
+roughly 75bp of hikes plus about 190bp of effective overnight tightening. IndONIA confirms it bit:
+3.9&ndash;4.2% through April, 5.15% on 20 May, 5.98% on 10 June.</p>
+
+<p><strong>What did not survive is the explanation.</strong> Report two attributed the squeeze to
+deposit flight into cash and foreign currency. Three of the four legs invert:</p>
+
+<ul>
+<li>Bank deposits at Bank Indonesia went from IDR 338,288bn to 417,628bn, <strong>+23.5% year on
+year</strong>, against currency in circulation at +15.8%. Base money went into the banking system
+faster than into cash. The 73.76% cash share is the 77th percentile of the window, not an extreme:
+it was 73.1% in the same month a year earlier and has printed 74.0%, 74.8%, 74.1% and 77.9%
+before.</li>
+<li>Total foreign-currency deposits grew 8.94% against M2 at 9.22%, so the <strong>FX share of M2
+fell</strong>, to 13.67% from 13.71%, below its 14.18% peak in May 2024. We quoted the two fastest
+sub-lines, 46% of the stock, and omitted the largest: FX transferable deposits, 54% of it, grew
+0.55%, which is a contraction in dollar terms given USD/IDR rose 3.20% over the same year.</li>
+<li>Rupiah transferable deposits grew <strong>21.31%</strong>, faster than M1 at 19.26%, and savings
+deposits 7.08%. The cheapest funding is the fastest-growing. That mix shift is
+margin-<em>accretive</em>, which cuts directly against the compression thesis it was cited to
+support. What is scarce is expensive time-deposit funding at 2.70%.</li>
+</ul>
+
+<p><strong>Two prudential &ldquo;stress&rdquo; readings were seasonal.</strong> The March
+capital-adequacy drop of 2.86% is the annual dividend appropriation, and it is the <em>mildest in six
+years</em>: the same month took 2.96% in 2020, 4.37% in 2022, 4.82% in 2023, 6.65% in 2024 and 6.07%
+in 2025. The regional-bank loan-to-deposit rise of 7.85% over six months is the recurring
+September-to-March move (+9.31% in 2019-20, +6.75% in 2024-25), and year on year that ratio is
+<em>down</em> 3.02%, from 86.61% to 83.99% &mdash; below commercial banks at 84.64% and well below
+state-owned banks at 88.29%. Ranking cohorts by percentile against their own different distributions
+is not a like-for-like stress comparison.</p>
+
+<p><strong>And one more percentile error of our own.</strong> Report two put reserve-money growth
+&ldquo;at the 96th percentile&rdquo;. That is the percentile of the nominal <em>level</em> &mdash;
+the exact move the same note correctly rejected one paragraph earlier for loan balances. The growth
+rate of 14.758% sits at the 72.7th percentile of its own history.</p>
+
+<p><strong>What this leaves.</strong> The price of funding moved hard and is verified. The banks'
+marginal spread &mdash; overnight funding at 5.9831% against working capital lending at 7.9596%, so
+roughly 198bp against 421bp on 1 January &mdash; is arithmetic on two confirmed numbers and stands.
+But the funding <em>base</em> did not run, and the deposit mix moved toward cheaper money rather than
+away from it. One caution the reviewer raised and this report accepts: lending and deposit rate
+series stop at 1 April in every file in the archive, so nothing after the 20 May reversal is directly
+observable. The margin claim is an inference from the gap between a June funding rate and an April
+lending rate, and it cannot be confirmed either way until the next print.</p>
+
+<p><strong>The single most load-bearing fact in this thesis has now been checked directly.</strong>
+The daily Bank Indonesia deposit facility series prints 3.75% from 27 November 2025, steps to 4.25%
+on 20 May 2026 and to 4.50% on 9 June &mdash; both dates and both levels reproduce precisely. The
+monthly series corroborates, 3.75% from 1 September to 4.25% at 1 May. Everything downstream of the
+reversal rests on this, and it stands on a direct read of the primary series rather than on any
+analyst's summary.</p>
+
+</section>
+
+<section id="markets">
+  <h2>What the two markets are pricing</h2>
+  
+<p><strong>The index.</strong> IDX share price (2015=100) printed 134.301 at 1 May against 180.655
+at 1 January, a 25.7% drawdown in four months. Month-on-month was &minus;9.78% in May and
+&minus;10.78% in March; year-on-year flipped from +24.50% in January to &minus;6.06% in May.</p>
+
+<p><strong>It is falling on thinning volume, which is the opposite of what report two said.</strong>
+May turnover value was IDR 365,734bn against January's 698,211bn, down 47.6%, on 612,768mn shares
+against 1,243,448mn, down 50.7%. Per trading day that is IDR 22,858bn against 34,911bn, 35% lower,
+and the second-lowest month since August 2025. Report two read the 89th-percentile ranking as heavy
+volume; that percentile is computed against a nominal series whose monthly average has risen from
+roughly 199,000bn in 2018 to a ~446,000bn trailing-year mean, so almost any recent month ranks high.
+The turnover-to-index ratio fails for the same reason and worse: it is not bounded, it is
+mechanically inflated when the denominator falls 25.7%, and its series maximum is January 2026
+&mdash; the index high. A measure that peaks at the top is not a distress signal.</p>
+
+<p>Thinning volume into a 25.7% fall is a buyers' strike, not distribution. It is a materially less
+alarming reading, and it fits the foreign-flow data better.</p>
+
+<p><strong>Foreign selling is large cumulatively and easing at the margin.</strong> Net foreign
+purchase was &minus;IDR 53,972bn year to date through May, which does exceed the largest full-year
+outflow in the sample (&minus;IDR 50,746bn in 2018). But March was the window minimum at &minus;IDR
+23,340bn and May was only &minus;IDR 4,097bn &mdash; the smallest monthly outflow in three months, in
+the month prices fell hardest. Foreign holdings of Indonesian government bonds are down just 1.3%
+over seven months. And the domestic bid did <em>not</em> vanish, which is another claim this report got
+wrong. Domestic-to-domestic crossing is 39.47% of turnover, genuinely the 12.9th percentile against
+a 49.86% median &mdash; but that is a <strong>denominator effect</strong>. Domestic crossing
+<em>value</em> rose 31.4% year on year to IDR 144.4tn; total turnover rose 45.6% and foreign-involved
+turnover 56.6%. The domestic bid grew and was outgrown. May is also seasonally the weakest month for
+this ratio, and 39.47% ranks only third-lowest of nine Mays.</p>
+
+<p><strong>There is no corroborating stress in the bond market, and the flat curve is
+not what we said it was either.</strong> Report two claimed the curve had priced 75bp of stress,
+measured from 30 October 2025 &mdash; both the first observation of a truncated window and the
+minimum of the monthly series. Year on year the ten-year is 6.858% against 6.865%: <em>minus 0.6bp,
+flat</em>. We then read the flat 12-to-28-year shape as a vanished term premium. On verification
+that fails too. It is a <strong>bear flattener into a hiking cycle</strong>: the twelve-year rose
+75bp and the twenty-eight-year 36bp over the window while the policy rate went 4.75% to 5.25%. The
+flat 22-to-28-year tail is a <em>fitted-curve asymptote</em> &mdash; five tenors printing 7.011746
+to six decimal places &mdash; not five market observations. And the 0.1bp is one day inside a
+three-month range of 0 to 7bp that reached &minus;14.5bp in March.</p>
+
+<p><strong>Issuance has moved onshore.</strong> Local corporate bond issues outstanding reached 1,456
+at 1 May, +30.9% year on year, while international issues fell to 82, &minus;11.8% and down from a
+window maximum of 115. The local-to-international ratio of 17.76 is the highest in the window.</p>
+
+<p><strong>On bank valuation, report two overstated the spread.</strong> Solving the price-to-book
+identity at 5% terminal growth does give 17.7% for BMRI, 14.9% BNGA, 14.7% BBRI, 13.0% BBNI and
+11.4% BBCA. But across all twenty listed banks only six fall in the 13&ndash;18% band, together
+43.9% of set market capitalisation, and the largest name &mdash; BBCA at 29.6% of the set &mdash; is
+11.4%. The tail runs far lower: BNLI 6.4%, PNBN 4.9%, ARTO 4.1%, BTPN &minus;4.9%. The
+capitalisation-weighted big-four figure is 13.8%. Eleven of the 26 listed financials, 73.5% of set
+capitalisation, still sit within 5% of their 52-week low, and the capitalisation-weighted dividend
+yield is 8.08%, with BBRI at 13.70% and BMRI at 11.58%.</p>
+
+<p>So the honest version of report two's closing line: the equity market has de-rated the banks hard
+on thinning volume while the bond market has not moved at all. That is still a disagreement worth
+resolving, but it is a disagreement between a de-rating and indifference, not between a recession
+and 75bp of stress.</p>
+
+</section>
+
+<section id="propcredit">
+  <h2>The property credit split in full</h2>
+  <p>This is the dataset that survived challenge most cleanly, and the one that answers the question
+  the first report could not. Read the arrears and the demand-side growth rates; ignore the
+  percentiles on the nominal loan balances, which merely restate a rising trend.</p>
+  <div class="tw"><table class=""><thead><tr><th class="">Series</th><th class="num">Latest</th><th class="num">12m change</th><th class="num">Pctile</th><th class="num">z</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">Commercial & Rural Banks: Property Loan: Construction</td><td class="num">569,399.86</td><td class="num"><span class="pos">+46.0%</span></td><td class="num">99</td><td class="num"><span class="pos">+3.65</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Commercial & Rural Banks: Property Loan: Foreign Currency: Con</td><td class="num">3,725.21</td><td class="num"><span class="neg">-24.3%</span></td><td class="num">6</td><td class="num"><span class="neg">-1.70</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Commercial & Rural Banks: Property Loan: Rupiah: Construction</td><td class="num">565,674.65</td><td class="num"><span class="pos">+46.9%</span></td><td class="num">99</td><td class="num"><span class="pos">+3.64</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Flat/Small Apartment: Mortgage Loans: Type </td><td class="num">17,243.66</td><td class="num"><span class="neg">-1.7%</span></td><td class="num">84</td><td class="num"><span class="pos">+1.09</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Flat/Small Apartment: Mortgage Loans: Type </td><td class="num">3,299.15</td><td class="num"><span class="neg">-0.7%</span></td><td class="num">86</td><td class="num"><span class="pos">+1.64</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Flat/Small Apartment: Mortgage Loans: Type </td><td class="num">11,451.59</td><td class="num"><span class="pos">+2.8%</span></td><td class="num">96</td><td class="num"><span class="pos">+1.46</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Flat/Small Apartment: Mortgage Loan</td><td class="num">-0.03</td><td class="num"><span class="neg">-100.4%</span></td><td class="num">2</td><td class="num"><span class="neg">-1.28</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Flat/Small Apartment: Mortgage Loan</td><td class="num">-0.70</td><td class="num"><span class="neg">-102.5%</span></td><td class="num">12</td><td class="num"><span class="neg">-1.12</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Landed House: Mortgage Loans</td><td class="num">5.06</td><td class="num"><span class="neg">-41.6%</span></td><td class="num">14</td><td class="num"><span class="neg">-1.14</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Landed House: Mortgage Loans: Type </td><td class="num">6.06</td><td class="num"><span class="neg">-28.6%</span></td><td class="num">9</td><td class="num"><span class="neg">-1.14</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Landed House: Mortgage Loans: Type </td><td class="num">-8.74</td><td class="num"><span class="pos">+81.4%</span></td><td class="num">26</td><td class="num"><span class="neg">-0.47</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Landed House: Mortgage Loans: Type </td><td class="num">4.45</td><td class="num"><span class="neg">-58.5%</span></td><td class="num">25</td><td class="num"><span class="neg">-0.57</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Growth: Shophouse/Officehouse: Mortgage Loa</td><td class="num">2.48</td><td class="num"><span class="neg">-50.2%</span></td><td class="num">69</td><td class="num"><span class="pos">+0.04</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Landed House: Mortgage Loans</td><td class="num">780,029.45</td><td class="num"><span class="pos">+5.1%</span></td><td class="num">100</td><td class="num"><span class="pos">+1.78</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Landed House: Mortgage Loans: Type 22-70 m2</td><td class="num">513,909.69</td><td class="num"><span class="pos">+6.1%</span></td><td class="num">100</td><td class="num"><span class="pos">+1.74</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Landed House: Mortgage Loans: Type < 21 m2</td><td class="num">22,863.20</td><td class="num"><span class="neg">-8.7%</span></td><td class="num">32</td><td class="num"><span class="neg">-0.33</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: Landed House: Mortgage Loans: Type >70 m2</td><td class="num">243,256.56</td><td class="num"><span class="pos">+4.5%</span></td><td class="num">100</td><td class="num"><span class="pos">+1.87</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: NPL: Flat/Small Apartment: Mortgage Loans</td><td class="num">4.16</td><td class="num"><span class="pos">+25.3%</span></td><td class="num">100</td><td class="num"><span class="pos">+2.73</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: NPL: Flat/Small Apartment: Mortgage Loans: </td><td class="num">4.79</td><td class="num"><span class="pos">+28.3%</span></td><td class="num">100</td><td class="num"><span class="pos">+2.80</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: NPL: Flat/Small Apartment: Mortgage Loans: </td><td class="num">6.39</td><td class="num"><span class="pos">+66.4%</span></td><td class="num">94</td><td class="num"><span class="pos">+1.50</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: NPL: Flat/Small Apartment: Mortgage Loans: </td><td class="num">2.58</td><td class="num"><span class="pos">+2.1%</span></td><td class="num">74</td><td class="num"><span class="pos">+0.60</span></td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Real Estate Loans: NPL: Landed House: Mortgage Loans</td><td class="num">3.21</td><td class="num"><span class="pos">+6.8%</span></td><td class="num">98</td><td class="num"><span class="pos">+1.87</span></td><td class="dt">2026-04-01</td></tr></tbody></table></div><p class="tcap">Indonesian property credit and arrears. The construction-credit surge in this table is the two-month discontinuity discussed above and should not be read as organic lending until the break is explained.</p>
+</section>
+
+<section id="forward">
+  <h2>The most current activity data available</h2>
+  
+<p>This section reverses report two's reading. The forward indicators do not show a deteriorating
+economy; on a proper year-on-year basis they show an improving one.</p>
+
+<p><strong>Manufacturing.</strong> The purchasing managers' index is 50.0 seasonally adjusted in May,
+which report two described as having given back an entire expansion. Measured against the same month
+a year earlier, as required, May 2026's 50.0 is 2.6 points <em>above</em> May 2025's 47.4, and
+April's 49.1 is 2.4 above April 2025's 46.7. The February-to-May fade is a recurring seasonal
+pattern that was larger in both prior years: 2025 fell 6.7 points over the same stretch against
+2026's 3.8. January-to-May means run 52.96 in 2024, 50.40 in 2025 and 51.12 in 2026. The index is
+above last year and turned up in the latest print.</p>
+
+<p><strong>Business and consumer surveys.</strong> Report two wrote that businesses expect to sell
+more while hiring almost nobody. The level is right and the direction is the opposite. Year on year,
+almost everything improved: business activity +3.1, usage of labour +0.9 from a negative base,
+present employment +7.1, expected employment +4.3, headline consumer confidence +1.3, current income
++2.7, and the OECD leading indicator +0.2. Only five of fifteen load-bearing series fell, and the
+clean negatives are narrow and specific: expected business conditions &minus;4.4 at the 19th
+percentile, forward selling-price intentions &minus;1.9, and a durables-versus-income gap at
+&minus;15.5.</p>
+
+<p>Hiring intentions are stuck near zero, but as a level that has stopped getting worse rather than
+a fresh deterioration. The genuine signal in this dataset is a discretionary-versus-staples split
+inside the consumer, which is consistent with the consumer credit data, and not a broad macro
+slowdown.</p>
+
+<p><strong>How report two got it wrong</strong> is worth recording, because it is the same error the
+report criticised elsewhere. The original note compared 2026 against a 2018&ndash;2024 matched-quarter
+baseline, which is a comparison of <em>levels</em>, and then described the result as a
+second-derivative story. The level story is real. The second-derivative story is the reverse of what
+the data shows.</p>
+
+<p>The activity composite built from seven families of Indonesian indicators reads flat at a median
+z of 0.31, with tax revenue, bank lending, consumer confidence and money supply positive and payments
+volume, consumer expectations and exports negative. Given how much of this programme's survey work
+turned out to be calendar and base effects, that composite should be treated as a weak prior.</p>
+
+<p>All of this predates the funding shock. None of these surveys has absorbed a 233bp move in
+overnight rates.</p>
+
+  <div class="tw"><table class=""><thead><tr><th class="">Indicator</th><th class="num">Latest</th><th class="num">Prior</th><th class="num">Year ago</th><th class="">Units</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">Average selling price, all industries, future</td><td class="num">12.81</td><td class="num">15.82</td><td class="num">14.75</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Business activities, all industries, future</td><td class="num">14.80</td><td class="num">10.11</td><td class="num">11.70</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Business activities, construction, future</td><td class="num">1.02</td><td class="num">0.12</td><td class="num">0.10</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Business activities, manufacturing industry, future</td><td class="num">1.47</td><td class="num">1.46</td><td class="num">1.29</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Business activities, mining and quarrying, future</td><td class="num">0.74</td><td class="num">-0.45</td><td class="num">-0.27</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">The usage of labor, all industries, future</td><td class="num">0.61</td><td class="num">0.28</td><td class="num">-0.34</td><td>SBT, Net Balance %</td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Now-Casting Index: Impact: Current Month: Indonesia: ISM S</td><td class="num">10.04</td><td class="num">-18.24</td><td class="num">-0.32</td><td>Basis Point</td><td class="dt">2026-05-01</td></tr>
+<tr><td class="lbl">GDP Nowcast: Impact: Current Quarter: Indonesia: ISM Servi</td><td class="num">0.66</td><td class="num">-1.92</td><td class="num">-9.50</td><td>Basis Point</td><td class="dt">2026-05-01</td></tr>
+<tr><td class="lbl">GDP Nowcast: Impact: Next Quarter: Indonesia: ISM Services</td><td class="num">1.00</td><td class="num">-1.83</td><td class="num">-7.21</td><td>Basis Point</td><td class="dt">2026-05-01</td></tr>
+<tr><td class="lbl">Manufacturing PMI: Headline: sa: Indonesia</td><td class="num">50.00</td><td class="num">49.10</td><td class="num">52.60</td><td>NA</td><td class="dt">2026-05-01</td></tr>
+<tr><td class="lbl">Manufacturing PMI: Headline: non-sa: Indonesia</td><td class="num">49.70</td><td class="num">49.30</td><td class="num">53.70</td><td>NA</td><td class="dt">2026-05-01</td></tr></tbody></table></div><p class="tcap">Bank Indonesia business survey (quarterly, SBT net balance, to 30 June) and manufacturing PMI (monthly, to 1 May).</p>
+  <div class="tw"><table class=""><thead><tr><th class="">Family</th><th class="num">Series</th><th class="num">Median z</th><th class="num">% positive</th><th class="">Latest obs</th></tr></thead><tbody><tr><td class="lbl">Payments volume</td><td class="num">17</td><td class="num"><span class="neg">-0.12</span></td><td class="num">35%</td><td class="dt">2026-05-29</td></tr>
+<tr><td class="lbl">Consumer expectations</td><td class="num">4</td><td class="num"><span class="neg">-0.10</span></td><td class="num">25%</td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Exports</td><td class="num">5</td><td class="num"><span class="neg">-0.07</span></td><td class="num">40%</td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Money supply</td><td class="num">28</td><td class="num"><span class="pos">+0.31</span></td><td class="num">57%</td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Consumer confidence</td><td class="num">24</td><td class="num"><span class="pos">+0.43</span></td><td class="num">79%</td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Bank lending</td><td class="num">3</td><td class="num"><span class="pos">+0.54</span></td><td class="num">67%</td><td class="dt">2026-04-01</td></tr>
+<tr><td class="lbl">Tax revenue</td><td class="num">19</td><td class="num"><span class="pos">+0.58</span></td><td class="num">74%</td><td class="dt">2026-05-01</td></tr></tbody></table></div><p class="tcap">Activity composite. Each family is the median z-score of its member series versus their own histories. Bounded and diffusion series enter as levels; nominal series as year-on-year growth, because their levels only trend.</p>
+</section>
+
+<section id="valuation">
+  <h2>Indonesia against the world</h2>
+  
+<p>The first report had no notion of value at all: every stance came from price and macro drivers.
+This is the missing layer, computed across 612 Indonesian and 168 global names, with value, quality
+and growth z-scores calculated within sector so that a bank is not ranked against a software
+company.</p>
+
+<p>Indonesia trades at roughly a third of global multiples. Indonesian property is at 0.46x book
+against global real estate at 2.72x, which the verified mortgage-arrears data says is deserved for
+the mass-market names. Indonesian financials are at 0.76x book against global financials at 2.33x,
+which is partly deserved, since the deterioration is concentrated in consumer books rather than in
+the corporate lenders.</p>
+
+<p>Three caveats before anyone acts on a multiple. The two fundamentals tables carry <em>different</em> vintages, which this report previously
+stated as one: all 636 Indonesian rows are struck 24 May, all 169 global rows 31 May, so every
+IDX-versus-global multiple below compares marks seven days apart. Both predate the policy
+reversal and the interbank move entirely. The Indonesian Energy
+sector's median price-to-book of 15,556 in the source data is corrupted and must not be quoted. And
+several global names including Altria and McDonald's carry negative book value from buybacks, which
+makes price-to-book meaningless for them rather than attractive.</p>
+
+<p>The concentration problem deserves more weight than the discount. Four names each represent 40%
+or more of their sector's market capitalisation on turnover that could not clear a single day's
+position: DCI Indonesia at 44.9% of technology on IDR 195mn of daily trade, PGUN at 42.7% of
+plantation on IDR 110mn, PANI at 42.3% of property on a 15.9% free float, and Bayan at IDR 333tn on
+IDR 0.48bn. Any statement of the form &ldquo;Indonesian sector X trades at Y&rdquo; is a statement
+about these four names before it is a statement about the sector.</p>
+
+<p>Where quality is genuinely available at a low price the list is short. Puradelta Lestari at 5.76x
+earnings, 0.98x book and 16.9% return on equity, only 5% below its own high, earns three times its
+sector's return on equity at a fraction of its multiple. Bank Mandiri at 6.83x on 21.0% and Bank
+Rakyat at 7.84x on 18.1% are the two largest banks in the country, 25% and 31% below their highs.
+Mark Dynamics at 10.35x on 31.0%. Adaro Andalan at 5.09x on 24.2% with a 9.28% dividend yield.
+Within property, Ciputra at 4.82x earnings, 0.49x book, 10.2% return on equity and debt-to-equity of
+0.29 is the cleanest balance sheet in the discounted cohort, which matters more than usual in a
+segment running 100th-percentile arrears.</p>
+
+  <div class="tw"><table class=""><thead><tr><th class="">IDX sector</th><th class="num">n</th><th class="num">PE</th><th class="num">PB</th><th class="num">ROE</th><th class="">Global sector</th><th class="num">PE</th><th class="num">ROE</th><th class="num">PE gap</th></tr></thead><tbody><tr><td class="lbl">Financials</td><td class="num">89</td><td class="num">12.2</td><td class="num">0.76</td><td class="num">5.4</td><td class="lbl">Financials</td><td class="num">16.0</td><td class="num">14.5</td><td class="num"><span class="neg">-24%</span></td></tr>
+<tr><td class="lbl">Energy</td><td class="num">48</td><td class="num">16.6</td><td class="num">15,555.56</td><td class="num">10.2</td><td class="lbl">Energy</td><td class="num">20.6</td><td class="num">14.6</td><td class="num"><span class="neg">-19%</span></td></tr>
+<tr><td class="lbl">Consumer Non-Cyclicals</td><td class="num">101</td><td class="num">12.0</td><td class="num">1.71</td><td class="num">7.9</td><td class="lbl">Consumer Staples</td><td class="num">24.9</td><td class="num">24.1</td><td class="num"><span class="neg">-52%</span></td></tr>
+<tr><td class="lbl">Consumer Cyclicals</td><td class="num">120</td><td class="num">12.2</td><td class="num">1.21</td><td class="num">1.3</td><td class="lbl">Consumer Discretionary</td><td class="num">30.4</td><td class="num">24.3</td><td class="num"><span class="neg">-60%</span></td></tr>
+<tr><td class="lbl">Basic Materials</td><td class="num">77</td><td class="num">12.1</td><td class="num">1.61</td><td class="num">4.3</td><td class="lbl">Materials</td><td class="num">33.0</td><td class="num">13.5</td><td class="num"><span class="neg">-63%</span></td></tr>
+<tr><td class="lbl">Industrials</td><td class="num">31</td><td class="num">10.4</td><td class="num">1.32</td><td class="num">9.7</td><td class="lbl">Industrials</td><td class="num">30.6</td><td class="num">24.6</td><td class="num"><span class="neg">-66%</span></td></tr>
+<tr><td class="lbl">Healthcare</td><td class="num">32</td><td class="num">16.7</td><td class="num">1.73</td><td class="num">8.2</td><td class="lbl">Health Care</td><td class="num">25.0</td><td class="num">13.5</td><td class="num"><span class="neg">-33%</span></td></tr>
+<tr><td class="lbl">Technology</td><td class="num">36</td><td class="num">21.1</td><td class="num">1.74</td><td class="num">7.6</td><td class="lbl">Information Technology</td><td class="num">37.7</td><td class="num">34.0</td><td class="num"><span class="neg">-44%</span></td></tr>
+<tr><td class="lbl">Properties & Real Estate</td><td class="num">47</td><td class="num">12.7</td><td class="num">0.46</td><td class="num">2.4</td><td class="lbl">Real Estate</td><td class="num">36.1</td><td class="num">9.2</td><td class="num"><span class="neg">-65%</span></td></tr>
+<tr><td class="lbl">Infrastructure</td><td class="num">30</td><td class="num">12.3</td><td class="num">1.00</td><td class="num">3.5</td><td class="lbl">Utilities</td><td class="num">21.8</td><td class="num">10.2</td><td class="num"><span class="neg">-44%</span></td></tr></tbody></table></div><p class="tcap">Sector medians, IDX against the nearest global equivalent. Fundamentals as of 24 May. The Indonesian Energy row is excluded from any book-value comparison because its median price-to-book is corrupted at source.</p>
+</section>
+
+<section id="quality">
+  <h2>Quality available at a price</h2>
+  <p>Names scoring above 0.4 standard deviations on both value and quality within their own sector.
+  A screen output, not a recommendation, and every multiple predates the policy reversal.</p>
+  <div class="tw"><table class=""><thead><tr><th class="">Ticker</th><th class="">Name</th><th class="">Sector</th><th class="num">PE</th><th class="num">PB</th><th class="num">ROE</th><th class="num">Yield</th><th class="num">Off high</th><th class="num">Value z</th><th class="num">Quality z</th></tr></thead><tbody><tr><td class="lbl">DMAS</td><td class="lbl">Puradelta Lestari</td><td>Properties & Real Es</td><td class="num">5.8</td><td class="num">0.98</td><td class="num">16.9</td><td class="num">38.4</td><td class="num"><span class="neg">-5%</span></td><td class="num"><span class="pos">+1.05</span></td><td class="num"><span class="pos">+1.80</span></td></tr>
+<tr><td class="lbl">MARK</td><td class="lbl">Mark Dynamics Indonesia</td><td>Industrials</td><td class="num">10.4</td><td class="num">3.13</td><td class="num">31.0</td><td class="num">19.8</td><td class="num"><span class="neg">-10%</span></td><td class="num"><span class="pos">+0.76</span></td><td class="num"><span class="pos">+1.51</span></td></tr>
+<tr><td class="lbl">BMRI</td><td class="lbl">Bank Mandiri</td><td>Financials</td><td class="num">6.8</td><td class="num">1.26</td><td class="num">21.0</td><td class="num">11.6</td><td class="num"><span class="neg">-25%</span></td><td class="num"><span class="pos">+0.61</span></td><td class="num"><span class="pos">+1.21</span></td></tr>
+<tr><td class="lbl">BBRI</td><td class="lbl">Bank Rakyat Indonesia</td><td>Financials</td><td class="num">7.8</td><td class="num">1.36</td><td class="num">18.1</td><td class="num">13.7</td><td class="num"><span class="neg">-32%</span></td><td class="num"><span class="pos">+0.77</span></td><td class="num"><span class="pos">+1.04</span></td></tr>
+<tr><td class="lbl">SIDO</td><td class="lbl">Industri Jamu & Farmasi Si</td><td>Healthcare</td><td class="num">10.6</td><td class="num">3.69</td><td class="num">32.8</td><td class="num">9.1</td><td class="num"><span class="neg">-30%</span></td><td class="num"><span class="pos">+0.66</span></td><td class="num"><span class="pos">+1.15</span></td></tr>
+<tr><td class="lbl">CITA</td><td class="lbl">Cita Mineral Investindo</td><td>Basic Materials</td><td class="num">9.1</td><td class="num">1.66</td><td class="num">18.6</td><td class="num">9.3</td><td class="num"><span class="neg">-36%</span></td><td class="num"><span class="pos">+0.69</span></td><td class="num"><span class="pos">+1.05</span></td></tr>
+<tr><td class="lbl">DEWA</td><td class="lbl">Darma Henwa</td><td>Energy</td><td class="num">3.4</td><td class="num">1.95</td><td class="num">68.3</td><td class="num"><span class="na">n/a</span></td><td class="num"><span class="neg">-56%</span></td><td class="num"><span class="pos">+0.48</span></td><td class="num"><span class="pos">+1.17</span></td></tr>
+<tr><td class="lbl">SKRN</td><td class="lbl">Superkrane Mitra Utama</td><td>Industrials</td><td class="num">17.3</td><td class="num">4.93</td><td class="num">30.6</td><td class="num">17.6</td><td class="num"><span class="neg">-66%</span></td><td class="num"><span class="pos">+0.66</span></td><td class="num"><span class="pos">+0.94</span></td></tr>
+<tr><td class="lbl">DKFT</td><td class="lbl">Central Omega Resources</td><td>Basic Materials</td><td class="num">6.0</td><td class="num">2.74</td><td class="num">55.1</td><td class="num">9.6</td><td class="num"><span class="neg">-31%</span></td><td class="num"><span class="pos">+0.72</span></td><td class="num"><span class="pos">+0.71</span></td></tr>
+<tr><td class="lbl">MSTI</td><td class="lbl">Mastersystem Infotama</td><td>Technology</td><td class="num">8.0</td><td class="num">1.80</td><td class="num">23.1</td><td class="num">9.7</td><td class="num"><span class="neg">-22%</span></td><td class="num"><span class="pos">+0.83</span></td><td class="num"><span class="pos">+0.56</span></td></tr>
+<tr><td class="lbl">BTPS</td><td class="lbl">Bank BTPN Syariah</td><td>Financials</td><td class="num">6.1</td><td class="num">0.72</td><td class="num">12.1</td><td class="num">12.5</td><td class="num"><span class="neg">-41%</span></td><td class="num"><span class="pos">+0.80</span></td><td class="num"><span class="pos">+0.57</span></td></tr>
+<tr><td class="lbl">IPCC</td><td class="lbl">Indonesia Kendaraan Termin</td><td>Infrastructure</td><td class="num">8.6</td><td class="num">1.56</td><td class="num">18.8</td><td class="num">7.8</td><td class="num"><span class="neg">-16%</span></td><td class="num"><span class="pos">+0.48</span></td><td class="num"><span class="pos">+0.88</span></td></tr>
+<tr><td class="lbl">POWR</td><td class="lbl">Cikarang Listrindo</td><td>Energy</td><td class="num">8.5</td><td class="num">15,555.56</td><td class="num">10.0</td><td class="num">10.5</td><td class="num"><span class="neg">-11%</span></td><td class="num"><span class="pos">+0.60</span></td><td class="num"><span class="pos">+0.67</span></td></tr>
+<tr><td class="lbl">BNGA</td><td class="lbl">Bank CIMB Niaga</td><td>Financials</td><td class="num">6.0</td><td class="num">0.70</td><td class="num">12.0</td><td class="num">9.8</td><td class="num"><span class="neg">-14%</span></td><td class="num"><span class="pos">+0.59</span></td><td class="num"><span class="pos">+0.65</span></td></tr>
+<tr><td class="lbl">BBNI</td><td class="lbl">Bank Negara Indonesia</td><td>Financials</td><td class="num">6.9</td><td class="num">0.87</td><td class="num">12.0</td><td class="num">9.2</td><td class="num"><span class="neg">-20%</span></td><td class="num"><span class="pos">+0.50</span></td><td class="num"><span class="pos">+0.68</span></td></tr>
+<tr><td class="lbl">HELI</td><td class="lbl">Jaya Trishindo</td><td>Transportation & Log</td><td class="num">5.6</td><td class="num">1.63</td><td class="num">34.3</td><td class="num"><span class="na">n/a</span></td><td class="num"><span class="neg">-46%</span></td><td class="num"><span class="pos">+0.42</span></td><td class="num"><span class="pos">+0.73</span></td></tr></tbody></table></div>
+</section>
+
+<section id="flags">
+  <h2>Red flags</h2>
+  <p>Automated checks across the same universe: leverage above 2x equity, negative returns or
+  margins, earnings down more than 40%, or price-to-earnings above 60.</p>
+  <div class="tw"><table class=""><thead><tr><th class="">Ticker</th><th class="">Name</th><th class="">Sector</th><th class="">Flags</th></tr></thead><tbody><tr><td class="lbl">LCKM</td><td class="lbl">LCK Global Kedaton</td><td>Infrastructure</td><td>PE 93</td></tr>
+<tr><td class="lbl">SUPA</td><td class="lbl">Super Bank Indonesia</td><td>Financials</td><td>PE 161</td></tr>
+<tr><td class="lbl">CUAN</td><td class="lbl">Petrindo Jaya Kreasi</td><td>Energy</td><td>debt/equity 2.4</td></tr>
+<tr><td class="lbl">YELO</td><td class="lbl">Yelooo Integra Datanet</td><td>Consumer Cyclicals</td><td>negative ROE -7.8; negative net margin -41.4</td></tr>
+<tr><td class="lbl">CITA</td><td class="lbl">Cita Mineral Investindo</td><td>Basic Materials</td><td>earnings -72%</td></tr>
+<tr><td class="lbl">OBAT</td><td class="lbl">Penta Valent</td><td>Healthcare</td><td>earnings -53%</td></tr>
+<tr><td class="lbl">ADHI</td><td class="lbl">Adhi Karya</td><td>Infrastructure</td><td>debt/equity 2.5; negative ROE -82.9; negative net margin -54.4</td></tr>
+<tr><td class="lbl">IBOS</td><td class="lbl">Indo Boga Sukses</td><td>Consumer Non-Cyclica</td><td>PE 323</td></tr>
+<tr><td class="lbl">GGRP</td><td class="lbl">Gunung Raja Paksi</td><td>Basic Materials</td><td>negative ROE -4.5; negative net margin -16.1</td></tr>
+<tr><td class="lbl">KLIN</td><td class="lbl">Klinko Karya Imaji</td><td>Consumer Cyclicals</td><td>negative ROE -14.0; negative net margin -55.0</td></tr>
+<tr><td class="lbl">BPTR</td><td class="lbl">Batavia Prosperindo Trans</td><td>Transportation & Log</td><td>debt/equity 2.4</td></tr>
+<tr><td class="lbl">TFCO</td><td class="lbl">Tifico Fiber Indonesia</td><td>Consumer Cyclicals</td><td>negative ROE -1.6; negative net margin -2.7</td></tr>
+<tr><td class="lbl">NELY</td><td class="lbl">Pelayaran Nelly Dwi Putri</td><td>Transportation & Log</td><td>negative ROE -0.6; negative net margin -2.2</td></tr>
+<tr><td class="lbl">NAYZ</td><td class="lbl">Hassana Boga Sejahtera</td><td>Consumer Non-Cyclica</td><td>negative ROE -6.3; negative net margin -18.0</td></tr>
+<tr><td class="lbl">ACRO</td><td class="lbl">Samcro Hyosung Adilestari</td><td>Consumer Cyclicals</td><td>earnings -50%</td></tr>
+<tr><td class="lbl">SHID</td><td class="lbl">Hotel Sahid Jaya Internation</td><td>Consumer Cyclicals</td><td>negative ROE -3.6; negative net margin -21.5</td></tr></tbody></table></div>
+</section>
+
+<section id="us">
+  <h2>United States: the Fed already turned</h2>
+  
+<p>The US archive was re-read this round on data that was never available before: our own extractor
+had dropped roughly half of it, and two report-two notes were written <em>around</em> series they
+wrongly believed did not exist. All five notes below were produced on the complete packs.</p>
+
+<p><strong>The Fed restarted balance-sheet expansion in December 2025, and the causal chain is fully
+visible.</strong> Between July and November 2025 the Treasury General Account rebuilt from $346bn to
+$922bn, a $576bn drain. The reverse repo facility, which had absorbed such drains for three years,
+could only supply $196bn: its money-fund leg fell from $202bn in July 2025 to $6bn by November and
+$0.6bn by April 2026, down 99.6% year on year. Reserves absorbed the rest, falling $406bn across
+September, October and November to $2,888bn. The Standing Repo Facility then printed non-zero for
+the first time since July 2020 and discount window credit reached the 80th percentile at double its
+year-ago level. Securities held outright stopped shrinking in December after twenty straight
+declines, then grew $25bn, $40bn, $43bn and $39bn — almost all bills, the book going from a frozen
+$195bn to $212bn, $254bn, $309bn, $366bn, $413bn. That is reserve management, not stimulus, and it
+runs alongside continued mortgage-backed runoff of roughly $14bn a month. With the reverse repo
+facility at $0.6bn there is no buffer left: the next Treasury cash build hits bank reserves one for
+one.</p>
+
+<p><strong>The household question report two could not answer.</strong> It inferred that nominal
+spending running about 1.8pp above nominal income implied a falling saving rate, and said it could
+not verify this because the series was absent. The series was never absent. Checked directly: the
+saving rate is 4.0% in February 2026 against 5.2% a year earlier, the 11.7th percentile of its
+window — so the mechanism is right. The number is not: the true twelve-month mean gap is +0.90pp,
+and the 1.8pp is reproducible as chain-store sales (+6.14%) minus nominal disposable income
+(+4.22%), an artifact of the proxy report two was forced to use. The sharper facts are that real
+disposable income per capita has stalled at $52,837, +0.71% year on year but +0.03% annualised over
+six months, and that real consumption has split hard: services +3.04% against goods +1.18%, with
+goods volumes contracting sequentially at &minus;3.51% annualised.</p>
+
+<p><strong>The energy shock went to the consumer, not into margin.</strong> Report two concluded
+that firms were absorbing costs, which is why the consumer index had not moved. The figures
+replicate; the conclusion does not. The CPI gasoline index rose 24.9% in the single month to
+31 March, the largest monthly move in the window and larger than March 2022 — far too recent to be
+sitting in anyone's margin. The margin compression that is genuinely visible, finished goods over
+processed materials ex food and energy at &minus;1.37% year on year, is a metals story that ran from
+October 2025 to January 2026 and has already flattened. For this book the relevant detail is that
+coal, Indonesia's export, is &minus;2.98% year on year and not in the shock at all.</p>
+
+<p><strong>The labour market has stalled in headcount &mdash; but the concentration
+claim this report built on it does not hold.</strong> Payrolls stood at 158,637,000 at 31 March,
++0.164% year on year. That is, outside the pandemic, the third-weakest reading in the shipped window
+&mdash; not the 15th percentile, which the 2020 collapse manufactures &mdash; and the deceleration
+has <em>flattened</em> since a December trough of +0.073% rather than decaying monotonically. The
+revision finding survives: twelve prints summing to +902,000 produced a level rise of 260,000, so
+642,000 (71%) was revised away, with the gap negative in twelve of fourteen months, though it has
+narrowed from 1,092,000 in December.</p>
+
+<p>The concentration is where it fails. Education and health did add 663,000 and leisure and
+hospitality 176,000, but construction (+57,000), other services (+35,000) and utilities (+4,600)
+also grew, <em>each faster in percentage terms than the aggregate</em>. And stripping education and
+health leaves &minus;403,000 &mdash; of which <strong>330,000 is a federal headcount cut</strong>,
+down 11.0% year on year. <strong>Private payrolls excluding education and health are &minus;161,000,
+or &minus;0.15%: flat, not contracting.</strong> This report said US payrolls ex-healthcare are
+shrinking by roughly 400,000 a year; that is a public-sector reduction wearing a private-sector
+label. Aggregate private hours are +0.73% against private headcount of +0.372%, an hours-per-worker
+wedge of 0.36pp that sits well inside the historical range of that measure.</p>
+
+<p><strong>Fiscal is not the drag report two called it.</strong> The three headline numbers
+replicate exactly — twelve-month outlays +0.63%, receipts +9.35%, deficit narrowing USD 422.4bn —
+but 59% of that improvement is a single non-cash accounting line, and excluding it outlays ran
++4.34%. The financing side points the same way: marketable debt rose USD 2,259bn over the same
+twelve months, the Fed's return is confined to bills, and foreign coupon buying fell for a third
+consecutive year to USD 390.7bn.</p>
+
+<p><strong>Two industry facts worth carrying.</strong> US residential is a three-year stall with a
+single-family recession inside it: total starts are flat at 1,368k against 1,369k on a twelve-month
+average, while single-family fell 7.7% and multifamily rose 21.8%. And heavy trucks are in an
+outright capex recession that freight volume flatly contradicts — rolling twelve-month sales of
+395,271 are the lowest of the entire window, below even the COVID trough of 409,508, while the
+freight transportation index set a record 139.8 in February. Fleets are moving more goods than ever
+and refusing to replace equipment.</p>
+
+<p>The transmission to this book remains the long end rather than the policy rate. The ten-year less
+fed funds spread widened to +0.61pp at 31 March from &minus;0.05pp a year earlier, and thirty-year
+mortgages backed up to 6.41% from a 6.14% February trough while policy sat frozen. Foreign official
+custody at the Fed is at the 0th percentile, &minus;8.7% year on year, holding 17.2% of Treasury
+notes outstanding against 29.8% in December 2019. Reserve managers as a bloc are no longer the
+marginal buyer of US duration, so if the firm's hedging assumes Treasuries rally in risk-off, that
+needs stress-testing against the case where they do not.</p>
+
+<p class="tcap">Verification state of this section. The balance-sheet claim was checked at the
+desk and is corrected above &mdash; the bill book, the reverse repo emptying and the discount window
+all reproduce, the reserve figure did not. The household, producer-price, fiscal and housing notes
+were adversarially challenged and all four required correction; those corrections are in the tables.
+The payroll note has now also been challenged and required correction; the 71% revision figure
+survived, the sector-concentration reading did not. Every claim in this section has been through an
+adversarial pass.</p>
+
+</section>
+
+<section id="china">
+  <h2>China</h2>
+  
+<p>China matters here as the end market for the commodity complex that is the book's largest
+correlated exposure. Round three challenged both China notes and both required correction.</p>
+
+<p><strong>Property is contracting, but less exceptionally than reported.</strong> Real estate
+development investment fell 11.2% year on year in Q1 2026, widening from &minus;9.9% in Q1 2025,
+after &minus;17.2% across full-year 2025. Completions at &minus;25.0% were the fastest-falling leg in
+the quarter, but report two called this the fastest of the cycle and it is not: full-year 2024
+printed &minus;27.7%. New starts at 587.7m sqm are 74.1% below 2019, though the pace of decline has
+narrowed for three consecutive first quarters, from &minus;28.3% to &minus;24.8% to &minus;20.2%.
+Completions also fell faster than starts by a wider margin in 2024 than now, so Q1 2026 repeats a
+2024 pattern rather than opening a new leg. The cleanest signal is prices: 70-city new-build has
+re-deteriorated for five straight months to &minus;3.4%, with the transaction-implied national
+average selling price at &minus;6.2%.</p>
+
+<p><strong>Industrial output is being absorbed, and report two said this could not be
+checked.</strong> Industrial value added slowed to +6.1% year to date from +6.5% a year earlier, with
+the construction chain deepening its contraction &mdash; cement &minus;7.1%, crude steel &minus;4.5%
+to 247.6Mt, construction gross value added &minus;3.8% from +3.1% &mdash; against a narrow
+state-directed equipment impulse, with excavators +39.7% to 112,107 units and rail fixed investment
++12.6%. Report two concluded that the archive held no utilisation, orders or inventory series and
+therefore could not determine whether that output was being absorbed. It does, and it is: the NBS
+product-sales ratio rose to 93.8% from 93.0%, the first Q1 improvement since 2019; PMI new orders
+held 51.6; industrial profits accelerated to +15.5% year to date from +0.8%.</p>
+
+<p><strong>The one genuinely alarming Chinese number is about coal, and it was missed.</strong>
+Capacity utilisation in coal mining and washing fell to 66.41% at 31 March from 71.88% a year
+earlier, the lowest reading outside the 2020 COVID quarter. Together with twelve-month coal import
+volume at 491.9mt, &minus;9.2% year on year and &minus;9.6% from its February 2025 peak, that is the
+most direct available read on demand for Indonesian thermal exports, and it points down.</p>
+
+<p><strong>The trade surplus halved for a composition reason.</strong> The March goods surplus fell
+to USD 51.1bn from USD 101.9bn a year earlier as imports jumped 27.8%. That reads as recovering
+demand until the composition is examined: roughly two thirds of the Q1 import increase is bullion and
+semiconductors, not raw material volume.</p>
+
+<p>Against copper at the 100th percentile of its own year with speculative positioning at the 94th,
+the Chinese construction channel does not support the price. But note the correction above: if
+completions entered their fastest contraction in 2024 rather than now, then the copper demand shock
+from Chinese construction is not a future event to position for. It has already happened.</p>
+
+<p><strong>Two of these were re-checked at the desk after their agent runs failed, and both hold
+with caveats worth stating.</strong> Every quoted Chinese fixed-investment figure reproduces exactly
+at 31 March: real estate &minus;10.60, private &minus;2.20, tertiary &minus;1.00, IT and software
+&minus;6.10, special-purpose equipment &minus;0.40, and coal mining +25.50, which independently
+confirms the self-sufficiency reading. But the &ldquo;power, gas and water decelerating from +26.0%
+to +9.0%&rdquo; leg is <em>not in this pack at all</em> and is unsupported. And the sequential trend
+cuts against the framing: five observations earlier, real estate was &minus;14.90, private
+&minus;4.50 and tertiary &minus;5.30, so all three are <em>improving from worse levels</em> rather
+than deepening. The genuine deterioration is IT and software, which went from +11.20 to &minus;6.10.
+&ldquo;Nothing has replaced property&rdquo; holds on levels; it should not be read as a worsening
+trend.</p>
+
+</section>
+
+<section id="book2">
+  <h2>What this means for the book</h2>
+  
+<p>The first report could not determine whether the three Indonesian positions shared a thesis or
+were three independent mistakes, and said so. The mortgage data answers it, and the answer survived
+challenge.</p>
+
+<p>Agung Podomoro and Paramita Bangun Sarana are both exposed to the Indonesian property and
+construction complex, and that complex has a verified, record-level break in exactly the mass-market
+segment they sit in: apartment arrears at the highest reading in the entire series, sub-21m&sup2;
+landed at the 100th percentile, and apartment mortgage growth negative after fourteen consecutive
+months of deceleration, against a premium segment that is clean and improving. These are not two
+independent mistakes. They are one exposure held twice, in the weakest segment, and losses of
+&minus;70% and &minus;32% are consistent with the credit data rather than with mispricing.</p>
+
+<p>Two things sharpen it. Foreign investors have been persistently distributing the Indonesian
+property complex over the last twenty sessions, with LPKR the largest single distribution in the
+market at &minus;0.34% of its own turnover. And the sector trades at 0.46x book on a 2.4% return on
+equity, so the market has already marked the segment; there is no catalyst in the credit data for a
+re-rating while apartment mortgage growth is negative and arrears are still rising.</p>
+
+<p>One correction to an earlier draft of this section. It attributed the property weakness partly to
+a supply glut financed by a 46% surge in construction credit. That surge is a two-month
+discontinuity in a series that was flat to down for the preceding twelve months, and it cannot be
+distinguished from a reclassification. The demand-side and arrears legs stand on their own and do
+not need it.</p>
+
+<p>The funding data adds a larger question the book has not been asked. If the marginal spread on
+Indonesian bank lending has halved in five months, if the domestic equity bid has withdrawn to the
+12.9th percentile, and if net foreign selling over five months already exceeds the worst full year in
+the sample, then the relevant risk is not the two property names. It is whether any Indonesian equity
+exposure should be sized off multiples struck on 24 May.</p>
+
+<p><strong>Round four resolved the coal position, and it took three attempts to get
+right.</strong> Report two implied a broad energy input-cost story. Report three said coal was
+outside the shock and Indonesian exporters faced no cost pressure. Both were wrong, and the
+completed picture has three legs, each now verified:</p>
+
+<ul>
+<li><strong>Volume is supported, not collapsing.</strong> The &minus;9.2% trailing-twelve-month
+Chinese coal import figure this report leaned on is backward-looking and will keep falling
+mechanically for another quarter as the weak Q2 2025 base rolls through. The forward-looking
+same-quarter series reads <em>+1.2%</em> on a shipped-window Q1 record of 116.3mt, alongside Q1
+records in iron ore at 314.8mt and crude at 146.9mt. Furnaces and refineries are running at full
+tilt.</li>
+<li><strong>Price is recovering.</strong> HBA rose 18.3% between March and June with its
+year-on-year turning from &minus;12.5% to +23.6%, and realised export unit value rose 18.0% over
+the same February-to-April window as the US fuel spike.</li>
+<li><strong>Costs are rising hard, and this is the leg the report denied.</strong> Pertamina Dex
+diesel rose 77% between February and April and 103% year on year, the largest move in the series
+since 2018. Diesel is the primary mining and haulage input, so unit cash costs are climbing into
+the price recovery.</li>
+</ul>
+
+<p>Net: the long Indonesian coal book is supported on both volume and price and squeezed on margin.
+That is a materially different position from either of the two this report previously published,
+and the US coal producer price both rested on is a domestic mine-mouth series with no
+steam-versus-metallurgical split that carries no read on Indonesia in either direction.</p>
+
+<p><strong>The earlier version of this paragraph, for the record.</strong> This report told the board that coal was outside the energy shock and that
+Indonesian thermal exporters faced no input-cost pressure. That is reversed on both sides. Pertamina
+Dex diesel rose 77% between February and April and 103% year on year, the largest move in the series
+since 2018, and diesel is the primary mining and haulage input, so unit cash costs are rising into
+the price recovery. At the same time HBA rose 18.3% from March to June with its year-on-year turning
+from &minus;12.5% to +23.6%, and realised export unit value rose 18.0% over the identical window.
+The long Indonesian coal book is <em>supported on the revenue side this report denied and exposed on
+the cost side it dismissed</em>. The US coal producer price that the original claim rested on is a
+mine-mouth output price with no steam-versus-metallurgical split and is uninformative about
+Indonesian costs in either direction.</p>
+
+</section>
+
+<section id="method2">
+  <h2>Method, assurance and limits</h2>
+  
+<p>This pass read the CEIC-style archive already inside the system, which the first pass did not
+touch: 2,101 Indonesian macro series, 2,061 Indonesian industry series, 3,988 Chinese and 4,252 US.
+Filtered to series with 2026 observations and at least 24 data points, that produced 84 category
+packs, joined to the 636-name Indonesian and 169-name global fundamental tables to build fourteen
+industry packs. Twenty analysts read them independently, then fourteen adversaries were given the
+same data and told to break the results. Fifty-two agents ran in total across two workflows,
+consuming roughly 3.9 million tokens.</p>
+
+<p><strong>Assurance is not uniform, and the report marks it.</strong> The fourteen Indonesian
+industry notes were adversarially verified and eleven of seventeen load-bearing claims failed. The
+six Indonesian macro notes, five US notes and three China notes were <em>not</em> challenged. Given
+the hit rate on the material that was tested, the untested material should be assumed to contain
+errors of the same kind until it is put through the same pass. That is the single most important
+caveat in this document.</p>
+
+<p><strong>Storage.</strong> Every heavy extract sits in a local folder outside the repository and
+outside the database, roughly 19MB of archive packs, industry joins, valuation output and forward
+indicators. Only the conclusions in this report are written back.</p>
+
+<p><strong>What is still missing.</strong> No earnings estimates or revisions anywhere, so nothing
+here is forward-looking on company fundamentals. US national accounts, personal income and the
+saving rate are absent, so the US consumption read is proxy-based. China has no utilisation, orders
+or inventory series, so the equipment-versus-materials divergence cannot be resolved. There is no
+Japanese, Korean, Taiwanese, European or Indian archive at all. Indonesian GDP itself was not in the
+extracted set.</p>
+
+<p><strong>Data defects found, including our own.</strong> Two files in the Indonesian set disagree
+about the current stance of monetary policy; the daily series showing the May reversal should be
+believed. Our own extract script wrote its run date into a field named
+<code>fundamentals_as_of</code>, which caused four independent analysts to doubt a correct staleness
+claim; the field has been renamed. Several packs ship a truncated 18-observation
+<code>recent</code> array beside a 100-observation series, which caused at least two false
+&ldquo;first time in the record&rdquo; claims and is the single most damaging defect found. Two US
+CBO series presented as distinct concepts carry identical values across all 34 observations. US
+metadata claims 2016 start dates where arrays begin in 2018, biasing every percentile. A Cleveland
+Fed series is mis-tagged as a Fed projection, and no projection series exists anywhere in the
+archive, so no US growth or policy-path forecast can be sourced from it. The Indonesian Energy
+sector's median price-to-book of 15,556 is corrupted at source.</p>
+
+<p><strong>A correction to this report's own recommendation.</strong> Earlier drafts called
+refreshing the equity fundamentals the single highest-value next action. It remains the most
+valuable thing to do &mdash; the marks are eleven weeks old and predate the policy reversal &mdash;
+but it is <em>not</em> something this system can execute. Nothing in the repository populates the
+two fundamentals tables: no pipeline module, no scheduled workflow, no API route. They are an
+external snapshot. The recommendation should read <em>obtain a fundamentals feed</em>, not
+<em>run the refresh</em>, and until one exists every multiple in this report will keep ageing
+without any mechanism to update it.</p>
+
+  <div class="tw"><table class=""><thead><tr><th class="">Industry</th><th class="num">Archive series</th><th class="num">Listed companies</th></tr></thead><tbody><tr><td class="lbl">Consumer Staples</td><td class="num">238</td><td class="num">26</td></tr>
+<tr><td class="lbl">Basic Materials</td><td class="num">109</td><td class="num">26</td></tr>
+<tr><td class="lbl">Infrastructure</td><td class="num">79</td><td class="num">26</td></tr>
+<tr><td class="lbl">Consumer Discretionary</td><td class="num">78</td><td class="num">26</td></tr>
+<tr><td class="lbl">Tourism</td><td class="num">66</td><td class="num">26</td></tr>
+<tr><td class="lbl">Energy</td><td class="num">65</td><td class="num">26</td></tr>
+<tr><td class="lbl">Technology</td><td class="num">49</td><td class="num">26</td></tr>
+<tr><td class="lbl">Property & Real Estate</td><td class="num">44</td><td class="num">26</td></tr>
+<tr><td class="lbl">Plantation & Agriculture</td><td class="num">36</td><td class="num">26</td></tr>
+<tr><td class="lbl">Banks</td><td class="num">33</td><td class="num">26</td></tr>
+<tr><td class="lbl">Transport & Logistics</td><td class="num">20</td><td class="num">5</td></tr>
+<tr><td class="lbl">Financials (non-bank)</td><td class="num">19</td><td class="num">26</td></tr>
+<tr><td class="lbl">Healthcare</td><td class="num">16</td><td class="num">26</td></tr>
+<tr><td class="lbl">Industrials & Manufacturing</td><td class="num">15</td><td class="num">26</td></tr></tbody></table></div><p class="tcap">Coverage of the fourteen Indonesian industry packs built for this report.</p>
+</section>
+
+</main>
+<footer>
+  Legacy Bridge Capital Research Desk, report two, 2026-08-07. Built from the CEIC-style official
+  statistics archive and equity fundamentals already held in the system and previously unread:
+  2,101 Indonesian macro series, 2,061 Indonesian industry series, 3,988 Chinese, 4,252 US, and
+  805 companies with full fundamentals. Fifty-two agents, of which fourteen were adversaries
+  instructed to break the other twenty.
+  <br><br>
+  Heavy data is stored locally and not in the database; only these conclusions are written back.
+  Assurance is uneven: the Indonesian industry work was adversarially verified, the macro, US and
+  China work was not. Internal research document, not investment advice. Figures carry the dates
+  shown and change.
+</footer>
+</div>
+
+</body></html>

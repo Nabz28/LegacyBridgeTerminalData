@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LBC Global Research Status Report</title>
+<style>
+:root {
+  --paper:      #faf8f4;
+  --paper-2:    #f2efe8;
+  --ink:        #16181c;
+  --ink-soft:   #5b5f68;
+  --rule:       #ded8cc;
+  --accent:     #2f4574;
+  --accent-2:   #7a6a3f;
+  --pos:        #2f6b4f;
+  --neg:        #98362a;
+  --warn:       #8a6d1c;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:#101215; --paper-2:#171a1f; --ink:#e6e3dc; --ink-soft:#9297a1;
+    --rule:#2a2e35; --accent:#8fa6d8; --accent-2:#c3ae74;
+    --pos:#6fae8b; --neg:#d0796a; --warn:#c7a94e;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#101215; --paper-2:#171a1f; --ink:#e6e3dc; --ink-soft:#9297a1;
+  --rule:#2a2e35; --accent:#8fa6d8; --accent-2:#c3ae74;
+  --pos:#6fae8b; --neg:#d0796a; --warn:#c7a94e;
+}
+:root[data-theme="light"] {
+  --paper:#faf8f4; --paper-2:#f2efe8; --ink:#16181c; --ink-soft:#5b5f68;
+  --rule:#ded8cc; --accent:#2f4574; --accent-2:#7a6a3f;
+  --pos:#2f6b4f; --neg:#98362a; --warn:#8a6d1c;
+}
+
+body {
+  background:var(--paper); color:var(--ink); font-family:var(--serif);
+  font-size:17px; line-height:1.65; margin:0; padding:0;
+  -webkit-font-smoothing:antialiased;
+}
+.shell { display:grid; grid-template-columns:212px minmax(0,1fr); gap:0 48px;
+         max-width:1240px; margin:0 auto; padding:0 clamp(16px,4vw,44px) 120px; }
+@media (max-width:900px){ .shell{grid-template-columns:1fr; gap:0;} nav.toc{position:static!important;height:auto!important;border:0!important;padding:0 0 24px!important;margin-bottom:20px;border-bottom:1px solid var(--rule)!important;} }
+
+/* masthead */
+header.mast { grid-column:1/-1; padding:clamp(40px,6vw,76px) 0 26px; border-bottom:2.5px solid var(--ink); margin-bottom:34px; }
+.eyebrow { font-family:var(--mono); font-size:10.5px; letter-spacing:.19em; text-transform:uppercase;
+           color:var(--accent); margin:0 0 16px; }
+h1.title { font-family:var(--serif); font-weight:600; font-size:clamp(30px,5vw,52px); line-height:1.04;
+           letter-spacing:-.02em; margin:0 0 16px; text-wrap:balance; }
+.dek { font-size:clamp(17px,2vw,21px); color:var(--ink-soft); max-width:62ch; margin:0; font-style:italic; }
+.mastmeta { font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); display:flex;
+            flex-wrap:wrap; gap:6px 26px; margin-top:26px; }
+.mastmeta b { color:var(--ink); font-weight:600; }
+
+/* nav */
+nav.toc { position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+          padding:34px 0; font-family:var(--mono); font-size:11.5px; }
+nav.toc a { display:block; color:var(--ink-soft); text-decoration:none; padding:5px 0;
+            border-left:2px solid transparent; padding-left:11px; line-height:1.35; }
+nav.toc a:hover { color:var(--accent); border-left-color:var(--accent); }
+nav.toc .navhead { color:var(--ink); font-weight:600; text-transform:uppercase;
+                   letter-spacing:.13em; font-size:10px; margin:20px 0 7px; padding-left:11px; }
+nav.toc .navhead:first-child { margin-top:0; }
+
+main { min-width:0; }
+section { padding:14px 0 46px; border-bottom:1px solid var(--rule); }
+section:last-of-type { border-bottom:0; }
+h2 { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.17em;
+     text-transform:uppercase; color:var(--accent); margin:0 0 20px;
+     padding-bottom:9px; border-bottom:1px solid var(--rule); }
+h3 { font-family:var(--serif); font-size:25px; font-weight:600; line-height:1.2;
+     margin:34px 0 13px; letter-spacing:-.01em; text-wrap:balance; }
+h3:first-of-type { margin-top:0; }
+h4 { font-family:var(--mono); font-size:12.5px; font-weight:600; letter-spacing:.05em;
+     margin:26px 0 9px; color:var(--accent-2); text-transform:uppercase; }
+p { margin:0 0 16px; max-width:70ch; }
+strong { font-weight:600; }
+em { font-style:italic; }
+ul,ol { margin:0 0 17px; padding-left:22px; max-width:70ch; }
+li { margin-bottom:8px; }
+li::marker { color:var(--accent); }
+a { color:var(--accent); text-underline-offset:2px; }
+a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+/* the lede callout */
+.lede { border-left:3px solid var(--accent); background:var(--paper-2);
+        padding:20px 24px; margin:0 0 28px; }
+.lede p { margin:0; font-size:19px; line-height:1.55; max-width:64ch; }
+.lede p + p { margin-top:12px; }
+
+/* data tables */
+.tw { overflow-x:auto; margin:0 0 10px; border:1px solid var(--rule); }
+table { border-collapse:collapse; width:100%; font-family:var(--mono); font-size:12px;
+        font-variant-numeric:tabular-nums; }
+thead th { text-align:left; font-weight:600; color:var(--ink-soft); text-transform:uppercase;
+           letter-spacing:.08em; font-size:9.5px; padding:9px 11px; white-space:nowrap;
+           background:var(--paper-2); border-bottom:1px solid var(--rule); position:sticky; top:0; }
+td { padding:6px 11px; border-bottom:1px solid var(--rule); white-space:nowrap; }
+tbody tr:last-child td { border-bottom:0; }
+tbody tr:hover td { background:var(--paper-2); }
+td.num, th.num { text-align:right; }
+td.lbl { font-family:var(--serif); font-size:14px; white-space:normal; min-width:150px; }
+td.dt { color:var(--ink-soft); font-size:11px; }
+td.spk { padding:2px 8px; width:120px; }
+.spark { display:block; }
+.na { color:var(--ink-soft); opacity:.5; }
+.pos { color:var(--pos); }
+.neg { color:var(--neg); }
+.basketkind { color:var(--ink-soft); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; }
+caption, .tcap { font-family:var(--mono); font-size:10.5px; color:var(--ink-soft);
+                 text-align:left; margin:7px 0 26px; line-height:1.5; max-width:78ch; }
+
+.chip { font-family:var(--mono); font-size:9.5px; letter-spacing:.07em; text-transform:uppercase;
+        padding:2px 7px; border:1px solid currentColor; white-space:nowrap; }
+.chip.ow { color:var(--pos); } .chip.uw { color:var(--neg); } .chip.n { color:var(--ink-soft); }
+
+/* stat strip */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+         gap:1px; background:var(--rule); border:1px solid var(--rule); margin:0 0 26px; }
+.stat { background:var(--paper); padding:14px 16px; }
+.stat .k { font-family:var(--mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase;
+           color:var(--ink-soft); margin-bottom:5px; }
+.stat .v { font-family:var(--mono); font-size:22px; font-weight:600; font-variant-numeric:tabular-nums;
+           line-height:1.1; }
+.stat .s { font-family:var(--mono); font-size:10.5px; color:var(--ink-soft); margin-top:4px; }
+
+blockquote { border-left:2px solid var(--accent-2); margin:22px 0; padding:2px 0 2px 18px;
+             color:var(--ink-soft); font-style:italic; max-width:66ch; }
+
+footer { grid-column:1/-1; padding-top:36px; margin-top:16px; border-top:1px solid var(--rule);
+         font-family:var(--mono); font-size:11px; color:var(--ink-soft); line-height:1.7; }
+
+.sitebar{position:sticky;top:0;z-index:99;display:flex;align-items:center;gap:24px;
+  padding:10px clamp(16px,4vw,44px);background:var(--paper);
+  border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11.5px}
+.sitebar .brand{color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;font-size:10.5px}
+.sitebar .sitenav{display:flex;gap:18px;margin-left:auto}
+.sitebar a{color:var(--ink-soft);text-decoration:none;padding:3px 0;border-bottom:1.5px solid transparent}
+.sitebar a:hover{color:var(--accent)}
+.sitebar a.on{color:var(--accent);border-bottom-color:var(--accent)}
+@media print{.sitebar{display:none}}
+</style>
+</head><body>
+<nav class="sitebar">
+  <a class="brand" href="/research/">LBC Research</a>
+  <div class="sitenav"><a href="/research/global/" class="on">Global status</a><a href="/research/indonesia/" class="">Indonesia deep</a></div>
+</nav>
+
+
+<div class="shell">
+<header class="mast">
+  <p class="eyebrow">Legacy Bridge Capital &middot; Research Desk &middot; Status Report</p>
+  <h1 class="title">High levels, falling momentum, and a board that is long the difference</h1>
+  <p class="dek">Every risk gauge sits near its ceiling while the average holding is nowhere near its own. The system's overweights describe where drivers are, not where they are going, and on rate of change seventeen of twenty-three stances reverse.</p>
+  <div class="mastmeta">
+    <span><b>As of</b> 2026-08-07</span>
+    <span><b>Coverage</b> 23 desks, 252 instruments, 71 series</span>
+    <span><b>Analysts</b> 34 agent passes, adversarially checked</span>
+    <span><b>Prepared for</b> M. Rizky Narindra, CRO</span>
+  </div>
+</header>
+
+<nav class="toc"><a href="#call">The call</a><div class="navhead">MACRO</div><a href="#regime">Regime</a><a href="#rates">Rates</a><a href="#countries">Countries</a><div class="navhead">MARKETS</div><a href="#sentiment">Sentiment</a><a href="#internals">Internals</a><a href="#factors">Factor structure</a><a href="#commodities">Commodities</a><a href="#positioning">Positioning</a><div class="navhead">INDUSTRY</div><a href="#dials">The dial board</a><a href="#dialflaw">What the dials miss</a><a href="#desks">Desk by desk</a><a href="#breaks">Broken links</a><div class="navhead">INDONESIA</div><a href="#indonesia">Local market</a><a href="#flows">Foreign flows</a><a href="#book">The book</a><div class="navhead">FORWARD</div><a href="#scenarios">Scenarios</a><a href="#analogues">Analogues</a><a href="#calendar">Calendar</a><a href="#risks">Risks</a><a href="#method">Method & limits</a></nav>
+
+<main>
+
+<section id="call">
+  <h2>The call</h2>
+  <div class="lede">
+<p><strong>The world is at high levels and decelerating, and the desk board is positioned for the
+levels.</strong> Score the same 23 desks on direction of travel instead of level and 17 of them
+flip stance. China goes overweight to underweight. Base metals, agriculture and automation do the
+same. That is not a data problem to be fixed before acting; it is the finding.</p>
+<p>Underneath it, three things are true at once and cannot all stay true: the S&amp;P sits at the
+99th percentile of its own year while 48% of the 252 instruments we price are more than 20% below
+their own 52-week highs; credit conditions are at the 99.6th percentile of tightness-of-spread
+while the real 10-year yield is at the 96.8th percentile; and the four Asian technology
+overweights that dominate the board all rest on the same TSMC revenue print from 1 June.</p>
+</div>
+  
+<h3>Five things that matter</h3>
+<ol>
+<li><strong>The real long rate is the regime, and it is not in the regime tag.</strong> Real 10y at
+1.8242% (4 Aug) is up 22.2% over 63 periods and 38.7% over 252 while the Fed funds rate fell 16.2%
+over the same year. The 2-year at 4.20% now sits 57bp <em>above</em> the policy rate. The market is
+not asking for more easing; it is undoing the easing already delivered. Four independent desks name
+this one series as their flip trigger. It is 28bp from the level at which the AI, semiconductor and
+software overweights mechanically break.</li>
+
+<li><strong>Seventeen of twenty-three stances are an artefact of scoring levels.</strong> The dial
+blends driver level z-scores with no rate-of-change term, so a driver at a five-year high that has
+started rolling over scores identically to one still rising. Rescored on 63-period momentum with
+identical weights and directions, China-HK-Taiwan moves from +1.15 to −0.70 and base metals,
+agriculture and automation all cross from overweight to underweight.</li>
+
+<li><strong>Twenty-three desk labels contain three independent bets.</strong> Under a
+Marchenko-Pastur noise floor only two eigenvalues clear at 60 days and three at 252. The first
+factor is not market beta: software loads 0.042 and platforms 0.087, while metals, grid,
+automation, semiconductors and North Asian hardware load 0.28 to 0.30. It is the industrial capex
+and electrification build. Semiconductors, Japan/Korea and base metals are all overweight, all top
+loaders, and correlate 0.80 to 0.89 with each other. The board is a levered long on one factor held
+through six labels.</li>
+
+<li><strong>Five conviction-4 calls do not survive their own data.</strong> Dropping drivers whose
+latest print is more than 35 days old and renormalising, semiconductors falls from 1.10 to 0.31,
+AI-compute from 1.07 to 0.43, automation from 0.52 to −0.14 and aerospace from 0.63 to 0.09. The
+Asia technology cluster leans on one 67-day-old TSMC number expressed four times.</li>
+
+<li><strong>Indonesia is unhedgeable and that is useful.</strong> Its r² against seven global macro
+factors is 0.052, the lowest of 23 desks against a median of 0.384. Ninety-five percent of the
+variance is idiosyncratic, which means no global instrument offsets it and no global model prices
+it. It is the one place where local knowledge is the entire edge, and it is where the book's losses
+are.</li>
+</ol>
+
+<h3>Three disagreements inside the data</h3>
+<ul>
+<li><strong>Index versus constituent.</strong> Euro Stoxx, DAX and European broad equity all sit at
+the 100th percentile of their trailing year. The median instrument across all 23 baskets is 10 to
+34% below its own high, and only 19.4% of names are within 5% of theirs. Over 63 days just 46% of
+names are positive and the top decile took 53.7% of all gains.</li>
+<li><strong>Credit versus rates.</strong> Credit conditions at the 99.6th percentile and VIX at the
+13th say no stress. Real rates at the 96.8th, housing momentum at the 11th and cyclical appetite at
+the 36th say the rate-sensitive economy has already been priced. Bond volatility rose 7.6% over 63
+days while equity volatility fell 10.5%.</li>
+<li><strong>Drivers versus tape.</strong> Chemicals is overweight at 1.07 while its basket is 14.4pp
+behind its benchmark over 63 days. Consumer brands is underweight while its basket outperformed XLP over 63 days. Software was cut to Neutral in the same run its basket printed +8.7% in five sessions and
+holds the four best 63-day performers in the entire universe.</li>
+</ul>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Regime</div><div class="v">Late-cycle</div><div class="s">expanding but decelerating</div></div>
+    <div class="stat"><div class="k">Real 10y</div><div class="v">1.82%</div><div class="s">96.8th pctile &middot; the binding variable</div></div>
+    <div class="stat"><div class="k">Independent bets</div><div class="v">3</div><div class="s">across 23 desk labels</div></div>
+    <div class="stat"><div class="k">Names &gt;20% off high</div><div class="v">48.0%</div><div class="s">of 252 instruments</div></div>
+    <div class="stat"><div class="k">Book concentration</div><div class="v">24.8%</div><div class="s">first factor share</div></div>
+  </div>
+</section>
+
+<section id="regime">
+  <h2>Global regime</h2>
+  
+<p>The engine tags the world <em>expanding growth, sticky inflation, liquidity easing, risk-on</em>
+with full data coverage. Growth is the only leg that survives inspection unchanged.</p>
+
+<p><strong>Growth: confirmed.</strong> Payrolls at 158,984k (1 Jun) added 57k on the month and 392k
+over five. Unemployment is 4.2%, down from 4.5% in November. Manufacturing weekly hours at 41.6 sit
+at the 100th percentile of 58 months, and because hours are a bounded series that percentile carries
+real information in a way a price index percentile does not.</p>
+
+<p><strong>Inflation: mis-specified.</strong> The engine fires on core CPI at the 98th percentile.
+That is an index level at rank 56 of 57 months on a series that only rises, and it carries close to
+zero information. The actual rates of change tell a different and more useful story: core CPI −0.02%
+on the month and +0.98% over five (roughly 2.4% annualised), headline +1.83% over five (4.5%), and
+PPI final demand +3.22% over five (7.9%). The pipeline is running about three times core. That is
+not a policy problem, it is a margin problem, and it argues for pricing power over volume.</p>
+
+<p><strong>Liquidity: easing in quantity, tightening in price.</strong> M2 at 23,155.2 (30 Jun) is
+up 3.28% in five months, genuine acceleration. But the Fed funds rate is flat over 63 periods after
+its year of cuts, the ECB deposit rate actually <em>rose</em> from 2.00 to 2.25 in mid-June, and the
+real 10-year is up 22.2% over the same 63 periods. The engine's three liquidity votes captured the
+quantity of money and missed the price of it. The price side is what binds.</p>
+
+<p><strong>Risk: narrow.</strong> Risk-on is derived from VIX at the 13th percentile and credit at
+the 99.6th. Both are the most reflexive, least forward-looking inputs available. Set against
+cyclical appetite at the 36th percentile and housing momentum at the 11th, the honest reading is
+that the marginal rate-sensitive dollar has already left the building while the index has not
+noticed.</p>
+
+<p><strong>The retag.</strong> Expanding growth, pipeline inflation rather than core, liquidity
+easing in quantity and tightening in price with the price side binding, and narrow risk-on. Full
+data coverage gave the original tag false authority: complete data is not correct weighting.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Series</th><th class="num">Latest</th><th class="num">5p</th><th class="num">21p</th><th class="num">252p</th><th class="num">Pctile</th><th class="">Trend</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">Fed funds</td><td class="num">3.63</td><td class="num">+0.0%</td><td class="num">+0.0%</td><td class="num"><span class="neg">-16.2%</span></td><td class="num">25</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,20.5 20.0,20.5 30.0,20.5 40.0,20.5 50.0,1.5 60.0,1.5 70.0,1.5 80.0,20.5 90.0,1.5 100.0,1.5 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">UST 2y</td><td class="num">4.18</td><td class="num"><span class="neg">-0.9%</span></td><td class="num"><span class="neg">-0.2%</span></td><td class="num"><span class="pos">+13.3%</span></td><td class="num">92</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,15.1 20.0,17.8 30.0,16.0 40.0,12.4 50.0,16.0 60.0,13.3 70.0,10.5 80.0,11.0 90.0,11.0 100.0,1.5 110.0,7.8" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="7.8" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">UST 10y</td><td class="num">4.63</td><td class="num"><span class="neg">-0.9%</span></td><td class="num"><span class="pos">+1.8%</span></td><td class="num"><span class="pos">+9.5%</span></td><td class="num">96</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,19.9 10.0,7.8 20.0,14.8 30.0,17.3 40.0,12.9 50.0,19.2 60.0,20.5 70.0,16.1 80.0,12.3 90.0,10.4 100.0,1.5 110.0,3.4" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="3.4" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">UST 30y</td><td class="num">5.17</td><td class="num"><span class="neg">-0.6%</span></td><td class="num"><span class="pos">+2.4%</span></td><td class="num"><span class="pos">+7.5%</span></td><td class="num">98</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,14.0 10.0,5.3 20.0,11.3 30.0,14.5 40.0,12.4 50.0,16.7 60.0,20.5 70.0,14.5 80.0,10.2 90.0,8.0 100.0,3.7 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">10y-2y curve</td><td class="num">0.45</td><td class="num">+0.0%</td><td class="num"><span class="pos">+25.0%</span></td><td class="num"><span class="neg">-16.7%</span></td><td class="num">18</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,7.0 10.0,1.5 20.0,5.5 30.0,11.8 40.0,12.6 50.0,14.2 60.0,20.5 70.0,19.7 80.0,14.2 90.0,11.8 100.0,17.3 110.0,8.6" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="8.6" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">US real 10y</td><td class="num">1.82</td><td class="num"><span class="neg">-2.1%</span></td><td class="num"><span class="pos">+4.6%</span></td><td class="num"><span class="pos">+63.1%</span></td><td class="num">97</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,12.3 20.0,17.1 30.0,12.3 40.0,9.2 50.0,13.6 60.0,14.4 70.0,11.4 80.0,8.8 90.0,7.5 100.0,1.5 110.0,2.8" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="2.8" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-05</td></tr>
+<tr><td class="lbl">Core CPI</td><td class="num">336.06</td><td class="num"><span class="pos">+1.0%</span></td><td class="num"><span class="pos">+5.1%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">98</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,19.0 20.0,16.9 30.0,15.3 40.0,12.9 50.0,11.8 60.0,10.6 70.0,8.4 80.0,6.9 90.0,5.1 100.0,3.6 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">Headline CPI</td><td class="num">332.57</td><td class="num"><span class="pos">+1.8%</span></td><td class="num"><span class="pos">+5.9%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">98</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,19.6 20.0,18.2 30.0,16.4 40.0,14.5 50.0,13.9 60.0,12.9 70.0,11.2 80.0,9.6 90.0,8.2 100.0,4.8 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">PPI final demand</td><td class="num">157.04</td><td class="num"><span class="pos">+3.2%</span></td><td class="num"><span class="pos">+7.8%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">98</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,19.9 20.0,19.4 30.0,16.8 40.0,15.7 50.0,15.5 60.0,13.2 70.0,12.9 80.0,12.1 90.0,9.7 100.0,5.7 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">Nonfarm payrolls</td><td class="num">158,984.00</td><td class="num"><span class="pos">+0.2%</span></td><td class="num"><span class="pos">+0.7%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,17.9 20.0,15.2 30.0,12.1 40.0,10.4 50.0,8.4 60.0,7.7 70.0,7.6 80.0,9.2 90.0,6.9 100.0,6.0 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">Unemployment rate</td><td class="num">4.20</td><td class="num"><span class="neg">-2.3%</span></td><td class="num">+0.0%</td><td class="num"><span class="na">n/a</span></td><td class="num">77</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,15.7 20.0,20.5 30.0,20.5 40.0,15.7 50.0,15.7 60.0,20.5 70.0,11.0 80.0,1.5 90.0,11.0 100.0,11.0 110.0,11.0" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="11.0" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">Mfg weekly hours</td><td class="num">41.60</td><td class="num"><span class="pos">+0.5%</span></td><td class="num"><span class="pos">+2.0%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,18.4 20.0,18.4 30.0,20.5 40.0,12.1 50.0,14.2 60.0,12.1 70.0,14.2 80.0,7.8 90.0,5.7 100.0,3.6 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-01</td></tr>
+<tr><td class="lbl">M2</td><td class="num">23,155.20</td><td class="num"><span class="pos">+3.3%</span></td><td class="num"><span class="pos">+8.8%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,18.8 20.0,17.0 30.0,16.2 40.0,14.8 50.0,13.3 60.0,11.5 70.0,10.0 80.0,9.0 90.0,7.7 100.0,5.2 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-06-30</td></tr>
+<tr><td class="lbl">Credit conditions HYG/IEF</td><td class="num">0.85</td><td class="num"><span class="pos">+0.3%</span></td><td class="num"><span class="pos">+0.3%</span></td><td class="num"><span class="pos">+2.0%</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,14.2 10.0,5.9 20.0,9.9 30.0,12.8 40.0,12.1 50.0,12.4 60.0,20.5 70.0,14.1 80.0,7.3 90.0,11.2 100.0,6.7 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Cyclical appetite XLY/XLP</td><td class="num">1.39</td><td class="num"><span class="pos">+5.5%</span></td><td class="num"><span class="pos">+1.6%</span></td><td class="num"><span class="pos">+2.0%</span></td><td class="num">35</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,6.5 10.0,15.5 20.0,1.5 30.0,3.8 40.0,16.7 50.0,9.4 60.0,13.6 70.0,9.7 80.0,7.5 90.0,12.9 100.0,20.5 110.0,11.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="11.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Housing momentum XHB/SPX</td><td class="num">0.01</td><td class="num"><span class="pos">+0.4%</span></td><td class="num"><span class="neg">-0.4%</span></td><td class="num"><span class="neg">-17.1%</span></td><td class="num">11</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,16.6 10.0,20.5 20.0,15.3 30.0,14.6 40.0,12.0 50.0,10.0 60.0,1.5 70.0,6.7 80.0,11.3 90.0,10.0 100.0,9.4 110.0,14.6" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="14.6" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">VIX</td><td class="num">15.15</td><td class="num"><span class="neg">-11.3%</span></td><td class="num"><span class="neg">-10.4%</span></td><td class="num"><span class="neg">-9.7%</span></td><td class="num">12</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,13.0 10.0,14.1 20.0,17.2 30.0,17.8 40.0,1.5 50.0,11.5 60.0,10.3 70.0,17.5 80.0,20.5 90.0,10.6 100.0,11.1 110.0,18.0" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="18.0" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">MOVE</td><td class="num">76.12</td><td class="num"><span class="neg">-2.1%</span></td><td class="num"><span class="pos">+7.7%</span></td><td class="num"><span class="neg">-14.4%</span></td><td class="num">63</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,13.6 20.0,13.3 30.0,17.4 40.0,1.5 50.0,16.5 60.0,8.6 70.0,17.9 80.0,16.8 90.0,19.8 100.0,16.5 110.0,8.9" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="8.9" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Dollar index</td><td class="num">99.96</td><td class="num"><span class="neg">-0.1%</span></td><td class="num"><span class="neg">-1.1%</span></td><td class="num"><span class="pos">+1.2%</span></td><td class="num">82</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,14.5 20.0,15.0 30.0,13.1 40.0,10.6 50.0,9.7 60.0,1.7 70.0,5.1 80.0,4.5 90.0,5.8 100.0,1.5 110.0,11.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="11.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">ECB deposit rate</td><td class="num">2.25</td><td class="num">+0.0%</td><td class="num">+0.0%</td><td class="num"><span class="pos">+12.5%</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,20.5 20.0,20.5 30.0,1.5 40.0,1.5 50.0,1.5 60.0,1.5 70.0,1.5 80.0,1.5 90.0,1.5 100.0,1.5 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-01</td></tr></tbody></table></div><p class="tcap">US macro and financial conditions. Percentile is versus each series' own trailing history. Changes are percent moves over 5, 21 and 252 observation periods of that series, so a monthly series' 5p change spans five months.</p>
+</section>
+
+<section id="rates">
+  <h2>Rates: the binding constraint</h2>
+  
+<p>The whole curve moved against the policy rate this year. Fed funds fell 16.2% over 252 periods to
+3.63%. Over the same window the 2-year rose 6.6% to 4.20%, the 10-year 6.0% to 4.63% and the 30-year
+5.9% to 5.18%. The 30-year sits at the 98.4th percentile of its trailing year, the 10-year at the
+96.4th, the 2-year at the 94.0th.</p>
+
+<p>The 2s10s curve at 0.43 steepened 22.9% over the last 5 and 21 periods but still sits at only the
+16.7th percentile of its year, and the steepening came from the long end: the 30-year rose 3.81%
+over 21 periods against the 2-year's 1.69%. That is a bear steepener. It is the shape that appears
+when the market reprices term premium or the neutral rate, not when it front-runs cuts.</p>
+
+<p>Decomposing the 10-year gives a breakeven of 2.81% against a real yield of 1.8242%. Real rates
+rose 22.2% over 63 periods while the nominal rose 4.0%. Almost the entire long-end move is real. If
+that is term premium rather than inflation expectations, further policy cuts steepen the curve and
+<em>raise</em> the discount rate on exactly the long-duration assets the board is overweight. Long
+duration is not the hedge in this configuration.</p>
+
+<blockquote>Practical consequence: set the house tripwire on real 10y rather than on Fed funds.
+2.10% is the level at which the AI-compute and semiconductor overweights break on their own stated
+flip conditions. 1.65% is the level at which the underweights in consumer brands and autos become
+hard to defend. At 1.8242% we sit 28bp from the first and 17bp from the second.</blockquote>
+
+</section>
+
+<section id="countries">
+  <h2>The five country desks</h2>
+  
+<h4>United States &middot; Neutral, score +0.40</h4>
+<p>The only desk where macro factors explain nearly all the movement (r² 0.946) and the only one
+whose stance <em>improves</em> when stale drivers are dropped, from 0.43 to 0.92. Its basket is 0.9%
+off its high, the tightest of any desk. The credit-conditions relationship that historically drove
+it has broken: 252-day correlation +0.41 has collapsed to +0.01 over 60 days. US equities have
+stopped responding to the credit signal that is sitting at its 99.6th percentile.</p>
+
+<h4>China, Hong Kong &amp; Taiwan &middot; Overweight conviction 4, score +1.24</h4>
+<p>The highest score on the board and the least supported by its own equities. 81.8% of the score
+comes from a currency (USD/CNY at the 0th percentile, its strongest of the sample), a commodity
+(copper at the 100th) and a TSMC revenue print 67 days old. The two equity drivers contribute 0.926
+of 5.102 gross. MCHI is 16.6% below its high and −4.9% over 63 days; CSI 300 is −3.3%. Rescored on
+momentum the desk goes to −0.70. This is the single most fragile overweight on the board.</p>
+
+<h4>Japan &amp; Korea &middot; Overweight conviction 4, score +1.16</h4>
+<p>Carries the highest risk-off sensitivity of any desk at −15.7% on the combined shock, with a
+dollar beta of −0.66 and an SPX beta of 1.40. The yen at 158.30 weakened 2.9 sigma in five sessions.
+KOSPI is the extreme case of the whole report's theme: +16.5% over five sessions after −18.1% over
+21, and still 27.6% below its 52-week high. Nikkei +7.9% over five after −4.9% over 21. Violent
+two-way movement inside a market up 84% on the year at the median.</p>
+
+<h4>Eurozone &middot; Neutral, score +0.47</h4>
+<p>The Neutral is driver cancellation, not a mixed tape. Three overlapping European equity price
+series contribute +4.75 while the two genuinely exogenous inputs, the ECB deposit rate and TTF gas
+at +61.8% over 252 periods, pull the other way. Euro Stoxx, DAX and VGK are all at the 100th
+percentile of their year and the basket is at its high. Note the ECB hiked in June while the tag
+still reads easing.</p>
+
+<h4>Indonesia &middot; Underweight conviction 3, score −0.79</h4>
+<p>Covered in full below. In short: 88% of the underweight is two z-scores on trending price levels,
+which restate the drawdown and the depreciation rather than adding information, and the stance sits
+within 2.5% of its own stated invalidation on both legs while the index has risen 8.0% in 21
+sessions.</p>
+
+</section>
+
+<section id="sentiment">
+  <h2>Market sentiment</h2>
+  
+<p>Risk appetite is real at the index level and absent underneath it. The S&amp;P at 7,719 is at the
+99th percentile of its own year and +22.6% over 252 periods; the Nasdaq 100 at the 90th and +27.9%;
+Euro Stoxx, DAX and European broad equity all at the 100th. Bitcoin, the purest available sentiment
+instrument, is at the 20th percentile and −29.5% over the year. Those cannot both be risk appetite.</p>
+
+<p>The last five sessions were violently positive in Asia: KOSPI +16.5%, Taiwan +11.4%, Nikkei
++7.9%, semiconductors +7.9%. Over 21 periods the same markets are −18.1%, −4.2%, −4.9% and −3.0%.
+This is a sharp drawdown followed by a sharper bounce, not a trend.</p>
+
+<p>News flow across 271 items is quiet and slightly positive: 188 neutral, 59 bullish, 24 bearish.
+Attention concentrates on Indonesia (29 stories, tone +0.21) and AI-compute (20, tone +0.05), where
+the dominant thread is Asian technology weakness led by an SK Hynix fall, set against an Alibaba
+model release. Six desks have three or fewer stories, which is itself information: the system is
+close to blind on chemicals, agriculture and transport, and any read on those desks is price-only.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Market</th><th class="num">Latest</th><th class="num">5p</th><th class="num">21p</th><th class="num">252p</th><th class="num">Pctile</th><th class="">Trend</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">S&P 500</td><td class="num">7,709.96</td><td class="num"><span class="pos">+3.7%</span></td><td class="num"><span class="pos">+3.0%</span></td><td class="num"><span class="pos">+22.4%</span></td><td class="num">99</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,12.2 10.0,15.2 20.0,4.9 30.0,2.8 40.0,20.5 50.0,11.1 60.0,14.9 70.0,7.2 80.0,1.5 90.0,8.8 100.0,11.6 110.0,6.8" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="6.8" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Nasdaq 100</td><td class="num">29,373.33</td><td class="num"><span class="pos">+4.5%</span></td><td class="num"><span class="pos">+0.4%</span></td><td class="num"><span class="pos">+27.6%</span></td><td class="num">88</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,13.2 10.0,15.1 20.0,6.1 30.0,1.5 40.0,17.5 50.0,8.5 60.0,10.3 70.0,11.2 80.0,7.3 90.0,16.9 100.0,20.5 110.0,19.4" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="19.4" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Philadelphia semis</td><td class="num">12,048.69</td><td class="num"><span class="pos">+6.6%</span></td><td class="num"><span class="neg">-4.2%</span></td><td class="num"><span class="pos">+116.6%</span></td><td class="num">83</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,17.5 10.0,20.5 20.0,10.4 30.0,1.7 40.0,14.0 50.0,4.8 60.0,1.5 70.0,11.0 80.0,8.5 90.0,17.8 100.0,16.8 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Jakarta Composite</td><td class="num">6,343.71</td><td class="num"><span class="pos">+2.5%</span></td><td class="num"><span class="pos">+8.0%</span></td><td class="num"><span class="neg">-13.2%</span></td><td class="num">21</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,9.7 20.0,15.3 30.0,20.5 40.0,19.8 50.0,15.7 60.0,19.7 70.0,20.0 80.0,19.3 90.0,15.7 100.0,15.4 110.0,14.9" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="14.9" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Hang Seng</td><td class="num">25,530.28</td><td class="num"><span class="neg">-1.3%</span></td><td class="num"><span class="pos">+5.5%</span></td><td class="num"><span class="neg">-0.1%</span></td><td class="num">36</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,4.7 20.0,7.4 30.0,5.7 40.0,12.8 50.0,13.3 60.0,20.5 70.0,18.9 80.0,14.1 90.0,11.9 100.0,9.5 110.0,4.2" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="4.2" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">China A-shares</td><td class="num">34.71</td><td class="num"><span class="pos">+1.3%</span></td><td class="num"><span class="neg">-0.4%</span></td><td class="num"><span class="pos">+20.8%</span></td><td class="num">76</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,3.6 10.0,11.0 20.0,6.3 30.0,4.7 40.0,14.1 50.0,6.3 60.0,1.5 70.0,11.0 80.0,9.6 90.0,20.5 100.0,16.0 110.0,17.0" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="17.0" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">China broad</td><td class="num">55.91</td><td class="num"><span class="pos">+0.7%</span></td><td class="num"><span class="pos">+5.8%</span></td><td class="num"><span class="neg">-3.4%</span></td><td class="num">22</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,5.7 20.0,8.5 30.0,7.2 40.0,12.0 50.0,14.8 60.0,20.5 70.0,20.2 80.0,14.5 90.0,15.0 100.0,14.0 110.0,7.7" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="7.7" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Taiwan</td><td class="num">44,447.69</td><td class="num"><span class="pos">+3.1%</span></td><td class="num"><span class="neg">-2.8%</span></td><td class="num"><span class="pos">+90.2%</span></td><td class="num">87</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,19.2 10.0,20.5 20.0,12.5 30.0,5.4 40.0,14.2 50.0,2.6 60.0,9.3 70.0,1.5 80.0,6.4 90.0,16.7 100.0,12.5 110.0,13.4" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="13.4" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">Nikkei</td><td class="num">64,880.09</td><td class="num"><span class="pos">+0.8%</span></td><td class="num"><span class="neg">-2.9%</span></td><td class="num"><span class="pos">+56.5%</span></td><td class="num">84</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,16.8 20.0,11.0 30.0,10.5 40.0,11.6 50.0,1.5 60.0,5.1 70.0,4.4 80.0,6.7 90.0,15.2 100.0,13.7 110.0,16.0" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="16.0" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">KOSPI</td><td class="num">6,288.40</td><td class="num"><span class="neg">-4.7%</span></td><td class="num"><span class="neg">-13.2%</span></td><td class="num"><span class="pos">+96.8%</span></td><td class="num">72</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,9.7 10.0,14.0 20.0,7.4 30.0,7.6 40.0,7.8 50.0,1.5 60.0,5.9 70.0,8.1 80.0,12.2 90.0,18.7 100.0,17.1 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">Euro Stoxx 50</td><td class="num">6,502.56</td><td class="num"><span class="pos">+2.5%</span></td><td class="num"><span class="pos">+4.8%</span></td><td class="num"><span class="pos">+24.0%</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,17.1 20.0,14.0 30.0,13.6 40.0,9.3 50.0,5.6 60.0,8.1 70.0,1.5 80.0,6.4 90.0,7.8 100.0,6.0 110.0,3.4" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="3.4" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">DAX</td><td class="num">26,140.13</td><td class="num"><span class="pos">+2.1%</span></td><td class="num"><span class="pos">+5.0%</span></td><td class="num"><span class="pos">+8.1%</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,10.8 20.0,8.5 30.0,12.1 40.0,13.4 50.0,9.7 60.0,13.0 70.0,1.5 80.0,8.9 90.0,11.4 100.0,8.6 110.0,3.1" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="3.1" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Europe broad</td><td class="num">91.83</td><td class="num"><span class="pos">+0.9%</span></td><td class="num"><span class="pos">+4.1%</span></td><td class="num"><span class="pos">+20.5%</span></td><td class="num">99</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,17.3 10.0,20.5 20.0,7.3 30.0,13.7 40.0,19.2 50.0,7.7 60.0,14.0 70.0,7.1 80.0,10.7 90.0,10.6 100.0,11.4 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Germany</td><td class="num">43.52</td><td class="num"><span class="pos">+1.5%</span></td><td class="num"><span class="pos">+5.3%</span></td><td class="num"><span class="pos">+4.9%</span></td><td class="num">90</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,14.2 10.0,13.5 20.0,1.5 30.0,8.2 40.0,19.0 50.0,18.4 60.0,20.5 70.0,11.5 80.0,17.5 90.0,19.8 100.0,20.1 110.0,7.6" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="7.6" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Bitcoin</td><td class="num">64,370.87</td><td class="num"><span class="pos">+1.4%</span></td><td class="num"><span class="pos">+0.7%</span></td><td class="num"><span class="neg">-29.2%</span></td><td class="num">20</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,15.4 10.0,1.5 20.0,8.9 30.0,17.6 40.0,20.5 50.0,10.4 60.0,10.1 70.0,4.1 80.0,5.0 90.0,7.0 100.0,7.6 110.0,9.2" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="9.2" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-07</td></tr></tbody></table></div><p class="tcap">Equity indices and crypto. Note the divergence between index percentiles and the constituent breadth reported below.</p>
+</section>
+
+<section id="internals">
+  <h2>Internals: what the indices hide</h2>
+  
+<p>Two-thirds of instruments are above their 50-day average and only 54.8% above their 200-day. Only
+19.4% sit within 5% of their own 52-week high while 48.0% are more than 20% below it. Over the last
+21 periods 184 names rose and 68 fell with a median gain of 5.49%; over 63 periods only 46% are
+positive and the top decile captured 53.7% of all gains.</p>
+
+<p>That combination has one reading. A broad, recent, powerful bounce is running inside a market
+whose average constituent spent the preceding quarter falling and remains well below its highs. The
+indices are at records because the narrow group that never fell is carrying them.</p>
+
+<p>Cyclicals lead the bounce with a median 21-period gain of 8.6% against secular's 3.7%, yet
+cyclicals have the weaker long-term participation at 49.5% above the 200-day versus 59.7%. Rotation
+off depressed levels, not trend continuation.</p>
+
+<p>Cross-sectional dispersion of 9.83% over 21 periods is the number that matters for a stock
+picker. Selection is being paid right now, and it is being paid most in the desks with the highest
+idiosyncratic share.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Above 50d MA</div><div class="v">68.7%</div><div class="s">short-term participation</div></div>
+    <div class="stat"><div class="k">Above 200d MA</div><div class="v">54.8%</div><div class="s">long-term participation</div></div>
+    <div class="stat"><div class="k">Within 5% of high</div><div class="v">19.4%</div><div class="s">only a fifth</div></div>
+    <div class="stat"><div class="k">&gt;20% below high</div><div class="v">48.0%</div><div class="s">nearly half</div></div>
+    <div class="stat"><div class="k">21d dispersion</div><div class="v">9.83%</div><div class="s">selection is paid</div></div>
+  </div>
+  <div class="tw "><table><thead><tr><th class="">Basket</th><th class="num">Names</th><th class="num">Above 50d</th><th class="num">Above 200d</th><th class="num">Median 21p</th><th class="num">Dispersion</th></tr></thead><tbody><tr><td class="lbl">cyclical</td><td class="num">105</td><td class="num">75%</td><td class="num">50%</td><td class="num"><span class="pos">+8.6%</span></td><td class="num">9.1%</td></tr>
+<tr><td class="lbl">secular</td><td class="num">134</td><td class="num">63%</td><td class="num">60%</td><td class="num"><span class="pos">+3.7%</span></td><td class="num">10.1%</td></tr>
+<tr><td class="lbl">country</td><td class="num">13</td><td class="num">69%</td><td class="num">46%</td><td class="num"><span class="pos">+3.1%</span></td><td class="num">5.6%</td></tr></tbody></table></div><p class="tcap">Breadth by book. Cyclicals lead on 21-day momentum while carrying the weaker long-term participation, which is the signature of a rotation off depressed levels rather than a trend continuation.</p>
+</section>
+
+<section id="factors">
+  <h2>Factor structure: three bets, not twenty-three</h2>
+  
+<p>A 23 by 23 correlation matrix estimated on 55 observations cannot be read at face value. Under a
+Marchenko-Pastur null with q = 0.418, the largest pure-noise eigenvalue accounts for 11.79% of
+variance. At 60 days the first factor clears at 35.0% and the second at 15.70%; the
+third at 11.31% does not. At 252 days three clear. The honest count is three independent bets,
+six at the very outside, across twenty-three labels.</p>
+
+<p>The first factor is not market beta. Software loads 0.042 and platforms 0.087, which high-beta
+growth would never do. What loads is base metals 0.304, the US 0.302, grid infrastructure 0.299,
+automation 0.286, semiconductors 0.282 and Japan/Korea 0.278. Five of those six persist in the
+252-day estimate, so it is structural rather than a 60-day artefact. It is the industrial capex and
+electrification build, corroborated on the driver side by copper at the 100th percentile, US
+manufacturing hours at a five-year high and TSMC revenue at its own maximum.</p>
+
+<p>Average pair correlation reads 0.2598 at 252 days and 0.2284 at 60, which looks
+like healthy divergence. It is not. Correcting the 60-day eigenvalues for small-sample inflation
+gives a true leading eigenvalue of 32.87% against 33.79% on the long window, and the top two factors
+account for 45.8% now versus 45.2% before. Nothing has converged and nothing has diversified. The
+windows also share 55 of 230 observations, so they are not independent samples.</p>
+
+<p>The consequences for risk budgeting are direct. Semiconductors, Japan/Korea and base metals are
+all overweight, all top loaders, and correlate 0.80 to 0.89 with one another. Treating them as three
+positions double-counts one factor roughly threefold. Precious metals, which a risk system will
+usually credit as a diversifier, carries correlation 0.785 to the universe and a beta of 2.21: it is
+a levered risk-on position, not a hedge. The only genuine offsets to the first factor available in
+this universe are oil-gas (beta −0.08), healthcare (0.21) and software (0.35), and the board is
+Neutral on all three.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Desk</th><th class="num">Corr to universe</th><th class="num">Beta</th><th class="num">Idiosyncratic</th></tr></thead><tbody><tr><td class="lbl">oil-gas</td><td class="num"><span class="neg">-0.05</span></td><td class="num">-0.08</td><td class="num">100%</td></tr>
+<tr><td class="lbl">software-cyber</td><td class="num"><span class="pos">+0.13</span></td><td class="num">0.35</td><td class="num">98%</td></tr>
+<tr><td class="lbl">healthcare-lifesci</td><td class="num"><span class="pos">+0.17</span></td><td class="num">0.21</td><td class="num">97%</td></tr>
+<tr><td class="lbl">agri-food</td><td class="num"><span class="pos">+0.26</span></td><td class="num">0.42</td><td class="num">93%</td></tr>
+<tr><td class="lbl">consumer-brands</td><td class="num"><span class="pos">+0.31</span></td><td class="num">0.37</td><td class="num">90%</td></tr>
+<tr><td class="lbl">chemicals-materials</td><td class="num"><span class="pos">+0.36</span></td><td class="num">0.69</td><td class="num">87%</td></tr>
+<tr><td class="lbl">aerospace-defense</td><td class="num"><span class="pos">+0.38</span></td><td class="num">0.60</td><td class="num">86%</td></tr>
+<tr><td class="lbl">coal-power-fuels</td><td class="num"><span class="pos">+0.39</span></td><td class="num">0.63</td><td class="num">85%</td></tr>
+<tr><td class="lbl">transport-logistics</td><td class="num"><span class="pos">+0.45</span></td><td class="num">0.53</td><td class="num">80%</td></tr>
+<tr><td class="lbl">indonesia</td><td class="num"><span class="pos">+0.46</span></td><td class="num">0.98</td><td class="num">79%</td></tr></tbody></table></div><p class="tcap">The ten desks least explained by the universe, 126-day window. High idiosyncratic share means the desk moves on its own story. Those are the only places security selection is paid, and they are also orthogonal factor bets rather than diversifiable residual.</p>
+</section>
+
+<section id="commodities">
+  <h2>Commodities</h2>
+  
+<p>The complex is split, and the split is the information. Copper at 6.725 is at the 100th
+percentile of its trailing year and +9.6% over 63 periods. Brent at 82.56 is −18.5% over the same
+window and WTI −18.6%. Copper and crude do not usually disagree about global demand by 28 points
+over a quarter.</p>
+
+<p>Two readings compete. Either copper is right and it is an electrification and grid story that
+crude does not participate in, which the first principal component supports. Or copper is a
+positioning artefact, which its 94th-percentile speculative long supports. The tiebreaker should be
+Chinese equities confirming the demand, and they are not: CSI 300 −3.3% and MCHI −4.9% over 63
+periods.</p>
+
+<p>Henry Hub natural gas at 2.637 sits at the <strong>3rd percentile</strong> of its own year, the
+single most extreme reading anywhere in the pack, while European TTF is at the 93rd and +26.8% over
+63 periods. That spread is a US oversupply story against European scarcity and it is the cleanest
+relative-value observation in the commodity table.</p>
+
+<p>Gold at 4,300.90 is +4.9% over five sessions but −8.1% over 63, sitting mid-range at the 51st
+percentile with speculative positioning at only the 33rd. Both are unusually neutral for an asset
+whose real-rate driver is at the 96.8th percentile. Agriculture is uniformly high on level (corn
+91st, wheat 88th, soybeans 83rd) and going nowhere on change.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Contract</th><th class="num">Latest</th><th class="num">5p</th><th class="num">21p</th><th class="num">252p</th><th class="num">Pctile</th><th class="">Trend</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">Brent</td><td class="num">83.32</td><td class="num"><span class="neg">-6.4%</span></td><td class="num"><span class="pos">+6.8%</span></td><td class="num"><span class="pos">+23.2%</span></td><td class="num">66</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,3.2 10.0,1.5 20.0,9.7 30.0,8.0 40.0,10.2 50.0,16.8 60.0,18.8 70.0,20.5 80.0,18.5 90.0,12.7 100.0,8.5 110.0,11.7" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="11.7" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">WTI</td><td class="num">77.98</td><td class="num"><span class="neg">-6.7%</span></td><td class="num"><span class="pos">+6.1%</span></td><td class="num"><span class="pos">+19.7%</span></td><td class="num">65</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,4.2 10.0,1.5 20.0,10.8 30.0,7.2 40.0,10.1 50.0,16.6 60.0,18.9 70.0,20.5 80.0,19.2 90.0,13.8 100.0,10.5 110.0,12.7" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="12.7" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Henry Hub</td><td class="num">2.62</td><td class="num"><span class="neg">-4.9%</span></td><td class="num"><span class="neg">-18.3%</span></td><td class="num"><span class="neg">-12.8%</span></td><td class="num">3</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,17.4 10.0,8.8 20.0,11.2 30.0,5.6 40.0,6.5 50.0,7.8 60.0,1.5 70.0,6.2 80.0,14.3 90.0,15.3 100.0,16.5 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">TTF</td><td class="num">55.65</td><td class="num"><span class="neg">-4.3%</span></td><td class="num"><span class="pos">+13.5%</span></td><td class="num"><span class="pos">+61.8%</span></td><td class="num">93</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,15.4 10.0,11.1 20.0,15.6 30.0,13.6 40.0,12.6 50.0,19.3 60.0,20.5 70.0,17.5 80.0,13.7 90.0,6.6 100.0,1.5 110.0,5.2" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="5.2" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Gold</td><td class="num">4,299.40</td><td class="num"><span class="pos">+4.9%</span></td><td class="num"><span class="pos">+5.6%</span></td><td class="num"><span class="pos">+27.1%</span></td><td class="num">50</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,6.4 20.0,8.1 30.0,8.4 40.0,17.8 50.0,10.6 60.0,20.0 70.0,17.6 80.0,17.9 90.0,20.5 100.0,18.9 110.0,19.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="19.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Silver</td><td class="num">61.91</td><td class="num"><span class="pos">+5.3%</span></td><td class="num"><span class="pos">+6.4%</span></td><td class="num"><span class="pos">+64.3%</span></td><td class="num">47</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,8.2 20.0,8.4 30.0,9.1 40.0,14.9 50.0,10.9 60.0,19.0 70.0,17.5 80.0,18.0 90.0,20.5 100.0,18.8 110.0,19.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="19.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Copper</td><td class="num">6.72</td><td class="num"><span class="pos">+4.3%</span></td><td class="num"><span class="pos">+11.0%</span></td><td class="num"><span class="pos">+54.0%</span></td><td class="num">100</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,16.2 20.0,9.8 30.0,1.7 40.0,12.3 50.0,1.7 60.0,20.5 70.0,18.5 80.0,13.0 90.0,13.6 100.0,9.1 110.0,3.7" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="3.7" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Aluminium</td><td class="num">3,421.00</td><td class="num"><span class="pos">+1.6%</span></td><td class="num"><span class="neg">-0.4%</span></td><td class="num"><span class="pos">+40.6%</span></td><td class="num">70</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,13.5 10.0,8.6 20.0,1.5 30.0,5.2 40.0,10.7 50.0,12.0 60.0,13.5 70.0,18.7 80.0,18.8 90.0,16.2 100.0,16.2 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Soybeans</td><td class="num">1,177.75</td><td class="num"><span class="pos">+0.0%</span></td><td class="num"><span class="neg">-1.4%</span></td><td class="num"><span class="pos">+21.5%</span></td><td class="num">83</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,6.7 10.0,7.4 20.0,11.0 30.0,15.8 40.0,20.5 50.0,19.1 60.0,19.8 70.0,19.2 80.0,9.3 90.0,8.1 100.0,1.5 110.0,13.1" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="13.1" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Corn</td><td class="num">462.50</td><td class="num"><span class="pos">+3.8%</span></td><td class="num"><span class="pos">+6.4%</span></td><td class="num"><span class="pos">+21.2%</span></td><td class="num">92</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,4.0 10.0,1.5 20.0,8.6 30.0,15.2 40.0,19.2 50.0,18.5 60.0,20.5 70.0,17.3 80.0,13.2 90.0,11.1 100.0,5.0 110.0,12.3" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="12.3" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Wheat</td><td class="num">629.50</td><td class="num"><span class="neg">-5.1%</span></td><td class="num"><span class="pos">+5.0%</span></td><td class="num"><span class="pos">+23.9%</span></td><td class="num">88</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,5.0 10.0,4.6 20.0,13.5 30.0,20.5 40.0,20.5 50.0,15.4 60.0,19.8 70.0,19.9 80.0,11.6 90.0,1.5 100.0,2.4 110.0,10.2" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="10.2" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">Soy oil</td><td class="num">67.24</td><td class="num"><span class="neg">-1.6%</span></td><td class="num"><span class="neg">-5.8%</span></td><td class="num"><span class="pos">+24.9%</span></td><td class="num">66</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,5.4 10.0,6.8 20.0,7.1 30.0,1.5 40.0,7.0 50.0,13.1 60.0,14.3 70.0,20.5 80.0,14.2 90.0,7.8 100.0,8.6 110.0,20.2" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.2" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">HBA coal</td><td class="num">131.85</td><td class="num"><span class="pos">+28.0%</span></td><td class="num"><span class="pos">+15.2%</span></td><td class="num"><span class="na">n/a</span></td><td class="num">57</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,2.4 10.0,9.5 20.0,3.2 30.0,7.3 40.0,12.1 50.0,20.5 60.0,16.7 70.0,17.6 80.0,16.3 90.0,17.0 100.0,8.2 110.0,1.5" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="1.5" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-07-15</td></tr>
+<tr><td class="lbl">Coal equity</td><td class="num">23.52</td><td class="num"><span class="pos">+9.9%</span></td><td class="num"><span class="pos">+2.8%</span></td><td class="num"><span class="pos">+36.7%</span></td><td class="num">23</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,13.0 10.0,15.3 20.0,9.6 30.0,1.5 40.0,9.8 50.0,11.1 60.0,15.4 70.0,18.4 80.0,16.1 90.0,18.1 100.0,17.3 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">GSCI</td><td class="num">662.23</td><td class="num"><span class="neg">-3.1%</span></td><td class="num"><span class="pos">+2.4%</span></td><td class="num"><span class="pos">+22.7%</span></td><td class="num">67</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,2.3 10.0,1.5 20.0,9.8 30.0,7.0 40.0,11.6 50.0,16.6 60.0,19.2 70.0,20.5 80.0,18.2 90.0,13.1 100.0,9.6 110.0,11.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="11.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-06</td></tr></tbody></table></div>
+</section>
+
+<section id="positioning">
+  <h2>Positioning and crowding</h2>
+  
+<p>One market is genuinely crowded. CFTC copper net specs at 67,281 contracts sit at the 94th
+percentile of their three-year range, and that crowding sits on top of a price already at the 100th
+percentile, against Chinese equities that will not confirm the demand. Crowded length plus an
+extended price plus an unconfirming end market is the shape of a positioning unwind rather than of
+demand. This is the highest-conviction fade on the board, and the base metals desk is overweight
+into it with copper supplying 85% of that overweight's score.</p>
+
+<p>The dollar is the second stretched market at the 87th percentile, consistent with the dollar
+index at the 81st. Everything else is unremarkable: gold 33rd, WTI 20th, silver 12th. The absence of
+crowding in gold and oil matters as much as the presence of it in copper, because it means the
+recent moves in both were not positioning-driven.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Market</th><th class="num">Net specs</th><th class="num">3y pctile</th><th class="">Reading</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">COT gold</td><td class="num">182,070</td><td class="num">33</td><td><span class="chip n">unremarkable</span></td><td class="dt">2026-07-28</td></tr>
+<tr><td class="lbl">COT silver</td><td class="num">22,217</td><td class="num">12</td><td><span class="chip n">unremarkable</span></td><td class="dt">2026-07-28</td></tr>
+<tr><td class="lbl">COT copper</td><td class="num">67,281</td><td class="num">94</td><td><span class="chip uw">crowded long</span></td><td class="dt">2026-07-28</td></tr>
+<tr><td class="lbl">COT WTI</td><td class="num">120,108</td><td class="num">20</td><td><span class="chip n">unremarkable</span></td><td class="dt">2026-07-28</td></tr>
+<tr><td class="lbl">COT dollar</td><td class="num">17,197</td><td class="num">87</td><td><span class="chip n">unremarkable</span></td><td class="dt">2026-07-28</td></tr></tbody></table></div><p class="tcap">CFTC non-commercial net positions versus their own three-year range, reported weekly with a lag. Crowding matters when it disagrees with the fundamental driver.</p>
+</section>
+
+<section id="dials">
+  <h2>The dial board</h2>
+  
+<p>Read this table by comparing the score column against the basket columns. Where the machine score
+and the constituent returns point the same way the dial is describing the world. Where they diverge
+the dial is describing its drivers, and the drivers have stopped describing the equities.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Desk</th><th class="">Stance</th><th class="num">Score</th><th class="num">Median 21d</th><th class="num">Median 63d</th><th class="num">Median 252d</th><th class="num">Off high</th><th class="">Book</th></tr></thead><tbody><tr><td class="lbl">China, Hong Kong & Taiwan</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.15</span></td><td class="num"><span class="pos">+0.8%</span></td><td class="num"><span class="neg">-1.6%</span></td><td class="num"><span class="pos">+8.1%</span></td><td class="num"><span class="neg">-8.9%</span></td><td class="basketkind">country</td></tr>
+<tr><td class="lbl">Global Financial Infrastructure</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.10</span></td><td class="num"><span class="pos">+7.5%</span></td><td class="num"><span class="pos">+17.0%</span></td><td class="num"><span class="pos">+38.2%</span></td><td class="num"><span class="neg">-3.9%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Semiconductors</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.10</span></td><td class="num"><span class="neg">-7.9%</span></td><td class="num"><span class="pos">+6.1%</span></td><td class="num"><span class="pos">+163.9%</span></td><td class="num"><span class="neg">-27.2%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Japan & Korea</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.09</span></td><td class="num"><span class="neg">-7.6%</span></td><td class="num"><span class="neg">-0.6%</span></td><td class="num"><span class="pos">+84.1%</span></td><td class="num"><span class="neg">-16.8%</span></td><td class="basketkind">country</td></tr>
+<tr><td class="lbl">AI & Compute Infrastructure</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.07</span></td><td class="num"><span class="pos">+4.0%</span></td><td class="num"><span class="neg">-3.5%</span></td><td class="num"><span class="pos">+17.3%</span></td><td class="num"><span class="neg">-9.9%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Chemicals & Materials</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+1.05</span></td><td class="num"><span class="pos">+6.5%</span></td><td class="num"><span class="neg">-14.8%</span></td><td class="num"><span class="pos">+9.5%</span></td><td class="num"><span class="neg">-23.2%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Base, Battery & Bulk Metals</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+0.80</span></td><td class="num"><span class="pos">+14.4%</span></td><td class="num"><span class="neg">-6.2%</span></td><td class="num"><span class="pos">+48.0%</span></td><td class="num"><span class="neg">-14.2%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Agriculture & Food</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+0.65</span></td><td class="num"><span class="pos">+9.7%</span></td><td class="num"><span class="neg">-11.5%</span></td><td class="num"><span class="pos">+12.4%</span></td><td class="num"><span class="neg">-17.8%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Aerospace, Defense & Space</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+0.63</span></td><td class="num"><span class="pos">+6.0%</span></td><td class="num"><span class="pos">+13.5%</span></td><td class="num"><span class="pos">+19.7%</span></td><td class="num"><span class="neg">-4.3%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Automation & Machinery</td><td><span class="chip ow">OW</span></td><td class="num"><span class="pos">+0.52</span></td><td class="num"><span class="pos">+3.0%</span></td><td class="num"><span class="pos">+3.9%</span></td><td class="num"><span class="pos">+25.7%</span></td><td class="num"><span class="neg">-7.0%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Eurozone</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.46</span></td><td class="num"><span class="pos">+4.8%</span></td><td class="num"><span class="pos">+7.3%</span></td><td class="num"><span class="pos">+21.8%</span></td><td class="num"><span class="neg">-0.1%</span></td><td class="basketkind">country</td></tr>
+<tr><td class="lbl">United States</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.43</span></td><td class="num"><span class="pos">+1.6%</span></td><td class="num"><span class="pos">+4.0%</span></td><td class="num"><span class="pos">+27.6%</span></td><td class="num"><span class="neg">-1.1%</span></td><td class="basketkind">country</td></tr>
+<tr><td class="lbl">Transport & Logistics</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.35</span></td><td class="num"><span class="pos">+6.1%</span></td><td class="num"><span class="pos">+2.5%</span></td><td class="num"><span class="pos">+26.0%</span></td><td class="num"><span class="neg">-11.9%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Oil & Gas</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.10</span></td><td class="num"><span class="pos">+8.2%</span></td><td class="num"><span class="neg">-2.9%</span></td><td class="num"><span class="pos">+24.5%</span></td><td class="num"><span class="neg">-10.8%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Grid & Infrastructure Services</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.03</span></td><td class="num"><span class="pos">+0.2%</span></td><td class="num"><span class="neg">-11.3%</span></td><td class="num"><span class="pos">+54.0%</span></td><td class="num"><span class="neg">-16.1%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Healthcare & Life Sciences</td><td><span class="chip n">N</span></td><td class="num"><span class="pos">+0.02</span></td><td class="num"><span class="neg">-0.6%</span></td><td class="num"><span class="pos">+9.7%</span></td><td class="num"><span class="pos">+15.5%</span></td><td class="num"><span class="neg">-11.5%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Infrastructure Software & Cybersecurity</td><td><span class="chip n">N</span></td><td class="num"><span class="neg">-0.04</span></td><td class="num"><span class="pos">+12.7%</span></td><td class="num"><span class="pos">+18.9%</span></td><td class="num"><span class="neg">-16.6%</span></td><td class="num"><span class="neg">-27.0%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Coal, Uranium & Power Fuels</td><td><span class="chip n">N</span></td><td class="num"><span class="neg">-0.19</span></td><td class="num"><span class="pos">+5.5%</span></td><td class="num"><span class="neg">-14.1%</span></td><td class="num"><span class="pos">+13.4%</span></td><td class="num"><span class="neg">-29.9%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Platforms, Advertising & Gaming</td><td><span class="chip n">N</span></td><td class="num"><span class="neg">-0.27</span></td><td class="num"><span class="pos">+1.9%</span></td><td class="num"><span class="neg">-1.3%</span></td><td class="num"><span class="neg">-21.0%</span></td><td class="num"><span class="neg">-33.6%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Precious Metals</td><td><span class="chip uw">UW</span></td><td class="num"><span class="neg">-0.68</span></td><td class="num"><span class="pos">+14.7%</span></td><td class="num"><span class="neg">-11.4%</span></td><td class="num"><span class="pos">+33.6%</span></td><td class="num"><span class="neg">-29.0%</span></td><td class="basketkind">cyclical</td></tr>
+<tr><td class="lbl">Consumer Brands</td><td><span class="chip uw">UW</span></td><td class="num"><span class="neg">-0.75</span></td><td class="num"><span class="pos">+2.4%</span></td><td class="num"><span class="pos">+2.5%</span></td><td class="num"><span class="neg">-1.5%</span></td><td class="num"><span class="neg">-17.4%</span></td><td class="basketkind">secular</td></tr>
+<tr><td class="lbl">Indonesia</td><td><span class="chip uw">UW</span></td><td class="num"><span class="neg">-0.79</span></td><td class="num"><span class="pos">+5.8%</span></td><td class="num"><span class="neg">-9.5%</span></td><td class="num"><span class="neg">-13.2%</span></td><td class="num"><span class="neg">-30.6%</span></td><td class="basketkind">country</td></tr>
+<tr><td class="lbl">Autos & Mobility</td><td><span class="chip uw">UW</span></td><td class="num"><span class="neg">-1.01</span></td><td class="num"><span class="pos">+4.5%</span></td><td class="num"><span class="neg">-13.5%</span></td><td class="num"><span class="neg">-8.1%</span></td><td class="num"><span class="neg">-30.8%</span></td><td class="basketkind">cyclical</td></tr></tbody></table></div><p class="tcap">Machine stance and score against the median performance of that desk's own basket constituents. Score is a weighted blend of driver level z-scores, clipped to plus or minus two. Read the score and the basket columns together: where they disagree, the dial is describing the drivers and not the equities.</p>
+</section>
+
+<section id="dialflaw">
+  <h2>What the dial board misses</h2>
+  
+<p>Twenty-three desk analysts were run independently over the same evidence packs with instructions
+to interrogate the machine stance rather than restate it. They converged, without coordination, on
+three structural criticisms. All three check out.</p>
+
+<h4>One: the score has no rate-of-change term</h4>
+<p>The dial blends level z-scores of each driver. A driver at a five-year high that has begun rolling
+over scores identically to one still rising. Rescoring all 23 desks with identical weights and
+directions but on the z-score of each driver's 63-period <em>change</em>, seventeen stances flip.
+China-HK-Taiwan moves +1.15 to −0.70, base metals +0.80 to −0.72, agriculture +0.65 to −0.85,
+automation +0.52 to −0.67. Only precious metals, Eurozone, transport, grid, healthcare and coal hold
+the same call on both methods.</p>
+<p>This does not make the level score wrong. Level is the correct question for a driver where the
+level is the economics: a high oil price genuinely does help producers. It makes the board
+incomplete, and it means every overweight currently on it should be read as a statement about where
+things stand, not where they are heading.</p>
+
+<h4>Two: stale monthly drivers carry full weight</h4>
+<p>A driver last printed on 1 June is weighted exactly like one that traded this morning. Dropping
+every driver older than 35 days and renormalising, five stances do not survive: semiconductors 1.10
+to 0.31, AI-compute 1.07 to 0.43, automation 0.52 to −0.14, aerospace 0.63 to 0.09, and the US desk
+strengthening 0.43 to 0.92. Transport-logistics carries the highest stale dependence at 54% of gross
+contribution.</p>
+<p>The concentration is worse than the count suggests. Semiconductors, AI-compute, Japan/Korea and
+China all lean on the same TSMC revenue figure from 1 June. Four conviction-4 overweights, one
+number, 67 days old, and TSMC reports monthly.</p>
+
+<h4>Three: several dials are single-driver models wearing four drivers</h4>
+<p>Precious metals takes 69% of its score from real rates, base metals 85% from copper alone,
+transport 54% from manufacturing hours, Indonesia 54% from the rupiah, semiconductors 48% from TSMC
+revenue, aerospace 91% from the S&amp;P level. In each case the other three drivers are decoration.
+A dial that is really a single-variable model should be labelled as one, because its failure mode is
+that variable being wrong rather than a diversified set of inputs all being wrong together.</p>
+
+<blockquote>These are criticisms of a system built yesterday, surfaced by that system's own
+reasoning layer on its first full run. They are being reported rather than quietly patched because
+the board is live and the stances are on it now. The fixes are known: add a momentum term, decay
+driver weight by staleness, and flag single-driver concentration on the dial itself.</blockquote>
+
+</section>
+
+<section id="desks">
+  <h2>Desk by desk</h2>
+  
+<h4>The capex complex: base metals, automation, grid, semiconductors, AI-compute, Japan/Korea</h4>
+<p>Six desks, one factor, and it is the factor that explains a third of everything. Base metals is
+overweight at 0.81 with copper supplying 85% of it, into 94th-percentile speculative length. Semis
+is overweight at 1.12 with a median 252-period basket gain of 164% and a median drawdown of 27%
+from highs, MU alone +708% on the year and −27% from its high. Automation is overweight at 0.52 on
+a manufacturing-hours print 67 days old, and −0.14 without it. Grid infrastructure is Neutral at
+0.03 while its basket is −11.3% over 63 periods against copper +9.6%, one of the sharpest
+driver-versus-tape divergences on the board. Japan/Korea is overweight at 1.16 with the highest
+risk-off beta of any desk.</p>
+<p>These are not six positions. They are one position with six names, currently long an extended
+copper price, a stale Taiwan revenue number and a manufacturing-hours reading from June.</p>
+
+<h4>The rate-sensitive secular desks: software, platforms, healthcare, consumer brands</h4>
+<p>Software-cyber is the standout anomaly of the entire report. Marked Neutral at −0.04 on a real-
+rates argument, its basket holds the four best 63-period performers in the universe: SNOW +127.8%,
+PANW +93.5%, FTNT +76.5%, CRWD +74.7%. The basket is +18.9% over 63 periods and +12.7% over 21,
+while its 252-period median is −16.6% and it sits 27.0% below its high. The desk crashed over the
+year and is now recovering violently, and its correlation to real rates has fallen to +0.02. The
+dial is scoring a relationship that no longer exists.</p>
+<p>Platforms is Neutral at −0.15 with a basket −21.0% over 252 periods against QQQ +27.9% and 33.6%
+below its high, the worst structural underperformance on the board. Healthcare is Neutral at +0.03,
+one of only three genuine hedges against the dominant factor. Consumer brands is underweight at
+−0.73 while its basket is +2.5% over 63 periods against XLP +0.9%, drivers and tape disagreeing.</p>
+
+<h4>Energy and materials: oil-gas, coal, chemicals, agriculture</h4>
+<p>Oil-gas is Neutral at +0.09 and the most idiosyncratic desk in the universe at 99.8%, meaning
+almost nothing global explains it. Brent is −18.5% over 63 periods while XLE is +2.05% and XOM
++3.76%: the equities have not discounted the crude drawdown. Coal is Neutral at −0.19 with HBA at
+131.85, its highest print in the sampled history and +28% over five months, yet the coal price is
+scored as the desk's <em>largest negative</em> contribution while the basket is −14.1% over 63 periods. Chemicals is overweight at 1.07 with the basket 23.2% below its high and −14.8% over 63
+periods against XLB −0.44%, held up by a manufacturing-hours print from June. Agriculture is
+overweight at 0.64 on crop levels while the basket is −11.5% over 63 periods.</p>
+
+<h4>The rest</h4>
+<p>Financial infrastructure is overweight at 1.06 and among the few whose basket agrees: +17.0% over
+63 periods, 3.9% off its high. Aerospace is overweight at 0.64 but 91% of that is the S&amp;P level;
+strip it and the desk is +0.08. Precious metals is underweight at −0.68 with 83% of the score from
+one real-rates print, while the basket rallied 9.6% in five sessions and gold sits 1.1% below the
+dial's own written flip trigger. Transport is Neutral at +0.37, 54% of it manufacturing hours, and
+−0.15 without. Autos is the most negative desk at −1.00 with a basket 30.8% below its high, the one
+underweight the tape supports on every horizon.</p>
+
+</section>
+
+<section id="breaks">
+  <h2>Broken and diverging relationships</h2>
+  
+<p>The most valuable alert this system can raise is a desk that has stopped tracking the driver it
+is scored on. Eighty-one desk-driver pairs were tested for correlation decay and for
+direction-adjusted divergence.</p>
+
+<p><strong>One outright break.</strong> The US desk against credit conditions: 252-day correlation
++0.41 has fallen to +0.01 over 60 days. US equities have stopped responding to a credit signal that
+is simultaneously at the 99.6th percentile of its own range. Either credit has ceased to be the
+marginal driver of US equities, or the market is ignoring it. Both readings argue against using
+credit tightness as evidence for the risk-on tag.</p>
+
+<p><strong>Five material divergences</strong>, where the relationship holds on average but the two
+have pulled apart. Software-cyber is the largest by a distance: the basket is +34.8% over 63 periods
+against a real-rate move implying −23.9%. Chemicals is −14.8% against feedstock costs implying
++17.7%. Autos is −12.8% against fuel prices implying +17.7%. Financial infrastructure is +16.5%
+against a curve implying −10.0%. Grid is −12.4% against copper implying +9.5%.</p>
+
+<p>A break and a divergence call for opposite actions. A break says stop scoring the desk on that
+driver. A divergence says the driver still works and the gap is the trade.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Desk</th><th class="">Driver</th><th class="num">Then / basket</th><th class="num">Now / implied</th><th class="">Status</th></tr></thead><tbody><tr><td class="lbl">United States</td><td>Credit conditions</td><td class="num"><span class="pos">+0.41</span></td><td class="num"><span class="pos">+0.01</span></td><td><span class="chip uw">broken</span></td></tr>
+<tr><td class="lbl">Infrastructure Software & Cybersecurity</td><td>Real 10y</td><td class="num"><span class="pos">+34.8%</span></td><td class="num"><span class="neg">-23.9%</span></td><td><span class="chip n">diverging</span></td></tr>
+<tr><td class="lbl">Chemicals & Materials</td><td>Feedstock cost</td><td class="num"><span class="neg">-14.8%</span></td><td class="num"><span class="pos">+17.7%</span></td><td><span class="chip n">diverging</span></td></tr>
+<tr><td class="lbl">Autos & Mobility</td><td>Fuel prices</td><td class="num"><span class="neg">-12.8%</span></td><td class="num"><span class="pos">+17.7%</span></td><td><span class="chip n">diverging</span></td></tr>
+<tr><td class="lbl">Global Financial Infrastructure</td><td>Curve</td><td class="num"><span class="pos">+16.5%</span></td><td class="num"><span class="neg">-10.0%</span></td><td><span class="chip n">diverging</span></td></tr>
+<tr><td class="lbl">Grid & Infrastructure Services</td><td>Copper (grid demand)</td><td class="num"><span class="neg">-12.4%</span></td><td class="num"><span class="pos">+9.5%</span></td><td><span class="chip n">diverging</span></td></tr></tbody></table></div><p class="tcap">For broken rows the two numeric columns are the 252-day and 60-day correlation. For diverging rows they are the basket's 63-day return and the return implied by the direction-adjusted driver move.</p>
+</section>
+
+<section id="indonesia">
+  <h2>Indonesia</h2>
+  
+<p>Indonesia is underweight at −0.79 and the stance is the weakest-founded on the board. Decomposing
+the score: the rupiah supplies 56.9%, the JCI level 30.9%, coal 10.0%, Brent 4.0% and foreign flows
+−1.7%. Eighty-eight percent of the call is two z-scores on trending price series. The JCI at the
+20.6th percentile of a series down 13.2% over 252 periods and 30.6% off its high is the drawdown
+restated. USD/IDR at the 86th percentile on a series up 10.8% over the year is the depreciation
+restated. Neither series mean-reverts, so neither percentile carries the information a percentile
+normally carries.</p>
+
+<p>Meanwhile the tape has turned. The JCI is +8.01% over 21 periods and the rupiah moved 1.34 sigma
+in Indonesia's favour over five sessions to 17,910. The desk's own stated flip levels are JCI 6,500
+and USD/IDR 17,500; the index is 2.46% from the first and the currency 2.29% from the second, with
+five-day momentum pointing at both. This is an underweight sitting inside 2.5% of its own
+invalidation.</p>
+
+<p>The r² finding is the one that should change behaviour. Against seven global macro factors
+Indonesia scores 0.052, the lowest of 23 desks against a median of 0.384, so 95% of its variance is
+idiosyncratic. Three things follow. There is no hedge: expressing or offsetting Indonesia through
+the dollar, rates, oil, copper, China or global beta leaves essentially all the risk standing. It is
+a genuine book-level diversifier, which argues against a macro-sourced underweight. And it says
+where the work is: the factor set does not contain USD/IDR, which is 57% of the desk's own score.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Cross</th><th class="num">Latest</th><th class="num">5p</th><th class="num">21p</th><th class="num">252p</th><th class="num">Pctile</th><th class="">Trend</th><th class="">As of</th></tr></thead><tbody><tr><td class="lbl">USD/IDR</td><td class="num">17,873.00</td><td class="num"><span class="neg">-1.1%</span></td><td class="num"><span class="neg">-0.6%</span></td><td class="num"><span class="pos">+10.5%</span></td><td class="num">85</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,20.5 10.0,15.3 20.0,10.6 30.0,6.9 40.0,8.0 50.0,12.1 60.0,5.7 70.0,12.3 80.0,1.5 90.0,6.0 100.0,6.6 110.0,4.2" fill="none" stroke="var(--pos)" stroke-width="1.4"/><circle cx="110.0" cy="4.2" r="1.8" fill="var(--pos)"/></svg></td><td class="dt">2026-08-06</td></tr>
+<tr><td class="lbl">USD/JPY</td><td class="num">158.36</td><td class="num"><span class="neg">-1.1%</span></td><td class="num"><span class="neg">-2.6%</span></td><td class="num"><span class="pos">+7.5%</span></td><td class="num">62</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,16.5 10.0,16.2 20.0,14.9 30.0,11.8 40.0,13.0 50.0,8.4 60.0,7.2 70.0,8.3 80.0,7.0 90.0,5.0 100.0,1.5 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">USD/KRW</td><td class="num">1,420.08</td><td class="num"><span class="neg">-0.0%</span></td><td class="num"><span class="neg">-5.5%</span></td><td class="num"><span class="pos">+2.3%</span></td><td class="num">16</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,10.7 10.0,8.2 20.0,9.1 30.0,1.5 40.0,8.7 50.0,5.2 60.0,4.6 70.0,5.3 80.0,10.5 90.0,12.2 100.0,16.9 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">USD/CNY</td><td class="num">6.75</td><td class="num"><span class="neg">-0.1%</span></td><td class="num"><span class="neg">-0.8%</span></td><td class="num"><span class="neg">-6.0%</span></td><td class="num">0</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,1.5 10.0,6.3 20.0,15.5 30.0,15.7 40.0,15.6 50.0,14.7 60.0,5.2 70.0,8.2 80.0,12.1 90.0,13.5 100.0,13.7 110.0,20.5" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="20.5" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-07</td></tr>
+<tr><td class="lbl">EUR/USD</td><td class="num">1.15</td><td class="num"><span class="pos">+0.0%</span></td><td class="num"><span class="pos">+0.9%</span></td><td class="num"><span class="neg">-1.6%</span></td><td class="num">19</td><td class="spk"><svg class="spark" viewBox="0 0 110 22" width="110" height="22" aria-hidden="true"><polyline points="0.0,4.0 10.0,2.0 20.0,1.5 30.0,10.6 40.0,4.8 50.0,14.9 60.0,20.5 70.0,16.7 80.0,19.2 90.0,17.5 100.0,19.8 110.0,9.1" fill="none" stroke="var(--neg)" stroke-width="1.4"/><circle cx="110.0" cy="9.1" r="1.8" fill="var(--neg)"/></svg></td><td class="dt">2026-08-07</td></tr></tbody></table></div>
+</section>
+
+<section id="flows">
+  <h2>Foreign flows: the local edge</h2>
+  
+<p>Over the 20 sessions to 6 August the JCI rose 7.08% while sampled foreign flow was net
+<em>negative</em> at −IDR 6.6bn. The rally was domestically funded. That single fact reframes the
+Indonesian bounce: it is not foreign money returning.</p>
+
+<p>At the name level one position clears both magnitude and persistence. GOTO was bought on 18 of 20
+sessions at +1.16% of its own turnover, four times the next name and the only signal in the
+accumulation list large enough to act on. BBKP, ACES and PNLF cleared the persistence screen at 70
+to 75% of sessions but at 0.04 to 0.25% of turnover, which is noise at the size this book trades.</p>
+
+<p>Distribution is cleaner and more informative. SIDO was sold on 19 of 20 sessions, ELTY on 18,
+BWPT on 17, LPKR at the largest magnitude of −0.34% of turnover. Property and consumer staples names
+dominate the sell side. Note LPKR and PWON both appear on it while the book holds APLN and PBSA:
+foreign money has been persistently leaving the Indonesian property complex over the same window in
+which two property-adjacent positions account for the book's largest losses.</p>
+
+<p>Honest caveat on sizing. Net foreign flow as a share of own turnover tops out near 1% across the
+entire market, so these are cross-sectional rankings rather than absolute signals, and the sampled
+names resolve only a small fraction of total market flow.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Ticker</th><th class="num">Net % of turnover</th><th class="num">Sessions bought</th><th class="num">Net IDRbn</th><th class="">Reading</th></tr></thead><tbody><tr><td class="lbl">GOTO</td><td class="num"><span class="pos">+1.16%</span></td><td class="num">90%</td><td class="num">0.9</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">BBKP</td><td class="num"><span class="pos">+0.25%</span></td><td class="num">70%</td><td class="num">0.2</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">ACES</td><td class="num"><span class="pos">+0.05%</span></td><td class="num">75%</td><td class="num">0.0</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">PNLF</td><td class="num"><span class="pos">+0.04%</span></td><td class="num">70%</td><td class="num">0.0</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">ERAA</td><td class="num"><span class="pos">+0.04%</span></td><td class="num">65%</td><td class="num">0.3</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">VERN</td><td class="num"><span class="pos">+0.04%</span></td><td class="num">70%</td><td class="num">0.0</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">APEX</td><td class="num"><span class="pos">+0.03%</span></td><td class="num">55%</td><td class="num">0.0</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">KAQI</td><td class="num"><span class="pos">+0.03%</span></td><td class="num">50%</td><td class="num">0.0</td><td><span class="chip ow">accumulating</span></td></tr>
+<tr><td class="lbl">LPKR</td><td class="num"><span class="neg">-0.34%</span></td><td class="num">35%</td><td class="num">-0.5</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">SIDO</td><td class="num"><span class="neg">-0.15%</span></td><td class="num">5%</td><td class="num">-0.3</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">SQMI</td><td class="num"><span class="neg">-0.14%</span></td><td class="num">50%</td><td class="num">-0.1</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">BWPT</td><td class="num"><span class="neg">-0.14%</span></td><td class="num">15%</td><td class="num">-0.4</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">BUKA</td><td class="num"><span class="neg">-0.12%</span></td><td class="num">30%</td><td class="num">-0.4</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">KPIG</td><td class="num"><span class="neg">-0.10%</span></td><td class="num">55%</td><td class="num">-0.3</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">BKSL</td><td class="num"><span class="neg">-0.08%</span></td><td class="num">35%</td><td class="num">-0.3</td><td><span class="chip uw">distributing</span></td></tr>
+<tr><td class="lbl">WIRG</td><td class="num"><span class="neg">-0.07%</span></td><td class="num">45%</td><td class="num">-0.1</td><td><span class="chip uw">distributing</span></td></tr></tbody></table></div><p class="tcap">Twenty sessions to 2026-08-06, liquid names only (top 30% by turnover). Persistence is the share of sessions with net foreign buying. Net as a share of own turnover is small across the whole market, so these are cross-sectional rankings, not absolute signals.</p>
+</section>
+
+<section id="book">
+  <h2>The book</h2>
+  
+<p>Six positions, NAV 5,326.6 as of 5 August, 26% in cash, +4.5% month to date. Three positions are
+through the 20% cut-loss rule: PBSA at −70.2%, APLN at −31.9% and IBM at −26.1%. The rule is the
+rule. Either they are cut or each carries a written override naming the catalyst and the date by
+which it must appear.</p>
+
+<p>The concentration number needs care. The first principal component explains 24.8% of position
+variance, which reads as reasonably diversified and is technically correct. But three of six
+positions are Indonesian and, as established, Indonesian risk is 95% idiosyncratic, which is exactly
+what suppresses a measured factor concentration. The book looks diversified partly because its
+largest exposure is to a market no global factor prices. That is diversification in the statistical
+sense and concentration in every other sense: half the book depends on one country's local
+conditions.</p>
+
+<p>The foreign flow data sharpens it. Foreign investors have been persistently distributing
+Indonesian property and property-adjacent names over the last 20 sessions while the book's two worst
+positions sit in that complex. The system cannot tell whether APLN, PBSA and PSAB share a thesis or
+are three independent mistakes. That is the question the CRO has to answer, and it is the one place
+where local knowledge beats anything in this report.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="k">NAV</div><div class="v">5,329</div><div class="s">USD, as of 2026-08-05</div></div>
+    <div class="stat"><div class="k">Cash</div><div class="v">1,388</div><div class="s">26% of NAV</div></div>
+    <div class="stat"><div class="k">MTD</div><div class="v">+4.6%</div><div class="s">month to date</div></div>
+    <div class="stat"><div class="k">Positions</div><div class="v">6</div><div class="s">3 through cut-loss</div></div>
+    <div class="stat"><div class="k">Factor concentration</div><div class="v">24.8%</div><div class="s">first principal component</div></div>
+  </div>
+  <div class="tw "><table><thead><tr><th class="">Position</th><th class="">Ticker</th><th class="num">Last</th><th class="num">Avg cost</th><th class="num">P&amp;L</th><th class="">Flag</th></tr></thead><tbody><tr><td class="lbl">APLN</td><td>APLN.JK</td><td class="num">132.00</td><td class="num">193.95</td><td class="num"><span class="neg">-31.9%</span></td><td><span class="chip uw">through cut-loss</span></td></tr>
+<tr><td class="lbl">PBSA</td><td>PBSA.JK</td><td class="num">750.00</td><td class="num">2,517.73</td><td class="num"><span class="neg">-70.2%</span></td><td><span class="chip uw">through cut-loss</span></td></tr>
+<tr><td class="lbl">PSAB</td><td>PSAB.JK</td><td class="num">452.00</td><td class="num">505.76</td><td class="num"><span class="neg">-10.6%</span></td><td></td></tr>
+<tr><td class="lbl">MU</td><td>MU</td><td class="num">881.47</td><td class="num">928.48</td><td class="num"><span class="neg">-5.1%</span></td><td></td></tr>
+<tr><td class="lbl">IBM</td><td>IBM</td><td class="num">233.43</td><td class="num">315.90</td><td class="num"><span class="neg">-26.1%</span></td><td><span class="chip uw">through cut-loss</span></td></tr>
+<tr><td class="lbl">ESTC</td><td>ESTC</td><td class="num">69.95</td><td class="num">65.15</td><td class="num"><span class="pos">+7.4%</span></td><td></td></tr></tbody></table></div><p class="tcap">Marked against the price store as of 2026-08-06. The house rules are a maximum 40 percent single position, a minimum of three positions, and a 20 percent cut-loss.</p>
+</section>
+
+<section id="scenarios">
+  <h2>Scenario exposure</h2>
+  
+<p>Betas are fitted, not assumed, and the r² column governs how much weight each row carries. Above
+roughly 0.4 the numbers are meaningful; below 0.2 they are noise and must not be quoted as
+sensitivities.</p>
+
+<p>Japan/Korea is the most exposed desk to a combined risk-off shock at −15.7%, driven by a dollar
+beta of −0.66 and an SPX beta of 1.40. Software-cyber shows −12.7% but on an r² of 0.22, so treat it
+as directional only. AI-compute at −12.6% and semiconductors at −11.4% are both well fitted and both
+overweight. The US desk at −12.2% on an r² of 0.95 is the most reliable single number in the table.</p>
+
+<p>Eurozone carries the largest single-factor sensitivity anywhere: a dollar beta of −0.72 on an r²
+of 0.73. A 5% dollar move is roughly a 3.6% move in that desk, and the dollar sits at the 81st
+percentile with speculative length at the 87th.</p>
+
+<p>Indonesia's row must be struck from any risk report. At an r² of 0.052 its fitted equity beta of
+0.09 and dollar beta of +0.27 are fits to noise, and quoting risk_off_combo +2.36% would produce a
+hedging decision with no basis. The correct statement is that Indonesian exposure cannot be hedged
+with this toolkit.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Desk</th><th class="num">r&sup2;</th><th class="">Reliability</th><th class="num">risk off</th><th class="num">reflation</th><th class="num">USD +5%</th><th class="num">rates +50bp</th><th class="num">oil -20%</th><th class="num">China -10%</th></tr></thead><tbody><tr><td class="lbl">United States</td><td class="num">0.95</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-12.2%</span></td><td class="num"><span class="pos">+6.4%</span></td><td class="num"><span class="pos">+0.3%</span></td><td class="num"><span class="neg">-1.0%</span></td><td class="num"><span class="neg">-0.0%</span></td><td class="num"><span class="neg">-0.8%</span></td></tr>
+<tr><td class="lbl">Eurozone</td><td class="num">0.73</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-11.4%</span></td><td class="num"><span class="pos">+5.6%</span></td><td class="num"><span class="neg">-3.6%</span></td><td class="num"><span class="neg">-3.5%</span></td><td class="num"><span class="pos">+0.9%</span></td><td class="num"><span class="neg">-0.8%</span></td></tr>
+<tr><td class="lbl">China, Hong Kong & Taiwan</td><td class="num">0.71</td><td><span class="chip ow">high</span></td><td class="num"><span class="pos">+0.2%</span></td><td class="num"><span class="pos">+1.1%</span></td><td class="num"><span class="neg">-0.3%</span></td><td class="num"><span class="pos">+1.8%</span></td><td class="num"><span class="pos">+0.2%</span></td><td class="num"><span class="neg">-6.7%</span></td></tr>
+<tr><td class="lbl">AI & Compute Infrastructure</td><td class="num">0.61</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-12.6%</span></td><td class="num"><span class="pos">+9.6%</span></td><td class="num"><span class="pos">+0.3%</span></td><td class="num"><span class="pos">+1.7%</span></td><td class="num"><span class="neg">-0.9%</span></td><td class="num"><span class="neg">-2.9%</span></td></tr>
+<tr><td class="lbl">Japan & Korea</td><td class="num">0.61</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-15.7%</span></td><td class="num"><span class="pos">+10.8%</span></td><td class="num"><span class="neg">-3.3%</span></td><td class="num"><span class="neg">-2.7%</span></td><td class="num"><span class="neg">-0.1%</span></td><td class="num"><span class="neg">-5.1%</span></td></tr>
+<tr><td class="lbl">Semiconductors</td><td class="num">0.56</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-11.4%</span></td><td class="num"><span class="pos">+10.6%</span></td><td class="num"><span class="pos">+1.3%</span></td><td class="num"><span class="pos">+5.2%</span></td><td class="num"><span class="pos">+0.3%</span></td><td class="num"><span class="neg">-8.5%</span></td></tr>
+<tr><td class="lbl">Global Financial Infrastructure</td><td class="num">0.49</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-8.0%</span></td><td class="num"><span class="pos">+3.3%</span></td><td class="num"><span class="neg">-1.3%</span></td><td class="num"><span class="neg">-0.1%</span></td><td class="num"><span class="pos">+1.3%</span></td><td class="num"><span class="neg">-0.2%</span></td></tr>
+<tr><td class="lbl">Base, Battery & Bulk Metals</td><td class="num">0.43</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-5.8%</span></td><td class="num"><span class="pos">+7.7%</span></td><td class="num"><span class="neg">-3.7%</span></td><td class="num"><span class="pos">+0.2%</span></td><td class="num"><span class="pos">+1.1%</span></td><td class="num"><span class="neg">-2.2%</span></td></tr>
+<tr><td class="lbl">Oil & Gas</td><td class="num">0.40</td><td><span class="chip ow">high</span></td><td class="num"><span class="neg">-5.1%</span></td><td class="num"><span class="pos">+4.0%</span></td><td class="num"><span class="neg">-1.8%</span></td><td class="num"><span class="neg">-0.1%</span></td><td class="num"><span class="neg">-4.5%</span></td><td class="num"><span class="pos">+0.3%</span></td></tr>
+<tr><td class="lbl">Grid & Infrastructure Services</td><td class="num">0.40</td><td><span class="chip n">medium</span></td><td class="num"><span class="neg">-7.4%</span></td><td class="num"><span class="pos">+5.3%</span></td><td class="num"><span class="neg">-0.8%</span></td><td class="num"><span class="pos">+1.4%</span></td><td class="num"><span class="pos">+0.7%</span></td><td class="num"><span class="neg">-2.9%</span></td></tr>
+<tr><td class="lbl">Automation & Machinery</td><td class="num">0.39</td><td><span class="chip n">medium</span></td><td class="num"><span class="neg">-4.5%</span></td><td class="num"><span class="pos">+3.2%</span></td><td class="num"><span class="neg">-0.0%</span></td><td class="num"><span class="pos">+2.6%</span></td><td class="num"><span class="pos">+1.3%</span></td><td class="num"><span class="neg">-3.1%</span></td></tr>
+<tr><td class="lbl">Autos & Mobility</td><td class="num">0.38</td><td><span class="chip n">medium</span></td><td class="num"><span class="neg">-4.4%</span></td><td class="num"><span class="pos">+4.3%</span></td><td class="num"><span class="neg">-0.9%</span></td><td class="num"><span class="pos">+0.9%</span></td><td class="num"><span class="pos">+1.2%</span></td><td class="num"><span class="neg">-1.3%</span></td></tr>
+<tr><td class="lbl">Precious Metals</td><td class="num">0.37</td><td><span class="chip n">medium</span></td><td class="num"><span class="neg">-1.1%</span></td><td class="num"><span class="pos">+12.2%</span></td><td class="num"><span class="neg">-8.3%</span></td><td class="num"><span class="pos">+7.4%</span></td><td class="num"><span class="pos">+1.3%</span></td><td class="num"><span class="neg">-4.2%</span></td></tr>
+<tr><td class="lbl">Platforms, Advertising & Gaming</td><td class="num">0.33</td><td><span class="chip n">medium</span></td><td class="num"><span class="neg">-6.2%</span></td><td class="num"><span class="pos">+5.9%</span></td><td class="num"><span class="neg">-0.8%</span></td><td class="num"><span class="pos">+3.4%</span></td><td class="num"><span class="pos">+0.5%</span></td><td class="num"><span class="neg">-0.3%</span></td></tr></tbody></table></div><p class="tcap">OLS betas to seven macro factors over 252 sessions, shocks applied to fitted betas. r&sup2; is how much of the desk's movement those factors explain. Below roughly 0.2 the scenario cells are noise and must not be quoted as sensitivities.</p>
+</section>
+
+<section id="analogues">
+  <h2>Historical analogues</h2>
+  
+<p>Eight historical dates whose seven-factor macro state most resembles today. Every one falls
+between March 2025 and February 2026, because the series only extend about five years and the
+nearest neighbours are necessarily recent. They are overlapping episodes of the same broad regime
+rather than independent observations.</p>
+
+<p>Stated with that constraint, forward S&amp;P outcomes from those dates were positive in most
+cases and widely dispersed: one month ranged −5.1% to +4.7%, three months −3.0% to +9.1%, six months
++3.4% to +14.3%. The dispersion is the finding. Similar macro configurations preceded outcomes
+spanning eighteen points over three months, which is exactly why a median forward return from eight
+overlapping observations is not a forecast and is not presented as one.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Date</th><th class="num">Distance</th><th class="num">SPX +1m</th><th class="num">SPX +3m</th><th class="num">SPX +6m</th><th class="num">JCI +3m</th></tr></thead><tbody><tr><td class="dt">2025-07-30</td><td class="num">0.61</td><td class="num"><span class="pos">+1.5%</span></td><td class="num"><span class="pos">+8.3%</span></td><td class="num"><span class="pos">+9.1%</span></td><td class="num"><span class="pos">+8.4%</span></td></tr>
+<tr><td class="dt">2025-06-10</td><td class="num">0.70</td><td class="num"><span class="pos">+3.8%</span></td><td class="num"><span class="pos">+9.1%</span></td><td class="num"><span class="pos">+14.0%</span></td><td class="num"><span class="pos">+7.2%</span></td></tr>
+<tr><td class="dt">2025-09-02</td><td class="num">1.11</td><td class="num"><span class="pos">+4.7%</span></td><td class="num"><span class="pos">+6.5%</span></td><td class="num"><span class="pos">+6.5%</span></td><td class="num"><span class="pos">+10.5%</span></td></tr>
+<tr><td class="dt">2026-01-16</td><td class="num">1.15</td><td class="num"><span class="neg">-1.1%</span></td><td class="num"><span class="pos">+1.8%</span></td><td class="num"><span class="pos">+8.1%</span></td><td class="num"><span class="neg">-22.1%</span></td></tr>
+<tr><td class="dt">2025-12-09</td><td class="num">1.36</td><td class="num"><span class="pos">+2.0%</span></td><td class="num"><span class="neg">-3.0%</span></td><td class="num"><span class="pos">+8.6%</span></td><td class="num"><span class="neg">-15.7%</span></td></tr>
+<tr><td class="dt">2025-10-09</td><td class="num">1.41</td><td class="num"><span class="pos">+1.4%</span></td><td class="num"><span class="pos">+3.6%</span></td><td class="num"><span class="pos">+3.4%</span></td><td class="num"><span class="pos">+8.5%</span></td></tr>
+<tr><td class="dt">2025-03-25</td><td class="num">1.56</td><td class="num"><span class="neg">-4.4%</span></td><td class="num"><span class="pos">+6.3%</span></td><td class="num"><span class="pos">+14.3%</span></td><td class="num"><span class="pos">+14.5%</span></td></tr>
+<tr><td class="dt">2026-02-20</td><td class="num">1.64</td><td class="num"><span class="neg">-5.1%</span></td><td class="num"><span class="pos">+8.2%</span></td><td class="num"><span class="na">n/a</span></td><td class="num"><span class="neg">-35.4%</span></td></tr></tbody></table></div><p class="tcap">Nearest historical macro states by Euclidean distance on a standardised seven-factor vector, de-clustered to 30 days apart, with the last 90 sessions excluded. Eight overlapping observations from a five-year window is not a sample that supports a forecast. It is context.</p>
+</section>
+
+<section id="calendar">
+  <h2>What lands next</h2>
+  
+<p>Twenty-three high-importance events in the next 30 days and none of them currently flag as
+touching an open position, which reflects that the book holds no US large-cap names with scheduled
+catalysts rather than that the calendar is benign.</p>
+
+<p>The sequence that matters for this board: China CPI and PPI on 9 August then China activity data
+on 14 August, which is the demand confirmation the copper and base-metals overweight needs. FOMC
+minutes on 20 August and Jackson Hole from 21 August, which speak directly to the real-rate
+question that four desks name as their trigger. Nvidia on 26 August, which is the single largest
+event risk for the AI-compute and semiconductor overweights. PCE on 26 August.</p>
+
+<p>For Indonesia specifically: the RAPBN 2027 budget speech on 16 August, trade balance on 17
+August, and the BI rate decision on 19 August. Those three are where an Indonesian view is made or
+broken, and the desk's attention should sit there rather than on the foreign central bank meetings
+the calendar currently tags to it.</p>
+
+  <div class="tw "><table><thead><tr><th class="">Date</th><th class="">Event</th><th class="">Book</th></tr></thead><tbody><tr><td class="dt">2026-08-07</td><td class="lbl">Employment Situation / Nonfarm Payrolls (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-09</td><td class="lbl">China CPI & PPI (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-12</td><td class="lbl">UK GDP (Q2, prelim)</td><td></td></tr>
+<tr><td class="dt">2026-08-12</td><td class="lbl">CPI (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-14</td><td class="lbl">China Activity Data (Jul): IP, Retail, FAI</td><td></td></tr>
+<tr><td class="dt">2026-08-14</td><td class="lbl">Retail Sales (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-16</td><td class="lbl">Nota Keuangan & RAPBN 2027 (Budget Speech)</td><td></td></tr>
+<tr><td class="dt">2026-08-17</td><td class="lbl">Trade Balance (July)</td><td></td></tr>
+<tr><td class="dt">2026-08-17</td><td class="lbl">Japan GDP (Q2, prelim)</td><td></td></tr>
+<tr><td class="dt">2026-08-17</td><td class="lbl">Independence Day (HUT RI ke-81)</td><td></td></tr>
+<tr><td class="dt">2026-08-18</td><td class="lbl">BI Board of Governors Meeting (Day 1)</td><td></td></tr>
+<tr><td class="dt">2026-08-19</td><td class="lbl">UK CPI Inflation (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-19</td><td class="lbl">BI 7-Day Reverse Repo Rate Decision (August)</td><td></td></tr>
+<tr><td class="dt">2026-08-20</td><td class="lbl">PBOC Loan Prime Rate (LPR) Fixing (Aug)</td><td></td></tr>
+<tr><td class="dt">2026-08-20</td><td class="lbl">FOMC Minutes (Jul 28-29 meeting)</td><td></td></tr>
+<tr><td class="dt">2026-08-21</td><td class="lbl">Jackson Hole Economic Symposium (begins)</td><td></td></tr>
+<tr><td class="dt">2026-08-26</td><td class="lbl">GDP (Q2 2026, Second Estimate)</td><td></td></tr>
+<tr><td class="dt">2026-08-26</td><td class="lbl">Personal Income and Outlays / PCE (Jul)</td><td></td></tr>
+<tr><td class="dt">2026-08-26</td><td class="lbl">Nvidia Q2 FY27 Earnings</td><td></td></tr>
+<tr><td class="dt">2026-08-31</td><td class="lbl">Euro Area Flash HICP (Aug)</td><td></td></tr></tbody></table></div><p class="tcap">High-importance events over the next 30 days.</p>
+</section>
+
+<section id="risks">
+  <h2>Risks and what would change the view</h2>
+  
+<h4>The crowded trade</h4>
+<p>Copper at the 100th percentile with speculative length at the 94th, against Chinese equities that
+will not confirm the demand. An unwind would hit base metals, grid and automation simultaneously
+because all three load on the same factor. <strong>Confirmation:</strong> China activity data on 14
+August failing to show industrial demand, or copper breaking with CSI 300 still falling.</p>
+
+<h4>The real-rate break</h4>
+<p>Real 10y at 1.8242% is 28bp below the level at which the AI, semiconductor and software
+overweights break on their own stated conditions. A move to 2.10% mechanically breaks four desks at
+once. <strong>Confirmation:</strong> the 30-year continuing to lead the selloff, since a bear
+steepener driven by term premium is not fixed by policy easing.</p>
+
+<h4>The stale-driver reversal</h4>
+<p>Four overweights depend on a TSMC revenue print from 1 June. TSMC reports monthly. The next print
+either confirms the position or removes 40 to 70% of the score behind four conviction-4 calls in a
+single day. <strong>Confirmation:</strong> the next TSMC monthly revenue release.</p>
+
+<h4>The concentration that does not show</h4>
+<p>The book's measured factor concentration of 24.8% is flattered by Indonesian idiosyncrasy. Half
+the book depends on Indonesian local conditions that no global factor prices and no global
+instrument hedges. <strong>Confirmation:</strong> the three Indonesian positions moving together on
+a domestic event, which is precisely what a correlation model built on global factors will not
+predict.</p>
+
+<h4>The narrow tape</h4>
+<p>Indices at the 99th to 100th percentile with 48% of names more than 20% below their own highs and
+the top decile taking 53.7% of all gains. If leadership breaks there is nothing underneath it.
+<strong>Confirmation:</strong> the percentage of names above their 200-day average falling through
+50% while the indices hold, which would mean the advance has narrowed further.</p>
+
+</section>
+
+<section id="method">
+  <h2>Method, and what this cannot see</h2>
+  
+<p>Everything above traces to a stored observation with a date. The system ingests 71 series and 252
+priced instruments from keyless sources, computes dials, signals, breadth, correlations, betas and
+flows deterministically, and runs language models only over precomputed numbers. No figure in this
+report was produced by a model from memory.</p>
+
+<p><strong>What it cannot see.</strong> No earnings estimates or revisions, which removes the single
+most robust cross-sectional equity signal from the toolkit. No valuation multiples, so every
+statement about a desk being cheap or expensive is a statement about price percentiles rather than
+about value. No positioning data outside CFTC futures. No management access, channel checks or
+proprietary data. Six desks have three or fewer news items, so those reads are price-only.</p>
+
+<p><strong>Known measurement problems, stated rather than hidden.</strong> Percentiles on trending
+price series restate the trend and are not evidence of cheapness or stretch. Monthly macro series
+carry 67-day-old prints at full weight. Correlations estimated on 55 observations across 23 assets
+are heavily noise-inflated and were debiased before use. The analogue sample is eight overlapping
+episodes from a five-year window. Signal hit rates do not yet exist because the audit loop started
+yesterday, so nothing here carries a track record.</p>
+
+<p><strong>One data correction made during this run.</strong> The Yahoo feed for the CSI 300 stopped
+updating on 17 July. It was replaced mid-analysis with a live A-share instrument, and a stale
+"China activity −2.7 sigma" signal that several agents had already cited was retired. Any reading of
+this report that includes a large negative China activity shock over the last five sessions is
+reading the artefact rather than the market: the current five-session move is +0.62 sigma.</p>
+
+<p><strong>The largest limitation is the one the desk analysts found.</strong> The dial board scores
+levels without momentum, weights stale drivers equally with live ones, and in six cases is a
+single-variable model wearing four variables. Until those are fixed, treat every stance on the board
+as a description of where drivers stand rather than a forecast of where they are going, and read the
+momentum rescoring alongside it.</p>
+
+</section>
+
+</main>
+
+<footer>
+  Legacy Bridge Capital Research Desk. Generated 2026-08-07 from the live system:
+  71 tracked series, 252 priced instruments, 23 desks, 271 news items, plus CFTC positioning,
+  SEC filings and central bank statements. Every figure traces to a stored observation with a date.
+  <br><br>
+  This is an internal research document, not investment advice, and not a solicitation.
+  Figures are as of the dates shown and change daily.
+</footer>
+
+</div>
+
+</body></html>
