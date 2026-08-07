@@ -129,6 +129,29 @@ def compute_desk(desk: dict, drivers: list[dict], glob: dict, today: str):
     return score, machine_stance, reg, driver_stats, signals, coverage
 
 
+def _retire_cleared(today: str, desk_id: str, live_keys: set[str], prefixes: tuple[str, ...]):
+    """Retire today's signals of these kinds whose condition no longer holds.
+
+    Signals are upserted on (dedupe_key, asof). When a condition stops being
+    true no new row is written, so yesterday's headline survives unchanged and
+    the brief reports a move that has since reversed. Anything not re-emitted
+    this run is retired.
+    """
+    try:
+        existing = db.select("research", "signal",
+                             f"select=id,dedupe_key&asof=eq.{today}&desk_id=eq.{desk_id}"
+                             f"&retired=eq.false")
+    except Exception:
+        return
+    for row in existing:
+        k = row["dedupe_key"]
+        if k.startswith(prefixes) and k not in live_keys:
+            try:
+                db.update("research", "signal", f"id=eq.{row['id']}", {"retired": True})
+            except Exception:
+                pass
+
+
 def run(today: str | None = None) -> dict:
     today = today or dt.date.today().isoformat()
     glob = regime.global_regime()
@@ -206,5 +229,9 @@ def run(today: str | None = None) -> dict:
         if live:
             db.upsert("research", "signal", live, on_conflict="dedupe_key,asof")
             n_signals += len(live)
+
+        # anything this desk emitted earlier today that no longer qualifies
+        _retire_cleared(today, desk["id"], {s["dedupe_key"] for s in live},
+                        ("driver_move:", "driver_extreme:", "regime_flip:", "stance_change:"))
 
     return {"desks": len(desks), "signals": n_signals, "regime": glob["tag"]}
