@@ -1,8 +1,10 @@
 // LEGION research desk — Telegram webhook handler (Vercel serverless, Node).
 // POST from Telegram only. The bot token comes EXCLUSIVELY from brain.vault key
-// 'research_bot_token' (LEGION's dedicated research-surface bot). This code must
-// never touch the original @LEGIONLBC_bot token (id 8297239188) — that receive
-// path belongs to OpenClaw on the principal's laptop.
+// 'research_bot_token'. Since 2026-08-09 (CTO decision) that key holds the
+// @LEGIONLBC_bot token (id 8297239188): LEGION's original bot IS the research
+// surface now. OpenClaw's polling claim on it is retired — verified idle
+// (getUpdates 200, no webhook, nothing pending) before the webhook was set.
+// Private chats ONLY: the bot sits in the LBC exec group with privacy off.
 //
 // Flow per update:
 //   1. load vault + research.config (60s module-scope TTL)
@@ -310,6 +312,11 @@ async function handler(req, res) {
   if (typeof update === 'string') { try { update = JSON.parse(update); } catch (e) { update = {}; } }
   const msg = (update && (update.message || update.edited_message)) || null;
   if (!msg || !msg.from || msg.from.is_bot || !msg.chat) { res.statusCode = 200; return res.end(JSON.stringify({ ok: true, skipped: true })); }
+  // DM-only, enforced BEFORE any reply logic. This bot sits in the LBC exec
+  // group with privacy mode off, so it receives every group message; replying
+  // there (even "not authorized") would spam the whole executive team, and
+  // research answers carry position-level P&L that a group must never see.
+  if (msg.chat.type !== 'private') { res.statusCode = 200; return res.end(JSON.stringify({ ok: true, skipped: 'non-private chat' })); }
 
   const from = msg.from, uid = String(from.id), chatId = msg.chat.id;
   const text = String(msg.text || '').trim();

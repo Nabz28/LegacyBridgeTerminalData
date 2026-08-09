@@ -139,8 +139,13 @@ async function main() {
   const me = await tg(token, 'getMe');
   if (!me.ok) die(`token rejected by Telegram: ${me.description}`);
   console.log(`bot verified: @${me.result.username} (id ${me.result.id})`);
-  if (String(me.result.id) === '8297239188') {
-    die('that is @LEGIONLBC_bot. OpenClaw owns its updates. Create a separate bot for the research desk.');
+  if (String(me.result.id) === '8297239188' && !args['allow-legion']) {
+    // Historical guard: OpenClaw (Nabil's laptop) used to own this bot's
+    // updates. The CTO retired that claim on 2026-08-09 and made this bot the
+    // research surface. The flag keeps the override deliberate: verify nothing
+    // is polling (getUpdates must return 200, not 409) before passing it.
+    die('that is @LEGIONLBC_bot. Its updates historically belong to OpenClaw. '
+      + 'Pass --allow-legion ONLY after verifying nothing is polling it.');
   }
 
   await setVault('research_bot_token', token,
