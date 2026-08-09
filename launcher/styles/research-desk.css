@@ -456,3 +456,39 @@ a.rd-news .head, .rd-news a.head { color: var(--paper-strong); }
 }
 .rd-date .tags i:hover { color: var(--paper); border-color: var(--paper-edge); }
 .rd-date .ticks { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-secondary); white-space: nowrap; }
+
+/* ---- 2026-08-09 restructure: 3-group board, current-read block, rail groups ---- */
+.rd-sec-sub {
+  font-size: 9.5px; letter-spacing: 0.5px; text-transform: none; color: var(--text-tertiary);
+  margin-left: 4px; font-family: var(--font-mono);
+}
+.rd-rail-group {
+  margin: 14px 8px 4px; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 2.5px;
+  color: var(--text-tertiary);
+}
+.rd-fullresearch { margin-left: auto; text-decoration: none; align-self: center; white-space: nowrap; }
+.rd-fullresearch:hover { color: var(--brand); border-color: var(--brand); }
+
+.rd-currentread {
+  border: 1px solid var(--paper-edge); border-left: 3px solid var(--brand);
+  border-radius: 4px; padding: 14px 16px; margin: 0 0 6px; background: var(--paper-soft);
+}
+.rd-currentread .stances { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.rd-currentread .stances .lab { font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; color: var(--text-tertiary); }
+.rd-currentread .stances .lab.warn { color: #ecd29a; }
+.rd-currentread .stances .agree { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+.rd-currentread .wc { font-size: 14px; line-height: 1.55; color: var(--paper-strong); }
+.rd-currentread .fc { margin-top: 9px; font-size: 12px; line-height: 1.5; color: var(--text-secondary); }
+.rd-currentread .fc .k {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--brand); margin-right: 8px;
+}
+
+details.rd-more { margin-top: 26px; border-top: 1px dashed var(--paper-softer); padding-top: 10px; }
+details.rd-more > summary {
+  cursor: pointer; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text-tertiary); user-select: none; list-style: none;
+}
+details.rd-more > summary::before { content: '▸ '; color: var(--brand); }
+details.rd-more[open] > summary::before { content: '▾ '; }
+details.rd-more > summary:hover { color: var(--paper); }

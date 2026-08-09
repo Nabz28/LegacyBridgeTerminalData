@@ -68,6 +68,18 @@
     <span className={'rd-chip ' + (cls || 'gray')} title={title}>{label}</span>
   );
 
+  // how well-established a finding is — never show a verified and an unreviewed
+  // claim in the same voice (the desk's core honesty rule, now visible)
+  const AssuranceChip = ({ payload, small }) => {
+    const m = RD().assuranceMeta(payload);
+    return (
+      <span className={'rd-chip ' + m.cls + (small ? ' sm' : '')}
+            title={m.raw + ' — ' + m.long}>
+        {m.label}
+      </span>
+    );
+  };
+
   // ---- empty / error states ------------------------------------------------
   const Empty = ({ note, detail }) => (
     <div className="rd-empty">
@@ -189,6 +201,7 @@
     return (
       <div className="rd-sigrow">
         <SalienceBadge v={sig.salience} />
+        <AssuranceChip payload={sig.payload} small />
         <span className="kind">{sig.kind}</span>
         <DirArrow direction={sig.direction} />
         <span className="head" title={sig.ref || ''}>{sig.headline || '(no headline)'}</span>
@@ -267,6 +280,7 @@
 
   window.RD_VIEWS = {
     StanceChip, ConvictionDots, ScoreBar, RegimeTag, DirArrow, SalienceBadge, StatusChip,
+    AssuranceChip,
     Empty, ErrNote, Loading, LineChart, Spark, HistoryStrip, SignalRow, PALETTE,
     SentChip, NewsRow, SideChip, CandLine,
   };

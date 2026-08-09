@@ -215,6 +215,38 @@
     { id: 'country',  label: 'Country' },
   ];
 
+  // The board's three-level mental model (research.desk.nav_group):
+  //   global industries → countries → a country's specific industries.
+  const NAV_GROUPS = [
+    { id: 'global_industry',  label: 'Global Industries',  sub: 'secular themes & commodity complexes that move worldwide' },
+    { id: 'country',          label: 'Countries',          sub: 'macro desks — one per economy' },
+    { id: 'country_industry', label: 'Country Industries', sub: 'a specific industry inside one country' },
+  ];
+  // fallback classification for desks whose row predates the nav_group column
+  const deskGroup = (d) => d.nav_group
+    || (d.kind === 'country' ? 'country' : d.benchmark === '^JKSE' ? 'country_industry' : 'global_industry');
+
+  // how well-established a stored finding is (signal.payload.assurance).
+  // Mirror of ASSURANCE_TIER in api/_research/core.js — keep in sync.
+  const ASSURANCE_TIER = {
+    adversarially_verified: 'verified', verified_full_history: 'verified',
+    challenged_survived: 'verified', verified_by_desk: 'verified', verified: 'verified',
+    verified_and_fixed: 'verified', resolved_investigation: 'verified',
+    verified_corrected: 'corrected', challenged_corrected: 'corrected',
+    computed: 'computed', process_observation: 'computed',
+  };
+  const ASSURANCE_META = {
+    verified:   { label: 'VERIFIED',   cls: 'pos',   long: 'survived adversarial review' },
+    corrected:  { label: 'CORRECTED',  cls: 'amber', long: 'was wrong once; corrected, recheck passed' },
+    computed:   { label: 'COMPUTED',   cls: 'gray',  long: 'machine arithmetic — interpretation never reviewed' },
+    unverified: { label: 'UNVERIFIED', cls: 'neg',   long: 'a single unreviewed read — treat as one-third reliable' },
+  };
+  const assuranceMeta = (payload) => {
+    const a = (payload && payload.assurance) || 'unchallenged';
+    const tier = ASSURANCE_TIER[a] || 'unverified';
+    return { ...ASSURANCE_META[tier], tier, raw: a };
+  };
+
   const STANCE = {
     OW: { label: 'OW', long: 'Overweight',  cls: 'ow' },
     N:  { label: 'N',  long: 'Neutral',     cls: 'n'  },
@@ -321,7 +353,8 @@
     fetchNews, fetchDeskSentiment, fetchCandidates, fetchCalendarFlags,
     fetchObservations, fetchPrices, fetchSeriesMeta,
     useFetch,
-    BASKETS, STANCE, stanceMeta, dirGlyph, thesisStatus, opsStatus,
+    BASKETS, NAV_GROUPS, deskGroup, assuranceMeta,
+    STANCE, stanceMeta, dirGlyph, thesisStatus, opsStatus,
     SENT, sentMeta, SIDE, sideMeta, IMPORTANCE, importanceMeta,
     fmt: { num, signed, pct, pctd, pctile, signCls, ago, hoursSince, dstr, isoDay },
   };

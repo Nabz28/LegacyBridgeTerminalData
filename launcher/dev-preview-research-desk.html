@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- DEV ONLY: standalone Research Desk preview — mounts window.ResearchDeskTerminal
+     without the login shell (data reads are anon). Not linked from the app. -->
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Research Desk · dev preview</title>
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/research-desk.css" />
+<style>
+  body { margin: 0; background: var(--void, #0b0e13); color: var(--paper, #E8E4D9); font-family: system-ui, sans-serif; }
+  #root { height: 100vh; }
+  .rd-root { display: flex; height: 100vh; }
+  .rd-rail { display: flex; flex-direction: column; width: 150px; flex: 0 0 150px; padding: 12px 6px; border-right: 1px solid #222; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="scripts/research-desk-data.jsx"></script>
+<script type="text/babel" src="scripts/research-desk-views.jsx"></script>
+<script type="text/babel" src="scripts/research-desk-ws.jsx"></script>
+<script type="text/babel">
+  const mount = () => {
+    if (window.RD && window.RD_VIEWS && window.ResearchDeskTerminal) {
+      ReactDOM.createRoot(document.getElementById('root')).render(<window.ResearchDeskTerminal />);
+    } else { setTimeout(mount, 60); }
+  };
+  mount();
+</script>
+</body>
+</html>

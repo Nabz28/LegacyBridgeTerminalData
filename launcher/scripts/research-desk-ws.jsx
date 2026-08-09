@@ -112,8 +112,8 @@
       <div className="rd-page">
         <div className="rd-head">
           <div className="rd-head-l">
-            <div className="k">LBC autonomous research · dial board</div>
-            <h1>Research Desk</h1>
+            <div className="k">LBC autonomous research · open a desk for its brief, watchlist and news</div>
+            <h1>Desks</h1>
           </div>
           <div className="rd-tally">
             {['OW', 'N', 'UW'].map((s) => (
@@ -122,12 +122,14 @@
             {tally.unset ? <span className="i"><span className="rd-dim">no dial</span><b>{tally.unset}</b></span> : null}
           </div>
         </div>
-        {RD().BASKETS.map((b) => {
-          const list = desks.filter((d) => d.basket === b.id);
+        {RD().NAV_GROUPS.map((g) => {
+          const list = desks.filter((d) => RD().deskGroup(d) === g.id);
           if (!list.length) return null;
           return (
-            <React.Fragment key={b.id}>
-              <div className="rd-sec">{b.label}<span className="n">{list.length}</span></div>
+            <React.Fragment key={g.id}>
+              <div className="rd-sec">{g.label}<span className="n">{list.length}</span>
+                <span className="rd-sec-sub">{g.sub}</span>
+              </div>
               <div className="rd-grid">
                 {list.map((d) => <DialCard key={d.id} desk={d} dial={dials && dials[d.id]} onOpen={onOpenDesk} />)}
               </div>
@@ -225,9 +227,9 @@
   };
 
   // compact desk panels: latest news + this desk's slice of the screen
-  const DeskNewsPanel = ({ desk, deskNames, onSeeAll }) => {
+  const DeskNewsPanel = ({ desk, deskNames, onSeeAll, limit }) => {
     const { NewsRow, Empty, Loading, ErrNote } = RV();
-    const q = RD().useFetch(() => RD().fetchNews({ deskId: desk.id, days: 7, limit: 5, order: 'importance' }), [desk.id]);
+    const q = RD().useFetch(() => RD().fetchNews({ deskId: desk.id, days: 7, limit: limit || 5, order: 'importance' }), [desk.id]);
     return (
       <div>
         <div className="rd-sec">Latest news
@@ -242,12 +244,12 @@
     );
   };
 
-  const DeskCandPanel = ({ desk, onSeeAll }) => {
+  const DeskCandPanel = ({ desk, onSeeAll, limit }) => {
     const { CandLine, Empty, Loading, ErrNote } = RV();
-    const q = RD().useFetch(() => RD().fetchCandidates({ deskId: desk.id, limit: 5 }), [desk.id]);
+    const q = RD().useFetch(() => RD().fetchCandidates({ deskId: desk.id, limit: limit || 5 }), [desk.id]);
     return (
       <div>
-        <div className="rd-sec">Candidates
+        <div className="rd-sec">Watchlist
           <span className="n">{(q.data || []).length}</span>
           <button type="button" className="rd-seeall" onClick={onSeeAll}>see all ›</button>
         </div>
@@ -259,107 +261,111 @@
     );
   };
 
+  // Desk page reads top-to-bottom the way the CRO reads a desk:
+  //   1. current read (the brief — stance, what changed, what flips it)
+  //   2. watchlist   3. latest news   4. latest movers (signals, assurance shown)
+  //   5. everything deeper folds under "Under the hood".
   const DeskDetailPage = ({ desk, dial, deskNames, onBack, onNav }) => {
     const { StanceChip, ConvictionDots, ScoreBar, RegimeTag, HistoryStrip, SignalRow, Empty, Loading, ErrNote } = RV();
     const fmt = RD().fmt;
     const hist = RD().useFetch(() => RD().fetchDialHistory(desk.id, 30), [desk.id]);
-    const sigs = useSignalsWithScores({ deskId: desk.id, order: 'asof', limit: 50 }, [desk.id]);
+    const sigs = useSignalsWithScores({ deskId: desk.id, order: 'asof', limit: 12 }, [desk.id]);
     const theses = RD().useFetch(() => RD().fetchTheses({ deskId: desk.id, open: true }), [desk.id]);
     const disagree = dial && dial.machine_stance && dial.stance && dial.machine_stance !== dial.stance;
     const drivers = (dial && Array.isArray(dial.drivers)) ? dial.drivers : [];
+    const group = RD().NAV_GROUPS.find((g) => g.id === RD().deskGroup(desk));
+    const researchUrl = desk.research_url || '/research/';
     return (
       <div className="rd-page">
         <div className="rd-desk-head">
-          <button type="button" className="rd-btn ghost" onClick={onBack}>‹ Dials</button>
+          <button type="button" className="rd-btn ghost" onClick={onBack}>‹ Desks</button>
           <div className="rd-head-l">
-            <div className="k">{desk.basket} · {desk.kind}{desk.benchmark ? ' · bench ' + desk.benchmark : ''}</div>
+            <div className="k">{(group ? group.label.toLowerCase() : desk.basket)}{desk.benchmark ? ' · bench ' + desk.benchmark : ''}</div>
             <h1>{desk.name}</h1>
           </div>
-          {dial && (
-            <div className="rd-desk-dial">
-              <div className="stances">
-                <span className="lab">HOUSE</span>
-                <StanceChip stance={dial.stance} />
-                <ConvictionDots n={dial.conviction} />
-                {disagree
-                  ? <React.Fragment>
-                      <span className="lab warn">MACHINE</span>
-                      <StanceChip stance={dial.machine_stance} title={'machine proposes ' + dial.machine_stance} />
-                    </React.Fragment>
-                  : <span className="agree" title="machine stance agrees">machine agrees</span>}
-              </div>
-              <div className="meta">
-                <ScoreBar score={dial.machine_score} />
-                <RegimeTag regime={dial.regime} />
-                <span className="src">{dial.stance_source || ''}</span>
-                <span className="age">as of {fmt.dstr(dial.asof)} · updated {fmt.ago(dial.updated_at || dial.asof)}</span>
-              </div>
-            </div>
-          )}
+          <a className="rd-btn rd-fullresearch" href={researchUrl} target="_blank" rel="noopener noreferrer"
+             title={desk.research_url ? 'the full written research for this desk' : 'the published research site (global status)'}>
+            Open full research ↗
+          </a>
         </div>
 
+        {/* 1 · CURRENT READ */}
+        <div className="rd-sec">Current read{dial && <span className="rd-sec-sub">as of {fmt.dstr(dial.asof)} · updated {fmt.ago(dial.updated_at || dial.asof)}</span>}</div>
         {dial ? (
-          <React.Fragment>
+          <div className="rd-currentread">
+            <div className="stances">
+              <span className="lab">HOUSE</span>
+              <StanceChip stance={dial.stance} />
+              <ConvictionDots n={dial.conviction} />
+              {disagree
+                ? <React.Fragment>
+                    <span className="lab warn">MACHINE</span>
+                    <StanceChip stance={dial.machine_stance} title={'machine proposes ' + dial.machine_stance} />
+                  </React.Fragment>
+                : <span className="agree" title="machine stance agrees">machine agrees</span>}
+              <ScoreBar score={dial.machine_score} />
+              <RegimeTag regime={dial.regime} />
+            </div>
             {disagree && (
               <div className="rd-banner amber">
                 House stance <b>{dial.stance}</b> disagrees with machine <b>{dial.machine_stance}</b>
                 {' '}(score {fmt.signed(dial.machine_score, 2)}). The dial shows both — disagreement is signal.
               </div>
             )}
-            {(dial.what_changed || dial.flip_condition) && (
-              <div className="rd-desk-notes">
-                {dial.what_changed && <div className="wc"><span className="k">what changed</span>{dial.what_changed}</div>}
-                {dial.flip_condition && <div className="fc"><span className="k">what flips it</span>{dial.flip_condition}</div>}
-              </div>
-            )}
-          </React.Fragment>
+            <div className="wc">{dial.what_changed || 'No material change on the last nightly pass.'}</div>
+            {dial.flip_condition && <div className="fc"><span className="k">what flips it</span>{dial.flip_condition}</div>}
+          </div>
         ) : (
-          <Empty note="No dial for this desk yet" />
+          <Empty note="No dial for this desk yet" detail="The first nightly run fills this in." />
         )}
 
-        {desk.benchmark && <BenchChart ticker={desk.benchmark} />}
+        {/* 2 · WATCHLIST */}
+        <DeskCandPanel desk={desk} limit={8} onSeeAll={() => onNav && onNav('watch', desk.id)} />
 
-        <div className="rd-sec">Drivers<span className="n">{drivers.length}</span></div>
-        {drivers.length ? (
-          <table className="rd-tbl">
-            <thead>
-              <tr><th>driver</th><th className="num">latest</th><th className="num">z</th><th className="num">12m pctile</th><th className="ctr">dir</th><th className="num">contrib</th></tr>
-            </thead>
-            <tbody>
-              {drivers.map((d, i) => <DriverRow key={(d.series_key || '') + i} drv={d} />)}
-            </tbody>
-          </table>
-        ) : (
-          <Empty note="No drivers recorded yet" detail="Driver stats land with the first nightly dial." />
-        )}
+        {/* 3 · LATEST NEWS */}
+        <DeskNewsPanel desk={desk} deskNames={deskNames} limit={8} onSeeAll={() => onNav && onNav('news', desk.id)} />
 
-        <div className="rd-sec">Dial history<span className="n">30</span></div>
-        {hist.loading ? <Loading /> : hist.err ? <ErrNote err={hist.err} onRetry={hist.reload} />
-          : <HistoryStrip rows={hist.data || []} />}
-
-        <div className="rd-cols">
-          <DeskNewsPanel desk={desk} deskNames={deskNames} onSeeAll={() => onNav && onNav('news', desk.id)} />
-          <DeskCandPanel desk={desk} onSeeAll={() => onNav && onNav('watch', desk.id)} />
+        {/* 4 · LATEST MOVERS */}
+        <div className="rd-sec">Latest changes & movers
+          <span className="n">{(sigs.data || []).length}</span>
+          <button type="button" className="rd-seeall" onClick={() => onNav && onNav('signals', desk.id)}>see all ›</button>
         </div>
+        {sigs.loading ? <Loading /> : sigs.err ? <ErrNote err={sigs.err} onRetry={sigs.reload} />
+          : (sigs.data && sigs.data.length)
+            ? <div className="rd-siglist">{sigs.data.map((s) => (
+                <SignalRow key={s.id} sig={s} scores={sigs.scores[s.id]} />
+              ))}</div>
+            : <Empty note="No signals for this desk yet" />}
 
-        <div className="rd-cols">
-          <div>
-            <div className="rd-sec">Signals</div>
-            {sigs.loading ? <Loading /> : sigs.err ? <ErrNote err={sigs.err} onRetry={sigs.reload} />
-              : (sigs.data && sigs.data.length)
-                ? <div className="rd-siglist">{sigs.data.map((s) => (
-                    <SignalRow key={s.id} sig={s} scores={sigs.scores[s.id]} />
-                  ))}</div>
-                : <Empty note="No signals for this desk yet" />}
-          </div>
-          <div>
-            <div className="rd-sec">Open theses</div>
-            {theses.loading ? <Loading /> : theses.err ? <ErrNote err={theses.err} onRetry={theses.reload} />
-              : (theses.data && theses.data.length)
-                ? theses.data.map((t) => <ThesisCard key={t.id} th={t} />)
-                : <Empty note="No open theses on this desk" detail="Idea tickets graduate here when opened." />}
-          </div>
-        </div>
+        {/* 5 · UNDER THE HOOD */}
+        <details className="rd-more">
+          <summary>Under the hood — drivers, history, benchmark, theses</summary>
+          {desk.benchmark && <BenchChart ticker={desk.benchmark} />}
+
+          <div className="rd-sec">Drivers<span className="n">{drivers.length}</span></div>
+          {drivers.length ? (
+            <table className="rd-tbl">
+              <thead>
+                <tr><th>driver</th><th className="num">latest</th><th className="num">z</th><th className="num">12m pctile</th><th className="ctr">dir</th><th className="num">contrib</th></tr>
+              </thead>
+              <tbody>
+                {drivers.map((d, i) => <DriverRow key={(d.series_key || '') + i} drv={d} />)}
+              </tbody>
+            </table>
+          ) : (
+            <Empty note="No drivers recorded yet" detail="Driver stats land with the first nightly dial." />
+          )}
+
+          <div className="rd-sec">Dial history<span className="n">30</span></div>
+          {hist.loading ? <Loading /> : hist.err ? <ErrNote err={hist.err} onRetry={hist.reload} />
+            : <HistoryStrip rows={hist.data || []} />}
+
+          <div className="rd-sec">Open theses</div>
+          {theses.loading ? <Loading /> : theses.err ? <ErrNote err={theses.err} onRetry={theses.reload} />
+            : (theses.data && theses.data.length)
+              ? theses.data.map((t) => <ThesisCard key={t.id} th={t} />)
+              : <Empty note="No open theses on this desk" detail="Idea tickets graduate here when opened." />}
+        </details>
       </div>
     );
   };
@@ -367,11 +373,11 @@
   // ==========================================================================
   // SIGNALS — firm-wide feed + graveyard
   // ==========================================================================
-  const SignalsPage = ({ desks, onOpenDesk }) => {
+  const SignalsPage = ({ desks, initialDesk, onOpenDesk }) => {
     const { SignalRow, Empty, Loading, ErrNote } = RV();
     const fmt = RD().fmt;
     const [kind, setKind] = React.useState('');
-    const [deskId, setDeskId] = React.useState('');
+    const [deskId, setDeskId] = React.useState(initialDesk || '');
     const sigs = useSignalsWithScores({ kind: kind || null, deskId: deskId || null, order: 'salience', limit: 200 }, [kind, deskId]);
     const grave = RD().useFetch(() => RD().fetchGraveyard(), []);
     const kinds = React.useMemo(() => {
@@ -1116,19 +1122,20 @@
     }
   }
 
-  // 'desk' is the drill-in surface: the rail entry reopens the desk you were
-  // last reading (or the first desk on the board on a cold start).
-  const NAV = [
-    { id: 'dials',   label: 'Dials',   glyph: '◉' },
-    { id: 'desk',    label: 'Desk',    glyph: '◎' },
+  // Two rail groups: the four surfaces the CRO lives in, then the raw feeds.
+  // The desk drill-in has no rail entry — desks open from the board.
+  const NAV_MAIN = [
+    { id: 'dials',   label: 'Desks',   glyph: '◉' },
+    { id: 'briefs',  label: 'Briefs',  glyph: '☰' },
+    { id: 'book',    label: 'Book',    glyph: '▤' },
+    { id: 'chat',    label: 'Chat',    glyph: '✦' },
+  ];
+  const NAV_FEEDS = [
     { id: 'signals', label: 'Signals', glyph: '⚡' },
     { id: 'watch',   label: 'Watch',   glyph: '◈' },
     { id: 'news',    label: 'News',    glyph: '❑' },
     { id: 'dates',   label: 'Dates',   glyph: '▦' },
-    { id: 'briefs',  label: 'Briefs',  glyph: '☰' },
-    { id: 'book',    label: 'Book',    glyph: '▤' },
     { id: 'ops',     label: 'Ops',     glyph: '⚙' },
-    { id: 'chat',    label: 'Chat',    glyph: '✦' },
   ];
 
   const ResearchDeskTerminal = () => {
@@ -1139,15 +1146,13 @@
     const nav = (page, deskId) => {
       const v = deskId ? { page, deskId } : { page };
       if (page === 'desk' && deskId) lastDeskRef.current = deskId;
-      if (page !== 'news' && page !== 'watch') setFocusDesk('');
+      if (page !== 'news' && page !== 'watch' && page !== 'signals') setFocusDesk('');
       setView(v); writeHash(v);
     };
     // rail click: plain navigation, never inherits a drill-in filter
     const navRail = (page) => {
       setFocusDesk('');
-      if (page !== 'desk') return nav(page);
-      const id = lastDeskRef.current || (desks[0] && desks[0].id);
-      if (id) nav('desk', id);
+      nav(page);
     };
     // "see all ›" from a desk panel: jump to the tab prefiltered to that desk
     const jump = (page, deskId) => { setFocusDesk(deskId || ''); nav(page); };
@@ -1179,12 +1184,19 @@
       <div className="rd-root">
         <div className="rd-rail">
           <div className="rd-rail-brand">RESEARCH<span className="v">DESK</span></div>
-          {NAV.map((n) => (
+          {NAV_MAIN.map((n) => (
             <div key={n.id}
-                 className={'rd-rail-item' + (view.page === n.id ? ' active' : '')
-                   + (n.id === 'desk' && !lastDeskRef.current && !desks.length ? ' off' : '')}
-                 onClick={() => navRail(n.id)}
-                 title={n.id === 'desk' ? (curDesk ? curDesk.name : 'the desk drill-in — open one from the dial board') : ''}>
+                 className={'rd-rail-item' + ((view.page === n.id || (n.id === 'dials' && view.page === 'desk')) ? ' active' : '')}
+                 onClick={() => navRail(n.id)}>
+              <span className="glyph">{n.glyph}</span>
+              <span className="lbl">{n.label}</span>
+            </div>
+          ))}
+          <div className="rd-rail-group">FEEDS</div>
+          {NAV_FEEDS.map((n) => (
+            <div key={n.id}
+                 className={'rd-rail-item' + (view.page === n.id ? ' active' : '')}
+                 onClick={() => navRail(n.id)}>
               <span className="glyph">{n.glyph}</span>
               <span className="lbl">{n.label}</span>
               {n.id === 'ops' && opsBad > 0 && <span className="rd-rail-bad">{opsBad}</span>}
@@ -1206,7 +1218,7 @@
                                   deskNames={deskNames} onBack={() => nav('dials')} onNav={jump} />
                 : <div className="rd-page"><Empty note={'Unknown desk “' + (view.deskId || '') + '”'} detail="It may have been retired — back to the board." /></div>
             ) : view.page === 'signals' ? (
-              <SignalsPage desks={desks} onOpenDesk={(id) => nav('desk', id)} />
+              <SignalsPage desks={desks} initialDesk={focusDesk} onOpenDesk={(id) => nav('desk', id)} />
             ) : view.page === 'watch' ? (
               <WatchPage desks={desks} initialDesk={focusDesk} onOpenDesk={(id) => nav('desk', id)} />
             ) : view.page === 'news' ? (
