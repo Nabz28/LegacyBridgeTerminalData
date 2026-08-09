@@ -64,27 +64,41 @@ def _bold_lead(text: str, max_head: int = 52) -> str:
 
 
 MORNING_WRITER = """You write the 06:30 WIB morning note for the CRO of a small
-Indonesian asset manager. He reads it on his phone in 20 seconds. Output EXACTLY
-this shape and nothing else:
+Indonesian asset manager. He reads it on his phone in 20 seconds. It must open
+his eyes and give him direction, not just describe. Output EXACTLY this shape:
 
 **Next 12 hours**
-Two or three short, plain sentences: what is likely to happen in the markets he
-cares about (Indonesia and the rupiah first, then US, China, commodities)
-between this morning in Jakarta and tonight. Write like a smart friend, not a
-quant: NEVER use the words percentile, z-score, sigma, basis points, regime, or
-any statistics jargon. Simple numbers (prices, percents) are fine.
+Two or three short, plain sentences: what is likely to happen between this
+morning in Jakarta and tonight. INDONESIA and the US are the markets that
+matter; mention China or commodities only when they drive those two. Make a
+call when the input supports one ("the Indo market will likely stay heavy
+today because..."), do not hide behind "mixed" language. Write like a smart
+friend, not a quant: NEVER use the words percentile, z-score, sigma, basis
+points, regime, or any statistics jargon. Simple numbers are fine.
 
 **Why**
 A. one short sentence
 B. one short sentence
 C. one short sentence
 
-Each point gives one concrete driver from the input: an event scheduled today,
-a price move that just happened, a policy signal. Interpret ONLY the input,
-never invent. Respect the assurance labels: lean on verified findings, and if
-you must use an unverified one, hedge it in plain words ("one early read
-suggests..."). If the next 12 hours are genuinely quiet (weekend, no events),
-say that plainly and point at what matters when markets reopen. No em dashes."""
+Each point is one concrete cause from the input: an event today, a price move
+that just happened, a policy signal. Action follows cause.
+
+**Worth a look**
+Include this section ONLY when the outlook genuinely points somewhere; skip it
+entirely on days with no real hook, a forced idea is worse than none. When you
+include it: one or two lines, each tying a cause above to something specific,
+e.g. "If coal costs keep squeezing miners (point B), the coal names on the
+screen are where it shows first: ADRO.JK, ITMG.JK." Use ONLY tickers or
+industries present in the input screen_candidates or desk_reads; say "from the
+nightly screen" once so he knows these are screen names, not orders.
+
+HARD RULES: interpret ONLY the input, never invent. NEVER mention the firm's
+own positions, holdings, P&L or the book; if an input item is about a held
+position, ignore it completely. Lean on verified findings; hedge unverified
+ones in plain words ("one early read suggests..."). If the next 12 hours are
+genuinely quiet, say so plainly and point at what matters when markets reopen.
+No em dashes."""
 
 
 def _morning_facts(today: str) -> dict:
@@ -108,6 +122,17 @@ def _morning_facts(today: str) -> dict:
                                f"&order=importance.desc,published_at.desc", limit=6)]
     except Exception:
         facts["overnight_news"] = []
+    # held names never reach the writer: book_risk signals are excluded by kind,
+    # and anything mentioning a held symbol is dropped here in code.
+    held: list[str] = []
+    try:
+        book = db.get_config("book_state", {}) or {}
+        held = [str(x.get("symbol", "")).upper() for x in (book.get("positions") or []) if x.get("symbol")]
+    except Exception:
+        pass
+    import re as _re
+    mentions_held = lambda text: any(
+        h and _re.search(r"\b" + _re.escape(h) + r"\b", str(text)) for h in held)
     try:
         since = (dt.date.fromisoformat(today) - dt.timedelta(days=2)).isoformat()
         facts["fresh_signals"] = [
@@ -115,19 +140,36 @@ def _morning_facts(today: str) -> dict:
              "assurance": (s.get("payload") or {}).get("assurance", "unchallenged")}
             for s in db.select("research", "signal",
                                f"select=headline,direction,payload&asof=gte.{since}"
-                               f"&retired=eq.false&salience=gte.70&kind=neq.deepdive_flag"
-                               f"&order=salience.desc", limit=10)]
+                               f"&retired=eq.false&salience=gte.70"
+                               f"&kind=not.in.(deepdive_flag,book_risk)"
+                               f"&order=salience.desc", limit=12)
+            if not mentions_held(s.get("headline"))][:10]
     except Exception:
         facts["fresh_signals"] = []
+    try:
+        latest = db.select("research", "candidate", "select=asof&order=asof.desc&limit=1")
+        if latest:
+            facts["screen_candidates"] = [
+                {"ticker": c["ticker"], "desk": c.get("desk_id"), "side": c.get("side"),
+                 "reason": (c.get("reason") or "")[:90]}
+                for c in db.select("research", "candidate",
+                                   f"select=ticker,desk_id,side,reason,in_book&asof=eq.{latest[0]['asof']}"
+                                   f"&in_book=eq.false&order=score.desc", limit=60)
+                if not mentions_held(c.get("ticker"))][:10]
+        else:
+            facts["screen_candidates"] = []
+    except Exception:
+        facts["screen_candidates"] = []
     try:
         facts["desk_reads"] = [
             {"desk": d["desk_id"], "read": (d.get("what_changed") or "").replace("**", "")[:140]}
             for d in db.select("research", "dial",
                                "select=desk_id,what_changed,machine_score"
                                "&order=machine_score.desc.nullslast", limit=23)
-            if d.get("what_changed")]
+            if d.get("what_changed") and not mentions_held(d.get("what_changed"))]
     except Exception:
         facts["desk_reads"] = []
+    facts["_held"] = held   # popped before the writer sees the pack; used for the output check
     return facts
 
 
@@ -139,20 +181,34 @@ def render_morning(editor_out: dict, today: str) -> str:
     wib_now = dt.datetime.now(dt.timezone.utc).astimezone(WIB)
     header = f"**LBC MORNING NOTE · {wib_now.strftime('%a %d %b')}**"
     facts = _morning_facts(today)
+    held = facts.pop("_held", [])
 
     body = None
     try:
-        model = llm.get_model("morning", llm.get_model("editor"))
-        text, usage = llm.chat(model, MORNING_WRITER, _json.dumps(facts, default=str),
-                               max_tokens=400, temperature=0.3)
-        llm.log("morning_note", None, model, usage)
-        # style contract enforced in code, not hoped for in the prompt:
-        # digit ranges get hyphens, prose dashes become commas
         import re as _re
-        t = _re.sub(r"(\d)\s*[–—]\s*(?=\d)", r"\1-", text.strip())
-        t = _re.sub(r"\s*[–—]+\s*", ", ", t)
-        if "**Next 12 hours**" in t and "**Why**" in t:
+        model = llm.get_model("morning", llm.get_model("editor"))
+        JARGON = ("percentile", "z-score", "sigma", "basis points", "regime")
+        packed = _json.dumps(facts, default=str)
+        prompt = MORNING_WRITER
+        for attempt in range(2):
+            text, usage = llm.chat(model, prompt, packed, max_tokens=460, temperature=0.3)
+            llm.log("morning_note", None, model, usage)
+            # style contract enforced in code, not hoped for in the prompt:
+            # digit ranges get hyphens, prose dashes become commas
+            t = _re.sub(r"(\d)\s*[–—]\s*(?=\d)", r"\1-", text.strip())
+            t = _re.sub(r"\s*[–—]+\s*", ", ", t)
+            if "**Next 12 hours**" not in t or "**Why**" not in t:
+                break
+            # word-bounded, case-sensitive: the ticker MU must not match "much"
+            if any(h and _re.search(r"\b" + _re.escape(h) + r"\b", t) for h in held):
+                print("morning writer mentioned a held name; using fallback")
+                break
+            bad = [w for w in JARGON if w in t.lower()]
+            if bad and attempt == 0:
+                prompt = MORNING_WRITER + f"\n\nYour previous draft used the banned word(s) {bad}. Rewrite fully in plain words."
+                continue
             body = t
+            break
     except Exception as e:
         print(f"morning writer failed, using fallback: {e}")
 
@@ -172,6 +228,12 @@ def render_morning(editor_out: dict, today: str) -> str:
             lines.append(f"{letters[i]}. {_cut_words(s['headline'], 110)}.")
         for j in range(len(sigs), 3):
             lines.append(f"{letters[j]}. No further fresh drivers on file this morning.")
+        cands = facts.get("screen_candidates", [])[:3]
+        if cands:
+            lines.append("")
+            lines.append("**Worth a look**")
+            lines.append("From the nightly screen: "
+                         + ", ".join(f"{c['ticker']} ({c['side']})" for c in cands) + ".")
         body = "\n".join(lines)
 
     parts = [header, body]
