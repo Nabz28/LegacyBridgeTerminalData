@@ -23,6 +23,10 @@ jobs:
           cache-dependency-path: pipeline/requirements.txt
       - run: pip install -r pipeline/requirements.txt
       - name: US market close ingest
+        # An upstream 503 must never cancel the night: compute/reason/brief run
+        # on last-known-good data and the freshness board flags the dead source.
+        # (Sat 2026-08-08 a single source 503 silenced the entire weekend.)
+        continue-on-error: true
         env:
           SUPABASE_SERVICE_ROLE: ${{ secrets.SUPABASE_SERVICE_ROLE }}
         run: python pipeline/jobs.py ingest_us
