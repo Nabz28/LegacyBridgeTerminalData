@@ -143,6 +143,19 @@ async function saveChatTurns(chatId, turns) {
   } catch (e) { /* state is best-effort; the answer already went out */ }
 }
 
+// ---------- debug trace: last update + last error, one config row each ----------
+// Vercel logs are not reachable from this project's tooling, so the handler
+// leaves a breadcrumb in research.config. Overwritten every update; no content
+// beyond routing metadata and error text.
+async function traceDebug(key, value) {
+  try {
+    await core.sb('/config?on_conflict=key', {
+      method: 'POST', profile: 'research', prefer: 'resolution=merge-duplicates,return=minimal',
+      body: [{ key, value: { ...value, at: new Date().toISOString() } }],
+    });
+  } catch (e) { /* tracing must never break handling */ }
+}
+
 // ---------- pending-id capture (first unknown sender only, never auto-authorize) ----------
 async function capturePending(from) {
   try {
@@ -322,6 +335,7 @@ async function handler(req, res) {
   const text = String(msg.text || '').trim();
   const token = cfg.token;
   const done = (extra) => { res.statusCode = 200; res.end(JSON.stringify({ ok: true, ...(extra || {}) })); };
+  await traceDebug('bot_last_update', { uid, chat: String(chatId), type: msg.chat.type, text_head: text.slice(0, 40), authorized: cfg.allowed.includes(uid) });
 
   try {
     // ---- allow-list ----
@@ -389,6 +403,7 @@ async function handler(req, res) {
     return done({ agent: 'ok' });
   } catch (e) {
     // Telegram send failed or similar: still 200 so Telegram does not retry-flood
+    await traceDebug('bot_last_error', { uid, chat: String(chatId), text_head: text.slice(0, 40), error: String(e && e.message || e).slice(0, 400) });
     res.statusCode = 200; return res.end(JSON.stringify({ ok: false, reason: 'handler error' }));
   }
 }
