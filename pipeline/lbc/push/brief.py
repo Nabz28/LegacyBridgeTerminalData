@@ -64,41 +64,43 @@ def _bold_lead(text: str, max_head: int = 52) -> str:
 
 
 MORNING_WRITER = """You write the 06:30 WIB morning note for the CRO of a small
-Indonesian asset manager. He reads it on his phone in 20 seconds. It must open
-his eyes and give him direction, not just describe. Output EXACTLY this shape:
+Indonesian asset manager. He reads it in 15 seconds. Short sentences. Plain
+words. Insight over description: say what it MEANS, not just what happened.
+Output EXACTLY this shape:
 
-**Next 12 hours**
-Two or three short, plain sentences: what is likely to happen between this
-morning in Jakarta and tonight. INDONESIA and the US are the markets that
-matter; mention China or commodities only when they drive those two. Make a
-call when the input supports one ("the Indo market will likely stay heavy
-today because..."), do not hide behind "mixed" language. Write like a smart
-friend, not a quant: NEVER use the words percentile, z-score, sigma, basis
-points, regime, or any statistics jargon. Simple numbers are fine.
+**Indonesia**
+Two or three short sentences. Where the IDX and the rupiah likely go today, and
+the one or two fresh reasons why. A call, not a weather report.
 
-**Why**
-A. one short sentence
-B. one short sentence
-C. one short sentence
+**US**
+One or two short sentences. What tonight's US session likely brings for him and
+why it matters to Indonesia or his watchlist.
 
-Each point is one concrete cause from the input: an event today, a price move
-that just happened, a policy signal. Action follows cause.
+**Data today**
+Bullet list (·) of EVERY event in events_next_24h, one short line each, times
+in WIB when the input gives them, none skipped: if you mention an event in
+prose it must also be on this list. Only when events_next_24h is empty, write
+exactly: · Nothing scheduled. Watch the open.
 
 **Worth a look**
-Include this section ONLY when the outlook genuinely points somewhere; skip it
-entirely on days with no real hook, a forced idea is worse than none. When you
-include it: one or two lines, each tying a cause above to something specific,
-e.g. "If coal costs keep squeezing miners (point B), the coal names on the
-screen are where it shows first: ADRO.JK, ITMG.JK." Use ONLY tickers or
-industries present in the input screen_candidates or desk_reads; say "from the
-nightly screen" once so he knows these are screen names, not orders.
+OPTIONAL. Include only when the day genuinely points somewhere; skip it
+entirely otherwise, a forced idea is worse than none. One or two lines tying
+today's driver to specific tickers or an industry from screen_candidates or
+desk_reads, with "from the nightly screen" said once.
 
-HARD RULES: interpret ONLY the input, never invent. NEVER mention the firm's
-own positions, holdings, P&L or the book; if an input item is about a held
-position, ignore it completely. Lean on verified findings; hedge unverified
-ones in plain words ("one early read suggests..."). If the next 12 hours are
-genuinely quiet, say so plainly and point at what matters when markets reopen.
-No em dashes."""
+HARD RULES:
+- PRICED-IN RULE: a reason must be NEW (from the last 48 hours) or AHEAD
+  (scheduled). A rate hike from months ago, an old data print, a long-known
+  fact is already in the price: never present it as today's reason. Old facts
+  may quietly inform your view; they must never appear as a "because".
+- Interpret ONLY the input, never invent.
+- NEVER mention the firm's own positions, holdings, P&L or the book.
+- No statistics jargon ever: no percentile, z-score, sigma, basis points,
+  regime. Simple numbers are fine.
+- Verified findings carry weight; hedge unverified ones in plain words ("one
+  early read suggests...").
+- Quiet day (weekend, holiday): say so in one sentence and point at the reopen.
+- No em dashes."""
 
 
 def _morning_facts(today: str) -> dict:
@@ -109,7 +111,7 @@ def _morning_facts(today: str) -> dict:
         to = (dt.date.fromisoformat(today) + dt.timedelta(days=1)).isoformat()
         facts["events_next_24h"] = db.select(
             "macro", "calendar",
-            f"select=event_date,region,title,importance&event_date=gte.{today}"
+            f"select=event_date,event_time,region,title,importance&event_date=gte.{today}"
             f"&event_date=lte.{to}&order=importance.desc", limit=12)
     except Exception:
         facts["events_next_24h"] = []
@@ -197,7 +199,7 @@ def render_morning(editor_out: dict, today: str) -> str:
             # digit ranges get hyphens, prose dashes become commas
             t = _re.sub(r"(\d)\s*[–—]\s*(?=\d)", r"\1-", text.strip())
             t = _re.sub(r"\s*[–—]+\s*", ", ", t)
-            if "**Next 12 hours**" not in t or "**Why**" not in t:
+            if "**Indonesia**" not in t or "**Data today**" not in t:
                 break
             # word-bounded, case-sensitive: the ticker MU must not match "much"
             if any(h and _re.search(r"\b" + _re.escape(h) + r"\b", t) for h in held):
@@ -214,26 +216,25 @@ def render_morning(editor_out: dict, today: str) -> str:
 
     if body is None:
         # plain fallback: the note must always arrive, even with the writer down
-        lines = ["**Next 12 hours**"]
-        ev = facts["events_next_24h"][:2]
+        sigs = facts["fresh_signals"]
+        indo = next((s for s in sigs if "indones" in s["headline"].lower() or "rupiah" in s["headline"].lower()), None)
+        us = next((s for s in sigs if s is not indo), None)
+        lines = ["**Indonesia**",
+                 _cut_words(indo["headline"], 140) + "." if indo else "No fresh Indonesia drivers on file; watch the open.",
+                 "", "**US**",
+                 _cut_words(us["headline"], 140) + "." if us else "No fresh US drivers on file.",
+                 "", "**Data today**"]
+        ev = facts["events_next_24h"][:5]
         if ev:
-            lines.append("On the calendar: " + "; ".join(f"{e['title'][:60]} ({e['region']})" for e in ev) + ".")
+            for e in ev:
+                tme = (e.get("event_time") or "")[:5]
+                lines.append(f"· {(tme + ' WIB ' if tme else '')}{e['title'][:70]} ({e['region']})")
         else:
-            lines.append("Nothing major scheduled; watch how yesterday's moves carry into the open.")
-        lines.append("")
-        lines.append("**Why**")
-        letters = ["A", "B", "C"]
-        sigs = facts["fresh_signals"][:3]
-        for i, s in enumerate(sigs):
-            lines.append(f"{letters[i]}. {_cut_words(s['headline'], 110)}.")
-        for j in range(len(sigs), 3):
-            lines.append(f"{letters[j]}. No further fresh drivers on file this morning.")
+            lines.append("· Nothing scheduled. Watch the open.")
         cands = facts.get("screen_candidates", [])[:3]
         if cands:
-            lines.append("")
-            lines.append("**Worth a look**")
-            lines.append("From the nightly screen: "
-                         + ", ".join(f"{c['ticker']} ({c['side']})" for c in cands) + ".")
+            lines += ["", "**Worth a look**",
+                      "From the nightly screen: " + ", ".join(f"{c['ticker']} ({c['side']})" for c in cands) + "."]
         body = "\n".join(lines)
 
     parts = [header, body]
