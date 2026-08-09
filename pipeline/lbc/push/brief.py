@@ -76,11 +76,18 @@ the one or two fresh reasons why. A call, not a weather report.
 One or two short sentences. What tonight's US session likely brings for him and
 why it matters to Indonesia or his watchlist.
 
+**Latest news**
+Three to five bullets (·), one short line each: what actually HAPPENED in the
+last 12-24 hours that a market person should know, from news_last_24h. Market
+moves, geopolitics, policy, tech, commodities. Compress each headline to its
+point; skip duplicates and noise.
+
 **Data today**
-Bullet list (·) of EVERY event in events_next_24h, one short line each, times
-in WIB when the input gives them, none skipped: if you mention an event in
-prose it must also be on this list. Only when events_next_24h is empty, write
-exactly: · Nothing scheduled. Watch the open.
+What is COMING OUT in the next 24 hours: bullet list (·) of EVERY release and
+event in events_next_24h, one short line each, times in WIB when given, none
+skipped. Data releases (CPI, GDP, auctions, central bank decisions) lead the
+list. If you mention a release in prose it must also be here. Only when
+events_next_24h is empty, write exactly: · Nothing scheduled. Watch the open.
 
 **Worth a look**
 OPTIONAL. Include only when the day genuinely points somewhere; skip it
@@ -105,8 +112,18 @@ HARD RULES:
 
 def _morning_facts(today: str) -> dict:
     """The compact, book-free fact pack the writer model works from."""
+    import re as _re
     wd = dt.datetime.strptime(today, "%Y-%m-%d").strftime("%A")
     facts: dict = {"today": today, "weekday_jakarta": wd}
+    # held names never reach the writer; computed FIRST so every section filters
+    held: list[str] = []
+    try:
+        book = db.get_config("book_state", {}) or {}
+        held = [str(x.get("symbol", "")).upper() for x in (book.get("positions") or []) if x.get("symbol")]
+    except Exception:
+        pass
+    mentions_held = lambda text: any(
+        h and _re.search(r"\b" + _re.escape(h) + r"\b", str(text)) for h in held)
     try:
         to = (dt.date.fromisoformat(today) + dt.timedelta(days=1)).isoformat()
         facts["events_next_24h"] = db.select(
@@ -116,25 +133,15 @@ def _morning_facts(today: str) -> dict:
     except Exception:
         facts["events_next_24h"] = []
     try:
-        cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=14)).isoformat()
-        facts["overnight_news"] = [
-            {"headline": n.get("headline"), "source": n.get("source")}
+        cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=24)).isoformat()
+        facts["news_last_24h"] = [
+            {"headline": n.get("headline"), "source": n.get("source"), "region": n.get("region")}
             for n in db.select("research", "news",
-                               f"select=headline,source&published_at=gte.{cutoff}"
-                               f"&order=importance.desc,published_at.desc", limit=6)]
+                               f"select=headline,source,region&published_at=gte.{cutoff}"
+                               f"&order=importance.desc,published_at.desc", limit=10)
+            if not mentions_held(n.get("headline"))]
     except Exception:
-        facts["overnight_news"] = []
-    # held names never reach the writer: book_risk signals are excluded by kind,
-    # and anything mentioning a held symbol is dropped here in code.
-    held: list[str] = []
-    try:
-        book = db.get_config("book_state", {}) or {}
-        held = [str(x.get("symbol", "")).upper() for x in (book.get("positions") or []) if x.get("symbol")]
-    except Exception:
-        pass
-    import re as _re
-    mentions_held = lambda text: any(
-        h and _re.search(r"\b" + _re.escape(h) + r"\b", str(text)) for h in held)
+        facts["news_last_24h"] = []
     try:
         since = (dt.date.fromisoformat(today) - dt.timedelta(days=2)).isoformat()
         facts["fresh_signals"] = [
@@ -223,7 +230,14 @@ def render_morning(editor_out: dict, today: str) -> str:
                  _cut_words(indo["headline"], 140) + "." if indo else "No fresh Indonesia drivers on file; watch the open.",
                  "", "**US**",
                  _cut_words(us["headline"], 140) + "." if us else "No fresh US drivers on file.",
-                 "", "**Data today**"]
+                 "", "**Latest news**"]
+        nws = facts.get("news_last_24h", [])[:4]
+        if nws:
+            for n in nws:
+                lines.append(f"· {_cut_words(n['headline'], 90)} ({n.get('source') or '?'})")
+        else:
+            lines.append("· Quiet last 24 hours on the wires.")
+        lines += ["", "**Data today**"]
         ev = facts["events_next_24h"][:5]
         if ev:
             for e in ev:
