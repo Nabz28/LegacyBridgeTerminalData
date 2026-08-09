@@ -1,5 +1,18 @@
 # LEGION — the research desk agent
 
+**2026-08-09 (evening) additions.** (1) The terminal's Research Desk was
+restructured around the CRO's three-level model: Global Industries / Countries /
+Country Industries (`research.desk.nav_group`, seeded; `research_url` links each
+desk to the published site). Desk pages read brief → watchlist → news → movers
+(assurance chips visible) with deep material folded; rail is Desks/Briefs/Book/
+Chat + FEEDS. (2) LEGION's OpenClaw host carries a 15-minute research cache
+(`scripts/research-cache.mjs` → `cache/research.json`: live signals with
+assurance, all briefs incl deep reports in full, candidates, news, theses,
+dials, book) and the skill's fast commands — `overview`, `pack`, `find`,
+`brief_full` — answer research questions from disk in ~60ms with a visible
+cache age. The deep reports are kept as distinct documents (last 5, full body)
+so a small new dive can never shadow the flagship report.
+
 **Built 2026-08-09.** The research bot rewritten as LEGION per `docs/AGENT_HANDOFF.md`:
 same 21-tool data surface underneath, now with identity, memory, honesty, judgement,
 views and depth. All five handoff phases shipped in one pass.
