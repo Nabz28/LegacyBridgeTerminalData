@@ -63,7 +63,129 @@ def _bold_lead(text: str, max_head: int = 52) -> str:
     return "**" + head + ("**" if not rest else ".** " + _sentence(rest[0].upper() + rest[1:] if rest else rest))
 
 
+MORNING_WRITER = """You write the 06:30 WIB morning note for the CRO of a small
+Indonesian asset manager. He reads it on his phone in 20 seconds. Output EXACTLY
+this shape and nothing else:
+
+**Next 12 hours**
+Two or three short, plain sentences: what is likely to happen in the markets he
+cares about (Indonesia and the rupiah first, then US, China, commodities)
+between this morning in Jakarta and tonight. Write like a smart friend, not a
+quant: NEVER use the words percentile, z-score, sigma, basis points, regime, or
+any statistics jargon. Simple numbers (prices, percents) are fine.
+
+**Why**
+A. one short sentence
+B. one short sentence
+C. one short sentence
+
+Each point gives one concrete driver from the input: an event scheduled today,
+a price move that just happened, a policy signal. Interpret ONLY the input,
+never invent. Respect the assurance labels: lean on verified findings, and if
+you must use an unverified one, hedge it in plain words ("one early read
+suggests..."). If the next 12 hours are genuinely quiet (weekend, no events),
+say that plainly and point at what matters when markets reopen. No em dashes."""
+
+
+def _morning_facts(today: str) -> dict:
+    """The compact, book-free fact pack the writer model works from."""
+    wd = dt.datetime.strptime(today, "%Y-%m-%d").strftime("%A")
+    facts: dict = {"today": today, "weekday_jakarta": wd}
+    try:
+        to = (dt.date.fromisoformat(today) + dt.timedelta(days=1)).isoformat()
+        facts["events_next_24h"] = db.select(
+            "macro", "calendar",
+            f"select=event_date,region,title,importance&event_date=gte.{today}"
+            f"&event_date=lte.{to}&order=importance.desc", limit=12)
+    except Exception:
+        facts["events_next_24h"] = []
+    try:
+        cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=14)).isoformat()
+        facts["overnight_news"] = [
+            {"headline": n.get("headline"), "source": n.get("source")}
+            for n in db.select("research", "news",
+                               f"select=headline,source&published_at=gte.{cutoff}"
+                               f"&order=importance.desc,published_at.desc", limit=6)]
+    except Exception:
+        facts["overnight_news"] = []
+    try:
+        since = (dt.date.fromisoformat(today) - dt.timedelta(days=2)).isoformat()
+        facts["fresh_signals"] = [
+            {"headline": (s.get("headline") or "")[:180], "direction": s.get("direction"),
+             "assurance": (s.get("payload") or {}).get("assurance", "unchallenged")}
+            for s in db.select("research", "signal",
+                               f"select=headline,direction,payload&asof=gte.{since}"
+                               f"&retired=eq.false&salience=gte.70&kind=neq.deepdive_flag"
+                               f"&order=salience.desc", limit=10)]
+    except Exception:
+        facts["fresh_signals"] = []
+    try:
+        facts["desk_reads"] = [
+            {"desk": d["desk_id"], "read": (d.get("what_changed") or "").replace("**", "")[:140]}
+            for d in db.select("research", "dial",
+                               "select=desk_id,what_changed,machine_score"
+                               "&order=machine_score.desc.nullslast", limit=23)
+            if d.get("what_changed")]
+    except Exception:
+        facts["desk_reads"] = []
+    return facts
+
+
 def render_morning(editor_out: dict, today: str) -> str:
+    """The whole note: what the next 12 hours look like, and why in 3 points."""
+    import json as _json
+    from ..reason import llm
+
+    wib_now = dt.datetime.now(dt.timezone.utc).astimezone(WIB)
+    header = f"**LBC MORNING NOTE · {wib_now.strftime('%a %d %b')}**"
+    facts = _morning_facts(today)
+
+    body = None
+    try:
+        model = llm.get_model("morning", llm.get_model("editor"))
+        text, usage = llm.chat(model, MORNING_WRITER, _json.dumps(facts, default=str),
+                               max_tokens=400, temperature=0.3)
+        llm.log("morning_note", None, model, usage)
+        # style contract enforced in code, not hoped for in the prompt:
+        # digit ranges get hyphens, prose dashes become commas
+        import re as _re
+        t = _re.sub(r"(\d)\s*[–—]\s*(?=\d)", r"\1-", text.strip())
+        t = _re.sub(r"\s*[–—]+\s*", ", ", t)
+        if "**Next 12 hours**" in t and "**Why**" in t:
+            body = t
+    except Exception as e:
+        print(f"morning writer failed, using fallback: {e}")
+
+    if body is None:
+        # plain fallback: the note must always arrive, even with the writer down
+        lines = ["**Next 12 hours**"]
+        ev = facts["events_next_24h"][:2]
+        if ev:
+            lines.append("On the calendar: " + "; ".join(f"{e['title'][:60]} ({e['region']})" for e in ev) + ".")
+        else:
+            lines.append("Nothing major scheduled; watch how yesterday's moves carry into the open.")
+        lines.append("")
+        lines.append("**Why**")
+        letters = ["A", "B", "C"]
+        sigs = facts["fresh_signals"][:3]
+        for i, s in enumerate(sigs):
+            lines.append(f"{letters[i]}. {_cut_words(s['headline'], 110)}.")
+        for j in range(len(sigs), 3):
+            lines.append(f"{letters[j]}. No further fresh drivers on file this morning.")
+        body = "\n".join(lines)
+
+    parts = [header, body]
+    try:
+        stale = db.select("research", "ops_freshness",
+                          "select=pipeline&status=in.(stale,error)")
+        if stale:
+            parts.append(f"**Data.** {len(stale)} pipelines stale; today's read may be missing pieces.")
+    except Exception:
+        pass
+    return "\n\n".join(parts)
+
+
+def _render_morning_legacy(editor_out: dict, today: str) -> str:
     regime = db.get_config("global_regime", {}) or {}
     book = db.get_config("book_state", {}) or {}
     mandate = db.get_config("mandate", {}) or {}
