@@ -101,6 +101,15 @@ def upsert(schema: str, table: str, rows: list[dict], on_conflict: str | None = 
     """UPSERT rows in chunks. Returns row count written."""
     if not rows:
         return 0
+    if table == "signal":
+        # Every signal must carry an assurance label. Anything written by the
+        # engine without one is machine arithmetic whose interpretation nobody
+        # reviewed: exactly 'computed', never silently unlabelled. Writers with
+        # a real review verdict set their own value; setdefault preserves it.
+        for r in rows:
+            p = r.get("payload") or {}
+            p.setdefault("assurance", "computed")
+            r["payload"] = p
     total = 0
     url = f"{SUPABASE_URL}/rest/v1/{table}"
     if on_conflict:
@@ -127,6 +136,16 @@ def update(schema: str, table: str, match: str, patch: dict) -> None:
     url = f"{SUPABASE_URL}/rest/v1/{table}?{match}"
     body = json.dumps(patch, default=str).encode()
     _request("PATCH", url, _headers(schema, write=True), body)
+
+
+def update_returning(schema: str, table: str, match: str, patch: dict) -> list[dict]:
+    """PATCH with return=representation: the rows actually updated. An empty
+    list means the filter matched nothing — the basis of optimistic claims
+    (PATCH ...&status=eq.queued loses the race cleanly instead of double-running)."""
+    url = f"{SUPABASE_URL}/rest/v1/{table}?{match}"
+    body = json.dumps(patch, default=str).encode()
+    _, txt = _request("PATCH", url, _headers(schema, write=True, returning=True), body)
+    return json.loads(txt) if txt else []
 
 
 def delete(schema: str, table: str, match: str) -> None:

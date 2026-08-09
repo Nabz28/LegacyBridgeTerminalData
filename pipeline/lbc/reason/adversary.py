@@ -83,7 +83,8 @@ def run(today: str | None = None) -> int:
                 "asof": today, "desk_id": desk_id, "kind": "book_risk", "ref": th.get("ticker"),
                 "headline": f"Adversary killed thesis '{th['title'][:60]}': "
                             f"{out.get('strongest_case_against', '')[:120]}",
-                "payload": {"thesis_id": th["id"], "verdict": out},
+                "payload": {"thesis_id": th["id"], "verdict": out,
+                            "assurance": "adversarially_verified"},
                 "salience": 90, "direction": -1,
                 "dedupe_key": f"adversary_kill:{th['id']}",
             }], on_conflict="dedupe_key,asof")

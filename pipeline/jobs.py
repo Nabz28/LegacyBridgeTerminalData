@@ -215,14 +215,18 @@ def monthly():
 
 
 def alerts():
-    """Hourly: user level-alerts plus proactive pushes on material book events.
+    """Hourly: user level-alerts plus judged pushes on material signals.
 
-    This is the "warn me" half of the job. Level alerts are explicit triggers
-    the CRO set; the second pass pushes high-salience signals that touch an open
-    position, because those cannot wait for the morning brief.
+    Level alerts are explicit triggers the CRO set; they always fire. The second
+    half is the judgement layer: each fresh signal is scored on whether it
+    touches an open position, whether it is a change rather than a level, how
+    verified it is, and whether something like it was said recently
+    (research.push_log). Only what clears the notify bar is sent; interrupt-tier
+    sends ring, notify-tier sends are silent notifications; everything else
+    stays silent and reaches the morning brief instead.
     """
     from lbc.compute import stats
-    from lbc.push import telegram
+    from lbc.push import telegram, notify
 
     rows = db.select("research", "alert", "select=*&active=eq.true")
     fired = 0
@@ -237,28 +241,43 @@ def alerts():
         hit = (op == "gt" and last > val) or (op == "lt" and last < val)
         if hit:
             msg = f"ALERT · {target} {op} {val:g}: now {last:g}" + (f"\n{a.get('note')}" if a.get("note") else "")
-            telegram.send(msg)
+            delivered = telegram.send(msg)
+            notify.log_push("interrupt", "alert", a["id"], msg.split("\n")[0], delivered,
+                            {"target": target, "last": last})
             db.update("research", "alert", f"id=eq.{a['id']}",
                       {"active": False, "last_fired_at": dt.datetime.now(dt.timezone.utc).isoformat()})
             db.insert("research", "alert_fire", [{"alert_id": a["id"], "payload": {"last": last}}])
             fired += 1
 
-    # proactive: anything urgent enough that waiting until 06:30 would be wrong
+    # judged pushes: is any of today's tape worth a message, and how loud
     today = dt.date.today().isoformat()
-    urgent = db.select("research", "signal",
-                       f"select=id,desk_id,kind,headline,salience&asof=eq.{today}"
-                       f"&salience=gte.85&order=salience.desc", limit=10)
+    cands = db.select("research", "signal",
+                      f"select=id,desk_id,kind,ref,headline,salience,payload&asof=eq.{today}"
+                      f"&salience=gte.70&retired=eq.false&order=salience.desc", limit=25)
     pushed = db.get_config("pushed_signal_ids", []) or []
-    fresh_ones = [s for s in urgent if s["id"] not in pushed]
-    if fresh_ones:
-        lines = ["LBC ALERT · material change", ""]
-        for s in fresh_ones[:4]:
-            lines.append(f"  [{s['salience']}] {s['headline']}")
-        lines.append("")
-        lines.append("Full context in the morning brief or ask the desk agent.")
-        telegram.send("\n".join(lines))
-        db.set_config("pushed_signal_ids", ([s["id"] for s in urgent] + pushed)[:200])
-    print(f"alerts fired: {fired}, urgent pushed: {len(fresh_ones)}")
+    cands = [s for s in cands if s["id"] not in pushed]
+    sent = 0
+    if cands:
+        book_desks, book_tickers = notify.book_exposure()
+        recent = notify.recent_pushes(days=3)
+        scored = sorted(((s, *notify.score_signal(s, book_desks, book_tickers, recent))
+                         for s in cands), key=lambda x: x[1], reverse=True)
+        to_push = [x for x in scored if x[2] == "interrupt"]
+        if not to_push and scored and scored[0][2] == "notify":
+            to_push = [scored[0]]                  # at most one notify-tier item per run
+        for sig, score, tier in to_push[:3]:
+            head = "LBC ALERT · could not wait" if tier == "interrupt" else "LBC · worth knowing"
+            msg = (f"{head}\n\n[{sig['salience']}] {sig['headline']}\n\n"
+                   f"Full context in the morning brief, or ask LEGION.")
+            delivered = telegram.send(msg, silent=(tier != "interrupt"))
+            if delivered:
+                notify.log_push(tier, "signal", sig["id"], sig["headline"], delivered,
+                                {"desk_id": sig["desk_id"], "signal_kind": sig["kind"],
+                                 "score": score})
+                pushed = [sig["id"]] + pushed
+                sent += 1
+        db.set_config("pushed_signal_ids", pushed[:200])
+    print(f"alerts fired: {fired}, judged pushes: {sent} of {len(cands)} fresh candidates")
 
 
 def freshness():
@@ -301,9 +320,20 @@ def freshness():
     today = dt.date.today().isoformat()
     fresh_problems = [p for p in problems if state.get(p.split(":")[0], "") != today]
     if fresh_problems:
-        telegram.send("\n".join(["DATA FRESHNESS ALERT", ""] + [f"  {p}" for p in problems]))
+        from lbc.push import notify
+        delivered = telegram.send("\n".join(["DATA FRESHNESS ALERT", ""] + [f"  {p}" for p in problems]))
+        notify.log_push("notify", "freshness", None, f"{len(problems)} pipeline problems", delivered,
+                        {"problems": problems[:10]})
     db.set_config("freshness_alerted", {p.split(":")[0]: today for p in problems})
     print(f"problems: {problems or 'none'}")
+
+
+def deep():
+    """Drain the deep-research queue (LEGION's deep_research tool feeds it)."""
+    from lbc.reason import deep as deep_worker
+
+    n = deep_worker.run()
+    print(f"deep rounds answered: {n}")
 
 
 def backfill():
@@ -334,7 +364,8 @@ def ingest_idx(full: bool = False):
 JOBS = {
     "ingest_us": ingest_us, "ingest_asia": ingest_asia, "ingest_idx": ingest_idx,
     "nightly": nightly, "weekly": weekly, "monthly": monthly,
-    "alerts": alerts, "news": news, "freshness": freshness, "backfill": backfill,
+    "alerts": alerts, "news": news, "freshness": freshness, "deep": deep,
+    "backfill": backfill,
 }
 
 

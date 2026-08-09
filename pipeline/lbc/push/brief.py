@@ -135,10 +135,13 @@ def render_morning(editor_out: dict, today: str) -> str:
 
 def store_and_push(kind: str, body: str, items: dict, today: str,
                    push: bool = True) -> dict:
+    from . import notify
     enabled = db.get_config("enabled", True)
     sent_to = []
     if push and enabled:
         sent_to = telegram.send(body)
+        if sent_to:
+            notify.log_push("notify", "brief", kind, body.split("\n")[0], sent_to)
     db.upsert("research", "brief", [{
         "kind": kind, "asof": today, "body": body, "items": items,
         "sent_to": sent_to,

@@ -1,7 +1,8 @@
-// Research Telegram bot — webhook handler (Vercel serverless, Node).
+// LEGION research desk — Telegram webhook handler (Vercel serverless, Node).
 // POST from Telegram only. The bot token comes EXCLUSIVELY from brain.vault key
-// 'research_bot_token' (a dedicated research bot). This code must never touch
-// the LEGION bot (@LEGIONLBC_bot) or any other token source.
+// 'research_bot_token' (LEGION's dedicated research-surface bot). This code must
+// never touch the original @LEGIONLBC_bot token (id 8297239188) — that receive
+// path belongs to OpenClaw on the principal's laptop.
 //
 // Flow per update:
 //   1. load vault + research.config (60s module-scope TTL)
@@ -116,6 +117,30 @@ async function sendChart(token, chatId, chart) {
   if (!r.ok || !d || d.ok === false) throw new Error('sendPhoto failed: ' + ((d && d.description) || ('HTTP ' + r.status)));
 }
 
+// ---------- conversation state: last 10 turns per chat, 24h TTL ----------
+// This is what makes "what about the other one" work. Short-term only; durable
+// facts go to the brain via the remember tool inside the agent loop.
+const CHAT_TURNS_MAX = 10;      // 5 exchanges
+const CHAT_TTL_MS = 24 * 3600 * 1000;
+async function loadChatTurns(chatId) {
+  try {
+    const rows = await core.sb(`/chat_state?chat_id=eq.${encodeURIComponent(String(chatId))}&select=turns,updated_at&limit=1`, { profile: 'research' });
+    const row = rows && rows[0];
+    if (!row || !Array.isArray(row.turns)) return [];
+    if (Date.now() - new Date(row.updated_at).getTime() > CHAT_TTL_MS) return [];
+    return row.turns.filter((t) => t && (t.role === 'user' || t.role === 'assistant') && typeof t.content === 'string');
+  } catch (e) { return []; }
+}
+async function saveChatTurns(chatId, turns) {
+  try {
+    const trimmed = turns.slice(-CHAT_TURNS_MAX).map((t) => ({ role: t.role, content: String(t.content).slice(0, 4000) }));
+    await core.sb('/chat_state?on_conflict=chat_id', {
+      method: 'POST', profile: 'research', prefer: 'resolution=merge-duplicates,return=minimal',
+      body: [{ chat_id: String(chatId), turns: trimmed, updated_at: new Date().toISOString() }],
+    });
+  } catch (e) { /* state is best-effort; the answer already went out */ }
+}
+
 // ---------- pending-id capture (first unknown sender only, never auto-authorize) ----------
 async function capturePending(from) {
   try {
@@ -206,19 +231,62 @@ async function cmdDates(arg) {
   return `Key dates ${out.from} to ${out.to} (* = touches the book)\n` + lines.join('\n');
 }
 
+// /whatsnew [days] — the self-correction diff
+async function cmdWhatsNew(arg) {
+  const days = /^\d+$/.test(String(arg || '').trim()) ? parseInt(arg, 10) : 7;
+  const out = await core.runTool('whats_changed_since', { days });
+  if (out.error) return 'Diff unavailable: ' + out.error;
+  const lines = [`Changed since ${out.since}`];
+  if (out.stance_changes.length) {
+    lines.push('', 'STANCES');
+    for (const s of out.stance_changes) lines.push(`  ${s.desk_id}: ${s.from} -> ${s.to}${s.why ? ' · ' + s.why.slice(0, 90) : ''}`);
+  }
+  if (out.corrections.length) {
+    lines.push('', 'CORRECTIONS (we had these wrong)');
+    for (const c of out.corrections.slice(0, 8)) lines.push(`  ${c.asof} ${c.headline}`.slice(0, 180));
+  }
+  if (out.thesis_events.length) {
+    lines.push('', 'THESES WOUNDED OR KILLED');
+    for (const t of out.thesis_events) lines.push(`  ${t.ticker || '-'} ${t.status}: ${(t.adversary_verdict && t.adversary_verdict.case_against) || t.title}`.slice(0, 180));
+  }
+  if (out.deep_briefs.length) {
+    lines.push('', 'DEEP/FLASH BRIEFS');
+    for (const b of out.deep_briefs) lines.push(`  ${b.asof} [${b.kind}] ${b.head.slice(0, 120)}`);
+  }
+  if (lines.length === 1) lines.push('', 'Quiet. No stance changes, corrections, thesis events or special briefs in the window.');
+  return lines.join('\n');
+}
+
+// /health — what the system does not know right now
+async function cmdHealth() {
+  const out = await core.runTool('data_health', {});
+  if (out.error) return 'Health unavailable: ' + out.error;
+  const lines = [`Data health: ${out.pipelines_ok} pipelines ok, ${out.pipelines_not_ok.length} not ok`];
+  for (const p of out.pipelines_not_ok) lines.push(`  ${p.pipeline}: ${p.status}${p.note ? ' · ' + String(p.note).slice(0, 80) : ''}`);
+  if (out.low_coverage_desks.length) {
+    lines.push('', 'DESKS BELOW 60% DRIVER COVERAGE (no machine view by design)');
+    for (const d of out.low_coverage_desks) lines.push(`  ${d.desk_id}: ${d.coverage_pct}% (${d.dead_drivers.map((x) => x.label).join(', ').slice(0, 100)})`);
+  }
+  if (out.fundamentals) lines.push('', `Fundamentals snapshot: ${out.fundamentals.as_of}, ${out.fundamentals.age_weeks} weeks old. ${out.fundamentals.note || ''}`);
+  return lines.join('\n');
+}
+
 const HELP = [
-  'LBC Research Desk bot.',
+  'LEGION. Research desk.',
   '',
-  '/brief   latest morning brief',
-  '/dials   every desk stance, machine score sorted',
-  '/news    headlines, last 2d. /news oil-gas or /news BBCA.JK to filter',
-  '/watch   the nightly candidate screen. /watch semiconductors for one desk',
-  '/dates   flagged events for the next 14d. /dates 30 for a longer horizon',
-  '/ops     pipeline freshness',
-  '/id      your Telegram and chat ids',
-  '/help    this list',
+  '/brief    latest morning brief',
+  '/dials    every desk stance, machine score sorted',
+  '/news     headlines, last 2d. /news oil-gas or /news BBCA.JK to filter',
+  '/watch    the nightly candidate screen. /watch semiconductors for one desk',
+  '/dates    flagged events for the next 14d. /dates 30 for a longer horizon',
+  '/whatsnew what changed: stances, corrections, wounded theses. /whatsnew 14 for two weeks',
+  '/health   what I do not know right now: stale pipelines, thin desks, fundamentals age',
+  '/deep     queue a real research round: /deep should we cut APLN',
+  '/ops      pipeline freshness',
+  '/id       your Telegram and chat ids',
+  '/help     this list',
   '',
-  'Anything else in plain text runs the research agent (dials, series, compare, book, signals, news, sentiment, candidates, calendar, screens, ideas, alerts, stances).',
+  'Anything else in plain text is a conversation. I remember the last day of it, hold views you can argue with, and tell you when the desk had something wrong.',
 ].join('\n');
 
 // ---------- handler ----------
@@ -279,22 +347,33 @@ async function handler(req, res) {
       if (name === 'news') { await sendText(token, chatId, await cmdNews(rest)); return done(); }
       if (name === 'watch') { await sendText(token, chatId, await cmdWatch(rest)); return done(); }
       if (name === 'dates') { await sendText(token, chatId, await cmdDates(rest)); return done(); }
+      if (name === 'whatsnew') { await sendText(token, chatId, await cmdWhatsNew(rest)); return done(); }
+      if (name === 'health') { await sendText(token, chatId, await cmdHealth()); return done(); }
+      if (name === 'deep') {
+        if (!rest) { await sendText(token, chatId, 'Give me the question: /deep should we cut APLN'); return done(); }
+        const q = await core.runTool('deep_research', { question: rest }, { canSecret: true, chatId });
+        await sendText(token, chatId, q.error ? 'Queue failed: ' + q.error : `Queued as deep round #${q.queue_id}. ${q.note}`);
+        return done();
+      }
       await sendText(token, chatId, `Unknown command /${name}. /help lists everything, or just ask in plain text.`);
       return done();
     }
     if (!text) { await sendText(token, chatId, 'Send text. /start for what I can do.'); return done(); }
 
-    // ---- free text -> the same agent loop as /api/research-agent ----
+    // ---- free text -> the agent loop, with the last day of conversation in context ----
     if (!cfg.enabled) { await sendText(token, chatId, 'The research agent is disabled (research.config enabled=false).'); return done(); }
     let out;
+    const history = await loadChatTurns(chatId);
+    const userTurn = { role: 'user', content: text.slice(0, 8000) };
     try {
-      out = await core.runAgent([{ role: 'user', content: text.slice(0, 8000) }], { canSecret: true });
+      out = await core.runAgent([...history, userTurn], { canSecret: true, chatId });
       core.logAgent('research-bot', out, null);
     } catch (e) {
       core.logAgent('research-bot', null, e.message);
       await sendText(token, chatId, 'Agent error: ' + String(e.message || e).slice(0, 300));
       return done({ agent: 'error' });
     }
+    await saveChatTurns(chatId, [...history, userTurn, { role: 'assistant', content: out.reply }]);
     await sendText(token, chatId, out.reply);
     for (const chart of (out.charts || []).slice(0, 3)) {
       try { await sendChart(token, chatId, chart); }
