@@ -64,6 +64,7 @@
     const q = ['select=*'];
     if (opts.deskId) q.push('desk_id=eq.' + encodeURIComponent(opts.deskId));
     if (opts.kind) q.push('kind=eq.' + encodeURIComponent(opts.kind));
+    if (opts.live) q.push('retired=eq.false');
     q.push('order=' + (opts.order === 'asof' ? 'asof.desc,salience.desc' : 'salience.desc,asof.desc'));
     q.push('limit=' + (opts.limit || 200));
     return rGet('/signal?' + q.join('&'));

@@ -7,6 +7,7 @@ from . import telegram
 from .. import db
 
 WIB = dt.timezone(dt.timedelta(hours=7))
+MAX_DIVE_LINES = 3
 
 
 def _fmt_pct(x, digits=1):
@@ -50,6 +51,38 @@ def render_morning(editor_out: dict, today: str) -> str:
     lines.append(f"BOOK      {bl}")
     lines.append("")
 
+    # DEEPDIVE: what last night's (or yesterday's) human-picked dive concluded
+    try:
+        since = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=24)).isoformat()
+        dives = db.select("research", "deep_queue",
+                          f"select=id,question,answer,finished_at&status=eq.done"
+                          f"&finished_at=gte.{since}&order=finished_at.desc", limit=3)
+    except Exception:
+        dives = []
+    if dives:
+        lines.append("DEEPDIVE  (what the last dive concluded)")
+        for d in dives:
+            body = (d.get("answer") or "").split("\n\n", 1)
+            gist = (body[1] if len(body) > 1 else body[0]).strip().replace("\n", " ")
+            lines.append(f"  Q: {(d.get('question') or '')[:90]}")
+            for l in _wrap(gist[:400], indent="     "):
+                lines.append("     " + l.strip() if not l.startswith(" ") else l)
+        lines.append("")
+
+    # OVERNIGHT: what landed while he slept (last 12h, importance first)
+    try:
+        cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=12)).isoformat()
+        night = db.select("research", "news",
+                          f"select=headline,source,importance&published_at=gte.{cutoff}"
+                          f"&order=importance.desc,published_at.desc", limit=5)
+    except Exception:
+        night = []
+    if night:
+        lines.append("OVERNIGHT")
+        for n in night:
+            lines.append(f"  · {(n.get('headline') or '')[:100]} ({n.get('source') or '?'})")
+        lines.append("")
+
     changed = editor_out.get("changed", [])
     if changed:
         lines.append("CHANGED")
@@ -59,6 +92,20 @@ def render_morning(editor_out: dict, today: str) -> str:
     else:
         lines.append("CHANGED   nothing that clears the bar today")
     lines.append("")
+
+    # DIVE CANDIDATES: the machine proposes, the CRO picks (flags.py, same signals
+    # the terminal board and LEGION see). Reply "dive 1" to LEGION to run one.
+    try:
+        cands = db.select("research", "signal",
+                          f"select=headline&kind=eq.deepdive_flag&asof=eq.{today}"
+                          f"&retired=eq.false&order=salience.desc", limit=MAX_DIVE_LINES)
+    except Exception:
+        cands = []
+    if cands:
+        lines.append("DIVE CANDIDATES  (tell LEGION: dive 1 / dive 2 / dive 3)")
+        for cnd in cands:
+            lines.append("  " + (cnd.get("headline") or "")[:120])
+        lines.append("")
 
     decide = editor_out.get("decide", [])
     if decide:

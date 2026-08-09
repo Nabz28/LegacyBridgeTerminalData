@@ -89,6 +89,11 @@ def nightly():
         return r1["signals"] + n2 + r3["signals"]
     fresh.guarded("compute_nightly")(_compute)()
     try:
+        from lbc.compute import flags
+        flags.run(today)
+    except Exception as e:
+        print(f"deepdive flags failed (non-fatal): {e}")
+    try:
         fresh.guarded("compute_screens")(screens.run)(today)
     except Exception:
         pass

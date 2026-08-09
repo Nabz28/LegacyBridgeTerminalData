@@ -98,6 +98,7 @@
     const { Empty, ErrNote, Loading } = RV();
     const [q, setQ] = React.useState('');
     const [group, setGroup] = React.useState('');   // '' = both
+    const flags = RD().useFetch(() => RD().fetchSignals({ kind: 'deepdive_flag', live: true, order: 'salience', limit: 3 }), []);
     if (err) return <div className="rd-page"><ErrNote err={err} onRetry={onRetry} /></div>;
     if (loading) return <div className="rd-page"><Loading /></div>;
     if (!desks || !desks.length) return <div className="rd-page"><Empty note="No desks configured" /></div>;
@@ -125,6 +126,21 @@
             ))}
           </div>
         </div>
+        {(flags.data || []).length > 0 && (
+          <div className="rd-divestrip">
+            <div className="rd-sec">Today's deep-dive candidates
+              <span className="rd-sec-sub">the machine proposes — pick one and run it with LEGION (“dive 1”) or in Chat</span>
+            </div>
+            {flags.data.map((f) => (
+              <div key={f.id} className={'rd-divecand' + (f.desk_id ? ' link' : '')}
+                   role={f.desk_id ? 'button' : undefined} tabIndex={f.desk_id ? 0 : undefined}
+                   onClick={() => f.desk_id && onOpenDesk(f.desk_id)}
+                   onKeyDown={(e) => { if (f.desk_id && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpenDesk(f.desk_id); } }}>
+                {f.headline}
+              </div>
+            ))}
+          </div>
+        )}
         {RD().NAV_GROUPS.filter((g) => !group || g.id === group).map((g) => {
           const list = desks.filter((d) => RD().deskGroup(d) === g.id && matches(d));
           if (!list.length) return null;

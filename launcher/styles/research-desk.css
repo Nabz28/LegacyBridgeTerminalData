@@ -525,3 +525,13 @@ details.rd-more > summary:hover { color: var(--paper); }
 
 .rd-card-what.dim { color: var(--text-tertiary); font-style: italic; }
 .rd-card-what b, .rd-currentread .wc b { color: var(--paper-strong); }
+
+/* ---- deep-dive candidate strip (board) ---- */
+.rd-divestrip { margin: 4px 0 10px; }
+.rd-divecand {
+  font-size: 13px; line-height: 1.5; color: var(--paper-strong);
+  border: 1px solid var(--paper-edge); border-left: 3px solid var(--brand);
+  border-radius: 3px; padding: 8px 12px; margin: 6px 0; background: var(--paper-soft);
+}
+.rd-divecand.link { cursor: pointer; }
+.rd-divecand.link:hover { border-color: var(--brand); }
