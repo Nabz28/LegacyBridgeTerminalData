@@ -22,8 +22,18 @@ def chat_ids() -> list[str]:
     return ids
 
 
+def _to_html(text: str) -> str:
+    """**bold** markers -> Telegram HTML bold, everything else escaped."""
+    s = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    out, parts = [], s.split("**")
+    for i, part in enumerate(parts):
+        out.append(("<b>" + part + "</b>") if i % 2 == 1 and part else part)
+    return "".join(out)
+
+
 def send(text: str, chat_id: str | None = None, silent: bool = False) -> list[str]:
-    """Send text (splitting >4000 chars). Returns list of chat ids delivered to."""
+    """Send text (splitting >4000 chars). '**bold**' renders as real bold via
+    HTML parse mode. Returns list of chat ids delivered to."""
     if not TOKEN:
         print("telegram: no token, skipping push")
         return []
@@ -31,13 +41,17 @@ def send(text: str, chat_id: str | None = None, silent: bool = False) -> list[st
     if not targets:
         print("telegram: no chat ids configured, skipping push")
         return []
+    styled = "**" in text
+    payload_text = _to_html(text) if styled else text
     delivered = []
-    chunks = [text[i:i + 4000] for i in range(0, len(text), 4000)] or [""]
+    chunks = [payload_text[i:i + 4000] for i in range(0, len(payload_text), 4000)] or [""]
     for cid in targets:
         ok = True
         for chunk in chunks:
-            body = json.dumps({"chat_id": cid, "text": chunk,
-                               "disable_notification": silent}).encode()
+            msg = {"chat_id": cid, "text": chunk, "disable_notification": silent}
+            if styled:
+                msg["parse_mode"] = "HTML"
+            body = json.dumps(msg).encode()
             req = urllib.request.Request(
                 f"https://api.telegram.org/bot{TOKEN}/sendMessage",
                 data=body, headers={"Content-Type": "application/json"})

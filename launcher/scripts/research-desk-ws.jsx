@@ -846,7 +846,7 @@
                     <span className="d">{fmt.dstr(cur.asof)}</span>
                     {cur.sent_at && <span className="rd-dim">pushed {fmt.ago(cur.sent_at)} ago</span>}
                   </div>
-                  <pre className="rd-pre">{cur.body || '(empty brief body)'}</pre>
+                  <pre className="rd-pre">{RD().boldify(cur.body || '(empty brief body)')}</pre>
                 </React.Fragment>
               ) : <Empty note="Select a brief" />}
             </div>
