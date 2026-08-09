@@ -68,6 +68,17 @@
     <span className={'rd-chip ' + (cls || 'gray')} title={title}>{label}</span>
   );
 
+  // the board's only scoring language: plain words, colored by direction
+  const WordScore = ({ score, small, title }) => {
+    const m = RD().wordScore(score);
+    return (
+      <span className={'rd-word ' + m.cls + (small ? ' sm' : '')}
+            title={title || ('machine score ' + (score == null ? '—' : RD().fmt.signed(score, 2)))}>
+        {m.label}
+      </span>
+    );
+  };
+
   // how well-established a finding is — never show a verified and an unreviewed
   // claim in the same voice (the desk's core honesty rule, now visible)
   const AssuranceChip = ({ payload, small }) => {
@@ -280,7 +291,7 @@
 
   window.RD_VIEWS = {
     StanceChip, ConvictionDots, ScoreBar, RegimeTag, DirArrow, SalienceBadge, StatusChip,
-    AssuranceChip,
+    AssuranceChip, WordScore,
     Empty, ErrNote, Loading, LineChart, Spark, HistoryStrip, SignalRow, PALETTE,
     SentChip, NewsRow, SideChip, CandLine,
   };

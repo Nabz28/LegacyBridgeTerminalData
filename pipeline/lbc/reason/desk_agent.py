@@ -15,7 +15,7 @@ You must not invent numbers, series, or events that are not in the input.
 
 Output JSON:
 {
- "what_changed": "<=2 sentences, most decision-relevant change; empty string if genuinely nothing",
+ "what_changed": "ONE plain-English sentence in brokerage-note style that summarizes this desk's CURRENT STATE for a busy executive. Lead with the read, then the one driver that matters, e.g. 'Coal still looks **constructive** as Chinese import volumes have bottomed while **diesel costs** squeeze margins.' Mark the 1-2 key words or numbers with **bold** markers. Simple language, no jargon, no z-scores unless essential. NEVER write 'no material change' or leave it empty: on a quiet day, state the standing situation instead.",
  "flip_condition": "1 sentence: the specific observable that would flip this desk's stance",
  "brief_candidates": [
    {"headline": "<=140 chars, concrete, numbers included",

@@ -215,16 +215,37 @@
     { id: 'country',  label: 'Country' },
   ];
 
-  // The board's three-level mental model (research.desk.nav_group):
-  //   global industries → countries → a country's specific industries.
+  // Two board groups (research.desk.nav_group): GLOBAL industries and COUNTRY
+  // macro desks (country-flavored industry desks live under COUNTRY too).
   const NAV_GROUPS = [
-    { id: 'global_industry',  label: 'Global Industries',  sub: 'secular themes & commodity complexes that move worldwide' },
-    { id: 'country',          label: 'Countries',          sub: 'macro desks — one per economy' },
-    { id: 'country_industry', label: 'Country Industries', sub: 'a specific industry inside one country' },
+    { id: 'global_industry', label: 'GLOBAL',  sub: 'industries & themes that move worldwide' },
+    { id: 'country',         label: 'COUNTRY', sub: 'macro desks and their local industries' },
   ];
   // fallback classification for desks whose row predates the nav_group column
-  const deskGroup = (d) => d.nav_group
-    || (d.kind === 'country' ? 'country' : d.benchmark === '^JKSE' ? 'country_industry' : 'global_industry');
+  const deskGroup = (d) => {
+    const g = d.nav_group || (d.kind === 'country' || d.benchmark === '^JKSE' ? 'country' : 'global_industry');
+    return g === 'country_industry' ? 'country' : g;   // retired third group folds into COUNTRY
+  };
+
+  // machine score in [-2, +2] → plain words (the only scoring language the board speaks)
+  const wordScore = (score) => {
+    if (score == null || isNaN(score)) return { label: 'No read', cls: 'gray' };
+    const v = Number(score);
+    if (v >= 1.4)  return { label: 'Extremely bullish', cls: 'pos strong' };
+    if (v >= 0.7)  return { label: 'Bullish',           cls: 'pos' };
+    if (v >= 0.25) return { label: 'Slightly bullish',  cls: 'pos soft' };
+    if (v > -0.25) return { label: 'Neutral',           cls: 'gray' };
+    if (v > -0.7)  return { label: 'Slightly bearish',  cls: 'neg soft' };
+    if (v > -1.4)  return { label: 'Bearish',           cls: 'neg' };
+    return { label: 'Extremely bearish', cls: 'neg strong' };
+  };
+
+  // '**bold**' markers in current-read text → <b> spans (sekuritas-note style)
+  const boldify = (text) => {
+    const s = String(text == null ? '' : text);
+    if (!s.includes('**')) return s;
+    return s.split(/\*\*/).map((part, i) => (i % 2 === 1 ? <b key={i}>{part}</b> : part));
+  };
 
   // how well-established a stored finding is (signal.payload.assurance).
   // Mirror of ASSURANCE_TIER in api/_research/core.js — keep in sync.
@@ -353,7 +374,7 @@
     fetchNews, fetchDeskSentiment, fetchCandidates, fetchCalendarFlags,
     fetchObservations, fetchPrices, fetchSeriesMeta,
     useFetch,
-    BASKETS, NAV_GROUPS, deskGroup, assuranceMeta,
+    BASKETS, NAV_GROUPS, deskGroup, assuranceMeta, wordScore, boldify,
     STANCE, stanceMeta, dirGlyph, thesisStatus, opsStatus,
     SENT, sentMeta, SIDE, sideMeta, IMPORTANCE, importanceMeta,
     fmt: { num, signed, pct, pctd, pctile, signCls, ago, hoursSince, dstr, isoDay },

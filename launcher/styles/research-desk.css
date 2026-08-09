@@ -492,3 +492,36 @@ details.rd-more > summary {
 details.rd-more > summary::before { content: '▸ '; color: var(--brand); }
 details.rd-more[open] > summary::before { content: '▾ '; }
 details.rd-more > summary:hover { color: var(--paper); }
+
+/* ---- 2026-08-09 reset: word scores, search bar, group buttons, simple cards ---- */
+.rd-word {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 3px; border: 1px solid;
+}
+.rd-word.sm { font-size: 10px; padding: 2px 7px; }
+.rd-word.pos        { color: #7ee2ae; border-color: rgba(25,195,125,0.55); background: rgba(25,195,125,0.10); }
+.rd-word.pos.strong { color: #0f1512; border-color: #19C37D; background: #19C37D; }
+.rd-word.pos.soft   { color: #9ed9bd; border-color: rgba(25,195,125,0.30); background: rgba(25,195,125,0.05); }
+.rd-word.neg        { color: #ffa9b4; border-color: rgba(240,71,92,0.55); background: rgba(240,71,92,0.10); }
+.rd-word.neg.strong { color: #1a0d0f; border-color: #F0475C; background: #F0475C; }
+.rd-word.neg.soft   { color: #f0bcc3; border-color: rgba(240,71,92,0.30); background: rgba(240,71,92,0.05); }
+.rd-word.gray       { color: var(--text-secondary); border-color: var(--paper-softer); background: transparent; }
+
+.rd-deskbar { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+.rd-search {
+  font-family: var(--font-mono); font-size: 12px; color: var(--paper);
+  background: var(--paper-soft); border: 1px solid var(--paper-edge); border-radius: 3px;
+  padding: 7px 12px; width: 260px; outline: none;
+}
+.rd-search:focus { border-color: var(--brand); }
+.rd-search::placeholder { color: var(--text-tertiary); }
+.rd-groupbtn {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  cursor: pointer; color: var(--text-secondary); background: transparent;
+  border: 1px solid var(--paper-softer); border-radius: 3px; padding: 7px 14px;
+}
+.rd-groupbtn:hover { color: var(--paper); border-color: var(--paper-edge); }
+.rd-groupbtn.active { color: var(--brand); border-color: var(--brand); background: rgba(102,198,232,0.08); }
+
+.rd-card-what.dim { color: var(--text-tertiary); font-style: italic; }
+.rd-card-what b, .rd-currentread .wc b { color: var(--paper-strong); }

@@ -63,10 +63,10 @@
   // ==========================================================================
   // DIALS — the landing board
   // ==========================================================================
+  // Simple card: name, one word-label read, one plain sentence. Nothing else.
   const DialCard = ({ desk, dial, onOpen }) => {
-    const { StanceChip, ConvictionDots, ScoreBar, RegimeTag } = RV();
+    const { WordScore } = RV();
     const fmt = RD().fmt;
-    const disagree = dial && dial.machine_stance && dial.stance && dial.machine_stance !== dial.stance;
     return (
       <div className={'rd-card' + (dial ? '' : ' unset')} role="button" tabIndex={0}
            onClick={() => onOpen(desk.id)}
@@ -78,19 +78,12 @@
         {dial ? (
           <React.Fragment>
             <div className="rd-card-dial">
-              <StanceChip stance={dial.stance} />
-              <ConvictionDots n={dial.conviction} />
-              <ScoreBar score={dial.machine_score} w={78} />
-              <RegimeTag regime={dial.regime} />
+              <WordScore score={dial.machine_score} />
             </div>
-            {disagree && (
-              <div className="rd-card-disagree" title={'house ' + dial.stance + ' vs machine ' + dial.machine_stance}>
-                ⚠ machine says <b>{dial.machine_stance}</b>
-              </div>
-            )}
-            {dial.what_changed && <div className="rd-card-what">{dial.what_changed}</div>}
+            {dial.what_changed
+              ? <div className="rd-card-what">{RD().boldify(dial.what_changed)}</div>
+              : <div className="rd-card-what dim">read lands with tonight's run</div>}
             <div className="rd-card-foot">
-              <span className="src">{dial.stance_source || ''}</span>
               <span className="age">{fmt.ago(dial.updated_at || dial.asof)}</span>
             </div>
           </React.Fragment>
@@ -102,12 +95,17 @@
   };
 
   const DialsPage = ({ desks, dials, err, loading, onOpenDesk, onRetry }) => {
-    const { Empty, ErrNote, Loading, StanceChip } = RV();
+    const { Empty, ErrNote, Loading } = RV();
+    const [q, setQ] = React.useState('');
+    const [group, setGroup] = React.useState('');   // '' = both
     if (err) return <div className="rd-page"><ErrNote err={err} onRetry={onRetry} /></div>;
     if (loading) return <div className="rd-page"><Loading /></div>;
     if (!desks || !desks.length) return <div className="rd-page"><Empty note="No desks configured" /></div>;
-    const tally = { OW: 0, N: 0, UW: 0, unset: 0 };
-    desks.forEach((d) => { const s = dials && dials[d.id]; if (s && s.stance) tally[s.stance] = (tally[s.stance] || 0) + 1; else tally.unset++; });
+    const needle = q.trim().toLowerCase();
+    const matches = (d) => !needle
+      || d.name.toLowerCase().includes(needle)
+      || d.id.toLowerCase().includes(needle)
+      || String(d.benchmark || '').toLowerCase().includes(needle);
     return (
       <div className="rd-page">
         <div className="rd-head">
@@ -115,15 +113,20 @@
             <div className="k">LBC autonomous research · open a desk for its brief, watchlist and news</div>
             <h1>Desks</h1>
           </div>
-          <div className="rd-tally">
-            {['OW', 'N', 'UW'].map((s) => (
-              <span key={s} className="i"><StanceChip stance={s} small /><b>{tally[s] || 0}</b></span>
+          <div className="rd-deskbar">
+            <input className="rd-search" type="search" placeholder="Search desks…  (gold, semis, indonesia)"
+                   value={q} onChange={(e) => setQ(e.target.value)} />
+            {RD().NAV_GROUPS.map((g) => (
+              <button key={g.id} type="button"
+                      className={'rd-groupbtn' + (group === g.id ? ' active' : '')}
+                      onClick={() => setGroup(group === g.id ? '' : g.id)}>
+                {g.label}
+              </button>
             ))}
-            {tally.unset ? <span className="i"><span className="rd-dim">no dial</span><b>{tally.unset}</b></span> : null}
           </div>
         </div>
-        {RD().NAV_GROUPS.map((g) => {
-          const list = desks.filter((d) => RD().deskGroup(d) === g.id);
+        {RD().NAV_GROUPS.filter((g) => !group || g.id === group).map((g) => {
+          const list = desks.filter((d) => RD().deskGroup(d) === g.id && matches(d));
           if (!list.length) return null;
           return (
             <React.Fragment key={g.id}>
@@ -136,6 +139,7 @@
             </React.Fragment>
           );
         })}
+        {needle && !desks.some((d) => matches(d)) && <Empty note={'Nothing matches “' + q + '”'} />}
       </div>
     );
   };
@@ -266,7 +270,7 @@
   //   2. watchlist   3. latest news   4. latest movers (signals, assurance shown)
   //   5. everything deeper folds under "Under the hood".
   const DeskDetailPage = ({ desk, dial, deskNames, onBack, onNav }) => {
-    const { StanceChip, ConvictionDots, ScoreBar, RegimeTag, HistoryStrip, SignalRow, Empty, Loading, ErrNote } = RV();
+    const { StanceChip, WordScore, HistoryStrip, SignalRow, Empty, Loading, ErrNote } = RV();
     const fmt = RD().fmt;
     const hist = RD().useFetch(() => RD().fetchDialHistory(desk.id, 30), [desk.id]);
     const sigs = useSignalsWithScores({ deskId: desk.id, order: 'asof', limit: 12 }, [desk.id]);
@@ -294,25 +298,16 @@
         {dial ? (
           <div className="rd-currentread">
             <div className="stances">
+              <WordScore score={dial.machine_score} />
               <span className="lab">HOUSE</span>
-              <StanceChip stance={dial.stance} />
-              <ConvictionDots n={dial.conviction} />
+              <StanceChip stance={dial.stance} small />
               {disagree
-                ? <React.Fragment>
-                    <span className="lab warn">MACHINE</span>
-                    <StanceChip stance={dial.machine_stance} title={'machine proposes ' + dial.machine_stance} />
-                  </React.Fragment>
+                ? <span className="lab warn" title={'machine proposes ' + dial.machine_stance}>machine disagrees: {dial.machine_stance}</span>
                 : <span className="agree" title="machine stance agrees">machine agrees</span>}
-              <ScoreBar score={dial.machine_score} />
-              <RegimeTag regime={dial.regime} />
             </div>
-            {disagree && (
-              <div className="rd-banner amber">
-                House stance <b>{dial.stance}</b> disagrees with machine <b>{dial.machine_stance}</b>
-                {' '}(score {fmt.signed(dial.machine_score, 2)}). The dial shows both — disagreement is signal.
-              </div>
-            )}
-            <div className="wc">{dial.what_changed || 'No material change on the last nightly pass.'}</div>
+            <div className="wc">{dial.what_changed
+              ? RD().boldify(dial.what_changed)
+              : <span className="rd-dim">The written read lands with tonight's run.</span>}</div>
             {dial.flip_condition && <div className="fc"><span className="k">what flips it</span>{dial.flip_condition}</div>}
           </div>
         ) : (
