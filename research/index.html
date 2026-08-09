@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LBC Research Desk</title>
+<title>LBC Research: what we found</title>
 <style>
 :root {
   --paper:      #faf8f4;
@@ -37,89 +37,150 @@
 }
 
 
-body{background:var(--paper);color:var(--ink);font-family:var(--serif);margin:0;
-  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,5vw,48px) 100px}
-header{padding:clamp(56px,9vw,110px) 0 34px;border-bottom:2.5px solid var(--ink);
-  margin-bottom:48px}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);margin:0;font-size:18px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.w{max-width:760px;margin:0 auto;padding:0 clamp(18px,5vw,32px) 110px}
+header{padding:clamp(52px,9vw,96px) 0 30px;border-bottom:2.5px solid var(--ink);margin-bottom:14px}
 .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--accent);margin:0 0 18px}
-h1{font-size:clamp(34px,6vw,60px);line-height:1.03;letter-spacing:-.022em;margin:0 0 18px;
+  color:var(--accent);margin:0 0 16px}
+h1{font-size:clamp(32px,5.6vw,52px);line-height:1.05;letter-spacing:-.02em;margin:0 0 20px;
   font-weight:600;text-wrap:balance}
-.dek{font-size:clamp(17px,2.1vw,21px);color:var(--ink-soft);font-style:italic;max-width:60ch;
-  margin:0}
-.meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);display:flex;
-  flex-wrap:wrap;gap:8px 30px;margin-top:30px}
-.meta b{color:var(--ink);font-weight:600}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:26px}
-.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
-  padding:30px 30px 26px;background:var(--paper-2);transition:border-color .15s,transform .15s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.cardnum{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:14px}
-.card h2{font-size:26px;line-height:1.16;margin:0 0 12px;font-weight:600;letter-spacing:-.012em;
-  text-wrap:balance}
-.carddek{color:var(--ink-soft);font-size:15px;margin:0 0 18px}
-.card ul{margin:0 0 22px;padding-left:18px;font-family:var(--mono);font-size:11.5px;
-  color:var(--ink-soft);line-height:1.75}
-.card li::marker{color:var(--accent)}
-.cardgo{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);font-weight:600}
-.note{margin-top:52px;border-left:2px solid var(--accent-2);padding:4px 0 4px 20px;
-  color:var(--ink-soft);font-size:15.5px;max-width:68ch}
-.note strong{color:var(--ink)}
-footer{margin-top:64px;padding-top:28px;border-top:1px solid var(--rule);
-  font-family:var(--mono);font-size:11px;color:var(--ink-soft);line-height:1.75}
-a.plain{color:var(--accent)}
+.sub{font-size:clamp(17px,2vw,20px);color:var(--ink-soft);margin:0;max-width:56ch}
+.meta{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:26px}
+article.f{padding:34px 0 30px;border-bottom:1px solid var(--rule)}
+.k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:11px;color:var(--accent)}
+article.f h2{font-size:clamp(23px,3.2vw,29px);line-height:1.2;margin:0 0 16px;font-weight:600;
+  letter-spacing:-.012em;text-wrap:balance}
+article.f p{margin:0 0 14px;max-width:64ch}
+.sw{margin-top:20px;padding:16px 20px;background:var(--paper-2);border-left:3px solid var(--accent);
+  font-size:16.5px;max-width:64ch}
+.sw span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:7px}
+article.f.b .sw{border-left-color:var(--neg)}
+article.f.b .k{color:var(--neg)}
+article.f.b .sw span{color:var(--neg)}
+article.f.g .sw{border-left-color:var(--pos)}
+article.f.g .k{color:var(--pos)}
+article.f.g .sw span{color:var(--pos)}
+article.f.w .sw{border-left-color:var(--warn)}
+article.f.w .k{color:var(--warn)}
+article.f.w .sw span{color:var(--warn)}
+.more{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.more a{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);padding:22px 24px;
+  background:var(--paper-2)}
+.more a:hover{border-color:var(--accent)}
+.more b{display:block;font-size:17px;margin-bottom:7px;line-height:1.3}
+.more span{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);line-height:1.6}
+.more em{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);margin-top:12px;font-style:normal}
+footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--rule);font-family:var(--mono);
+  font-size:11px;color:var(--ink-soft);line-height:1.8}
+footer a{color:var(--accent)}
 </style></head><body>
-<div class="wrap">
+<div class="w">
   <header>
-    <p class="eyebrow">Legacy Bridge Capital &middot; Research Desk</p>
-    <h1>Two research runs, and an honest record of what they got wrong.</h1>
-    <p class="dek">Built from 12,000 macro series, 2 million price rows and 805 companies.
-    Every finding says how well it is established, including the ones that failed.</p>
-    <div class="meta">
-      <span><b>As of</b> 2026-08-07</span>
-      <span><b>Desks</b> 23</span>
-      <span><b>Findings</b> 76, all verified</span>
-      <span><b>Corrections</b> 48</span>
-      <span><b>Prepared for</b> M. Rizky Narindra, CRO</span>
-    </div>
+    <p class="eyebrow">Legacy Bridge Capital &middot; Research</p>
+    <h1>What we found, and what it means for the book</h1>
+    <p class="sub">Twelve things worth knowing, in plain English. Roughly a ten minute read.
+    The full detail sits behind this page if you want it.</p>
+    <p class="meta">7 August 2026 &nbsp;&middot;&nbsp; prepared for M. Rizky Narindra</p>
   </header>
 
-  <div class="cards">
-    <a class="card" href="/research/global/">
-      <div class="cardnum">Report One</div>
-      <h2>Everything is priced for where things are, not where they're heading</h2>
-      <p class="carddek">The first full run. Every desk, every major economy, and the book. Score the same 23 desks on direction instead of level and 17 flip.</p>
-      <ul><li>Why 17 of 23 positions reverse on momentum</li><li>23 desk labels contain only three real bets</li><li>Five high-conviction calls that fail on their own data</li><li>The real long rate, and how close it is to breaking the tech overweights</li><li>Macro, sentiment and positioning across the majors</li></ul>
-      <div class="cardgo">Read &rarr;</div>
+    <article class="f w">
+      <div class="k">Indonesia</div>
+      <h2>The economy is fine. The people at the bottom are not.</h2>
+      <p>Indonesia grew 5.6% last quarter, the fastest since 2022. Factories are busier than last year. Banks are the healthiest they have been in 23 years.</p><p>But wages for ordinary Indonesians have not risen since 2018. Not slowly. Not at all. The index was 100 eight years ago and it is 100.13 today. Almost every new job is going to people with a degree. For the half of the country with only basic schooling, employment grew 0.23%.</p>
+      <div class="sw"><span>What it means</span>Do not read Indonesian growth as broad strength. It is real, but it is going to a narrow part of the country. Anything you own that sells to ordinary Indonesians is exposed to a customer who has not had a pay rise in eight years.</div>
+    </article>
+    <article class="f b">
+      <div class="k">Indonesia</div>
+      <h2>Cheap housing is starting to default. Expensive housing is fine.</h2>
+      <p>Missed payments on small apartments are at 4.16%, the worst in twelve years of records. Small landed houses are at 6.42%. Both are far above anything seen even in 2014 to 2017.</p><p>Expensive houses are at 3.06%, which is <em>better</em> than their own pre-2020 worst. So this is not a property crash. It is the cheap end of the market breaking while the expensive end carries on.</p>
+      <div class="sw"><span>What it means</span>This is the same group whose wages have not moved. Two things point at one problem. If you own mass-market Indonesian property, you own the bad half.</div>
+    </article>
+    <article class="f b">
+      <div class="k">Your book</div>
+      <h2>APLN and PBSA are not two mistakes. They are one mistake twice.</h2>
+      <p>Both sit in mass-market Indonesian property and construction. That is exactly where the defaults are. Losses of 70% and 32% are what the credit data would have predicted.</p><p>Foreign investors have been steadily selling this part of the market. The sector already trades at half its book value, so the market has priced it. There is nothing in the data that would turn it around while lending is still shrinking and arrears are still rising.</p>
+      <div class="sw"><span>What it means</span>You are not diversified across two positions here. You have one bet, sized twice, in the worst segment. Size it as one.</div>
+    </article>
+    <article class="f w">
+      <div class="k">Indonesia</div>
+      <h2>Money got expensive very quickly, and it happened after most of our data ends.</h2>
+      <p>Bank Indonesia went from cutting rates to raising them on 20 May. What banks pay to borrow overnight went from 3.66% in January to 5.98% by 10 June.</p><p>Banks had already set their lending rates for a world where rates were falling. Their margin on new lending has roughly halved in five months. Loans and deposits are both still growing about 9%, so this is not a credit crunch. It is a profit squeeze.</p>
+      <div class="sw"><span>What it means</span>Two things follow. Any bank earnings forecast built before June is too high. And almost every company number in this research is from 24 May, which is before all of this happened.</div>
+    </article>
+    <article class="f n">
+      <div class="k">Indonesia</div>
+      <h2>The market fell 25% because buyers walked away, not because holders panicked.</h2>
+      <p>We originally told you the market was falling on heavy selling. That was wrong, and it was our mistake in how we measured it.</p><p>Trading volume in May was 47% below January. Per day it was 35% lower. A market that falls on thin volume is one where buyers stopped showing up. That is different from one where holders are dumping stock.</p>
+      <div class="sw"><span>What it means</span>A buyers' strike reverses faster than forced selling does, and it needs a reason to come back rather than an end to the selling. Watch for volume returning, not for selling to stop.</div>
+    </article>
+    <article class="f w">
+      <div class="k">Indonesia</div>
+      <h2>Either Indonesian banks are cheap, or their earnings are about to break.</h2>
+      <p>Bank Mandiri and BRI are the two biggest banks in the country. They trade at about 7 times earnings, 25 to 31% below their highs, yielding 11.6% and 13.7%.</p><p>For those prices to make sense, the market has to believe those earnings fall over or those dividends get cut. Government bonds pay 7%.</p>
+      <div class="sw"><span>What it means</span>This is the clearest disagreement in the whole report. Worth a decision either way. If you think the banks survive, they are very cheap. If you think the consumer problem spreads to them, they are not.</div>
+    </article>
+    <article class="f w">
+      <div class="k">Coal</div>
+      <h2>Volumes are fine, prices are recovering, but costs are rising fast.</h2>
+      <p>We got this wrong twice before landing on it. China bought a record amount of coal in Q1 and the Indonesian benchmark price is up 23.6% over the year, rising even in months when it normally falls.</p><p>The problem is diesel. Pertamina Dex is up 103% over the year, the biggest jump since 2018. Diesel is the main cost of digging coal up and moving it.</p>
+      <div class="sw"><span>What it means</span>Revenue is supported. Margins are not. When you look at coal earnings, the risk is on the cost line, not the sales line.</div>
+    </article>
+    <article class="f g">
+      <div class="k">Metals</div>
+      <h2>Nickel and copper are genuinely good, but buy the mine, not the mill.</h2>
+      <p>Chinese metal prices are up sharply, and importantly they are backing it with money: investment in non-ferrous mining is up 56% and revenue up 39%. That is a real boom, not a price blip.</p><p>Copper is the cleanest of all, with both volume and price rising together.</p>
+      <div class="sw"><span>What it means</span>Favour upstream mining and concentrate over downstream processing. And note this is a metals story, not a sign that Chinese property is recovering. It is not.</div>
+    </article>
+    <article class="f w">
+      <div class="k">China</div>
+      <h2>They are building the capacity to need less of what Indonesia sells.</h2>
+      <p>Chinese coal investment is up 25.5% while coal revenue is up only 1.6%. Iron ore investment is up 20% while revenue is <em>down</em> 7%.</p><p>Nobody spends that hard into flat revenue for commercial reasons. This is a government decision to depend less on imports.</p>
+      <div class="sw"><span>What it means</span>Near-term coal volumes are safe. This is a three-to-five year risk, not a this-year risk, but it argues against treating Indonesian coal as a long-term hold.</div>
+    </article>
+    <article class="f b">
+      <div class="k">China</div>
+      <h2>Property has at least two more years to run, and nothing has replaced it.</h2>
+      <p>There is 6.15 years of unsold housing supply. That number has not improved in three years, because construction and sales are shrinking together.</p><p>The hoped-for shift into advanced manufacturing is not in the data. IT investment is down 6%. Company profits are up 15.5% while private investment is down 2.2%, so Chinese firms are making money and refusing to spend it.</p>
+      <div class="sw"><span>What it means</span>Do not underwrite a Chinese construction recovery. Cement and building materials have no price support. And any China stimulus routed through companies will not do much, because companies are not spending.</div>
+    </article>
+    <article class="f w">
+      <div class="k">United States</div>
+      <h2>The Fed quietly started buying bonds again in December.</h2>
+      <p>Not stimulus. Their bill holdings had been frozen at $195bn since April 2024, then went to $413bn by April. It is plumbing: the banking system ran short of cash after the Treasury rebuilt its balance.</p><p>Meanwhile producer prices are running near 5% while consumer prices are near 2.7%. Someone is absorbing that gap.</p>
+      <div class="sw"><span>What it means</span>The Fed has no reason to cut. Long-term US rates rising while short rates sit still is what pulls money out of emerging markets. That is the main channel from the US to your Indonesian positions.</div>
+    </article>
+    <article class="f n">
+      <div class="k">Honesty</div>
+      <h2>About two thirds of what we first wrote was wrong.</h2>
+      <p>We ran everything past reviewers whose only job was to break it. Most of the first drafts did not survive. Then we corrected them, checked the corrections, and eight of those were wrong too.</p><p>Examples: we said Indonesian retail sales collapsed, but Ramadan had moved months. We said coal exports collapsed, but that is the normal seasonal pattern. We said banks were losing capital, but that is the annual dividend payment.</p>
+      <div class="sw"><span>What it means</span>Every finding on this page has been checked, and the ones that failed are written up in full in the detailed reports. That record is there so you can judge how much to trust the rest.</div>
+    </article>
+
+  <div class="more">
+    <a href="/research/indonesia/">
+      <b>Indonesia, the US and China in full</b>
+      <span>All 14 Indonesian industries, GDP and wages, the rate move, plus every correction we
+      made and why.</span>
+      <em>Read the detail &rarr;</em>
     </a>
-    <a class="card" href="/research/indonesia/">
-      <div class="cardnum">Reports Two to Four</div>
-      <h2>Indonesia is growing at 5.6%, and its bottom half hasn't had a pay rise in eight years</h2>
-      <p class="carddek">Fourteen industries, plus the US and China. And the record of what we got wrong the first time, which was most of it.</p>
-      <ul><li>Real wages flat for eight years, mortgages defaulting at twelve-year highs</li><li>Bank Indonesia reversed on 20 May and funding costs jumped 233bp</li><li>Coal, nickel and copper: what actually holds</li><li>The Fed started buying bonds again in December</li><li>48 corrections, eight of them to our own corrections</li></ul>
-      <div class="cardgo">Read &rarr;</div>
+    <a href="/research/global/">
+      <b>All 23 desks and the whole book</b>
+      <span>The first full run. Why 17 of 23 positions flip when you score them on direction
+      instead of level.</span>
+      <em>Read the detail &rarr;</em>
     </a>
   </div>
 
-  <p class="note"><strong>How to read the second one.</strong> Start with
-  &ldquo;What we're confident about&rdquo;. Those eight findings were checked by reviewers whose
-  only job was to break them. Everything below is the working: what we first claimed, what the data
-  actually says, and why it changed.
-  <br><br>
-  About two thirds of our first drafts were wrong. So were eight of our corrections. We kept that
-  record rather than quietly fixing it, because you can't tell how much to trust research that only
-  shows you its wins.</p>
-
   <footer>
-    Legacy Bridge Capital Research Desk. Heavy analysis data is held locally and is not in the
-    database; only conclusions reach Supabase and the terminal. Internal research documents, not
-    investment advice. Figures carry the dates shown and change.
-    <br><br>
-    The live system, with dials, signals, briefs and the book, is in the
-    <a class="plain" href="/launcher/">terminal</a>.
+    Every number here was checked by a second reviewer or against the source directly.
+    Company valuations are from 24 May, which is before the rate rise.
+    Internal research, not investment advice.
+    <br>
+    Live dials, signals and the book are in the <a href="/launcher/">terminal</a>.
   </footer>
 </div>
 </body></html>
