@@ -59,9 +59,16 @@ attack → revision that states what was challenged; stored on the queue row and
 
 ## Operating notes
 
-- Bot token: EXCLUSIVELY vault `research_bot_token`. Not yet provisioned as of
-  2026-08-09 — create a bot via BotFather, store the token in the vault, run
-  `scripts/research/activate-bot.mjs`. Never touch @LEGIONLBC_bot (OpenClaw owns it).
+- Bot: **@LEGIONLBC_bot itself** (CTO decision 2026-08-09). Its token sits in vault
+  `research_bot_token`; the webhook points at `/api/research-bot/` with the vault
+  secret. OpenClaw's historical claim on its updates is retired — verified idle
+  (getUpdates 200, no webhook, zero pending) before activation. If OpenClaw on
+  Nabil's laptop ever resumes polling it will get 409s; disable its scheduled
+  tasks when convenient. DM-only is enforced in code; the bot still sits in the
+  LBC exec group with privacy off, so consider BotFather `/setprivacy` ENABLE to
+  cut no-op webhook traffic. Allow-list: `research.config.telegram_allowed`
+  (Nabil pre-authorized; add ids via `activate-bot.mjs --chat=<id>` which also
+  registers pushes, or edit the config key for conversation only).
 - Kill switch unchanged: `research.config.enabled=false` stops pushes and the agent.
 - Telegram delivery for pipeline pushes: `research.config.telegram_push.chat_ids`
   (empty by design until Narin opts in).
